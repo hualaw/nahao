@@ -42,7 +42,7 @@
  *
  */
 	define('CI_CORE', FALSE);
-
+define('CONTROLLERS_PATH', 'controllers/' . DOMAIN .'/');
 /*
  * ------------------------------------------------------
  *  Load the global functions
@@ -242,12 +242,13 @@
 	// Load the local application controller
 	// Note: The Router class automatically validates the controller path using the router->_validate_request().
 	// If this include fails it means that the default controller in the Routes.php file is not resolving to something valid.
-	if ( ! file_exists(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php'))
+//echo APPPATH.CONTROLLERS_PATH.$RTR->fetch_directory().$RTR->fetch_class().'.php';exit;
+	if ( ! file_exists(APPPATH.CONTROLLERS_PATH.$RTR->fetch_directory().$RTR->fetch_class().'.php'))
 	{
 		show_error('Unable to load your default controller. Please make sure the controller specified in your Routes.php file is valid.');
 	}
 
-	include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
+	include(APPPATH.CONTROLLERS_PATH.$RTR->fetch_directory().$RTR->fetch_class().'.php');
 
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
@@ -276,12 +277,12 @@
 			$method = (isset($x[1]) ? $x[1] : 'index');
 			if ( ! class_exists($class))
 			{
-				if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
+				if ( ! file_exists(APPPATH.CONTROLLERS_PATH.$class.'.php'))
 				{
 					show_404("{$class}/{$method}");
 				}
 
-				include_once(APPPATH.'controllers/'.$class.'.php');
+				include_once(APPPATH.CONTROLLERS_PATH.$class.'.php');
 			}
 		}
 		else
@@ -338,12 +339,12 @@
 				$method = (isset($x[1]) ? $x[1] : 'index');
 				if ( ! class_exists($class))
 				{
-					if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
+					if ( ! file_exists(APPPATH.CONTROLLERS_PATH.$class.'.php'))
 					{
 						show_404("{$class}/{$method}");
 					}
 
-					include_once(APPPATH.'controllers/'.$class.'.php');
+					include_once(APPPATH.CONTROLLERS_PATH.$class.'.php');
 					unset($CI);
 					$CI = new $class();
 				}

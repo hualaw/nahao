@@ -202,7 +202,6 @@ class CI_Router {
 			$this->set_method('index');
 			$this->_set_request(array($this->default_controller, 'index'));
 		}
-
 		// re-index the routed segments array so it starts with 1 rather than 0
 		$this->uri->_reindex_segments();
 
@@ -225,7 +224,6 @@ class CI_Router {
 	function _set_request($segments = array())
 	{
 		$segments = $this->_validate_request($segments);
-
 		if (count($segments) == 0)
 		{
 			return $this->_set_default_controller();
@@ -269,13 +267,13 @@ class CI_Router {
 		}
 
 		// Does the requested controller exist in the root folder?
-		if (file_exists(APPPATH.'controllers/'.$segments[0].'.php'))
+		if (file_exists(APPPATH.CONTROLLERS_PATH.$segments[0].'.php'))
 		{
 			return $segments;
 		}
 
 		// Is the controller in a sub-folder?
-		if (is_dir(APPPATH.'controllers/'.$segments[0]))
+		if (is_dir(APPPATH.CONTROLLERS_PATH.$segments[0]))
 		{
 			// Set the directory and remove it from the segment array
 			$this->set_directory($segments[0]);
@@ -284,7 +282,7 @@ class CI_Router {
 			if (count($segments) > 0)
 			{
 				// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
+				if ( ! file_exists(APPPATH.CONTROLLERS_PATH.$this->fetch_directory().$segments[0].'.php'))
 				{
 					if ( ! empty($this->routes['404_override']))
 					{
@@ -319,7 +317,7 @@ class CI_Router {
 				}
 
 				// Does the default controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'.php'))
+				if ( ! file_exists(APPPATH.CONTROLLERS_PATH.$this->fetch_directory().$this->default_controller.'.php'))
 				{
 					$this->directory = '';
 					return array();

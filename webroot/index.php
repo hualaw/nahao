@@ -1,5 +1,13 @@
 <?php
-
+if (PHP_SAPI === 'cli') {
+    $str_domain = 'auto';
+} else {
+    $str_domain = strstr($_SERVER['HTTP_HOST'], '.', true);
+    $arr_allowed_domain = array('www', 'admin', 'teacher','api');
+    $str_domain = !in_array($str_domain, $arr_allowed_domain) ? 'www' : $str_domain;
+}
+define('DOMAIN', $str_domain);
+//echo DOMAIN;EXIT;
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

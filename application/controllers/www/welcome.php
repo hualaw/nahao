@@ -19,7 +19,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		echo 'This is index of nahao!';exit;
+		echo 'This is index of nahaodev student index !';exit;
 		$this->load->view('welcome_message');
 	}
 }
