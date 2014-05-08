@@ -19,6 +19,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+
+        $this->load->database();
+        $arr = $this->db->query('select * from admin')->result_array();
+        var_dump($arr);exit;
 		echo 'This is index of nahaodev student index !';exit;
 		$this->load->view('welcome_message');
 	}
