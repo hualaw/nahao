@@ -48,13 +48,14 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '192.168.11.75';
+//$db['default']['hostname'] = '192.168.11.75';//host for mysqli
+$db['default']['hostname'] = 'mysql:host=192.168.11.75';//host for pdo
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
 $db['default']['database'] = 'nahao';
-$db['default']['dbdriver'] = 'mysqli';
+$db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
+$db['default']['pconnect'] = false;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';

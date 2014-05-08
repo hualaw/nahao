@@ -114,6 +114,7 @@ class CI_DB_driver {
 		// Connect to the database and set the connection ID
 		$this->conn_id = ($this->pconnect == FALSE) ? $this->db_connect() : $this->db_pconnect();
 
+//        var_dump($this->conn_id);exit;
 		// No connection resource?  Throw an error
 		if ( ! $this->conn_id)
 		{
