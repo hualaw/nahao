@@ -1,0 +1,2 @@
+is_mobilephone   验证手机号 13 15 18 14 和170 177 178
+is_email  验证邮箱
