@@ -1,0 +1,25 @@
+p()  获取方法中参数，返回一个数组并进行遍历以print_r输出
+d()  获取方法中参数，返回一个数组并进行遍历以var_dump输出
+return_your_values  获取一个关联数组的指定键的值(包括多维数组)
+csubstr  字符串截取,包括中文字符串
+cn_strlen 获取字符串长度，包含中文
+teach_type_cn  获取授课方式,包括大课堂和一对几的方式
+teach_type_en  同上，不同的是这个函数没有大课堂，只有具体的1v2和1v1和1vN三种
+class_status_cn  获取课堂状态,包括未开始、教学中、结束、完成、取消
+friendly_time  日期处理，返回值是 年月日 星期几 时分秒
+week_zh  将一个日期转换成星期几
+format_date  将一个时间戳转成一个大于1970-01-01 00:00:00的时间
+sms_status_cn  邮件或短信发送状态，包括未发送，成功，失败，未知四种状态
+order_status_cn  订单状态,包括支付失败，签名错误，金额校验错误，待付款，已付款，交易成功，交易关闭，已退款
+get_waijiao_source  获取那好渠道0请选择;1户外广告;2百度;3朋友推荐;4期刊杂志;5微博;6其他
+
+create_upload_url  指定课件上传路径，格式为 ./uloads/id除以1000向上取整
+create_handout_upload_url  指定讲义上传pdf路径,格式为 ./uploads/handout_pdf/id除以1000向上取整
+
+get_handout_url   获取pdf文件路径，注意pdf用id.pdf命名
+student_avatar_urls  学生头像，格式 ./uploads/students/学生id除以10000向上取整/学生id对10000取余再除以1000向上取整/学生id
+has_array_id  判断一个值是否存在一个数组中，是返回这个值的键，不是返回假
+array_column  获取二位数组中的一列
+recursiveMkdirDirectory  递归创建目录
+
+getHttpResponse、crm_curl、getPhoneArea 这三个是远程curl获取接口内容
