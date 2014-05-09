@@ -5,6 +5,7 @@ class Welcome extends NH_Student_Controller {
 	/**
      * @author yanrui@91waijiao.com
 	 */
+
 	public function index()
 	{
         $this->load->database();

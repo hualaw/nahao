@@ -99,10 +99,6 @@ class NH_Controller extends CI_Controller
                     $this->load->model('teacher/Model_Teacher', 'teacher');
                     $userinfo = $this->teacher->get_teacher_by_param(array('id'=>$userid), 'id, teacher_name, email, encrypt, password, mcu_addr');//liuchunling 20131008
                     break;
-                case ROLE_AGENT: //代理商
-                    $this->load->model('agent/Model_Agent', 'agent');
-                    $userinfo = $this->agent->get_agent_by_id($userid, 'id, mobile, kind, area, username, salt, password');
-                    break;
             }
 
             if (isset($userinfo['password']) && $userinfo['password'] === $password) {
