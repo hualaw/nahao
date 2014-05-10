@@ -67,6 +67,7 @@
 				if($data==TRUE)
 				{
 					echo "注册成功";
+					var_dump($post);die;
 					if(isset($post['email']))
 					{
 						$dat=$this->db->get_where("student",array("email")=$post['email'])->row_array();
