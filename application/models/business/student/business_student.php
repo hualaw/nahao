@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * studnet相关逻辑
- * Class Model_Student
+ * Studnet相关逻辑
+ * Class Business_Student
  * @author yanrui@91waijiao.com
  */
 class Business_Student extends NH_Model{
