@@ -70,12 +70,12 @@
 					var_dump($post);die;
 					if(isset($post['email']))
 					{
-						$dat=$this->db->get_where("student",array("email")=$post['email'])->row_array();
+						$dat=$this->db->get_where("student",array("email"=>$post['email']))->row_array();
 						echo $dat['id'];//学生id,扩展用
 					}
 					else
 					{
-						$this->db->get_where("student",array("phone")=$post['phone']);
+						$this->db->get_where("student",array("phone"=>$post['phone']))->row_array();
 						echo $dat['id'];//学生id,扩展用
 					}
 			    }
