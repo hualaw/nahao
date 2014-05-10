@@ -59,9 +59,9 @@ class NH_Controller extends CI_Controller
     {
         $bool_return = true;
         if (empty($this->user)){
-            $this->load->model('business/model_passport','passport');
+            $this->load->model('business/business_passport','passport');
             $arr_user_cookie = $this->passport->get_user_from_cookie($int_user_type);
-            if ($arr_user_cookie['user_id']) {
+            if (isset($arr_user_cookie['user_id'])&&$arr_user_cookie['user_id']!=0) {
                 $int_user_id = $arr_user_cookie['user_id'];
                 $str_password = $arr_user_cookie['password'];
                 $arr_user_cache = $this->passport->get_user_from_cache($int_user_type,$int_user_id);
