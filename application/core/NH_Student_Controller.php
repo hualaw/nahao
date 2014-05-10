@@ -11,7 +11,7 @@ class NH_Student_Controller extends NH_Controller
     function __construct()
     {
         parent::__construct();
-        $this->isLogin(ROLE_STUDENT);
+        $this->check_login(ROLE_STUDENT);
         if($this->user){
 
         }
