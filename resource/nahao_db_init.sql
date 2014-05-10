@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/9 14:58:48                            */
+/* Created on:     2014/5/10 11:58:34                           */
 /*==============================================================*/
 
 
@@ -10,7 +10,7 @@ drop table if exists admin_group;
 
 drop table if exists admin_permission_relation;
 
-drop index idx_package_id on class;
+drop index idx_round_id on class;
 
 drop table if exists class;
 
@@ -30,21 +30,9 @@ drop index idx_course_id on lesson;
 
 drop table if exists lesson;
 
-drop index idx_order_id on order_package_relation;
+drop index idx_order_id on order_round_relation;
 
-drop table if exists order_package_relation;
-
-drop index idx_course_id on package;
-
-drop table if exists package;
-
-drop index idx_package_id on package_note;
-
-drop table if exists package_note;
-
-drop index idx_package_id on package_teacher_relation;
-
-drop table if exists package_teacher_relation;
+drop table if exists order_round_relation;
 
 drop table if exists permission;
 
@@ -57,6 +45,18 @@ drop table if exists question_class_relation;
 drop index idx_lesson_id on question_lesson_relation;
 
 drop table if exists question_lesson_relation;
+
+drop index idx_course_id on round;
+
+drop table if exists round;
+
+drop index idx_round_id on round_note;
+
+drop table if exists round_note;
+
+drop index idx_round_id on round_teacher_relation;
+
+drop table if exists round_teacher_relation;
 
 drop index idx_email on student;
 
@@ -156,7 +156,7 @@ create table class
 (
    id                   int(10) not null auto_increment,
    course_id            int(10),
-   package_id           int(10),
+   round_id             int(10),
    lesson_id            int(10),
    title                varchar(90),
    content              varchar(180),
@@ -172,11 +172,11 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 /*==============================================================*/
-/* Index: idx_package_id                                        */
+/* Index: idx_round_id                                          */
 /*==============================================================*/
-create index idx_package_id on class
+create index idx_round_id on class
 (
-   package_id
+   round_id
 );
 
 /*==============================================================*/
@@ -186,7 +186,7 @@ create table class_feedback
 (
    id                   int(10) not null auto_increment,
    course_id            int(10),
-   package_id           int(10),
+   round_id             int(10),
    class_id             int(10),
    student_id           int(10),
    content              text,
@@ -296,13 +296,13 @@ create index idx_course_id on lesson
 );
 
 /*==============================================================*/
-/* Table: order_package_relation                                */
+/* Table: order_round_relation                                  */
 /*==============================================================*/
-create table order_package_relation
+create table order_round_relation
 (
    id                   int(10) not null auto_increment,
    order_id             int(10) not null,
-   package_id           int(10) not null,
+   round_id             int(10) not null,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -312,96 +312,9 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 /* Index: idx_order_id                                          */
 /*==============================================================*/
-create index idx_order_id on order_package_relation
+create index idx_order_id on order_round_relation
 (
    order_id
-);
-
-/*==============================================================*/
-/* Table: package                                               */
-/*==============================================================*/
-create table package
-(
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
-   title                varchar(90),
-   subtitle             varchar(90),
-   intro                varchar(180),
-   arrange_intro        varchar(180),
-   description          text,
-   students             varchar(90) comment '适合学生',
-   score                decimal(10,2) not null default 0,
-   bought_count         int(10) not null default 0,
-   status               tinyint(3) not null default 0 comment '0初始化;5审核中;10运营中;15暂停;20关闭;',
-   price                decimal(10,2) not null default 0,
-   sell_begin_time      int(10),
-   sell_end_time        int(10),
-   start_time           int(10),
-   end_time             int(10),
-   sale_price           decimal(10,2) not null default 0,
-   primary key (id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-alter table package comment '课程包（课程的实例）';
-
-/*==============================================================*/
-/* Index: idx_course_id                                         */
-/*==============================================================*/
-create index idx_course_id on package
-(
-   course_id
-);
-
-/*==============================================================*/
-/* Table: package_note                                          */
-/*==============================================================*/
-create table package_note
-(
-   id                   int(10) not null auto_increment,
-   package_id           int(10) not null default 0,
-   author               int(10) not null default 0,
-   author_role          tinyint(3),
-   content              varchar(180),
-   create_time          int(10) not null default 0,
-   status               tinyint(3) not null default 0 comment '0初始化;5发布;10取消;15',
-   primary key (id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-/*==============================================================*/
-/* Index: idx_package_id                                        */
-/*==============================================================*/
-create index idx_package_id on package_note
-(
-   package_id
-);
-
-/*==============================================================*/
-/* Table: package_teacher_relation                              */
-/*==============================================================*/
-create table package_teacher_relation
-(
-   id                   int(10) not null auto_increment,
-   package_id           int(10),
-   teacher_id           int(10),
-   role                 int(10),
-   primary key (id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-/*==============================================================*/
-/* Index: idx_package_id                                        */
-/*==============================================================*/
-create index idx_package_id on package_teacher_relation
-(
-   package_id
 );
 
 /*==============================================================*/
@@ -482,6 +395,93 @@ create index idx_lesson_id on question_lesson_relation
 );
 
 /*==============================================================*/
+/* Table: round                                                 */
+/*==============================================================*/
+create table round
+(
+   id                   int(10) not null auto_increment,
+   course_id            int(10),
+   title                varchar(90),
+   subtitle             varchar(90),
+   intro                varchar(180),
+   arrange_intro        varchar(180),
+   description          text,
+   students             varchar(90) comment '适合学生',
+   score                decimal(10,2) not null default 0,
+   bought_count         int(10) not null default 0,
+   status               tinyint(3) not null default 0 comment '0初始化;5审核中;10运营中;15暂停;20关闭;',
+   price                decimal(10,2) not null default 0,
+   sell_begin_time      int(10),
+   sell_end_time        int(10),
+   start_time           int(10),
+   end_time             int(10),
+   sale_price           decimal(10,2) not null default 0,
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+alter table round comment '轮（课程的实例）';
+
+/*==============================================================*/
+/* Index: idx_course_id                                         */
+/*==============================================================*/
+create index idx_course_id on round
+(
+   course_id
+);
+
+/*==============================================================*/
+/* Table: round_note                                            */
+/*==============================================================*/
+create table round_note
+(
+   id                   int(10) not null auto_increment,
+   round_id             int(10) not null default 0,
+   author               int(10) not null default 0,
+   author_role          tinyint(3),
+   content              varchar(180),
+   create_time          int(10) not null default 0,
+   status               tinyint(3) not null default 0 comment '0初始化;5发布;10取消;15',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_round_id                                          */
+/*==============================================================*/
+create index idx_round_id on round_note
+(
+   round_id
+);
+
+/*==============================================================*/
+/* Table: round_teacher_relation                                */
+/*==============================================================*/
+create table round_teacher_relation
+(
+   id                   int(10) not null auto_increment,
+   round_id             int(10),
+   teacher_id           int(10),
+   role                 int(10),
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_round_id                                          */
+/*==============================================================*/
+create index idx_round_id on round_teacher_relation
+(
+   round_id
+);
+
+/*==============================================================*/
 /* Table: student                                               */
 /*==============================================================*/
 create table student
@@ -515,7 +515,7 @@ create table student_class
    id                   int(10) not null auto_increment,
    student_id           int(10) not null default 0,
    course_id            int(10) not null default 0,
-   package_id           int(10) not null default 0,
+   round_id             int(10) not null default 0,
    class_id             int(10) not null default 0,
    status               tinyint(3) not null default 0 comment '0初始化;5上课没出席;上课并出席10;15',
    primary key (id)
@@ -611,7 +611,7 @@ create index idx_student_id on student_order
 create table student_refund
 (
    id                   int(10) not null auto_increment,
-   package_id           int(10) not null default 0,
+   round_id             int(10) not null default 0,
    student_id           int(10) not null default 0,
    times                int(5) not null default 0 comment '退课时数',
    amount               decimal(10,2) not null default 0 comment '退款总金额',
