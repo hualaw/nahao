@@ -9,7 +9,7 @@ class Model_Student extends NH_Model{
 
     public function get_student(){
         $arr_result = array();
-        $arr_result = $this->db->query('select * from admin')->result();
+        $arr_result = $this->db->query('select * from admin')->result_array();
         return $arr_result;
     }
 }
