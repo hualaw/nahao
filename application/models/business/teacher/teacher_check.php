@@ -18,9 +18,6 @@
 			$nickname=$nickname=$this->check_teacher->check_nickname($post['nickname']);
 			$password=$this->check_teacher->check_password($post['password'],$post['againpassword']);
 			$email=$this->check_teacher->check_email($post['email']);
-			$post['salt']=uniqid();
-			$post['password']=sha1(sha1($post['password']).$post['salt']);
-			$post["status"]="0";
 			//var_dump($post);die;
 			if($nickname==TRUE && $email==TRUE && $password==TRUE)
 		 	{
