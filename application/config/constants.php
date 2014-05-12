@@ -36,10 +36,21 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+
+
+
+
 define('ROLE_SYS', -1);//系统
 define('ROLE_ADMIN', 0);//管理员
 define('ROLE_STUDENT', 1);//学生
 define('ROLE_TEACHER', 2);//教师
+
+define('CURRENT_TIMESTAMP',time());
+
+define('STATIC_FILE_URL','http://static'.strstr($_SERVER['HTTP_HOST'], '.'));
+//define('STATIC_FILE_PATH',dirname(BASEPATH).'/static');
+define('STATIC_FILE_VERSION','0.0.0');
+
 
 
 

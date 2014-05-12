@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends NH_Student_Controller {
+class Passport extends NH_Admin_Controller {
 
     /**
      * @author yanrui@91waijiao.com
@@ -8,13 +8,20 @@ class Welcome extends NH_Student_Controller {
 
     public function index()
     {
-        redirect('/passport');
+        $this->load->view('admin/signin');
     }
 
-    public function main(){
+    public function test(){
         $data['str'] = 'welcome! layout!';
-        $this->layout->set_layout('admin/layout');
+        $this->load->library('layout');
+        $this->layout->set_layout('www/layout');
         $this->layout->view('www/test',$data);
+    }
+
+    public function login(){
+        $arr_post = $this->input->post();
+        var_dump($arr_post);
+        redirect('/welcome/main');
     }
 
 }

@@ -28,6 +28,7 @@ class NH_Controller extends CI_Controller
         $this->current['current_controller'] = $this->uri->rsegment(1);
         $this->current['current_action'] = $this->uri->rsegment(2);
         $this->load->vars($this->current);
+        $this->load->library('layout');
     }
 
     /**

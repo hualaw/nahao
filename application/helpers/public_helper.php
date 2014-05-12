@@ -436,3 +436,7 @@ if (!function_exists('getPhoneArea')) {
         return $responseText;
     }
 }
+
+function static_url($str_url){
+    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
+}

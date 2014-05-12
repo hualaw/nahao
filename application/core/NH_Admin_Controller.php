@@ -12,9 +12,9 @@ class NH_Admin_Controller extends NH_Controller
     {
         parent::__construct();
 
-        $this->isLogin(USER_TYPE_ADMIN);
+//        $this->check_login(ROLE_ADMIN);
 
-        if($this->user){
+        /*if($this->user){
             $this->load->vars('user',$this->user);
             $this->load->model('admin/model_permission','permission');
             $controller = $this->router->fetch_class();//$this->uri->segment(1);
@@ -30,7 +30,7 @@ class NH_Admin_Controller extends NH_Controller
             {
                 redirect('/passport');
             }
-        }
+        }*/
     }
 }
 

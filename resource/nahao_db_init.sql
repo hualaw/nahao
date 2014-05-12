@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/10 11:58:34                           */
+/* Created on:     2014/5/12 18:08:33                           */
 /*==============================================================*/
 
 
@@ -57,6 +57,18 @@ drop table if exists round_note;
 drop index idx_round_id on round_teacher_relation;
 
 drop table if exists round_teacher_relation;
+
+drop index idx_student on shopping_cart;
+
+drop table if exists shopping_cart;
+
+drop index idx_phone on sms_log;
+
+drop table if exists sms_log;
+
+drop index idx_phone on sms_verify_code;
+
+drop table if exists sms_verify_code;
 
 drop index idx_email on student;
 
@@ -482,6 +494,81 @@ create index idx_round_id on round_teacher_relation
 );
 
 /*==============================================================*/
+/* Table: shopping_cart                                         */
+/*==============================================================*/
+create table shopping_cart
+(
+   id                   int(10) not null auto_increment,
+   student_id           int(10),
+   round_id             int(10),
+   round_title          varchar(90),
+   create_time          int(10),
+   status               tinyint(1),
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_student                                           */
+/*==============================================================*/
+create index idx_student on shopping_cart
+(
+   student_id
+);
+
+/*==============================================================*/
+/* Table: sms_log                                               */
+/*==============================================================*/
+create table sms_log
+(
+   id                   int(10) not null auto_increment,
+   phone                char(11),
+   content              varchar(255),
+   create_time          int(10),
+   tips                 varchar(255),
+   status               tinyint(1),
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_phone                                             */
+/*==============================================================*/
+create index idx_phone on sms_log
+(
+   phone
+);
+
+/*==============================================================*/
+/* Table: sms_verify_code                                       */
+/*==============================================================*/
+create table sms_verify_code
+(
+   id                   int not null auto_increment,
+   phone                char(11),
+   verify_code          char(6),
+   create_time          int(10),
+   deadline             int(10),
+   ip                   int(10),
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_phone                                             */
+/*==============================================================*/
+create index idx_phone on sms_verify_code
+(
+   phone
+);
+
+/*==============================================================*/
 /* Table: student                                               */
 /*==============================================================*/
 create table student
@@ -569,8 +656,6 @@ create table student_info
    province             varchar(90),
    city                 varchar(90),
    area                 varchar(90),
-   favorite_teach_type  tinyint(3),
-   favorite_course_type tinyint(3),
    school               varchar(90),
    primary key (student_id)
 )
