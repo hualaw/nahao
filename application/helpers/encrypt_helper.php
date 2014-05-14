@@ -55,15 +55,6 @@ function authcode($string, $operation = 'DECODE', $expiry = 0, $key = '')
     }
 }
 
-/**
- * @param $password
- * @param $salt
- * @return string
- */
-function create_password($password, $salt)
-{
-    return sha1($salt . sha1($password));
-}
 
 /**
  * @param $password
