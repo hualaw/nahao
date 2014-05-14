@@ -15,7 +15,7 @@ class Passport extends NH_Admin_Controller {
         $data['str'] = 'welcome! layout!';
         $this->load->library('layout');
         $this->layout->set_layout('www/layout');
-        $this->layout->view('www/test',$data);
+        $this->layout->view('admin/main',$data);
     }
 
     public function login(){

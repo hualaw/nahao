@@ -8,13 +8,14 @@ class Welcome extends NH_Student_Controller {
 
     public function index()
     {
+//        var_dump($_SERVER);exit;
         redirect('/passport');
     }
 
     public function main(){
         $data['str'] = 'welcome! layout!';
         $this->layout->set_layout('admin/layout');
-        $this->layout->view('www/test',$data);
+        $this->layout->view('admin/main',$data);
     }
 
 }

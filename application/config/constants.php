@@ -46,10 +46,12 @@ define('ROLE_STUDENT', 1);//学生
 define('ROLE_TEACHER', 2);//教师
 
 define('CURRENT_TIMESTAMP',time());
+define('NH_INIT_PASSWORD','oknahao');
 
 define('STATIC_FILE_URL','http://static'.strstr($_SERVER['HTTP_HOST'], '.'));
 //define('STATIC_FILE_PATH',dirname(BASEPATH).'/static');
 define('STATIC_FILE_VERSION','0.0.0');
+define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 
 
