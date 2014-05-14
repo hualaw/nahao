@@ -8,6 +8,7 @@ class Welcome extends NH_Student_Controller {
 
     public function index()
     {
+//        var_dump($_SERVER);exit;
         redirect('/passport');
     }
 
