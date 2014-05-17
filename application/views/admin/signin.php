@@ -16,11 +16,8 @@
         <div class="container">
             <form class="form-signin" role="form" action="/passport/login" method="post">
                 <h2 class="form-signin-heading">那好管理系统</h2>
-                <input type="text" class="form-control" name="username" placeholder="Email address" required autofocus>
+                <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
                 <input type="password" class="form-control" name="password" placeholder="Password" required>
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">登    录</button>
             </form>
         </div>
