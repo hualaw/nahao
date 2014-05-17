@@ -70,4 +70,16 @@ class Business_Admin extends NH_Model
 
     }
 
+    public function order($post)
+    {
+        //echo "this is business";die;
+        $this->load->model("model/admin/model_admin","admin_order");
+        return $this->admin_order->order($post);
+    }
+
+    public function order_list()
+    {
+        $this->load->model("model/admin/model_admin","admin_order");
+        return $this->admin_order->admin_order_list();
+    }
 }

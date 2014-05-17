@@ -13,7 +13,7 @@
             <li class="active"><a href="#">课程管理</a></li>
             <li><a href="#">轮管理</a></li>
             <li><a href="#">用户管理</a></li>
-            <li><a href="#">订单管理</a></li>
+            <li><a href="/passport/order">订单管理</a></li>
             <li><a href="#">教师管理</a></li>
             <li><a href="#">课酬统计</a></li>
             <li><a href="#">系统管理</a></li>

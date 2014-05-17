@@ -17,7 +17,6 @@ class Welcome extends NH_Student_Controller {
         $this->layout->set_layout('admin/layout');
         $this->layout->view('admin/main',$data);
     }
-
 }
 
 /* End of file welcome.php */
