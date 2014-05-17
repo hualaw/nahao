@@ -12,6 +12,7 @@ class NH_Admin_Controller extends NH_Controller
     {
         parent::__construct();
 
+        $this->layout->set_layout('admin/layout');
 //        $this->check_login(ROLE_ADMIN);
 
         /*if($this->user){

@@ -25,8 +25,8 @@ class NH_Controller extends CI_Controller
         parent::__construct();
         //加载cache
 //        $this->load->driver('cache', array('adapter' => 'file', 'backup' => 'file'));
-        $this->current['current_controller'] = $this->uri->rsegment(1);
-        $this->current['current_action'] = $this->uri->rsegment(2);
+        $this->current['controller'] = $this->uri->rsegment(1);
+        $this->current['action'] = $this->uri->rsegment(2);
         $this->load->vars($this->current);
         $this->load->library('layout');
     }
