@@ -437,10 +437,23 @@ if (!function_exists('getPhoneArea')) {
     }
 }
 
+/**
+ * 根据当前域名生成静态文件的url
+ * @param $str_url
+ * @return string
+ * @author yanrui@tizi.com
+ */
 function static_url($str_url){
     return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
 }
 
+/**
+ * 创建密码
+ * @param $str_salt
+ * @param string $str_password
+ * @return string
+ * @author yanrui@tizi.com
+ */
 function create_password($str_salt,$str_password = NH_INIT_PASSWORD){
     return sha1($str_salt.sha1($str_password));
 }
