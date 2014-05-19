@@ -23,7 +23,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">学生管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/student">学生管理</a></li>
-                    <li><a href="/order">订单管理</a></li>
+                    <li><a href="/">订单管理</a></li>
                 </ul>
             </li>
             <li><a href="/order">订单管理</a></li>
