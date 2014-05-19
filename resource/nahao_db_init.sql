@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014-5-19 10:26:22                           */
+/* Created on:     2014/5/19 10:25:59                           */
 /*==============================================================*/
 
 
@@ -107,8 +107,6 @@ drop index idx_teacher_id on teacher_checkout_log;
 drop table if exists teacher_checkout_log;
 
 drop table if exists teacher_info;
-
-drop index idx_teacher_id on teacher_lectrue;
 
 drop table if exists teacher_lectrue;
 
@@ -310,7 +308,7 @@ create table course_teacher_relation
    course_id            int(10),
    teacher_id           int(10),
    role                 int(10),
-   sequence             tinytint(3),
+   sequence             tinyint(3),
    primary key (id)
 )
 ENGINE = InnoDB
@@ -449,7 +447,7 @@ create table question
    id                   int(10) not null auto_increment,
    question             text,
    answer               varchar(10) comment '选择题答案，可能一项 多项用逗号分割',
-   "option"             varchar(1000) comment '选项json',
+   options              varchar(1000) comment '选项json',
    type                 tinyint(3) comment '单选多选',
    primary key (id)
 )
@@ -788,7 +786,7 @@ create table student_refund
    confirm_time         int(10),
    order_id             int(10),
    reason               varchar(150),
-   comment              varchar150) comment '1，退款成功；2，退款失败理由',
+   comment              varchar(150) comment '1，退款成功；2，退款失败理由',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -937,14 +935,6 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 alter table teacher_lectrue comment '老师的试讲信息表';
-
-/*==============================================================*/
-/* Index: idx_teacher_id                                        */
-/*==============================================================*/
-create index idx_teacher_id on teacher_lectrue
-(
-   
-);
 
 /*==============================================================*/
 /* Table: teacher_subject                                       */

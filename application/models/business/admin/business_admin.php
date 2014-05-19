@@ -7,7 +7,17 @@
  */
 class Business_Admin extends NH_Model
 {
+    function __construct(){
+        parent::__construct();
+        $this->load->model('model/admin/model_admin');
+    }
 
+    /**
+     * 创建admin
+     * @param $arr_param
+     * @return int
+     * @author yanrui@91waijiao.com
+     */
     public function create_admin($arr_param)
     {
         $int_return = 0;
@@ -18,51 +28,82 @@ class Business_Admin extends NH_Model
             $arr_param['status'] = 1;//默认启用
             $arr_param['salt'] = $str_salt;
             $arr_param['password'] = create_password($str_salt);
+            $int_return = $this->model_admin->create_admin($arr_param);
         }
         return $int_return;
     }
 
-    public function get_admin_by_id()
-    {
-
+    /**
+     * 修改admin
+     * @param $arr_param
+     * @param $arr_data
+     * @return bool
+     * @author yanrui@91waijiao.com
+     */
+    public function update_admin($arr_param,$arr_data){
+        $bool_flag = false;
+        if($arr_param AND $arr_data){
+            $bool_flag = $this->model_admin->update_admin($arr_param,$arr_data);
+        }
+        return $bool_flag;
     }
 
     /**
-     * 全功能管理员查询方法 可配置查询条件、字段、完整度 被本类中其他函数调用
-     * @param string $str_type :  完整程度 default='*'
-     * @param string $str_field : 所有字段 default='*'
-     * @param array $arr_condition : 参数数组 参数值如为数组 启用wherein 否则where
-     * @param array $arr_limit
+     * 根据id取admin
+     * @param $int_admin_id
      * @return array
      * @author yanrui@91waijiao.com
      */
-    protected function _get_admin($str_type='base',$str_field = '*', $arr_condition = array(), $arr_limit = array())
+    public function get_admin_by_id($int_admin_id)
     {
-        if (!is_array($arr_condition)) {
-            return false;
+        $arr_return = array();
+        if($int_admin_id){
+            $str_fields = '*';
+            $arr_where = array(
+                'id' => $int_admin_id
+            );
+            $arr_return = $this->model_admin->get_admin_by_param($str_fields, $arr_where);
         }
-        if($str_type=='admin'){
-            $this->db->from(TABLE_ADMIN);
-        }elseif($str_type=='permission'){
-            $this->db->from(TABLE_ADMIN_PERMISSION_RELATION)->join(TABLE_PERMISSION,TABLE_ADMIN_PERMISSION_RELATION.'.permission_id='.TABLE_PERMISSION.'.id');
-        }elseif($str_type=='admin_and_permission'){
-            $this->db->from(TABLE_ADMIN)->join(TABLE_ADMIN_PERMISSION_RELATION,TABLE_ADMIN.'.id='.TABLE_ADMIN_PERMISSION_RELATION.'.admin_id','left')->join(TABLE_ADMIN_GROUP,TABLE_ADMIN_PERMISSION_RELATION.'.group_id='.TABLE_ADMIN_GROUP.'.id','left')->group_by(TABLE_ADMIN.'.id');
+        return $arr_return;
+    }
+
+    /**
+     * 根据username取admin
+     * @param $str_username
+     * @return array
+     * @author yanrui@91waijiao.com
+     */
+    public function get_admin_by_username($str_username)
+    {
+        $arr_return = array();
+        if($str_username){
+            $str_fields = '*';
+            $arr_where = array(
+                'username' => $str_username
+            );
+            $arr_return = $this->model_admin->get_admin_by_param($str_fields, $arr_where);
         }
-        $this->db->select($str_field);
-        if (!empty($arr_condition)) {
-            foreach ($arr_condition as $k => $v) {
-                if (is_array($v)) {
-                    $this->db->where_in($k, $v);
-                } else {
-                    $this->db->where($k, $v);
-                }
-            }
-        }
-        if (!empty($arr_limit)) {
-            $this->db->limit($arr_limit['limit'], $arr_limit['start']);
-        }
-        $res = $this->db->get()->result_array();
-        return $res;
+        return $arr_return;
+    }
+
+    public function get_admin_list_by_group(){
+
+    }
+
+    public function create_group(){
+
+    }
+
+    public function update_group(){
+
+    }
+
+    public function get_group_by_id(){
+
+    }
+
+    public function get_group_by_name(){
+
     }
 
     public function create_permission()

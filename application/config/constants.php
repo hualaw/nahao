@@ -53,6 +53,9 @@ define('STATIC_FILE_URL','http://static'.strstr($_SERVER['HTTP_HOST'], '.'));
 define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
+define('TIME_STAMP',time());
+
+
 
 
 

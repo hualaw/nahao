@@ -5,8 +5,8 @@
 <br>
 <form class="form-inline" role="form">
     <div class="form-group">
-        <label class="sr-only" for="exampleInputEmail2">课程名称</label>
-        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+        <label class="sr-only" for="exampleInputEmail2">账户</label>
+        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Username">
     </div>
     <button type="submit" class="btn btn-default">搜索</button>
 </form>
@@ -45,17 +45,8 @@
     </tr>
     </tbody>
 </table>
-<ul class="pagination">
-    <li><a href="#">&laquo;</a></li>
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">&raquo;</a></li>
-</ul>
 
-
+<?php echo $page; ?>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

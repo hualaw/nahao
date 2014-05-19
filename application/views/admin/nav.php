@@ -8,34 +8,41 @@
         </button>
         <a class="navbar-brand" href="/">那好管理</a>
     </div>
+
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">课程管理</a></li>
-            <li><a href="#">轮管理</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理<b class="caret"></b></a>
+            <li class="dropdown<?php echo in_array($this->current['controller'],array('course','round')) ? ' active' : '';?>">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">课程体系<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/admin/list">管理员管理</a></li>
-                    <li><a href="/admin/group">组管理</a></li>
-                    <li><a href="/admin/permission">权限管理</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li><a href="/course">课程管理</a></li>
+                    <li><a href="/round">轮管理</a></li>
                 </ul>
             </li>
-            <li><a href="#">订单管理</a></li>
-            <li><a href="#">教师管理</a></li>
-            <li><a href="#">课酬统计</a></li>
-            <li><a href="#">系统管理</a></li>
+
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">学生管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/admin/list">管理员管理</a></li>
+                    <li><a href="/student">学生管理</a></li>
+                    <li><a href="/order">订单管理</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">订单管理</a></li>
+
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">教师管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/teacher">教师管理</a></li>
+                    <li><a href="/teacher/amount">课酬管理</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown<?php echo in_array($this->current['controller'],array('admin')) ? ' active' : '';?>" >
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/admin">管理员管理</a></li>
                     <li><a href="/admin/group">组管理</a></li>
                     <li><a href="/admin/permission">权限管理</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">One more separated link</a></li>
                 </ul>
             </li>
         </ul>
