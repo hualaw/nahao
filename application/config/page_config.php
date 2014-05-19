@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['page_admin']['uri_segment'] = 3;
-$config['page_admin']['num_links'] = 4;
+$config['page_admin']['num_links'] = 3;
 $config['page_admin']['full_tag_open'] = '<ul class="pagination">';
 $config['page_admin']['full_tag_close'] = '</ul>';
 $config['page_admin']['first_link'] = '首页';
