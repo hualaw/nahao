@@ -33,11 +33,19 @@ class Business_Admin extends NH_Model
         return $int_return;
     }
 
+    /**
+     * 修改admin
+     * @param $arr_param
+     * @param $arr_data
+     * @return bool
+     * @author yanrui@91waijiao.com
+     */
     public function update_admin($arr_param,$arr_data){
         $bool_flag = false;
         if($arr_param AND $arr_data){
-            $bool_flag = e$this->model_admin->update_admin($arr_param,$arr_data);
+            $bool_flag = $this->model_admin->update_admin($arr_param,$arr_data);
         }
+        return $bool_flag;
     }
 
     /**
