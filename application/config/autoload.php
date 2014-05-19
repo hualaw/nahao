@@ -80,7 +80,7 @@ $autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt');
 |
 */
 
-$autoload['config'] = array('page_config');
+$autoload['config'] = array('page_config',"common");
 
 
 /*

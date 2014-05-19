@@ -79,6 +79,49 @@ $config['grade'][10] = '高二';
 $config['grade'][11] = '高三';
 $config['grade'][12] = '其他';
 
+//订单状态
+/*
+*@author shangshikai@nahao.com
+*/
+$config["order_status"][1] = "未付款";
+$config["order_status"][2] = "已付款";
+$config["order_status"][3] = "已完成";
+$config["order_status"][4] = "已取消";
+$config["order_status"][5] = "已关闭";
 
+//订单支付方式
+/*
+*@author shangshikai@nahao.com
+*/
+$config["order_type"][1] = "网银";
+$config["order_type"][2] = "信用卡";
+$config["order_type"][3] = "支付宝";
+
+//用户来源
+/*
+*@author shangshikai@nahao.com
+*/
+$config["user_source"][1] = "当当";
+$config["user_source"][2] = "58";
+$config["user_source"][3] = "拉手";
+$config["user_source"][4] = "大街";
+
+//后台会员来源
+/*
+*@author shangshikai@nahao.com
+*/
+$config["member_source"][1] = "新浪微博";
+$config["member_source"][2] = "有道";
+$config["member_source"][3] = "代理商";
+$config["member_source"][4] = "网站";
+$config["member_source"][5] = "学校企业";
+$config["member_source"][6] = "微信推广";
+
+//用户身份
+/*
+*@author shangshikai@nahao.com
+*/
+$config["user_role"][1] = "学生";
+$config["user_role"][2] = "老师";
 
 
