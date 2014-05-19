@@ -48,16 +48,35 @@ class Business_Admin extends NH_Model
         return $bool_flag;
     }
 
+    /**
+     * 根据条件获取admin总数
+     * @param $arr_where
+     * @return array
+     * @author yanrui@tizi.com
+     */
     public function get_admin_count($arr_where){
-        $arr_return = array();
-        if($arr_where){
+        $int_return = array();
+        if(is_array($arr_where)){
             $str_table_range = 'admin_and_group_and_permission';
-            $str_result_type = 'row';
+            $str_result_type = 'count';
             $str_fields = 'count(1) as count';
+            if(array_key_exists('group_id',$arr_where)){
+                $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.group_id'] = $arr_where['group_id'];
+            }
+            if(array_key_exists('admin_id',$arr_where)){
+                $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.admin_id'] = $arr_where['admin_id'];
+            }
+            if(array_key_exists('username',$arr_where)){
+                $arr_where[TABLE_ADMIN.'.username'] = $arr_where['username'];
+            }
 //            echo 123;exit;
-            $arr_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $int_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
-        return $arr_return;
+        return $int_return;
+    }
+
+    public function get_admin_list(){
+
     }
 
     /**

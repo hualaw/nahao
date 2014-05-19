@@ -12,19 +12,25 @@ class Admin extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index(){
-        $start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $int_group_id = $this->input->post('group_id') ? intval($this->input->get('group')) : 0 ;
+        $int_admin_id = $this->input->post('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
+        $str_username = $this->input->post('username') ? trim($this->input->get('username')) : '' ;
+
         $arr_where = array();
-        $arr_where['group_id'] = $int_group_id = $this->input->post('group_id') ? intval($this->input->get('group')) : 0 ;
-        $arr_where['admin_id'] = $int_admin_id = $this->input->post('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
+        if($int_group_id > 0){
+            $arr_where['group_id'] = $int_group_id;
+        }
+        if($int_admin_id > 0){
+            $arr_where['admin_id'] = $int_admin_id;
+        }
+        if($str_username){
+            $arr_where['username'] = $str_username;
+        }
+//        $int_count = $this->admin->get_admin_count($arr_where);
+        $int_count = $this->admin->_get_from_db();
+        var_dump($int_count);exit;
 
-        $str_table_range = 'admin';
-        $this->data['count'] = $count = $this->admin->get_admin_count($arr_where);
-        var_dump($count);exit;
-
-        $str_table_range = 'admin_and_group';
-        exit;
-//var_dump($this->db->queries);
-        $count = 100;
         $this->load->library('pagination');
         $config = config_item('page_admin');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
@@ -33,6 +39,8 @@ class Admin extends NH_Admin_Controller {
         $config['per_page'] = 10;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$query_array);
+        $this->data['count'] = $int_count;
+
 
 //        $this->load->model('admin/model_group','group');
 //
@@ -57,15 +65,22 @@ class Admin extends NH_Admin_Controller {
     }
 
     public function create_admin(){
-        $str_username = trim($this->input->post('username'));
-        $str_phone = trim($this->input->post('phone'));
-        $str_email = trim($this->input->post('email'));
-        if($str_){
+        if($this->is_ajax() AND $this->is_post()){
+            $str_username = trim($this->input->post('username'));
+            $str_phone = trim($this->input->post('phone'));
+            $str_email = trim($this->input->post('email'));
+            if($str_username){
+                $arr_param['nickname'] = $str_username;
+                if(is_mobile($str_phone)){
+                    $arr_param['phone'] = $str_phone;
+                }
+                if(is_email($str_phone)){
+                    $arr_param['phone'] = $str_phone;
+                }
 
+                $arr_param['email'] = $str_email;
+                $int_admin_id = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
+            }
         }
-        $arr_param['nickname'] = $str_username;
-        $arr_param['phone'] = $str_phone;
-        $arr_param['email'] = $str_email;
-        $int_admin_id = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
     }
 }
