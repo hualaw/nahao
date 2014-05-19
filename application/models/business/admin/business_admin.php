@@ -48,6 +48,18 @@ class Business_Admin extends NH_Model
         return $bool_flag;
     }
 
+    public function get_admin_count($arr_where){
+        $arr_return = array();
+        if($arr_where){
+            $str_table_range = 'admin_and_group_and_permission';
+            $str_result_type = 'row';
+            $str_fields = 'count(1) as count';
+//            echo 123;exit;
+            $arr_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        }
+        return $arr_return;
+    }
+
     /**
      * 根据id取admin
      * @param $int_admin_id

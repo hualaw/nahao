@@ -56,6 +56,46 @@ define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 define('TIME_STAMP',time());
 
 
+//tables
+define('TABLE_ADMIN','admin');
+define('TABLE_ADMIN_GROUP','admin_group');
+define('TABLE_ADMIN_PERMISSION_RELATION','admin_permission_relation');
+define('TABLE_CLASS','class');
+define('TABLE_CLASS_DISCUSS_LOG','class_discuss_log');
+define('TABLE_CLASS_FEEDBACK','class_feedback');
+define('TABLE_COURSE','course');
+define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
+define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
+define('TABLE_COURSEWARE','courseware');
+define('TABLE_ENTERING_CLASSROOM','entering_classroom');
+define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
+define('TABLE_LESSON','lesson');
+define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
+define('TABLE_PERMISSION','permission');
+define('TABLE_QUESTION','question');
+define('TABLE_QUESTION_CLASS_RELATION','question_class_relation');
+define('TABLE_QUESTION_LESSON_RELATION','question_lesson_relation');
+define('TABLE_ROUND','round');
+define('TABLE_ROUND_NOTE','round_note');
+define('TABLE_ROUND_TEACHER_RELATION','round_teacher_relation');
+define('TABLE_SHOPPING_CART','shopping_cart');
+define('TABLE_SMS_LOG','sms_log');
+define('TABLE_SMS_VERIFY_CODE','sms_verify_code');
+define('TABLE_STUDENT_CLASS','student_class');
+define('TABLE_STUDENT_CLASS_LOG','student_class_log');
+define('TABLE_STUDENT_INFO','student_info');
+define('TABLE_STUDENT_ORDER','student_order');
+define('TABLE_STUDENT_REFUND','student_refund');
+define('TABLE_STUDENT_SUBJECT','student_subject');
+define('TABLE_STUDENT_QUESTION','student_question');
+define('TABLE_TEACHER_CHECKOUT_LOG','teacher_checkout_log');
+define('TABLE_TEACHER_INFO','teacher_info');
+define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
+define('TABLE_TEACHER_SUBJECT','teacher_subject');
+define('TABLE_USER','user');
+
+
+
 
 
 

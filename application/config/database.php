@@ -50,8 +50,8 @@ $active_record = TRUE;
 
 //$db['default']['hostname'] = '192.168.11.75';//host for mysqli
 $db['default']['hostname'] = 'mysql:host=192.168.11.75';//host for pdo
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['username'] = 'nahao';
+$db['default']['password'] = 'nahao';
 $db['default']['database'] = 'nahao';
 $db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';

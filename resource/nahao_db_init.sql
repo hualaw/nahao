@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/19 10:25:59                           */
+/* Created on:     2014/5/19 13:43:17                           */
 /*==============================================================*/
 
 
@@ -94,13 +94,13 @@ drop index idx_student_id on student_order;
 
 drop table if exists student_order;
 
+drop index idx_class_id on student_question;
+
+drop table if exists student_question;
+
 drop table if exists student_refund;
 
 drop table if exists student_subject;
-
-drop index idx_class_id on sutdent_question;
-
-drop table if exists sutdent_question;
 
 drop index idx_teacher_id on teacher_checkout_log;
 
@@ -124,7 +124,7 @@ drop table if exists user;
 create table admin
 (
    id                   int(10) not null auto_increment,
-   nickname             varchar(20),
+   username             varchar(20),
    phone                char(11),
    email                varchar(90),
    salt                 char(6),
@@ -771,6 +771,32 @@ create index idx_student_id on student_order
 );
 
 /*==============================================================*/
+/* Table: student_question                                      */
+/*==============================================================*/
+create table student_question
+(
+   id                   int(10) not null auto_increment,
+   class_id             int(10),
+   student_id           int(10),
+   question_id          int(10),
+   answer               varchar(90),
+   is_correct           tinyint(1),
+   sequence             tinyint(3) comment '第几次答题',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_class_id                                          */
+/*==============================================================*/
+create index idx_class_id on student_question
+(
+   class_id
+);
+
+/*==============================================================*/
 /* Table: student_refund                                        */
 /*==============================================================*/
 create table student_refund
@@ -808,32 +834,6 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 alter table student_subject comment '学生感兴趣的科目表';
-
-/*==============================================================*/
-/* Table: sutdent_question                                      */
-/*==============================================================*/
-create table sutdent_question
-(
-   id                   int(10) not null auto_increment,
-   class_id             int(10),
-   student_id           int(10),
-   question_id          int(10),
-   answer               varchar(90),
-   is_correct           tinyint(1),
-   sequence             tinyint(3) comment '第几次答题',
-   primary key (id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-/*==============================================================*/
-/* Index: idx_class_id                                          */
-/*==============================================================*/
-create index idx_class_id on sutdent_question
-(
-   class_id
-);
 
 /*==============================================================*/
 /* Table: teacher_checkout_log                                  */

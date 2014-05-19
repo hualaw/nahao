@@ -1,26 +1,28 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends NH_admin_Controller {
+class Admin extends NH_Admin_Controller {
 
     function __construct(){
         parent::__construct();
         $this->load->model('business/admin/business_admin','admin');
     }
+
+    /**
+     * admin index
+     * @author yanrui@tizi.com
+     */
     public function index(){
-
-        $this->load->model('model/admin/business_admin','admin');
-        $int_return = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
-        var_dump($int_return);exit;
-//        var_dump($this->current);exit;
-
         $start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-//        $arr_condition = array();
-//        if($this->input->get('group')!==false AND $this->input->get('group')!==''){
-//            $arr_condition['group_id'] = intval($this->input->get('group'));
-//        }
-//
-//        $this->load->model('admin/model_admin','admin');
-//        $this->data['count'] = $count = $this->admin->get_admin_count($arr_condition);
+        $arr_where = array();
+        $arr_where['group_id'] = $int_group_id = $this->input->post('group_id') ? intval($this->input->get('group')) : 0 ;
+        $arr_where['admin_id'] = $int_admin_id = $this->input->post('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
+
+        $str_table_range = 'admin';
+        $this->data['count'] = $count = $this->admin->get_admin_count($arr_where);
+        var_dump($count);exit;
+
+        $str_table_range = 'admin_and_group';
+        exit;
 //var_dump($this->db->queries);
         $count = 100;
         $this->load->library('pagination');
@@ -55,8 +57,15 @@ class Admin extends NH_admin_Controller {
     }
 
     public function create_admin(){
-        $str_nickname = trim($this->input->post('nickname'));
-        $arr_param['nickname'] = $str_nickname;
-        $int_last_id = $this->admin->create_admin($arr_param);
+        $str_username = trim($this->input->post('username'));
+        $str_phone = trim($this->input->post('phone'));
+        $str_email = trim($this->input->post('email'));
+        if($str_){
+
+        }
+        $arr_param['nickname'] = $str_username;
+        $arr_param['phone'] = $str_phone;
+        $arr_param['email'] = $str_email;
+        $int_admin_id = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
     }
 }
