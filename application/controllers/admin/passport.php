@@ -8,6 +8,7 @@ class Passport extends NH_Admin_Controller {
 
     public function index()
     {
+
         $this->load->view('admin/signin');
     }
 

@@ -7,6 +7,10 @@ class Admin extends NH_admin_Controller {
         $this->load->model('business/admin/business_admin','admin');
     }
     public function index(){
+
+        $this->load->model('model/admin/business_admin','admin');
+        $int_return = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
+        var_dump($int_return);exit;
 //        var_dump($this->current);exit;
 
         $start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
