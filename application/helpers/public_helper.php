@@ -16,6 +16,12 @@ function p()
     return ;
 }
 
+function o($mix_param){
+    echo "<pre>";
+    var_dump($mix_param);
+    exit;
+}
+
 /**
  * d()
  * 代码调试

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/19 13:43:17                           */
+/* Created on:     2014/5/20 15:26:03                           */
 /*==============================================================*/
 
 
@@ -41,6 +41,10 @@ drop table if exists group_permission_relation;
 drop index idx_course_id on lesson;
 
 drop table if exists lesson;
+
+drop index idx_order_id on order_action_log;
+
+drop table if exists order_action_log;
 
 drop index idx_order_id on order_round_relation;
 
@@ -94,13 +98,13 @@ drop index idx_student_id on student_order;
 
 drop table if exists student_order;
 
-drop index idx_class_id on student_question;
-
-drop table if exists student_question;
-
 drop table if exists student_refund;
 
 drop table if exists student_subject;
+
+drop index idx_class_id on sutdent_question;
+
+drop table if exists sutdent_question;
 
 drop index idx_teacher_id on teacher_checkout_log;
 
@@ -124,7 +128,7 @@ drop table if exists user;
 create table admin
 (
    id                   int(10) not null auto_increment,
-   username             varchar(20),
+   nickname             varchar(20),
    phone                char(11),
    email                varchar(90),
    salt                 char(6),
@@ -402,6 +406,41 @@ create index idx_course_id on lesson
 );
 
 /*==============================================================*/
+/* Table: order_action_log                                      */
+/*==============================================================*/
+create table order_action_log
+(
+   id                   int(10) not null auto_increment,
+   order_id             int(10),
+   user_type            tinyint(3) comment '0 系统
+            1 管理员
+            2 学生
+            3 老师',
+   user_id              int(10) comment '操作者id',
+   action               tinyint(3) comment '1，创建订单；
+            2，完成付款；
+            3，订单完成（付款完成后7天自动变成这个状态，暂时用不上）；
+            4，取消订单（用户主动取消）
+            5，关闭订单（订单超时，系统自动关闭）',
+   create_time          int(10),
+   note                 varchar(300) comment '备注',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+alter table order_action_log comment '订单操作日志表';
+
+/*==============================================================*/
+/* Index: idx_order_id                                          */
+/*==============================================================*/
+create index idx_order_id on order_action_log
+(
+   order_id
+);
+
+/*==============================================================*/
 /* Table: order_round_relation                                  */
 /*==============================================================*/
 create table order_round_relation
@@ -523,6 +562,7 @@ create table round
    score                decimal(10,2) not null default 0,
    bought_count         int(10) not null default 0 comment '已购买人数',
    caps                 int(10) comment '上限人数 默认100',
+   remaining_count      int(10) comment '剩余名额',
    sale_price           decimal(10,2) not null default 0,
    sell_begin_time      int(10),
    sell_end_time        int(10),
@@ -771,32 +811,6 @@ create index idx_student_id on student_order
 );
 
 /*==============================================================*/
-/* Table: student_question                                      */
-/*==============================================================*/
-create table student_question
-(
-   id                   int(10) not null auto_increment,
-   class_id             int(10),
-   student_id           int(10),
-   question_id          int(10),
-   answer               varchar(90),
-   is_correct           tinyint(1),
-   sequence             tinyint(3) comment '第几次答题',
-   primary key (id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-/*==============================================================*/
-/* Index: idx_class_id                                          */
-/*==============================================================*/
-create index idx_class_id on student_question
-(
-   class_id
-);
-
-/*==============================================================*/
 /* Table: student_refund                                        */
 /*==============================================================*/
 create table student_refund
@@ -834,6 +848,32 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 alter table student_subject comment '学生感兴趣的科目表';
+
+/*==============================================================*/
+/* Table: sutdent_question                                      */
+/*==============================================================*/
+create table sutdent_question
+(
+   id                   int(10) not null auto_increment,
+   class_id             int(10),
+   student_id           int(10),
+   question_id          int(10),
+   answer               varchar(90),
+   is_correct           tinyint(1),
+   sequence             tinyint(3) comment '第几次答题',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_class_id                                          */
+/*==============================================================*/
+create index idx_class_id on sutdent_question
+(
+   class_id
+);
 
 /*==============================================================*/
 /* Table: teacher_checkout_log                                  */

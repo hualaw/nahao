@@ -27,19 +27,24 @@ class Admin extends NH_Admin_Controller {
         if($str_username){
             $arr_where['username'] = $str_username;
         }
-//        $int_count = $this->admin->get_admin_count($arr_where);
-        $int_count = $this->admin->_get_from_db();
-        var_dump($int_count);exit;
+
+        $int_count = $this->admin->get_admin_count($arr_where);
+//        o($int_count);
 
         $this->load->library('pagination');
         $config = config_item('page_admin');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
         $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
-        $config['total_rows'] = 100;
-        $config['per_page'] = 10;
+        $config['total_rows'] = $int_count;
+        $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$query_array);
+
+
+        $this->data['list'] = $this->admin->get_admin_list($arr_where, $int_start,PER_PAGE_NO);
+
         $this->data['count'] = $int_count;
+        o($this->data);
 
 
 //        $this->load->model('admin/model_group','group');
@@ -58,10 +63,6 @@ class Admin extends NH_Admin_Controller {
         $this->data['page'] = $this->pagination->create_links();
         $this->data['query_str'] = $query_array;
         $this->layout->view('admin/admin_list',$this->data);
-
-//
-//        $this->admin->get_admin_list();
-//        $this->layout->view('admin/admin_list');
     }
 
     public function create_admin(){
