@@ -79,6 +79,12 @@ $config['grade'][10] = '高二';
 $config['grade'][11] = '高三';
 $config['grade'][12] = '其他';
 
+//全站角色
+$config['role'][0] = '系统';
+$config['role'][1] = '管理员';
+$config['role'][2] = '老师';
+$config['role'][3] = '学生';
+
 
 
 

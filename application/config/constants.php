@@ -40,10 +40,10 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
 
-define('ROLE_SYS', -1);//系统
-define('ROLE_ADMIN', 0);//管理员
-define('ROLE_STUDENT', 1);//学生
-define('ROLE_TEACHER', 2);//教师
+define('ROLE_SYS', 0);//系统
+define('ROLE_ADMIN', 1);//管理员
+define('ROLE_STUDENT', 2);//教师
+define('ROLE_TEACHER', 3);//学生
 
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
