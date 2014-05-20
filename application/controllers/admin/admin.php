@@ -12,6 +12,8 @@ class Admin extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index(){
+        $arr = config_item('teacher_role');
+        o($arr);
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $int_group_id = $this->input->post('group_id') ? intval($this->input->get('group')) : 0 ;
         $int_admin_id = $this->input->post('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
