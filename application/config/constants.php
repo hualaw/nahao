@@ -37,13 +37,12 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+//********** NAHAO **********
 
-
-
-define('ROLE_SYS', -1);//系统
-define('ROLE_ADMIN', 0);//管理员
-define('ROLE_STUDENT', 1);//学生
-define('ROLE_TEACHER', 2);//教师
+define('ROLE_SYS', 0);//系统
+define('ROLE_ADMIN', 1);//管理员
+define('ROLE_STUDENT', 2);//学生
+define('ROLE_TEACHER', 3);//教师
 
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
@@ -54,6 +53,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
+define('PER_PAGE_NO','10');
 
 
 //tables
