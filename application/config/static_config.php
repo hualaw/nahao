@@ -1,10 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: waijiao
- * Date: 14-5-21
- * Time: 下午6:46
+ * static_config
+ * @author yanrui@tizi.com
  */
-$config['static_admin']['admin'] = array(
-    STATIC_ADMIN_JS_ADMIN
+$config['static_admin']['js']['admin'] = array(
+    STATIC_ADMIN_JS_ADMIN,
+    STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN
 );

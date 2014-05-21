@@ -74,12 +74,12 @@ class Business_Admin extends NH_Model
         return $int_return;
     }
 
-    public function get_admin_list($arr_where){
+    public function get_admin_list($arr_where,$int_start,$int_limit){
         $arr_return = array();
         if(is_array($arr_where)){
             $str_table_range = 'admin_group_permission';
             $str_result_type = 'list';
-            $str_fields = TABLE_ADMIN.'.id,username,phone,email,realname,'.TABLE_ADMIN.'.status';
+            $str_fields = TABLE_ADMIN.'.id,username,phone,email,realname,'.TABLE_ADMIN.'.status,'.TABLE_ADMIN_GROUP.'.name as group_name';
             if(array_key_exists('group_id',$arr_where)){
                 $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.group_id'] = $arr_where['group_id'];
             }
@@ -89,7 +89,11 @@ class Business_Admin extends NH_Model
             if(array_key_exists('username',$arr_where)){
                 $arr_where[TABLE_ADMIN.'.username'] = $arr_where['username'];
             }
-            $int_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_limit = array(
+                'start'=>$int_start,
+                'limit' => $int_limit
+            );
+            $arr_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, array(), array(),$arr_limit);
         }
         return $arr_return;
     }
