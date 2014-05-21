@@ -60,7 +60,6 @@
             }
 
         }
-
         /**
          * 符合搜索条件的订单数量
          * @param $arr $post
@@ -69,21 +68,42 @@
          */
         public function sea_order_count($post)
         {
-            $this->load->model("model/admin/model_admin");
-            $this->model_admin->sea_order($post);
+            $this->load->model("model/admin/model_order");
+            $this->model_order->sea_order($post);
             return $this->db->get()->num_rows();
         }
-
+        /**
+         * 查询符合搜索条件的订单
+         * @param $arr $post
+         * @return boolean
+         * @author shangshikai@nahao.com
+         */
         public function sea_order_list($post)
         {
-            /**
-             * 查询符合搜索条件的订单
-             * @param $arr $post
-             * @return boolean
-             * @author shangshikai@nahao.com
-            */
-            $this->load->model("model/admin/model_admin");
-            $this->model_admin->sea_order($post);
-            return $this->db->get();
+            $this->load->model("model/admin/model_order");
+            $this->model_order->sea_order($post);
+            $c=$this->db->get();
+            echo $this->db->last_query();
+            return $c;
+        }
+        /**
+         * 查询订单总信息
+         * @param
+         * @return $arr $arr_order
+         * @author shangshikai@nahao.com
+         */
+        public function order_information()
+        {
+            $arr_order=array();
+            $arr_order['count'] = $this->db->get("student_order")->num_rows();
+            $arr_order['payment'] = $this->db->get_where("student_order",array('status' => 1))->num_rows();
+            $arr_order['non-payment'] = $this->db->get_where("student_order",array('status' => 2))->num_rows();
+            $arr_order['cancel'] = $this->db->get_where("student_order",array('status' => 4))->num_rows();
+            $arr_order['close'] = $this->db->get_where("student_order",array('status' => 5))->num_rows();
+            $arr_order['success'] = $this->db->get_where("student_order",array('status' => 3))->num_rows();
+            $arr_order['refund'] = $this->db->get_where("student_order",array('status' => 7))->num_rows();
+            $arr_order['be_refund'] = $this->db->get_where("student_order",array('status' => 6))->num_rows();
+
+            return $arr_order;
         }
     }

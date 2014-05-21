@@ -88,6 +88,8 @@ $config["order_status"][2] = "已付款";
 $config["order_status"][3] = "已完成";
 $config["order_status"][4] = "已取消";
 $config["order_status"][5] = "已关闭";
+$config["order_status"][6] = "退款中";
+$config["order_status"][7] = "已退款";
 
 //订单支付方式
 /*

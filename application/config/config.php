@@ -180,7 +180,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -266,7 +266,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "nh_";
-$config['cookie_domain']	= isset( $_SERVER['HTTP_HOST'] ) ? strstr($_SERVER['HTTP_HOST'], '.') : '';
+$config['cookie_domain']	= '';
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 

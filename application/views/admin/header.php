@@ -5,3 +5,4 @@
 <title>那好管理系统</title>
 <link href="<?php echo static_url("/admin/css/bootstrap.css"); ?>" rel="stylesheet">
 <link href="<?php echo static_url("/admin/css/nav.css"); ?>" rel="stylesheet">
+<link href="<?php echo static_url("/admin/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet">

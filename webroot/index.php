@@ -211,6 +211,16 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+
+/*
+ * --------------------------------------------------------------------
+ *  引入LOG4PHP类
+ * --------------------------------------------------------------------
+ */
+define('LOG4PHP_DIR', APPPATH.'third_party/log4php/');
+require_once LOG4PHP_DIR.'Logger.php';
+Logger::configure(LOG4PHP_DIR.'log4php.properties');
+
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
