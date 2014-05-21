@@ -2039,6 +2039,14 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		$this->_reset_run($ar_reset_items);
 	}
+
+    /**
+     * 执行前获取sql
+     * @return string
+     */
+    public function get_compile_sql(){
+        return $this->_compile_select();
+    }
 }
 
 /* End of file DB_active_rec.php */

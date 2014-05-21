@@ -36,7 +36,7 @@ class NH_Controller extends CI_Controller
      * @return bool
      * @author yanrui@91waijiao.com
      */
-    protected function isPOST()
+    protected function is_post()
     {
         return $this->input->server('REQUEST_METHOD') === 'POST';
     }
@@ -44,9 +44,9 @@ class NH_Controller extends CI_Controller
     /**
      * 当前http请求是否为ajax
      * @return bool
-     * @author yanrui@91waijiao.com
+     * @author yanrui@tizi.com
      */
-    protected function isAjax()
+    protected function is_ajax()
     {
         return $this->input->is_ajax_request();
     }

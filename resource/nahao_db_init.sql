@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/19 10:25:59                           */
+/* Created on:     2014/5/20 15:26:03                           */
 /*==============================================================*/
 
 
@@ -41,6 +41,10 @@ drop table if exists group_permission_relation;
 drop index idx_course_id on lesson;
 
 drop table if exists lesson;
+
+drop index idx_order_id on order_action_log;
+
+drop table if exists order_action_log;
 
 drop index idx_order_id on order_round_relation;
 
@@ -402,6 +406,41 @@ create index idx_course_id on lesson
 );
 
 /*==============================================================*/
+/* Table: order_action_log                                      */
+/*==============================================================*/
+create table order_action_log
+(
+   id                   int(10) not null auto_increment,
+   order_id             int(10),
+   user_type            tinyint(3) comment '0 系统
+            1 管理员
+            2 学生
+            3 老师',
+   user_id              int(10) comment '操作者id',
+   action               tinyint(3) comment '1，创建订单；
+            2，完成付款；
+            3，订单完成（付款完成后7天自动变成这个状态，暂时用不上）；
+            4，取消订单（用户主动取消）
+            5，关闭订单（订单超时，系统自动关闭）',
+   create_time          int(10),
+   note                 varchar(300) comment '备注',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+alter table order_action_log comment '订单操作日志表';
+
+/*==============================================================*/
+/* Index: idx_order_id                                          */
+/*==============================================================*/
+create index idx_order_id on order_action_log
+(
+   order_id
+);
+
+/*==============================================================*/
 /* Table: order_round_relation                                  */
 /*==============================================================*/
 create table order_round_relation
@@ -523,6 +562,7 @@ create table round
    score                decimal(10,2) not null default 0,
    bought_count         int(10) not null default 0 comment '已购买人数',
    caps                 int(10) comment '上限人数 默认100',
+   remaining_count      int(10) comment '剩余名额',
    sale_price           decimal(10,2) not null default 0,
    sell_begin_time      int(10),
    sell_end_time        int(10),

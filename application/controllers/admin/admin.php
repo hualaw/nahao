@@ -1,36 +1,53 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends NH_admin_Controller {
+class Admin extends NH_Admin_Controller {
 
     function __construct(){
         parent::__construct();
         $this->load->model('business/admin/business_admin','admin');
     }
+
+    /**
+     * admin index
+     * @author yanrui@tizi.com
+     */
     public function index(){
+        $arr = config_item('teacher_role');
+        o($arr);
+        $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $int_group_id = $this->input->post('group_id') ? intval($this->input->get('group')) : 0 ;
+        $int_admin_id = $this->input->post('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
+        $str_username = $this->input->post('username') ? trim($this->input->get('username')) : '' ;
 
-        $this->load->model('model/admin/business_admin','admin');
-        $int_return = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
-        var_dump($int_return);exit;
-//        var_dump($this->current);exit;
+        $arr_where = array();
+        if($int_group_id > 0){
+            $arr_where['group_id'] = $int_group_id;
+        }
+        if($int_admin_id > 0){
+            $arr_where['admin_id'] = $int_admin_id;
+        }
+        if($str_username){
+            $arr_where['username'] = $str_username;
+        }
 
-        $start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-//        $arr_condition = array();
-//        if($this->input->get('group')!==false AND $this->input->get('group')!==''){
-//            $arr_condition['group_id'] = intval($this->input->get('group'));
-//        }
-//
-//        $this->load->model('admin/model_admin','admin');
-//        $this->data['count'] = $count = $this->admin->get_admin_count($arr_condition);
-//var_dump($this->db->queries);
-        $count = 100;
+        $int_count = $this->admin->get_admin_count($arr_where);
+//        o($int_count);
+
         $this->load->library('pagination');
         $config = config_item('page_admin');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
         $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
-        $config['total_rows'] = 100;
-        $config['per_page'] = 10;
+        $config['total_rows'] = $int_count;
+        $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$query_array);
+
+
+        $this->data['list'] = $this->admin->get_admin_list($arr_where, $int_start,PER_PAGE_NO);
+
+        $this->data['count'] = $int_count;
+        o($this->data);
+
 
 //        $this->load->model('admin/model_group','group');
 //
@@ -48,15 +65,25 @@ class Admin extends NH_admin_Controller {
         $this->data['page'] = $this->pagination->create_links();
         $this->data['query_str'] = $query_array;
         $this->layout->view('admin/admin_list',$this->data);
-
-//
-//        $this->admin->get_admin_list();
-//        $this->layout->view('admin/admin_list');
     }
 
     public function create_admin(){
-        $str_nickname = trim($this->input->post('nickname'));
-        $arr_param['nickname'] = $str_nickname;
-        $int_last_id = $this->admin->create_admin($arr_param);
+        if($this->is_ajax() AND $this->is_post()){
+            $str_username = trim($this->input->post('username'));
+            $str_phone = trim($this->input->post('phone'));
+            $str_email = trim($this->input->post('email'));
+            if($str_username){
+                $arr_param['nickname'] = $str_username;
+                if(is_mobile($str_phone)){
+                    $arr_param['phone'] = $str_phone;
+                }
+                if(is_email($str_phone)){
+                    $arr_param['phone'] = $str_phone;
+                }
+
+                $arr_param['email'] = $str_email;
+                $int_admin_id = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
+            }
+        }
     }
 }
