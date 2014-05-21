@@ -18,7 +18,13 @@ class Business_Teacher extends NH_Model
     {
         $res = $this->model_teacher->teacher_today_round($param);
         
+        if($res) foreach($res as &$val){
+        	$res = $this->model_teacher->teacher_round_class(array('round_id'=>$val['round_id']));
+        	$val['total_class'] = $res['total'];
+        	$val['rate'] = $res['rate'];
+        }
         return $res;
     }
-
+    
+	
 }

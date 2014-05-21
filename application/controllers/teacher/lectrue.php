@@ -2,13 +2,17 @@
 
 class Lectrue extends CI_Controller {
 
+	public function __construct(){
+        parent::__construct();
+		$this->load->model('teacher/tiku_model');
+    }
+    
 	/**
 	 * 老师端试讲申请
 	 */
 	public function index()
 	{
-		$nav = $this->load->view('teacher/nav',array(),true);
-		echo '试讲申请!';exit;
+		$this->load->view('mobile_tiku/mobile_notice_index.html');
 	}
 	
 	/**

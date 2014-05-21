@@ -4,7 +4,7 @@ class Welcome extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
-		$this->load->model('teacher/tiku_model');
+        $this->load->model('business/teacher/business_teacher','teacher');
     }
     
 	/**
@@ -14,7 +14,9 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$nav = $this->load->view('teacher/nav',array(),true);
+		$arr = $this->teacher->get_today_round(array('user_id'=>1));
 		
-		echo '老师端!';exit;
+		$this->load->view('teacher/nav',$nav);
+		$this->view('teacher/index');
 	}
 }
