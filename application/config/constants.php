@@ -39,10 +39,12 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 //********** NAHAO **********
 
+
 define('ROLE_SYS', 0);//系统
 define('ROLE_ADMIN', 1);//管理员
 define('ROLE_STUDENT', 2);//学生
 define('ROLE_TEACHER', 3);//教师
+
 
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
