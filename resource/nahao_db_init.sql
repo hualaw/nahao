@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/20 15:26:03                           */
+/* Created on:     2014/5/21 17:26:25                           */
 /*==============================================================*/
 
 
@@ -92,8 +92,6 @@ drop table if exists student_class;
 
 drop table if exists student_class_log;
 
-drop table if exists student_info;
-
 drop index idx_student_id on student_order;
 
 drop table if exists student_order;
@@ -110,8 +108,6 @@ drop index idx_teacher_id on teacher_checkout_log;
 
 drop table if exists teacher_checkout_log;
 
-drop table if exists teacher_info;
-
 drop table if exists teacher_lectrue;
 
 drop table if exists teacher_subject;
@@ -122,13 +118,15 @@ drop index idx_email on user;
 
 drop table if exists user;
 
+drop table if exists user_info;
+
 /*==============================================================*/
 /* Table: admin                                                 */
 /*==============================================================*/
 create table admin
 (
    id                   int(10) not null auto_increment,
-   nickname             varchar(20),
+   username             varchar(20),
    phone                char(11),
    email                varchar(90),
    salt                 char(6),
@@ -184,8 +182,14 @@ create table class
    end_time             int(10),
    courseware_id        int(10),
    sequence             int(10),
-   status               tinyint(3) comment '0禁用;1启用',
-   parent_id            char(10),
+   status               tinyint(3) comment '0 初始化
+            1 即将上课
+            2 正在上课
+            3 上完课
+            4 缺课
+            5 禁用 （不能恢复）',
+   parent_id            int(10),
+   meeting_id           int(10),
    primary key (id)
 )
 ENGINE = InnoDB
@@ -421,7 +425,8 @@ create table order_action_log
             2，完成付款；
             3，订单完成（付款完成后7天自动变成这个状态，暂时用不上）；
             4，取消订单（用户主动取消）
-            5，关闭订单（订单超时，系统自动关闭）',
+            5，关闭订单（订单超时，系统自动关闭）
+            6，备注',
    create_time          int(10),
    note                 varchar(300) comment '备注',
    primary key (id)
@@ -555,7 +560,14 @@ create table round
    course_type          tinyint(3) comment '课程类型',
    reward               decimal(10,2) comment '本课程每课时（45分钟，计算时乘2）给老师团队的报酬',
    price                decimal(10,2) not null default 0,
-   sale_status          tinyint(3) not null default 0 comment '销售状态（未审核、审核不通过、审核通过、预售、销售中、已售罄、已停售（时间到了还没售罄）、已下架（手动下架））',
+   sale_status          tinyint(3) not null default 0 comment '销售状态
+            0 未审核、
+            1 审核不通过、
+            2 审核通过（预售）、
+            3 销售中、
+            4 已售罄、
+            5 已停售（时间到了还没售罄）、
+            6 已下架（手动下架）',
    create_time          int(10) not null default 0,
    role                 int(10),
    user_id              int(10) not null default 0 comment '创建人',
@@ -760,26 +772,6 @@ COLLATE = utf8_general_ci;
 alter table student_class_log comment '记录学生在课堂上所有动作';
 
 /*==============================================================*/
-/* Table: student_info                                          */
-/*==============================================================*/
-create table student_info
-(
-   user_id              int(10) not null,
-   realname             varchar(90),
-   age                  tinyint(3),
-   gender               tinyint(1),
-   grade                tinyint(3),
-   province             tinyint(1),
-   city                 tinyint(1),
-   area                 tinyint(1),
-   school               tinyint(1),
-   primary key (user_id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-/*==============================================================*/
 /* Table: student_order                                         */
 /*==============================================================*/
 create table student_order
@@ -908,39 +900,6 @@ create index idx_teacher_id on teacher_checkout_log
 );
 
 /*==============================================================*/
-/* Table: teacher_info                                          */
-/*==============================================================*/
-create table teacher_info
-(
-   user_id              int(10) not null comment '用户id',
-   realname             varchar(30),
-   age                  tinyint(3),
-   gender               tinyint(1),
-   hide_realname        tinyint(1),
-   hide_school          tinyint(1),
-   hide_area            tinyint(1),
-   bankname             varchar(90),
-   bankbench            varchar(150),
-   bankcard             varchar(20),
-   id_code              char(18),
-   title                tinyint(3),
-   work_auth            tinyint(1),
-   teacher_auth         tinyint(1),
-   titile_auth          tinyint(1),
-   province             tinyint(1),
-   city                 tinyint(1),
-   area                 tinyint(1),
-   school               tinyint(1),
-   remuneration         decimal(10,2) comment '已经领过的总课酬',
-   teacher_age          tinyint(3),
-   stage                tinyint(3),
-   primary key (user_id)
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-/*==============================================================*/
 /* Table: teacher_lectrue                                       */
 /*==============================================================*/
 create table teacher_lectrue
@@ -1027,4 +986,37 @@ create unique index idx_nickname on user
 (
    nickname
 );
+
+/*==============================================================*/
+/* Table: user_info                                             */
+/*==============================================================*/
+create table user_info
+(
+   user_id              int(10) not null comment '用户id',
+   realname             varchar(30),
+   age                  tinyint(3),
+   gender               tinyint(1),
+   hide_realname        tinyint(1),
+   hide_school          tinyint(1),
+   hide_area            tinyint(1),
+   bankname             varchar(90),
+   bankbench            varchar(150),
+   bankcard             varchar(20),
+   id_code              char(18),
+   title                tinyint(3),
+   work_auth            tinyint(1),
+   teacher_auth         tinyint(1),
+   titile_auth          tinyint(1),
+   province             tinyint(1),
+   city                 tinyint(1),
+   area                 tinyint(1),
+   school               tinyint(1),
+   remuneration         decimal(10,2) comment '已经领过的总课酬',
+   teacher_age          tinyint(3),
+   stage                tinyint(3),
+   primary key (user_id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 

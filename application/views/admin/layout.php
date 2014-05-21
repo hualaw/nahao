@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
     <head>
-        <?php include(APPPATH . 'views/admin/header.php') ?>
+        <?php $this->load->view('admin/header'); ?>
     </head>
-
     <body>
         <div class="container">
-            <?php include(APPPATH . 'views/admin/nav.php') ?>
+            <?php $this->load->view('admin/nav'); ?>
             <?php echo $content_for_layout; ?>
         </div>
-        <?php include(APPPATH . 'views/admin/footer.php') ?>
+        <?php $this->load->view('admin/footer'); ?>
     </body>
 </html>

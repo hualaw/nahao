@@ -28,7 +28,7 @@ class NH_Model extends CI_Model
      * @param array $arr_order_by
      * @param array $arr_limit
      * @return array
-     * @author yanrui@91waijiao.com
+     * @author yanrui@tizi.com
      */
     public function _get_from_db($str_table_range = 'admin', $str_result_type = 'list', $str_field = '*', $arr_where = array(), $arr_group_by = array(), $arr_order_by = array(), $arr_limit = array())
     {
