@@ -26,13 +26,13 @@ class Model_Teacher extends NH_Model{
 	 */
     public function teacher_today_round($param){
         $arr_result = array();
-        $param['userId'] = $param['userId'] ? $param['userId'] : 0;
-        if(!$param['userId']){
+        $param['user_id'] = $param['user_id'] ? $param['user_id'] : 0;
+        if(!$param['user_id']){
         	exit('老师id为空，请确认登陆状态是否过期');
         }
         $sql = 'select rtr.*,r.title from round_teacher_relation rtr
  				left join nahao.round r on rtr.round_id=r.id 
- 				where rtr.teacher_id='.$param['userId'];
+ 				where rtr.teacher_id='.$param['user_id'];
         $arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
     }

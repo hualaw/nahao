@@ -12,7 +12,8 @@ class Lectrue extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('mobile_tiku/mobile_notice_index.html');
+		$nav = $this->load->view('teacher/nav',array(),true);
+		$this->load->view('teacher/lectrue.php');
 	}
 	
 	/**
@@ -20,7 +21,7 @@ class Lectrue extends CI_Controller {
 	 */
 	public function success()
 	{
-		$nav = $this->load->view('teacher/nav',array(),true);
+		
 		echo '声请成功!';exit;
 	}
 	

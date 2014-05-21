@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 if (PHP_SAPI === 'cli') {
     $str_domain = 'auto';
 } else {
@@ -57,7 +58,7 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
-
+error_reporting(E_ALL ^ E_NOTICE);
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
@@ -68,8 +69,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = dirname(__DIR__) .'/system';
-
+	$system_path = dirname(dirname(__FILE__)) .'/system';
 /*
  *---------------------------------------------------------------
  * APPLICATION FOLDER NAME
@@ -84,7 +84,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = dirname(__DIR__) .'/application';
+	$application_folder = dirname(dirname(__FILE__)) .'/application';
 
 /*
  * --------------------------------------------------------------------
@@ -149,7 +149,7 @@ if (defined('ENVIRONMENT'))
 	// Set the current directory correctly for CLI requests
 	if (defined('STDIN'))
 	{
-		chdir(dirname(__FILE__));
+		chdir(dirname(dirname(__FILE__)));
 	}
 
 	if (realpath($system_path) !== FALSE)
@@ -161,6 +161,8 @@ if (defined('ENVIRONMENT'))
 	$system_path = rtrim($system_path, '/').'/';
 
 	// Is the system path correct?
+	
+//var_dump($system_path);var_dump(is_dir($system_path));die;
 	if ( ! is_dir($system_path))
 	{
 		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));

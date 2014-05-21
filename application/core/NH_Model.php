@@ -15,7 +15,7 @@ class NH_Model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-        $this->boolMagic = get_magic_quotes_runtime();
+//        $this->boolMagic = get_magic_quotes_runtime();
     }
 
     public function _get_from_db($str_table_range = 'admin', $str_result_type = 'list', $str_field = '*', $arr_where = array(), $arr_group_by = array(), $arr_order_by = array(), $arr_limit = array())

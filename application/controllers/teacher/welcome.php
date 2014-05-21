@@ -17,6 +17,6 @@ class Welcome extends CI_Controller {
 		$arr = $this->teacher->get_today_round(array('user_id'=>1));
 		
 		$this->load->view('teacher/nav',$nav);
-		$this->view('teacher/index');
+//		$this->view('teacher/index');
 	}
 }
