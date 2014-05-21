@@ -124,4 +124,12 @@ $config["member_source"][6] = "微信推广";
 $config["user_role"][1] = "学生";
 $config["user_role"][2] = "老师";
 
+//搜索条件
+/*
+*@author shangshikai@nahao.com
+*/
+$config["criteria"][1] = "nickname";
+$config["criteria"][2] = "phone";
+$config["criteria"][3] = "email";
+
 

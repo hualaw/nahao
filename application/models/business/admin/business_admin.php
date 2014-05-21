@@ -140,4 +140,27 @@ class Business_Admin extends NH_Model
         $this->load->model("model/admin/model_admin");
         return $this->model_admin->admin_order_data();
     }
+    /**
+     * 搜索订单
+     * @param
+     * @return boolean
+     * @author shangshikai@nahao.com
+     */
+    public function sea_order($post)
+    {
+        $this->load->model("model/admin/model_admin");
+        return $this->model_admin->sea_order_list($post);
+    }
+    /**
+     * 复合搜索条件订单的总数
+     * @param
+     * @return boolean
+     * @author shangshikai@nahao.com
+     */
+    public function search_order_count($post)
+    {
+
+        $this->load->model("model/admin/model_admin");
+        return $this->model_admin->sea_order_count($post);
+    }
 }
