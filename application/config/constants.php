@@ -96,6 +96,13 @@ define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 
+//static
+define('STATIC_ADMIN_JS_JQUERY_MIN','http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js');
+define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
+define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
+define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
+
+
 
 
 
