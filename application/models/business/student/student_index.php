@@ -18,7 +18,7 @@ class Student_Index extends NH_Model{
     public function get_round_list()
     {
         #首页获取一门课程里面最新的一轮（在审核通过和销售中）
-        $arr_round = $this->model_index->get_course_late_round();
+        $arr_round = $this->model_index->get_course_latest_round();
         $arr_return = array();
         if ($arr_round)
         {

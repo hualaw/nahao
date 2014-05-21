@@ -16,7 +16,7 @@ class Model_Index extends NH_Model{
      * @return array
      * @author liubing@tizi.com
      */
-    public function get_course_late_round()
+    public function get_course_latest_round()
     {
         $arr_result = array();
         $sql = "SELECT course_id,MIN(start_time) AS start_time FROM round
