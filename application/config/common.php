@@ -24,11 +24,10 @@ $config['teach_stage'][2] = '高中';
 $config['round_sale_status'][0] = '未审核';
 $config['round_sale_status'][1] = '审核未通过';
 $config['round_sale_status'][2] = '审核通过';
-$config['round_sale_status'][3] = '预售';
-$config['round_sale_status'][4] = '销售中';
-$config['round_sale_status'][5] = '已售罄';
-$config['round_sale_status'][6] = '已停售';
-$config['round_sale_status'][7] = '已下架';
+$config['round_sale_status'][3] = '销售中';
+$config['round_sale_status'][4] = '已售罄';
+$config['round_sale_status'][5] = '已停售';
+$config['round_sale_status'][6] = '已下架';
 
 //轮里面的授课状态
 $config['round_teach_status'][0] = '等待开课';
@@ -79,6 +78,7 @@ $config['grade'][10] = '高二';
 $config['grade'][11] = '高三';
 $config['grade'][12] = '其他';
 
+
 //订单状态
 /*
 *@author shangshikai@nahao.com
@@ -119,13 +119,6 @@ $config["member_source"][4] = "网站";
 $config["member_source"][5] = "学校企业";
 $config["member_source"][6] = "微信推广";
 
-//用户身份
-/*
-*@author shangshikai@nahao.com
-*/
-$config["user_role"][1] = "学生";
-$config["user_role"][2] = "老师";
-
 //搜索条件
 /*
 *@author shangshikai@nahao.com
@@ -133,5 +126,23 @@ $config["user_role"][2] = "老师";
 $config["criteria"][1] = "nickname";
 $config["criteria"][2] = "phone";
 $config["criteria"][3] = "email";
+
+//全站角色
+$config['role'][0] = '系统';
+$config['role'][1] = '管理员';
+$config['role'][2] = '老师';
+$config['role'][3] = '学生';
+
+//退款状态
+/*
+*@author shangshikai@nahao.com
+*/
+$config['refund'][0] = "初始化";
+$config['refund'][1] = "缺席";
+$config['refund'][2] = "进过教室";
+$config['refund'][3] = "申请退款";
+$config['refund'][4] = "退款通过";
+$config['refund'][5] = "退款不通过";
+$config['refund'][5] = "退款已完成";
 
 

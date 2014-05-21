@@ -6,3 +6,4 @@
 <link href="<?php echo static_url("/admin/css/bootstrap.css"); ?>" rel="stylesheet">
 <link href="<?php echo static_url("/admin/css/nav.css"); ?>" rel="stylesheet">
 <link href="<?php echo static_url("/admin/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet">
+<script type="text/javascript" src="<?php echo static_url('/admin/js/jquery-1.4.4.js'); ?>"></script>

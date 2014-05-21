@@ -9,7 +9,7 @@
 <form class="form-inline" role="form">
     <div class="form-group">
         <label class="sr-only" for="exampleInputEmail2">用户名</label>
-        <input type="text" class="form-control"  id="datetimepicker" name="time_select" size="16"  data-date-format="yyyy-mm-dd hh:ii">
+        <input type="text" class="form-control"  id="admin_datetimepicker" name="time_select" size="16"  data-date-format="yyyy-mm-dd hh:ii">
 <!--        <span class="add-on"><i class="icon-th"></i></span>-->
     </div>
     <button type="submit" class="btn btn-default">搜索</button>
@@ -27,15 +27,15 @@
     </thead>
     <tbody>
     <?php foreach($arr_list as $k => $v){ ?>
-
+        <tr>
+            <td><?php echo $v['id']?></td>
+            <td><?php echo $v['username']?></td>
+            <td><?php echo $v['group_name']?></td>
+            <td><?php echo $v['status']?></td>
+            <td><?php ?></td>
+            <td>修改</td>
+        </tr>
     <?php } ?>
-    <tr>
-        <td>1</td>
-        <td>asdfasdf</td>
-        <td>12341234</td>
-        <td>wertwret</td>
-        <td>修改</td>
-    </tr>
     </tbody>
 </table>
 

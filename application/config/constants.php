@@ -39,10 +39,12 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 //********** NAHAO **********
 
+
 define('ROLE_SYS', 0);//系统
 define('ROLE_ADMIN', 1);//管理员
 define('ROLE_STUDENT', 2);//学生
 define('ROLE_TEACHER', 3);//教师
+
 
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
@@ -93,6 +95,14 @@ define('TABLE_TEACHER_INFO','teacher_info');
 define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
+
+//static
+define('STATIC_ADMIN_JS_JQUERY_MIN','http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js');
+define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
+define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
+define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
+define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
+
 
 
 

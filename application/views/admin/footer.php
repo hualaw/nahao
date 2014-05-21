@@ -1,21 +1,12 @@
+<script type="text/javascript" src="<?php echo STATIC_ADMIN_JS_JQUERY_MIN;?>"></script>
+<script type="text/javascript" src="<?php echo static_url(STATIC_ADMIN_JS_BOOTSTRAP_MIN); ?>"></script>
 
-<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo static_url("/admin/js/bootstrap.min.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo static_url("/admin/js/bootstrap-datetimepicker.min.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo static_url("/admin/js/mod/admin.js"); ?>"></script>
-
-<script type="text/javascript">
-    $(function(){
-    $('#datetimepicker').datetimepicker({
-        format: "yyyy-MM-dd hh:ii",
-        language: 'cn',
-        autoclose : true,
-//        pickDate: true,
-//        pickTime: true,
-        hourStep: 1,
-        minuteStep: 15,
-        secondStep: 30,
-        inputMask: true
-    });
-    });
-</script>
+<?php
+$arr_js_config = config_item('static_admin');
+if(array_key_exists($this->current['controller'],$arr_js_config['js'])){
+    $arr_js = $arr_js_config['js'][$this->current['controller']];
+    foreach($arr_js as $k => $v){
+        echo '<script type="text/javascript" src="'.static_url($v).'"></script>';
+    }
+}
+?>
