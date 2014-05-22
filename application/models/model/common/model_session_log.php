@@ -29,7 +29,7 @@ class Model_Session_Log extends NH_Model
 			'exit_time' => '',
 			)
 
-		$this->db->insert(SESSION, $user_data);
+		$this->db->insert(SESSION_LOG, $user_data);
 
 		$bool_ret = false;
 		if($this->db->affected_rows()) $bool_ret=true;
@@ -43,7 +43,7 @@ class Model_Session_Log extends NH_Model
 		$bool_ret = false;
 		if($session_id)
 		{
-			$bool_ret =  $this->db->update(SESSION, $info, 'session_id='.$seesion_id);
+			$bool_ret =  $this->db->update(SESSION_LOG, $info, 'session_id='.$seesion_id);
 		}
 		reutrn $bool_ret;
 	}

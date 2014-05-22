@@ -95,6 +95,7 @@ define('TABLE_TEACHER_INFO','teacher_info');
 define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
+define('SESSION_LOG', 'session_log');
 
 //static
 define('STATIC_ADMIN_JS_JQUERY_MIN','http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js');
