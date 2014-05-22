@@ -14,17 +14,21 @@ class Student_Index extends NH_Model{
     
     /**
      * 首页获取轮的列表信息
+     * @return array $array_return
      */
     public function get_round_list()
     {
         #首页获取一门课程里面最新的一轮（在审核通过和销售中）
-        $arr_round = $this->model_index->get_course_latest_round();
-        $arr_return = array();
-        if ($arr_round)
+        $array_round = $this->model_index->get_course_latest_round();
+        $array_return = array();
+        if ($array_round)
         {
             #首页获取轮的信息列表
-            $arr_return = $this->model_index->get_round_list($arr_round);
+            foreach ($array_round as $k=>$v)
+            {
+                $array_return[] = $this->model_index->get_one_round_info($v['course_id'],$v['start_time']);
+            }
         }
-        return $arr_return;
+        return $array_return;
     }
 }
