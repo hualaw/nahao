@@ -56,6 +56,8 @@ class Student_Course extends NH_Model{
         $array_return = $this->model_course->get_round_info($int_round_id);
         if ($array_return)
         {
+            #售罄人数
+            $array_return['sold_out_count'] = $array_return['caps'] - $array_return['bought_count'];
             #一轮有几次课
             $class_nums = $this->model_index->round_has_class_nums($int_round_id);
             #课次
