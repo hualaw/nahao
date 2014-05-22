@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>那好教师端</title>
+		<title>那好教师端-试讲申请成功</title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,9 @@
 		<link href="<?php echo static_url("/admin/css/bootstrap.css"); ?>" rel="stylesheet">
 		<link href="<?php echo static_url("/admin/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet">
 <style>
+body{
+font-family: "宋体","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 .navbar-brand{
 display: block;
 float: left;
@@ -37,16 +40,16 @@ padding: 5px 0px 15px 30px;
 </style>
 	</head>
 	<body>
-	<?=$nav?>
-	<!--nav end-->
-	<!--body-->
+		<?=$nav?>
+		<!--nav end-->
+		<!--body-->
 		
-	<!--left-nav-start-->
+			<!--left-nav-start-->
 	<div class="body">
 		<?=$siteBar?>
 		<?=$pos?>
-	    <?=$today_list?>
-  	</div>
+	    <?=$success?>
+    </div>
 			<!--left-end-->
 			<!--right-->
 	</body>
