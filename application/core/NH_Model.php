@@ -33,12 +33,14 @@ class NH_Model extends CI_Model
     public function _get_from_db($str_table_range = 'admin', $str_result_type = 'list', $str_field = '*', $arr_where = array(), $arr_group_by = array(), $arr_order_by = array(), $arr_limit = array())
     {
         $mix_return = array();
-//        echo $str_table_range.'--'.$str_result_type.'--'.$str_field."\n";echo "where : \n";var_dump($arr_where);echo "group_by : \n";var_dump($arr_group_by);echo "order_by : \n";var_dump($arr_order_by);echo "limit : \n";var_dump($arr_limit);exit;
+//        echo $str_table_range.'--'.$str_result_type.'--'.$str_field."\n";echo "where : \n";var_dump($arr_where);echo "group_by : \n";var_dump($arr_group_by);echo "order_by : \n";var_dump($arr_order_by);echo "limit : \n";var_dump($arr_limit);//exit;
         if (is_array($arr_where)) {
             $arr_config = config_item('sql_'.DOMAIN);
             if(array_key_exists($str_table_range,$arr_config)){
+                $arr_keys = array_keys($arr_config[$str_table_range]);
+                $arr_keys = array_flip($arr_keys);
                 foreach($arr_config[$str_table_range] as $k => $v){
-                    if($k==0){
+                    if($arr_keys[$k]==0){
                         $this->db->from($k);
                     }else{
                         $this->db->join($k, $v[0],$v[1]);
@@ -78,7 +80,7 @@ class NH_Model extends CI_Model
             }else{
                 die('no such table range : '.$str_table_range);
             }
-//            var_dump($this->db->last_query());exit;
+//            var_dump($this->db->last_query());//exit;
         }
         return $mix_return;
     }

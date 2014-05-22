@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="myModalLabel">新增管理员</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <form role="form" method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">用户名(用于登录，建议姓名拼音，如张三的账号是zhangsan)</label>
                         <input type="username" size="10" class="form-control" id="username" placeholder="输入用户名">
