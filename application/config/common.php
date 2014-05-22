@@ -24,11 +24,10 @@ $config['teach_stage'][2] = '高中';
 $config['round_sale_status'][0] = '未审核';
 $config['round_sale_status'][1] = '审核未通过';
 $config['round_sale_status'][2] = '审核通过';
-$config['round_sale_status'][3] = '预售';
-$config['round_sale_status'][4] = '销售中';
-$config['round_sale_status'][5] = '已售罄';
-$config['round_sale_status'][6] = '已停售';
-$config['round_sale_status'][7] = '已下架';
+$config['round_sale_status'][3] = '销售中';
+$config['round_sale_status'][4] = '已售罄';
+$config['round_sale_status'][5] = '已停售';
+$config['round_sale_status'][6] = '已下架';
 
 //轮里面的授课状态
 $config['round_teach_status'][0] = '等待开课';
@@ -78,6 +77,12 @@ $config['grade'][9] = '高一';
 $config['grade'][10] = '高二';
 $config['grade'][11] = '高三';
 $config['grade'][12] = '其他';
+
+//全站角色
+$config['role'][0] = '系统';
+$config['role'][1] = '管理员';
+$config['role'][2] = '老师';
+$config['role'][3] = '学生';
 
 
 

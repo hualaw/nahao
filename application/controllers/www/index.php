@@ -12,7 +12,7 @@ class Index extends NH_Student_Controller {
      */
 	public function index()
 	{
-	    header('content-type: text/html; charset=utf-8');
+	    //header('content-type: text/html; charset=utf-8');
         $data = $this->student_index->get_round_list();
         var_dump($data);die;
         //$this->load->view('www/signin');

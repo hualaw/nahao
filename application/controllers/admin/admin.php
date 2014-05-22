@@ -69,6 +69,10 @@ class Admin extends NH_Admin_Controller {
         $this->layout->view('admin/admin_list',$this->data);
     }
 
+    /**
+     * create admin
+     * @author yanrui@tizi.com
+     */
     public function create(){
         $arr_response = array(
             'status' => 'error',
@@ -80,18 +84,17 @@ class Admin extends NH_Admin_Controller {
             $str_email = trim($this->input->post('email'));
 //            echo $str_username.'--'.$str_phone.'--'.$str_email;exit;
             if($str_username){
-                $arr_param['nickname'] = $str_username;
+                $arr_param['username'] = $str_username;
                 if(is_mobile($str_phone)){
                     $arr_param['phone'] = $str_phone;
                 }
-                if(is_email($str_phone)){
-                    $arr_param['phone'] = $str_phone;
+                if(is_email($str_email)){
+                    $arr_param['email'] = $str_email;
                 }
-
-                $arr_param['email'] = $str_email;
-                $int_admin_id = $this->admin->create_admin($arr_param = array('nickname'=>'test'));
+                $int_admin_id = $this->admin->create_admin($arr_param);
                 if($int_admin_id > 0){
                     $arr_response['status'] = 'ok';
+                    $arr_response['msg'] = 'ok';
                 }
             }
         }
