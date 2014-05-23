@@ -49,6 +49,22 @@ class Test extends CI_Controller {
 		$this->smarty->assign('password', $password);
 		$this->smarty->display('www/test.html');
 	}
+
+	public function sms_test()
+	{
+		$this->load->library('sms');
+		$this->sms->setPhoneNums('18600364806');
+		$this->sms->setContent('you code is 3721689');
+		$ret = $this->sms->send();	
+		var_dump($ret);
+	}
+	
+	public function email_test()
+	{
+		$this->load->library('mail');
+		//email_addr, subject, content
+		$this->mail->send('liuhua@tizi.com', '那好邮件测试', 'Got it！');
+	}
 }
 
 /* End of file welcome.php */
