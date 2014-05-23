@@ -51,8 +51,6 @@ class Pay extends NH_Student_Controller {
 	    // 	        redirect('/login');
 	    // 	    }
 	    $int_product_id = max(intval($product_id),1);
-	    #给$int_product_id一个默认值
-	    $int_product_id = empty($int_product_id) ? 1 : $int_product_id;
 	    #检查这个$int_product_id是否有效
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
@@ -87,7 +85,7 @@ class Pay extends NH_Student_Controller {
 	        redirect('/login');
 	    } */
 	    $int_order_id = max(intval($int_order_id), 10000);
-        $payment_method = $payment_method == 'online' ? 'online':'remittance';
+	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
 	    #根据order_id获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
 	    if (!$array_order OR $array_order['student_id']!=$this->user['id'] )#TODO用户id
