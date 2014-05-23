@@ -25,7 +25,7 @@
             $this->db->limit(1,$int_start);
             $this->data["spendata"]=$this->business_order->order_data()->result_array();
             $this->data['page'] = $this->pagination->create_links();
-          //  var_dump($this->data);die;
+            //  var_dump($this->data);die;
             $this->layout->view('admin/order_list',$this->data);
         }
         /**
@@ -53,9 +53,7 @@
             $int_start=$this->uri->segment(3);
             $this->db->limit(1,$int_start);
             $this->data["spendata"]=$this->business_order->sea_order($post)->result_array();
-            //var_dump($this->data["spendata"]);die;
             $this->data['page'] = $this->pagination->create_links();
-            //var_dump($this->data);die;
             $this->layout->view('admin/order_list',$this->data);
         }
         /**
@@ -104,5 +102,16 @@
           $this->load->model("business/admin/business_order");
          echo $this->business_order->note_insert($note,$order_id);
         }
-
+        /**
+         * 显示手机号
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function show_phone()
+        {
+            $int_uid=$this->input->post('uid',TRUE);
+            $this->load->model("business/admin/business_order");
+            echo $this->business_order->phone_show($int_uid);
+        }
     }

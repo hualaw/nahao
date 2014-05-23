@@ -20,7 +20,7 @@
          */
         public function admin_order_data()
         {
-           $c=$this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc')->get();
+           $c=$this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,user.id as uid')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc')->get();
            // var_dump($c->result_array());die;
             echo $this->db->last_query();
             return $c;
@@ -53,7 +53,8 @@
                 }
                 else
                 {
-
+                    $int_uid=get_uid_phone_server($post['phone_name_email']);
+                    $this->db->where("user.id=$int_uid");
                 }
             }
             if(trim($post['pay_type'])!=0)
@@ -171,5 +172,10 @@
                 "create_time"=>time()
             );
            return $this->db->insert('order_note',$data);
+        }
+
+        public function show_tel($int_uid)
+        {
+            return get_pnum_phone_server($int_uid);
         }
     }

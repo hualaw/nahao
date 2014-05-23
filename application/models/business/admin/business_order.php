@@ -123,4 +123,10 @@
             $this->load->model("model/admin/model_order");
             return $this->model_order->insert_order_note($note,$order_id);
         }
+
+        public function phone_show($int_uid)
+        {
+            $this->load->model("model/admin/model_order");
+            return $this->model_order->show_tel($int_uid);
+        }
     }

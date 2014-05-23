@@ -32,7 +32,7 @@
 符合条件的共有<?php echo $sea_total; ?>条数据<br />
 <table class="table table-bordered">
     <thead>
-    <tr>
+    <tr class="active">
         <th>订单号</th>
         <th>用户名</th>
         <th>手机</th>
@@ -47,10 +47,12 @@
     </thead>
     <tbody>
     <?php foreach($spendata as $row) :?>
+        <input type="hidden" value="<?php echo $row['uid'] ?>" class="uid" />
+        <input type="hidden" value="<?php echo $row['phone_mask'] ?>" class="p_mask" />
     <tr>
         <td><?php echo $row['id']; ?></td>
         <td><?php echo $row['nickname']; ?></td>
-        <td><?php echo $row["phone_mask"]; ?></td>
+        <td class="show_phone" width="108"><?php echo $row["phone_mask"]; ?></td>
         <td><?php echo $row["email"]; ?></td>
         <td><?php echo date("Y-m-d H-i-s",$row['create_time']); ?></td>
         <td><?php echo date("Y-m-d H-i-s",$row['confirm_time']); ?></td>
@@ -62,6 +64,25 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<script>
+    $(function(){
+        $('.show_phone').mouseover(function(){
+            $.ajax({
+                type:"post",
+                url:"/order/show_phone",
+                data:"uid="+$(".uid").val(),
+                success:function(msg){
+                $(".show_phone").html(msg);
+                }
+            })
+        })
+
+        $('.show_phone').mouseout(function(){
+            var p=$(".p_mask").val();
+            $(".show_phone").html(p);
+        })
+    })
+</script>
 <?php echo $page; ?>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

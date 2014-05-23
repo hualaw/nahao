@@ -95,9 +95,11 @@ $config["order_status"][7] = "已退款";
 /*
 *@author shangshikai@nahao.com
 */
+$config["order_type"][0] = "线上";
 $config["order_type"][1] = "网银";
 $config["order_type"][2] = "信用卡";
 $config["order_type"][3] = "支付宝";
+$config["order_type"][4] = "线下";
 
 //用户来源
 /*

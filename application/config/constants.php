@@ -105,7 +105,10 @@ define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
 define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
 
 
-
+//phone_server连接
+define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
+define('PHONE_SERVER_PORT', 1899);
+define('PHONE_SERVER_APPNAME', 'nahao');
 
 
 

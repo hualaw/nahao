@@ -3,7 +3,7 @@
 订单号:<?php echo $details['id']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单状态:<?php echo $config_status[$details['status']]; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间:<?php echo date("Y-m-d H:i:s",$details['create_time']); ?><br />
 <h4>收货人信息</h4>
 姓名:<?php echo $details['nickname']; ?><br />
-手机:<?php echo $details['phone_mask']; ?><br />
+手机:<input type="text" value="<?php echo $details['phone_mask']; ?>" id="show" readonly /> <br />
 邮箱:<?php echo $details['email']; ?><br />
 <hr>
 <h5>付款方式:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $config_pay[$details['pay_type']]; ?></h5><br />
@@ -37,6 +37,7 @@
 </table>
 <input type="hidden" value="<?php echo $details['student_id']; ?>" id="student_id" />
 <input type="hidden" value="<?php echo $details['id']; ?>" id="order_id" />
+<input type="hidden" value="<?php echo $details['phone_mask']; ?>" id="mask" />
 <hr>
 <h4>备注信息</h4>
 <?php foreach($note as $row)
@@ -51,3 +52,22 @@
     }
 ?>
 <button type="button" class="btn btn-info" id="memory">保存</button>
+<script>
+    $(function(){
+        $('#show').focus(function(){
+            $.ajax({
+                type:"post",
+                url:"/order/show_phone",
+                data:"uid="+$("#student_id").val(),
+                success:function(msg){
+                    $("#show").val(msg);
+                }
+            })
+        })
+
+        $('#show').blur(function(){
+           var p=$("#mask").val();
+           $("#show").val(p);
+        })
+    })
+</script>
