@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/5/21 17:26:25                           */
+/* Created on:     2014/5/23 18:42:03                           */
 /*==============================================================*/
 
 
@@ -42,9 +42,17 @@ drop index idx_course_id on lesson;
 
 drop table if exists lesson;
 
+drop table if exists nahao_areas;
+
+drop table if exists nahao_schools;
+
 drop index idx_order_id on order_action_log;
 
 drop table if exists order_action_log;
+
+drop index idx_order_id on order_note;
+
+drop table if exists order_note;
 
 drop index idx_order_id on order_round_relation;
 
@@ -73,6 +81,8 @@ drop table if exists round_note;
 drop index idx_round_id on round_teacher_relation;
 
 drop table if exists round_teacher_relation;
+
+drop table if exists session_log;
 
 drop index idx_student on shopping_cart;
 
@@ -108,7 +118,7 @@ drop index idx_teacher_id on teacher_checkout_log;
 
 drop table if exists teacher_checkout_log;
 
-drop table if exists teacher_lectrue;
+drop table if exists teacher_lecture;
 
 drop table if exists teacher_subject;
 
@@ -125,16 +135,16 @@ drop table if exists user_info;
 /*==============================================================*/
 create table admin
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    username             varchar(20),
    phone                char(11),
    email                varchar(90),
    salt                 char(6),
    password             char(40),
    realname             varchar(90),
-   register_time        int(10),
-   register_ip          int(10),
-   status               tinyint(3) comment '0,1',
+   register_time        int(10) unsigned,
+   register_ip          int(10) unsigned,
+   status               tinyint(3) comment '0禁用1启用',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -146,7 +156,7 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table admin_group
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    name                 varchar(90),
    status               tinyint(3),
    primary key (id)
@@ -160,9 +170,9 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table admin_permission_relation
 (
-   admin_id             int(10),
-   group_id             int(10),
-   permission_id        int(10)
+   admin_id             int(10) unsigned,
+   group_id             int(10) unsigned,
+   permission_id        int(10) unsigned
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -173,14 +183,14 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table class
 (
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
-   round_id             int(10),
-   lesson_id            int(10),
+   id                   int(10) unsigned not null auto_increment,
+   course_id            int(10) unsigned,
+   round_id             int(10) unsigned,
+   lesson_id            int(10) unsigned,
    title                varchar(90),
-   begin_time           int(10),
-   end_time             int(10),
-   courseware_id        int(10),
+   begin_time           int(10) unsigned,
+   end_time             int(10) unsigned,
+   courseware_id        int(10) unsigned,
    sequence             int(10),
    status               tinyint(3) comment '0 初始化
             1 即将上课
@@ -188,8 +198,8 @@ create table class
             3 上完课
             4 缺课
             5 禁用 （不能恢复）',
-   parent_id            int(10),
-   meeting_id           int(10),
+   parent_id            int(10) unsigned,
+   classroom_id         int(10) unsigned,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -211,13 +221,13 @@ create index idx_round_id on class
 /*==============================================================*/
 create table class_discuss_log
 (
-   id                   int(10) not null auto_increment,
-   uid                  int(10) not null default 0,
+   id                   int(10) unsigned not null auto_increment,
+   uid                  int(10) unsigned not null default 0,
    role                 tinyint(3) not null default 0 comment '1,学生；2，老师；3，管理员',
    nickname             varchar(30) not null default '0' comment '用户头像',
    message              varchar(210) comment '用户说的话',
-   msg_create_time      int(10) not null default 0 comment '消息创建时间',
-   create_time          int(10) comment '入库时间',
+   msg_create_time      int(10) unsigned not null default 0 comment '消息创建时间',
+   create_time          int(10) unsigned comment '入库时间',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -237,14 +247,14 @@ create index idx_teacher_id on class_discuss_log
 /*==============================================================*/
 create table class_feedback
 (
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
-   round_id             int(10),
-   class_id             int(10),
-   student_id           int(10),
+   id                   int(10) unsigned not null auto_increment,
+   course_id            int(10) unsigned,
+   round_id             int(10) unsigned,
+   class_id             int(10) unsigned,
+   student_id           int(10) unsigned,
    nickname             varchar(90),
    content              text,
-   create_time          int(10),
+   create_time          int(10) unsigned,
    score                decimal(10,2),
    is_show              tinyint(1),
    primary key (id)
@@ -266,7 +276,7 @@ create index idx_class_id on class_feedback
 /*==============================================================*/
 create table course
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    title                varchar(90),
    subtitle             varchar(150),
    intro                varchar(900),
@@ -277,7 +287,7 @@ create table course
    reward               decimal(10,2) comment '本课程每课时（45分钟，计算时乘2）给老师团队的报酬',
    price                decimal(10,2) comment '价格',
    status               tinyint(3) not null default 0 comment '0初始化;5审核中;10运营中;15暂停;20关闭;25',
-   create_time          int(10) not null default 0,
+   create_time          int(10) unsigned not null default 0,
    role                 int(10),
    user_id              int(10) not null default 0 comment '创建人',
    score                decimal(10,2) not null default 0 comment '由每个课时的评分取平均数',
@@ -296,8 +306,8 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table course_grade_relation
 (
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
+   id                   int(10) unsigned not null auto_increment,
+   course_id            int(10) unsigned,
    grade                tinyint(3),
    primary key (id)
 )
@@ -312,9 +322,9 @@ alter table course_grade_relation comment '课程与年级关系（多对多互�
 /*==============================================================*/
 create table course_teacher_relation
 (
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
-   teacher_id           int(10),
+   id                   int(10) unsigned not null auto_increment,
+   course_id            int(10) unsigned,
+   teacher_id           int(10) unsigned,
    role                 int(10),
    sequence             tinyint(3),
    primary key (id)
@@ -336,9 +346,9 @@ create index idx_course_id on course_teacher_relation
 /*==============================================================*/
 create table courseware
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    name                 varchar(90),
-   create_time          varchar(10),
+   create_time          int(10) unsigned,
    status               tinyint(3) comment '0启用;5禁用',
    primary key (id)
 )
@@ -351,12 +361,12 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table entering_classroom
 (
-   id                   int(10) not null auto_increment,
-   user_id              int(10),
-   create_time          int(10) comment '选择题答案，可能一项 多项用逗号分割',
+   id                   int(10) unsigned not null auto_increment,
+   user_id              int(10) unsigned,
+   create_time          int(10) unsigned comment '选择题答案，可能一项 多项用逗号分割',
    action               tinyint(3) comment '1, 进入；2，退出',
-   ip                   bigint(10),
-   class_id             int(10),
+   ip                   bigint(10) unsigned,
+   class_id             int(10) unsigned,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -368,8 +378,8 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table group_permission_relation
 (
-   group_id             int(10),
-   permission_id        int(10)
+   group_id             int(10) unsigned,
+   permission_id        int(10) unsigned
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -388,12 +398,12 @@ create index idx_group_id on group_permission_relation
 /*==============================================================*/
 create table lesson
 (
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
+   id                   int(10) unsigned not null auto_increment,
+   course_id            int(10) unsigned,
    title                varchar(90),
-   courseware_id        int(10),
+   courseware_id        int(10) unsigned,
    status               tinyint(3) comment '0禁用;1启用',
-   parent_id            int(10),
+   parent_id            int(10) unsigned,
    sequence             tinyint(3),
    primary key (id)
 )
@@ -410,24 +420,46 @@ create index idx_course_id on lesson
 );
 
 /*==============================================================*/
+/* Table: nahao_areas                                           */
+/*==============================================================*/
+create table nahao_areas
+(
+   打开看注释                char(10)
+);
+
+alter table nahao_areas comment 'CREATE TABLE `nahao_areas` (
+  `id` smallint(10) unsig';
+
+/*==============================================================*/
+/* Table: nahao_schools                                         */
+/*==============================================================*/
+create table nahao_schools
+(
+   打开看注释                char(10)
+);
+
+alter table nahao_schools comment 'CREATE TABLE `nahao_schools` (
+  `id` int(10) unsigned';
+
+/*==============================================================*/
 /* Table: order_action_log                                      */
 /*==============================================================*/
 create table order_action_log
 (
-   id                   int(10) not null auto_increment,
-   order_id             int(10),
+   id                   int(10) unsigned not null auto_increment,
+   order_id             int(10) unsigned,
    user_type            tinyint(3) comment '0 系统
             1 管理员
             2 学生
             3 老师',
-   user_id              int(10) comment '操作者id',
+   user_id              int(10) unsigned comment '操作者id',
    action               tinyint(3) comment '1，创建订单；
             2，完成付款；
             3，订单完成（付款完成后7天自动变成这个状态，暂时用不上）；
             4，取消订单（用户主动取消）
             5，关闭订单（订单超时，系统自动关闭）
             6，备注',
-   create_time          int(10),
+   create_time          int(10) unsigned,
    note                 varchar(300) comment '备注',
    primary key (id)
 )
@@ -446,13 +478,37 @@ create index idx_order_id on order_action_log
 );
 
 /*==============================================================*/
+/* Table: order_note                                            */
+/*==============================================================*/
+create table order_note
+(
+   id                   int(10) unsigned not null auto_increment,
+   order_id             int(10) unsigned,
+   admin_id             int(10) unsigned,
+   note                 varchar(600),
+   create_time          int(10) unsigned,
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
+/* Index: idx_order_id                                          */
+/*==============================================================*/
+create index idx_order_id on order_note
+(
+   order_id
+);
+
+/*==============================================================*/
 /* Table: order_round_relation                                  */
 /*==============================================================*/
 create table order_round_relation
 (
-   id                   int(10) not null auto_increment,
-   order_id             int(10) not null,
-   round_id             int(10) not null,
+   id                   int(10) unsigned not null auto_increment,
+   order_id             int(10) unsigned not null,
+   round_id             int(10) unsigned not null,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -472,7 +528,7 @@ create index idx_order_id on order_round_relation
 /*==============================================================*/
 create table permission
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    name                 varchar(30),
    controller           varchar(10),
    action               varchar(10),
@@ -488,7 +544,7 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table question
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    question             text,
    answer               varchar(10) comment '选择题答案，可能一项 多项用逗号分割',
    options              varchar(1000) comment '选项json',
@@ -504,9 +560,9 @@ COLLATE = utf8_general_ci;
 /*==============================================================*/
 create table question_class_relation
 (
-   id                   int(10) not null auto_increment,
-   class_id             int(10),
-   question_id          int(10),
+   id                   int(10) unsigned not null auto_increment,
+   class_id             int(10) unsigned,
+   question_id          int(10) unsigned,
    status               tinyint(3) comment '0没出过；1出过',
    primary key (id)
 )
@@ -527,9 +583,9 @@ create index idx_class_id on question_class_relation
 /*==============================================================*/
 create table question_lesson_relation
 (
-   id                   int(10) not null auto_increment,
-   lesson_id            int(10),
-   question_id          int(10),
+   id                   int(10) unsigned not null auto_increment,
+   lesson_id            int(10) unsigned,
+   question_id          int(10) unsigned,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -549,8 +605,8 @@ create index idx_lesson_id on question_lesson_relation
 /*==============================================================*/
 create table round
 (
-   id                   int(10) not null auto_increment,
-   course_id            int(10),
+   id                   int(10) unsigned not null auto_increment,
+   course_id            int(10) unsigned,
    title                varchar(90),
    subtitle             varchar(150) comment '一句话简介',
    intro                varchar(900),
@@ -568,18 +624,17 @@ create table round
             4 已售罄、
             5 已停售（时间到了还没售罄）、
             6 已下架（手动下架）',
-   create_time          int(10) not null default 0,
+   create_time          int(10) unsigned not null default 0,
    role                 int(10),
    user_id              int(10) not null default 0 comment '创建人',
    score                decimal(10,2) not null default 0,
    bought_count         int(10) not null default 0 comment '已购买人数',
    caps                 int(10) comment '上限人数 默认100',
-   remaining_count      int(10) comment '剩余名额',
    sale_price           decimal(10,2) not null default 0,
-   sell_begin_time      int(10),
-   sell_end_time        int(10),
-   start_time           int(10) comment '前台显示2014-5-16格式',
-   end_time             int(10) comment '前台显示2014-5-16格式',
+   sell_begin_time      int(10) unsigned,
+   sell_end_time        int(10) unsigned,
+   start_time           int(10) unsigned comment '前台显示2014-5-16格式',
+   end_time             int(10) unsigned comment '前台显示2014-5-16格式',
    video                varchar(255) comment '视频地址',
    img                  varchar(255) comment '封面原图地址',
    teach_status         tinyint(3) comment '授课状态(等待开课、授课中、停课（手动操作）、结课)',
@@ -604,12 +659,12 @@ create index idx_course_id on round
 /*==============================================================*/
 create table round_note
 (
-   id                   int(10) not null auto_increment,
-   round_id             int(10) not null default 0,
-   author               int(10) not null default 0,
+   id                   int(10) unsigned not null auto_increment,
+   round_id             int(10) unsigned not null default 0,
+   author               int(10) unsigned not null default 0,
    author_role          tinyint(3) comment '-1，管理员；1,主讲；2，助教，',
    content              varchar(600),
-   create_time          int(10) not null default 0,
+   create_time          int(10) unsigned not null default 0,
    status               tinyint(3) not null default 0 comment '1，未审核；2，审核不通过；3，审核通过',
    primary key (id)
 )
@@ -630,9 +685,9 @@ create index idx_round_id on round_note
 /*==============================================================*/
 create table round_teacher_relation
 (
-   id                   int(10) not null auto_increment,
-   round_id             int(10),
-   teacher_id           int(10),
+   id                   int(10) unsigned not null auto_increment,
+   round_id             int(10) unsigned,
+   teacher_id           int(10) unsigned,
    role                 int(10),
    sequence             tinyint(3),
    primary key (id)
@@ -650,15 +705,35 @@ create index idx_round_id on round_teacher_relation
 );
 
 /*==============================================================*/
+/* Table: session_log                                           */
+/*==============================================================*/
+create table session_log
+(
+   session_id           varchar(40) not null,
+   user_id              int(10) unsigned,
+   nickname             varchar(30) comment '管理员时候存的就是username',
+   ip                   bigint(20),
+   generate_time        int(10 ) unsigned comment '产生时间',
+   expire_time          int(10 ) unsigned comment '过期时间',
+   user_type            tinyint(3) comment '0管理员 1用户',
+   user_data            text comment 'user的数据json格式',
+   exit_time            int(10) unsigned comment '用户退出时间',
+   primary key (session_id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+/*==============================================================*/
 /* Table: shopping_cart                                         */
 /*==============================================================*/
 create table shopping_cart
 (
-   id                   int(10) not null auto_increment,
-   student_id           int(10),
+   id                   int(10) unsigned not null auto_increment,
+   student_id           int(10) unsigned,
    round_id             int(10),
    round_title          varchar(90),
-   create_time          int(10),
+   create_time          int(10) unsigned,
    status               tinyint(1) comment '0，未删除；1，已删除',
    teach_period         varchar(80) comment '上课时间区间',
    primary key (id)
@@ -680,11 +755,11 @@ create index idx_student on shopping_cart
 /*==============================================================*/
 create table sms_log
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    phone                char(11),
    content              varchar(210),
-   create_time          int(10),
-   status               tinyint(1) comment '0,1',
+   create_time          int(10) unsigned,
+   status               tinyint(1) comment '0失败,1成功',
    user_id              int(10),
    type                 tinyint(3),
    primary key (id)
@@ -706,12 +781,12 @@ create index idx_phone on sms_log
 /*==============================================================*/
 create table sms_verify_code
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    phone                char(11),
-   verify_code          int(6),
-   create_time          int(10),
-   deadline             int(10),
-   ip                   bigint(10),
+   verify_code          int(6) unsigned,
+   create_time          int(10) unsigned,
+   deadline             int(10) unsigned,
+   ip                   bigint(10) unsigned,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -731,11 +806,11 @@ create index idx_phone on sms_verify_code
 /*==============================================================*/
 create table student_class
 (
-   id                   int(10) not null auto_increment,
-   student_id           int(10) not null default 0,
-   course_id            int(10) not null default 0,
-   round_id             int(10) not null default 0,
-   class_id             int(10) not null default 0,
+   id                   int(10) unsigned not null auto_increment,
+   student_id           int(10) unsigned not null default 0,
+   course_id            int(10) unsigned not null default 0,
+   round_id             int(10) unsigned not null default 0,
+   class_id             int(10) unsigned not null default 0,
    status               tinyint(3) not null default 0 comment '0，初始化（未到上课时间）1，缺席（进入教师按钮可用时间段内，学生没点过此按钮算缺席）；2，进过教师；3，申请退款；4，退款不通过；5，退款通过；6，退款已完成',
    primary key (id)
 )
@@ -758,11 +833,11 @@ create index idx_student_id on student_class
 /*==============================================================*/
 create table student_class_log
 (
-   id                   int(10) not null auto_increment,
-   student_id           int(10) not null default 0,
-   class_id             int(10) not null default 0,
+   id                   int(10) unsigned not null auto_increment,
+   student_id           int(10) unsigned not null default 0,
+   class_id             int(10) unsigned not null default 0,
    action               tinyint(3) not null default 0 comment '举手献花等动作 待定',
-   create_time          int(10) not null,
+   create_time          int(10) unsigned not null,
    primary key (id)
 )
 ENGINE = InnoDB
@@ -776,11 +851,11 @@ alter table student_class_log comment '记录学生在课堂上所有动作';
 /*==============================================================*/
 create table student_order
 (
-   id                   int(10) not null auto_increment,
-   student_id           int(10) not null default 0,
-   create_time          int(10) not null default 0,
-   confirm_time         int(10),
-   pay_type             tinyint(3) comment '1，网银；2，信用卡；3，支付宝',
+   id                   int(10) unsigned not null auto_increment,
+   student_id           int(10) unsigned not null default 0,
+   create_time          int(10) unsigned not null default 0,
+   confirm_time         int(10) unsigned,
+   pay_type             tinyint(3) unsigned default 0 comment '0,默认线上 ；1，网银；2，信用卡；3，支付宝； 4，线下',
    price                decimal(10,2) comment '原价',
    spend                decimal(10,2) comment '实际支付价格',
    status               tinyint(3) not null default 0 comment '1，未付款；
@@ -807,16 +882,16 @@ create index idx_student_id on student_order
 /*==============================================================*/
 create table student_refund
 (
-   id                   int(10) not null auto_increment,
-   round_id             int(10) not null default 0,
-   student_id           int(10) not null default 0,
+   id                   int(10) unsigned not null auto_increment,
+   round_id             int(10) unsigned not null default 0,
+   student_id           int(10) unsigned not null default 0,
    times                tinyint(3) not null default 0 comment '可退课数',
    amount               decimal(10,2) not null default 0 comment '退款总金额',
-   admin_id             int(10) default 0 comment '审核人ID',
+   admin_id             int(10) unsigned default 0 comment '审核人ID',
    status               tinyint(3) not null default 0 comment '1, 处理中；2，退款成功；3，退款失败',
-   create_time          int(10) not null default 0,
-   confirm_time         int(10),
-   order_id             int(10),
+   create_time          int(10) unsigned not null default 0,
+   confirm_time         int(10) unsigned,
+   order_id             int(10) unsigned,
    reason               varchar(150),
    comment              varchar(150) comment '1，退款成功；2，退款失败理由',
    primary key (id)
@@ -832,8 +907,8 @@ alter table student_refund comment '学生的退款记录';
 /*==============================================================*/
 create table student_subject
 (
-   student_id           int(10),
-   subject_id           int(10)
+   student_id           int(10) unsigned,
+   subject_id           int(10) unsigned
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -846,10 +921,10 @@ alter table student_subject comment '学生感兴趣的科目表';
 /*==============================================================*/
 create table sutdent_question
 (
-   id                   int(10) not null auto_increment,
-   class_id             int(10),
-   student_id           int(10),
-   question_id          int(10),
+   id                   int(10) unsigned not null auto_increment,
+   class_id             int(10) unsigned,
+   student_id           int(10) unsigned,
+   question_id          int(10) unsigned,
    answer               varchar(90),
    is_correct           tinyint(1),
    sequence             tinyint(3) comment '第几次答题',
@@ -872,17 +947,17 @@ create index idx_class_id on sutdent_question
 /*==============================================================*/
 create table teacher_checkout_log
 (
-   id                   int(10) not null auto_increment,
-   teacher_id           int(10) not null default 0,
+   id                   int(10) unsigned not null auto_increment,
+   teacher_id           int(10) unsigned not null default 0,
    status               tinyint(3) not null default 0 comment '0结算完成;5老师确认;10取消;15',
-   teach_times          int(10),
-   class_times          int(10),
-   gross_income         int(10) not null default 0 comment '总课时费',
-   net_income           int(10) comment '税后收入=（总课时费 - 额外扣除 - 税费）',
-   deduct               int(10),
-   tax                  int(10),
-   create_time          int(10) comment '记录产生时间',
-   pay_time             int(10) not null default 0 comment '付款时间',
+   teach_times          int(10) unsigned,
+   class_times          int(10) unsigned,
+   gross_income         decimal(10,2) not null default 0 comment '总课时费',
+   net_income           decimal(10,2) comment '税后收入=（总课时费 - 额外扣除 - 税费）',
+   deduct               decimal(10,2),
+   tax                  decimal(10,2),
+   create_time          int(10) unsigned comment '记录产生时间',
+   pay_time             int(10) unsigned default 0 comment '付款时间',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -900,11 +975,11 @@ create index idx_teacher_id on teacher_checkout_log
 );
 
 /*==============================================================*/
-/* Table: teacher_lectrue                                       */
+/* Table: teacher_lecture                                       */
 /*==============================================================*/
-create table teacher_lectrue
+create table teacher_lecture
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    course               varchar(90) not null comment '名称',
    resume               text comment '介绍',
    subject              varchar(90) comment '试讲科目',
@@ -933,15 +1008,15 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
-alter table teacher_lectrue comment '老师的试讲信息表';
+alter table teacher_lecture comment '老师的试讲信息表';
 
 /*==============================================================*/
 /* Table: teacher_subject                                       */
 /*==============================================================*/
 create table teacher_subject
 (
-   teacher_id           int(10),
-   subject_id           int(10)
+   teacher_id           int(10) unsigned,
+   subject_id           int(10) unsigned
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -954,17 +1029,17 @@ alter table teacher_subject comment '老师能教的科目表';
 /*==============================================================*/
 create table user
 (
-   id                   int(10) not null auto_increment,
+   id                   int(10) unsigned not null auto_increment,
    nickname             varchar(30),
    phone_mask           char(11),
    email                varchar(90),
    salt                 char(6),
    password             char(40),
-   status               tinyint(3) comment '0,1',
-   role                 tinyint(3),
-   register_time        int(10),
-   register_ip          bigint(10),
-   source               tinyint(3),
+   status               tinyint(3) comment '0禁用,1启用',
+   register_time        int(10) unsigned,
+   register_ip          bigint(10) unsigned,
+   source               tinyint(3) comment '1主站',
+   avater               varchar(255) comment '头像URI',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -992,21 +1067,21 @@ create unique index idx_nickname on user
 /*==============================================================*/
 create table user_info
 (
-   user_id              int(10) not null comment '用户id',
+   user_id              int(10) unsigned not null comment '用户id',
    realname             varchar(30),
    age                  tinyint(3),
    gender               tinyint(1),
    hide_realname        tinyint(1),
    hide_school          tinyint(1),
    hide_area            tinyint(1),
-   bankname             varchar(90),
-   bankbench            varchar(150),
+   bankname             varchar(90) comment '银行',
+   bankbench            varchar(150) comment '开户行',
    bankcard             varchar(20),
-   id_code              char(18),
-   title                tinyint(3),
-   work_auth            tinyint(1),
-   teacher_auth         tinyint(1),
-   titile_auth          tinyint(1),
+   id_code              char(18) comment '身份证号',
+   title                tinyint(3) comment '职称',
+   work_auth            tinyint(1) comment '学校工作证认证',
+   teacher_auth         tinyint(1) comment '教师资格认证',
+   titile_auth          tinyint(1) comment '职称认证',
    province             tinyint(1),
    city                 tinyint(1),
    area                 tinyint(1),
@@ -1014,6 +1089,11 @@ create table user_info
    remuneration         decimal(10,2) comment '已经领过的总课酬',
    teacher_age          tinyint(3),
    stage                tinyint(3),
+   teacher_intro        varchar(900) comment '如果是教师，有自我介绍',
+   teacher_signature    varchar(90) comment '如果是教师，有教师签名',
+   has_bought           tinyint(3) not null default 0 comment '是否付过费0否1是',
+   teach_priv           tinyint(3) not null default 0 comment '默认0不能授课 1可授课，用来标识老师身份',
+   grade                tinyint(3) unsigned comment '年级,主要学生用，选填',
    primary key (user_id)
 )
 ENGINE = InnoDB

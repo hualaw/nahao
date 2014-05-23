@@ -55,8 +55,9 @@ class Business_Group extends NH_Model
             $str_table_range = 'group';
             $str_result_type = 'count';
             $str_fields = 'count(1) as count';
-            if(array_key_exists('group_name',$arr_where)){
-                $arr_where['name'] = $arr_where['name'];
+            if(array_key_exists('name',$arr_where)){
+                $arr_where['like']['name'] = $arr_where['name'];
+                unset($arr_where['name']);
             }
             $int_return = $this->model_group->get_group_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
@@ -78,7 +79,8 @@ class Business_Group extends NH_Model
             $str_result_type = 'list';
             $str_fields = 'id,name,status';
             if(array_key_exists('name',$arr_where)){
-                $arr_where['name'] = $arr_where['name'];
+                $arr_where['like']['name'] = $arr_where['name'];
+                unset($arr_where['name']);
             }
             $arr_limit = array(
                 'start'=>$int_start,

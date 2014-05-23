@@ -67,7 +67,8 @@ class Business_Admin extends NH_Model
                 $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.admin_id'] = $arr_where['admin_id'];
             }
             if(array_key_exists('username',$arr_where)){
-                $arr_where[TABLE_ADMIN.'.username'] = $arr_where['username'];
+                $arr_where['like'][TABLE_ADMIN.'.username'] = $arr_where['username'];
+                unset($arr_where['username']);
             }
             $int_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
@@ -95,7 +96,8 @@ class Business_Admin extends NH_Model
                 $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.admin_id'] = $arr_where['admin_id'];
             }
             if(array_key_exists('username',$arr_where)){
-                $arr_where[TABLE_ADMIN.'.username'] = $arr_where['username'];
+                $arr_where['like'][TABLE_ADMIN.'.username'] = $arr_where['username'];
+                unset($arr_where['username']);
             }
             $arr_limit = array(
                 'start'=>$int_start,
@@ -116,11 +118,13 @@ class Business_Admin extends NH_Model
     {
         $arr_return = array();
         if($int_admin_id){
+            $str_table_range = 'admin';
+            $str_result_type = 'one';
             $str_fields = '*';
             $arr_where = array(
                 'id' => $int_admin_id
             );
-            $arr_return = $this->model_admin->get_admin_by_param($str_fields, $arr_where);
+            $arr_return = $this->model_admin->get_admin_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
         return $arr_return;
     }

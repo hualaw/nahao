@@ -11,5 +11,4 @@ $config['static_admin']['js']['group'] = array(
     STATIC_ADMIN_JS_GROUP
 );
 
-
 //$config['static_admin']['css']['passport'] = array();

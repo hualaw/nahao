@@ -1,21 +1,35 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends NH_Student_Controller {
+/**
+ * Class Welcome
+ * @author yanrui@tizi.com
+ */
+class Welcome extends NH_Admin_Controller
+{
+
+    function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
-     * @author yanrui@91waijiao.com
+     * 去判断登录状态
+     * @author yanrui@tizi.com
      */
-
     public function index()
     {
-//        var_dump($_SERVER);exit;
         redirect('/passport');
     }
 
-    public function main(){
+    /**
+     * admin首页
+     * @author yanrui@tizi.com
+     */
+    public function main()
+    {
         $data['str'] = 'welcome! layout!';
         $this->layout->set_layout('admin/layout');
-        $this->layout->view('admin/main',$data);
+        $this->layout->view('admin/welcome_main', $data);
     }
 
 }
