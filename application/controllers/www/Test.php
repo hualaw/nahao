@@ -5,6 +5,7 @@ class Test extends CI_Controller {
 
 	public function ss_test()
 	{
+		var_dump($this->session);
 		$session_id = $this->session->userdata('session_id');
 		echo "session_id is: ".$session_id."<br>";
 	}
@@ -31,6 +32,22 @@ class Test extends CI_Controller {
 		log_message('error_nahao', 'error_nahao_message');
 		log_message('info_nahao', 'info_nahao_message');
 		log_message('debug_nahao', 'debug_nahao_message');
+	}
+
+	public function config_test()
+	{
+		//$this->CI->config('config');
+		//$this->CI->config('config');
+		var_dump(config_item('sess_expiration'));
+	}
+
+	public function smarty_test()
+	{
+		$username = 'erichuahua';	
+		$password = '123456';
+		$this->smarty->assign('username', $username);
+		$this->smarty->assign('password', $password);
+		$this->smarty->display('www/test.html');
 	}
 }
 
