@@ -12,10 +12,11 @@ class Index extends NH_Student_Controller {
      */
 	public function index()
 	{
-	    //header('content-type: text/html; charset=utf-8');
-        $data = $this->student_index->get_round_list();
-        var_dump($data);die;
-        //$this->load->view('www/signin');
+	    header('content-type: text/html; charset=utf-8');
+        $array_data = $this->student_index->get_round_list();
+        
+        $this->smarty->assign('array_data', $array_data);
+        $this->smarty->display('student/index');
 	}
 }
 
