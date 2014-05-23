@@ -1,28 +1,51 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Passport extends NH_Admin_Controller {
+/**
+ * Class Passport
+ * @author yanrui@tizi.com
+ */
+class Passport extends NH_Admin_Controller
+{
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('business/admin/business_passport', 'passport');
+    }
 
     /**
-     * @author yanrui@91waijiao.com
+     * signin
+     * @author yanrui@tizi.com
      */
-
     public function index()
     {
-
         $this->load->view('admin/signin');
     }
 
-    public function test(){
-        $data['str'] = 'welcome! layout!';
-        $this->load->library('layout');
-        $this->layout->set_layout('www/layout');
-        $this->layout->view('admin/main',$data);
+    /**
+     * login
+     * @author yanrui@tizi.com
+     */
+    public function login()
+    {
+        $str_username = $this->input->post('username') ? trim($this->input->post('username')) : '';
+        $str_password = $this->input->post('password') ? trim($this->input->post('password')) : '';
+        $str_redirect = '/';
+        $bool_return = $this->passport->login($str_username, $str_password);
+        if ($bool_return === true) {
+            $str_redirect = '/welcome/main';
+        }
+        redirect($str_redirect);
     }
 
-    public function login(){
-        $arr_post = $this->input->post();
-        var_dump($arr_post);
-        redirect('/welcome/main');
+    /**
+     * logout
+     * @author yanrui@tizi.com
+     */
+    public function logout()
+    {
+        $this->passport->logout();
+        redirect('/');
     }
 
 }

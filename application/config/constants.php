@@ -85,23 +85,30 @@ define('TABLE_SMS_LOG','sms_log');
 define('TABLE_SMS_VERIFY_CODE','sms_verify_code');
 define('TABLE_STUDENT_CLASS','student_class');
 define('TABLE_STUDENT_CLASS_LOG','student_class_log');
-define('TABLE_STUDENT_INFO','student_info');
 define('TABLE_STUDENT_ORDER','student_order');
 define('TABLE_STUDENT_REFUND','student_refund');
 define('TABLE_STUDENT_SUBJECT','student_subject');
 define('TABLE_STUDENT_QUESTION','student_question');
 define('TABLE_TEACHER_CHECKOUT_LOG','teacher_checkout_log');
-define('TABLE_TEACHER_INFO','teacher_info');
 define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
-define('SESSION_LOG', 'session_log');
+define('TABLE_USER_INFO','user_info');
+define('TABLE_USER_INFO', 'session_log');
 
-//static
-define('STATIC_ADMIN_JS_JQUERY_MIN','http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js');
+//static js
+define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
 define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
+define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
+
+
+//static css
+define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
+define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
+define('STATIC_ADMIN_CSS_NAV','/admin/css/nav.css');
+define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
 
 
