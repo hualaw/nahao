@@ -126,6 +126,16 @@
             return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,order_round_relation.round_id,round.title,round.start_time,round.end_time,round.price,round.sale_price,student_class.status as refund_status')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('order_round_relation','order_round_relation.order_id=student_order.id','left')->join('round','round.id=order_round_relation.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get();
         }
         /**
+         * 订单备注
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function note_order($int_order_id)
+        {
+            return $this->db->select('order_note.note,order_note.create_time')->from('order_note')->where("order_note.order_id=$int_order_id")->get();
+        }
+        /**
          * 管理员退款操作
          * @param
          * @return boolean TRUE or FALSE
@@ -142,5 +152,21 @@
                 return FALSE;
             }
 
+        }
+        /**
+         *添加订单备注
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function insert_order_note($note,$order_id)
+        {
+            $admin_id=1;
+            $data=array("note"=>$note,
+                "order_id"=>$order_id,
+                "admin_id"=>$admin_id,
+                "create_time"=>time()
+            );
+           return $this->db->insert('order_note',$data);
         }
     }
