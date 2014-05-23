@@ -26,13 +26,15 @@ class Model_Teacher extends NH_Model{
 	 */
     public function teacher_today_round($param){
         $arr_result = array();
-        $param['userId'] = $param['userId'] ? $param['userId'] : 0;
-        if(!$param['userId']){
+        $param['user_id'] = $param['user_id'] ? $param['user_id'] : 0;
+        if(!$param['user_id']){
         	exit('老师id为空，请确认登陆状态是否过期');
         }
-        $sql = 'select rtr.*,r.title from round_teacher_relation rtr
- 				left join nahao.round r on rtr.round_id=r.id 
- 				where rtr.teacher_id='.$param['userId'];
+        $this->db->query("set names utf8");
+        $sql = 'SELECT rtr.*,r.title,r.course_type,r.teach_status FROM round_teacher_relation rtr
+ 				LEFT JOIN nahao.round r ON rtr.round_id=r.id 
+ 				WHERE rtr.teacher_id='.$param['user_id'];
+        
         $arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
     }
@@ -48,7 +50,11 @@ class Model_Teacher extends NH_Model{
     	if(!$param['round_id']){
         	exit('轮id为空，请检查数据是否正确');
         }
-    	$sql = 'select * from class where round_id='.$param['round_id'].' order by parent_id';
+        $this->db->query("set names utf8");
+    	$sql = 'SELECT c.*,cw.name coursewareName FROM class c
+			LEFT JOIN courseware cw on c.courseware_id=cw.id 
+			WHERE c.round_id='.$param['round_id'].' and c.status in(1,2,3) ORDER BY c.parent_id';
+    	
         $arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
     }
@@ -57,9 +63,10 @@ class Model_Teacher extends NH_Model{
      * 开课申请，教师扩展表
      */
     public function apply_teach($param){
-    	$sql = 'insert into teacher_info(user_id,realname,age,gender,hide_realname,hide_school,hide_area,
+    	$this->db->query("set names utf8");
+    	$sql = 'INSERT INTO teacher_info(user_id,realname,age,gender,hide_realname,hide_school,hide_area,
 id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,remuneration,teacher_age,stage)
-values('.$param['user_id'].','.$param['realname'].','.$param['age'].','.$param['gender'].','.$param['hide_realname'].'
+VALUES('.$param['user_id'].','.$param['realname'].','.$param['age'].','.$param['gender'].','.$param['hide_realname'].'
 ,'.$param['hide_school'].','.$param['hide_area'].','.$param['id_code'].','.$param['title'].','.$param['work_auth'].'
 ,'.$param['teacher_auth'].','.$param['titile_auth'].','.$param['province'].','.$param['city'].'
 ,'.$param['area'].','.$param['school'].','.$param['remuneration'].','.$param['teacher_age'].','.$param['stage'].')';
