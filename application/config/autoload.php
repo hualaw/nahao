@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session');
+$autoload['libraries'] = array('session', 'smarty');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt');
 |
 */
 
-$autoload['config'] = array('page_config','sql_config','common','static_config');
+$autoload['config'] = array('page_config','sql_config','common','static_config','pay_config');
 
 
 /*

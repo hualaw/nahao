@@ -13,11 +13,9 @@ class Course extends NH_Student_Controller {
 	public function index()
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_round_id = $this->input->get('round_id');
-	    if (empty($int_round_id))
-	    {
-	        show_error("参数错误");
-	    }
+	    $int_round_id = intval($this->input->get('round_id'));
+	    #给$int_round_id一个默认值
+	    $int_round_id = empty($int_round_id) ? 1 : $int_round_id;
 	    #检查这个$int_round_id是否有效
 	    $bool_flag = $this->student_course->check_round_id($int_round_id);
 	    if (!$bool_flag)
@@ -35,7 +33,13 @@ class Course extends NH_Student_Controller {
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         var_dump($array_data);die;
-        //$this->load->view('www/signin');
+        
+        $this->smarty->assign('array_data', $array_data);
+        $this->smarty->assign('array_outline', $array_outline);
+        $this->smarty->assign('array_evaluate', $array_evaluate);
+        $this->smarty->assign('array_team', $array_team);
+        $this->smarty->assign('array_round', $array_round);
+        $this->smarty->display('student/xx');
 	}
 }
 

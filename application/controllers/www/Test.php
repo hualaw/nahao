@@ -40,6 +40,15 @@ class Test extends CI_Controller {
 		//$this->CI->config('config');
 		var_dump(config_item('sess_expiration'));
 	}
+
+	public function smarty_test()
+	{
+		$username = 'erichuahua';	
+		$password = '123456';
+		$this->smarty->assign('username', $username);
+		$this->smarty->assign('password', $password);
+		$this->smarty->display('www/test.html');
+	}
 }
 
 /* End of file welcome.php */
