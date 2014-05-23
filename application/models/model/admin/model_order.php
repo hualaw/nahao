@@ -20,8 +20,10 @@
          */
         public function admin_order_data()
         {
-           return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc')->get();
+           $c=$this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc')->get();
            // var_dump($c->result_array());die;
+            echo $this->db->last_query();
+            return $c;
         }
 
         /**
@@ -92,8 +94,8 @@
             $this->load->model("model/admin/model_order");
             $this->model_order->sea_order($post);
             $c=$this->db->get();
-            echo $this->db->last_query();die;
-           // return $c;
+            echo $this->db->last_query();
+            return $c;
         }
         /**
          * 查询订单总信息
@@ -141,9 +143,10 @@
          * @return boolean TRUE or FALSE
          * @author shangshikai@nahao.com
          */
-        public function refund_stu($post)
+        public function refund_stu($student_id,$order_id)
         {
-            if($this->db->update('student_order',array("status"=>7), "student_id = $post") && $this->db->update('student_class',array("status"=>6), "student_id = $post") && $this->db->update('student_refund',array("status"=>2), "student_id = $post"))
+            $round_id=$this->db->select('order_round_relation.round_id')->from('order_round_relation')->where("order_round_relation.order_id=$order_id")->get()->row_array();
+            if($this->db->update('student_order',array("status"=>7), "student_id = $student_id") && $this->db->update('student_class',array("status"=>6), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>2),array('student_id' => $student_id,'round_id'=>$round_id['round_id'])))
             {
                 return TRUE;
             }
