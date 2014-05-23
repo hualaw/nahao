@@ -10,45 +10,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="<?php echo static_url("/admin/css/bootstrap.css"); ?>" rel="stylesheet">
 		<link href="<?php echo static_url("/admin/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet">
-<style>
-.navbar-brand{
-display: block;
-float: left;
-font-size: 30px;
-font-weight: 700;
-color: #333;
-text-shadow: 0 1px 0 #fff;
-transition: all .3s linear;
--webkit-transition: all .3s linear;
--moz-transition: all .3s linear;
-}
-.navbar-brand:hover{
-color: #fff;
-}
-.body{
-padding:0px 15px;
-}
-.class-notice{
-padding: 5px 0px 0px 30px;
-}
-.class-form{
-padding: 5px 0px 15px 30px;
-}
-</style>
+		<link href="<?php echo static_url("/teacher/css/index.css"); ?>" rel="stylesheet">
 	</head>
 	<body>
 	<?=$nav?>
-	<!--nav end-->
-	<!--body-->
-		
-	<!--left-nav-start-->
-	<div class="body">
-		<?=$siteBar?>
-		<?=$pos?>
-	    <?=$today_list?>
-  	</div>
-			<!--left-end-->
-			<!--right-->
+		<div class="body">
+			<?=$siteBar?>
+			<?=$pos?>
+		    <?=$today_list?>
+	  	</div>
 	</body>
 	<script type="text/javascript" src="<?php echo STATIC_ADMIN_JS_JQUERY_MIN;?>"></script>
 	<script type="text/javascript" src="<?php echo static_url(STATIC_ADMIN_JS_BOOTSTRAP_MIN); ?>"></script>

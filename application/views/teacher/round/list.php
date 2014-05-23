@@ -5,7 +5,7 @@
 	$listStr = '';
 	$class_type = config_item('course_type');#课程类型
 	$teach_status = config_item('round_teach_status');#授课状态
-	$today_total = 0;
+	$total = 0;
 	if($list) foreach ($list as $val){
 		if($val['zjArr']) foreach ($val['zjArr'] as $v){
 			if($v['son_class']) foreach ($v['son_class'] as $lesson){
@@ -22,7 +22,7 @@
 		          </tr>';
 			}
 		}
-		$today_total += ( $val['total_class'] > 0 ) ? $val['total_class'] : 0;
+		$total += ( $val['total_class'] > 0 ) ? $val['total_class'] : 0;
 	}
 ?>
 <div class="col-md-10 column">
