@@ -25,8 +25,9 @@ class Lecture extends CI_Controller {
 			'siteBar' => $siteBar,
 			'pos' => $pos,
 			'table' => $table,
+			'active' => 'lecture_index',
 		);
-		$this->load->view('teacher/lectrue.php',$data);
+		$this->load->view('teacher/lecture.php',$data);
 	}
 	
 	/**
@@ -51,6 +52,7 @@ class Lecture extends CI_Controller {
 			'siteBar' => $siteBar,
 			'pos' => $pos,
 			'success' => $success,
+			'active' => 'lecture_lecture_success',
 		);
 		$this->load->view('teacher/lecture_success.php',$data);
 	}
