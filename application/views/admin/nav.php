@@ -41,7 +41,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/admin">管理员管理</a></li>
-                    <li><a href="/admin/group">组管理</a></li>
+                    <li><a href="/group">组管理</a></li>
                     <li><a href="/admin/permission">权限管理</a></li>
                 </ul>
             </li>

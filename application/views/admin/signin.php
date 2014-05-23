@@ -7,9 +7,9 @@
         <link rel="shortcut icon" href="">
         <title>那好管理系统-登录</title>
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo static_url("/admin/css/bootstrap.css"); ?>" rel="stylesheet">
+        <link href="<?php echo static_url(STATIC_ADMIN_CSS_BOOTSTRAP); ?>" rel="stylesheet">
         <!-- Custom styles for this template -->
-        <link href="<?php echo static_url("/admin/css/signin.css"); ?>" rel="stylesheet">
+        <link href="<?php echo static_url(STATIC_ADMIN_CSS_SIGNIN); ?>" rel="stylesheet">
     </head>
 
     <body>

@@ -1,11 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * 管理员管理
- * Class Admin
- * @author yanrui@tizi.com
- */
-class Admin extends NH_Admin_Controller {
+class Group extends NH_Admin_Controller {
 
     private $arr_response = array(
         'status' => 'error',
@@ -14,43 +9,36 @@ class Admin extends NH_Admin_Controller {
 
     function __construct(){
         parent::__construct();
+        $this->load->model('business/admin/business_group','group');
     }
 
     /**
-     * admin index
+     * group index
      * @author yanrui@tizi.com
      */
     public function index(){
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_group_id = $this->input->get('group_id') ? intval($this->input->get('group')) : 0 ;
-        $int_admin_id = $this->input->get('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
-        $str_username = $this->input->get('username') ? trim($this->input->get('username')) : '' ;
+        $str_group_name = $this->input->get('group_name') ? trim($this->input->get('group_name')) : '' ;
 
         $arr_where = array();
-        if($int_group_id > 0){
-            $arr_where['group_id'] = $int_group_id;
-        }
-        if($int_admin_id > 0){
-            $arr_where['admin_id'] = $int_admin_id;
-        }
-        if($str_username){
-            $arr_where['username'] = $str_username;
+        if($str_group_name){
+            $arr_where['name'] = $str_group_name;
         }
 
-        $int_count = $this->admin->get_admin_count($arr_where);
+        $int_count = $this->group->get_group_count($arr_where);
 
         $this->load->library('pagination');
         $config = config_item('page_admin');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
         $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
         $config['total_rows'] = $int_count;
-        $config['per_page'] = 2;
+        $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
 
         $this->data['int_count'] = $int_count;
-        $this->data['arr_list'] = $this->admin->get_admin_list($arr_where, $int_start,2);
+        $this->data['arr_list'] = $this->group->get_group_list($arr_where, $int_start,PER_PAGE_NO);
 
 //        $this->load->model('admin/model_group','group');
 //        $all_group_permission = $this->group->get_all_group_permission();
@@ -66,29 +54,21 @@ class Admin extends NH_Admin_Controller {
 //        $this->data['list'] = $this->admin->get_admin($arr_condition, $start,$this->limit);
         $this->data['str_page'] = $this->pagination->create_links();
         $this->data['arr_query_param'] = $arr_query_param;
-        $this->layout->view('admin/admin_list',$this->data);
+        $this->layout->view('admin/group_list',$this->data);
     }
 
     /**
-     * create admin
+     * create group
      * @author yanrui@tizi.com
      */
     public function create(){
         if($this->is_ajax() AND $this->is_post()){
-            $str_username = trim($this->input->post('username'));
-            $str_phone = trim($this->input->post('phone'));
-            $str_email = trim($this->input->post('email'));
-//            echo $str_username.'--'.$str_phone.'--'.$str_email;exit;
-            if($str_username){
-                $arr_param['username'] = $str_username;
-                if(is_mobile($str_phone)){
-                    $arr_param['phone'] = $str_phone;
-                }
-                if(is_email($str_email)){
-                    $arr_param['email'] = $str_email;
-                }
-                $int_admin_id = $this->admin->create_admin($arr_param);
-                if($int_admin_id > 0){
+            $str_group_name = trim($this->input->post('name'));
+//            echo $str_group_name;exit;
+            if($str_group_name){
+                $arr_param['name'] = $str_group_name;
+                $int_group_id = $this->group->create_group($arr_param);
+                if($int_group_id > 0){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '创建成功';
                 }
@@ -98,21 +78,21 @@ class Admin extends NH_Admin_Controller {
     }
 
     /**
-     * admin账户禁用启用
+     * group禁用启用
      * @author yanrui@tizi.com
      */
     public function active(){
         if($this->is_ajax() AND $this->is_post()){
-            $int_admin_id = intval($this->input->post('admin_id'));
+            $int_group_id = intval($this->input->post('group_id'));
             $int_status = intval($this->input->post('status'));
-            if($int_admin_id > 1 AND in_array($int_status,array(0,1))){
+            if($int_group_id > 0 AND in_array($int_status,array(0,1))){
                 $arr_param = array(
                     'status' => $int_status
                 );
                 $arr_where = array(
-                    'id' => $int_admin_id
+                    'id' => $int_group_id
                 );
-                $bool_return = $this->admin->update_admin($arr_param,$arr_where);
+                $bool_return = $this->group->update_group($arr_param,$arr_where);
                 if($bool_return > 0){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '修改成功';
@@ -121,4 +101,5 @@ class Admin extends NH_Admin_Controller {
         }
         self::json_output($this->arr_response);
     }
+
 }

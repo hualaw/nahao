@@ -10,15 +10,15 @@
                 <form role="form" method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">用户名(用于登录，建议姓名拼音，如张三的账号是zhangsan)</label>
-                        <input type="username" size="10" class="form-control" id="username" placeholder="输入用户名">
+                        <input type="text" size="10" class="form-control" id="username" placeholder="输入用户名">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">手机号</label>
-                        <input type="phone" size="10" class="form-control" id="phone" placeholder="输入手机号">
+                        <input type="text" size="10" class="form-control" id="phone" placeholder="输入手机号">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">邮箱</label>
-                        <input type="email" size="10" class="form-control" id="email" placeholder="输入邮箱">
+                        <input type="text" size="10" class="form-control" id="email" placeholder="输入邮箱">
                     </div>
                 </form>
             </div>

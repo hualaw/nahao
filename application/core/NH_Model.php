@@ -80,7 +80,8 @@ class NH_Model extends CI_Model
             }else{
                 die('no such table range : '.$str_table_range);
             }
-//            var_dump($this->db->last_query());//exit;
+
+//                var_dump($this->db->last_query());//exit;
         }
         return $mix_return;
     }
