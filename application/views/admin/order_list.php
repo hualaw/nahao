@@ -64,25 +64,6 @@
     <?php endforeach; ?>
     </tbody>
 </table>
-<script>
-    $(function(){
-        $('.show_phone').mouseover(function(){
-            $.ajax({
-                type:"post",
-                url:"/order/show_phone",
-                data:"uid="+$(".uid").val(),
-                success:function(msg){
-                $(".show_phone").html(msg);
-                }
-            })
-        })
-
-        $('.show_phone').mouseout(function(){
-            var p=$(".p_mask").val();
-            $(".show_phone").html(p);
-        })
-    })
-</script>
 <?php echo $page; ?>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

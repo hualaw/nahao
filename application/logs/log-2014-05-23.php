@@ -488,3 +488,32 @@ ERROR - 2014-05-23 18:54:37 --> Severity: Warning  --> fsockopen():  D:\wamp\www
 ERROR - 2014-05-23 18:54:38 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
 ERROR - 2014-05-23 18:55:10 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
 ERROR - 2014-05-23 18:55:11 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:26 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:28 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:28 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:29 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR_NAHAO - 2014-05-23 18:58:31 --> session_cookie_not_found
+ERROR - 2014-05-23 18:58:34 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:36 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:39 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 18:58:42 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:00:33 --> 404 Page Not Found --> favicon.ico
+ERROR - 2014-05-23 19:00:33 --> 404 Page Not Found --> favicon.ico
+ERROR - 2014-05-23 19:00:36 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR_NAHAO - 2014-05-23 19:00:37 --> session_cookie_not_found
+ERROR - 2014-05-23 19:00:41 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:34 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:34 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:35 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR_NAHAO - 2014-05-23 19:01:37 --> session_cookie_not_found
+ERROR - 2014-05-23 19:01:39 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:41 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:44 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:45 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR_NAHAO - 2014-05-23 19:01:47 --> session_cookie_not_found
+ERROR - 2014-05-23 19:01:49 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:51 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:52 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:54 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:55 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226
+ERROR - 2014-05-23 19:01:56 --> Severity: Warning  --> fsockopen():  D:\wamp\www\nahao\application\third_party\thrift\php\lib\Thrift\Transport\TSocket.php 226

@@ -52,22 +52,3 @@
     }
 ?>
 <button type="button" class="btn btn-info" id="memory">保存</button>
-<script>
-    $(function(){
-        $('#show').focus(function(){
-            $.ajax({
-                type:"post",
-                url:"/order/show_phone",
-                data:"uid="+$("#student_id").val(),
-                success:function(msg){
-                    $("#show").val(msg);
-                }
-            })
-        })
-
-        $('#show').blur(function(){
-           var p=$("#mask").val();
-           $("#show").val(p);
-        })
-    })
-</script>
