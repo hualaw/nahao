@@ -1,6 +1,6 @@
 <?php
 
-class Redis_Model extends CI_Model {
+class Model_Redis extends CI_Model {
 
     public function __construct()
     {
@@ -20,7 +20,7 @@ class Redis_Model extends CI_Model {
         }
         else
         {
-            log_message('error_tizi','17009:Redis connect failed',array('redis_db_type'=>$type));
+            log_message('ERROR_NAHAO','Redis connect failed',array('redis_db_type'=>$type));
             return false;
         }
     }
