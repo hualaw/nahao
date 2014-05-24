@@ -66,7 +66,12 @@ class Admin extends NH_Admin_Controller {
 //        $this->data['list'] = $this->admin->get_admin($arr_condition, $start,$this->limit);
         $this->data['str_page'] = $this->pagination->create_links();
         $this->data['arr_query_param'] = $arr_query_param;
-        $this->layout->view('admin/admin_list',$this->data);
+//        $this->layout->view('admin/admin_list',$this->data);
+
+//        $this->smarty->assign('template', 'admin/admin_list.html');
+//echo 123;exit;
+        o($this->arr_smarty_js);
+        $this->smarty->display('admin/layout.html');
     }
 
     /**
