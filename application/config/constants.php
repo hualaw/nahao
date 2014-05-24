@@ -135,8 +135,8 @@ define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
 define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
+define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
 define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
-
 
 //static css
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
@@ -165,9 +165,10 @@ define('REG_SEND_VERIFY_CODE_SUCCESS', 10);
 //过期时间
 define('REDIS_PHONE_CODE_EXPIRE_TIME', 300) //5分钟
 
-
-
-
+//phone_server连接
+define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
+define('PHONE_SERVER_PORT', 1899);
+define('PHONE_SERVER_APPNAME', 'nahao');
 
 
 

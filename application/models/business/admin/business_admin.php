@@ -152,4 +152,30 @@ class Business_Admin extends NH_Model
     }
 
 
+    public function get_admin_list_by_group(){
+
+    }
+
+    public function create_group(){
+
+    }
+
+    public function update_group(){
+
+    }
+
+    public function get_group_by_id(){
+
+    }
+
+    public function get_group_by_name(){
+
+    }
+
+    public function create_permission()
+    {
+
+    }
+
+
 }
