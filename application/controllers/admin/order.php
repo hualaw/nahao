@@ -19,10 +19,10 @@
             $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
             $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
             $config['total_rows'] = $this->data['sea_total'];
-            $config['per_page'] = 1;
+            $config['per_page'] = 10;
             $this->pagination->initialize($config);
             $int_start=$this->uri->segment(3);
-            $this->db->limit(1,$int_start);
+            $this->db->limit(10,$int_start);
             $this->data["spendata"]=$this->business_order->order_data()->result_array();
             $this->data['page'] = $this->pagination->create_links();
             //  var_dump($this->data);die;
@@ -36,7 +36,7 @@
          */
         public function search_order()
         {
-            $post=$this->input->post();
+            $post=$this->input->get();
             //var_dump(strtotime($post["create_time1"]));die;
             $this->data['config_pay']=config_item("order_type");
             $this->data['config_status']=config_item("order_status");
@@ -48,10 +48,13 @@
             $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
             $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
             $config['total_rows'] = $this->data['sea_total'];
-            $config['per_page'] = 1;
+            $config['per_page'] = 10;
             $this->pagination->initialize($config);
             $int_start=$this->uri->segment(3);
-            $this->db->limit(1,$int_start);
+
+            //var_dump($this->input->server('QUERY_STRING'));
+
+            $this->db->limit(10,$int_start);
             $this->data["spendata"]=$this->business_order->sea_order($post)->result_array();
             $this->data['page'] = $this->pagination->create_links();
             $this->layout->view('admin/order_list',$this->data);

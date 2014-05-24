@@ -1,8 +1,8 @@
-<form class="form-search" role="form" method="post" action="/order/search_order">
+<form class="form-search" role="form" method="get" action="/order/search_order">
     <div class="form-group">
         <label class="sr-only" for="exampleInputEmail2">订单管理</label>
     </div>
-    订单总数:<?php echo $order_count['count']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已付款订单:<?php echo $order_count['payment']; ?>&nbsp;&nbsp;&nbsp;&nbsp;待付款订单:<?php echo $order_count['non-payment']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已取消订单:<?php echo $order_count['cancel']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已关闭订单:<?php echo $order_count['close']; ?>&nbsp;&nbsp;&nbsp;&nbsp;退款中:<?php echo $order_count['be_refund']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已退款:<?php echo $order_count['refund']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已完成:<?php echo $order_count['success']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />
+    订单总数:<?php echo $order_count['count']; ?>&nbsp;&nbsp;&nbsp;&nbsp;未付款订单:<?php echo $order_count['non_pay']; ?>&nbsp;&nbsp;&nbsp;&nbsp;支付失败:<?php echo $order_count['pay_fail']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已取消订单:<?php echo $order_count['order_cancel']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已关闭订单:<?php echo $order_count['order_close']; ?>&nbsp;&nbsp;&nbsp;&nbsp;已完成订单:<?php echo $order_count['pay_success']; ?>已付款订单:<?php echo $order_count['pay_payment']; ?>&nbsp;&nbsp;&nbsp;&nbsp;包含申请退款的轮:<?php echo $order_count['apply_refund_round']; ?>&nbsp;&nbsp;&nbsp;&nbsp;包含退款成功的轮:<?php echo $order_count['refund_success_round']; ?>&nbsp;&nbsp;&nbsp;&nbsp;包含退款失败的轮:<?php echo $order_count['refund_fail_round']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />
     订单号<input type="text" placeholder="请输入订单号" name="order_id" class="span2 search-query">&nbsp;&nbsp;
     <select name="name_phone_email">
         <option value=0>搜索条件</option>
@@ -18,12 +18,16 @@
         <option value=3>支付宝</option>
     </select>&nbsp;&nbsp;
     <select name="status">
-        <option value=0>全部订单状态</option>
-        <option value=1>未付款</option>
+        <option value=''>全部订单状态</option>
+        <option value=0>未付款</option>
+        <option value=1>支付失败</option>
         <option value=2>已付款</option>
         <option value=3>已完成</option>
         <option value=4>已取消</option>
         <option value=5>已关闭</option>
+        <option value=6>包含申请退款的轮</option>
+        <option value=7>包含退款失败的轮</option>
+        <option value=8>包含退款成功的轮</option>
     </select><br />
     下单时间<input type="text" id="order_datetimepicker1" name="create_time1">-<input type="text" id="order_datetimepicker2" name="create_time2">&nbsp;&nbsp;
     付款时间<input type="text" id="order_datetimepicker3" name="confirm_time1">-<input type="text" id="order_datetimepicker4" name="confirm_time2">
@@ -46,13 +50,11 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach($spendata as $row) :?>
-        <input type="hidden" value="<?php echo $row['uid'] ?>" class="uid" />
-        <input type="hidden" value="<?php echo $row['phone_mask'] ?>" class="p_mask" />
+    <?php foreach($spendata as $k=>$row) :?>
     <tr>
         <td><?php echo $row['id']; ?></td>
         <td><?php echo $row['nickname']; ?></td>
-        <td class="show_phone" width="108"><?php echo $row["phone_mask"]; ?></td>
+        <td><?php echo $row["phone_mask"]; ?></td>
         <td><?php echo $row["email"]; ?></td>
         <td><?php echo date("Y-m-d H-i-s",$row['create_time']); ?></td>
         <td><?php echo date("Y-m-d H-i-s",$row['confirm_time']); ?></td>

@@ -25,10 +25,10 @@
         <td><?php echo $details['price']; ?></td>
         <td><?php echo $details['sale_price']; ?></td>
         <td><?php echo date('Y-m-d H:i:s',$details['create_time']); ?></td>
-        <td><?php
-            if(3<=$details['refund_status'] && $details['refund_status']<6)
+        <td id="refund" width="135" height="39"><?php
+            if($details['status']==6)
                 echo "退款中","<button type='button' class='btn btn-primary btn-xs' id='button'>成功</button>";
-            elseif($details['refund_status']==6)
+            elseif($details['status']==8)
                 echo "已退款";
             else
                 echo "——";
