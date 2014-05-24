@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>那好教师端-试讲申请</title>
+		<title>那好教师端-个人资料【修改密码】</title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,17 +14,12 @@
 	</head>
 	<body>
 		<?=$nav?>
-		<!--nav end-->
-		<!--body-->
-		
-			<!--left-nav-start-->
-	<div class="body">
-		<?=$siteBar?>
-		<?=$pos?>
-	    <?=$table?>
-    </div>
-			<!--left-end-->
-			<!--right-->
+		<div class="body">
+			<?=$siteBar?>
+			<?=$pos?>
+			<?=$user_nav?>
+		    <?=$password?>
+	  	</div>
 	</body>
 	<script type="text/javascript" src="<?php echo STATIC_ADMIN_JS_JQUERY_MIN;?>"></script>
 	<script type="text/javascript" src="<?php echo static_url(STATIC_ADMIN_JS_BOOTSTRAP_MIN); ?>"></script>

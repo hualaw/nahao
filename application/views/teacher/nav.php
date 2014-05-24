@@ -14,7 +14,7 @@
 		          <a href="#">你好，宋老师 退出</a>
 		        </li>
 		        <li>
-		          <a href="/lectrue/index"><strong class="text-info">我要试讲</strong></a>
+		          <a href="/lecture/index"><strong class="text-info">我要试讲</strong></a>
 		        </li>
 		      </ul>
 		    </div>

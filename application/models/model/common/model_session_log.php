@@ -8,19 +8,19 @@ class Model_Session_Log extends NH_Model
 	}
 
 	//return true or false
-	//userdata must have phone_mask or email, user_type
-	private function save_session_log($user_id)
+	//userdata must have phone_mask or email, user_type, user_id
+	private function save_session_log()
 	{
 		$arr_insert = array();
 		$userdata = $this->session->userdata();
 
 		$nickname = '';
-		if(isset($userdata['phone_mask'])) $nickname = $userdata['phone_mask'];
-		else if(isset($userdata['email'])) $nickname = $userdata['email'];
+		if(isset($userdata['phone_mask']) && empty($userdata['phone_mask'])) $nickname = $userdata['phone_mask'];
+		else if(isset($userdata['email'])  && empty($userdata['email']) $nickname = $userdata['email'];
 
 		$user_data = array(
 			'session_id' => $this->session->userdata("session_id"),
-			'user_id' => $user_id,
+			'user_id' => $this->session->userdata("user_id"),
 			'nickname' => $nickname,
 			'ip' => ip2long($this->CI->input->ip_address()),
 			'generate_time' => time(),
