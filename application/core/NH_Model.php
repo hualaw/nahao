@@ -15,7 +15,7 @@ class NH_Model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-        $this->boolMagic = get_magic_quotes_runtime();
+//        $this->boolMagic = get_magic_quotes_runtime();
     }
 
     /**
