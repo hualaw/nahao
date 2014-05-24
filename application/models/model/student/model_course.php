@@ -32,7 +32,7 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sale_price,
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,price,sale_price,
                 sale_status,bought_count,caps,intro,students,description FROM round 
                 WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();

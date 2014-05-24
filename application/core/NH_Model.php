@@ -15,7 +15,7 @@ class NH_Model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-//        $this->boolMagic = get_magic_quotes_runtime();
+        $this->boolMagic = get_magic_quotes_runtime();
     }
 
     /**
@@ -48,11 +48,21 @@ class NH_Model extends CI_Model
                 }
                 $this->db->select($str_field);
                 if (!empty($arr_where)) {
+
+                    if(isset($arr_where['like'])){
+                        $arr_like = $arr_where['like'];
+                        unset($arr_where['like']);
+                    }
                     foreach ($arr_where as $k => $v) {
                         if (is_array($v)) {
                             $this->db->where_in($k, $v);
                         } else {
                             $this->db->where($k, $v);
+                        }
+                    }
+                    if($arr_like){
+                        foreach($arr_like as $k => $v){
+                            $this->db->like($k, $v);
                         }
                     }
                 }
@@ -80,7 +90,7 @@ class NH_Model extends CI_Model
             }else{
                 die('no such table range : '.$str_table_range);
             }
-//            var_dump($this->db->last_query());//exit;
+//                var_dump($this->db->last_query());//exit;
         }
         return $mix_return;
     }
