@@ -110,7 +110,6 @@ class NH_Controller extends CI_Controller
 }
 
 require(APPPATH . 'core/NH_Admin_Controller.php');
-require(APPPATH . 'core/NH_Student_Controller.php');
-require(APPPATH . 'core/NH_Teacher_Controller.php');
+require(APPPATH . 'core/NH_User_Controller.php');
 require(APPPATH . 'core/NH_Auto_Controller.php');
 require(APPPATH . 'core/NH_Api_Controller.php');

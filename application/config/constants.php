@@ -46,6 +46,40 @@ define('ROLE_STUDENT', 2);//学生
 define('ROLE_TEACHER', 3);//教师
 
 
+/*  订单状态
+ *  -2签名错误 -3金额校验错误
+ *  0，未付款；   
+ *  1,支付失败     
+ *  2，已付款；         
+ *  3，已完成（付款完成后7天自动变成这个状态，暂时用不上）；           
+ *  4，已取消（用户主动取消）；         
+ *  5，已关闭（订单超时，系统自动关闭）；           
+ *  6，包含申请退款的轮；            
+ *  7，包含退款失败的轮；             
+ *  8，包含退款成功的轮；
+ *  */
+define('ORDER_STATUS_DEBT', -3);
+define('ORDER_STATUS_SIGN', -2);
+define('ORDER_STATUS_INIT', 0);
+define('ORDER_STATUS_FAIL', 1);
+define('ORDER_STATUS_SUCC', 2);
+define('ORDER_STATUS_FINISH', 3);
+define('ORDER_STATUS_CANCEL', 4);
+define('ORDER_STATUS_CLOSE', 5);
+define('ORDER_STATUS_APPLYREFUND', 6);
+define('ORDER_STATUS_REFUNDSUCC', 7);
+define('ORDER_STATUS_REFUNDFAIL', 8);
+
+/*
+ * 订单支付方式
+ */
+define('ORDER_TYPE_ONLINE', 0);
+define('ORDER_TYPE_ALIPAY', 3);
+define('ORDER_TYPE_OFFLINE', 4);
+
+
+
+
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
 

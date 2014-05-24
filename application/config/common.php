@@ -85,5 +85,14 @@ $config['role'][2] = '学生';
 $config['role'][3] = '老师';
 
 
+//进出课堂动作
+$config['classroom_action'][1] = '进入';
+$config['classroom_action'][2] = '退出';
 
-
+//课里面的状态
+$config['class_teach_status'][0] = '初始化';
+$config['class_teach_status'][1] = '即将上课';
+$config['class_teach_status'][2] = '正在上课';
+$config['class_teach_status'][3] = '上完课';
+$config['class_teach_status'][4] = '缺课';
+$config['class_teach_status'][3] = '禁用';
