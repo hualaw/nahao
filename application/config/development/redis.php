@@ -2,6 +2,7 @@
 
 //default redis for auto login and verify with ci
 $config['redis_db']['session']		= 1;//SESSION
+$config['redis_db']['login']	 	= 2;//store phone captcha and email verify code
 
 
 // Default connection group
