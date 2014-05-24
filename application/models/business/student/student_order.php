@@ -40,16 +40,16 @@ class Student_Order extends NH_Model{
         #创建订单时，支付方式是线下还是线上
         if ($payment_method == 'online')
         {
-            $pay_type = 0;
+            $pay_type = ORDER_TYPE_ONLINE;
         } else {
-            $pay_type = 4;
+            $pay_type = ORDER_TYPE_OFFLINE;
         }
         #插入到订单表数组
         $array_order = array(
                 'student_id'=>1,                                    #TODO用户id
                 'create_time'=>time(),
                 'price'=>$price,
-                'status'=>1,
+                'status'=>ORDER_STATUS_INIT,
                 'spend'=>$sale_price,
                 'pay_type'=>$pay_type
         );
@@ -57,13 +57,13 @@ class Student_Order extends NH_Model{
         $int_insert_id = $this->model_order->insert_student_order($array_order);
         if ($int_insert_id)
         {
-            #插入到订单与轮的关系表数组
-            $array_mdata = array(
-                    'round_id'=>$int_product_id,
-                    'order_id'=>$int_insert_id
-            );
-            #插入到订单与轮的关系表
-            $bool_result = $this->model_order->insert_order_round_relation($array_mdata);
+           #插入到订单与轮的关系表数组
+           $array_mdata = array(
+                'round_id'=>$int_product_id,
+                'order_id'=>$int_insert_id
+           );
+           #插入到订单与轮的关系表
+           $bool_result = $this->model_order->insert_order_round_relation($array_mdata);
         } else {
            $bool_result = false;
         }
@@ -72,9 +72,9 @@ class Student_Order extends NH_Model{
         $order_msg = $bool_result == true ? "创建订单成功" : "创建订单失败";
         $array_prams = array(
             'order_id'=>$int_insert_id,
-            'user_id'=>1,                                    #TODO用户id
-            'user_type'=>2,                                  #用户类型 ：学生
-            'action'=>1,
+            'user_id'=>1,                                      #TODO用户id
+            'user_type'=>ROLE_STUDENT,                         #用户类型 ：学生
+            'action'=>1,                                       #创建订单
             'create_time'=>time(),
             'note'=>$order_msg
         );
@@ -87,14 +87,84 @@ class Student_Order extends NH_Model{
     }
     
     /**
-     * 根据order_id获取订单信息
-     * @param  $order_id
+     * 根据$int_order_id获取订单信息
+     * @param  $int_order_id
+     * @return $array_return
      */
-    public function get_order_by_id($order_id)
+    public function get_order_by_id($int_order_id)
     {
         $array_return = array();
-        $array_return = $this->model_order->get_order_by_id($order_id);
+        $array_return = $this->model_order->get_order_by_id($int_order_id);
         return $array_return;
     }
+    
+    /**
+     * 更新订单状态，写日志
+     * @param  $array_data
+     * @return $bool_return
+     */
+    public function update_order_status($array_data)
+    {
+        $bool_return = $this->model_order->update_order_status($array_data);
+        if ($bool_return)
+        {
+            $array_data['create_time'] = time();
+            $array_data['user_id'] =1;                    #TODO用户id
+            $array_data['user_type'] = ROLE_STUDENT;      #用户类型 ：学生
+                                 
+        } else {
+            $array_data['create_time'] = time();
+            $array_data['action'] = '';
+            $array_data['user_id'] =1;                    #TODO用户id
+            $array_data['user_type'] = ROLE_STUDENT;      #用户类型 ：学生
+            $array_data['note'] = "更新订单".$array_data['order_id']."状态为：".$array_data['status']."失败";
+        }
+        #添加订单日志
+        $this->model_order->add_order_log($array_data);
+        return $bool_return;
+    }
+    
+    /**
+     * 根据$int_order_id,查找轮以及轮里面的课，添加学生与课的关系
+     * @param  $int_order_id
+     * @return 
+     */
+    public function add_student_class_relation($int_order_id)
+    {
+        #根据订单id，获取该订单下的轮
+        $array_round_id = $this->model_order->get_round_id_under_order($int_order_id);
+        $array_class = array();
+        if (empty($array_round_id)){
+            return $response['message'] = "订单里面没有对应的轮";
+        }
+
+        foreach ($array_round_id as $k=>$v)
+        {
+            #根据round_id获取下面的课程
+            $array_class[] = $this->model_course->get_class_under_round_id($v['round_id']);
+        }
+        
+        if(empty($array_class))
+        {
+            return $response['message'] = "轮下面没有课";
+        }
+        
+        foreach ($array_class as $kk=>$vv)
+        {
+            #添加学生与课的关系
+            $array_data = array(
+                'student_id'=>1,                                        #TODO用户id
+                'course_id'=>$vv['course_id'],
+                'round_id'=>$vv['round_id'],
+                'class_id'=>$vv['lesson_id'],
+                'status'=>0
+            );
+            $bool_return = $this->model_order->add_student_class_relation($array_data);
+        }
+        return $bool_return;
+    }
+    
+
+    
 
 }
