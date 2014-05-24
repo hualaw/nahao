@@ -30,7 +30,7 @@ class Model_User extends NH_Model
     public function create_user_info($arr_param)
     {
         $arr_result = $this->db->insert(TABLE_USER_INFO, $arr_param);
-        $int_insert_id = $this->db->insert_id();
+        $int_insert_id = $this->db->affected_rows();
         return $int_insert_id;
     }
 
