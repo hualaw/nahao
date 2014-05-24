@@ -1,9 +1,10 @@
 /**
- * admin_create
+ * admin
  * @author yanrui@tizi.com
  */
 $(function () {
 
+    //admin add calender
     $('#admin_datetimepicker').datetimepicker({
         format: "yyyy-MM-dd hh:ii",
         language: 'cn',
@@ -34,4 +35,22 @@ $(function () {
             }
         }, "json");
     });
+
+    //active admin
+    $(".table").on("click", '.admin_active', function () {
+        var btn = $(this);
+        var action = btn.data('action');
+        var data = {
+            admin_id: btn.data('admin_id'),
+            status: btn.data('status')
+        };
+        $.post(action, data, function (response) {
+            alert(response.msg);
+            if (response && response.status == "ok") {
+                window.location.reload();
+            }
+        }, "json");
+    });
+
+
 });

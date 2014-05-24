@@ -8,10 +8,10 @@ class NH_Controller extends CI_Controller
 {
     /**
      * 保存登录后的用户信息
-     * @var array $user
-     * @author yanrui@91waijiao.com
+     * @var array $userinfo
+     * @author yanrui@tizi.com
      */
-    public $user = array();
+    public $userinfo = array();
 
     /**
      * 保存当前控制器和方法名
@@ -59,7 +59,7 @@ class NH_Controller extends CI_Controller
     protected function check_login($int_user_type = 1)
     {
         $bool_return = true;
-        if (empty($this->user)){
+        if (empty($this->userinfo)){
             $this->load->model('business/business_passport','passport');
             $arr_user_cookie = $this->passport->get_user_from_cookie($int_user_type);
             if (isset($arr_user_cookie['user_id'])&&$arr_user_cookie['user_id']!=0) {
@@ -68,7 +68,7 @@ class NH_Controller extends CI_Controller
                 $arr_user_cache = $this->passport->get_user_from_cache($int_user_type,$int_user_id);
                 if($arr_user_cache){
                     if (isset($arr_user_info['password']) AND $arr_user_info['password'] === $str_password) {
-                        $this->user = $arr_user_cache;
+                        $this->userinfo = $arr_user_cache;
                     }else{
                         $bool_return = false;
                     }
@@ -76,7 +76,7 @@ class NH_Controller extends CI_Controller
                     $arr_user_db = $this->passport->get_user_from_db($int_user_type,$int_user_id);
                     if($arr_user_db){
                         if (isset($arr_user_db['password']) && $arr_user_db['password'] === $str_password) {
-                            $this->user = $arr_user_db;
+                            $this->userinfo = $arr_user_db;
                             $this->cache->save("{$int_user_type}-{$int_user_id}", json_encode($arr_user_db), 86400);
                         }else{
                             $bool_return = false;
@@ -110,7 +110,6 @@ class NH_Controller extends CI_Controller
 }
 
 require(APPPATH . 'core/NH_Admin_Controller.php');
-require(APPPATH . 'core/NH_Student_Controller.php');
-require(APPPATH . 'core/NH_Teacher_Controller.php');
+require(APPPATH . 'core/NH_User_Controller.php');
 require(APPPATH . 'core/NH_Auto_Controller.php');
 require(APPPATH . 'core/NH_Api_Controller.php');

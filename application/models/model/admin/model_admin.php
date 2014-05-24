@@ -10,8 +10,8 @@ class Model_Admin extends NH_Model
 
     /**
      * 创建admin
-     * @param $arr_param
-     * @return mixed
+     * @param array $arr_param
+     * @return int
      * @author yanrui@tizi.com
      */
     public function create_admin($arr_param)
@@ -20,6 +20,21 @@ class Model_Admin extends NH_Model
         $int_insert_id = $this->db->insert_id();
         return $int_insert_id;
     }
+
+    /**
+     * 修改admin
+     * @param array $arr_param
+     * @param array $arr_where
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function update_admin($arr_param,$arr_where){
+        $this->db->update(TABLE_ADMIN, $arr_param, $arr_where);
+        $int_affected_rows = $this->db->affected_rows();
+//        o($int_affected_rows);
+        return $int_affected_rows > 0 ? true :false;
+    }
+
 
     /**
      * 根据参数获取admin
