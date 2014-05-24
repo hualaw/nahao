@@ -13,22 +13,13 @@ class User extends CI_Controller {
 	 */
 	public function index()
 	{
-		#1.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'user_index'),true);
-		$user_nav = $this->load->view('teacher/user/active',array('active' => 'user_index'),true);
-		$info = $this->load->view('teacher/user/info',array(),true);
-		$pos = $this->teacher_b->get_pos('个人资料');
-		
 		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'info' => $info,
-			'pos' => $pos,
-			'user_nav' => $user_nav,
+			'title' => '个人资料',
+			'active' => 'user_index',
 		);
-		$this->load->view('teacher/user.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/user.html');
 	}
 	
 	/**
@@ -36,22 +27,13 @@ class User extends CI_Controller {
 	 */
 	public function avater()
 	{
-		#1.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'user_avater'),true);
-		$user_nav = $this->load->view('teacher/user/active',array('active' => 'user_avater'),true);
-		$avater = $this->load->view('teacher/user/avater',array(),true);
-		$pos = $this->teacher_b->get_pos('修改头像');
-		
 		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'avater' => $avater,
-			'pos' => $pos,
-			'user_nav' => $user_nav,
+			'title' => '修改头像',
+			'active' => 'user_avater',
 		);
-		$this->load->view('teacher/user_avater.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/user_avater.html');
 	}
 	
 	/**
@@ -59,21 +41,12 @@ class User extends CI_Controller {
 	 */
 	public function password()
 	{
-		#1.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'user_password'),true);
-		$user_nav = $this->load->view('teacher/user/active',array('active' => 'user_password'),true);
-		$password = $this->load->view('teacher/user/password',array(),true);
-		$pos = $this->teacher_b->get_pos('修改头像');
-		
 		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'password' => $password,
-			'pos' => $pos,
-			'user_nav' => $user_nav,
+			'title' => '修改密码',
+			'active' => 'user_password',
 		);
-		$this->load->view('teacher/user_password.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/user_password.html');
 	}
 }
