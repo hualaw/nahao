@@ -61,6 +61,30 @@ class Model_User extends NH_Model
     }
 
     /**
+     * 删除user
+     * @param array $arr_param
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_user($arr_param){
+        $this->db->delete(TABLE_USER,$arr_param);
+        $int_affected_rows = $this->db->affected_rows();
+        return $int_affected_rows > 0 ? true :false;
+    }
+
+    /**
+     * 删除user_info
+     * @param array $arr_param
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_user_info($arr_param){
+        $this->db->delete(TABLE_USER_INFO,$arr_param);
+        $int_affected_rows = $this->db->affected_rows();
+        return $int_affected_rows > 0 ? true :false;
+    }
+
+    /**
      * 根据参数获取user&user_info
      * @param string $str_table_range
      * @param string $str_result_type
