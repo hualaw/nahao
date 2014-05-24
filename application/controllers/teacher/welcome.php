@@ -12,7 +12,6 @@ class Welcome extends CI_Controller {
         parent::__construct();
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
-        
     }
     
 	/**
