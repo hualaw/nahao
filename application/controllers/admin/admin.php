@@ -21,6 +21,16 @@ class Admin extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index(){
+
+        $arr_param = array(
+            'user_id' => '2211',
+            'realname' => 'nahao',
+        );
+        $arr_result = $this->db->insert(TABLE_USER_INFO, $arr_param);
+        var_dump($arr_result);
+        $int_insert_id = $this->db->affected_rows();
+        o($int_insert_id);
+
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $int_group_id = $this->input->get('group_id') ? intval($this->input->get('group')) : 0 ;
         $int_admin_id = $this->input->get('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
@@ -66,7 +76,12 @@ class Admin extends NH_Admin_Controller {
 //        $this->data['list'] = $this->admin->get_admin($arr_condition, $start,$this->limit);
         $this->data['str_page'] = $this->pagination->create_links();
         $this->data['arr_query_param'] = $arr_query_param;
-        $this->layout->view('admin/admin_list',$this->data);
+//        $this->layout->view('admin/admin_list',$this->data);
+
+//        $this->smarty->assign('template', 'admin/admin_list.html');
+//echo 123;exit;
+        o($this->arr_smarty_js);
+        $this->smarty->display('admin/layout.html');
     }
 
     /**

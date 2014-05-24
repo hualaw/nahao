@@ -6,17 +6,41 @@
  */
 class NH_Admin_Controller extends NH_Controller
 {
-    private $not_need_login_controller = array('passport');
+    protected $not_need_login_controller = array('passport');
+    protected $arr_smarty_css = array(
+        STATIC_ADMIN_CSS_BOOTSTRAP,
+        STATIC_ADMIN_CSS_NAV
+    );
+    protected $arr_smarty_js = array(
+        STATIC_ADMIN_JS_JQUERY_MIN,
+        STATIC_ADMIN_JS_BOOTSTRAP_MIN
+    );
+
     function __construct()
     {
         parent::__construct();
 
         $this->load->model('business/admin/business_admin','admin');
-        $this->layout->set_layout('admin/layout');
+//        $this->layout->set_layout('admin/layout');
         if(!in_array($this->current['controller'],$this->not_need_login_controller)){
             $bool_login_flag = self::check_login(ROLE_ADMIN);
             if($bool_login_flag===true){
                 $this->load->vars('userinfo',$this->userinfo);
+                $arr_static_config = config_item('static_admin');
+                if(isset($arr_static_config['css'][$this->current['controller']])){
+                    $arr_css = $arr_static_config['css'][$this->current['controller']];
+                    foreach($arr_css as $k => $v){
+                        $this->arr_smarty_css[] = '<link href="'.static_url($v).'" rel="stylesheet">';
+                    }
+                }
+                if(isset($arr_static_config['js'][$this->current['controller']])){
+                    $arr_js = $arr_static_config['js'][$this->current['controller']];
+                    foreach($arr_js as $k => $v){
+                        $this->arr_smarty_js[] = '<script type="text/javascript" src="'.static_url($v).'"></script>';
+                    }
+                }
+
+
             }else{
                 redirect('/passport');
             }
