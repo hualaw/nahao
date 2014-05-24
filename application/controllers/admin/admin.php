@@ -21,16 +21,6 @@ class Admin extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index(){
-
-        $arr_param = array(
-            'user_id' => '2211',
-            'realname' => 'nahao',
-        );
-        $arr_result = $this->db->insert(TABLE_USER_INFO, $arr_param);
-        var_dump($arr_result);
-        $int_insert_id = $this->db->affected_rows();
-        o($int_insert_id);
-
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $int_group_id = $this->input->get('group_id') ? intval($this->input->get('group')) : 0 ;
         $int_admin_id = $this->input->get('admin_id') ? intval($this->input->get('admin_id')) : 0 ;
@@ -60,7 +50,7 @@ class Admin extends NH_Admin_Controller {
 
 
         $this->data['int_count'] = $int_count;
-        $this->data['arr_list'] = $this->admin->get_admin_list($arr_where, $int_start,PER_PAGE_NO);
+        $arr_list = $this->admin->get_admin_list($arr_where, $int_start,PER_PAGE_NO);
 
 //        $this->load->model('admin/model_group','group');
 //        $all_group_permission = $this->group->get_all_group_permission();
@@ -74,13 +64,16 @@ class Admin extends NH_Admin_Controller {
 //        var_dump($group_permission);exit;
 //        $this->data['all_group_permission'] = $group_permission;
 //        $this->data['list'] = $this->admin->get_admin($arr_condition, $start,$this->limit);
-        $this->data['str_page'] = $this->pagination->create_links();
-        $this->data['arr_query_param'] = $arr_query_param;
 //        $this->layout->view('admin/admin_list',$this->data);
 
 //        $this->smarty->assign('template', 'admin/admin_list.html');
 //echo 123;exit;
-        o($this->arr_smarty_js);
+//        o($this->arr_static);
+        $this->smarty->assign('page',$this->pagination->create_links());
+        $this->smarty->assign('count',$int_count);
+        $this->smarty->assign('list',$arr_list);
+        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('view', 'admin_list');
         $this->smarty->display('admin/layout.html');
     }
 

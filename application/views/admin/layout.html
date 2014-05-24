@@ -3,5 +3,11 @@
 <head>
     {include file="admin/header.html"}
 </head>
-
+<body>
+<div class="container">
+    {include file="admin/nav.html"}
+    {include 'admin/'|cat:$view|cat:'.html'}
+</div>
+    {include file="admin/footer.html"}
+</body>
 </html>
