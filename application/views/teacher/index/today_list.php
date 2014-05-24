@@ -5,6 +5,7 @@
 	$listStr = '';
 	$class_type = config_item('course_type');#课程类型
 	$teach_status = config_item('round_teach_status');#授课状态
+	$today_total = 0;
 	if($list) foreach ($list as $val){
 		if($val['zjArr']) foreach ($val['zjArr'] as $v){
 			if($v['son_class']) foreach ($v['son_class'] as $lesson){
@@ -21,13 +22,14 @@
 		          </tr>';
 			}
 		}
+		$today_total += ( $val['total_class'] > 0 ) ? $val['total_class'] : 0;
 	}
 ?>
 <div class="col-md-10 column">
-		<span class="badge" style="margin-bottom:10px">2014年6月1日     星期五    今天要上的班次：<span class="badge" style="color: #428bca;background-color: #ffffff;">3</span></span>
+		<span class="badge" style="margin-bottom:10px"><?=date('Y年m月d日 星期w',time())?>    今天要上的班次：<span class="badge" style="color: #428bca;background-color: #ffffff;"><?=$today_total?></span></span>
 </div>
 <div class="col-md-10 column ui-sortable table-responsive">
-	      	<table class="table table-hover table-bordered table-striped">
+	      	<table class="table table-hover table-bordered table-striped" style="border:3px solid #ddd;border-radius:10px;border-collapse: separate;box-shadow: 2px 2px 10px #333;">
 	        <thead>
 	          <tr class="warning">
 	            <th>上课时间</th>

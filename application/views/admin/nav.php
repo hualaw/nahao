@@ -19,17 +19,11 @@
                 </ul>
             </li>
 
+            <li <?php echo in_array($this->current['controller'],array('user')) ? 'class="active"' : '';?>><a href="/user">用户管理</a></li>
+            <li <?php echo in_array($this->current['controller'],array('order')) ? 'class="active"' : '';?>><a href="/order">订单管理</a></li>
+            <li <?php echo in_array($this->current['controller'],array('salary')) ? 'class="active"' : '';?>><a href="/salary">课酬管理</a></li>
+
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">学生管理<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/student">学生管理</a></li>
-                    <li><a href="/order">订单管理</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">订单管理</a></li>
-
-            <li>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">教师管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/teacher">教师管理</a></li>
@@ -41,11 +35,12 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/admin">管理员管理</a></li>
-                    <li><a href="/admin/group">组管理</a></li>
+                    <li><a href="/group">组管理</a></li>
                     <li><a href="/admin/permission">权限管理</a></li>
                 </ul>
             </li>
         </ul>
-        <p class="navbar-text navbar-right">admin,<a href="#" class="navbar-link">退出</a></p>
+
+        <p class="navbar-text navbar-right"><?php echo $userinfo['username']?>,<a href="/passport/logout" class="navbar-link">退出</a></p>
     </div><!--/.nav-collapse -->
 </div>

@@ -4,7 +4,7 @@
       			<cite>请先填写以下<code>试讲表单</code>信息，以便我们的工作人员更好的与您联系沟通</cite>
       			</blockquote>
     		</div>
-    		<form class="form-horizontal" method="POST" role="form" action="/lectrue/doAdd/?<?=time()?>">
+    		<form class="form-horizontal" method="POST" role="form" action="/lecture/doAdd/?<?=time()?>">
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">真实姓名：</label>
 			    <div class="col-sm-10">

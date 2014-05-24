@@ -7,6 +7,12 @@
  */
 class Business_Passport extends NH_Model{
 
+
+    /**
+     *  暂时没用   可干掉
+     */
+
+
     /**
      * 从cookie中取出用户id和密码
      * @param $int_user_type

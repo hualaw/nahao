@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
 		$listArr = $this->teacher_b->get_today_round(array('user_id'=>1));
 		#2.模块化和页面相关
 		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array(),true);
+		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'welcome_index'),true);
 		$listStr = $this->load->view('teacher/index/today_list',array('list'=>$listArr),true);
 		$pos = $this->teacher_b->get_pos('今日上课');
 		
