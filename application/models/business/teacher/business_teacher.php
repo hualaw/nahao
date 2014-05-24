@@ -86,4 +86,26 @@ class Business_Teacher extends NH_Model
         }
         return $res;
     }
+    
+    /**
+     * 轮的章节列表
+     **/
+    public function get_zjList($param){
+    	$sortArr = array();
+    	$param['order'] = 2;
+		$teach_status = config_item('class_teach_status');#授课状态
+    	if(isset($param['round_id'])){
+    		$res = $this->model_teacher->teacher_round_class($param);
+    		if($res) foreach ($res as $val){
+    			if($val['parent_id']>0){
+    				$val['teach_status'] = $teach_status[$val['status']];
+    				$sortArr[$val['parent_id']]['jList'][] = $val;
+    			}else{
+    				$sortArr[$val['id']] = $val;
+    			}
+    		}
+    	}
+    	unset($res);
+   		return $sortArr ? $sortArr : array();
+    }
 }

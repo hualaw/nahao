@@ -13,20 +13,13 @@ class BandBank extends CI_Controller {
 	 */
 	public function index()
 	{
-		#1.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'bandBank_index'),true);
-		$table = $this->load->view('teacher/bandBank/table',array(),true);
-		$pos = $this->teacher_b->get_pos('绑定银行账户');
-		
 		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'table' => $table,
-			'pos' => $pos,
+			'title' => '绑定银行账户',
+			'active' => 'bandBank_index',
 		);
-		$this->load->view('teacher/bandBank.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/bandBank.html');
 	}
 	
 }

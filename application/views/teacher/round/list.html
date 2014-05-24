@@ -1,0 +1,25 @@
+<div class="col-md-10 column">
+		<span class="badge" style="margin-bottom:10px">{$data['list']['date']}    今天要上的班次：<span class="badge" style="color: #428bca;background-color: #ffffff;">{$data['list']['total']}</span></span>
+</div>
+<div class="col-md-10 column ui-sortable table-responsive">
+	      	<table class="table table-hover table-bordered table-striped" style="border:3px solid #ddd;border-radius:10px;border-collapse: separate;box-shadow: 2px 2px 10px #333;">
+	        <thead>
+	          <tr class="warning">
+	            <th>班次ID</th>
+	            <th>班次名称</th>
+	            <th>班节名称</th>
+	            <th>上课日期</th>
+	            <th>上课时间</th>
+	            <th>课程进度</th>
+	            <th>科目</th>
+	            <th>类型</th>
+	            <th>授课状态</th>
+	            <th>课程平均分</th>
+	            <th>操作</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          {$data['list']['str']}
+	        </tbody>
+	      </table>
+	      </div>
