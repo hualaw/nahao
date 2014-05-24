@@ -55,18 +55,6 @@ function authcode($string, $operation = 'DECODE', $expiry = 0, $key = '')
     }
 }
 
-
-/**
- * @param $password
- * @param $salt
- * @param $sys_password
- * @return bool
- */
-function check_password($password, $salt, $sys_password)
-{   
-    return create_password($password, $salt) === $sys_password;
-}
-
 /**
 
 openssl genrsa -des3 -out 91waijiao.com.key 1024
