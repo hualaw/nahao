@@ -28,8 +28,9 @@ class Welcome extends NH_Admin_Controller
     public function main()
     {
         $data['str'] = 'welcome! layout!';
-        $this->layout->set_layout('admin/layout');
-        $this->layout->view('admin/welcome_main', $data);
+//        o($this->userinfo);
+        $this->smarty->assign('view', 'welcome_main');
+        $this->smarty->display('admin/layout.html');
     }
 }
 
