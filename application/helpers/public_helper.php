@@ -451,7 +451,7 @@ if (!function_exists('getPhoneArea')) {
  */
 function static_url($str_url){
 //    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
-    return STATIC_FILE_URL . $str_url . '?v=' . time();
+    return STATIC_FILE_URL . '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
 }
 
 /**
