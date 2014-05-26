@@ -57,7 +57,7 @@ class Business_User extends NH_Model
     public function get_user_count($arr_where){
         $int_return = array();
         if(is_array($arr_where)){
-            $str_table_range = 'user';
+            $str_table_range = 'user_user_info';
             $str_result_type = 'count';
             $str_fields = 'count(1) as count';
             if(array_key_exists('user_id',$arr_where)){
@@ -83,9 +83,9 @@ class Business_User extends NH_Model
     public function get_user_list($arr_where,$int_start,$int_limit){
         $arr_return = array();
         if(is_array($arr_where)){
-            $str_table_range = 'user';
+            $str_table_range = 'user_user_info';
             $str_result_type = 'list';
-            $str_fields = 'id,nickname,phone_mask,email,realname,status,source';
+            $str_fields = 'id,nickname,phone_mask,email,,status,source,gender,grade';
             if(array_key_exists('user_id',$arr_where)){
                 $arr_where[TABLE_USER.'.id'] = $arr_where['user_id'];
             }

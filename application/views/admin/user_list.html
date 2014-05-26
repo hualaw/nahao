@@ -1,0 +1,104 @@
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-md-1 control-label">查询条件</label>
+        <div class="col-md-2">
+            <select class="form-control" name="stage">
+                <option value="">全部阶段</option>
+                <option value="1">小学</option>
+                <option value="2">初中</option>
+                <option value="3">高中</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="province">
+                <option value="">全部省份</option>
+                {foreach $provinces as $province}<option value="{$province.id}">{$province.name}</option>{/foreach}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="course_type">
+                <option value="">全部课程类型</option>
+                {foreach $course_types as $course_type}<option value="{$course_type.id}">{$course_type.name}</option>{/foreach}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="subject">
+                <option value="">全部学科</option>
+                {foreach $subjects as $subject}<option value="{$subject.id}">{$subject.name}</option>{/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-1 control-label">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <div class="col-md-2">
+            <select class="form-control" name="gender">
+                <option value="">全部性别</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="search_type">
+                <option value="">全部用户</option>
+                <option value="1">注册用户</option>
+                <option value="2">付费用户</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="search_type">
+                <option value="1">昵称</option>
+                <option value="2">邮箱</option>
+                <option value="3">手机号</option>
+                <option value="4">用户ID</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control col-md-2" id="nickname" name="nickname" size="16" value="{if isset($arr_query_param.nickname)}{$arr_query_param.nickname}{/if}">
+        </div>
+        <button type="submit" class="btn btn-primary">搜索</button>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>邮箱</th>
+        <th>手机</th>
+        <th>昵称</th>
+        <th>性别</th>
+        <th>年级</th>
+        <th>注册时间</th>
+        <th>省</th>
+        <th>市</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $v}
+    <tr>
+        <td>{$v.id}</td>
+        <td>{$v.email}</td>
+        <td>{$v.phone_mask}</td>
+        <td>{$v.nickname}</td>
+        <td>{$v.gender}</td>
+        <td>{$v.grade}</td>
+        <td>{date('Y-md H:i',$v.create_time)}</td>
+        <td>{$v.province}</td>
+        <td>{$v.city}</td>
+        <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
+        <td>
+            <a href="javascript:;" class="group_active" data-action="/user/active" data-user_id="{$v.id}"
+               data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
+            <a href="javascript:;">修改</a>
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+共{$count}条记录&nbsp;&nbsp;{$page}
+
+
+

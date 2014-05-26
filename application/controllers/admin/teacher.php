@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * 管理员管理
- * Class User
+ * 老师管理
+ * Class Teacher
  * @author yanrui@tizi.com
  */
-class User extends NH_Admin_Controller {
+class Teacher extends NH_Admin_Controller {
 
     private $arr_response = array(
         'status' => 'error',
@@ -47,20 +47,9 @@ class User extends NH_Admin_Controller {
 
         $arr_list = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
 
-
-        $this->load->model('business/common/business_area','area');
-        $arr_provinces = $this->area->get_provinces();
-        $this->load->model('business/common/business_subject','subject');
-        $arr_subjects = $this->subject->get_subjects();
-        $this->load->model('business/common/business_course_type','course_type');
-        $arr_course_types = $this->course_type->get_course_types();
-
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);
-        $this->smarty->assign('provinces',$arr_provinces);
-        $this->smarty->assign('subjects',$arr_subjects);
-        $this->smarty->assign('course_types',$arr_course_types);
         $this->smarty->assign('arr_query_param', $arr_query_param);
         $this->smarty->assign('view', 'user_list');
         $this->smarty->display('admin/layout.html');

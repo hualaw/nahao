@@ -36,25 +36,14 @@ class Group extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
+        $arr_list = $this->group->get_group_list($arr_where, $int_start,PER_PAGE_NO);
 
-        $this->data['int_count'] = $int_count;
-        $this->data['arr_list'] = $this->group->get_group_list($arr_where, $int_start,PER_PAGE_NO);
-
-//        $this->load->model('admin/model_group','group');
-//        $all_group_permission = $this->group->get_all_group_permission();
-//        $group_permission = array();
-//        foreach($all_group_permission as $value){
-//            if(!isset($group_permission[$value['group_id']]['group_name'])){
-//                $group_permission[$value['group_id']]['group_name'] = $value['group_name'];
-//            }
-//            $group_permission[$value['group_id']]['list'][] = $value;
-//        }
-//        var_dump($group_permission);exit;
-//        $this->data['all_group_permission'] = $group_permission;
-//        $this->data['list'] = $this->admin->get_admin($arr_condition, $start,$this->limit);
-        $this->data['str_page'] = $this->pagination->create_links();
-        $this->data['arr_query_param'] = $arr_query_param;
-        $this->layout->view('admin/group_list',$this->data);
+        $this->smarty->assign('page',$this->pagination->create_links());
+        $this->smarty->assign('count',$int_count);
+        $this->smarty->assign('list',$arr_list);
+        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('view', 'group_list');
+        $this->smarty->display('admin/layout.html');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class Buesiness_Register extends NH_Model {
+class Business_Register extends NH_Model {
 
 	public function register($phone, $email, $password, $captcha, $reg_type)
 	{
@@ -26,7 +26,7 @@ class Buesiness_Register extends NH_Model {
 
 			//check captcha, TBD
 		}
-		else if($reg_type == REG_TYPE_EMAIL))
+		else if($reg_type == REG_TYPE_EMAIL)
 		{
 			if(!is_email($email))
 			{
@@ -52,7 +52,7 @@ class Buesiness_Register extends NH_Model {
 			'email' => $email,
 			'salt' => $str_salt,
 			'password'=> create_password($password),
-			'register_time' => time();
+			'register_time' => time(),
 			'register_ip' => $this->input->ip_address(),
 			'source' => 1,
 			'avatar' => '', //default avatar URI, TBD
@@ -89,7 +89,7 @@ class Buesiness_Register extends NH_Model {
 	{
 		//未完成
 		$this->load->library('mail');
-		$this->mail->send($email, )
+		$this->mail->send($email);
 	}
 
 	function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
