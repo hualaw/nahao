@@ -1,0 +1,56 @@
+
+.login .pwd .box{border: 1px solid #d5d5d5;margin:0 auto	;background-color: #fff}
+.login .pwd .box h2{height:50px;line-height: 50px;background-color: #f7f7f7;text-align: center;font-size: 18px;font-weight: normal;margin-bottom:20px;}
+.login .pwd .progressBar{text-align: center;margin:0 auto;display: inline-block;margin-bottom:20px;}
+.login .pwd .progressBar span{text-indent:-20px;display: inline-block;font-size:14px;color:#000000;width: 150px;height:40px;line-height:40px;background: url(../../images/login/barIcon1.png) no-repeat right center #e3e3e3;}
+.login .pwd .progressBar span.ok{background-image: url(../../images/login/barIcon2.png)}
+.login .pwd .progressBar span.current {background-color: #f14211;background-image: url(../../images/login/barIcon3.png); color:#fff;}
+.login .pwd .progressBar span.currentPreve{background-image: url(../../images/login/barIcon4.png)}
+.login .pwd .progressBar span.ok.current{background-image: url(../../images/login/barIcon5.png)}
+/*忘记密码首页开始*/
+.login .pwd .forget{padding-top: 70px;margin-bottom:20px;}
+.login .pwd .forget .forgetBox{width:465px;}
+.login .pwd .forget .forgetBox .cBox{padding:40px  60px;}
+.login .pwd .forget .forgetBox .cBox p{line-height: 24px;font-size: 14px;text-align: right}
+.login .pwd .forget .forgetBox .cBox p a{color: #f14211}
+.login .pwd .forget .forgetBox .cBox p a:hover{color: #f90;}
+.login .pwd .forget .forgetBox .cBox a.btn{width:100%;height:40px;line-height: 40px;margin-bottom:25px;background-image: url(../../images/login/userBtnBg.png) ;background-repeat: no-repeat;}
+.login .pwd .forget .forgetBox .cBox .phone{background-position: 100px 0;}
+.login .pwd .forget .forgetBox .cBox .email{background-position: 100px -75px;}
+/*忘记密码首页结束*/
+/*找回密码样式开始*/
+.login .pwd .findType,
+.login .pwd .setSuccess,
+.login .pwd .setNewpwd{padding-top: 70px;text-align: center;margin-bottom:20px;}
+.login .pwd .setSuccess .box{padding-bottom:40px;background-color: #fff}
+.login .pwd .findType h2{text-align: left;text-indent: 45px;background: url(../../images/login/phoneIcon.png) no-repeat 20px center #f7f7f7;}
+.login .pwd .emailBox h2{background-image: url(../../images/login/emailIcon.png)}
+.login .pwd .setSuccess h2{text-align: left;text-indent: 30px}
+.login .pwd .box{width:763px;}
+.login .pwd .box .tips{font-size:14px;color:#63696c;margin-bottom:20px;}
+.login .pwd .box .tips span{color:#f14211;}
+.login .pwd .box ul{padding-left:210px;}
+.login .pwd .box li{margin-bottom:15px;}
+.login .pwd .box li p{width:100%;text-align: left;font-size:16px;text-indent: 5px;color:#333;line-height: 20px;margin-bottom: 5px;}
+.login .pwd .box li p span{color: #f14211;display: inline-block;margin-right:10px;font-weight: bold}
+.login .pwd .setNewpwd li p{margin-left:-20px;}
+.login .pwd .box li input{width:310px;height:38px;line-height:38px;border: 1px solid #d5d5d5;padding: 0 15px;font-size: 16px;}
+.login .pwd .box li .code{width:130px;height:40px;line-height:40px;font-size: 16px;margin-left:10px;}
+.login .pwd .box li span.code{background-color: #dedede;font-size: 12px;}
+.login .pwd .box li .submit,
+.login .pwd .box .signIn{width:340px;margin-bottom: 20px;height:40px;line-height:40px;cursor:pointer;}
+.login .pwd .box .signIn{margin-top:10px;}
+.login .pwd .box li .undis{display: none}
+.login .pwd .box h3{font-size: 18px;margin:20px 0 40px 0;}
+/*找回密码样式结束*/
+
+
+
+
+
+
+
+
+
+
+

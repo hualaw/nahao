@@ -13,10 +13,41 @@ class Index extends NH_User_Controller {
 	public function index()
 	{  
 	    header('content-type: text/html; charset=utf-8');
-        $array_data = $this->student_index->get_round_list();
-        echo 33;die;
+        $array_data = $this->student_index->get_course_latest_round_list();
         $this->smarty->assign('array_data', $array_data);
-        $this->smarty->display('student/index');
+        $this->smarty->display('www/index.html');
+	}
+	
+	/**
+	 * 我要学习
+	 */
+	public function study()
+	{
+	    $this->smarty->display('www/study/index.html');
+	}
+	
+	/**
+	 * 我要开课
+	 */
+	public function apply_teach()
+	{
+	    $this->smarty->display('www/startClass/writeInfo.html');
+	}
+	
+	/**
+	 * 登陆
+	 */
+	public function login()
+	{
+	    $this->smarty->display('www/login/login.html');
+	}
+	
+	/**
+	 * 注册
+	 */
+	public function register()
+	{
+	    $this->smarty->display('www/login/reg.html');
 	}
 }
 

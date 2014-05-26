@@ -163,7 +163,7 @@ define('REG_SEND_VERIFY_CODE_FAILED', 9);
 define('REG_SEND_VERIFY_CODE_SUCCESS', 10);
 
 //过期时间
-define('REDIS_PHONE_CODE_EXPIRE_TIME', 300) //5分钟
+define('REDIS_PHONE_CODE_EXPIRE_TIME', 300); //5分钟
 
 //phone_server连接
 define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
