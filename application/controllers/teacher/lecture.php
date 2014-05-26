@@ -13,21 +13,14 @@ class Lecture extends CI_Controller {
 	 */
 	public function index()
 	{
-		#1.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array(),true);
-		$table = $this->load->view('teacher/lecture/table',array(),true);
-		$pos = $this->teacher_b->get_pos('我要试讲');
-		
 		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'pos' => $pos,
-			'table' => $table,
 			'active' => 'lecture_index',
+			'title' => '试讲申请',
+			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
 		);
-		$this->load->view('teacher/lecture.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/lecture.html');
 	}
 	
 	/**
@@ -40,21 +33,14 @@ class Lecture extends CI_Controller {
 //		if(!$res){
 //			exit('<script>alert("申请失败，请重新操作！");history.go(-1);</script>'); 
 //		}
-		#1. 模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array(),true);
-		$success = $this->load->view('teacher/lecture/success',array(),true);
-		$pos = $this->teacher_b->get_pos('申请试讲成功');
-		
-		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'pos' => $pos,
-			'success' => $success,
 			'active' => 'lecture_lecture_success',
+			'title' => '申请试讲成功',
+			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
 		);
-		$this->load->view('teacher/lecture_success.php',$data);
+		
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/lecture_success.html');
 	}
 	
 }

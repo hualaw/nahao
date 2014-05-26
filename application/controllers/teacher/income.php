@@ -13,20 +13,13 @@ class Income extends CI_Controller {
 	 */
 	public function index()
 	{
-		#1.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'income_index'),true);
-		$list = $this->load->view('teacher/income/list',array(),true);
-		$pos = $this->teacher_b->get_pos('课酬结算列表');
-		
 		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'list' => $list,
-			'pos' => $pos,
+			'title' => '课酬结算列表',
+			'active' => 'income_index',
 		);
-		$this->load->view('teacher/income.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/income.html');
 	}
 	
 	/**
@@ -36,19 +29,12 @@ class Income extends CI_Controller {
 	{
 		#1.课酬id
 		$id = $_GET['id'];
-		#2.模块化和页面相关
-		$nav = $this->load->view('teacher/nav',array(),true);
-		$siteBar = $this->load->view('teacher/siteBar',array('active' => 'income_detail'),true);
-		$detail = $this->load->view('teacher/income/detail',array(),true);
-		$pos = $this->teacher_b->get_pos('课酬结算详情');
-		
-		#1.页面数据
+		#2.页面数据
 		$data = array(
-			'nav' => $nav,
-			'siteBar' => $siteBar,
-			'detail' => $detail,
-			'pos' => $pos,
+			'title' => '课酬结算详情',
+			'active' => 'income_detail',
 		);
-		$this->load->view('teacher/income_detail.php',$data);
+		$this->smarty->assign('data',$data);
+		$this->smarty->display('teacher/income_detail.html');
 	}
 }

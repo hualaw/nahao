@@ -76,21 +76,19 @@ class Student_Course extends NH_Model{
     public function get_round_outline($int_round_id)
     {   
         #获取该轮下的所有章
-        $array_parent = $this->model_course->get_all_chapter($int_round_id);
-        $array_return = array();
+        $array_chapter = $this->model_course->get_all_chapter($int_round_id);
         #如果有章
-        if ($array_parent)
+        if ($array_chapter)
         {
-            foreach ($array_parent as $k=>$v)
+            foreach ($array_chapter as $k=>$v)
             {
-                $array_parent[$k]['son'] = $this->model_course->get_one_chapter_children($v['id'],$int_round_id);
+                $array_chapter[$k]['son'] = $this->model_course->get_one_chapter_children($v['id'],$int_round_id);
             }
-            $array_return[] = $array_parent;
+            return $array_chapter;
         } else {
             #没有章，获取该轮下的所有节
-            $array_return[] = $this->model_course->get_all_section($int_round_id);
+            return $this->model_course->get_all_section($int_round_id);
         }
-        return $array_return;
     }
     
     /**

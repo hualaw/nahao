@@ -46,6 +46,40 @@ define('ROLE_STUDENT', 2);//学生
 define('ROLE_TEACHER', 3);//教师
 
 
+/*  订单状态
+ *  -2签名错误 -3金额校验错误
+ *  0，未付款；   
+ *  1,支付失败     
+ *  2，已付款；         
+ *  3，已完成（付款完成后7天自动变成这个状态，暂时用不上）；           
+ *  4，已取消（用户主动取消）；         
+ *  5，已关闭（订单超时，系统自动关闭）；           
+ *  6，包含申请退款的轮；            
+ *  7，包含退款失败的轮；             
+ *  8，包含退款成功的轮；
+ *  */
+define('ORDER_STATUS_DEBT', -3);
+define('ORDER_STATUS_SIGN', -2);
+define('ORDER_STATUS_INIT', 0);
+define('ORDER_STATUS_FAIL', 1);
+define('ORDER_STATUS_SUCC', 2);
+define('ORDER_STATUS_FINISH', 3);
+define('ORDER_STATUS_CANCEL', 4);
+define('ORDER_STATUS_CLOSE', 5);
+define('ORDER_STATUS_APPLYREFUND', 6);
+define('ORDER_STATUS_REFUNDSUCC', 7);
+define('ORDER_STATUS_REFUNDFAIL', 8);
+
+/*
+ * 订单支付方式
+ */
+define('ORDER_TYPE_ONLINE', 0);
+define('ORDER_TYPE_ALIPAY', 3);
+define('ORDER_TYPE_OFFLINE', 4);
+
+
+
+
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
 
@@ -110,10 +144,32 @@ define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
 define('STATIC_ADMIN_CSS_NAV','/admin/css/nav.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
+
 //phone_server连接
 define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
+
+//register type
+define('REG_TYPE_PHONE', 1);
+define('REG_TYPE_EMAIL', 2);
+
+//register status
+define('REG_SUCCESS', 1);
+define('REG_DUP_NICKNAME', 2);
+define('REG_DUP_EMAIL', 3);
+define('REG_DB_ERROR', 4);
+define('REG_INVALID_PHONE', 5);
+define('REG_INVALID_EMAIL', 6);
+define('REG_VERIFY_CAPTCHA_FAILED', 7);
+define('REG_PHONE_SERVER_ERROR', 8);
+
+//短信发送状态
+define('REG_SEND_VERIFY_CODE_FAILED', 9);
+define('REG_SEND_VERIFY_CODE_SUCCESS', 10);
+
+//过期时间
+define('REDIS_PHONE_CODE_EXPIRE_TIME', 300); //5分钟
 
 
 

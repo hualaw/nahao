@@ -152,5 +152,19 @@ class Model_Course extends NH_Model{
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
+    
+    /**
+     * 获取轮下面的课
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_class_under_round_id($int_round_id)
+    {
+        $array_result = array();
+        $sql = "SELECT lesson_id,course_id,round_id FROM class WHERE round_id = ".$int_round_id." 
+                AND parent_id > 0 AND parent_id !='' ORDER BY sequence ASC";
+        $array_result = $this->db->query($sql)->result_array();
+        return  $array_result;
+    }
 
 }

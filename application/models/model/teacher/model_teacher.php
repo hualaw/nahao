@@ -31,8 +31,10 @@ class Model_Teacher extends NH_Model{
         	exit('老师id为空，请确认登陆状态是否过期');
         }
         $this->db->query("set names utf8");
-        $sql = 'SELECT rtr.*,r.title,r.course_type,r.teach_status FROM round_teacher_relation rtr
+        $sql = 'SELECT rtr.*,r.title,r.course_type,r.teach_status,r.subject,c.score course_score 
+        		FROM round_teacher_relation rtr
  				LEFT JOIN nahao.round r ON rtr.round_id=r.id 
+ 				LEFT JOIN nahao.course c ON r.course_id=c.id 
  				WHERE rtr.teacher_id='.$param['user_id'];
         
         $arr_result = $this->db->query($sql)->result_array();
@@ -45,15 +47,20 @@ class Model_Teacher extends NH_Model{
      * 0 初始化 1 即将上课 2 正在上课 3 上完课 4 缺课 5 禁用 （不能恢复）
      */
     public function teacher_round_class($param){
+    	$orderArr = array(
+    		1 => ' ORDER BY c.parent_id',
+    		2 => ' ORDER BY c.sequence',
+    	);
     	$arr_result = array();
     	$param['round_id'] = $param['round_id'] ? $param['round_id'] : 0;
     	if(!$param['round_id']){
         	exit('轮id为空，请检查数据是否正确');
         }
+        $order = isset($param['order']) ? $param['order'] : 1;
         $this->db->query("set names utf8");
     	$sql = 'SELECT c.*,cw.name coursewareName FROM class c
 			LEFT JOIN courseware cw on c.courseware_id=cw.id 
-			WHERE c.round_id='.$param['round_id'].' and c.status in(1,2,3) ORDER BY c.parent_id';
+			WHERE c.round_id='.$param['round_id'].' and c.status in(1,2,3)'.$orderArr[$order];
     	
         $arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
@@ -72,4 +79,5 @@ VALUES('.$param['user_id'].','.$param['realname'].','.$param['age'].','.$param['
 ,'.$param['area'].','.$param['school'].','.$param['remuneration'].','.$param['teacher_age'].','.$param['stage'].')';
     	return $this->db->query($sql);
     }
+    
 }

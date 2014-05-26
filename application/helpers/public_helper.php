@@ -466,6 +466,17 @@ function create_password($str_salt,$str_password = NH_INIT_PASSWORD){
 }
 
 /**
+ * @param $password
+ * @param $salt
+ * @param $sys_password
+ * @return bool
+ */
+function check_password($password, $salt, $sys_password)
+{   
+    return create_password($password, $salt) === $sys_password;
+}
+
+/**
  * 验证手机号
  * @param $str_mobile
  * @return bool
