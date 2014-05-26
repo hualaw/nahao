@@ -13,10 +13,10 @@ class Student_Index extends NH_Model{
     }
     
     /**
-     * 首页获取轮的列表信息
+     * 首页获取不同课程里面的最新轮组成的列表信息
      * @return array $array_return
      */
-    public function get_round_list()
+    public function get_course_latest_round_list()
     {
         #首页获取一门课程里面最新的一轮（在审核通过和销售中）
         $array_round = $this->model_index->get_course_latest_round();

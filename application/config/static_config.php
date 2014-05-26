@@ -7,7 +7,7 @@ $config['static_admin']['admin']['js'] = array(
     STATIC_ADMIN_JS_ADMIN,
     STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN
 );
-$config['static_admin']['group']['js'] = array(
+$config['static_admin']['group']['js'] = array();
 
 /**
  * static_config

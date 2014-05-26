@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="{static_url('/student/css/login/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+<!--#include virtual="/include/var.htm"-->
+{include file="www/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body>
+<!-- 头部开始 -->
+<!--#include virtual="/include/header.htm"-->
+{include file="www/include/header.htm"}
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap layout login" id="nahaoModule" module="login">
+	<div class="regWrap cf">
+		<div class="regBox fl">
+			<h2>快速注册<span>一分钟改变你的学习方式</span></h2>
+			<div class="regTab">
+				<div class="tabBox cf">
+					<a href="javascript:void(0)"  class="fl ">手机注册</a>
+					<a href="javascript:void(0)"  class="fl active">邮箱注册</a>
+				</div>
+				<div class="contentBox">
+					<div class="box phoneBox undis">
+						<ul>
+							<li>
+								<p>手机号</p>
+								<input type="text" class="phoneNum regInput yh" placeholder="使用手机注册，第一时间获知名师公开课">
+							</li>
+							<li>
+								<p>密码</p>
+								<input type="password" class="pwd regInput yh" placeholder="6-20 位字符">
+							</li>
+							<li class="cf">
+								<a href="javascript:void(0)" class="  btn blueBtn pnoneCode fl ">免费获取验证码</a>
+								<span class="bth pnoneCode undis" >60秒后获取验证码</span>
+								<input type="password" class="codeInput regInput yh fr" placeholder="请输入手机验证码">
+							</li>
+							<li class="agreementLi">
+								<input type="radio" id="agreement">
+								<label for="agreement">我已阅读并同意</label>
+								<a href="javascript:void(0)">那好网服务使用协议</a>
+							</li>
+							<li>
+								<input type="submit" class="btn redBtn regInput submit" value="免费注册 ">
+							</li>
+						</ul>
+					</div>
+					<div class="box emailBox">
+						<ul>
+							<li>
+								<p>邮箱</p>
+								<input type="text" class="phoneNum regInput yh" placeholder="邮箱地址">
+							</li>
+							<li>
+								<p>密码</p>
+								<input type="password" class="pwd regInput yh" placeholder="6-20 位字符">
+							</li>
+							<li>
+								<p>手机号（选填）</p>
+								<input type="password" class="pwd regInput yh" placeholder="填写手机号码，第一时间获知名师公开课">
+							</li>
+							
+							<li class="agreementLi">
+								<input type="radio" id="agreement">
+								<label for="agreement">我已阅读并同意</label>
+								<a href="javascript:void(0)">那好网服务使用协议</a>
+							</li>
+							<li>
+								<input type="submit" class="btn redBtn regInput submit" value="免费注册 ">
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<div class="goLogin fr">
+			<p>已有帐户，点击这里</p>
+			<a href="javascript:void(0)" class="btn blueBtn">登录</a>
+		</div>
+	</div>
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+<!--#include virtual="/include/footer.htm"-->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+<!--#include virtual="/include/js.htm"-->
+{include file="www/include/js.htm"}
+<!--js引入结束-->
+</body>
+</html>
