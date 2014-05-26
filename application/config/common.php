@@ -136,7 +136,6 @@ $config['role'][1] = '管理员';
 $config['role'][2] = '学生';
 $config['role'][3] = '老师';
 
-
 //退款状态
 /*
 *@author shangshikai@nahao.com
@@ -148,9 +147,6 @@ $config['refund'][3] = "申请退款";
 $config['refund'][4] = "退款通过";
 $config['refund'][5] = "退款不通过";
 $config['refund'][5] = "退款已完成";
-
-
-
 
 //进出课堂动作
 $config['classroom_action'][1] = '进入';

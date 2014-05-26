@@ -144,12 +144,6 @@ define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
 define('STATIC_ADMIN_CSS_NAV','/admin/css/nav.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
-
-//phone_server连接
-define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
-define('PHONE_SERVER_PORT', 1899);
-define('PHONE_SERVER_APPNAME', 'nahao');
-
 //register type
 define('REG_TYPE_PHONE', 1);
 define('REG_TYPE_EMAIL', 2);
@@ -170,6 +164,11 @@ define('REG_SEND_VERIFY_CODE_SUCCESS', 10);
 
 //过期时间
 define('REDIS_PHONE_CODE_EXPIRE_TIME', 300); //5分钟
+
+//phone_server连接
+define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
+define('PHONE_SERVER_PORT', 1899);
+define('PHONE_SERVER_APPNAME', 'nahao');
 
 
 
