@@ -1,0 +1,14 @@
+<div class="col-md-2 column ui-sortable">
+			<div class="list-group">
+        		<a href="/" class="list-group-item {if in_array($data['active'],array('welcome_index','lecture_index','lecture_lecture_success'))}active{/if}">
+          			首页
+          			<i class="glyphicon glyphicon-chevron-right" style="float:right"></i>
+          			{if $data['today_list_data']['today_total']}<span class="badge pull-right">{$data['today_list_data']['today_total']}</span>{/if}
+        		</a>
+        		<a href="">
+        		<a href="/round/index" class="list-group-item {if in_array($data['active'],array('round_index','round_class_list','round_question_add','round_answer_count','round_check_comment'))}active{/if}">课程列表<i class="glyphicon glyphicon-chevron-right" style="float:right"></i></a>
+        		<a href="/user/index" class="list-group-item {if in_array($data['active'],array('user_index','user_avater','user_password'))}active{/if}">个人资料<i class="glyphicon glyphicon-chevron-right" style="float:right"></i></a>
+        		<a href="/income/index" class="list-group-item {if in_array($data['active'],array('income_index','income_detail'))}active{/if}">课酬结算<i class="glyphicon glyphicon-chevron-right" style="float:right"></i></a>
+        		<a href="/bandBank/index" class="list-group-item {if in_array($data['active'],array('bandBank_index'))}active{/if}">绑定银行账户<i class="glyphicon glyphicon-chevron-right" style="float:right"></i></a>
+      		</div>
+      	</div>

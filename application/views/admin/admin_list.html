@@ -9,7 +9,7 @@
 <form class="form-inline" role="form">
     <div class="form-group">
         <label class="sr-only" for="username">用户名</label>
-        <input type="text" class="form-control" id="username" name="username" size="16" value="<?php echo isset($arr_query_param['username']) ? $arr_query_param['username'] : ''; ?>">
+        <input type="text" class="form-control" id="username" name="username" size="16" value="{if isset($arr_query_param.username)}{$arr_query_param.username}{/if}">
         <!--<input type="text" class="form-control"  id="admin_datetimepicker" name="time_select" size="16"  data-date-format="yyyy-mm-dd hh:ii">-->
         <!--        <span class="add-on"><i class="icon-th"></i></span>-->
     </div>
@@ -29,27 +29,26 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach($arr_list as $k => $v){ ?>
+    {foreach $list as $v}
     <tr>
-        <td><?php echo $v['id']?></td>
-        <td><?php echo $v['username']?></td>
-        <td><?php echo $v['realname']?></td>
-        <td><?php echo $v['phone']?></td>
-        <td><?php echo $v['group_name']?></td>
-        <td><?php echo $v['status']==1 ? '已启用' : '<font color="red">已禁用</font>'?></td>
-        <td><?php ?></td>
+        <td>{$v.id}</td>
+        <td>{$v.username}</td>
+        <td>{$v.realname}</td>
+        <td>{$v.phone}</td>
+        <td>{$v.group_name}</td>
+        <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
+        <td></td>
         <td>
-            <a href="javascript:;" class="admin_active" data-action="/admin/active" data-admin_id="<?php echo $v['id']; ?>" data-status="<?php echo $v['status']==1 ? 0 : 1; ?>"><?php echo $v['status']==1 ? '禁用' : '启用'?></a>
+            <a href="javascript:;" class="admin_active" data-action="/admin/active" data-admin_id="{$v.id}" data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
             <a href="javascript:;">修改</a>
         </td>
     </tr>
-    <?php } ?>
+    {/foreach}
     </tbody>
 </table>
 
-<?php echo '共'.$int_count.'条记录'."&nbsp;&nbsp;".$str_page; ?>
-
-<?php $this->load->view('admin/admin_modal_create'); ?>
+共{$count}条记录&nbsp;&nbsp;{$page}
+{include file="admin/admin_modal_create.html"}
 
 
 

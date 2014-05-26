@@ -1,0 +1,23 @@
+<div class="col-md-10 column">
+		<span class="badge" style="margin-bottom:10px">{$data['today_list_data']['date']}    今天要上的班次：<span class="badge" style="color: #428bca;background-color: #ffffff;">{$data['today_list_data']['today_total']}</span></span>
+</div>
+<div class="col-md-10 column ui-sortable table-responsive">
+	      	<table class="table table-hover table-bordered table-striped" style="border:3px solid #ddd;border-radius:10px;border-collapse: separate;box-shadow: 2px 2px 10px #333;">
+	        <thead>
+	          <tr class="warning">
+	            <th>上课时间</th>
+	            <th>课程名称</th>
+	            <th>小节名称</th>
+	            <th>课程进度</th>
+	            <th>类型</th>
+	            <th>授课状态</th>
+	            <th>课件讲义</th>
+	            <th>课堂练习题</th>
+	            <th>教室入口</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          {$data['today_list_data']['str']}
+	        </tbody>
+	      </table>
+</div>
