@@ -119,6 +119,7 @@
          */
         public function note_insert($note,$order_id)
         {
+            $note=htmlspecialchars($note);
             if(trim($note)=="")
             {
                 return FALSE;
