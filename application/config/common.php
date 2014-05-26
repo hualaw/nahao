@@ -8,12 +8,6 @@
 $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
-//教师职称
-$config['teacher_title'][0] = '高级教师';
-$config['teacher_title'][1] = '一级教师';
-$config['teacher_title'][2] = '二级教师';
-$config['teacher_title'][3] = '三级教师';
-
 //教学阶段
 $config['teach_stage'][0] = '小学';
 $config['teach_stage'][1] = '初中';
@@ -160,3 +154,30 @@ $config['class_teach_status'][3] = '上完课';
 $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
 
+//教师试讲状态
+$config['teacher_lecture'][1] = '未审核';
+$config['teacher_lecture'][2] = '审核未通过';
+$config['teacher_lecture'][3] = '审核通过';
+
+//授课方式
+$config['teacher_type'][1] = '一对一';
+$config['teacher_type'][2] = '小班';
+$config['teacher_type'][3] = '大班';
+
+//教学阶段
+$config['stage'][0] = '';
+$config['stage'][1] = '小学';
+$config['stage'][2] = '初中';
+$config['stage'][3] = '高中';
+
+//性别
+$config['gender']['0'] = '保密';
+$config['gender']['1'] = '男';
+$config['gender']['2'] = '女';
+
+//职称
+$config['teacher_title'][1] = '正高级教师';
+$config['teacher_title'][2] = '高级教师';
+$config['teacher_title'][3] = '一级教师';
+$config['teacher_title'][4] = '二级教师';
+$config['teacher_title'][5] = '三级教师';
