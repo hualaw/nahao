@@ -113,11 +113,16 @@ class Model_Course extends NH_Model{
      * @param  $int_round_id
      * @return $array_result
      */
-    public function get_round_team($int_round_id)
+    public function get_round_team($int_round_id,$int_type = '-1')
     {
+        $where = '';
+        if ($int_type >= 0)
+        {
+            $where.= " AND role = ".$int_type;
+        }
         $array_result = array();
         $sql = "SELECT teacher_id,role FROM round_teacher_relation 
-                WHERE round_id = ".$int_round_id." ORDER BY sequence ASC";
+                WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -133,7 +138,7 @@ class Model_Course extends NH_Model{
         $sql = "SELECT u.nickname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
                 ui.teacher_intro,ui.teacher_signature,ui.user_id FROM user u 
                 LEFT JOIN user_info ui ON u.id = ui.user_id
-                WHERE user_id = ".$int_teacher_id;
+                WHERE ui.user_id = ".$int_teacher_id;
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }

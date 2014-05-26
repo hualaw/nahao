@@ -77,6 +77,18 @@ define('ORDER_TYPE_ONLINE', 0);
 define('ORDER_TYPE_ALIPAY', 3);
 define('ORDER_TYPE_OFFLINE', 4);
 
+/*
+ * 首页列表默认图片
+ */
+define('HOME_IMG_DEFAULT', '/student/images/homePage/course1.jpg');
+
+/*
+ * 老师角色
+ */
+define('TEACH_SPEAKER', 0);
+define('TEACH_ASSISTANT', 1);
+
+
 
 
 

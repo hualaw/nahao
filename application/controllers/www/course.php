@@ -33,6 +33,7 @@ class Course extends NH_User_Controller {
         //var_dump($array_outline);die;
         
         $this->smarty->assign('array_data', $array_data);
+        //var_dump($array_data);die;
         $this->smarty->assign('array_outline', $array_outline);
         $this->smarty->assign('array_evaluate', $array_evaluate);
         $this->smarty->assign('array_team', $array_team);

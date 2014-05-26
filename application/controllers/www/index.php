@@ -12,7 +12,7 @@ class Index extends NH_User_Controller {
      */
 	public function index()
 	{  
-	    header('content-type: text/html; charset=utf-8');
+        header('content-type: text/html; charset=utf-8');
         $array_data = $this->student_index->get_course_latest_round_list();
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/index.html');

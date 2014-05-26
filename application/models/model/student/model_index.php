@@ -39,12 +39,6 @@ class Model_Index extends NH_Model{
                 start_time,end_time,img FROM round
                 WHERE course_id = ".$course_id." AND start_time = ".$start_time;
         $array_result = $this->db->query($sql)->row_array();
-        #获取每一轮里面有几次课
-        if ($array_result['id'])
-        {
-            $int_num = $this->round_has_class_nums($array_result['id']);
-            $array_result['class_nums'] = $int_num;
-        }
         return $array_result;
     }
     

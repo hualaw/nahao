@@ -22,8 +22,8 @@
         <!-- 购买前 头部 -->
         <div class="buyHead">
             <div class="buyHeadt">
-                <h2>王老师   2014年五年级奥数暑假训练营</h2>
-                <p>语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
+                <h2>{$array_data.title|truncate:20:"..."}</h2>
+                <p>{$array_data.subtitle|truncate:66:"..."}</p>
             </div>
             <div class="buyHeadf cf">
                 <img src="{static_url('/student/images/myCourse/cover2.png')}" alt="" class="fl">
@@ -88,13 +88,11 @@
                 <div class="slash"></div>
                 <!-- 课程简介 -->
                 <div class="introd cBox">
-                    <p>机器人是对中小学生开展科技教育的最佳平台之一，它是一门多学科交叉的课程，讲涉及到：数学、物理学、计算机与人工智能、材料科学、机械、电子、控制论等多们学科。同时，机器人教育通过项目学习的方式，学生团队合作、动手实际操作的实践方法，培养学生的团队沟通能力和探究精神</p>
+                    <p>{$array_data.intro|truncate:300:"..."}</p>
                 </div>
                 <!-- 适合学生 -->
                 <div class="fitStu cBox">
-                    <p>适合需加强语文基础知识的小学三,四,五,六年级学生</p>
-                    <p>适合考题中基础知识部分失分比较多的小学三,四,五,六年级学生</p>
-                    <p>适合希望提高语文素养的小学生</p>
+					{$array_data.intro|truncate:300:"..."}
                 </div>
                 <!-- 课程大纲 -->
                 <div class="outline cBox">

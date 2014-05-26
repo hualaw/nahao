@@ -116,11 +116,11 @@ class Student_Course extends NH_Model{
      * @param  $int_round_id
      * @return $array_return
      */
-    public function get_round_team($int_round_id)
+    public function get_round_team($int_round_id,$int_type= '-1')
     {
         $array_return = array();
         #这个轮里面的所有老师id
-        $array_teacher = $this->model_course->get_round_team($int_round_id);
+        $array_teacher = $this->model_course->get_round_team($int_round_id,$int_type);
         if (empty($array_teacher))
         {
             show_error('无老师信息');
