@@ -23,29 +23,29 @@ seajs.use('jquery',function(){
 	// 得到当前页面是哪个
 	var _page = $('#nahaoModule').attr('module');
 	switch(_page){
-		// 模块是首页
-		case 'homePage':
-		seajs.use("module/homePage/init");
+		// 模块是学生首页
+		case 'studentHomePage':
+		seajs.use("module/studentHomePage/init");
 		break;
 		// 模块是注册忘记密码等模块
 		case 'login':
 		seajs.use("module/login/init");
 		break;
-		// 模块是购物车
-		case 'cart':
-		seajs.use("module/cart/init");
+		// 模块是学生购物车
+		case 'studentCart':
+		seajs.use("module/studentCart/init");
 		break;
-		// 模块是我的课程
-		case 'myCourse':
-		seajs.use("module/myCourse/init");
+		// 模块是学生我的课程
+		case 'studentMyCourse':
+		seajs.use("module/studentMyCourse/init");
 		break;
-		// 模块是我要开课
-		case 'startClass':
-		seajs.use("module/startClass/init");
+		// 模块是学生我要开课
+		case 'studentStartClass':
+		seajs.use("module/studentStartClass/init");
 		break;
-		// 模块是我要开课
-		case 'study':
-		seajs.use("module/study/init");
+		// 模块是学生我要开课
+		case 'studentStudy':
+		seajs.use("module/studentStudy/init");
 		break;
 	}
 })
