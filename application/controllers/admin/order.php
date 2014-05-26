@@ -116,9 +116,8 @@
             $student_id=$this->input->post('student_id',TRUE);
             $order_id=$this->input->post('order_id',TRUE);
             $this->load->model("business/admin/business_order");
-            echo $this->business_order->stu_refund($student_id,$order_id);
-           // self::json_output($this->arr_response);
-
+            //echo $this->business_order->stu_refund($student_id,$order_id);
+            self::json_output($this->business_order->stu_refund($student_id,$order_id));
         }
         /**
          * 添加订单备注
@@ -131,7 +130,8 @@
           $note=$this->input->post('note',TRUE);
           $order_id=$this->input->post('order_id',TRUE);
           $this->load->model("business/admin/business_order");
-         echo $this->business_order->note_insert($note,$order_id);
+          //echo $this->business_order->note_insert($note,$order_id);
+          self::json_output($this->business_order->note_insert($note,$order_id));
         }
         /**
          * 显示手机号
@@ -143,6 +143,7 @@
         {
             $int_uid=$this->input->post('uid',TRUE);
             $this->load->model("business/admin/business_order");
+           // self::json_output($this->business_order->phone_show($int_uid));
             echo $this->business_order->phone_show($int_uid);
         }
     }
