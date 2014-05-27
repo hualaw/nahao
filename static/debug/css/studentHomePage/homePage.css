@@ -1,0 +1,80 @@
+/*首页 内容 */
+.studentHomePage .contop{background: #f4f4f4;}
+.studentHomePage .conNav{background: #d59879;padding: 75px 0 96px;}
+.studentHomePage .conNav,.studentHomePage .conNav p{text-align: center;color: #fff;}
+.studentHomePage .conNav p{font-size: 60px;}
+.studentHomePage .conNav p.prompt{font-size: 18px;margin: 20px 0 86px;}
+.studentHomePage .addBtn a{width: 144px;height: 34px;line-height: 34px;font-size: 16px;}
+.studentHomePage .addBtn span{font-size: 18px;display: inline-block;margin: 0 30px;}
+.studentHomePage .addBtn .addLine{width: 20px;display: inline-block;background: #fff;height: 1px;margin:0 8px 5px;}
+/*课程展示*/
+.studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 55px 86px;}
+.studentHomePage .courseList li{width: 230px;height: 270px;margin:0 20px 36px 0;position: relative;/*-webkit-perspective:800;*/}
+.studentHomePage .courseList{margin-right: -28px;}
+.studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}
+/*   师资 认证过程 开始  */
+.studentHomePage .comTitle{color:#0e455e;font-size: 50px;}
+.studentHomePage .reTitle{height: 80px;width: 515px;margin: 0 auto;border-width: 0 1px 0 1px;border-style:solid;border-color: #e3e3e3;text-align: center;
+	/*transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);
+	-webkit-transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);
+	-moz-transform:skewX(-30deg) rotate(3deg) translateY(-26px) translateX(-17px);
+	-ms-transform:skewX(-30deg) rotate(3deg) translateY(3px) translateX(20px);
+	-o-transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);*/
+	margin-top: -34px;
+}
+.studentHomePage .courseRequire .reTitle h2{margin:0 auto;width:444px;
+	/*transform:skewX(30deg) rotate(-3deg) translateY(-6px);
+	-webkit-transform:skewX(30deg) rotate(-3deg) translateY(2px);
+	-moz-transform:skewX(30deg) rotate(-3deg) translateY(-6px);
+	-ms-transform:skewX(30deg) rotate(-3deg) translateY(-6px);
+	-o-transform:skewX(30deg) rotate(-3deg) translateY(-6px);*/
+}
+.studentHomePage .tipText{font-size: 18px;text-align: center;margin: -13px 0 48px;}
+.studentHomePage .recomTea{padding-top: 245px;text-align: center;}
+.studentHomePage .autTea{width:326px;background: url(../../images/studentHomePage/teacher1.gif) center top no-repeat;}
+.studentHomePage .proTea{background: url(../../images/studentHomePage/teacher3.gif) center top no-repeat;width: 326px;}
+.studentHomePage .eavTea{background: url(../../images/studentHomePage/teacher2.gif) center top no-repeat;}
+.studentHomePage .courseRequire .recomTea h2{font-size: 24px;color:#484848;}
+.studentHomePage .courseRequire .recomTea p{font-size: 16px;color:#727272;}
+.studentHomePage .courseRequire .line{width: 60px;}
+
+.studentHomePage .ad{height: 435px;background:#f14211;margin:56px 0 44px;}
+/*贴心服务 随时退款*/
+.studentHomePage .service{height: 541px;background: url(../../images/studentHomePage/line.gif) no-repeat;}
+.studentHomePage .service .comTitle{width: 430px;margin:0 auto;height: 80px;line-height: 80px;}
+.studentHomePage .line{height: 2px;background: #f14211;display: block;margin:5px auto 8px;}
+.studentHomePage .service .line{width: 160px;margin:6px auto 40px;}
+.studentHomePage .serBoxPar{margin-right: -40px;}
+.studentHomePage .serBox{width: 300px;height: 300px;margin-right: 40px;}
+.studentHomePage .audition{background: url(../../images/studentHomePage/audition.gif) no-repeat;}
+.studentHomePage .dropCourse{background: url(../../images/studentHomePage/dropCourse.gif) no-repeat;}
+.studentHomePage .study{background: url(../../images/studentHomePage/study.gif) no-repeat;}
+/*师资 课程 学校 合作*/
+.studentHomePage .cooph .headBg{width: 326px;height: 230px;}         
+.studentHomePage .investor{background: url(../../images/studentHomePage/coop1.gif) center top no-repeat;}
+.studentHomePage .founder{background: url(../../images/studentHomePage/coop2.gif) center top no-repeat;}
+.studentHomePage .coopSchool{background: url(../../images/studentHomePage/coop3.gif) center top no-repeat;}
+.studentHomePage .coopft{position: absolute;bottom:0;height: 56px;width: 980px;}
+.studentHomePage .coopere{width: 921px;background: #f14211;height: 44px;line-height: 44px;color:#fff;font-size: 18px;position: absolute;left: 30px;}
+.studentHomePage .coopere h3{width: 307px;text-align: center;}
+.studentHomePage .coopft span{width: 56px;height: 56px;}
+.studentHomePage .coopft span.fl{background: url(../../images/studentHomePage/coopl.gif) left bottom no-repeat;}
+.studentHomePage .coopft span.fr{background: url(../../images/studentHomePage/coopr.gif) left bottom no-repeat;}
+.studentHomePage .coopBox{margin: 88px 0 64px;border-bottom: 1px solid #f14211;}
+.studentHomePage .coopComW{width: 489px;text-align: center;}
+.studentHomePage .coopBoxh{height: 62px;line-height: 62px;background: #e1e1e1;}
+.studentHomePage .coopBoxCon{border: 1px solid #e7e7e7;border-bottom: none;}
+.studentHomePage .coopBoxh h3{font-size: 28px;color: #0e455e;}
+.studentHomePage .coopBoxh h3.fl{border-right: 1px solid #d6d5d5;}
+.studentHomePage .coopBoxh h3.fr{border-left: 1px solid #e7e7e7;}
+.studentHomePage .coopBoxCon div.fl{border-right: 1px solid #d6d5d5;width: 488px;}
+.studentHomePage .coopBoxCon .fp{text-align: center;height: 40px;line-height: 40px;margin-top:12px;}
+.studentHomePage .coopBoxCon .fp a{font-size: 16px;color:#f14211;margin-right: 20px;}
+.studentHomePage .coopBoxCon .dt{color:#1c1c1c;font-size: 20px;line-height: 44px;margin-top: 10px;}
+.studentHomePage .coopBoxCon .dl{color:#727272;font-size: 16px;line-height: 22px;}
+.studentHomePage .coopBoxCon .edudt{margin-top: 20px;}
+/*   不支持 transform  的低版本浏览器*/
+/*.lowHomePage .reTitle{position: absolute\9;top:-40px;left:206px;}
+.lowHomePage .tipText{padding-top: 40px\9;}
+*/
+
