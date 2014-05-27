@@ -4,7 +4,6 @@ class Index extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
-        // $this->load->model('business/student/student_index');
     }
     /**
 	 * 老师首页
@@ -16,4 +15,4 @@ class Index extends NH_User_Controller {
 }
 
 /* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* Location: ./application/controllers/teacher/index.php */
