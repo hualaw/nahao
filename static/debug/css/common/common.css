@@ -42,10 +42,7 @@ select{font-size: 16px;height: 32px;}
 .floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
 .floatBox .feedback:hover{background-image: url(../../images/common/hfeedback.jpg);}
 .floatBox .returnTop:hover{background-image: url(../../images/common/hreturnTop.jpg);}
-
-
-              
-
+            
 /*  css3 旋转块 */
 .clBoxShaow{font-size:14px;position:absolute;left:0;top:0;width: 230px;cursor: pointer;height: 270px;}
 .iniBox{
