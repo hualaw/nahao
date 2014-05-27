@@ -18,11 +18,13 @@ $config['teacher_title'][1] = '一级教师';
 $config['teacher_title'][2] = '二级教师';
 $config['teacher_title'][3] = '三级教师';
 
-//教学阶段
-$config['teach_stage'][0] = '小学';
-$config['teach_stage'][1] = '初中';
-$config['teach_stage'][2] = '高中';
+//教育阶段
+$config['stage'][1] = '小学';
+$config['stage'][2] = '初中';
+$config['stage'][3] = '高中';
 
+$config['has_bought'][1] = '注册用户';
+$config['has_bought'][2] = '付费用户';
 
 //轮里面的销售状态
 $config['round_sale_status'][0] = '未审核';

@@ -16,10 +16,15 @@ function p()
     return ;
 }
 
-function o($mix_param){
-    echo "<pre>";
+function o($mix_param,$bool_flag=false){
+    header("Content-type: text/html; charset=utf-8");
+    if($bool_flag==true){
+        echo "<pre>";
+    }
     var_dump($mix_param);
-    exit;
+    if($bool_flag==true){
+        exit;
+    }
 }
 
 /**

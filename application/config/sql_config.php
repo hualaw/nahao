@@ -22,12 +22,11 @@ $config['sql_admin'] = array(
     'group' => array(
         TABLE_ADMIN_GROUP => false
     ),
-    'user' => array(
+    'student_info'=> array(
         TABLE_USER => false,
-    ),
-    'user_user_info'=> array(
-        TABLE_USER => false,
-        TABLE_USER_INFO => array(TABLE_USER.'.id='.TABLE_USER_INFO.'.user_id','left')
+        TABLE_USER_INFO => array(TABLE_USER.'.id='.TABLE_USER_INFO.'.user_id','left'),
+        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO.'.province='.TABLE_NAHAO_AREAS.'.id','left'),
+        TABLE_STUDENT_SUBJECT => array(TABLE_USER.'.id='.TABLE_STUDENT_SUBJECT.'.student_id','left')
     ),
     'subject' => array(
         TABLE_SUBJECT => false,

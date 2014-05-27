@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * 那好Model超级父类
@@ -35,21 +35,20 @@ class NH_Model extends CI_Model
         $mix_return = array();
 //        echo $str_table_range.'--'.$str_result_type.'--'.$str_field."\n";echo "where : \n";var_dump($arr_where);echo "group_by : \n";var_dump($arr_group_by);echo "order_by : \n";var_dump($arr_order_by);echo "limit : \n";var_dump($arr_limit);//exit;
         if (is_array($arr_where)) {
-            $arr_config = config_item('sql_'.DOMAIN);
-            if(array_key_exists($str_table_range,$arr_config)){
+            $arr_config = config_item('sql_' . DOMAIN);
+            if (array_key_exists($str_table_range, $arr_config)) {
                 $arr_keys = array_keys($arr_config[$str_table_range]);
                 $arr_keys = array_flip($arr_keys);
-                foreach($arr_config[$str_table_range] as $k => $v){
-                    if($arr_keys[$k]==0){
+                foreach ($arr_config[$str_table_range] as $k => $v) {
+                    if ($arr_keys[$k] == 0) {
                         $this->db->from($k);
-                    }else{
-                        $this->db->join($k, $v[0],$v[1]);
+                    } else {
+                        $this->db->join($k, $v[0], $v[1]);
                     }
                 }
                 $this->db->select($str_field);
                 if (!empty($arr_where)) {
-
-                    if(isset($arr_where['like'])){
+                    if (isset($arr_where['like'])) {
                         $arr_like = $arr_where['like'];
                         unset($arr_where['like']);
                     }
@@ -60,8 +59,8 @@ class NH_Model extends CI_Model
                             $this->db->where($k, $v);
                         }
                     }
-                    if($arr_like){
-                        foreach($arr_like as $k => $v){
+                    if ($arr_like) {
+                        foreach ($arr_like as $k => $v) {
                             $this->db->like($k, $v);
                         }
                     }
@@ -87,11 +86,12 @@ class NH_Model extends CI_Model
                 } elseif ($str_result_type == 'list') {
                     $mix_return = $this->db->get()->result_array();
                 }
-            }else{
-                die('no such table range : '.$str_table_range);
+            } else {
+                die('no such table range : ' . $str_table_range);
             }
-            if($this->input->get('d')==1){
-                var_dump($this->db->last_query());//exit;
+            if ($this->input->get('d') == 1) {
+                header("Content-type: text/html; charset=utf-8");
+                o($this->db->last_query());
             }
         }
         return $mix_return;

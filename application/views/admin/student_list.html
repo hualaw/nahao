@@ -4,9 +4,13 @@
         <div class="col-md-2">
             <select class="form-control" name="stage">
                 <option value="">全部阶段</option>
-                <option value="1">小学</option>
-                <option value="2">初中</option>
-                <option value="3">高中</option>
+                {foreach $stages as $stage_id => $stage_name}<option value="{$stage_id}">{$stage_name}</option>{/foreach}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="grade">
+                <option value="">全部年级</option>
+                {foreach $grades as $grade_id => $grade_name}<option value="{$grade_id}">{$grade_name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -34,15 +38,13 @@
         <div class="col-md-2">
             <select class="form-control" name="gender">
                 <option value="">全部性别</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
+                {foreach $genders as $gender_id => $gender_name}<option value="{$gender_id}">{$gender_name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="search_type">
+            <select class="form-control" name="has_bought">
                 <option value="">全部用户</option>
-                <option value="1">注册用户</option>
-                <option value="2">付费用户</option>
+                {foreach $has_bought as $has_bought_id => $has_bought_name}<option value="{$has_bought_id}">{$has_bought_name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -54,7 +56,7 @@
             </select>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control col-md-2" id="nickname" name="nickname" size="16" value="{if isset($arr_query_param.nickname)}{$arr_query_param.nickname}{/if}">
+            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
         </div>
         <button type="submit" class="btn btn-primary">搜索</button>
     </div>
@@ -70,8 +72,7 @@
         <th>性别</th>
         <th>年级</th>
         <th>注册时间</th>
-        <th>省</th>
-        <th>市</th>
+        <th>地区</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -83,11 +84,10 @@
         <td>{$v.email}</td>
         <td>{$v.phone_mask}</td>
         <td>{$v.nickname}</td>
-        <td>{$v.gender}</td>
-        <td>{$v.grade}</td>
+        <td>{$genders[$v.gender]}</td>
+        <td>{$grades[$v.grade]}</td>
         <td>{date('Y-md H:i',$v.create_time)}</td>
-        <td>{$v.province}</td>
-        <td>{$v.city}</td>
+        <td>{$v.final_area}</td>
         <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
         <td>
             <a href="javascript:;" class="group_active" data-action="/user/active" data-user_id="{$v.id}"
