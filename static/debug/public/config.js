@@ -62,6 +62,9 @@ seajs.use('jquery',function(){
 		// 模块是课酬结算
 		case 'teacherPay':
 		seajs.use("module/teacherPay/init");
+		// 模块是教室
+		case 'classRoom':
+		seajs.use("module/classRoom/init");
 		break;
 	}
 })
