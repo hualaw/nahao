@@ -72,9 +72,9 @@ select{font-size: 16px;height: 32px;}
 .teaInfor h3 span{display: inline-block;width: 18px;height: 15px;margin-left: 10px;}
 .teaInfor h3 em{line-height: 14px;}
 .teaInfor .teaInforR{padding-top: 3px;}
-.teaInfor .workCard{background: url(../../images/homePage/workCard.gif) center center no-repeat;}
-.teaInfor .TitleCard{background: url(../../images/homePage/TitleCard.png) center center no-repeat;_background-image: url(../../images/homePage/TitleCard_8.png);}
-.teaInfor .teaCard{font-size:12px;font-weight:normal;text-align:center;line-height: 12px;color:#f3704d;background: url(../../images/homePage/teaCard.png) center center no-repeat;_background-image: url(../../images/homePage/teaCard_8.png);}
+.teaInfor .workCard{background: url(../../images/studenthomePage/workCard.gif) center center no-repeat;}
+.teaInfor .TitleCard{background: url(../../images/studenthomePage/TitleCard.png) center center no-repeat;_background-image: url(../../images/studenthomePage/TitleCard_8.png);}
+.teaInfor .teaCard{font-size:12px;font-weight:normal;text-align:center;line-height: 12px;color:#f3704d;background: url(../../images/studenthomePage/teaCard.png) center center no-repeat;_background-image: url(../../images/studenthomePage/teaCard_8.png);}
 .teaInfor img{width: 35px;height: 35px;margin-right: 6px;}
 .rotateBox h3{font-size: 14px;}
 .rotateBox .detailInfor{font-size: 12px;margin-top:3px;}
