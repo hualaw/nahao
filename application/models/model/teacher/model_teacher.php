@@ -9,25 +9,26 @@ class Model_Teacher extends NH_Model{
 			1 => 'id',
 			2 => 'begin_time',#开课时间
 			3 => 'sequence',#权重
+			4 => 'create_time',#评论时间
+			5 => 'score',#评分
 	);
+	
 	static protected $_orderType = array(
 			1=>'ASC',
 			2=>'DESC'
 	);
 	
+	public protected $database = "nahao";
+	
 	/**
 	 * 【超能统计搜索器 - 课】：
-	 * 课class，条件搜索列表
-	 * 1.时间段begin_time,end_time
-	 * 2.老师id
-	 * ...
-	 * 使用方法：
-	 *    按需传递参数,只需摇一摇、舔一舔、再泡一泡
+	 * param:id,teacher_id,begin_time,end_time,parent_id,status,teach_status,sale_status,subject,round_title,title,counter,order,orderType
 	 **/
 	public function class_seacher($param){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
+		$where .= $param['id'] ? ' AND cl.id='.$param['id'] : '';
 		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= $param['begin_time'] ? ' AND cl.begin_time>='.$param['begin_time'] : '';
 		$where .= $param['end_time'] ? ' AND cl.end_time<='.$param['end_time'] : '';
@@ -41,12 +42,12 @@ class Model_Teacher extends NH_Model{
 		$where .= $param['round_title'] ? ' AND r.title like "%'.$param['round_title'].'%"' : '';//轮名
 		$where .= $param['title'] ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
-		$order = ' ORDER BY cl.'.self::$_orderArr[$param['order'] ? $param['order'] : 1].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
-		$column = $param['counter']==1 ? 'count(cl.*) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score';
+		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
+		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
-				FROM class cl 
+				FROM nahao.class cl 
 				LEFT JOIN nahao.round r ON cl.round_id=r.id 
 				LEFT JOIN nahao.course c ON r.course_id=c.id 
 				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id ".$where.$order;
@@ -56,19 +57,106 @@ class Model_Teacher extends NH_Model{
 	
 	/**
 	 * 【题目搜索器】：
+	 * pararm : status,class_id,counter
 	 */
 	public function question_seacher(){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= $param['status'] ? ' AND qcr.status='.$param['status'] : ' AND qcr.status=1';
+		$where .= $param['class_id'] ? ' AND cl.id='.$param['class_id'] : '';
+		$order = " ORDER BY q.id ASC";
+		$column = $param['counter']==1 ? 'count(q.id) total' :'cl.title class_title,cl.id class_id,q.*';
 		#2. 生成sql
         $this->db->query("set names utf8");
         
-		$sql = "";
+		$sql = "SELECT ".$column." 
+				FROM nahao.question q 
+				LEFT JOIN nahao.question_class_relation qcr ON qcr.question_id=q.id 
+				LEFT JOIN nahao.class cl ON qcr.class_id=cl.id ".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
+	
+	/**
+	 * 【练习统计器】：
+	 * pararm : is_correct,sequence,class_id,student_id
+	 **/
+	public function practise_counter(){
+		#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1';
+		$where .= $param['is_correct'] ? ' AND sq.is_correct='.$param['is_correct'] : '';
+		$where .= $param['sequence'] ? ' AND sq.sequence='.$param['sequence'] : '';
+		$where .= $param['class_id'] ? ' AND sq.class_id='.$param['class_id'] : '';
+		$column = $param['counter']==1 ? 'count(sq.id) total' :'sq.*';
+		#2. 生成sql
+        $this->db->query("set names utf8");
+		$sql = "SELECT count(sq.id) total 
+				FROM nahao.sutdent_question sq ".$where;
+		$arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+	}
+	
+	/**
+	 * 薪酬结算统计
+	 * param: teacher_id,status(0未结算,1已结算),
+	 **/
+	public function pay_list(){
+		#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1';
+		$where .= $param['teacher_id'] ? ' AND tcl.teacher_id='.$param['teacher_id'] : '';
+		$where .= $param['status'] ? ' AND tcl.status='.$param['status'] : '';
+		$where .= $param['start_time'] ? ' AND tcl.pay_time>='.$param['start_time'] : '';
+		$where .= $param['end_time'] ? ' AND tcl.end_time<='.$param['end_time'] : '';
+		
+		#2. 生成sql
+        $this->db->query("set names utf8");
+		$sql = "SELECT tcl.*
+				FROM nahao.teacher_checkout_log tcl ".$where;
+		$arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+	}
+	
+	/**
+	 * 学员评价
+	 * param:round_id,class_id,
+	 **/
+	public function student_comment($param){
+		#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1';
+		$where .= $param['round_id'] ? ' AND cf.round_id='.$param['round_id'] : '';
+		$where .= $param['class_id'] ? ' AND cf.class_id='.$param['class_id'] : '';
+		$where .= $param['student_id'] ? ' AND cf.student_id='.$param['student_id'] : '';
+		$where .= $param['is_show'] ? ' AND cf.is_show='.$param['is_show'] : '';
+		$where .= $param['score'] ? ' AND cf.score='.$param['score'] : '';
+		$order = " ORDER BY cf.".self::$_orderArr[($param['order'] ? $param['order'] : 4)]." ".self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
+		$column = $param['counter']==1 ? 'count(cf.id) total' :'cf.*';
+		#2. 生成sql
+        $this->db->query("set names utf8");
+		$sql = "SELECT ".$column." 
+				FROM nahao.class_feedback cf ".$where.$order;
+		$arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+	} 
+	
+	/**
+     * 获得地区
+     */
+    public function get_area($param){
+    	$this->db->query("set names utf8");
+    	$param['id'] = isset($param['id']) ? $param['id'] : '';
+    	$param['parentid'] = isset($param['parentid']) ? $param['parentid'] : -1;
+    	$param['level'] = isset($param['level']) ? $param['level'] : -1;
+    	$where = ' WHERE 1';
+    	$where .= $param['id'] ? ' AND id='.$param['id'] : '';
+    	$where .= $param['parentid'] >= 0 ? ' AND parentid='.$param['parentid'] : '';
+    	$where .= $param['level'] >= 0 ? ' AND level='.$param['level'] : '';
+    	$sql = 'SELECT * FROM nahao_areas'.$where;
+        return $this->db->query($sql)->result_array();
+    }
 	
 	/**
 	 * 老师与轮关系表：round_teacher_relation
@@ -130,35 +218,20 @@ class Model_Teacher extends NH_Model{
         return $arr_result;
     }
     
+    
     /**
      * 开课申请，教师扩展表
      */
     public function apply_teach($param){
     	$this->db->query("set names utf8");
-    	$sql = 'INSERT INTO teacher_info(user_id,realname,age,gender,hide_realname,hide_school,hide_area,
-id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,remuneration,teacher_age,stage)
-VALUES('.$param['user_id'].','.$param['realname'].','.$param['age'].','.$param['gender'].','.$param['hide_realname'].'
-,'.$param['hide_school'].','.$param['hide_area'].','.$param['id_code'].','.$param['title'].','.$param['work_auth'].'
-,'.$param['teacher_auth'].','.$param['titile_auth'].','.$param['province'].','.$param['city'].'
-,'.$param['area'].','.$param['school'].','.$param['remuneration'].','.$param['teacher_age'].','.$param['stage'].')';
+    	$sql = 'INSERT INTO nahao.teacher_lecture(course,resume,subject,teacher_lecture.status,admin_id,
+    		create_time,province,city,area,school,stage,teach_years,course_intro,teach_type,gender,title,
+    		age,phone,email,qq,start_time,end_time,name) 
+		VALUES("'.$param['course'].'","'.$param['resume'].'","'.$param['subject'].'",'.$param['status'].',
+			'.$param['admin_id'].','.time().','.$param['province'].','.$param['city'].','.$param['area'].',
+			'.$param['school'].','.$param['stage'].','.$param['teach_years'].',"'.$param['course_intro'].'",
+			'.$param['teach_type'].','.$param['gender'].','.$param['title'].','.$param['age'].',"'.$param['phone'].'",
+			"'.$param['email'].'","'.$param['qq'].'",'.$param['start_time'].','.$param['end_time'].',"'.$param['name'].'")';
     	return $this->db->query($sql);
     }
-    
-    /**
-     * 开课申请，教师扩展表
-     */
-    public function get_area($param){
-    	$this->db->query("set names utf8");
-    	$param['id'] = isset($param['id']) ? $param['id'] : '';
-    	$param['parentid'] = isset($param['parentid']) ? $param['parentid'] : -1;
-    	$param['level'] = isset($param['level']) ? $param['level'] : -1;
-    	$where = ' WHERE 1';
-    	$where .= $param['id'] ? ' AND id='.$param['id'] : '';
-    	$where .= $param['parentid'] >= 0 ? ' AND parentid='.$param['parentid'] : '';
-    	$where .= $param['level'] >= 0 ? ' AND level='.$param['level'] : '';
-    	$sql = 'SELECT * FROM nahao_areas'.$where;
-        return $this->db->query($sql)->result_array();
-    }
-    
-    
 }
