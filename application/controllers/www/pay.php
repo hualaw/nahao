@@ -36,7 +36,8 @@ class Pay extends NH_User_Controller {
 	    $array_data = $this->student_order->get_order_round_info($int_product_id);
 	    //var_dump($array_data);die;
 	    $this->smarty->assign('array_data', $array_data);
-	    $this->smarty->display('www/cart/infoCheck.html');
+	   // var_dump($array_data);die;
+	    $this->smarty->display('www/studentCart/infoCheck.html');
 	}
 	
 	/**
@@ -98,9 +99,11 @@ class Pay extends NH_User_Controller {
 	        redirect('/my/purchased');
 	    }
 	    //var_dump($array_order);die;
+	    $bank_code = config_item('bank_code');
+	    $this->smarty->assign('bank_code', $bank_code);
 	    $this->smarty->assign('array_order', $array_order);
 	    $this->smarty->assign('payment_method', $payment_method);
-	    $this->smarty->display('www/cart/toPay.html');   
+	    $this->smarty->display('www/studentCart/toPay.html');   
 	}
 	
 	/**

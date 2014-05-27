@@ -64,19 +64,19 @@ $config['teach_type'][1] = '小班教育(15人以内)';
 $config['teach_type'][2] = '大班教育不限人数';
 
 //年级
-$config['grade'][0] = '一年级';
-$config['grade'][1] = '二年级';
-$config['grade'][2] = '三年级';
-$config['grade'][3] = '四年级';
-$config['grade'][4] = '五年级';
-$config['grade'][5] = '六年级';
-$config['grade'][6] = '初一';
-$config['grade'][7] = '初二';
-$config['grade'][8] = '初三';
-$config['grade'][9] = '高一';
-$config['grade'][10] = '高二';
-$config['grade'][11] = '高三';
-$config['grade'][12] = '其他';
+$config['grade'][1] = '一年级';
+$config['grade'][2] = '二年级';
+$config['grade'][3] = '三年级';
+$config['grade'][4] = '四年级';
+$config['grade'][5] = '五年级';
+$config['grade'][6] = '六年级';
+$config['grade'][7] = '初一';
+$config['grade'][8] = '初二';
+$config['grade'][9] = '初三';
+$config['grade'][10] = '高一';
+$config['grade'][11] = '高二';
+$config['grade'][12] = '高三';
+$config['grade'][13] = '其他';
 
 
 //订单状态

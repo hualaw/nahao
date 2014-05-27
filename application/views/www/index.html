@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>首页</title>
-<link rel="stylesheet" type="text/css" href="{static_url('/student/css/homePage/style.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentHomePage/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
 <!--#include virtual="/include/var.htm"-->
 {include file="www/include/var.htm"}
@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap homePage" id="nahaoModule" module="homePage">
+<div class="wrap studentHomePage" id="nahaoModule" module="studentHomePage">
 	<div class="contop">
 		<!-- homePage Content nav -->
 		<div class="conNav">
@@ -36,8 +36,8 @@
 		<div class="courseBox">
 			<div class="layout">
 				<ul class="cf courseList">
-				{foreach from=$array_data item=item}
-				<li class="fl">
+					{foreach from=$array_data item=item}
+					<li class="fl">
 						<div class="clBoxShaow iniBox">
 							<img src="{static_url({$item.img})}" alt="">
 							<div class="iniInfor">
@@ -47,7 +47,7 @@
 									<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
 								</div>
 								<div class="cf fitGrade">
-									<span class="fl">适合4-5年级</span>
+									<span class="fl">适合{$item.for_people}</span>
 									<span class="fr">{$item.class_nums}课次</span>
 								</div>
 							</div>
@@ -58,10 +58,10 @@
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">
-										<em class="fl">{$item.teacher.nickname}</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
+									<em class="fl">{$item.teacher.nickname}</em>
+									<span class="workCard fl"></span>
+									<span class="TitleCard fl"></span>
+									<span class="teaCard fl">1</span>
 									</h3>
 									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 								</div>
@@ -70,7 +70,7 @@
 							<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:5:"...":true}</a></p>
 						</div>
 					</li>
-				{/foreach}
+					{/foreach}
 				</ul>
 			</div>
 		</div>

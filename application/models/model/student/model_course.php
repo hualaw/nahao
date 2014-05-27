@@ -109,6 +109,19 @@ class Model_Course extends NH_Model{
     }
     
     /**
+     * 获取评价总数
+     * @param  $int_course_id
+     * @return $array_result
+     */
+    public function get_evaluate_count($int_course_id)
+    {
+        $array_result = array();
+        $sql = "SELECT COUNT(id) AS num FROM class_feedback WHERE course_id = ".$int_course_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return $array_result;
+    }
+    
+    /**
      * 根据$int_round_id获取该轮的课程团队
      * @param  $int_round_id
      * @return $array_result

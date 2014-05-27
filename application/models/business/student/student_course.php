@@ -11,6 +11,8 @@ class Student_Course extends NH_Model{
         parent::__construct();
         $this->load->model('model/student/model_course');
         $this->load->model('model/student/model_index');
+        $this->load->model('model/student/model_index');
+        $this->load->model('model/student/model_member');
     }
     
     /**
@@ -30,6 +32,14 @@ class Student_Course extends NH_Model{
         $array_result = array();
         #根据course_id获取该课程下的所有轮（在审核通过和销售中）
         $array_result = $this->model_course->get_all_round($int_course_id);
+        if ($array_result)
+        {
+            foreach ($array_result as $k=>$v)
+            {
+                $array_result[$k]['start_time'] = date("m月d日",$v['start_time']);
+                $array_result[$k]['end_time'] = date("m月d日",$v['end_time']);
+            }
+        }
         return $array_result;
     }
     
@@ -64,6 +74,8 @@ class Student_Course extends NH_Model{
             $array_return['class_nums'] = $class_nums;
             #课时
             $array_return['class_hour'] = $class_nums*2;
+            #图片地址
+            $array_return['class_img'] = empty( $array_return['class_img']) ? HOME_IMG_DEFAULT : $array_return['class_img'];
         }
         return $array_return;
     }
@@ -168,7 +180,30 @@ class Student_Course extends NH_Model{
         }
         #获取该课程所有评价（取审核通过的5条）
         $array_return = $this->model_course->get_round_evaluate($int_course_id);
+        if ($array_return)
+        {
+            foreach ($array_return as $kk=>$vv)
+            {
+                $array_return[$kk]['avater'] = $this->model_member->get_user_avater($vv['student_id']);
+            }
+        }
         return $array_return;
+    }
+    
+    /**
+     * 获取课程评价总数
+     * @param  $int_round_id
+     */
+    public function get_evaluate_count($int_round_id)
+    {
+        #根据$int_round_id 找course_id
+        $int_course_id = $this->model_course->get_course_id($int_round_id);
+        if (!$int_course_id)
+        {
+            show_error("course错误");
+        }
+        $str_evaluate_count = $this->model_course->get_evaluate_count($int_course_id);
+        return $str_evaluate_count['num'];
     }
     
     /**
@@ -192,7 +227,11 @@ class Student_Course extends NH_Model{
         {
             $array_return[] = $this->model_course->get_teacher_info($v['teacher_id']);
             $array_return[$k]['teacher_role'] = $array_teacher_role[$k];
+            #老师头像
+            $array_return[$k]['avater'] = $this->model_member->get_user_avater($v['teacher_id']);
         }
         return $array_return;
     }
+ 
+
 }

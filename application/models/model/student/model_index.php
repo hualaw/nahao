@@ -36,7 +36,7 @@ class Model_Index extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,course_id,title,subtitle,students,bought_count,
-                start_time,end_time,img FROM round
+                start_time,end_time,img,grade_to,grade_from FROM round
                 WHERE course_id = ".$course_id." AND start_time = ".$start_time;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;

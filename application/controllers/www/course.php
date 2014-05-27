@@ -30,15 +30,17 @@ class Course extends NH_User_Controller {
         $array_team = $this->student_course->get_round_team($int_round_id);
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
-        //var_dump($array_evaluate);die;
+        #获取评价总数
+        $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
+        //var_dump($array_round);die;
         
         $this->smarty->assign('array_data', $array_data);
-        //var_dump($array_data);die;
         $this->smarty->assign('array_outline', $array_outline);
         $this->smarty->assign('array_evaluate', $array_evaluate);
         $this->smarty->assign('array_team', $array_team);
         $this->smarty->assign('array_round', $array_round);
-        $this->smarty->display('www/myCourse/buyBefore.html');
+        $this->smarty->assign('str_evaluate_count', $str_evaluate_count);
+        $this->smarty->display('www/studentMyCourse/buyBefore.html');
 	}
 	
 	/**
@@ -46,7 +48,7 @@ class Course extends NH_User_Controller {
 	 */
 	public function buy_after()
 	{
-	    $this->smarty->display('www/myCourse/buyAfter.html');
+	    $this->smarty->display('www/studentMyCourse/buyAfter.html');
 	}
 	
 	/**
@@ -54,7 +56,7 @@ class Course extends NH_User_Controller {
 	 */
 	public function index()
 	{
-	    $this->smarty->display('www/myCourse/index.html');
+	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }
 
