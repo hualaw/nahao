@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.14, created on 2014-05-26 19:17:10
+<?php /* Smarty version Smarty-3.1.14, created on 2014-05-27 09:37:57
          compiled from "D:\wamp\www\nahao\nahao_student_8052\application\views\www\include\footer.htm" */ ?>
-<?php /*%%SmartyHeaderCode:24915538322b612eca8-53939768%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:41165383ec75251079-71007139%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,15 +11,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '24915538322b612eca8-53939768',
+  'nocache_hash' => '41165383ec75251079-71007139',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.14',
-  'unifunc' => 'content_538322b6132411_52966576',
+  'unifunc' => 'content_5383ec75256272_32129453',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_538322b6132411_52966576')) {function content_538322b6132411_52966576($_smarty_tpl) {?><div class="footer">
+<?php if ($_valid && !is_callable('content_5383ec75256272_32129453')) {function content_5383ec75256272_32129453($_smarty_tpl) {?><div class="footer">
 	<div class="ftNav">
 		<a href="">那好首页</a>
 		<span> | </span>

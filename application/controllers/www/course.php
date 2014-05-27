@@ -37,7 +37,7 @@ class Course extends NH_User_Controller {
         $this->smarty->assign('array_evaluate', $array_evaluate);
         $this->smarty->assign('array_team', $array_team);
         $this->smarty->assign('array_round', $array_round);
-        $this->smarty->display('www/myCourse/buyBefore.html');
+        $this->smarty->display('www/studentMyCourse/buyBefore.html');
 	}
 	
 	/**
@@ -45,7 +45,7 @@ class Course extends NH_User_Controller {
 	 */
 	public function buy_after()
 	{
-	    $this->smarty->display('www/myCourse/buyAfter.html');
+	    $this->smarty->display('www/studentMyCourse/buyAfter.html');
 	}
 	
 	/**
@@ -53,7 +53,7 @@ class Course extends NH_User_Controller {
 	 */
 	public function index()
 	{
-	    $this->smarty->display('www/myCourse/index.html');
+	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }
 

@@ -7,7 +7,7 @@ define(function(require,exports){
 	//购买后 右侧 tab
 	_tab.tab($(".abuyTabh h3"),"curShow",$(".abuyTabBox"));
 
-	var _myCourse = require("module/myCourse/myCourse");
+	var _myCourse = require("module/studentMyCourse/myCourse");
 	// 左侧栏 高亮
 	_myCourse.leftNav();
     //购买前  选开课时间

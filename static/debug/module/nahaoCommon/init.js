@@ -7,7 +7,7 @@ define(function(require,exports){
 	//判断支不支持 transform
 	//window.navigator.userAgent.indexOf("MSIE")!=-1  为了 区别火狐
 	if($("body").css("WebkitTransform")==undefined&&window.navigator.userAgent.indexOf("MSIE")!=-1){
-		if($("#nahaoModule").attr("module")=="homePage"||$("#nahaoModule").attr("module")=="myCourse"){
+		if($("#nahaoModule").attr("module")=="studentHomePage"||$("#nahaoModule").attr("module")=="studentMyCourse"){
 			$("#nahaoModule").addClass("lowHomePage");
 		}
 	};

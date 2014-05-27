@@ -23,7 +23,7 @@ class Index extends NH_User_Controller {
 	 */
 	public function study()
 	{
-	    $this->smarty->display('www/study/index.html');
+	    $this->smarty->display('www/studentStudy/index.html');
 	}
 	
 	/**
@@ -31,7 +31,7 @@ class Index extends NH_User_Controller {
 	 */
 	public function apply_teach()
 	{
-	    $this->smarty->display('www/startClass/writeInfo.html');
+	    $this->smarty->display('www/studentStartClass/writeInfo.html');
 	}
 	
 	/**
