@@ -9,9 +9,9 @@ $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
 //教学阶段
-$config['teach_stage'][0] = '小学';
-$config['teach_stage'][1] = '初中';
-$config['teach_stage'][2] = '高中';
+$config['stage'][1] = '小学';
+$config['stage'][2] = '初中';
+$config['stage'][3] = '高中';
 
 
 //轮里面的销售状态
@@ -155,20 +155,14 @@ $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
 
 //教师试讲状态
-$config['teacher_lecture'][1] = '未审核';
-$config['teacher_lecture'][2] = '审核未通过';
-$config['teacher_lecture'][3] = '审核通过';
+$config['lecture_status'][1] = '未审核';
+$config['lecture_status'][2] = '审核未通过';
+$config['lecture_status'][3] = '审核通过';
 
 //授课方式
 $config['teacher_type'][1] = '一对一';
 $config['teacher_type'][2] = '小班';
 $config['teacher_type'][3] = '大班';
-
-//教学阶段
-$config['stage'][0] = '';
-$config['stage'][1] = '小学';
-$config['stage'][2] = '初中';
-$config['stage'][3] = '高中';
 
 //性别
 $config['gender']['0'] = '保密';
