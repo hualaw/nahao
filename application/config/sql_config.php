@@ -27,3 +27,7 @@ $config['sql_admin']['user'] = array(
     TABLE_USER => false,
  );
 
+
+$config['sql_www']['user'] = array(
+TABLE_USER => false,
+ );

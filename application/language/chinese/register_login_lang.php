@@ -13,3 +13,7 @@ $lang['reg_phone_server_error'] = '系统繁忙，请稍候再试！';
 $lang['reg_verify_phone_msg'] = '您的注册验证码是：';
 $lang['reg_send_verify_code_failed'] = '验证码发送失败，请重试！';
 $lang['reg_send_verify_code_success'] = '验证码发送成功！';
+
+$lang['reg_check_phone_success'] = '手机号验证成功';
+$lang['reg_check_email_success'] = '邮箱验证成功';
+$lang['reg_check_nickname_success'] = '昵称验证成功';
