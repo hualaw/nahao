@@ -47,5 +47,9 @@ seajs.use('jquery',function(){
 		case 'studentStudy':
 		seajs.use("module/studentStudy/init");
 		break;
+		// 模块是教室
+		case 'classRoom':
+		seajs.use("module/classRoom/init");
+		break;
 	}
 })
