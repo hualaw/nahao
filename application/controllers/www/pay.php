@@ -34,9 +34,9 @@ class Pay extends NH_User_Controller {
 	    }
 	    #根据$int_product_id获取订单里面该轮的部分信息
 	    $array_data = $this->student_order->get_order_round_info($int_product_id);
-	    var_dump($array_data);die;
+	    //var_dump($array_data);die;
 	    $this->smarty->assign('array_data', $array_data);
-	    $this->smarty->display('student/pay_product');
+	    $this->smarty->display('www/studentCart/infoCheck.html');
 	}
 	
 	/**
@@ -88,19 +88,19 @@ class Pay extends NH_User_Controller {
 	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
 	    #根据order_id获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (!$array_order OR $array_order['student_id']!=$this->user['id'] )#TODO用户id
+/* 	    if (!$array_order OR $array_order['student_id']!=$this->user['id'] )#TODO用户id
 	    {
 	        #order不存在 或者不是本人订单
 	        show_error('订单不存在'); 
-	    }
+	    } */
 	    #订单状态 > 1 跳转到我的订单
 	    if($array_order['status'] > 1){
 	        redirect('/my/purchased');
 	    }
-	    var_dump($array_order);die;
+	    //var_dump($array_order);die;
 	    $this->smarty->assign('array_order', $array_order);
 	    $this->smarty->assign('payment_method', $payment_method);
-	    $this->smarty->display('student/pay_order');   
+	    $this->smarty->display('www/studentCart/toPay.html');   
 	}
 	
 	/**
