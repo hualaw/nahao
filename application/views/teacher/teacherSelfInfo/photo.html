@@ -1,0 +1,48 @@
+{extends file='teacher/teacherSelfinfo/base.html'}
+
+{block name=title}个人信息{/block}
+
+{block name=container}
+<div class="personInfo">
+    <div class="box">
+        <!--<h2>请填写试讲信息<span>(以下信息会严格保密，请您放心填写）</span></h2>-->
+        <!--小导航条开始-->
+        <div class="personNav">
+            <div class="tabBox cf">
+                <a href="index.html" class="setting">个人资料</a>
+                <a href="photo.html" class="avatar active">修改头像</a>
+                <a href="password.html" class="setpassword">修改密码</a>
+            </div>
+        </div>
+        <!--小导航条结束-->
+        <div class="md_bd">
+            <!--添加头像开始-->
+            <div class="box modifyPic TiZiAvatar">
+                <dl class="atareditor cf">
+                    <dt id="upload" class="ml10"><a href="javascript:void(0);" class="localUpload"><em></em><span>本地照片</span></a></dt>
+                    <dt id="webcam " class="current"><a href="javascript:void(0);" class="videoUpload"><em></em><span>拍照上传</span></a></dt>
+                    <dd class="cf">
+                        <p>仅支持GIF  JPG  PNG 图片文件，请注意头像清晰度</p>
+                        <div id="avatar">
+                            <object type="application/x-shockwave-flash" id="TiZiAvatar" name="TiZiAvatar" data="http://192.168.11.241:8082/application/views/static/debug/lib/TiZiavatar/TiZiavatar.swf" width="630" height="335" style="visibility: visible;"><param name="menu" value="true"><param name="scale" value="noScale"><param name="allowFullscreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><param name="flashvars" value="id=TiZiAvatar&amp;avatar_sizes_desc=100*100像素|50*50像素|32*32像素&amp;avatar_sizes=100*100|50*50|32*32&amp;tab_visible=false&amp;button_visible=false&amp;checkbox_visible=false&amp;browse_box_align=left&amp;webcam_box_align=left&amp;src_upload=0&amp;upload_url=http://192.168.11.241:8082/upload/avatar"></object>
+                        </div>
+                        <div class="savePanelButtons">
+                            <a href="javascript:void(0)" class="btn redBtn button_save">保存</a>
+                        </div>
+                        <ul id="editorPanelButtons" class="cf undis">
+                            <li class="fr">
+                                <a href="javascript:void(0)" class="btn redBtn button_upload">上传</a>
+                                <a href="javascript:void(0)" class="btn redBtn button_cancel">取消</a>
+                            </li>
+                        </ul>
+                        <p id="webcamPanelButton" class="cf undis">
+                            <a href="javascript:void(0)" class="btn redBtn button_shutter">拍照</a>
+                        </p>
+                    </dd>
+                </dl>
+            </div>
+            <!--添加头像结束-->
+        </div>
+    </div>
+</div>
+{/block}

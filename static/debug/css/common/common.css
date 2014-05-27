@@ -93,6 +93,15 @@ a:hover {text-decoration:none;}
 /*.lowHomePage .reTitle{margin:0 auto;margin-top:-40px;line-height: 80px;}*/
 .lowHomePage .tipText{margin-top: 0px!important;}
 
+/*表格效果开始*/
+.md_tableHd{clear:both;}
+.md_tableHd h4{font-size:16px; line-height:40px; background-color:#f6f6f6; text-indent:5px;border:1px solid #d7d7d7;border-bottom:0;}
+table.md_table{width:100%;font-size:14px;border:1px solid #d7d7d7;}
+table.md_table a{color: #17a27e;}
+table.md_table a:hover{color: #f90;}
+table.md_table td,table th{text-align:center;line-height:40px;/*border:1px solid #d7d7d7;*/border-bottom: 1px solid #d7d7d7;}
+table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
+/*表格效果结束*/
 
 
 

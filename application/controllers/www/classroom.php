@@ -15,7 +15,7 @@ class Index extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
         $array_data = $this->student_index->get_course_latest_round_list();
         $this->smarty->assign('array_data', $array_data);
-        $this->smarty->display('www/studentHomePage/index.html');
+        $this->smarty->display('www/index.html');
 	}
 	
 	/**
@@ -48,13 +48,6 @@ class Index extends NH_User_Controller {
 	public function register()
 	{
 	    $this->smarty->display('www/login/reg.html');
-	}
-	/**
-	 * 老师首页
-	 */
-	public function teacherIndex()
-	{
-	    $this->smarty->display('www/teacherHomePage/index.html');
 	}
 }
 
