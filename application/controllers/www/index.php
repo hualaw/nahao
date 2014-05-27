@@ -33,22 +33,6 @@ class Index extends NH_User_Controller {
 	{
 	    $this->smarty->display('www/startClass/writeInfo.html');
 	}
-	
-	/**
-	 * 登陆
-	 */
-	public function login()
-	{
-	    $this->smarty->display('www/login/login.html');
-	}
-	
-	/**
-	 * 注册
-	 */
-	public function register()
-	{
-	    $this->smarty->display('www/login/reg.html');
-	}
 }
 
 /* End of file welcome.php */

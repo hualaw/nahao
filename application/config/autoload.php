@@ -96,7 +96,7 @@ $autoload['config'] = array('page_config','sql_config','common','static_config',
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('register_login');
 
 
 /*
