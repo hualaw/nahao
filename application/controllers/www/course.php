@@ -30,7 +30,7 @@ class Course extends NH_User_Controller {
         $array_team = $this->student_course->get_round_team($int_round_id);
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
-        //var_dump($array_outline);die;
+        //var_dump($array_evaluate);die;
         
         $this->smarty->assign('array_data', $array_data);
         //var_dump($array_data);die;

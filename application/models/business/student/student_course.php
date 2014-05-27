@@ -75,6 +75,7 @@ class Student_Course extends NH_Model{
      */
     public function get_round_outline($int_round_id)
     {   
+        $array_return = array();
         #获取该轮下的所有章
         $array_chapter = $this->model_course->get_all_chapter($int_round_id);
         #如果有章
@@ -82,13 +83,72 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_chapter as $k=>$v)
             {
-                $array_chapter[$k]['son'] = $this->model_course->get_one_chapter_children($v['id'],$int_round_id);
+                $array_chapter[$k]['son'] = $this->get_one_chapter_children($v['id'],$int_round_id);
             }
             return $array_chapter;
         } else {
             #没有章，获取该轮下的所有节
-            return $this->model_course->get_all_section($int_round_id);
+            $array_return[] = $this->get_all_section($int_round_id);
+            return $array_return;
         }
+    }
+    
+    /**
+     * 如果有章，获取下面的节
+     * @param  $int_chapter_id
+     * @param  $int_round_id
+     * @return $array_return
+     */
+    public function get_one_chapter_children($int_chapter_id,$int_round_id)
+    {
+        $array_return = array();
+        $array_return = $this->model_course->get_one_chapter_children($int_chapter_id,$int_round_id);
+        if ($array_return)
+        {
+            foreach ($array_return as $key=>$val)
+            {
+                 $array_return[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
+            }
+        }
+        return $array_return;
+    }
+    
+    /**
+     * 如果没有章，取节
+     * @param  $int_round_id
+     * @return $array_return
+     */
+    public function get_all_section($int_round_id)
+    {
+        $array_return = array();
+        $array_result = $this->model_course->get_all_section($int_round_id);
+        if ($array_result)
+        {
+            foreach ($array_result as $key=>$val)
+            {
+                $array_result[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
+            }
+        }
+        $array_return['id'] = 1;
+        $array_return['title'] = '';
+        $array_return['son'] = $array_result;
+        return $array_return;
+    }
+    
+    /**
+     * 处理课程大纲章节开课时间
+     * @param  $begin_time
+     * @param  $begin_time
+     * @return $str
+     */
+    public function handle_time($begin_time,$end_time)
+    {
+        $str_year = date("Y-m-d",$begin_time);
+        $array_week=array("日","一","二","三","四","五","六");
+        $str_day = $array_week[date("w",$begin_time)];
+        $str_stime = date("H:i",$begin_time);
+        $str_etime = date("H:i",$end_time);
+        return $str_year." 星期".$str_day." ".$str_stime."-".$str_etime;
     }
     
     /**

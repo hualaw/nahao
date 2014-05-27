@@ -47,7 +47,7 @@ class Model_Course extends NH_Model{
     public function get_all_chapter($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title FROM class WHERE parent_id = 0 AND round_id = ".$int_round_id.
+        $sql = "SELECT id,title FROM class WHERE parent_id = 0  AND round_id = ".$int_round_id.
                " ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -103,7 +103,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT student_id,nickname,content,create_time FROM class_feedback
-                WHERE course_id = ".$int_course_id." AND is_show = 1 ORDER BY id DESC LIMIT 5";
+                WHERE course_id = ".$int_course_id." AND is_show = 1 ORDER BY create_time DESC LIMIT 5";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -136,7 +136,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT u.nickname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
-                ui.teacher_intro,ui.teacher_signature,ui.user_id FROM user u 
+                ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u 
                 LEFT JOIN user_info ui ON u.id = ui.user_id
                 WHERE ui.user_id = ".$int_teacher_id;
         $array_result = $this->db->query($sql)->row_array();

@@ -41,13 +41,13 @@
 						<div class="clBoxShaow iniBox">
 							<img src="{static_url({$item.img})}" alt="">
 							<div class="iniInfor">
-								<p class="courseTitle">{$item.title|truncate:5:"..."}</p>
+								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
 								<div class="cf">
 									<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
 									<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
 								</div>
 								<div class="cf fitGrade">
-									<span class="fl">适合{$item.students}</span>
+									<span class="fl">适合4-5年级</span>
 									<span class="fr">{$item.class_nums}课次</span>
 								</div>
 							</div>
@@ -63,11 +63,11 @@
 										<span class="TitleCard fl"></span>
 										<span class="teaCard fl">1</span>
 									</h3>
-									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"..."}</p>
+									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 								</div>
 							</div>
-							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"..."}</p>
-							<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:5:"..."}</a></p>
+							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
+							<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:5:"...":true}</a></p>
 						</div>
 					</li>
 				{/foreach}
