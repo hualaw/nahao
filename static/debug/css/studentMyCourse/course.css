@@ -38,7 +38,7 @@
 /*  我的课程  */
 .studentMyCourse .courseConList li{width: 230px;margin:0 35px 6px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
 .studentMyCourse .courseConList{margin-right: -35px;}
-.studentMyCourse .studentMyCourseList li{background: #fff;height: 320px;}
+.studentMyCourse .myCourseList li{background: #fff;height: 320px;}
 
 .studentMyCourse .noCourse{line-height: 350px;text-align: center;}
 .studentMyCourse .noCourse span{color:#a2a2a2;font-size: 16px;padding-top: 60px;background: url(../../images/studentMyCourse/addCourse.png) center top no-repeat;}
@@ -88,7 +88,7 @@
 .studentMyCourse .ordernum{font-size: 12px;margin-bottom: 10px;}
 .studentMyCourse .ordernum span{margin-left: 14px;}
 .studentMyCourse .orderTitle{font-size: 14px;}
-.oInfor img{width: 50px;height: 50px;margin: 0 10px 8px 0;}
+.studentMyCourse .oInfor img{width: 50px;height: 50px;margin: 0 10px 8px 0;}
 /* 订单详情 */
 .studentMyCourse .orderDetail thead{height: 60px;line-height: 60px;background: #f7f7f7;}
 .studentMyCourse .orderDetail .tName{color:#848484;height: 40px;}

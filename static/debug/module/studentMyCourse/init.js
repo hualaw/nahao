@@ -1,6 +1,6 @@
 define(function(require,exports){	
 	var _tab = require("module/common/method/tab");
-	var _valid = require("module/myCourse/valid");
+	var _valid = require("module/studentMyCourse/valid");
 	//tab判断加载 等开发完了以后再加
 	if($("#wrapContent").hasClass("myOrderCon")){
 		// 退课 申请状态 验证
@@ -13,7 +13,7 @@ define(function(require,exports){
 	//购买后 右侧 tab
 	_tab.tab($(".abuyTabh h3"),"curShow",$(".abuyTabBox"));
 
-	var _myCourse = require("module/myCourse/myCourse");
+	var _myCourse = require("module/studentMyCourse/myCourse");
 	if($(".buyAfter").length){
 		//开课 倒计时
 		//_myCourse.countDown();
