@@ -7,10 +7,10 @@ class Pay extends NH_User_Controller {
         // $this->load->model('business/student/student_index');
     }
 	public function index(){
-		$this->smarty->display('www/teacherPay/index.html');
+		$this->smarty->display('teacher/teacherPay/index.html');
 	}
 	public function pay_detail(){
-		$this->smarty->display('www/teacherPay/pay_detail.html');
+		$this->smarty->display('teacher/teacherPay/pay_detail.html');
 	}
 	
 }

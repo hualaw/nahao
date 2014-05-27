@@ -10,7 +10,7 @@ class Index extends NH_User_Controller {
 	 * 老师首页
 	 */
 	public function index(){
-	    $this->smarty->display('www/teacherHomePage/index.html');
+	    $this->smarty->display('teacher/teacherHomePage/index.html');
 	}
 	
 }

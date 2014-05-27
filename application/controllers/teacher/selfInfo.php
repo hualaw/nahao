@@ -7,19 +7,19 @@ class Selfinfo extends NH_User_Controller {
         // $this->load->model('business/student/student_index');
     }
 	public function index(){
-		$this->smarty->display('www/teacherSelfinfo/index.html');
+		$this->smarty->display('teacher/teacherSelfinfo/index.html');
 	}
 	public function openClass(){
-		$this->smarty->display('www/teacherSelfinfo/openClass.html');
+		$this->smarty->display('teacher/teacherSelfinfo/openClass.html');
 	}
 	public function password(){
-		$this->smarty->display('www/teacherSelfinfo/password.html');
+		$this->smarty->display('teacher/teacherSelfinfo/password.html');
 	}
 	public function photo(){
-		$this->smarty->display('www/teacherSelfinfo/photo.html');
+		$this->smarty->display('teacher/teacherSelfinfo/photo.html');
 	}
 	public function success(){
-		$this->smarty->display('www/teacherSelfinfo/success.html');
+		$this->smarty->display('teacher/teacherSelfinfo/success.html');
 	}
 	
 }

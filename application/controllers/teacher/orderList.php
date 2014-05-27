@@ -7,19 +7,19 @@ class Orderlist extends NH_User_Controller {
         // $this->load->model('business/student/student_index');
     }
 	public function index(){
-		$this->smarty->display('www/teacherOrderList/index.html');
+		$this->smarty->display('teacher/teacherOrderList/index.html');
 	}
 	public function order_appraise(){
-		$this->smarty->display('www/teacherOrderList/order_appraise.html');
+		$this->smarty->display('teacher/teacherOrderList/order_appraise.html');
 	}
 	public function order_count(){
-		$this->smarty->display('www/teacherOrderList/order_count.html');
+		$this->smarty->display('teacher/teacherOrderList/order_count.html');
 	}
 	public function order_detail(){
-		$this->smarty->display('www/teacherOrderList/order_detail.html');
+		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}
 	public function order_manage(){
-		$this->smarty->display('www/teacherOrderList/order_manage.html');
+		$this->smarty->display('teacher/teacherOrderList/order_manage.html');
 	}
 	
 }
