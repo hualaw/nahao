@@ -224,9 +224,9 @@
 .studentMyCourse .buyBefore .applyBtn .fl{font-size: 24px;}
 .studentMyCourse .buyBefore .applyBtn .fr{font-size: 20px;width: 100px;line-height: 19px;}
 .studentMyCourse .buyBefore .applyBtn em{font-size: 12px;display: inline-block;height: 14px;}
-.studentMyCourse .buyBefore .applyBtn{padding: 6px 57px 6px 53px;width: 200px;height: 38px;}
+.studentMyCourse .buyBefore .applyBtn{padding: 6px 57px 6px 53px;width: 200px;height: 38px;display: block;margin:0 auto;}
 .studentMyCourse .buyBefore .fclick{text-align: center;}
-.studentMyCourse .buyBefore .loadMore{display:block;width: 56px;height: 16px;padding-right: 14px;background: url(../../images/studentMyCourse/arrow_y.png) right center no-repeat;margin:0 auto 16px;line-height: 16px;}
+.studentMyCourse .buyBefore .loadMore{display:inline-block;height: 16px;padding-right: 14px;background: url(../../images/studentMyCourse/arrow_y.png) right center no-repeat;margin:0 auto 16px;line-height: 16px;}
 .studentMyCourse .buyBefore .allReview{margin:8px 0 4px;}
 .studentMyCourse .buyBefore .creview li img{width: 46px;height: 46px;}
 .studentMyCourse .buyBefore .revCon{width: 548px;}
