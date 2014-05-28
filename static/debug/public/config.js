@@ -58,5 +58,8 @@ seajs.use('jquery',function(){
         case 'adminIndex':
             seajs.use("module/adminIndex/init");
             break;
+        case 'adminCourse':
+            seajs.use("module/adminCourse/init");
+            break;
 	}
 })

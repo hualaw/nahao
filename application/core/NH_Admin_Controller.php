@@ -33,6 +33,7 @@ class NH_Admin_Controller extends NH_Controller
                 //验证登录通过后拿到userinfo
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
+                $this->smarty->assign('js_module', DOMAIN.ucfirst($this->current['controller']));
             }else{
                 $bool_redirect = true;
             }
@@ -45,7 +46,6 @@ class NH_Admin_Controller extends NH_Controller
         foreach($this->arr_admin_init_css as $k => $v){
             $this->arr_static['css'][] = '<link href="'.static_url($v).'" rel="stylesheet">';
         }
-//        $arr_js = isset($arr_static_config[$this->current['controller']]['js']) ? array_merge($this->arr_admin_init_js,$arr_static_config[$this->current['controller']]['js']) :  $this->arr_admin_init_js;
         foreach($this->arr_admin_init_js as $k => $v){
             $this->arr_static['js'][] = '<script type="text/javascript" src="'.static_url($v).'"></script>';
         }
