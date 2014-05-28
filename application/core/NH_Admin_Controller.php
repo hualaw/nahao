@@ -25,6 +25,20 @@ class NH_Admin_Controller extends NH_Controller
         parent::__construct();
         $this->load->model('business/admin/business_admin','admin');
 
+        $bool_redirect = false;
+        if(!in_array($this->current['controller'],$this->not_need_login_controller)){
+            $bool_login_flag = self::check_admin_login(ROLE_ADMIN);
+//            o($bool_login_flag);
+            if($bool_login_flag===true){
+                //验证登录通过后拿到userinfo
+                $this->load->vars('userinfo',$this->userinfo);
+                $this->smarty->assign('userinfo',$this->userinfo);
+            }else{
+                $bool_redirect = true;
+            }
+        }else{
+            $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_SIGNIN);
+        }
         //根据controller加载css、js等
         $arr_static_config = config_item('static_admin');
 //        $arr_css = isset($arr_static_config[$this->current['controller']]['css']) ? array_merge($this->arr_admin_init_css,$arr_static_config[$this->current['controller']]['css']) : $this->arr_admin_init_css;
@@ -37,16 +51,8 @@ class NH_Admin_Controller extends NH_Controller
         }
         $this->smarty->assign('static',$this->arr_static);
 
-        if(!in_array($this->current['controller'],$this->not_need_login_controller)){
-            $bool_login_flag = self::check_admin_login(ROLE_ADMIN);
-//            o($bool_login_flag);
-            if($bool_login_flag===true){
-                //验证登录通过后拿到userinfo
-                $this->load->vars('userinfo',$this->userinfo);
-                $this->smarty->assign('userinfo',$this->userinfo);
-            }else{
-                redirect('/passport');
-            }
+        if($bool_redirect==true){
+            redirect('/passport');
         }
         /*if($this->user){
             $this->load->vars('user',$this->user);

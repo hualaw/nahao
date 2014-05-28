@@ -70,6 +70,7 @@
             //var_dump($order_count);die;
             $this->db->limit(10,$int_start);
             $spendata=$this->business_order->sea_order($post)->result_array();
+            //var_dump($spendata);die;
             $page = $this->pagination->create_links();
 
             $this->smarty->assign('config_pay',$config_pay);

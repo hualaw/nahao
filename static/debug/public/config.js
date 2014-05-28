@@ -52,9 +52,15 @@ seajs.use('jquery',function(){
         case 'adminGroup':
             seajs.use("module/adminGroup/init");
             break;
+
         //订单
         case 'adminOrder':
             seajs.use("module/adminOrder/init");
+        case 'adminStudent':
+            seajs.use("module/adminStudent/init");
+            break;
+        case 'adminIndex':
+            seajs.use("module/adminIndex/init");
             break;
 	}
 })

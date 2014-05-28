@@ -31,6 +31,21 @@
             return $this->model_order->admin_order_data();
         }
         /**
+         * 处理搜索数据
+         * @param
+         * @return boolean
+         * @author shangshikai@nahao.com
+         */
+        public function filter($post)
+        {
+            $post["create_time1"] = strtotime($post["create_time1"]);
+            $post["create_time2"] = strtotime($post["create_time2"]);
+            $post["confirm_time1"] = strtotime($post["confirm_time1"]);
+            $post["confirm_time2"] = strtotime($post["confirm_time2"]);
+            $post['order_id']=trim($post['order_id']);
+            $post['phone_name_email']=trim($post['phone_name_email']);
+        }
+        /**
          * 搜索订单
          * @param
          * @return boolean
@@ -38,20 +53,7 @@
          */
         public function sea_order($post)
         {
-            if(trim($post['create_time1'])!="" && trim($post['create_time2'])!="")
-            {
-                $post["create_time1"] = strtotime($post["create_time1"]);
-                $post["create_time2"] = strtotime($post["create_time2"]);
-            }
-            if(trim($post['confirm_time1'])!="" && trim($post['confirm_time2'])!="")
-            {
-                $post["confirm_time1"] = strtotime($post["confirm_time1"]);
-                $post["confirm_time2"] = strtotime($post["confirm_time2"]);
-            }
-            $post['order_id']=trim($post['order_id']);
-            $post['status']=trim($post['status']);
-            $post['phone_name_email']=trim($post['phone_name_email']);
-            //var_dump($post);die;
+            $this->load->model("model/admin/model_order");
             $this->load->model("model/admin/model_order");
             return $this->model_order->sea_order_list($post);
         }

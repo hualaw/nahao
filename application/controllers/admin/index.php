@@ -4,7 +4,7 @@
  * Class Welcome
  * @author yanrui@tizi.com
  */
-class Welcome extends NH_Admin_Controller
+class Index extends NH_Admin_Controller
 {
 
     function __construct()
@@ -29,7 +29,8 @@ class Welcome extends NH_Admin_Controller
     {
         $data['str'] = 'welcome! layout!';
 //        o($this->userinfo);
-        $this->smarty->assign('view', 'welcome_main');
+        $this->smarty->assign('view', 'index_main');
+        $this->smarty->assign('js_module', 'adminIndex');
         $this->smarty->display('admin/layout.html');
     }
 }
