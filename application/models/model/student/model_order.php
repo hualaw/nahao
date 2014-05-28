@@ -66,14 +66,60 @@ class Model_Order extends NH_Model{
     
     /**
      * 根据order_id获取订单信息
-     * @param  $order_id
+     * @param  $int_order_id
      * @return $array_result
      */
-    public function get_order_by_id($order_id)
+    public function get_order_by_id($int_order_id)
     {
         $array_result = array();
-        $sql = "SELECT id,student_id,status,price,spend,create_time FROM student_order WHERE id = ".$order_id;
+        $sql = "SELECT id,student_id,status,price,spend,create_time FROM student_order 
+                WHERE id = ".$int_order_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
+    }
+
+    /**
+     * 更新订单状态
+     * @param  $array_data 
+     * @return $bool_result
+     */
+    public function update_order_status($array_data)
+    {
+        $data = array(
+                'status' => $array_data['status'],
+                'id' => $array_data['order_id'],
+                'confirm_time' => time()
+        );
+        
+        $this->db->where('id', $array_data['order_id']);
+        $this->db->update('student_order', $data);
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
+    }
+    
+    /**
+     * 在订单与轮的关系表中获取轮id
+     * @param  $int_order_id
+     * @return $array_result
+     */
+    public function get_round_id_under_order($int_order_id)
+    {
+        $array_result = array();
+        $sql = "SELECT round_id FROM order_round_relation WHERE order_id = ".$int_order_id;
+        $array_result = $this->db->query($sql)->result_array();
+        return $array_result;
+        
+    }
+    
+    /**
+     * 添加学生与课的关系
+     * @param  $array_data
+     * @return $bool_result
+     */
+    public function add_student_class_relation($array_data)
+    {
+        $this->db->insert('student_class',$array_data);
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0 ? true : false;
     }
 }

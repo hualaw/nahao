@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentCart/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+<!--#include virtual="/include/var.htm"-->
+{include file="www/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body>
+<!-- 头部开始 -->
+<!--#include virtual="/include/header.htm"-->
+{include file="www/include/header.htm"}
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap layout studentCart" id="nahaoModule" module="studentCart">
+	<div class="infoCheck">
+		<!-- 进度条开始 -->
+		<div class="progressBar cf">
+			<div class="line"></div>
+			<ul class="fr">
+<!-- 				<li class="fl">
+					<em>1</em>
+					<span>我的购物车</span>
+				</li> -->
+				<li class="fl">
+					<em>1</em>
+					<span>填写并核对订单信息</span>
+				</li>				
+				<li class="last fl">
+					<em>●</em>
+					<span>成功提交订单</span>
+					<b class="lineBg"></b>
+				</li>
+			</ul>
+		</div>		
+		<!-- 进度条结束 -->
+		
+		<!-- 核对订单信息开始 -->
+		<div class="checkForm outerBox">
+			<h2><span>请核对订单信息</span></h2>
+			<div class="innerBox">
+				<dl>
+					<dt>
+						<span class="num">序号</span>
+						<span class="name">课程名称</span>
+						<span class="oldPrice">原价</span>
+						<span class="newPrice">优惠价</span>
+						<span class="operation">操作</span>
+					</dt>
+
+					<dd>
+						<span class="num">1</span>
+						<span class="name">{$array_data.title}</span>
+						<span class="oldPrice">¥{$array_data.price}<em></em></span>
+						<span class="newPrice">¥{$array_data.sale_price}</span>
+						<span class="operation"><a href="javascript:void(0)">删除</a></span>
+					</dd>
+
+				</dl>
+			</div>
+			
+			<p class="total">
+				<span>共选<em>1</em>门课程</span>
+				<span class="price">总金额<em>¥{$array_data.totle_money}</em></span>
+				<span class="save">您本次共节省了<em>{$array_data.save_money}</em>元</span>
+			</p>
+		</div>
+		
+		<!-- 核对订单信息结束 -->
+		<!-- 填写练习方式开始 -->
+		<div class="contactInfo outerBox">
+			<h2><span>请填写联系方式</span></h2>
+			<div class="innerBox">
+				<form action="/pay/neworder/1" mothd="post" >
+					<ul>
+						<li>
+							<p class="title">真实姓名</p>
+							<p class="inputBox">
+								<input type="text">
+							</p>
+						</li>
+						<li>
+							<p class="title">手机号</p>
+							<p class="inputBox">
+								<input type="text">
+							</p>
+							<p class="tips">保密，方便我们与您联系</p>
+						</li>
+						<li>
+							<p class="title">手机验证码</p>
+							<p class="cf">
+								<input type="text" class="fl">
+								<a href="javascript:void(0)" class="fl noShowBtn blueBtn">免费获取验证码</a>
+								<span class="fl undis">60秒后获取验证码</span>
+							</p>							
+						</li>
+						<li>
+							<input type="submit" class="btn redBtn submitBtn" value="提交订单">
+						</li>
+					</ul>
+				</form>
+			</div>
+		</div>
+		<!-- 填写练习方式结束 -->
+		
+
+	</div>
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+<!--#include virtual="/include/footer.htm"-->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+<!--#include virtual="/include/js.htm"-->
+{include file="www/include/js.htm"}
+<!--js引入结束-->
+</body>
+</html>

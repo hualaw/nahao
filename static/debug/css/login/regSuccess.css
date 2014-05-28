@@ -1,0 +1,41 @@
+/*注册成功样式开始*/
+ .login {padding-bottom:20px;}
+ .login  .regSuccessBox{border:1px solid #d5d5d5;margin-top:20px;background: #fff}
+ .login  .regSuccessBox h2{height:60px;line-height: 60px;background: url(../../images/login/regSuccess.png) no-repeat 67px center #f7f7f7;padding-left:110px;font-size: 18px;color:#0e455e;}
+ .login  .regSuccessBox h2.noIcon{background-image: none;padding-left: 80px}
+ .login  .regSuccessBox ul.Oul{padding:20px 60px;}
+ .login  .regSuccessBox li {margin-bottom:15px;}
+ .login  .regSuccessBox li.optional p{padding-left: 20px;font-weight: normal;}
+ .login  .regSuccessBox li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;font-weight: bold;color:#0e455e;margin-bottom:5px;}
+ .login  .regSuccessBox li p span{color:#f14211;display: inline-block;width: 20px;}
+ .login  .regSuccessBox li .textInput{width: 228px;height:31px;border:1px solid #a2a2a2;padding:0 15px;margin-left:20px;}
+ .login  .regSuccessBox li select{margin-left:20px;}
+.login .regSuccessBox li .radioInput{margin-left:20px;}
+.login .regSuccessBox li label{height:30px;line-height:30px;font-size: 14px;}
+.login .regSuccessBox li .objBox{padding-left:20px;width:530px;}
+.login .regSuccessBox li .objBox a{display: inline-block;width:88px;height:30px;margin:0 12px 15px 0;line-height:30px;border:1px solid #6dcde6;border-radius: 5px;text-align: center;font-size: 16px;color:#6dcde6 }
+.login .regSuccessBox li .objBox a:hover,
+.login .regSuccessBox li .objBox a.active{background: #6dcde6;color:#fff;}
+.login .regSuccessBox li .tips{font-size: 14px;color:#919191;margin-top:-10px;}
+.login .regSuccessBox li .tips2{font-size: 14px;color:#919191;font-weight: normal;text-indent: 20px;}
+.login .regSuccessBox li .schoolInput{width:368px;}
+.login .regSuccessBox li .submit{width:130px;height: 40px;line-height: 40px; border: 0;margin-left:20px;cursor:pointer;}
+.login .jqTransformSelectWrapper{display: inline-block;margin-left: 20px;}
+.login .jqTransformSelectWrapper li{margin-bottom:0px;}
+.login .jqTransformRadioWrapper{float:left;margin: 6px 10px  0 20px;}
+/*注册成功样式结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

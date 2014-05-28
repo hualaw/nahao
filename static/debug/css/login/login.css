@@ -1,0 +1,67 @@
+.login{}
+/*老师登陆样式开始*/
+.login .md_login{clear:both;overflow:hidden;}
+.login .md_login h2{margin-bottom: 20px;}
+.login .md_login .md_bd{text-align: center;width: 95%;margin:0 auto;}
+.login .md_login .md_bd ul{list-style: none;}
+.login .md_login .md_bd ul li{margin-bottom:20px;position: relative;}
+.login .md_login .md_bd ul li h3{margin-right:240px;margin-bottom: 10px;color: #0e455e;font-size: 14px; font-weight: normal;}
+.login .md_login .md_bd li input{border-radius: 5px;font-size:14px;line-height: 38px;width:295px;border:1px solid #c4c5c4;box-shadow:1px 1px 1px #dadddc inset;padding-left:5px;}
+.login .md_login .md_bd .bottomLogin{padding:10px 0 15px 0px;}
+.login .md_login .md_bd .submitBtn{cursor: pointer;width:300px;height:45px;font-size:18px;border: 0 none;margin-left:5px;}
+/*老师登陆样式结束*/
+/*登陆样式开始*/
+.login .loginWrap{padding:70px 60px 00;margin-bottom:20px;}
+.login .loginWrap .loginBox{border:1px solid #dbdbdb;border-top:3px solid #f14211;width:305px;padding:50px 25px 10px 25px;box-shadow: 1px 1px 10px #e7e7e7}
+.login .loginWrap li {line-height:50px;}
+.login .loginWrap li .userName,
+.login .loginWrap li .pwd{font-size:16px;height:50px;line-height:50px;padding:0 15px 0 55px;display: block;border: 0;width:235px;background: url(../../images/login/loginInputBg.png) no-repeat #f1f1f1;_background: url(../../images/login/loginInputBg-ie.png) no-repeat #f1f1f1;}
+.login .loginWrap li .userName{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
+.login .loginWrap li .pwd{background-position: 15px -50px;}
+.login .loginWrap li .userName:focus,
+.login .loginWrap li .pwd:focus{background-color: #f8f8f8}
+.login .loginWrap .autoLi{font-size:14px;}
+.login .loginWrap .autoLi a:hover{color:#f14211;}
+.login .loginWrap li .autoLogin{margin:20px 10px 0 0;}
+.login .loginWrap li .btn{width:305px;height:46px;line-height:46px;margin-bottom:20px;}
+.login .loginWrap li .submit{border:0;cursor:pointer;}
+.login .loginWrap .msgInfo{height:20px;line-height: 20px;margin-bottom:5px;}
+/*.login .loginWrap li .msgInfo .span{text-indent: -9999px;display: inline-block;height:20px;line-height: 20px;width: 10px;}*/
+/*登陆样式结束*/
+/*注册样式开始*/
+.login .regWrap{padding:20px 0 0 110px;margin-bottom:20px;}
+.login .regWrap .regBox h2{font-size:24px;height:50px;line-height:50px;font-weight:normal;}
+.login .regWrap .regBox h2 span{font-size:16px;margin-left:10px;}
+.login .regWrap .regTab{border:1px solid #d5d5d5;width: 458px}
+.login .regWrap .tabBox a{display: inline-block;width:229px;border-top:3px solid #f7f7f7;height:47px;background: #f7f7f7;font-size:18px;text-align: center;line-height:47px;}
+.login .regWrap .tabBox a.active{border-top-color:#f14211;background: #fff;color:#f14211;font-weight:bold;}
+.login .regWrap .contentBox .box{padding:20px 55px;}
+.login .regWrap .box li {font-size:16px;margin-bottom:20px;}
+.login .regWrap .box li p{height:22px;line-height:22px;margin-bottom:5px;}
+.login .regWrap .box li .regInput{width: 90%;border:1px solid #6dcde6;height:38px;line-height:38px;padding:0 5%;font-size:16px;}
+.login .regWrap .box li .pnoneCode{height:40px;line-height:40px;font-size:16px;width:165px;}
+.login .regWrap li span.pnoneCode{display:inline-block;background: #dedede;text-align: center;}
+.login .regWrap .box li .codeInput{width:140px;border-color:#d5d5d5;}
+.login .regWrap .box li .undis{display: none;}
+.login .regWrap .box li.agreementLi {font-size: 14px;;margin-top: 40px;text-align: center;}
+.login .regWrap .box li.agreementLi a{color: #f14211}
+.login .regWrap .box li.agreementLi a:hover{color: #f90}
+.login .regWrap .box li .submit{border:none;width:100%;padding:0;font-size:20px;cursor:pointer;}
+.login .regWrap .goLogin {width:410px;text-align: center;padding-top: 390px;}
+.login .regWrap .goLogin p{line-height: 22px;font-size:14px;margin-bottom:15px;}
+.login .regWrap .goLogin a{width:190px;height:40px;line-height:40px;}
+/*注册样式结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+

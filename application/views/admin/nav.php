@@ -19,11 +19,23 @@
                 </ul>
             </li>
 
+<<<<<<< HEAD
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">学生管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/student">学生管理</a></li>
+                    <li><a href="/">订单管理</a></li>
+                </ul>
+            </li>
+            <li><a href="/order">订单管理</a></li>
+            <li>
+=======
             <li <?php echo in_array($this->current['controller'],array('user')) ? 'class="active"' : '';?>><a href="/user">用户管理</a></li>
             <li <?php echo in_array($this->current['controller'],array('order')) ? 'class="active"' : '';?>><a href="/order">订单管理</a></li>
             <li <?php echo in_array($this->current['controller'],array('salary')) ? 'class="active"' : '';?>><a href="/salary">课酬管理</a></li>
 
             <li class="dropdown">
+>>>>>>> remotes/origin/master
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">教师管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/teacher">教师管理</a></li>

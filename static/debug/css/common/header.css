@@ -1,0 +1,20 @@
+/* 那好 开始 2014-5-16-17：00 */
+.header{border: 1px solid #fff;border-top: none;box-shadow: 0 1px 3px #c7c7c7;position: absolute;width: 100%;box-sizing:border-box;}
+.header .headLogin{height:26px;line-height:26px;background: #11243b;}
+.header .headLoginBox{font-size: 12px;}
+.header .headLoginBox span{color:#f14211;display: inline-block;margin: 0 6px;}
+.header .phoneHref{background: url(../../images/common/phone.png) left 2px no-repeat;}
+.header .headNav{background: #f8f8f8;}
+.header .headNav li{padding: 25px 0 20px;}
+.header .headNav li a{padding: 0 32px;border-right: 1px solid #d4d6d8;font-size: 16px;font-weight: bold;color:#11243b;display: inline-block;height: 36px;line-height: 36px;}
+.header .startClass{margin-right: 26px;color: #f14211;}
+.header .headNav h1{width: 120px;margin-right: 20px;height: 80px;line-height: 80px;}
+.header .headNav h1 img{height: 52px;width: 100%;background: red;}
+
+.header .headCart a{font-size: 16px;width: 130px;height: 40px;line-height: 40px;}
+.header .headCart{height: 80px;line-height: 80px;}
+.header .headCart span{font-size: 18px;padding:5px 0 0 35px;line-height: 24px;display: inline-block;margin-right:8px;background-position: left 5px;}
+.header .headNav .curNav a,
+.header .headNav li:hover a{color: #f14211;}
+.header .headNav .curNav,
+.header .headNav li:hover{background: url(../../images/common/header/arrow.png) center top no-repeat;_background-image: url(../../images/common/header/arrow_8.png);}

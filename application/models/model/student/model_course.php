@@ -47,7 +47,7 @@ class Model_Course extends NH_Model{
     public function get_all_chapter($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title FROM class WHERE parent_id = 0 AND round_id = ".$int_round_id.
+        $sql = "SELECT id,title FROM class WHERE parent_id = 0  AND round_id = ".$int_round_id.
                " ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -103,9 +103,22 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT student_id,nickname,content,create_time FROM class_feedback
-                WHERE course_id = ".$int_course_id." AND is_show = 1 ORDER BY id DESC LIMIT 5";
+                WHERE course_id = ".$int_course_id." AND is_show = 1 ORDER BY create_time DESC LIMIT 5";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
+    }
+    
+    /**
+     * 获取评价总数
+     * @param  $int_course_id
+     * @return $array_result
+     */
+    public function get_evaluate_count($int_course_id)
+    {
+        $array_result = array();
+        $sql = "SELECT COUNT(id) AS num FROM class_feedback WHERE course_id = ".$int_course_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return $array_result;
     }
     
     /**
@@ -113,11 +126,16 @@ class Model_Course extends NH_Model{
      * @param  $int_round_id
      * @return $array_result
      */
-    public function get_round_team($int_round_id)
+    public function get_round_team($int_round_id,$int_type = '-1')
     {
+        $where = '';
+        if ($int_type >= 0)
+        {
+            $where.= " AND role = ".$int_type;
+        }
         $array_result = array();
         $sql = "SELECT teacher_id,role FROM round_teacher_relation 
-                WHERE round_id = ".$int_round_id." ORDER BY sequence ASC";
+                WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -131,9 +149,9 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT u.nickname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
-                ui.teacher_intro,ui.teacher_signature,ui.user_id FROM user u 
+                ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u 
                 LEFT JOIN user_info ui ON u.id = ui.user_id
-                WHERE user_id = ".$int_teacher_id;
+                WHERE ui.user_id = ".$int_teacher_id;
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
@@ -149,6 +167,20 @@ class Model_Course extends NH_Model{
         $sql = "SELECT id,start_time,end_time,sell_begin_time,sell_end_time FROM round 
                 WHERE course_id = ".$int_course_id." AND sale_status >= 2 AND 
                 sale_status <= 3 ORDER BY course_id";
+        $array_result = $this->db->query($sql)->result_array();
+        return  $array_result;
+    }
+    
+    /**
+     * 获取轮下面的课
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_class_under_round_id($int_round_id)
+    {
+        $array_result = array();
+        $sql = "SELECT lesson_id,course_id,round_id FROM class WHERE round_id = ".$int_round_id." 
+                AND parent_id > 0 AND parent_id !='' ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }

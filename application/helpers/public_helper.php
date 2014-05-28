@@ -451,7 +451,7 @@ if (!function_exists('getPhoneArea')) {
  */
 function static_url($str_url){
 //    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
-    return STATIC_FILE_URL . $str_url . '?v=' . time();
+    return STATIC_FILE_URL . '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
 }
 
 /**
@@ -463,6 +463,17 @@ function static_url($str_url){
  */
 function create_password($str_salt,$str_password = NH_INIT_PASSWORD){
     return sha1($str_salt.sha1($str_password));
+}
+
+/**
+ * @param $password
+ * @param $salt
+ * @param $sys_password
+ * @return bool
+ */
+function check_password($password, $salt, $sys_password)
+{   
+    return create_password($password, $salt) === $sys_password;
 }
 
 /**

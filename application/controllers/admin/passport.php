@@ -22,6 +22,14 @@ class Passport extends NH_Admin_Controller
         $this->load->view('admin/signin');
     }
 
+
+    public function test(){
+        $data['str'] = 'welcome! layout!';
+        $this->load->library('layout');
+        $this->layout->set_layout('admin/layout');
+        $this->layout->view('admin/main',$data);
+    }
+
     /**
      * login
      * @author yanrui@tizi.com
@@ -36,6 +44,7 @@ class Passport extends NH_Admin_Controller
             $str_redirect = '/welcome/main';
         }
         redirect($str_redirect);
+
     }
 
     /**
@@ -47,7 +56,6 @@ class Passport extends NH_Admin_Controller
         $this->passport->logout();
         redirect('/');
     }
-
 }
 
 /* End of file welcome.php */

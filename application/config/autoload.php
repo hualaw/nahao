@@ -64,7 +64,7 @@ $autoload['libraries'] = array('session', 'smarty');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt');
+$autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt','phone');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt');
 |
 */
 
-$autoload['config'] = array('page_config','sql_config','common','static_config','pay_config');
+$autoload['config'] = array('page_config','sql_config','common','static_config','pay_config','version');
 
 
 /*
@@ -96,7 +96,7 @@ $autoload['config'] = array('page_config','sql_config','common','static_config',
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('register_login');
 
 
 /*

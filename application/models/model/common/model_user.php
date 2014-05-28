@@ -30,7 +30,7 @@ class Model_User extends NH_Model
     public function create_user_info($arr_param)
     {
         $arr_result = $this->db->insert(TABLE_USER_INFO, $arr_param);
-        $int_insert_id = $this->db->insert_id();
+        $int_insert_id = $this->db->affected_rows();
         return $int_insert_id;
     }
 
@@ -56,6 +56,30 @@ class Model_User extends NH_Model
      */
     public function update_user_info($arr_param,$arr_where){
         $this->db->update(TABLE_USER_INFO, $arr_param, $arr_where);
+        $int_affected_rows = $this->db->affected_rows();
+        return $int_affected_rows > 0 ? true :false;
+    }
+
+    /**
+     * 删除user
+     * @param array $arr_param
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_user($arr_param){
+        $this->db->delete(TABLE_USER,$arr_param);
+        $int_affected_rows = $this->db->affected_rows();
+        return $int_affected_rows > 0 ? true :false;
+    }
+
+    /**
+     * 删除user_info
+     * @param array $arr_param
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_user_info($arr_param){
+        $this->db->delete(TABLE_USER_INFO,$arr_param);
         $int_affected_rows = $this->db->affected_rows();
         return $int_affected_rows > 0 ? true :false;
     }

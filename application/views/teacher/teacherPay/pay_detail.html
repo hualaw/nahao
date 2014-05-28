@@ -1,0 +1,59 @@
+{extends file='teacher/teacherPay/base.html'}
+
+{block name=title}付款{/block}
+
+{block name=container}
+<!--小导航开始-->
+<div class="nav_crumbs">
+    <a href="javascript:void(0)">首页></a>
+    <a href="javascript:void(0)">课酬结算></a>
+    <a href="javascript:void(0)" class="nav_detail">2014年7月详情</a>
+</div>
+<!--小导航结束-->
+<!--付款模块开始-->
+<div class="md_payDetail">
+    <div class="md_title cf">
+        <span>2014年7月课时费总额：<b class="fred">1440</b> 元</span>
+        <span>授课次数：<b class="fred">5</b>次</span>
+        <span>授课课时：<b class="fred">10</b></span>
+    </div>
+    <div class="md_bd">
+        <table class="md_table">
+            <tr>
+                <th>上课日期</th>
+                <th>上课时间</th>
+                <th>授课课时</th>
+                <th>班节名称</th>
+                <th>课时费（元）</th>
+                <th>结算状态</th>
+                <th>结算时间</th>
+            </tr>
+            <tr>
+                <td class="class_day"><b>2014年7月1日</b></td>
+                <td class="class_date">19：00-20：30</td>
+                <td class="class_num">2</td>
+                <td class="class_name">
+                    <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
+                    <p>2014年小升初暑假特训营训练营训练营训练营</p>
+                </td>
+                <td class="class_cost">120</td>
+                <td class="class_state">已结算</td>
+                <td class="pay_date"><b>2014-11-11</b>12：22：56</td>
+            </tr>
+            <tr class="unpay">
+                <td class="class_day"><b>2014年7月1日</b></td>
+                <td class="class_date">19：00-20：30</td>
+                <td class="class_num">2</td>
+                <td class="class_name">
+                    <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
+                    <p>2014年小升初暑假特训营训练营训练营训练营</p>
+                </td>
+                <td class="class_cost">120</td>
+                <td class="class_state">未结算</td>
+                <td class="pay_date">—</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--付款模块结束-->
+{/block}
