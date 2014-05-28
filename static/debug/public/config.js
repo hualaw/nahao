@@ -52,5 +52,11 @@ seajs.use('jquery',function(){
         case 'adminGroup':
             seajs.use("module/adminGroup/init");
             break;
+        case 'adminStudent':
+            seajs.use("module/adminStudent/init");
+            break;
+        case 'adminIndex':
+            seajs.use("module/adminIndex/init");
+            break;
 	}
 })
