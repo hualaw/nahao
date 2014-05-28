@@ -27,12 +27,12 @@ class NH_Admin_Controller extends NH_Controller
 
         //根据controller加载css、js等
         $arr_static_config = config_item('static_admin');
-        $arr_css = isset($arr_static_config[$this->current['controller']]['css']) ? array_merge($this->arr_admin_init_css,$arr_static_config[$this->current['controller']]['css']) : $this->arr_admin_init_css;
-        foreach($arr_css as $k => $v){
+//        $arr_css = isset($arr_static_config[$this->current['controller']]['css']) ? array_merge($this->arr_admin_init_css,$arr_static_config[$this->current['controller']]['css']) : $this->arr_admin_init_css;
+        foreach($this->arr_admin_init_css as $k => $v){
             $this->arr_static['css'][] = '<link href="'.static_url($v).'" rel="stylesheet">';
         }
-        $arr_js = isset($arr_static_config[$this->current['controller']]['js']) ? array_merge($this->arr_admin_init_js,$arr_static_config[$this->current['controller']]['js']) :  $this->arr_admin_init_js;
-        foreach($arr_js as $k => $v){
+//        $arr_js = isset($arr_static_config[$this->current['controller']]['js']) ? array_merge($this->arr_admin_init_js,$arr_static_config[$this->current['controller']]['js']) :  $this->arr_admin_init_js;
+        foreach($this->arr_admin_init_js as $k => $v){
             $this->arr_static['js'][] = '<script type="text/javascript" src="'.static_url($v).'"></script>';
         }
         $this->smarty->assign('static',$this->arr_static);

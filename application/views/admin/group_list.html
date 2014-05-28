@@ -1,14 +1,17 @@
-<botton class="btn btn-success" data-toggle="modal" data-target="#group_create_modal">
-    新增组
-</botton>
-<br><br>
-<form class="form-inline" role="form">
+<form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="sr-only" for="group_name">组名</label>
+        <div class="col-md-1">
+            <botton class="btn btn-success" data-toggle="modal" data-target="#group_create_modal">
+                新增组
+            </botton>
+        </div>
+        <label class="col-md-1 control-label" for="group_name">组名</label>
+        <div class="col-md-2">
         <input type="text" class="form-control" id="group_name" name="group_name" size="16"
                value="{if isset($arr_query_param.group_name)}{$arr_query_param.group_name}{/if}">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
     </div>
-    <button type="submit" class="btn btn-default">搜索</button>
 </form>
 <table class="table table-hover">
     <thead>
@@ -25,7 +28,6 @@
         <td>{$v.id}</td>
         <td>{$v.name}</td>
         <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
-        <td></td>
         <td>
             <a href="javascript:;" class="group_active" data-action="/group/active" data-group_id="{$v.id}"
                data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>

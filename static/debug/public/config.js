@@ -47,7 +47,10 @@ seajs.use('jquery',function(){
         seajs.use("module/studentStudy/init");
         break;
         case 'adminAdmin':
-        seajs.use("module/adminAdmin/init");
-        break;
+            seajs.use("module/adminAdmin/init");
+            break;
+        case 'adminGroup':
+            seajs.use("module/adminGroup/init");
+            break;
 	}
 })

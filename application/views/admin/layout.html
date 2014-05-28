@@ -6,7 +6,7 @@
 <body>
 
 {include file="admin/var.html"}
-<div class="container" id="nahaoModule" module="adminAdmin">
+<div class="container" id="nahaoModule" module="{$js_module}">
     {include file="admin/nav.html"}
     {include 'admin/'|cat:$view|cat:'.html'}
 </div>
