@@ -47,5 +47,24 @@ seajs.use('jquery',function(){
 		case 'studentStudy':
 		seajs.use("module/studentStudy/init");
 		break;
+		// 模块是老师端首页
+		case 'teacherHomePage':
+		seajs.use("module/teacherHomePage/init");
+		break;
+		// 模块是班次列表
+		case 'teacherOrderList':
+		seajs.use("module/teacherOrderList/init");
+		break;
+		// 模块是个人资料
+		case 'teacherSelfInfo':
+		seajs.use("module/teacherSelfInfo/init");
+		break;
+		// 模块是课酬结算
+		case 'teacherPay':
+		seajs.use("module/teacherPay/init");
+		// 模块是教室
+		case 'classRoom':
+		seajs.use("module/classRoom/init");
+		break;
 	}
 })

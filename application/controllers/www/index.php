@@ -12,10 +12,10 @@ class Index extends NH_User_Controller {
      */
 	public function index()
 	{  
-	    header('content-type: text/html; charset=utf-8');
+        header('content-type: text/html; charset=utf-8');
         $array_data = $this->student_index->get_course_latest_round_list();
         $this->smarty->assign('array_data', $array_data);
-        $this->smarty->display('www/index.html');
+        $this->smarty->display('www/studentHomePage/index.html');
 	}
 	
 	/**
@@ -23,7 +23,7 @@ class Index extends NH_User_Controller {
 	 */
 	public function study()
 	{
-	    $this->smarty->display('www/study/index.html');
+	    $this->smarty->display('www/studentStudy/index.html');
 	}
 	
 	/**
@@ -31,7 +31,7 @@ class Index extends NH_User_Controller {
 	 */
 	public function apply_teach()
 	{
-	    $this->smarty->display('www/startClass/writeInfo.html');
+	    $this->smarty->display('www/studentStartClass/writeInfo.html');
 	}
 }
 

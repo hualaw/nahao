@@ -1,17 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Index extends NH_Controller {
+class Index extends NH_User_Controller {
 
-	public function __construct()
-	{
-        	parent::__construct();
+    function __construct(){
+        parent::__construct();
     }
-    
-	/**
-	 * 老师课程列表
+    /**
+	 * 老师首页
 	 */
-	public function index()
-	{
-		$this->smarty->display('teacher/index/today_list.html');
+	public function index(){
+	    $this->smarty->display('teacher/teacherHomePage/index.html');
 	}
+	
 }
+
+/* End of file welcome.php */
+/* Location: ./application/controllers/teacher/index.php */

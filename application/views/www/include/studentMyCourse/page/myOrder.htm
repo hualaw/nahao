@@ -1,5 +1,5 @@
 <!--我的订单-->
-<!-- <h3 class="pageName">订单详情</h3>
+<h3 class="pageName">订单详情</h3>
 <div class="orderComBox">
 	<ul class="tabh cf">
 		<li class="tabhOn">全部订单</li>
@@ -119,10 +119,10 @@
 		<div class="undis tabBox">已取消</div>
 		<div class="undis tabBox">已退款</div>
 	</div>
-</div> -->
+</div>
 
 <!--订单详情-->
-<!-- <h3 class="pageName">订单详情</h3>
+<h3 class="pageName">订单详情</h3>
 <div class="detailBox">	
 	<table class="orderDetail">
 		<thead>
@@ -141,27 +141,29 @@
 				</td>
 			</tr>
 		</thead>
+	</table>
+	<table class="orderDetail tableCon">		
 		<tbody>
 			<tr class="tName">
-				<td>课程名称</td>
+				<td class="textal">课程名称</td>
 				<td>原价</td>
 				<td>实际价格</td>
 				<td>操作</td>
 			</tr>
 			<tr class="tCon">
-				<td class="spacL">应老师 2014暑假作文提升训练练习</td>
+				<td class="textal">应老师 2014暑假作文提升训练练习</td>
 				<td class="iniPrice">¥1099</td>
 				<td class="redText">¥599</td>
-				<td class="spacR">
+				<td>
 					<p>2014-06-23</p>
 					<p>18：58 : 43</p>
 				</td>
 			</tr>
 			<tr class="tCon">
-				<td class="spacL">应老师 2014暑假作文提升训练练习</td>
+				<td class="textal">应老师 2014暑假作文提升训练练习</td>
 				<td class="iniPrice">¥1099</td>
 				<td class="redText">¥599</td>
-				<td class="spacR">
+				<td>
 					<p>2014-06-23</p>
 					<p>18：58 : 43</p>
 				</td>
@@ -177,7 +179,7 @@
 			</tr>
 		</tbody>
 	</table>
-</div> -->
+</div>
 
 <!--申请状态-->
 <!-- <h3 class="pageName">申请状态</h3>
@@ -273,7 +275,7 @@
 		<ul>
 			<li>
 				<p class="formName">课程名称</p>
-				<input type="text">
+				<input type="text" class="userName">
 				<ol class="classDetail cf">
 					<li>
 						<span>已上课次</span><br>
@@ -304,15 +306,21 @@
 			</li>
 			<li>
 				<p class="formName">退课理由</p>
-				<textarea name="" id="" ></textarea>
+				<textarea name="" id="" placeholder="请详细填写退课理由，帮助我们对课程进行改进，感谢您的支持！"></textarea>
 			</li>
 			<li>
 				<h3 class="pageName">绑定银行帐户</h3>
 			</li>
 			<li>
 				<p class="formName">选择退款银行</p>
-				<select name="" id=""></select>
-				<input type="text">
+				<select name="" id="" >
+					<option>选择退款银行</option>
+					<option value="1"></option>
+					<option value="2"></option>
+					<option value="3"></option>
+					<option value="4"></option>
+				</select>
+				<input type="text" placeholder="请填写具体支行信息">
 			</li>
 			<li>
 				<p class="formName">银行卡账号</p>
