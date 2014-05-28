@@ -1,0 +1,116 @@
+{extends file='teacher/teacherOrderList/base.html'}
+
+{block name=title}学员评价{/block}
+
+{block name=container}
+<!--班次列表开始-->
+<div class="md_orderList">
+    <div class="orderList_nav">
+        <span>班次数量:<b class="fred">8</b></span>
+        <span>即将上课：<b class="fred">3</b></span>
+        <span>已结课：<b class="fred">2</b></span>
+        <span class="last">已停课：<b class="fred">1</b></span>
+    </div>
+    <div class="orderList_search">
+        <form action="" mothed="post" onsubmit="return false">
+            <ul>
+                <li>
+                    <select name="" id="" class="fl">
+                        <option value="">班级名次</option>
+                        <option value="1">五年级</option>
+                    </select>
+                </li>
+                <li>
+                    <input type="text" value="班次名卡技术规范阿三哥好还是称" placeholder="班次名卡技术规范阿三哥好还是称" class="textInput"/>
+                </li>
+                <li>
+                    <select name="" id="" class="fl">
+                        <option value="">课程状态</option>
+                        <option value="1">五年级</option>
+                    </select>
+                </li>
+                <li>
+                    <select name="" id="" class="fl">
+                        <option value="">课程类型</option>
+                        <option value="1">五年级</option>
+                    </select>
+                </li>
+                <li>
+                    <select name="" id="" class="fl">
+                        <option value="">上课时间</option>
+                        <option value="1">五年级</option>
+                    </select>
+                </li>
+                <li><em class="fred">-</em></li>
+                <li>
+                    <select name="" id="" class="fl">
+                        <option value="">下课时间</option>
+                        <option value="1">五年级</option>
+                    </select>
+                </li>
+                <li>
+                    <input type="submit" value="搜索" class="lbutton"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="md_bd">
+        <table class="md_table">
+            <tr>
+                <th>班次ID</th>
+                <th>班节名称</th>
+                <th>上课时间</th>
+                <th>课程进度</th>
+                <th>科目</th>
+                <th>类型</th>
+                <th>授课状态</th>
+                <th>课程平均分</th>
+                <th>查看</th>
+            </tr>
+            <tr>
+                <td class="order_id">0001</td>
+                <td class="order_name">
+                    <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
+                    <p>2014年小升初暑假特训营训练营训练营训练营</p>
+                </td>
+                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
+                <td class="class_progress"><b class="fred">2</b>/10</td>
+                <td class="class_name">奥数</td>
+                <td class="class_type">数学</td>
+                <td class="class_statu">已结课</td>
+                <td class="class_score">100</td>
+                <td class="order_detail"><a href="javascript:void(0);" target="_blank">详细信息</a></td>
+            </tr>
+            <tr class="start">
+                <td class="order_id">0001</td>
+                <td class="order_name">
+                    <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
+                    <p>2014年小升初暑假特训营训练营训练营训练营</p>
+                </td>
+                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
+                <td class="class_progress"><b class="fred">2</b>/10</td>
+                <td class="class_name">奥数</td>
+                <td class="class_type">数学</td>
+                <td class="class_statu">即将开始</td>
+                <td class="class_score">100</td>
+                <td class="order_detail hover"><a href="javascript:void(0);" target="_blank">详细信息</a></td>
+            </tr>
+            <tr class="end">
+                <td class="order_id">0001</td>
+                <td class="order_name">
+                    <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
+                    <p>2014年小升初暑假特训营训练营训练营训练营</p>
+                </td>
+                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
+                <td class="class_progress"><b class="fred">2</b>/10</td>
+                <td class="class_name">奥数</td>
+                <td class="class_type">数学</td>
+                <td class="class_statu">已停课</td>
+                <td class="class_score">100</td>
+                <td class="order_detail"><a href="javascript:void(0);" target="_blank">详细信息</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--班次列表结束-->
+{/block}

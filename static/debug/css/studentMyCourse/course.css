@@ -1,5 +1,5 @@
-/*body{background: #eee;} 其他是灰色*/
-body{background: #fff;}  /*  购买前后是白色*/
+.studentMyCoursePage{background: #eee;} 
+
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
@@ -38,7 +38,7 @@ body{background: #fff;}  /*  购买前后是白色*/
 /*  我的课程  */
 .studentMyCourse .courseConList li{width: 230px;margin:0 35px 6px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
 .studentMyCourse .courseConList{margin-right: -35px;}
-.studentMyCourse .studentMyCourseList li{background: #fff;height: 320px;}
+.studentMyCourse .myCourseList li{background: #fff;height: 320px;}
 
 .studentMyCourse .noCourse{line-height: 350px;text-align: center;}
 .studentMyCourse .noCourse span{color:#a2a2a2;font-size: 16px;padding-top: 60px;background: url(../../images/studentMyCourse/addCourse.png) center top no-repeat;}
@@ -63,7 +63,10 @@ body{background: #fff;}  /*  购买前后是白色*/
 .studentMyCourse .myOrderCon{font-size: 16px;}
 .studentMyCourse .tabBox{padding: 0 22px 0 15px;color:#4b4b4b;}
 .studentMyCourse .myOrderCon table{background: #fff;width: 100%;}
-.studentMyCourse .myOrderCon .orderDetail{border-width:1px;border-style:solid;border-color:#ddd #c3c3c3;}
+.studentMyCourse .myOrderCon .detailBox{border-width:1px;border-style:solid;border-color:#ddd #c3c3c3;background: #fff;}
+.studentMyCourse .myOrderCon .tableCon{width: 730px;margin-left: 16px;}
+.studentMyCourse .myOrderCon table .textal{text-align: left;padding-left: 6px;}
+.studentMyCourse .myOrderCon table .tName .textal{padding-left: 72px;}
 .studentMyCourse .myOrderCon table td{text-align: center;}
 .studentMyCourse .myOrderCon .tabh{background: #f7f7f7;}
 .studentMyCourse .myOrderCon .tabh li{cursor:pointer;width: 152px;height: 48px;line-height: 48px;border: 1px solid #dadada;float: left;text-align: center;border-left: none;border-top: none;}
@@ -85,7 +88,7 @@ body{background: #fff;}  /*  购买前后是白色*/
 .studentMyCourse .ordernum{font-size: 12px;margin-bottom: 10px;}
 .studentMyCourse .ordernum span{margin-left: 14px;}
 .studentMyCourse .orderTitle{font-size: 14px;}
-.oInfor img{width: 50px;height: 50px;margin: 0 10px 8px 0;}
+.studentMyCourse .oInfor img{width: 50px;height: 50px;margin: 0 10px 8px 0;}
 /* 订单详情 */
 .studentMyCourse .orderDetail thead{height: 60px;line-height: 60px;background: #f7f7f7;}
 .studentMyCourse .orderDetail .tName{color:#848484;height: 40px;}
@@ -94,7 +97,7 @@ body{background: #fff;}  /*  购买前后是白色*/
 .studentMyCourse .orderDetail .tCon td{height: 80px;}
 .studentMyCourse .orderDetail .tCon .redText{font-size: 20px;font-weight: bold;}
 .studentMyCourse .orderDetail .tf{height: 120px;}
-.studentMyCourse .orderDetail .tf td{text-align: right;padding-right: 25px;}
+.studentMyCourse .orderDetail .tf td{text-align: right;padding-right:5px;}
 .studentMyCourse .orderDetail .tf p strong{font-size: 24px;margin-left:14px;}
 .studentMyCourse .btn3{width: 102px;background: #f14211;margin-top: 10px;}
 .studentMyCourse .orderDetail .iniPrice{text-decoration: line-through;}
@@ -121,6 +124,7 @@ body{background: #fff;}  /*  购买前后是白色*/
 .studentMyCourse .applyFromBox{padding: 20px 0 50px 16px;font-size: 16px;color:#4b4b4b;}
 .studentMyCourse .applyFromBox .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
 .studentMyCourse form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}
+.studentMyCourse form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 .studentMyCourse .applyFromBox textarea{font-size: 14px;width: 580px;min-height: 130px;}
 .studentMyCourse form input{width: 325px;height: 30px;}
 .studentMyCourse form .btn{font-size: 18px;font-weight: bold;color:#fff;width: 130px;margin:26px 22px 0 0;height: 40px;box-shadow:0 0 3px #cdcdcd;}
@@ -310,7 +314,4 @@ body{background: #fff;}  /*  购买前后是白色*/
 .studentMyCourse .buyAfter .handout:hover{background-image: url(../../images/studentMyCourse/hhandout.png);}
 .studentMyCourse .buyAfter .cloudNotes:hover{background-image: url(../../images/studentMyCourse/hcloudNotes.png);}
 .cnDia h2{padding-left: 30px;background: url(../../images/studentMyCourse/hcloudNotes.png) 1px center no-repeat;font-weight: normal;font-size: 16px;margin-bottom:3px;}
-.cnDia .cnCon{border: 1px solid #a2a2a2;padding: 22px 8px 35px 12px;line-height: 24px;font-size: 14px;width: 550px;}
-.studentMyCourse .buyAfter .schedule{}
-.studentMyCourse .buyAfter .schedule{}
-.studentMyCourse .buyAfter .schedule{}
+.cnDia .cnCon{border-top: 1px solid #a2a2a2;padding: 22px 8px 35px 12px;line-height: 24px;font-size: 14px;width: 550px;}

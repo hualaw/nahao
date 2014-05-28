@@ -1,0 +1,22 @@
+/*加载重置样式------------*/
+@import url('../common/reset.css');
+/*加载公共样式*/
+@import url('../common/common.css');
+/*加载公共样式---button和其他*/
+@import url('../common/button.css');
+/*加载布局样式*/
+@import url('../common/layout.css');
+/*加载顶部样式*/
+@import url('../common/header.css');
+/*加载底部样式*/
+@import url('../common/footer.css');
+/*加载公共弹出框样式*/
+@import url('../common/dialog.css');
+/*加载公共验证样式*/
+@import url('../common/valid.css');
+/*加载模拟下拉框样式*/
+@import url('../common/jqtransform.css');
+/*----------------------------网站具体样式开始----------------------------*/
+/*加载错题本样式*/
+@import url('orderList.css');
+/*----------------------------网站具体样式结束----------------------------*/

@@ -2,14 +2,51 @@
 
 class register extends NH_Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('business/common/business_register');
+	}
+
+	public function index()
+	{
+		if($this->session->userdata('user_id'))
+		{
+			$this->smarty->assign('nickname', $this->session->userdata('nickname'));
+			$this->smarty->display('www/index.html');		
+		}
+		else
+		{
+			$this->smarty->display('www/login/reg.html');
+		}
+	}
+
+	public function check_nickname()
+	{
+		$nickname = trim($this->input->get('nickname'));
+
+		echo parent::json_output($this->business_register->check_nickname($nickname));
+	}
+
+	public function check_phone()
+	{
+		$phone = trim($this->input->get('phone'));
+
+		echo parent::json_output($this->business_register->check_phone($phone));
+	}
+
+	public function check_email()
+	{
+		$email = trim($this->input->get('email'));
+
+		echo parent::json_output($this->business_register->check_email($email));
+	}
 
 	public function submit()
 	{
-		$this->load->model('business/common/business_register');
 		$phone = $this->input->post('phone');
 		$email = $this->input->post('email');
-		$password = $this->input->post('password')
-
+		$password = $this->input->post('password');
 	}
 
 	//ajax interface
@@ -64,4 +101,5 @@ class register extends NH_Controller
 				break;
 		}
 		return $arr_return;
+	}
 }
