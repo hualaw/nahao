@@ -102,10 +102,13 @@ define('TABLE_CLASS_FEEDBACK','class_feedback');
 define('TABLE_COURSE','course');
 define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
 define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
+define('TABLE_COURSE_TYPE', 'course_type');
 define('TABLE_COURSEWARE','courseware');
 define('TABLE_ENTERING_CLASSROOM','entering_classroom');
 define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
 define('TABLE_LESSON','lesson');
+define('TABLE_NAHAO_AREAS','nahao_areas');
+define('TABLE_NAHAO_SCHOOLS','nahao_schools');
 define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
 define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
@@ -128,7 +131,8 @@ define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
-define('TABLE_USER_INFO', 'session_log');
+define('TABLE_SESSION_LOG', 'session_log');
+define('TABLE_SUBJECT', 'subject');
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
@@ -136,6 +140,7 @@ define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
 define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
 define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
+define('STATIC_ADMIN_JS_LECTURE','/admin/js/mod/lecture.js');
 define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
 
 //static css

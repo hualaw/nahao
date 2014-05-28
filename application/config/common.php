@@ -8,11 +8,23 @@
 $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
-//教学阶段
+//性别
+$config['gender'][1] = '男';
+$config['gender'][2] = '女';
+
+//教师职称
+$config['teacher_title'][0] = '高级教师';
+$config['teacher_title'][1] = '一级教师';
+$config['teacher_title'][2] = '二级教师';
+$config['teacher_title'][3] = '三级教师';
+
+//教育阶段
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
 $config['stage'][3] = '高中';
 
+$config['has_bought'][1] = '注册用户';
+$config['has_bought'][2] = '付费用户';
 
 //轮里面的销售状态
 $config['round_sale_status'][0] = '未审核';
@@ -33,24 +45,6 @@ $config['round_teach_status'][3] = '结课';
 $config['message_type'][0] = '注册';
 $config['message_type'][1] = '订单';
 $config['message_type'][2] = '付款';
-
-//注册页面里面的科目
-$config['subject'][0] = '奥数';
-$config['subject'][1] = '数学';
-$config['subject'][2] = '作文';
-$config['subject'][3] = '英语';
-$config['subject'][4] = '物理';
-$config['subject'][5] = '化学';
-$config['subject'][6] = '生物';
-$config['subject'][7] = '地理';
-$config['subject'][8] = '政治';
-
-//课程类型
-$config['course_type'][0] = '教材同步课程';
-$config['course_type'][1] = '竞赛考级';
-$config['course_type'][2] = '课外教材';
-$config['course_type'][3] = '专项训练(知识点)';
-$config['course_type'][4] = '素质教育课程';
 
 //授课类型
 $config['teach_type'][0] = '一对一';

@@ -23,4 +23,9 @@ $config['static_admin']['order']['js'] = array(
     STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN
 );
 
+$config['static_admin']['teacher_lecture']['js'] = array(
+    STATIC_ADMIN_JS_LECTURE,
+    STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN
+);
+
 //$config['static_admin']['css']['passport'] = array();

@@ -63,7 +63,6 @@
          */
         public function search_order_count($post)
         {
-
             $this->load->model("model/admin/model_order");
             return $this->model_order->sea_order_count($post);
         }
@@ -90,7 +89,18 @@
             return $this->model_order->details_order($int_order_id);
         }
         /**
-         * 管理员退款操作
+         * 管理员通意退款操作
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function agr_refund($student_id,$order_id)
+        {
+            $this->load->model("model/admin/model_order");
+            return $this->model_order->refund_agr($student_id,$order_id);
+        }
+        /**
+         * 管理员拒绝退款操作
          * @param
          * @return
          * @author shangshikai@nahao.com

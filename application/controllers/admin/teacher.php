@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * 管理员管理
- * Class User
+ * 老师管理
+ * Class Teacher
  * @author yanrui@tizi.com
  */
-class User extends NH_Admin_Controller {
+class Teacher extends NH_Admin_Controller {
 
     private $arr_response = array(
         'status' => 'error',
@@ -45,12 +45,14 @@ class User extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
-        $this->data['int_count'] = $int_count;
-        $this->data['arr_list'] = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
+        $arr_list = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
 
-        $this->data['str_page'] = $this->pagination->create_links();
-        $this->data['arr_query_param'] = $arr_query_param;
-        $this->layout->view('admin/user_list',$this->data);
+        $this->smarty->assign('page',$this->pagination->create_links());
+        $this->smarty->assign('count',$int_count);
+        $this->smarty->assign('list',$arr_list);
+        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('view', 'user_list');
+        $this->smarty->display('admin/layout.html');
     }
 
     /**
