@@ -158,6 +158,110 @@ class Model_Teacher extends NH_Model{
         return $this->db->query($sql)->result_array();
     }
 	
+    /**
+     * 录题管理器
+     * param : id,question,answer,options,analysis,class_id,question_id,status,sequence
+     * do,delete_class_question,delete_lesson_question
+     **/
+     public function question_manager($param){
+     	if(!$param['do']){exit("缺少操作参数");}
+     	$param['question'] = addslashes($param['question']);
+     	$param['answer'] = addslashes($param['answer']);
+     	$param['options'] = addslashes($param['options']);
+     	$param['analysis'] = addslashes($param['analysis']);
+     	this->db->query("set names utf8");
+     	switch ($param['do']){
+     		case 'add': 
+     			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
+						VALUES('".$param['question']."','".$param['answer']."','".$param['options']."',".$param['type'].",'".$param['analysis']."')";
+     			$id = $this->db->query($sql)->insert_id();
+     			if($id){
+     				$sql = "REPLACE INTO nahao.question_class_relation(id,class_id,question_id,question_class_relation.status,sequence) 
+							VALUES(".$param['id'].",".$param['class_id'].",".$param['question_id'].",".$param['status'].",".$param['sequence'].")";
+     				$res = $this->db->query($sql);
+     			}
+     			break;
+     		case 'edit':
+     			$sql = "UPDATE nahao.question 
+						SET question='".$param['question']."',
+							answer='".$param['answer']."',
+							options='".$param['options']."',
+							question.type=1,
+							analysis='".$param['analysis']."' 
+						WHERE 1 AND id=".$param['id'];
+     			$res = $this->db->query($sql);
+     			break;
+     		case 'delete':
+     			if(!$param['delete_class_question'] || !$param['delete_class_question']){
+     				exit('为防止误操作，不可缺少参数');
+     			}
+     			$sql = "DELETE FROM nahao.question WHERE id=".$param['id'];
+     			$ress = $this->db->query($sql);
+     			if($ress){
+     				//删除题课关系
+     				if($param['delete_class_question']){
+     					$res = $this->db->query("DELETE FROM nahao.question_class_relation WHERE question_id=".$param['id']);
+     				}
+     				//删除题课节关系
+     				if($param['delete_lesson_question']){
+     					$res = $this->db->query("DELETE FROM nahao.question_lesson_relation WHERE question_id=".$param['id']);
+     				}
+     			}
+     	}
+     	return $this->db->query($sql);
+     }
+    
+     /**
+      * 讲义管理器
+      **/ 
+     public function question_manager(){
+     	this->db->query("set names utf8");
+     	switch ($param['do']){
+     		case 'add':
+     			$sql = "INSERT INTO nahao.courseware(name,create_time,courseware.status) 
+VALUES('对外汉语.pdf',1401321321,0)"; 
+     			$id = $this->db->query($sql)->insert_id();
+     			break;
+     		case 'edit':
+     			break;
+     		case 'delete':
+     			break;
+     	}
+     }
+     
+    /**
+     * 出题与反出题
+     * param:class_id,question_id in(1,2,3)
+     **/
+    public function set_question($param){
+    	if(!$param['class_id']){
+    		exit('为避免误操作，班次id不能为空');
+    	}
+    	#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1';
+		$where .= $param['class_id'] ? ' AND qcr.class_id='.$param['class_id'] : '';
+		$where .= $param['question_id'] ? ' AND qcr.question_id in('.$param['question_id'].')' : '';
+		$set = $param['sequence'] > 0 ? ' SET qcr.status=1,qcr.sequence='.$param['sequence'] //出题
+			: ($param['sequence'] == -1 ? ' SET qcr.status=0,qcr.sequence=0' : ' SET qcr.status=1,qcr.sequence=1');//取消出题
+		#2. 生成sql
+        $this->db->query("set names utf8");
+		$sql = "UPDATE nahao.question_class_relation qcr ".$set.$where;
+        return $this->db->query($sql);
+    }
+     
+    /**
+     * 做题
+     * param:class_id,student_id,question_id,answer,is_correct,sequence
+     **/
+    public function reply_question($param){
+    	$this->db->query("set names utf8");
+    	$sql = "INSERT INTO nahao.sutdent_question(class_id,student_id,question_id,answer,is_correct,sequence) 
+				VALUES(".$param['class_id'].",".$param['student_id'].",".$param['question_id'].",'".$param['answer']."',
+				".$param['is_correct'].",".$param['sequence'].")";
+    	return $this->db->query($sql);
+    }
+     
 	/**
 	 * 老师与轮关系表：round_teacher_relation
 	 * 轮表：round
