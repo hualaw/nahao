@@ -41,7 +41,7 @@ define(function(require,exports){
 
         function countDown(){
             var oDate=new Date();
-            oDate.setFullYear(2014,5,28);
+            oDate.setFullYear(2014,6,28);
             oDate.setHours(13,20,0);
 
             var today=new Date();
@@ -67,4 +67,6 @@ define(function(require,exports){
         countDown();
         timer = setInterval(countDown, 1000);   
     }
+    
+    //点击立即报名判断一个人是否能买同一轮课
 });

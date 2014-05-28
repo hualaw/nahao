@@ -89,7 +89,10 @@ define('DEFAULT_AVATER', '/images/common/default.png');
 define('TEACH_SPEAKER', 0);
 define('TEACH_ASSISTANT', 1);
 
-
+/*
+ * 订单开始值
+ */
+define('ORDER_START_VALUE',1);
 
 
 
