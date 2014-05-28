@@ -25,11 +25,11 @@
  * Option: the key to look up within the superglobal array
  * 
  * Also, it is possible that a superglobal variable is not populated by PHP
- * because of the settings in the variables-order ini directive. In this case
+ * because of the settings in the variables-adminOrder ini directive. In this case
  * the converter will return an empty value.
  * 
  * @see http://php.net/manual/en/language.variables.superglobals.php
- * @see http://www.php.net/manual/en/ini.core.php#ini.variables-order
+ * @see http://www.php.net/manual/en/ini.core.php#ini.variables-adminOrder
  * 
  * @package log4php
  * @subpackage pattern

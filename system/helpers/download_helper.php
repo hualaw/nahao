@@ -47,7 +47,7 @@ if ( ! function_exists('force_download'))
 		}
 
 		// Try to determine if the filename includes a file extension.
-		// We need it in order to set the MIME type
+		// We need it in adminOrder to set the MIME type
 		if (FALSE === strpos($filename, '.'))
 		{
 			return FALSE;

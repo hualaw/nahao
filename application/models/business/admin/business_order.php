@@ -89,6 +89,17 @@
             return $this->model_order->details_order($int_order_id);
         }
         /**
+         * 管理员完成退款操作
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function refund_ok($student_id,$order_id)
+        {
+            $this->load->model("model/admin/model_order");
+            return $this->model_order->refund_last($student_id,$order_id);
+        }
+        /**
          * 管理员通意退款操作
          * @param
          * @return

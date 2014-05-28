@@ -29,7 +29,7 @@
  * <p>This abstract class assumes and also imposes that filters be
  * organized in a linear chain. The {@link #decide
  * decide(LoggerLoggingEvent)} method of each filter is called sequentially,
- * in the order of their addition to the chain.
+ * in the adminOrder of their addition to the chain.
  * 
  * <p>The {@link decide()} method must return one
  * of the integer constants {@link LoggerFilter::DENY}, 

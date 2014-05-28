@@ -38,13 +38,13 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "index";
 $route['404_override'] = '';
 
 
 //$route['course/index/(.*+)/(.*+)']  = 'course/index?round_id=$1&time=$2';
 //$route['pay/neworder/(.*+)']  = 'pay/neworder/$1';
-//$route['pay/order/(.*+)/(.*+)']  = 'pay/order?order_id=$1&payment_method=$2';
+//$route['pay/adminOrder/(.*+)/(.*+)']  = 'pay/adminOrder?order_id=$1&payment_method=$2';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

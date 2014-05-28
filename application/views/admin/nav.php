@@ -19,7 +19,7 @@
                 </ul>
             </li>
             <li <?php echo in_array($this->current['controller'],array('user')) ? 'class="active"' : '';?>><a href="/user">用户管理</a></li>
-            <li <?php echo in_array($this->current['controller'],array('order')) ? 'class="active"' : '';?>><a href="/order">订单管理</a></li>
+            <li <?php echo in_array($this->current['controller'],array('adminOrder')) ? 'class="active"' : '';?>><a href="/order">订单管理</a></li>
             <li class="dropdown">
 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">教师管理<b class="caret"></b></a>

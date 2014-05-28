@@ -77,9 +77,9 @@ $config["order_status"][2] = "已付款";
 $config["order_status"][3] = "已完成";
 $config["order_status"][4] = "已取消";
 $config["order_status"][5] = "已关闭";
-$config["order_status"][6] = "包含申请退款的轮";
-$config["order_status"][7] = "包含退款失败的轮";
-$config["order_status"][8] = "包含退款成功的轮";
+$config["order_status"][6] = "申请退款";
+$config["order_status"][7] = "同意退款";
+$config["order_status"][8] = "退款完成";
 //订单支付方式
 /*
 *@author shangshikai@nahao.com

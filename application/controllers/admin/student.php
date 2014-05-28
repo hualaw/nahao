@@ -87,10 +87,9 @@ class Student extends NH_Admin_Controller {
         }
         $arr_tmp_areas = array_unique($arr_tmp_areas);
         $this->load->model('business/common/business_area','area');
-        $arr_areas = $this->area->get_areas_by_ids($arr_tmp_areas);
+        $arr_areas = $this->area->get_areas_by_ids_like_kv($arr_tmp_areas);
         foreach($arr_final_areas as $k => $v){
-            $arr_list[$k]['final_area'] = $arr_areas[$v['province']]['name'].$arr_areas[$v['city']]['name'].$arr_areas[$v['area']]['name'];
-//            o($arr_list[$k]);
+            $arr_list[$k]['final_area'] = $arr_areas[$v['province']].$arr_areas[$v['city']].$arr_areas[$v['area']];
         }
         $arr_provinces = $this->area->get_provinces();
         $this->load->model('business/common/business_subject','subject');
@@ -122,7 +121,7 @@ class Student extends NH_Admin_Controller {
     }
 
     /**
-     * user账户禁用启用
+     * student账户禁用启用
      * @author yanrui@tizi.com
      */
     public function active(){

@@ -1,20 +1,19 @@
-<botton class="btn btn-success" data-toggle="modal" data-target="#admin_create_modal">
-    新增管理员
-</botton>
-<!--<div class="input-append date form_datetime">
-    <input size="16" type="text" value="" readonly>
-    <span class="add-on"><i class="icon-th"></i></span>
-</div>-->
-<br><br>
-<form class="form-inline" role="form">
+<form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="sr-only" for="username">用户名</label>
+        <div class="col-md-1">
+            <botton class="btn btn-success" data-toggle="modal" data-target="#admin_create_modal">
+                新增管理员
+            </botton>
+        </div>
+        <label class="col-md-1 control-label" for="username">用户名</label>
+        <div class="col-md-2">
         <input type="text" class="form-control" id="username" name="username" size="16"
-               value="{if isset($arr_query_param.username)}{$arr_query_param.username}{/if}">
+               value="{if isset($arr_query_param.username)}{$arr_query_param.username}{/if}" />
         <!--<input type="text" class="form-control"  id="admin_datetimepicker" name="time_select" size="16"  data-date-format="yyyy-mm-dd hh:ii">-->
         <!--        <span class="add-on"><i class="icon-th"></i></span>-->
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
     </div>
-    <button type="submit" class="btn btn-default">搜索</button>
 </form>
 <table class="table table-hover">
     <thead>

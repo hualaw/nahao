@@ -92,7 +92,7 @@ class Business_Teacher extends NH_Model
      **/
     public function get_zjList($param){
     	$sortArr = array();
-    	$param['order'] = 2;
+    	$param['adminOrder'] = 2;
 		$teach_status = config_item('class_teach_status');#授课状态
     	if(isset($param['round_id'])){
     		$res = $this->model_teacher->teacher_round_class($param);

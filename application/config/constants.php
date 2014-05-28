@@ -139,15 +139,21 @@ define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
 define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
-define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
+define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/adminOrder.js');
 define('STATIC_ADMIN_JS_LECTURE','/admin/js/mod/lecture.js');
 define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
 
+
+define('STATIC_ADMIN_JS_SEA','/public/sea/2.1.0/sea.js');
+define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
+
 //static css
+define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
+//define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
-define('STATIC_ADMIN_CSS_NAV','/admin/css/nav.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
+
 
 //register type
 define('REG_TYPE_PHONE', 1);

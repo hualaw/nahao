@@ -13,6 +13,7 @@
             $config_status=config_item("order_status");
             $this->load->model("business/admin/business_order");
             $sea_total=$this->business_order->order_list();
+            $sea_total2=$sea_total;
             $order_count=$this->business_order->order_message();
             $this->load->library('pagination');
             $config = config_item('page_admin');
@@ -31,11 +32,13 @@
             //  var_dump($this->data);die;
             $this->smarty->assign('config_pay',$config_pay);
             $this->smarty->assign('sea_total',$sea_total);
+            $this->smarty->assign('sea_total2',$sea_total2);
             $this->smarty->assign('config_status',$config_status);
             $this->smarty->assign('spendata',$spendata);
             $this->smarty->assign('page',$page);
             //var_dump($page);die;
             $this->smarty->assign('order_count',$order_count);
+            $this->smarty->assign('js_module',"adminOrder");
             $this->smarty->assign('view',"order_list");
             $this->smarty->display('admin/layout.html');
         }
@@ -77,6 +80,7 @@
             //var_dump($page);die;
             $this->smarty->assign('order_count',$order_count);
             $this->smarty->assign('sea_total',$order_count['count']);
+            $this->smarty->assign('js_module',"adminOrder");
             $this->smarty->assign('view',"order_list");
             $this->smarty->display('admin/layout.html');
         }
@@ -102,8 +106,24 @@
             $this->smarty->assign('config_status',$config_status);
             $this->smarty->assign('details',$details);
             $this->smarty->assign('note',$note);
+            $this->smarty->assign('js_module',"adminOrder");
             $this->smarty->assign('view',"order_details_list");
             $this->smarty->display('admin/layout.html');
+        }
+
+        /**
+         * 管理员完成退款操作
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+        */
+
+        public function ok_refund()
+        {
+            $student_id=$this->input->post('student_id',TRUE);
+            $order_id=$this->input->post('order_id',TRUE);
+            $this->load->model("business/admin/business_order");
+            self::json_output($this->business_order->refund_ok($student_id,$order_id));
         }
 
         /**
@@ -135,6 +155,7 @@
             //echo $this->business_order->stu_refund($student_id,$order_id);
             self::json_output($this->business_order->stu_refund($student_id,$order_id));
         }
+
         /**
          * 添加订单备注
          * @param

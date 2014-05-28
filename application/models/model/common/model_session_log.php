@@ -2,7 +2,7 @@
 
 class Model_Session_Log extends NH_Model
 {
-	public fnction __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
@@ -16,7 +16,7 @@ class Model_Session_Log extends NH_Model
 
 		$nickname = '';
 		if(isset($userdata['phone_mask']) && empty($userdata['phone_mask'])) $nickname = $userdata['phone_mask'];
-		else if(isset($userdata['email'])  && empty($userdata['email']) $nickname = $userdata['email'];
+		else if(isset($userdata['email'])  && empty($userdata['email'])) $nickname = $userdata['email'];
 
 		$user_data = array(
 			'session_id' => $this->session->userdata("session_id"),
@@ -27,7 +27,7 @@ class Model_Session_Log extends NH_Model
 			'expire_time' => time() + config_item('sess_expiration'),
 			'user_type' => $userdata['user_type'],
 			'exit_time' => '',
-			)
+			);
 
 		$this->db->insert(SESSION_LOG, $user_data);
 
@@ -45,7 +45,7 @@ class Model_Session_Log extends NH_Model
 		{
 			$bool_ret =  $this->db->update(SESSION_LOG, $info, 'session_id='.$seesion_id);
 		}
-		reutrn $bool_ret;
+		return $bool_ret;
 	}
 }
 ?>

@@ -5,6 +5,10 @@ class register extends NH_Controller
 
 	public function submit()
 	{
+		$this->load->model('business/common/business_register');
+		$phone = $this->input->post('phone');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password')
 
 	}
 
