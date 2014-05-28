@@ -44,36 +44,55 @@ class register extends NH_Controller
 
 	public function submit()
 	{
-		$phone = $this->input->post('phone');
-		$email = $this->input->post('email');
-		$password = $this->input->post('password');
+		$phone = trim($this->input->get('phone'));
+		$ephone = trim($this->input->get('ephone'));//email注册时选填的手机号
+		$email = trim($this->input->get('email'));
+		$password = trim($this->input->get('password'));
+		$captcha = trim($this->input->get('captcha'));
+
+		if(empty($phone)) $reg_type = REG_TYPE_EMAIL;
+		else $reg_type = REG_TYPE_PHONE;
+
+		if($reg_type == REG_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
+
+		$register_ret = $this->business_register->register($phone, $email, $password, $captcha, $reg_type);
+
+		echo parent::json_output($register_ret);
 	}
 
 	//ajax interface
-	public function send_captcha($phone)
+	public function send_captcha()
 	{
+		$phone = trim($this->input->get('phone'));
 		$this->load->library('sms');
 		$this->sms->setPhoneNums($phone);
 
 		$this->load->helper('string');
 		$verify_code = random_string('nozero', 4);
-		$this->sms->setContent($this->lang->line('reg_verify_phone_msg').$verify_code);
+		$msg = $this->lang->line('reg_verify_phone_msg').$verify_code;
+		$this->sms->setContent($msg);
 		$send_ret = $this->sms->send();
-		if($send_ret)
+
+		$info = array(  'phone' => $phone,
+						'verify_code'=>$verify_code,
+						'msg'=>$msg,
+					);
+		//print_r($send_ret);
+		if($send_ret['error'] == 'Ok')
 		{
 			//store the captcha into redis
-		$this->load->model('model/common/redis_model', 'redis');
-		$this->redis->connect('login');
+			$this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
 
-		//store the key-value pair
-		$this->cache->save('cache_test_key', '234');
+			//store the key-value pair
+			$this->cache->save($phone, $verify_code);
 
-		echo $this->cache->get('cache_test_key');
-			$send_info = $this->_log_reg_info(REG_SEND_VERIFY_CODE_SUCCESS, 'reg_send_verify_code_success');
+			$send_info = $this->_log_reg_info(SUCCESS, 'reg_send_verify_code_success', $info);
 		}
 		else
 		{
-			$send_info = $this->_log_reg_info(REG_SEND_VERIFY_CODE_FAILED, 'reg_send_verify_code_failed', array('phone'=>$phone, 'verify_code'=>$verify_code));
+			$tmp_array = array_merge($info, $send_ret);
+			$send_info = $this->_log_reg_info(ERROR, 'reg_send_verify_code_failed', $tmp_array);
 		}
 		self::json_output($send_info);
 	}

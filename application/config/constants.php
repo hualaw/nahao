@@ -148,6 +148,10 @@ define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-dat
 define('REG_TYPE_PHONE', 1);
 define('REG_TYPE_EMAIL', 2);
 
+//ok/error
+define('SUCCESS', 'ok');
+define('ERROR', 'error');
+
 //register status
 define('REG_SUCCESS', 1);
 define('REG_DUP_NICKNAME', 2);
@@ -157,18 +161,16 @@ define('REG_INVALID_PHONE', 5);
 define('REG_INVALID_EMAIL', 6);
 define('REG_VERIFY_CAPTCHA_FAILED', 7);
 define('REG_PHONE_SERVER_ERROR', 8);
-define('REG_DUP_NICKNAME', 'dup');
-define('REG_DUP_PHONE', 'dup');
-
-
+define('REG_DUP_NICKNAME', 9);
+define('REG_DUP_PHONE', 10);
 
 //短信发送状态
-define('REG_SEND_VERIFY_CODE_FAILED', 9);
-define('REG_SEND_VERIFY_CODE_SUCCESS', 10);
+define('REG_SEND_VERIFY_CODE_FAILED', 11);
+define('REG_SEND_VERIFY_CODE_SUCCESS', 12);
 //check status
-define('REG_CHECK_PHONE_SUCCESS', 'ok');
-define('REG_CHECK_EMAIL_SUCCESS', 'ok');
-define('REG_CHECK_NICKNAME_SUCCESS','ok');
+define('REG_CHECK_PHONE_SUCCESS', 13);
+define('REG_CHECK_EMAIL_SUCCESS', 14);
+define('REG_CHECK_NICKNAME_SUCCESS',15);
 
 //过期时间
 define('REDIS_PHONE_CODE_EXPIRE_TIME', 300); //5分钟
