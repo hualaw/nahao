@@ -30,7 +30,7 @@ class Course extends NH_Admin_Controller {
 
         $arr_where = array();
         if($int_status > 0){
-            $arr_where['status'] = $int_status;
+            $arr_where['status'] = --$int_status;
         }
         if($int_subject > 0){
             $arr_where['subject'] = $int_subject;

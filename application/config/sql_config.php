@@ -16,6 +16,13 @@ $config['sql_admin'] = array(
     'area' => array(
         TABLE_NAHAO_AREAS => false
     ),
+    'course_info' => array(
+        TABLE_COURSE => false,
+        TABLE_SUBJECT => array(TABLE_COURSE.'.subject='.TABLE_SUBJECT.'.id','left'),
+        TABLE_COURSE_TYPE => array(TABLE_COURSE.'.course_type='.TABLE_COURSE_TYPE.'.id','left'),
+        TABLE_COURSE_TEACHER_RELATION => array(TABLE_COURSE.'.id='.TABLE_COURSE_TEACHER_RELATION.'.course_id','left'),
+        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION.'.teacher_id='.TABLE_USER.'.nickname','left'),
+    ),
     'course_type' => array(
         TABLE_COURSE_TYPE => false,
     ),

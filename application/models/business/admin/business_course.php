@@ -14,7 +14,7 @@ class Business_Course extends NH_Model
 
     /**
      * 创建course
-     * @param $arr_param
+     * @param array $arr_param
      * @return int
      * @author yanrui@tizi.com
      */
@@ -22,8 +22,9 @@ class Business_Course extends NH_Model
     {
         $int_return = 0;
         if($arr_param){
-            $arr_param['register_time'] = TIME_STAMP;
-            $arr_param['status'] = 0;//默认启用
+            $arr_param['create_time'] = TIME_STAMP;
+            $arr_param['role'] = ROLE_ADMIN;
+            $arr_param['user_id'] = $this->userinfo['id'];
             $int_return = $this->model_course->create_course($arr_param);
         }
         return $int_return;
@@ -53,18 +54,32 @@ class Business_Course extends NH_Model
     public function get_course_count($arr_where){
         $int_return = array();
         if(is_array($arr_where)){
-            $str_table_range = 'course';
+            $str_table_range = 'course_info';
             $str_result_type = 'count';
             $str_fields = 'count(1) as count';
-            if(array_key_exists('group_id',$arr_where)){
-                $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.group_id'] = $arr_where['group_id'];
+            if(array_key_exists('status',$arr_where)){
+                $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
+                unset($arr_where['status']);
             }
-            if(array_key_exists('course_id',$arr_where)){
-                $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.course_id'] = $arr_where['course_id'];
+            if(array_key_exists('subject',$arr_where)){
+                $arr_where[TABLE_COURSE.'.subject'] = $arr_where['subject'];
+                unset($arr_where['subject']);
             }
-            if(array_key_exists('username',$arr_where)){
-                $arr_where['like'][TABLE_ADMIN.'.username'] = $arr_where['username'];
-                unset($arr_where['username']);
+            if(array_key_exists('course_type',$arr_where)){
+                $arr_where[TABLE_COURSE.'.course_type'] = $arr_where['course_type'];
+                unset($arr_where['course_type']);
+            }
+            if(array_key_exists('teacher_id',$arr_where)){
+                $arr_where[TABLE_COURSE.'.teacher_id'] = $arr_where['teacher_id'];
+                unset($arr_where['teacher_id']);
+            }
+            if(array_key_exists('id',$arr_where)){
+                $arr_where[TABLE_COURSE.'.id'] = $arr_where['id'];
+                unset($arr_where['id']);
+            }
+            if(array_key_exists('title',$arr_where)){
+                $arr_where['like'][TABLE_COURSE.'.title'] = $arr_where['title'];
+                unset($arr_where['title']);
             }
             $int_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
@@ -82,18 +97,32 @@ class Business_Course extends NH_Model
     public function get_course_list($arr_where,$int_start,$int_limit){
         $arr_return = array();
         if(is_array($arr_where)){
-            $str_table_range = 'course_group_permission';
+            $str_table_range = 'course_info';
             $str_result_type = 'list';
-            $str_fields = TABLE_ADMIN.'.id,username,phone,email,realname,'.TABLE_ADMIN.'.status,'.TABLE_ADMIN_GROUP.'.name as group_name';
-            if(array_key_exists('group_id',$arr_where)){
-                $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.group_id'] = $arr_where['group_id'];
+            $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname';
+            if(array_key_exists('status',$arr_where)){
+                $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
+                unset($arr_where['status']);
             }
-            if(array_key_exists('course_id',$arr_where)){
-                $arr_where[TABLE_ADMIN_PERMISSION_RELATION.'.course_id'] = $arr_where['course_id'];
+            if(array_key_exists('subject',$arr_where)){
+                $arr_where[TABLE_COURSE.'.subject'] = $arr_where['subject'];
+                unset($arr_where['subject']);
             }
-            if(array_key_exists('username',$arr_where)){
-                $arr_where['like'][TABLE_ADMIN.'.username'] = $arr_where['username'];
-                unset($arr_where['username']);
+            if(array_key_exists('course_type',$arr_where)){
+                $arr_where[TABLE_COURSE.'.course_type'] = $arr_where['course_type'];
+                unset($arr_where['course_type']);
+            }
+            if(array_key_exists('teacher_id',$arr_where)){
+                $arr_where[TABLE_COURSE.'.teacher_id'] = $arr_where['teacher_id'];
+                unset($arr_where['teacher_id']);
+            }
+            if(array_key_exists('id',$arr_where)){
+                $arr_where[TABLE_COURSE.'.id'] = $arr_where['id'];
+                unset($arr_where['id']);
+            }
+            if(array_key_exists('title',$arr_where)){
+                $arr_where['like'][TABLE_COURSE.'.title'] = $arr_where['title'];
+                unset($arr_where['title']);
             }
             $arr_limit = array(
                 'start'=>$int_start,
