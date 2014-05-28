@@ -56,10 +56,27 @@
                         </div>
                         <p class="fromf">
                             <!-- <input type="submit" value="立即报名" class="btn redBtn"> -->
-                            <a href="/pay/product/{$array_data.id}" class="fr btn btn3">
+							{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
+							<a href="/pay/product/{$array_data.id}" class="fr btn btn3">
                                 <span class="fl">立即报名</span>
                                 <span class="fr"></span>
                             </a>
+                            {elseif $array_data.sale_status == '4'}
+                            <a href="" class="fr btn btn3">
+                                <span class="fl">已售罄</span>
+                                <span class="fr"></span>
+                            </a>
+                            {elseif $array_data.sale_status == '5'}
+                            <a href="" class="fr btn btn3">
+                                <span class="fl">已停售</span>
+                                <span class="fr"></span>
+                            </a>
+                            {else if $array_data.sale_status == '5'}
+                            <a href="" class="fr btn btn3">
+                                <span class="fl">已下架</span>
+                                <span class="fr"></span>
+                            </a>
+							{/if}
                             <strong class="fr">¥
                                 <span class="redText">{$array_data.price|string_format:"%.0f"}</span>
                             </strong>

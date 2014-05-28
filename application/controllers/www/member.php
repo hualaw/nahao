@@ -18,7 +18,7 @@ class Member extends NH_User_Controller {
         $int_user_id = 1;                                                    #TODO用户id
         $str_avater = $this->model_member->get_user_avater($int_user_id);
         #我买的课程
-        $this->student_member->get_my_course_for_buy($int_user_id);
+        $this->student_member->get_my_course($int_user_id);
         $this->smarty->assign('str_avater', $str_avater);
         $this->smarty->display('www/studentMyCourse/myCourse.html');
 	}
