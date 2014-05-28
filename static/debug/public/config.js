@@ -53,9 +53,10 @@ seajs.use('jquery',function(){
             seajs.use("module/adminGroup/init");
             break;
 
-        //订单
         case 'adminOrder':
             seajs.use("module/adminOrder/init");
+        case 'adminTeacher_lecture':
+            seajs.use("module/adminTeacher_lecture/init");
         case 'adminStudent':
             seajs.use("module/adminStudent/init");
             break;
