@@ -22,6 +22,13 @@ class Student_Order extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_course->get_round_info($int_product_id);
+        if ($array_return)
+        {
+            #总金额
+            $array_return['totle_money'] = $array_return['sale_price'];
+            #节省了多少钱
+            $array_return['save_money'] = $array_return['price']-$array_return['sale_price'];
+        }
         return $array_return;
     }
     

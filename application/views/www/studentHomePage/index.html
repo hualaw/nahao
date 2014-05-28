@@ -36,18 +36,19 @@
 		<div class="courseBox">
 			<div class="layout">
 				<ul class="cf courseList">
+					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
+							<img src="{static_url({$item.img})}" alt="">
 							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
+								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
 								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
+									<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
+									<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
 								</div>
 								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
+									<span class="fl">适合{$item.for_people}</span>
+									<span class="fr">{$item.class_nums}课次</span>
 								</div>
 							</div>
 						</div>
@@ -57,249 +58,19 @@
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
+									<em class="fl">{$item.teacher.nickname}</em>
+									<span class="workCard fl"></span>
+									<span class="TitleCard fl"></span>
+									<span class="teaCard fl">1</span>
 									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
+									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 								</div>
 							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
+							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
+							<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:5:"...":true}</a></p>
 						</div>
 					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							<img src="{static_url('/images/studenthomePage/course1.jpg')}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">2005北京高考各科考点分析</p>
-								<div class="cf">
-									<span class="fl courseTime">7月15日－8月15日</span>
-									<span class="fr"><em class="redText">1799</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合4-9年级</span>
-									<span class="fr">12课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr">
-							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-										<em class="fl">张渐变</em>
-										<span class="workCard fl"></span>
-										<span class="TitleCard fl"></span>
-										<span class="teaCard fl">1</span>
-									</h3>
-									<p class="detailInfor">北京顶级高中名校高级教师</p>
-								</div>
-							</div>
-							<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-							<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
-						</div>
-					</li>
+					{/foreach}
 				</ul>
 			</div>
 		</div>
