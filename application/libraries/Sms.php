@@ -60,7 +60,7 @@ class Sms {
         $send_message .= '<msgid></msgid>'; //编号
         $send_message .= $str_phone; //电话号码
         $send_message .= $content; //短信内容
-        $send_message .= '<sign>[那好网]</sign>'; //签名【' . SMS_SIGN . '】【' . SMS_SIGN . '】
+        $send_message .= '<sign></sign>'; //签名【' . SMS_SIGN . '】【' . SMS_SIGN . '】
         $send_message .= '<subcode></subcode>'; //扩展号码
         $send_message .= "<sendtime>{$send_time}</sendtime>"; //发送时间
         $send_message .= '</message>';
