@@ -38,7 +38,6 @@
             $this->smarty->assign('page',$page);
             //var_dump($page);die;
             $this->smarty->assign('order_count',$order_count);
-            $this->smarty->assign('js_module',"adminOrder");
             $this->smarty->assign('view',"order_list");
             $this->smarty->display('admin/layout.html');
         }
@@ -81,7 +80,6 @@
             //var_dump($page);die;
             $this->smarty->assign('order_count',$order_count);
             $this->smarty->assign('sea_total',$order_count['count']);
-            $this->smarty->assign('js_module',"adminOrder");
             $this->smarty->assign('view',"order_list");
             $this->smarty->display('admin/layout.html');
         }
@@ -107,7 +105,6 @@
             $this->smarty->assign('config_status',$config_status);
             $this->smarty->assign('details',$details);
             $this->smarty->assign('note',$note);
-            $this->smarty->assign('js_module',"adminOrder");
             $this->smarty->assign('view',"order_details_list");
             $this->smarty->display('admin/layout.html');
         }

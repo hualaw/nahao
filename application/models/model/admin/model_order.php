@@ -90,6 +90,7 @@
          */
         public function sea_order_list($post)
         {
+            $this->load->model("model/admin/model_order");
             $this->model_order->sea_order($post);
             return $this->db->order_by('student_order.id','desc')->get();
            // echo $this->db->last_query();die;
@@ -134,7 +135,7 @@
          */
         public function note_order($int_order_id)
         {
-            return $this->db->select('order_note.note,order_note.create_time')->from('order_note')->where("order_note.order_id=$int_order_id")->get();
+            return $this->db->select('order_note.note,order_note.create_time,admin.username')->from('order_note')->join('admin','admin.id=order_note.admin_id','left')->where("order_note.order_id=$int_order_id")->order_by('order_note.id','desc')->get();
         }
         /**
          * 管理员拒绝退款操作
