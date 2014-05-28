@@ -117,7 +117,6 @@ class Student extends NH_Admin_Controller {
         $this->smarty->assign('genders',config_item('gender'));
         $this->smarty->assign('arr_query_param', $arr_query_param);
         $this->smarty->assign('view', 'student_list');
-        $this->smarty->assign('js_module', 'adminStudent');
         $this->smarty->display('admin/layout.html');
     }
 

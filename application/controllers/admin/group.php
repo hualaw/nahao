@@ -43,7 +43,6 @@ class Group extends NH_Admin_Controller {
         $this->smarty->assign('list',$arr_list);
         $this->smarty->assign('arr_query_param', $arr_query_param);
         $this->smarty->assign('view', 'group_list');
-        $this->smarty->assign('js_module', 'adminGroup');
         $this->smarty->display('admin/layout.html');
     }
 

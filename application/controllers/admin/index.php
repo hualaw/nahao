@@ -30,7 +30,6 @@ class Index extends NH_Admin_Controller
         $data['str'] = 'welcome! layout!';
 //        o($this->userinfo);
         $this->smarty->assign('view', 'index_main');
-        $this->smarty->assign('js_module', 'adminIndex');
         $this->smarty->display('admin/layout.html');
     }
 }
