@@ -35,6 +35,8 @@ class Sms {
        $this->signature = $this->buildSignature();
 
        $this->version = $this->_ci->config->item('smsversion'); // 获取配置文件中的版本号
+       $this->subcode = $this->_ci->config->item('subcode');
+       $this->sign = $this->_ci->config->item('sign');
     }
 
     //根据version选择相应的发送短信的方法
@@ -60,12 +62,18 @@ class Sms {
         $send_message .= '<msgid></msgid>'; //编号
         $send_message .= $str_phone; //电话号码
         $send_message .= $content; //短信内容
-        $send_message .= '<sign></sign>'; //签名【' . SMS_SIGN . '】【' . SMS_SIGN . '】
-        $send_message .= '<subcode></subcode>'; //扩展号码
+        $send_message .= '<sign>'.$this->sign.'</sign>'; //签名【' . SMS_SIGN . '】【' . SMS_SIGN . '】
+        $send_message .= '<subcode>'.$this->subcode.'</subcode>'; //扩展号码
         $send_message .= "<sendtime>{$send_time}</sendtime>"; //发送时间
         $send_message .= '</message>';
-        return $this->curl_link($send_message);
+        //echo $send_message;
+        $ret =   $this->curl_link($send_message);
+        if(isset($ret['error']))
+        {
+            $ret['error'] = iconv("GBK", "UTF-8", $ret['error']);
+        }
 
+        return $ret;
     }
 
     //新的发送短信程序
@@ -82,11 +90,12 @@ class Sms {
               'sn'=>$sn,
              'pwd'=>strtoupper(md5($sn.$pwd)), //此处密码需要加密 加密方式为 md5(sn+password) 32位大写
              'mobile'=>$mobiles,//手机号 多个用英文的逗号隔开 post理论没有长度限制.推荐群发一次小于等于10000个手机号
-             'content'=>$conts,//短信内容
+             'content'=>$conts.iconv("UTF-8", "gb2312//IGNORE", $this->sign),//短信内容
              'ext'=>'',   
              'stime'=>'',//定时时间 格式为2011-6-29 11:09:21
              'rrid'=>''
-          ); 
+          );
+        //print_r($argv);
         //构造要post的字符串 
         $params = null;
         foreach ($argv as $key=>$value) { 
@@ -128,7 +137,7 @@ class Sms {
                 $msg = 'Send text error code:'.$line.'. ('.$this->get_error_code($line).')';
                 // $res= array('error'=>$msg,'status'=>'');
                 $res = $this->result($msg);
-                log_message('error_tizi', $msg, array('phone'=>$mobiles));// 发送失败，写日志
+                log_message('ERROR_NAHAO', $msg, array('phone'=>$mobiles));// 发送失败，写日志
             }else{
                 $res= $this->result();   
             }
@@ -148,7 +157,7 @@ class Sms {
            //Note: get curl error
            $response = json_encode(array('error'=>$curl_obj->error_string, 'status' => strval($curl_obj->error_code)));
            // 发送失败，写日志
-          log_message('error_tizi', $curl_obj->error_string, $params);
+          log_message('ERROR_NAHAO', $curl_obj->error_string, $params);
        }
 
        return json_decode($response, true);
@@ -170,7 +179,7 @@ class Sms {
         $output = $this->filter_output($output);
         if($output['code']!=0){
           $msg = 'send_3 ERROR: code:'.$output['code'].' desc:'.$this->get_send3_error_code($output['code']).' phone:'.$this->phone_nums.' content:'.$this->_content;
-          log_message('error_tizi', $msg);
+          log_message('ERROR_NAHAO', $msg);
           return $this->result($msg);
         }
         return $this->result();

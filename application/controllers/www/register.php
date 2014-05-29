@@ -23,32 +23,32 @@ class register extends NH_Controller
 
 	public function check_nickname()
 	{
-		$nickname = trim($this->input->get('nickname'));
+		$nickname = trim($this->input->post('nickname'));
 
 		echo parent::json_output($this->business_register->check_nickname($nickname));
 	}
 
 	public function check_phone()
 	{
-		$phone = trim($this->input->get('phone'));
+		$phone = trim($this->input->post('phone'));
 
 		echo parent::json_output($this->business_register->check_phone($phone));
 	}
 
 	public function check_email()
 	{
-		$email = trim($this->input->get('email'));
+		$email = trim($this->input->post('email'));
 
 		echo parent::json_output($this->business_register->check_email($email));
 	}
 
 	public function submit()
 	{
-		$phone = trim($this->input->get('phone'));
-		$ephone = trim($this->input->get('ephone'));//email注册时选填的手机号
-		$email = trim($this->input->get('email'));
-		$password = trim($this->input->get('password'));
-		$captcha = trim($this->input->get('captcha'));
+		$phone = trim($this->input->post('phone'));
+		$ephone = trim($this->input->post('ephone'));//email注册时选填的手机号
+		$email = trim($this->input->post('email'));
+		$password = trim($this->input->post('password'));
+		$captcha = trim($this->input->post('captcha'));
 
 		if(empty($phone)) $reg_type = REG_TYPE_EMAIL;
 		else $reg_type = REG_TYPE_PHONE;
@@ -63,7 +63,8 @@ class register extends NH_Controller
 	//ajax interface
 	public function send_captcha()
 	{
-		$phone = trim($this->input->get('phone'));
+		$phone = trim($this->input->post('phone'));
+        $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
 		$this->load->library('sms');
 		$this->sms->setPhoneNums($phone);
 
@@ -71,11 +72,15 @@ class register extends NH_Controller
 		$verify_code = random_string('nozero', 4);
 		$msg = $this->lang->line('reg_verify_phone_msg').$verify_code;
 		$this->sms->setContent($msg);
+        $create_time = time();
 		$send_ret = $this->sms->send();
+        //$send_ret['error'] = 'Ok';
 
 		$info = array(  'phone' => $phone,
 						'verify_code'=>$verify_code,
 						'msg'=>$msg,
+                        'create_time'=>$create_time,
+                        'type' => $type,
 					);
 		//print_r($send_ret);
 		if($send_ret['error'] == 'Ok')
@@ -84,8 +89,12 @@ class register extends NH_Controller
 			$this->load->model('model/common/model_redis', 'redis');
 			$this->redis->connect('login');
 
-			//store the key-value pair
-			$this->cache->save($phone, $verify_code);
+			//store the phone-verify code list to list
+			$this->cache->redis->lpush($phone, json_encode(array(
+                        't'=>$type,
+                        'vc'=>$verify_code,
+                        'et'=>$create_time + REDIS_VERIFY_CODE_EXPIRE_TIME
+                    )));
 
 			$send_info = $this->_log_reg_info(SUCCESS, 'reg_send_verify_code_success', $info);
 		}
@@ -94,6 +103,8 @@ class register extends NH_Controller
 			$tmp_array = array_merge($info, $send_ret);
 			$send_info = $this->_log_reg_info(ERROR, 'reg_send_verify_code_failed', $tmp_array);
 		}
+
+        //unset($send_info['data']);
 		self::json_output($send_info);
 	}
 

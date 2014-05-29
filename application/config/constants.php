@@ -186,12 +186,18 @@ define('REG_CHECK_EMAIL_SUCCESS', 14);
 define('REG_CHECK_NICKNAME_SUCCESS',15);
 
 //过期时间
-define('REDIS_PHONE_CODE_EXPIRE_TIME', 300); //5分钟
+define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
+//define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
 
 //phone_server连接
 define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
+
+//验证码类型
+define('REGISTER_VERIFY_CODE', 1);
+define('BIND_VERIFY_CODE', 2);
+define('GET_PASSWORD_VERIFY_CODE', 3);
 
 
 
