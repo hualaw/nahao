@@ -21,7 +21,7 @@
 			    <div class="over">
 					停课
 				</div>
-				{elseif $item.teach_status == '3'}
+				{elseif $item.teach_status == '3' || $item.teach_status == '4'}
 				<div class="over">
 					已结课
 				</div>
@@ -35,14 +35,14 @@
 				{/if}
 			</div>
 			
-			{if $item.teach_status == '2'}
+			{if $item.teach_status == '2' 
+			|| $item.teach_status =='4' 
+			|| $item.status == '9'
+			|| $item.status == '8'
+			|| $item.status == '6'}
 			<a href="" class="btn blueBtn">
-				停课
-				</a>
-			{elseif $item.teach_status =='3'}
-			<a href="" class="btn blueBtn">
-				已结课
-				</a>
+				进入课程
+			</a>
 			{else}
 			<a href="/course/buy_after/{$item.round_id}" class="btn blueBtn">
 				进入课程

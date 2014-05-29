@@ -72,8 +72,8 @@ class Model_Order extends NH_Model{
     public function get_order_by_id($int_order_id)
     {
         $array_result = array();
-        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id FROM student_order 
-                WHERE id = ".$int_order_id;
+        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM student_order 
+                WHERE id = ".$int_order_id." AND is_delete = 0";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -116,7 +116,7 @@ class Model_Order extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT status FROM student_order WHERE student_id = ".$int_user_id." 
-                AND round_id = ".$int_product_id;
+                AND round_id = ".$int_product_id." AND is_delete = 0";
         $array_result = $this->db->query($sql)->result_array();
     }
 }

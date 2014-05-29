@@ -2,13 +2,13 @@
 <h3 class="pageName">订单详情</h3>
 <div class="orderComBox">
 	<ul class="tabh cf">
-		<li class="tabhOn">全部订单</li>
-		<li>已付款<span class="redText">11</span></li>
-		<li>未付款<span class="redText">2</span></li>
-		<li>已取消<span class="redText">1</span></li>
-		<li class="onRBor">已退款<span class="redText">3</span></li>
+		<li {if $str_type == 'all'}class="tabhOn"{/if}><a href="/member/my_order/all">全部订单</a></li>
+		<li {if $str_type == 'pay'}class="tabhOn"{/if}><a href="/member/my_order/pay">已付款<span class="redText">{$pay_count}</span></a></li>
+		<li {if $str_type == 'nopay'}class="tabhOn"{/if}><a href="/member/my_order/nopay">未付款<span class="redText">{$nopay_count}</span></a></li>
+		<li {if $str_type == 'cancel'}class="tabhOn"{/if}><a href="/member/my_order/cancel">已取消<span class="redText">{$cancel_count}</span></a></li>
+		<li {if $str_type == 'refund'}class="tabhOn"{/if}><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
 	</ul>
-	{$str_type == 'all'}
+	{if $str_type == 'all'}
 	<div class="tabCon">
 		<div class="tabBox">
 			<table>
@@ -22,104 +22,421 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="nopayment">
-						<td class="oInfor">
-							<p class="ordernum">订单编号<span>87623868273554</span></p>
-							<div>
-								<img src="" alt="">
-								<img src="" alt="">
-								<img src="" alt="">
-								<img src="" alt="">
-								<img src="" alt="">
-							</div>
-							<p class="orderTitle">应老师 2014暑假作文提升训练</p>
-						</td>
-						<td><strong class="redText">¥ 199</strong></td>
-						<td>
-							<span class="time">
-								2014／06／23<br>18：58 : 43
-							</span>
-						</td>
-						<td class="redText">未付款</td>
-						<td>
-							<a href="" class="blueText">查看</a><br>
-							<a href="" class="cf btn3 btn">
+				{foreach from=$array_order_list item=item}
+				<tr {if $item.status == '0'}class="nopayment"
+				    {elseif $item.status == '2' || $item.status == '3'}class="payment"
+				    {elseif $item.status == '4' || $item.status == '5'}class="cancle"
+				    {elseif $item.status == '9'}class="refund noBBor"
+				 {/if}>
+					<td class="oInfor">
+						<p class="ordernum">订单编号<span>{$item.id}</span></p>
+						<div>
+							<img src="{static_url($item.class_img)}" alt="">
+						</div>
+						<p class="orderTitle">{$item.title|truncate:18:"...":true}</p>
+					</td>
+					<td><strong class="redText">¥{$item.spend}</strong></td>
+					<td>
+						<span class="time">
+							{$item.create_time}
+						</span>
+					</td>
+					<td class="redText">
+					{if $item.status == '0'}
+					未付款
+					{elseif $item.status == '1'}
+					付款失败
+					{elseif $item.status == '2'}
+					已付款
+					{elseif $item.status == '3'}
+					已付款
+					{elseif $item.status == '4'}
+					已取消
+					{elseif $item.status == '5'}
+					已关闭
+					{elseif $item.status == '6'}
+					申请退款
+					{elseif $item.status == '7'}
+					拒绝退款
+					{elseif $item.status == '8'}
+					同意退款
+					{elseif $item.status == '9'}
+					已退款
+					{/if}
+					</td>
+					<td>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						
+							{if $item.status == '0' || $item.status == '1'}
+							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
 								<span class="fl">支付</span>
 								<span class="fr"></span>
 							</a>
-						</td>
-					</tr>
-					<tr class="payment">
-						<td class="oInfor">
-							<p class="ordernum">订单编号<span>87623868273554</span></p>
-							<div>
-								<img src="" alt="">
-								<img src="" alt="">
-							</div>
-							<p class="orderTitle">应老师 2014暑假作文提升训练</p>
-						</td>
-						<td><strong class="redText">¥ 199</strong></td>
-						<td>
-							<span class="time">
-								2014／06／23<br>18：58 : 43
-							</span>
-						</td>
-						<td class="redText">已付款</td>
-						<td>
-							<a href="" class="blueText">查看</a><br>
-							<a href="" class="blueText">申请退课</a>
-						</td>
-					</tr>
-					<tr class="cancle">
-						<td class="oInfor">
-							<p class="ordernum">订单编号<span>87623868273554</span></p>
-							<div>
-								<img src="" alt="">
-								<img src="" alt="">
-							</div>
-							<p class="orderTitle">应老师 2014暑假作文提升训练</p>
-						</td>
-						<td><strong>¥ 199</strong></td>
-						<td>
-							<span class="time">
-								2014／06／23<br>18：58 : 43
-							</span>
-						</td>
-						<td class="state">已取消</td>
-						<td>
-							<a href="" class="blueText">查看</a><br>
-							<a href="" class="blueText">删除</a>
-						</td>
-					</tr>
-					<tr class="refund noBBor">
-						<td class="oInfor">
-							<p class="ordernum">订单编号<span>87623868273554</span></p>
-							<div>
-								<img src="" alt="">
-								<img src="" alt="">
-							</div>
-							<p class="orderTitle">应老师 2014暑假作文提升训练</p>
-						</td>
-						<td><strong>¥ 199</strong></td>
-						<td>
-							<span class="time">
-								2014／06／23<br>18：58 : 43
-							</span>
-						</td>
-						<td class="">已退课</td>
-						<td>
-							<a href="" class="blueText">查看</a><br>
-							<a href="" class="blueText">退课详情</a>
-						</td>
-					</tr>
+							<a href="/member/action/{$item.id}/1" class="blueText">取消</a>
+							{elseif $item.status == '2' || $item.status == '3'}
+							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							{elseif $item.status == '4' || $item.status == '5'}
+							<a href="/member/action/{$item.id}/2" class="blueText">删除</a>
+							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
+							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							{/if}
+					</td>
+				</tr>
+				{/foreach}				
 				</tbody>
 			</table>
+			{$show_page}
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
 		<div class="undis tabBox">已取消</div>
 		<div class="undis tabBox">已退款</div>
 	</div>
+	{/if}
+	
+	{if $str_type == 'pay'}
+	<div class="tabCon">
+		<div class="tabBox">
+			<table>
+				<thead>
+					<tr>
+						<td class="orderName oInfor">订单信息</td>
+						<td class="orderName">金额</td>
+						<td class="orderName">下单时间</td>
+						<td class="orderName">状态</td>
+						<td class="orderName">操作</td>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach from=$array_order_list item=item}
+				<tr {if $item.status == '0'}class="nopayment"
+				    {elseif $item.status == '2' || $item.status == '3'}class="payment"
+				    {elseif $item.status == '4' || $item.status == '5'}class="cancle"
+				    {elseif $item.status == '9'}class="refund noBBor"
+				 {/if}>
+					<td class="oInfor">
+						<p class="ordernum">订单编号<span>{$item.id}</span></p>
+						<div>
+							<img src="{static_url($item.class_img)}" alt="">
+						</div>
+						<p class="orderTitle">{$item.title|truncate:18:"...":true}</p>
+					</td>
+					<td><strong class="redText">¥{$item.spend}</strong></td>
+					<td>
+						<span class="time">
+							{$item.create_time}
+						</span>
+					</td>
+					<td class="redText">
+					{if $item.status == '0'}
+					未付款
+					{elseif $item.status == '1'}
+					付款失败
+					{elseif $item.status == '2'}
+					已付款
+					{elseif $item.status == '3'}
+					已付款
+					{elseif $item.status == '4'}
+					已取消
+					{elseif $item.status == '5'}
+					已关闭
+					{elseif $item.status == '6'}
+					申请退款
+					{elseif $item.status == '7'}
+					拒绝退款
+					{elseif $item.status == '8'}
+					同意退款
+					{elseif $item.status == '9'}
+					已退款
+					{/if}
+					</td>
+					<td>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						
+							{if $item.status == '0' || $item.status == '1'}
+							<a href="" class="cf btn3 btn">
+								<span class="fl">支付</span>
+								<span class="fr"></span>
+							</a>
+							<a href="/member/action/{$item.id}/1" class="blueText">取消</a>
+							{elseif $item.status == '2' || $item.status == '3'}
+							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							{elseif $item.status == '4' || $item.status == '5'}
+							<a href="/member/action/{$item.id}/2" class="blueText">删除</a>
+							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
+							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							{/if}
+					</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+			{$show_page}
+		</div>
+		<div class="undis tabBox">已付款</div>
+		<div class="undis tabBox">未付款</div>
+		<div class="undis tabBox">已取消</div>
+		<div class="undis tabBox">已退款</div>
+	</div>
+	{/if}
+	
+	{if $str_type == 'nopay'}
+	<div class="tabCon">
+		<div class="tabBox">
+			<table>
+				<thead>
+					<tr>
+						<td class="orderName oInfor">订单信息</td>
+						<td class="orderName">金额</td>
+						<td class="orderName">下单时间</td>
+						<td class="orderName">状态</td>
+						<td class="orderName">操作</td>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach from=$array_order_list item=item}
+				<tr {if $item.status == '0'}class="nopayment"
+				    {elseif $item.status == '2' || $item.status == '3'}class="payment"
+				    {elseif $item.status == '4' || $item.status == '5'}class="cancle"
+				    {elseif $item.status == '9'}class="refund noBBor"
+				 {/if}>
+					<td class="oInfor">
+						<p class="ordernum">订单编号<span>{$item.id}</span></p>
+						<div>
+							<img src="{static_url($item.class_img)}" alt="">
+						</div>
+						<p class="orderTitle">{$item.title|truncate:18:"...":true}</p>
+					</td>
+					<td><strong class="redText">¥{$item.spend}</strong></td>
+					<td>
+						<span class="time">
+							{$item.create_time}
+						</span>
+					</td>
+					<td class="redText">
+					{if $item.status == '0'}
+					未付款
+					{elseif $item.status == '1'}
+					付款失败
+					{elseif $item.status == '2'}
+					已付款
+					{elseif $item.status == '3'}
+					已付款
+					{elseif $item.status == '4'}
+					已取消
+					{elseif $item.status == '5'}
+					已关闭
+					{elseif $item.status == '6'}
+					申请退款
+					{elseif $item.status == '7'}
+					拒绝退款
+					{elseif $item.status == '8'}
+					同意退款
+					{elseif $item.status == '9'}
+					已退款
+					{/if}
+					</td>
+					<td>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						
+							{if $item.status == '0' || $item.status == '1'}
+							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
+								<span class="fl">支付</span>
+								<span class="fr"></span>
+							</a>
+							<a href="/member/action/{$item.id}/1" class="blueText">取消</a>
+							{elseif $item.status == '2' || $item.status == '3'}
+							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							{elseif $item.status == '4' || $item.status == '5'}
+							<a href="/member/action/{$item.id}/2" class="blueText">删除</a>
+							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
+							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							{/if}
+					</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+			{$show_page}
+		</div>
+		<div class="undis tabBox">已付款</div>
+		<div class="undis tabBox">未付款</div>
+		<div class="undis tabBox">已取消</div>
+		<div class="undis tabBox">已退款</div>
+	</div>
+	{/if}
+	
+	{if $str_type == 'cancel'}
+	<div class="tabCon">
+		<div class="tabBox">
+			<table>
+				<thead>
+					<tr>
+						<td class="orderName oInfor">订单信息</td>
+						<td class="orderName">金额</td>
+						<td class="orderName">下单时间</td>
+						<td class="orderName">状态</td>
+						<td class="orderName">操作</td>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach from=$array_order_list item=item}
+				<tr {if $item.status == '0'}class="nopayment"
+				    {elseif $item.status == '2' || $item.status == '3'}class="payment"
+				    {elseif $item.status == '4' || $item.status == '5'}class="cancle"
+				    {elseif $item.status == '9'}class="refund noBBor"
+				 {/if}>
+					<td class="oInfor">
+						<p class="ordernum">订单编号<span>{$item.id}</span></p>
+						<div>
+							<img src="{static_url($item.class_img)}" alt="">
+						</div>
+						<p class="orderTitle">{$item.title|truncate:18:"...":true}</p>
+					</td>
+					<td><strong class="redText">¥{$item.spend}</strong></td>
+					<td>
+						<span class="time">
+							{$item.create_time}
+						</span>
+					</td>
+					<td class="redText">
+					{if $item.status == '0'}
+					未付款
+					{elseif $item.status == '1'}
+					付款失败
+					{elseif $item.status == '2'}
+					已付款
+					{elseif $item.status == '3'}
+					已付款
+					{elseif $item.status == '4'}
+					已取消
+					{elseif $item.status == '5'}
+					已关闭
+					{elseif $item.status == '6'}
+					申请退款
+					{elseif $item.status == '7'}
+					拒绝退款
+					{elseif $item.status == '8'}
+					同意退款
+					{elseif $item.status == '9'}
+					已退款
+					{/if}
+					</td>
+					<td>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						
+							{if $item.status == '0' || $item.status == '1'}
+							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
+								<span class="fl">支付</span>
+								<span class="fr"></span>
+							</a>
+							<a href="/member/action/{$item.id}/1" class="blueText">取消</a>
+							{elseif $item.status == '2' || $item.status == '3'}
+							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							{elseif $item.status == '4' || $item.status == '5'}
+							<a href="/member/action/{$item.id}/2" class="blueText">删除</a>
+							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
+							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							{/if}
+					</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+			{$show_page}
+		</div>
+		<div class="undis tabBox">已付款</div>
+		<div class="undis tabBox">未付款</div>
+		<div class="undis tabBox">已取消</div>
+		<div class="undis tabBox">已退款</div>
+	</div>
+	{/if}
+	
+	{if $str_type == 'refund'}
+	<div class="tabCon">
+		<div class="tabBox">
+			<table>
+				<thead>
+					<tr>
+						<td class="orderName oInfor">订单信息</td>
+						<td class="orderName">金额</td>
+						<td class="orderName">下单时间</td>
+						<td class="orderName">状态</td>
+						<td class="orderName">操作</td>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach from=$array_order_list item=item}
+				<tr {if $item.status == '0'}class="nopayment"
+				    {elseif $item.status == '2' || $item.status == '3'}class="payment"
+				    {elseif $item.status == '4' || $item.status == '5'}class="cancle"
+				    {elseif $item.status == '9'}class="refund noBBor"
+				 {/if}>
+					<td class="oInfor">
+						<p class="ordernum">订单编号<span>{$item.id}</span></p>
+						<div>
+							<img src="{static_url($item.class_img)}" alt="">
+						</div>
+						<p class="orderTitle">{$item.title}</p>
+					</td>
+					<td><strong class="redText">¥{$item.spend}</strong></td>
+					<td>
+						<span class="time">
+							{$item.create_time}
+						</span>
+					</td>
+					<td class="redText">
+					{if $item.status == '0'}
+					未付款
+					{elseif $item.status == '1'}
+					付款失败
+					{elseif $item.status == '2'}
+					已付款
+					{elseif $item.status == '3'}
+					已付款
+					{elseif $item.status == '4'}
+					已取消
+					{elseif $item.status == '5'}
+					已关闭
+					{elseif $item.status == '6'}
+					申请退款
+					{elseif $item.status == '7'}
+					拒绝退款
+					{elseif $item.status == '8'}
+					同意退款
+					{elseif $item.status == '9'}
+					已退款
+					{/if}
+					</td>
+					<td>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						
+							{if $item.status == '0' || $item.status == '1'}
+							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
+								<span class="fl">支付</span>
+								<span class="fr"></span>
+							</a>
+							<a href="/member/action/{$item.id}/1" class="blueText">取消</a>
+							{elseif $item.status == '2' || $item.status == '3'}
+							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							{elseif $item.status == '4' || $item.status == '5'}
+							<a href="/member/action/{$item.id}/2" class="blueText">删除</a>
+							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
+							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							{/if}
+					</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+			{$show_page}
+		</div>
+		<div class="undis tabBox">已付款</div>
+		<div class="undis tabBox">未付款</div>
+		<div class="undis tabBox">已取消</div>
+		<div class="undis tabBox">已退款</div>
+	</div>
+	{/if}
 </div>
 
 <!--订单详情-->
