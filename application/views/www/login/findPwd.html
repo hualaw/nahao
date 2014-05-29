@@ -29,7 +29,7 @@
 					<span class="fl ok ">3. 完成</span>
 				</div>
 				<p class="tips">请填写您绑定的手机号，我们将验证码发送至手机，请您注意查收手机短信</p>
-				<form action="" mothed="post" onsubmit="return false">
+				<form action="" mothed="post" onsubmit="return false" class="phoneFindPW">
 					<ul>
 						<li class="cf">
 							<p class="fl">绑定手机</p>
@@ -39,7 +39,10 @@
 						</li>
 						<li class="cf">
 							<p class="fl">验证码</p>
-							<input type="text" class="fl" placeholder="请输入手机验证码">
+							<div class="cf">
+								<input type="text" class="fl inputPhone" placeholder="请输入手机验证码" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 						</li>
 						<li class="cf">
 							<input type="submit" class="btn redBtn submit fl" value="确定">
@@ -56,11 +59,14 @@
 					<span class="fl ok ">3. 完成</span>
 				</div>
 				<p class="tips">请填写您绑定的手机号，我们将验证码发送至手机，请您注意查收手机短信</p>
-				<form action="" mothed="post" onsubmit="return false">
+				<form action="" mothed="post" onsubmit="return false" class="EmailFindPW">
 					<ul>
 						<li class="cf">
 							<p class="fl">邮箱</p>
-							<input type="text" class="fl" placeholder="请输入注册时的邮箱">
+							<div class="cf">
+								<input type="text" class="fl inputEmail" placeholder="请输入注册时的邮箱" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 						</li>
 						<li class="cf">
 							<input type="submit" class="btn redBtn submit fl" value="确定">

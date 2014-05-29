@@ -31,6 +31,7 @@ define(function(require,exports){
             if($(this).hasClass("ctimeOn")){
                 $(this).removeClass("ctimeOn");
             }else{
+                $(".enlistForm .ctime").removeClass("ctimeOn");
                 $(this).addClass("ctimeOn");
             }
         })

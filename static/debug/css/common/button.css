@@ -1,10 +1,10 @@
-.btn{font-size: 20px;height: 40px;line-height: 40px;border-radius: 2px;color:#fff;display: inline-block;box-shadow: 1px 1px 3px rgba(6,7,7,.3),-1px -1px 3px rgba(6,7,7,.3);text-align: center;}
-.noShowBtn{border-radius: 2px;color:#fff;font-size: 18px;height: 32px;line-height: 32px;display: inline-block;text-align: center;}
+.btn{font-size: 20px;height: 40px;line-height: 40px;border-radius: 2px;color:#fff;display: inline-block;box-shadow: 1px 1px 3px rgba(6,7,7,.3),-1px -1px 3px rgba(6,7,7,.3);text-align: center;cursor: pointer;}
+.noShowBtn{border-radius: 2px;color:#fff;font-size: 18px;height: 32px;line-height: 32px;display: inline-block;text-align: center;border:none;cursor: pointer;}
 
 .redBtn{ background: #f14211;}
-.redBtn:hover{ background: #f15930;}
+.redBtn:hover{ background: #f15930;color: #fff;}
 .blueBtn{ background: #88ddf3;}
-.blueBtn:hover{ background:#6dcde6;}
+.blueBtn:hover{ background:#6dcde6;color: #fff;}
 
 .transBtn{border-radius: 2px;color:#fff;display: inline-block;box-shadow: 1px 1px 3px rgba(0,0,0,.2),-1px -1px 3px rgba(0,0,0,.2);text-align: center;border: 1px solid rgba(255,255,255,.5);*border:1px solid #fff;border:1px solid #fff\9;}
 

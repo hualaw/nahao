@@ -269,7 +269,7 @@ class CI_Cache_redis extends CI_Driver
 			}
 			catch (RedisException $e)
 			{
-				log_message('error_tizi', '10072:Redis '.$redis_type.' auth refused. '.$e->getMessage());
+				log_message('ERROR_NAHAO', '10072:Redis '.$redis_type.' auth refused. '.$e->getMessage());
 				$return = false;
 			}
 		}
@@ -277,7 +277,7 @@ class CI_Cache_redis extends CI_Driver
 		if(!$return)
 		{
 			$redis = NULL;
-			log_message('error_tizi', '10071:Redis '.$redis_type.' connection failed.');
+			log_message('ERROR_NAHAO', '10071:Redis '.$redis_type.' connection failed.');
 		}	
 		return $redis;
 	}
@@ -589,6 +589,17 @@ class CI_Cache_redis extends CI_Driver
 			$this->_slave->rpop($key);
 		}
 	 }
+
+    /**
+     * 封装redis lrme方式,删除值为$value的元素
+     * @param  string $key 	       队列键名
+     * @param  int count           从存于 key 的列表里移除前 count 次出现的值为 value 的元素
+     */
+    public function lrem($key, $value, $count) {
+        if ($this->_redis){
+            $this->_redis->lrem($key, $value, $count);
+        }
+    }
 }
 
 /* End of file Cache_redis.php */
