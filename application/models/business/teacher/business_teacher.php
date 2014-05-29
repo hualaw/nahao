@@ -20,10 +20,45 @@ class Business_Teacher extends NH_Model
     	return $pos;
     }
     
-    public function today_class($param){
-    	$res = $this->model_teacher->class_seacher(array('parent'));
-    }
-    
+    /**
+     * 今日上课数据
+     **/
+     public function today_class($param){
+     	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+     	$course_type = config_item('course_type');
+     	$param = array(
+     		'teacher_id' => $param['teacher_id'],
+     		'begin_time' => strtotime(date("Y-m-d")),
+     		'end_time' => strtotime(date("Y-m-d",strtotime("+1 day"))),
+     		'parent_id' => -2,
+     		'status' => "1,2,3",
+     		'order' => 2,
+     	);
+     	$res = $this->model_teacher->class_seacher($param);
+     	if($res) foreach($res as &$val){
+     		$val['course_type_name'] = $course_type[$val['course_type']];
+     		$total_param_item = array(
+     			'teacher_id' => $param['teacher_id'],
+     			'parent_id' => -2,
+     			'status' => "1,2,3",
+     			'round_id' => $val['round_id'],
+     			'counter' => 1,
+     		);
+     		$already_param_item = array(
+     			'teacher_id' => $param['teacher_id'],
+     			'parent_id' => -2,
+     			'status' => "3",
+     			'round_id' => $val['round_id'],
+     			'counter' => 1,
+     		);
+     		$total = $this->model_teacher->class_seacher($total_param_item);
+     		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     		$total = $this->model_teacher->class_seacher($already_param_item);
+     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	}
+     	return $res;
+     }
+     
     /**
      * 教师今天即将开课列表
      * [教师id]

@@ -18,7 +18,7 @@ class Model_Teacher extends NH_Model{
 			2=>'DESC'
 	);
 	
-	public protected $database = "nahao";
+	protected $database = "nahao";
 	
 	/**
 	 * 【超能统计搜索器 - 课】：
@@ -29,6 +29,7 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['id'] ? ' AND cl.id='.$param['id'] : '';
+		$where .= $param['round_id'] ? ' AND cl.round_id='.$param['round_id'] : '';
 		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= $param['begin_time'] ? ' AND cl.begin_time>='.$param['begin_time'] : '';
 		$where .= $param['end_time'] ? ' AND cl.end_time<='.$param['end_time'] : '';
@@ -43,14 +44,16 @@ class Model_Teacher extends NH_Model{
 		$where .= $param['title'] ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
-		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score';
+		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
 				FROM nahao.class cl 
 				LEFT JOIN nahao.round r ON cl.round_id=r.id 
 				LEFT JOIN nahao.course c ON r.course_id=c.id 
-				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id ".$where.$order;
+				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
+				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id ".$where.$order;
+		
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -169,7 +172,7 @@ class Model_Teacher extends NH_Model{
      	$param['answer'] = addslashes($param['answer']);
      	$param['options'] = addslashes($param['options']);
      	$param['analysis'] = addslashes($param['analysis']);
-     	this->db->query("set names utf8");
+     	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add': 
      			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
@@ -214,8 +217,8 @@ class Model_Teacher extends NH_Model{
      /**
       * 讲义管理器
       **/ 
-     public function question_manager(){
-     	this->db->query("set names utf8");
+     public function courseware_manager(){
+     	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
      			$sql = "INSERT INTO nahao.courseware(name,create_time,courseware.status) 
