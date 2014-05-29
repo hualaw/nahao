@@ -9,7 +9,6 @@ class Group extends NH_Admin_Controller {
 
     function __construct(){
         parent::__construct();
-        $this->load->model('business/admin/business_group','group');
     }
 
     /**

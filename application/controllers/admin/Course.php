@@ -30,7 +30,7 @@ class Course extends NH_Admin_Controller {
 
         $arr_where = array();
         if($int_status > 0){
-            $arr_where['status'] = $int_status;
+            $arr_where['status'] = --$int_status;
         }
         if($int_subject > 0){
             $arr_where['subject'] = $int_subject;
@@ -51,6 +51,12 @@ class Course extends NH_Admin_Controller {
         }
 
         $int_count = $this->course->get_course_count($arr_where);
+        $arr_list = $this->course->get_course_list($arr_where, $int_start,PER_PAGE_NO);
+
+        $this->load->model('business/common/business_subject','subject');
+        $arr_subjects = $this->subject->get_subjects_like_kv();
+        $this->load->model('business/common/business_course_type','course_type');
+        $arr_course_types = $this->course_type->get_course_types_like_kv();
 
         $this->load->library('pagination');
         $config = config_item('page_admin');
@@ -61,11 +67,11 @@ class Course extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
-        $arr_list = $this->course->get_course_list($arr_where, $int_start,PER_PAGE_NO);
-
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);
+        $this->smarty->assign('subjects',$arr_subjects);
+        $this->smarty->assign('course_types',$arr_course_types);
         $this->smarty->assign('arr_query_param', $arr_query_param);
         $this->smarty->assign('view', 'course_list');
         $this->smarty->display('admin/layout.html');
@@ -113,5 +119,13 @@ class Course extends NH_Admin_Controller {
             }
         }
         self::json_output($this->arr_response);
+    }
+
+    public function edit(){
+        $int_course_id = $this->input->get('id') ? intval($this->input->get('id')) : 0;
+        if($int_course_id){
+
+        }
+        $this->smarty->assign('view', 'course_edit');
     }
 }

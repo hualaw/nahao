@@ -1,6 +1,17 @@
 <form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="col-md-1 control-label">查询条件</label>
+        <label class="col-md-1 control-label">课程名称</label>
+        <label class="col-md-1 control-label">教师昵称</label>
+        <label class="col-md-1 control-label">教授科目</label>
+        <label class="col-md-1 control-label">课程类型</label>
+        <label class="col-md-1 control-label">适用年级</label>
+        <label class="col-md-1 control-label">讲课课酬</label>
+        <label class="col-md-1 control-label">一句话简介</label>
+        <label class="col-md-1 control-label">课程简介</label>
+        <label class="col-md-1 control-label">适合人群</label>
+        <label class="col-md-1 control-label">授课提要</label>
+        <label class="col-md-1 control-label">课程安排</label>
+
         <div class="col-md-2">
             <select class="form-control" name="course_type">
                 <option value="">全部课程类型</option>
@@ -33,44 +44,3 @@
         <button type="submit" class="btn btn-primary">搜索</button>
     </div>
 </form>
-
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>课程ID</th>
-        <th>课程名称</th>
-        <th>课节数</th>
-        <th>教师</th>
-        <th>状态</th>
-        <th>科目</th>
-        <th>课程类型</th>
-        <th>章节管理</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    {foreach $list as $v}
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>{$v.id}</td>
-            <td>{$v.title}</td>
-            <td>{$v.count}</td>
-            <td>{$v.teacher}</td>
-            <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
-            <td>{$subjects[$v.subject]}</td>
-            <td>{$course_types[$v.course_type]}</td>
-            <td>{date('Y-md H:i',$v.create_time)}</td>
-            <td>
-                <a href="javascript:;" class="course_active" data-action="/course/active" data-course_id="{$v.id}"
-                   data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
-                <a href="javascript:;">修改</a>
-            </td>
-        </tr>
-    {/foreach}
-    </tbody>
-</table>
-共{$count}条记录&nbsp;&nbsp;{$page}
-
-
-

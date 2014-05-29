@@ -24,7 +24,9 @@ class NH_Admin_Controller extends NH_Controller
     {
         parent::__construct();
         $this->load->model('business/admin/business_admin','admin');
-
+        if($this->current['controller']!='admin'){
+            $this->load->model('business/admin/business_'.$this->current['controller'],$this->current['controller']);
+        }
         $bool_redirect = false;
         if(!in_array($this->current['controller'],$this->not_need_login_controller)){
             $bool_login_flag = self::check_admin_login(ROLE_ADMIN);

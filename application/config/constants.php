@@ -182,6 +182,13 @@ define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST',
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
 
+//课程中的状态
+define('NAHAO_STATUS_COURSE_INIT',0);//初始化
+define('NAHAO_STATUS_COURSE_CHECKING',1);//审核中
+define('NAHAO_STATUS_COURSE_RUNNING',2);//运营中
+define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
+define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
+
 
 
 
