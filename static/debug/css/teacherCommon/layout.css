@@ -1,5 +1,5 @@
 .layout{width:1000px; margin:0 auto;}
-.wrap{padding-top: 108px;}
+.wrap{padding: 108px 0px;}
 /*面包削开始*/
 .nav_crumbs{display: block;line-height: 24px;margin-bottom: 10px;}
 .nav_crumbs a{color:#0e455e;font-size: 12px;}
