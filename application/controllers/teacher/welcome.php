@@ -10,6 +10,7 @@ class Welcome extends NH_User_Controller {
 		 * 3. 
 		 */
         parent::__construct();
+        $this->smarty->assign('site_url',__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
     }

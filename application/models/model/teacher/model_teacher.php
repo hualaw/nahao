@@ -222,7 +222,7 @@ class Model_Teacher extends NH_Model{
      	switch ($param['do']){
      		case 'add':
      			$sql = "INSERT INTO nahao.courseware(name,create_time,courseware.status) 
-VALUES('对外汉语.pdf',1401321321,0)"; 
+						VALUES('对外汉语.pdf',1401321321,0)";
      			$id = $this->db->query($sql)->insert_id();
      			break;
      		case 'edit':
