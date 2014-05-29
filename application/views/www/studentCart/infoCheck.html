@@ -23,12 +23,12 @@
 		<div class="progressBar cf">
 			<div class="line"></div>
 			<ul class="fr">
-				<li class="fl">
+<!-- 				<li class="fl">
 					<em>1</em>
 					<span>我的购物车</span>
-				</li>
+				</li> -->
 				<li class="fl">
-					<em>2</em>
+					<em>1</em>
 					<span>填写并核对订单信息</span>
 				</li>				
 				<li class="last fl">
@@ -52,47 +52,22 @@
 						<span class="newPrice">优惠价</span>
 						<span class="operation">操作</span>
 					</dt>
+
 					<dd>
 						<span class="num">1</span>
-						<span class="name">2014年五年级作文暑假提高培训</span>
-						<span class="oldPrice">¥1099 <em></em></span>
-						<span class="newPrice">¥599</span>
+						<span class="name">{$array_data.title}</span>
+						<span class="oldPrice">¥{$array_data.price}<em></em></span>
+						<span class="newPrice">¥{$array_data.sale_price}</span>
 						<span class="operation"><a href="javascript:void(0)">删除</a></span>
 					</dd>
-					<dd>
-						<span class="num">2</span>
-						<span class="name">2014年五年级作文暑假提高培训</span>
-						<span class="oldPrice">¥1099<em></em></span>
-						<span class="newPrice">¥599</span>
-						<span class="operation">
-							<a href="javascript:void(0)">删除</a>
-						</span>
-					</dd>
-					<dd>
-						<span class="num">2</span>
-						<span class="name">2014年五年级作文暑假提高培训</span>
-						<span class="oldPrice">¥1099<em></em></span>
-						<span class="newPrice">¥599</span>
-						<span class="operation">
-							<a href="javascript:void(0)">删除</a>
-						</span>
-					</dd>
-					<dd class="noBorder">
-						<span class="num">2</span>
-						<span class="name">2014年五年级作文暑假提高培训</span>
-						<span class="oldPrice">¥1099<em></em></span>
-						<span class="newPrice">¥599</span>
-						<span class="operation">
-							<a href="javascript:void(0)">删除</a>
-						</span>
-					</dd>
+
 				</dl>
 			</div>
 			
 			<p class="total">
-				<span>共选<em>4</em>门课程</span>
-				<span class="price">总金额<em>¥1699</em></span>
-				<span class="save">您本次共节省了<em>2222</em>元</span>
+				<span>共选<em>1</em>门课程</span>
+				<span class="price">总金额<em>¥{$array_data.totle_money}</em></span>
+				<span class="save">您本次共节省了<em>{$array_data.save_money}</em>元</span>
 			</p>
 		</div>
 		
@@ -101,25 +76,30 @@
 		<div class="contactInfo outerBox">
 			<h2><span>请填写联系方式</span></h2>
 			<div class="innerBox">
-				<form action="/pay/neworder/1" mothd="post" onsubmit="return false">
+				<form action="/pay/neworder/1" mothd="post" onsubmit="return false" class="inforCheckForm">
 					<ul>
 						<li>
 							<p class="title">真实姓名</p>
-							<p class="inputBox">
-								<input type="text">
-							</p>
+							<div class="cf inputBox">
+								<input type="text" name="Uname" class="inname fl" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 						</li>
 						<li>
 							<p class="title">手机号</p>
-							<p class="inputBox">
-								<input type="text">
-							</p>
+							<div class="cf inputBox">
+								<input type="text" name="" class="inPhone fl" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 							<p class="tips">保密，方便我们与您联系</p>
 						</li>
 						<li>
 							<p class="title">手机验证码</p>
 							<p class="cf">
-								<input type="text" class="fl">
+								<div class="fl inputBox">
+									<input type="text" name="" class="inPhoneCode fl" validName="text">
+									<span class="Validform_checktip fl"></span>
+								</div>
 								<a href="javascript:void(0)" class="fl noShowBtn blueBtn">免费获取验证码</a>
 								<span class="fl undis">60秒后获取验证码</span>
 							</p>							

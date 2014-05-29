@@ -27,15 +27,21 @@
 					<span class="fl current">2. 设置新密码</span>
 					<span class="fl ok ">3. 完成</span>
 				</div>			
-				<form action="" mothed="post" onsubmit="return false">
+				<form action="" mothed="post" onsubmit="return false" class="setPWForm">
 					<ul>
 						<li class="cf">
 							<p class="fl"><span>*</span>新密码</p>
-							<input type="text" class="fl" placeholder="请输入新密码">
+							<div class="cf">
+								<input type="password" name="setPassword" class="setPassword fl" placeholder="请输入新密码" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 						</li>
 						<li class="cf">
 							<p class="fl"><span>*</span>确认新密码</p>
-							<input type="text" class="fl" placeholder="请再次输入新密码">
+							<div class="cf">
+								<input type="password" name="reSetPassword" placeholder="请再次输入新密码" class="reSetPassword fl" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 						</li>
 						<li class="cf">
 							<input type="submit" class="btn redBtn submit fl" value="确定">

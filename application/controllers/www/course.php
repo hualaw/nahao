@@ -30,13 +30,16 @@ class Course extends NH_User_Controller {
         $array_team = $this->student_course->get_round_team($int_round_id);
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
-        //var_dump($array_outline);die;
+        #获取评价总数
+        $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
+        //var_dump($array_data);die;
         
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
         $this->smarty->assign('array_evaluate', $array_evaluate);
         $this->smarty->assign('array_team', $array_team);
         $this->smarty->assign('array_round', $array_round);
+        $this->smarty->assign('str_evaluate_count', $str_evaluate_count);
         $this->smarty->display('www/studentMyCourse/buyBefore.html');
 	}
 	
