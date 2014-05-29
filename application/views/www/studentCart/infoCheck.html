@@ -101,25 +101,30 @@
 		<div class="contactInfo outerBox">
 			<h2><span>请填写联系方式</span></h2>
 			<div class="innerBox">
-				<form action="/pay/neworder/1" mothd="post" onsubmit="return false">
+				<form action="/pay/neworder/1" mothd="post" onsubmit="return false" class="inforCheckForm">
 					<ul>
 						<li>
 							<p class="title">真实姓名</p>
-							<p class="inputBox">
-								<input type="text">
-							</p>
+							<div class="cf inputBox">
+								<input type="text" name="Uname" class="inname fl" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 						</li>
 						<li>
 							<p class="title">手机号</p>
-							<p class="inputBox">
-								<input type="text">
-							</p>
+							<div class="cf inputBox">
+								<input type="text" name="" class="inPhone fl" validName="text">
+								<span class="Validform_checktip fl"></span>
+							</div>
 							<p class="tips">保密，方便我们与您联系</p>
 						</li>
 						<li>
 							<p class="title">手机验证码</p>
 							<p class="cf">
-								<input type="text" class="fl">
+								<div class="fl inputBox">
+									<input type="text" name="" class="inPhoneCode fl" validName="text">
+									<span class="Validform_checktip fl"></span>
+								</div>
 								<a href="javascript:void(0)" class="fl noShowBtn blueBtn">免费获取验证码</a>
 								<span class="fl undis">60秒后获取验证码</span>
 							</p>							

@@ -122,7 +122,7 @@
 </div> -->
 
 <!--订单详情-->
-<h3 class="pageName">订单详情</h3>
+<!-- <h3 class="pageName">订单详情</h3>
 <div class="detailBox">	
 	<table class="orderDetail">
 		<thead>
@@ -179,14 +179,14 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
+</div> -->
 
 <!--申请状态-->
-<!-- <h3 class="pageName">申请状态</h3>
+<h3 class="pageName">申请状态</h3>
 <div class="orderComBox">
 	<table class="applyState">
 		<tbody>
-			<--待处理-
+			<!--待处理-->
 			<tr class="imporInfor">
 				<td colspan="4" class="talignLeft">
 					<span>课程名称</span>
@@ -224,7 +224,7 @@
 					<strong class="redText">待处理</strong>
 				</td>
 			</tr>
-			<--已退款--
+			<!--已退款-->
 			<tr class="imporInfor">
 				<td colspan="4" class="talignLeft">
 					<span>课程名称</span>
@@ -264,18 +264,21 @@
 			</tr>
 		</tbody>
 	</table>
-</div> -->
+</div> 
 
 <!--申请退课-->
-<!-- <div class="orderComBox applyFromBox">
+<div class="orderComBox applyFromBox">
 	<h3 class="pageName">申请状态
 		<span class="redText">温馨提示：您已经完成大半课次，建议学完，请慎重选择是否退课</span>
 	</h3>
 	<form action="" method="post" onsubmit="return false;" class="applyFrom">
 		<ul>
 			<li>
-				<p class="formName">课程名称</p>
-				<input type="text" class="userName">
+				<p class="formName">课程名称</p>			
+				<div class="cf">
+					<input type="text" name="courseName" class="courseName fl" validName="text">
+					<span class="Validform_checktip fl"></span>
+				</div>
 				<ol class="classDetail cf">
 					<li>
 						<span>已上课次</span><br>
@@ -298,37 +301,62 @@
 			</li>
 			<li>
 				<p class="formName">姓名</p>
-				<input type="text">
+				<div class="cf">
+					<input type="text" name="Uname" class="Uname fl" validName="text">
+					<span class="Validform_checktip fl"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">联系方式</p>
-				<input type="text">
+				<div class="cf">
+					<input type="text" name="contact" class="contact fl" validName="text">
+					<span class="Validform_checktip fl"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">退课理由</p>
-				<textarea name="" id="" placeholder="请详细填写退课理由，帮助我们对课程进行改进，感谢您的支持！"></textarea>
+				<div class="cf">
+					<textarea name="reason" class="reason fl" placeholder="请详细填写退课理由，帮助我们对课程进行改进，感谢您的支持！" validName="text"></textarea>
+					<span class="Validform_checktip fl"></span>
+				</div>
 			</li>
 			<li>
 				<h3 class="pageName">绑定银行帐户</h3>
 			</li>
 			<li>
 				<p class="formName">选择退款银行</p>
-				<select name="" id="" >
-					<option>选择退款银行</option>
-					<option value="1"></option>
-					<option value="2"></option>
-					<option value="3"></option>
-					<option value="4"></option>
-				</select>
-				<input type="text" placeholder="请填写具体支行信息">
+				<div class="cf">
+					<div class="fl">
+						<div>
+							<select name="banks" validName="select" class="banks">
+								<option>选择退款银行</option>
+								<option value="1">工行</option>
+								<option value="2">农行</option>
+								<option value="3">邮政</option>
+								<option value="4">交通银行</option>
+							</select>
+						</div>
+					</div>
+					<span class="Validform_checktip fl"></span>
+				</div>
+				<div class="cf">
+					<input type="text" name="bankInfor" class="bankInfor fl" validName="text" placeholder="请填写具体支行信息">
+					<span class="Validform_checktip fl"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">银行卡账号</p>
-				<input type="text">
+				<div class="cf">
+					<input type="text" name="bankCode" class="bankCode fl" validName="text">
+					<span class="Validform_checktip fl"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">身份证号</p>
-				<input type="text">
+				<div class="cf">
+					<input type="text" name="IDnum" class="IDnum fl" validName="text">
+					<span class="Validform_checktip fl"></span>
+				</div>
 			</li>
 			<li>
 				<input type="submit" class="btn redBtn" value="提交">
@@ -336,7 +364,7 @@
 			</li>
 		</ul>
 	</form>
-</div> -->
+</div>
 
 <!--申请成功-->
 <!-- <div class="applysuc">

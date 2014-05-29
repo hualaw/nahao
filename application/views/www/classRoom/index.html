@@ -488,17 +488,26 @@
 		<h2>意见反馈</h2>
 		<form action="" class="feedbackForm" method="post" onsubmit="return false;">
 			<ul>
-				<li>
+				<li class="cf posr">
 					<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>
-					<textarea name="" class=""></textarea>
+					<div class="cf">
+						<textarea name="aTextarea" class="fTextarea fl" validName="textarea"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
-				<li>
+				<li class="posr">
 					<p class="formName">您的称呼</p>
-					<input type="text" placeholder="请输入您的称呼，以便我们和您联系">
+					<div class="cf">
+						<input type="text" placeholder="请输入您的称呼，以便我们和您联系" name="Uname" class="fname fl" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
-				<li>
+				<li class="cf posr">
 					<p class="formName">您的邮箱</p>
-					<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题">
+					<div class="cf">
+						<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题" name="Email" class="fEmail fl" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li>
 					<input type="submit" class="noShowBtn redBtn submit" value="提交">
@@ -517,7 +526,10 @@
 		<form action="" class="evaluForm" method="post" onsubmit="return false;">
 			<ul>
 				<li>
-					<textarea name="" class="" placeholder="请在此输入您点评的内容"></textarea>
+					<div class="cf">
+						<textarea name="eTextarea" class="eTextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf">
 					<input type="submit" class="noShowBtn redBtn submit fr" value="提交">

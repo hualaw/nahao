@@ -1,4 +1,6 @@
 .classRoom{font-size: 14px;color: #4b4b4b;        background: rgba(0,0,0,.5); } /*  后面会删了 我为了 现在看着方便0*/
+.classRoom .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
+
 /*  做题 --*/
 .classRoom .doWorkBox{padding: 0 60px 45px 66px;width: 676px;       /*  后面会删了 我为了 现在看着方便0*/background: #fff;margin:30px auto;}
 .classRoom .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}

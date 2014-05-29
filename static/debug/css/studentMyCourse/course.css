@@ -1,5 +1,9 @@
 .studentMyCoursePage{background: #eee;} 
 
+.studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
+.studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
+.studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
+
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
@@ -156,6 +160,7 @@
 .studentMyCourse .inforTabBox .phoneVer input{width: 116px;}
 .studentMyCourse .inforTabBox .phoneVer .getVerCode{width:140px;color:#fff;background: #88ddf3;font-weight: normal;}
 .studentMyCourse form .attent .btn{width: 90px;}
+.studentMyCourse form .attent .attentd{background: #6dcde6;}
 .studentMyCourse .inforTabBox .phoneVer .btn,
 .studentMyCourse form .attent .btn{box-shadow: none;border: none;height: 32px;line-height: 32px;font-size: 16px;margin:0 10px 14px 0;}
 .studentMyCourse .inforTabBox .attNote{font-size: 14px;margin: -10px 0 -6px;}
