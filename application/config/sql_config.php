@@ -18,7 +18,16 @@ $config['sql_admin']['group'] = array(
     TABLE_ADMIN_GROUP => false
 );
 
-$config['sql_admin']['user'] = array(
+$config['sql_admin']['user_user_info'] = array(
     TABLE_USER => false,
     TABLE_USER_INFO => array(TABLE_USER.'.id='.TABLE_USER_INFO.'.user_id','left')
 );
+
+$config['sql_admin']['user'] = array(
+    TABLE_USER => false,
+ );
+
+
+$config['sql_www']['user'] = array(
+TABLE_USER => false,
+ );

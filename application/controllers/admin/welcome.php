@@ -31,7 +31,6 @@ class Welcome extends NH_Admin_Controller
         $this->layout->set_layout('admin/layout');
         $this->layout->view('admin/welcome_main', $data);
     }
-
 }
 
 /* End of file welcome.php */
