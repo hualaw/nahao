@@ -1,0 +1,90 @@
+<table border="0">
+    <tr height="35">
+        <td width="200">真实姓名</td>
+        <td>{$details.tea_name}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">所在地区</td>
+        <td>{$details.name}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">性别</td>
+        <td>{$con_gender[$details.gender]}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">年龄</td>
+        <td>{$details.age}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">教学阶段</td>
+        <td>{$con_stage[$details.stage]}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">所在学校</td>
+        <td>{$details.schoolname}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">教师职称</td>
+        <td>{$con_title[$details.title]}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">实际教龄</td>
+        <td>{$details.teach_years}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">手机</td>
+        <td>{$details.phone}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">邮箱</td>
+        <td>{$details.email}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">qq</td>
+        <td>{$details.qq}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">讲课方式</td>
+        <td>{$con_teach_type[$details.teach_type]}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">试讲科目</td>
+        <td>{$con_stage[$details.stage]}{$details.subject}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">预约时间</td>
+        <td>{$details.start_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">课程名称</td>
+        <td>{$details.course}</td>
+    </tr>
+    <tr height="35">
+        <td width="200">课程介绍</td>
+        <td>{$details.course_intro}</td>
+    </tr>
+</table>
+<hr>
+<table>
+    <tr height="35">
+        <td width="200">审核状态</td>
+        <td>
+            <select id="lecture_status">
+                <option value=2>待定</option>
+                <option value=3>审核不通过</option>
+                <option value=4>审核通过</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<hr>
+<h4>备注信息</h4>
+{foreach $notes as $k=>$v}
+{$v.username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.note}<br />
+{/foreach}
+<textarea class="form-control" rows="3" id="lectrue_notes"></textarea><br />
+{for $i=0 to 134}
+         &nbsp;
+{/for}
+<button type="button" class="btn btn-success" id="keep">保存</button>
+<input type="hidden" value="{$details.id}" id="lecture_id" />
