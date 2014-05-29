@@ -10,8 +10,7 @@ define(function(require,exports){
         $('input[type=radio]').jqTransRadio();
         // 美化checkBo
         $('input[type=checkbox]').jqTransCheckBox();
-
-        require("module/teacherSelfInfo/edit").edit();
+        require("module/teacherSelfInfo/edit").edit();//调用编辑器
     }
     //判断当前页面时注册成功的关于我的页面
     if($('.personInfo').length > 0){
@@ -21,7 +20,6 @@ define(function(require,exports){
         $('input[type=radio]').jqTransRadio();
         // 美化checkBo
         $('input[type=checkbox]').jqTransCheckBox();
-
-        require("module/teacherSelfInfo/edit").edit();
+        require("module/teacherSelfInfo/uploadfile").addUploadCredit();//调用上传图片
     }
 })
