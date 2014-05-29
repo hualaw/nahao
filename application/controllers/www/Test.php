@@ -54,7 +54,7 @@ class Test extends CI_Controller {
 	{
 		$this->load->library('sms');
 		$this->sms->setPhoneNums('18600364806');
-		$this->sms->setContent('you code is 3721689');
+		$this->sms->setContent('you code is 20140528');
 		$ret = $this->sms->send();	
 		var_dump($ret);
 	}
