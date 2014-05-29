@@ -1,0 +1,15 @@
+/* 那好 开始 2014-5-16-17：00 */
+.header{border: 1px solid #fff;border-top: none;box-shadow: 0 1px 3px #c7c7c7;background:#fdfcfc;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdfcfc', endColorstr='#f8f8f8'); /*  IE */background: linear-gradient(#fdfcfc 0%, #f6f6f6 47%, #f8f8f8 100%);background: -webkit-linear-gradient(#fdfcfc 0%, #f6f6f6 47%, #f8f8f8 100%);background: -moz-linear-gradient(#fdfcfc 0%, #f6f6f6 47%, #f8f8f8 100%);background: -ms-linear-gradient(#fdfcfc 0%, #f6f6f6 47%, #f8f8f8 100%);}
+.header .headNav{background: #fafafa;}
+.header .headNav li{padding: 0;}
+.header .headNav li a{padding: 0 32px;border-right: 1px solid #dfdfdf;font-size: 16px;font-weight: bold;color:#11243b;display: inline-block;height:80px;text-align:center;line-height:80px;}
+.header .headNav li a.first{border-left: 1px solid #dfdfdf;}
+.header .headNav li a:hover,.header .headNav .curNav a{background-color:#f5f5f5;color:#f15930;border-bottom: 2px solid #ed4111;}
+.header .headNav h1{width: 120px;margin-right: 20px;height: 80px;line-height: 80px;}
+.header .headNav h1 img{background:#f9f9f9;}
+.header .rightTips{line-height: 80px;color:#ed4111;}
+.header .rightTips span{margin-right: 20px;}
+.header .rightTips span a{font-size:12px;width:80px;height: 40px;line-height: 40px;padding: 0 15px 0;}
+.header .rightTips a b{color: #000;font-size:14px;}
+.header .rightTips .hd_info{margin-right: 5px;}
+.header .rightTips .logout{margin-left: 5px;}
