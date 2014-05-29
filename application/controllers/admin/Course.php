@@ -121,11 +121,38 @@ class Course extends NH_Admin_Controller {
         self::json_output($this->arr_response);
     }
 
+    /**
+     * edit course
+     * @author yanrui@tizi.com
+     */
     public function edit(){
         $int_course_id = $this->input->get('id') ? intval($this->input->get('id')) : 0;
         if($int_course_id){
 
         }
+
+        $this->load->model('business/common/business_subject','subject');
+        $arr_subjects = $this->subject->get_subjects_like_kv();
+        $this->load->model('business/common/business_course_type','course_type');
+        $arr_course_types = $this->course_type->get_course_types_like_kv();
+
         $this->smarty->assign('view', 'course_edit');
+        $this->smarty->assign('subjects',$arr_subjects);
+        $this->smarty->assign('course_types',$arr_course_types);
+        $this->smarty->assign('grades',config_item('grade'));
+        $this->smarty->display('admin/layout.html');
+    }
+
+    /**
+     * 添加课程时选取教师列表
+     * @author yanrui@tizi.com
+     */
+    public function teachers(){
+        $arr_return = array();
+        if($this->is_ajax()){
+            $this->load->model('business/admin/business_teacher','teacher');
+            $arr_return = $this->teacher->get_teacher_list(array(),0,20);
+        }
+        self::json_output($arr_return);
     }
 }

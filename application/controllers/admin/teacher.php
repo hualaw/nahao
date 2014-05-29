@@ -35,6 +35,7 @@ class Teacher extends NH_Admin_Controller {
         }
 
         $int_count = $this->user->get_user_count($arr_where);
+        $arr_list = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
 
         $this->load->library('pagination');
         $config = config_item('page_admin');
@@ -44,8 +45,6 @@ class Teacher extends NH_Admin_Controller {
         $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
-
-        $arr_list = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
 
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);

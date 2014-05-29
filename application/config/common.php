@@ -57,8 +57,6 @@ $config['grade'][10] = '高一';
 $config['grade'][11] = '高二';
 $config['grade'][12] = '高三';
 
-
-
 //订单状态
 
 $config["order_status"][0] = "未付款";
@@ -150,8 +148,8 @@ $config['lecture_status'][4] = '审核通过';
 
 //授课方式
 $config['teacher_type'][1] = '一对一';
-$config['teacher_type'][2] = '小班';
-$config['teacher_type'][3] = '大班';
+$config['teacher_type'][2] = '小班教育(15人以内)';
+$config['teacher_type'][3] = '大班教育不限人数';
 
 //性别
 $config['gender']['0'] = '保密';

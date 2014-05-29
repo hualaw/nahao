@@ -38,4 +38,10 @@ $config['sql_admin'] = array(
     'subject' => array(
         TABLE_SUBJECT => false,
     ),
+    'teacher_info'=> array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER.'.id='.TABLE_USER_INFO.'.user_id','left'),
+        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO.'.province='.TABLE_NAHAO_AREAS.'.id','left'),
+        TABLE_TEACHER_SUBJECT => array(TABLE_USER.'.id='.TABLE_TEACHER_SUBJECT.'.teacher_id','left')
+    ),
 );
