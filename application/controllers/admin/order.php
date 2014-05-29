@@ -11,20 +11,20 @@
         {
             $config_pay=config_item("order_type");
             $config_status=config_item("order_status");
-            $this->load->model("business/admin/business_order");
-            $sea_total=$this->business_order->order_list();
+            //$this->load->model("business/admin/order");
+            $sea_total=$this->order->order_list();
             $sea_total2=$sea_total;
-            $order_count=$this->business_order->order_message();
+            $order_count=$this->order->order_message();
             $this->load->library('pagination');
             $config = config_item('page_admin');
             $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
             $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
             $config['total_rows'] = $sea_total;
-            $config['per_page'] = 10;
+            $config['per_page'] = PER_PAGE_NO;
             $this->pagination->initialize($config);
             $int_start=$this->uri->segment(3);
-            $this->db->limit(10,$int_start);
-            $spendata=$this->business_order->order_data()->result_array();
+            $this->db->limit(PER_PAGE_NO,$int_start);
+            $spendata=$this->order->order_data()->result_array();
 
             //var_dump($config);die;
             //var_dump($spendata);die;
@@ -53,22 +53,22 @@
             //var_dump(strtotime($post["create_time1"]));die;
             $config_pay=config_item("order_type");
             $config_status=config_item("order_status");
-            $this->load->model("business/admin/business_order");
-            $sea_total2=$this->business_order->search_order_count($post);
-            $order_count=$this->business_order->order_message();
+            //$this->load->model("business/admin/order");
+            $sea_total2=$this->order->search_order_count($post);
+            $order_count=$this->order->order_message();
             $this->load->library('pagination');
             $config = config_item('page_admin');
             $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
             $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
             $config['total_rows'] = $sea_total2;
-            $config['per_page'] = 10;
+            $config['per_page'] = PER_PAGE_NO;
             $this->pagination->initialize($config);
             $int_start=$this->uri->segment(3);
 
             //var_dump($this->input->server('QUERY_STRING'));
             //var_dump($order_count);die;
-            $this->db->limit(10,$int_start);
-            $spendata=$this->business_order->sea_order($post)->result_array();
+            $this->db->limit(PER_PAGE_NO,$int_start);
+            $spendata=$this->order->sea_order($post)->result_array();
             //var_dump($spendata);die;
             $page = $this->pagination->create_links();
 
@@ -95,10 +95,10 @@
             $config_pay=config_item("order_type");
             $config_refund=config_item('refund');
             $config_status=config_item("order_status");
-            $this->load->model("business/admin/business_order");
-            $details = $this->business_order->order_detail($int_order_id)->row_array();
+            //$this->load->model("business/admin/order");
+            $details = $this->order->order_detail($int_order_id)->row_array();
             //var_dump($details);die;
-            $note=$this->business_order->order_note($int_order_id)->result_array();
+            $note=$this->order->order_note($int_order_id)->result_array();
            // var_dump($this->data['note']);die;
             $this->smarty->assign('config_pay',$config_pay);
             $this->smarty->assign('config_refund',$config_refund);
@@ -120,8 +120,8 @@
         {
             $student_id=$this->input->post('student_id',TRUE);
             $order_id=$this->input->post('order_id',TRUE);
-            $this->load->model("business/admin/business_order");
-            self::json_output($this->business_order->refund_ok($student_id,$order_id));
+            //$this->load->model("business/admin/order");
+            self::json_output($this->order->refund_ok($student_id,$order_id));
         }
 
         /**
@@ -135,8 +135,8 @@
         {
             $student_id=$this->input->post('student_id',TRUE);
             $order_id=$this->input->post('order_id',TRUE);
-            $this->load->model("business/admin/business_order");
-            self::json_output($this->business_order->agr_refund($student_id,$order_id));
+            //$this->load->model("business/admin/order");
+            self::json_output($this->order->agr_refund($student_id,$order_id));
         }
 
         /**
@@ -149,9 +149,9 @@
         {
             $student_id=$this->input->post('student_id',TRUE);
             $order_id=$this->input->post('order_id',TRUE);
-            $this->load->model("business/admin/business_order");
-            //echo $this->business_order->stu_refund($student_id,$order_id);
-            self::json_output($this->business_order->stu_refund($student_id,$order_id));
+            //$this->load->model("business/admin/order");
+            //echo $this->order->stu_refund($student_id,$order_id);
+            self::json_output($this->order->stu_refund($student_id,$order_id));
         }
 
         /**
@@ -164,9 +164,9 @@
         {
           $note=$this->input->post('note',TRUE);
           $order_id=$this->input->post('order_id',TRUE);
-          $this->load->model("business/admin/business_order");
-          //echo $this->business_order->note_insert($note,$order_id);
-          self::json_output($this->business_order->note_insert($note,$order_id));
+          //$this->load->model("business/admin/order");
+          //echo $this->order->note_insert($note,$order_id);
+          self::json_output($this->order->note_insert($note,$order_id));
         }
         /**
          * 显示手机号
@@ -177,8 +177,8 @@
         public function show_phone()
         {
             $int_uid=$this->input->post('uid',TRUE);
-            $this->load->model("business/admin/business_order");
-           // self::json_output($this->business_order->phone_show($int_uid));
-            echo $this->business_order->phone_show($int_uid);
+            ////$this->load->model("business/admin/order");
+           // self::json_output($this->order->phone_show($int_uid));
+            echo $this->order->phone_show($int_uid);
         }
     }

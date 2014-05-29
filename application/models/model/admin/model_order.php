@@ -41,7 +41,7 @@
          * @return boolean
          * @author shangshikai@nahao.com
          */
-        public function sea_order($post)
+        public function sea_order($post,$int_uid)
         {
             $str_criteria=config_item('criteria');
             $this->load->model('model/admin/model_order');
@@ -63,7 +63,6 @@
                 }
                 else
                 {
-                    $int_uid=get_uid_phone_server($post['phone_name_email']);
                     $this->db->where("user.id=$int_uid");
                 }
             }
@@ -90,8 +89,9 @@
          */
         public function sea_order_count($post)
         {
+            $int_uid=get_uid_phone_server($post['phone_name_email']);
             $this->load->model("model/admin/model_order");
-            $this->model_order->sea_order($post);
+            $this->model_order->sea_order($post,$int_uid);
             return $this->db->get()->num_rows();
         }
         /**
@@ -102,8 +102,9 @@
          */
         public function sea_order_list($post)
         {
+            $int_uid=get_uid_phone_server($post['phone_name_email']);
             $this->load->model("model/admin/model_order");
-            $this->model_order->sea_order($post);
+            $this->model_order->sea_order($post,$int_uid);
             return $this->db->get();
            // echo $this->db->last_query();die;
         }
@@ -221,7 +222,12 @@
             );
            return $this->db->insert('order_note',$data);
         }
-
+        /**
+         *展示手机号
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
         public function show_tel($int_uid)
         {
             return get_pnum_phone_server($int_uid);

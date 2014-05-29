@@ -8,15 +8,6 @@
 $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
-//性别
-$config['gender'][1] = '男';
-$config['gender'][2] = '女';
-
-//教师职称
-$config['teacher_title'][0] = '高级教师';
-$config['teacher_title'][1] = '一级教师';
-$config['teacher_title'][2] = '二级教师';
-$config['teacher_title'][3] = '三级教师';
 
 //教育阶段
 $config['stage'][1] = '小学';
@@ -52,19 +43,20 @@ $config['teach_type'][1] = '小班教育(15人以内)';
 $config['teach_type'][2] = '大班教育不限人数';
 
 //年级
-$config['grade'][0] = '一年级';
-$config['grade'][1] = '二年级';
-$config['grade'][2] = '三年级';
-$config['grade'][3] = '四年级';
-$config['grade'][4] = '五年级';
-$config['grade'][5] = '六年级';
-$config['grade'][6] = '初一';
-$config['grade'][7] = '初二';
-$config['grade'][8] = '初三';
-$config['grade'][9] = '高一';
-$config['grade'][10] = '高二';
-$config['grade'][11] = '高三';
-$config['grade'][12] = '其他';
+$config['grade'][0] = '其他';
+$config['grade'][1] = '一年级';
+$config['grade'][2] = '二年级';
+$config['grade'][3] = '三年级';
+$config['grade'][4] = '四年级';
+$config['grade'][5] = '五年级';
+$config['grade'][6] = '六年级';
+$config['grade'][7] = '初一';
+$config['grade'][8] = '初二';
+$config['grade'][9] = '初三';
+$config['grade'][10] = '高一';
+$config['grade'][11] = '高二';
+$config['grade'][12] = '高三';
+
 
 
 //订单状态
@@ -152,8 +144,9 @@ $config['class_teach_status'][3] = '禁用';
 
 //教师试讲状态
 $config['lecture_status'][1] = '未审核';
-$config['lecture_status'][2] = '审核未通过';
-$config['lecture_status'][3] = '审核通过';
+$config['lecture_status'][2] = '待定';
+$config['lecture_status'][3] = '审核未通过';
+$config['lecture_status'][4] = '审核通过';
 
 //授课方式
 $config['teacher_type'][1] = '一对一';
