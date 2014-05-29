@@ -1,0 +1,81 @@
+<div class="form-group">
+    <a class="btn btn-success" href="/course/edit" target="_blank">
+        添加课程
+    </a>
+</div>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-md-1 control-label">查询条件</label>
+        <div class="col-md-2">
+            <select class="form-control" name="course_type">
+                <option value="">全部课程类型</option>
+                {foreach $course_types as $course_type}<option value="{$course_type.id}">{$course_type.name}</option>{/foreach}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="subject">
+                <option value="">全部学科</option>
+                {foreach $subjects as $subject}<option value="{$subject.id}">{$subject.name}</option>{/foreach}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="status">
+                <option value="">全部状态</option>
+                <option value="1">已禁用</option>
+                <option value="2">已启用</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="search_type">
+                <option value="1">课程名称</option>
+                <option value="2">授课老师</option>
+                <option value="3">课程ID</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
+        </div>
+        <button type="submit" class="btn btn-primary">搜索</button>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>课程ID</th>
+        <th>课程名称</th>
+        <th>课节数</th>
+        <th>教师</th>
+        <th>状态</th>
+        <th>科目</th>
+        <th>课程类型</th>
+        <th>章节管理</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $v}
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>{$v.id}</td>
+            <td>{$v.title}</td>
+            <td>{$v.count}</td>
+            <td>{$v.teacher}</td>
+            <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
+            <td>{$subjects[$v.subject]}</td>
+            <td>{$course_types[$v.course_type]}</td>
+            <td>{date('Y-md H:i',$v.create_time)}</td>
+            <td>
+                <a href="javascript:;" class="course_active" data-action="/course/active" data-course_id="{$v.id}"
+                   data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
+                <a href="javascript:;">修改</a>
+            </td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>
+共{$count}条记录&nbsp;&nbsp;{$page}
+
+
+

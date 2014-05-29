@@ -115,10 +115,13 @@ define('TABLE_CLASS_FEEDBACK','class_feedback');
 define('TABLE_COURSE','course');
 define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
 define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
+define('TABLE_COURSE_TYPE', 'course_type');
 define('TABLE_COURSEWARE','courseware');
 define('TABLE_ENTERING_CLASSROOM','entering_classroom');
 define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
 define('TABLE_LESSON','lesson');
+define('TABLE_NAHAO_AREAS','nahao_areas');
+define('TABLE_NAHAO_SCHOOLS','nahao_schools');
 define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
 define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
@@ -141,7 +144,8 @@ define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
-define('TABLE_USER_INFO', 'session_log');
+define('TABLE_SESSION_LOG', 'session_log');
+define('TABLE_SUBJECT', 'subject');
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
@@ -151,11 +155,18 @@ define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
 define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
 define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
 
+
+define('STATIC_ADMIN_JS_SEA','/public/sea/2.1.0/sea.js');
+define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
+
 //static css
+define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
+define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
+//define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
-define('STATIC_ADMIN_CSS_NAV','/admin/css/nav.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
+
 
 //register type
 define('REG_TYPE_PHONE', 1);
@@ -193,6 +204,13 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
 define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
+
+//课程中的状态
+define('NAHAO_STATUS_COURSE_INIT',0);//初始化
+define('NAHAO_STATUS_COURSE_CHECKING',1);//审核中
+define('NAHAO_STATUS_COURSE_RUNNING',2);//运营中
+define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
+define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
 
 //验证码类型
 define('REGISTER_VERIFY_CODE', 1);

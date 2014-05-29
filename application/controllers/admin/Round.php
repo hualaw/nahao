@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * 管理员管理
- * Class User
+ * 轮管理
+ * Class Round
  * @author yanrui@tizi.com
  */
-class User extends NH_Admin_Controller {
+class Round extends NH_Admin_Controller {
 
     private $arr_response = array(
         'status' => 'error',
@@ -14,27 +14,30 @@ class User extends NH_Admin_Controller {
 
     function __construct(){
         parent::__construct();
-        $this->load->model('business/admin/business_user','user');
     }
 
     /**
-     * user index
+     * round index
      * @author yanrui@tizi.com
      */
     public function index(){
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_user_id = $this->input->get('user_id') ? intval($this->input->get('user_id')) : 0 ;
-        $str_username = $this->input->get('nickname') ? trim($this->input->get('nickname')) : '' ;
+        $int_group_id = $this->input->get('group_id') ? intval($this->input->get('group')) : 0 ;
+        $int_round_id = $this->input->get('round_id') ? intval($this->input->get('round_id')) : 0 ;
+        $str_username = $this->input->get('username') ? trim($this->input->get('username')) : '' ;
 
         $arr_where = array();
-        if($int_user_id > 0){
-            $arr_where['user_id'] = $int_user_id;
+        if($int_group_id > 0){
+            $arr_where['group_id'] = $int_group_id;
+        }
+        if($int_round_id > 0){
+            $arr_where['round_id'] = $int_round_id;
         }
         if($str_username){
-            $arr_where['nickname'] = $str_username;
+            $arr_where['username'] = $str_username;
         }
 
-        $int_count = $this->user->get_user_count($arr_where);
+        $int_count = $this->round->get_round_count($arr_where);
 
         $this->load->library('pagination');
         $config = config_item('page_admin');
@@ -45,16 +48,18 @@ class User extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
-        $this->data['int_count'] = $int_count;
-        $this->data['arr_list'] = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
+        $arr_list = $this->round->get_round_list($arr_where, $int_start,PER_PAGE_NO);
 
-        $this->data['str_page'] = $this->pagination->create_links();
-        $this->data['arr_query_param'] = $arr_query_param;
-        $this->layout->view('admin/user_list',$this->data);
+        $this->smarty->assign('page',$this->pagination->create_links());
+        $this->smarty->assign('count',$int_count);
+        $this->smarty->assign('list',$arr_list);
+        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('view', 'round_list');
+        $this->smarty->display('admin/layout.html');
     }
 
     /**
-     * create user
+     * create round
      * @author yanrui@tizi.com
      */
     public function create(){
@@ -71,8 +76,8 @@ class User extends NH_Admin_Controller {
                 if(is_email($str_email)){
                     $arr_param['email'] = $str_email;
                 }
-                $int_user_id = $this->user->create_user($arr_param);
-                if($int_user_id > 0){
+                $int_round_id = $this->round->create_round($arr_param);
+                if($int_round_id > 0){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '创建成功';
                 }
@@ -81,28 +86,4 @@ class User extends NH_Admin_Controller {
         self::json_output($this->arr_response);
     }
 
-    /**
-     * user账户禁用启用
-     * @author yanrui@tizi.com
-     */
-    public function active(){
-        if($this->is_ajax() AND $this->is_post()){
-            $int_user_id = intval($this->input->post('user_id'));
-            $int_status = intval($this->input->post('status'));
-            if($int_user_id > 1 AND in_array($int_status,array(0,1))){
-                $arr_param = array(
-                    'status' => $int_status
-                );
-                $arr_where = array(
-                    'id' => $int_user_id
-                );
-                $bool_return = $this->user->update_user($arr_param,$arr_where);
-                if($bool_return > 0){
-                    $this->arr_response['status'] = 'ok';
-                    $this->arr_response['msg'] = '修改成功';
-                }
-            }
-        }
-        self::json_output($this->arr_response);
-    }
 }

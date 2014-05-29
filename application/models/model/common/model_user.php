@@ -111,7 +111,7 @@ class Model_User extends NH_Model
      * @param array $arr_group_by
      * @param array $arr_order_by
      * @param array $arr_limit
-     * @return mix $mix_return
+     * @return int|array $mix_return
      * @author yanrui@tizi.com
      */
     protected function _get_user($str_table_range = 'user', $str_result_type = 'list', $str_field = '*', $arr_where = array(), $arr_group_by = array(), $arr_order_by = array(), $arr_limit = array())
