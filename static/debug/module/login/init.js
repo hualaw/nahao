@@ -9,4 +9,6 @@ define(function(require,exports){
 		// 美化radio
 		$('input[type=radio]').jqTransRadio();
 	}
+        
+        var _resetPwd = require("module/login/resetPwd");
 })
