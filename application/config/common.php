@@ -68,9 +68,7 @@ $config['grade'][12] = '其他';
 
 
 //订单状态
-/*
-*@author shangshikai@nahao.com
-*/
+
 $config["order_status"][0] = "未付款";
 $config["order_status"][1] = "支付失败";
 $config["order_status"][2] = "已付款";
@@ -82,9 +80,7 @@ $config["order_status"][7] = "拒绝退款";
 $config["order_status"][8] = "同意退款";
 $config["order_status"][9] = "退款完成";
 //订单支付方式
-/*
-*@author shangshikai@nahao.com
-*/
+
 $config["order_type"][0] = "线上";
 $config["order_type"][1] = "网银";
 $config["order_type"][2] = "信用卡";
@@ -92,18 +88,14 @@ $config["order_type"][3] = "支付宝";
 $config["order_type"][4] = "线下";
 
 //用户来源
-/*
-*@author shangshikai@nahao.com
-*/
+
 $config["user_source"][1] = "当当";
 $config["user_source"][2] = "58";
 $config["user_source"][3] = "拉手";
 $config["user_source"][4] = "大街";
 
 //后台会员来源
-/*
-*@author shangshikai@nahao.com
-*/
+
 $config["member_source"][1] = "新浪微博";
 $config["member_source"][2] = "有道";
 $config["member_source"][3] = "代理商";
@@ -111,13 +103,22 @@ $config["member_source"][4] = "网站";
 $config["member_source"][5] = "学校企业";
 $config["member_source"][6] = "微信推广";
 
-//搜索条件
+//订单搜索条件
 /*
 *@author shangshikai@nahao.com
 */
 $config["criteria"][1] = "nickname";
 $config["criteria"][2] = "phone";
 $config["criteria"][3] = "email";
+
+
+//试讲搜索条件
+/*
+*@author shangshikai@nahao.com
+*/
+$config['lecture_factor'][1] = 'course';
+$config['lecture_factor'][2] = 'name';
+$config['lecture_factor'][3] = 'phone';
 
 //全站角色
 $config['role'][0] = '系统';
@@ -170,3 +171,4 @@ $config['teacher_title'][2] = '高级教师';
 $config['teacher_title'][3] = '一级教师';
 $config['teacher_title'][4] = '二级教师';
 $config['teacher_title'][5] = '三级教师';
+

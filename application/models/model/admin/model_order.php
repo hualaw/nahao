@@ -11,7 +11,16 @@
         {
             return $this->db->get("student_order")->num_rows();
         }
-
+        /**
+         *
+         * @param 查询的公共sql部分
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function sql()
+        {
+            $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.price,student_order.spend,user.phone_mask,user.nickname,user.email')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc');
+        }
         /**
          * 查询订单
          * @param
@@ -20,7 +29,9 @@
          */
         public function admin_order_data()
         {
-           return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,user.id as uid')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc')->get();
+           $this->load->model('model/admin/model_order');
+           $this->model_order->sql();
+           return $this->db->get();
            // var_dump($c->result_array());die;
         }
 
@@ -33,7 +44,8 @@
         public function sea_order($post)
         {
             $str_criteria=config_item('criteria');
-            $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.price,student_order.spend,user.phone_mask,user.nickname,user.email')->from('student_order')->join('user', 'user.id = student_order.student_id','left');
+            $this->load->model('model/admin/model_order');
+            $this->model_order->sql();
             if(!empty($post['order_id']))
             {
                 $this->db->where("student_order.id = $post[order_id]");
@@ -92,7 +104,7 @@
         {
             $this->load->model("model/admin/model_order");
             $this->model_order->sea_order($post);
-            return $this->db->order_by('student_order.id','desc')->get();
+            return $this->db->get();
            // echo $this->db->last_query();die;
         }
         /**
