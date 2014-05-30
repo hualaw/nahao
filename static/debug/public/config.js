@@ -15,7 +15,6 @@ seajs.config({
 	  ]
 })
 
-
 // 调用方法
 seajs.use('jquery',function(){
 	//加载全站公共方法入口
@@ -44,6 +43,27 @@ seajs.use('jquery',function(){
 		seajs.use("module/studentStartClass/init");
 		break;
 		// 模块是学生我要开课
+        case 'studentStudy':
+        seajs.use("module/studentStudy/init");
+        break;
+        case 'adminAdmin':
+            seajs.use("module/adminAdmin/init");
+            break;
+        case 'adminGroup':
+            seajs.use("module/adminGroup/init");
+            break;
+        case 'adminStudent':
+            seajs.use("module/adminStudent/init");
+            break;
+        case 'adminIndex':
+            seajs.use("module/adminIndex/init");
+            break;
+        case 'adminCourse':
+            seajs.use("module/adminCourse/init");
+            break;
+        case 'adminRound':
+            seajs.use("module/adminRound/init");
+            break;
 		case 'studentStudy':
 		seajs.use("module/studentStudy/init");
 		break;
