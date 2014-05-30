@@ -44,9 +44,9 @@
 <hr>
 <h4>备注信息</h4>
 {foreach $note as $k=>$v}
-    <div class="alert alert-info">
+    <label class="control-label" for="inputSuccess">
         {$v.username}&nbsp;&nbsp;&nbsp;&nbsp;{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.note}
-    </div>
+    </label><br />
 {/foreach}
 <textarea class="form-control" rows="3" placeholder="在此添加备注信息" id="note_content"></textarea>
 <br />

@@ -80,9 +80,10 @@
 <hr>
 <h4>备注信息</h4>
 {foreach $notes as $k=>$v}
-{$v.username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.note}<br />
+    <label class="control-label" for="inputSuccess"> {$v.username}&nbsp;&nbsp;&nbsp;&nbsp;{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;{$v.note}</label><br />
 {/foreach}
-<textarea class="form-control" rows="3" id="lectrue_notes"></textarea><br />
+
+<textarea class="form-control" rows="3" id="lectrue_notes" placeholder="在此添加备注信息"></textarea><br />
 {for $i=0 to 134}
          &nbsp;
 {/for}
