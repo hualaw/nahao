@@ -112,8 +112,11 @@
             $lecture_id=$this->input->get('lecture_id',TRUE);
             $details=$this->lecture->details_lecture($lecture_id);
             //var_dump($details);die;
+            $city_area=$this->lecture->city_area($lecture_id);
+           // var_dump($city_area);die;
             $notes = $this->lecture->notes($lecture_id);
             //var_dump($notes);die;
+            $this->smarty->assign('city_area',$city_area);
             $this->smarty->assign('con_gender',$con_gender);
             $this->smarty->assign('con_stage',$con_stage);
             $this->smarty->assign('con_title',$con_title);

@@ -117,4 +117,15 @@
             $this->load->model('model/admin/model_lecture');
             return $this->model_lecture->insert_notes($post);
         }
+        /**
+         * 试讲老师所在区域
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function city_area($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->area_city($lecture_id);
+        }
     }

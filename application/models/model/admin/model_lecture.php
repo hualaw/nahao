@@ -177,4 +177,17 @@
                 return TRUE;
             }
         }
+        /**
+         * 试讲老师所在区域
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function area_city($lecture_id)
+        {
+            $data=array();
+            $data['city']=$this->db->select('nahao_areas.name')->from('teacher_lecture')->join('nahao_areas','nahao_areas.id=teacher_lecture.city','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
+            $data['area']=$this->db->select('nahao_areas.name')->from('teacher_lecture')->join('nahao_areas','nahao_areas.id=teacher_lecture.area','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
+            return $data;
+        }
     }
