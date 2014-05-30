@@ -159,7 +159,7 @@
         public function refund_stu($student_id,$order_id)
         {
             $round_id=$this->db->select('student_order.round_id')->from('student_order')->where("student_order.id=$order_id")->get()->row_array();
-            if($this->db->update('student_class',array("status"=>0), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>3),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>7),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)))
+            if($this->db->update('student_class',array("status"=>0), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>1),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>7),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)))
             {
                 return TRUE;
             }
@@ -178,7 +178,7 @@
         public function refund_agr($student_id,$order_id)
         {
             $round_id=$this->db->select('student_order.round_id')->from('student_order')->where("student_order.id=$order_id")->get()->row_array();
-            if($this->db->update('student_class',array("status"=>4), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>1),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>8),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)))
+            if($this->db->update('student_class',array("status"=>4), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>2),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>8),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)))
             {
                 return TRUE;
             }
@@ -197,7 +197,7 @@
         public function refund_last($student_id,$order_id)
         {
             $round_id=$this->db->select('student_order.round_id')->from('student_order')->where("student_order.id=$order_id")->get()->row_array();
-            if($this->db->update('student_class',array("status"=>5), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>2),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>9),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)))
+            if($this->db->update('student_class',array("status"=>5), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>3),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>9),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)))
             {
                 return TRUE;
             }
