@@ -166,7 +166,7 @@
         */
         public function insert_notes($post)
         {
-            $admin_id=1;
+            $admin_id=$this->userinfo['id'];
             $data=array("lecture_id"=>$post['lecture_id'],
                 "note"=>$post['lectrue_notes'],
                 "admin_id"=>$admin_id,
