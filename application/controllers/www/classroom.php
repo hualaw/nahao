@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Index extends NH_User_Controller {
+class Classroom extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
@@ -8,14 +8,12 @@ class Index extends NH_User_Controller {
     }
 
     /**
-     * 首页获取轮的列表信息
+     * 进入教室
      */
 	public function index()
 	{  
 	    header('content-type: text/html; charset=utf-8');
-        $array_data = $this->student_index->get_course_latest_round_list();
-        $this->smarty->assign('array_data', $array_data);
-        $this->smarty->display('www/index.html');
+        $this->smarty->display('www/classRoom/index.html');
 	}
 	
 	/**
