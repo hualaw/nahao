@@ -96,6 +96,9 @@ class Course extends NH_Admin_Controller {
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
+            $arr_lessons = $this->input->post('lessons') ? trim($this->input->post('lessons')) : '';
+            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : 0;
+            o($this->input->post(),true);
 
             if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to){
                 $arr_param['title'] = $str_title;
@@ -113,6 +116,10 @@ class Course extends NH_Admin_Controller {
                 $arr_param['grade_to'] = $int_grade_to;
                 $int_course_id = $this->course->create_course($arr_param);
                 if($int_course_id > 0){
+
+                    $this->load->model('business/common/business_lesson','lesson');
+                    $int_lesson_id = $this->lesson->create_lesson();
+
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '创建成功';
                 }
@@ -120,6 +127,56 @@ class Course extends NH_Admin_Controller {
         }
         self::json_output($this->arr_response);
     }
+
+
+    /**
+     * update course
+     * @author yanrui@tizi.com
+     */
+    public function update(){
+        if($this->is_ajax() AND $this->is_post()){
+            $int_course_id = $this->input->post('id') ? intval($this->input->post('id')) : 0;
+            $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
+            $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
+            $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
+            $str_description = $this->input->post('description') ? trim($this->input->post('description')) : '';
+            $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
+            $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
+            $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
+            $int_reward = $this->input->post('reward') ? intval($this->input->post('reward')) : 0;
+            $int_price = $this->input->post('price') ? intval($this->input->post('price')) : 0;
+            $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
+            $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
+            $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
+            $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
+
+            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : 0;
+
+            if($int_course_id AND $str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to){
+                $arr_where['id'] = $int_course_id;
+                $arr_param['title'] = $str_title;
+                $arr_param['subtitle'] = $str_subtitle;
+                $arr_param['intro'] = $str_intro;
+                $arr_param['description'] = $str_description;
+                $arr_param['students'] = $str_students;
+                $arr_param['subject'] = $int_subject;
+                $arr_param['course_type'] = $int_course_type;
+                $arr_param['reward'] = $int_reward;
+                $arr_param['price'] = $int_price;
+                $arr_param['video'] = $str_video;
+                $arr_param['img'] = $str_img;
+                $arr_param['grade_from'] = $int_grade_from;
+                $arr_param['grade_to'] = $int_grade_to;
+                $bool_flag = $this->course->update_course($arr_param,$arr_where);
+                if($bool_flag==true){
+                    $this->arr_response['status'] = 'ok';
+                    $this->arr_response['msg'] = '创建成功';
+                }
+            }
+        }
+        self::json_output($this->arr_response);
+    }
+
 
     /**
      * edit course
@@ -154,5 +211,9 @@ class Course extends NH_Admin_Controller {
             $arr_return = $this->teacher->get_teacher_list(array(),0,20);
         }
         self::json_output($arr_return);
+    }
+
+    public function upload(){
+        self::json_output(array('id'=>1,'status'=>999));
     }
 }

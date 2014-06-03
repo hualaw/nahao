@@ -1,5 +1,5 @@
 <div class="alert alert-info">添加课程...</div>
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" action="javascript:;">
     <div class="form-group">
         <label class="col-md-2 control-label">课程名称</label>
         <div class="col-md-4">
@@ -9,7 +9,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">教授科目</label>
         <div class="col-md-2">
-            <select class="form-control" name="subject">
+            <select class="form-control" id="subject">
                 <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}
                 <option value="{$k}">{$v}</option>
@@ -20,7 +20,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">课程类型</label>
         <div class="col-md-2">
-            <select class="form-control" name="course_type">
+            <select class="form-control" id="course_type">
                 <option value="">全部课程类型</option>
                 {foreach $course_types as $k => $v}
                 <option value="{$k}">{$v}</option>
@@ -31,6 +31,8 @@
     <div class="form-group">
         <label class="col-md-2 control-label">教师昵称</label>
         <div class="col-md-2" id="course_edit_teacher_select_div">
+            <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="5">张三</botton>-->
+            <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="6">李四</botton>-->
             <botton class="btn btn-primary" data-action="/course/teachers" id="course_edit_teacher_select_btn">
                 添加老师
             </botton>
@@ -40,16 +42,16 @@
         <label class="col-md-2 control-label">适用年级</label>
 
         <div class="col-md-2">
-            <select class="form-control" name="grade_from">
-                <option value="">开始年级</option>
+            <select class="form-control"  id="grade_from">
+                <option value="0">开始年级</option>
                 {foreach $grades as $k => $v}
                 <option value="{$k}">{$v}</option>
                 {/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="grade_to">
-                <option value="">结束年级</option>
+            <select class="form-control" id="grade_to">
+                <option value="0">结束年级</option>
                 {foreach $grades as $k => $v}
                 <option value="{$k}">{$v}</option>
                 {/foreach}
@@ -63,6 +65,17 @@
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
                 <input type="text" class="form-control" id="reward" placeholder="">
+                <span class="input-group-addon">.00元</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">课程价格</label>
+
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon">¥</span>
+                <input type="text" class="form-control" id="price" placeholder="">
                 <span class="input-group-addon">.00元</span>
             </div>
         </div>
@@ -94,16 +107,45 @@
         <label class="col-md-2 control-label">授课提要</label>
 
         <div class="col-md-8">
-            <textarea class="form-control" id="description" rows="10"></textarea>
+            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10"></textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-md-2 control-label">课程安排</label>
+        <label class="col-md-2 control-label">添加图片</label>
+
+        <div class="col-md-2">
+            <input type="file" class="form-control" id="img" rows="10" >
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary col-md-2" id="upload_img">上传</button>
+        </div>
     </div>
     <div class="form-group">
+        <label class="col-md-2 control-label">添加视频</label>
+
+        <div class="col-md-2">
+            <input type="file" class="form-control" id="video" rows="10" >
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary col-md-2" id="upload_video">上传</button>
+        </div>
+    </div>
+
+    <div id="course_edit_lesson_list_div">
+        <div class="form-group">
+            <label class="col-md-2 control-label">课程安排</label>
+            <div class="col-md-2" id="course_edit_lesson_add_div">
+                <botton class="btn btn-primary" id="course_edit_lesson_add_btn">
+                    添加章节
+                </botton>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         <label class="col-md-4 control-label"></label>
-        <button type="submit" class="btn btn-primary col-md-2">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+        <button type="submit" class="btn btn-primary col-md-2" id="course_edit_submit_course" data-action="/course/create">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
     </div>
 </form>
 {include file="admin/course_edit_teacher_select.html"}
