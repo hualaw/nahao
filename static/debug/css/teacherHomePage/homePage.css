@@ -1,25 +1,26 @@
-.hteacherHmePage .md_classInfo{margin-bottom: 50px;}
+.teacherHomePage .md_classInfo{margin-bottom: 50px;}
 .teacherHomePage .hd_title{display:block;width:330px;font-weight:normal;text-align:left;margin-bottom:10px;padding:0px 15px;color:#fff;font-size:14px;height:33px; line-height: 33px;background-color:#f16741;border-radius:3px;-webkit-border-radius:3px;}
 .teacherHomePage .hd_title .hd_day{margin-right: 20px;}
 .teacherHomePage .hd_title .hd_date{border-right:1px solid #b62d06;padding-right:20px;line-height:30px;}
 .teacherHomePage .hd_title .hd_num{margin-left:20px;}
-.teacherHomePage .md_bd .custom_table{}
-.teacherHomePage .md_bd .custom_table th{background:#f6f6f6;font-size:14px;color:#677381;font-weight:normal;text-align:center;}
-.teacherHomePage .md_bd .custom_table th.th_last{padding-right:10px;}
-.teacherHomePage .md_bd .custom_table tr.start{background-color: #fff5f5;}
-.teacherHomePage .md_bd .custom_table tr.end{background-color: #ededed;}
-.teacherHomePage .md_bd .custom_table tr.start .readyGo{background-color:#ed4111;color:#fff;border: 0px;padding: 0 43px 0;}
-.teacherHomePage .md_bd .custom_table tr.start .readyGo:hover{background: #f15930;}
-.teacherHomePage .md_bd .custom_table tr.start td em.icon_notem{display:block;background: url("../../images/common/icon_note1.png") no-repeat -70px 3px;height:20px; width: 30px;}
-.teacherHomePage .md_bd .custom_table tr.end .readyGo{background-color:#c1c1c1;color:#fff;padding: 0 42px 0;}
-.teacherHomePage .md_bd .custom_table td{padding:15px 10px; text-align: left;}
-.teacherHomePage .md_bd .custom_table td h3{font-size:14px;color:#000000;line-height:25px; text-indent:25px;}
-.teacherHomePage .md_bd .custom_table td a.readyGo{border: 1px solid #e9e9e9;border-radius:3px;-webkit-border-radius:3px;display: inline-block;text-align: center;padding:0px 35px 0px;margin-top:10px; margin-left: 20px;}
-.teacherHomePage .md_bd .custom_table td a{color:#f14211;}
-.teacherHomePage .md_bd .custom_table td em.icon_notem{display:block;background: url("../../images/common/icon_note1.png") no-repeat 10px 3px;height:20px; width: 30px;}
-.teacherHomePage .md_bd .custom_table td.className{width:440px; overflow: hidden;line-height: 25px;}
-.teacherHomePage .md_bd .custom_table td.className p{font-size: 12px; color:#848484;text-indent:25px;}
-.teacherHomePage .md_bd .custom_table td.classWord{overflow: hidden;clear: both;line-height:25px;}
-.teacherHomePage .md_bd .custom_table td.classWord em.icon_note{display:block; float:left;background:url("../../images/common/icon_note.png") no-repeat left top;width: 13px; height: 16px;margin-top:5px;margin-right: 5px;}
-.teacherHomePage .md_bd .custom_table td.classWord a{display:block;float:left; width:130px;font-size: 12px; color:#777777;}
-.teacherHomePage .md_bd .custom_table td.classWord a:hover{text-decoration: underline;}
+.teacherHomePage .custom_table th{background:#f6f6f6;font-size:14px;color:#677381;font-weight:normal;text-align:center;}
+.teacherHomePage .custom_table th.th_last{padding-right:10px;}
+.teacherHomePage .custom_table tr.start{background-color: #fff5f5;}
+.teacherHomePage .custom_table tr.end{background-color: #ededed;}
+.teacherHomePage .custom_table tr.start .readyGo{background-color:#ed4111;color:#fff;border: 0px;padding: 0 43px 0;}
+.teacherHomePage .custom_table tr.start .readyGo:hover{background: #f15930;}
+.teacherHomePage .custom_table tr.start td em.icon_notem{display:block;background: url("../../images/common/icon_note1.png") no-repeat -70px 3px;height:20px; width: 30px;}
+.teacherHomePage .custom_table tr .readyGo:hover{background-color:#f15930;color:#fff;}
+.teacherHomePage .custom_table tr.end .readyGo{background-color:#c1c1c1;color:#fff;padding: 0 42px 0;cursor: default;}
+.teacherHomePage .custom_table tr.end .readyGo:hover{background-color:#c1c1c1;}
+.teacherHomePage .custom_table td{padding:15px 10px; text-align: left;}
+.teacherHomePage .custom_table td h3{font-size:14px;color:#000000;line-height:25px; text-indent:25px;}
+.teacherHomePage .custom_table td a.readyGo{border: 1px solid #e9e9e9;border-radius:3px;-webkit-border-radius:3px;display: inline-block;text-align: center;padding:0px 35px 0px;margin-top:10px; margin-left: 20px;}
+.teacherHomePage .custom_table td a{color:#f14211;}
+.teacherHomePage .custom_table td em.icon_notem{display:block;background: url("../../images/common/icon_note1.png") no-repeat 10px 3px;height:20px; width: 30px;}
+.teacherHomePage .custom_table td.className{width:440px; overflow: hidden;line-height: 25px;}
+.teacherHomePage .custom_table td.className p{font-size: 12px; color:#848484;text-indent:25px;}
+.teacherHomePage .custom_table td.classWord{overflow: hidden;clear: both;line-height:25px;}
+.teacherHomePage .custom_table td.classWord em.icon_note{display:block; float:left;background:url("../../images/common/icon_note.png") no-repeat left top;width: 13px; height: 16px;margin-top:5px;margin-right: 5px;}
+.teacherHomePage .custom_table td.classWord a{display:block;float:left; width:130px;font-size: 12px; color:#777777;}
+.teacherHomePage .custom_table td.classWord a:hover{text-decoration: underline;}

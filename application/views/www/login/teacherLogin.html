@@ -3,14 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>首页</title>
-<link rel="stylesheet" type="text/css" href="/debug/css/login/style.css" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/teacherCommon/layout.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/teacherCommon/header.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/login/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
-<!--#include virtual="/include/var.htm"-->
+{include file="teacher/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
 </head>
 <body>
 <!-- 头部开始 -->
-<!--#include virtual="/include/login_header.htm"-->
+<div class="header">
+    <div class="headNav">
+        <div class="layout">
+            <!--那好 logo开始-->
+            <h1 class="fl"><img src="{static_url('/images/common/header/teacher_header_logo.gif')}" alt="nahao"></h1>
+            <!--那好 logo结束-->
+        </div>
+    </div>
+</div>
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
 <div class="wrap loginPage" id="nahaoModule" module="loginPage">
@@ -42,11 +52,8 @@
     </div>
 </div>
 <!-- 主要内容结束 -->
-<!-- 底部开始 -->
-<!--include virtual="/include/footer.htm"-->
-<!-- 底部结束 -->
 <!-- js引入开始 -->
-<!--#include virtual="/include/js.htm"-->
+{include file="teacher/include/js.htm"}
 <!--js引入结束-->
 </body>
 </html>
