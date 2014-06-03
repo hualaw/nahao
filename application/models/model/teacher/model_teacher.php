@@ -44,7 +44,7 @@ class Model_Teacher extends NH_Model{
 		$where .= $param['title'] ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
-		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name';
+		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
@@ -52,8 +52,10 @@ class Model_Teacher extends NH_Model{
 				LEFT JOIN nahao.round r ON cl.round_id=r.id 
 				LEFT JOIN nahao.course c ON r.course_id=c.id 
 				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
-				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id ".$where.$order;
-		
+				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
+				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
+				".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -68,24 +70,46 @@ class Model_Teacher extends NH_Model{
 		$where = ' WHERE 1 AND cl.parent_id>0';
 		$where .= $param['id'] ? ' AND r.id='.$param['id'] : '';
 		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
-		$where .= $param['begin_time'] ? ' AND r.begin_time>='.$param['begin_time'] : '';
+		$where .= $param['start_time'] ? ' AND r.start_time>='.$param['start_time'] : '';
 		$where .= $param['end_time'] ? ' AND r.end_time<='.$param['end_time'] : '';
-		$where .= $param['teach_status'] ? ' AND r.teach_status in('.$param['teach_status'].')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
+		$where .= $param['teach_status'] ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
 		$where .= $param['course_type'] ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
 		$where .= $param['title'] ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
 		$group = " GROUP BY r.id";
 		$order = " ORDER BY cl.begin_time DESC";
-		
-		$sql = "SELECT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time  
+		$limit = $param['limit'] ? " LIMIT ".$param['limit'] : '';
+		$column = $param['counter']==1 ? 'count(r.id) total' :'r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
+		#2. 生成sql
+        $this->db->query("set names utf8");
+		$sql = "SELECT ".$column."  
 				FROM nahao.round r 
 				LEFT JOIN nahao.class cl ON cl.round_id=r.id 
 				LEFT JOIN nahao.course c ON r.course_id=c.id 
 				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
 				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
+				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
 				".$where.$group.$order;
 		$arr_result = $this->db->query($sql)->result_array();
+		
         return $arr_result;
 	}
+	
+	/**
+	 * 老师轮状态统计
+	 **/
+    public function round_status_counter($param){
+    	$arr_result = array();
+		$where = ' WHERE 1 ';
+		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= $param['teach_status'] ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';
+    	$sql = "SELECT count(distinct r.id) total
+    			FROM nahao.round r 
+    			LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+    			".$where;
+    	$arr_result = $this->db->query($sql)->result_array();
+    	return $arr_result;
+    } 
 	
 	/**
 	 * 【题目搜索器】：
@@ -354,7 +378,6 @@ class Model_Teacher extends NH_Model{
         return $arr_result;
     }
     
-    
     /**
      * 开课申请，教师扩展表
      */
@@ -362,12 +385,30 @@ class Model_Teacher extends NH_Model{
     	$this->db->query("set names utf8");
     	$sql = 'INSERT INTO nahao.teacher_lecture(course,resume,subject,teacher_lecture.status,admin_id,
     		create_time,province,city,area,school,stage,teach_years,course_intro,teach_type,gender,title,
-    		age,phone,email,qq,start_time,end_time,name) 
+    		age,phone,email,qq,start_time,end_time,name,user_id) 
 		VALUES("'.$param['course'].'","'.$param['resume'].'","'.$param['subject'].'",'.$param['status'].',
 			'.$param['admin_id'].','.time().','.$param['province'].','.$param['city'].','.$param['area'].',
 			'.$param['school'].','.$param['stage'].','.$param['teach_years'].',"'.$param['course_intro'].'",
 			'.$param['teach_type'].','.$param['gender'].','.$param['title'].','.$param['age'].',"'.$param['phone'].'",
-			"'.$param['email'].'","'.$param['qq'].'",'.$param['start_time'].','.$param['end_time'].',"'.$param['name'].'")';
+			"'.$param['email'].'","'.$param['qq'].'",'.$param['start_time'].','.$param['end_time'].',"'.$param['name'].'",'.$param['user_id'].')';
     	return $this->db->query($sql);
     }
+    
+    /**
+	 * 获取所有课程状态
+	 **/
+     public function get_course_type(){
+     	$this->db->query("set names utf8");
+     	$sql = "SELECT * FROM nahao.course_type";
+     	return $this->db->query($sql)->result_array();
+     }
+     
+     /**
+	 * 获取所有课程状态
+	 **/
+     public function get_subject(){
+     	$this->db->query("set names utf8");
+     	$sql = "SELECT * FROM nahao.subject";
+     	return $this->db->query($sql)->result_array();
+     }
 }
