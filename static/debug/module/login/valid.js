@@ -196,7 +196,8 @@ define(function(require,exports){
                 ele: ".inputEmail",
                 datatype:"e",
                 nullmsg:"请输入邮箱",
-                errormsg:"请输入正确的邮箱"
+                errormsg:"请输入正确的邮箱",
+                ajaxurl:'/login/check_user_email'
             }        
         ]);
     }

@@ -14,12 +14,13 @@
 <body>
 <!-- 头部开始 -->
 <!--#include virtual="/include/header.htm"-->
-{include file="www/include/var.htm"}
+{include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
 <div class="wrap layout login" id="nahaoModule" module="login">
 	<div class="pwd">
 		<div class="findType">
+                    {if $find_ways == 1 }
 			<div class=" box phoneBox ">
 				<h2>手机找回密码</h2>
 				<div class="progressBar cf">
@@ -28,27 +29,28 @@
 					<span class="fl ok ">3. 完成</span>
 				</div>
 				<p class="tips">请填写您绑定的手机号，我们将验证码发送至手机，请您注意查收手机短信</p>
-				<form action="" mothed="post" onsubmit="return false" class="phoneFindPW">
+				<form action="/login/reset_pwd" method="POST" class="phoneFindPW">
 					<ul>
 						<li class="cf">
 							<p class="fl">绑定手机</p>
-							<input type="text" class="fl" placeholder="请输入已绑定的手机号">
+							<input type="text" class="fl" name="phone_number" placeholder="请输入已绑定的手机号">
 							<a href="javascript:void(0)" class="fl btn blueBtn code ">发送验证码</a>
 							<span class="fl btn  undis code">60秒后获取验证码</span>
 						</li>
 						<li class="cf">
 							<p class="fl">验证码</p>
 							<div class="cf">
-								<input type="text" class="fl inputPhone" placeholder="请输入手机验证码" validName="text">
+								<input type="text" class="fl inputPhone" name="code" placeholder="请输入手机验证码" validName="text">
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
 						<li class="cf">
-							<input type="submit" class="btn redBtn submit fl" value="确定">
+							<input type="button" id='findSubmit' class="btn redBtn submit fl" value="确定">
 						</li>
 					</ul>
 				</form>
 			</div>
+                    {elseif $find_ways == 2 }
 			<div class=" box emailBox">
 				<h2>邮箱找回密码</h2>
 				<div class="progressBar cf">
@@ -72,6 +74,7 @@
 					</ul>
 				</form>
 			</div>
+                    {/if}
 		</div>
 	</div>
 </div>
