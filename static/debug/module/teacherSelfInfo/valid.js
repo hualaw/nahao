@@ -196,7 +196,6 @@ define(function(require,exports){
     /*教师后台管理-个人资料表单验证结束*/
     /*教师后台管理-我要开课表单验证开始*/
     exports.teaClassValid = function(){
-        alert(1)
         var _Form=$(".teaClassForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
