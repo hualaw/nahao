@@ -128,4 +128,38 @@
             $this->load->model('model/admin/model_lecture');
             return $this->model_lecture->area_city($lecture_id);
         }
+        /**
+         *通过试讲审核
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function lecture_pass($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->lecture_teach_pass($lecture_id);
+        }
+
+        /**
+         *待定试讲审核
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function lecture_indeterminate($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->lecture_teach_indeterminate($lecture_id);
+        }
+        /**
+         *不通过试讲审核
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function lecture_nopass($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->lecture_teach_nopass($lecture_id);
+        }
     }

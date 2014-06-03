@@ -108,6 +108,7 @@
             $con_stage=config_item('stage');
             $con_title=config_item('teacher_title');
             $con_teach_type=config_item('teacher_type');
+            $con_lecture_status=config_item('lecture_status');
             //var_dump($con_title);die;
             $lecture_id=$this->input->get('lecture_id',TRUE);
             $details=$this->lecture->details_lecture($lecture_id);
@@ -116,6 +117,7 @@
            // var_dump($city_area);die;
             $notes = $this->lecture->notes($lecture_id);
             //var_dump($notes);die;
+            $this->smarty->assign('con_lecture_status',$con_lecture_status);
             $this->smarty->assign('city_area',$city_area);
             $this->smarty->assign('con_gender',$con_gender);
             $this->smarty->assign('con_stage',$con_stage);
@@ -137,5 +139,40 @@
             $post=$this->input->post(NULL,TRUE);
             echo $this->lecture->note_insert($post);
            // echo $post['lecture_status'];
+        }
+        /**
+         *通过试讲审核
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+        */
+        public function pass_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_pass($lecture_id);
+        }
+
+        /**
+         *待定试讲审核
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+        */
+        public function indeterminate_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_indeterminate($lecture_id);
+        }
+
+        /**
+         *不通过试讲审核
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+        */
+        public function nopass_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_nopass($lecture_id);
         }
     }

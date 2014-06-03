@@ -31,7 +31,7 @@ define(function(require,exports){
             $.ajax({
                 type:"post",
                 url:"/lecture/insert_note",
-                data:"lecture_id="+$('#lecture_id').val()+"&lectrue_notes="+$("#lectrue_notes").val()+"&lecture_status="+$('#lecture_status').val(),
+                data:"lecture_id="+$('#lecture_id').val()+"&lectrue_notes="+$("#lectrue_notes").val(),
                 success:function(msg){
                     if(msg==1)
                     {
@@ -40,7 +40,50 @@ define(function(require,exports){
                     else
                     {
                         alert('备注信息不能为空');
-                   }
+                    }
+                }
+            })
+        })
+
+
+        $('#pass').click(function(){
+            $.ajax({
+                type:"post",
+                url:"/lecture/pass_lecture",
+                data:"lecture_id="+$('#lecture_id').val(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        $('#curr_status').html('审核通过');                                                                 location=location;
+                    }
+                }
+            })
+        })
+
+        $('#indeterminate').click(function(){
+            $.ajax({
+                type:"post",
+                url:"/lecture/indeterminate_lecture",
+                data:"lecture_id="+$('#lecture_id').val(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        $('#curr_status').html('待定');
+                    }
+                }
+            })
+        })
+
+        $('#nopass').click(function(){
+            $.ajax({
+                type:"post",
+                url:"/lecture/nopass_lecture",
+                data:"lecture_id="+$('#lecture_id').val(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        $('#curr_status').html('审核不通过');
+                    }
                 }
             })
         })
