@@ -20,7 +20,7 @@ class Model_student_subject extends NH_Model{
             $row = $this->db->affected_rows();
             if($row != 1)
             {
-                log_message('ERROR_NAHAO', 'replace failed', $insert_arr);
+                log_message('ERROR_NAHAO', 'insert student_subject failed', $insert_arr);
             }
         }
         return true;
@@ -36,7 +36,7 @@ class Model_student_subject extends NH_Model{
             $row = $this->db->affected_rows();
             if($row != 1)
             {
-                log_message('ERROR_NAHAO', 'delete failed', array('student_id'=>$student_id, 'subject_id'=>$subject_id));
+                log_message('ERROR_NAHAO', 'delete student_subject failed', array('student_id'=>$student_id, 'subject_id'=>$subject_id));
             }
         }
         return true;
