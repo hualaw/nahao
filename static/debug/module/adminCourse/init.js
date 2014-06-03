@@ -9,9 +9,11 @@ define(function(require,exports){
     course.delete_teacher();
     course.add_lesson();
     course.submit_course();
-    var upload = require('module/adminCourse/ajaxfileupload');
-    upload.add_fileupload();
-    upload.upload_img();
+    require("module/adminCourse/upload").addUpload();//调用上传图片
+
+//    var upload = require('module/adminCourse/ajaxfileupload');
+//    upload.add_fileupload();
+//    upload.upload_img();
 
 
 

@@ -20,6 +20,7 @@ class Welcome extends NH_User_Controller {
 	 */
 	public function index()
 	{
+		
 		#1.今日列表
 		$listArr = $this->teacher_b->get_today_round(array('user_id'=>1));
 		#2.模块化和页面相关
@@ -49,7 +50,7 @@ class Welcome extends NH_User_Controller {
 				if($v['son_class']) foreach ($v['son_class'] as $lesson){
 					$listStr .= '<tr>
 			            <td>'.date('Y-m-d H:i',$lesson['begin_time']).'-'.date('Y-m-d H:i',$lesson['end_time']).'</td>
-			            <td>'.$lesson['parent_name'].'</td>
+			            <td>'.$val['title'].'</td>
 			            <td>'.$lesson['title'].'</td>
 			            <td>'.$val['rate'].' / '.$val['total_class'].'</td>
 			            <td>'.$class_type[($val['course_type'] ? $val['course_type'] : 0)].'</td>

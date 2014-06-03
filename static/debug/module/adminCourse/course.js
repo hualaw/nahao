@@ -1,7 +1,6 @@
 define(function (require, exports) {
     exports.load_ckeditor = function () {
         CKEDITOR.replace('nahao_description');
-//        $('#nahao_description').ckeditor();
     };
     exports.teacher_select = function () {
         $(".form-horizontal").on("click", '#course_edit_teacher_select_btn', function () {

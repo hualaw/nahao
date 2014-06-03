@@ -1,0 +1,239 @@
+<!--订单详情-->
+<h3 class="pageName">订单详情</h3>
+<div class="detailBox">	
+	<table class="orderDetail">
+		<thead>
+			<tr>
+				<td>
+					<span class="orderName">订单编号</span>
+					<span class='redText'>{$array_order.id}</span>
+				</td>
+				<td colspan="2">
+					<span class="orderName">下单时间</span>
+					<span class='redText'>{$array_order.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</span>
+				</td>
+				<td>
+					<span class="orderName">订单状态</span>
+					<span class='redText'>					
+					{if $array_order.status == '0'}
+					未付款
+					{elseif $array_order.status == '1'}
+					付款失败
+					{elseif $array_order.status == '2'}
+					已付款
+					{elseif $array_order.status == '3'}
+					已付款
+					{elseif $array_order.status == '4'}
+					已取消
+					{elseif $array_order.status == '5'}
+					已关闭
+					{elseif $array_order.status == '6'}
+					申请退款
+					{elseif $array_order.status == '7'}
+					拒绝退款
+					{elseif $array_order.status == '8'}
+					同意退款
+					{elseif $array_order.status == '9'}
+					已退款
+					{/if}
+					</span>
+				</td>
+			</tr>
+		</thead>
+	</table>
+	<table class="orderDetail tableCon">		
+		<tbody>
+			<tr class="tName">
+				<td class="textal">课程名称</td>
+				<td>原价</td>
+				<td>实际价格</td>
+				<td>操作</td>
+			</tr>
+			<tr class="tCon">
+				<td class="textal">{$array_round.title|truncate:18:"...":true}</td>
+				<td class="iniPrice">¥{$array_round.price}</td>
+				<td class="redText">¥{$array_round.sale_price}</td>
+				<td>
+					<p>{$array_order.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</p>
+
+				</td>
+			</tr>
+			{if $array_order.status == '0' || $array_order.status == '1'}
+			<tr class="tf">
+				<td  colspan="4">
+					<p>金额总计<strong class="redText">¥{$array_order.spend}</strong></p>
+					<a href="/pay/order/{$array_order.id}/{$array_order.payment_method}" class="cf btn3 btn">
+						<span class="fl">支付</span>
+						<span class="fr"></span>
+					</a>
+				</td>
+			</tr>
+			{/if}
+		</tbody>
+	</table>
+</div> 
+
+<!--申请状态-->
+<!-- <h3 class="pageName">申请状态</h3>
+<div class="orderComBox">
+	<table class="applyState">
+		<tbody>
+			<--待处理-
+			<tr class="imporInfor">
+				<td colspan="4" class="talignLeft">
+					<span>课程名称</span>
+					<strong>应老师 2014暑假作文提升训练</strong>
+				</td>
+				<td colspan="2" class="talignRight">
+					<span>申请时间</span>
+					<span>2014-06-23</span>
+					<span>18:45:31</span>
+				</td>
+			</tr>
+			<tr class="detailInfor">
+				<td class="width_92">
+					<span>已上课次</span><br>
+					<strong>4</strong>
+				</td>
+				<td class="width_90">
+					<span>未开始课次</span><br>
+					<strong>4</strong>
+				</td>
+				<td class="width_100">
+					<span>课程总金额</span><br>
+					<strong>¥199</strong>
+				</td>
+				<td class="width_130">
+					<span>可退金额</span><br>
+					<strong>¥199</strong>
+				</td>
+				<td class="reasonTd">
+					<span>退课理由</span>
+					<p class="reason">对老师不满意，想换一个老师的课程可啊生活费客户韩国司法局后...</p>
+				</td>
+				<td class="stateTd">
+					<span>申请状态</span><br>
+					<strong class="redText">待处理</strong>
+				</td>
+			</tr>
+			<--已退款--
+			<tr class="imporInfor">
+				<td colspan="4" class="talignLeft">
+					<span>课程名称</span>
+					<strong>应老师 2014暑假作文提升训练</strong>
+				</td>
+				<td colspan="2" class="talignRight">
+					<span>申请时间</span>
+					<span>2014-06-23</span>
+					<span>18:45:31</span>
+				</td>
+			</tr>
+			<tr class="detailInfor">
+				<td class="width_92">
+					<span>已上课次</span><br>
+					<strong>4</strong>
+				</td>
+				<td class="width_90">
+					<span>未开始课次</span><br>
+					<strong>4</strong>
+				</td>
+				<td class="width_100">
+					<span>课程总金额</span><br>
+					<strong>¥199</strong>
+				</td>
+				<td class="width_130">
+					<span>可退金额</span><br>
+					<strong>¥199</strong>
+				</td>
+				<td class="reasonTd">
+					<span>退课理由</span>
+					<p class="reason">对老师不满意，想换一个老师的课程可啊生活费客户韩国司法局后...</p>
+				</td>
+				<td class="stateTd">
+					<span>申请状态</span><br>
+					<strong class="greenText">已退款</strong>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div> -->
+
+<!--申请退课-->
+<!-- <div class="orderComBox applyFromBox">
+	<h3 class="pageName">申请状态
+		<span class="redText">温馨提示：您已经完成大半课次，建议学完，请慎重选择是否退课</span>
+	</h3>
+	<form action="" method="post" onsubmit="return false;" class="applyFrom">
+		<ul>
+			<li>
+				<p class="formName">课程名称</p>
+				<input type="text" class="userName">
+				<ol class="classDetail cf">
+					<li>
+						<span>已上课次</span><br>
+						<strong>3 次</strong>
+					</li>
+					<li>
+						<span>未开始课次</span><br>
+						<strong>3 次</strong>
+					</li>
+					<li>
+						<span>课程总金额</span><br>
+						<strong>¥199</strong>
+					</li>
+					<li class="formOn">
+						<span>可退金额</span><br>
+						<strong>¥199</strong>
+					</li>
+				</ol>
+				<p class="detailText">（未开始课次的退款，需在开班前1天（自然日）18：00前，方可申请）</p>
+			</li>
+			<li>
+				<p class="formName">姓名</p>
+				<input type="text">
+			</li>
+			<li>
+				<p class="formName">联系方式</p>
+				<input type="text">
+			</li>
+			<li>
+				<p class="formName">退课理由</p>
+				<textarea name="" id="" placeholder="请详细填写退课理由，帮助我们对课程进行改进，感谢您的支持！"></textarea>
+			</li>
+			<li>
+				<h3 class="pageName">绑定银行帐户</h3>
+			</li>
+			<li>
+				<p class="formName">选择退款银行</p>
+				<select name="" id="" >
+					<option>选择退款银行</option>
+					<option value="1"></option>
+					<option value="2"></option>
+					<option value="3"></option>
+					<option value="4"></option>
+				</select>
+				<input type="text" placeholder="请填写具体支行信息">
+			</li>
+			<li>
+				<p class="formName">银行卡账号</p>
+				<input type="text">
+			</li>
+			<li>
+				<p class="formName">身份证号</p>
+				<input type="text">
+			</li>
+			<li>
+				<input type="submit" class="btn redBtn" value="提交">
+				<input type="button" class="btn blueBtn" value="取消">
+			</li>
+		</ul>
+	</form>
+</div> -->
+
+<!--申请成功-->
+<!-- <div class="applysuc">
+	<p class="pt">提交申请成功！</p>
+	<p class="pf">我们会在48小时内处理您的申请，请耐心等待！</p>
+</div> -->
+
+<!--申请成功-->
