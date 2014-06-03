@@ -21,19 +21,32 @@
 	<!-- 右侧框架开始 -->
 
     <!--  myCourseCon    myOrderCon   myInforCon -->
-    <div class="wrapContent fr myInforCon" id="wrapContent" name="myInforCon">
-        <!--我的课程-->
-        <!--#include virtual="/include/studentMyCourse/page/myCourse.htm"-->
-        {include file="www/include/studentMyCourse/page/myCourse.htm"}
-
-        <!--我的订单-->
-        <!--include virtual="/include/studentMyCourse/page/myOrder.htm"-->
-        {include file="www/include/studentMyCourse/page/myOrder.htm"}
-        
-        <!--基本资料-->
-        <!--include virtual="/include/studentMyCourse/page/myInfor.htm" -->
-        {include file="www/include/studentMyCourse/page/myInfor.htm"}
-    </div> 
+   	{if $page_type == 'myCourse'}
+	   	<div class="wrapContent fr myCourseCon" id="wrapContent" name="myCourseCon">
+		   	<!--我的课程-->
+		    {include file="www/include/studentMyCourse/page/myCourse.htm"}
+	    </div> 
+    {elseif $page_type == 'myOrder'}
+	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+		    <!--我的订单-->
+		    {include file="www/include/studentMyCourse/page/myOrder.htm"}
+	    </div> 
+    {elseif $page_type == 'myInfor'}
+	    <div class="wrapContent fr myInforCon" id="wrapContent" name="myInforCon">
+		    <!--基本资料-->
+		    {include file="www/include/studentMyCourse/page/myInfor.htm"}
+    	</div> 
+    {elseif $page_type == 'order_detail'}
+	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+		    <!--订单信息页-->
+		    {include file="www/include/studentMyCourse/page/myOrderDetail.htm"}
+	    </div> 
+    {elseif $page_type == 'apply_refund'}
+	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+		    <!--申请退款页-->
+		    {include file="www/include/studentMyCourse/page/apply_refund.htm"}
+	    </div>      
+   	{/if}
     <!-- 右侧框架结束 -->
     <!-- 左侧框架开始 -->
     <div class="slide fl" id="slide">

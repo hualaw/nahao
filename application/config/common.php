@@ -148,3 +148,18 @@ $config['refund'][3] = "申请退款";
 $config['refund'][4] = "退款通过";
 $config['refund'][5] = "退款不通过";
 $config['refund'][5] = "退款已完成";
+
+//银行
+
+$config['bank'][1] = "招商银行";
+$config['bank'][2] = "工商银行";
+$config['bank'][3] = "中国银行";
+$config['bank'][4] = "交通银行";
+$config['bank'][5] = "建设银行";
+$config['bank'][6] = "农业银行";
+$config['bank'][7] = "中信银行";
+$config['bank'][8] = "浦发银行";
+$config['bank'][9] = "兴业银行";
+$config['bank'][10] = "深圳发展银行";
+$config['bank'][11] = "民生银行";
+$config['bank'][12] = "光大银行";

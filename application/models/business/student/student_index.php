@@ -59,10 +59,10 @@ class Student_Index extends NH_Model{
         {
             $array_return['for_people'] = $array_grade[$array_return['grade_from']];
         } else {
-            if (($array_return['grade_from'] < 6) || ($array_return['grade_to'] <6))
+            if (( $array_return['grade_from'] >0  && $array_return['grade_from'] <6) || ($array_return['grade_to'] >0 && $array_return['grade_to'] <6 ))
             {
                 $array_return['for_people'] = $array_return['grade_from'].'-'.$array_return['grade_to']."年级";
-            } else{
+            } else{ 
                 $array_return['for_people'] = $array_grade[$array_return['grade_from']].'-'.$array_grade[$array_return['grade_to']];
             }
         }
