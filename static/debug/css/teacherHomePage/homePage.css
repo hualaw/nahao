@@ -1,5 +1,5 @@
 .teacherHomePage .md_classInfo{margin-bottom: 50px;}
-.teacherHomePage .hd_title{display:block;width:330px;font-weight:normal;text-align:left;margin-bottom:10px;padding:0px 15px;color:#fff;font-size:14px;height:33px; line-height: 33px;background-color:#f16741;border-radius:3px;-webkit-border-radius:3px;}
+.teacherHomePage .hd_title{display:inline-block;font-weight:normal;text-align:left;margin-bottom:10px;padding:0px 15px;color:#fff;font-size:14px;height:33px; line-height: 33px;background-color:#f16741;border-radius:3px;-webkit-border-radius:3px;}
 .teacherHomePage .hd_title .hd_day{margin-right: 20px;}
 .teacherHomePage .hd_title .hd_date{border-right:1px solid #b62d06;padding-right:20px;line-height:30px;}
 .teacherHomePage .hd_title .hd_num{margin-left:20px;}
