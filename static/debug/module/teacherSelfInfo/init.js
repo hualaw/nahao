@@ -13,7 +13,7 @@ define(function(require,exports){
     if($('.writeInfo').length > 0){
         infoValid.teaClassValid();//试讲信息表单验证
         require("module/teacherSelfInfo/writeInfo").addDatePlugin();//添加日期控件
-        //require("module/teacherSelfInfo/edit").edit();//调用编辑器
+        require("module/teacherSelfInfo/edit").edit();//调用编辑器
     }
     //判断当前页面时注册成功的关于我的页面
     if($('.personInfo').length > 0){
