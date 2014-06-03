@@ -7,6 +7,7 @@
          * @return
          * @author shangshikai@nahao.com
          */
+
         public function index()
         {
             $config_pay=config_item("order_type");
