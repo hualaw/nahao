@@ -59,6 +59,37 @@ class Business_Teacher extends NH_Model
      	return $res;
      }
      
+     /**
+     * 所有上课数据
+     **/
+     public function class_list($param){
+     	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+     	$course_type = config_item('course_type');
+     	$subject = config_item('subject');
+     	$round_teach_status = config_item('round_teach_status');
+     	$res = $this->model_teacher->class_seacher($param);
+     	if($res) foreach($res as &$val){
+     		$val['course_type_name'] = $course_type[$val['course_type']];
+     		$val['subject_name'] = $subject[$val['subject']];
+     		$val['status_name'] = $subject[$val['status']];
+     		#全部
+     		$total_param_item = $already_param_item = $param; 
+     		$total_param_item['status'] = "";
+     		$total_param_item['counter'] = 1;
+     		$total_param_item['round_id'] = $val['round_id'];
+     		#已完成
+     		$already_param_item['status'] = "3";
+     		$already_param_item['counter'] = 1;
+     		$already_param_item['round_id'] = $val['round_id'];
+     		#查询进度
+     		$total = $this->model_teacher->class_seacher($total_param_item);
+     		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     		$total = $this->model_teacher->class_seacher($already_param_item);
+     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	}
+     	return $res;
+     }
+     
     /**
      * 教师今天即将开课列表
      * [教师id]

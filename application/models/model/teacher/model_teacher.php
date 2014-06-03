@@ -58,6 +58,21 @@ class Model_Teacher extends NH_Model{
         return $arr_result;
 	}
 	
+	
+	/**
+	 * 【超能统计搜索器 - 课】：
+	 * param:id,teacher_id,begin_time,end_time,parent_id,status,teach_status,sale_status,subject,round_title,title,counter,order,orderType
+	 **/
+	public function class_seacher($param){
+		#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1';
+		$where .= $param['id'] ? ' AND cl.id='.$param['id'] : '';
+		
+		$sql = "";
+		$arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+	}
 	/**
 	 * 【题目搜索器】：
 	 * pararm : status,class_id,counter
