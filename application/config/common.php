@@ -40,6 +40,7 @@ $config['round_teach_status'][0] = '等待开课';
 $config['round_teach_status'][1] = '授课中';
 $config['round_teach_status'][2] = '停课';
 $config['round_teach_status'][3] = '结课';
+$config['round_teach_status'][4] = '过期';
 
 //短信日志表里面的短信类型
 $config['message_type'][0] = '注册';

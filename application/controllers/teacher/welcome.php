@@ -29,6 +29,8 @@ class Welcome extends NH_User_Controller {
 			'active' => 'welcome_index',
 			'title' => '今日上课',
 			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
+			'today_total' => count($listArr),
+			'date' => date('Y年m月d日',time()),
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherHomePage/index.html');

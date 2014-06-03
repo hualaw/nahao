@@ -58,21 +58,35 @@ class Model_Teacher extends NH_Model{
         return $arr_result;
 	}
 	
-	
 	/**
-	 * 【超能统计搜索器 - 课】：
-	 * param:id,teacher_id,begin_time,end_time,parent_id,status,teach_status,sale_status,subject,round_title,title,counter,order,orderType
+	 * 【超能统计搜索器 - 轮】：
+	 * param:id,teacher_id,begin_time,start_time,end_time
 	 **/
-	public function class_seacher($param){
+	public function round_seacher($param){
 		#1. 参数组合
 		$arr_result = array();
-		$where = ' WHERE 1';
-		$where .= $param['id'] ? ' AND cl.id='.$param['id'] : '';
+		$where = ' WHERE 1 AND cl.parent_id>0';
+		$where .= $param['id'] ? ' AND r.id='.$param['id'] : '';
+		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= $param['begin_time'] ? ' AND r.begin_time>='.$param['begin_time'] : '';
+		$where .= $param['end_time'] ? ' AND r.end_time<='.$param['end_time'] : '';
+		$where .= $param['teach_status'] ? ' AND r.teach_status in('.$param['teach_status'].')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
+		$where .= $param['course_type'] ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
+		$where .= $param['title'] ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
+		$group = " GROUP BY r.id";
+		$order = " ORDER BY cl.begin_time DESC";
 		
-		$sql = "";
+		$sql = "SELECT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time  
+				FROM nahao.round r 
+				LEFT JOIN nahao.class cl ON cl.round_id=r.id 
+				LEFT JOIN nahao.course c ON r.course_id=c.id 
+				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
+				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+				".$where.$group.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
+	
 	/**
 	 * 【题目搜索器】：
 	 * pararm : status,class_id,counter
