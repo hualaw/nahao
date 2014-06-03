@@ -6,62 +6,70 @@
 			<span><a href="/index/index">快来添加课程吧！</a></span>
 		</li>
 		<!-- kecheng yi wancheng -->
-		<li class="fl hasCourse">
-			<h3>2014年五年级奥数暑假训练营</h3>
-			<img src="{static_url('/images/studentMyCourse/cover1.png')}" alt="" class="cover">
+		{foreach from=$array_buy_course item=item}
+		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
+			<h3>{$item.title}</h3>
+			<img src="{static_url($item.class_img)}" alt="" class="cover">
 			<div class="progress">
 				<span class="bar"></span>
 			</div>
 			<div class="courseInfor">
 				<div class="lessons">
-					<span class="redText">已上9节</span> / 共12
+					<span class="redText">已上{$item.yi_shang}节</span> / 共{$item.totle}
 				</div>
+				{if $item.teach_status == '2'}
+			    <div class="over">
+					停课
+				</div>
+				{elseif $item.teach_status == '3' || $item.teach_status == '4'}
+				<div class="over">
+					已结课
+				</div>
+				{else}
 				<div class="classTime">
 					<p>下节课</p>
 					<p class="redText">
-						<span>7月4日</span>
-						<span>星期一</span>
-						<span>09:00-11:00</span>
+						<span>{$item.next_class_time}</span>
 					</p>
 				</div>
+				{/if}
 			</div>
-			<a href="/course/buy_after" class="btn blueBtn">进入课程</a>
+			
+			{if $item.teach_status == '2' 
+			|| $item.teach_status =='4' 
+			|| $item.status == '9'
+			|| $item.status == '8'
+			|| $item.status == '6'}
+			<a href="" class="btn blueBtn">
+				进入课程
+			</a>
+			{else}
+			<a href="/course/buy_after/{$item.round_id}" class="btn blueBtn">
+				进入课程
+				</a>
+			{/if}			
+			
 		</li>
-		<!-- haimei wancheng -->
-		<li class="fl hasCourse courseOver">
-			<h3>2014年五年级奥数暑假训练营</h3>
-			<img src="{static_url('/images/studentMyCourse/cover1.png')}" alt="" class="cover">
-			<div class="progress">
-				<span class="bar"></span>
-			</div>
-			<div class="courseInfor">
-				<div class="lessons">
-					<span>已上12节</span> / 共12
-				</div>
-				<div class="over">
-					已完成
-				</div>
-			</div>
-			<a href="/course/buy_after" class="btn blueBtn">回顾课程</a>
-		</li>
+		{/foreach}
 	</ul>
 </div>
 <div class="courseConList newList">
 	<h3 class="pageName">最新课程</h3>
 	<ul class="cf">
 		<!--  xuanzhuan-->
+		{foreach from=$array_new item=item}
 		<li class="fl">
 			<div class="clBoxShaow iniBox">
-				<img src="{static_url('/images/studentMyCourse/cover1.png')}" alt="">
+				<img src="{static_url({$item.img})}" alt="">
 				<div class="iniInfor">
-					<p class="courseTitle">2005北京高考各科考点分析</p>
+					<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
 					<div class="cf">
-						<span class="fl courseTime">7月15日－8月15日</span>
-						<span class="fr"><em class="redText">1799</em>人</span>
+						<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
+						<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
 					</div>
 					<div class="cf fitGrade">
-						<span class="fl">适合4-9年级</span>
-						<span class="fr">12课次</span>
+						<span class="fl">适合{$item.for_people}</span>
+						<span class="fr">{$item.class_nums}课次</span>
 					</div>
 				</div>
 			</div>
@@ -71,17 +79,18 @@
 					<div class="fl teaInforR">
 						<!--工作证，称职证，教师证（1-5）-->
 						<h3 class="cf">
-							<em class="fl">张渐变</em>
-							<span class="workCard fl"></span>
-							<span class="TitleCard fl"></span>
-							<span class="teaCard fl">1</span>
+							<em class="fl">{$item.teacher.nickname}</em>
+							<span {if $item.work_auth}class="workCard fl"{/if}></span>
+							<span {if $item.titile_auth}class="TitleCard fl"{/if}></span>
+							<span {if $item.teacher_auth}class="teaCard fl"{/if}></span>
 						</h3>
-						<p class="detailInfor">北京顶级高中名校高级教师</p>
+						<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 					</div>
 				</div>
-				<p class="brief">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。</p>
-				<p class="courseTitle"><a href="/course/buy_before">2005北京高考各科考点...</a></p>
+				<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
+				<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:16:"...":true}</a></p>
 			</div>
 		</li>
+		{/foreach}
 	</ul>
 </div>

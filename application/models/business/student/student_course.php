@@ -75,7 +75,7 @@ class Student_Course extends NH_Model{
             #课时
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
-            $array_return['class_img'] = empty( $array_return['class_img']) ? HOME_IMG_DEFAULT : $array_return['class_img'];
+            $array_return['class_img'] = empty( $array_return['img']) ? HOME_IMG_DEFAULT : $array_return['img'];
         }
         return $array_return;
     }
