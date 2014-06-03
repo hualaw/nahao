@@ -42,16 +42,19 @@ define(function(require,exports){
 
         function countDown(){
             var oDate=new Date();
-            oDate.setFullYear(2014,6,28);
-            oDate.setHours(13,20,0);
+/*             array = $("#sell_endtime").val().split(" ");
+             FullYear = array['0'].replace(/-/g,",");
+             Hours = array['1'].replace(/-/g,",");*/
 
+            oDate.setFullYear(2014,7,28);
+            oDate.setHours(13,20,0);
+            
             var today=new Date();
             today.setFullYear(today.getFullYear(),((today.getMonth()-"")+1),today.getDate());
             today.setHours(today.getHours(),today.getMinutes(),today.getSeconds());
             var s1=parseInt(oDate.getTime());
             var s2=parseInt(today.getTime());
             var s=parseInt((s1-s2)/1000);
-
             var days=parseInt(s/86400);
             s%=86400;
             var hours=parseInt(s/3600);
@@ -68,6 +71,4 @@ define(function(require,exports){
         countDown();
         timer = setInterval(countDown, 1000);   
     }
-    
-    //点击立即报名判断一个人是否能买同一轮课
 });

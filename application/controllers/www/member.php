@@ -149,7 +149,48 @@ class Member extends NH_User_Controller {
 	        show_error("订单号不存在");
 	    }
 	    
-	    #取消与删除
+	    #取消,并写日志
+	    if ($str_type == '1')
+	    {
+	        $array_mdata = array(
+                'user_id'=>$int_user_id,
+                'order_id'=>$int_order_id,
+                'status'=>ORDER_STATUS_CANCEL,
+                'action'=>ORDER_ACTION_CANCEL,
+                'note'=>'取消订单'
+	        );
+	        $bool_flag = $this->student_order->update_order_status($array_mdata);
+	        if ($bool_flag)
+	        {
+	            self::json_output(array('status'=>'ok','msg'=>'取消操作成功'));
+	        } else {
+	            self::json_output(array('status'=>'error','msg'=>'取消操作失败'));
+	        }
+	    }
+	    
+	    #删除,并写日志
+	    if ($str_type == '2')
+	    {
+	        if ($array_order['status'] == ORDER_STATUS_CLOSE)
+	        {
+	            $array_ndata = array(
+	                    'user_id'=>$int_user_id,
+	                    'order_id'=>$int_order_id,
+	                    'action'=>ORDER_ACTION_DELETE_ORDER,
+	                    'note'=>'删除订单'
+	            );
+	            $bool_flag = $this->student_order->delete_order($array_ndata);
+	            if ($bool_flag)
+	            {
+	                self::json_output(array('status'=>'ok','msg'=>'删除操作成功'));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'删除操作失败'));
+	            }
+	        } else {
+	            show_error('不能删除');
+	        }
+
+	    }
 	    
 	    #申请退课
 	    if ($str_type == '3')
@@ -160,13 +201,21 @@ class Member extends NH_User_Controller {
 	        $array_bank = config_item('bank');
 	        $this->smarty->assign('array_bank', $array_bank);
 	        $this->smarty->assign('array_data', $array_data);
-	        $this->smarty->assign('page_type', 'apply_refund');
 	        $this->smarty->assign('str_avater', $str_avater);
 	        $this->smarty->assign('int_order_id', $int_order_id);
+	        $this->smarty->assign('page_type', 'apply_refund');
 	        $this->smarty->display('www/studentMyCourse/index.html');
 	    }
 	    
-
+	    #退课详情
+	    if ($str_type == '4')
+	    {
+	        $array_data = $this->student_member->get_student_refund_data($int_user_id,$array_order['round_id']);
+	        $this->smarty->assign('array_data', $array_data);
+	        $this->smarty->assign('str_avater', $str_avater);
+	        $this->smarty->assign('page_type', 'refund_detail');
+	        $this->smarty->display('www/studentMyCourse/index.html');
+	    }
 	}
 	
 	/**
@@ -174,6 +223,7 @@ class Member extends NH_User_Controller {
 	 */
 	public function save_refund()
 	{
+	    header('content-type: text/html; charset=utf-8');
 	    #判读是否登录
 	    $int_user_id = 1;                                                    #TODO用户id
 	    $int_order_id = intval($this->input->post('id'));
@@ -183,7 +233,9 @@ class Member extends NH_User_Controller {
 	    $str_bankcard = trim($this->input->post('bankcard'));
 	    $str_id_code = trim($this->input->post('id_code'));
 	    $str_totle_money = trim($this->input->post('totle_money'));
+	    $str_return_money = trim($this->input->post('return_money'));
 	    $str_unclass = trim($this->input->post('unclass'));
+	    $str_class = trim($this->input->post('class'));
 	    if ($int_order_id == '0')
 	    {
 	        show_error("参数错误");
@@ -204,10 +256,18 @@ class Member extends NH_User_Controller {
 	        'bankbench'=>$str_bankbench,
             'bankcard'=>$str_bankcard,
             'id_code'=>$str_id_code,
-            'amount'=>$str_totle_money,
-	        'times'=>$str_unclass,
+            'round_price'=>$str_totle_money,
+	        'refund_price'=>$str_return_money,
+	        'refund_count'=>$str_unclass,
+	        'study_count'=>$str_class
 	    );
-	    $this->student_member->save_refund($array_data);
+	    $sflag = $this->student_member->save_refund($array_data);
+	    if ($sflag)
+	    {
+	        self::json_output(array('status'=>'ok','msg'=>'申请提交成功'));
+	    } else {
+	        self::json_output(array('status'=>'ok','msg'=>'申请提交失败'));
+	    }
 	}
 	
 	/**
