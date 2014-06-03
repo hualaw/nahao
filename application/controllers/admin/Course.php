@@ -78,11 +78,12 @@ class Course extends NH_Admin_Controller {
     }
 
     /**
-     * create course
+     * create/update course
      * @author yanrui@tizi.com
      */
-    public function create(){
+    public function submit(){
         if($this->is_ajax() AND $this->is_post()){
+            $int_course_id = $this->input->post('id') ? intval($this->input->post('id')) : 0;
             $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
             $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
             $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
@@ -96,8 +97,11 @@ class Course extends NH_Admin_Controller {
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
+            $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
+            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
+            o($this->input->post(),true);
 
-            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to){
+            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;
@@ -111,15 +115,35 @@ class Course extends NH_Admin_Controller {
                 $arr_param['img'] = $str_img;
                 $arr_param['grade_from'] = $int_grade_from;
                 $arr_param['grade_to'] = $int_grade_to;
-                $int_course_id = $this->course->create_course($arr_param);
-                if($int_course_id > 0){
+
+
+                if($int_course_id <= 0){
+                    //create
+                    $int_course_id = $this->course->create_course($arr_param);
+                    $bool_flag = $int_course_id > 0 ? true : false;
+                }else{
+                    //update
+                    $arr_where = array(
+                        'id' => $int_course_id
+                    );
+                    $bool_flag = $this->course->update_course($arr_param,$arr_where);
+                }
+
+                if($bool_flag==true){
+                    //create或update都要先清除teachers和lessons再重新插入
+                    $this->course->create_course_teachers($int_course_id,$arr_teachers);
+                    $this->load->model('business/common/business_lesson','lesson');
+                    $int_lesson_id = $this->lesson->create_lessons();
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '创建成功';
                 }
+
             }
         }
         self::json_output($this->arr_response);
     }
+
+
 
     /**
      * edit course
@@ -154,5 +178,9 @@ class Course extends NH_Admin_Controller {
             $arr_return = $this->teacher->get_teacher_list(array(),0,20);
         }
         self::json_output($arr_return);
+    }
+
+    public function upload(){
+        self::json_output(array('id'=>1,'status'=>999));
     }
 }
