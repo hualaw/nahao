@@ -23,7 +23,6 @@ define(function(require,exports){
             CKEDITOR.replace("postEditor",{
                 allowedContent: true
             });
-
         })
     }
 })
