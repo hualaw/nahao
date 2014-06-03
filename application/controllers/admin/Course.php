@@ -96,11 +96,11 @@ class Course extends NH_Admin_Controller {
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
-            $arr_lessons = $this->input->post('lessons') ? trim($this->input->post('lessons')) : '';
-            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : 0;
+            $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
+            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
             o($this->input->post(),true);
 
-            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to){
+            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;
@@ -119,6 +119,9 @@ class Course extends NH_Admin_Controller {
 
                     $this->load->model('business/common/business_lesson','lesson');
                     $int_lesson_id = $this->lesson->create_lesson();
+
+
+                    $int_lesson_id = $this->lesson->create_lesson_teacher_realtion();
 
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '创建成功';
