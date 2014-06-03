@@ -1,0 +1,175 @@
+{extends file='teacher/teacherSelfinfo/base.html'}
+
+{block name=title}个人信息{/block}
+
+{block name=container}
+<div class="personInfo">
+    <div class="box">
+        <!--<h2>请填写试讲信息<span>(以下信息会严格保密，请您放心填写）</span></h2>-->
+        <!--小导航条开始-->
+        <div class="personNav">
+            <div class="tabBox cf">
+                <a href="index.html" class="setting active">个人资料</a>
+                <a href="photo.html" class="avatar">修改头像</a>
+                <a href="password.html" class="setpassword">修改密码</a>
+            </div>
+        </div>
+        <!--小导航条结束-->
+        <div class="md_bd">
+            <!--个人信息验证开始-->
+            <h2 class="personTip">请填写以下基本信息，以便学生更好的了解您并利于学生选课。我们会对您的信息进行严格保密，请放心填写！</h2>
+            <form action="" mothed="post" onsubmit="return false">
+                <ul class="Oul">
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">用户昵称</p>
+                        <input type="text" class="fl textInput">
+                        <p class="tips fl">保密时仅显示昵称</p>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">真实姓名</p>
+                        <input type="text" class="fl textInput">
+                        <p class="tips fl">真实姓名</p>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">教学阶段</p>
+                        <input type="checkbox" name="sex" id="high" class="fl radioInput">
+                        <label for="high" class="fl">高中</label>
+                        <input type="checkbox" name="sex" id="middle" class="fl radioInput">
+                        <label for="middle" class="fl">初中</label>
+                        <input type="checkbox" name="sex" id="small" class="fl radioInput">
+                        <label for="small" class="fl">小学</label>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">所在学校</p>
+                        <input type="text" class="fl textInput">
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">教学科目</p>
+                        <select name="" id="" class="fl">
+                            <option value="">请选择教学科目</option>
+                            <option value="1">2</option>
+                        </select>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">教师职称</p>
+                        <select name="" id="" class="fl">
+                            <option value="">请选择职称</option>
+                            <option value="1">五年级</option>
+                        </select>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">选择性别</p>
+                        <input type="radio" name="sex" id="man" class="fl radioInput">
+                        <label for="man" class="fl">男</label>
+                        <input type="radio" name="sex" id="woman" class="fl radioInput">
+                        <label for="woman" class="fl">女</label>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">所在地区</p>
+                        <select name="" id="" class="fl">
+                            <option value="">省份</option>
+                            <option value="1">省份</option>
+                        </select>
+                        <select name="" id="" class="fl">
+                            <option value="">城市</option>
+                            <option value="1">城市</option>
+                        </select>
+                        <select name="" id="" class="fl">
+                            <option value="">区</option>
+                            <option value="1">区</option>
+                        </select>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">教龄</p>
+                        <select name="" id="" class="fl">
+                            <option value="">请选择教龄</option>
+                            <option value="1">2</option>
+                        </select>
+                        <p class="tips fl">选择正确年级，专属活动等着你</p>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">手机号码</p>
+                        <input type="text" class="fl textInput">
+                        <p class="tips fl">保密，方便我们与您电话沟通详细情况</p>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">常用邮箱</p>
+                        <input type="text" class="fl textInput">
+                    </li>
+                    <li class="cf">
+                        <p class="fl">个人简介</p>
+                        <textarea class="fl textArea" name=""></textarea>
+                    </li>
+                    <li class="cf">
+                        <p class="fl">资质证明<b class="verfyTip">（请至少上传一种资质证明，教师资格证必须上传）</b></p>
+                        <div class="fl">
+                            <div class="md_upload">
+                                <a href="#" class="uploada icon_upload1">
+                                    <b class="uploadTip">教师资格证书</b>
+                                    <!--上传插件开始-->
+                                    <input type='text' name='shareFileUp' id='shareFileUp1' class='choseFileTxt fl' disabled style="display:none" />
+                                    <input type="file" name="shareFileUpField" id="shareFileUpField1" class="file fl" multiple="true" style="display:none"/>
+                                    <!--上传插件结束-->
+                                </a>
+                                <a href="#" class="uploada icon_upload2">
+                                    <b class="uploadTip">教师职称证书</b>
+                                    <!--上传插件开始-->
+                                    <input type='text' name='shareFileUp' id='shareFileUp2' class='choseFileTxt fl' disabled style="display:none" />
+                                    <input type="file" name="shareFileUpField" id="shareFileUpField2" class="file fl" multiple="true" style="display:none"/>
+                                    <!--上传插件结束-->
+                                </a>
+                                <a href="#" class="uploada icon_upload3">
+                                    <b class="uploadTip">学校工作证</b>
+                                    <!--上传插件开始-->
+                                    <input type='text' name='shareFileUp' id='shareFileUp3' class='choseFileTxt fl' disabled style="display:none" />
+                                    <input type="file" name="shareFileUpField" id="shareFileUpField3" class="file fl" multiple="true" style="display:none"/>
+                                    <!--上传插件结束-->
+                                </a>
+                            </div>
+                        </div>
+                        <p class="tips fl"></p>
+                    </li>
+                    <li class="cf">
+                        <p class="fl">绑定银行帐户</p>
+                        <span class="fred fl">绑定银行帐户用于对于课酬的结算，请放心填写！</span>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">结算银行</p>
+                        <select name="" id="" class="fl">
+                            <option value="">请选择银行</option>
+                            <option value="1">2</option>
+                        </select>
+                        <input type="text" class="fl textInput">
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">银行卡帐号</p>
+                        <input type="text" class="fl textInput" placeholder="请输入银行卡帐号" value="请输入银行卡帐号"/>
+                    </li>
+                    <li class="cf">
+                        <em>*</em>
+                        <p class="fl">身份证号</p>
+                        <input type="text" class="fl textInput" placeholder="请输入身份证号" value="请输入身份证号"/>
+                    </li>
+                    <li class="cf">
+                        <input type="submit" value="保存" class="btn redBtn submit fl">
+                    </li>
+                </ul>
+            </form>
+            <!--个人信息验证结束-->
+        </div>
+    </div>
+</div>
+{/block}

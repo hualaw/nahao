@@ -18,10 +18,10 @@ $config['sql_admin'] = array(
     ),
     'course_info' => array(
         TABLE_COURSE => false,
-        TABLE_SUBJECT => array(TABLE_COURSE.'.subject='.TABLE_SUBJECT.'.id','left'),
-        TABLE_COURSE_TYPE => array(TABLE_COURSE.'.course_type='.TABLE_COURSE_TYPE.'.id','left'),
-        TABLE_COURSE_TEACHER_RELATION => array(TABLE_COURSE.'.id='.TABLE_COURSE_TEACHER_RELATION.'.course_id','left'),
-        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION.'.teacher_id='.TABLE_USER.'.nickname','left'),
+        TABLE_SUBJECT => array(TABLE_COURSE . '.subject=' . TABLE_SUBJECT . '.id', 'left'),
+        TABLE_COURSE_TYPE => array(TABLE_COURSE . '.course_type=' . TABLE_COURSE_TYPE . '.id', 'left'),
+        TABLE_COURSE_TEACHER_RELATION => array(TABLE_COURSE . '.id=' . TABLE_COURSE_TEACHER_RELATION . '.course_id', 'left'),
+        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.nickname', 'left'),
     ),
     'course_type' => array(
         TABLE_COURSE_TYPE => false,
@@ -29,19 +29,26 @@ $config['sql_admin'] = array(
     'group' => array(
         TABLE_ADMIN_GROUP => false
     ),
-    'student_info'=> array(
+    'student_info' => array(
         TABLE_USER => false,
-        TABLE_USER_INFO => array(TABLE_USER.'.id='.TABLE_USER_INFO.'.user_id','left'),
-        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO.'.province='.TABLE_NAHAO_AREAS.'.id','left'),
-        TABLE_STUDENT_SUBJECT => array(TABLE_USER.'.id='.TABLE_STUDENT_SUBJECT.'.student_id','left')
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO . '.province=' . TABLE_NAHAO_AREAS . '.id', 'left'),
+        TABLE_STUDENT_SUBJECT => array(TABLE_USER . '.id=' . TABLE_STUDENT_SUBJECT . '.student_id', 'left')
     ),
     'subject' => array(
         TABLE_SUBJECT => false,
     ),
-    'teacher_info'=> array(
+    'teacher_info' => array(
         TABLE_USER => false,
-        TABLE_USER_INFO => array(TABLE_USER.'.id='.TABLE_USER_INFO.'.user_id','left'),
-        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO.'.province='.TABLE_NAHAO_AREAS.'.id','left'),
-        TABLE_TEACHER_SUBJECT => array(TABLE_USER.'.id='.TABLE_TEACHER_SUBJECT.'.teacher_id','left')
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO . '.province=' . TABLE_NAHAO_AREAS . '.id', 'left'),
+        TABLE_TEACHER_SUBJECT => array(TABLE_USER . '.id=' . TABLE_TEACHER_SUBJECT . '.teacher_id', 'left')
     ),
+);
+
+
+$config['sql_www'] = array(
+    'user' => array(
+        TABLE_USER => false
+    )
 );

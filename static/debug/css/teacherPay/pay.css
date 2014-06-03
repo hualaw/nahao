@@ -1,0 +1,32 @@
+/*结算首页开始*/
+.teacherPay .md_pay{margin-bottom: 50px;}
+.teacherPay .md_pay .md_title{clear: both;overflow: hidden;}
+.teacherPay .md_pay .md_title .hd_title{display:block;width:370px;font-weight:normal;text-align:left;margin-bottom:10px;padding:0px 15px;color:#fff;font-size:14px;height:33px; line-height: 33px;background-color:#f16741;border-radius:3px;-webkit-border-radius:3px;}
+.teacherPay .md_pay .md_title .hd_title .hd_nopay{border-right:1px solid #b62d06;padding-right:20px;line-height:30px;}
+.teacherPay .md_pay .md_title .hd_title .hd_haspay{margin-left:20px;}
+.teacherPay .md_pay .md_title p{color: #677381; font-size: 12px; line-height:45px;margin-left: 5px;}
+.teacherPay .md_pay .md_bd .md_table tr td{height: 93px;}
+.teacherPay .md_pay .md_bd .pay_date{line-height: normal;font-size: 12px;}
+.teacherPay .md_pay .md_bd .pay_date b{display: block;margin-bottom: 5px;}
+.teacherPay .md_pay .md_bd .icon_detail a{display:block;background: url("../../images/teacherPay/icon_circle.gif") no-repeat 28px top;height: 32px;width:60px;text-indent: -9999px;}
+.teacherPay .md_pay .md_bd .icon_detail a:hover{background-position:-39px top;}
+.teacherPay .md_pay .md_bd .icon_help{background: url("../../images/teacherPay/icon_help.gif") no-repeat left 3px;padding-left:17px; }
+/*结算首页结束*/
+/*结算详情页面开始*/
+.teacherPay .md_payDetail{margin-bottom: 50px;}
+.teacherPay .md_payDetail .md_title{margin-bottom:10px;}
+.teacherPay .md_payDetail .md_title span{font-size: 14px; color:#0e455e; margin-right: 20px;}
+.teacherPay .md_payDetail .md_bd tr{line-height: 95px;}
+.teacherPay .md_payDetail .md_bd tr td{height: 95px;overflow: hidden;text-indent: 10px;}
+.teacherPay .md_payDetail .md_bd td.class_day{width:120px;}
+.teacherPay .md_payDetail .md_bd td.class_date{width:120px;}
+.teacherPay .md_payDetail .md_bd td.class_num{width:100px;}
+.teacherPay .md_payDetail .md_bd td.class_name{width:330px; text-align: left;line-height: 24px;text-indent:0px;}
+.teacherPay .md_payDetail .md_bd td.class_cost{width:120px;}
+.teacherPay .md_payDetail .md_bd td.class_state{width:80px;}
+.teacherPay .md_payDetail .md_bd td.class_name h3{font-size: 14px;font-weight: normal;color:#000000;}
+.teacherPay .md_payDetail .md_bd td.class_name p{font-size: 12px; color:#848484;}
+.teacherPay .md_payDetail .md_bd td.pay_date{line-height: normal;font-size: 12px;text-indent: 0px;}
+.teacherPay .md_payDetail .md_bd td.pay_date b{display: block;margin-bottom: 5px;}
+.teacherPay .md_payDetail .md_bd tr.unpay .class_cost,.teacherPay .md_payDetail .md_bd tr.unpay .class_state{color:#ed4111;}
+/*结算详情页面结束*/

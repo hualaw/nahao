@@ -21,22 +21,39 @@
 	<div class="popBox undis">
 		<div class="regTeacher">
 			<h2>教师注册</h2>
-			<form action="" mothed="post" onsubmit="return false">
+			<form action="" mothed="post" onsubmit="return false" class="teaRegForm">
 				<ul>
 					<li class="cf">
 						<p class="fl">邮箱地址</p>
-						<input type="text" class="fl" placeholder="请输入您常用邮箱地址">
+						<div class="cf">
+							<input type="text" name="Email" class="sEmail fl" placeholder="请输入您常用邮箱地址" validName="text">
+							<span class="Validform_checktip fl"></span>
+						</div>
 					</li>
 					<li class="cf">
 						<p class="fl">密码</p>
-						<input type="text" class="fl" placeholder="6-20 位字符">
+						<div class="cf">
+							<input type="password" name="password" class="spassword fl" placeholder="6-20 位字符" validName="text">
+							<span class="Validform_checktip fl"></span>
+						</div>
 					</li>
 					<li class="cf ">
-						<p class="fl">验证码<a href="javascript:void(0)" class="fr">换一个</a></p>
+						<!-- <p class="fl">验证码<a href="javascript:void(0)" class="fr">换一个</a></p>
 						<input type="text" class="fl vfCode" placeholder="请输入验证码">
 						<a href="javascript:void(0)" class="fr vfCode imgCode">
 							<img src="" alt="">
-						</a>
+						</a> -->
+
+						<div class="commonCaptcha cf indexRegCaptap posr">
+							<input type="hidden" name="captcha_name" class="TeacherBox" value="TeacherBox" />
+							<p class="fl">验证码<a href="javascript:void(0)" class="changeCaptcha fr">换一个</a></p>
+							<input type="text" name="captcha_word" class="TeacherBoxWord cInput yh fl" placeholder='请输入验证码' validName="captcha" />
+							<img class="fl imgCaptcha changeCaptcha" />
+							<!-- <span class="changeCaptcha fl">
+								换一个
+							</span> -->
+							<span class="Validform_checktip fl"></span>
+						</div>
 					</li>
 					<li>
 						<input type="submit" class="btn redBtn submit" value="保存">
