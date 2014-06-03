@@ -20,6 +20,10 @@ class Business_Teacher extends NH_Model
     	return $pos;
     }
     
+    public function today_class($param){
+    	$res = $this->model_teacher->class_seacher(array('parent'));
+    }
+    
     /**
      * 教师今天即将开课列表
      * [教师id]
@@ -107,5 +111,15 @@ class Business_Teacher extends NH_Model
     	}
     	unset($res);
    		return $sortArr ? $sortArr : array();
+    }
+    
+    /**
+     * 全国省市地区
+     **/ 
+    public function get_area($param){
+    	if($param['level'] || $param['parentid']){
+    		$areaArr = $this->model_teacher->get_area($param);
+    	}
+    	return $areaArr;
     }
 }

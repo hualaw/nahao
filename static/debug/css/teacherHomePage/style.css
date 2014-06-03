@@ -17,6 +17,10 @@
 /*加载模拟下拉框样式*/
 @import url('../common/jqtransform.css');
 /*----------------------------网站具体样式开始----------------------------*/
+/*加载teacher layout样式*/
+@import url('../teacherCommon/layout.css');
+/*加载teacher header样式*/
+@import url('../teacherCommon/header.css');
 /*加载首页样式*/
 @import url('homePage.css');
 /*----------------------------网站具体样式结束----------------------------*/

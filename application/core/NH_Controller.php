@@ -28,7 +28,7 @@ class NH_Controller extends CI_Controller
         $this->current['controller'] = $this->uri->rsegment(1);
         $this->current['action'] = $this->uri->rsegment(2);
         $this->load->vars($this->current);
-        $this->load->library('layout');
+//        $this->load->library('layout');
     }
 
     /**
@@ -62,6 +62,7 @@ class NH_Controller extends CI_Controller
         if (empty($this->userinfo)){
             $this->load->model('business/business_passport','passport');
             $arr_user_cookie = $this->passport->get_user_from_cookie($int_user_type);
+//            o($arr_user_cookie);
             if (isset($arr_user_cookie['user_id'])&&$arr_user_cookie['user_id']!=0) {
                 $int_user_id = $arr_user_cookie['user_id'];
                 $str_password = $arr_user_cookie['password'];

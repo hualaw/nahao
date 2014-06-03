@@ -20,7 +20,7 @@ class Model_Index extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT course_id,MIN(start_time) AS start_time FROM round
-                WHERE sale_status >= 2 AND sale_status <= 3 GROUP BY course_id";
+                WHERE sale_status >= 2 AND sale_status <= 3 GROUP BY course_id ORDER BY start_time ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -54,4 +54,16 @@ class Model_Index extends NH_Model{
         $arr_row = $this->db->query($sql)->row_array();
         return $int_result = empty($arr_row['num']) ? 0 : $arr_row['num'];
     }
+    
+    /**
+     * 保存我要开课申请
+     * @param  $array_data
+     * @return bool
+	 */
+	public function save_apply_teach($array_data)
+	{
+	    $this->db->insert('teacher_lecture', $array_data);
+	    $int_row = $this->db->affected_rows();
+	    return $int_row > 0 ? true : false;
+	}
 }

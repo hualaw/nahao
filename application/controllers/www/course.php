@@ -32,7 +32,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($array_data);die;
+        //var_dump($array_team);
         
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
@@ -46,17 +46,41 @@ class Course extends NH_User_Controller {
 	/**
 	 * 购买后
 	 */
-	public function buy_after()
+	public function buy_after($int_round_id)
 	{
+	    header('content-type: text/html; charset=utf-8');
+	    #判断是否登录
+	    // 	    if(! $this->user){
+	    // 	        redirect('/login');
+	    // 	    }
+	    #用户id
+	    $int_user_id = 1;                #TODO用户id
+	    #轮id
+	    $int_round_id = intval($int_round_id);
+	    #检查$round_id以及学生是否购买此轮
+	    $bool_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
+	    if (!$bool_flag)
+	    {
+	        show_error("参数错误");
+	    }
+	    #课堂同学
+	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);
+	    #课堂同学总数
+	    $int_classmates = count($array_classmate);
+	    #课程公告
+	    $array_note = $this->student_course->get_class_note_data($int_round_id);
+	    #课程大纲
+	    $array_outline = $this->student_course->get_round_outline($int_round_id);
+	    #即将上课的信息--购买后顶部
+	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
+	    
+
+	    $this->smarty->assign('array_classmate', $array_classmate);
+	    $this->smarty->assign('int_classmates', $int_classmates);
+	    $this->smarty->assign('array_note', $array_note);
+	    $this->smarty->assign('array_outline', $array_outline);
+	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentMyCourse/buyAfter.html');
-	}
-	
-	/**
-	 * 我的课程--我买的轮
-	 */
-	public function index()
-	{
-	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }
 

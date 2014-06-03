@@ -136,7 +136,9 @@ class Business_Register extends NH_Model {
 	{
 		//未完成
 		$this->load->library('mail');
+
 		//$this->mail->send($email, )
+
 	}
 
 	function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')

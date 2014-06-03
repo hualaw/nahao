@@ -32,9 +32,9 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,price,sale_price,
-                sale_status,bought_count,caps,intro,students,description FROM round 
-                WHERE id = ".$int_round_id;
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,
+                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status 
+                FROM round WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -62,7 +62,7 @@ class Model_Course extends NH_Model{
     public function get_one_chapter_children($int_parent_id,$int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,begin_time,end_time FROM class WHERE parent_id = ".$int_parent_id.
+        $sql = "SELECT id,title,begin_time,end_time,status FROM class WHERE parent_id = ".$int_parent_id.
                " AND round_id = ".$int_round_id." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -76,7 +76,7 @@ class Model_Course extends NH_Model{
     public function get_all_section($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,begin_time,end_time FROM class WHERE parent_id = 1".
+        $sql = "SELECT id,title,begin_time,end_time,status FROM class WHERE parent_id = 1".
                " AND round_id = ".$int_round_id." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -124,6 +124,7 @@ class Model_Course extends NH_Model{
     /**
      * 根据$int_round_id获取该轮的课程团队
      * @param  $int_round_id
+     * @param  $int_type "-1为所有教师团队"
      * @return $array_result
      */
     public function get_round_team($int_round_id,$int_type = '-1')
@@ -137,22 +138,6 @@ class Model_Course extends NH_Model{
         $sql = "SELECT teacher_id,role FROM round_teacher_relation 
                 WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
-        return  $array_result;
-    }
-    
-    /**
-     * 获取老师的具体信息
-     * @param  $int_teacher_id
-     * @return $array_result
-     */
-    public function get_teacher_info($int_teacher_id)
-    {
-        $array_result = array();
-        $sql = "SELECT u.nickname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
-                ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u 
-                LEFT JOIN user_info ui ON u.id = ui.user_id
-                WHERE ui.user_id = ".$int_teacher_id;
-        $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
     
@@ -185,4 +170,60 @@ class Model_Course extends NH_Model{
         return  $array_result;
     }
 
+    /**
+     * 课堂同学
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_classmate_data($int_round_id)
+    {
+        $array_result = array();
+        $sql = "SELECT DISTINCT student_id FROM student_class WHERE round_id = ".$int_round_id;
+        $array_result = $this->db->query($sql)->result_array();
+        return  $array_result;
+    }
+    
+    /**
+     * 课程公告
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_class_note_data($int_round_id)
+    {
+        $array_result = array();
+        $sql = "SELECT author,author_role,content,create_time FROM round_note WHERE round_id = ".$int_round_id."
+                AND status = 3 ORDER BY id DESC";
+        $array_result = $this->db->query($sql)->result_array();
+        return  $array_result;
+    }
+    
+    /**
+     * 购买后 -- 即将开始上课的信息
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_soon_class_data($int_round_id)
+    {
+        $array_result = array();
+        $sql = "SELECT title,begin_time,end_time FROM class WHERE round_id = ".$int_round_id." 
+                AND status = 1";
+        $array_result = $this->db->query($sql)->row_array();
+        return  $array_result;
+    }
+    
+    /**
+     * 检查学生是否购买此轮
+     * @param  $int_user_id
+     * @param  $int_round_id
+     * @return $bool_result
+     */
+    public function check_student_buy_round($int_user_id,$int_round_id)
+    {
+        
+        $sql = "SELECT id FROM student_class WHERE round_id = ".$int_round_id."
+                AND student_id = ".$int_user_id;
+        $int_rows = $this->db->query($sql)->num_rows();
+        return  $bool_result = $int_rows > 0 ? true : false;
+    }
+    
 }
