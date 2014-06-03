@@ -1,7 +1,6 @@
 define(function (require, exports) {
     exports.load_ckeditor = function () {
         CKEDITOR.replace('nahao_description');
-//        $('#nahao_description').ckeditor();
     };
     exports.teacher_select = function () {
         $(".form-horizontal").on("click", '#course_edit_teacher_select_btn', function () {
@@ -33,6 +32,8 @@ define(function (require, exports) {
             var add_teacher_html = $("#course_edit_teacher_select_div").html();
 //            var bttn = '<botton class="btn btn-primary submit_teacher" data-teacher_id="6">李四&nbsp;&nbsp;<button type="button" class="close delete_teacher_btn">&times;</button></botton>';
 
+            $(this).removeClass("submit_teacher");
+            $(this).addClass("selected_teacher");
             $("#course_edit_teacher_select_div").html(this);
             $("#course_edit_teacher_select_div").append(add_teacher_html);
             $("#course_edit_teacher_select_modal").modal('hide');
@@ -66,11 +67,9 @@ define(function (require, exports) {
 
     exports.submit_course = function () {
         $(".form-group").on("click", '#course_edit_submit_course', function () {
-
             var title = $("#title").val();
             var subtitle = $("#subtitle").val();
             var intro = $("#intro").val();
-//            var description = $("#nahao_description").val();
             var description = CKEDITOR.instances.nahao_description.getData();
             var students = $("#students").val();
             var subject = $("#subject").val();
@@ -80,9 +79,6 @@ define(function (require, exports) {
             var video = $("#video").val();
             var img = $("#img").val();
 
-//            console.log(students);
-//            console.log(description);return false;
-
             //验证老师
             var teachers = $("#course_edit_teacher_select_div .selected_teacher");
             var teacher_ids = new Array();
@@ -90,11 +86,10 @@ define(function (require, exports) {
                teachers.each(function(k,v){
                    teacher_ids.push($(v).data('teacher_id'));
                 });
+            }else{
+                alert('请选择老师');
+                return false;
             }
-            console.log(teachers);
-            console.log( JSON.stringify(teacher_ids));
-            return false;
-
 
             //验证年级
             var grade_from = parseInt($("#grade_from").val());
@@ -108,12 +103,14 @@ define(function (require, exports) {
             var arr_lessons = new Array();
             var lessons = $(".lesson");
             var chapters = $(".lesson_chapter");
-            console.log(lessons);
-            console.log(chapters);
-            lessons.each(function(k,v){
-                arr_lessons[k] = {'name' : $(v).val(),'is_chapter' : $(chapters[k]).attr("checked")=='checked' ? 1 : 0};
-            });
-//            console.log(arr_lessons);
+            if(lessons.length > 0){
+                lessons.each(function(k,v){
+                    arr_lessons[k] = {'name' : $(v).val(),'is_chapter' : $(chapters[k]).attr("checked")=='checked' ? 1 : 0};
+                });
+            }else{
+                alert('请添加章节');
+                return false;
+            }
 
             var action = $('#course_edit_submit_course').data('action');
 
@@ -134,10 +131,11 @@ define(function (require, exports) {
                 'lessons' : arr_lessons,
                 'teachers' : teacher_ids
             };
-            console.log(data);
-            return false;
+//            console.log(data);
+//            return false;
             $.post(action, data, function (response) {
-                console.log(response);
+//                console.log(response);
+                alert(response);
             return false;
             });
 

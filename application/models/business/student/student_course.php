@@ -1,10 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Studnet相关逻辑
- * Class Business_Student
- * @author yanrui@91waijiao.com
- */
 class Student_Course extends NH_Model{
     
     function __construct(){
@@ -75,7 +70,7 @@ class Student_Course extends NH_Model{
             #课时
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
-            $array_return['class_img'] = empty( $array_return['class_img']) ? HOME_IMG_DEFAULT : $array_return['class_img'];
+            $array_return['class_img'] = empty( $array_return['img']) ? HOME_IMG_DEFAULT : $array_return['img'];
         }
         return $array_return;
     }
@@ -209,6 +204,7 @@ class Student_Course extends NH_Model{
     /**
      * 根据$int_round_id获取该轮的课程团队
      * @param  $int_round_id
+     * @param  $int_type "-1为所有教师团队"
      * @return $array_return
      */
     public function get_round_team($int_round_id,$int_type= '-1')
@@ -225,13 +221,106 @@ class Student_Course extends NH_Model{
         #获取老师的具体信息
         foreach ($array_teacher as $k=>$v)
         {
-            $array_return[] = $this->model_course->get_teacher_info($v['teacher_id']);
+            $array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
             $array_return[$k]['teacher_role'] = $array_teacher_role[$k];
             #老师头像
             $array_return[$k]['avater'] = $this->model_member->get_user_avater($v['teacher_id']);
         }
         return $array_return;
     }
- 
-
+    
+    /**
+     * 课堂同学
+     * @param  $int_round_id
+     * @return $array_return
+     */
+    public function get_classmate_data($int_round_id)
+    {
+        $array_return = array();
+        #去学生与课的关系表寻找信息
+        $array_return = $this->model_course->get_classmate_data($int_round_id);
+        if ($array_return)
+        {
+            foreach ($array_return as $k=>$v)
+            {
+                #用户信息
+                $array_result = $this->model_member->get_user_infor($v['student_id']);
+                
+                #处理数据
+                $array_return[$k]['avatar'] = empty($array_result['nickname']) ? DEFAULT_AVATER:$array_result['nickname'];
+                $array_return[$k]['nickname'] = $array_result['nickname'];
+            }
+        }
+        return $array_return;
+    }
+    
+    /**
+     * 课程公告
+     * @param  $int_round_id
+     * @return $array_return
+     */
+    public function get_class_note_data($int_round_id)
+    {
+        $array_return = array();
+        #去轮公告表寻找信息
+        $array_return = $this->model_course->get_class_note_data($int_round_id);
+        if ($array_return)
+        {
+            foreach ($array_return as $k=>$v)
+            {
+                if ($v['author_role'] == '-1')
+                {
+                   #发布者是管理员
+                    $array_return[$k]['nickname'] = '管理员';
+                    $array_return[$k]['avatar'] =DEFAULT_AVATER;
+                } else {
+                    #获取发布者的信息
+                    $array_result = $this->model_member->get_user_infor($v['author']);
+                    $array_return[$k]['nickname'] = $array_result['nickname'];
+                    $array_return[$k]['avatar'] = empty($array_result['nickname']) ? DEFAULT_AVATER:$array_result['nickname'];
+                }
+            }
+        }
+        return $array_return;
+    }
+    
+    /**
+     * 即将上课的信息--购买后顶部
+     * @param  $int_round_id
+     * @param  $int_user_id
+     * @return $array_return
+     */
+    public function get_soon_class_data($int_user_id,$int_round_id)
+    {
+        $array_return = array();
+        #获取轮的信息
+        $array_round = $this->model_course->get_round_info($int_round_id);
+        #获取轮的老师团队
+        $array_team = $this->get_round_team($int_round_id);
+        #即将开始的课的信息
+        $array_soon = $this->model_course->get_soon_class_data($int_round_id);
+        #已经上了几节课
+        $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
+        
+        #组合数据
+        $array_return['round_id'] = $array_round['id'];
+        $array_return['title'] = $array_round['title'];
+        $array_return['team'] = $array_team;
+        $array_return['soon_class_title'] = $array_soon['title'];
+        $array_return['soon_class_stime'] = $array_soon['begin_time'];
+        $array_return['class'] = $int_num;
+        return $array_return;
+    }
+    
+    /**
+     * 检查学生是否购买此轮
+     * @param  $int_user_id
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_student_buy_round($int_user_id,$int_round_id)
+    {
+        $bool_return = $this->model_course->check_student_buy_round($int_user_id,$int_round_id);
+        return $bool_return;
+    }
 }

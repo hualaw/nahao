@@ -1,10 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * studnet相关逻辑
- * Class Model_Student
- * @author liubing@tizi.com
- */
 class Model_Order extends NH_Model{
     
     function __construct(){
@@ -53,15 +48,18 @@ class Model_Order extends NH_Model{
     
     /**
      * 添加订单日志
-     * @param  $array_prams
-     * @return $bool_result
+     * @param  $array_data['order_id']
+     * @param  $array_data['user_type']
+     * @param  $array_data['user_id']
+     * @param  $array_data['action']
+     * @param  $array_data['create_time']
+     * @param  $array_data['note']
      */
-    public function add_order_log($array_prams)
+    public function add_order_log($array_data)
     {
-        $this->db->insert('order_action_log',$array_prams);
+        $this->db->insert('order_action_log',$array_data);
         $int_row = $this->db->affected_rows();
-        $bool_result = $int_row > 0 ? true : false;
-        return $bool_result;
+        return $int_row > 0 ? true : false;
     }
     
     /**
@@ -72,8 +70,8 @@ class Model_Order extends NH_Model{
     public function get_order_by_id($int_order_id)
     {
         $array_result = array();
-        $sql = "SELECT id,student_id,status,price,spend,create_time FROM student_order 
-                WHERE id = ".$int_order_id;
+        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM student_order 
+                WHERE id = ".$int_order_id." AND is_delete = 0";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -98,20 +96,6 @@ class Model_Order extends NH_Model{
     }
     
     /**
-     * 在订单与轮的关系表中获取轮id
-     * @param  $int_order_id
-     * @return $array_result
-     */
-    public function get_round_id_under_order($int_order_id)
-    {
-        $array_result = array();
-        $sql = "SELECT round_id FROM order_round_relation WHERE order_id = ".$int_order_id;
-        $array_result = $this->db->query($sql)->result_array();
-        return $array_result;
-        
-    }
-    
-    /**
      * 添加学生与课的关系
      * @param  $array_data
      * @return $bool_result
@@ -121,5 +105,28 @@ class Model_Order extends NH_Model{
         $this->db->insert('student_class',$array_data);
         $int_row = $this->db->affected_rows();
         return $bool_result = $int_row > 0 ? true : false;
+    }
+    
+    /**
+     * 检查商品id是否在订单表中及其状态
+     */
+    public function check_product_in_order($int_product_id,$int_user_id)
+    {
+        $array_result = array();
+        $sql = "SELECT status FROM student_order WHERE student_id = ".$int_user_id." 
+                AND round_id = ".$int_product_id." AND is_delete = 0";
+        $array_result = $this->db->query($sql)->result_array();
+    }
+    
+    /**
+     * 删除订单
+     * @param  $array_delete
+     * 
+     */
+    public function delete_order($array_update,$array_where)
+    {
+        $this->db->update('student_order', $array_update,$array_where);
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
     }
 }

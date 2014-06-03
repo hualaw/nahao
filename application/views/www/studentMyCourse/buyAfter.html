@@ -23,15 +23,16 @@
 	    <div class="buyHead">
 	        <div class="buyHeadt cf">
 	        	<div class="fl courseInfor">
-	        		<h2>2014年五年级奥数暑假训练营</h2>
+	        		<h2>{$array_data.title}</h2>
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
-		        		<h3 class="fl">第二节   我们的机器人平台——roborave</h3>
-		        		<a href="" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<h3 class="fl">{$array_data.soon_class_title}</h3>
+		        		<a href="/course/buy_before/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		<div class="cf classCDList">
 	        			<span class="fl">距离上课还有：</span>
 	        			<div class="fl classCD">
+	        			<input type="hidden" id="stime" value="{$array_data.soon_class_stime}">
 	        				<strong>1</strong>天
 	        				<strong>10</strong>小时
 	        				<strong>23</strong>分
@@ -41,36 +42,28 @@
 	        		</div>
 	        	</div>
 	        	<ul class="fr manInfor">
+	        		{foreach from=$array_data.team item=item}
 	        		<li class="posr">
-                        <img src="" alt="" class="head">
-                        <div class="headR">
-                            <div class="teaDetail">
-                                <span class="cMan">课程策划</span>
-                                <em>张龙辉</em>
-                            </div>
-                            <p>北京顶级高中名校高级教师教龄20年</p>
-                        </div>
-	        		</li>
-	        		<li class="posr">
-                        <img src="" alt="" class="head">
+                        <img src="{static_url($item.avater)}" alt="" class="head">
                         <div class="headR">
                             <div class="teaDetail cf">
-                                <span class="cMan">主讲人</span>
-                                <em>张龙辉</em>
+                                <span class="cMan">{$item.teacher_role}</span>
+                                <em>{$item.nickname}</em>
                                 <span class="identity fr">
-                                    <span class="teaCard fr"></span>
-                                    <span class="TitleCard fr"></span>
-                                    <span class="workCard fr"></span>
+                                    <span {if $item.teacher_auth == '1'}class="teaCard fr"{/if}></span>
+                                    <span {if $item.titile_auth == '1'}class="TitleCard fr"{/if}></span>
+                                    <span {if $item.work_auth == '1'}class="workCard fr"{/if}></span>
                                 </span>
                             </div>
-                            <p>北京顶级高中名校高级教师教龄20年</p>
+                            <p>{$item.teacher_signature}教龄{$item.teacher_age}年</p>
                         </div>
 	        		</li>
+	        		{/foreach}
 	        	</ul>
 	        </div>
 	        <div class="buyHeadf cf">
 	        	<div class="fl schedule">
-	        		<span>目前已完成<strong class="redText">2</strong>节课，可以再去复习一下，加油啊！</span>
+	        		<span>目前已完成<strong class="redText">{$array_data.class}</strong>节课，可以再去复习一下，加油啊！</span>
 	        		<div class="fLine posr">
 	        			<div class="redLine"></div>
 	        		</div>
@@ -83,69 +76,39 @@
 	        <div class="buyLeft fl">
 	            <!-- 课程大纲 -->
 	            <div class="outline cf">
+	             {foreach from=$array_outline item=item}
                 	<div class="outlineList">
 	                    <ul>
+                    		{if $item.id > 1}
+								<h3>{$item.title}</h3>
+							{/if}
+ 							{foreach from=$item.son item=it}
 	                        <li class="cf">
-	                    		<h3>第一章   走进机器人的世界</h3>
-            					<a href="" class="replay cBtn fl">课程回放</a>
+
+								{if $it.status=='1'}
+								    <a href="" class="soonClass cBtn fl">即将开始</a>
+								{elseif $it.status=='2'}
+									<a href="" class="goClass cBtn fl">去上课</a>
+								{elseif $it.status=='3'}
+									<a href="" class="replay cBtn fl">课程回放</a>
+								{/if}
 	                            <div class="fr rCon">
 	                            	<div class="fl line"></div>
 		                            <div class="fr listb">
 		                            	<div class="cf">
-		                                	<p class="listh fl">机器猫喜欢吃什么</p>
+		                                	<p class="listh fl">{$it.title}</p>
 		                                	<span class="fl handout"></span>
 		                                	<span class="fl cloudNotes"></span>
 		                            		<span class="starBg fr"></span>
 		                            	</div>
-		                                <p class="listc">2014-7-1  星期三  09:00-11:00</p>
+		                                <p class="listc">{$it.time}</p>
 		                            </div>
 	                            </div>
 	                        </li>
-	                        <li class="cf">
-            					<a href="" class="soonClass cBtn fl">即将开始</a>
-	                            <div class="fr rCon">
-	                            	<div class="fl line"></div>
-		                            <div class="fr listb">
-		                                <p class="listh">机器猫喜欢吃什么</p>
-		                                <p class="listc">2014-7-1  星期三  09:00-11:00</p>
-		                            </div>
-	                            </div>
-	                        </li>
-	                        <li class="cf">
-            					<a href="" class="goClass cBtn fl">去上课</a>
-	                            <div class="fr rCon">
-	                            	<div class="fl line"></div>
-		                            <div class="fr listb">
-		                                <p class="listh">机器猫喜欢吃什么</p>
-		                                <p class="listc">2014-7-1  星期三  09:00-11:00</p>
-		                            </div>
-	                            </div>
-	                        </li>
+	                        {/foreach}
 	                    </ul>
 	                </div>
-	                <div class="outlineList">
-	                    <ul>
-	                        <li class="cf">
-	                    		<h3>第一章   走进机器人的世界</h3>
-	                            <div class="fr rCon">
-	                            	<div class="fl line"></div>
-		                            <div class="fr listb">
-		                                <p class="listh">机器猫喜欢吃什么</p>
-		                                <p class="listc">2014-7-1  星期三  09:00-11:00</p>
-		                            </div>
-	                            </div>
-	                        </li>
-	                        <li class="cf">
-	                            <div class="fr rCon">
-	                            	<div class="fl line"></div>
-		                            <div class="fr listb">
-		                                <p class="listh">机器猫喜欢吃什么</p>
-		                                <p class="listc">2014-7-1  星期三  09:00-11:00</p>
-		                            </div>
-	                            </div>
-	                        </li>
-	                    </ul>
-	                </div>
+	                {/foreach}
 	            </div>
 	        </div>
 	        <!-- 购买后 右侧 -->
@@ -155,118 +118,33 @@
 	        			<p class="notice">课程公告</p>
 	        		</h3>
 	        		<h3 class="fl">
-	        			<p class="classates">课堂同学<span>153</span></p>
+	        			<p class="classates">课堂同学<span>{$int_classmates}</span></p>
 	        		</h3>
 	        	</div>
 	        	<ul class="abuyTabBox ntBox">
-					<li>
+	        	{foreach from=$array_note item=item}
+	        		<li>
 						<div class="nhead cf posr">
-							<img src="" alt="" class="fl">
+							<img src="{static_url($item.avatar)}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong>张老师</strong>
-								<p class="redText">2014年8月1号<span>09:00</span></p>
+								<strong>{$item.nickname}</strong>
+								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
 						<div class="nDetailCon">
 							<p>各位同学</p>
-							<p class="indent">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。        机器的团队沟通能力和探究精神。</p>
+							<p class="indent">{$item.content}</p>
 						</div>
 					</li>
-					<li>
-						<div class="nhead cf posr">
-							<img src="" alt="" class="fl">
-							<div class="fl teaRCon">
-								<strong>张老师</strong>
-								<p class="redText">2014年8月1号<span>09:00</span></p>
-							</div>
-						</div>
-						<div class="nDetailCon">
-							<p>各位同学</p>
-							<p class="indent">语文考试中阅读，写作是重中之重，但提升这两部分的关键还在于基础能力的夯实，学好字词句段文才能。        机器的团队沟通能力和探究精神。</p>
-						</div>
-					</li>
+	        	{/foreach}
 	        	</ul>
 	        	<ul class="abuyTabBox undis cmBox cf">
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
+	        	{foreach from=$array_classmate item=item}
+	        		<li class="fl">
+						<img src="{static_url($item.avatar)}" alt="">
+						<span>{$item.nickname}</span>
 					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
-					<li class="fl">
-						<img src="" alt="">
-						<span>樱桃小丸子</span>
-					</li>
+	        	{/foreach}
 	        	</ul>
 	        </div>
 	    </div>

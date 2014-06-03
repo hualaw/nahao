@@ -6,119 +6,231 @@
 <div class="writeInfo">
     <div class="box">
         <h2>请填写试讲信息<span>(以下信息会严格保密，请您放心填写）</span></h2>
-        <form action="" mothed="post" onsubmit="return false">
+        <form action="" mothed="post" onsubmit="return false" class="teaClassForm" name="teaClassForm">
             <ul class="Oul">
                 <li class="cf">
                     <p class="fl">真实姓名</p>
-                    <input type="text" class="fl textInput">
-                    <p class="tips fl">真实姓名</p>
+                    <!--真实姓名开始-->
+                    <div class="cf">
+                        <input type="text" name="userRealName" class="fl textInput userRealName" validName="text">
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--真实姓名结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">所在地区</p>
-                    <select name="" id="" class="fl">
-                        <option value="">省份</option>
-                        <option value="1">省份</option>
-                    </select>
-                    <select name="" id="" class="fl">
-                        <option value="">城市</option>
-                        <option value="1">城市</option>
-                    </select>
-                    <select name="" id="" class="fl">
-                        <option value="">区</option>
-                        <option value="1">区</option>
-                    </select>
+                    <!--省份开始-->
+                    <div class="fl">
+                        <div class="fl">
+                            <div>
+                                <select name="province" id="province" class="province" validName="select">
+                                    <option value="">省份</option>
+                                    <option value="1">北京</option>
+                                    <option value="2">北京</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--省份结束-->
+                    <!--城市开始-->
+                    <div class="fl">
+                        <div class="fl">
+                            <div>
+                                <select name="city" id="city" class="city" validName="select">
+                                    <option value="">城市</option>
+                                    <option value="1">北京</option>
+                                    <option value="2">北京</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--城市结束-->
+                    <!--区开始-->
+                    <div class="fl">
+                        <div class="fl">
+                            <div>
+                                <select name="zone" id="zone" class="zone" validName="select">
+                                    <option value="">区</option>
+                                    <option value="1">区</option>
+                                    <option value="2">区</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--区结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">选择性别</p>
-                    <input type="radio" name="sex" id="man" class="fl radioInput">
-                    <label for="man" class="fl">男</label>
-                    <input type="radio" name="sex" id="woman" class="fl radioInput">
-                    <label for="woman" class="fl">女</label>
+                    <!--用户性别开始-->
+                    <div class="cf">
+                        <div class="fl">
+                            <input type="radio" name="sex" value="male" class="radioInput sex fl" validName="radio" id="male"/>
+                            <label for="male" class="fl">男</label>
+                            <input type="radio" name="sex" value="female" class="radioInput sex fl" validName="radio" id="female"/>
+                            <label for="female" class="fl">女</label>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--用户性别结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">年龄</p>
-                    <input type="text" name="age" id="age" class="fl textInput">
+                    <!--年龄开始-->
+                    <div class="cf">
+                        <input type="text" name="age" class="fl textInput age" validName="text" id="age"/>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--年龄1结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">教学阶段</p>
-                    <input type="checkbox" name="sex" id="high" class="fl radioInput">
-                    <label for="high" class="fl">高中</label>
-                    <input type="checkbox" name="sex" id="middle" class="fl radioInput">
-                    <label for="middle" class="fl">初中</label>
-                    <input type="checkbox" name="sex" id="small" class="fl radioInput">
-                    <label for="small" class="fl">小学</label>
+                    <!--教学阶段开始-->
+                    <div class="cf">
+                        <div class="fl">
+                            <input type="checkbox" name="level" id="high" class="fl radioInput level" validName="checkbox" />
+                            <label for="high" class="fl">高中</label>
+                            <input type="checkbox" name="level" id="middle" class="fl radioInput level" validName="checkbox" />
+                            <label for="middle" class="fl">初中</label>
+                            <input type="checkbox" name="level" id="small" class="fl radioInput level" validName="checkbox" />
+                            <label for="small" class="fl">小学</label>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--教学阶段结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">所在学校</p>
-                    <input type="text" class="fl textInput">
+                    <!--所在学校开始-->
+                    <div class="cf">
+                        <input type="text" name="school" class="fl textInput school" validName="text" />
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--所在学校结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">教师职称</p>
-                    <select name="" id="" class="fl">
-                        <option value="">请选择职称</option>
-                        <option value="1">五年级</option>
-                    </select>
+                    <!--教师职称开始-->
+                    <div class="cf">
+                        <div class="fl">
+                            <div>
+                                <select name="rank" id="rank" class="fl rank"  validName="select">
+                                    <option value="">请选择职称</option>
+                                    <option value="1">数学</option>
+                                    <option value="2">语文</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--教师职称结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">实际教龄</p>
-                    <select name="" id="" class="fl">
-                        <option value="">请选择教龄</option>
-                        <option value="1">2</option>
-                    </select>
-                    <p class="tips fl">选择正确年级，专属活动等着你</p>
+                    <!--教龄开始-->
+                    <div class="cf">
+                        <div class="fl">
+                            <div>
+                                <select name="schoolAge" id="schoolAge" validName="select" class="schoolAge">
+                                    <option value="">请选择教龄</option>
+                                    <option value="1">一年级</option>
+                                    <option value="2">二年级</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--教龄结束-->
+                    <p class="tips">选择正确年级，专属活动等着你</p>
                 </li>
                 <li class="cf">
                     <p class="fl">手机号码</p>
-                    <input type="text" class="fl textInput">
-                    <p class="tips fl">保密，方便我们与您电话沟通详细情况</p>
+                    <!--手机号码开始-->
+                    <div class="cf">
+                        <input type="text" name="phone" class="fl textInput phone" validName="text" />
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--手机号码结束-->
+                    <p class="tips">保密，方便我们与您电话沟通详细情况</p>
                 </li>
                 <li class="cf">
                     <p class="fl">常用邮箱</p>
-                    <input type="text" class="fl textInput">
+                    <!--常用邮箱开始-->
+                    <div class="cf">
+                        <input type="text" name="email" class="fl textInput email" validName="text" />
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--常用邮箱结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">QQ号</p>
-                    <input type="text" class="fl textInput">
+                    <!--QQ号开始-->
+                    <div class="cf">
+                        <input type="text" name="qqcode" class="fl textInput qqcode" validName="text" />
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--QQ号结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">讲课方式</p>
-                    <select name="" id="" class="fl">
-                        <option value="">请选择讲课方式</option>
-                        <option value="1">2</option>
-                    </select>
+                    <!--讲课方式开始-->
+                    <div class="cf">
+                        <div class="fl">
+                            <div>
+                                <select name="subject" id="classMethod" class="fl classMethod"  validName="select">
+                                    <option value="">请选择讲课方式</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--讲课方式结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">试讲科目</p>
-                    <select name="" id="" class="fl">
-                        <option value="">请选择试讲科目</option>
-                        <option value="1">2</option>
-                    </select>
+                    <!--试讲科目开始-->
+                    <div class="cf">
+                        <div class="fl">
+                            <div>
+                                <select name="subject" id="subject" class="fl subject"  validName="select">
+                                    <option value="">请选择试讲科目</option>
+                                    <option value="1">数学</option>
+                                    <option value="2">语文</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--试讲科目结束-->
                 </li>
                 <li class="cf cookedTime">
                     <p class="fl">预约时间</p>
-                    <input type="text" class="fl textInput">
-                    <select name="" id="" class="fl">
-                        <option value="">选择开始时间</option>
-                        <option value="1">2</option>
-                    </select>
+                    <!--<input type="text" class="fl textInput"/>-->
+                    <input type="text" value="" placeholder="选择开始时间" class="textTime startClassTime fl"/>
                     <span class="fl underLine">—</span>
-                    <select name="" id="" class="fl">
-                        <option value="">选择结束时间</option>
-                        <option value="1">2</option>
-                    </select>
+                    <input type="text" value="" placeholder="选择结束时间" class="textTime endClassTime fl"/>
                 </li>
                 <li class="cf">
                     <p class="fl">课程名称</p>
-                    <input type="text" class="fl textInput">
+                    <!--课程名称开始-->
+                    <div class="cf">
+                        <input type="text" name="className" class="fl textInput className" validName="text" />
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                    <!--课程名称结束-->
                 </li>
                 <li class="cf">
                     <p class="fl">课程介绍</p>
-                    <div class="fl">
-                        <textarea id="postEditor" style="visibility: hidden;"></textarea>
+                    <div class="fl ckEditorCss">
+                        <textarea id="postEditor" class="postEditor"></textarea>
                     </div>
                 </li>
                 <li class="cf">
-                    <input type="submit" value="提交申请" class="btn redBtn submit fl">
+                    <input type="submit" value="提交申请" class="noShowBtn redBtn submit fl">
                 </li>
             </ul>
         </form>

@@ -31,7 +31,7 @@ $config['round_teach_status'][0] = '等待开课';
 $config['round_teach_status'][1] = '授课中';
 $config['round_teach_status'][2] = '停课';
 $config['round_teach_status'][3] = '结课';
-
+$config['round_teach_status'][4] = '过期（结课超过30天）';
 //短信日志表里面的短信类型
 $config['message_type'][0] = '注册';
 $config['message_type'][1] = '订单';
@@ -140,6 +140,7 @@ $config['class_teach_status'][3] = '上完课';
 $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
 
+
 //教师试讲状态
 $config['lecture_status'][1] = '未审核';
 $config['lecture_status'][2] = '待定';
@@ -162,4 +163,46 @@ $config['teacher_title'][2] = '高级教师';
 $config['teacher_title'][3] = '一级教师';
 $config['teacher_title'][4] = '二级教师';
 $config['teacher_title'][5] = '三级教师';
+
+
+//退款状态
+/*
+*@author shangshikai@nahao.com
+*/
+$config['refund'][0] = "初始化";
+$config['refund'][1] = "缺席";
+$config['refund'][2] = "进过教室";
+$config['refund'][3] = "申请退款";
+$config['refund'][4] = "退款通过";
+$config['refund'][5] = "退款不通过";
+$config['refund'][5] = "退款已完成";
+
+//银行
+
+$config['bank'][1] = "招商银行";
+$config['bank'][2] = "工商银行";
+$config['bank'][3] = "中国银行";
+$config['bank'][4] = "交通银行";
+$config['bank'][5] = "建设银行";
+$config['bank'][6] = "农业银行";
+$config['bank'][7] = "中信银行";
+$config['bank'][8] = "浦发银行";
+$config['bank'][9] = "兴业银行";
+$config['bank'][10] = "深圳发展银行";
+$config['bank'][11] = "民生银行";
+$config['bank'][12] = "光大银行";
+
+//订单日子action
+$config['order_log_action'][0] = "创建订单";
+$config['order_log_action'][1] = "支付失败";
+$config['order_log_action'][2] = "完成付款";
+$config['order_log_action'][3] = "订单完成";
+$config['order_log_action'][4] = "取消订单";
+$config['order_log_action'][5] = "关闭订单";
+$config['order_log_action'][6] = "备注";
+$config['order_log_action'][7] = "删除订单";
+$config['order_log_action'][8] = "申请退款";
+$config['order_log_action'][9] = "拒绝退款";
+$config['order_log_action'][10] = "同意退款";
+$config['order_log_action'][11] = "完成退款";
 

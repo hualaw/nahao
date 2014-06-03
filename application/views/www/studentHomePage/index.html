@@ -54,20 +54,20 @@
 						</div>
 						<div class="clBoxShaow rotateBox posr">
 							<div class="teaInfor cf">
-								<img src="" alt="头像" class="fl">
+								<img src="{static_url({$item.teacher.avater})}" alt="头像" class="fl">
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">
 									<em class="fl">{$item.teacher.nickname}</em>
-									<span class="workCard fl"></span>
-									<span class="TitleCard fl"></span>
-									<span class="teaCard fl">1</span>
+									<span {if $item.work_auth}class="workCard fl"{/if}></span>
+									<span {if $item.titile_auth}class="TitleCard fl"{/if}></span>
+									<span {if $item.teacher_auth}class="teaCard fl"{/if}></span>
 									</h3>
 									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:5:"...":true}</a></p>
+							<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:16:"...":true}</a></p>
 						</div>
 					</li>
 					{/foreach}
