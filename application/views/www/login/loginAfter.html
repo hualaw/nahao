@@ -20,45 +20,69 @@
 <div class="wrap login" id="nahaoModule" module="login">
 	<div class="regSuccessBox layout">
 		<h2 class="noIcon">关于我</h2>
-		<form action="" mothed="post" onsubmit="return false">
+		<form action="" mothed="post" onsubmit="return false" class="loginAfterForm">
 			<ul class="Oul">
 				<li class="cf">
+					<p class="fl"><span>*</span>邮箱</p>
+					<div class="cf">
+						<input type="text" name="Email" class="lEmail textInput fl" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="cf">
 					<p class="fl"><span>*</span>昵称</p>
-					<input type="text" class="fl textInput">
+					<div class="cf">
+						<input type="text" name="Uname" class="lname textInput fl" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf">
 					<p class="fl"><span>*</span>地区</p>
-					<select name="" id="" class="fl">
-						<option value="">省份</option>
-						<option value="1">省份</option>
-					</select>
-					<select name="" id="" class="fl">
-						<option value="">城市</option>
-						<option value="1">城市</option>
-					</select>
-					<select name="" id="" class="fl">
-						<option value="">区</option>
-						<option value="1">区</option>
-					</select>
+					<div class="cf">
+						<div class="fl">
+							<div>
+								<select name="" id="" validName="select" class="loction">
+									<option value="">选择地区</option>
+									<option value="1">北京</option>
+									<option value="2">北京</option>
+								</select>
+							</div>
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf">
 					<p class="fl"><span>*</span>年级</p>
-					<select name="" id="" class="fl">
-						<option value="">五年级</option>
-						<option value="1">五年级</option>
-					</select>
+					<div class="cf">
+						<div class="fl">
+							<div>
+								<select name="" id="" validName="select" class="subjectInput">
+									<option value="">选择学科</option>
+									<option value="1">一年级</option>
+									<option value="2">二年级</option>
+								</select>
+							</div>
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
 					<p class="tips2 fl">选择正确年级，专属活动等着你</p>			
 				</li>
 				<li class="cf optional">
 					<p class="fl">真实姓名</p>
-					<input type="text" class="fl textInput">
+					<div class="cf">
+						<input type="text" name="Uname" class="pUname fl textInput" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf optional">
 					<p class="fl">选择性别</p>
-					<input type="radio" name="sex" id="man" class="fl radioInput">
-					<label for="man" class="fl">男</label>
-					<input type="radio" name="sex" id="woman" class="fl radioInput">
-					<label for="woman" class="fl">女</label>
+					<div class="cf">
+						<div class="fl">
+							<input type="radio" name="sex" value="male" class="radio radioInput" validName="radio" /> 男
+							<input type="radio" name="sex" value="female" class="radio radioInput" validName="radio"/> 女
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf optional">
 					<p class="fl">关注学科</p>
@@ -79,11 +103,17 @@
 						<a href="javascript:void(0)">兴趣特长</a>
 						<a href="javascript:void(0)">素质能力</a>
 					</div>
-					<p class="tips fl">注：最多可选择3项</p>
+					<div class="cf">
+						<p class="tips fl">注：最多可选择3项</p>
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf optional">
 					<p class="fl">就读学校</p>
-					<input type="text" class="fl textInput schoolInput">
+					<div class="cf">
+						<input type="text" name="Uname" class="textInput schoolInput fl" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li>
 					<input type="submit" value="保存" class="btn redBtn submit">

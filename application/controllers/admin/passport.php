@@ -19,15 +19,7 @@ class Passport extends NH_Admin_Controller
      */
     public function index()
     {
-        $this->load->view('admin/signin');
-    }
-
-
-    public function test(){
-        $data['str'] = 'welcome! layout!';
-        $this->load->library('layout');
-        $this->layout->set_layout('admin/layout');
-        $this->layout->view('admin/main',$data);
+        $this->smarty->display('admin/signin.html');
     }
 
     /**
@@ -40,8 +32,9 @@ class Passport extends NH_Admin_Controller
         $str_password = $this->input->post('password') ? trim($this->input->post('password')) : '';
         $str_redirect = '/';
         $bool_return = $this->passport->login($str_username, $str_password);
+//        o($bool_return);
         if ($bool_return === true) {
-            $str_redirect = '/welcome/main';
+            $str_redirect = '/index/main';
         }
         redirect($str_redirect);
 
