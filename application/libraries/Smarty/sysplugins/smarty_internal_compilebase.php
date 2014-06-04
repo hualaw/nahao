@@ -29,7 +29,7 @@ abstract class Smarty_Internal_CompileBase {
      */
     public $optional_attributes = array();
     /**
-     * Shorttag attribute order defined by its names
+     * Shorttag attribute adminOrder defined by its names
      *
      * @var array
      */

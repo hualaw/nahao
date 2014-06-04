@@ -1,0 +1,56 @@
+<h3>订单信息</h3>
+<hr>
+订单号:{$details.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单状态:{$config_status[$details.status]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间:{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}<br /><br />
+<h4>收货人信息</h4>
+姓名:{$nickname}<br />
+手机:<input type="text" value="{$details.phone_mask}" id="show" readonly /> <br />
+邮箱:{$details.email}<br />
+<hr>
+<h5>付款方式:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$config_pay[$details.pay_type]}</h5><br />
+<h5>订单金额:&nbsp;&nbsp;￥{$details.spend}&nbsp;元</h5><br />
+<table class="table table-bordered">
+    <tr class="active">
+        <td>序号</td>
+        <td>班次名称</td>
+        <td>上课日期</td>
+        <td>原价</td>
+        <td>促销价</td>
+        <td>操作时间</td>
+        <td>退款状态</td>
+    </tr>
+    <tr>
+        <td>{$details.round_id}</td>
+        <td>{$details.title}</td>
+        <td>{$details.start_time|date_format:'%Y-%m-%d %H:%M:%S'}到{$details.end_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$details.price}</td>
+        <td>{$details.sale_price}</td>
+        <td>{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td id="refund" width="135" height="39">{if $details.status==6}
+                申请退款<br /><button type='button' class='btn btn-primary btn-xs' id='button'>拒绝</button>&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-xs' id='agr_button'>同意</button>
+            {elseif $details.status==7}
+                退款不通过
+            {elseif $details.status==8}
+                退款通过<button type='button' class='btn btn-primary btn-xs' id='suc_button'>完成</button>
+            {elseif $details.status==9}
+                退款完成
+            {else}
+                ——
+            {/if}</td>
+    </tr>
+</table>
+<input type="hidden" value="{$details.student_id}" id="student_id" />
+<input type="hidden" value="{$details.id}" id="order_id" />
+<input type="hidden" value="{$details.phone_mask}" id="mask" />
+<hr>
+<h4>备注信息</h4>
+{foreach $note as $k=>$v}
+    <label class="control-label" for="inputSuccess">
+        {$v.username}&nbsp;&nbsp;&nbsp;&nbsp;{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.note}
+    </label><br />
+{/foreach}
+<textarea class="form-control" rows="3" placeholder="在此添加备注信息" id="note_content"></textarea>
+<br />
+{for $foo=1 to 135}
+&nbsp;
+{/for}
+<button type="button" class="btn btn-info" id="memory">保存</button>

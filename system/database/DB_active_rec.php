@@ -1122,7 +1122,7 @@ class CI_DB_active_record extends CI_DB_driver {
 				return;
 			}
 
-			ksort($row); // puts $row in the same order as our keys
+			ksort($row); // puts $row in the same adminOrder as our keys
 
 			if ($escape === FALSE)
 			{
