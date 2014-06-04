@@ -138,7 +138,7 @@ class Model_Teacher extends NH_Model{
 	 * 【练习统计器】：
 	 * pararm : is_correct,sequence,class_id,student_id
 	 **/
-	public function practise_counter(){
+	public function practise_counter($param){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
@@ -227,7 +227,7 @@ class Model_Teacher extends NH_Model{
      	$param['analysis'] = addslashes($param['analysis']);
      	$this->db->query("set names utf8");
      	switch ($param['do']){
-     		case 'add': 
+     		case 'add':
      			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
 						VALUES('".$param['question']."','".$param['answer']."','".$param['options']."',".$param['type'].",'".$param['analysis']."')";
      			$id = $this->db->query($sql)->insert_id();

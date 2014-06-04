@@ -1,7 +1,7 @@
 /*结算首页开始*/
 .teacherPay .md_pay{margin-bottom: 50px;}
 .teacherPay .md_pay .md_title{clear: both;overflow: hidden;}
-.teacherPay .md_pay .md_title .hd_title{display:block;width:370px;font-weight:normal;text-align:left;margin-bottom:10px;padding:0px 15px;color:#fff;font-size:14px;height:33px; line-height: 33px;background-color:#f16741;border-radius:3px;-webkit-border-radius:3px;}
+.teacherPay .md_pay .md_title .hd_title{display:inline-block;font-weight:normal;text-align:left;margin-bottom:10px;padding:0px 15px;color:#fff;font-size:14px;height:33px; line-height: 33px;background-color:#f16741;border-radius:3px;-webkit-border-radius:3px;}
 .teacherPay .md_pay .md_title .hd_title .hd_nopay{border-right:1px solid #b62d06;padding-right:20px;line-height:30px;}
 .teacherPay .md_pay .md_title .hd_title .hd_haspay{margin-left:20px;}
 .teacherPay .md_pay .md_title p{color: #677381; font-size: 12px; line-height:45px;margin-left: 5px;}

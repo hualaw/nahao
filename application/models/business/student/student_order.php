@@ -1,10 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Studnet相关逻辑
- * Class Business_Student
- * @author yanrui@91waijiao.com
- */
 class Student_Order extends NH_Model{
     
     function __construct(){
@@ -35,6 +30,7 @@ class Student_Order extends NH_Model{
     /**
      * 创建订单,向数据库里面写一条记录(订单表、订单与轮的关系表),同时添加订单日志
      * @param  $int_product_id
+     * @param  $payment_method
      * @return $array_return
      */
     public function create_order($int_product_id,$payment_method)
@@ -95,7 +91,10 @@ class Student_Order extends NH_Model{
     
     /**
      * 更新订单状态，写日志
-     * @param  $array_data
+     * @param  $array_data['order_id']    #订单号
+     * @param  $array_data['status']      #订单状态
+     * @param  $array_data['action']      #日志动作
+     * @param  $array_data['note']        #日志记录
      * @return $bool_return
      */
     public function update_order_status($array_data)
@@ -103,26 +102,24 @@ class Student_Order extends NH_Model{
         $bool_return = $this->model_order->update_order_status($array_data);
         if ($bool_return)
         {
-            $array_data['create_time'] = time();
-            $array_data['user_id'] =1;                    #TODO用户id
-            $array_data['user_type'] = ROLE_STUDENT;      #用户类型 ：学生
-                                 
-        } else {
-            $array_data['create_time'] = time();
-            $array_data['action'] = '';
-            $array_data['user_id'] =1;                    #TODO用户id
-            $array_data['user_type'] = ROLE_STUDENT;      #用户类型 ：学生
-            $array_data['note'] = "更新订单".$array_data['order_id']."状态为：".$array_data['status']."失败";
+            $array_order_log = array(
+                'order_id'=>$array_data['order_id'],
+                'user_type'=> ROLE_STUDENT,              #用户类型 ：学生
+                'user_id'=>$array_data['user_id'],       #TODO用户id
+                'action'=>$array_data['action'],
+                'create_time'=>time(),
+                'note'=>$array_data['note']
+            );
+            #添加订单日志
+            $this->model_order->add_order_log($array_order_log);
         }
-        #添加订单日志
-        $this->model_order->add_order_log($array_data);
         return $bool_return;
     }
     
     /**
      * 根据$int_order_id,查找轮以及轮里面的课，添加学生与课的关系
      * @param  $int_order_id
-     * @return 
+     * @return $bool_return
      */
     public function add_student_class_relation($int_order_id)
     {
@@ -157,6 +154,9 @@ class Student_Order extends NH_Model{
     
     /**
      * 检查商品id是否在订单表中及其状态
+     * @param  $int_product_id
+     * @param  $int_user_id
+     * @return $array_return
      */
     public function check_product_in_order($int_product_id,$int_user_id)
     {
@@ -165,5 +165,38 @@ class Student_Order extends NH_Model{
         return $array_return;
     }
     
+    /**
+     * 删除订单，并且写日志
+     * @param  $array_data['user_id']
+     * @param  $array_data['order_id']
+     * @param  $array_data['action']
+     * @param  $array_data['note']
+     * @return $bool_return
+     */
+    public function delete_order($array_data)
+    {
+        $array_update = array(
+            'is_delete'=>1    
+        );
+        $array_where = array(
+           'id'=> $array_data['order_id'] 
+        );
+        #删除日志(标记删除)
+        $bool_return = $this->model_order->delete_order($array_update,$array_where);
+        if ($bool_return)
+        {
+            $array_order_log = array(
+                'order_id'=>$array_data['order_id'],
+                'user_type'=> ROLE_STUDENT,              #用户类型 ：学生
+                'user_id'=>$array_data['user_id'],       #TODO用户id
+                'action'=>$array_data['action'],
+                'create_time'=>time(),
+                'note'=>$array_data['note']
+            );
+            #添加订单日志
+            $this->model_order->add_order_log($array_order_log);
+        }
+        return $bool_return;
+    }
 
 }

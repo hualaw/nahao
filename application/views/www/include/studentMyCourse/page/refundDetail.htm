@@ -1,0 +1,55 @@
+<!--申请状态-->
+<h3 class="pageName">申请状态</h3>
+<div class="orderComBox">
+	<table class="applyState">
+		<tbody>
+			<!--待处理-->
+ 			<tr class="imporInfor">
+				<td colspan="4" class="talignLeft">
+					<span>课程名称</span>
+					<strong>{$array_data.title|truncate:18:"...":true}</strong>
+				</td>
+				<td colspan="2" class="talignRight">
+					<span>申请时间</span>
+					<span>{$array_data.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</span>
+				</td>
+			</tr>
+			<tr class="detailInfor">
+				<td class="width_92">
+					<span>已上课次</span><br>
+					<strong>{$array_data.study_count}</strong>
+				</td>
+				<td class="width_90">
+					<span>未开始课次</span><br>
+					<strong>{$array_data.refund_count}</strong>
+				</td>
+				<td class="width_100">
+					<span>课程总金额</span><br>
+					<strong>¥{$array_data.round_price}</strong>
+				</td>
+				<td class="width_130">
+					<span>可退金额</span><br>
+					<strong>¥{$array_data.refund_price}</strong>
+				</td>
+				<td class="reasonTd">
+					<span>退课理由</span>
+					<p class="reason">{$array_data.reason}</p>
+				</td>
+				<td class="stateTd">
+					<span>申请状态</span><br>
+					<strong class="redText">
+					{if $array_data.status == '0'}
+					 	处理中
+					{elseif $array_data.status == '1'}
+						退款失败
+					{elseif $array_data.status == '2'}
+						同意退款
+					{elseif $array_data.status == '3'}
+						退款完成												
+					{/if}
+					</strong>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

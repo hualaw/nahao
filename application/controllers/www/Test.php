@@ -65,6 +65,18 @@ class Test extends CI_Controller {
 		//email_addr, subject, content
 		$this->mail->send('liuhua@tizi.com', '那好邮件测试', 'Got it！');
 	}
+
+    public function student_subject_add_test()
+    {
+        $this->load->model('model/student/model_student_subject');
+        $this->model_student_subject->add(123, array('123','234'));
+    }
+
+    public function student_subject_delete_test()
+    {
+        $this->load->model('model/student/model_student_subject');
+        $this->model_student_subject->delete(123, array('123','234'));
+    }
 }
 
 /* End of file welcome.php */

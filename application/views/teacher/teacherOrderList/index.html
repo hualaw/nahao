@@ -14,7 +14,7 @@
     <div class="orderList_search">
         <form action="{$site_url}/orderList/index/" mothed="get" onsubmit="return false">
             <ul>
-                <li>
+                <li class="seachLi">
                     <select name="id" id="" class="fl">
                         <option value="">班级名次</option>
                         {if $data['listArr']}
@@ -27,15 +27,15 @@
                 <li>
                     <input name="title" type="text" value="" placeholder="要搜索的班次名" class="textInput"/>
                 </li>
-                <li>
-                    <select name="teach_status" id="" class="fl">
+                <li class="seachLi">
+                    <select name="" id="" class="fl">
                         <option value="">课程状态</option>
                         {foreach $data['teach_status_list'] as $key=>$val}
                         	<option value="{if $key==0}-1{else}{$key}{/if}">{$val}</option>
                         {/foreach}
                     </select>
                 </li>
-                <li>
+                <li class="seachLi">
                     <select name="course_type" id="" class="fl">
                         <option value="">课程类型</option>
                         {foreach $data['course_type_list'] as $val}
@@ -43,14 +43,13 @@
                         {/foreach}
                     </select>
                 </li>
-                <li>
-                    <input type="text" name="start_time" value="" placeholder="班次开始时间">
+                <li class="seachLi">
+                   <input type="text" name="start_time" value="" placeholder="班次开始时间" class="textInput textTime startClassTime"/>
                 </li>
-                <li><em class="fred">-</em></li>
-                <li>
-                    <input type="text" name="end_time" value="" placeholder="班次结束时间">
+                <li class="seachLi">
+                    <input type="text" name="end_time" value="" placeholder="班次结束时间" class="textInput textTime endClassTime"/>
                 </li>
-                <li>
+                <li class="seachLi">
                     <input type="submit" value="搜索" class="lbutton"/>
                 </li>
             </ul>

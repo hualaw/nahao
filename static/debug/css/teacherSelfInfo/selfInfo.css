@@ -9,16 +9,17 @@
 .teacherSelfInfo .personInfo li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;color:#0e455e;margin-bottom:5px;text-align: left}
 .teacherSelfInfo .personInfo li .textInput{width: 228px;height:31px;border:1px solid #a2a2a2;padding:0 15px;}
 .teacherSelfInfo .personInfo li .tips{font-size: 14px;color:#919191;}
+.teacherSelfInfo .personInfo li div.cf{line-height:35px;}
 .teacherSelfInfo .personInfo li label{height:30px;line-height:30px;font-size: 14px;margin-right: 20px;}
 .teacherSelfInfo .personInfo li .submit{width:130px;height: 40px;line-height: 40px;border: 0;cursor:pointer;}
 .teacherSelfInfo .personInfo .cookedTime .textInput{width:155px;margin-right:20px;}
 .teacherSelfInfo .personInfo .cookedTime .underLine{line-height: 30px;}
 .teacherSelfInfo .personInfo .cookedTime .jqTransformSelectWrapper{margin-left:20px;}
-.teacherSelfInfo .personInfo .md_bd{padding: 40px 0px;}
+.teacherSelfInfo .personInfo .md_bd{padding:20px 0px;}
 .teacherSelfInfo .personInfo .personTip{clear: both;overflow: hidden;margin-left:40px; text-align: left;font-size: 14px; color:#ed4111;}
 .teacherSelfInfo .personInfo li em{position: absolute; left:-10px;top:2px;color:#ed4111;font-size:18px;}
 .teacherSelfInfo .personInfo li .verfyTip{font-size:14px;color:#a3adb7;font-weight: normal;}
-.teacherSelfInfo .personInfo li .textArea{width:800px;height: 255px;}
+.teacherSelfInfo .personInfo li .textArea{width:880px;height: 255px;_width:850px;}
 .teacherSelfInfo .personInfo .md_upload{clear: both; overflow: hidden;}
 .teacherSelfInfo .personInfo .md_upload a{display: block;float: left;width:310px; height: 255px;position: relative;}
 .teacherSelfInfo .personInfo .md_upload a.icon_upload1{background: url("../../images/teacherSelfInfo/icon_upload1.gif") no-repeat left top;}
@@ -59,6 +60,7 @@
 .teacherSelfInfo .writeInfo li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;color:#0e455e;margin-bottom:5px;text-align: left}
 .teacherSelfInfo .writeInfo li .textInput{width: 228px;height:31px;border:1px solid #a2a2a2;padding:0 15px;}
 .teacherSelfInfo .writeInfo li .tips{font-size: 14px;color:#919191;}
+.teacherSelfInfo .writeInfo li div.cf{line-height:35px;}
 .teacherSelfInfo .writeInfo li label{height:30px;line-height:30px;font-size: 14px;margin-right: 20px;}
 .teacherSelfInfo .jqTransformSelectWrapper{display: inline-block;margin-right: 20px;text-align: left;float: left;}
 .teacherSelfInfo .jqTransformSelectWrapper span{font-size: 14px;color:#919191}
@@ -69,6 +71,8 @@
 .teacherSelfInfo .writeInfo .cookedTime .textInput{width:155px;margin-right:20px;}
 .teacherSelfInfo .writeInfo .cookedTime .underLine{line-height: 30px;}
 .teacherSelfInfo .writeInfo .cookedTime .jqTransformSelectWrapper{margin-left:20px;}
+.teacherSelfInfo .writeInfo li .ckEditorCss{width:800px;}
+.teacherSelfInfo .writeInfo li .postEditor{visibility: hidden;overflow: hidden;clear: both;}
 /*我要开课样式结束*/
 /*开课成功样式开始*/
 .teacherSelfInfo .startSuccess{background: #fff;text-align: center;color:#0e455e;border: 1px solid #d5d5d5;padding:40px 0;}

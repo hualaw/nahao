@@ -62,7 +62,7 @@ class register extends NH_Controller
 
 	//ajax interface
 	public function send_captcha()
-	{
+	{                                                                                        
 		$phone = trim($this->input->post('phone'));
         $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
 		$this->load->library('sms');
@@ -113,6 +113,65 @@ class register extends NH_Controller
 
 	}
 
+    public function reg_success()
+    {
+        $this->smarty->display('www/login/regSuccess.html');
+    }
+
+
+    //for tizi user
+    public function login_after()
+    {
+        $this->smarty->display('www/login/loginAfter.html');
+    }
+
+    public function submit_personal_info()
+    {
+        $input_names = array('email', 'nickname', 'area', 'grade', 'realname', 'gender', 'focus_subjects', 'school');
+        foreach($input_names as $input_name)
+        {
+            $$input_name = $this->_check_input($input_name);
+        }
+
+        $user_id = $this->session->userdata('user_id');
+        $user_info_arr = array(
+            'user_id'=> $user_id,
+            'realname' => $realname,
+            'gender'   => $gender,
+            'area'     => $area, //area id
+            'grade'    => $grade, // grade id
+            'school'   => $school, //school id
+        );
+
+        //TBD, to handle email
+
+        //create user_info table record
+        $this->load->model('model/model_user');
+        $this->model_user->create_user_info($user_info_arr);
+
+        if(!empty($focus_subjects))
+        {
+            //create student_subject table record
+            $this->load->model('model/student_subject');
+            $focus_subject_arr = explode(",", $focus_subjects);
+            $this->student_subject->add($user_id, $focus_subject_arr);
+        }
+
+        if(!empty($nickname))
+        {
+            //update nickname
+            $arr_params = array('nickname'=> $nickname);
+            $arr_where = array('id'=> $user_id);
+            $this->model_user->update_user($arr_params, $arr_where);
+
+            //update nickname in session data
+            $this->session->set_userdata('nickname', $nickname);
+        }
+
+        //TBD, assign variables
+        $this->smarty->display('www/studentHomePage/index.html');
+    }
+
 	function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
 	{
 		$arr_return['status'] = $status;
@@ -121,15 +180,35 @@ class register extends NH_Controller
 		switch($info_type)
 		{
 			case 'error':
-				log_message('error_nahao', json_encode($arr_return));
+				log_message('ERROR_NAHAO', json_encode($arr_return));
 				break;
 			case 'info':
-				log_message('info_nahao', json_encode($arr_return));
+				log_message('INFO_NAHAO', json_encode($arr_return));
 				break;
 			case 'debug':
-				log_message('debug_nahao', json_encode($arr_return));
+				log_message('DEBUG_NAHAO', json_encode($arr_return));
 				break;
 		}
 		return $arr_return;
 	}
+    
+    /**
+     * 检查验证码是否有效
+     * ajax interface
+     */
+    public function check_captcha()
+    {
+        $phone = trim($this->input->post('phone'));
+        $verify_code = intval($this->input->post('verify_code'));
+        $code_type = intval($this->input->post('code_type'));
+        $exists = $this->business_register->_check_captcha($phone, $verify_code, $code_type);
+        $arr_info['effective'] = $exists ? 1 : 0;
+        
+        self::json_output($arr_info);
+    }
+
+    function _check_input($field_name)
+    {
+        return trim($this->input->post($field_name));
+    }
 }

@@ -44,8 +44,13 @@
     {elseif $page_type == 'apply_refund'}
 	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
 		    <!--申请退款页-->
-		    {include file="www/include/studentMyCourse/page/apply_refund.htm"}
-	    </div>      
+		    {include file="www/include/studentMyCourse/page/applyRefund.htm"}
+	    </div>    
+	 {elseif $page_type == 'refund_detail'}
+	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+		    <!--申请退款页-->
+		    {include file="www/include/studentMyCourse/page/refundDetail.htm"}
+	    </div>    
    	{/if}
     <!-- 右侧框架结束 -->
     <!-- 左侧框架开始 -->

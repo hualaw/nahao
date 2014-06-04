@@ -7,12 +7,6 @@ class Pay extends NH_User_Controller {
         $this->load->model('business/student/student_order');
         $this->load->model('business/student/student_course');
     }
-
-
-	public function check_order_status($int_product_id)
-	{
-
-	}
 	
 	
 	/**
@@ -42,9 +36,9 @@ class Pay extends NH_User_Controller {
 	        {
 	            if (in_array($v['satus'], array(0,1)))
 	            {
-	                echo "<script>alert('您的订单已经存在，请去订单中心付款');</script>";exit;
+	                self::json_output(array('status'=>'order_exist','msg'=>'您的订单已经存在，请去订单中心付款'));
 	            } elseif (in_array($v['satus'], array(2,3,6,7,8))) {
-	                echo "<script>alert('您已经购买过这轮课程，请不要重复购买');</script>";exit;
+	                self::json_output(array('status'=>'order_buy','msg'=>'您已经购买过这轮课程，请不要重复购买'));
 	            } elseif (in_array($v['satus'], array(4,5))) {
 	                #根据$int_product_id获取订单里面该轮的部分信息
 	                $array_data = $this->student_order->get_order_round_info($int_product_id);
@@ -229,6 +223,7 @@ class Pay extends NH_User_Controller {
 	    log_message("ERROR_NAHAO", var_export($_SERVER,true)."\n".var_export($_GET,true)."\n"
 	    .var_export($_POST,true)."\n---------------------------------------------------------
 	    ---------------------------\n");
+	    $int_user_id = 1;#TODO用户id
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
 	    $paymentChannel = $this->checkPaymentChannel();
@@ -265,6 +260,7 @@ class Pay extends NH_User_Controller {
 	            {
 	                #更新订单状态,写日志
 	                $array_data = array(
+	                    'user_id'=>$int_user_id,
 	                    'order_id' => $payResult['order_id'],
 	                    'status'=>$order_updata['status'],
 	                    'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式
@@ -295,6 +291,7 @@ class Pay extends NH_User_Controller {
 	            {
 	                #更新订单状态,写日志
 	                $array_data = array(
+	                    'user_id'=>$int_user_id,
     	                'order_id' => $payResult['order_id'],
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式
@@ -315,6 +312,7 @@ class Pay extends NH_User_Controller {
 	            {
                     #更新订单状态,写日志
 	                $array_data = array(
+	                    'user_id'=>$int_user_id,
     	                'order_id' =>$payResult['order_id'],
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式

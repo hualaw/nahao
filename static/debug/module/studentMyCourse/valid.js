@@ -2,7 +2,7 @@ define(function(require,exports){
 	// 请求验证库
     require("validForm");
     // 请求公共验证信息
-    var sDataType = require("module/common/basics/dataType").dataType();
+//    var sDataType = require("module/common/basics/dataType").dataType();
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
