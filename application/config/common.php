@@ -116,6 +116,7 @@ $config['role'][1] = '管理员';
 $config['role'][2] = '学生';
 $config['role'][3] = '老师';
 
+
 //退款状态
 /*
 *@author shangshikai@nahao.com
@@ -128,6 +129,7 @@ $config['refund'][4] = "退款通过";
 $config['refund'][5] = "退款不通过";
 $config['refund'][5] = "退款已完成";
 
+
 //进出课堂动作
 $config['classroom_action'][1] = '进入';
 $config['classroom_action'][2] = '退出';
@@ -139,6 +141,7 @@ $config['class_teach_status'][2] = '正在上课';
 $config['class_teach_status'][3] = '上完课';
 $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
+
 
 
 //教师试讲状态
@@ -165,6 +168,7 @@ $config['teacher_title'][4] = '二级教师';
 $config['teacher_title'][5] = '三级教师';
 
 
+
 //退款状态
 /*
 *@author shangshikai@nahao.com
@@ -176,6 +180,7 @@ $config['refund'][3] = "申请退款";
 $config['refund'][4] = "退款通过";
 $config['refund'][5] = "退款不通过";
 $config['refund'][5] = "退款已完成";
+
 
 //银行
 
@@ -210,3 +215,17 @@ $config['order_log_action'][11] = "完成退款";
 $config['school_type'][1] = '公立小学';
 $config['school_type'][2] = '公立中学';
 
+
+
+
+//进出课堂动作
+$config['classroom_action'][1] = '进入';
+$config['classroom_action'][2] = '退出';
+
+//课里面的状态
+$config['class_teach_status'][0] = '初始化';
+$config['class_teach_status'][1] = '即将上课';
+$config['class_teach_status'][2] = '正在上课';
+$config['class_teach_status'][3] = '上完课';
+$config['class_teach_status'][4] = '缺课';
+$config['class_teach_status'][3] = '禁用';
