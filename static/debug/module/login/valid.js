@@ -187,9 +187,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                if(data.status == 1) {
+                    alert(data.msg);
+                }
             }
         });
+        _Form.config({
+            showAllError:true,
+            url:"/login/send_reset_email",
+        })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
         _Form.addRule([{
@@ -283,12 +289,9 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:true,
+            ajaxPost:false,
             beforeSubmit: function(curform) {
 
-            },
-            callback:function(data){
-                alert('提交成功');
             }
         });
         // 冲掉库里面的'&nbsp:'
