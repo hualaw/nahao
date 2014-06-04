@@ -506,7 +506,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public $registered_plugins = array();
     /**
-     * plugin search order
+     * plugin search adminOrder
      * @var array
      */
     public $plugin_search_order = array('function', 'block', 'compiler', 'class');

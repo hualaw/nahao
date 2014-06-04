@@ -19,10 +19,10 @@
  * CodeIgniter Profiler Class
  *
  * This class enables you to display benchmark, query, and other data
- * in order to help with debugging and optimization.
+ * in adminOrder to help with debugging and optimization.
  *
  * Note: At some point it would be good to move all the HTML in this class
- * into a set of template files in order to allow customization.
+ * into a set of template files in adminOrder to allow customization.
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
@@ -113,7 +113,7 @@ class CI_Profiler {
 		foreach ($this->CI->benchmark->marker as $key => $val)
 		{
 			// We match the "end" marker so that the list ends
-			// up in the order that it was defined
+			// up in the adminOrder that it was defined
 			if (preg_match("/(.+?)_end/i", $key, $match))
 			{
 				if (isset($this->CI->benchmark->marker[$match[1].'_end']) AND isset($this->CI->benchmark->marker[$match[1].'_start']))

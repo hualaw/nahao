@@ -81,7 +81,7 @@ class Pay extends NH_User_Controller {
 	    {
 	        show_error("创建订单失败");
 	    }
-	    redirect("/pay/order/{$int_order_id}/$payment_method", 'location', 302);
+	    redirect("/pay/adminOrder/{$int_order_id}/$payment_method", 'location', 302);
 	}
 	
 	/**

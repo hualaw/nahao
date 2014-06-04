@@ -10,6 +10,7 @@ class Welcome extends NH_User_Controller {
 		 * 3. 
 		 */
         parent::__construct();
+        $this->smarty->assign('site_url',__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
     }
@@ -20,54 +21,26 @@ class Welcome extends NH_User_Controller {
 	 */
 	public function index()
 	{
-		
 		#1.今日列表
-		$listArr = $this->teacher_b->get_today_round(array('user_id'=>1));
-		#2.模块化和页面相关
-		$today_list_data = $this->process_str($listArr);
+		$listArr = $this->teacher_b->today_class(array('teacher_id'=>1));
 		#3.页面数据
 		$data = array(
-			'today_list_data' => $today_list_data,
+			'listArr' => $listArr,
 			'active' => 'welcome_index',
 			'title' => '今日上课',
 			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
+			'today_total' => count($listArr),
+			'date' => date('Y年m月d日',time()),
 		);
-		
 		$this->smarty->assign('data',$data);
-		$this->smarty->display('teacher/index.html');
+		$this->smarty->display('teacher/teacherHomePage/index.html');
 	}
 	
 	/**
-	 * 今日开课数据组合
+	 * 我要开课
 	 */
-	public function process_str($list){
-		$listStr = '';
-		$class_type = config_item('course_type');#课程类型
-		$teach_status = config_item('round_teach_status');#授课状态
-		$today_total = 0;
-		if($list) foreach ($list as $val){
-			if($val['zjArr']) foreach ($val['zjArr'] as $v){
-				if($v['son_class']) foreach ($v['son_class'] as $lesson){
-					$listStr .= '<tr>
-			            <td>'.date('Y-m-d H:i',$lesson['begin_time']).'-'.date('Y-m-d H:i',$lesson['end_time']).'</td>
-			            <td>'.$val['title'].'</td>
-			            <td>'.$lesson['title'].'</td>
-			            <td>'.$val['rate'].' / '.$val['total_class'].'</td>
-			            <td>'.$class_type[($val['course_type'] ? $val['course_type'] : 0)].'</td>
-			            <td>'.$teach_status[($val['teach_status'] ? $val['teach_status'] : 0)].'</td>
-			            <td>'.$lesson['coursewareName'].'</td>
-			            <td><a href="">试题管理</a></td>
-			            <td><a href="">进入教室</a></td>
-			          </tr>';
-				}
-			}
-			$today_total += ( $val['total_class'] > 0 ) ? $val['total_class'] : 0;
-		}
-		
-		return array(
-			'str' => $listStr,
-			'date' => date('Y年m月d日 星期w',time()),
-			'today_total' => $today_total,
-		);
+	public function apply_teach()
+	{
+	    $this->smarty->display('www/studentStartClass/writeInfo.html');
 	}
 }

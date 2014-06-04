@@ -7,8 +7,11 @@ class Business_Register extends NH_Model {
 		$this->load->model('model/common/model_user');
 	}
 
-	public function register($phone, $email, $password, $captcha, $reg_type)
+	public function submit($phone, $email, $password, $captcha, $reg_type)
 	{
+        $check_ret = $this->_check_register_data($phone, $email, $password, $captcha, $reg_type);
+        if($check_ret['status'] != SUCCESS) return $check_ret;
+
 		//check data
 		if($reg_type == REG_TYPE_PHONE)
 		{
@@ -42,7 +45,7 @@ class Business_Register extends NH_Model {
 			'phone_mask' => $phone_mask,
 			'email' => $email,
 			'salt' => $str_salt,
-			'password'=> create_password($password),
+			'password'=> create_password($str_salt, $password),
 			'register_time' => time(),
 			'register_ip' => ip2long($this->input->ip_address()),
 			'source' => 1,
@@ -101,7 +104,7 @@ class Business_Register extends NH_Model {
 		//check phone is invalid
 		if(!is_mobile($phone))
 		{
-			return $this->_log_reg_info(ERROR, 'reg_invalid_phone', array('phone'=>$phone));
+			return $this->_log_reg_info(ERROR, 'rl_invalid_phone', array('phone'=>$phone));
 		}
 
 			//check phone is unique
@@ -112,14 +115,14 @@ class Business_Register extends NH_Model {
 			return $this->_log_reg_info(ERROR, 'reg_dup_phone', array('phone'=>$phone));
 		}
 
-		return $this->_log_reg_info(SUCCESS, 'reg_check_phone_success', array('phone'=>$phone));
+		return $this->_log_reg_info(SUCCESS, 'rl_check_phone_success', array('phone'=>$phone));
 	}
 
 	public function check_email($email)
 	{
 		if(!is_email($email))
 		{
-			return $this->_log_reg_info(ERROR, 'reg_invalid_email', array('email'=>$email));
+			return $this->_log_reg_info(ERROR, 'rl_invalid_email', array('email'=>$email));
 		}
 
 		//check email is unique
@@ -129,7 +132,7 @@ class Business_Register extends NH_Model {
 			return $this->_log_reg_info(ERROR, 'reg_dup_email', array('email'=>$email));
 		}
 
-		return $this->_log_reg_info(SUCCESS, 'reg_check_email_success', array('email'=>$email));
+		return $this->_log_reg_info(SUCCESS, 'rl_check_email_success', array('email'=>$email));
 	}
 
 	public function send_verify_email($email)
@@ -193,4 +196,37 @@ class Business_Register extends NH_Model {
 
         return $compare_result;
 	}
+
+    function _check_register_data($phone, $email, $password, $captcha, $reg_type)
+    {
+        $sign = 1;
+        if($reg_type == REG_TYPE_PHONE)
+        {
+            if(strlen($phone) == 0 || strlen($password) == 0 || strlen($captcha) == 0)
+            {
+                $sign = 2;
+            }
+        }
+        else if($reg_type == REG_TYPE_EMAIL)
+        {
+            if(strlen($email) == 0 || strlen($password) == 0)
+            {
+                $sign = 2;
+            }
+        }
+
+        if( $sign == 2 )
+        {
+            $arr_log = array(
+                'phone'=>$phone,
+                'email'=>$email,
+                'password'=>$password,
+                'captcha'=>$captcha,
+                'reg_type'=>$reg_type,
+            );
+            return $this->_log_reg_info(ERROR, 'reg_invalid_info', $arr_log);
+        }
+
+        return $this->_log_reg_info(SUCCESS, 'reg_valid_info', array());
+    }
 }
