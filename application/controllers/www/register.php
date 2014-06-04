@@ -55,7 +55,7 @@ class register extends NH_Controller
 
 		if($reg_type == REG_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
 
-		$register_ret = $this->business_register->register($phone, $email, $password, $captcha, $reg_type);
+		$register_ret = $this->business_register->submit($phone, $email, $password, $captcha, $reg_type);
 
 		echo parent::json_output($register_ret);
 	}
