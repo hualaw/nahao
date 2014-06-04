@@ -146,15 +146,15 @@ class register extends NH_Controller
         //TBD, to handle email
 
         //create user_info table record
-        $this->load->model('model/model_user');
+        $this->load->model('model/common/model_user');
         $this->model_user->create_user_info($user_info_arr);
 
         if(!empty($focus_subjects))
         {
             //create student_subject table record
-            $this->load->model('model/student_subject');
+            $this->load->model('model/student/model_student_subject');
             $focus_subject_arr = explode(",", $focus_subjects);
-            $this->student_subject->add($user_id, $focus_subject_arr);
+            $this->model_student_subject->add($user_id, $focus_subject_arr);
         }
 
         if(!empty($nickname))
