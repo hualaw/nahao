@@ -44,7 +44,7 @@ class Model_Teacher extends NH_Model{
 		$where .= $param['title'] ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
-		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
+		$column = $param['counter']==1 ? 'count(cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
@@ -78,7 +78,7 @@ class Model_Teacher extends NH_Model{
 		$group = " GROUP BY r.id";
 		$order = " ORDER BY cl.begin_time DESC";
 		$limit = $param['limit'] ? " LIMIT ".$param['limit'] : '';
-		$column = $param['counter']==1 ? 'count(r.id) total' :'r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
+		$column = $param['counter']==1 ? 'count(r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column."  
@@ -393,6 +393,20 @@ class Model_Teacher extends NH_Model{
 			"'.$param['email'].'","'.$param['qq'].'",'.$param['start_time'].','.$param['end_time'].',"'.$param['name'].'",'.$param['user_id'].')';
     	return $this->db->query($sql);
     }
+    
+    /**
+     * 课学生出勤率，注意：分2次读，第一次读进入教室的次数，如果大于0才继续统计。否则终止
+     **/
+     public function class_attendance($param){
+     	$arr_result = array();
+        $where = ' WHERE 1';
+       	$where .= $param['class_id'] ? ' AND class_id='.$param['class_id'] : '';
+       	$where .= $param['status'] ? ' AND status in('.$param['status'].')' : '';
+        $this->db->query("set names utf8");
+        $sql = 'SELECT count(id) total FROM student_class '.$where;
+        $arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+     }
     
     /**
 	 * 获取所有课程状态

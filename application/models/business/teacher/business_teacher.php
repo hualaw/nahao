@@ -126,12 +126,11 @@ class Business_Teacher extends NH_Model
      **/
      public function class_list($param){
      	if(!$param['teacher_id']){exit('请检查您的登录状态');}
-     	$course_type = config_item('course_type');
-     	$subject = config_item('subject');
      	$round_teach_status = config_item('round_teach_status');
      	$res = $this->model_teacher->class_seacher($param);
+     	$zjArr = array();
      	if($res) foreach($res as &$val){
-     		$val['status_name'] = $subject[$val['status']];
+     		$val['status_name'] = $round_teach_status[$val['status']];
      		#全部
      		$total_param_item = $already_param_item = $param; 
      		$total_param_item['status'] = "";
@@ -145,10 +144,35 @@ class Business_Teacher extends NH_Model
      		$total = $this->model_teacher->class_seacher($total_param_item);
      		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      		$total = $this->model_teacher->class_seacher($already_param_item);
-     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;     		
+     		if($val['parent_id']==0){
+     			$zjArr[$val['id']] = $val;
+     		}else{
+     			#统计出勤率
+     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
+     			$val['attendance_persent'] = $persent;
+     			$zjArr[$val['parent_id']]['jArr'][] = $val;
+     		}
      	}
-     	return $res;
+     	return $zjArr;
      }
+     
+	/**
+	* 课堂出勤率统计
+	**/
+	public function class_attendance($param){
+		if(!$param['class_id']){exit('缺少课堂参数');}
+		$total = $this->model_teacher->class_attendance(array('class_id'=>$val['id'],'status'=>'2'));
+		$study_num = $total[0]['total'] ? $total[0]['total'] : 0;
+		if($study_num){
+			$total = $this->model_teacher->class_attendance(array('class_id'=>$val['id']));
+			$num = $total[0]['total'];
+			$persent = (round($study_num/$num,3)*100).'%';
+		}else{
+			$persent = "0.00%";
+		}
+		return $persent;
+	} 
      
     /**
      * 教师今天即将开课列表
