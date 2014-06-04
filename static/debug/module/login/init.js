@@ -23,7 +23,7 @@ define(function(require,exports){
     // 注册成功之后验证
 	_valid.regAfterForm();
     //设置新密码验证
-//	_valid.setPWForm();
+	_valid.setPWForm();
 	//填写联系方式 验证
 	_valid.inforCheckForm();
     //购买之后 选课时间 验证
@@ -47,9 +47,4 @@ define(function(require,exports){
         setTimeout(_resetPwd.setPwdSuccessJump, 1000);
     }
     
-    if($("#submitNewPwd").length > 0) {
-        $("#submitNewPwd").click(function () {
-            this.form.submit();
-        });    
-    }
 })
