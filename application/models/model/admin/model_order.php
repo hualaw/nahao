@@ -11,7 +11,16 @@
         {
             return $this->db->get("student_order")->num_rows();
         }
-
+        /**
+         *
+         * @param 查询的公共sql部分
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function sql()
+        {
+            $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.price,student_order.spend,user.phone_mask,user.nickname,user.email')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc');
+        }
         /**
          * 查询订单
          * @param
@@ -20,7 +29,9 @@
          */
         public function admin_order_data()
         {
-           return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,user.id as uid')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->order_by('student_order.id','desc')->get();
+           $this->load->model('model/admin/model_order');
+           $this->model_order->sql();
+           return $this->db->get();
            // var_dump($c->result_array());die;
         }
 
@@ -30,15 +41,16 @@
          * @return boolean
          * @author shangshikai@nahao.com
          */
-        public function sea_order($post)
+        public function sea_order($post,$int_uid)
         {
             $str_criteria=config_item('criteria');
-            $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.confirm_time,student_order.pay_type,student_order.price,student_order.spend,user.phone_mask,user.nickname,user.email')->from('student_order')->join('user', 'user.id = student_order.student_id','left');
+            $this->load->model('model/admin/model_order');
+            $this->model_order->sql();
             if(!empty($post['order_id']))
             {
                 $this->db->where("student_order.id = $post[order_id]");
             }
-            if($post['status']!='')
+            if($post['status']!="")
             {
                 $this->db->where("student_order.status = $post[status]");
             }
@@ -47,11 +59,10 @@
                 $str_cri=$str_criteria[$post['name_phone_email']];
                 if($post['name_phone_email']!=2)
                 {
-                    $this->db->where("user.$str_cri = $post[phone_name_email]");
+                    $this->db->where("user.$str_cri = '$post[phone_name_email]'");
                 }
                 else
                 {
-                    $int_uid=get_uid_phone_server($post['phone_name_email']);
                     $this->db->where("user.id=$int_uid");
                 }
             }
@@ -78,8 +89,9 @@
          */
         public function sea_order_count($post)
         {
+            $int_uid=get_uid_phone_server($post['phone_name_email']);
             $this->load->model("model/admin/model_order");
-            $this->model_order->sea_order($post);
+            $this->model_order->sea_order($post,$int_uid);
             return $this->db->get()->num_rows();
         }
         /**
@@ -90,9 +102,11 @@
          */
         public function sea_order_list($post)
         {
+            $int_uid=get_uid_phone_server($post['phone_name_email']);
             $this->load->model("model/admin/model_order");
-            $this->model_order->sea_order($post);
-            return $this->db->order_by('student_order.id','desc')->get();
+            $this->model_order->sea_order($post,$int_uid);
+            return $this->db->get();
+           // echo $this->db->last_query();die;
         }
         /**
          * 查询订单总信息
@@ -113,7 +127,7 @@
             $arr_order['apply_refund_round'] = $this->db->get_where("student_order",array('status' => 6))->num_rows();
             $arr_order['refund_fail_round'] = $this->db->get_where("student_order",array('status' => 7))->num_rows();
             $arr_order['refund_success_round'] = $this->db->get_where("student_order",array('status' => 8))->num_rows();
-
+            $arr_order['refund_ok_round'] = $this->db->get_where("student_order",array('status' => 9))->num_rows();
             return $arr_order;
         }
         /**
@@ -124,7 +138,7 @@
          */
         public function details_order($int_order_id)
         {
-            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,order_round_relation.round_id,round.title,round.start_time,round.end_time,round.price,round.sale_price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('order_round_relation','order_round_relation.order_id=student_order.id','left')->join('round','round.id=order_round_relation.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get();
+            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,round.price,round.sale_price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get();
         }
         /**
          * 订单备注
@@ -134,18 +148,20 @@
          */
         public function note_order($int_order_id)
         {
-            return $this->db->select('order_note.note,order_note.create_time')->from('order_note')->where("order_note.order_id=$int_order_id")->get();
+            return $this->db->select('order_note.note,order_note.create_time,admin.username')->from('order_note')->join('admin','admin.id=order_note.admin_id','left')->where("order_note.order_id=$int_order_id")->order_by('order_note.id','desc')->get();
         }
         /**
-         * 管理员退款操作
+         * 管理员拒绝退款操作
          * @param
          * @return boolean TRUE or FALSE
          * @author shangshikai@nahao.com
          */
         public function refund_stu($student_id,$order_id)
         {
-            $round_id=$this->db->select('order_round_relation.round_id')->from('order_round_relation')->where("order_round_relation.order_id=$order_id")->get()->row_array();
-            if($this->db->update('student_order',array("status"=>8), "student_order.id = $order_id") && $this->db->update('student_class',array("status"=>6), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>2),array('student_id' => $student_id,'round_id'=>$round_id['round_id'])))
+            $admin_id=$this->userinfo['id'];
+            //echo $admin_id;die;
+            $round_id=$this->db->select('student_order.round_id')->from('student_order')->where("student_order.id=$order_id")->get()->row_array();
+            if($this->db->update('student_class',array("status"=>0), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>1),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>7),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)) && $this->db->insert("order_action_log",array('order_id'=>$order_id,'user_type'=>1,'user_id'=>$admin_id,'action'=>9,'create_time'=>time(),'note'=>'管理员拒绝退款')))
             {
                 return TRUE;
             }
@@ -153,7 +169,46 @@
             {
                 return FALSE;
             }
+        }
 
+        /**
+         * 管理员同意退款操作
+         * @param
+         * @return boolean TRUE or FALSE
+         * @author shangshikai@nahao.com
+         */
+        public function refund_agr($student_id,$order_id)
+        {
+            $admin_id=$this->userinfo['id'];
+            $round_id=$this->db->select('student_order.round_id')->from('student_order')->where("student_order.id=$order_id")->get()->row_array();
+            if($this->db->update('student_class',array("status"=>4), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>2),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>8),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)) && $this->db->insert("order_action_log",array('order_id'=>$order_id,'user_type'=>1,'user_id'=>$admin_id,'action'=>10,'create_time'=>time(),'note'=>'管理员同意退款')))
+            {
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
+            }
+        }
+
+        /**
+         * 管理员完成退款操作
+         * @param
+         * @return boolean TRUE or FALSE
+         * @author shangshikai@nahao.com
+         */
+        public function refund_last($student_id,$order_id)
+        {
+            $admin_id=$this->userinfo['id'];
+            $round_id=$this->db->select('student_order.round_id')->from('student_order')->where("student_order.id=$order_id")->get()->row_array();
+            if($this->db->update('student_class',array("status"=>5), array('student_id' => $student_id,'round_id'=>$round_id['round_id'])) && $this->db->update('student_refund',array("status"=>3),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'order_id'=>$order_id)) && $this->db->update('student_order',array('status'=>9),array('student_id' => $student_id,'round_id'=>$round_id['round_id'],'id'=>$order_id)) && $this->db->insert("order_action_log",array('order_id'=>$order_id,'user_type'=>1,'user_id'=>$admin_id,'action'=>11,'create_time'=>time(),'note'=>'管理员完成退款')))
+            {
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
+            }
         }
         /**
          *添加订单备注
@@ -163,7 +218,7 @@
          */
         public function insert_order_note($note,$order_id)
         {
-            $admin_id=1;
+            $admin_id=$this->userinfo['id'];
             $data=array("note"=>$note,
                 "order_id"=>$order_id,
                 "admin_id"=>$admin_id,
@@ -171,7 +226,12 @@
             );
            return $this->db->insert('order_note',$data);
         }
-
+        /**
+         *展示手机号
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
         public function show_tel($int_uid)
         {
             return get_pnum_phone_server($int_uid);

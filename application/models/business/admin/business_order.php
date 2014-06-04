@@ -38,18 +38,11 @@
          */
         public function sea_order($post)
         {
-            if(trim($post['create_time1'])!="" && trim($post['create_time2'])!="")
-            {
-                $post["create_time1"] = strtotime($post["create_time1"]);
-                $post["create_time2"] = strtotime($post["create_time2"]);
-            }
-            if(trim($post['confirm_time1'])!="" && trim($post['confirm_time2'])!="")
-            {
-                $post["confirm_time1"] = strtotime($post["confirm_time1"]);
-                $post["confirm_time2"] = strtotime($post["confirm_time2"]);
-            }
+            $post["create_time1"] = strtotime($post["create_time1"]);
+            $post["create_time2"] = strtotime($post["create_time2"]);
+            $post["confirm_time1"] = strtotime($post["confirm_time1"]);
+            $post["confirm_time2"] = strtotime($post["confirm_time2"]);
             $post['order_id']=trim($post['order_id']);
-            $post['status']=trim($post['status']);
             $post['phone_name_email']=trim($post['phone_name_email']);
             //var_dump($post);die;
             $this->load->model("model/admin/model_order");
@@ -63,7 +56,12 @@
          */
         public function search_order_count($post)
         {
-
+            $post["create_time1"] = strtotime($post["create_time1"]);
+            $post["create_time2"] = strtotime($post["create_time2"]);
+            $post["confirm_time1"] = strtotime($post["confirm_time1"]);
+            $post["confirm_time2"] = strtotime($post["confirm_time2"]);
+            $post['order_id']=trim($post['order_id']);
+            $post['phone_name_email']=trim($post['phone_name_email']);
             $this->load->model("model/admin/model_order");
             return $this->model_order->sea_order_count($post);
         }
@@ -90,7 +88,29 @@
             return $this->model_order->details_order($int_order_id);
         }
         /**
-         * 管理员退款操作
+         * 管理员完成退款操作
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function refund_ok($student_id,$order_id)
+        {
+            $this->load->model("model/admin/model_order");
+            return $this->model_order->refund_last($student_id,$order_id);
+        }
+        /**
+         * 管理员通意退款操作
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function agr_refund($student_id,$order_id)
+        {
+            $this->load->model("model/admin/model_order");
+            return $this->model_order->refund_agr($student_id,$order_id);
+        }
+        /**
+         * 管理员拒绝退款操作
          * @param
          * @return
          * @author shangshikai@nahao.com
@@ -119,6 +139,7 @@
          */
         public function note_insert($note,$order_id)
         {
+            $note=htmlspecialchars($note);
             if(trim($note)=="")
             {
                 return FALSE;

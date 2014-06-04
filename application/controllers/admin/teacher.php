@@ -11,12 +11,6 @@ class Teacher extends NH_Admin_Controller {
         'status' => 'error',
         'msg' => '操作失败',
     );
-
-    function __construct(){
-        parent::__construct();
-        $this->load->model('business/admin/business_user','user');
-    }
-
     /**
      * user index
      * @author yanrui@tizi.com

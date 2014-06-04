@@ -813,7 +813,7 @@ class CI_Loader {
 		 * 1. Speed. You get a significant speed boost.
 		 * 2. So that the final rendered template can be
 		 * post-processed by the output class.  Why do we
-		 * need post processing?  For one thing, in order to
+		 * need post processing?  For one thing, in adminOrder to
 		 * show the elapsed page load time.  Unless we
 		 * can intercept the content right before it's sent to
 		 * the browser and then stop the timer it won't be accurate.
@@ -846,7 +846,7 @@ class CI_Loader {
 		/*
 		 * Flush the buffer... or buff the flusher?
 		 *
-		 * In order to permit views to be nested within
+		 * In adminOrder to permit views to be nested within
 		 * other views, we need to flush the content back out whenever
 		 * we are beyond the first level of output buffering so that
 		 * it can be seen and included properly by the first included

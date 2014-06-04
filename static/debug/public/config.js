@@ -54,6 +54,10 @@ seajs.use('jquery', function () {
         case 'adminGroup':
             seajs.use("module/adminGroup/init");
             break;
+        case 'adminOrder':
+            seajs.use("module/adminOrder/init");
+        case 'adminLecture':
+            seajs.use("module/adminLecture/init");
         //管理员学生管理
         case 'adminStudent':
             seajs.use("module/adminStudent/init");
