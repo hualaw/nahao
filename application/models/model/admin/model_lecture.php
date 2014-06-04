@@ -143,7 +143,7 @@
          */
         public function detail_lecture($lecture_id)
         {
-            return $this->db->select('teacher_lecture.course,teacher_lecture.status,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.qq,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,teacher_lecture.resume,teacher_lecture.age,teacher_lecture.course_intro,teacher_lecture.gender,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
+            return $this->db->select('teacher_lecture.province,teacher_lecture.city,teacher_lecture.area,teacher_lecture.course,teacher_lecture.user_id,teacher_lecture.status,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.qq,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,teacher_lecture.resume,teacher_lecture.age,teacher_lecture.course_intro,teacher_lecture.gender,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
         }
 
         /**
@@ -197,9 +197,13 @@
          * @return
          * @author shangshikai@nahao.com
          */
-        public function lecture_teach_pass($lecture_id)
+        public function lecture_teach_pass($post,$data)
         {
-            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$lecture_id));
+            $this->db->insert('user_info',$data);
+            if($this->db->update('user',array('user.teach_priv'=>1),array('user.id'=>$post['user_id'])) && $this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->insert('user_info',$data))
+             {
+                 return TRUE;
+             }
         }
         /**
          *待定试讲审核

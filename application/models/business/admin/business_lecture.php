@@ -134,10 +134,26 @@
          * @return
          * @author shangshikai@nahao.com
          */
-        public function lecture_pass($lecture_id)
+        public function lecture_pass($post)
         {
+            $data=array(
+                'user_id'=>$post['user_id'],
+                'gender'=>$post['gender'],
+                'realname'=>$post['realname'],
+                'age'=>$post['age'],
+                'school'=>$post['school'],
+                'province'=>$post['province'],
+                'city'=>$post['city'],
+                'area'=>$post['area'],
+                'stage'=>$post['stage'],
+                'teacher_age'=>$post['teacher_age'],
+                'teacher_intro'=>$post['teacher_intro'],
+                'titile_auth'=>$post['titile_auth'],
+                'teacher_auth'=>1
+            );
+           // return $data['teacher_auth'];
             $this->load->model('model/admin/model_lecture');
-            return $this->model_lecture->lecture_teach_pass($lecture_id);
+            return $this->model_lecture->lecture_teach_pass($post,$data);
         }
 
         /**

@@ -44,6 +44,10 @@
         <td>{$details.qq}</td>
     </tr>
     <tr height="35">
+        <td width="200">个人简介</td>
+        <td><textarea class="form-control" rows="1" disabled>{$details.resume}</textarea></td>
+    </tr>
+    <tr height="35">
         <td width="200">讲课方式</td>
         <td>{$con_teach_type[$details.teach_type]}</td>
     </tr>
@@ -88,3 +92,15 @@
 {/for}
 <button type="button" class="btn btn-success" id="keep">保存</button>
 <input type="hidden" value="{$details.id}" id="lecture_id" />
+<input type="hidden" value="{$details.user_id}" id="user_id" />
+<input type="hidden" value="{$details.gender}" id="gender" />
+<input type="hidden" value="{$details.age}" id="age" />
+<input type="hidden" value="{$details.tea_name}" id="tea_name" />
+<input type="hidden" value="{$details.resume}" id="resume" />
+<input type="hidden" value="{$details.title}" id="title" />
+<input type="hidden" value="{$details.teach_years}" id="teach_years" />
+<input type="hidden" value="{$details.school}" id="school" />
+<input type="hidden" value="{$details.stage}" id="stage" />
+<input type="hidden" value="{$details.province}" id="province" />
+<input type="hidden" value="{$details.city}" id="city" />
+<input type="hidden" value="{$details.area}" id="area" />

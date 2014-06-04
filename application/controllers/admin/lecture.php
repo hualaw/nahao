@@ -148,8 +148,8 @@
         */
         public function pass_lecture()
         {
-            $lecture_id=$this->input->post('lecture_id',TRUE);
-            echo $this->lecture->lecture_pass($lecture_id);
+              $post=$this->input->post(NULL,TRUE);
+              echo $this->lecture->lecture_pass($post);
         }
 
         /**
