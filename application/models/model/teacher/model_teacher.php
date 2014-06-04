@@ -67,7 +67,7 @@ class Model_Teacher extends NH_Model{
 	public function round_seacher($param){
 		#1. 参数组合
 		$arr_result = array();
-		$where = ' WHERE 1 AND cl.parent_id>0';
+		$where = ' WHERE 1 AND cl.parent_id>0 ';
 		$where .= $param['id'] ? ' AND r.id='.$param['id'] : '';
 		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= $param['start_time'] ? ' AND r.start_time>='.$param['start_time'] : '';
@@ -158,19 +158,20 @@ class Model_Teacher extends NH_Model{
 	 * 薪酬结算统计
 	 * param: teacher_id,status(0未结算,1已结算),
 	 **/
-	public function pay_list(){
+	public function pay_list($param){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
+		$where .= $param['id'] ? ' AND tcl.id='.$param['id'] : '';
 		$where .= $param['teacher_id'] ? ' AND tcl.teacher_id='.$param['teacher_id'] : '';
 		$where .= $param['status'] ? ' AND tcl.status='.$param['status'] : '';
 		$where .= $param['start_time'] ? ' AND tcl.pay_time>='.$param['start_time'] : '';
 		$where .= $param['end_time'] ? ' AND tcl.end_time<='.$param['end_time'] : '';
-		
+		$order = ' ORDER BY tcl.create_time DESC';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT tcl.*
-				FROM nahao.teacher_checkout_log tcl ".$where;
+				FROM nahao.teacher_checkout_log tcl ".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}

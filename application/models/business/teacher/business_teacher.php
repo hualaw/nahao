@@ -106,20 +106,59 @@ class Business_Teacher extends NH_Model
      	$param['teach_status'] = -1;
      	$total = $this->model_teacher->round_status_counter($param);
      	$res['teach_status_0_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	#授课中
+     	$param['teach_status'] = 1;
+     	$total = $this->model_teacher->round_status_counter($param);
+     	$res['teach_status_1_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      	#停课
      	$param['teach_status'] = 2;
      	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_3_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	$res['teach_status_2_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      	#结课
      	$param['teach_status'] = 3;
      	$total = $this->model_teacher->round_status_counter($param);
      	$res['teach_status_3_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	#过期
+     	$param['teach_status'] = 4;
+     	$total = $this->model_teacher->round_status_counter($param);
+     	$res['teach_status_4_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      	#全部
      	$param['teach_status'] = "0,1,2,3,4";
      	$total = $this->model_teacher->round_status_counter($param);
      	$res['teach_status_all_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      	return $res;
      } 
+     
+     /**
+      * 统计数据中章节数据状态次数
+      **/ 
+     public function count_zj_status($data){
+     	$count = array(
+     		'z_count' => 0,
+     		'j_count' => 0,
+     		'j_status_5' => 0,//禁用
+     		'j_status_4' => 0,//缺课
+     		'j_status_3' => 0,//已结课
+     		'j_status_2' => 0,//正在上课
+     		'j_status_1' => 0,//即将上课
+     		'j_status_0' => 0,//初始化
+     	);
+     	if(count($data)>0){
+     		$count['z_count'] = count($data);
+     		foreach ($data as $val){
+     			$count['j_count'] += count($val['jArr']);
+     			foreach ($val['jArr'] as $v){
+     				$count['j_status_5'] += $val['status'] == 5 ? 1 : 0;
+	     			$count['j_status_4'] += $val['status'] == 4 ? 1 : 0;
+	     			$count['j_status_3'] += $val['status'] == 3 ? 1 : 0;
+	     			$count['j_status_2'] += $val['status'] == 2 ? 1 : 0;
+	     			$count['j_status_1'] += $val['status'] == 1 ? 1 : 0;
+	     			$count['j_status_0'] += $val['status'] == 0 ? 1 : 0;
+     			}
+     		}
+     	}
+     	return $count;
+     }
      
      /**
      * 所有课数据
@@ -285,5 +324,78 @@ class Business_Teacher extends NH_Model
      **/ 
     public function get_subject(){
     	return $this->model_teacher->get_subject();
+    }
+    
+    /**
+     * 教师课酬结算列表
+     **/
+    public function pay_list($param){
+    	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+    	$list = $this->model_teacher->pay_list($param);
+    	return $list;
+    }
+    
+    /**
+     * 教师已/未结算课时总收入
+     **/
+    public function count_pay_status($list){
+    	$count = array(
+    		'already' => 0,
+    		'none' => 0,
+    	);
+    	if($list) foreach ($list as $val){
+    		if($val['status']==1){
+    			$count['already'] += $val['net_income'];
+    		}elseif($val['status']==0){
+    			$count['none'] += $val['net_income'];
+    		}
+    	}
+    	return $count;
+    }
+    
+    /**
+     * 月结算详情
+     **/
+    public function pay_detail($param){
+    	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+    	if(!$param['pay_id']){exit('缺少必要参数');}
+    	$detail = array();
+		$pay_info = $this->model_teacher->pay_list($param);
+		if(isset($pay_info[0])){
+			#查询月上课详情
+			$param = array(
+				'teacher_id' => $param['teacher_id'],
+				'begin_time' => strtotime(date('Y-m',$pay_info[0]['create_time'])),
+				'end_time' => $pay_info[0]['create_time'],
+				'parent_id' => -2,
+				'status' => 3,
+			);
+			$detail = $this->model_teacher->class_seacher($param);
+		}
+		return $detail;
+    }
+     
+    /**
+     * 分页
+     **/ 
+    public function load_pageBar($param){
+    	$param['page'] = isset($param['page']) ? $param['page'] : 1;
+    	$param['total'] = isset($param['total']) ? $param['total'] : 0;
+    	$param['num'] = isset($param['num']) ? $param['num'] : 10;
+    	$param['pages'] = ceil($param['total']/10);
+    	$pageBar = '<div class="pagination fr"><ul>';
+    	$pageBar .= '<li><a onclick="ajaxPage(1);return false;" href="javascript:void(0);">首页</a></li>';
+    	for ($i=1;$i<=$config['pages'];$i++){
+    		$li = '';
+    		if($i==($config['curPage']-2) || $i==($config['curPage']-1) || $i==($config['curPage']+2) || $i==($config['curPage']+1)){
+    			$li = '<li><a onclick="ajaxData('.$i.');return false;" href="javascript:void(0);">'.$i.'</a></li>';
+    		}elseif($i==$config['curPage']){
+    			$li = '<li class="active"><a href="javascript:void(0);">'.$i.'</a></li>';
+    		}
+    		$pageBar .=$li;
+    	}
+    	$pageBar .= '<li><a onclick="ajaxData('.$config['pages'].');return false;" href="javascript:void(0);">尾页['.$config['pages'].']</a></li>';
+    	$pageBar .= '</ul></div>';
+    	return $pageBar;
     }
 }

@@ -6,13 +6,27 @@
 <!--班次列表开始-->
 <div class="md_orderList">
     <div class="orderList_nav">
-        <span>班次数量:<b class="fred">{$data['teach_status_count']['teach_status_all_total']}</b></span>
-        <span>即将上课：<b class="fred">{$data['teach_status_count']['teach_status_0_total']}</b></span>
-        <span>已结课：<b class="fred">{$data['teach_status_count']['teach_status_3_total']}</b></span>
-        <span class="last">已停课：<b class="fred">{if $data['teach_status_count']['teach_status_2_total']}{$data['teach_status_count']['teach_status_2_total']}{else}0{/if}</b></span>
+	    {if $data['teach_status_count']['teach_status_all_total']}
+	    	<span>班次数量:<b class="fred">{$data['teach_status_count']['teach_status_all_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_0_total']}
+	        <span>即将上课：<b class="fred">{$data['teach_status_count']['teach_status_0_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_1_total']}
+	        <span>正在上课：<b class="fred">{$data['teach_status_count']['teach_status_1_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_2_total']}
+	        <span>停课：<b class="fred">{$data['teach_status_count']['teach_status_2_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_3_total']}
+	        <span>已结课：<b class="fred">{$data['teach_status_count']['teach_status_3_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_4_total']}
+	        <span>过期：<b class="fred">{$data['teach_status_count']['teach_status_4_total']}</b></span>
+	    {/if}
     </div>
     <div class="orderList_search">
-        <form action="{$site_url}/orderList/index/" mothed="get" onsubmit="return false">
+        <form action="{$site_url}/orderList/index/" mothed="get" onsubmit="">
             <ul>
                 <li class="seachLi">
                     <select name="id" id="" class="fl">
@@ -24,7 +38,7 @@
                         {/if}
                     </select>
                 </li>
-                <li>
+                <li class="seachLi">
                     <input name="title" type="text" value="" placeholder="要搜索的班次名" class="textInput"/>
                 </li>
                 <li class="seachLi">
@@ -73,8 +87,8 @@
             		<tr {if $val['teach_status']==0}class="start"{elseif $val['teach_status']==3}class="end"{/if}>
             			<td class="order_id">{$val['id']}</td>
 		                <td class="order_name">
-		                    <h3>{$val['title']}</h3>
-		                    <p>{$val['round_title']}</p>
+		                    <h3>{$val['class_name']}</h3>
+		                    <p>{$val['title']}</p>
 		                </td>
 		                <td class="class_date"><b>{$val['class_start_time']|date_format:'%Y-%m-%d'}</b>{$val['class_start_time']|date_format:'%H: %M: %S'}</td>
 		                <td class="class_progress"><b class="fred">{$val['already_total']}</b>/{$val['total']}</td>
@@ -91,6 +105,13 @@
            		</tr>
 	        {/if}
         </table>
+    </div>
+    <div class="page cf">
+    	<div class="pagination fr">
+    		<a href="javascript:void(0);" class="active">1</a>
+			<a onclick="if(typeof Common == &quot;function&quot;){Common.pagination(this);}get_pagination(2);return false;" href="javascript:void(0);">2</a>
+			<a onclick="if(typeof Common == &quot;function&quot;){Common.pagination(this);}get_pagination(3);return false;" href="javascript:void(0);">3</a>
+    	</div>
     </div>
 </div>
 <!--班次列表结束-->

@@ -30,6 +30,7 @@ class Orderlist extends NH_User_Controller {
      		);
 		#1.今日列表
 		$listArr = $this->teacher_b->round_list($param);
+		
 		#3.页面数据
 		$data = array(
 			'listArr' => $listArr,
@@ -40,18 +41,22 @@ class Orderlist extends NH_User_Controller {
 			'teach_status_list' => $teach_status,
 			'teach_status_count' => $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
 		);
+		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/index.html');
 	}
 	
+	//评价
 	public function order_appraise(){
 		$this->smarty->display('teacher/teacherOrderList/order_appraise.html');
 	}
 	
+	//答题统计
 	public function order_count(){
 		$this->smarty->display('teacher/teacherOrderList/order_count.html');
 	}
 	
+	//章节详细
 	public function order_detail(){
 		$round_id = $this->uri->segment(3,0);
 		$param = array(
@@ -60,15 +65,18 @@ class Orderlist extends NH_User_Controller {
      			'order' => 3,
      		);
 		$zjList = $this->teacher_b->class_list($param);
+		
 		$data = array(
 			'zjList' => $zjList,
 			'active' => 'orderlist_order_detail',
 			'title' => '班次详情',
+			'status_count' => $this->teacher_b->count_zj_status($zjList),
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}
 	
+	//题目管理
 	public function order_manage(){
 		$this->smarty->display('teacher/teacherOrderList/order_manage.html');
 	}
