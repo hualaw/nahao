@@ -162,3 +162,7 @@ $config['bank'][9] = "兴业银行";
 $config['bank'][10] = "深圳发展银行";
 $config['bank'][11] = "民生银行";
 $config['bank'][12] = "光大银行";
+
+//学校类型
+$config['school_type'][1] = '公立小学';
+$config['school_type'][2] = '公立中学';
