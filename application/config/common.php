@@ -176,3 +176,7 @@ $config['order_log_action'][8] = "申请退款";
 $config['order_log_action'][9] = "拒绝退款";
 $config['order_log_action'][10] = "同意退款";
 $config['order_log_action'][11] = "完成退款";
+
+//学校类型
+$config['school_type'][1] = '公立小学';
+$config['school_type'][2] = '公立中学';
