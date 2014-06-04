@@ -1,10 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * studnet相关逻辑
- * Class Model_Student
- * @author liubing@tizi.com
- */
 class Model_Order extends NH_Model{
     
     function __construct(){
@@ -53,15 +48,18 @@ class Model_Order extends NH_Model{
     
     /**
      * 添加订单日志
-     * @param  $array_prams
-     * @return $bool_result
+     * @param  $array_data['order_id']
+     * @param  $array_data['user_type']
+     * @param  $array_data['user_id']
+     * @param  $array_data['action']
+     * @param  $array_data['create_time']
+     * @param  $array_data['note']
      */
-    public function add_order_log($array_prams)
+    public function add_order_log($array_data)
     {
-        $this->db->insert('order_action_log',$array_prams);
+        $this->db->insert('order_action_log',$array_data);
         $int_row = $this->db->affected_rows();
-        $bool_result = $int_row > 0 ? true : false;
-        return $bool_result;
+        return $int_row > 0 ? true : false;
     }
     
     /**
@@ -118,5 +116,17 @@ class Model_Order extends NH_Model{
         $sql = "SELECT status FROM student_order WHERE student_id = ".$int_user_id." 
                 AND round_id = ".$int_product_id." AND is_delete = 0";
         $array_result = $this->db->query($sql)->result_array();
+    }
+    
+    /**
+     * 删除订单
+     * @param  $array_delete
+     * 
+     */
+    public function delete_order($array_update,$array_where)
+    {
+        $this->db->update('student_order', $array_update,$array_where);
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
     }
 }

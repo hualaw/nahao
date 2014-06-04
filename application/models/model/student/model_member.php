@@ -126,4 +126,76 @@ class Model_Member extends NH_Model{
         $array_result = $this->db->query($sql)->row_array();
         return $array_result['count'];
     }
+    
+    /**
+     * 添加到退款记录表
+     * @param  $array_data
+     */
+    public function add_student_refund($array_data)
+    {
+        $this->db->insert('student_refund', $array_data);
+        $int_row = $this->db->affected_rows();
+        return $int_row > 0 ? true : false;
+    }
+    
+    /**
+     * 更改学生与课的关系表，将该学生没有上过的课里面的状态更为申请退款
+     * @param $array_update['status']
+     * @param $array_where['round_id']
+     * @param $array_where['student_id']
+     * @return bool
+     */
+    public function update_student_class($array_update,$array_where)
+    { 
+        $this->db->update('student_class',$array_update,$array_where);
+        $int_row = $this->db->affected_rows();
+        return $int_row > 0 ? true : false;
+    }
+    
+    /**
+     * 更新用户的银行卡信息
+     * @param  $array_bank_update['bankname']
+     * @param  $array_bank_update['bankbench']
+     * @param  $array_bank_update['bankcard']
+     * @param  $array_bank_update['id_code']
+     * @param  $array_bank_where['student_id']
+     * @return bool
+     */
+    public function update_user_bank_infor($array_bank_update,$array_bank_where)
+    {
+        $this->db->update('user_info',$array_bank_update,$array_bank_where);
+        $int_row = $this->db->affected_rows();
+        return $int_row > 0 ? true : false;
+    }
+    
+    /**
+     * #获取学生退款记录
+     * @param  $int_user_id
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_student_refund_data($int_user_id,$int_round_id)
+    {
+        $array_result = array();
+        $sql = "SELECT study_count,refund_count,round_price,refund_price,reason,status,create_time
+                FROM student_refund WHERE student_id = ".$int_user_id." AND round_id = ".$int_round_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return $array_result;
+    }
+    
+    /**
+     * 获取用户信息
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function get_user_infor($int_user_id)
+    {
+        $array_result = array();
+        $sql = "SELECT u.nickname,u.avatar,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
+                ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u
+                LEFT JOIN user_info ui ON u.id = ui.user_id
+                WHERE ui.user_id = ".$int_user_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return  $array_result;
+    }
 }

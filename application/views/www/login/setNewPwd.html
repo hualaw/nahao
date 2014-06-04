@@ -27,7 +27,7 @@
 					<span class="fl current">2. 设置新密码</span>
 					<span class="fl ok ">3. 完成</span>
 				</div>			
-				<form action="" mothed="post" onsubmit="return false" class="setPWForm">
+				<form action="/login/reset_pwd" method="POST"  class="setPWForm">
 					<ul>
 						<li class="cf">
 							<p class="fl"><span>*</span>新密码</p>
@@ -41,10 +41,11 @@
 							<div class="cf">
 								<input type="password" name="reSetPassword" placeholder="请再次输入新密码" class="reSetPassword fl" validName="text">
 								<span class="Validform_checktip fl"></span>
+                                <input type='hidden' name='phone_number' value="{$phone_number}">
 							</div>
 						</li>
 						<li class="cf">
-							<input type="submit" class="btn redBtn submit fl" value="确定">
+							<input type="button" id='submitNewPwd' class="btn redBtn submit fl" value="确定">
 						</li>
 					</ul>
 				</form>
