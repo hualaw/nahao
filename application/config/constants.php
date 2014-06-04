@@ -175,6 +175,10 @@ define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-dat
 define('REG_TYPE_PHONE', 1);
 define('REG_TYPE_EMAIL', 2);
 
+//login status
+define('LOGIN_TYPE_PHONE', 1);
+define('LOGIN_TYPE_EMAIL', 2);
+
 //ok/error
 define('SUCCESS', 'ok');
 define('ERROR', 'error');
