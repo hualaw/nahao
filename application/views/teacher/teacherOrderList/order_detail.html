@@ -1,0 +1,73 @@
+{extends file='teacher/teacherOrderList/base.html'}
+
+{block name=title}学员评价{/block}
+
+{block name=container}
+<!--小导航开始-->
+<div class="nav_crumbs">
+    <a href="javascript:void(0)">首页></a>
+    <a href="javascript:void(0)">班次列表></a>
+    <a href="javascript:void(0)" class="nav_detail">班次章节</a>
+</div>
+<!--小导航结束-->
+<!--班次列表详情页面开始-->
+<div class="md_orderDetail">
+    <h2>班次名称：2014年小升初暑假特训营（第一期）</h2>
+    <div class="md_hd">
+        <span class="chapter">共<b>{$data['status_count']['z_count']}</b>章</span>
+        <span class="course"><b>{$data['status_count']['j_count']}</b>节课</span>
+        {if $data['status_count']['j_status_0']}
+        	<span>初始化：<b>{$data['status_count']['j_status_0']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_1']}
+        	<span>即将开始：<b>{$data['status_count']['j_status_1']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_2']}
+        	<span>正在上课：<b>{$data['status_count']['j_status_2']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_3']}
+        	<span>已结课：<b>{$data['status_count']['j_status_3']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_4']}
+        	<span>缺课：<b>{$data['status_count']['j_status_4']}</b></span>
+        {/if}
+		{if $data['status_count']['j_status_5']}
+        	<span>禁用：<b>{$data['status_count']['j_status_5']}</b></span>
+        {/if}
+    </div>
+    <div class="md_bd">
+    {if $data['zjList']}
+    	{foreach $data['zjList'] as $val}
+    		<h3>{$val['title']}</h3>
+	        <table class="md_table">
+	            <tr>
+	                <th>序号</th>
+	                <th>小节名称</th>
+	                <th>上课时间</th>
+	                <th>授课状态</th>
+	                <th>出勤率</th>
+	                <th>学员评价</th>
+	                <th>课件讲义</th>
+	                <th>练习题管理</th>
+	            </tr>
+	            {foreach $val['jArr'] as $v}
+		            <tr>
+		                <td class="order_id">{$v['id']}</td>
+		                <td class="order_name">
+		                    <h3>{$v['title']} </h3>
+		                </td>
+		                <td class="class_date"><b>{$v['begin_time']|date_format:'%Y:%m:%d'}</b>{$v['begin_time']|date_format:'%H:%M:%S'}</td>
+		                <td class="class_statu">{$v['status_name']}</td>
+		                <td class="class_number">{$v['attendance_persent']}</td>
+		                <td class="class_praise"><a href="/orderList/order_appraise/{$v['id']}">查看评价</a></td>
+		                <td class="class_word"><em class="icon_note"></em><a href="/orderList/order_count/{$v['id']}">{$v['courseware_name']}</a></td>
+		                <td class="class_manage"><a href="/orderList/order_manage/{$v['id']}"><em class="icon_notem"></em></a></td>
+		            </tr>
+	            {/foreach}
+	        </table>
+    	{/foreach}
+    {/if}
+    </div>
+</div>
+<!--班次列表详情页面结束-->
+{/block}

@@ -1,0 +1,113 @@
+/*首页班次列表开始*/
+.teacherOrderList .md_orderList{margin-bottom: 50px;}
+.teacherOrderList .md_orderList .orderList_nav{display:inline-block;background-color:#f7f7f7;line-height:32px;margin-bottom:15px;padding-left:20px;padding-right: 20px;}
+.teacherOrderList .md_orderList .orderList_nav span{font-size:14px;color:#677381;margin-right:5px;border-right:1px solid #ed4111;padding-right: 10px;}
+.teacherOrderList .md_orderList .orderList_nav span.last{border: 0;padding-right:0px;}
+.teacherOrderList .md_orderList .orderList_nav b{margin-left:5px;}
+
+.teacherOrderList .md_orderList .orderList_search{clear: both;margin-bottom: 20px;height:30px;}
+.teacherOrderList .md_orderList .orderList_search li.seachLi{float: left; margin-right: 10px;}
+.teacherOrderList .md_orderList .orderList_search li .textInput{width: 230px;height:28px;border: 1px solid #a2a2a2;padding: 0 5px;border: 1px solid #ddd;}
+.teacherOrderList .md_orderList .orderList_search li .lbutton{border: 0;background: url("../../images/teacherOrderList/icon_search.gif") no-repeat 7px 7px #ed4111;margin: 0; padding:7px 20px 9px 30px;}
+.teacherOrderList .md_orderList .orderList_search li .lbutton:hover{background-color: #f15930;}
+.teacherOrderList .md_orderList .orderList_search li .textTime{width:110px;padding: 0 5px;}
+.teacherOrderList .md_orderList .md_bd tr{line-height: 95px;}
+.teacherOrderList .md_orderList .md_bd tr.start{background-color: #fff5f5;}
+.teacherOrderList .md_orderList .md_bd tr.end{background-color: #ddeff2;}
+.teacherOrderList .md_orderList .md_bd tr th{text-align: center;}
+.teacherOrderList .md_orderList .md_bd tr td{height:100px;overflow: hidden;text-indent: 10px;}
+.teacherOrderList .md_orderList .md_bd td.order_id{width:85px;}
+.teacherOrderList .md_orderList .md_bd td.order_name{width:290px; text-align: left;line-height: 24px;text-indent:0px;}
+.teacherOrderList .md_orderList .md_bd td.order_name h3{font-size: 14px;font-weight: normal;color:#000000;}
+.teacherOrderList .md_orderList .md_bd td.order_name p{font-size: 12px; color:#848484;}
+.teacherOrderList .md_orderList .md_bd td.class_date{width:100px;line-height: normal;font-size: 12px;text-indent: 0px;}
+.teacherOrderList .md_orderList .md_bd td.class_date b{display: block;margin-bottom: 5px;}
+.teacherOrderList .md_orderList .md_bd td.class_progress{width:100px;}
+.teacherOrderList .md_orderList .md_bd td.class_name{width:60px;}
+.teacherOrderList .md_orderList .md_bd td.class_type{width:70px;}
+.teacherOrderList .md_orderList .md_bd td.class_statu{width:120px;}
+.teacherOrderList .md_orderList .md_bd tr.start .class_statu{color:#ed4111;}
+.teacherOrderList .md_orderList .md_bd td.class_score{width:80px;}
+.teacherOrderList .md_orderList .md_bd td.order_detail a{display:block;background: url("../../images/teacherPay/icon_circle.png") no-repeat 28px top;height: 32px; text-indent: -9999px;}
+.teacherOrderList .md_orderList .md_bd td.order_detail a:hover{background-position:-39px top;}
+/*首页班次列表结束*/
+/*学员评价页面开始*/
+.teacherOrderList .md_appraise{margin-bottom: 50px;}
+.teacherOrderList .md_appraise h2{font-size:18px; color: #0e455e;line-height: 24px;margin-bottom:5px;margin-left: 3px;}
+.teacherOrderList .md_appraise .md_hd{margin-bottom: 10px;}
+.teacherOrderList .md_appraise .md_hd span{line-height: 24px;font-size: 14px; color: #677381; margin-right: 10px;}
+.teacherOrderList .md_appraise .md_hd span b{margin: 0 3px;}
+.teacherOrderList .md_appraise .md_bd td{padding: 10px;}
+.teacherOrderList .md_appraise .md_bd td.user_name{width:180px;}
+.teacherOrderList .md_appraise .md_bd td.user_score{width:100px;}
+.teacherOrderList .md_appraise .md_bd td.user_content{width:370px;text-align: left; line-height:28px;overflow: hidden;}
+.teacherOrderList .md_appraise .md_bd td.user_time{width:100px;line-height: normal;font-size: 12px;text-indent: 0px;}
+.teacherOrderList .md_appraise .md_bd td.user_time b{display: block;margin-bottom: 5px;}
+/*学员评价页面结束*/
+/*班次章节页面结束*/
+.teacherOrderList .md_orderDetail{margin-bottom: 50px;}
+.teacherOrderList .md_orderDetail h2{font-size:18px; color: #0e455e;line-height: 24px;margin-bottom: 10px;}
+.teacherOrderList .md_orderDetail .md_hd{display:inline-block;background-color:#f7f7f7;line-height:32px;margin-bottom:15px;padding-left:20px;padding-right:20px;}
+.teacherOrderList .md_orderDetail .md_hd span{line-height: 24px;font-size: 14px; color: #677381; margin-right: 10px;}
+.teacherOrderList .md_orderDetail .md_hd span b{margin: 0 3px;color:#ed4111;}
+.teacherOrderList .md_orderDetail .md_hd span.chapter{font-weight: bold;}
+.teacherOrderList .md_orderDetail .md_hd span.course{font-weight: bold;border-right:1px solid #ed4111;padding-right: 10px;}
+.teacherOrderList .md_orderDetail .md_bd h3{color:#0e455e;margin-bottom: 5px;}
+.teacherOrderList .md_orderDetail .md_bd tr.start{background-color: #fff5f5;}
+.teacherOrderList .md_orderDetail .md_bd tr.end{background-color: #eeeeee;}
+.teacherOrderList .md_orderDetail .md_bd td{padding: 10px;}
+.teacherOrderList .md_orderDetail .md_bd td.order_id{width:85px;}
+.teacherOrderList .md_orderDetail .md_bd td.order_name{width:230px; text-align: left;line-height: 24px;text-indent:0px;}
+.teacherOrderList .md_orderDetail .md_bd td.order_name h3{font-size: 14px;font-weight: normal;color:#000000;}
+.teacherOrderList .md_orderDetail .md_bd td.order_name p{font-size: 12px; color:#848484;}
+.teacherOrderList .md_orderDetail .md_bd td.class_date{width:100px;line-height: normal;font-size: 12px;text-indent: 0px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_date b{display: block;margin-bottom: 5px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_statu{width:70px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_number{width:50px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_praise{width:60px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_praise a{color:#787878;font-size: 12px; text-decoration: underline;}
+.teacherOrderList .md_orderDetail .md_bd td.class_word{width: 195px;clear:both;overflow: hidden;margin-left: 20px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_word em.icon_note{display:block;float:left; background:url("../../images/common/icon_note.png") no-repeat left top;width: 13px; height: 16px;margin-right: 5px;margin-top:5px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_word a{float:left;display:block;font-size: 12px; color:#777777;width:165px;line-height:24px;text-align: left;}
+.teacherOrderList .md_orderDetail .md_bd td.class_word a:hover{text-decoration: underline;}
+.teacherOrderList .md_orderDetail .md_bd td.class_manage{width:70px;}
+.teacherOrderList .md_orderDetail .md_bd td.class_manage em.icon_notem{display:block;background: url("../../images/common/icon_note1.png") no-repeat 30px 3px;height:20px;}
+.teacherOrderList .md_orderDetail .md_bd td.order_detail a{display:block;background: url("../../images/pay/icon_circle.png") no-repeat 28px top;height: 32px; text-indent: -9999px;}
+.teacherOrderList .md_orderDetail .md_bd td.order_detail a:hover{background-position:-39px top;}
+.teacherOrderList .md_orderDetail .md_bd tr.start .readyGo{display:block;background-color:#ed4111;color:#fff;border: 0px;padding: 0 2px 0 2px;font-size: 12px;border-radius:3px;-webkit-border-radius:3px;}
+.teacherOrderList .md_orderDetail .md_bd tr.start .readyGo:hover{background: #f15930;}
+.teacherOrderList .md_orderDetail .md_bd tr.start .noBgGo{display:block;background-color:#fff5f5;color:#ed4111;border: 1px solid #e9e9e9;padding: 0 2px 0 2px;font-size: 12px;border-radius:3px;-webkit-border-radius:3px;}
+.teacherOrderList .md_orderDetail .md_bd tr.end .class_word{clear: both; overflow: hidden;}
+.teacherOrderList .md_orderDetail .md_bd tr.end .class_word a{display: inline;float: none;font-size:12px; margin-left:20px;}
+/*班次章节页面结束*/
+/*班次练习题管理页面开始*/
+.teacherOrderList .md_orderManage h2{font-size:18px; color: #0e455e;line-height: 24px;margin-bottom:5px;margin-left: 3px;}
+.teacherOrderList .md_orderManage .md_hd{margin-bottom:20px;}
+.teacherOrderList .md_orderManage .md_hd span{line-height: 24px;font-size: 14px; color: #677381; margin-right: 10px;}
+.teacherOrderList .md_orderManage .md_hd span.manage_title{border-right: 1px solid #ed4111;padding-right:10px;}
+.teacherOrderList .md_orderManage .md_hd span b{margin: 0 3px;}
+.teacherOrderList .md_orderManage .md_bd{border:1px solid #ddd;}
+.teacherOrderList .md_orderManage .md_bd .tab_ul {height:50px; background:#f7f7f7; overflow:hidden;line-height: 50px;height: 50px;}
+.teacherOrderList .md_orderManage .tab_ul li a {display:block; float:left;text-align:center;width:220px; height:50px; line-height:50px; color:#677381;font-size: 14px;}
+.teacherOrderList .md_orderManage .tab_ul li a.active,.teacherOrderList .md_orderManage .md_bd .tab_ul li a:hover{color:#ed4111;border-top:2px solid #ed4111;background-color:#fff;border-right: 1px solid #ddd;border-left: 1px solid #ddd;line-height: 48px;height: 52px;}
+.teacherOrderList .md_orderManage .tab_ul li.first a,.teacherOrderList .md_orderManage .tab_ul li.first a:hover{border-left:0;}
+.teacherOrderList .md_orderManage .md_bd .tab_content {display:block;overflow:hidden;border-top:0;padding: 10px 0px;}
+.teacherOrderList .md_orderManage .md_ques_title{padding:10px 20px;}
+.teacherOrderList .md_orderManage .md_ques_title .countBtn{border: 1px solid #ed4111;color:#ed4111; text-shadow:none;}
+.teacherOrderList .md_orderManage .md_ques_title .countBtn:hover{background-color:#ed4111;color:#fff;}
+.teacherOrderList .md_orderManage .md_ques_list p{font-size: 12px;color:#677381;text-indent:25px;}
+.teacherOrderList .md_orderManage .md_ques_list p span{margin-right: 10px;}
+.teacherOrderList .md_orderManage .md_ques{border-bottom: 1px solid #ddd;padding:20px 20px;}
+.teacherOrderList .md_orderManage .last{border-bottom: 0;}
+.teacherOrderList .md_orderManage .md_ques h2{font-weight: normal;}
+.teacherOrderList .md_orderManage .md_tmp h3{color:#000000;line-height: 24px;font-weight: normal;margin-bottom:10px;}
+.teacherOrderList .md_orderManage .md_tmp .optiona{font-size:14px;color:#000000;margin-bottom: 3px;}
+.teacherOrderList .md_orderManage .md_tmp .md_ft{margin-top:15px;}
+.teacherOrderList .md_orderManage .md_tmp .optionb{font-size:14px;color:#000000;margin-top: 5px;}
+.teacherOrderList .md_orderManage .md_tmp .optionb span{font-size:14px;color:#677381;}
+.teacherOrderList .md_orderManage .md_tmp .md_ft .md_table{margin-top:15px;width: 660px;}
+.teacherOrderList .md_orderManage .md_tmp .md_ft .md_table th{background-color:#ed4111;color:#fff;border:1px solid #ddd;}
+.teacherOrderList .md_orderManage .md_tmp .md_ft .md_table th.active{background-color:#8cb422;}
+.teacherOrderList .md_orderManage .md_tmp .md_ft .md_table th.active em.icon_yes{display:inline-block;background: url("../../images/teacherOrderList/icon_yes.gif") no-repeat left 2px;width: 22px;height: 21px;margin-left:5px;}
+.teacherOrderList .md_orderManage .md_tmp .md_ft .md_table td{border:1px solid #ddd;border-left:0; }
+/*班次练习题管理页面结束*/

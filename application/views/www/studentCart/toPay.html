@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
+<title>支付页面</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentCart/style.css')}" />
@@ -23,12 +23,12 @@
 		<div class="progressBar cf">
 			<div class="line"></div>
 			<ul class="fr">
-				<li class="fl">
+<!-- 				<li class="fl">
 					<em>1</em>
 					<span>我的购物车</span>
-				</li>
+				</li> -->
 				<li class="fl">
-					<em>2</em>
+					<em>1</em>
 					<span>填写并核对订单信息</span>
 				</li>				
 				<li class="last fl">
@@ -42,14 +42,15 @@
 		<div class="orderForm">
 			<h3>订单提交成功，请您尽快付款！</h3>
 			<p>
-				<span>订单编号<em class="red">98375986287568270</em></span>
-				<span>应付金额<em class="red">¥ 1964.00</em></span>
+				<span>订单编号<em class="red">{$array_order.id}</em></span>
+				<span>应付金额<em class="red">¥{$array_order.spend}</em></span>
 			</p>
 			<p class="last">请您在提交订单后<em class="red">7天</em>内完成支付，否则订单自动取消。</p>
 			
 		</div>
 		<!-- 订单信息结束 -->
 		<!-- 支付方式 开始-->
+		{if $payment_method == 'online'}
 		<div class="payType">
 			<h2><span>请选择支付方式：</span></h2>
 			<div class="payBox">
@@ -63,56 +64,15 @@
 				<div class="tabBox">
 					<div class="box bank onlineBank">
 						<h4>网银支付，需开通网上银行</h4>
-						<form action="" method="post" onsubmit="return false">
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<ul class="cf bankList">
-								<li class="fl guangda">
-									<input type="radio" id="bank1" class="fl" name="payBank" value="banks|guangda">
+								{foreach from=$bank_code['banks'] item=item key=key}
+								<li class="fl {$key}">
+									<input type="radio"  class="fl" name="method" value="banks|{$key}" {if $key == 'guangda'}checked="true"{/if}>
 									<label for="bank1" class="fl"></label>
 								</li>
-								<li class="fl zhaoshang">
-									<input type="radio" id="bank2" class="fl" name="payBank" value="banks|zhaoshang">
-									<label for="bank2" class="fl"></label>
-								</li>
-								<li class="fl gongshang">
-									<input type="radio" id="bank3" class="fl" name="payBank" value="banks|gongshang">
-									<label for="bank3" class="fl"></label>
-								</li>
-								<li class="fl zhongguo">
-									<input type="radio" id="bank4" class="fl" name="payBank" value="banks|zhongguo">
-									<label for="bank4" class="fl"></label>
-								</li>
-								<li class="fl jiaotong">
-									<input type="radio" id="bank5" class="fl" name="payBank" value="banks|jiaotong">
-									<label for="bank5" class="fl"></label>
-								</li>
-								<li class="fl jianshe">
-									<input type="radio" id="bank6" class="fl" name="payBank" value="banks|jianshe">
-									<label for="bank6" class="fl"></label>
-								</li>
-								<li class="fl nongye">
-									<input type="radio" id="bank7" class="fl" name="payBank" value="banks|nongye">
-									<label for="bank7" class="fl"></label>
-								</li>
-								<li class="fl zhongxin">
-									<input type="radio" id="bank8" class="fl" name="payBank" value="banks|zhongxin">
-									<label for="bank8" class="fl"></label>
-								</li>
-								<li class="fl pufa">
-									<input type="radio" id="bank9" class="fl" name="payBank" value="banks|pufa">
-									<label for="bank9" class="fl"></label>
-								</li>
-								<li class="fl xingye">
-									<input type="radio" id="bank10" class="fl" name="payBank" value="banks|xingye">
-									<label for="bank10" class="fl"></label>
-								</li>
-								<li class="fl shenfazhan">
-									<input type="radio" id="bank11" class="fl" name="payBank" value="banks|shenfazhan">
-									<label for="bank11" class="fl"></label>
-								</li>
-								<li class="fl minsheng">
-									<input type="radio" id="bank12" class="fl" name="payBank" value="banks|minsheng">
-									<label for="bank12" class="fl"></label>
-								</li>
+								
+								{/foreach}
 							</ul>
 							<!-- <a href="javascript:void(0)" class="redBtn">去付款</a> -->
 							<a href="javascript:void(0)"  class="btn3  ortherBtn cf" >
@@ -364,59 +324,18 @@
 						</form>
 					</div>
 					<div class="box bank undis">
-						<form action="" method="post" onsubmit="return false">
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList credit">
 									<li class="title fl">一步验证，无需网银！（网银限额时推荐使用）</li>
-									<li class="fl guangda">
-										<input type="radio" id="bank1_1" class="fl" name="payBank" value="banks|guangda">
+
+									{foreach from=$bank_code['credit'] item=item key=key}
+									<li class="fl {$key}">
+										<input type="radio" id="bank1_1" class="fl" name="payBank" value="banks|{$key}" {if $key == 'guangda'}checked="true"{/if}>
 										<label for="bank1_1" class="fl"></label>
 										<span class="stagingIcon"></span>
 									</li>
-									<li class="fl zhaoshang">
-										<input type="radio" id="bank1_2" class="fl" name="payBank" value="banks|zhaoshang">
-										<label for="bank1_2" class="fl"></label>
-									</li>
-									<li class="fl gongshang">
-										<input type="radio" id="bank1_3" class="fl" name="payBank" value="banks|gongshang">
-										<label for="bank1_3" class="fl"></label>
-									</li>
-									<li class="fl zhongguo">
-										<input type="radio" id="bank1_4" class="fl" name="payBank" value="banks|zhongguo">
-										<label for="bank1_4" class="fl"></label>
-									</li>
-									<li class="fl guangfa">
-										<input type="radio" id="bank1_5" class="fl" name="payBank" value="banks|guangfa">
-										<label for="bank1_5" class="fl"></label>
-									</li>
-									<li class="fl jianshe">
-										<input type="radio" id="bank1_6" class="fl" name="payBank" value="banks|jianshe">
-										<label for="bank1_6" class="fl"></label>
-									</li>
-									<li class="fl nongye">
-										<input type="radio" id="bank1_7" class="fl" name="payBank" value="banks|nongye">
-										<label for="bank1_7" class="fl"></label>
-									</li>
-									<li class="fl zhongxin">
-										<input type="radio" id="bank1_8" class="fl" name="payBank" value="banks|zhongxin">
-										<label for="bank1_8" class="fl"></label>
-									</li>
-									<li class="fl pingan">
-										<input type="radio" id="bank1_9" class="fl" name="payBank" value="banks|pingan">
-										<label for="bank1_9" class="fl"></label>
-									</li>
-									<li class="fl xingye">
-										<input type="radio" id="bank1_10" class="fl" name="payBank" value="banks|xingye">
-										<label for="bank1_10" class="fl"></label>
-									</li>
-									<li class="fl huaxia">
-										<input type="radio" id="bank1_11" class="fl" name="payBank" value="banks|huaxia">
-										<label for="bank1_11" class="fl"></label>
-									</li>
-									<li class="fl minsheng">
-										<input type="radio" id="bank1_12" class="fl" name="payBank" value="banks|minsheng">
-										<label for="bank1_12" class="fl"></label>
-									</li>
+									{/foreach}
 								</ul>
 								<!-- <a href="javascript:void(0)" class="redBtn">去付款</a> -->
 								<a href="javascript:void(0)"  class="btn3 ortherBtn cf" >
@@ -426,11 +345,11 @@
 						</form>	
 					</div>
 					<div class="box bank alipayBox undis">
-						<form action="" method="post" onsubmit="return false">
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList alipay">
 									<li class="fl alipayLi">
-										<input type="radio" id="alipayLi" class="fl" name="payBank">
+										<input type="radio" id="alipayLi" class="fl" name="method" value="alipay" checked="true">
 										<label for="alipayLi" class="fl"></label>
 									</li>
 								</ul>
@@ -445,6 +364,9 @@
 				</div>
 			</div>
 		</div>
+		{else}
+		xx
+		{/if}
 		<!-- 支付方式 结束-->
 		<!--弹窗开始 -->
 		<!-- 成功与否选择开始 -->

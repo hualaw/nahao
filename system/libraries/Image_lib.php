@@ -170,7 +170,7 @@ class CI_Image_lib {
 		 *
 		 * The source image may or may not contain a path.
 		 * Either way, we'll try use realpath to generate the
-		 * full server path in order to more reliably read it.
+		 * full server path in adminOrder to more reliably read it.
 		 *
 		 */
 		if (function_exists('realpath') AND @realpath($this->source_image) !== FALSE)

@@ -54,9 +54,10 @@ define('ROLE_TEACHER', 3);//教师
  *  3，已完成（付款完成后7天自动变成这个状态，暂时用不上）；           
  *  4，已取消（用户主动取消）；         
  *  5，已关闭（订单超时，系统自动关闭）；           
- *  6，包含申请退款的轮；            
- *  7，包含退款失败的轮；             
- *  8，包含退款成功的轮；
+ *  6，申请退款；            
+ *  7，退款失败；             
+ *  8，同意退款；
+ *  9,退款完成
  *  */
 define('ORDER_STATUS_DEBT', -3);
 define('ORDER_STATUS_SIGN', -2);
@@ -67,8 +68,9 @@ define('ORDER_STATUS_FINISH', 3);
 define('ORDER_STATUS_CANCEL', 4);
 define('ORDER_STATUS_CLOSE', 5);
 define('ORDER_STATUS_APPLYREFUND', 6);
-define('ORDER_STATUS_REFUNDSUCC', 7);
-define('ORDER_STATUS_REFUNDFAIL', 8);
+define('ORDER_STATUS_APPLYREFUND_FAIL', 7);
+define('ORDER_STATUS_APPLYREFUND_AGREE', 8);
+define('ORDER_STATUS_APPLYREFUND_SUCC', 9);
 
 /*
  * 订单支付方式
@@ -76,6 +78,54 @@ define('ORDER_STATUS_REFUNDFAIL', 8);
 define('ORDER_TYPE_ONLINE', 0);
 define('ORDER_TYPE_ALIPAY', 3);
 define('ORDER_TYPE_OFFLINE', 4);
+
+/*
+ * 首页列表默认图片 HOME_IMG_DEFAULT
+ * 默认头像 DEFAULT_AVATER
+ */
+define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
+define('DEFAULT_AVATER', '/images/common/default.png');
+/*
+ * 老师角色
+ * 主讲 0
+ * 助教 1
+ */
+define('TEACH_SPEAKER', 0);
+define('TEACH_ASSISTANT', 1);
+
+/*
+ * 订单编号开始值
+ */
+define('ORDER_START_VALUE',1);
+
+/*
+ * 订单日志里面的action
+ * 创建订单 0
+ * 支付失败1
+ * 完成付款2
+ * 订单完成（付款完成后7天自动变成这个状态，暂时用不上）3
+ * 取消订单（用户主动取消） 4
+ * 关闭订单（订单超时，系统自动关闭） 5
+ * 备注 6
+ * 删除订单 7
+ * 申请退款8 
+ * 拒绝退款 9 
+ * 同意退款10
+ * 完成退款 11
+ */
+define('ORDER_ACTION_CREATE_ORDER', 0);
+define('ORDER_ACTION_FAIL', 1);
+define('ORDER_ACTION_SUCC', 2);
+define('ORDER_ACTION_FINISH', 3);
+define('ORDER_ACTION_CANCEL', 4);
+define('ORDER_ACTION_CLOSE', 5);
+define('ORDER_ACTION_BEIZU', 6);
+define('ORDER_ACTION_DELETE_ORDER', 7);
+define('ORDER_ACTION_APPLY_REFUND', 8);
+define('ORDER_ACTION_REFUND_FAIL', 9);
+define('ORDER_ACTION_REFUND_AGREE', 10);
+define('ORDER_ACTION_REFUND_FAINSH', 11);
+
 
 
 
@@ -102,10 +152,13 @@ define('TABLE_CLASS_FEEDBACK','class_feedback');
 define('TABLE_COURSE','course');
 define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
 define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
+define('TABLE_COURSE_TYPE', 'course_type');
 define('TABLE_COURSEWARE','courseware');
 define('TABLE_ENTERING_CLASSROOM','entering_classroom');
 define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
 define('TABLE_LESSON','lesson');
+define('TABLE_NAHAO_AREAS','nahao_areas');
+define('TABLE_NAHAO_SCHOOLS','nahao_schools');
 define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
 define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
@@ -128,47 +181,92 @@ define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
-define('TABLE_USER_INFO', 'session_log');
+define('TABLE_SESSION_LOG', 'session_log');
+define('TABLE_SUBJECT', 'subject');
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
 define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
-define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
+define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/adminOrder.js');
+define('STATIC_ADMIN_JS_LECTURE','/admin/js/mod/lecture.js');
 define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
 
+
+define('STATIC_ADMIN_JS_SEA','/public/sea/2.1.0/sea.js');
+define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
+
 //static css
+define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
+define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
+//define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
-define('STATIC_ADMIN_CSS_NAV','/admin/css/nav.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
-//register type
-define('REG_TYPE_PHONE', 1);
-define('REG_TYPE_EMAIL', 2);
 
-//register status
-define('REG_SUCCESS', 1);
-define('REG_DUP_NICKNAME', 2);
-define('REG_DUP_EMAIL', 3);
-define('REG_DB_ERROR', 4);
-define('REG_INVALID_PHONE', 5);
-define('REG_INVALID_EMAIL', 6);
-define('REG_VERIFY_CAPTCHA_FAILED', 7);
-define('REG_PHONE_SERVER_ERROR', 8);
-
-//短信发送状态
-define('REG_SEND_VERIFY_CODE_FAILED', 9);
-define('REG_SEND_VERIFY_CODE_SUCCESS', 10);
-
-//过期时间
-define('REDIS_PHONE_CODE_EXPIRE_TIME', 300); //5分钟
 
 //phone_server连接
 define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
+
+//register type
+define('REG_TYPE_PHONE', 1);
+define('REG_TYPE_EMAIL', 2);
+
+//login status
+define('LOGIN_TYPE_PHONE', 1);
+define('LOGIN_TYPE_EMAIL', 2);
+
+//ok/error
+define('SUCCESS', 'ok');
+define('ERROR', 'error');
+
+//register status
+define('REG_SUCCESS', 1);
+define('REG_DUP_NICKNAME', 2);
+define('REG_DUP_EMAIL', 'dup');
+define('REG_DB_ERROR', 4);
+define('REG_INVALID_PHONE', 5);
+define('REG_INVALID_EMAIL', 6);
+define('REG_VERIFY_CAPTCHA_FAILED', 7);
+define('REG_PHONE_SERVER_ERROR', 8);
+define('REG_DUP_NICKNAME', 9);
+define('REG_DUP_PHONE', 10);
+
+//短信发送状态
+define('REG_SEND_VERIFY_CODE_FAILED', 11);
+define('REG_SEND_VERIFY_CODE_SUCCESS', 12);
+//check status
+define('REG_CHECK_PHONE_SUCCESS', 13);
+define('REG_CHECK_EMAIL_SUCCESS', 14);
+define('REG_CHECK_NICKNAME_SUCCESS',15);
+
+//过期时间
+
+define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
+//define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
+
+//phone_server连接
+define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
+define('PHONE_SERVER_PORT', 1899);
+define('PHONE_SERVER_APPNAME', 'nahao');
+
+
+//课程中的状态
+define('NAHAO_STATUS_COURSE_INIT',0);//初始化
+define('NAHAO_STATUS_COURSE_CHECKING',1);//审核中
+define('NAHAO_STATUS_COURSE_RUNNING',2);//运营中
+define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
+define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
+
+//验证码类型
+define('REGISTER_VERIFY_CODE', 1);
+define('BIND_VERIFY_CODE', 2);
+define('GET_PASSWORD_VERIFY_CODE', 3);
+
 
 
 

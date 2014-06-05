@@ -1,0 +1,118 @@
+{extends file='teacher/teacherOrderList/base.html'}
+
+{block name=title}学员评价{/block}
+
+{block name=container}
+<!--班次列表开始-->
+<div class="md_orderList">
+    <div class="orderList_nav">
+	    {if $data['teach_status_count']['teach_status_all_total']}
+	    	<span>班次数量:<b class="fred">{$data['teach_status_count']['teach_status_all_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_0_total']}
+	        <span>即将上课：<b class="fred">{$data['teach_status_count']['teach_status_0_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_1_total']}
+	        <span>正在上课：<b class="fred">{$data['teach_status_count']['teach_status_1_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_2_total']}
+	        <span>停课：<b class="fred">{$data['teach_status_count']['teach_status_2_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_3_total']}
+	        <span>已结课：<b class="fred">{$data['teach_status_count']['teach_status_3_total']}</b></span>
+	    {/if}
+	    {if $data['teach_status_count']['teach_status_4_total']}
+	        <span>过期：<b class="fred">{$data['teach_status_count']['teach_status_4_total']}</b></span>
+	    {/if}
+    </div>
+    <div class="orderList_search">
+        <form action="{$site_url}/orderList/index/" mothed="get" onsubmit="">
+            <ul>
+                <li class="seachLi">
+                    <select name="id" id="" class="fl">
+                        <option value="">班级名次</option>
+                        {if $data['listArr']}
+	                    	{foreach $data['listArr'] as $key=>$val}
+                        		<option value="{$val['id']}">{$val['id']}</option>
+                        	{/foreach}
+                        {/if}
+                    </select>
+                </li>
+                <li class="seachLi">
+                    <input name="title" type="text" value="" placeholder="要搜索的班次名" class="textInput"/>
+                </li>
+                <li class="seachLi">
+                    <select name="" id="" class="fl">
+                        <option value="">课程状态</option>
+                        {foreach $data['teach_status_list'] as $key=>$val}
+                        	<option value="{if $key==0}-1{else}{$key}{/if}">{$val}</option>
+                        {/foreach}
+                    </select>
+                </li>
+                <li class="seachLi">
+                    <select name="course_type" id="" class="fl">
+                        <option value="">课程类型</option>
+                        {foreach $data['course_type_list'] as $val}
+                        	<option value="{$val['id']}">{$val['name']}</option>
+                        {/foreach}
+                    </select>
+                </li>
+                <li class="seachLi">
+                   <input type="text" name="start_time" value="" placeholder="班次开始时间" class="textInput textTime startClassTime"/>
+                </li>
+                <li class="seachLi">
+                    <input type="text" name="end_time" value="" placeholder="班次结束时间" class="textInput textTime endClassTime"/>
+                </li>
+                <li class="seachLi">
+                    <input type="submit" value="搜索" class="lbutton"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="md_bd">
+        <table class="md_table">
+            <tr>
+                <th>班次ID</th>
+                <th>班节名称</th>
+                <th>上课时间</th>
+                <th>课程进度</th>
+                <th>科目</th>
+                <th>类型</th>
+                <th>授课状态</th>
+                <th>课程平均分</th>
+                <th>查看</th>
+            </tr>
+            {if $data['listArr']}
+            	{foreach $data['listArr'] as $key=>$val}
+            		<tr {if $val['teach_status']==0}class="start"{elseif $val['teach_status']==3}class="end"{/if}>
+            			<td class="order_id">{$val['id']}</td>
+		                <td class="order_name">
+		                    <h3>{$val['class_name']}</h3>
+		                    <p>{$val['title']}</p>
+		                </td>
+		                <td class="class_date"><b>{$val['class_start_time']|date_format:'%Y-%m-%d'}</b>{$val['class_start_time']|date_format:'%H: %M: %S'}</td>
+		                <td class="class_progress"><b class="fred">{$val['already_total']}</b>/{$val['total']}</td>
+		                <td class="class_name">{$val['subject_name']}</td>
+		                <td class="class_type">{$val['course_type_name']}</td>
+		                <td class="class_statu">{$val['status_name']}</td>
+		                <td class="class_score">{$val['course_score']}</td>
+		                <td class="order_detail"><a href="/orderList/order_detail/{$val['id']}" target="_blank">详细信息</a></td>
+            		</tr>
+	        	{/foreach}
+	        {else}
+	        	<tr>
+           			<td colspan="9" style="text-align:center;"><b>暂时没有您的课程</b></td>
+           		</tr>
+	        {/if}
+        </table>
+    </div>
+    <div class="page cf">
+    	<div class="pagination fr">
+    		<a href="javascript:void(0);" class="active">1</a>
+			<a href="javascript:void(0);">2</a>
+			<a href="javascript:void(0);">3</a>
+    	</div>
+    </div>
+</div>
+<!--班次列表结束-->
+{/block}

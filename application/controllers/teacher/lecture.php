@@ -13,11 +13,14 @@ class Lecture extends CI_Controller {
 	 */
 	public function index()
 	{
+		#1.省市区
+		$area = $this->teacher_b->get_area(array('parentid' => 1,'level' => 1));
 		#2.页面数据
 		$data = array(
 			'active' => 'lecture_index',
 			'title' => '试讲申请',
 			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
+			'area' => $area,
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/lecture.html');
@@ -25,6 +28,7 @@ class Lecture extends CI_Controller {
 	
 	/**
 	 * 申请试讲成功
+	 * self::json_output($this->arr_response);
 	 */
 	public function doAdd()
 	{

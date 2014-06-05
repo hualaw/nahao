@@ -16,10 +16,15 @@ function p()
     return ;
 }
 
-function o($mix_param){
-    echo "<pre>";
+function o($mix_param,$bool_flag=false){
+    header("Content-type: text/html; charset=utf-8");
+    if($bool_flag==true){
+        echo "<pre>";
+    }
     var_dump($mix_param);
-    exit;
+    if($bool_flag==true){
+        exit;
+    }
 }
 
 /**
@@ -471,9 +476,9 @@ function create_password($str_salt,$str_password = NH_INIT_PASSWORD){
  * @param $sys_password
  * @return bool
  */
-function check_password($password, $salt, $sys_password)
-{   
-    return create_password($password, $salt) === $sys_password;
+function check_password($salt, $password, $sys_password)
+{
+    return create_password($salt, $password) === $sys_password;
 }
 
 /**

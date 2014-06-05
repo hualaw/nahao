@@ -54,7 +54,7 @@ class Test extends CI_Controller {
 	{
 		$this->load->library('sms');
 		$this->sms->setPhoneNums('18600364806');
-		$this->sms->setContent('you code is 3721689');
+		$this->sms->setContent('you code is 20140528');
 		$ret = $this->sms->send();	
 		var_dump($ret);
 	}
@@ -65,6 +65,23 @@ class Test extends CI_Controller {
 		//email_addr, subject, content
 		$this->mail->send('liuhua@tizi.com', '那好邮件测试', 'Got it！');
 	}
+
+    public function student_subject_add_test()
+    {
+        $this->load->model('model/student/model_student_subject');
+        $this->model_student_subject->add(123, array('123','234'));
+    }
+
+    public function student_subject_delete_test()
+    {
+        $this->load->model('model/student/model_student_subject');
+        $this->model_student_subject->delete(123, array('123','234'));
+    }
+
+    public function login_test()
+    {
+        $this->smarty->display('www/login/login.html');
+    }
 }
 
 /* End of file welcome.php */

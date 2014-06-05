@@ -50,8 +50,16 @@ define(function(require,exports){
 		_myCourse.timeToggle();
 		//报名 倒计时
 		_myCourse.countDown();
+		//购买前--点击立即购买
+		_myCourse.soon_buy();
+		//购买前下面--点击购买课程
+		_myCourse.soon_buy_xia();
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();
+		//我的订单列表删除
+		_myCourse.doDelMyOrder();
+		//我的订单列表取消
+		_myCourse.doCancelMyOrder();
 	}
 })

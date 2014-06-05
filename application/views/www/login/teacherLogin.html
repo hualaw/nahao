@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="{static_url('/css/teacherCommon/layout.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/teacherCommon/header.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/login/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+{include file="teacher/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body>
+<!-- 头部开始 -->
+<div class="header">
+    <div class="headNav">
+        <div class="layout">
+            <!--那好 logo开始-->
+            <h1 class="fl"><img src="{static_url('/images/common/header/teacher_header_logo.gif')}" alt="nahao"></h1>
+            <!--那好 logo结束-->
+        </div>
+    </div>
+</div>
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap loginPage" id="nahaoModule" module="loginPage">
+    <div class="layout">
+        <!--登陆开始-->
+        <div class="md_login">
+            <h2>
+                <img data-src="holder.js/995x230" class="img-rounded" alt="995*230" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" style="width: 995px; height: 230px;">
+            </h2>
+            <div class="md_bd">
+                <form action="http://192.168.11.241:8082/login/submit" class="indexLoginForm" method="post" datatype="jsonp" onsubmit="return false;">
+                    <ul>
+                        <li class="posr">
+                            <h3>登录账号</h3>
+                            <input type="text" name="username" class="cInput yh username" placeholder="用户名/学号/手机号/邮箱" datatype="e | *6-20" nullmsg="请输入邮箱/手机号/用户名/学号" errormsg="长度6-20个字符">
+                        </li>
+                        <li class="posr">
+                            <h3>登录密码</h3>
+                            <input type="password" name="password" class="cInput yh password" placeholder="密码" datatype="*6-16" nullmsg="请输入密码" errormsg="长度6-16个字符之间">
+                        </li>
+                    </ul>
+                    <div class="cf bottomLogin">
+                        <input type="submit" class="submitBtn lbutton redBtn yh" tabindex="3" value="登录">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--登陆结束-->
+    </div>
+</div>
+<!-- 主要内容结束 -->
+<!-- js引入开始 -->
+{include file="teacher/include/js.htm"}
+<!--js引入结束-->
+</body>
+</html>

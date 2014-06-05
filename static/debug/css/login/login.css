@@ -1,4 +1,15 @@
-.login{}
+.loginPage{}
+/*老师登陆样式开始*/
+.loginPage .md_login{clear:both;overflow:hidden;}
+.loginPage .md_login h2{margin-bottom: 20px;}
+.loginPage .md_login .md_bd{text-align: center;width: 95%;margin:0 auto;}
+.loginPage .md_login .md_bd ul{list-style: none;}
+.loginPage .md_login .md_bd ul li{margin-bottom:20px;position: relative;}
+.loginPage .md_login .md_bd ul li h3{margin-right:240px;margin-bottom: 10px;color: #0e455e;font-size: 14px; font-weight: normal;}
+.loginPage .md_login .md_bd li input{border-radius: 5px;font-size:14px;line-height: 38px;width:295px;border:1px solid #c4c5c4;box-shadow:1px 1px 1px #dadddc inset;padding-left:5px;}
+.loginPage .md_login .md_bd .bottomLogin{padding:10px 0 15px 0px;}
+.loginPage .md_login .md_bd .submitBtn{cursor: pointer;width:300px;height:45px;font-size:18px;border: 0 none;margin-left:5px;}
+/*老师登陆样式结束*/
 /*登陆样式开始*/
 .login .loginWrap{padding:70px 60px 00;margin-bottom:20px;}
 .login .loginWrap .loginBox{border:1px solid #dbdbdb;border-top:3px solid #f14211;width:305px;padding:50px 25px 10px 25px;box-shadow: 1px 1px 10px #e7e7e7}
