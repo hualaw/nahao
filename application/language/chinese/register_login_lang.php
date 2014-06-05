@@ -11,7 +11,7 @@ $lang['reg_db_error'] = '系统繁忙，请稍候再试！';
 $lang['reg_verify_captcha_failed'] = '验证码不对，请重新输入！';
 $lang['reg_phone_server_error'] = '系统繁忙，请稍候再试！';
 
-$lang['reg_verify_phone_msg'] = '您的验证码是：';
+$lang['reg_verify_phone_msg'] = '(那好网手机验证码，请完成验证）如非本人操作，请忽略此短信。';
 $lang['reg_send_verify_code_failed'] = '验证码发送失败，请重试！';
 $lang['reg_send_verify_code_success'] = '验证码发送成功！';
 
