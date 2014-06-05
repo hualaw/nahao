@@ -18,9 +18,9 @@
         <!--首页表格开始-->
 	    <div class="md_classInfo">
             <h2 class="hd_title">
-                <span class="hd_day">2014年6月1日</span>
+                <span class="hd_day">{$data['date']}</span>
                 <span class="hd_date">星期五</span>
-                <span class="hd_num">今天要上的班次：<b>5</b></span>
+                <span class="hd_num">今天要上的班次：<b>{$data['today_total']}</b></span>
             </h2>
             <div class="md_bd">
                 <table class="md_table custom_table">
@@ -32,48 +32,36 @@
                         <th>课件讲义</th>
                         <th class="th_last">练习题管理</th>
                     </tr>
-                    <tr>
-                        <td>
-                            <h3>20：00-21：30</h3>
-                            <a href="javascript:void(0)" class="readyGo">即将开始</a>
-                        </td>
-                        <td class="className">
-                            <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
-                            <p>2014年小升初暑假特训营训练营训练营训练营</p>
-                        </td>
-                        <td><b class="fred">3</b> / 10</td>
-                        <td>公开课</td>
-                        <td class="classWord"><em class="icon_note"></em><a href="#">小升初数学复习1.pdf</a></td>
-                        <td><em class="icon_notem"></em></td>
-                    </tr>
-                    <tr class="start">
-                        <td>
-                            <h3>20：00-21：30</h3>
-                            <a href="javascript:void(0)" class="readyGo">去上课</a>
-                        </td>
-                        <td class="className">
-                            <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
-                            <p>2014年小升初暑假特训营训练营训练营训练营</p>
-                        </td>
-                        <td><b class="fred">3</b> / 10</td>
-                        <td>公开课</td>
-                        <td class="classWord"><em class="icon_note"></em><a href="#">小升初数学复习1.pdf</a></td>
-                        <td><em class="icon_notem"></em> </td>
-                    </tr>
-                    <tr class="end">
-                        <td>
-                            <h3>20：00-21：30</h3>
-                            <a href="javascript:void(0)" class="readyGo">已结束</a>
-                        </td>
-                        <td class="className">
-                            <h3>第三节－火车过桥问阿凯设计方案行阿根廷题据卡三国 噶计划方案 </h3>
-                            <p>2014年小升初暑假特训营训练营训练营训练营</p>
-                        </td>
-                        <td><b class="fred">3</b> / 10</td>
-                        <td>公开课</td>
-                        <td class="classWord"><em class="icon_note"></em><a href="#">小升初数学复习1.pdf</a></td>
-                        <td><em class="icon_notem"></em> </td>
-                    </tr>
+                    {if $data['listArr']}
+	                    {foreach $data['listArr'] as $key=>$val}
+	                    <tr {if $val['status']==2}class="start"{elseif $val['status']==3}class="end"{/if}>
+	                        <td>
+	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
+	                            <a href="javascript:void(0)" class="readyGo">
+	                            	{if $val['status']==1}
+	                            		即将开始
+	                            	{elseif $val['status']==2}
+	                            		正在上课
+	                            	{elseif $val['status']==3}
+	                            		上完课
+	                            	{/if}
+	                            </a>
+	                        </td>
+	                        <td class="className">
+	                            <h3>{$val['title']}</h3>
+	                            <p>{$val['round_title']}</p>
+	                        </td>
+	                        <td><b class="fred">{$val['already_total']}</b> / {$val['total']}</td>
+	                        <td>{$val['course_type_name']}</td>
+	                        <td class="classWord"><em class="icon_note"></em><a href="#">{$val['courseware_name']}</a></td>
+	                        <td><em class="icon_notem"></em></td>
+	                    </tr>
+	                    {/foreach}
+	               {else}
+	               		<tr>
+	               			<td colspan="6" style="text-align:center;"><b>今天暂时没有您的课程</b></td>
+	               		</tr>
+	               {/if}
                 </table>
             </div>
 	    </div>

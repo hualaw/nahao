@@ -53,7 +53,7 @@ class CI_Encrypt {
 	/**
 	 * Fetch the encryption key
 	 *
-	 * Returns it as MD5 in order to have an exact-length 128 bit key.
+	 * Returns it as MD5 in adminOrder to have an exact-length 128 bit key.
 	 * Mcrypt is sensitive to keys that are not the correct length
 	 *
 	 * @access	public
@@ -74,7 +74,7 @@ class CI_Encrypt {
 
 			if ($key == FALSE)
 			{
-				show_error('In order to use the encryption class requires that you set an encryption key in your config file.');
+				show_error('In adminOrder to use the encryption class requires that you set an encryption key in your config file.');
 			}
 		}
 

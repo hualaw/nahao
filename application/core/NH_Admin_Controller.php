@@ -81,6 +81,7 @@ class NH_Admin_Controller extends NH_Controller
      * @return bool
      * @author yanrui@tizi.com
      */
+
     protected function check_admin_login()
     {
         $bool_return = true;

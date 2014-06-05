@@ -108,6 +108,14 @@ table.md_table td,table th{text-align:center;line-height:40px;/*border:1px solid
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
 
+/*全站分页代码样式开始*/
+.page {margin:10px 0px; line-height:30px;}
+.pagination a {padding:1px 8px;color:#333;border:1px solid #d7d7d7;background:#f6f6f6;margin-left:6px;font-size:14px;}
+.pagination a:hover{color:#fff;background:#ed4111;border-color:#0f9271;}
+.pagination a.active,.pagination a.on{color:#fff;background:#ed4111;border-color:#0f9271;}
+.pagination a.disabled{ display:none}
+/*全站分页代码样式结束*/
+
 
 
 

@@ -55,14 +55,14 @@ class register extends NH_Controller
 
 		if($reg_type == REG_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
 
-		$register_ret = $this->business_register->register($phone, $email, $password, $captcha, $reg_type);
+		$register_ret = $this->business_register->submit($phone, $email, $password, $captcha, $reg_type);
 
 		echo parent::json_output($register_ret);
 	}
 
 	//ajax interface
 	public function send_captcha()
-	{
+	{                                                                                        
 		$phone = trim($this->input->post('phone'));
         $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
 		$this->load->library('sms');
@@ -146,15 +146,15 @@ class register extends NH_Controller
         //TBD, to handle email
 
         //create user_info table record
-        $this->load->model('model/model_user');
+        $this->load->model('model/common/model_user');
         $this->model_user->create_user_info($user_info_arr);
 
         if(!empty($focus_subjects))
         {
             //create student_subject table record
-            $this->load->model('model/student_subject');
+            $this->load->model('model/student/model_student_subject');
             $focus_subject_arr = explode(",", $focus_subjects);
-            $this->student_subject->add($user_id, $focus_subject_arr);
+            $this->model_student_subject->add($user_id, $focus_subject_arr);
         }
 
         if(!empty($nickname))
@@ -191,6 +191,21 @@ class register extends NH_Controller
 		}
 		return $arr_return;
 	}
+    
+    /**
+     * 检查验证码是否有效
+     * ajax interface
+     */
+    public function check_captcha()
+    {
+        $phone = trim($this->input->post('phone'));
+        $verify_code = intval($this->input->post('verify_code'));
+        $code_type = intval($this->input->post('code_type'));
+        $exists = $this->business_register->_check_captcha($phone, $verify_code, $code_type);
+        $arr_info['effective'] = $exists ? 1 : 0;
+        
+        self::json_output($arr_info);
+    }
 
     function _check_input($field_name)
     {

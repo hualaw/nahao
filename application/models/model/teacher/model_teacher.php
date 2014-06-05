@@ -18,7 +18,7 @@ class Model_Teacher extends NH_Model{
 			2=>'DESC'
 	);
 	
-	public protected $database = "nahao";
+	protected $database = "nahao";
 	
 	/**
 	 * 【超能统计搜索器 - 课】：
@@ -29,6 +29,7 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['id'] ? ' AND cl.id='.$param['id'] : '';
+		$where .= $param['round_id'] ? ' AND cl.round_id='.$param['round_id'] : '';
 		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= $param['begin_time'] ? ' AND cl.begin_time>='.$param['begin_time'] : '';
 		$where .= $param['end_time'] ? ' AND cl.end_time<='.$param['end_time'] : '';
@@ -43,17 +44,72 @@ class Model_Teacher extends NH_Model{
 		$where .= $param['title'] ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
-		$column = $param['counter']==1 ? 'count(cl.id) total' :'cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score';
+		$column = $param['counter']==1 ? 'count(cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
 				FROM nahao.class cl 
 				LEFT JOIN nahao.round r ON cl.round_id=r.id 
 				LEFT JOIN nahao.course c ON r.course_id=c.id 
-				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id ".$where.$order;
+				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
+				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
+				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
+				".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
+	
+	/**
+	 * 【超能统计搜索器 - 轮】：
+	 * param:id,teacher_id,begin_time,start_time,end_time
+	 **/
+	public function round_seacher($param){
+		#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1 AND cl.parent_id>0 ';
+		$where .= $param['id'] ? ' AND r.id='.$param['id'] : '';
+		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= $param['start_time'] ? ' AND r.start_time>='.$param['start_time'] : '';
+		$where .= $param['end_time'] ? ' AND r.end_time<='.$param['end_time'] : '';
+		$where .= $param['teach_status'] ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
+		$where .= $param['course_type'] ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
+		$where .= $param['title'] ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
+		$group = " GROUP BY r.id";
+		$order = " ORDER BY cl.begin_time DESC";
+		$limit = $param['limit'] ? " LIMIT ".$param['limit'] : '';
+		$column = $param['counter']==1 ? 'count(r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
+		#2. 生成sql
+        $this->db->query("set names utf8");
+		$sql = "SELECT ".$column."  
+				FROM nahao.round r 
+				LEFT JOIN nahao.class cl ON cl.round_id=r.id 
+				LEFT JOIN nahao.course c ON r.course_id=c.id 
+				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
+				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
+				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
+				".$where.$group.$order;
+		$arr_result = $this->db->query($sql)->result_array();
+		
+        return $arr_result;
+	}
+	
+	/**
+	 * 老师轮状态统计
+	 **/
+    public function round_status_counter($param){
+    	$arr_result = array();
+		$where = ' WHERE 1 ';
+		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= $param['teach_status'] ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';
+    	$sql = "SELECT count(distinct r.id) total
+    			FROM nahao.round r 
+    			LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+    			".$where;
+    	$arr_result = $this->db->query($sql)->result_array();
+    	return $arr_result;
+    } 
 	
 	/**
 	 * 【题目搜索器】：
@@ -82,7 +138,7 @@ class Model_Teacher extends NH_Model{
 	 * 【练习统计器】：
 	 * pararm : is_correct,sequence,class_id,student_id
 	 **/
-	public function practise_counter(){
+	public function practise_counter($param){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
@@ -102,19 +158,20 @@ class Model_Teacher extends NH_Model{
 	 * 薪酬结算统计
 	 * param: teacher_id,status(0未结算,1已结算),
 	 **/
-	public function pay_list(){
+	public function pay_list($param){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
+		$where .= $param['id'] ? ' AND tcl.id='.$param['id'] : '';
 		$where .= $param['teacher_id'] ? ' AND tcl.teacher_id='.$param['teacher_id'] : '';
 		$where .= $param['status'] ? ' AND tcl.status='.$param['status'] : '';
 		$where .= $param['start_time'] ? ' AND tcl.pay_time>='.$param['start_time'] : '';
 		$where .= $param['end_time'] ? ' AND tcl.end_time<='.$param['end_time'] : '';
-		
+		$order = ' ORDER BY tcl.create_time DESC';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT tcl.*
-				FROM nahao.teacher_checkout_log tcl ".$where;
+				FROM nahao.teacher_checkout_log tcl ".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -169,9 +226,9 @@ class Model_Teacher extends NH_Model{
      	$param['answer'] = addslashes($param['answer']);
      	$param['options'] = addslashes($param['options']);
      	$param['analysis'] = addslashes($param['analysis']);
-     	this->db->query("set names utf8");
+     	$this->db->query("set names utf8");
      	switch ($param['do']){
-     		case 'add': 
+     		case 'add':
      			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
 						VALUES('".$param['question']."','".$param['answer']."','".$param['options']."',".$param['type'].",'".$param['analysis']."')";
      			$id = $this->db->query($sql)->insert_id();
@@ -214,12 +271,12 @@ class Model_Teacher extends NH_Model{
      /**
       * 讲义管理器
       **/ 
-     public function question_manager(){
-     	this->db->query("set names utf8");
+     public function courseware_manager(){
+     	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
      			$sql = "INSERT INTO nahao.courseware(name,create_time,courseware.status) 
-VALUES('对外汉语.pdf',1401321321,0)"; 
+						VALUES('对外汉语.pdf',1401321321,0)";
      			$id = $this->db->query($sql)->insert_id();
      			break;
      		case 'edit':
@@ -313,7 +370,7 @@ VALUES('对外汉语.pdf',1401321321,0)";
     	if(!$param['round_id']){
         	exit('轮id为空，请检查数据是否正确');
         }
-        $order = isset($param['order']) ? $param['order'] : 1;
+        $order = isset($param['adminOrder']) ? $param['adminOrder'] : 1;
         $this->db->query("set names utf8");
     	$sql = 'SELECT c.*,cw.name coursewareName FROM class c
 			LEFT JOIN courseware cw on c.courseware_id=cw.id 
@@ -322,7 +379,6 @@ VALUES('对外汉语.pdf',1401321321,0)";
         return $arr_result;
     }
     
-    
     /**
      * 开课申请，教师扩展表
      */
@@ -330,12 +386,44 @@ VALUES('对外汉语.pdf',1401321321,0)";
     	$this->db->query("set names utf8");
     	$sql = 'INSERT INTO nahao.teacher_lecture(course,resume,subject,teacher_lecture.status,admin_id,
     		create_time,province,city,area,school,stage,teach_years,course_intro,teach_type,gender,title,
-    		age,phone,email,qq,start_time,end_time,name) 
+    		age,phone,email,qq,start_time,end_time,name,user_id) 
 		VALUES("'.$param['course'].'","'.$param['resume'].'","'.$param['subject'].'",'.$param['status'].',
 			'.$param['admin_id'].','.time().','.$param['province'].','.$param['city'].','.$param['area'].',
 			'.$param['school'].','.$param['stage'].','.$param['teach_years'].',"'.$param['course_intro'].'",
 			'.$param['teach_type'].','.$param['gender'].','.$param['title'].','.$param['age'].',"'.$param['phone'].'",
-			"'.$param['email'].'","'.$param['qq'].'",'.$param['start_time'].','.$param['end_time'].',"'.$param['name'].'")';
+			"'.$param['email'].'","'.$param['qq'].'",'.$param['start_time'].','.$param['end_time'].',"'.$param['name'].'",'.$param['user_id'].')';
     	return $this->db->query($sql);
     }
+    
+    /**
+     * 课学生出勤率，注意：分2次读，第一次读进入教室的次数，如果大于0才继续统计。否则终止
+     **/
+     public function class_attendance($param){
+     	$arr_result = array();
+        $where = ' WHERE 1';
+       	$where .= $param['class_id'] ? ' AND class_id='.$param['class_id'] : '';
+       	$where .= $param['status'] ? ' AND status in('.$param['status'].')' : '';
+        $this->db->query("set names utf8");
+        $sql = 'SELECT count(id) total FROM student_class '.$where;
+        $arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+     }
+    
+    /**
+	 * 获取所有课程状态
+	 **/
+     public function get_course_type(){
+     	$this->db->query("set names utf8");
+     	$sql = "SELECT * FROM nahao.course_type";
+     	return $this->db->query($sql)->result_array();
+     }
+     
+     /**
+	 * 获取所有课程状态
+	 **/
+     public function get_subject(){
+     	$this->db->query("set names utf8");
+     	$sql = "SELECT * FROM nahao.subject";
+     	return $this->db->query($sql)->result_array();
+     }
 }

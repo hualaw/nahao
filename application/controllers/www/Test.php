@@ -77,6 +77,11 @@ class Test extends CI_Controller {
         $this->load->model('model/student/model_student_subject');
         $this->model_student_subject->delete(123, array('123','234'));
     }
+
+    public function login_test()
+    {
+        $this->smarty->display('www/login/login.html');
+    }
 }
 
 /* End of file welcome.php */
