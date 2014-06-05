@@ -35,18 +35,15 @@
 				{/if}
 			</div>
 			
-			{if $item.teach_status == '2' 
-			|| $item.teach_status =='4' 
-			|| $item.status == '9'
-			|| $item.status == '8'
-			|| $item.status == '6'}
-			<a href="" class="btn blueBtn">
+			{if ($item.teach_status == '3' || $item.teach_status =='4' || $item.teach_status =='5') && ( $item.status == '9'
+			     || $item.status == '8' || $item.status == '6')}
+			<a href="javascript:void(0);" class="btn blueBtn">
 				进入课程
 			</a>
 			{else}
 			<a href="/course/buy_after/{$item.round_id}" class="btn blueBtn">
 				进入课程
-				</a>
+		    </a>
 			{/if}			
 			
 		</li>

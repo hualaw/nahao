@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
+<title>支付页面</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentCart/style.css')}" />
@@ -324,7 +324,7 @@
 						</form>
 					</div>
 					<div class="box bank undis">
-						<form action="/pay/request/{$array_order.id}" method="post" >
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList credit">
 									<li class="title fl">一步验证，无需网银！（网银限额时推荐使用）</li>
@@ -345,7 +345,7 @@
 						</form>	
 					</div>
 					<div class="box bank alipayBox undis">
-						<form action="/pay/request/{$array_order.id}" method="post" >
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList alipay">
 									<li class="fl alipayLi">

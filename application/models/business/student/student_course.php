@@ -247,7 +247,7 @@ class Student_Course extends NH_Model{
                 $array_result = $this->model_member->get_user_infor($v['student_id']);
                 
                 #处理数据
-                $array_return[$k]['avatar'] = empty($array_result['nickname']) ? DEFAULT_AVATER:$array_result['nickname'];
+                $array_return[$k]['avatar'] = empty($array_result['avatar']) ? DEFAULT_AVATER:$array_result['avatar'];
                 $array_return[$k]['nickname'] = $array_result['nickname'];
             }
         }

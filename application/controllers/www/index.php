@@ -51,7 +51,7 @@ class Index extends NH_User_Controller {
 	    $start_time= $this->input->post("start_time");
 	    $end_time= $this->input->post("end_time");
 	    $name= $this->input->post("name");
-	    $user_id = 0;                        #TODO用户登录就是user_id,没有就是0
+	    $user_id = 1;                        #TODO用户登录就是user_id
 	    $array_data = array(
             "course"=>$course,
             "resume"=>$resume,
