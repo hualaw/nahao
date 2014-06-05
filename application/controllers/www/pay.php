@@ -38,7 +38,7 @@ class Pay extends NH_User_Controller {
                 {
                 case 0:
                     case 1:
-                        self::json_output(array('status'=>'order_exist','msg'=>'您的订单已经存在，请去订单中心付款'));
+                        self::json_output(array('status'=>'order_exist','msg'=>'您的订单已经存在，请去订单中心付款',));
                         break;
                     case 2:
                     case 3:
@@ -475,6 +475,21 @@ class Pay extends NH_User_Controller {
 	    } while (false);
 	
 	    return $channel;
+	}
+	
+	/**
+	 * 检查订单是否已经支付完成
+	 * @param  $int_order_id
+	 */
+	public function check_order_pay_status($int_order_id)
+	{
+	    $array_data = $this->model_order->get_order_by_id($int_order_id);
+	    if ($array_data['status'] == '2')
+	    {
+	        self::json_output(array('status'=>'pay_ok','msg'=>'支付成功'));
+	    } else {
+	        self::json_output(array('status'=>'pay_error','msg'=>'支付失败'));
+	    }
 	}
 }
 

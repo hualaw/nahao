@@ -57,12 +57,12 @@ class Course extends NH_User_Controller {
 	    $int_user_id = 1;                #TODO用户id
 	    #轮id
 	    $int_round_id = intval($int_round_id);
-	    #检查$round_id以及学生是否购买此轮
+/* 	    #检查$round_id以及学生是否购买此轮
 	    $bool_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
 	    if (!$bool_flag)
 	    {
 	        show_error("参数错误");
-	    }
+	    } */
 	    #课堂同学
 	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);
 	    #课堂同学总数

@@ -80,8 +80,8 @@ define(function(require,exports){
             };
             $.post(url, data, function (response) {
                 if (response.status == "order_exist") {
-                    //window.location.reload();
                 	alert(response.msg);
+                	window.location.href="/member/my_order/all";
                 } else if(response.status == "order_buy"){
                 	alert(response.msg);
                 } else if(response.status == "ok"){
@@ -100,8 +100,8 @@ define(function(require,exports){
             };
             $.post(url, data, function (response) {
                 if (response.status == "order_exist") {
-                    //window.location.reload();
                 	alert(response.msg);
+                	window.location.href="/member/my_order/all";
                 } else if(response.status == "order_buy"){
                 	alert(response.msg);
                 }else if(response.status == "ok"){
