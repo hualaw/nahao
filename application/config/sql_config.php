@@ -44,6 +44,14 @@ $config['sql_admin'] = array(
         TABLE_NAHAO_AREAS => array(TABLE_USER_INFO . '.province=' . TABLE_NAHAO_AREAS . '.id', 'left'),
         TABLE_TEACHER_SUBJECT => array(TABLE_USER . '.id=' . TABLE_TEACHER_SUBJECT . '.teacher_id', 'left')
     ),
+
+    'teacher_info2' => array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+        TABLE_NAHAO_AREAS => array(TABLE_USER_INFO . '.province=' . TABLE_NAHAO_AREAS . '.id', 'left'),
+        TABLE_TEACHER_SUBJECT => array(TABLE_USER . '.id=' . TABLE_TEACHER_SUBJECT . '.teacher_id', 'left'),
+        TABLE_SUBJECT => array(TABLE_SUBJECT . '.id=' . TABLE_TEACHER_SUBJECT . '.subject_id', 'left')
+    ),
 );
 
 

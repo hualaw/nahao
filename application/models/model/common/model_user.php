@@ -59,7 +59,30 @@ class Model_User extends NH_Model
         $int_affected_rows = $this->db->affected_rows();
         return $int_affected_rows > 0 ? true :false;
     }
-
+    /**
+     * teacher账户禁用
+     * @author shangshikai@tizi.com
+     */
+    public function account_close($arr)
+    {
+        foreach($arr as $v)
+        {
+           $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>0),array(TABLE_USER.'.id'=>$v));
+        }
+        return TRUE;
+    }
+    /**
+     * teacher账户禁用
+     * @author shangshikai@tizi.com
+     */
+    public function account_open($arr)
+    {
+        foreach($arr as $v)
+        {
+           $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>1),array(TABLE_USER.'.id'=>$v));
+        }
+        return TRUE;
+    }
     /**
      * 删除user
      * @param array $arr_param
