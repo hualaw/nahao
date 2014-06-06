@@ -75,6 +75,7 @@ class Orderlist extends NH_User_Controller {
 	public function count(){
 		#1.课堂信息
 		$class_id = $this->uri->segment(3,0);
+		$sequence_id = $this->uri->segment(4,1);
 		$param = array(
 				'teacher_id' => $this->teacher_id,
      			'id' => isset($class_id) ? $class_id : '',
@@ -82,15 +83,20 @@ class Orderlist extends NH_User_Controller {
 		$zjList = $this->teacher_b->class_list($param);
 		$arr = array_pop($zjList);
 		$jInfo = isset($arr['jArr'][0]) ? $arr['jArr'][0] : '';
-		#2.评价信息
-		$question = $this->teacher_b->class_question(array('class_id'=>$class_id));
-		
+		#2.统计信息
+		$sequence_num = $this->teacher_b->get_sequence(array('class_id' => $class_id));//获取批次
+		$total = $this->teacher_b->class_question(array('class_id'=>$class_id,'counter'=>2));//当前课所有题数目,含没出过。
+		$question = $this->teacher_b->class_question(array('class_id'=>$class_id,'sequence'=>$sequence_id));#当前批次题
+		$answer_user_num = $this->teacher_b->answer_user_num(array('class_id' => $class_id,'sequence'=>$sequence_id,'count'=>2));//当前批次答题人数
 		$data = array(
 			'jInfo' => $jInfo,
 			'active' => 'orderlist_count',
 			'title' => '答题统计',
 			'question' => $question,
-			'total' => count($question),
+			'answer_user_num' => $answer_user_num,
+			'sequence_num' => $sequence_num,
+			'total' => $total,
+			'sequence_id' => $sequence_id,
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_count.html');

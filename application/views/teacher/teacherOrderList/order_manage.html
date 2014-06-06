@@ -5,9 +5,9 @@
 {block name=container}
 <!--小导航开始-->
 <div class="nav_crumbs">
-    <a href="javascript:void(0)">首页></a>
-    <a href="javascript:void(0)">班次列表></a>
-    <a href="javascript:void(0)">班次章节></a>
+    <a href="/welcome/index/">首页></a>
+    <a href="/orderList/index/">班次列表></a>
+    <a href="/orderList/index/{$data['jInfo']['id']}">班次章节></a>
     <a href="javascript:void(0)" class="nav_detail">练习题管理</a>
 </div>
 <!--小导航结束-->
@@ -20,8 +20,8 @@
     </div>
     <div class="md_bd">
         <ul class="tab_ul" id="tab_ul">
-            <li class="first"><a href="/orderList/question/{$data['jInfo']['id']}" target="_blank" class="active">练习题管理</a></li>
-            <li><a href="/orderList/count/{$data['jInfo']['id']}" target="_blank">答题情况统计</a></li>
+            <li class="first"><a href="/orderList/question/{$data['jInfo']['id']}" target="_self" class="active">练习题管理</a></li>
+            <li><a href="/orderList/count/{$data['jInfo']['id']}" target="_self">答题情况统计</a></li>
         </ul>
         <div class="tab_content" id="tab_content1" style="display:block;">
         {if $data['question']}
@@ -32,7 +32,7 @@
 	                <div class="md_tmp">
 	                    <h3>{$val['question']}</h3>
 	                    {foreach $val['options'] as $k=>$v}
-	                    <div class="optiona">{$k}. {$v}</div>
+	                    <div class="optiona">{$k}. {$v['value']}</div>
 	                    {/foreach}
 	                    <div class="md_ft">
 	                        <div class="optionb"><span>答案：</span> {$val['answer']}</div>

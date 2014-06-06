@@ -11,12 +11,12 @@ class Business_Teacher extends NH_Model
     }
 
     public function get_pos($actName){
-    	$pos = '<div class="row col-md-10" style="margin-left: 1px;">
-    				<ol class="breadcrumb" style="margin-bottom: 5px;">
-        				<li><a href="'.$_SERVER['host'].'">首页</a></li>
-        				<li class="active">'.$actName.'</li>
-        			</ol>
-        		</div>';
+    	$pos = '<div class="nav_crumbs">
+				    <a href="/orderList/index/">首页></a>
+				    <a href="/orderList/index/">班次列表></a>
+				    <a href="/orderList/index/">班次章节></a>
+				    <a href="javascript:void(0)" class="nav_detail">练习题管理</a>
+				</div>';
     	return $pos;
     }
     
@@ -316,29 +316,83 @@ class Business_Teacher extends NH_Model
      * 课堂练习题
      **/
     public function class_question($param){
+    	#1. 统计的情况
     	if(!$param['class_id']){exit('缺少必要课堂参数');}
     	$question = $this->model_teacher->question_seacher($param);
+    	if($param['counter']){return isset($param['counter']) ? $param['counter'] : 0;}
+    	#2. 列表的情况
+    	$sequence_question = array();
     	if($question) foreach($question as &$val){
+    		/**					1. 统计该题答对状态与比例					**/
+    		#该题总作答数
+	    		$param = array(
+	    			'class_id' => $param['class_id'],
+	    			'question_id' => $val['id'],
+	    		);
+	    	$total = $this->model_teacher->practise_counter($param);//选择人数
+    		$val['answer_status']['total'] = isset($total[0]['total']) ? $total[0]['total'] : 0;
+    		#该题答对人数
+	    		$param = array(
+	    			'class_id' => $param['class_id'],
+	    			'question_id' => $val['id'],
+	    			'is_correct' => 1,
+	    		);
+	    	$total = $this->model_teacher->practise_counter($param);
+    		$val['answer_status']['right_total'] = isset($total[0]['total']) ? $total[0]['total'] : 0;
+    		$val['answer_status']['right_persent'] = 100*(round($val['answer_status']['right_total']/$val['answer_status']['total'],3)).'%';
+    		#开始统计选项比率
     		$val['options'] = json_decode($val['options'],true);
-    		foreach($val['options'] as $k=>$v){
-    			#统计该题选该选项的人总数
+    		$option_total = 0;
+    		/**					2. 统计该题各个选项作答状态与比例					**/
+    		if($val['options']) foreach($val['options'] as $k=>&$v){
+    			#该题作答时【包含该选项】的人总数
 	    		$param = array(
+	    			'class_id' => $param['class_id'],
 	    			'question_id' => $val['id'],
 	    			'answer' => $k,
 	    		);
-	    		$total = $this->model_teacher->practise_counter($param);//做对数
-    			$right = isset($total[0]['total']) ? $total[0]['total'] : 0;
-    			#统计该题该选项做对总数
-	    		$param = array(
-	    			'question_id' => $val['id'],
-	    			'answer' => $k,
-	    		);
-	    		$total = $this->model_teacher->practise_counter($param);//做对数
+	    		$total = $this->model_teacher->practise_counter($param);
+    			$choose = isset($total[0]['total']) ? $total[0]['total'] : 0;
+    			$option_total += $choose;//总选项包含数
+    			$v = array(
+    				'value' => $v,
+    				'total' => $choose,
+    				'is_correct' => (strpos('-'.$val['answer'],$k) ? 1 : 0),
+    				//注意此比率表示多少人的选择包含该选项，总比率不一定为100%，若要100%请使用方案2代码
+    				'persent' => (100*(round($choose/$val['answer_status']['right_total'],3))).'%',
+    				);
     		}
+    		/**
+    		 * 此乃方案2
+    		 **/
+    		/*
+    		 foreach($val['options'] as $kk=>&$vv){
+    			$vv['persent'] = (100*(round($choose/$option_total,3))).'%';
+    		}
+    		*/
+			$sequence_question[$val['sequence']][] = $val;
     	}
-    	return $question;
+    	return $param['sort_sequence'] ? $sequence_question : $question;
     }
+     
+    /**
+     * 统计课的答题用户数，可按批次查看
+     **/
+     public function answer_user_num($param){
+     	if(!$param['class_id']){exit('缺少必要课堂参数');}
+     	$num = $this->model_teacher->practise_counter($param);
+     	return isset($num[0]['total']) ? $num[0]['total'] : 0; 
+     }
     
+     /**
+      * 获取课堂出题批次
+      **/
+     public function get_sequence($param){
+     	if(!$param['class_id']){exit('缺少必要课堂参数');}
+     	$num = $this->model_teacher->get_sequence($param);
+     	return isset($num[0]['total']) ? $num[0]['total'] : 0;
+     } 
+     
     /**
      * 全国省市地区
      **/ 
