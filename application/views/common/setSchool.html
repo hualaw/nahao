@@ -1,18 +1,19 @@
 {literal}
 <style>
+#teacherSetSchool #sName{font-weight: bold;}
 #teacherSetSchool ul.schooLocation,
 #teacherSetSchool .schoolInfo .school,
-#teacherSetSchool .seacherResult{border: 1px solid #999;padding:10px 8px;background: #eee;margin-bottom: 10px;width:798px;}
+#teacherSetSchool .seacherResult{border: 1px solid #e7e7e7;padding:10px 8px;background: #f7f7f7;margin-bottom: 10px;width:798px;}
 #teacherSetSchool ul.schooLocation li{float: left;padding: 0px 7px;line-height: 20px;cursor: pointer;white-space:nowrap;margin:0px!important;}
 #teacherSetSchool ul li.default{ cursor: default; color: #bdbdbd}
-#teacherSetSchool ul li.active{background: #f90;color: #fff;}
+#teacherSetSchool ul li.active{background: #f14211;color: #fff;}
 #teacherSetSchool .schoolInfo .hd{padding-bottom:10px;}
 #teacherSetSchool .schoolInfo .cInput{height:27px;line-height: 27px;border:1px solid #ccc;}
-#teacherSetSchool .schoolInfo .hd .cBtnSilver{height:27px;line-height: 27px;margin-left:10px;}
+#teacherSetSchool .schoolInfo .hd .cBtnSilver{height:27px;line-height: 27px;margin-left:10px;background:#f14211;border-radius: 5px;color: #fff;cursor: pointer;border:0px;}
 #teacherSetSchool .schoolInfo .noMySchollBtn,
 #teacherSetSchool .schoolInfo .returnSetSchool{color:#09aa83;margin-left:10px;}
 #teacherSetSchool .schoolInfo .noMySchollBtn:hover,
-#teacherSetSchool .schoolInfo .returnSetSchool:hover{color:#f90;}
+#teacherSetSchool .schoolInfo .returnSetSchool:hover{color:#f14211;}
 #teacherSetSchool .schoolInfo .school,
 #teacherSetSchool .schoolInfo .seacherResult{height:90px;overflow-y: scroll;}
 #teacherSetSchool .schoolInfo .school dt{width:20px;text-align: center;font-size:14px;}
@@ -42,7 +43,7 @@
             <div class="schoolInfo undis">
                 <div class="hd">
                     <form action="###" class="seacherSchoolForm" method="post" onsubmit="return false;">
-                        <span class="fl">输入学校名称直接搜索：</span>
+                        <span class="fl">在<span id="sName"></span>中搜索：</span>
                         <div class="posr fl">
                             <input type="text" name="" class="cInput schoolNames" />
                             <div class="ValidformInfo">
@@ -54,7 +55,7 @@
                             </div>
                             <span class="reset undis" title="重置">X</span>
                         </div>
-                        <input type="submit" value="搜索" class="cBtnSilver fl" />
+                        <input type="submit" value="搜索" class="cBtnSilver fl yh" />
                         <a href="javascript:void(0)" class="noMySchollBtn fl">没有我的学校？</a>
                     </form>
                 </div>

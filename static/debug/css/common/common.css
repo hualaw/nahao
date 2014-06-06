@@ -19,7 +19,11 @@ a:hover {text-decoration:none;}
 .blueText{color:#6dcde6;}
 .blueText:hover{text-decoration: underline;color:#6dcde6;}
 .grayText{color: #a3adb7;}
+.yh{font-family: "微软雅黑";font-weight: normal;}
 .undis{display: none;}
+.dis{display: block;}
+.undisIm{display:none!important;}
+.disIm{display:block!important;}
 .posr{position: relative;}
 .noBBor{border-bottom: none!important;}
 .greenText{color:#7ba801!important;}

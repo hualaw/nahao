@@ -281,7 +281,19 @@ define(function(require, exports) {
         });
         //点击学校
         $('.resetSchoolPopCon .sctype li').live('click', function(){
+            // 获取选择的省市县开始
+            var _thisPro = $('.resetSchoolPopCon .province li.active').html();
+            var _thisCity = $('.resetSchoolPopCon .city li.active').html();
+            var _thisCounty = $('.resetSchoolPopCon .county li.active').html();
+            var _thisSctype  = $(this).html();
+            $('span#sName').html(_thisPro+_thisCity+_thisCounty+"的"+_thisSctype);
+            // 获取选择的省市县结束
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
+            // 屏蔽默认光标在输入框开始
+            $('.schoolNames').focus(function(){
+                return false;
+            })
+            // 屏蔽默认光标在输入框结束
             $('.ValidformInfo').hide();
             $('.resetSchoolPopCon .schoolInfo,.resetSchoolPopCon .schoolInfo .hd').show();
             $('.resetSchoolPopCon .schoolNames').val('');
