@@ -4,7 +4,6 @@ class Business_Login extends NH_Model {
 
     public function submit($username, $password)
     {
-
         if(strlen($username) == 0 || strlen($password) == 0)
             return $this->_log_reg_info(ERROR, 'login_invalid_info', array('username'=>$username, 'password'=>$password));
 
@@ -15,13 +14,13 @@ class Business_Login extends NH_Model {
         $email = '';
         if($login_type == LOGIN_TYPE_PHONE)
         {
-            $check_ret = $this->check_phone($username);
+            $check_ret = $this->check_phone_format($username);
             if($check_ret['status'] != SUCCESS) return $check_ret;
 
             $phone = $username;
             $user_id = get_uid_phone_server($phone);
         }else {
-            $check_ret = $this->check_email($username);
+            $check_ret = $this->check_email_format($username);
             if($check_ret['status'] != SUCCESS) return $check_ret;
 
             $email = $username;
@@ -52,12 +51,12 @@ class Business_Login extends NH_Model {
                         else $nickname = $email;
                     }
 
-                    $userdata = array(
-                        'nickname' => $nickname,
-                        'avatar' => '',
-                        'user_id' => $user_info['id'],
-                    );
-                    $this->session->set_userdata($userdata);
+                    $phone = '';
+                    if($user_id) $phone = get_pnum_phone_server($user_id);
+
+                    $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],
+                        $phone, $user_info['phone_mask'], $user_info['email']);
+
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
                 }
                 else
@@ -89,47 +88,4 @@ class Business_Login extends NH_Model {
             return $this->_log_reg_info(ERROR, 'login_unregister_username', $info_arr);
         }
     }
-
-    public function check_phone($phone)
-    {
-        //check phone is invalid
-        if(!is_mobile($phone))
-        {
-            return $this->_log_reg_info(ERROR, 'rl_invalid_phone', array('phone'=>$phone));
-        }
-
-        return $this->_log_reg_info(SUCCESS, 'rl_check_phone_success', array('phone'=>$phone));
-    }
-
-    public function check_email($email)
-    {
-        if(!is_email($email))
-        {
-            return $this->_log_reg_info(ERROR, 'rl_invalid_email', array('email'=>$email));
-        }
-
-        return $this->_log_reg_info(SUCCESS, 'rl_check_email_success', array('email'=>$email));
-    }
-
-    function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
-    {
-        $arr_return['status'] = $status;
-        $arr_return['msg'] = $this->lang->line($msg_type);
-        $arr_return['data'] = $info_arr;
-        switch($info_type)
-        {
-            case 'error':
-                log_message('error_nahao', json_encode($arr_return));
-                break;
-            case 'info':
-                log_message('info_nahao', json_encode($arr_return));
-                break;
-            case 'debug':
-                log_message('debug_nahao', json_encode($arr_return));
-                break;
-        }
-        return $arr_return;
-    }
-
-
 }

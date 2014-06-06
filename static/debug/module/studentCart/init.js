@@ -6,6 +6,7 @@ define(function(require,exports){
 	
 	
 	if ($(".toPay").length>0) {
+
 		 //require("module/cart/popUp").popUp(".popBox2");
 		//点击支付按钮，表单提交
 		_studentCar.pay_click_submit();
@@ -25,4 +26,13 @@ define(function(require,exports){
 	
 	
 	
+
+        $(".ortherBtn").click(function (){
+			require("module/common/method/popUp").popUp(".popBox");
+        })
+	};
+    //填写联系方式 验证
+    require("module/studentCart/valid").inforCheckForm();	
+    // 发送手机验证码
+
 })

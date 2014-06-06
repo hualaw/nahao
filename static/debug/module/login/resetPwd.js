@@ -1,20 +1,10 @@
 define(function(require,exports){
     require("naHaoDialog");
-    // 左侧栏 高亮
-    exports.leftNav = function (){
-        if($(".menu li").length){
-            for(var i=0;i<$(".menu li").length;i++){
-                if($(".menu li").eq(i).attr("name").indexOf($("#wrapContent").attr("name"))!=-1){
-                    $(".menu li").removeClass("menuOn");
-                    $(".menu li").eq(i).addClass("menuOn");
-                }
-            }
-        }
-    }
 
     //发送验证码
     exports.sendValidateCode = function (){
         $('.code').click(function() {
+            var _this = $(this);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
                 alert('请填写手机号');
@@ -32,6 +22,19 @@ define(function(require,exports){
                     if(result.status == 'error') {
                         alert(result.msg);
                     }
+                    //手机验证倒计时
+                    var ind=60;
+                    var timer = setInterval(function(){
+                        ind--;
+                        if(ind<0){
+                            clearInterval(timer);
+                            _this.show(); 
+                            _this.next('span.codeSpan').hide();
+                        }else{
+                            _this.hide(); 
+                            _this.next('span.codeSpan').show().html(ind + '秒后获取验证码');
+                        }
+                    }, 1000);
                 }
             }
             );

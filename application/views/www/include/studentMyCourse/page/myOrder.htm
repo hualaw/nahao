@@ -1,5 +1,5 @@
 <!--我的订单-->
-<h3 class="pageName">订单详情</h3>
+<h3 class="pageName">我的订单</h3>
 <div class="orderComBox">
 	<ul class="tabh cf">
 		<li {if $str_type == 'all'}class="tabhOn"{/if}><a href="/member/my_order/all">全部订单</a></li>
@@ -65,21 +65,20 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
-						
-							{if $item.status == '0' || $item.status == '1'}
-							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
-								<span class="fl">支付</span>
-								<span class="fr"></span>
-							</a>
-							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a>
-							{elseif $item.status == '2' || $item.status == '3'}
-							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
-							{elseif $item.status == '4' || $item.status == '5'}
-							<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
-							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
-							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
-							{/if}
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>			
+						<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>						
+						{if $item.status == '0' || $item.status == '1'}
+						<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
+							<span class="fl">支付</span>
+							<span class="fr"></span>
+						</a>
+						{elseif $item.status == '2' || $item.status == '3'}
+						<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+						{elseif $item.status == '4' || $item.status == '5'}
+						<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
+						{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
+						<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+						{/if}
 					</td>
 				</tr>
 				{/foreach}				

@@ -19,9 +19,10 @@
 .classRoom .optionNav{width: 75px;text-align: center;color:#fff;}
 .classRoom .scoreCon{width: 675px;padding: 0 40px 0 60px;}
 .classRoom .scorePage .scoreCon{width: 711px;}
-.classRoom .optionNav ul{width: 70px;}
+.classRoom .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
+.classRoom .answerList{margin:50px 0 0;}
 .classRoom .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
-.classRoom .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;}
+.classRoom .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
 .classRoom .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
 .classRoom .optionNav .curitme{background: #ed4111;}
 .classRoom .optionNav .curitme:hover{background: #f86035;border-left: 5px solid #c93107;}
@@ -38,7 +39,7 @@
 .classRoom .asHead{height: 46px;padding: 0 120px 0 100px;background: #ebebeb;color: #808080;}
 .classRoom .selfans span{display: block;text-align: center;}
 .classRoom .whosAns{font-size: 14px;margin-bottom: 6px;}
-.classRoom .asheadR{text-align: center;width: 152px;}
+.classRoom .asheadR{text-align: center;width: 158px;}
 .classRoom .asheadRBox{margin:6px -30px 0 0;}
 .classRoom .asheadR div span{margin-right: 30px;}
 .classRoom .ansShow ul{padding: 0 10px 0 13px;}
@@ -108,3 +109,7 @@
 .classRoom .evalu .starBg{width: 170px;background: url(../../images/classRoom/evalBg.png);display: inline-block;margin:16px 0 26px;}
 .classRoom .evalu .starBg span{float:left;width: 32px;height: 30px;margin-right: 2px;background: url(../../images/classRoom/cevalBg.png) no-repeat;}
 .classRoom .evalu textarea{width: 560px;height: 238px;}
+/*  滚动条  */
+.classRoom .sconParl{height: 476px;overflow: hidden;}
+.classRoom .sparent{position:absolute;right: 0;top:0;width: 4px;height: 476px;background: #c9c9c9;}
+.classRoom .sparent .sbar{width: 4px;height: 30px;background: #0e455e;position: absolute;left: 0;top:0;}
