@@ -15,6 +15,107 @@ define(function(require,exports){
             objtip.text(msg);
         }
     };
+    // 手机注册验证
+    exports.regPhoneBoxForm = function(){
+        var _Form=$(".regPhoneBox").Validform({
+            // 自定义tips在输入框上面显示
+            tiptype:3,
+            showAllError:false,
+            ajaxPost:true,
+            beforeSubmit: function(curform) {
+                
+            },
+            callback:function(json){
+                if(json.status =="ok"){
+                    $.dialog({
+                        content:json.msg,
+                        icon:"succeed"
+                    })
+                }else{
+                     $.dialog({
+                        content:json.msg
+                    })
+                }
+            }
+        });
+        _Form.addRule([{
+                ele: ".phoneNum",
+                datatype:"m",
+                nullmsg:"请输入手机号/邮箱/梯子网帐号",
+                errormsg:"手机号输入错误"
+            },
+            {   
+                 ele:".pwd",
+                 datatype: "s6-20",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
+            },
+            {   
+                 ele:".codeInput",
+                 datatype: "/^\\d{4}$/",
+                 nullmsg: "请输入手机验证码",
+                 errormsg: "手机验证码输入错误"
+            },
+            {   
+                 ele:"checkbox:first",
+                 datatype: "*",
+                 nullmsg: "请同意服务协议",
+                 errormsg: "未同意服务协议"
+            }
+        ]);
+        // 发送手机验证码
+        require('module/common/method/send').sendPhoneNum();
+    };
+    // 邮箱注册验证
+    exports.regEmailBoxForm = function(){
+        var _Form=$(".regEmailBox").Validform({
+            // 自定义tips在输入框上面显示
+            tiptype:3,
+            showAllError:false,
+            ajaxPost:true,
+            beforeSubmit: function(curform) {
+                
+            },
+            callback:function(json){
+                if(json.status =="ok"){
+                    $.dialog({
+                        content:json.msg,
+                        icon:"succeed"
+                    })
+                }else{
+                     $.dialog({
+                        content:json.msg
+                    })
+                }
+            }
+        });
+        _Form.addRule([{
+                ele: ".email",
+                datatype:"e",
+                nullmsg:"请输入手机号/邮箱/梯子网帐号",
+                errormsg:"手机号输入错误"
+            },
+            {   
+                 ele:".pwd",
+                 datatype: "*6-16",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
+            },
+            {   
+                ele:".ephone",
+                datatype: "m",
+                nullmsg: "请输入手机号码",
+                errormsg: "手机号码输入错误",
+                ignore:"ignore"
+            },
+            {   
+                 ele:"radio:first",
+                 datatype: "*",
+                 nullmsg: "请同意服务协议",
+                 errormsg: "未同意服务协议"
+            }
+        ]);
+    };
     //选择和取消 关注
     function checkAttent(){        
         $(".objBox a").click(function (){

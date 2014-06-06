@@ -3,7 +3,7 @@ define(function(require, exports) {
     $('.resetSchool').live('click',function(){
         var _this = $(this);
         $.ajax({
-            'url' : baseUrlName + 'school?id=1',
+            'url' : siteUrl + 'school?id=1',
             'type' : 'GET',
             'dataType' : 'json',
             success : function(json, status){
@@ -135,7 +135,7 @@ define(function(require, exports) {
 				if ($.trim(words) != ''){
 					if(/.*[\u4e00-\u9fa5]+.*$/.test(words)){
 						$.ajax({
-							'url' : baseUrlName + 'class/schools/convert?chinese='+encodeURIComponent(words),
+							'url' : siteUrl + 'class/schools/convert?chinese='+encodeURIComponent(words),
 							'type' : 'GET',
 							'dataType' : 'json',
 							success : function(json, status){
@@ -223,7 +223,7 @@ define(function(require, exports) {
                 var id = $(this).attr('data-id');
                 var ismunicipality = $(this).attr('ismunicipality');
                 $.ajax({
-                    'url' : baseUrlName + 'school?id='+id,
+                    'url' : siteUrl + 'school?id='+id,
                     'type' : 'GET',
                     'dataType' : 'json',
                     success : function(json, status){
@@ -248,7 +248,7 @@ define(function(require, exports) {
             if($(this).attr('class') !== 'active'){
                 var id = $(this).attr('data-id');
                 $.ajax({
-                    'url' : baseUrlName + 'school?id='+id,
+                    'url' : siteUrl + 'school?id='+id,
                     'type' : 'GET',
                     'dataType' : 'json',
                     success : function(json, status){
@@ -266,7 +266,7 @@ define(function(require, exports) {
         $('.resetSchoolPopCon .county li').live('click', function(){
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
             $.ajax({
-                'url' : baseUrlName + 'school/type',
+                'url' : siteUrl + 'school/type',
                 'type' : 'GET',
                 'dataType' : 'json',
                 success : function(json, status){
@@ -302,7 +302,7 @@ define(function(require, exports) {
                 var sctype = $(this).attr('data-id');
                 var county_id = $('.aui_content .county li.active').attr('data-id');
                 $.ajax({
-                    'url' : baseUrlName+'school/get_school',
+                    'url' : siteUrl+'school/get_school',
                     'type' : 'GET',
                     'dataType' : 'json',
                     'data' : {
@@ -376,7 +376,7 @@ define(function(require, exports) {
                     // var id = $(this).attr('data-id');
                     var ismunicipality = $(this).attr('ismunicipality');
                     $.ajax({
-                        'url' : baseUrlName + 'school?id='+_json.province,
+                        'url' : siteUrl + 'school?id='+_json.province,
                         'type' : 'GET',
                         'dataType' : 'json',
                         success : function(json, status){
@@ -398,7 +398,7 @@ define(function(require, exports) {
                                         // if($(this).attr('class') !== 'active'){
                                             var id = $(this).attr('data-id');
                                             $.ajax({
-                                                'url' : baseUrlName + 'school?id='+_json.city,
+                                                'url' : siteUrl + 'school?id='+_json.city,
                                                 'type' : 'GET',
                                                 'dataType' : 'json',
                                                 success : function(json, status){
@@ -412,7 +412,7 @@ define(function(require, exports) {
                                                             $(this).addClass('active');
                                                             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
                                                             $.ajax({
-                                                                'url' : baseUrlName + 'school/type',
+                                                                'url' : siteUrl + 'school/type',
                                                                 'type' : 'GET',
                                                                 'dataType' : 'json',
                                                                 success : function(json, status){

@@ -36,7 +36,9 @@
 .login .regWrap .tabBox a{display: inline-block;width:229px;border-top:3px solid #f7f7f7;height:47px;background: #f7f7f7;font-size:18px;text-align: center;line-height:47px;}
 .login .regWrap .tabBox a.active{border-top-color:#f14211;background: #fff;color:#f14211;font-weight:bold;}
 .login .regWrap .contentBox .box{padding:20px 55px;}
-.login .regWrap .box li {font-size:16px;margin-bottom:20px;}
+.login .regWrap .box li {font-size:16px;margin-bottom:20px; position: relative;*zoom:1;}
+.login .regWrap .box li .Validform_checktip{ position: absolute; top: 0px;right:0px;}
+.login .regWrap .box li.liPhoneCode{padding-top:25px;}
 .login .regWrap .box li p{height:22px;line-height:22px;margin-bottom:5px;}
 .login .regWrap .box li .regInput{width: 90%;border:1px solid #6dcde6;height:38px;line-height:38px;padding:0 5%;font-size:16px;}
 .login .regWrap .box li .pnoneCode{height:40px;line-height:40px;font-size:16px;width:165px;}

@@ -16,6 +16,8 @@
 @import url('../common/valid.css');
 /*加载模拟下拉框样式*/
 @import url('../common/jqtransform.css');
+/*加载公共登陆样式*/
+@import url('../common/comLogin.css');
 /*----------------------------网站具体样式开始----------------------------*/
 /*加载视频课样式*/
 @import url('course.css');
