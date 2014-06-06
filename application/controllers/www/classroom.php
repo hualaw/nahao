@@ -79,6 +79,7 @@ class Classroom extends NH_User_Controller {
 	 */
 	public function get_question_result_data()
 	{
+	    header('content-type: text/html; charset=utf-8');
 	    #课id
 	    $int_class_id = $this->input->post('class_id');
 	    $int_user_id = $this->input->post('user_id');
@@ -87,6 +88,11 @@ class Classroom extends NH_User_Controller {
             'class_id'=>$int_class_id,
             'student_id'=>$int_user_id,
 	        'sequence'=>$int_sequence
+	    );
+	    $array_data = array(
+	            'class_id'=>3,
+	            'student_id'=>1,
+	            'sequence'=>1
 	    );
 	    $array_data = $this->student_classroom->get_question_result_data($array_data);
 	    var_dump($array_data);die;

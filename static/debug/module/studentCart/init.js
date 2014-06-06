@@ -11,6 +11,14 @@ define(function(require,exports){
 		_studentCar.pay_click_submit();
 	};
 	
+	if($(".innerBox").length>0){
+		//检查手机号是否被用过
+		_studentCar.checkPhone();
+		//发送验证码
+		_studentCar.sendValidateCode();
+		// 确认订单填写联系方式
+		_studentCar.add_contact();
+	}
 	
 	
 	

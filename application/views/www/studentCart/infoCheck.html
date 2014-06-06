@@ -76,19 +76,20 @@
 		<div class="contactInfo outerBox">
 			<h2><span>请填写联系方式</span></h2>
 			<div class="innerBox">
-				<form action="/pay/neworder/1" mothd="post"  class="inforCheckForm">
+				<form action="javascript:;" method="POST" class="inforCheckForm">
+				<input hidden="type"  id="product_id" value="{$array_data.id}">
 					<ul>
 						<li>
 							<p class="title">真实姓名</p>
 							<div class="cf inputBox">
-								<input type="text" name="Uname" class="inname fl" validName="text">
+								<input type="text" name="real_name" id="real_name" class="inname fl" validName="text">
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
 						<li>
 							<p class="title">手机号</p>
 							<div class="cf inputBox">
-								<input type="text" name="" class="inPhone fl" validName="text">
+								<input type="text" name="phone" id="phone" class="inPhone fl" validName="text">
 								<span class="Validform_checktip fl"></span>
 							</div>
 							<p class="tips">保密，方便我们与您联系</p>
@@ -97,7 +98,7 @@
 							<p class="title">手机验证码</p>
 							<p class="cf">
 								<div class="fl inputBox">
-									<input type="text" name="" class="inPhoneCode fl" validName="text">
+									<input type="text" name="verify_code" id="verify_code" class="inPhoneCode fl" validName="text">
 									<span class="Validform_checktip fl"></span>
 								</div>
 								<a href="javascript:void(0)" class="fl noShowBtn blueBtn">免费获取验证码</a>
@@ -105,7 +106,7 @@
 							</p>							
 						</li>
 						<li>
-							<input type="submit" class="btn redBtn submitBtn" value="提交订单">
+							<input type="submit" class="btn redBtn submitBtn" value="提交订单" id="add_contact">
 						</li>
 					</ul>
 				</form>

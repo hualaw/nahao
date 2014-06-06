@@ -62,4 +62,5 @@ class Model_Index extends NH_Model{
 	    $int_row = $this->db->affected_rows();
 	    return $int_row > 0 ? true : false;
 	}
+	
 }

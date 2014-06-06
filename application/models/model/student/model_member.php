@@ -187,11 +187,37 @@ class Model_Member extends NH_Model{
     public function get_user_infor($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT u.nickname,u.avatar,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
+        $sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
                 ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u
                 LEFT JOIN user_info ui ON u.id = ui.user_id
                 WHERE ui.user_id = ".$int_user_id;
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
+    }
+    
+    /**
+     * 确认订单跟新用户信息
+     * @param  $str_phone
+     * @param  $int_user_id
+     * @return $bool_result
+     */
+    public function update_user($str_phone,$int_user_id)
+    {
+        $this->db->update('user', array('phone_mask'=>$str_phone),array('id'=>$int_user_id));
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
+    }
+    
+    /**
+     * 确认订单跟新用户扩展信息
+     * @param  $str_real_name
+     * @param  $int_user_id
+     * @return $bool_result
+     */
+    public function update_user_info($str_real_name,$int_user_id)
+    {
+        $this->db->update('user_info', array('realname'=>$str_real_name),array('user_id'=>$int_user_id));
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
     }
 }
