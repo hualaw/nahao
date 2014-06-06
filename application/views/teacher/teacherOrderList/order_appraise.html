@@ -15,9 +15,9 @@
 <div class="md_appraise">
     <h2>学员评价</h2>
     <div class="md_hd">
-        <span><b>班节名称： 第一讲－牛吃草的问题</b></span>
-        <span>共<b class="fred">5</b>条评价</span>
-        <span>平均分：<b class="fred">4.4</b></span>
+        <span><b>班节名称： {$data['jInfo']['title']}</b></span>
+        <span>共<b class="fred">{$data['total']}</b>条评价</span>
+        <span>平均分：<b class="fred">{$data['jInfo']['score']}</b></span>
     </div>
     <div class="md_bd">
         <table class="md_table">
@@ -27,30 +27,16 @@
                 <th>评价内容</th>
                 <th>评价时间</th>
             </tr>
-            <tr>
-                <td class="user_name">樱桃小丸子</td>
-                <td class="user_score">5</td>
-                <td class="user_content">已副卡恢复卡机恢复空间哈佛阿姐鼓阿凯设计方案结课可
-                    卡精神焕发可啊发挥看见哈双方进口国时刻j啊发挥分哈啊
-                    卡斯今后发酵罐和是罚款计划啊ls；发挥阿隆索很快</td>
-                <td class="user_time"><b>2014-06-11</b>20：11：22</td>
-            </tr>
-            <tr>
-                <td class="user_name">樱桃小丸子</td>
-                <td class="user_score">5</td>
-                <td class="user_content">已副卡恢复卡机恢复空间哈佛阿姐鼓阿凯设计方案结课可
-                    卡精神焕发可啊发挥看见哈双方进口国时刻j啊发挥分哈啊
-                    卡斯今后发酵罐和是罚款计划啊ls；发挥阿隆索很快</td>
-                <td class="user_time"><b>2014-06-11</b>20：11：22</td>
-            </tr>
-            <tr>
-                <td class="user_name">樱桃小丸子</td>
-                <td class="user_score">5</td>
-                <td class="user_content">已副卡恢复卡机恢复空间哈佛阿姐鼓阿凯设计方案结课可
-                    卡精神焕发可啊发挥看见哈双方进口国时刻j啊发挥分哈啊
-                    卡斯今后发酵罐和是罚款计划啊ls；发挥阿隆索很快</td>
-                <td class="user_time"><b>2014-06-11</b>20：11：22</td>
-            </tr>
+            {if $data['comment']}
+            	{foreach $data['comment'] as $val}
+            		<tr>
+		                <td class="user_name">{$val['nickname']}</td>
+		                <td class="user_score">{$val['score']}</td>
+		                <td class="user_content">{$val['content']}</td>
+		                <td class="user_time"><b>{$val['create_time']|date_format:'%Y-%m-%d'}</b>{$val['create_time']|date_format:'%H: %M: %S'}</td>
+		            </tr>
+            	{/foreach}
+            {/if}
         </table>
 </div>
 </div>

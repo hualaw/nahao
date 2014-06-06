@@ -15,63 +15,34 @@
 <div class="md_orderManage">
     <h2>练习题管理</h2>
     <div class="md_hd">
-        <span class="manage_title"><b>班节名称： 第一讲－牛吃草的问题</b></span>
-        <span>共<b class="fred">5</b>道练习题</span>
+        <span class="manage_title"><b>班节名称： {$data['jInfo']['title']}</b></span>
+        <span>共<b class="fred">{$data['total']}</b>道练习题</span>
     </div>
     <div class="md_bd">
         <ul class="tab_ul" id="tab_ul">
-            <li class="first"><a href="order_manage.html" target="_blank" class="active">练习题管理</a></li>
-            <li><a href="order_count.html" target="_blank">答题情况统计</a></li>
+            <li class="first"><a href="/orderList/question/{$data['jInfo']['id']}" target="_blank" class="active">练习题管理</a></li>
+            <li><a href="/orderList/count/{$data['jInfo']['id']}" target="_blank">答题情况统计</a></li>
         </ul>
         <div class="tab_content" id="tab_content1" style="display:block;">
-           <!--单选答题卡模块开始-->
-           <div class="md_ques">
-                <h2><span class="cbutton lgrayBtn">1</span><span class="cbutton redBtn">单选</span></h2>
-                <div class="md_tmp">
-                    <h3>已副卡恢复卡机恢复空间哈佛阿姐鼓阿凯设计方案结课可卡精神焕发可啊发挥看见哈双方进口国时刻j啊发挥分哈啊卡斯今后发酵罐和是罚款计划啊ls；发挥阿隆索很快？</h3>
-                    <div class="optiona">A. 45</div>
-                    <div class="optiona">B. 45</div>
-                    <div class="optiona">C. 45</div>
-                    <div class="optiona">D. 45</div>
-                    <div class="md_ft">
-                        <div class="optionb"><span>答案：</span> C</div>
-                        <div class="optionb"><span>解析：</span>卡精神焕发客户卡阿桑加快发挥啊就是咖啡馆阿叔解放后啊手机客户共和军分公司</div>
-                    </div>
-                </div>
-           </div>
-           <!--单选答题卡模块结束-->
-           <!--多选答题卡模块开始-->
-            <div class="md_ques">
-                <h2><span class="cbutton lgrayBtn">1</span><span class="cbutton blueBtn">多选</span></h2>
-                <div class="md_tmp">
-                    <h3>已副卡恢复卡机恢复空间哈佛阿姐鼓阿凯设计方案结课可卡精神焕发可啊发挥看见哈双方进口国时刻j啊发挥分哈啊卡斯今后发酵罐和是罚款计划啊ls；发挥阿隆索很快？</h3>
-                    <div class="optiona">A. 45</div>
-                    <div class="optiona">B. 45</div>
-                    <div class="optiona">C. 45</div>
-                    <div class="optiona">D. 45</div>
-                    <div class="md_ft">
-                        <div class="optionb"><span>答案：</span> C</div>
-                        <div class="optionb"><span>解析：</span>卡精神焕发客户卡阿桑加快发挥啊就是咖啡馆阿叔解放后啊手机客户共和军分公司</div>
-                    </div>
-                </div>
-            </div>
-            <!--多选答题卡模块结束-->
-            <!--单选答题卡模块开始-->
-            <div class="md_ques last">
-                <h2><span class="cbutton lgrayBtn">1</span><span class="cbutton redBtn">单选</span></h2>
-                <div class="md_tmp">
-                    <h3>已副卡恢复卡机恢复空间哈佛阿姐鼓阿凯设计方案结课可卡精神焕发可啊发挥看见哈双方进口国时刻j啊发挥分哈啊卡斯今后发酵罐和是罚款计划啊ls；发挥阿隆索很快？</h3>
-                    <div class="optiona">A. 45</div>
-                    <div class="optiona">B. 45</div>
-                    <div class="optiona">C. 45</div>
-                    <div class="optiona">D. 45</div>
-                    <div class="md_ft">
-                        <div class="optionb"><span>答案：</span> C</div>
-                        <div class="optionb"><span>解析：</span>卡精神焕发客户卡阿桑加快发挥啊就是咖啡馆阿叔解放后啊手机客户共和军分公司</div>
-                    </div>
-                </div>
-            </div>
-            <!--单选答题卡模块结束-->
+        {if $data['question']}
+        	{foreach $data['question'] as $val}
+        	   <!--单选答题卡模块开始-->
+	           <div class="md_ques">
+	                <h2><span class="cbutton lgrayBtn">1</span><span class="cbutton redBtn">{if $val['type']==1}单选{elseif $val['type']==2}多选{/if}</span></h2>
+	                <div class="md_tmp">
+	                    <h3>{$val['question']}</h3>
+	                    {foreach $val['options'] as $k=>$v}
+	                    <div class="optiona">{$k}. {$v}</div>
+	                    {/foreach}
+	                    <div class="md_ft">
+	                        <div class="optionb"><span>答案：</span> {$val['answer']}</div>
+	                        <div class="optionb"><span>解析：</span>{$val['analysis']}</div>
+	                    </div>
+	                </div>
+	           </div>
+	           <!--单选答题卡模块结束-->
+        	{/foreach}
+        {/if}
         </div>
         <div class="tab_content" id="tab_content2" style="display:none;">
             <ul>

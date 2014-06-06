@@ -243,7 +243,7 @@ class Business_Teacher extends NH_Model
         }
         return $res;
     }
-    
+
 	/**
 	 * 申请开课
 	 */
@@ -300,6 +300,43 @@ class Business_Teacher extends NH_Model
     	}
     	unset($res);
    		return $sortArr ? $sortArr : array();
+    }
+    
+    /**
+     * 学员课堂评价
+     **/
+    public function class_comment($param){
+    	if(!$param['class_id']){exit('缺少必要课堂参数');}
+    	$comment = $this->model_teacher->student_comment($param);
+    	
+    	return $comment;
+    }
+     
+    /**
+     * 课堂练习题
+     **/
+    public function class_question($param){
+    	if(!$param['class_id']){exit('缺少必要课堂参数');}
+    	$question = $this->model_teacher->question_seacher($param);
+    	if($question) foreach($question as &$val){
+    		$val['options'] = json_decode($val['options'],true);
+    		foreach($val['options'] as $k=>$v){
+    			#统计该题选该选项的人总数
+	    		$param = array(
+	    			'question_id' => $val['id'],
+	    			'answer' => $k,
+	    		);
+	    		$total = $this->model_teacher->practise_counter($param);//做对数
+    			$right = isset($total[0]['total']) ? $total[0]['total'] : 0;
+    			#统计该题该选项做对总数
+	    		$param = array(
+	    			'question_id' => $val['id'],
+	    			'answer' => $k,
+	    		);
+	    		$total = $this->model_teacher->practise_counter($param);//做对数
+    		}
+    	}
+    	return $question;
     }
     
     /**
@@ -379,22 +416,22 @@ class Business_Teacher extends NH_Model
      * 分页
      **/ 
     public function load_pageBar($param){
-    	$param['page'] = isset($param['page']) ? $param['page'] : 1;
+    	$param['curPage'] = isset($param['curPage']) ? $param['curPage'] : 1;
     	$param['total'] = isset($param['total']) ? $param['total'] : 0;
     	$param['num'] = isset($param['num']) ? $param['num'] : 10;
     	$param['pages'] = ceil($param['total']/10);
     	$pageBar = '<div class="pagination fr"><ul>';
     	$pageBar .= '<li><a onclick="ajaxPage(1);return false;" href="javascript:void(0);">首页</a></li>';
-    	for ($i=1;$i<=$config['pages'];$i++){
+    	for ($i=1;$i<=$param['pages'];$i++){
     		$li = '';
-    		if($i==($config['curPage']-2) || $i==($config['curPage']-1) || $i==($config['curPage']+2) || $i==($config['curPage']+1)){
+    		if($i==($param['curPage']-2) || $i==($param['curPage']-1) || $i==($param['curPage']+2) || $i==($param['curPage']+1)){
     			$li = '<li><a onclick="ajaxData('.$i.');return false;" href="javascript:void(0);">'.$i.'</a></li>';
-    		}elseif($i==$config['curPage']){
+    		}elseif($i==$param['curPage']){
     			$li = '<li class="active"><a href="javascript:void(0);">'.$i.'</a></li>';
     		}
     		$pageBar .=$li;
     	}
-    	$pageBar .= '<li><a onclick="ajaxData('.$config['pages'].');return false;" href="javascript:void(0);">尾页['.$config['pages'].']</a></li>';
+    	$pageBar .= '<li><a onclick="ajaxData('.$param['pages'].');return false;" href="javascript:void(0);">尾页['.$param['pages'].']</a></li>';
     	$pageBar .= '</ul></div>';
     	return $pageBar;
     }
