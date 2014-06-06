@@ -23,13 +23,28 @@ class NH_Controller extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load_smarty();
+        //$this->session->sess_destroy();
         //加载cache
 //        $this->load->driver('cache', array('adapter' => 'file', 'backup' => 'file'));
-        $this->current['controller'] = $this->uri->rsegment(1);
-        $this->current['action'] = $this->uri->rsegment(2);
-        $this->load->vars($this->current);
+        //$this->current['controller'] = $this->uri->rsegment(1);
+        //$this->current['action'] = $this->uri->rsegment(2);
+        //$this->load->vars($this->current);
+
 //        $this->load->library('layout');
     }
+
+    protected function load_smarty()
+    {
+        $this->smarty->assign('site_url', site_url());
+        $this->smarty->assign('static_url', static_host_url());
+        $this->smarty->assign('teacher_url', teacher_url());
+        $this->smarty->assign('admin_url', admin_url());
+
+        $static_version = config_item('static_version');
+        $this->smarty->assign('static_version', $static_version);
+    }
+
 
     /**
      * 当前http请求是否为post
@@ -107,6 +122,7 @@ class NH_Controller extends CI_Controller
         }
         die($str_json);
     }
+
 
 }
 

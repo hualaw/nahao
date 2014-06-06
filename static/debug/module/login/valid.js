@@ -57,14 +57,16 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-            	alert('提交成功');
+                alert(siteUrl);
+            	alert(data.msg);
+                window.location=siteUrl;
             }
 		});
 		_Form.addRule([{
                 ele: ".userName",
-                datatype:"*6-8",
+                datatype:"*",
                 nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"长度6-8个字符"
+                errormsg:"请输入正确的手机号"
             },
             {	
                	 ele:".pwd",
