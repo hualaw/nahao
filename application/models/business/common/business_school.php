@@ -35,8 +35,9 @@ class Business_School extends NH_Model{
      * @author liuhua
      */
     public function county_schools($county_id, $sctype, $fields = "*"){
-        $r = $this->db->query("select {$fields} from ".TABLE_NAHAO_SCHOOLS." where
-                                county_id=? and sctype=?", array($county_id, $sctype))->result_array();
+        //echo "select {$fields} from ".TABLE_NAHAO_SCHOOLS." where county_id=$county_id and sctype=$sctype";
+        $r = $this->db->query("select {$fields} from ".TABLE_NAHAO_SCHOOLS." where county_id=? and sctype=?"
+                                , array($county_id, $sctype))->result_array();
         return $r;
     }
 }
