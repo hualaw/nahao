@@ -20,11 +20,11 @@
 <div class="wrap layout login" id="nahaoModule" module="login">
 	<div class="loginWrap cf">
 		<div class="loginBox fr">
-			<form action class="loginForm" mothed="post" onsubmit="return false">
+			<form action="/login/submit" class="loginForm" mothed="post" onsubmit="return false">
 				<p id="msgInfo" class="msgInfo"></p>
 				<ul>
 					<li>
-						<input type="text" value="" class="userName yh" placeholder="手机号/邮箱/梯子网帐号">
+						<input type="text" name="username" value="" class="userName yh" placeholder="手机号/邮箱/梯子网帐号">
 						<div class="ValidInfo undis">
 							<span class="Validform_checktip"></span>
 							<span class="dec">
@@ -34,7 +34,7 @@
 						</div>
 					</li>
 					<li>
-						<input type="password" value="" class="pwd yh" placeholder="密码">
+						<input type="password" name="password" value="" class="pwd yh" placeholder="密码">
 						<div class="ValidInfo undis">
 							<span class="Validform_checktip"></span>
 							<span class="dec">
