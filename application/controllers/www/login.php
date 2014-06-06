@@ -153,8 +153,14 @@ class login extends NH_Controller
 
         $ret = $this->business_login->submit($username, $password);
 
-        //var_dump($ret);
+        //var_dump($this->session->userdata('user_id'));
 
         $this->json_output($ret);
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        header("Location: ".site_url());
     }
 }
