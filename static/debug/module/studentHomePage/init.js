@@ -1,3 +1,4 @@
 define(function(require,exports){
-	//alert($(".clBoxShaow").css("WebkitTransform"))
+	// 选择学校组件
+	require('module/common/method/setSchool');
 })
