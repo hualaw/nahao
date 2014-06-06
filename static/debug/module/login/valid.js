@@ -57,8 +57,8 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                alert(siteUrl);
-            	alert(data.msg);
+                //alert(siteUrl);
+            	//alert(data.msg);
                 window.location=siteUrl;
             }
 		});
