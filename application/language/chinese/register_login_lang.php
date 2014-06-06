@@ -4,6 +4,7 @@ $lang['reg_success'] = '注册成功！';
 $lang['rl_invalid_phone'] = '手机号不合法！';
 $lang['rl_invalid_email'] = 'email地址不合法！';
 
+$lang['reg_invalid_nickname'] = '无效的昵称，请换一个！';
 $lang['reg_dup_nickname'] = '此昵称已注册，请换一个！';
 $lang['reg_dup_email'] = '此邮箱已注册，请换一个！';
 $lang['reg_dup_phone'] = '此手机已注册，请换一个！';

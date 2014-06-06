@@ -19,19 +19,17 @@ class NH_Controller extends CI_Controller
      * @author yanrui@91waijiao.com
      */
     public $current = array();
+    public $is_login = false;
 
     function __construct()
     {
         parent::__construct();
-        $this->load_smarty();
-        //$this->session->sess_destroy();
-        //加载cache
-//        $this->load->driver('cache', array('adapter' => 'file', 'backup' => 'file'));
-        //$this->current['controller'] = $this->uri->rsegment(1);
-        //$this->current['action'] = $this->uri->rsegment(2);
-        //$this->load->vars($this->current);
 
-//        $this->load->library('layout');
+        $this->is_login = $this->check_login();
+        $this->load_smarty();
+        $this->current['controller'] = $this->uri->rsegment(1);
+        $this->current['action'] = $this->uri->rsegment(2);
+        $this->load->vars($this->current);
     }
 
     protected function load_smarty()
@@ -43,6 +41,8 @@ class NH_Controller extends CI_Controller
 
         $static_version = config_item('static_version');
         $this->smarty->assign('static_version', $static_version);
+        $this->smarty->assign('is_login', $this->is_login);
+        $this->smarty->assign('userdata', $this->session->all_userdata());
     }
 
 
@@ -67,44 +67,17 @@ class NH_Controller extends CI_Controller
     }
 
     /**
-     * @param int $int_user_type 0管理员 1学生 2老师
      * @return bool
      * @author yanrui@91waijiao.com
      */
-    protected function check_login($int_user_type = 1)
+    protected function check_login()
     {
-        $bool_return = true;
-        if (empty($this->userinfo)){
-            $this->load->model('business/business_passport','passport');
-            $arr_user_cookie = $this->passport->get_user_from_cookie($int_user_type);
-//            o($arr_user_cookie);
-            if (isset($arr_user_cookie['user_id'])&&$arr_user_cookie['user_id']!=0) {
-                $int_user_id = $arr_user_cookie['user_id'];
-                $str_password = $arr_user_cookie['password'];
-                $arr_user_cache = $this->passport->get_user_from_cache($int_user_type,$int_user_id);
-                if($arr_user_cache){
-                    if (isset($arr_user_info['password']) AND $arr_user_info['password'] === $str_password) {
-                        $this->userinfo = $arr_user_cache;
-                    }else{
-                        $bool_return = false;
-                    }
-                }else{
-                    $arr_user_db = $this->passport->get_user_from_db($int_user_type,$int_user_id);
-                    if($arr_user_db){
-                        if (isset($arr_user_db['password']) && $arr_user_db['password'] === $str_password) {
-                            $this->userinfo = $arr_user_db;
-                            $this->cache->save("{$int_user_type}-{$int_user_id}", json_encode($arr_user_db), 86400);
-                        }else{
-                            $bool_return = false;
-                        }
-                    }else{
-                        $bool_return = false;
-                    }
-                }
-            }else{
-                $bool_return = false;
-            }
-        }
+        $bool_return = false;
+
+        $this->session->sess_read();
+        if($this->session->userdata('user_id') > 0)
+            $bool_return = true;
+
         return $bool_return;
     }
 
@@ -122,8 +95,6 @@ class NH_Controller extends CI_Controller
         }
         die($str_json);
     }
-
-
 }
 
 require(APPPATH . 'core/NH_Admin_Controller.php');
