@@ -4,6 +4,15 @@ define(function(require,exports){
 	var _valid = require('module/login/valid');
 	_valid.loginForm();
 
+	//手机号注册表单验证
+	if($('.regPhoneBox').length > 0){
+		_valid.regPhoneBoxForm();
+	}
+	//email注册表单验证
+	if($('.regEmailBox').length > 0){
+		_valid.regEmailBoxForm();
+	}
+
 	//判断当前页面时注册成功的关于我的页面
 	if($('.regSuccessBox').length > 0){
 		// 美化select
