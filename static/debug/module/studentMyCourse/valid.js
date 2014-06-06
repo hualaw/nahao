@@ -2,7 +2,7 @@ define(function(require,exports){
 	// 请求验证库
     require("validForm");
     // 请求公共验证信息
-//    var sDataType = require("module/common/basics/dataType").dataType();
+   // var sDataType = require("module/common/basics/dataType").dataType();
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
@@ -310,4 +310,21 @@ define(function(require,exports){
             }          
         ]);
     }
+    //购买之后 选课时间 验证
+    // exports.enlistForm = function (){
+    //     var _Form=$(".enlistForm").Validform({
+    //         // 自定义tips在输入框上面显示
+    //         tiptype:commonTipType,
+    //         showAllError:false,
+    //         ajaxPost:true,
+    //         beforeSubmit: function(curform) {
+    //             if(!$(".enlistForm li").hasClass("ctimeOn")){
+    //                 return false;
+    //             }
+    //         },
+    //         callback:function(data){
+    //             alert('提交成功');
+    //         }
+    //     });
+    // }
 })

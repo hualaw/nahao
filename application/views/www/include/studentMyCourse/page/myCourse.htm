@@ -3,7 +3,7 @@
 	<ul class="myCourseList cf">
 		<!-- meiyou-->
 		<li class="fl noCourse">
-			<span><a href="/index/index">快来添加课程吧！</a></span>
+			<a href="/index/index"><span>快来添加课程吧！</span></a>
 		</li>
 		<!-- kecheng yi wancheng -->
 		{foreach from=$array_buy_course item=item}
@@ -85,7 +85,7 @@
 					</div>
 				</div>
 				<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-				<p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:16:"...":true}</a></p>
+				<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
 			</div>
 		</li>
 		{/foreach}

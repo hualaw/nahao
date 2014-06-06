@@ -10,4 +10,9 @@ define(function(require,exports){
     _valid.feedbackForm();
     // 教室-评价 验证
     _valid.evaluForm();
+
+    //滚动条
+    var _scroll = require("module/common/method/scroll");
+    //得分-题目选中---左侧题目 滚动条
+    //_scroll.myscroll($(".sbar"),$(".sconl"),$(".sconParl"));
 })
