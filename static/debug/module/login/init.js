@@ -26,7 +26,7 @@ define(function(require,exports){
 	// 登陆之后验证
 	_valid.loginAfterForm();
     //手机找回密码验证
-	_valid.phoneFindPW();
+//	_valid.phoneFindPW();
     //手机找回密码验证
 	_valid.EmailFindPW();
     // 注册成功之后验证
