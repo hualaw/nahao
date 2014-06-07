@@ -273,6 +273,10 @@ define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
 define('NH_QINIU_BUCKET','n1a2h3a4o5');
 define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 
+//昵称最大长度2-15个汉字
+define('MIN_NICKNAME_LEN', 2);
+define('MAX_NICKNAME_LEN', 15);
+
 //meeting account
 define('NH_MEETING_ACCESS_KEY','7e30a4');
 define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');

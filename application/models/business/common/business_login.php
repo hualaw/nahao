@@ -45,6 +45,7 @@ class Business_Login extends NH_Model {
                 if($check_ret)
                 {
                     //set session data
+                    $nickname = '';
                     if(!$user_info['nickname'])
                     {
                         if($login_type == LOGIN_TYPE_PHONE) $nickname = $user_info['phone_mask'];
@@ -54,7 +55,7 @@ class Business_Login extends NH_Model {
                     $phone = '';
                     if($user_id) $phone = get_pnum_phone_server($user_id);
 
-                    $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],
+                    $this->set_session_data($user_info['id'], $nickname, $user_info['avatar'],
                         $phone, $user_info['phone_mask'], $user_info['email']);
 
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');

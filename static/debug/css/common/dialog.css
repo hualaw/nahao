@@ -13,50 +13,24 @@ table.aui_border, table.aui_dialog { border:0; margin:0; border-collapse:collaps
 .aui_icon { vertical-align: middle; }
 .aui_icon div { width:48px; height:48px; margin:15px 0 10px 15px; background-position: center center; background-repeat:no-repeat; }
 .aui_buttons { padding:8px; text-align:right; white-space:nowrap;border-top:1px solid #ccc;}
-.aui_buttons button{ margin-right:10px;cursor: pointer; text-align:center;  padding:0px 10px; height:28px; line-height:28px; color:#333;outline: 0;
-background: #fefefe;
+.aui_buttons button{ margin-right:10px;cursor: pointer; text-align:center;  padding:0px 20px; height:32px; line-height:32px; color:#fff;outline: 0;
+background: #6dcde6;
   font-weight: normal;
-  border:1px solid #999;
-  background-image: -webkit-linear-gradient(top, #fff, #e8e8e8);
-  background-image: -moz-linear-gradient(top, #fff, #e8e8e8);
-  background-image: -ms-linear-gradient(top, #fff, #e8e8e8);
-  background-image: -o-linear-gradient(top, #fff, #e8e8e8);
-  background-image: linear-gradient(to bottom, #fff, #e8e8e8);
-  -webkit-border-radius: 3;
-  -moz-border-radius: 3;
+  font-size: 16px;
+  font-family: "微软雅黑";
+  color:#fff;
+  border:0px;
   border-radius: 3px;
   display:inline-block}
 .aui_buttons a.aui_state_highlight { margin-right:15px;cursor: pointer; text-align:center;  padding:0px 20px; height:28px; line-height:28px; color:#fff; border:0px; border-radius:5px; font-size:14px;background:url(../../images/common/button33_bg_hover.gif) repeat-x 0 0; display:inline-block;color:#fff;}
-.aui_buttons button:hover{background: #fefefe;
-  border-color: #5d5d5d;
-  background-image: -webkit-linear-gradient(top, #fefefe, #d3d3d3);
-  background-image: -moz-linear-gradient(top, #fefefe, #d3d3d3);
-  background-image: -ms-linear-gradient(top, #fefefe, #d3d3d3);
-  background-image: -o-linear-gradient(top, #fefefe, #d3d3d3);
-  background-image: linear-gradient(to bottom, #fefefe, #d3d3d3);
-  text-decoration: none;color:#333;}
+.aui_buttons button:hover{background: #87e1f8;
+  /*border-color: #5d5d5d;*/
+  text-decoration: none;color:#fff;}
 .aui_buttons button::-moz-focus-inner{ border:0; padding:0; margin:0; }
 .aui_buttons button[disabled] {}
-.aui_buttons button.aui_state_highlight,.aui_buttons a.aui_state_highlight{background: #32b59d;
-  background-image: -webkit-linear-gradient(top, #32b59d, #189d7e);
-  background-image: -moz-linear-gradient(top, #32b59d, #189d7e);
-  background-image: -ms-linear-gradient(top, #32b59d, #189d7e);
-  background-image: -o-linear-gradient(top, #32b59d, #189d7e);
-  background-image: linear-gradient(to bottom, #32b59d, #189d7e);
-  -webkit-border-radius: 3;
-  -moz-border-radius: 3;
-  border-radius: 3px;
-  border-color:#00836f;
-  color: #ffffff;
+.aui_buttons button.aui_state_highlight,.aui_buttons a.aui_state_highlight{background: #F14211;  border-radius: 3px; color: #ffffff;
   display:inline-block;}
-.aui_buttons button.aui_state_highlight:hover,.aui_buttons a.aui_state_highlight:hover {background: #0aa88e;
-  display:inline-block;
-  background-image: -webkit-linear-gradient(top, #0aa88e, #208072);
-  background-image: -moz-linear-gradient(top, #0aa88e, #208072);
-  background-image: -ms-linear-gradient(top, #0aa88e, #208072);
-  background-image: -o-linear-gradient(top, #0aa88e, #208072);
-  background-image: linear-gradient(to bottom, #0aa88e, #208072);
-  text-decoration: none;}
+.aui_buttons button.aui_state_highlight:hover,.aui_buttons a.aui_state_highlight:hover {background: #f15930;  text-decoration: none;}
 .buttonAalignLeft{text-align: left;padding-left:20px;}
 
 /* common end */
