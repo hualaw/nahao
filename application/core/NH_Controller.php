@@ -30,6 +30,7 @@ class NH_Controller extends CI_Controller
         $this->current['controller'] = $this->uri->rsegment(1);
         $this->current['action'] = $this->uri->rsegment(2);
         $this->load->vars($this->current);
+        $this->assign_nickname();
     }
 
     protected function load_smarty()
@@ -74,13 +75,25 @@ class NH_Controller extends CI_Controller
     {
         $bool_return = false;
 
-        $this->session->sess_read();
+        //$this->session->sess_read();
         if($this->session->userdata('user_id') > 0)
             $bool_return = true;
 
         return $bool_return;
     }
 
+
+    protected function assign_nickname()
+    {
+        if($this->is_login)
+        {
+            $show_nickname = $this->session->userdata('nickname');
+            $show_nickname_len = strlen($show_nickname);
+            if($show_nickname_len > 3*MAX_NICKNAME_LEN)
+                $show_nickname = substr($show_nickname, 0 , 3*MAX_NICKNAME_LEN)."...";
+            $this->smarty->assign('nickname', $show_nickname);
+        }
+    }
     /**
      * 以json格式输出
      * @param array $arr_data
