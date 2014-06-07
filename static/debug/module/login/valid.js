@@ -27,10 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    $.dialog({
-                        content:json.msg,
-                        icon:"succeed"
-                    })
+                    window.location=siteUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -78,10 +75,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    $.dialog({
-                        content:json.msg,
-                        icon:"succeed"
-                    })
+                    window.location=siteUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -160,7 +154,7 @@ define(function(require,exports){
             callback:function(data){
                 //alert(siteUrl);
             	//alert(data.msg);
-                window.location=siteUrl;
+                window.location.href=siteUrl;
             }
 		});
 		_Form.addRule([{
