@@ -1,41 +1,34 @@
+课程名称 : {$course.title}     共{$chapter_count}章  {$section_count}节课
 <table class="table table-hover">
     <thead>
     <tr>
         <th>#</th>
-        <th>课程ID</th>
-        <th>课程名称</th>
-        <th>课节数</th>
-        <th>教师</th>
-        <th>状态</th>
-        <th>科目</th>
-        <th>课程类型</th>
-        <th>章节管理</th>
+        <th>课节ID</th>
+        <th>课节名称</th>
+        <th>讲义</th>
+        <th>习题管理</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    {foreach $list as $v}
+    {foreach $lessons as $v}
     <tr>
         <td><input type="checkbox"></td>
         <td>{$v.id}</td>
         <td>{$v.title}</td>
-        <td>{$v.count}</td>
-        <td>{$v.teacher}</td>
-        <td>{$course_status[$v.status]}</td>
-        <td>{$subjects[$v.subject]}</td>
-        <td>{$course_types[$v.course_type]}</td>
-        <td>{date('Y-m-d H:i',$v.create_time)}</td>
         <td>
-            <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">更多</a>
-            <a href="/course/edit/{$v.id}">修改</a>
-            <a href="/lesson/index/{$v.id}">章节管理</a>
+            {if $v.courseware_id==0}
+                <botton class="btn btn-primary btn-xs btn_upload_pdf">上传</botton>
+            {else}
+                <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/52">preview</a>
+            {/if}
+        </td>
+        <td>{$v.id}</td>
+        <td>
+            <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">修改</a>
         </td>
     </tr>
     {/foreach}
     </tbody>
 </table>
-共{$count}条记录&nbsp;&nbsp;{$page}
-{include file="admin/course_list_operation.html"}
-
-
-
+{include file="admin/lesson_operation.html"}

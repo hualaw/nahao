@@ -526,3 +526,12 @@ function get_course_img_by_size($str_img_url, $str_size){
     }
     return $str_return;
 }
+
+/**
+ * general signature for meeting
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function get_meeting_signature(){
+    return md5(NH_MEETING_ACCESS_KEY.':'.TIME_STAMP.':'.NH_MEETING_SECRET_KEY);
+}
