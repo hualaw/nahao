@@ -116,7 +116,7 @@
 .studentMyCourse .applyState .talignLeft span{margin-right: 12px;}
 .studentMyCourse .applyState .reasonTd{width: 195px;}
 .studentMyCourse .applyState .detailInfor strong{height: 40px;line-height: 40px;}
-.studentMyCourse .applyState .stateTd{padding: 0 28px 0 74px;text-align: left;}
+.studentMyCourse .applyState .stateTd{text-align: right;padding-right: 28px;}
 .studentMyCourse .applyState .width_92{width: 92px;}
 .studentMyCourse .applyState .width_90{width: 90px;}
 .studentMyCourse .applyState .width_100{width: 100px;}
@@ -187,10 +187,10 @@
 .studentMyCourse .buyCourse .timeTitle{color: #a2a2a2;font-size: 16px;}
 .studentMyCourse .buyCourse .timeTitle .fr{font-size: 14px;}
 .studentMyCourse .buyCourse .timeTitle .fl{background: url(../../images/studentMyCourse/time.png) left center no-repeat;padding-left: 25px;}
-.studentMyCourse .buyCourse .enlistForm li{width: 170px;height: 28px;border:1px solid #d2d2d2;background: #eaeaea;text-align: center;line-height: 28px;margin:8px 8px 0 0;cursor: pointer;}
-.studentMyCourse .buyCourse .enlistForm ul{margin-right: -8px;}
-.studentMyCourse .buyCourse .enlistForm .more{color:#a2a2a2;cursor: inherit;}
-.studentMyCourse .buyCourse .enlistForm .ctimeOn{background: #fcd9cf url(../../images/studentMyCourse/activetime.png) right bottom no-repeat;border-color:#f14211;}
+.studentMyCourse .buyCourse .startTime li{width: 170px;height: 28px;border:1px solid #d2d2d2;background: #eaeaea;text-align: center;line-height: 28px;margin:8px 8px 0 0;cursor: pointer;}
+.studentMyCourse .buyCourse .startTime ul{margin-right: -8px;}
+.studentMyCourse .buyCourse .startTime .more{color:#a2a2a2;cursor: inherit;}
+.studentMyCourse .buyCourse .startTime .ctimeOn{background: #fcd9cf url(../../images/studentMyCourse/activetime.png) right bottom no-repeat;border-color:#f14211;}
 .studentMyCourse .buyCourse .review{font-size: 14px;margin:20px 0 30px;}
 .studentMyCourse .buyCourse .review strong{font-size: 16px;margin:0 30px 0 10px;}
 .studentMyCourse .buyCourse .review a{color:#a2a2a2;}

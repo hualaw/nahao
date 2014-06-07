@@ -31,7 +31,9 @@ class Student_Member extends NH_Model{
                 #授课状态
                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
                 {
+                    #下节课上课时间
                     $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
+                    #处理下节课上课时间
                     $array_return[$k]['next_class_time'] = $this->student_course->handle_time($next_class_time['begin_time'],$next_class_time['end_time']);
                 }
             }

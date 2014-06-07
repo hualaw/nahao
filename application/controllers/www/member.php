@@ -25,6 +25,7 @@ class Member extends NH_User_Controller {
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
         $array_new = array_slice($array_new,0,3,true);
+        
         $this->smarty->assign('str_avater', $str_avater);
         $this->smarty->assign('array_buy_course', $array_buy_course);
         $this->smarty->assign('array_new', $array_new);
@@ -162,13 +163,13 @@ class Member extends NH_User_Controller {
 	        $bool_flag = $this->student_order->update_order_status($array_mdata);
 	        if ($bool_flag)
 	        {
-	            self::json_output(array('status'=>'ok','msg'=>'取消操作成功'));
+	            self::json_output(array('status'=>'cancel_ok','msg'=>'取消操作成功'));
 	        } else {
-	            self::json_output(array('status'=>'error','msg'=>'取消操作失败'));
+	            self::json_output(array('status'=>'cancel_error','msg'=>'取消操作失败'));
 	        }
 	    }
 	    
-	    #删除,并写日志
+	    #删除,并写日志(只在已关闭下才能删除)
 	    if ($str_type == '2')
 	    {
 	        if ($array_order['status'] == ORDER_STATUS_CLOSE)
@@ -182,12 +183,12 @@ class Member extends NH_User_Controller {
 	            $bool_flag = $this->student_order->delete_order($array_ndata);
 	            if ($bool_flag)
 	            {
-	                self::json_output(array('status'=>'ok','msg'=>'删除操作成功'));
+	                self::json_output(array('status'=>'del_ok','msg'=>'删除操作成功'));
 	            } else {
-	                self::json_output(array('status'=>'error','msg'=>'删除操作失败'));
+	                self::json_output(array('status'=>'del_error','msg'=>'删除操作失败'));
 	            }
 	        } else {
-	            show_error('不能删除');
+	            self::json_output(array('status'=>'del_no','msg'=>'不能执行删除操作'));
 	        }
 
 	    }

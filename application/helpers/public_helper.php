@@ -476,9 +476,9 @@ function create_password($str_salt,$str_password = NH_INIT_PASSWORD){
  * @param $sys_password
  * @return bool
  */
-function check_password($password, $salt, $sys_password)
-{   
-    return create_password($password, $salt) === $sys_password;
+function check_password($salt, $password, $sys_password)
+{
+    return create_password($salt, $password) === $sys_password;
 }
 
 /**

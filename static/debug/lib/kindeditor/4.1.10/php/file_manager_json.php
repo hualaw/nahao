@@ -47,7 +47,7 @@ if (empty($_GET['path'])) {
 }
 //echo realpath($root_path);
 //排序形式，name or size or type
-$order = empty($_GET['order']) ? 'name' : strtolower($_GET['order']);
+$order = empty($_GET['adminOrder']) ? 'name' : strtolower($_GET['adminOrder']);
 
 //不允许使用..移动到上一级目录
 if (preg_match('/\.\./', $current_path)) {

@@ -8,13 +8,6 @@ define(function(require,exports){
                     dateFmt:'yyyy-MM-dd',
                     minDate:'%y-%M-#{%d+1}',
                     onpicked:function($dp){
-                        var hour = $(".dp_hour").val();
-                        var mint = $(".dp_mint").val();
-                        if(hour!="00"||mint!="00"){
-                            fen = hour+":"+mint;
-                        }
-                        getTime = $dp.cal.getDateStr()+" "+fen;
-                        $(".dp_date").val(getTime);//填写日期
                     }
                 });
             });
@@ -24,13 +17,18 @@ define(function(require,exports){
                     dateFmt:'yyyy-MM-dd',
                     minDate:'%y-%M-#{%d+1}',
                     onpicked:function($dp){
-                        var hour = $(".dp_hour").val();
-                        var mint = $(".dp_mint").val();
-                        if(hour!="00"||mint!="00"){
-                            fen = hour+":"+mint;
-                        }
-                        getTime = $dp.cal.getDateStr()+" "+fen;
-                        $(".dp_date").val(getTime);//填写日期
+                      var startClassTime = $(".startClassTime").val();
+                      var endClassTime = $(".endClassTime").val();
+                      var num1 = parseInt(startClassTime.replace(/-/gi,""));
+                      var num2 = parseInt(endClassTime.replace(/-/gi,""));
+                      if(startClassTime==""){
+                          $.tiziDialog({content:"请先填写开始时间"});
+                          $(".endClassTime").val("");
+                      }
+                      if(num2-num1<0){
+                          $.tiziDialog({content:"结束时间需要大于开始时间"});
+                          $(".endClassTime").val("");
+                      }
                     }
                 });
             });

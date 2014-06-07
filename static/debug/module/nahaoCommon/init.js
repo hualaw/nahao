@@ -13,4 +13,7 @@ define(function(require,exports){
 	};
 	// 加载模拟select下拉框、radio等
 	require('module/lib/select');
+
+	// 加载全站公共登陆脚本
+	require('module/nahaoCommon/commonLogin').loginForm();
 })

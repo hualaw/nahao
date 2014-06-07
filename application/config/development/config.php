@@ -15,6 +15,9 @@
 |
 */
 $config['base_url']	= 'http://' . __HOST__ . '/';
+$config['static_url'] = 'http://static.nahaodev.com/';
+$config['teacher_url'] = 'http://teacher.nahaodev.com/';
+$config['admin_url'] = 'http://admin.nahaodev.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -244,12 +247,12 @@ $config['encryption_key'] = 'nahao';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'ci_session';
+$config['sess_cookie_name']		= 'NHID';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= FALSE;
-$config['sess_table_name']		= 'ci_sessions';
+$config['sess_use_database']	= TRUE;
+$config['sess_table_name']		= 'nahao_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update']	= 300;
@@ -265,8 +268,8 @@ $config['sess_time_to_update']	= 300;
 | 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
 */
-$config['cookie_prefix']	= "nh_";
-$config['cookie_domain']	= '';
+$config['cookie_prefix']	= "";
+$config['cookie_domain']	= '.nahaodev.com';
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 
@@ -351,7 +354,7 @@ $config['rewrite_short_tags'] = FALSE;
 |
 | If your server is behind a reverse proxy, you must whitelist the proxy IP
 | addresses from which CodeIgniter should trust the HTTP_X_FORWARDED_FOR
-| header in order to properly identify the visitor's IP address.
+| header in adminOrder to properly identify the visitor's IP address.
 | Comma-delimited, e.g. '10.0.1.200,10.0.1.201'
 |
 */

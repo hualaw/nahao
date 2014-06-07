@@ -72,7 +72,7 @@ class TSocketPool extends TSocket {
   private $maxConsecutiveFailures_ = 1;
 
   /**
-   * Try hosts in order? or Randomized?
+   * Try hosts in adminOrder? or Randomized?
    *
    * @var bool
    */
@@ -153,7 +153,7 @@ class TSocketPool extends TSocket {
   }
 
   /**
-   * Turns randomization in connect order on or off.
+   * Turns randomization in connect adminOrder on or off.
    *
    * @param bool $randomize
    */
@@ -176,7 +176,7 @@ class TSocketPool extends TSocket {
    * and trying to find one that works.
    */
   public function open() {
-    // Check if we want order randomization
+    // Check if we want adminOrder randomization
     if ($this->randomize_) {
       shuffle($this->servers_);
     }

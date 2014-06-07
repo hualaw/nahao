@@ -7,8 +7,8 @@
 <div class="md_pay">
     <div class="md_title cf">
         <h2 class="hd_title fl">
-            <span class="hd_nopay">未结算课时费：<b>1926元</b></span>
-            <span class="hd_haspay">已结算课时费：<b>62754元</b></span>
+            <span class="hd_nopay">未结算课时费：<b>{$data['pay_status_count']['none']}元</b></span>
+            <span class="hd_haspay">已结算课时费：<b>{$data['pay_status_count']['already']}元</b></span>
         </h2>
         <p class="fl">提示：课酬结算需绑定个人银行帐户，请点击个人资料进行绑定  </p>
     </div>
@@ -19,41 +19,35 @@
             <th>授课次数</th>
             <th>授课课时</th>
             <th>课时费（元）</th>
-            <th class="posr money">税后收入（元）<a class="icon_help" href="javascript:void(0);"></a><span class="icon_info">提示信息</span></th>
+            <th class="posr money">税后收入（元）<a class="icon_help" href="javascript:void(0);"></a><span class="icon_info">税后收入=总课时费-额外扣除-税费</span></th>
             <th>结算状态</th>
             <th>结算日期</th>
             <th>当月详情</th>
         </tr>
-        <tr>
-            <td><b>2014年7月</b></td>
-            <td>5</td>
-            <td>10</td>
-            <td>500</td>
-            <td>500</td>
-            <td>已结算</td>
-            <td class="pay_date"><b>2014-11-11</b>12：22：56</td>
-            <td class="icon_detail"><a href="javascript:void(0)" target="_blank">查看详情</a></td>
-        </tr>
-        <tr class="unpay">
-            <td><b>2014年7月</b></td>
-            <td>5</td>
-            <td class="fred">10</td>
-            <td class="fred">500</td>
-            <td class="fred">500</td>
-            <td>未结算</td>
-            <td class="pay_date">—</td>
-            <td class="icon_detail"><a href="javascript:void(0)" target="_blank">查看详情</a></td>
-        </tr>
-        <tr>
-            <td><b>2014年7月</b></td>
-            <td>5</td>
-            <td>10</td>
-            <td>500</td>
-            <td>500</td>
-            <td>已结算</td>
-            <td class="pay_date"><b>2014-11-11</b>12：22：56</td>
-            <td class="icon_detail"><a href="javascript:void(0)" target="_blank">查看详情</a></td>
-        </tr>
+        {if $data['listArr']}
+        	{foreach $data['listArr'] as $val}
+        		<tr>
+		            <td><b>{$val['create_time']|date_format:'%Y'}年{$val['create_time']|date_format:'%m'}月</b></td>
+		            <td>{$val['teach_times']}</td>
+		            <td>{$val['class_times']}</td>
+		            <td>{$val['gross_income']}</td>
+		            <td>{$val['net_income']}</td>
+		            <td>{if $val['status']==0 || $val['status']==1}
+		            		未结算
+		            	{elseif $val['status']==2}
+		            		已结算
+		            	{/if}
+		            </td>
+		            <td class="pay_date"><b>{$val['create_time']|date_format:'%Y-%m-%d'}</b>{$val['create_time']|date_format:'%H: %M: %S'}</td>
+		            <td class="icon_detail"><a href="{$site_url}/pay/detail/{$val['id']}" target="_blank">查看详情</a></td>
+		        </tr>
+        	{/foreach}
+    	{else}
+        	<tr>
+       			<td colspan="8" style="text-align:center;"><b>暂时没有您的结算记录</b></td>
+       		</tr>
+        {/if}
+        
     </table>
     </div>
 </div>

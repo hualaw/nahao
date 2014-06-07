@@ -78,7 +78,7 @@ function smarty_function_html_select_date($params, $template)
     /* Write day values using this format MB */
     $day_value_format = "%d";
     $year_as_text = false;
-    /* Display years in reverse order? Ie. 2000,1999,.... */
+    /* Display years in reverse adminOrder? Ie. 2000,1999,.... */
     $reverse_years = false;
     /* Should the select boxes be part of an array when returned from PHP?
        e.g. setting it to "birthday", would create "birthday[Day]",
@@ -353,7 +353,7 @@ function smarty_function_html_select_date($params, $template)
         $_html_days .= '</select>';
     }
 
-    // order the fields for output
+    // adminOrder the fields for output
     $_html = '';
     for ($i=0; $i <= 2; $i++) {
         switch ($field_order[$i]) {

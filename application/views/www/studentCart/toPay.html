@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
+<title>支付页面</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentCart/style.css')}" />
@@ -324,7 +324,7 @@
 						</form>
 					</div>
 					<div class="box bank undis">
-						<form action="/pay/request/{$array_order.id}" method="post" >
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList credit">
 									<li class="title fl">一步验证，无需网银！（网银限额时推荐使用）</li>
@@ -345,7 +345,7 @@
 						</form>	
 					</div>
 					<div class="box bank alipayBox undis">
-						<form action="/pay/request/{$array_order.id}" method="post" >
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
 							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList alipay">
 									<li class="fl alipayLi">
@@ -395,18 +395,18 @@
 		</div>
 		<!-- 成功与否选择结束 -->
 		<!-- 购买成功开始 -->
-		<div class="popBox2 undis">
+		<!-- <div class="popBox2 undis">
 			<div class="buySuccess">
 				<p class="title">您已经成功购买：</p>
 				<p>2014年五年级奥数暑期训练营</p>
 				<p>四年级优秀作文鉴赏赏析奥数暑期训练营</p>	
-				<!-- <a href="javascript:void(0)" class="transBtn">进入我的课程</a>	 -->
+				<a href="javascript:void(0)" class="transBtn">进入我的课程</a>	
 				<a href="javascript:void(0)"  class="btn3 blue cf" >
 							<span class="fl">进入我的课程</span>
 							<span class="fr"></span>
 				</a>		
 			</div>
-		</div>
+		</div> -->
 		<!-- 购买成功结束 -->
 		<!--弹窗结束 -->
 	</div>

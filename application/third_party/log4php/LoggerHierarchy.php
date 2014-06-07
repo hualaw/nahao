@@ -36,7 +36,7 @@
  * <p>The structure of the logger hierarchy is maintained by the
  * getLogger method. The hierarchy is such that children link
  * to their parent but parents do not have any pointers to their
- * children. Moreover, loggers can be instantiated in any order, in
+ * children. Moreover, loggers can be instantiated in any adminOrder, in
  * particular descendant before ancestor.</p>
  *
  * <p>In case a descendant is created before a particular ancestor,

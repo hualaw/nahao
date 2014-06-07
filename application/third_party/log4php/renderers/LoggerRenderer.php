@@ -19,7 +19,7 @@
  */
 
 /**
- * Implement this interface in order to render objects to strings.
+ * Implement this interface in adminOrder to render objects to strings.
  *
  * @version $Revision: 1394956 $
  * @package log4php

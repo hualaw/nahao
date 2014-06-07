@@ -548,8 +548,8 @@ if ( ! function_exists('timezones'))
 {
 	function timezones($tz = '')
 	{
-		// Note: Don't change the order of these even though
-		// some items appear to be in the wrong order
+		// Note: Don't change the adminOrder of these even though
+		// some items appear to be in the wrong adminOrder
 
 		$zones = array(
 						'UM12'		=> -12,

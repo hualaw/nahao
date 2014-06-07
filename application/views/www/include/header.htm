@@ -4,27 +4,30 @@
 			<a href="javascript:vold(0);" class="fl phoneHref">400-123-1122</a>
 			<div class="fr headLoginBox">
 				<!--登录之前 开始-->
-				<div class="loginBefor ">
-					<a href="/index/login" class="blueText">登录</a>
+                {if !$is_login}
+                <div class="loginBefor ">
+					<a href="javascript:void(0)" class="blueText commonLoginBtn">登录</a>
 					<span>|</span>
-					<a href="/index/register" class="blueText">注册</a>
+					<a href="/register" class="blueText">注册</a>
 				</div>
 				<!--登录之前 结束-->
+                {else}
 				<!--登录之后 开始-->
-				<div class="loginAfter undis">
-					<a href="" class="blueText">pine小丸子</a>
+				<div class="loginAfter">
+					<a href="" class="blueText">{$nickname}</a>
 					<span>|</span>
-					<a href="" class="grayText">退出</a>
+					<a href="/login/logout" class="grayText">退出</a>
 				</div>
+                {/if}
 				<!--登录之后 结束-->
 			</div>
-			<a href="/index/apply_teach" class="fr studentStartClass">我要开课</a>
+			<a href="/index/apply_teach" class="fr studentStartClass redText">我要开课</a>
 		</div>
 	</div>
 	<div class="headNav">
 		<div class="layout">
 			<!--那好 logo-->
-			<h1 class="fl"><img src="" alt=""></h1>
+			<h1 class="fl"><a href="http://www.nahaodev.com/"></a></h1>
 			<!--那好 nav-->
 			<ul class="fl">
 				<li class="fl studentHomePage"><a href="/index/index">首页</a></li>
