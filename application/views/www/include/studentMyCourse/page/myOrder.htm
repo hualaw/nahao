@@ -6,7 +6,7 @@
 		<li {if $str_type == 'pay'}class="tabhOn"{/if}><a href="/member/my_order/pay">已付款<span class="redText">{$pay_count}</span></a></li>
 		<li {if $str_type == 'nopay'}class="tabhOn"{/if}><a href="/member/my_order/nopay">未付款<span class="redText">{$nopay_count}</span></a></li>
 		<li {if $str_type == 'cancel'}class="tabhOn"{/if}><a href="/member/my_order/cancel">已取消<span class="redText">{$cancel_count}</span></a></li>
-		<li {if $str_type == 'refund'}class="tabhOn"{/if}><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
+		<li {if $str_type == 'refund'}class="tabhOn"{/if} class="norbor"><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
 	</ul>
 	{if $str_type == 'all'}
 	<div class="tabCon">
@@ -84,7 +84,7 @@
 				{/foreach}				
 				</tbody>
 			</table>
-			{$show_page}
+			<!-- {$show_page} -->
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
@@ -437,6 +437,17 @@
 	</div>
 	{/if}
 </div>
+	<div class="page">
+		<a href="" class="prev">上一页</a>
+		<span>
+			<a href="" class="active">1</a>
+			<a href="">2</a>
+			<a href="">3</a>
+			<a href="">4</a>
+			<a href="">5</a>
+		</span>
+		<a href="" class="next">下一页</a>
+	</div>
 <!--订单详情-->
 <!-- <h3 class="pageName">订单详情</h3>
 <div class="detailBox">	
