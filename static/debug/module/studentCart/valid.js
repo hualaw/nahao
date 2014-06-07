@@ -23,12 +23,25 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+            	
             },
             callback:function(data){
-                alert('提交成功');
+            	if (data.status == "error") {
+                	alert(data.msg);
+                } else if(data.status == "ok"){
+                	window.location.href="/pay/neworder/"+data.data.product_id;
+                } else if(data.status =='verify_code_error'){
+                	alert(data.msg);
+                }else if(data.status =='phone_usered'){
+                	alert(data.msg);
+                }
             }
+
         });
+        _Form.config({
+            showAllError:true,
+            url:"/pay/add_contact/",
+        })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
         _Form.addRule([{

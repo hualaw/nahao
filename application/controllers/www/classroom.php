@@ -5,6 +5,10 @@ class Classroom extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_classroom');
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
     }
 
     /**
@@ -142,7 +146,7 @@ class Classroom extends NH_User_Controller {
 	            'course_id'=>$int_course_id,
 	            'round_id'=>$int_round_id,
 	            'class_id'=>$int_class_id,
-	            'student_id'=>1,                                    #TODOuser_id
+	            'student_id'=>$this->session->userdata('user_id'),                   #TODOuser_id
 	            'nickname'=>1,
 	            'content'=>$str_content,
 	            'score'=>  $int_score,

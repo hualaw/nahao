@@ -65,6 +65,7 @@
 					<div class="box bank onlineBank">
 						<h4>网银支付，需开通网上银行</h4>
 						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
+							<input type="hidden" id="id" value="{$array_order.id}">
 							<ul class="cf bankList">
 								{foreach from=$bank_code['banks'] item=item key=key}
 								<li class="fl {$key}">
@@ -331,7 +332,7 @@
 
 									{foreach from=$bank_code['credit'] item=item key=key}
 									<li class="fl {$key}">
-										<input type="radio" id="bank1_1" class="fl" name="payBank" value="banks|{$key}" {if $key == 'guangda'}checked="true"{/if}>
+										<input type="radio" id="bank1_1" class="fl" name="method" value="credit|{$key}" {if $key == 'guangda'}checked="true"{/if}>
 										<label for="bank1_1" class="fl"></label>
 										<span class="stagingIcon"></span>
 									</li>
@@ -377,15 +378,16 @@
 					<div class="errorBox btnBox fl">
 						<p>支付遇到问题？</p>
 						<!-- <a href="javascript:void(0)" class=" btn redBtn">重新支付</a> -->
-						<a href="javascript:void(0)"  class="btn3 cf" >
+						<a href="javascript:void(0)"  class="btn3 cf check_pay" >
 							<span class="fl">重新支付</span>
 							<span class="fr"></span>
+							<span id="ddd">eee</span>
 						</a>
 
 					</div>
 					<div class="okBox btnBox fr">
 						<p>已经支付成功！</p>
-						<a href="javascript:void(0)"  class="btn3 blue cf" >
+						<a href="javascript:void(0)"  class="btn3 blue cf check_pay" >
 							<span class="fl">重新支付</span>
 							<span class="fr"></span>
 						</a>
