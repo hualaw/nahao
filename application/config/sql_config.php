@@ -29,6 +29,9 @@ $config['sql_admin'] = array(
     'group' => array(
         TABLE_ADMIN_GROUP => false
     ),
+    'lesson' => array(
+        TABLE_LESSON => false,
+    ),
     'student_info' => array(
         TABLE_USER => false,
         TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
@@ -45,7 +48,6 @@ $config['sql_admin'] = array(
         TABLE_TEACHER_SUBJECT => array(TABLE_USER . '.id=' . TABLE_TEACHER_SUBJECT . '.teacher_id', 'left')
     ),
 );
-
 
 $config['sql_www'] = array(
     'user' => array(

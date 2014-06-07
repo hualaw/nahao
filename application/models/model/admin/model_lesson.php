@@ -5,7 +5,7 @@
  * Class Model_Admin
  * @author yanrui@tizi.com
  */
-class Model_Admin extends NH_Model
+class Model_Lesson extends NH_Model
 {
 
     /**
