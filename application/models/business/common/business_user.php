@@ -80,13 +80,4 @@ class Business_User extends NH_Model
         
         return $arr_return;
     }
-    
-    /**
-     * 查询学校信息
-     * @param
-     */
-    public function get_school_info()
-    {
-        
-    }
 }
