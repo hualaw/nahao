@@ -1,22 +1,8 @@
 /**
- * edit course logic
+ * lesson logic
  * @author yanrui@tizi.com
  */
 define(function (require, exports) {
-
-    //course_operation
-//    exports.course_operation = function () {
-//        $('.table').on("click",'.course_operation',function () {
-//            modal.modal();
-//        });
-//    }
-
-    //load ckeditor
-    exports.load_ckeditor = function () {
-        if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description');
-        }
-    };
 
     //get teacher list to select
     exports.teacher_select = function () {

@@ -202,7 +202,6 @@ class CI_Upload {
 		$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
 		$this->file_ext	 = $this->get_extension($this->file_name);
 		$this->client_name = $this->file_name;
-
 		// Is the file type allowed to be uploaded?
 		if ( ! $this->is_allowed_filetype())
 		{
@@ -595,7 +594,6 @@ class CI_Upload {
 		}
 
 		$ext = strtolower(ltrim($this->file_ext, '.'));
-
 		if ( ! in_array($ext, $this->allowed_types))
 		{
 			return FALSE;
@@ -709,7 +707,6 @@ class CI_Upload {
 		{
 			$this->upload_path = str_replace("\\", "/", realpath($this->upload_path));
 		}
-
 		if ( ! @is_dir($this->upload_path))
 		{
 			$this->set_error('upload_no_filepath');

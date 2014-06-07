@@ -67,9 +67,11 @@ class Course extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
+        ;
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);
+        $this->smarty->assign('course_status',config_item('course_status'));
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('course_types',$arr_course_types);
         $this->smarty->assign('arr_query_param', $arr_query_param);
@@ -83,6 +85,7 @@ class Course extends NH_Admin_Controller {
      */
     public function submit(){
         if($this->is_ajax() AND $this->is_post()){
+            header("Content-type: text/html; charset=utf-8");
             $int_course_id = $this->input->post('id') ? intval($this->input->post('id')) : 0;
             $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
             $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
@@ -99,9 +102,8 @@ class Course extends NH_Admin_Controller {
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
             $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
-            o($this->input->post(),true);
 
-            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price AND $str_video AND $str_img AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
+            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;
@@ -117,25 +119,29 @@ class Course extends NH_Admin_Controller {
                 $arr_param['grade_to'] = $int_grade_to;
 
 
-                if($int_course_id <= 0){
-                    //create
-                    $int_course_id = $this->course->create_course($arr_param);
-                    $bool_flag = $int_course_id > 0 ? true : false;
-                }else{
+                if($int_course_id > 0){
                     //update
                     $arr_where = array(
                         'id' => $int_course_id
                     );
                     $bool_flag = $this->course->update_course($arr_param,$arr_where);
+                }else{
+                    //create
+                    $int_course_id = $this->course->create_course($arr_param);
+                    $bool_flag = $int_course_id > 0 ? true : false;
                 }
+
+//                o($arr_param);
+//                o($bool_flag,true);
 
                 if($bool_flag==true){
                     //create或update都要先清除teachers和lessons再重新插入
-                    $this->course->create_course_teachers($int_course_id,$arr_teachers);
-                    $this->load->model('business/common/business_lesson','lesson');
-                    $int_lesson_id = $this->lesson->create_lessons();
+                    $this->course->create_course_teacher_batch($int_course_id,$arr_teachers);
+                    $this->load->model('business/admin/business_lesson','lesson');
+                    $bool_lesson = $this->lesson->create_lessons($int_course_id,$arr_lessons);
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '创建成功';
+                    $this->arr_response['redirect'] = '/course';
                 }
 
             }
@@ -146,20 +152,50 @@ class Course extends NH_Admin_Controller {
 
 
     /**
-     * edit course
+     * edit course interface
      * @author yanrui@tizi.com
      */
     public function edit(){
-        $int_course_id = $this->input->get('id') ? intval($this->input->get('id')) : 0;
-        if($int_course_id){
+        $int_course_id = $this->uri->rsegment(3) ? intval($this->uri->rsegment(3)) : 0;
+        $arr_course = $arr_lessons = array();
 
+        //update
+        if($int_course_id){
+            //course base info
+            $arr_course = $this->course->get_course_by_id($int_course_id);
+            //course teachers
+            $arr_teachers = $this->course->get_teachers_by_course_id($int_course_id);
+//            o($this->db->last_query());
+//            o($arr_teachers,true);
+            $this->load->model('business/admin/business_lesson','lesson');
+            //course lessons
+            $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
         }
 
+        //create
+        //subjects
         $this->load->model('business/common/business_subject','subject');
         $arr_subjects = $this->subject->get_subjects_like_kv();
+        //course_types
         $this->load->model('business/common/business_course_type','course_type');
         $arr_course_types = $this->course_type->get_course_types_like_kv();
 
+        //generate param for uploading to qiniu
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $this->load->helper('string');
+        $str_salt = random_string('alnum', 6);
+        //course img file name
+        $str_new_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
+
+        $this->smarty->assign('course',$arr_course);
+        $this->smarty->assign('teachers',$arr_teachers);
+        $this->smarty->assign('lessons',$arr_lessons);
+        $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('upload_key', $str_new_file_name);
         $this->smarty->assign('view', 'course_edit');
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('course_types',$arr_course_types);
@@ -168,7 +204,7 @@ class Course extends NH_Admin_Controller {
     }
 
     /**
-     * 添加课程时选取教师列表
+     * Ajax添加课程时选取教师列表
      * @author yanrui@tizi.com
      */
     public function teachers(){
@@ -180,7 +216,57 @@ class Course extends NH_Admin_Controller {
         self::json_output($arr_return);
     }
 
-    public function upload(){
-        self::json_output(array('id'=>1,'status'=>999));
-    }
+//    public function upload(){
+//        //uploads是相对于index.php的 最后尝试页面直接ajax给七牛
+//        $config['upload_path'] = '../uploads/';
+//        $config['allowed_types'] = 'gif|jpg|png|application/octet-stream';//最后这个选项可能会有安全隐患问题
+//        $config['max_size'] = '2000';
+//        $config['max_width']  = '1024';
+//        $config['max_height']  = '768';
+//
+//        $this->load->helper(array('form', 'url'));
+//        $this->load->library('upload', $config);
+//
+//
+//        if ($this->upload->do_upload('course_img')){
+//            $data = array('upload_data' => $this->upload->data());
+//            $str_img_url = $data['upload_data']['full_path'];
+//        }else{
+//            $error = array('error' => $this->upload->display_errors());
+//        }
+//
+//        $str_file_ext = pathinfo($str_img_url, PATHINFO_EXTENSION);
+//        /***********七牛 start***********/
+//
+//        require_once APPPATH . 'libraries/qiniu/rs.php';
+//        require_once APPPATH . 'libraries/qiniu/io.php';
+//        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+//        $this->obj_qiniu = new Qiniu_MacHttpClient ( null );
+//        $putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+//        $upToken = $putPolicy->Token ( null );
+//        $putExtra = new Qiniu_PutExtra ();
+//        $putExtra->Crc32 = 1;
+//
+//        $str_new_file_name = 'course_'.date('YmdHis',time()).'_i'.'.png';
+////        o($upToken);
+////        o($str_new_file_name);
+////        o($str_img_url);
+////        o($putExtra);
+//        list ( $ret, $err ) = Qiniu_PutFile ( $upToken, $str_new_file_name, $str_img_url, $putExtra );
+//        if ($err !== null) {
+//            log_message('record', 'qiniu do_upload $err' . var_export($err, true));
+//        } else {
+//            log_message('record', 'qiniu do_upload $ret' . var_export($ret, true));
+//        }
+//        $str_final_url = NH_QINIU_URL.$str_new_file_name;
+//        /***********七牛 end***********/
+//        //290*216  227*169   66*49       图片尺寸
+//        $arr_return = array(
+//            'src' => $str_final_url,
+//            'large' => get_course_img_by_size($str_final_url,'large'),
+//            'general' => get_course_img_by_size($str_final_url,'general'),
+//            'small' => get_course_img_by_size($str_final_url,'small'),
+//        );
+//        self::json_output($arr_return);
+//    }
 }

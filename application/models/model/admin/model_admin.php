@@ -16,7 +16,7 @@ class Model_Admin extends NH_Model
      */
     public function create_admin($arr_param)
     {
-        $arr_result = $this->db->insert('admin', $arr_param);
+        $arr_result = $this->db->insert(TABLE_ADMIN, $arr_param);
         $int_insert_id = $this->db->insert_id();
         return $int_insert_id;
     }
@@ -29,7 +29,7 @@ class Model_Admin extends NH_Model
      * @author yanrui@tizi.com
      */
     public function update_admin($arr_param,$arr_where){
-        $this->db->update(TABLE_ADMIN, $arr_param, $arr_where);
+        $arr_return = $this->db->update(TABLE_ADMIN, $arr_param, $arr_where);
         $int_affected_rows = $this->db->affected_rows();
 //        o($int_affected_rows);
         return $int_affected_rows > 0 ? true :false;
