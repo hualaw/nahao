@@ -158,9 +158,15 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                //alert(siteUrl);
-            	//alert(data.msg);
-                window.location=siteUrl;
+                if(json.status == 'ok'){
+                    // 登陆成功后跳转到首页
+                    window.location=siteUrl;
+                }else{
+                    $.dialog({
+                        content:json.msg
+                    });
+                }
+                return false;
             }
 		});
 		_Form.addRule([{
