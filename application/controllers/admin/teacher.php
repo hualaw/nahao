@@ -107,8 +107,40 @@ class Teacher extends NH_Admin_Controller {
      * @author shangshikai@tizi.com
      */
     public function create(){
+        $this->load->model('business/common/business_subject','subject');
+        $subject=$this->subject->get_subjects();
+        $config_title=config_item('teacher_title');
+        $config_bank=config_item('bank');
+        $this->load->model('business/admin/business_lecture');
+        $province=$this->business_lecture->all_province();
+        $province_id=$this->input->post('province',TRUE);
+        $city=$this->teacher->city1($province_id);
+        $this->smarty->assign('config_bank',$config_bank);
+        $this->smarty->assign('config_title',$config_title);
+        $this->smarty->assign('province',$province);
+        $this->smarty->assign('subject',$subject);
         $this->smarty->assign('view','insert_teacher');
         $this->smarty->display('admin/layout.html');
+    }
+    /**
+     * 根据省id查找市
+     * @author shangshikai@tizi.com
+    */
+    public function city()
+    {
+        $province=$this->input->post('province',TRUE);
+        echo json_encode($this->teacher->city1($province));
+    }
+    /**
+     * 根据市id查找区
+     * @author shangshikai@tizi.com
+     */
+    public function area()
+    {
+        $city=$this->input->post('city',TRUE);
+        echo json_encode($this->teacher->area1($city));
+       // echo $this->teacher->area1($city);
+       // echo $city;
     }
     /**
      * teacher账户禁用

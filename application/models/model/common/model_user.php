@@ -84,6 +84,30 @@ class Model_User extends NH_Model
         return TRUE;
     }
     /**
+     * 根据省ID获取市
+     * @author shangshikai@tizi.com
+     */
+    public function city2($province)
+    {
+         $this->db->select('nahao_areas.id,nahao_areas.name')->from('nahao_areas');
+         $this->db->where("nahao_areas.parentid=$province");
+         $this->db->where("nahao_areas.level=2");
+         return $this->db->get()->result_array();
+         // return $this->db->last_query();
+    }
+    /**
+     * 根据市ID获取区
+     * @author shangshikai@tizi.com
+     */
+    public function area2($city)
+    {
+         $this->db->select('nahao_areas.id,nahao_areas.name')->from('nahao_areas');
+         $this->db->where("nahao_areas.parentid=$city");
+         $this->db->where("nahao_areas.level=3");
+         return  $this->db->get()->result_array();
+         //return $this->db->last_query();
+    }
+    /**
      * 删除user
      * @param array $arr_param
      * @return bool

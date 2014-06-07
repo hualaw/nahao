@@ -222,6 +222,22 @@ class Business_Teacher extends NH_Model
         return $this->model_user->account_open($arr);
     }
     /**
+     * 根据省ID获取市
+     * @author shangshikai@tizi.com
+     */
+    public function city1($province)
+    {
+        return $this->model_user->city2($province);
+    }
+    /**
+     * 根据市ID获取区
+     * @author shangshikai@tizi.com
+     */
+    public function area1($city)
+    {
+        return $this->model_user->area2($city);
+    }
+    /**
      * 根据id取teacher
      * @param $int_teacher_id
      * @return array
