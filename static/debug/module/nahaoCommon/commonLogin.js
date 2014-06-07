@@ -28,16 +28,12 @@ define(function(require,exports){
                 },
                 callback:function(json){
                     if(json.status == 'ok'){
-                        $.dialog({
-                            content:json.msg,
-                            time:3
-                        });
                         // 登陆成功后跳转到首页
                         window.location=siteUrl;
                     }else{
                         $.dialog({
                             content:json.msg
-                        })
+                        });
                     }
                     return false;
                 }
