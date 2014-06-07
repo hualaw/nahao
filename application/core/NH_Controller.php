@@ -24,7 +24,6 @@ class NH_Controller extends CI_Controller
     function __construct()
     {
         parent::__construct();
-
         $this->is_login = $this->check_login();
         $this->load_smarty();
         $this->current['controller'] = $this->uri->rsegment(1);

@@ -247,7 +247,7 @@ class Business_Teacher extends NH_Model
 	/**
 	 * 申请开课
 	 */
-	public static function apply_teach($param){
+	public function apply_teach($param){
 		$res = $this->model_teacher->apply_teach($param);
 		return $res;
 	}

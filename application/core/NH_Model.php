@@ -59,7 +59,8 @@ class NH_Model extends CI_Model
                             $this->db->where($k, $v);
                         }
                     }
-                    if ($arr_like) {
+//                    if ($arr_like) {
+                    if (isset($arr_like) AND $arr_like) {
                         foreach ($arr_like as $k => $v) {
                             $this->db->like($k, $v);
                         }

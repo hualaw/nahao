@@ -11,6 +11,11 @@ class Teacher extends NH_Admin_Controller {
         'status' => 'error',
         'msg' => '操作失败',
     );
+
+    function __construct(){
+        parent::__construct();
+    }
+
     /**
      * user index
      * @author yanrui@tizi.com
