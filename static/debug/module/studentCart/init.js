@@ -8,4 +8,5 @@ define(function(require,exports){
     //填写联系方式 验证
     require("module/studentCart/valid").inforCheckForm();	
     // 发送手机验证码
+
 })

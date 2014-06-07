@@ -9,10 +9,6 @@ define(function(require,exports){
 
     //滚动条
     var _scroll = require("module/common/method/scroll");
-    //得分-题目选中---左侧题目 滚动条
-    //_scroll.myscroll($(".sbar"),$(".sconl"),$(".sconParl"));
-
-
 
     //教室弹层
     var _popUp = require('module/common/method/popUp');
@@ -25,6 +21,10 @@ define(function(require,exports){
         _popUp.popUp('.scoreBoxHtml');
         //选择题目 切换内容
         _classRoom.curItem();
+        //得分-题目选中---左侧题目 滚动条
+        //_scroll.myscroll($(".sbar"),$(".sconl"),$(".sconParl"));
+        //右侧 题目 内容 滚动条
+        //_scroll.myscroll($(".cbar"),$(".scoreBoxList"),$(".scoreBoxPar"));
     });
     //得分-结果选中
     $(".scorePageBtn").click(function (){
