@@ -45,7 +45,8 @@
 | the active record class
 */
 
-$active_group = 'default';
+//$active_group = 'default';
+$active_group = 'localhost';
 $active_record = TRUE;
 
 //$db['default']['hostname'] = '192.168.11.75';//host for mysqli
@@ -65,21 +66,22 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-/* $db['default']['hostname'] = 'mysql:host=127.0.0.1';//host for pdo
-$db['default']['username'] = 'root';
-$db['default']['password'] = '123456';
-$db['default']['database'] = 'nahao';
-$db['default']['dbdriver'] = 'pdo';
-$db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = false;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = '';
-$db['default']['char_set'] = 'utf8';
-$db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = TRUE;
-$db['default']['stricton'] = FALSE; */
+#jason song localhost
+/* $db['localhost']['hostname'] = 'mysql:host=127.0.0.1';//host for pdo
+$db['localhost']['username'] = 'root';
+$db['localhost']['password'] = '123456';
+$db['localhost']['database'] = 'nahao';
+$db['localhost']['dbdriver'] = 'pdo';
+$db['localhost']['dbprefix'] = '';
+$db['localhost']['pconnect'] = false;
+$db['localhost']['db_debug'] = TRUE;
+$db['localhost']['cache_on'] = FALSE;
+$db['localhost']['cachedir'] = '';
+$db['localhost']['char_set'] = 'utf8';
+$db['localhost']['dbcollat'] = 'utf8_general_ci';
+$db['localhost']['swap_pre'] = '';
+$db['localhost']['autoinit'] = TRUE;
+$db['localhost']['stricton'] = FALSE; */
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

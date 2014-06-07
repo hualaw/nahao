@@ -1,11 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * admin相关逻辑
- * Class Model_Admin
+ * Lesson相关逻辑
+ * Class Model_Lesson
  * @author yanrui@tizi.com
  */
-class Model_Admin extends NH_Model
+class Model_Lesson extends NH_Model
 {
 
     /**
@@ -19,6 +19,28 @@ class Model_Admin extends NH_Model
         $arr_result = $this->db->insert(TABLE_LESSON, $arr_param);
         $int_insert_id = $this->db->insert_id();
         return $int_insert_id;
+    }
+
+    /**
+     * 批量创建lessons
+     * @param $arr_param
+     * @return mixed
+     * @author yanrui@tizi.com
+     */
+    public function create_lesson_batch($arr_param){
+        $arr_result = $this->db->insert_batch(TABLE_LESSON, $arr_param);
+        $int_insert_id = $this->db->insert_id();
+        return $int_insert_id;
+    }
+
+    /**
+     * 删除lesson
+     * @param $arr_where
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_lesson_by_param($arr_where){
+        $this->db->delete(TABLE_LESSON, $arr_where);
     }
 
     /**

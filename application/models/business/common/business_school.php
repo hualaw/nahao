@@ -40,4 +40,21 @@ class Business_School extends NH_Model{
                                 , array($county_id, $sctype))->result_array();
         return $r;
     }
+    
+    /**
+     * 根据学校ID获取学校的信息
+     * @param int      $school_id 学校Id
+     * @param string   $fields    要查询的字段
+     * return array
+     * @author yanhj
+     */
+    public function school_info($school_id, $fields = '*')
+    {
+        $arr_return = array();
+        if($school_id) {
+            $arr_return = $this->db->query("select {$fields} from " . TABLE_NAHAO_SCHOOLS . " where id=?", array($school_id))->row_array();
+        }
+        
+        return $arr_return;
+    }
 }

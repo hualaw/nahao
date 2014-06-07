@@ -42,7 +42,7 @@
                     <input name="title" type="text" value="" placeholder="要搜索的班次名" class="textInput"/>
                 </li>
                 <li class="seachLi">
-                    <select name="" id="" class="fl">
+                    <select name="teach_status" id="" class="fl">
                         <option value="">课程状态</option>
                         {foreach $data['teach_status_list'] as $key=>$val}
                         	<option value="{if $key==0}-1{else}{$key}{/if}">{$val}</option>
@@ -96,7 +96,7 @@
 		                <td class="class_type">{$val['course_type_name']}</td>
 		                <td class="class_statu">{$val['status_name']}</td>
 		                <td class="class_score">{$val['course_score']}</td>
-		                <td class="order_detail"><a href="/orderList/order_detail/{$val['id']}" target="_blank">详细信息</a></td>
+		                <td class="order_detail"><a href="/orderList/detail/{$val['id']}" target="_blank">详细信息</a></td>
             		</tr>
 	        	{/foreach}
 	        {else}

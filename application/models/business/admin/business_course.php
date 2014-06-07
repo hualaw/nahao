@@ -55,7 +55,7 @@ class Business_Course extends NH_Model
         $int_return = array();
         if(is_array($arr_where)){
             $str_table_range = 'course_info';
-            $str_result_type = 'count';
+            $str_result_type = 'list';
             $str_fields = 'count(1) as count';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
@@ -81,7 +81,12 @@ class Business_Course extends NH_Model
                 $arr_where['like'][TABLE_COURSE.'.title'] = $arr_where['title'];
                 unset($arr_where['title']);
             }
-            $int_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_group_by = array(
+                TABLE_COURSE.'.id'
+            );
+            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by);
+            $int_return = count($arr_return);
+//            o($int_return,true);
         }
         return $int_return;
     }
@@ -100,6 +105,7 @@ class Business_Course extends NH_Model
             $str_table_range = 'course_info';
             $str_result_type = 'list';
             $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname';
+//            $str_fields = '*';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
                 unset($arr_where['status']);
@@ -124,11 +130,14 @@ class Business_Course extends NH_Model
                 $arr_where['like'][TABLE_COURSE.'.title'] = $arr_where['title'];
                 unset($arr_where['title']);
             }
+            $arr_group_by = array(
+                TABLE_COURSE.'.id'
+            );
             $arr_limit = array(
                 'start'=>$int_start,
                 'limit' => $int_limit
             );
-            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, array(), array(),$arr_limit);
+            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, array(),$arr_limit);
         }
         return $arr_return;
     }
@@ -155,26 +164,68 @@ class Business_Course extends NH_Model
     }
 
     /**
-     * 根据username取course
-     * @param string $str_username
+     * 添加课程与老师关系
+     * @param $int_course_id
+     * @param $arr_teacher_ids
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function create_course_teacher_batch($int_course_id,$arr_teacher_ids){
+        $int_return = 0;
+        if($int_course_id > 0 AND is_array($arr_teacher_ids) AND $arr_teacher_ids){
+            $arr_param = array();
+            foreach($arr_teacher_ids as $k => $v){
+                if($v > 0){
+                    $arr_param[] = array(
+                        'course_id' => $int_course_id,
+                        'teacher_id' => $v,
+                        'sequence' => $k
+                    );
+                }else{
+                    break;
+                }
+            }
+            if($arr_param){
+                //先清除该课程以前的老师，再插入新的老师
+                self::delete_teachers_by_course_id($int_course_id);
+                $int_return = $this->model_course->create_course_teacher_batch($arr_param);
+            }
+        }
+        return $int_return;
+    }
+
+    /**
+     * 根据课程ID删除课程与老师的关系
+     * @param $int_course_id
+     * @author yanrui@tizi.com
+     */
+    public function delete_teachers_by_course_id($int_course_id){
+        if($int_course_id > 0){
+            $arr_where = array(
+                'course_id' => $int_course_id
+            );
+            $this->model_course->delete_course_teacher_relation_by_param($arr_where);
+        }
+    }
+
+    /**
+     * get teachers by course_id
+     * @param $int_course_id
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_course_by_username($str_username)
-    {
+    public function get_teachers_by_course_id($int_course_id){
         $arr_return = array();
-        if($str_username){
-            $str_table_range = 'course';
-            $str_result_type = 'one';
-            $str_fields = 'id,username,phone,email,salt,password,realname,status';
+        if($int_course_id > 0){
+            $str_table_range = 'course_teachers';
+            $str_result_type = 'list';
+            $str_fields = TABLE_USER.'.id,nickname';
             $arr_where = array(
-                'username' => $str_username
+                'course_id' => $int_course_id
             );
-//            echo $str_table_range.'--'.$str_result_type.'--'.$str_fields."\n";echo "where : \n";var_dump($arr_where);;exit;
-            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_return = $this->model_course->get_course_teacher_relation_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
         return $arr_return;
     }
-
 
 }

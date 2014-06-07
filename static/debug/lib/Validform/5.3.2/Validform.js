@@ -808,6 +808,7 @@
 					type: "POST",
 					cache:false,
 					url: ajaxurl,
+					// data: encodeURIComponent($(this).attr("name"))+"="+encodeURIComponent(inputval),
 					data: "param="+encodeURIComponent(inputval)+"&name="+encodeURIComponent($(this).attr("name")),
 					success: function(data){
 						if($.trim(data.status)==="y"){

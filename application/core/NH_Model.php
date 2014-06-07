@@ -59,7 +59,8 @@ class NH_Model extends CI_Model
                             $this->db->where($k, $v);
                         }
                     }
-                    if ($arr_like) {
+//                    if ($arr_like) {
+                    if (isset($arr_like) AND $arr_like) {
                         foreach ($arr_like as $k => $v) {
                             $this->db->like($k, $v);
                         }
@@ -199,7 +200,7 @@ class NH_Model extends CI_Model
     {
         //check length
         $len = strlen($nickname);
-        if($len < MIN_NICKNAME_LEN || $len > MAC_NICKNAME_LEN)
+        if($len < MIN_NICKNAME_LEN*3 || $len > MAX_NICKNAME_LEN*3)
         {
             return $this->_log_reg_info(ERROR, 'reg_invalid_nickname', array('nickname'=>$nickname));
         }

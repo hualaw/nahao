@@ -1,0 +1,34 @@
+课程名称 : {$course.title}     共{$chapter_count}章  {$section_count}节课
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>课节ID</th>
+        <th>课节名称</th>
+        <th>讲义</th>
+        <th>习题管理</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $lessons as $v}
+    <tr>
+        <td><input type="checkbox"></td>
+        <td>{$v.id}</td>
+        <td>{$v.title}</td>
+        <td>
+            {if $v.courseware_id==0}
+                <botton class="btn btn-primary btn-xs btn_upload_pdf">上传</botton>
+            {else}
+                <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/52">preview</a>
+            {/if}
+        </td>
+        <td>{$v.id}</td>
+        <td>
+            <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">修改</a>
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{include file="admin/lesson_operation.html"}
