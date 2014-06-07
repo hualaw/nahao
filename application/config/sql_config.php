@@ -65,5 +65,31 @@ $config['sql_admin'] = array(
 $config['sql_www'] = array(
     'user' => array(
         TABLE_USER => false
-    )
+    ),
+    'user_info' => array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+    ),
+        'teacher_subject' => array(
+        TABLE_TEACHER_SUBJECT => false,
+    ),
+    'student_subject' => array(
+        TABLE_STUDENT_SUBJECT => false,
+    ),
+);
+
+$config['sql_teacher'] = array(
+    'user' => array(
+        TABLE_USER => false
+    ),
+    'user_info' => array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+    ),
+    'teacher_subject' => array(
+        TABLE_TEACHER_SUBJECT => false,
+    ),
+    'student_subject' => array(
+        TABLE_STUDENT_SUBJECT => false,
+    ),
 );
