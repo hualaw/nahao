@@ -61,7 +61,6 @@ $config['sql_admin'] = array(
     ),
 );
 
-
 $config['sql_www'] = array(
     'user' => array(
         TABLE_USER => false
