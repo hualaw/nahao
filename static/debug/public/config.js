@@ -96,5 +96,9 @@ seajs.use('jquery', function () {
         case 'classRoom':
             seajs.use("module/classRoom/init");
             break;
+        // 模块是题目管理
+        case 'adminQuestion':
+            seajs.use("module/adminQuestion/init");
+            break;
     }
 })
