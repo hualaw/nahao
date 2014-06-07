@@ -267,9 +267,9 @@ define('REGISTER_VERIFY_CODE', 1);
 define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
-//昵称最大长度
-define('MIN_NICKNAME_LEN', 4);
-define('MAX_NICKNAME_LEN', 21);
+//昵称最大长度2-15个汉字
+define('MIN_NICKNAME_LEN', 2);
+define('MAX_NICKNAME_LEN', 15);
 
 
 

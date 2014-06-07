@@ -27,10 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    $.dialog({
-                        content:json.msg,
-                        icon:"succeed"
-                    })
+                    window.location=siteUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -98,10 +95,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    $.dialog({
-                        content:json.msg,
-                        icon:"succeed"
-                    })
+                    window.location=siteUrl;
                 }else{
                      $.dialog({
                         content:json.msg
