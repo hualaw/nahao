@@ -153,7 +153,7 @@ class login extends NH_Controller
 
         $ret = $this->business_login->submit($username, $password);
 
-        //var_dump($this->session->userdata('user_id'));
+        //log_message('debug_nahao', print_r($this->session->all_userdata(),1)."\n");
 
         $this->json_output($ret);
     }
