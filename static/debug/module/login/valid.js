@@ -32,7 +32,7 @@ define(function(require,exports){
                         icon:"succeed"
                     })
                 }else{
-                     $.dialog({
+                    $.dialog({
                         content:json.msg
                     })
                 }
@@ -64,7 +64,7 @@ define(function(require,exports){
             }
         ]);
         // 发送手机验证码
-        require('module/common/method/send').sendPhoneNum();
+        require('module/common/method/send').sendPhoneNum(1);
     };
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){
