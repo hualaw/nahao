@@ -40,6 +40,10 @@ $config['sql_admin'] = array(
     'lesson' => array(
         TABLE_LESSON => false
     ),
+    'user_info' => array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+    ),
     'student_info' => array(
         TABLE_USER => false,
         TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
