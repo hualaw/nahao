@@ -15,6 +15,107 @@ define(function(require,exports){
             objtip.text(msg);
         }
     };
+    // 手机注册验证
+    exports.regPhoneBoxForm = function(){
+        var _Form=$(".regPhoneBox").Validform({
+            // 自定义tips在输入框上面显示
+            tiptype:3,
+            showAllError:false,
+            ajaxPost:true,
+            beforeSubmit: function(curform) {
+                
+            },
+            callback:function(json){
+                if(json.status =="ok"){
+                    $.dialog({
+                        content:json.msg,
+                        icon:"succeed"
+                    })
+                }else{
+                     $.dialog({
+                        content:json.msg
+                    })
+                }
+            }
+        });
+        _Form.addRule([{
+                ele: ".phoneNum",
+                datatype:"m",
+                nullmsg:"请输入手机号/邮箱/梯子网帐号",
+                errormsg:"手机号输入错误"
+            },
+            {   
+                 ele:".pwd",
+                 datatype: "s6-20",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
+            },
+            {   
+                 ele:".codeInput",
+                 datatype: "/^\\d{4}$/",
+                 nullmsg: "请输入手机验证码",
+                 errormsg: "手机验证码输入错误"
+            },
+            {   
+                 ele:"checkbox:first",
+                 datatype: "*",
+                 nullmsg: "请同意服务协议",
+                 errormsg: "未同意服务协议"
+            }
+        ]);
+        // 发送手机验证码
+        require('module/common/method/send').sendPhoneNum();
+    };
+    // 邮箱注册验证
+    exports.regEmailBoxForm = function(){
+        var _Form=$(".regEmailBox").Validform({
+            // 自定义tips在输入框上面显示
+            tiptype:3,
+            showAllError:false,
+            ajaxPost:true,
+            beforeSubmit: function(curform) {
+                
+            },
+            callback:function(json){
+                if(json.status =="ok"){
+                    $.dialog({
+                        content:json.msg,
+                        icon:"succeed"
+                    })
+                }else{
+                     $.dialog({
+                        content:json.msg
+                    })
+                }
+            }
+        });
+        _Form.addRule([{
+                ele: ".email",
+                datatype:"e",
+                nullmsg:"请输入手机号/邮箱/梯子网帐号",
+                errormsg:"手机号输入错误"
+            },
+            {   
+                 ele:".pwd",
+                 datatype: "*6-16",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
+            },
+            {   
+                ele:".ephone",
+                datatype: "m",
+                nullmsg: "请输入手机号码",
+                errormsg: "手机号码输入错误",
+                ignore:"ignore"
+            },
+            {   
+                 ele:"radio:first",
+                 datatype: "*",
+                 nullmsg: "请同意服务协议",
+                 errormsg: "未同意服务协议"
+            }
+        ]);
+    };
     //选择和取消 关注
     function checkAttent(){        
         $(".objBox a").click(function (){
@@ -57,14 +158,16 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-            	alert('提交成功');
+                //alert(siteUrl);
+            	//alert(data.msg);
+                window.location=siteUrl;
             }
 		});
 		_Form.addRule([{
                 ele: ".userName",
-                datatype:"*6-8",
+                datatype:"*",
                 nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"长度6-8个字符"
+                errormsg:"请输入正确的手机号"
             },
             {	
                	 ele:".pwd",
@@ -160,7 +263,7 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                return require("module/login/resetPwd").sendValidateCode();
             },
             callback:function(data){
                 alert('提交成功');
@@ -170,10 +273,17 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".inputPhone",
-                datatype:"*",
-                nullmsg:"请输入手机号",
-                errormsg:"请输入正确的手机号"
-            }         
+                datatype:"m",
+                nullmsg:"请输入手机号码",
+                errormsg:"请输入正确的手机号码"
+            },
+            {
+                ele: ".inputPhoneCode",
+                datatype:"/^\\d{6}$/",
+                datatype_allownull:"/^\\d{6}$/ | /^\\w{0}$/",
+                nullmsg:"请输入验证码",
+                errormsg:"验证码长度是6位"
+            }       
         ]);
     }
     //邮箱找回密码验证
@@ -187,9 +297,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                if(data.status == 1) {
+                    alert(data.msg);
+                }
             }
         });
+        _Form.config({
+            showAllError:true,
+            url:"/login/send_reset_email",
+        })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
         _Form.addRule([{
@@ -283,12 +399,9 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:true,
+            ajaxPost:false,
             beforeSubmit: function(curform) {
 
-            },
-            callback:function(data){
-                alert('提交成功');
             }
         });
         // 冲掉库里面的'&nbsp:'
@@ -306,242 +419,6 @@ define(function(require,exports){
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
             }          
-        ]);
-    }
-    //填写联系方式 验证
-    exports.inforCheckForm = function (){
-        var _Form=$(".inforCheckForm").Validform({
-            // 自定义tips在输入框上面显示
-            tiptype:commonTipType,
-            showAllError:false,
-            ajaxPost:true,
-            beforeSubmit: function(curform) {
-
-            },
-            callback:function(data){
-                alert('提交成功');
-            }
-        });
-        // 冲掉库里面的'&nbsp:'
-        _Form.tipmsg.r=" ";
-        _Form.addRule([{
-                ele:".inname",
-                datatype:"*2-20",
-                nullmsg:"请输入真实姓名",
-                errormsg:"长度2-20个字符"
-            },
-            {
-                ele:".inPhone",
-                datatype:"*",
-                nullmsg:"请输入手机号",
-                errormsg:""
-            } ,
-            {
-                ele:".inPhoneCode",
-                datatype:"*",
-                nullmsg:"请输入手机验证码",
-                errormsg:"请输入正确的验证码"
-            }           
-        ]);
-    }
-    //购买之后 选课时间 验证
-    exports.enlistForm = function (){
-        var _Form=$(".enlistForm").Validform({
-            // 自定义tips在输入框上面显示
-            tiptype:commonTipType,
-            showAllError:false,
-            ajaxPost:true,
-            beforeSubmit: function(curform) {
-                if(!$(".enlistForm li").hasClass("ctimeOn")){
-                    return false;
-                }
-            },
-            callback:function(data){
-                alert('提交成功');
-            }
-        });
-    }
-    //我要开课 老师注册验证
-    exports.teaRegForm = function (){
-        var _Form=$(".teaRegForm").Validform({
-            // 自定义tips在输入框上面显示
-            tiptype:commonTipType,
-            showAllError:false,
-            ajaxPost:true,
-            beforeSubmit: function(curform) {
-                /*调用验证码验证服务端信息*/
-                if(require("validForm").checkCaptcha('TeacherBox',1)){
-                    // 加载MD5加密
-                    require("validForm").md5(curform);
-                }else{
-                    return false;
-                }
-            },
-            callback:function(data){
-                alert('提交成功');
-                // 异步提交
-                require("validForm").reset_md5('.regTeacherForm');
-                if(!data.errorcode){
-                    require.async("validForm",function(ex){
-                        // 提交注册结果
-                        ex.changeCaptcha('TeacherBox');
-                    });
-                }
-            }
-        });
-        // 冲掉库里面的'&nbsp:'
-        _Form.tipmsg.r=" ";
-        _Form.addRule([{
-                ele:".sEmail",
-                datatype:"e",
-                nullmsg:"请输入邮箱地址",
-                errormsg:"请输入正确的邮箱地址"
-            },
-            {
-                ele:".spassword",
-                datatype:"*6-20",
-                nullmsg:"请输入密码",
-                errormsg:"长度6-20个字符之间"
-            },
-            {
-                ele:".TeacherBoxWord",
-                datatype:"/^\\w{4}$/",
-                nullmsg:"请输入验证码",
-                errormsg:"验证码长度是4位"
-            }        
-        ]);
-    }
-    //我要开课 试讲 信息 验证
-    exports.writeInfoForm = function (){
-        var _Form=$(".writeInfoForm").Validform({
-            // 自定义tips在输入框上面显示
-            tiptype:commonTipType,
-            showAllError:false,
-            ajaxPost:true,
-            beforeSubmit: function(curform) {
-            },
-            callback:function(data){
-                alert('提交成功');
-            },
-            usePlugin:{
-                jqtransform:{
-                    //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
-                }
-            }
-        });
-        // 冲掉库里面的'&nbsp:'
-        _Form.tipmsg.r=" ";
-        _Form.addRule([{
-                ele:".wUname",
-                datatype:"*2-20",
-                nullmsg:"请输入称呼",
-                errormsg:"长度2-20个字符"
-            },
-            {
-                ele:".loction",
-                datatype:"*",
-                nullmsg:"请选择地区",
-                errormsg:"请选择正确的地区"
-            },
-            {
-                ele:".radioInput",
-                datatype:"*",
-                nullmsg:"请选择性别",
-                errormsg:"请选择正确的性别"
-            },
-            {
-                ele:".wage",
-                datatype:"*",
-                nullmsg:"请输入年龄",
-                errormsg:"请输入正确的年龄"
-            },
-            {
-                ele:".checkInput",
-                datatype: "*",
-                nullmsg: "请选择教学阶段",
-                errormsg: "您未选择教学阶段！"
-            },
-            {
-                ele:".schoolname",
-                datatype: "*",
-                nullmsg: "请输入所在学校名称",
-                errormsg: "请输入正确的学校名称"
-            },
-            {
-                ele:".teaTitle",
-                datatype: "*",
-                nullmsg: "请选择教师职称",
-                errormsg: "请选择正确的教师职称"
-            },
-            {
-                ele:".seniority",
-                datatype: "*",
-                nullmsg: "请选择实际教龄",
-                errormsg: "请选择正确的实际教龄"
-            },
-            {
-                ele:".wphone",
-                datatype:"m",
-                nullmsg:"请输入手机号码",
-                errormsg:"请输入正确的手机号码"
-            },
-            {
-                ele:".wEmail",
-                datatype:"e",
-                nullmsg:"请输入邮箱地址",
-                errormsg:"请输入正确的邮箱地址"
-            },
-            {
-                ele:".wQQ",
-                datatype:"n5-12 | /^\\w{0}$/",
-                datatype_nonull:"n5-12",
-                nullmsg:"请输入QQ号码！",
-                errormsg:"长度5-12个数字"
-            },
-            {
-                ele:".lecture",
-                datatype:"*",
-                nullmsg:"请选择讲课方式",
-                errormsg:"请选择正确的讲课方式"
-            },
-            {
-                ele:".lectureSub",
-                datatype:"*",
-                nullmsg:"请选择试讲科目",
-                errormsg:"请选择正确的试讲科目"
-            },
-            {
-                ele:".wtime",
-                datatype:"*",
-                nullmsg:"请输入预约时间",
-                errormsg:"请输入正确的时间格式"
-            },
-            {
-                ele:".startTime",
-                datatype:"*",
-                nullmsg:"请选择开始时间",
-                errormsg:"请选择正确的开始时间"
-            },
-            {
-                ele:".endTime",
-                datatype:"*",
-                nullmsg:"请选择结束时间",
-                errormsg:"请选择正确的结束时间"
-            },
-            {
-                ele:".subname",
-                datatype:"*",
-                nullmsg:"请输入课程名称",
-                errormsg:"请输入正确的课程名称"
-            }
-            // ,
-            // {
-            //     ele:".subname",
-            //     datatype:"*",
-            //     nullmsg:"请输入课程名称",
-            //     errormsg:"请输入正确的课程名称"
-            // },    
         ]);
     }
 })

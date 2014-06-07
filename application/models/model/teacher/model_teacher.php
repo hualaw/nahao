@@ -395,7 +395,7 @@ class Model_Teacher extends NH_Model{
     	if(!$param['round_id']){
         	exit('轮id为空，请检查数据是否正确');
         }
-        $order = isset($param['order']) ? $param['order'] : 1;
+        $order = isset($param['adminOrder']) ? $param['adminOrder'] : 1;
         $this->db->query("set names utf8");
     	$sql = 'SELECT c.*,cw.name coursewareName FROM class c
 			LEFT JOIN courseware cw on c.courseware_id=cw.id 

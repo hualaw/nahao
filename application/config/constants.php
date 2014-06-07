@@ -139,7 +139,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
-define('PER_PAGE_NO','10');
+define('PER_PAGE_NO','2');
 
 
 //tables
@@ -189,7 +189,8 @@ define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/js/bootstrap-datetimepicker.min.js');
 define('STATIC_ADMIN_JS_ADMIN','/admin/js/mod/admin.js');
-define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/order.js');
+define('STATIC_ADMIN_JS_ORDER','/admin/js/mod/adminOrder.js');
+define('STATIC_ADMIN_JS_LECTURE','/admin/js/mod/lecture.js');
 define('STATIC_ADMIN_JS_GROUP','/admin/js/mod/group.js');
 
 
@@ -205,9 +206,19 @@ define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
 
+
+//phone_server连接
+define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
+define('PHONE_SERVER_PORT', 1899);
+define('PHONE_SERVER_APPNAME', 'nahao');
+
 //register type
 define('REG_TYPE_PHONE', 1);
 define('REG_TYPE_EMAIL', 2);
+
+//login status
+define('LOGIN_TYPE_PHONE', 1);
+define('LOGIN_TYPE_EMAIL', 2);
 
 //ok/error
 define('SUCCESS', 'ok');
@@ -234,6 +245,7 @@ define('REG_CHECK_EMAIL_SUCCESS', 14);
 define('REG_CHECK_NICKNAME_SUCCESS',15);
 
 //过期时间
+
 define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
 //define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
 
@@ -241,6 +253,7 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
 define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
+
 
 //课程中的状态
 define('NAHAO_STATUS_COURSE_INIT',0);//初始化
@@ -253,6 +266,11 @@ define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
 define('REGISTER_VERIFY_CODE', 1);
 define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
+
+//昵称最大长度
+define('MIN_NICKNAME_LEN', 4);
+define('MAX_NICKNAME_LEN', 21);
+
 
 
 

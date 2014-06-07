@@ -33,14 +33,17 @@
 					<ul>
 						<li class="cf">
 							<p class="fl">绑定手机</p>
-							<input type="text" class="fl" name="phone_number" placeholder="请输入已绑定的手机号">
+							<div class="fl PhoneCode">
+								<input type="text" class="inputPhone" name="phone_number" placeholder="请输入已绑定的手机号" validName="text">
+								<span class="Validform_checktip"></span>
+							</div>
 							<a href="javascript:void(0)" class="fl btn blueBtn code ">发送验证码</a>
-							<span class="fl btn  undis code">60秒后获取验证码</span>
+							<span class="fl btn  undis codeSpan">60秒后获取验证码</span>
 						</li>
 						<li class="cf">
 							<p class="fl">验证码</p>
 							<div class="cf">
-								<input type="text" class="fl inputPhone" name="code" placeholder="请输入手机验证码" validName="text">
+								<input type="text" class="fl inputPhoneCode" name="code" placeholder="请输入手机验证码" validName="text">
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
@@ -64,7 +67,7 @@
 						<li class="cf">
 							<p class="fl">邮箱</p>
 							<div class="cf">
-								<input type="text" class="fl inputEmail" placeholder="请输入注册时的邮箱" validName="text">
+								<input type="text" class="fl inputEmail" placeholder="请输入注册时的邮箱" validName="text" name='email'>
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>

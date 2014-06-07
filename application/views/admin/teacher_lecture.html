@@ -1,0 +1,74 @@
+共{$total}个试讲申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日新增{$time_day}个试讲申请<br /><br />
+<form action="/lecture/sea_lecture" method="get">
+       <select name="term">
+           <option value=0>搜索条件</option>
+           <option value=1>试讲课程名称</option>
+           <option value=2>姓名</option>
+           <option value=3>手机号</option>
+       </select>
+    <input type="text" name="basis" />
+   <select name="subject">
+       <option value=0>全部科目</option>
+      {foreach $subject as $k=>$v}
+            <option value={$v.id}>{$v.name}</option>
+      {/foreach}
+   </select>
+    <select name="teach_type">
+        <option value=0>全部授课方式</option>
+        <option value=1>一对一</option>
+        <option value=2>小班</option>
+        <option value=3>大班</option>
+    </select>
+    <select name="province">
+        <option value=0>全部省份</option>
+        {foreach $province as $k=>$v}
+        <option value={$v.id}>{$v.name}</option>
+        {/foreach}
+    </select>
+    <select name="status">
+        <option value=0>全部状态</option>
+        <option value=1>未审核</option>
+        <option value=2>审核通过</option>
+        <option value=3>审核未通过</option>
+    </select>
+    申请日期<input type="text" name="create_time1" id="lecture_datetimepicker1" readonly />-<input type="text" name="create_time2" id="lecture_datetimepicker2" readonly />
+    <button type="submit" class="btn">搜索</button>
+ </form><br />
+<label class="control-label" for="inputSuccess">符合条件的共有{$sea_total}条数据</label>
+<table class="table table-bordered">
+    <tr class="active">
+        <td>序号</td>
+        <td>试讲课程名称</td>
+        <td width="100">预约上课时间</td>
+        <td>教师姓名</td>
+        <td>手机号</td>
+        <td>职称</td>
+        <td>教龄</td>
+        <td>科目</td>
+        <td>授课方式</td>
+        <td>所在学校</td>
+        <td width="100">申请日期</td>
+        <td>申请状态</td>
+        <td>所在地区</td>
+        <td>操作</td>
+    </tr>
+    {foreach $lecture as $k=>$v}
+    <tr>
+        <td>{$v.id}</td>
+        <td>{$v.course}</td>
+        <td>{$v.start_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$v.tea_name}</td>
+        <td>{$v.phone}</td>
+        <td>{$config_title[{$v.title}]}</td>
+        <td>{$v.teach_years}</td>
+        <td>{$config_stage[{$v.stage}]}{$v.subject}</td>
+        <td>{$config_tea_type[{$v.teach_type}]}</td>
+        <td>{$v.schoolname}</td>
+        <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$config_status[{$v.status}]}</td>
+        <td>{$v.name}</td>
+        <td><a href="/lecture/lecture_details?lecture_id={$v.id}">查看详情</a></td>
+    </tr>
+    {/foreach}
+</table>
+{$page}

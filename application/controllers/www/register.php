@@ -55,9 +55,9 @@ class register extends NH_Controller
 
 		if($reg_type == REG_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
 
-		$register_ret = $this->business_register->register($phone, $email, $password, $captcha, $reg_type);
+		$reg_ret = $this->business_register->submit($phone, $email, $password, $captcha, $reg_type);
 
-		echo parent::json_output($register_ret);
+		echo parent::json_output($reg_ret);
 	}
 
 	//ajax interface
@@ -70,7 +70,7 @@ class register extends NH_Controller
 
 		$this->load->helper('string');
 		$verify_code = random_string('nozero', 4);
-		$msg = $this->lang->line('reg_verify_phone_msg').$verify_code;
+		$msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
 		$this->sms->setContent($msg);
         $create_time = time();
 		$send_ret = $this->sms->send();
@@ -146,15 +146,15 @@ class register extends NH_Controller
         //TBD, to handle email
 
         //create user_info table record
-        $this->load->model('model/model_user');
+        $this->load->model('model/common/model_user');
         $this->model_user->create_user_info($user_info_arr);
 
         if(!empty($focus_subjects))
         {
             //create student_subject table record
-            $this->load->model('model/student_subject');
+            $this->load->model('model/student/model_student_subject');
             $focus_subject_arr = explode(",", $focus_subjects);
-            $this->student_subject->add($user_id, $focus_subject_arr);
+            $this->model_student_subject->add($user_id, $focus_subject_arr);
         }
 
         if(!empty($nickname))
