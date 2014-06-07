@@ -6,9 +6,9 @@ define(function(require,exports){
 			var _phoneNumber = $(this).parent().siblings().find('.phoneNum').val();
 			// 判断手机号正则
 			var _regMobile = /^0?1[3|4|5|8][0-9]\d{8}$/;
-		    var _phoneNumb = _regMobile.test(_phoneNumber);
+		    var _testResult = _regMobile.test(_phoneNumber);
 		    // 如果输入的是手机号，发送验证码
-		    if (_phoneNumb) {
+		    if (_testResult) {
 		        $.ajax({
 					url:'register/send_captcha',
 					'type' : 'POST',

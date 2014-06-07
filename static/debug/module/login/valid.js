@@ -27,10 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    $.dialog({
-                        content:json.msg,
-                        icon:"succeed"
-                    })
+                    window.location=siteUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -38,11 +35,31 @@ define(function(require,exports){
                 }
             }
         });
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                    //data是返回的json数据;
+                    //obj是当前正做实时验证表单元素的jquery对象;
+                    //注意：5.3版中，实时验证的返回数据须是含有status值的json数据！
+                    //跟callback里的ajax返回数据格式统一，建议不再返回字符串"y"或"n"。目前这两种格式的数据都兼容。
+                }
+            }
+        });
         _Form.addRule([{
                 ele: ".phoneNum",
                 datatype:"m",
+                ajaxurl:siteUrl + "register/check_phone",
                 nullmsg:"请输入手机号/邮箱/梯子网帐号",
                 errormsg:"手机号输入错误"
+                
             },
             {   
                  ele:".pwd",
@@ -78,10 +95,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    $.dialog({
-                        content:json.msg,
-                        icon:"succeed"
-                    })
+                    window.location=siteUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -158,9 +172,15 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                //alert(siteUrl);
-            	//alert(data.msg);
-                window.location=siteUrl;
+                if(json.status == 'ok'){
+                    // 登陆成功后跳转到首页
+                    window.location=siteUrl;
+                }else{
+                    $.dialog({
+                        content:json.msg
+                    });
+                }
+                return false;
             }
 		});
 		_Form.addRule([{
