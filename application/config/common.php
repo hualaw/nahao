@@ -8,6 +8,13 @@
 $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
+//course status
+$config['course_status'][0] = '未审核';
+$config['course_status'][1] = '审核未通过';
+$config['course_status'][2] = '审核通过';
+$config['course_status'][3] = '暂停';
+$config['course_status'][4] = '关闭';
+
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';

@@ -254,8 +254,19 @@ define('REGISTER_VERIFY_CODE', 1);
 define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
+//七牛账号
+define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
+define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
+define('NH_QINIU_BUCKET','n1a2h3a4o5');
+define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 
-
+//课程封面图的三个尺寸 290*216  227*169   66*49
+define('NH_COURSE_IMG_LARGE_HEIGHT',216);
+define('NH_COURSE_IMG_LARGE_WIDTH',290);
+define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
+define('NH_COURSE_IMG_GENERAL_WIDTH',227);
+define('NH_COURSE_IMG_SMALL_HEIGHT',49);
+define('NH_COURSE_IMG_SMALL_WIDTH',66);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

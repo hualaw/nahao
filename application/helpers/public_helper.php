@@ -503,3 +503,26 @@ function is_email($str_email)
 {
     return preg_match("/^[a-z0-9]{1}[-_\.|a-z0-9]{0,19}@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{0,3}([\.][a-z]{1,3})?$/i", $str_email) ? true : false;
 }
+
+/**
+ * 获取course的封面图
+ * @param $str_img_url
+ * @param $str_size
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function get_course_img_by_size($str_img_url, $str_size){
+    $str_return = $str_img_url;
+    if(in_array($str_size,array('large','general','small'))){
+        $str_img_url .= '?imageView/1/w/';
+        if($str_size=='large'){
+            $str_img_url .= NH_COURSE_IMG_LARGE_WIDTH.'/h/'.NH_COURSE_IMG_LARGE_HEIGHT;
+        }else if($str_size=='general'){
+            $str_img_url .= NH_COURSE_IMG_GENERAL_WIDTH.'/h/'.NH_COURSE_IMG_GENERAL_HEIGHT;
+        }else if($str_size=='small'){
+            $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
+        }
+        $str_return = $str_img_url;
+    }
+    return $str_return;
+}

@@ -1,6 +1,7 @@
 <?php
 /**
  * sql_config
+ * key按字母排序
  * @author yanrui@tizi.com
  */
 
@@ -16,6 +17,9 @@ $config['sql_admin'] = array(
     'area' => array(
         TABLE_NAHAO_AREAS => false
     ),
+    'course' => array(
+        TABLE_COURSE => false
+    ),
     'course_info' => array(
         TABLE_COURSE => false,
         TABLE_SUBJECT => array(TABLE_COURSE . '.subject=' . TABLE_SUBJECT . '.id', 'left'),
@@ -23,11 +27,18 @@ $config['sql_admin'] = array(
         TABLE_COURSE_TEACHER_RELATION => array(TABLE_COURSE . '.id=' . TABLE_COURSE_TEACHER_RELATION . '.course_id', 'left'),
         TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.nickname', 'left'),
     ),
+    'course_teachers' => array(
+        TABLE_COURSE_TEACHER_RELATION => false,
+        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION.'.teacher_id='.TABLE_USER.'.id','left'),
+    ),
     'course_type' => array(
         TABLE_COURSE_TYPE => false,
     ),
     'group' => array(
         TABLE_ADMIN_GROUP => false
+    ),
+    'lesson' => array(
+        TABLE_LESSON => false
     ),
     'student_info' => array(
         TABLE_USER => false,
