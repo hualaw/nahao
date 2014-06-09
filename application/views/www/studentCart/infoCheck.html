@@ -83,20 +83,26 @@
 							<p class="title">真实姓名</p>
 							<div class="cf inputBox">
 								<input type="text" name="real_name" id="real_name" class="inname fl" validName="text" 
-								{if $realname !=''}value="{$realname}" readonly {else}value=""{/if}>
+								{if $realname !=''}value="{$realname}" disabled {else}value=""{/if}>
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
+						{if $array_return != ''}
+												
+						<input type="hidden" name="phone"  value="{$userdata.phone}">
+						{else}
 						<li>
 							<p class="title">手机号</p>
 							<div class="cf inputBox">
 								<input type="text" name="phone" id="phone" class="inPhone fl" validName="text"
-								{if $userdata.phone !=''}value="{$userdata.phone}" readonly {else}value=""{/if}>
+								{if $userdata.phone !=''}value="{$userdata.phone}" disabled {else}value=""{/if}>
 								<span class="Validform_checktip fl"></span>
 							</div>
 							<p class="tips">保密，方便我们与您联系</p>
 						</li>
-						{if $userdata.phone ==''}
+
+						
+
 						<li>
 							<p class="title">手机验证码</p>
 							<div class="cf getVerCodeBtn">
@@ -112,6 +118,7 @@
 								</div>
 							</div>							
 						</li>
+
 						{/if}
 						<li>
 							<input type="submit" class="btn redBtn submitBtn" value="提交订单">

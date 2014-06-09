@@ -147,7 +147,6 @@ class NH_Model extends CI_Model
     {
         //check phone is unique
         $user_id = get_uid_phone_server($phone);
-
         if($user_id)
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_phone', array('phone'=>$phone));

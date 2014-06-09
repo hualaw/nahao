@@ -23,7 +23,9 @@ define(function(require,exports){
 	_studentCar.pay_dialog();
 	
     //填写联系方式 验证
-    require("module/studentCart/valid").inforCheckForm();	
+    require("module/studentCart/valid").inforCheckForm();
     // 发送手机验证码
+    require("module/studentCart/valid").sendValidateCode();
+    
 
 })

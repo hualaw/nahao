@@ -212,4 +212,17 @@ class register extends NH_Controller
     {
         return trim($this->input->post($field_name));
     }
+    
+    public function check_phones()
+    {
+        $name = trim($this->input->post('name'));
+        $param = trim($this->input->post('param'));
+        $result = $this->business_register->check_phone($param);
+        if($result['status']=='ok') {
+            $arr_return = array('status' => 'y', 'info' => $result['msg']);
+        } else {
+            $arr_return = array('status' => 'n', 'info' => $result['msg']);
+        }
+        self::json_output($arr_return);
+    }
 }

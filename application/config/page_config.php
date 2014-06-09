@@ -23,7 +23,7 @@ $config['page_admin']['num_tag_close'] = '</li>';
 
 
 
-$config['page_student']['uri_segment'] = 4;
+/* $config['page_student']['uri_segment'] = 4;
 $config['page_student']['num_links'] = 3;
 $config['page_student']['full_tag_open'] = '<ul class="pagination">';
 $config['page_student']['full_tag_close'] = '</ul>';
@@ -42,4 +42,20 @@ $config['page_student']['next_tag_close'] = '<li>';
 $config['page_student']['prev_tag_open'] = '<li>';
 $config['page_student']['prev_tag_close'] = '<li>';
 $config['page_student']['num_tag_open'] = '<li>';
-$config['page_student']['num_tag_close'] = '</li>';
+$config['page_student']['num_tag_close'] = '</li>'; */
+
+
+$config['page_student']['uri_segment']      =   4;
+$config['page_student']['num_links']        =   3;
+$config['page_student']['full_tag_open']    =   '<div class="page">';
+$config['page_student']['full_tag_close']   =   '</div>';
+$config['page_student']['first_link']       =   '首页';
+$config['page_student']['last_link']        =   '尾页';
+$config['page_student']['cur_tag_open']     =   '<a class="active" >';
+$config['page_student']['cur_tag_close']    =   '</a>';
+$config['page_student']['prev_link']        =   '上一页';
+$config['page_student']['next_link']        =   '下一页';
+$config['page_student']['next_tag_open'] = '<a class="next" >';
+$config['page_student']['next_tag_close'] = '</a>';
+$config['page_student']['prev_tag_open'] = '<a class="prev" >';
+$config['page_student']['prev_tag_close'] = '</a>';

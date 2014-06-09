@@ -46,7 +46,7 @@
 */
 
 //$active_group = 'default';
-$active_group = 'localhost';
+$active_group = 'default';
 $active_record = TRUE;
 
 //$db['default']['hostname'] = '192.168.11.75';//host for mysqli
