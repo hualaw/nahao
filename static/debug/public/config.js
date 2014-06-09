@@ -21,7 +21,7 @@ seajs.use('jquery', function () {
     seajs.use('module/nahaoCommon/init');
     // 得到当前页面是哪个
     var _page = $('#nahaoModule').attr('module');
-<<<<<<< HEAD
+
     seajs.use("module/"+_page+"/init");
 //    switch (_page) {
 //        // 模块是学生首页
@@ -102,7 +102,7 @@ seajs.use('jquery', function () {
 //            seajs.use("module/classRoom/init");
 //            break;
 //    }
-=======
+
     switch (_page) {
         // 模块是学生首页
         case 'studentHomePage':
@@ -183,5 +183,5 @@ seajs.use('jquery', function () {
             seajs.use("module/adminQuestion/init");
             break;
     }
->>>>>>> origin/songweijun
+
 })

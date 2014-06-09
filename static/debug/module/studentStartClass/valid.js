@@ -124,14 +124,12 @@ define(function(require,exports){
             {
                 ele:".startTime",
                 datatype:"*",
-                nullmsg:"请选择开始时间",
-                errormsg:"请选择正确的开始时间"
+                nullmsg:"请选择开始时间"
             },
             {
                 ele:".endTime",
                 datatype:"*",
-                nullmsg:"请选择结束时间",
-                errormsg:"请选择正确的结束时间"
+                nullmsg:"请选择结束时间"
             },
             {
                 ele:".subname",

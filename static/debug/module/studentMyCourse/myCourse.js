@@ -1,5 +1,7 @@
 define(function(require,exports){
     require("naHaoDialog");
+    //弹框
+    var _popUp = require('module/common/method/popUp');
     // 左侧栏 高亮
     exports.leftNav = function (){
         if($(".menu li").length){
@@ -15,14 +17,15 @@ define(function(require,exports){
     //云笔记
     exports.cNote = function (){
         $(".cloudNotes").click(function (){
-            $.tiziDialog({
-                //width:400,
-                title:false,
-                ok:false,
-                icon:false,
-                padding:0,
-                content:$(".noteDia").html()
-            });
+            // $.tiziDialog({
+            //     //width:400,
+            //     title:false,
+            //     ok:false,
+            //     icon:false,
+            //     padding:0,
+            //     content:$(".noteDia").html()
+            // });
+            _popUp.popUp('.noteDia');
         })
     }
     //购买前  选开课时间
@@ -147,4 +150,40 @@ define(function(require,exports){
         });
     }
     
+    //我的课程购买之后 列表 课程回顾 背景圆
+    exports.overCourse = function (){
+        console.log($(".outlineList li").length)
+        // for(var i in $(".outlineList li")){
+        //     console.log(i);
+        //     if(i.find(".replay")){
+        //         i.find(".rCon").addClass("rConOver");
+        //     }
+        // }
+
+
+
+        //  liebiao   bj   pj tc doubushi cur----------
+
+
+
+
+
+        for(var i=0;i< $(".outlineList li").length;i++){
+            // if($(".outlineList li").eq(i).find(".replay")){
+            //     $(".outlineList li").eq(i).find(".rCon").addClass("rConOver");
+            // }
+        }
+
+        //鼠标上去 显示 讲义，运笔记，评论星
+        $(".outlineList li").mouseover(function (){
+            $(this).find(".cListHid").show();
+
+            // $(this).find(".starBg").click(function (){               
+            //     _popUp.popUp('.evaluHtml');
+            // })
+            $(".starBg").eq($(".outlineList li").index($(this))).click(function (){               
+                _popUp.popUp('.evaluHtml');
+            })
+        });
+    }
 });
