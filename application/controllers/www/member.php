@@ -8,6 +8,10 @@ class Member extends NH_User_Controller {
         $this->load->model('business/student/student_order');
         $this->load->model('business/student/student_index');
         $this->load->model('business/student/student_course');
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
     }
 
     
@@ -17,7 +21,7 @@ class Member extends NH_User_Controller {
 	public function my_course()
 	{  
         header('content-type: text/html; charset=utf-8');
-        $int_user_id = 1;                                                    #TODO用户id
+        $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
         #头像
         $str_avater = DEFAULT_AVATER;
         #我购买的课程
@@ -39,7 +43,7 @@ class Member extends NH_User_Controller {
 	public function my_order($str_type = 'all')
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
         #头像
         $str_avater = DEFAULT_AVATER;
 
@@ -52,10 +56,12 @@ class Member extends NH_User_Controller {
 	    $this->load->library('pagination');
 	    $int_count  = $this->student_member->get_order_count($int_user_id,$str_type);
 	    $int_start = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+	    $config = config_item('page_student');
 	    $config['base_url'] = '/member/my_order/'.$str_type.'/';
 	    $config['total_rows'] = $int_count;
 	    $config['per_page'] = PER_PAGE_NO;
-	    $config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
+	    //$config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
+	    
 	    $this->pagination->initialize($config);
 	    $show_page = $this->pagination->create_links();
 	    #订单列表
@@ -85,7 +91,7 @@ class Member extends NH_User_Controller {
 	public function order_detail($int_order_id)
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
         #头像
         $str_avater = DEFAULT_AVATER;
 	    
@@ -97,7 +103,7 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=1) #TODO用户id$this->user['id']
+	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }
@@ -129,7 +135,7 @@ class Member extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                           #TODO用户id
 	    #头像
 	    $str_avater = DEFAULT_AVATER;
 	    $int_order_id = intval($int_order_id);
@@ -145,7 +151,7 @@ class Member extends NH_User_Controller {
 	    
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=1) #TODO用户id$this->user['id']
+	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }
@@ -226,7 +232,7 @@ class Member extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判读是否登录
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                               #TODO用户id
 	    $int_order_id = intval($this->input->post('id'));
 	    $str_reason = trim($this->input->post('reason'));
 	    $str_bank = trim($this->input->post('bank'));
@@ -243,7 +249,7 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=1) #TODO用户id$this->user['id']
+	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }
@@ -277,7 +283,7 @@ class Member extends NH_User_Controller {
 	public function my_infor()
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                              #TODO用户id
 	    #头像
 	    $str_avater = DEFAULT_AVATER;
 	    $this->smarty->assign('str_avater', $str_avater);

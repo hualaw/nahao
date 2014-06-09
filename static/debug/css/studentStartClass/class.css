@@ -1,4 +1,6 @@
 .studentStartClass{}
+.studentStartClass .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
+.studentStartClass .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 /*开课成功样式开始*/
 .studentStartClass .startSuccess,
 .studentStartClass .writeInfo{background: #eeeeee;padding:40px 0;text-align: center;color:#0e455e;}
@@ -33,6 +35,9 @@
 .studentStartClass .writeInfo .cookedTime .textInput{width:155px;margin-right:20px;}
 .studentStartClass .writeInfo .cookedTime .underLine{line-height: 30px;}
 .studentStartClass .writeInfo .cookedTime .jqTransformSelectWrapper{margin-left:20px;}
+.studentStartClass .cookedTime .Validform_checktip{display: block;text-align: left;padding-top: 4px;}
+.studentStartClass .cookedTime .timeSecelt .Validform_checktip{padding-left: 30px;}
+.studentStartClass .cookedTime .timeSecelt .Validform_right{margin-left: 26px;}
 /*填写信息样式结束*/
 /*老师弹窗注册样式开始*/
 .regTeacher{width: 443px;border:1px solid #d5d5d5;}

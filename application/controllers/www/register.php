@@ -30,7 +30,7 @@ class register extends NH_Controller
 
 	public function check_phone()
 	{
-		$name = trim($this->input->post('name'));
+		//$name = trim($this->input->post('name'));
 		$param = trim($this->input->post('param'));
 
 		echo parent::json_output($this->business_register->check_phone($param));
@@ -211,5 +211,18 @@ class register extends NH_Controller
     function _check_input($field_name)
     {
         return trim($this->input->post($field_name));
+    }
+    
+    public function check_phones()
+    {
+        $name = trim($this->input->post('name'));
+        $param = trim($this->input->post('param'));
+        $result = $this->business_register->check_phone($param);
+        if($result['status']=='ok') {
+            $arr_return = array('status' => 'y', 'info' => $result['msg']);
+        } else {
+            $arr_return = array('status' => 'n', 'info' => $result['msg']);
+        }
+        self::json_output($arr_return);
     }
 }
