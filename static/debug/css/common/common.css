@@ -20,6 +20,7 @@ a:hover {text-decoration:none;}
 .blueText:hover{text-decoration: underline;color:#6dcde6;}
 .grayText{color: #a3adb7;}
 .yh{font-family: "微软雅黑";font-weight: normal;}
+.cInput{border: 1px solid #a2a2a2;padding: 0 10px;font-size: 14px;height: 30px;}
 .undis{display: none;}
 .dis{display: block;}
 .undisIm{display:none!important;}
@@ -29,8 +30,8 @@ a:hover {text-decoration:none;}
 .greenText{color:#7ba801!important;}
 
 /*input{padding: 0 10px;font-size: 14px;height: 30px;}   /*   回头看一下 这个border会不会对以前的有影响*/*/
-/*textarea{padding: 10px 20px;font-size: 14px;}*/
-/*select{font-size: 16px;height: 32px;height: 30px;}*/
+.ctextarea{padding: 10px 20px;font-size: 14px;}
+.cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
 /*form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}*/

@@ -21,7 +21,6 @@ seajs.use('jquery', function () {
     seajs.use('module/nahaoCommon/init');
     // 得到当前页面是哪个
     var _page = $('#nahaoModule').attr('module');
-<<<<<<< HEAD
 
     seajs.use("module/"+_page+"/init");
 //    switch (_page) {
@@ -104,9 +103,8 @@ seajs.use('jquery', function () {
 //            break;
 //    }
 
-=======
+
     seajs.use("module/"+_page+"/init");
->>>>>>> 9531935e1b63f78903868e9213dc3174ba7425a4
     switch (_page) {
         // 模块是学生首页
         case 'studentHomePage':
@@ -187,8 +185,4 @@ seajs.use('jquery', function () {
             seajs.use("module/adminQuestion/init");
             break;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 9531935e1b63f78903868e9213dc3174ba7425a4
 })
