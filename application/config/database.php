@@ -45,8 +45,8 @@
 | the active record class
 */
 
-//$active_group = 'default';
 $active_group = 'default';
+//$active_group = 'localhost';
 $active_record = TRUE;
 
 //$db['default']['hostname'] = '192.168.11.75';//host for mysqli
@@ -65,9 +65,8 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
 #jason song localhost
-/* $db['localhost']['hostname'] = 'mysql:host=127.0.0.1';//host for pdo
+$db['localhost']['hostname'] = 'mysql:host=127.0.0.1';//host for pdo
 $db['localhost']['username'] = 'root';
 $db['localhost']['password'] = '123456';
 $db['localhost']['database'] = 'nahao';
@@ -81,7 +80,6 @@ $db['localhost']['char_set'] = 'utf8';
 $db['localhost']['dbcollat'] = 'utf8_general_ci';
 $db['localhost']['swap_pre'] = '';
 $db['localhost']['autoinit'] = TRUE;
-$db['localhost']['stricton'] = FALSE; */
-
+$db['localhost']['stricton'] = FALSE;
 /* End of file database.php */
 /* Location: ./application/config/database.php */

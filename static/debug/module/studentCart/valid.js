@@ -51,22 +51,22 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".inname",
-                datatype:"*2-20",
+                datatype:"*2-15",
                 nullmsg:"请输入真实姓名",
-                errormsg:"长度2-20个字符"
+                errormsg:"长度2-15个字符"
             },
             {
                 ele:".inPhone",
                 datatype:"*",
                 ajaxurl:siteUrl + "register/check_phones",
                 nullmsg:"请输入手机号",
-                errormsg:""
+                errormsg:"手机号输入错误"
             } ,
             {
                 ele:".inPhoneCode",
-                datatype:"*",
-                nullmsg:"请输入手机验证码",
-                errormsg:"请输入正确的验证码"
+                datatype: "/^\\d{4}$/",
+                nullmsg: "请输入手机验证码",
+                errormsg: "手机验证码输入错误"
             }           
         ]);
     }

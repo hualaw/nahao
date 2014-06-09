@@ -15,14 +15,7 @@ class Index extends NH_User_Controller {
         header('content-type: text/html; charset=utf-8');
         //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
-        if($this->is_login)
-        {
-            $show_nickname = $this->session->userdata('nickname');
-            $show_nickname_len = strlen($show_nickname);
-            if($show_nickname_len > 3*MAX_NICKNAME_LEN)
-            $show_nickname = substr($show_nickname, 0 , 3*MAX_NICKNAME_LEN)."...";
-            $this->smarty->assign('nickname', $show_nickname);
-        }
+
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
