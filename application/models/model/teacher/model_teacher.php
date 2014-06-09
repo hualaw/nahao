@@ -247,19 +247,16 @@ class Model_Teacher extends NH_Model{
      **/
      public function question_manager($param){
      	if(!$param['do']){exit("缺少操作参数");}
-     	$param['question'] = addslashes($param['question']);
-     	$param['answer'] = addslashes($param['answer']);
-     	$param['options'] = addslashes($param['options']);
-     	$param['analysis'] = addslashes($param['analysis']);
      	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
      			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
 						VALUES('".$param['question']."','".$param['answer']."','".$param['options']."',".$param['type'].",'".$param['analysis']."')";
-     			$id = $this->db->query($sql)->insert_id();
+     			$res= $this->db->query($sql);
+     			$id = $this->db->insert_id();
      			if($id){
-     				$sql = "REPLACE INTO nahao.question_class_relation(id,class_id,question_id,question_class_relation.status,sequence) 
-							VALUES(".$param['id'].",".$param['class_id'].",".$param['question_id'].",".$param['status'].",".$param['sequence'].")";
+     				$sql = "REPLACE INTO nahao.question_class_relation(class_id,question_id,question_class_relation.status,sequence) 
+							VALUES(".$id.",".$param['question_id'].",".$param['status'].",".$param['sequence'].")";
      				$res = $this->db->query($sql);
      			}
      			break;
@@ -290,7 +287,7 @@ class Model_Teacher extends NH_Model{
      				}
      			}
      	}
-     	return $this->db->query($sql);
+     	return $res;
      }
     
      /**
