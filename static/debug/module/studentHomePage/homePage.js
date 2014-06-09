@@ -1,11 +1,11 @@
 define(function(require,exports){
+	
+	//首页页面我的课程跳转
 	exports.skip = function (){
-		var aHref = [];
-		for(var i=0;i<aHref.length;i++){
-			$(".courseList .rotateBox").eq(i).click(function (){
-				var _index = $(".courseList .rotateBox").index($(this));
-				window.open(aHref[_index]);
-			})
-		}		
+		$(".courseBox").on("click", '.rotateBox', function () {
+			var url = $(this).data('action');
+			window.open(url);
+		});		
 	}
+	
 })
