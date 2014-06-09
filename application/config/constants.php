@@ -246,7 +246,7 @@ define('REG_CHECK_NICKNAME_SUCCESS',15);
 
 //过期时间
 
-define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
+define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应该改为5分钟
 //define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
 
 //phone_server连接

@@ -76,6 +76,7 @@ class NH_Controller extends CI_Controller
         $bool_return = false;
 
         //$this->session->sess_read();
+        log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
         if($this->session->userdata('user_id') > 0)
             $bool_return = true;
 
@@ -85,8 +86,10 @@ class NH_Controller extends CI_Controller
 
     protected function assign_nickname()
     {
+        log_message("debug_nahao", "IN ".__FUNCTION__." funtion, out of if()");
         if($this->is_login)
         {
+            log_message("debug_nahao", "IN ".__FUNCTION__." funtion, in if()");
             $show_nickname = $this->session->userdata('nickname');
             $show_nickname_len = strlen($show_nickname);
             if($show_nickname_len > 3*MAX_NICKNAME_LEN)
