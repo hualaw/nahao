@@ -113,14 +113,24 @@ class Teacher extends NH_Admin_Controller {
         $config_bank=config_item('bank');
         $this->load->model('business/admin/business_lecture');
         $province=$this->business_lecture->all_province();
-        $province_id=$this->input->post('province',TRUE);
-        $city=$this->teacher->city1($province_id);
+//        $province_id=$this->input->post('province',TRUE);
+//        $city=$this->teacher->city1($province_id);
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
         $this->smarty->assign('province',$province);
         $this->smarty->assign('subject',$subject);
         $this->smarty->assign('view','insert_teacher');
         $this->smarty->display('admin/layout.html');
+    }
+    /**
+     * 验证添加教师表单
+     * @aurhor shangshikai@tizi.com
+    **/
+    public function check_techer_post()
+    {
+        $post=$this->input->post(NULL,TRUE);
+        $this->teacher->check_post($post);
+       // var_dump($post);
     }
     /**
      * 根据省id查找市
@@ -155,10 +165,38 @@ class Teacher extends NH_Admin_Controller {
     /**
      * teacher账户启用
      * @author shangshikai@tizi.com
-     */
+    */
     public function open_account(){
         $arr=$this->input->post('arr',TRUE);
        // echo $this->teacher->close_ban($arr);
         self::json_output($this->teacher->open_ban($arr));
+    }
+    /**
+     * 昵称是否存在
+     * @author shangshikai@tizi.com
+    */
+    public function nickname()
+    {
+        $nickname=$this->input->post('nickname',TRUE);
+        $c=$this->teacher->check_nick_name($nickname);
+        self::json_output($c['id']);
+    }
+    /**
+     * 电话是否存在
+     * @author shangshikai@tizi.com
+     */
+    public function check_phone()
+    {
+        $phone=$this->input->post('phone');
+        self::json_output($this->teacher->check_mobile_phone($phone));
+    }
+    /**
+     * 邮箱是否存在
+     * @author shangshikai@tizi.com
+     */
+    public function check_email()
+    {
+        $email=$this->input->post('email');
+        self::json_output($this->teacher->check_email_tec($email));
     }
 }

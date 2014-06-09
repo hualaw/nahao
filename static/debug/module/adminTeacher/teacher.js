@@ -85,7 +85,21 @@ define(function(require,exports){
                 }
                 else
                 {
-                    $('#span_nickname').hide();
+                    $.ajax({
+                        type:"post",
+                        url:"/teacher/nickname",
+                        data:"nickname="+$('#nickname').val(),
+                        success:function(msg){
+                            if(msg>0)
+                            {
+                                $('#span_nickname').show().css('color','red').html('昵称已存在');
+                            }
+                            else
+                            {
+                                $('#span_nickname').hide();
+                            }
+                        }
+                    })
                 }
             })
 
@@ -168,10 +182,13 @@ define(function(require,exports){
                         data:"city="+$('#city').val(),
                         dataType:"json",
                         success:function(msg){
-                            //alert(34);
+                            if(msg=="")
+                            {
+                                $('#area').hide();
+                            }
                             var area=eval(msg);
                             $.each(area,function(index,d){
-                                $('#area').append("<option value="+d.id+">"+d.name+"</option>");
+                                $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
                         }
                     })
@@ -185,10 +202,15 @@ define(function(require,exports){
                 data:"province="+$('#province').val(),
                 dataType:"json",
                 success:function(msg){
+                    if(msg=="")
+                    {
+                        $('#city').hide();
+                        $('#area').hide();
+                    }
                     $('#city').empty();
                     var city=eval(msg);
                     $.each(city,function(index,d){
-                        $('#city').append("<option value="+d.id+">"+d.name+"</option>");
+                        $('#city').show().append("<option value="+d.id+">"+d.name+"</option>");
                     })
                     $.ajax({
                         type:"post",
@@ -196,10 +218,14 @@ define(function(require,exports){
                         data:"city="+$('#city').val(),
                         dataType:"json",
                         success:function(msg){
+                            if(msg=="")
+                            {
+                               $('#area').hide();
+                            }
                             $('#area').empty();
                             var area=eval(msg);
                             $.each(area,function(index,d){
-                                $('#area').append("<option value="+d.id+">"+d.name+"</option>");
+                                $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
                         }
                     })
@@ -223,5 +249,65 @@ define(function(require,exports){
                 }
             })
         })
+
+        $('#phone').blur(function(){
+            if($.trim($('#phone').val())=="")
+            {
+                $('#span_phone').show().css('color','red').html("电话不能为空");
+            }
+            else
+            {
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/check_phone",
+                    data:"phone="+$('#phone').val(),
+                    success:function(msg){
+                        if(msg==1)
+                        {
+                            $('#span_phone').show().css('color','red').html("这不是一个合法的手机号");
+                        }
+                        else if(msg==2)
+                        {
+                            $('#span_phone').show().css('color','red').html("手机号已存在");
+                        }
+                        else
+                        {
+                            $('#span_phone').hide();
+                        }
+                    }
+                })
+            }
+        })
+
+
+        $('#email').blur(function(){
+            if($.trim($('#email').val())=="")
+            {
+                $('#span_email').show().css('color','red').html("邮箱不能为空");
+            }
+            else
+            {
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/check_email",
+                    data:"email="+$('#email').val(),
+                    success:function(msg){
+                        if(msg=="no")
+                        {
+                            $('#span_email').show().css('color','red').html("这不是一个合法的邮箱");
+                        }
+                        else if(msg>0)
+                        {
+                            $('#span_email').show().css('color','red').html("邮箱已存在");
+                        }
+                        else
+                        {
+                            $('#span_email').hide();
+                        }
+                    }
+                })
+            }
+        })
+
     }
 })

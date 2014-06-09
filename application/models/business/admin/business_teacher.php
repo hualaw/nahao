@@ -227,7 +227,26 @@ class Business_Teacher extends NH_Model
      */
     public function city1($province)
     {
-        return $this->model_user->city2($province);
+        if($province==2)
+        {
+            return $this->model_user->city2(52);
+        }
+        elseif($province==25)
+        {
+            return $this->model_user->city2(321);
+        }
+        elseif($province==27)
+        {
+            return $this->model_user->city2(343);
+        }
+        elseif($province==32)
+        {
+            return $this->model_user->city2(394);
+        }
+        else
+        {
+            return $this->model_user->city2($province);
+        }
     }
     /**
      * 根据市ID获取区
@@ -236,6 +255,42 @@ class Business_Teacher extends NH_Model
     public function area1($city)
     {
         return $this->model_user->area2($city);
+    }
+    /**
+     * 昵称是否存在
+     * @author shangshikai@tizi.com
+     */
+    public function check_nick_name($nickname)
+    {
+        return $this->model_user->check_nick($nickname);
+    }
+    /**
+     * 电话是否合法
+     * @author shangshikai@tizi.com
+     */
+    public function check_mobile_phone($phone)
+    {
+        return $this->model_user->check_tel($phone);
+    }
+    /**
+     * 邮箱是否合法
+     * @author shangshikai@tizi.com
+     */
+    public function check_email_tec($email)
+    {
+        return $this->model_user->check_tec_email($email);
+    }
+    /**
+     * 验证教师表单
+     * @author shangshikai@tizi.com
+     */
+    public function check_post($post)
+    {
+        //var_dump($post);
+        if($post['nickname']=="" || $post['password']=="" || $post['school']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="")
+        {
+            redirect("/teacher/create");
+        }
     }
     /**
      * 根据id取teacher
