@@ -17,10 +17,12 @@ class NH_User_Controller extends NH_Controller
         parent::__construct();
         $this->load->model('business/common/business_user');
         $this->_load_user_detail();
+        $this->smarty->assign('user_detail', $this->_user_detail);
     }
     
     /**
      * 加载用户的详细信息
+     * @author yanhj
      */
     protected function _load_user_detail()
     {

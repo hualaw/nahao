@@ -18,14 +18,14 @@
         <div class="md_bd">
             <!--个人信息验证开始-->
             <h2 class="personTip">请填写以下基本信息，以便学生更好的了解您并利于学生选课。我们会对您的信息进行严格保密，请放心填写！</h2>
-            <form action="" mothed="post" onsubmit="return false" class="teaInfoForm" name="teaInfoForm">
+            <form action="teacher.nahaodev.com/selfInfo/index" method="POST" class="teaInfoForm" name="teaInfoForm">
                 <ul class="Oul">
                     <li class="cf">
                         <em>*</em>
                         <p class="fl">用户昵称</p>
                         <!--用户昵称开始-->
                         <div class="cf">
-                            <input type="text" name="userName" class="fl textInput userName" validName="text"/>
+                            <input type="text" name="userName" class="fl textInput userName" validName="text" value="{$user_detail.nickname}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--用户昵称结束-->
@@ -35,7 +35,7 @@
                         <p class="fl">真实姓名</p>
                         <!--真实姓名开始-->
                         <div class="cf">
-                            <input type="text" name="userRealName" class="fl textInput userRealName" validName="text">
+                            <input type="text" name="userRealName" class="fl textInput userRealName" validName="text" value="{$user_detail.realname}">
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--真实姓名结束-->
@@ -46,12 +46,10 @@
                         <!--教学阶段开始-->
                         <div class="cf">
                             <div class="fl">
-                                <input type="checkbox" name="level" id="high" class="fl radioInput level" validName="checkbox" />
-                                    <label for="high" class="fl">高中</label>
-                                <input type="checkbox" name="level" id="middle" class="fl radioInput level" validName="checkbox" />
-                                    <label for="middle" class="fl">初中</label>
-                                <input type="checkbox" name="level" id="small" class="fl radioInput level" validName="checkbox" />
-                                    <label for="small" class="fl">小学</label>
+                                {foreach $stages as $key => $val}
+                                <input type="radio" name="level" id="high" class="fl radioInput level" validName="radio" value="{$key}" {if $key == $user_detail.stage} checked{/if}/>
+                                    <label for="high" class="fl">{$val}</label>
+                                {/foreach}
                             </div>
                             <span class="Validform_checktip fl"></span>
                         </div>
@@ -62,7 +60,7 @@
                         <p class="fl">所在学校</p>
                         <!--所在学校开始-->
                         <div class="cf">
-                            <input type="text" name="school" class="fl textInput school" validName="text" />
+                            <input type="text" name="school" class="fl textInput school" validName="text"  value="{$school}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--所在学校结束-->
@@ -76,8 +74,9 @@
                                 <div>
                                     <select name="subject" id="subject" class="fl subject"  validName="select">
                                         <option value="">请选择教学科目</option>
-                                        <option value="1">数学</option>
-                                        <option value="2">语文</option>
+                                        {foreach $subjects as $key => $val}
+                                        <option value="{$key}" {if in_array($key, $user_detail.teacher_subject)}selected{/if}>{$val}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -94,8 +93,9 @@
                                 <div>
                                     <select name="rank" id="rank" class="fl rank"  validName="select">
                                         <option value="">请选择职称</option>
-                                        <option value="1">数学</option>
-                                        <option value="2">语文</option>
+                                        {foreach $titles as $key => $val}
+                                        <option value="{$key}" {if $key == $user_detail.title}selected{/if}>{$val}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -109,10 +109,10 @@
                         <!--用户性别开始-->
                         <div class="cf">
                             <div class="fl">
-                                <input type="radio" name="sex" value="male" class="radioInput sex fl" validName="radio" id="male"/>
-                                <label for="male" class="fl">男</label>
-                                <input type="radio" name="sex" value="female" class="radioInput sex fl" validName="radio" id="female"/>
-                                <label for="female" class="fl">女</label>
+                                {foreach $gender as $key => $val}
+                                <input type="radio" name="sex" value="{if $key == 1}male{elseif $key == 2}female{/if}" {if $key == $user_detail.gender}checked{/if} class="radioInput sex fl" validName="radio" id="{if $key == 1}male{elseif $key == 2}female{/if}"/>
+                                <label for="{if $key == 1}male{elseif $key == 2}female{/if}" class="fl">{$val}</label>
+                                {/foreach}
                             </div>
                             <span class="Validform_checktip fl"></span>
                         </div>
@@ -188,7 +188,7 @@
                         <p class="fl">手机号码</p>
                         <!--手机号码开始-->
                         <div class="cf">
-                            <input type="text" name="phone" class="fl textInput phone" validName="text" />
+                            <input type="text" name="phone" class="fl textInput phone" validName="text" value="{$user_detail.phone_mask}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--手机号码结束-->
@@ -199,14 +199,14 @@
                         <p class="fl">常用邮箱</p>
                         <!--常用邮箱开始-->
                         <div class="cf">
-                            <input type="text" name="email" class="fl textInput email" validName="text" />
+                            <input type="text" name="email" class="fl textInput email" validName="text" value="{$user_detail.email}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--常用邮箱结束-->
                     </li>
                     <li class="cf">
                         <p class="fl">个人简介</p>
-                        <textarea class="fl textArea brief" name="brief"></textarea>
+                        <textarea class="fl textArea brief" name="brief">{$user_detail.teacher_intro}</textarea>
                     </li>
                     <li class="cf">
                         <p class="fl">资质证明<b class="verfyTip">（请至少上传一种资质证明，教师资格证必须上传）</b></p>
@@ -247,8 +247,10 @@
                                 <div>
                                     <select name="bankType" id="bankType" validName="select" class="bankType">
                                         <option value="">请选择银行</option>
-                                        <option value="1">一年级</option>
-                                        <option value="2">二年级</option>
+                                        {foreach $banks as $key => $val}
+                                        <option value="{$key}">{$val}</option>
+                                        {/foreach}
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -257,7 +259,7 @@
                         <!--结算银行结束-->
                         <!--结算银行名字开始-->
                         <div class="fl">
-                            <input type="text" name="bank" class="fl textInput bank" validName="text" />
+                            <input type="text" name="bank" class="fl textInput bank" validName="text" value="{$user_detail.bankname}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--结算银行名字结束-->
@@ -267,7 +269,7 @@
                         <p class="fl">银行卡帐号</p>
                         <!--银行卡帐号开始-->
                         <div class="cf">
-                            <input type="text" name="bankId" class="fl textInput bankId" validName="text" />
+                            <input type="text" name="bankId" class="fl textInput bankId" validName="text" value="{$user_detail.bankcard}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--银行卡帐号结束-->
@@ -277,7 +279,7 @@
                         <p class="fl">身份证号</p>
                         <!--身份证号开始-->
                         <div class="cf">
-                            <input type="text" name="cardId" class="fl textInput cardId" validName="text" />
+                            <input type="text" name="cardId" class="fl textInput cardId" validName="text" value="{$user_detail.id_code}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--身份证号结束-->
