@@ -293,6 +293,8 @@ define('NH_COURSE_IMG_SMALL_WIDTH',66);
 define('MIN_NICKNAME_LEN', 4);
 define('MAX_NICKNAME_LEN', 21);
 
+//教龄上限
+define('TEACHER_AGE_CEILING', 50);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
