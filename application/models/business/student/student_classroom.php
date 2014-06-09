@@ -5,8 +5,8 @@ class Student_Classroom extends NH_Model{
     function __construct(){
         parent::__construct();
         $this->load->model('model/student/model_classroom');
-        $this->load->model('model/common/model_redis', 'redis');
-        $this->redis->connect('student_answer');
+/*         $this->load->model('model/common/model_redis', 'redis');
+        $this->redis->connect('student_answer'); */
         
     }
     
