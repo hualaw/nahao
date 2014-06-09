@@ -55,7 +55,3 @@ $config['page_student']['cur_tag_open']     =   '<a class="active" >';
 $config['page_student']['cur_tag_close']    =   '</a>';
 $config['page_student']['prev_link']        =   '上一页';
 $config['page_student']['next_link']        =   '下一页';
-$config['page_student']['next_tag_open'] = '<a class="next" >';
-$config['page_student']['next_tag_close'] = '</a>';
-$config['page_student']['prev_tag_open'] = '<a class="prev" >';
-$config['page_student']['prev_tag_close'] = '</a>';
