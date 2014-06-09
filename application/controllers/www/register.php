@@ -74,8 +74,8 @@ class register extends NH_Controller
 		$msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
 		$this->sms->setContent($msg);
         $create_time = time();
-		//$send_ret = $this->sms->send();
-        $send_ret['error'] = 'Ok';
+		$send_ret = $this->sms->send();
+        //$send_ret['error'] = 'Ok';
 
 		$info = array(  'phone' => $phone,
 						'verify_code'=>$verify_code,
