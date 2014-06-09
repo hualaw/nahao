@@ -8,8 +8,9 @@ define(function (require, exports) {
 	//初始程序
 	exports.autorun = function(){
 		$(function () {
-			$("#myTab a:first").tab('show');
-//			$('#myTab a:first').tab('show');
+			curtab = $("#myTab").attr('rel');
+			$('#myTab a[href="#'+curtab+'"]').tab('show');
+//			$('#myTab a[href="#profile"]').tab('show')
 		});
 	}
 	//加载编辑器

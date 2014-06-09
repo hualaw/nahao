@@ -15,7 +15,7 @@ class Model_Question extends NH_Model
 		$where = ' WHERE 1';
 		$where .= $param['question_id'] ? ' AND qlr.question_id='.$param['question_id'] : '';
 		$where .= $param['lesson_id'] ? ' AND qlr.lesson_id='.$param['lesson_id'] : '';
-		$column = 'q.*';
+		$column = 'q.*,qlr.lesson_id ';
 		#2. 生成sql
         $this->db->query("set names utf8");
         

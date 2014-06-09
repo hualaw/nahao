@@ -46,20 +46,13 @@ float:left;
 }
 </style>
 <ul class="nav nav-tabs" id="myTab" rel="{$data['tab']}">
-	<li class="active"><a href="#question_list" data-toggle="tab">题目列表</a></li>
-<!--	<li><a href="#profile" data-toggle="tab">操作</a></li>-->
-	<li class="dropdown">
-		<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">操作 <b class="caret"></b></a>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-			<li><a href="#question_add" tabindex="-1" data-toggle="tab">添加题目</a></li>
-			<li class="hide"><a href="#question_edit" tabindex="-1" data-toggle="tab">修改题目</a></li>	
-		</ul>
-	</li>
+	<li {if $data['tab']=="question_list"}class="active"{/if}><a href="#question_list" data-toggle="tab">题目列表</a></li>
+	<li {if $data['tab']=="question_add"}class="active"{/if}><a href="#question_add" data-toggle="tab">添加题目</a></li>
 </ul>
 
 <div class="tab-content">
   	<!--题目列表-->
-	<div class="tab-pane fade in active" id="question_list">
+	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_list">
 		<blockquote class="quoteback">
 		  <p>课节（id{$data['lesson_info']['id']}）的所有题目，共：<span class="badge">9</span>道题目</p>
 		</blockquote>
@@ -92,7 +85,7 @@ float:left;
 	</div>
 	<!--题目列表end-->
 	<!--添加题目-->
-	<div class="tab-pane fade" id="question_add">
+	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_add">
 		<blockquote class="quoteback">
 		  <p>为课节（id{$data['lesson_info']['id']}）添加新题。当前已有<code>9</code>道题目</p>
 		</blockquote>
@@ -123,8 +116,8 @@ float:left;
 					      	<input type="checkbox" name="answer[]" value="E"> E&nbsp;
 					    </label>
 					    <div class="pick_span">
-								<span><a class="btn btn-success btn-mini option-add">增加选项</a></span>
-								<span><a class="btn btn-success btn-mini option-remove">减少选项</a></span>
+								<span><a class="btn btn-success btn-mini option-add"><i class="glyphicon glyphicon-plus"></i> 增加选项</a></span>
+								<span><a class="btn btn-success btn-mini option-remove"><i class="glyphicon glyphicon-minus"></i> 减少选项</a></span>
 							 </div>
 			        </div>
 			    </div>

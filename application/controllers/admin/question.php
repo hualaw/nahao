@@ -41,6 +41,7 @@ class Question extends NH_Admin_Controller {
      * 课节提交添题
      */
     public function lesson_add(){
+    	header('Content-Type:text/html;CHARSET=utf-8');
     	$param['lesson_id'] = $this->input->post('lesson_id');
     	if(!$param['lesson_id']){
     		echo '<script>alert("缺少必要参数");window.history.go(-1);</script>';
@@ -55,11 +56,13 @@ class Question extends NH_Admin_Controller {
     	$param['E'] = $this->input->post('E');
     	$param['do'] = 'add';//这个别忘了
     	$res = $this->business_question->lesson_question_doWrite($param);
+    	
     	if($res){
-			echo '<script>alert("添加成功");window.location.href="/question/lesson_question/'.$param['question'].'";</script>';
+			echo '<script>alert("添加成功");if(confirm("是否继续添加？")){window.location.href="/question/lesson_question/'.$param['lesson_id'].'/?tag=question_add";}else{window.location.href="/question/lesson_question/'.$param['lesson_id'].'"};</script>';
 		}else{
 			echo '<script>alert("添加失败");window.history.go(-1);</script>';
 		}
+		exit;
     }
     
     /**
