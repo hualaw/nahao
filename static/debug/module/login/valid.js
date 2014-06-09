@@ -172,9 +172,9 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                if(json.status == 'ok'){
-                    // 登陆成功后跳转到首页
-                    window.location=siteUrl;
+                if(data.status == 'ok'){
+                    // 登陆成功后跳转到跳转页
+                    window.location=data.data.redirect_url;
                 }else{
                     $.dialog({
                         content:json.msg
