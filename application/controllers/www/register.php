@@ -74,8 +74,8 @@ class register extends NH_Controller
 		$msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
 		$this->sms->setContent($msg);
         $create_time = time();
-		//$send_ret = $this->sms->send();
-        $send_ret['error'] = 'Ok';
+		$send_ret = $this->sms->send();
+        //$send_ret['error'] = 'Ok';
 
 		$info = array(  'phone' => $phone,
 						'verify_code'=>$verify_code,
@@ -211,5 +211,18 @@ class register extends NH_Controller
     function _check_input($field_name)
     {
         return trim($this->input->post($field_name));
+    }
+    
+    public function check_phones()
+    {
+        $name = trim($this->input->post('name'));
+        $param = trim($this->input->post('param'));
+        $result = $this->business_register->check_phone($param);
+        if($result['status']=='ok') {
+            $arr_return = array('status' => 'y', 'info' => $result['msg']);
+        } else {
+            $arr_return = array('status' => 'n', 'info' => $result['msg']);
+        }
+        self::json_output($arr_return);
     }
 }

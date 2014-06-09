@@ -77,18 +77,22 @@ define(function(require,exports){
     //购买前--点击立即购买
     exports.soon_buy = function (){
         $("#soon_buy").click(function (){
-            var url = '/pay/before_product/';
+            var url = '/course/before_check_order/';
             var data = {
             	product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "order_exist") {
-                    //window.location.reload();
                 	alert(response.msg);
+                	window.location.href="/member/my_order/all";
                 } else if(response.status == "order_buy"){
                 	alert(response.msg);
                 } else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
+                } else if(response.status == 'no_login'){
+                	seajs.use('module/nahaoCommon/commonLogin',function(_c){
+                		_c.cLogin();
+                	});
                 }
             }, "json");
         })
@@ -97,18 +101,22 @@ define(function(require,exports){
     //购买前下面--点击购买课程
     exports.soon_buy_xia = function (){
         $("#soon_buy_xia").click(function (){
-            var url = '/pay/before_product/';
+            var url = '/course/before_check_order/';
             var data = {
             	product_id: $('#product_id_xia').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "order_exist") {
-                    //window.location.reload();
                 	alert(response.msg);
+                	window.location.href="/member/my_order/all";
                 } else if(response.status == "order_buy"){
                 	alert(response.msg);
                 }else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
+                }else if(response.status == 'no_login'){
+                	seajs.use('module/nahaoCommon/commonLogin',function(_c){
+                		_c.cLogin();
+                	});
                 }
             }, "json");
         })
