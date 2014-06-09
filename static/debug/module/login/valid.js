@@ -57,13 +57,13 @@ define(function(require,exports){
                 ele: ".phoneNum",
                 datatype:"m",
                 ajaxurl:siteUrl + "register/check_phone",
-                nullmsg:"请输入手机号/邮箱/梯子网帐号",
+                nullmsg:"请输入手机号",
                 errormsg:"手机号输入错误"
                 
             },
             {   
                  ele:".pwd",
-                 datatype: "s6-20",
+                 datatype: "*6-20",
                  nullmsg: "请输入密码",
                  errormsg: "密码输入错误"
             },
@@ -105,13 +105,13 @@ define(function(require,exports){
         });
         _Form.addRule([{
                 ele: ".email",
-                datatype:"e",
-                nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"手机号输入错误"
+                datatype:"e6-30",
+                nullmsg:"请输入邮箱地址",
+                errormsg:"长度6-30个字符"
             },
             {   
                  ele:".pwd",
-                 datatype: "*6-16",
+                 datatype: "*6-20",
                  nullmsg: "请输入密码",
                  errormsg: "密码输入错误"
             },
@@ -187,13 +187,13 @@ define(function(require,exports){
                 ele: ".userName",
                 datatype:"*",
                 nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"请输入正确的手机号"
+                errormsg:"长度2-15个字符"
             },
             {	
                	 ele:".pwd",
-               	 datatype: "*",
-     		  	 nullmsg: "请输入密码",
-       			 errormsg: "密码输入错误"
+                 datatype: "*6-20",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
 
             }
             
@@ -224,15 +224,15 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".lEmail",
-                datatype: "e",
+                datatype: "e6-30",
                 nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址"
+                errormsg: "长度6-30个字符"
             },
             {    
                 ele: ".lname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
 
             },
             {    
@@ -251,9 +251,9 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -299,10 +299,10 @@ define(function(require,exports){
             },
             {
                 ele: ".inputPhoneCode",
-                datatype:"/^\\d{6}$/",
-                datatype_allownull:"/^\\d{6}$/ | /^\\w{0}$/",
+                datatype:"/^\\d{4}$/",
+                datatype_allownull:"/^\\d{4}$/ | /^\\w{0}$/",
                 nullmsg:"请输入验证码",
-                errormsg:"验证码长度是6位"
+                errormsg:"验证码长度是4位"
             }       
         ]);
     }
@@ -330,9 +330,9 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".inputEmail",
-                datatype:"e",
+                datatype:"e6-30",
                 nullmsg:"请输入邮箱",
-                errormsg:"请输入正确的邮箱",
+                errormsg:"长度6-30个字符",
                 ajaxurl:'/login/check_user_email'
             }        
         ]);
@@ -362,15 +362,15 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".lEmail",
-                datatype: "e",
+                datatype: "e6-30",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "请输入正确的邮箱地址"
             },
             {    
                 ele: ".lname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
 
             },
             {    
@@ -389,9 +389,9 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -428,13 +428,13 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".setPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"新密码不能为空",
                 errormsg:"长度6-16个字符之间"
             },
             {
                 ele:".reSetPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 recheck:"setPassword",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
