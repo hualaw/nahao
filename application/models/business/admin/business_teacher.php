@@ -287,10 +287,24 @@ class Business_Teacher extends NH_Model
     public function check_post($post)
     {
         //var_dump($post);
-        if($post['nickname']=="" || $post['password']=="" || $post['school']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="")
-        {
-            redirect("/teacher/create");
+        $post['nickname']=trim($post['nickname']);
+        $post['password']=trim($post['password']);
+        $post['school']=trim($post['school']);
+        $post['basic_reward']=trim($post['basic_reward']);
+        $post['phone_mask']=trim($post['phone_mask']);
+        $post['email']=trim($post['email']);
+
+        $preg = "/[\x{4e00}-\x{9fa5}]/u";
+        if(preg_match_all($preg,$post['nickname'],$matches)){
+            //print_r($matches[0]);
+            $zn_count=count($matches[0]);
         }
+        $preg2 = "/[^\x{4e00}-\x{9fa5}]/iu";
+        if(preg_match_all($preg2,$post['nickname'],$matches)){
+            //print_r($matches[0]);
+            $nozn_count=count($matches[0]);
+        }
+        echo $zn_count+$nozn_count;
     }
     /**
      * 根据id取teacher
