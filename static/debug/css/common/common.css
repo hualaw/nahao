@@ -36,7 +36,7 @@ a:hover {text-decoration:none;}
 /*form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}*/
 form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 
-form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;}
+form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;width: 33px;height: 33px;top: -1px;right: -1px;}
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
 /* phone+ cart*/
 .cartBg{background: url(../../images/common/cart.png) no-repeat;_background-image: url(../../images/common/cart_8.png);height: 24px;}
