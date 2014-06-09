@@ -76,13 +76,13 @@
 .studentMyCourse .myOrderCon .tabh li{cursor:pointer;width: 152px;height: 48px;line-height: 48px;border: 1px solid #dadada;float: left;text-align: center;border-left: none;border-top: none;}
 .studentMyCourse .myOrderCon .orderComBox,
 .studentMyCourse .inforTab{border: 1px solid #dadada;background: #fff;}
-.studentMyCourse .myOrderCon .tabh li.onRBor{border-right: none;width: 154px;}
+.studentMyCourse .myOrderCon .tabh li:last-child{border-right: none;width: 154px;}
 .studentMyCourse .myOrderCon .tabh li span{margin-left: 8px;}
 .studentMyCourse .myOrderCon .tabh li.tabhOn{height:49px;background: #fff;border-bottom: none;font-weight: bold;color: #f14211;}
 .studentMyCourse .myOrderCon .tabCon{background: #fff;}
 .studentMyCourse .myOrderCon .tabh li.norbor{width: 154px;border-right: none;}
 .studentMyCourse .tabBox thead{line-height: 46px;}
-.studentMyCourse .tabBox tr strong{font-size: 18px;}
+.studentMyCourse .tabBox tr strong{font-size: 18px;width: 120px;height: 120px;border: 1px solid #fff;border-radius: 60px;line-height: 120px;text-align: center;display: inline-block;}
 .studentMyCourse .orderName{color:#585858;font-weight: bold;}
 .studentMyCourse .nopayment .redText{font-weight: bold;}
 .studentMyCourse .cancle .state{color:#999898;}

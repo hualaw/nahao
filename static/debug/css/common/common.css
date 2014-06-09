@@ -117,13 +117,17 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 
 /*全站分页代码样式开始*/
 .page {margin:10px 0px; line-height:30px;}
-.page a{height: 38px;line-height: 38px;padding: 0 15px;font-size: 16px;color: #4b4b4b;margin-right: 3px;display: inline-block;background: #fff;}
-.page a.prev{padding: 0 0 0 36px;background: #6dcde6 url(../../images/common/prevArrow.png) 18px center no-repeat;}
-.page a.next{text-align:right;padding: 0 36px 0 0;background: #6dcde6 url(../../images/common/nextArrow.png) 76px center no-repeat;}
-.page a.prev,
-.page a.next{width: 66px;color: #fff;}
+.page a{float:left;height: 38px;line-height: 38px;padding: 0 15px;font-size: 16px;color: #4b4b4b;margin-right: 3px;background: #fff;}
+.page .prev{padding: 0 0 0 36px;background: #6dcde6 url(../../images/common/prevArrow.png) 18px center no-repeat;margin-right: 9px;}
+.page .next{text-align:right;padding: 0 36px 0 0;background: #6dcde6 url(../../images/common/nextArrow.png) 76px center no-repeat;margin-left: 9px;}
+.page .prev,
+.page .next{width: 66px;color: #fff;height: 38px;line-height: 38px;}
+.page .prev a,
+.page .next a{background: #6dcde6;padding: 0px;color: #fff;}
+.page .prev a{float: left;}
+.page .next a{float: right;}
 .page span{margin:0 4px;}
-.page a.active{background: #f14211;}
+.page a.active,
 .page span a:hover{color:#fff;background:#f14211;}
 /*全站分页代码样式结束*/
 
