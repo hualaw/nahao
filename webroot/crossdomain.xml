@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<cross-domain-policy>
+    <!--<site-control permitted-cross-domain-policies="by-content-type"/>-->
+    <allow-access-from domain="*.nahaodev.com;*.nahaotest.com;*.nahao.com"/>
+    <!--<allow-http-request-headers-from domain="*" headers="*"/>-->
+</cross-domain-policy>

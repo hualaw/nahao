@@ -13,22 +13,97 @@ class Business_Lesson extends NH_Model
     }
 
     /**
-     * 创建lesson
-     * @param array $arr_param
-     * @return int
+     * 创建lessons
+     * @param $int_course_id
+     * @param $arr_lessons
+     * @return bool
      * @author yanrui@tizi.com
      */
-    public function create_lesson($arr_param)
+    public function create_lessons($int_course_id,$arr_lessons)
     {
-        $int_return = 0;
-        if($arr_param){
-            $arr_param['create_time'] = TIME_STAMP;
-            $arr_param['role'] = ROLE_ADMIN;
-            $arr_param['user_id'] = $this->userinfo['id'];
-            $int_return = $this->model_lesson->create_lesson($arr_param);
+        $bool_return = false;
+        if($int_course_id > 0 AND is_array($arr_lessons) AND $arr_lessons){
+//            o($arr_lessons,true);
+            $arr_lesson_tree = self::get_lesson_tree($arr_lessons);
+//            o($arr_lesson_tree,true);
+            if($arr_lesson_tree){
+                //先清除该课程以前的课节，再插入新的课节
+                self::delete_lessons_by_course_id($int_course_id);
+
+                $int_sequence_flag = 0;
+                foreach($arr_lesson_tree as $k => $v){
+                    $arr_chapter = array(
+                        'course_id' => $int_course_id,
+                        'title' => $v['title'],
+                        'sequence' => $int_sequence_flag++
+                    );
+                    //插入章
+                    $int_parent_id = $this->model_lesson->create_lesson($arr_chapter);
+                    if($int_parent_id > 0){
+                        foreach($v['lessons'] as $kk => $vv){
+                            $arr_section[] = array(
+                                'course_id' => $int_course_id,
+                                'title' => $vv,
+                                'parent_id' => $int_parent_id,
+                                'sequence' => $int_sequence_flag++
+                            );
+                        }
+                        //插入节
+                        $int_last_id = $this->model_lesson->create_lesson_batch($arr_section);
+                        if($int_last_id > 0){
+                            if($k == count($arr_lesson_tree)-1){
+//                                echo $k.'-'.count($arr_lesson_tree);
+                                $bool_return = true;
+                            }
+                        }else{
+                            break;
+                        }
+                        unset($arr_section);
+                    }else{
+                        break;
+                    }
+                }
+            }
         }
-        return $int_return;
+        return $bool_return;
     }
+
+    /**
+     * 把提交过来的原始的lesson数据组合成章节树形结构
+     * @param $arr_lessons
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_lesson_tree($arr_lessons){
+        $arr_return = array();
+        if($arr_lessons){
+            $int_flag = 0 ;
+            foreach($arr_lessons as $k => $v){
+                if($v['is_chapter']==1){
+                    $int_flag ++;
+                    $arr_return[$int_flag]['title'] = $v['name'];
+                }else{
+                    $arr_return[$int_flag]['lessons'][] = $v['name'];
+                }
+            }
+        }
+        return $arr_return;
+    }
+
+    /**
+     * 根据course_id删除lesson
+     * @param $int_course_id
+     * @author yanrui@tizi.com
+     */
+    public function delete_lessons_by_course_id($int_course_id){
+        if($int_course_id > 0){
+            $arr_where = array(
+                'course_id' => $int_course_id
+            );
+            $this->model_lesson->delete_lesson_by_param($arr_where);
+        }
+    }
+
 
     /**
      * 修改lesson
@@ -51,40 +126,16 @@ class Business_Lesson extends NH_Model
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_lesson_count($arr_where){
-        $int_return = array();
-        if(is_array($arr_where)){
-            $str_table_range = 'lesson_info';
-            $str_result_type = 'count';
-            $str_fields = 'count(1) as count';
-            if(array_key_exists('status',$arr_where)){
-                $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
-                unset($arr_where['status']);
-            }
-            if(array_key_exists('subject',$arr_where)){
-                $arr_where[TABLE_COURSE.'.subject'] = $arr_where['subject'];
-                unset($arr_where['subject']);
-            }
-            if(array_key_exists('course_type',$arr_where)){
-                $arr_where[TABLE_COURSE.'.course_type'] = $arr_where['course_type'];
-                unset($arr_where['course_type']);
-            }
-            if(array_key_exists('teacher_id',$arr_where)){
-                $arr_where[TABLE_COURSE.'.teacher_id'] = $arr_where['teacher_id'];
-                unset($arr_where['teacher_id']);
-            }
-            if(array_key_exists('id',$arr_where)){
-                $arr_where[TABLE_COURSE.'.id'] = $arr_where['id'];
-                unset($arr_where['id']);
-            }
-            if(array_key_exists('title',$arr_where)){
-                $arr_where['like'][TABLE_COURSE.'.title'] = $arr_where['title'];
-                unset($arr_where['title']);
-            }
-            $int_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
-        }
-        return $int_return;
-    }
+//    public function get_lesson_count($arr_where){
+//        $int_return = array();
+//        if(is_array($arr_where)){
+//            $str_table_range = 'lesson';
+//            $str_result_type = 'count';
+//            $str_fields = 'count(1) as count';
+//            $int_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+//        }
+//        return $int_return;
+//    }
 
     /**
      * 根据条件获取lesson count
@@ -94,44 +145,20 @@ class Business_Lesson extends NH_Model
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_lesson_list($arr_where,$int_start,$int_limit){
-        $arr_return = array();
-        if(is_array($arr_where)){
-            $str_table_range = 'lesson_info';
-            $str_result_type = 'list';
-            $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname';
-            if(array_key_exists('status',$arr_where)){
-                $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
-                unset($arr_where['status']);
-            }
-            if(array_key_exists('subject',$arr_where)){
-                $arr_where[TABLE_COURSE.'.subject'] = $arr_where['subject'];
-                unset($arr_where['subject']);
-            }
-            if(array_key_exists('course_type',$arr_where)){
-                $arr_where[TABLE_COURSE.'.course_type'] = $arr_where['course_type'];
-                unset($arr_where['course_type']);
-            }
-            if(array_key_exists('teacher_id',$arr_where)){
-                $arr_where[TABLE_COURSE.'.teacher_id'] = $arr_where['teacher_id'];
-                unset($arr_where['teacher_id']);
-            }
-            if(array_key_exists('id',$arr_where)){
-                $arr_where[TABLE_COURSE.'.id'] = $arr_where['id'];
-                unset($arr_where['id']);
-            }
-            if(array_key_exists('title',$arr_where)){
-                $arr_where['like'][TABLE_COURSE.'.title'] = $arr_where['title'];
-                unset($arr_where['title']);
-            }
-            $arr_limit = array(
-                'start'=>$int_start,
-                'limit' => $int_limit
-            );
-            $arr_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, array(), array(),$arr_limit);
-        }
-        return $arr_return;
-    }
+//    public function get_lesson_list($arr_where,$int_start,$int_limit){
+//        $arr_return = array();
+//        if(is_array($arr_where)){
+//            $str_table_range = 'lesson';
+//            $str_result_type = 'list';
+//            $str_fields = 'id,course_id,title,courseware_id,status,parent_id,sequence';
+//            $arr_limit = array(
+//                'start'=>$int_start,
+//                'limit' => $int_limit
+//            );
+//            $arr_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, array(), array(),$arr_limit);
+//        }
+//        return $arr_return;
+//    }
 
     /**
      * 根据id取lesson
@@ -155,22 +182,21 @@ class Business_Lesson extends NH_Model
     }
 
     /**
-     * 根据round_id取lesson
-     * @param int $int_round_id
+     * 根据course_id取lesson
+     * @param int $int_course_id
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_lesson_by_round_id($int_round_id)
+    public function get_lessons_by_course_id($int_course_id)
     {
         $arr_return = array();
-        if($int_round_id){
+        if($int_course_id){
             $str_table_range = 'lesson';
-            $str_result_type = 'one';
-            $str_fields = 'id,username,phone,email,salt,password,realname,status';
+            $str_result_type = 'list';
+            $str_fields = 'id,course_id,title,courseware_id,status,parent_id,sequence';
             $arr_where = array(
-                'round_id' => $int_round_id
+                'course_id' => $int_course_id
             );
-//            echo $str_table_range.'--'.$str_result_type.'--'.$str_fields."\n";echo "where : \n";var_dump($arr_where);;exit;
             $arr_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
         return $arr_return;

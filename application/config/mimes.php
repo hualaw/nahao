@@ -67,11 +67,11 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'rv'	=>	'video/vnd.rn-realvideo',
 				'wav'	=>	array('audio/x-wav', 'audio/wave', 'audio/wav'),
 				'bmp'	=>	array('image/bmp', 'image/x-windows-bmp'),
-				'gif'	=>	'image/gif',
+				'gif'	=>	array('image/gif','application/octet-stream'),//支持flash上传
 				'jpeg'	=>	array('image/jpeg', 'image/pjpeg'),
-				'jpg'	=>	array('image/jpeg', 'image/pjpeg'),
+				'jpg'	=>	array('image/jpeg', 'image/pjpeg','application/octet-stream'),//支持flash上传
 				'jpe'	=>	array('image/jpeg', 'image/pjpeg'),
-				'png'	=>	array('image/png',  'image/x-png'),
+				'png'	=>	array('image/png',  'image/x-png','application/octet-stream'),//支持flash上传
 				'tiff'	=>	'image/tiff',
 				'tif'	=>	'image/tiff',
 				'css'	=>	'text/css',

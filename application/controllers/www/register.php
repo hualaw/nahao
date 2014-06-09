@@ -30,9 +30,10 @@ class register extends NH_Controller
 
 	public function check_phone()
 	{
-		$phone = trim($this->input->post('phone'));
+		$name = trim($this->input->post('name'));
+		$param = trim($this->input->post('param'));
 
-		echo parent::json_output($this->business_register->check_phone($phone));
+		echo parent::json_output($this->business_register->check_phone($param));
 	}
 
 	public function check_email()
@@ -55,9 +56,9 @@ class register extends NH_Controller
 
 		if($reg_type == REG_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
 
-		$register_ret = $this->business_register->register($phone, $email, $password, $captcha, $reg_type);
+		$reg_ret = $this->business_register->submit($phone, $email, $password, $captcha, $reg_type);
 
-		echo parent::json_output($register_ret);
+		echo parent::json_output($reg_ret);
 	}
 
 	//ajax interface
@@ -70,7 +71,7 @@ class register extends NH_Controller
 
 		$this->load->helper('string');
 		$verify_code = random_string('nozero', 4);
-		$msg = $this->lang->line('reg_verify_phone_msg').$verify_code;
+		$msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
 		$this->sms->setContent($msg);
         $create_time = time();
 		$send_ret = $this->sms->send();

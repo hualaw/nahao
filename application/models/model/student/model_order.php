@@ -109,24 +109,44 @@ class Model_Order extends NH_Model{
     
     /**
      * 检查商品id是否在订单表中及其状态
+     * @param  $int_product_id
+     * @param  $int_user_id
+     * @return $array_result
      */
     public function check_product_in_order($int_product_id,$int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT status FROM student_order WHERE student_id = ".$int_user_id." 
-                AND round_id = ".$int_product_id." AND is_delete = 0";
+        $sql = "SELECT id,status FROM student_order WHERE student_id = ".$int_user_id." 
+                AND round_id = ".$int_product_id." AND is_delete = 0 ORDER BY id DESC";
         $array_result = $this->db->query($sql)->result_array();
+        return $array_result;
     }
     
     /**
-     * 删除订单
-     * @param  $array_delete
-     * 
+     * 删除订单(标记删除)
+     * @param  $array_update
+     * @param  $array_where
+     * @return $bool_result
      */
     public function delete_order($array_update,$array_where)
     {
         $this->db->update('student_order', $array_update,$array_where);
         $int_row = $this->db->affected_rows();
         return $bool_result = $int_row > 0  ? true : false;
+    }
+    
+    /**
+     * 检查该用户是否已经下单且未付款
+     * @param  $int_product_id
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function check_have_order($int_product_id,$int_user_id)
+    {
+        $array_result = array();
+        $sql = "SELECT id,pay_type FROM student_order WHERE student_id = ".$int_user_id."
+                AND round_id = ".$int_product_id." AND status = 0 AND is_delete = 0";
+        $array_result = $this->db->query($sql)->result_array();
+        return $array_result;
     }
 }
