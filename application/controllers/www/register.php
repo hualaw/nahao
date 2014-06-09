@@ -30,10 +30,9 @@ class register extends NH_Controller
 
 	public function check_phone()
 	{
-		//$name = trim($this->input->post('name'));
-		$param = trim($this->input->post('param'));
+		$phone = trim($this->input->post('phone'));
 
-		echo parent::json_output($this->business_register->check_phone($param));
+		echo parent::json_output($this->business_register->check_phone($phone));
 	}
 
 	public function check_email()

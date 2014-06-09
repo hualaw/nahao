@@ -784,6 +784,7 @@
 			//验证通过的话，如果绑定有ajaxurl，要执行ajax检测;
 			//当ignore="ignore"时，为空值可以通过验证，这时不需要ajax检测;
 			var ajaxurl=$(this).attr("ajaxurl");
+			var ajaxUrlName=$(this).attr("ajaxUrlName");
 			if(ajaxurl && !Validform.util.isEmpty.call($(this),inputval) && !bool){
 				var inputobj=$(this);
 
@@ -808,10 +809,9 @@
 					type: "POST",
 					cache:false,
 					url: ajaxurl,
-					// data: encodeURIComponent($(this).attr("name"))+"="+encodeURIComponent(inputval),
-					data: "param="+encodeURIComponent(inputval)+"&name="+encodeURIComponent($(this).attr("name")),
+					data: ajaxUrlName + "="+encodeURIComponent(inputval)+"&name="+encodeURIComponent($(this).attr("name")),
 					success: function(data){
-						if($.trim(data.status)==="y"){
+						if($.trim(data.status)==="ok"){
 							inputobj[0].validform_valid="true";
 							data.info && inputobj.attr("sucmsg",data.info);
 							Validform.util.showmsg.call(curform,inputobj.attr("sucmsg") || curform.data("tipmsg").r||tipmsg.r,settings.tiptype,{obj:inputobj,type:2,sweep:settings.tipSweep},"bycheck");
