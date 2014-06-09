@@ -6,8 +6,27 @@
  */
 class NH_User_Controller extends NH_Controller
 {
+    /**
+     * 用户的详细信息
+     * @var array 
+     */
+    protected $_user_detail = array();
+    
     function __construct()
     {
         parent::__construct();
+        $this->load->model('business/common/business_user');
+        $this->_load_user_detail();
+    }
+    
+    /**
+     * 加载用户的详细信息
+     */
+    protected function _load_user_detail()
+    {
+        $user_id = $this->session->userdata('user_id');
+        if($user_id) {
+            $this->_user_detail = $this->business_user->get_user_detail($user_id);
+        }
     }
 }

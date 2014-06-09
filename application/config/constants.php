@@ -139,7 +139,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
-define('PER_PAGE_NO','2');
+define('PER_PAGE_NO',10);
 
 
 //tables
@@ -267,12 +267,31 @@ define('REGISTER_VERIFY_CODE', 1);
 define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
+//七牛账号
+define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
+define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
+define('NH_QINIU_BUCKET','n1a2h3a4o5');
+define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
+
 //昵称最大长度2-15个汉字
 define('MIN_NICKNAME_LEN', 2);
 define('MAX_NICKNAME_LEN', 15);
 
+//meeting account
+define('NH_MEETING_ACCESS_KEY','7e30a4');
+define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
 
+//课程封面图的三个尺寸 290*216  227*169   66*49
+define('NH_COURSE_IMG_LARGE_HEIGHT',216);
+define('NH_COURSE_IMG_LARGE_WIDTH',290);
+define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
+define('NH_COURSE_IMG_GENERAL_WIDTH',227);
+define('NH_COURSE_IMG_SMALL_HEIGHT',49);
+define('NH_COURSE_IMG_SMALL_WIDTH',66);
 
+//昵称最大长度
+define('MIN_NICKNAME_LEN', 4);
+define('MAX_NICKNAME_LEN', 21);
 
 
 /* End of file constants.php */

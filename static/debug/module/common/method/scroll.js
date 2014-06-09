@@ -25,15 +25,15 @@ define(function (require,exporst){
 			// 	}
 			// });
 
-			addWheel(conPar,function (down){
+			addWheel(document,function (down){
 				var scrollTop = document.body.scrollTop||document.documentElement.scrollTop;
 				if (down){
-					return;
-					scrollTop = aa-100;
+					//return;
+					//scrollTop = aa-100;
 					var l=scrollChild.get(0).offsetTop+10;
 				}else{
-					return;
-					scrollTop = aa;
+					//return;
+					//scrollTop = aa;
 					var l=scrollChild.get(0).offsetTop-10;
 				}
 				if(l<0){
@@ -69,8 +69,8 @@ define(function (require,exporst){
 		})
 	}
 
-	function addWheel(oDiv,fn,ev){
-		var oEvent = ev||event;
+	function addWheel(oDiv,fn){
+		//var oEvent = ev||event;
 		if (oDiv.addEventListener){
 			oDiv.addEventListener('DOMMouseScroll',fnWheel,false);
 		}
@@ -91,7 +91,7 @@ define(function (require,exporst){
 				oEvent.preventDefault();
 			}
 			return false;
-			oEvent.cancelBubble = true;
+			//oEvent.cancelBubble = true;
 		}
 	}
 })

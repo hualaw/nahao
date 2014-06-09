@@ -138,14 +138,7 @@ define(function(require,exports){
                 datatype:"*",
                 nullmsg:"请输入课程名称",
                 errormsg:"请输入正确的课程名称"
-            }
-            // ,
-            // {
-            //     ele:".subname",
-            //     datatype:"*",
-            //     nullmsg:"请输入课程名称",
-            //     errormsg:"请输入正确的课程名称"
-            // },    
+            }   
         ]);
     }
     //我要开课 老师注册验证

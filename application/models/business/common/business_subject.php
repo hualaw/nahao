@@ -72,4 +72,56 @@ class Business_Subject extends NH_Model {
         }
         return $arr_return;
     }
+    
+    /**
+     * 获取老师用户所教的科目
+     * @param int $teacher_id 老师的用户ID
+     * @return array  返回包含了科目ID的数组
+     * @author yanhj
+     */
+    public function get_teacher_subject($teacher_id)
+    {
+        $arr_return = array();
+        if($teacher_id) {
+            $str_table_range = 'teacher_subject';
+            $str_result_type = 'list';
+            $str_fields = 'subject_id';
+            $arr_where = array(
+                'teacher_id' => $teacher_id
+            );
+            $result = $this->model_subject->get_subject_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            if(is_array($result)) {
+                foreach($result as $val) {
+                    $arr_return[] = $val['subject_id'];
+                }
+            }
+        }
+        return $arr_return;
+    }
+    
+    /**
+     * 获取学生用户关注的科目
+     * @param int $student_id 学生的用户ID
+     * @return array  返回包含了科目ID的数组
+     * @author yanhj
+     */
+    public function get_student_subject($teacher_id)
+    {
+        $arr_return = array();
+        if($teacher_id) {
+            $str_table_range = 'student_subject';
+            $str_result_type = 'list';
+            $str_fields = 'subject_id';
+            $arr_where = array(
+                'student_id' => $teacher_id
+            );
+            $result = $this->model_subject->get_subject_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            if(is_array($result)) {
+                foreach($result as $val) {
+                    $arr_return[] = $val['subject_id'];
+                }
+            }
+        }
+        return $arr_return;
+    }
 }

@@ -1,9 +1,12 @@
 <div class="alert alert-info">添加课程...</div>
 <form class="form-horizontal" role="form" action="javascript:;">
+    {if isset($course) AND $course}
+        <input type="hidden" class="col-md-1 form-control" id="id" value="{$course.id}">
+    {/if}
     <div class="form-group">
         <label class="col-md-2 control-label">课程名称</label>
         <div class="col-md-4">
-            <input type="text" class="col-md-1 form-control" id="title" placeholder="">
+            <input type="text" class="col-md-1 form-control" id="title" value="{if isset($course)}{$course.title}{/if}">
         </div>
     </div>
     <div class="form-group">
@@ -12,7 +15,7 @@
             <select class="form-control" id="subject">
                 <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}
-                <option value="{$k}">{$v}</option>
+                <option value="{$k}" {if isset($course) AND $course.subject==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -23,19 +26,22 @@
             <select class="form-control" id="course_type">
                 <option value="">全部课程类型</option>
                 {foreach $course_types as $k => $v}
-                <option value="{$k}">{$v}</option>
+                <option value="{$k}" {if isset($course) AND $course.course_type==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">教师昵称</label>
-        <div class="col-md-2" id="course_edit_teacher_select_div">
+        <label class="col-md-2 control-label">添加教师</label>
+        <div class="col-md-10" id="course_edit_teacher_select_div">
+            {if isset($teachers)}
+                {foreach $teachers as $k => $v}
+                    <botton class="btn btn-primary selected_teacher" data-teacher_id="{$v.id}">{$v.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<botton class="btn-primary delete_teacher_btn">x</botton></botton>
+                {/foreach}
+            {/if}
             <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="5">张三</botton>-->
             <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="6">李四</botton>-->
-            <botton class="btn btn-primary" data-action="/course/teachers" id="course_edit_teacher_select_btn">
-                添加老师
-            </botton>
+            <botton class="btn btn-success" data-action="/course/teachers" id="course_edit_teacher_select_btn">添加&nbsp;&nbsp;+</botton>
         </div>
     </div>
     <div class="form-group">
@@ -45,7 +51,7 @@
             <select class="form-control"  id="grade_from">
                 <option value="0">开始年级</option>
                 {foreach $grades as $k => $v}
-                <option value="{$k}">{$v}</option>
+                <option value="{$k}" {if isset($course) AND $course.grade_from==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -53,7 +59,7 @@
             <select class="form-control" id="grade_to">
                 <option value="0">结束年级</option>
                 {foreach $grades as $k => $v}
-                <option value="{$k}">{$v}</option>
+                <option value="{$k}" {if isset($course) AND $course.grade_to==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -64,7 +70,7 @@
         <div class="col-md-2">
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
-                <input type="text" class="form-control" id="reward" placeholder="">
+                <input type="text" class="form-control" id="reward" value="{if isset($course)}{$course.reward}{/if}" >
                 <span class="input-group-addon">.00元</span>
             </div>
         </div>
@@ -75,7 +81,7 @@
         <div class="col-md-2">
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
-                <input type="text" class="form-control" id="price" placeholder="">
+                <input type="text" class="form-control" id="price" value="{if isset($course)}{$course.price}{/if}">
                 <span class="input-group-addon">.00元</span>
             </div>
         </div>
@@ -84,41 +90,49 @@
     <div class="form-group">
         <label class="col-md-2 control-label">一句话简介</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" id="subtitle" placeholder="">
+            <input type="text" class="form-control" id="subtitle" value="{if isset($course)}{$course.subtitle}{/if}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">课程简介</label>
         <div class="col-md-6">
-            <textarea class="form-control" id="intro" rows="5"></textarea>
+            <textarea class="form-control" id="intro" rows="5">{if isset($course)}{$course.intro}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">适合人群</label>
-
         <div class="col-md-6">
-            <textarea class="form-control" id="students" rows="5"></textarea>
+            <textarea class="form-control" id="students" rows="5">{if isset($course)}{$course.students}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
-
         <div class="col-md-8">
-            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10"></textarea>
+            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10">{if isset($course)}{$course.description}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">添加图片</label>
 
+        <input name="new_file_name" id="new_file_name" type="hidden" value="{$upload_key}">
+        <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
+
         <div class="col-md-2">
             <input type="file" name="course_img" id="course_img" class="form-control" multiple="true" >
+            <img id="img_url" src="{if isset($course)}{$course.img}{/if}" style="display:none;">
         </div>
         <div class="col-md-3">
-            <button type="submit" class="btn btn-primary col-md-2" id="upload_img">上传</button>
+            <img id="img_url_large" src="" >
+        </div>
+        <div class="col-md-3">
+            <img id="img_url_general" src="" >
+        </div>
+        <div class="col-md-3">
+            <img id="img_url_small" src="" >
         </div>
     </div>
     <div class="form-group">
@@ -128,24 +142,40 @@
             <input type="file" class="form-control" id="video" rows="10" >
         </div>
         <div class="col-md-3">
-            <button type="submit" class="btn btn-primary col-md-2" id="upload_video">上传</button>
+            <div id="video_url" >{if isset($course)}{$course.video}{/if}</div>
         </div>
     </div>
 
     <div id="course_edit_lesson_list_div">
         <div class="form-group">
-            <label class="col-md-2 control-label">课程安排</label>
+            <label class="col-md-2 control-label">章节</label>
             <div class="col-md-2" id="course_edit_lesson_add_div">
-                <botton class="btn btn-primary" id="course_edit_lesson_add_btn">
-                    添加章节
-                </botton>
+                <botton class="btn btn-success" id="course_edit_lesson_add_btn">添加&nbsp;&nbsp;+</botton>
             </div>
         </div>
+        {if isset($lessons)}
+            {foreach $lessons as $k => $v}
+                <div class="form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control lesson" value="{$v.title}">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="lesson_chapter" {if $v.parent_id==0}checked{/if}>是章
+                        </label>
+                        <label class="checkbox-inline">
+                            <botton class="btn btn-danger btn-xs delete_lesson_btn">x</botton>
+                        </label>
+                    </div>
+                </div>
+            {/foreach}
+        {/if}
     </div>
 
     <div class="form-group">
         <label class="col-md-4 control-label"></label>
-        <button type="submit" class="btn btn-primary col-md-2" id="course_edit_submit_course" data-action="/course/create">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+        <button type="submit" class="btn btn-primary col-md-2" id="course_edit_submit_course" data-action="/course/submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
     </div>
 </form>
 {include file="admin/course_edit_teacher_select.html"}

@@ -91,7 +91,6 @@ class Model_Teacher extends NH_Model{
 				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
 				".$where.$group.$order;
 		$arr_result = $this->db->query($sql)->result_array();
-		
         return $arr_result;
 	}
 	
@@ -115,14 +114,16 @@ class Model_Teacher extends NH_Model{
 	 * 【题目搜索器】：
 	 * pararm : status,class_id,counter
 	 */
-	public function question_seacher(){
+	public function question_seacher($param){
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['status'] ? ' AND qcr.status='.$param['status'] : ' AND qcr.status=1';
 		$where .= $param['class_id'] ? ' AND cl.id='.$param['class_id'] : '';
 		$order = " ORDER BY q.id ASC";
-		$column = $param['counter']==1 ? 'count(q.id) total' :'cl.title class_title,cl.id class_id,q.*';
+		$column = $param['counter']==1 ? 'count(q.id) total' :
+				( $param['counter']==2 ? 'count(distinct q.question_id) total' 
+				: 'cl.title class_title,cl.id class_id,q.*,qcr.question_id,qcr.status,qcr.sequence');
 		#2. 生成sql
         $this->db->query("set names utf8");
         
@@ -135,20 +136,44 @@ class Model_Teacher extends NH_Model{
 	}
 	
 	/**
+	 * 获取课的出题批次
+	 **/
+	public function get_sequence($param){
+		#1. 参数组合
+		$arr_result = array();
+		$where = ' WHERE 1';
+		$where .= $param['class_id'] ? ' AND qcr.class_id='.$param['class_id'] : '';
+		#2. 生成sql
+        $this->db->query("set names utf8");
+        
+		$sql = "SELECT max(qcr.sequence) total
+				FROM nahao.question_class_relation qcr
+				".$where;
+		$arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+	}
+	
+	/**
 	 * 【练习统计器】：
 	 * pararm : is_correct,sequence,class_id,student_id
 	 **/
 	public function practise_counter($param){
 		#1. 参数组合
 		$arr_result = array();
+		$param['counter'] = isset($param['counter']) ? $param['counter'] : 1;
 		$where = ' WHERE 1';
+		$where .= $param['question_id'] ? ' AND sq.question_id='.$param['question_id'] : '';
 		$where .= $param['is_correct'] ? ' AND sq.is_correct='.$param['is_correct'] : '';
 		$where .= $param['sequence'] ? ' AND sq.sequence='.$param['sequence'] : '';
 		$where .= $param['class_id'] ? ' AND sq.class_id='.$param['class_id'] : '';
-		$column = $param['counter']==1 ? 'count(sq.id) total' :'sq.*';
+		$where .= $param['answer'] ? ' AND FIND_IN_SET("'.$param['answer'].'",sq.answer)' : '';
+		$column = $param['counter']==1 ? 'count(sq.id) total' 
+			: ( $param['counter']==2 ? 'count(DISTINCT sq.student_id) total' 
+			: ( $param['counter']==3 ? 'count(DISTINCT sq.question_id) total' 
+			:'DISTINCT sq.*'));
 		#2. 生成sql
         $this->db->query("set names utf8");
-		$sql = "SELECT count(sq.id) total 
+		$sql = "SELECT ".$column." 
 				FROM nahao.sutdent_question sq ".$where;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
