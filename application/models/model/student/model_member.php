@@ -229,8 +229,8 @@ class Model_Member extends NH_Model{
     public function check_phone_register($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT phone_mask FROM user WHERE id=".$int_user_id." AND phone_verified =1 ";
-        $array_result = $this->db->query($sql)->row_array();
+        $sql = "SELECT id FROM user WHERE id=".$int_user_id." AND phone_verified =1 ";
+        $array_result = $this->db->query($sql)->num_rows();
         return $array_result;
     }
 }

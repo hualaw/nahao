@@ -87,10 +87,7 @@
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
-						{if $array_return != ''}
-												
-						<input type="hidden" name="phone"  value="{$userdata.phone}">
-						{else}
+						{if $int_return =='0'}											
 						<li>
 							<p class="title">手机号</p>
 							<div class="cf inputBox">
@@ -118,7 +115,9 @@
 								</div>
 							</div>							
 						</li>
-
+						{else}
+						
+							<input type="hidden" name="phone" value="{$userdata.phone}">
 						{/if}
 						<li>
 							<input type="submit" class="btn redBtn submitBtn" value="提交订单">
