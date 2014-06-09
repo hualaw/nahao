@@ -76,29 +76,41 @@
 		<div class="contactInfo outerBox">
 			<h2><span>请填写联系方式</span></h2>
 			<div class="innerBox">
-				<form action="/pay/neworder/1" mothd="post"  class="inforCheckForm">
+				<form action="javascript:;" method="POST" class="inforCheckForm">
+				<input hidden="type"  name="product_id" value="{$array_data.id}">
 					<ul>
 						<li>
 							<p class="title">真实姓名</p>
 							<div class="cf inputBox">
-								<input type="text" name="Uname" class="inname fl" validName="text">
+								<input type="text" name="real_name" id="real_name" class="inname fl" validName="text" 
+								{if $realname !=''}value="{$realname}" disabled {else}value=""{/if}>
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
+						{if $array_return != ''}
+												
+						<input type="hidden" name="phone"  value="{$userdata.phone}">
+						{else}
 						<li>
 							<p class="title">手机号</p>
 							<div class="cf inputBox">
-								<input type="text" name="" class="inPhone fl" validName="text">
+								<input type="text" name="phone" id="phone" class="inPhone fl" validName="text"
+								{if $userdata.phone !=''}value="{$userdata.phone}" disabled {else}value=""{/if}>
 								<span class="Validform_checktip fl"></span>
 							</div>
 							<p class="tips">保密，方便我们与您联系</p>
 						</li>
+
+						
+
 						<li>
 							<p class="title">手机验证码</p>
 							<div class="cf getVerCodeBtn">
 								<div class="fl inputBox">
-									<input type="text" name="" class="inPhoneCode" validName="text">
+
+									<input type="text" name="verify_code" id="verify_code" class="inPhoneCode" validName="text">
 									<span class="Validform_checktip"></span>
+
 								</div>
 								<div class="fl">
 									<a href="javascript:void(0)" class="noShowBtn blueBtn getVerCodea">免费获取验证码</a>
@@ -106,6 +118,8 @@
 								</div>
 							</div>							
 						</li>
+
+						{/if}
 						<li>
 							<input type="submit" class="btn redBtn submitBtn" value="提交订单">
 						</li>

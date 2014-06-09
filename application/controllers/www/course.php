@@ -5,6 +5,7 @@ class Course extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_course');
+        $this->load->model('business/student/student_order');
     }
 
     /**
@@ -50,19 +51,20 @@ class Course extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
-	    // 	    if(! $this->user){
-	    // 	        redirect('/login');
-	    // 	    }
+	    if(!$this->is_login){
+	        redirect('/login');
+	    }
 	    #用户id
-	    $int_user_id = 1;                #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                #TODO用户id
 	    #轮id
 	    $int_round_id = intval($int_round_id);
 	    #检查$round_id以及学生是否购买此轮
-/*	    $bool_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
+	    $bool_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
 	    if (!$bool_flag)
 	    {
 	        show_error("参数错误");
-	    }*/
+	    }
+
 	    #课堂同学
 	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);
 	    #课堂同学总数
@@ -82,6 +84,60 @@ class Course extends NH_User_Controller {
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentMyCourse/buyAfter.html');
 	}
+	
+	
+	/**
+	 * 到核对订单信息页面前的AJAX判断，判断是否有买过该轮
+	 */
+	public function before_check_order()
+	{
+	    header('content-type: text/html; charset=utf-8');
+	    #判断是否登录
+	    if(!$this->is_login){
+	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录',));
+	    }
+	    $int_product_id = $this->input->post("product_id");
+	    $int_product_id = max(intval($int_product_id),1);
+	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    $bool_flag = $this->student_course->check_round_id($int_product_id);
+	    if (!$bool_flag)
+	    {
+	        show_error("参数错误");
+	    }
+	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
+	    $int_user_id = $this->session->userdata('user_id');                 #TODO
+	    $array_result = $this->student_order->check_product_in_order($int_product_id,$int_user_id);
+	    //var_dump($array_result);die;
+	    if(!empty($array_result))
+	    {
+    	    foreach ($array_result as $k=>$v)
+    	    {
+        	    switch ($v['status'])
+        	    {
+        	        case 0:
+        	        case 1:
+        	            self::json_output(array('status'=>'order_exist','msg'=>'您的订单已经存在，请去订单中心付款',));
+        	            break;
+        	        case 2:
+        	        case 3:
+        	        case 6:
+        	        case 7:
+        	        case 8:
+        	        case 9:
+        	            self::json_output(array('status'=>'order_buy','msg'=>'您已经购买过这轮课程，请不要重复购买'));
+        	            break;
+        	        case 4:
+        	        case 5:
+        	            #根据$int_product_id获取订单里面该轮的部分信息
+        	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
+        	            break;
+        	     }
+    	      }
+	        } else {
+	            #根据$int_product_id获取订单里面该轮的部分信息
+	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
+	        }
+	 }
 }
 
 /* End of file welcome.php */
