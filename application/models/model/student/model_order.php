@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 class Model_Order extends NH_Model{
     
     function __construct(){
@@ -149,4 +150,5 @@ class Model_Order extends NH_Model{
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
+    
 }

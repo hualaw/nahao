@@ -45,6 +45,8 @@ define(function(require,exports){
 		//_myCourse.countDown();
 		//云笔记 弹框
 		_myCourse.cNote();
+	    //我的课程购买之后 列表 课程回顾 背景圆
+	    _myCourse.overCourse();
 	}else if($(".buyBefore").length){
 	    //购买前  选开课时间
 		_myCourse.timeToggle();

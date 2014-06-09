@@ -50,4 +50,34 @@ define(function (require,exports){
 			roll($(".Titem a").index($(this)));
 		})
 	}
+	//选择题目 切换内容
+	exports.curItem	= function (){
+		//初始--选的题目内容显示，左侧对应列表高亮 
+		var ind = 2;
+		$(".itemscore .sconl li").eq(ind).addClass("curitme");
+		$(".itemscore .scoreBoxList").eq(ind).removeClass("undis");
+
+		//点击时切换
+		$(".itemscore .sconl li").click(function (){
+			var _this = $(".itemscore .sconl li").index($(this));
+			$(".itemscore .sconl li").removeClass("curitme");
+			$(this).addClass("curitme");
+			$(".itemscore .scoreBoxList").addClass("undis");
+			$(".itemscore .scoreBoxList").eq(_this).removeClass("undis");
+		})
+	}
+
+	//评论 几颗星
+	exports.starClick = function (){
+			var ind = true;
+			$(".evalu .starBg span").click(function (){
+				if(ind){
+					var _index = $(".evalu .starBg span").index($(this));
+					for(var i=0;i<_index+1;i++){
+						$(".evalu .starBg span").eq(i).addClass("cStar");
+					}
+					ind = false;
+				}
+			});
+	}
 })
