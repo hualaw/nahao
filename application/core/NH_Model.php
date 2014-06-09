@@ -104,18 +104,19 @@ class NH_Model extends CI_Model
         {
             if($phone_mask)  $nickname = $phone_mask;
             else if($email) $nickname = $email;
-        }
-        else
-        {
-            $info_arr = array(
-                'user_id'=>$user_id,
-                'nickname' => $nickname,
-                'avatar' => $avatar,
-                'phone' => $phone,
-                'phone_mask' => $phone_mask,
-                'email' => $email,
-            );
-            $this->_log_reg_info(ERROR, 'reg_no_nickname', $info_arr);
+
+            if($nickname == '')
+            {
+                $info_arr = array(
+                    'user_id'=>$user_id,
+                    'nickname' => $nickname,
+                    'avatar' => $avatar,
+                    'phone' => $phone,
+                    'phone_mask' => $phone_mask,
+                    'email' => $email,
+                );
+                $this->_log_reg_info(ERROR, 'reg_no_nickname', $info_arr);
+            }
         }
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
