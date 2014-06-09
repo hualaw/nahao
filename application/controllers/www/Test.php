@@ -5,9 +5,12 @@ class Test extends CI_Controller {
 
 	public function ss_test()
 	{
+        /*
 		var_dump($this->session);
 		$session_id = $this->session->userdata('session_id');
 		echo "session_id is: ".$session_id."<br>";
+        */
+        $this->session->sess_update();
 	}
 
 	public function redis_test()
