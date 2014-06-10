@@ -30,10 +30,9 @@ class register extends NH_Controller
 
 	public function check_phone()
 	{
-		//$name = trim($this->input->post('name'));
-		$param = trim($this->input->post('param'));
+		$phone = trim($this->input->post('phone'));
 
-		echo parent::json_output($this->business_register->check_phone($param));
+		echo parent::json_output($this->business_register->check_phone($phone));
 	}
 
 	public function check_email()
@@ -74,8 +73,8 @@ class register extends NH_Controller
 		$msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
 		$this->sms->setContent($msg);
         $create_time = time();
-		//$send_ret = $this->sms->send();
-        $send_ret['error'] = 'Ok';
+		$send_ret = $this->sms->send();
+        //$send_ret['error'] = 'Ok';
 
 		$info = array(  'phone' => $phone,
 						'verify_code'=>$verify_code,

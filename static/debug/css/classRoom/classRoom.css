@@ -18,6 +18,7 @@
 .classRoomPage .scoreBox{width: 850px;margin-top:30px;}
 .classRoomPage .optionNav{width: 75px;text-align: center;color:#fff;}
 .classRoomPage .scoreCon{width: 675px;padding: 0 40px 0 60px;}
+.classRoomPage .scoreCon .promText{width: 416px;margin-left: 20px;}
 .classRoomPage .scorePage .scoreCon{width: 711px;}
 .classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
 .classRoomPage .answerList{margin:50px 0 0;}
@@ -29,12 +30,15 @@
 .classRoomPage .scorePage .scoreCon{padding: 0 32px 28px;}
 .classRoomPage .scoreShow{width: 222px;}
 .classRoomPage .ansShow{width: 476px;border: 1px solid #b9b9b9;}
-.classRoomPage .scorePage .score{height: 222px;background: #ed4111;}
+.classRoomPage .scorePage .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
+.classRoomPage .scorePage .score h3{font-size: 24px;padding: 26px 0 13px;}
+.classRoomPage .scorePage .score strong{font-size: 48px;}
 .classRoomPage .scorePage .result span{background:url(../../images/classRoom/rearrow.png) left center no-repeat;width: 9px;height: 74px;margin-right: -9px;}
 .classRoomPage .scoref{border: 1px solid #b9b9b9;height: 70px;font-size: 18px;}
-.classRoomPage .scoref span{width: 72px;border-right: 1px solid #e5e5e5;text-align: center;padding: 14px 0 16px;height: 40px;}
+.classRoomPage .scoref span{width: 109px;border-right: 1px solid #e5e5e5;text-align: center;padding: 14px 0 16px;height: 40px;}
 .classRoomPage .scoref span strong{font-size: 14px;}
-.classRoomPage .scoref .average{border-right: none;}
+/*.classRoomPage .scoref .average{border-right: none;}*/
+.classRoomPage .scoref .errorItem{border-right: none;}
 .classRoomPage .scoref .ansIco{background:url(../../images/classRoom/ansIco.png) center -24px no-repeat;display: inline-block;height:20px;padding: 0;}
 .classRoomPage .asHead{height: 46px;padding: 0 120px 0 100px;background: #ebebeb;color: #808080;}
 .classRoomPage .selfans span{display: block;text-align: center;}
