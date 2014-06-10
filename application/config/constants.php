@@ -202,9 +202,7 @@ define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
-define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
-
 
 
 //phone_server连接
@@ -227,11 +225,6 @@ define('ERROR', 'error');
 //过期时间
 define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应该改为5分钟
 //define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
-
-//phone_server连接
-define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
-define('PHONE_SERVER_PORT', 1899);
-define('PHONE_SERVER_APPNAME', 'nahao');
 
 
 //课程中的状态
