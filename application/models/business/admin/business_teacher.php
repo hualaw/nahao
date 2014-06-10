@@ -292,6 +292,7 @@ class Business_Teacher extends NH_Model
         $post['bank_id']=trim($post['bank_id']);
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
+        //$post['phone_mask']=substr_replace($post['phone_mask'],"****",3,4);
         if($post['hide_school']==null)
         {
             $post['hide_school']=0;
