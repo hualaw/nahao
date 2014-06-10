@@ -25,6 +25,7 @@ class NH_Admin_Controller extends NH_Controller
         parent::__construct();
         $this->load->model('business/admin/business_admin','admin');
         if($this->current['controller']!='admin'){
+            $this->current['controller'] = $this->current['controller']=='classes' ? 'class' : $this->current['controller'];
             $this->load->model('business/admin/business_'.$this->current['controller'],$this->current['controller']);
         }
         $bool_redirect = false;

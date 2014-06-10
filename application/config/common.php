@@ -15,6 +15,22 @@ $config['course_status'][2] = '审核通过';
 $config['course_status'][3] = '暂停';
 $config['course_status'][4] = '关闭';
 
+//round_sell_status
+$config['round_sale_status'][0] = '未审核';
+$config['round_sale_status'][1] = '审核不通过';
+$config['round_sale_status'][2] = '审核通过';//（预售）
+$config['round_sale_status'][3] = '销售中';
+$config['round_sale_status'][4] = '已售罄';
+$config['round_sale_status'][5] = '已停售';//（时间到了还没售罄）
+$config['round_sale_status'][6] = '已下架（手动下架）';
+
+//round_teach_status
+$config['round_teach_status'][1] = '等待开课';
+$config['round_teach_status'][2] = '授课中';
+$config['round_teach_status'][3] = '停课';//（手动操作）
+$config['round_teach_status'][4] = '结课';
+$config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这个状态改为过期)
+
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
@@ -33,21 +49,6 @@ $config['stage'][3] = '高中';
 $config['has_bought'][1] = '注册用户';
 $config['has_bought'][2] = '付费用户';
 
-//轮里面的销售状态
-$config['round_sale_status'][0] = '未审核';
-$config['round_sale_status'][1] = '审核未通过';
-$config['round_sale_status'][2] = '审核通过';
-$config['round_sale_status'][3] = '销售中';
-$config['round_sale_status'][4] = '已售罄';
-$config['round_sale_status'][5] = '已停售';
-$config['round_sale_status'][6] = '已下架';
-
-//轮里面的授课状态
-$config['round_teach_status'][0] = '等待开课';
-$config['round_teach_status'][1] = '授课中';
-$config['round_teach_status'][2] = '停课';
-$config['round_teach_status'][3] = '结课';
-$config['round_teach_status'][4] = '过期（结课超过30天）';
 //短信日志表里面的短信类型
 $config['message_type'][0] = '注册';
 $config['message_type'][1] = '订单';
@@ -232,16 +233,3 @@ $config['school_type'][1] = '公立小学';
 $config['school_type'][2] = '公立中学';
 
 
-
-
-//进出课堂动作
-$config['classroom_action'][1] = '进入';
-$config['classroom_action'][2] = '退出';
-
-//课里面的状态
-$config['class_teach_status'][0] = '初始化';
-$config['class_teach_status'][1] = '即将上课';
-$config['class_teach_status'][2] = '正在上课';
-$config['class_teach_status'][3] = '上完课';
-$config['class_teach_status'][4] = '缺课';
-$config['class_teach_status'][3] = '禁用';

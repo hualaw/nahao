@@ -81,7 +81,7 @@ class Business_Teacher extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'teacher_info';
             $str_result_type = 'list';
-            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,status,source,gender,grade,province,city,area';
+            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area';
 
             $arr_where[TABLE_USER.'.teach_priv'] = 1;
             if(array_key_exists('stage',$arr_where)){

@@ -105,4 +105,18 @@ class Teacher extends NH_Admin_Controller {
         }
         self::json_output($this->arr_response);
     }
+
+    /**
+     * Ajax添加课程时选取教师列表
+     * @author yanrui@tizi.com
+     */
+    public function teachers(){
+        $arr_return = array();
+        if($this->is_ajax()){
+//            $this->load->model('business/admin/business_teacher','teacher');
+            $arr_return = $this->teacher->get_teacher_list(array(),0,20);
+//            o($arr_return,true);
+        }
+        self::json_output($arr_return);
+    }
 }

@@ -202,7 +202,6 @@ define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
-define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
 
@@ -278,8 +277,14 @@ define('MIN_NICKNAME_LEN', 2);
 define('MAX_NICKNAME_LEN', 15);
 
 //meeting account
+define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
 define('NH_MEETING_ACCESS_KEY','7e30a4');
 define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
+define('NH_MEETING_TYPE_STUDENT',0);
+define('NH_MEETING_TYPE_TEACHER',1);
+define('NH_MEETING_TYPE_ADMIN',2);
+define('NH_MEETING_TYPE_SUPER_ADMIN',110);
+
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
@@ -292,6 +297,9 @@ define('NH_COURSE_IMG_SMALL_WIDTH',66);
 //昵称最大长度
 define('MIN_NICKNAME_LEN', 4);
 define('MAX_NICKNAME_LEN', 21);
+
+//单轮，单节最大人数
+define('NH_CLASS_PEOPLE_CAPS',100);
 
 
 /* End of file constants.php */

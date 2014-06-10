@@ -15,9 +15,9 @@ $config['page_admin']['cur_tag_close'] = '</a></li>';
 $config['page_admin']['prev_link'] = '«';
 $config['page_admin']['next_link'] = '»';
 $config['page_admin']['next_tag_open'] = '<li>';
-$config['page_admin']['next_tag_close'] = '<li>';
+$config['page_admin']['next_tag_close'] = '</li>';
 $config['page_admin']['prev_tag_open'] = '<li>';
-$config['page_admin']['prev_tag_close'] = '<li>';
+$config['page_admin']['prev_tag_close'] = '</li>';
 $config['page_admin']['num_tag_open'] = '<li>';
 $config['page_admin']['num_tag_close'] = '</li>';
 

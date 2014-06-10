@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 if (PHP_SAPI === 'cli') {
     $str_domain = 'auto';
 } else {
@@ -58,7 +57,7 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
-error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL ^ E_NOTICE);
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
