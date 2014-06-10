@@ -4,6 +4,7 @@
 /*  做题 --*/
 .classRoomPage .doWorkBox{padding: 0 60px 45px 66px;width: 676px;margin-top:30px;}
 .classRoomPage .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
+.classRoomPage .scoreBoxList .answerList li{margin-left: 51px;}
 .classRoomPage .answerList li .options{margin-right: 40px;}
 .classRoomPage .answerList li:hover,
 .classRoomPage .answerList .curAnswer{border-color:#6dcde6;background: #dbdbdb;}
@@ -32,7 +33,7 @@
 .classRoomPage .ansShow{width: 476px;border: 1px solid #b9b9b9;}
 .classRoomPage .scorePage .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
 .classRoomPage .scorePage .score h3{font-size: 24px;padding: 26px 0 13px;}
-.classRoomPage .scorePage .score strong{font-size: 48px;}
+.classRoomPage .scorePage .score strong{font-size: 48px;width: 120px;height: 120px;border: 1px solid #fff;border-radius: 60px;line-height: 120px;text-align: center;display: inline-block;}
 .classRoomPage .scorePage .result span{background:url(../../images/classRoom/rearrow.png) left center no-repeat;width: 9px;height: 74px;margin-right: -9px;}
 .classRoomPage .scoref{border: 1px solid #b9b9b9;height: 70px;font-size: 18px;}
 .classRoomPage .scoref span{width: 109px;border-right: 1px solid #e5e5e5;text-align: center;padding: 14px 0 16px;height: 40px;}
