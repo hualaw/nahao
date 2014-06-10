@@ -15,21 +15,39 @@ define(function(require,exports){
     //做题块
     $(".doWorkBoxBtn").click(function (){
         _popUp.popUp('.doWorkBoxHtml');
-        var html="";
+        var html='';
         var url = '/classroom/get_exercise/';
         var data = {
         		class_id: 4
         };
         $.post(url, data, function (response) {
-            if (response.status == "data_no") {
+            if (response.status == "error") {
             	alert(response.msg);
-            } else if(response.status == "data_error"){
-            	alert(response.msg);
-            } else if(response.status == "data_ok"){
-            	
-            	$.each(response.data,function(i,n){
-            		html +='<div>题目内容</div>';
-            	})
+            } else if(response.status == "ok"){
+            	//response.data
+            	$.each(response.data, function(key, val) {
+
+                	html+=	'<div>'+val.question+'</div>';
+                	html+=	'<ul class="answerList">';
+            		$.each(val.options, function(k, v) {
+
+                    	html+=		'<li class="cf  ">';
+                    	html+=			'<em class="fl ansIco"></em>';
+                    	html+=			'<span class="options fl">'+k+'</span>';
+                    	html+=			'<p class="fl">'+v+'</p>';
+                    	html+=		'</li>';
+            		});
+                 	html+=	'</ul>';
+            	});
+            	html+='<p class="overBtn">';
+            	html+='<a href="javascript:void(0)" class="cf btn3 btn subAns">';
+            	html+='<span class="fl">提交答案</span>';
+            	html+='<span class="fr"></span>';
+            	html+='</a>';
+            	html+='</p>';
+            	$('.doWorkBox').after().html(html);
+   
+ 
             }
         }, "json");
     });

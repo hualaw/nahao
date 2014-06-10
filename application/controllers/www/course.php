@@ -138,6 +138,37 @@ class Course extends NH_User_Controller {
 	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
 	        }
 	 }
+	 
+	 /**
+	  * 为课点评
+	  */
+	 public function class_comment()
+	 {
+	 
+	     $int_course_id = $this->input->post("course_id");
+	     $int_round_id = $this->input->post("round_id");
+	     $int_class_id = $this->input->post("class_id");
+	     $int_score  = $this->input->post("score");
+	     $str_content = $this->input->post("content");
+	     $array_data = array(
+	             'course_id'=>$int_course_id,
+	             'round_id'=>$int_round_id,
+	             'class_id'=>$int_class_id,
+	             'student_id'=>$this->session->userdata('user_id'),                   #TODOuser_id
+	             'nickname'=>1,
+	             'content'=>$str_content,
+	             'score'=>  $int_score,
+	             'create_time'=>time(),
+	             'is_show'=>0
+	     );
+	     $bool_flag = $this->model_classroom->save_class_feedback($array_data);
+	     if ($bool_flag)
+	     {
+	         self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
+	     } else {
+	         self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
+	     }
+	 }
 }
 
 /* End of file welcome.php */
