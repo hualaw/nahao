@@ -27,7 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -35,28 +35,11 @@ define(function(require,exports){
                 }
             }
         });
-        _Form.config({
-            ajaxurl:{
-                success:function(json,obj){
-                    if(json.status == 'ok'){
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
-                        $(obj).removeClass('Validform_error');
-                    }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
-                    }
-                    //data是返回的json数据;
-                    //obj是当前正做实时验证表单元素的jquery对象;
-                    //注意：5.3版中，实时验证的返回数据须是含有status值的json数据！
-                    //跟callback里的ajax返回数据格式统一，建议不再返回字符串"y"或"n"。目前这两种格式的数据都兼容。
-                }
-            }
-        });
         _Form.addRule([{
                 ele: ".phoneNum",
                 datatype:"m",
                 ajaxurl:siteUrl + "register/check_phone",
+                ajaxUrlName:'phone',
                 nullmsg:"请输入手机号",
                 errormsg:"手机号输入错误"
                 
@@ -71,7 +54,7 @@ define(function(require,exports){
                  ele:".codeInput",
                  datatype: "/^\\d{4}$/",
                  nullmsg: "请输入手机验证码",
-                 errormsg: "手机验证码输入错误"
+                 errormsg: "长度是四位数字"
             },
             {   
                  ele:"checkbox:first",
@@ -80,6 +63,21 @@ define(function(require,exports){
                  errormsg: "未同意服务协议"
             }
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
         // 发送手机验证码
         require('module/common/method/send').sendPhoneNum(1);
     };
@@ -95,7 +93,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -105,7 +103,9 @@ define(function(require,exports){
         });
         _Form.addRule([{
                 ele: ".email",
-                datatype:"e6-30",
+                datatype:"e",
+                ajaxurl:siteUrl + "register/check_email",
+                ajaxUrlName:'email',
                 nullmsg:"请输入邮箱地址",
                 errormsg:"长度6-30个字符"
             },
@@ -129,6 +129,21 @@ define(function(require,exports){
                  errormsg: "未同意服务协议"
             }
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     };
     //选择和取消 关注
     function checkAttent(){        
@@ -172,9 +187,9 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                if(json.status == 'ok'){
-                    // 登陆成功后跳转到首页
-                    window.location=siteUrl;
+                if(data.status == 'ok'){
+                    // 登陆成功后跳转到跳转页
+                    window.location=data.data.redirect_url;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -324,7 +339,7 @@ define(function(require,exports){
         });
         _Form.config({
             showAllError:true,
-            url:"/login/send_reset_email",
+            url:"/login/send_reset_email"
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";

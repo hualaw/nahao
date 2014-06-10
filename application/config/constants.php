@@ -139,7 +139,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
-define('PER_PAGE_NO',10);
+define('PER_PAGE_NO',1);
 
 
 //tables
@@ -288,11 +288,6 @@ define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
 define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
-
-//昵称最大长度
-define('MIN_NICKNAME_LEN', 4);
-define('MAX_NICKNAME_LEN', 21);
-
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
