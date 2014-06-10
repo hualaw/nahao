@@ -3,7 +3,6 @@ header('content-type:text/html;charset=utf-8');
 class Selfinfo extends NH_User_Controller {
 
     function __construct(){
-        ini_set('display_errors', 'On');
         parent::__construct();
         $this->load->model('business/common/business_user');
     }
