@@ -284,7 +284,26 @@ class Member extends NH_User_Controller {
 	public function my_infor()
 	{
         $this->load->model('business/common/business_school');
+        $this->load->model('business/common/business_subject','subject');
 	    $user_id = $this->session->userdata('user_id');
+        if($this->is_post()) {
+            $this->load->model('business/common/business_user');
+            $post_data = array();
+            $post_data['realname'] = trim($this->input->post('realname'));
+            $post_data['grade'] = intval($this->input->post('grade'));
+            $post_data['gender'] = intval($this->input->post('gender'));
+//            $post_data['provice'] = intval($this->input->post('province'));
+//            $post_data['city'] = intval($this->input->post('city'));
+//            $post_data['area'] = intval($this->input->post('area'));
+            $post_data['student_subject'] = $this->input->post('selected_subjects');
+            $result = $this->business_user->modify_user_data($post_data, $user_id);
+            if($result) {
+                $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
+            } else {
+                $arr_return = array('status' => 'error', 'msg' => '更新资料失败请稍后重试');
+            }
+            self::json_output($arr_return);
+        }
 	    #头像
 	    $str_avater = DEFAULT_AVATER;
         #年纪信息
@@ -293,9 +312,15 @@ class Member extends NH_User_Controller {
         $gender = $this->config->item('gender');
         #学校
         $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
+        #学科
+        $subjects = $this->subject->get_subjects();
+        #我已选择的学科组成的字符串
+        $subject_str = implode('-', $this->_user_detail['student_subject']);
         $this->smarty->assign('grades', $grades);
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('school', $my_school['schoolname']);
+        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('subject_str', $subject_str);
 	    $this->smarty->assign('str_avater', $str_avater);
 	    $this->smarty->assign('page_type', 'myInfor');
 	    $this->smarty->display('www/studentMyCourse/index.html');

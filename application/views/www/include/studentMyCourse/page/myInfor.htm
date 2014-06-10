@@ -112,7 +112,7 @@
 			</ul>
 		</form> -->
 		<!--手机版-->
-		<form action="" method="post" onsubmit="return false;" class="phoneForm">
+		<form action="" method="post" class="phoneForm">
 			<p class="formName">手机号
 				<span class="verWay">{$user_detail.phone}</span>
 				<span class="hasVer">（已验证）</span>
@@ -121,7 +121,7 @@
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
-						<input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
+                        <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}" disabled="true">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -143,7 +143,7 @@
 				<li>
 					<p class="formName"><span>*</span>邮箱</p>
 					<div class="cf">
-						<input type="text" name="email" class="pEmail fl cInput yh" validName="text" value="{$user_detail.email}">
+                        <input type="text" name="email" class="pEmail fl cInput yh" validName="text" value="{$user_detail.email}" disabled="true">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -184,14 +184,10 @@
 				</li>
 				<li class="attent">
 					<p class="optional">关注学科</p>
-					<input type="button" name="focus_subjects" value="语文" class="btn">
-					<input type="button" name="focus_subjects" value="物理" class="btn">
-					<input type="button" name="focus_subjects" value="兴趣特长" class="btn">
-					<input type="button" name="focus_subjects" value="化学" class="btn">
-					<input type="button" name="focus_subjects" value="生物" class="btn">
-					<input type="button" name="focus_subjects" value="数学" class="btn">
-					<input type="button" name="focus_subjects" value="英语" class="btn">
-					<input type="button" name="focus_subjects" value="人文文化" class="btn">
+                    {foreach $subjects as $key => $val}
+					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
 					<div class="cf">
 						<p class="attNote fl">注：最多可选择3项</p>
 						<span class="Validform_checktip fl"></span>
@@ -252,14 +248,14 @@
 				<li>
 					<p class="formName"><span>*</span>新密码</p>
 					<div class="cf">
-						<input type="password" name="setPassword" class="setPassword fl cInput yh" validName="text">
+						<input type="password" name="set_password" class="setPassword fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li>
 					<p class="formName"><span>*</span>确认新密码</p>
 					<div class="cf">
-						<input type="password" name="reSetPassword" class="reSetPassword fl cInput yh" validName="text">
+						<input type="password" name="reset_password" class="reSetPassword fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>

@@ -39,7 +39,7 @@ class Business_User extends NH_Model
      * @param int       $user_id 用户Id
      * @param string    $password 新密码
      */
-    public function phone_reset_password($user_id, $password)
+    public function reset_password($user_id, $password)
     {
         $user_info = $this->model_user->get_user_by_param('user', 'one', '*', array('id' => $user_id));
         if($user_info) {
@@ -106,12 +106,16 @@ class Business_User extends NH_Model
         $update_data['bankbench'] && $userinfo['bankbench'] = $update_data['bankbench'];
         $update_data['bankcard'] && $userinfo['bankcard'] = $update_data['bankcard'];
         $update_data['id_code'] && $userinfo['id_code'] = $update_data['id_code'];
+        $update_data['grade'] && $userinfo['grade'] = $update_data['grade'];
 //        $user_res = $this->model_user->update_user($userdata, array('id' => $user_id));
 
         $user_info_res = $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
 
         if($update_data['teacher_subject']) {
             $this->update_user_subject($update_data['teacher_subject'], $user_id, 'teacher');
+        }
+        if($update_data['student_subject']) {
+            $this->update_user_subject($update_data['student_subject'], $user_id, 'student');
         }
         
         return true;
@@ -127,7 +131,7 @@ class Business_User extends NH_Model
     public function update_user_subject($subject, $user_id, $type)
     {
         if(!is_array($subject)) {
-            $subject = explode(',', $subject);
+            $subject = explode('-', $subject);
         }
         
         $table_name = $type . '_subject';
@@ -139,5 +143,24 @@ class Business_User extends NH_Model
         }
         
         return true;
+    }
+    
+    /**
+     * 验证用户的密码是否正确
+     * @param int $user_id  用户ID
+     * @param string  $password 密码
+     * @return bool
+     */
+    public function check_user_password($user_id, $password)
+    {
+        if($user_id && $password) {
+            $str_fields = 'id,password,salt';
+            $arr_where  = array('id' => $user_id);
+            $user_info = $this->model_user->get_user_by_param('user', 'one', $str_fields, $arr_where);
+            $check_ret = check_password($user_info['salt'], $password, $user_info['password']);
+            return $check_ret;
+        }
+        
+        return false;
     }
 }

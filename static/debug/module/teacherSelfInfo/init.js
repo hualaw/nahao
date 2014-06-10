@@ -20,6 +20,9 @@ define(function(require,exports){
     if($('.personInfo').length > 0){
 //        require("module/teacherSelfInfo/uploadfile").addUploadCredit();//调用上传图片
         infoValid.teaInfoValid();//个人资料表单验证
-//        infoValid.teaPassValid();//修改密码表单验证
+        infoValid.teaPassValid();//修改密码表单验证
+    }
+    if($("#province").length > 0) {
+        require("module/teacherSelfInfo/area").change_area();
     }
 })

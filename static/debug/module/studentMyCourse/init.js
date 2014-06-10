@@ -8,6 +8,7 @@ define(function(require,exports){
 
 	var _tab = require("module/common/method/tab");
 	var _valid = require("module/studentMyCourse/valid");
+    require("module/common/method/setSchool");
 
 
 

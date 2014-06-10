@@ -83,6 +83,9 @@ $config['sql_www'] = array(
     'student_subject' => array(
         TABLE_STUDENT_SUBJECT => false,
     ),
+    'subject' => array(
+        TABLE_SUBJECT => false,
+    ),
 );
 
 $config['sql_teacher'] = array(
@@ -98,5 +101,8 @@ $config['sql_teacher'] = array(
     ),
     'student_subject' => array(
         TABLE_STUDENT_SUBJECT => false,
+    ),
+    'subject' => array(
+        TABLE_SUBJECT => false,
     ),
 );

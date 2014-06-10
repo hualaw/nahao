@@ -127,8 +127,9 @@
                                 <div>
                                     <select name="province" id="province" class="province" validName="select">
                                         <option value="">省份</option>
-                                        <option value="1">北京</option>
-                                        <option value="2">北京</option>
+                                        {foreach $province as $val}
+                                        <option value="{$val.id}" {if $val.id == $user_detail.province}selected{/if}>{$val.name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -141,8 +142,9 @@
                                 <div>
                                     <select name="city" id="city" class="city" validName="select">
                                         <option value="">城市</option>
-                                        <option value="1">北京</option>
-                                        <option value="2">北京</option>
+                                        {foreach $city as $val}
+                                        <option value="{$val.id}" {if $val.id == $user_detail.city}selected{/if}>{$val.name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -155,8 +157,11 @@
                                 <div>
                                     <select name="zone" id="zone" class="zone" validName="select">
                                         <option value="">区</option>
-                                        <option value="1">区</option>
-                                        <option value="2">区</option>
+                                        {if $area}
+                                        {foreach $area as $val}
+                                        <option value="{$val.id}" {if $val.id == $user_detail.area}selected{/if}>{$val.name}</option>
+                                        {/foreach}
+                                        {/if}
                                     </select>
                                 </div>
                             </div>

@@ -34,6 +34,8 @@ class Selfinfo extends NH_User_Controller {
             self::json_output($arr_return);
         }
         $this->load->model('business/common/business_school');
+        $this->load->model('business/admin/business_lecture');
+        $this->load->model('business/admin/business_teacher');
         #教学阶段
         $stages = $this->config->item('stage');
         #科目
@@ -45,6 +47,14 @@ class Selfinfo extends NH_User_Controller {
         $gender = $this->config->item('gender');
         #支持的银行
         $banks = $this->config->item('bank');
+        #省和直辖市
+        $province=$this->business_lecture->all_province();
+        if($this->_user_detail['province']) {
+            $city = $this->business_teacher->city1($this->_user_detail['province']);
+        }
+        if($this->_user_detail['city']) {
+            $area = $this->business_teacher->area1($this->_user_detail['city']);
+        }
         $this->smarty->assign('stages', $stages);
         $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);
@@ -52,6 +62,9 @@ class Selfinfo extends NH_User_Controller {
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('banks', $banks);
         $this->smarty->assign('teacher_age_ceiling', TEACHER_AGE_CEILING);
+        $this->smarty->assign('province', $province);
+        $this->smarty->assign('area', $area);
+        $this->smarty->assign('city', $city);
 		$this->smarty->display('teacher/teacherSelfinfo/index.html');
 	}
 	public function openClass(){
