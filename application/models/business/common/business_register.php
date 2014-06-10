@@ -55,11 +55,23 @@ class Business_Register extends NH_Model {
 		
 		$user_id = $this->model_user->create_user($user_table_data);
 
+
         //if insert table failed, the $uer_id is int zero
         if($user_id === 0)
 		{
+            $user_table_data['error'] = 'user_insert_failed';
 			return $this->_log_reg_info(ERROR, 'reg_db_error', $user_table_data);
 		}
+
+        //insert a record into user_info table
+        $insert_affected_rows = $this->model_user->create_user_info(array('user_id'=>$user_id));
+        if($insert_affected_rows < 1)
+        {
+            //标记user表里的记录为无效状态
+            $this->model_user->update_user(array('status'=>0), array('id'=>$user_id));
+            $user_table_data['error'] = 'user_info_insert_failed';
+            return $this->_log_reg_info(ERROR, 'reg_db_error', $user_table_data);
+        }
 
         if($reg_type == REG_TYPE_PHONE)
         {
@@ -67,6 +79,11 @@ class Business_Register extends NH_Model {
             $add_ret = add_user_phone_server($user_id, $phone);
             if(!$add_ret)
             {
+                //标记user表里的记录为无效状态
+                $this->model_user->update_user(array('status'=>0), array('id'=>$user_id));
+                //标记user_info表里的记录为无效状态
+                $this->model_user->update_user_info(array('status'=>0), array('user_id'=>$user_id));
+
                 return $this->_log_reg_info(ERROR, 'reg_phone_server_error', array('user_id'=>$user_id, 'phone'=>$phone));
             }
         }

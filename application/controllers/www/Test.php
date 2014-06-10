@@ -5,9 +5,12 @@ class Test extends CI_Controller {
 
 	public function ss_test()
 	{
+        /*
 		var_dump($this->session);
 		$session_id = $this->session->userdata('session_id');
 		echo "session_id is: ".$session_id."<br>";
+        */
+        $this->session->sess_update();
 	}
 
 	public function redis_test()
@@ -81,6 +84,32 @@ class Test extends CI_Controller {
     public function login_test()
     {
         $this->smarty->display('www/login/login.html');
+    }
+
+    public function insert_class_log()
+    {
+        $this->load->model('model/student/model_student_class_log', 'stu_obj');
+        $class_id = 1;
+        //$this->stu_obj->set_class_id($class_id);
+
+        //PRAISE
+        $this->stu_obj->save_action($class_id, 1, CLASS_PRAISE_ACTION);
+        $this->stu_obj->save_action($class_id, 2, CLASS_PRAISE_ACTION);
+        $this->stu_obj->save_action($class_id, 3, CLASS_PRAISE_ACTION);
+
+        //SLOWER
+        $this->stu_obj->save_action($class_id, 1, CLASS_TEACH_SLOWER_ACTION);
+        $this->stu_obj->save_action($class_id, 3, CLASS_TEACH_SLOWER_ACTION);
+
+        //FASTER
+        $this->stu_obj->save_action($class_id, 2, CLASS_TEACH_FASTER_ACTION);
+    }
+
+    public function get_class_log_stat()
+    {
+        $class_id = 1;
+        $this->load->model('model/student/model_student_class_log', 'stu_obj');
+        $this->stu_obj->get_action_stat($class_id);
     }
 }
 

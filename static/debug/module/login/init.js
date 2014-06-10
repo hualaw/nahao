@@ -3,6 +3,9 @@ define(function(require,exports){
 	// 加载登陆验证
 	var _valid = require('module/login/valid');
 	_valid.loginForm();
+	
+	// 选择学校组件
+	require('module/common/method/setSchool');
 
 	//手机号注册表单验证
 	if($('.regPhoneBox').length > 0){
@@ -26,7 +29,7 @@ define(function(require,exports){
 	// 登陆之后验证
 	_valid.loginAfterForm();
     //手机找回密码验证
-	_valid.phoneFindPW();
+//	_valid.phoneFindPW();
     //手机找回密码验证
 	_valid.EmailFindPW();
     // 注册成功之后验证

@@ -27,7 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -35,6 +35,35 @@ define(function(require,exports){
                 }
             }
         });
+        _Form.addRule([{
+                ele: ".phoneNum",
+                datatype:"m",
+                ajaxurl:siteUrl + "register/check_phone",
+                ajaxUrlName:'phone',
+                nullmsg:"请输入手机号",
+                errormsg:"手机号输入错误"
+                
+            },
+            {   
+                 ele:".pwd",
+                 datatype: "*6-20",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
+            },
+            {   
+                 ele:".codeInput",
+                 datatype: "/^\\d{4}$/",
+                 nullmsg: "请输入手机验证码",
+                 errormsg: "长度是四位数字"
+            },
+            {   
+                 ele:"checkbox:first",
+                 datatype: "*",
+                 nullmsg: "请同意服务协议",
+                 errormsg: "未同意服务协议"
+            }
+        ]);
+        // ajaxurl提交成功处理
         _Form.config({
             ajaxurl:{
                 success:function(json,obj){
@@ -46,40 +75,9 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
                     }
-                    //data是返回的json数据;
-                    //obj是当前正做实时验证表单元素的jquery对象;
-                    //注意：5.3版中，实时验证的返回数据须是含有status值的json数据！
-                    //跟callback里的ajax返回数据格式统一，建议不再返回字符串"y"或"n"。目前这两种格式的数据都兼容。
                 }
             }
         });
-        _Form.addRule([{
-                ele: ".phoneNum",
-                datatype:"m",
-                ajaxurl:siteUrl + "register/check_phone",
-                nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"手机号输入错误"
-                
-            },
-            {   
-                 ele:".pwd",
-                 datatype: "s6-20",
-                 nullmsg: "请输入密码",
-                 errormsg: "密码输入错误"
-            },
-            {   
-                 ele:".codeInput",
-                 datatype: "/^\\d{4}$/",
-                 nullmsg: "请输入手机验证码",
-                 errormsg: "手机验证码输入错误"
-            },
-            {   
-                 ele:"checkbox:first",
-                 datatype: "*",
-                 nullmsg: "请同意服务协议",
-                 errormsg: "未同意服务协议"
-            }
-        ]);
         // 发送手机验证码
         require('module/common/method/send').sendPhoneNum(1);
     };
@@ -95,7 +93,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -106,12 +104,14 @@ define(function(require,exports){
         _Form.addRule([{
                 ele: ".email",
                 datatype:"e",
-                nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"手机号输入错误"
+                ajaxurl:siteUrl + "register/check_email",
+                ajaxUrlName:'email',
+                nullmsg:"请输入邮箱地址",
+                errormsg:"长度6-30个字符"
             },
             {   
                  ele:".pwd",
-                 datatype: "*6-16",
+                 datatype: "*6-20",
                  nullmsg: "请输入密码",
                  errormsg: "密码输入错误"
             },
@@ -129,6 +129,21 @@ define(function(require,exports){
                  errormsg: "未同意服务协议"
             }
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     };
     //选择和取消 关注
     function checkAttent(){        
@@ -172,9 +187,9 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                if(json.status == 'ok'){
-                    // 登陆成功后跳转到首页
-                    window.location=siteUrl;
+                if(data.status == 'ok'){
+                    // 登陆成功后跳转到跳转页
+                    window.location=data.data.redirect_url;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -187,13 +202,13 @@ define(function(require,exports){
                 ele: ".userName",
                 datatype:"*",
                 nullmsg:"请输入手机号/邮箱/梯子网帐号",
-                errormsg:"请输入正确的手机号"
+                errormsg:"长度2-15个字符"
             },
             {	
                	 ele:".pwd",
-               	 datatype: "*",
-     		  	 nullmsg: "请输入密码",
-       			 errormsg: "密码输入错误"
+                 datatype: "*6-20",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码输入错误"
 
             }
             
@@ -226,13 +241,13 @@ define(function(require,exports){
                 ele:".lEmail",
                 datatype: "e",
                 nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址"
+                errormsg: "长度6-30个字符"
             },
             {    
                 ele: ".lname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
 
             },
             {    
@@ -251,9 +266,9 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -299,10 +314,10 @@ define(function(require,exports){
             },
             {
                 ele: ".inputPhoneCode",
-                datatype:"/^\\d{6}$/",
-                datatype_allownull:"/^\\d{6}$/ | /^\\w{0}$/",
+                datatype:"/^\\d{4}$/",
+                datatype_allownull:"/^\\d{4}$/ | /^\\w{0}$/",
                 nullmsg:"请输入验证码",
-                errormsg:"验证码长度是6位"
+                errormsg:"验证码长度是4位"
             }       
         ]);
     }
@@ -324,7 +339,7 @@ define(function(require,exports){
         });
         _Form.config({
             showAllError:true,
-            url:"/login/send_reset_email",
+            url:"/login/send_reset_email"
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
@@ -332,7 +347,7 @@ define(function(require,exports){
                 ele: ".inputEmail",
                 datatype:"e",
                 nullmsg:"请输入邮箱",
-                errormsg:"请输入正确的邮箱",
+                errormsg:"长度6-30个字符",
                 ajaxurl:'/login/check_user_email'
             }        
         ]);
@@ -368,9 +383,9 @@ define(function(require,exports){
             },
             {    
                 ele: ".lname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
 
             },
             {    
@@ -389,9 +404,9 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -428,13 +443,13 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".setPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"新密码不能为空",
                 errormsg:"长度6-16个字符之间"
             },
             {
                 ele:".reSetPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 recheck:"setPassword",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"

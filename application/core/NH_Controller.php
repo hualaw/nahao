@@ -29,10 +29,12 @@ class NH_Controller extends CI_Controller
         $this->current['controller'] = $this->uri->rsegment(1);
         $this->current['action'] = $this->uri->rsegment(2);
         $this->load->vars($this->current);
+        $this->assign_nickname();
     }
 
     protected function load_smarty()
     {
+        //var_dump($_SERVER);
         $this->smarty->assign('site_url', site_url());
         $this->smarty->assign('static_url', static_host_url());
         $this->smarty->assign('teacher_url', teacher_url());
@@ -42,6 +44,8 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('static_version', $static_version);
         $this->smarty->assign('is_login', $this->is_login);
         $this->smarty->assign('userdata', $this->session->all_userdata());
+        $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
+        $this->smarty->assign('perfect_url', site_url().'login/perfect');
     }
 
 
@@ -73,13 +77,28 @@ class NH_Controller extends CI_Controller
     {
         $bool_return = false;
 
-        $this->session->sess_read();
+        //$this->session->sess_read();
+        log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
         if($this->session->userdata('user_id') > 0)
             $bool_return = true;
 
         return $bool_return;
     }
 
+
+    protected function assign_nickname()
+    {
+        log_message("debug_nahao", "IN ".__FUNCTION__." funtion, out of if()");
+        if($this->is_login)
+        {
+            log_message("debug_nahao", "IN ".__FUNCTION__." funtion, in if()");
+            $show_nickname = $this->session->userdata('nickname');
+            $show_nickname_len = strlen($show_nickname);
+            if($show_nickname_len > 3*MAX_NICKNAME_LEN)
+                $show_nickname = substr($show_nickname, 0 , 3*MAX_NICKNAME_LEN)."...";
+            $this->smarty->assign('nickname', $show_nickname);
+        }
+    }
     /**
      * 以json格式输出
      * @param array $arr_data

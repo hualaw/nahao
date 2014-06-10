@@ -23,19 +23,61 @@ class Teacher extends NH_Admin_Controller {
     public function index(){
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $int_user_id = $this->input->get('user_id') ? intval($this->input->get('user_id')) : 0 ;
-        $str_username = $this->input->get('nickname') ? trim($this->input->get('nickname')) : '' ;
-
+        $str_term = $this->input->get('term') ? trim($this->input->get('term')) : 0 ;
+        $int_province = $this->input->get('province') ? trim($this->input->get('province')) : 0 ;
+        $int_subject = $this->input->get('subject') ? trim($this->input->get('subject')) : 0 ;
+        $int_gender = $this->input->get('gender') ? trim($this->input->get('gender')) : 0 ;
+        $int_title = $this->input->get('title') ? trim($this->input->get('title')) : 0 ;
+        $int_account = $this->input->get('account') ? trim($this->input->get('account')) : 0 ;
+        // var_dump($int_title);
+        $int_add_time1 = $this->input->get('add_time1') ? trim($this->input->get('add_time1')) : '' ;
+        $int_add_time2 = $this->input->get('add_time2') ? trim($this->input->get('add_time2')) : '' ;
         $arr_where = array();
         if($int_user_id > 0){
             $arr_where['user_id'] = $int_user_id;
         }
-        if($str_username){
-            $arr_where['nickname'] = $str_username;
+        if($str_term == 1){
+            $arr_where['realname'] = $this->input->get('reason');
         }
-
-        $int_count = $this->user->get_user_count($arr_where);
-        $arr_list = $this->user->get_user_list($arr_where, $int_start,PER_PAGE_NO);
-
+        if($str_term == 2){
+            $arr_where['nickname'] = $this->input->get('reason');
+        }
+        if($str_term == 3){
+            $arr_where['email'] = $this->input->get('reason');
+        }
+        if($str_term == 4){
+            $arr_where['phone_mask'] = $this->input->get('reason');
+        }
+        if($str_term == 5){
+            $arr_where['id'] = $this->input->get('reason');
+        }
+        if($int_province > 0){
+            $arr_where['province'] = $int_province;
+        }
+        if($int_subject > 0){
+            $arr_where['subject'] = $int_subject;
+        }
+        if($int_gender > 0){
+            $arr_where['gender'] = $int_gender;
+        }
+        if($int_title > 0){
+            $arr_where['title'] = $int_title;
+        }
+        if($int_account > 0){
+            $arr_where['account'] = $int_account;
+        }
+        if($int_add_time1 != "" && $int_add_time2 != ""){
+            $arr_where['add_time1'] = $int_add_time1;
+            $arr_where['add_time2'] = $int_add_time2;
+        }
+        $int_count = $this->teacher->get_teacher_count($arr_where);
+        $arr_list = $this->teacher->get_teacher_list($arr_where, $int_start,PER_PAGE_NO);
+        $this->load->model('business/admin/business_lecture');
+        $province=$this->business_lecture->all_province();
+        $this->load->model('business/common/business_subject','subject');
+        $subject=$this->subject->get_subjects();
+        $total_count=$this->teacher->total_count();
+        $day_count=$this->teacher->day_count();
         $this->load->library('pagination');
         $config = config_item('page_admin');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
@@ -45,65 +87,122 @@ class Teacher extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
+        $config_gender = config_item('gender');
+        $config_title = config_item('teacher_title');
+        $config_stage = config_item('stage');
+        $config_account = config_item('account');
+        $this->smarty->assign('total_count',$total_count);
+        $this->smarty->assign('day_count',$day_count);
+        $this->smarty->assign('province',$province);
+        $this->smarty->assign('subject',$subject);
+        $this->smarty->assign('config_gender',$config_gender);
+        $this->smarty->assign('config_title',$config_title);
+        $this->smarty->assign('config_stage',$config_stage);
+        $this->smarty->assign('config_account',$config_account);
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);
         $this->smarty->assign('arr_query_param', $arr_query_param);
-        $this->smarty->assign('view', 'user_list');
+        $this->smarty->assign('view', 'teacher_list');
         $this->smarty->display('admin/layout.html');
     }
 
-    /**
-     * create user
-     * @author yanrui@tizi.com
+     /**
+     * create teacher
+     * @author shangshikai@tizi.com
      */
     public function create(){
-        if($this->is_ajax() AND $this->is_post()){
-            $str_username = trim($this->input->post('username'));
-            $str_phone = trim($this->input->post('phone'));
-            $str_email = trim($this->input->post('email'));
-//            echo $str_username.'--'.$str_phone.'--'.$str_email;exit;
-            if($str_username){
-                $arr_param['username'] = $str_username;
-                if(is_mobile($str_phone)){
-                    $arr_param['phone'] = $str_phone;
-                }
-                if(is_email($str_email)){
-                    $arr_param['email'] = $str_email;
-                }
-                $int_user_id = $this->user->create_user($arr_param);
-                if($int_user_id > 0){
-                    $this->arr_response['status'] = 'ok';
-                    $this->arr_response['msg'] = '创建成功';
-                }
-            }
-        }
-        self::json_output($this->arr_response);
+        $this->load->model('business/common/business_subject','subject');
+        $subject=$this->subject->get_subjects();
+        $config_title=config_item('teacher_title');
+        $config_bank=config_item('bank');
+        $this->load->model('business/admin/business_lecture');
+        $province=$this->business_lecture->all_province();
+//        $province_id=$this->input->post('province',TRUE);
+//        $city=$this->teacher->city1($province_id);
+        $this->smarty->assign('config_bank',$config_bank);
+        $this->smarty->assign('config_title',$config_title);
+        $this->smarty->assign('province',$province);
+        $this->smarty->assign('subject',$subject);
+        $this->smarty->assign('view','insert_teacher');
+        $this->smarty->display('admin/layout.html');
+    }
+    /**
+     * 验证添加教师表单
+     * @aurhor shangshikai@tizi.com
+    **/
+    public function check_techer_post()
+    {
+        $post=$this->input->post(NULL,TRUE);
+        $this->teacher->check_post($post);
+       // var_dump($post);
+    }
+    /**
+     * 根据省id查找市
+     * @author shangshikai@tizi.com
+    */
+    public function city()
+    {
+        $province=$this->input->post('province',TRUE);
+        echo json_encode($this->teacher->city1($province));
+    }
+    /**
+     * 根据市id查找区
+     * @author shangshikai@tizi.com
+     */
+    public function area()
+    {
+        $city=$this->input->post('city',TRUE);
+        echo json_encode($this->teacher->area1($city));
+       // echo $this->teacher->area1($city);
+       // echo $city;
+    }
+    /**
+     * teacher账户禁用
+     * @author shangshikai@tizi.com
+     */
+    public function close_account(){
+        $arr=$this->input->post('arr',TRUE);
+       // echo $this->teacher->close_ban($arr);
+        self::json_output($this->teacher->close_ban($arr));
     }
 
     /**
-     * user账户禁用启用
-     * @author yanrui@tizi.com
+     * teacher账户启用
+     * @author shangshikai@tizi.com
+    */
+    public function open_account(){
+        $arr=$this->input->post('arr',TRUE);
+       // echo $this->teacher->close_ban($arr);
+        self::json_output($this->teacher->open_ban($arr));
+    }
+    /**
+     * 昵称是否存在
+     * @author shangshikai@tizi.com
+    */
+    public function nickname()
+    {
+        $nickname=$this->input->post('nickname',TRUE);
+        $c=$this->teacher->check_nick_name($nickname);
+        self::json_output($c['id']);
+    }
+    /**
+     * 电话是否存在
+     * @author shangshikai@tizi.com
      */
-    public function active(){
-        if($this->is_ajax() AND $this->is_post()){
-            $int_user_id = intval($this->input->post('user_id'));
-            $int_status = intval($this->input->post('status'));
-            if($int_user_id > 1 AND in_array($int_status,array(0,1))){
-                $arr_param = array(
-                    'status' => $int_status
-                );
-                $arr_where = array(
-                    'id' => $int_user_id
-                );
-                $bool_return = $this->user->update_user($arr_param,$arr_where);
-                if($bool_return > 0){
-                    $this->arr_response['status'] = 'ok';
-                    $this->arr_response['msg'] = '修改成功';
-                }
-            }
-        }
-        self::json_output($this->arr_response);
+    public function check_phone()
+    {
+        $phone=$this->input->post('phone');
+        self::json_output($this->teacher->check_mobile_phone($phone));
+    }
+    /**
+     * 邮箱是否存在
+     * @author shangshikai@tizi.com
+     */
+    public function check_email()
+    {
+        $email=$this->input->post('email');
+        self::json_output($this->teacher->check_email_tec($email));
     }
 
     /**

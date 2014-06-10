@@ -2,6 +2,10 @@
 
 class Ajax extends CI_Controller{
  
+	private $arr_response = array(
+        'status' => 'error',
+        'msg' => '操作失败',
+    );
 	/**
 	 * 老师端ajax页面数据类
 	 */
@@ -36,7 +40,7 @@ class Ajax extends CI_Controller{
 //    	}else{
 //    		$data['status'] = 0;
 //    	}
-    	echo json_encode($data);
+    	self::json_output($this->arr_response);
     	exit;
     }
     

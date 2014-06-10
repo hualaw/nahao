@@ -13,15 +13,9 @@ class Index extends NH_User_Controller {
 	public function index()
 	{  
         header('content-type: text/html; charset=utf-8');
+        //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
-        if($this->is_login)
-        {
-            $show_nickname = $this->session->userdata('nickname');
-            $show_nickname_len = strlen($show_nickname);
-            if($show_nickname_len > 3*MAX_NICKNAME_LEN)
-            $show_nickname = substr($show_nickname, 0 , 3*MAX_NICKNAME_LEN)."...";
-            $this->smarty->assign('nickname', $show_nickname);
-        }
+
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
@@ -39,6 +33,10 @@ class Index extends NH_User_Controller {
 	 */
 	public function save_apply_teach()
 	{
+	    #判断是否登录
+	    if(! $this->is_login){
+	        redirect('/login');
+	    }
 	    $course = $this->input->post("course");
 	    $resume = $this->input->post("resume");
 	    $subject= $this->input->post("subject");
@@ -59,7 +57,7 @@ class Index extends NH_User_Controller {
 	    $start_time= $this->input->post("start_time");
 	    $end_time= $this->input->post("end_time");
 	    $name= $this->input->post("name");
-	    $user_id = 1;                        #TODO用户登录就是user_id
+	    $user_id = $this->session->userdata('user_id');                        #TODO用户登录就是user_id
 	    $array_data = array(
             "course"=>$course,
             "resume"=>$resume,
@@ -91,6 +89,29 @@ class Index extends NH_User_Controller {
 	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
 	    } else {
 	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
+	    }
+	}
+	
+	/**
+	 * 意见反馈
+	 */
+	public function feedback()
+	{
+	    $str_content = $this->input->post("content");
+	    $str_nickname = $this->input->post("nickname");
+	    $str_email = $this->input->post("email");
+	    $array_data = array(
+	            'content'=>$str_content,
+	            'nickname'=>  $str_nickname,
+	            'email'=>$str_email,
+	            'create_time'=>time()
+	    );
+	    $bool_flag = $this->model_index->save_feedback($array_data);
+	    if ($bool_flag)
+	    {
+	        self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
+	    } else {
+	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
 	    }
 	}
 }

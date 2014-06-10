@@ -95,11 +95,14 @@
 	                            <div class="fr rCon">
 	                            	<div class="fl line"></div>
 		                            <div class="fr listb">
-		                            	<div class="cf">
+		                            	<div class="cf cListHid undis">
 		                                	<p class="listh fl">{$it.title}</p>
-		                                	<span class="fl handout"></span>
-		                                	<span class="fl cloudNotes"></span>
-		                            		<span class="starBg fr"></span>
+		                                	<div class="cf">
+		                                		<span class="fl handout"></span>
+			                                	<span class="fl cloudNotes"></span>
+			                                	<a href="javascript:void(0)" class="evaluBtn">评价</a>
+			                            		<span class="starBg fr"></span>
+		                                	</div>
 		                            	</div>
 		                                <p class="listc">{$it.time}</p>
 		                            </div>
@@ -161,12 +164,66 @@
 <!--js引入结束-->
 
 <!--云笔记 弹框-->
-<div class="cnDia">
-	<h2>第一章 机器人是什么样的</h2>	
-	<div class="cnCon">
-		<p>卡恢复可j阿航空附近噶结果飞机，阿克苏警方给j啊韩国飞机哈规划方案根据哈斯国防
-阿花是否可j啊设计方案a各示范户j啊。非官方j啊还是国防军哈国防可是解放后恢复啦
-看啦合法化哈根。</p>
+<div class="noteDia undis">
+	<div class="cnDia">
+		<h2>第一章 机器人是什么样的</h2>	
+		<div class="cnCon">
+			<p>卡恢复可j阿航空附近噶结果飞机，阿克苏警方给j啊韩国飞机哈规划方案根据哈斯国防
+	阿花是否可j啊设计方案a各示范户j啊。非官方j啊还是国防军哈国防可是解放后恢复啦
+	看啦合法化哈根。</p>
+		</div>
+	</div>
+</div>
+<!--评论 弹框-->
+<div class="evaluHtml undis">
+	<div class="evalu">
+		<h3>请您为本节课点评</h3>
+		<span class="starBg cf">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+		<form action="" class="evaluForm" method="post" onsubmit="return false;">
+			<ul>
+				<li>
+					<div class="cf">
+						<textarea name="eTextarea" class="eTextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="cf">
+					<input type="submit" class="noShowBtn redBtn submit fr" value="提交">
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+<!--教室-评价 开始-->
+<div class="evaluHtml undis">
+	<div class="evalu">
+		<h3>请您为本节课点评</h3>
+		<span class="starBg cf">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+		<form action="" class="evaluForm" method="post" onsubmit="return false;">
+			<ul>
+				<li>
+					<div class="cf">
+						<textarea name="eTextarea" class="eTextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="cf">
+					<input type="submit" class="noShowBtn redBtn submit fr" value="提交">
+				</li>
+			</ul>
+		</form>
 	</div>
 </div>
 </body>

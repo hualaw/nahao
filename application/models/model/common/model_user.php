@@ -17,6 +17,7 @@ class Model_User extends NH_Model
     public function create_user($arr_param)
     {
         $arr_result = $this->db->insert(TABLE_USER, $arr_param);
+        //echo $this->db->last_query();
         $int_insert_id = $this->db->insert_id();
         return $int_insert_id;
     }
@@ -59,7 +60,98 @@ class Model_User extends NH_Model
         $int_affected_rows = $this->db->affected_rows();
         return $int_affected_rows > 0 ? true :false;
     }
-
+    /**
+     * teacher账户禁用
+     * @author shangshikai@tizi.com
+     */
+    public function account_close($arr)
+    {
+        foreach($arr as $v)
+        {
+           $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>0),array(TABLE_USER.'.id'=>$v));
+           $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>0),array(TABLE_USER_INFO.'.user_id'=>$v));
+        }
+        return TRUE;
+    }
+    /**
+     * teacher账户禁用
+     * @author shangshikai@tizi.com
+     */
+    public function account_open($arr)
+    {
+        foreach($arr as $v)
+        {
+           $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>1),array(TABLE_USER.'.id'=>$v));
+           $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>1),array(TABLE_USER_INFO.'.user_id'=>$v));
+        }
+        return TRUE;
+    }
+    /**
+     * 根据省ID获取市
+     * @author shangshikai@tizi.com
+     */
+    public function city2($province)
+    {
+         $this->db->select('nahao_areas.id,nahao_areas.name')->from('nahao_areas');
+         $this->db->where("nahao_areas.parentid=$province");
+         return $this->db->get()->result_array();
+         // return $this->db->last_query();
+    }
+    /**
+     * 根据市ID获取区
+     * @author shangshikai@tizi.com
+     */
+    public function area2($city)
+    {
+         $this->db->select('nahao_areas.id,nahao_areas.name')->from('nahao_areas');
+         $this->db->where("nahao_areas.parentid=$city");
+         return  $this->db->get()->result_array();
+         //return $this->db->last_query();
+    }
+    /**
+     * 昵称是否存在
+     * @author shangshikai@tizi.com
+     */
+    public function check_nick($nickname)
+    {
+         return $this->db->select('user.id')->from('user')->where("user.nickname='$nickname'")->get()->row_array();
+        // return $this->db->last_query();
+    }
+    /**
+     * 电话是否合法
+     * @author shangshikai@tizi.com
+     */
+    public function check_tel($phone)
+    {
+        if(!is_mobile($phone))
+        {
+            return 1;
+        }
+        else
+        {
+            if(get_uid_phone_server($phone))
+            {
+                return 2;
+            }
+        }
+    }
+    /**
+     * 邮箱是否合法
+     * @author shangshikai@tizi.com
+     */
+    public function check_tec_email($email)
+    {
+        if(!is_email($email))
+        {
+            return "no";
+        }
+        else
+        {
+            $c=$this->db->select('user.id')->from('user')->where("user.email='$email'")->get()->row_array();
+            return $c['id'];
+            //return $this->db->last_query();
+        }
+    }
     /**
      * 删除user
      * @param array $arr_param

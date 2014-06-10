@@ -7,6 +7,7 @@ if (PHP_SAPI === 'cli') {
     $str_domain = !in_array($str_domain, $arr_allowed_domain) ? 'www' : $str_domain;
 }
 define('DOMAIN', $str_domain);
+
 //echo DOMAIN;EXIT;
 /*
  *---------------------------------------------------------------

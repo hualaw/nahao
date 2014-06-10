@@ -1,115 +1,127 @@
-.classRoom{font-size: 14px;color: #4b4b4b;        background: rgba(0,0,0,.5); } /*  后面会删了 我为了 现在看着方便0*/
+.classRoom{font-size: 14px;color: #4b4b4b;} 
 .classRoom .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 
 /*  做题 --*/
-.classRoom .doWorkBox{padding: 0 60px 45px 66px;width: 676px;       /*  后面会删了 我为了 现在看着方便0*/background: #fff;margin:30px auto;}
-.classRoom .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
-.classRoom .answerList li .options{margin-right: 40px;}
-.classRoom .answerList li:hover,
-.classRoom .answerList .curAnswer{border-color:#6dcde6;background: #dbdbdb;}
-.classRoom .answerList .ansIco{width: 27px;height: 28px;margin-left: -51px;}
-.classRoom .answerList .ansRight .ansIco{background:url(../../images/classRoom/ansIco.png) left -24px no-repeat;}
-.classRoom .answerList .ansError .ansIco{background:url(../../images/classRoom/ansIco.png) left 4px no-repeat;}
-.classRoom .overBtn{text-align: right;padding-right: 14px;margin-top: 15px;}
-.classRoom .overBtn .btn{width: 148px;margin-left: 30px;}
-.classRoom .overBtn .subAns{background: #f14211;}
-.classRoom .overBtn .nextBtn{background: #6dcde6;}
+.classRoomPage .doWorkBox{padding: 0 60px 45px 66px;width: 676px;margin-top:30px;}
+.classRoomPage .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
+.classRoomPage .scoreBoxList .answerList li{margin-left: 51px;}
+.classRoomPage .answerList li .options{margin-right: 40px;}
+.classRoomPage .answerList li:hover,
+.classRoomPage .answerList .curAnswer{border-color:#6dcde6;background: #dbdbdb;}
+.classRoomPage .answerList .ansIco{width: 27px;height: 28px;margin-left: -51px;}
+.classRoomPage .answerList .ansRight .ansIco{background:url(../../images/classRoom/ansIco.png) left -24px no-repeat;}
+.classRoomPage .answerList .ansError .ansIco{background:url(../../images/classRoom/ansIco.png) left 4px no-repeat;}
+.classRoomPage .overBtn{text-align: right;padding-right: 14px;margin-top: 15px;}
+.classRoomPage .overBtn .btn{width: 148px;margin-left: 30px;}
+.classRoomPage .overBtn .subAns{background: #f14211;}
+.classRoomPage .overBtn .nextBtn{background: #6dcde6;}
 /*  得分 --*/
-.classRoom .scoreBox{width: 850px;     height: 550px;  background: #fff;margin:40px auto;}
-.classRoom .optionNav{width: 75px;text-align: center;color:#fff;}
-.classRoom .scoreCon{width: 675px;padding: 0 40px 0 60px;}
-.classRoom .scorePage .scoreCon{width: 711px;}
-.classRoom .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
-.classRoom .answerList{margin:50px 0 0;}
-.classRoom .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
-.classRoom .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
-.classRoom .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
-.classRoom .optionNav .curitme{background: #ed4111;}
-.classRoom .optionNav .curitme:hover{background: #f86035;border-left: 5px solid #c93107;}
-.classRoom .scorePage .scoreCon{padding: 0 32px 28px;}
-.classRoom .scoreShow{width: 222px;}
-.classRoom .ansShow{width: 476px;border: 1px solid #b9b9b9;}
-.classRoom .scorePage .score{height: 222px;background: #ed4111;}
-.classRoom .scorePage .result span{background:url(../../images/classRoom/rearrow.png) left center no-repeat;width: 9px;height: 74px;margin-right: -9px;}
-.classRoom .scoref{border: 1px solid #b9b9b9;height: 70px;font-size: 18px;}
-.classRoom .scoref span{width: 72px;border-right: 1px solid #e5e5e5;text-align: center;padding: 14px 0 16px;height: 40px;}
-.classRoom .scoref span strong{font-size: 14px;}
-.classRoom .scoref .average{border-right: none;}
-.classRoom .scoref .ansIco{background:url(../../images/classRoom/ansIco.png) center -24px no-repeat;display: inline-block;height:20px;padding: 0;}
-.classRoom .asHead{height: 46px;padding: 0 120px 0 100px;background: #ebebeb;color: #808080;}
-.classRoom .selfans span{display: block;text-align: center;}
-.classRoom .whosAns{font-size: 14px;margin-bottom: 6px;}
-.classRoom .asheadR{text-align: center;width: 158px;}
-.classRoom .asheadRBox{margin:6px -30px 0 0;}
-.classRoom .asheadR div span{margin-right: 30px;}
-.classRoom .ansShow ul{padding: 0 10px 0 13px;}
-.classRoom .ansShow li{height: 48px;line-height: 48px;border-bottom: 1px solid #eaeaea;padding: 0 10px 0 35px;}
-.classRoom .ansShow li .items{font-size: 16px;width: 53px;}
-.classRoom .ansShow li .ansIco{width: 27px;height: 23px;background:url(../../images/classRoom/ansIco.png) center -24px no-repeat;margin:12px 80px 0 0;}
-.classRoom .ansShow li .scoreSBox span{font-size: 18px;margin-right: 16px;min-width: 33px;color: #8bb320;}
-.classRoom .ansShow li a.fr{width: 32px;height: 32px;background: url(../../images/classRoom/look.png) no-repeat;margin-top: 8px;}
-.classRoom .scoref .errorItem .ansIco,
-.classRoom .ansShow li .error{background-position: center -2px;}
+.classRoomPage .scoreBox{width: 850px;margin-top:30px;}
+.classRoomPage .optionNav{width: 75px;text-align: center;color:#fff;}
+.classRoomPage .scoreCon{width: 675px;padding: 0 40px 0 60px;}
+.classRoomPage .scoreCon .promText{width: 416px;margin-left: 20px;}
+.classRoomPage .scorePage .scoreCon{width: 711px;}
+.classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
+.classRoomPage .answerList{margin:50px 0 0;}
+.classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
+.classRoomPage .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
+.classRoomPage .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
+.classRoomPage .optionNav .curitme{background: #ed4111;}
+.classRoomPage .optionNav .curitme:hover{background: #f86035;border-left: 5px solid #c93107;}
+.classRoomPage .scorePage .scoreCon{padding: 0 32px 28px;}
+.classRoomPage .scoreShow{width: 222px;}
+.classRoomPage .ansShow{width: 476px;border: 1px solid #b9b9b9;}
+.classRoomPage .scorePage .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
+.classRoomPage .scorePage .score h3{font-size: 24px;padding: 26px 0 13px;}
+.classRoomPage .scorePage .score strong{font-size: 48px;width: 120px;height: 120px;border: 1px solid #fff;border-radius: 60px;line-height: 120px;text-align: center;display: inline-block;}
+.classRoomPage .scorePage .result span{background:url(../../images/classRoom/rearrow.png) left center no-repeat;width: 9px;height: 74px;margin-right: -9px;}
+.classRoomPage .scoref{border: 1px solid #b9b9b9;height: 70px;font-size: 18px;}
+.classRoomPage .scoref span{width: 109px;border-right: 1px solid #e5e5e5;text-align: center;padding: 14px 0 16px;height: 40px;}
+.classRoomPage .scoref span strong{font-size: 14px;}
+/*.classRoomPage .scoref .average{border-right: none;}*/
+.classRoomPage .scoref .errorItem{border-right: none;}
+.classRoomPage .scoref .ansIco{background:url(../../images/classRoom/ansIco.png) center -24px no-repeat;display: inline-block;height:20px;padding: 0;}
+.classRoomPage .asHead{height: 46px;padding: 0 120px 0 100px;background: #ebebeb;color: #808080;}
+.classRoomPage .selfans span{display: block;text-align: center;}
+.classRoomPage .whosAns{font-size: 14px;margin-bottom:0px;}
+.classRoomPage .asheadR{text-align: center;width: 158px;}
+.classRoomPage .asheadRBox{margin:0px -30px 0 0;}
+.classRoomPage .asheadR div span{margin-right: 30px;}
+.classRoomPage .ansShow ul{padding: 2px 10px 0 13px;}
+.classRoomPage .ansShow li{height: 48px;line-height: 48px;border-bottom: 1px solid #eaeaea;padding: 0 10px 0 35px;}
+.classRoomPage .ansShow li .items{font-size: 16px;width: 53px;}
+.classRoomPage .ansShow li .ansIco{width: 27px;height: 23px;background:url(../../images/classRoom/ansIco.png) center -24px no-repeat;margin:12px 80px 0 0;}
+.classRoomPage .ansShow li .scoreSBox span{font-size: 18px;margin-right: 16px;min-width: 33px;color: #8bb320;}
+.classRoomPage .ansShow li a.fr{width: 32px;height: 32px;background: url(../../images/classRoom/look.png) no-repeat;margin-top: 8px;}
+.classRoomPage .scoref .errorItem .ansIco,
+.classRoomPage .ansShow li .error{background-position: center -2px;}
 /*  老师-答案统计  */
-.classRoom .ansCount{font-size: 14px;padding: 14px 25px 24px 35px;width: 742px;      background: #fff;margin:30px auto;}
-.classRoom .ansCount .countTitle{color: #677381;font-weight: normal;font-size: 14px;height: 28px;line-height: 28px;}
-.classRoom .ansCount .countTitle em{margin:0 5px;}
-.classRoom .ansCount .countTitle span{margin-right:12px;}
-.classRoom .ansCount .CitemCon{width: 716px;}
-.classRoom .ansCount .CitemList{background: #f4f4f4;border: 1px solid #d5d5d5;margin-bottom: 9px;padding: 0 25px 10px;}
-.classRoom .ansCount .ansList{margin:10px 0;}
-.classRoom .ansCount .ansList span{display: block;}
-.classRoom .ansCount .ansList em{margin-right: 14px;}
-.classRoom .ansCount .pName{color: #677381;}
-.classRoom .ansCount .ansTable{margin-top: 25px;}
-.classRoom .ansCount .ansTable li{width: 131px;}
-.classRoom .ansCount .ansTable span{width: 130px;height: 42px;line-height: 42px;text-align: center;border-color:#d5d5d5;border-style: solid;border-width: 0 1px 1px 0;background: #fff;}
-.classRoom .ansCount .ansTable .listHead{height: 36px;line-height: 36px;color: #fff;font-weight: bold;font-size: 16px;background: #f14211;border-width: 0 0 0 1px;}
-.classRoom .ansCount .ansTable .firstList span{border-left: 1px solid #d5d5d5;width: 129px;}
-.classRoom .ansCount .ansTable .firstList .listHead{border-left: none;width: 131px;}
-.classRoom .ansCount .ansTable .rightSpan{background:#8cb422 url(../../images/classRoom/right.png) 75px center no-repeat;}
-.classRoom .ansCount .citemBox{height: 605px;}
+.classRoomPage .ansCount{font-size: 14px;padding: 14px 25px 24px 35px;width: 742px;margin-top:30px;}
+.classRoomPage .ansCount .countTitle{color: #677381;font-weight: normal;font-size: 14px;height: 28px;line-height: 28px;}
+.classRoomPage .ansCount .countTitle em{margin:0 5px;}
+.classRoomPage .ansCount .countTitle span{margin-right:12px;}
+.classRoomPage .ansCount .CitemCon{width: 716px;}
+.classRoomPage .ansCount .CitemList{background: #f4f4f4;border: 1px solid #d5d5d5;margin-bottom: 9px;padding: 0 25px 10px;}
+.classRoomPage .ansCount .ansList{margin:10px 0;}
+.classRoomPage .ansCount .ansList span{display: block;}
+.classRoomPage .ansCount .ansList em{margin-right: 14px;}
+.classRoomPage .ansCount .pName{color: #677381;}
+.classRoomPage .ansCount .ansTable{margin-top: 25px;}
+.classRoomPage .ansCount .ansTable li{width: 131px;}
+.classRoomPage .ansCount .ansTable span{width: 130px;height: 42px;line-height: 42px;text-align: center;border-color:#d5d5d5;border-style: solid;border-width: 0 1px 1px 0;background: #fff;}
+.classRoomPage .ansCount .ansTable .listHead{height: 36px;line-height: 36px;color: #fff;font-weight: bold;font-size: 16px;background: #f14211;border-width: 0 0 0 1px;}
+.classRoomPage .ansCount .ansTable .firstList span{border-left: 1px solid #d5d5d5;width: 129px;}
+.classRoomPage .ansCount .ansTable .firstList .listHead{border-left: none;width: 131px;}
+.classRoomPage .ansCount .ansTable .rightSpan{background:#8cb422 url(../../images/classRoom/right.png) 75px center no-repeat;}
+/*.classRoomPage .ansCount .citemBox{height: 605px;}*/
 /*  练习题 */
-.classRoom .exercise{width: 800px;       background: #fff;margin: 30px auto;}
-.classRoom .exercise .itemTab{padding:8px 12px;}
-.classRoom .exercise .itemTabBox{border:1px solid #f14211;margin:0 auto;width: 690px;overflow: hidden;}
-.classRoom .exercise .itemTabBox ul{width:1000%;position: absolute;}
-.classRoom .exercise .itemTabBox li{width: 645px;padding: 20px 25px 20px 20px;cursor: pointer;}
-.classRoom .exercise .itemTabBox li.itemOn{background: #fef2f2;}
-.classRoom .exercise .clickBtn{width: 20px;height: 33px;position: absolute;top:45%;}
-.classRoom .exercise .clickL{background: url(../../images/classRoom/cleft.png) no-repeat;left:12px;}
-.classRoom .exercise .clickL:hover,
-.classRoom .exercise .clickL:active{background: url(../../images/classRoom/hcleft.png) no-repeat;}
-.classRoom .exercise .clickR{background: url(../../images/classRoom/cright.png) no-repeat;right: 12px;}
-.classRoom .exercise .clickR:hover,
-.classRoom .exercise .clickR:active{background: url(../../images/classRoom/hcright.png) no-repeat;}
-.classRoom .exercise .eAns{font-size: 18px;font-weight: bold;}
-.classRoom .exercise .eAns strong{margin-right: 45px;}
-.classRoom .exercise .eAns p{width: 585px;}
-.classRoom .exercise .ef{padding: 17px 0 8px;background: #f7f7f7;border-top:1px solid #d7d7d7;box-shadow: 0 -1px 3px #d7d7d7;text-align: center;}
-.classRoom .exercise .ef .Titem a{width: 38px;height: 38px;margin-right: 7px;border-radius: 2px;border:1px solid #f14211;display: inline-block;font-size: 18px;text-align: center;line-height: 38px;}
-.classRoom .exercise .ef .Titem a:hover{font-weight: bold;}
-.classRoom .exercise .ef a.titemOn{background: #f14211;color: #fff;}
-.classRoom .exercise .ef .Titem{margin-right: -7px;}
-.classRoom .exercise .ef p{text-align: right;margin-top: 15px;}
-.classRoom .exercise .ef p a{margin:0 54px 0 25px;width: 190px;}
-.classRoom .exercise .ef p em{margin:0 6px;}
+.classRoomPage .exercise{width: 800px;margin-top:30px;}
+.classRoomPage .exercise .itemTab{padding:8px 12px;}
+.classRoomPage .exercise .itemTabBox{border:1px solid #f14211;margin:0 auto;width: 690px;overflow: hidden;}
+.classRoomPage .exercise .itemTabBox ul{width:1000%;position: absolute;}
+.classRoomPage .exercise .itemTabBox li{width: 645px;padding: 20px 25px 20px 20px;cursor: pointer;}
+.classRoomPage .exercise .itemTabBox li.itemOn{background: #fef2f2;}
+.classRoomPage .exercise .clickBtn{width: 20px;height: 33px;position: absolute;top:45%;}
+.classRoomPage .exercise .clickL{background: url(../../images/classRoom/cleft.png) no-repeat;left:12px;}
+.classRoomPage .exercise .clickL:hover,
+.classRoomPage .exercise .clickL:active{background: url(../../images/classRoom/hcleft.png) no-repeat;}
+.classRoomPage .exercise .clickR{background: url(../../images/classRoom/cright.png) no-repeat;right: 12px;}
+.classRoomPage .exercise .clickR:hover,
+.classRoomPage .exercise .clickR:active{background: url(../../images/classRoom/hcright.png) no-repeat;}
+.classRoomPage .exercise .eAns{font-size: 18px;font-weight: bold;}
+.classRoomPage .exercise .eAns strong{margin-right: 45px;}
+.classRoomPage .exercise .eAns p{width: 585px;}
+.classRoomPage .exercise .ef{padding: 17px 0 8px;background: #f7f7f7;border-top:1px solid #d7d7d7;box-shadow: 0 -1px 3px #d7d7d7;text-align: center;}
+.classRoomPage .exercise .ef .Titem a{width: 38px;height: 38px;margin-right: 7px;border-radius: 2px;border:1px solid #f14211;display: inline-block;font-size: 18px;text-align: center;line-height: 38px;}
+.classRoomPage .exercise .ef .Titem a:hover{font-weight: bold;}
+.classRoomPage .exercise .ef a.titemOn{background: #f14211;color: #fff;}
+.classRoomPage .exercise .ef .Titem{margin-right: -7px;}
+.classRoomPage .exercise .ef p{text-align: right;margin-top: 15px;}
+.classRoomPage .exercise .ef p a{margin:0 54px 0 25px;width: 190px;}
+.classRoomPage .exercise .ef p em{margin:0 6px;}
 /* 意见反馈 */
-.classRoom .feedback{padding:14px 76px 44px 72px;width: 652px;                background: #fff;margin: 30px auto;}
-.classRoom .feedback h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
-.classRoom .feedback form .fbText{height: 28px;line-height: 28px;}
-.classRoom .feedback form textarea{width: 610px;height: 228px;}
-.classRoom .feedback form input{width:288px;}
-.classRoom .feedback .formName{font-size: 16px;}
-.classRoom .feedback .submit,
-.classRoom .evalu .submit{width: 140px;margin-top: 12px;height: 40px;line-height: 40px;font-weight: bold;font-size: 20px;}
+.classRoomPage .feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:30px;}
+.classRoomPage .feedback h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
+.classRoomPage .feedback form .fbText{height: 28px;line-height: 28px;}
+.classRoomPage .feedback form textarea{width: 610px;height: 228px;}
+.classRoomPage .feedback form input{width:288px;}
+.classRoomPage .feedback .formName{font-size: 16px;}
+.classRoomPage .feedback .submit,
+.classRoomPage .evalu .submit{width: 140px;margin-top: 12px;height: 40px;line-height: 40px;font-weight: bold;font-size: 20px;}
 /* 评价 */
-.classRoom .evalu{padding: 14px 48px 88px;width: 602px;                          background: #fff;margin: 30px auto;}
-.classRoom .evalu h3{font-weight: normal;font-size: 18px;}
-.classRoom .evalu .starBg{width: 170px;background: url(../../images/classRoom/evalBg.png);display: inline-block;margin:16px 0 26px;}
-.classRoom .evalu .starBg span{float:left;width: 32px;height: 30px;margin-right: 2px;background: url(../../images/classRoom/cevalBg.png) no-repeat;}
-.classRoom .evalu textarea{width: 560px;height: 238px;}
+.classRoomPage .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
+.classRoomPage .evalu h3{font-weight: normal;font-size: 18px;}
+.classRoomPage .evalu .starBg{/*width: 170px;background: url(../../images/classRoom/evalBg.png);*/display: inline-block;margin:16px 0 26px;}
+.classRoomPage .evalu .starBg span{float:left;width: 32px;height: 30px;margin-right: 2px;background: url(../../images/classRoom/evalBg.png) no-repeat;cursor: pointer;}
+.classRoomPage .evalu .starBg span.cStar{background: url(../../images/classRoom/cevalBg.png) no-repeat;}
+.classRoomPage .evalu textarea{width: 560px;height: 238px;}
 /*  滚动条  */
-.classRoom .sconParl{height: 476px;overflow: hidden;}
-.classRoom .sparent{position:absolute;right: 0;top:0;width: 4px;height: 476px;background: #c9c9c9;}
-.classRoom .sparent .sbar{width: 4px;height: 30px;background: #0e455e;position: absolute;left: 0;top:0;}
+.classRoomPage .sconParl{height: 476px;/*overflow: hidden;*/overflow-y: scroll;}
+.classRoomPage .sparent,
+.classRoomPage .cparent{position:absolute;width: 4px;background: #c9c9c9;}
+.classRoomPage .sparent{right: 0;top:0;height: 476px;}
+.classRoomPage .cparent{right: 34px;top:0;height: 528px;}
+.classRoomPage .sparent .sbar,
+.classRoomPage .cparent .cbar{width: 4px;height: 30px;background: #0e455e;position: absolute;left: 0;top:0;}
+.classRoomPage .scoreBoxList{position:absolute;right: 0;top:0;width: 675px;}
+.classRoomPage .scoreBoxPar{height: 528px;overflow-y: scroll;}

@@ -38,9 +38,9 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".wUname",
-                datatype:"*2-20",
+                datatype:"*2-15",
                 nullmsg:"请输入称呼",
-                errormsg:"长度2-20个字符"
+                errormsg:"长度2-15个字符"
             },
             {
                 ele:".loction",
@@ -56,7 +56,7 @@ define(function(require,exports){
             },
             {
                 ele:".wage",
-                datatype:"*",
+                datatype:"/^\\d{2}$/",
                 nullmsg:"请输入年龄",
                 errormsg:"请输入正确的年龄"
             },
@@ -80,7 +80,7 @@ define(function(require,exports){
             },
             {
                 ele:".seniority",
-                datatype: "*",
+                datatype: "/^\\d{4}$/",
                 nullmsg: "请选择实际教龄",
                 errormsg: "请选择正确的实际教龄"
             },
@@ -124,28 +124,19 @@ define(function(require,exports){
             {
                 ele:".startTime",
                 datatype:"*",
-                nullmsg:"请选择开始时间",
-                errormsg:"请选择正确的开始时间"
+                nullmsg:"请选择开始时间"
             },
             {
                 ele:".endTime",
                 datatype:"*",
-                nullmsg:"请选择结束时间",
-                errormsg:"请选择正确的结束时间"
+                nullmsg:"请选择结束时间"
             },
             {
                 ele:".subname",
                 datatype:"*",
                 nullmsg:"请输入课程名称",
                 errormsg:"请输入正确的课程名称"
-            }
-            // ,
-            // {
-            //     ele:".subname",
-            //     datatype:"*",
-            //     nullmsg:"请输入课程名称",
-            //     errormsg:"请输入正确的课程名称"
-            // },    
+            }   
         ]);
     }
     //我要开课 老师注册验证

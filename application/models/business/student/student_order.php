@@ -31,9 +31,10 @@ class Student_Order extends NH_Model{
      * 创建订单,向数据库里面写一条记录(订单表、订单与轮的关系表),同时添加订单日志
      * @param  $int_product_id
      * @param  $payment_method
+     * @param  $int_user_id
      * @return $array_return
      */
-    public function create_order($int_product_id,$payment_method)
+    public function create_order($int_product_id,$payment_method,$int_user_id)
     {
         $array_data = $this->get_order_round_info($int_product_id);
         #原价
@@ -50,7 +51,7 @@ class Student_Order extends NH_Model{
         #插入到订单表数组
         $array_order = array(
                 'round_id'=>$int_product_id,
-                'student_id'=>1,                                    #TODO用户id
+                'student_id'=>$int_user_id,                                    #TODO用户id
                 'create_time'=>time(),
                 'price'=>$price,
                 'status'=>ORDER_STATUS_INIT,
@@ -63,7 +64,7 @@ class Student_Order extends NH_Model{
         $order_msg = $int_insert_id  > 0 ? "创建订单成功" : "创建订单失败";
         $array_prams = array(
             'order_id'=>$int_insert_id,
-            'user_id'=>1,                                      #TODO用户id
+            'user_id'=>$int_user_id,                                      #TODO用户id
             'user_type'=>ROLE_STUDENT,                         #用户类型 ：学生
             'action'=>1,                                       #创建订单
             'create_time'=>time(),
@@ -119,9 +120,10 @@ class Student_Order extends NH_Model{
     /**
      * 根据$int_order_id,查找轮以及轮里面的课，添加学生与课的关系
      * @param  $int_order_id
+     * @param  $int_user_id
      * @return $bool_return
      */
-    public function add_student_class_relation($int_order_id)
+    public function add_student_class_relation($int_order_id,$int_user_id)
     {
         #根据订单id，获取该订单下的轮
         $array_round_id = $this->model_order->get_order_by_id($int_order_id);
@@ -141,7 +143,7 @@ class Student_Order extends NH_Model{
         {
             #添加学生与课的关系
             $array_data = array(
-                'student_id'=>1,                                        #TODO用户id
+                'student_id'=>$int_user_id,                                        #TODO用户id
                 'course_id'=>$vv['course_id'],
                 'round_id'=>$vv['round_id'],
                 'class_id'=>$vv['lesson_id'],
