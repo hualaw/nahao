@@ -289,5 +289,9 @@ define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
 
+//教室学生操作类型定义
+define('CLASS_PLEASE_ACTION', 1);//赞
+define('CLASS_SLOWER_ACTION', 2);//讲快一点
+define('CLASS_FASTER_ACTION', 3);//讲慢一点
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

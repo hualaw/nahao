@@ -147,7 +147,7 @@ class register extends NH_Controller
 
         //create user_info table record
         $this->load->model('model/common/model_user');
-        $this->model_user->create_user_info($user_info_arr);
+        $this->model_user->update_user_info($user_info_arr);
 
         if(!empty($focus_subjects))
         {
