@@ -114,7 +114,9 @@ table.md_table a:hover{color: #f90;}
 table.md_table td,table th{text-align:center;line-height:40px;/*border:1px solid #d7d7d7;*/border-bottom: 1px solid #d7d7d7;}
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
-
+.resetSchool{color: #0e455e;}
+.resetSchool:hover{text-decoration:underline;}
+.codeSpan  {border-radius: 2px;background: #dedede;padding: 5px 8px;}
 /*全站分页代码样式开始*/
 .page {margin:10px 0px; line-height:30px;}
 .page a{float:left;height: 38px;line-height: 38px;padding: 0 15px;font-size: 16px;color: #4b4b4b;margin-right: 3px;background: #fff;}

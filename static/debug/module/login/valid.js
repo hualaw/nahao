@@ -239,7 +239,7 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".lEmail",
-                datatype: "e6-30",
+                datatype: "e",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "长度6-30个字符"
             },
@@ -345,7 +345,7 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".inputEmail",
-                datatype:"e6-30",
+                datatype:"e",
                 nullmsg:"请输入邮箱",
                 errormsg:"长度6-30个字符",
                 ajaxurl:'/login/check_user_email'
@@ -377,7 +377,7 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".lEmail",
-                datatype: "e6-30",
+                datatype: "e",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "请输入正确的邮箱地址"
             },
