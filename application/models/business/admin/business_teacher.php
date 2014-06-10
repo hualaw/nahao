@@ -21,7 +21,7 @@ class Business_Teacher extends NH_Model
      */
     public function total_count()
     {
-        $str_table_range = 'teacher_info2';
+        $str_table_range = 'teacher_info_subject';
         $str_result_type = 'count';
         $str_fields = 'count(1) as count';
         $arr_where[TABLE_USER.'.teach_priv'] = 1;
@@ -41,7 +41,7 @@ class Business_Teacher extends NH_Model
         $day_start=strtotime($day." 00:00:00");
         $day_end=strtotime($day." 23:59:59");
 
-        $str_table_range = 'teacher_info2';
+        $str_table_range = 'teacher_info_subject';
         $str_result_type = 'count';
         $str_fields = 'count(1) as count';
         $arr_where[TABLE_USER.'.teach_priv'] = 1;
@@ -59,7 +59,7 @@ class Business_Teacher extends NH_Model
     public function get_teacher_count($arr_where){
         $int_return = array();
         if(is_array($arr_where)){
-            $str_table_range = 'teacher_info2';
+            $str_table_range = 'teacher_info_subject';
             $str_result_type = 'count';
             $str_fields = 'count(1) as count';
             $arr_where[TABLE_USER.'.teach_priv'] = 1;
@@ -129,7 +129,7 @@ class Business_Teacher extends NH_Model
         //var_dump($arr_where);die;
         $arr_return = array();
         if(is_array($arr_where)){
-            $str_table_range = 'teacher_info2';
+            $str_table_range = 'teacher_info_subject';
             $str_result_type = 'list';
             $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,gender,realname,teacher_age,title,stage,register_time,nahao_areas.name,user.status,subject.name as sub_name';
 
