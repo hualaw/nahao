@@ -245,3 +245,6 @@ $config['class_teach_status'][3] = '禁用';
 $config['subject'][1] = '语文';
 $config['subject'][2] = '数学';
 $config['subject'][3] = '英语';
+//账户状态
+$config['account'][0] = '禁用';
+$config['account'][1] = '启用';

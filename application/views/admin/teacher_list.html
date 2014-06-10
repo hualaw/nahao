@@ -1,0 +1,93 @@
+教师总数{$total_count}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日新增老师{$day_count}人<br /><br />
+        <form method="get" action="/teacher">
+    <select name="term">
+        <option value=0>选择搜索条件</option>
+        <option value=1>姓名</option>
+        <option value=2>昵称</option>
+        <option value=3>邮箱</option>
+        <option value=4>手机</option>
+        <option value=5>ID</option>
+    </select>
+    <input type="text" name="reason">
+    <select name="province">
+        <option value=0>选择省份</option>
+        {foreach $province as $k=>$v}
+            <option value={$v.id}>{$v.name}</option>
+        {/foreach}
+    </select>
+    <select name="subject">
+        <option value=0>选择可授课学科</option>
+        {foreach $subject as $k=>$v}
+        <option value={$v.id}>{$v.name}</option>
+        {/foreach}
+    </select>
+    <select name="gender">
+        <option value=0>选择性别</option>
+        <option value=1>男</option>
+        <option value=2>女</option>
+    </select>
+    <select name="title">
+        <option value=0>选择职称</option>
+        <option value=1>无职称</option>
+        <option value=2>正高级教师</option>
+        <option value=3>高级教师</option>
+        <option value=4>一级教师</option>
+        <option value=5>二级教师</option>
+        <option value=6>三级教师</option>
+    </select>
+    <select name="account">
+        <option value=0>选择账户状态</option>
+        <option value=1>禁用</option>
+        <option value=2>启用</option>
+    </select><br />
+    添加时间
+    <input type="text" name="add_time1" id="teacher_datetimepicker1" readonly>
+        -
+    <input type="text" name="add_time2" id="teacher_datetimepicker2" readonly>
+    <button type="submit" class="btn">搜索</button>
+        </form>
+<br /><br />
+    <label class="control-label" for="inputSuccess">符合条件的有{$count}条数据</label>
+        {for $i=0 to 91}
+        &nbsp;
+        {/for}
+    <a href="/teacher/create"><button type="button" class="btn btn-success" id="insert_account">添加老师</button></a>
+    <button type="button" class="btn btn-warning" id="close_account">禁用账户</button>
+    <button type="button" class="btn btn-info" id="open_account">解除禁用</button>
+    <table class="table table-bordered">
+        <tr class="active">
+            <td><input type="checkbox" id="all">全选</td>
+            <td>教师ID</td>
+            <td>邮箱</td>
+            <td>教师姓名</td>
+            <td>教师昵称</td>
+            <td>性别</td>
+            <td>手机号</td>
+            <td>教龄</td>
+            <td>教师职称</td>
+            <td>所在地区</td>
+            <td>教授学科</td>
+            <td>添加时间</td>
+            <td>账户状态</td>
+            <td>操作</td>
+        </tr>
+            {foreach $list as $k=>$v}
+        <tr>
+            <td><input type="checkbox" value={$v.id} class="all"></td>
+            <td>{$v.id}</td>
+            <td>{$v.email}</td>
+            <td>{$v.realname}</td>
+            <td>{$v.nickname}</td>
+            <td>{$config_gender[$v.gender]}</td>
+            <td>{$v.phone_mask}</td>
+            <td>{$v.teacher_age}</td>
+            <td>{$config_title[$v.title]}</td>
+            <td>{$v.name}</td>
+            <td>{$config_stage[$v.stage]}{$v.sub_name}</td>
+            <td>{$v.register_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+            <td>{$config_account[$v.status]}</td>
+            <td>修改</td>
+        </tr>
+            {/foreach}
+    </table>
+{$page}
