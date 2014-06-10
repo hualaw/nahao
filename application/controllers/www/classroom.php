@@ -61,13 +61,17 @@ class Classroom extends NH_User_Controller {
 	    $int_user_id = $this->session->userdata('user_id');  
 	    $int_question_id = $this->input->post('question_id');
 	    $str_selected = $this->input->post('selected');
-	    $str_answer = $this->input->post('answer');
-	    if ($str_answer == $str_selected)
+	    $array_result = $this->model_classroom->get_question_infor($int_question_id);
+	    if ($array_result && $array_result['answer'])
 	    {
-	        $int_is_correct = 1;
-	    } else {
-	        $int_is_correct = 0;
+	        if(!strpos($array_result['answer'],$str_selected))
+	        {
+	            $int_is_correct = 0;
+	        }else {
+	            $int_is_correct = 1;
+	        }
 	    }
+
 	    $int_sequence = $this->input->post('sequence');
 	    $array_data = array(
 	        'class_id'=>$int_class_id,
@@ -81,10 +85,10 @@ class Classroom extends NH_User_Controller {
 	    if ($bool_flag)
 	    {
 	        self::json_output(array('status'=>'ok','msg'=>'题目提交成功',
-	              'data'=>array('qid'=>$int_question_id,'answer'=>$str_answer,'seleced'=>$str_selected)));
+	              'data'=>array('qid'=>$int_question_id,'answer'=>$array_result['answer'],'seleced'=>$str_selected)));
 	    } else {
 	        self::json_output(array('status'=>'error','msg'=>'题目提交失败',
-	              'data'=>array('qid'=>$int_question_id,'answer'=>$str_answer,'seleced'=>$str_selected)));
+	              'data'=>array('qid'=>$int_question_id,'answer'=>$array_result['answer'],'seleced'=>$str_selected)));
 	    }
 	}
 	
