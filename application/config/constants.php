@@ -261,6 +261,13 @@ define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
 
+//昵称最大长度
+define('MIN_NICKNAME_LEN', 4);
+define('MAX_NICKNAME_LEN', 21);
+
+//教龄上限
+define('TEACHER_AGE_CEILING', 50);
+
 //教室学生操作类型定义
 define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
