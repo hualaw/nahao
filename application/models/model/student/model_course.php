@@ -161,7 +161,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT lesson_id,course_id,round_id FROM class WHERE round_id = ".$int_round_id." 
-                AND parent_id > 0 AND parent_id !='' ORDER BY sequence ASC";
+                AND parent_id > 0  ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -220,6 +220,20 @@ class Model_Course extends NH_Model{
                 AND student_id = ".$int_user_id;
         $int_rows = $this->db->query($sql)->num_rows();
         return  $bool_result = $int_rows > 0 ? true : false;
+    }
+    
+
+
+    /**
+     * 课程评价
+     * @param  $array_data
+     * @return boolean
+     */
+    public function save_class_feedback($array_data)
+    {
+        $this->db->insert('class_feedback', $array_data);
+        $int_row = $this->db->affected_rows();
+        return $int_row > 0 ? true : false;
     }
     
 }
