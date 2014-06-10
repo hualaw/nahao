@@ -1,5 +1,6 @@
+.DS_Store
 .htaccess
-application/config/development/config.php
-application/config/development/database.php
-application/config/database.php
-application/config/autoload.php
+
+/.idea/
+/application/logs/*
+/application/templates_c/*

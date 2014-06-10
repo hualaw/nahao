@@ -83,14 +83,14 @@ if ( ! function_exists('admin_url'))
  * @param	string
  * @return	string
  */
-if ( ! function_exists('site_url'))
-{
-	function site_url($uri = '')
-	{
-		$CI =& get_instance();
-		return $CI->config->site_url($uri);
-	}
-}
+//if ( ! function_exists('site_url'))
+//{
+//	function site_url($uri = '')
+//	{
+//		$CI =& get_instance();
+//		return $CI->config->site_url($uri);
+//	}
+//}
 
 // ------------------------------------------------------------------------
 
