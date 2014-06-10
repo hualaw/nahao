@@ -224,28 +224,7 @@ define('LOGIN_TYPE_EMAIL', 2);
 define('SUCCESS', 'ok');
 define('ERROR', 'error');
 
-//register status
-define('REG_SUCCESS', 1);
-define('REG_DUP_NICKNAME', 2);
-define('REG_DUP_EMAIL', 'dup');
-define('REG_DB_ERROR', 4);
-define('REG_INVALID_PHONE', 5);
-define('REG_INVALID_EMAIL', 6);
-define('REG_VERIFY_CAPTCHA_FAILED', 7);
-define('REG_PHONE_SERVER_ERROR', 8);
-define('REG_DUP_NICKNAME', 9);
-define('REG_DUP_PHONE', 10);
-
-//短信发送状态
-define('REG_SEND_VERIFY_CODE_FAILED', 11);
-define('REG_SEND_VERIFY_CODE_SUCCESS', 12);
-//check status
-define('REG_CHECK_PHONE_SUCCESS', 13);
-define('REG_CHECK_EMAIL_SUCCESS', 14);
-define('REG_CHECK_NICKNAME_SUCCESS',15);
-
 //过期时间
-
 define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应该改为5分钟
 //define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
 
