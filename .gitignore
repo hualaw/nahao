@@ -1,0 +1,5 @@
+.htaccess
+application/config/development/config.php
+application/config/development/database.php
+application/config/database.php
+application/config/autoload.php
