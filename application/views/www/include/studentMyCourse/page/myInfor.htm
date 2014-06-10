@@ -7,7 +7,7 @@
 	</ul>
 	<div class="inforTabBox">
 		<!--邮箱版-->
-		<!-- <form action="" method="post" onsubmit="return false;" class="emailForm">
+		<form action="" method="post" onsubmit="return false;" class="emailForm">
 			<p class="formName">邮箱
 				<span class="verWay">zhangyu754@gmail.com</span>
 				<span class="hasVer">（已激活）</span>
@@ -77,12 +77,18 @@
 				</li>
 				<li>
 					<p class="optional">手机号</p>
-					<input type="text">
+					<input type="text" class="cInput ">
 				</li>
 				<li class="phoneVer">
 					<p class="optional">手机验证码</p>
-					<input type="text">
-					<input type="button" value="免费获取验证码" class="getVerCode btn">
+					<div class="cf">
+						<div class="fl">
+							<input type="text" name="realname" class="pUname fl cInput yh" validName="text">
+							<span class="Validform_checktip fl"></span>
+						</div>
+						<a href="javascript:void(0)" class="btn blueBtn pnoneCode sendPhoneCode">免费获取验证码</a>
+						<span class="bth pnoneCode codeSpan undis">60秒后获取验证码</span>
+					</div>
 				</li>
 				<li class="attent">
 					<p class="optional">关注学科</p>
@@ -100,19 +106,24 @@
 					</div>
 				</li>
 				<li>
-					<p class="optional">就读学校</p>
-					<div class="cf">
-						<input type="text" name="school" class="pSchool fl cInput yh" validName="text">
-						<span class="Validform_checktip fl"></span>
+					<div class="cf schoolPar">
+						<span class="schoolFullName"></span>
+						<a href="javascript:void(0);" class="resetSchool optional">就读学校</a>
+						<input type="hidden" value="" name="school_id" id="schoolVal" />
+						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+						<input type="hidden" value="" name="school_type" id="school_type">
+						<input type="hidden" value="" name="schoolname" id="schoolname" />
+						{include file='common/setSchool.html'}
 					</div>
 				</li>
 				<li>
 					<input type="submit" class="btn redBtn" value="保存">
 				</li>
 			</ul>
-		</form> -->
+		</form> 
 		<!--手机版-->
-		<form action="" method="post" class="phoneForm">
+
+		<form action="" method="post" class="phoneForm undis">
 			<p class="formName">手机号
 				<span class="verWay">{$user_detail.phone}</span>
 				<span class="hasVer">（已验证）</span>
@@ -194,10 +205,23 @@
 					</div>
 				</li>
 				<li>
-					<p class="optional">就读学校</p>
-					<div class="cf">
-						<input type="text" name="school" class="pSchool fl cInput yh" validName="text" value="{$school}">
-						<span class="Validform_checktip fl"></span>
+					<div class="cf schoolPar">
+						<span class="schoolFullName"></span>
+						<a href="javascript:void(0);" class="resetSchool optional">就读学校</a>
+						<!-- ······················选择学校代码开始·························· -->
+						<!-- <span class="schoolFullName"></span> -->
+						<!-- <a href="javascript:void(0);" class="resetSchool aGreen" set="1" province="2" city="" county="500">选择学校</a> -->
+						<!-- <a href="javascript:void(0);" class="resetSchool aGreen">选择学校</a> -->
+						<input type="hidden" value="" name="school_id" id="schoolVal" />
+						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+						<input type="hidden" value="" name="school_type" id="school_type">
+						<input type="hidden" value="" name="schoolname" id="schoolname" />
+						<!-- ······················选择学校代码结束·························· -->
+						<!-- 加载选择学校html开始 -->
+						{include file='common/setSchool.html'}
+						<!-- 加载选择学校html结束 -->
+						<!-- <input type="text" name="school" class="pSchool fl cInput yh resetSchool schoolFullName" validName="text">
+						<span class="Validform_checktip fl"></span> -->
 					</div>
 				</li>
 				<li>

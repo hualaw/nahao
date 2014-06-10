@@ -41,7 +41,7 @@ class NH_Session extends CI_Session {
         // Are we using a database?  If so, load it
         if ($this->sess_use_database === TRUE AND $this->sess_table_name != '')
         {
-            if($this->_use_db) $this->CI->load->database('',ture);
+            if($this->_use_db) $this->CI->load->database('',TRUE);
         }
 
         // Set the "now" time.  Can either be GMT or server time, based on the
@@ -248,7 +248,7 @@ class NH_Session extends CI_Session {
 			}
 			if(empty($session)&&$this->_use_db)
 			{
-				$this->CI->load->database('',true);
+				$this->CI->load->database();
 				$this->CI->db->where('session_id',$session_id);
 				$query = $this->CI->db->get($this->sess_table_name);
 

@@ -59,6 +59,7 @@ define(function(require,exports){
                 ele:".inPhone",
                 datatype:"*",
                 ajaxurl:siteUrl + "register/check_phones",
+                ajaxUrlName:'phone',
                 nullmsg:"请输入手机号",
                 errormsg:"手机号输入错误"
             } ,

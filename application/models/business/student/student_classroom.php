@@ -34,6 +34,7 @@ class Student_Classroom extends NH_Model{
                 
             }
         }
+        //var_dump($array_return);die;
         return $array_return;
     }
     
@@ -46,21 +47,38 @@ class Student_Classroom extends NH_Model{
     public function get_question_result_data($array_data)
     {
         $array_return = array();
+        
         #获取学生做题记录
-        $array_return = $this->model_classroom->get_student_question_data($array_data);
-        if ($array_return)
+        $array_qids = $this->model_classroom->get_student_question_data($array_data);
+        if ($array_qids)
         {
-            foreach ($array_return as $k=>$v)
+            foreach ($array_qids as $k=>$v)
             {
                 #获取题目具体数据
                 $array_infor = $this->model_classroom->get_question_infor($v['question_id']);
                 
                 #处理数据
                 $array_infor['options'] = json_decode($array_infor['options'],true);
-                $array_return[$k] = array_merge($array_return[$k], $array_infor);
+                $array_qids[$k] = array_merge($array_qids[$k], $array_infor);
                 
             }
         }
+        
+        #获取学生的做题统计（总分、做对题目数、做错的题目数、出题总数）
+        #出题总数
+        $count = $this->model_classroom->get_question_count_by_sequence($array_data);
+        #做对题目数
+        $right_num = $this->model_classroom->get_student_statistics($array_data,1);
+        #做错的题目数
+        $wrong_num = $this->model_classroom->get_student_statistics($array_data,0);
+        
+        #处理数据
+        $array_return['count'] = $count;
+        $array_return['right_num'] = $right_num;
+        $array_return['wrong_num'] = $wrong_num;
+        $array_return['data_question'] = $array_qids;
+
         return $array_return;
     }
+    
 }

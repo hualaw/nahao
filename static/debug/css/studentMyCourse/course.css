@@ -4,7 +4,7 @@
 .studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
 .studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
 .studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
-
+.studentMyCourse .schoolPar{margin: 20px 0 8px;}
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
@@ -82,7 +82,7 @@
 .studentMyCourse .myOrderCon .tabCon{background: #fff;}
 .studentMyCourse .myOrderCon .tabh li.norbor{width: 154px;border-right: none;}
 .studentMyCourse .tabBox thead{line-height: 46px;}
-.studentMyCourse .tabBox tr strong{font-size: 18px;width: 120px;height: 120px;border: 1px solid #fff;border-radius: 60px;line-height: 120px;text-align: center;display: inline-block;}
+.studentMyCourse .tabBox tr strong{font-size: 18px;}
 .studentMyCourse .orderName{color:#585858;font-weight: bold;}
 .studentMyCourse .nopayment .redText{font-weight: bold;}
 .studentMyCourse .cancle .state{color:#999898;}
@@ -160,7 +160,7 @@
 .studentMyCourse .inforTabBox .detailText{font-size: 14px;}
 .studentMyCourse .inforTabBox .optional{margin: 20px 0 8px;color:#0e455e;}
 .studentMyCourse .inforTabBox form input.radio{width: auto;}
-.studentMyCourse .inforTabBox .phoneVer input{width: 116px;}
+.studentMyCourse .inforTabBox .phoneVer input{width: 116px;margin-right: 20px;}
 .studentMyCourse .inforTabBox .phoneVer .getVerCode{width:140px;color:#fff;background: #88ddf3;font-weight: normal;}
 .studentMyCourse form .attent .btn{width: 90px;}
 .studentMyCourse form .attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;}

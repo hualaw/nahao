@@ -63,7 +63,9 @@ class Model_Classroom extends NH_Model{
     
     /**
      * 获取学生做题记录
-     * @param  $array_data
+     * @param  $array_data['class_id']
+     * @param  $array_data['student_id']
+     * @param  $array_data['sequence']
      * @return $array_result
      */
     public function get_student_question_data($array_data)
@@ -76,27 +78,36 @@ class Model_Classroom extends NH_Model{
         return $array_result;
     }
     
+    
     /**
-     * 意见反馈
-     * @param  $array_data
-     * @return boolean
+     * 出题总数
+     * @param  $array_data['class_id']
+     * @param  $array_data['sequence']
+     * @return $int_result
      */
-    public function save_feedback($array_data)
+    public function get_question_count_by_sequence($array_data)
     {
-        $this->db->insert('feedback', $array_data);
-        $int_row = $this->db->affected_rows();
-        return $int_row > 0 ? true : false;
+        $sql = "SELECT id FROM question_class_relation 
+                WHERE class_id = ".$array_data['class_id']." AND status = 1 
+                AND sequence = ".$array_data['sequence'];
+        $int_result = $this->db->query($sql)->num_rows();
+        return $int_result;
     }
     
     /**
-     * 课程评价
-     * @param  $array_data
-     * @return boolean
+     * 学生在教室做题情况（对题数、错题数）
+     * @param  $array_data['class_id']
+     * @param  $array_data['student_id']
+     * @param  $array_data['sequence']
+     * @param  $is_correct "1是对的 0是错的"
+     * @return $int_result
      */
-    public function save_class_feedback($array_data)
+    public function get_student_statistics($array_data,$is_correct)
     {
-        $this->db->insert('class_feedback', $array_data);
-        $int_row = $this->db->affected_rows();
-        return $int_row > 0 ? true : false;
+        $sql ="SELECT id FROM sutdent_question 
+               WHERE class_id = ".$array_data['class_id']." AND student_id = ".$array_data['student_id'].
+               " AND sequence = ".$array_data['sequence']." AND is_correct = ".$is_correct;
+        $int_result = $this->db->query($sql)->num_rows();
+        return $int_result;
     }
 }

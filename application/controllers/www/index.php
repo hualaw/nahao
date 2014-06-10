@@ -91,6 +91,29 @@ class Index extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
 	    }
 	}
+	
+	/**
+	 * 意见反馈
+	 */
+	public function feedback()
+	{
+	    $str_content = $this->input->post("content");
+	    $str_nickname = $this->input->post("nickname");
+	    $str_email = $this->input->post("email");
+	    $array_data = array(
+	            'content'=>$str_content,
+	            'nickname'=>  $str_nickname,
+	            'email'=>$str_email,
+	            'create_time'=>time()
+	    );
+	    $bool_flag = $this->model_index->save_feedback($array_data);
+	    if ($bool_flag)
+	    {
+	        self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
+	    } else {
+	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
+	    }
+	}
 }
 
 /* End of file welcome.php */

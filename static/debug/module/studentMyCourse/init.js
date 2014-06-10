@@ -10,7 +10,8 @@ define(function(require,exports){
 	var _valid = require("module/studentMyCourse/valid");
     require("module/common/method/setSchool");
 
-
+	// 选择学校组件
+	require('module/common/method/setSchool');
 
 //需要判断加载的  等开发完了 加
     // 个人资料 （手机版） 验证
@@ -65,4 +66,17 @@ define(function(require,exports){
 		//我的订单列表取消
 		_myCourse.doCancelMyOrder();
 	}
+	
+    //教室弹层
+    var _popUp = require('module/common/method/popUp');
+    //评价
+    $(".evaluBtn").click(function (){
+        //评论 几颗星
+        _myCourse.starClick();
+        
+        _popUp.popUp('.evaluHtml');
+        
+        
+
+    });
 })
