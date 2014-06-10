@@ -114,14 +114,14 @@
 		<!--手机版-->
 		<form action="" method="post" onsubmit="return false;" class="phoneForm">
 			<p class="formName">手机号
-				<span class="verWay">13786547355</span>
+				<span class="verWay">{$user_detail.phone}</span>
 				<span class="hasVer">（已验证）</span>
 			</p>
 			<ul>
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pname fl" validName="text">
+						<input type="text" name="Uname" class="pname fl" validName="text" value="{$user_detail.nickname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -143,7 +143,7 @@
 				<li>
 					<p class="formName"><span>*</span>邮箱</p>
 					<div class="cf">
-						<input type="text" name="Email" class="pEmail fl" validName="text">
+						<input type="text" name="Email" class="pEmail fl" validName="text" value="{$user_detail.email}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -153,9 +153,10 @@
 						<div class="fl">
 							<div>
 								<select name="" id="" validName="select" class="subjectInput">
-									<option value="">选择学科</option>
-									<option value="1">一年级</option>
-									<option value="2">二年级</option>
+									<option value="">选择年级</option>
+                                    {foreach $grades as $key => $val}
+									<option value="{$key}" {if $key == $user_detail.grade}selected{/if}>{$val}</option>
+                                    {/foreach}
 								</select>
 							</div>
 						</div>
@@ -166,7 +167,7 @@
 				<li>
 					<p class="optional">真实姓名</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pUname fl" ignore="ignore" validName="text">
+						<input type="text" name="Uname" class="pUname fl" ignore="ignore" validName="text" value="{$user_detail.realname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -174,8 +175,9 @@
 					<p class="optional">性别</p>
 					<div class="cf">
 						<div class="fl">
-							<input type="radio" name="sex" value="male" class="radio" ignore="ignore" validName="radio" /> 男
-							<input type="radio" name="sex" value="female" class="radio" ignore="ignore" validName="radio"/> 女
+                            {foreach $gender as $key => $val}
+							<input type="radio" name="sex" value="{$key}" class="radio" ignore="ignore" validName="radio" {if $user_detail.gender == $key}checked{/if}/> {$val}
+                            {/foreach}
 						</div>
 						<span class="Validform_checktip fl"></span>
 					</div>
@@ -198,7 +200,7 @@
 				<li>
 					<p class="optional">就读学校</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pSchool fl" validName="text" ignore="ignore">
+						<input type="text" name="Uname" class="pSchool fl" validName="text" ignore="ignore" value="{$school}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>

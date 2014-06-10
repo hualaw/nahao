@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+header('content-type: text/html; charset=utf-8');
 class Member extends NH_User_Controller {
 
     function __construct(){
@@ -282,10 +282,19 @@ class Member extends NH_User_Controller {
 	 */
 	public function my_infor()
 	{
-	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = $this->session->userdata('user_id');                                              #TODO用户id
+        $this->load->model('business/common/business_school');
+	    $user_id = $this->session->userdata('user_id');
 	    #头像
 	    $str_avater = DEFAULT_AVATER;
+        #年纪信息
+        $grades = $this->config->item('grade');
+        #性别
+        $gender = $this->config->item('gender');
+        #学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
+        $this->smarty->assign('grades', $grades);
+        $this->smarty->assign('gender', $gender);
+        $this->smarty->assign('school', $my_school['schoolname']);
 	    $this->smarty->assign('str_avater', $str_avater);
 	    $this->smarty->assign('page_type', 'myInfor');
 	    $this->smarty->display('www/studentMyCourse/index.html');
