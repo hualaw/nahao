@@ -27,7 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -57,6 +57,7 @@ define(function(require,exports){
                 ele: ".phoneNum",
                 datatype:"m",
                 ajaxurl:siteUrl + "register/check_phone",
+                ajaxUrlName:'phone',
                 nullmsg:"请输入手机号",
                 errormsg:"手机号输入错误"
                 
@@ -95,7 +96,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -105,7 +106,7 @@ define(function(require,exports){
         });
         _Form.addRule([{
                 ele: ".email",
-                datatype:"e6-30",
+                datatype:"e",
                 nullmsg:"请输入邮箱地址",
                 errormsg:"长度6-30个字符"
             },
@@ -324,7 +325,7 @@ define(function(require,exports){
         });
         _Form.config({
             showAllError:true,
-            url:"/login/send_reset_email",
+            url:"/login/send_reset_email"
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
