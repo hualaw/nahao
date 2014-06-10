@@ -1,10 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * studnet相关逻辑
- * Class Model_Student
- * @author liubing@tizi.com
- */
+
 class Model_Course extends NH_Model{
     
     function __construct(){
@@ -12,13 +8,13 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效
+     * 检查这个$int_round_id是否有效：在预售和销售中的轮
      * @param  $int_round_id
      * @return $bool_result
      */
     public function check_round_id($int_round_id)
     {
-        $sql = "SELECT id FROM round WHERE id = ".$int_round_id;
+        $sql = "SELECT id FROM round WHERE id = ".$int_round_id." AND sale_status >=2 AND sale_status<=3";
         $int_num = $this->db->query($sql)->num_rows();
         $bool_result = $int_num > 0 ? true : false;
         return $bool_result;

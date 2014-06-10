@@ -8,6 +8,22 @@
 $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
+//course status
+$config['course_status'][0] = '未审核';
+$config['course_status'][1] = '审核未通过';
+$config['course_status'][2] = '审核通过';
+$config['course_status'][3] = '暂停';
+$config['course_status'][4] = '关闭';
+
+//性别
+$config['gender'][1] = '男';
+$config['gender'][2] = '女';
+
+//教师职称
+$config['teacher_title'][0] = '高级教师';
+$config['teacher_title'][1] = '一级教师';
+$config['teacher_title'][2] = '二级教师';
+$config['teacher_title'][3] = '三级教师';
 
 //教育阶段
 $config['stage'][1] = '小学';

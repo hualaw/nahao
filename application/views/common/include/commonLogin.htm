@@ -1,0 +1,40 @@
+<div id="commonLogin" class="undis">
+	<div id="comLogin">
+		<form action="{$site_url}login/submit" class="loginForm_beta" mothed="post" onsubmit="return false">
+			<p id="msgInfo" class="msgInfo"></p>
+			<ul>
+				<li>
+					<input type="text" name="username" value="" class="userName yh" placeholder="手机号/邮箱/梯子网帐号">
+					<div class="ValidInfo undis">
+						<span class="Validform_checktip"></span>
+						<span class="dec">
+							<s class="dec1">&#9670;</s>
+							<s class="dec2">&#9670;</s>
+						</span>
+					</div>
+				</li>
+				<li>
+					<input type="password" name="password" value="" class="pwd yh" placeholder="密码">
+					<div class="ValidInfo undis">
+						<span class="Validform_checktip"></span>
+						<span class="dec">
+							<s class="dec1">&#9670;</s>
+							<s class="dec2">&#9670;</s>
+						</span>
+					</div>
+				</li>
+				<li class="cf autoLi">
+					<input type="checkbox" id="autoLogin" class="fl autoLogin">
+					<label for="autoLogin" class="fl">自动登录</label>
+					<a href="javascript:void(0)" class="fr">忘记密码？</a>
+				</li>
+				<li>
+					<input type="submit" class="redBtn yh btn redBtn submit" value="登录">
+				</li>
+				<li>
+					<a href="javascript:void(0)" class=" btn blueBtn">忘记密码？</a>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>

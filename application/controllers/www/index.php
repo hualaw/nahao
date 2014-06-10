@@ -13,7 +13,9 @@ class Index extends NH_User_Controller {
 	public function index()
 	{  
         header('content-type: text/html; charset=utf-8');
+        //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
+
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
@@ -31,6 +33,10 @@ class Index extends NH_User_Controller {
 	 */
 	public function save_apply_teach()
 	{
+	    #判断是否登录
+	    if(! $this->is_login){
+	        redirect('/login');
+	    }
 	    $course = $this->input->post("course");
 	    $resume = $this->input->post("resume");
 	    $subject= $this->input->post("subject");
@@ -51,7 +57,7 @@ class Index extends NH_User_Controller {
 	    $start_time= $this->input->post("start_time");
 	    $end_time= $this->input->post("end_time");
 	    $name= $this->input->post("name");
-	    $user_id = 0;                        #TODO用户登录就是user_id,没有就是0
+	    $user_id = $this->session->userdata('user_id');                        #TODO用户登录就是user_id
 	    $array_data = array(
             "course"=>$course,
             "resume"=>$resume,

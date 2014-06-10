@@ -17,6 +17,7 @@ class Model_User extends NH_Model
     public function create_user($arr_param)
     {
         $arr_result = $this->db->insert(TABLE_USER, $arr_param);
+        //echo $this->db->last_query();
         $int_insert_id = $this->db->insert_id();
         return $int_insert_id;
     }

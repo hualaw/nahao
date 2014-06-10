@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
+<title>我要开课</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentStartClass/style.css')}" />
@@ -50,8 +50,8 @@
 						<p class="fl">选择性别</p>
 						<div class="cf">
 							<div class="fl">
-								<input type="radio" name="sex" value="male" class="radioInput" validName="radio" /> 男
-								<input type="radio" name="sex" value="female" class="radioInput" validName="radio"/> 女
+								<input type="radio" name="sex" id="male" value="male" class="radioInput fl" validName="radio" /><label for="male" class="fl">男</label> 
+								<input type="radio" name="sex" id="female" value="female" class="radioInput fl" validName="radio"/><label for="female" class="fl">女</label>  
 							</div>
 							<span class="Validform_checktip fl"></span>
 						</div>
@@ -83,7 +83,6 @@
 					</li>
 					<li class="cf">
 						<p class="fl">所在学校</p>
-						<input type="text" class="fl textInput">
 						<div class="cf">
 							<input type="text" name="schoolname" class="schoolname textInput fl" validName="text">
 							<span class="Validform_checktip fl"></span>
@@ -119,7 +118,7 @@
 					<li class="cf">
 						<p class="fl">手机号码</p>						
 						<div class="cf">
-							<input type="text" name="phone" class="wphone textInput fl" validName="text">
+							<input type="text" name="phone_number" class="wphone textInput fl" validName="text">
 							<span class="Validform_checktip fl"></span>
 						</div>
 						<p class="tips fl">保密，方便我们与您电话沟通详细情况</p>	
@@ -165,34 +164,45 @@
 						<span class="Validform_checktip fl"></span>			
 					</li>
 					<li class="cf cookedTime">
-						<p class="fl">预约时间</p>				
+						<p>试讲时间</p>							
 						<div class="cf">
-							<input type="text" name="time" class="wtime textInput fl" validName="text">
-							<span class="Validform_checktip fl"></span>
-						</div>		
-						<div class="fl">
-							<div>
-								<select name="startTime" id="" validName="select" class="startTime">
-									<option value="">选择开始时间</option>
-									<option value="1"></option>
-									<option value="2"></option>
-								</select>
+							<div class="fl">
+								<input type="text" name="QQ" class="wtime textInput" validName="text">
+								<span class="Validform_checktip"></span>
+							</div>				
+							<div class="fl timeSecelt">
+								<div>
+									<div>
+										<select name="startTime" id="" validName="select" class="startTime">
+											<option value="">选择开始时间</option>
+											<option value="1">13:00-14:00</option>
+											<option value="2">14:00-15:00</option>
+											<option value="3">15:00-16:00</option>
+											<option value="4">16:00-17:00</option>
+											<option value="5">17:00-18:00</option>
+										</select>
+									</div>
+								</div>
+								<span class="Validform_checktip"></span>	
+							</div>
+							<span class="fl underLine">—</span>
+							<div class="fl timeSecelt">
+								<div>
+									<div>
+										<select name="endTime" id="" validName="select" class="endTime">
+											<option value="">选择结束时间</option>
+											<option value="1">13:00-14:00</option>
+											<option value="2">14:00-15:00</option>
+											<option value="3">15:00-16:00</option>
+											<option value="4">16:00-17:00</option>
+											<option value="5">17:00-18:00</option>
+										</select>
+									</div>
+								</div>
+								<span class="Validform_checktip"></span>	
 							</div>
 						</div>
-						<span class="Validform_checktip fl"></span>	
-
-						<span class="fl underLine">—</span>
-						<div class="fl">
-							<div>
-								<select name="endTime" id="" validName="select" class="endTime">
-									<option value="">选择结束时间</option>
-									<option value="1"></option>
-									<option value="2"></option>
-								</select>
-							</div>
-						</div>
-						<span class="Validform_checktip fl"></span>	
-						<p class="tips">需要与老师沟通确定试讲时间</p>	
+						<p class="tips">约定大概试讲时间，具体讲课时间需与工作人员协商</p>
 					</li>
 					<li class="cf">
 						<p class="fl">课程名称</p>
@@ -201,12 +211,12 @@
 							<span class="Validform_checktip fl"></span>
 						</div>
 					</li>
-					<li class="cf">
-						<p class="fl">课程介绍</p>
+					<li>
+						<p>课程介绍</p>
 						<textarea id="postEditor" style="visibility: hidden;"></textarea>		
 					</li>
 					<li class="cf">
-						<input type="submit" value="下一步" class="btn redBtn submit fl">
+						<input type="submit" value="下一步" class="noShowBtn redBtn submit fl">
 					</li>
 				</ul>
 			</form>

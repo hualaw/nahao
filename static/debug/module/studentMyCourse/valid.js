@@ -1,8 +1,6 @@
 define(function(require,exports){
 	// 请求验证库
     require("validForm");
-    // 请求公共验证信息
-//    var sDataType = require("module/common/basics/dataType").dataType();
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
@@ -47,9 +45,9 @@ define(function(require,exports){
             },
             {	
                	 ele:".Uname",
-               	 datatype: "*2-20",
+               	 datatype: "*2-15",
      		  	 nullmsg: "请输入姓名",
-       			 errormsg: "长度2-20个字符"
+       			 errormsg: "长度2-15个字符"
 
             },
             {   
@@ -145,9 +143,9 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".pname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
             },
             {    
                 ele:".loction",
@@ -158,7 +156,7 @@ define(function(require,exports){
             },
             {    
                 ele:".pEmail",
-                datatype: "e",
+                datatype: "e6-30",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "请输入正确的邮箱地址"
 
@@ -172,10 +170,10 @@ define(function(require,exports){
             },
             {    
                 ele:".pUname",
-                ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                ignore:"ignore",
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -222,9 +220,9 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".pname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
             },
             {    
                 ele:".loction",
@@ -235,7 +233,7 @@ define(function(require,exports){
             },
             {    
                 ele:".pEmail",
-                datatype: "e",
+                datatype: "e6-30",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "请输入正确的邮箱地址"
 
@@ -250,9 +248,9 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -291,19 +289,19 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".iniPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"请输入密码",
                 errormsg:"请输入正确的密码"
             },
             {
                 ele:".setPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"新密码不能为空",
-                errormsg:"长度6-16个字符之间"
+                errormsg:"长度6-20个字符之间"
             },
             {
                 ele:".reSetPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 recheck:"setPassword",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"

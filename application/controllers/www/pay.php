@@ -6,48 +6,77 @@ class Pay extends NH_User_Controller {
         parent::__construct();
         $this->load->model('business/student/student_order');
         $this->load->model('business/student/student_course');
+        $this->load->model('model/student/model_order');
+        $this->load->model('model/student/model_member');
+        $this->load->model('business/common/business_register');
+        #判断是否登录
+/*         if(!$this->is_login)
+        {
+            redirect('/login');
+        } */
     }
-	
 	
 	/**
 	 * 点击立即购买到核对订单信息页面
 	 * @param $int_product_id '就是轮id'
 	 */
-	public function product($product_id = 1)
+	public function product($int_product_id = 1)
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
-// 	    if(! $this->user){
-// 	        redirect('/login');
-// 	    }
-	    $int_product_id = max(intval($product_id),1);
-	    #检查这个$int_product_id是否有效
+	     if(!$this->is_login)
+	     {
+	     redirect('/login');
+	     }
+	    $int_product_id = max(intval($int_product_id),1);
+	    #检查这个$int_product_id是否有效：在预售和销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
-	        show_error("商品id错误");
+	        show_error("参数错误");
 	    }
 	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
-	    $int_user_id = 1;                #TODO
+	    $int_user_id = $this->session->userdata('user_id');                 #TODO
 	    $array_result = $this->student_order->check_product_in_order($int_product_id,$int_user_id);
-	    if($array_result)
+	    if(!empty($array_result))
 	    {
 	        foreach ($array_result as $k=>$v)
 	        {
-	            if (in_array($v['satus'], array(0,1)))
+	            switch ($v['status'])
 	            {
-	                self::json_output(array('status'=>'order_exist','msg'=>'您的订单已经存在，请去订单中心付款'));
-	            } elseif (in_array($v['satus'], array(2,3,6,7,8))) {
-	                self::json_output(array('status'=>'order_buy','msg'=>'您已经购买过这轮课程，请不要重复购买'));
-	            } elseif (in_array($v['satus'], array(4,5))) {
-	                #根据$int_product_id获取订单里面该轮的部分信息
-	                $array_data = $this->student_order->get_order_round_info($int_product_id);
+	                case 0:
+	                case 1:
+	                    show_error('您的订单已经存在，请去订单中心付款');
+	                    break;
+	                case 2:
+                    case 3:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                        show_error('您已经购买过这轮课程，请不要重复购买');
+                        break;
+                    case 4:
+                    case 5:
+                        #根据$int_product_id获取订单里面该轮的部分信息
+                        $array_data = $this->student_order->get_order_round_info($int_product_id);
+                        break;
+	                                    
 	            }
 	        }
 	    } else {
 	        #根据$int_product_id获取订单里面该轮的部分信息
 	        $array_data = $this->student_order->get_order_round_info($int_product_id);
 	    }
+	   // var_dump($this->session->all_userdata());
+	    $array_infor = $this->model_member->get_user_infor($int_user_id);
+ 	    // var_dump($int_user_id);
+ 	    #获取是否是手机号注册的
+	    $int_return = $this->model_member->check_phone_register($int_user_id);
+	    //var_dump($array_return);die;
+	  //  echo '--';var_dump($array_return);die;
+	    $this->smarty->assign('int_return', $int_return);
+	    $this->smarty->assign('realname', $array_infor['realname']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
 	}
@@ -59,29 +88,149 @@ class Pay extends NH_User_Controller {
 	public function neworder($product_id = 1)
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    #判断是否登录
-	    // 	    if(! $this->user){
-	    // 	        redirect('/login');
-	    // 	    }
 	    $int_product_id = max(intval($product_id),1);
-	    #检查这个$int_product_id是否有效
+	    #检查这个$int_product_id是否有效：在预售和销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
-	        show_error("商品id错误");
+	        show_error("参数错误");
 	    }
-	    #线上或者线下支付
-	    #$payment_method = $this->input->post('payment_method');
-	    $payment_method = 'online';
-	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
-	    #创建订单,向数据库里面写一条记录，写一条订单日志记录
-	    $array_result = $this->student_order->create_order($int_product_id,$payment_method);
-	    $int_order_id = $array_result['order_id'];
-	    if (!$array_result['status'])
+	    $int_user_id = $this->session->userdata('user_id');                #TODO
+	    #检查该用户是否已经下单且未付款
+	    $array_return = $this->model_order->check_have_order($int_product_id,$int_user_id);
+
+	    if ($array_return)
 	    {
-	        show_error("创建订单失败");
+	        $int_order_id = $array_return[0]['id'];
+	        if ($array_return[0]['pay_type'] == 4)
+	        {
+	            $payment_method = 'remittance';
+	        } else {
+	            $payment_method = 'online';
+	        }
+	       
+	    } else {
+	        #线上或者线下支付
+	        #$payment_method = $this->input->post('payment_method');
+	        $payment_method = 'online';
+	        $payment_method = $payment_method == 'online' ? 'online':'remittance';
+	        #创建订单,向数据库里面写一条记录，写一条订单日志记录
+	        $array_result = $this->student_order->create_order($int_product_id,$payment_method,$int_user_id);
+	        $int_order_id = $array_result['order_id'];
+	        if (!$array_result['status'])
+	        {
+	            show_error("创建订单失败");
+	        }
 	    }
-	    redirect("/pay/adminOrder/{$int_order_id}/$payment_method", 'location', 302);
+
+	    redirect("/pay/order/{$int_order_id}/$payment_method", 'location', 302);
+	}
+	
+	/**
+	 * 确认订单页面里面的添加联系方式
+	 */
+	public function add_contact()
+	{
+	    #ajax判断是否登录
+	    if(!$this->is_login)
+	    {
+	         self::json_output(array('status'=>'no_login','msg'=>''));
+	    }
+	    $int_user_id = $this->session->userdata('user_id'); #TODO
+	    $str_real_name = trim($this->input->post("real_name"));
+	    $str_phone = $this->input->post("phone");
+	    $str_verify_code = $this->input->post("verify_code");
+	    $int_code_type = 2;
+	    $int_product_id = $this->input->post("product_id");
+	    
+	    #如果用户注册的时候填了手机号，就不用验证码了
+	     if (!empty($str_phone) && $str_phone != $this->session->userdata('phone'))
+	     {
+    	     $exists = $this->business_register->_check_captcha($str_phone, $str_verify_code, $int_code_type);
+    	     #若验证码不匹配
+    	     if (!$exists)
+    	     {
+    	         self::json_output(array('status'=>'verify_code_error','msg'=>'验证码不正确'));
+    	     }
+	     }
+	    #获取用户手机号
+	    $phone = get_pnum_phone_server($int_user_id);
+        #获取用户真实姓名
+	    $array_user = $this->model_member->get_user_infor($int_user_id);
+	    
+	    if ($array_user['realname'] == $str_real_name)
+	    {
+	        if (empty($phone))
+	        {
+	            $pflag = add_user_phone_server($int_user_id,$str_phone);
+	            $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
+	            if ($pflag && $uflag)
+	            {
+	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>1));
+	            }
+	        }
+	        
+	        if($phone!= $str_phone)
+	        {
+	            $pflag = change_pnum_phone_server($int_user_id,$str_phone);
+	            $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
+	            if ($pflag && $uflag)
+	            {
+	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>2));
+	            }
+	        }
+	        
+	        if($phone== $str_phone)
+	        {
+	            self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	        }
+
+	    } else {
+	        
+	        if (empty($phone))
+	        {
+	            $pflag = add_user_phone_server($int_user_id,$str_phone);
+	            $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
+
+	            $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
+	            if ($pflag && $uflag && $uiflag)
+	            {
+	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>3));
+	            }
+	        }
+
+	        if ($phone != $str_phone)
+	        {
+	            $pflag = change_pnum_phone_server($int_user_id,$str_phone);
+	            var_dump($pflag);die;
+	            $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
+	            $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
+	            if ($pflag && $uflag && $uiflag)
+	            {
+	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>4));
+	            }
+	        }
+	        
+	        if($phone == $str_phone)
+	        {
+	            $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
+	            if ($uiflag)
+	            {
+	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>5));
+	            }
+	        }
+	    }
+
 	}
 	
 	/**
@@ -92,20 +241,16 @@ class Pay extends NH_User_Controller {
 	public function order($int_order_id=1, $payment_method='online')
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    #是否登录
-/* 	    if(! $this->user)
-	    {
-	        redirect('/login');
-	    } */
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
 	    #根据order_id获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-/* 	    if (!$array_order OR $array_order['student_id']!=$this->user['id'] )#TODO用户id
+	    $int_user_id = $this->session->userdata('user_id'); 
+	    if (!$array_order OR $array_order['student_id']!= $int_user_id)#TODO用户id  $this->user['id']
 	    {
 	        #order不存在 或者不是本人订单
 	        show_error('订单不存在'); 
-	    } */
+	    }
 	    #订单状态 > 1 跳转到我的订单
 	    if($array_order['status'] > 1)
 	    {
@@ -126,12 +271,8 @@ class Pay extends NH_User_Controller {
 	public function request($int_order_id=ORDER_START_VALUE)
 	{
 	    header('content-type: text/html; charset=utf-8');
-/* 	    #判断是否登录
-	    if(! $this->user)
-	    {
-	        redirect('/login');
-	    } */
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
+	    $str_nickname = $this->session->userdata('nickname');
 	    #根据order_id获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
 	    if (!$array_order) 
@@ -184,7 +325,7 @@ class Pay extends NH_User_Controller {
 	            'desc' => $desc,
 	            'paymethod' => $payMethod,
 	            'bank' => $bankCode,
-	            'payerName' => '1',#$this->user['nickname'],                     #TODO用户的昵称
+	            'payerName' => $str_nickname,#$this->user['nickname'],                     #TODO用户的昵称
 	            'TransDate' => date('Ymd',$create_time)
 	    );
 	    if($payChannel == 'netpay')
@@ -223,7 +364,7 @@ class Pay extends NH_User_Controller {
 	    log_message("ERROR_NAHAO", var_export($_SERVER,true)."\n".var_export($_GET,true)."\n"
 	    .var_export($_POST,true)."\n---------------------------------------------------------
 	    ---------------------------\n");
-	    $int_user_id = 1;#TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');#TODO用户id
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
 	    $paymentChannel = $this->checkPaymentChannel();
@@ -263,7 +404,7 @@ class Pay extends NH_User_Controller {
 	                    'user_id'=>$int_user_id,
 	                    'order_id' => $payResult['order_id'],
 	                    'status'=>$order_updata['status'],
-	                    'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式
+	                    'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
 	                    'action'=>ORDER_STATUS_FAIL,             #日志动作
 	                    'note'=>$response['message']             #日志记录
 	                );
@@ -294,7 +435,7 @@ class Pay extends NH_User_Controller {
 	                    'user_id'=>$int_user_id,
     	                'order_id' => $payResult['order_id'],
     	                'status'=>$order_updata['status'],
-    	                'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式
+    	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
     	                'action'=>ORDER_STATUS_FAIL,             #日志动作
     	                'note'=>$response['message']             #日志记录
 	                );
@@ -315,7 +456,7 @@ class Pay extends NH_User_Controller {
 	                    'user_id'=>$int_user_id,
     	                'order_id' =>$payResult['order_id'],
     	                'status'=>$order_updata['status'],
-    	                'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式
+    	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
     	                'action'=>ORDER_STATUS_SUCC,             #日志动作
     	                'note'=>'支付成功'                          #日志记录
 	                );
@@ -325,7 +466,7 @@ class Pay extends NH_User_Controller {
 	                    $response['message'] = '数据库错误';
 	                } else {
 	                    #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
-	                    $this->student_order->add_student_class_relation($payResult['order_id']);
+	                    $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
 	                }
 	        
 	            }
@@ -335,7 +476,7 @@ class Pay extends NH_User_Controller {
 	        $array_data = array(
 	        'order_id' =>2,# $payResult['order_id'],
 	        'status'=>$order_updata['status'],
-	        'pay_type' =>ORDER_TYPE_ALIPAY,          #支付方式
+	        'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
 	        'action'=>ORDER_STATUS_SUCC,             #日志动作
 	        'note'=>'支付成功'                          #日志记录
 	        );
@@ -392,6 +533,29 @@ class Pay extends NH_User_Controller {
 	    } while (false);
 	
 	    return $channel;
+	}
+	
+	/**
+	 * 检查订单是否已经支付完成
+	 */
+	public function check_pay()
+	{
+	    $int_order_id = intval($this->input->post("order_id"));
+	    if ($int_order_id == 0)
+	    {
+	        self::json_output(array('status'=>'id_error','msg'=>'参数错误'));
+	    }
+	    $array_data = $this->model_order->get_order_by_id($int_order_id);
+	    if (empty($array_data))
+	    {
+	        self::json_output(array('status'=>'data_error','msg'=>'订单不存在'));
+	    }
+	    if ($array_data['status'] == '2')
+	    {
+	        self::json_output(array('status'=>'pay_ok','msg'=>'支付成功'));
+	    } else {
+	        self::json_output(array('status'=>'pay_error','msg'=>'支付失败'));
+	    }
 	}
 }
 

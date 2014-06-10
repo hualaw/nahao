@@ -5,9 +5,12 @@ class Test extends CI_Controller {
 
 	public function ss_test()
 	{
+        /*
 		var_dump($this->session);
 		$session_id = $this->session->userdata('session_id');
 		echo "session_id is: ".$session_id."<br>";
+        */
+        $this->session->sess_update();
 	}
 
 	public function redis_test()
@@ -76,6 +79,11 @@ class Test extends CI_Controller {
     {
         $this->load->model('model/student/model_student_subject');
         $this->model_student_subject->delete(123, array('123','234'));
+    }
+
+    public function login_test()
+    {
+        $this->smarty->display('www/login/login.html');
     }
 }
 

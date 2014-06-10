@@ -25,7 +25,15 @@ class School extends NH_Controller {
     public function get_school() {
         $parent_id = intval($this->input->get("id"));
         $school_type = intval($this->input->get("sctype"));
-        $result = $this->business_school->county_schools($parent_id, $school_type, "id,schoolname");
-        $this->json_output($result);
+        $result = $this->business_school->county_schools($parent_id, $school_type, "id,schoolname,py,first_py");
+
+        $school = array();
+        foreach ($result as $value){
+            if (isset($value['first_py'][0])){
+                $school[$value['first_py'][0]][] = $value;
+            }
+        }
+        ksort ($school);
+        $this->json_output($school);
     }
 }

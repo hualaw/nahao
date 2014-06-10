@@ -7,14 +7,6 @@
  */
 class Business_Teacher extends NH_Model
 {
-    /**
-     * 查询时 如果arr_where参数中有以下任意字段，那么就连user_info表，不包含这些就直接查user表
-     * @var array
-     * @author yanrui@tizi.com
-     */
-//    private $arr_search_fields = array(
-//        'stage','province','course_type','subject','gender','has_bought'
-//    );
 
     function __construct(){
         parent::__construct();

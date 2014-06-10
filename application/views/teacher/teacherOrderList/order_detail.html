@@ -5,83 +5,68 @@
 {block name=container}
 <!--小导航开始-->
 <div class="nav_crumbs">
-    <a href="javascript:void(0)">首页></a>
-    <a href="javascript:void(0)">班次列表></a>
-    <a href="javascript:void(0)" class="nav_detail">班次章节</a>
+    <a href="/welcome/index/">首页></a>
+    <a href="/orderList/index/">班次列表></a>
+    <b class="nav_detail" style="color:#f60">班次章节</b>
 </div>
 <!--小导航结束-->
 <!--班次列表详情页面开始-->
 <div class="md_orderDetail">
     <h2>班次名称：2014年小升初暑假特训营（第一期）</h2>
     <div class="md_hd">
-        <span class="chapter">共<b>2</b>章</span>
-        <span class="course"><b>10</b>节课</span>
-        <span>已结课：<b>2</b></span>
-        <span>即将开始：<b>1</b></span>
-        <span>初始化：<b>1</b></span>
+        <span class="chapter">共<b>{$data['status_count']['z_count']}</b>章</span>
+        <span class="course"><b>{$data['status_count']['j_count']}</b>节课</span>
+        {if $data['status_count']['j_status_0']}
+        	<span>初始化：<b>{$data['status_count']['j_status_0']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_1']}
+        	<span>即将开始：<b>{$data['status_count']['j_status_1']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_2']}
+        	<span>正在上课：<b>{$data['status_count']['j_status_2']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_3']}
+        	<span>已结课：<b>{$data['status_count']['j_status_3']}</b></span>
+        {/if}
+        {if $data['status_count']['j_status_4']}
+        	<span>缺课：<b>{$data['status_count']['j_status_4']}</b></span>
+        {/if}
+		{if $data['status_count']['j_status_5']}
+        	<span>禁用：<b>{$data['status_count']['j_status_5']}</b></span>
+        {/if}
     </div>
     <div class="md_bd">
-        <h3>第一章  走进机器人的世界</h3>
-        <table class="md_table">
-            <tr>
-                <th>序号</th>
-                <th>小节名称</th>
-                <th>上课时间</th>
-                <th>授课状态</th>
-                <th>出勤率</th>
-                <th>学员评价</th>
-                <th>课件讲义</th>
-                <th>练习题管理</th>
-            </tr>
-            <tr>
-                <td class="order_id">1</td>
-                <td class="order_name">
-                    <h3>第一讲－火车过桥问阿凯设计方案行阿根廷题据卡三国噶计划方案 </h3>
-                </td>
-                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
-                <td class="class_statu">已结课</td>
-                <td class="class_number">91.1%</td>
-                <td class="class_praise"><a href="javascript:void(0);">查看评价</a></td>
-                <td class="class_word"><em class="icon_note"></em><a href="#">小升初卡还是数学复习练习题讲义练习题.pdf</a></td>
-                <td class="class_manage"><em class="icon_notem"></em></td>
-            </tr>
-            <tr class="start">
-                <td class="order_id">2</td>
-                <td class="order_name">
-                    <h3>第一讲－火车过桥问阿凯设计方案行阿根廷题据卡三国噶计划方案 </h3>
-                </td>
-                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
-                <td class="class_statu"><a href="javascript:void(0)" class="noBgGo">即将开始</a></td>
-                <td class="class_number">—</td>
-                <td class="class_praise">—</td>
-                <td class="class_word"><em class="icon_note"></em><a href="#">小升初卡还是数学复习练习题讲义练习题.pdf</a></td>
-                <td class="class_manage"><em class="icon_notem"></em></td>
-            </tr>
-            <tr class="start">
-                <td class="order_id">2</td>
-                <td class="order_name">
-                    <h3>第一讲－火车过桥问阿凯设计方案行阿根廷题据卡三国噶计划方案 </h3>
-                </td>
-                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
-                <td class="class_statu"><a href="javascript:void(0)" class="readyGo">去上课</a></td>
-                <td class="class_number">—</td>
-                <td class="class_praise">—</td>
-                <td class="class_word"><em class="icon_note"></em><a href="#">小升初卡还是数学复习练习题讲义练习题.pdf</a></td>
-                <td class="class_manage"><em class="icon_notem"></em></td>
-            </tr>
-            <tr class="end">
-                <td class="order_id">3</td>
-                <td class="order_name">
-                    <h3>第一讲－火车过桥问阿凯设计方案行阿根廷题据卡三国噶计划方案 </h3>
-                </td>
-                <td class="class_date"><b>2014-11-11</b>12：22：56</td>
-                <td class="class_statu">—</td>
-                <td class="class_number">—</td>
-                <td class="class_praise">—</td>
-                <td class="class_word"><span>暂无讲义</span><a href="#">添加</a></td>
-                <td class="class_manage"><em class="icon_notem"></em></td>
-            </tr>
-        </table>
+    {if $data['zjList']}
+    	{foreach $data['zjList'] as $val}
+    		<h3>{$val['title']}</h3>
+	        <table class="md_table">
+	            <tr>
+	                <th>序号</th>
+	                <th>小节名称</th>
+	                <th>上课时间</th>
+	                <th>授课状态</th>
+	                <th>出勤率</th>
+	                <th>学员评价</th>
+	                <th>课件讲义</th>
+	                <th>练习题管理</th>
+	            </tr>
+	            {foreach $val['jArr'] as $v}
+		            <tr>
+		                <td class="order_id">{$v['id']}</td>
+		                <td class="order_name">
+		                    <h3>{$v['title']} </h3>
+		                </td>
+		                <td class="class_date"><b>{$v['begin_time']|date_format:'%Y:%m:%d'}</b>{$v['begin_time']|date_format:'%H:%M:%S'}</td>
+		                <td class="class_statu">{$v['status_name']}</td>
+		                <td class="class_number">{$v['attendance_persent']}</td>
+		                <td class="class_praise"><a href="/orderList/comment/{$v['id']}">查看评价</a></td>
+		                <td class="class_word"><em class="icon_note"></em><a href="/orderList/count/{$v['id']}">{$v['courseware_name']}</a></td>
+		                <td class="class_manage"><a href="/orderList/question/{$v['id']}"><em class="icon_notem"></em></a></td>
+		            </tr>
+	            {/foreach}
+	        </table>
+    	{/foreach}
+    {/if}
     </div>
 </div>
 <!--班次列表详情页面结束-->

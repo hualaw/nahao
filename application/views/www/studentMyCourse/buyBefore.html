@@ -32,55 +32,54 @@
                         <span class="fl">开课时间</span>
                         <span class="fr">{$array_data.class_nums}次／{$array_data.class_hour}课时</span>
                     </div>
-                    <form action="" method="post" onsubmit="return false;" class="enlistForm">
-                    	<input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
-                        <ul class="cf">
-                        	{foreach from=$array_round item=item}
-                            <li class="fl ctime {if $item.id == $array_data.id}ctimeOn{/if}">
-                                <a href="/course/buy_before/{$item.id}">{$item.start_time}-{$item.end_time}</a>
-                            </li>
-                            {/foreach}
-                            <li class="fl more">
-                                <input type="hidden" name="">
-                                更多班次敬请期待
-                            </li>
-                        </ul>
-                        <div class="review cf">
-                            <span class="starBg cf">
-                                <span class="hreview"></span>
-                                <span class="hreview"></span>
-                                <span class="hreview"></span>
-                            </span>
-                            <strong class="redText">{$array_data.score}</strong>
-                            <a href="#review">{$str_evaluate_count}条评价</a>
-                        </div>
-                        <p class="fromf">
-							{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
-							<a href="/pay/product/{$array_data.id}" class="fr btn btn3" id="soon_buy">
-                                <span class="fl">立即报名</span>
-                                <span class="fr"></span>
-                            </a>
-                            {elseif $array_data.sale_status == '4'}
-                            <a href="" class="fr btn btn3">
-                                <span class="fl">已售罄</span>
-                                <span class="fr"></span>
-                            </a>
-                            {elseif $array_data.sale_status == '5'}
-                            <a href="" class="fr btn btn3">
-                                <span class="fl">已停售</span>
-                                <span class="fr"></span>
-                            </a>
-                            {else if $array_data.sale_status == '5'}
-                            <a href="" class="fr btn btn3">
-                                <span class="fl">已下架</span>
-                                <span class="fr"></span>
-                            </a>
-							{/if}
-                            <strong class="fr">¥
-                                <span class="redText">{$array_data.price|string_format:"%.0f"}</span>
-                            </strong>
-                        </p>
-                    </form>
+                	<input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+                    <ul class="cf">
+                    	{foreach from=$array_round item=item}
+                        <li class="fl ctime {if $item.id == $array_data.id}ctimeOn{/if}">
+                            <a href="/course/buy_before/{$item.id}">{$item.start_time}-{$item.end_time}</a>
+                        </li>
+                        {/foreach}
+                        <li class="fl more">
+                            <input type="hidden" name="">
+                            更多班次敬请期待
+                        </li>
+                    </ul>
+                    <div class="review cf">
+                        <span class="starBg cf">
+                            <span class="hreview"></span>
+                            <span class="hreview"></span>
+                            <span class="hreview"></span>
+                        </span>
+                        <strong class="redText">{$array_data.score}</strong>
+                        <a href="#review">{$str_evaluate_count}条评价</a>
+                    </div>
+                    <p class="fromf">
+						{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
+						<input type="hidden" id="product_id" value="{$array_data.id}">
+						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
+                            <span class="fl">立即报名</span>
+                            <span class="fr"></span>
+                        </a>
+                        {elseif $array_data.sale_status == '4'}
+                        <a href="javascript:void(0);" class="fr btn btn3">
+                            <span class="fl">已售罄</span>
+                            <span class="fr"></span>
+                        </a>
+                        {elseif $array_data.sale_status == '5'}
+                        <a href="javascript:void(0);" class="fr btn btn3">
+                            <span class="fl">已停售</span>
+                            <span class="fr"></span>
+                        </a>
+                        {else if $array_data.sale_status == '5'}
+                        <a href="javascript:void(0);" class="fr btn btn3">
+                            <span class="fl">已下架</span>
+                            <span class="fr"></span>
+                        </a>
+						{/if}
+                        <strong class="fr">¥
+                            <span class="redText">{$array_data.price|string_format:"%.0f"}</span>
+                        </strong>
+                    </p>
                 </div>
                 <div class="fr endTime">
                     <div class="timeTitle">报名截止剩余时间</div>
@@ -161,7 +160,10 @@
                             <span class="fr allReview">所有评论（共{$str_evaluate_count}条）</span>
                         </div>
                         <a href="" class="loadMore">本页最多显示最近的5条评论</a>
-                        <a href="" class="btn redBtn applyBtn cf">
+                        
+                        	{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
+							<input type="hidden" id="product_id_xia" value="{$array_data.id}">
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
                             <span class="fl">
                                 ¥
                                 <strong>{$array_data.price|string_format:"%.0f"}</strong>
@@ -170,7 +172,41 @@
                                 <span>购买课程</span>
                                 <em>未上课次随时退款</em>
                             </span>
-                        </a>
+                        	</a>
+                            {elseif $array_data.sale_status == '4'}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.price|string_format:"%.0f"}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已售罄</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == '5'}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.price|string_format:"%.0f"}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已停售</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {else if $array_data.sale_status == '5'}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.price|string_format:"%.0f"}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已下架</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+							{/if}
                     </div>
                 </div>
             </div>

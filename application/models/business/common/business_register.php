@@ -7,8 +7,11 @@ class Business_Register extends NH_Model {
 		$this->load->model('model/common/model_user');
 	}
 
-	public function register($phone, $email, $password, $captcha, $reg_type)
+	public function submit($phone, $email, $password, $captcha, $reg_type)
 	{
+        $check_ret = $this->_check_register_data($phone, $email, $password, $captcha, $reg_type);
+        if($check_ret['status'] != SUCCESS) return $check_ret;
+
 		//check data
 		if($reg_type == REG_TYPE_PHONE)
 		{
@@ -42,7 +45,7 @@ class Business_Register extends NH_Model {
 			'phone_mask' => $phone_mask,
 			'email' => $email,
 			'salt' => $str_salt,
-			'password'=> create_password($password),
+			'password'=> create_password($str_salt, $password),
 			'register_time' => time(),
 			'register_ip' => ip2long($this->input->ip_address()),
 			'source' => 1,
@@ -52,12 +55,23 @@ class Business_Register extends NH_Model {
 		
 		$user_id = $this->model_user->create_user($user_table_data);
 
-        //echo "user_id is: $user_id";
-		//if insert table failed, the $uer_id is int zero
-		if($user_id === 0)
+
+        //if insert table failed, the $uer_id is int zero
+        if($user_id === 0)
 		{
+            $user_table_data['error'] = 'user_insert_failed';
 			return $this->_log_reg_info(ERROR, 'reg_db_error', $user_table_data);
 		}
+
+        //insert a record into user_info table
+        $insert_affected_rows = $this->model_user->create_user_info(array('user_id'=>$user_id));
+        if($insert_affected_rows < 1)
+        {
+            //标记user表里的记录为无效状态
+            $this->model_user->update_user(array('status'=>0), array('id'=>$user_id));
+            $user_table_data['error'] = 'user_info_insert_failed';
+            return $this->_log_reg_info(ERROR, 'reg_db_error', $user_table_data);
+        }
 
         if($reg_type == REG_TYPE_PHONE)
         {
@@ -65,100 +79,26 @@ class Business_Register extends NH_Model {
             $add_ret = add_user_phone_server($user_id, $phone);
             if(!$add_ret)
             {
+                //标记user表里的记录为无效状态
+                $this->model_user->update_user(array('status'=>0), array('id'=>$user_id));
+                //标记user_info表里的记录为无效状态
+                $this->model_user->update_user_info(array('status'=>0), array('user_id'=>$user_id));
+
                 return $this->_log_reg_info(ERROR, 'reg_phone_server_error', array('user_id'=>$user_id, 'phone'=>$phone));
             }
         }
 
-		//set session
-		//gen nickname
-		if($phone_mask) $nickname = $phone_mask;
-		else if($email) $nickname = $email;
-		else {
-			$this->_log_reg_info(ERROR, 'reg_no_nickname', $user_table_data);
-		}
-
-		$userdata = array(
-			'nickname' => $nickname,
-			'avatar' => '',
-			'user_id' => $user_id,
-			);
-		$this->session->set_userdata($userdata);
+        //set session
+        $avatar = $nickname = '';
+        $this->set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email);
 		return $this->_log_reg_info(SUCCESS, 'reg_success', array(), 'info');
-	}
-
-	public function check_nickname($nickname)
-	{
-		$nickname_count = $this->model_user->get_user_by_param('user', 'count', '*', array('nickname'=>$nickname));
-		if($nickname_count >= 1)
-		{
-			return $this->_log_reg_info(ERROR, 'reg_dup_nickname', array('nickname'=>$nickname));
-		}
-		return $this->_log_reg_info(SUCCESS, 'reg_check_nickname_success', array('nickname'=>$nickname), 'info');
-	}
-
-	public function check_phone($phone)
-	{
-		//check phone is invalid
-		if(!is_mobile($phone))
-		{
-			return $this->_log_reg_info(ERROR, 'reg_invalid_phone', array('phone'=>$phone));
-		}
-
-			//check phone is unique
-		$user_id = get_uid_phone_server($phone);
-		
-		if($user_id)
-		{
-			return $this->_log_reg_info(ERROR, 'reg_dup_phone', array('phone'=>$phone));
-		}
-
-		return $this->_log_reg_info(SUCCESS, 'reg_check_phone_success', array('phone'=>$phone));
-	}
-
-	public function check_email($email)
-	{
-		if(!is_email($email))
-		{
-			return $this->_log_reg_info(ERROR, 'reg_invalid_email', array('email'=>$email));
-		}
-
-		//check email is unique
-		$email_count = $this->model_user->get_user_by_param('user', 'count', '*', array('email'=>$email));
-		if($email_count >= 1)
-		{
-			return $this->_log_reg_info(ERROR, 'reg_dup_email', array('email'=>$email));
-		}
-
-		return $this->_log_reg_info(SUCCESS, 'reg_check_email_success', array('email'=>$email));
 	}
 
 	public function send_verify_email($email)
 	{
 		//未完成
 		$this->load->library('mail');
-
 		//$this->mail->send($email, )
-
-	}
-
-	function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
-	{
-		$arr_return['status'] = $status;
-		$arr_return['msg'] = $this->lang->line($msg_type);
-		$arr_return['data'] = $info_arr;
-		switch($info_type)
-		{
-			case 'error':
-				log_message('error_nahao', json_encode($arr_return));
-				break;
-			case 'info':
-				log_message('info_nahao', json_encode($arr_return));
-				break;
-			case 'debug':
-				log_message('debug_nahao', json_encode($arr_return));
-				break;
-		}
-		return $arr_return;
 	}
 
 	function _check_captcha($phone, $captcha, $type)
@@ -193,4 +133,37 @@ class Business_Register extends NH_Model {
 
         return $compare_result;
 	}
+
+    function _check_register_data($phone, $email, $password, $captcha, $reg_type)
+    {
+        $sign = 1;
+        if($reg_type == REG_TYPE_PHONE)
+        {
+            if(strlen($phone) == 0 || strlen($password) == 0 || strlen($captcha) == 0)
+            {
+                $sign = 2;
+            }
+        }
+        else if($reg_type == REG_TYPE_EMAIL)
+        {
+            if(strlen($email) == 0 || strlen($password) == 0)
+            {
+                $sign = 2;
+            }
+        }
+
+        if( $sign == 2 )
+        {
+            $arr_log = array(
+                'phone'=>$phone,
+                'email'=>$email,
+                'password'=>$password,
+                'captcha'=>$captcha,
+                'reg_type'=>$reg_type,
+            );
+            return $this->_log_reg_info(ERROR, 'reg_invalid_info', $arr_log);
+        }
+
+        return $this->_log_reg_info(SUCCESS, 'reg_valid_info', array());
+    }
 }
