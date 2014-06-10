@@ -15,7 +15,7 @@ define(function (require, exports) {
 	}
 	//加载编辑器
 	exports.load_ckeditor = function () {
-        CKEDITOR.replace('question',{toolbar:'Basic', height:100 ,width:700});
+        CKEDITOR.replace('question',{ toolbar:'Basic', height:100 ,width:700});
         CKEDITOR.replace('option-A',{height:100});
         CKEDITOR.replace('option-B',{height:100});
         CKEDITOR.replace('option-C',{height:100});
