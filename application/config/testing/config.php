@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.nahaotest.com/';
+$config['base_url']	= 'http://'.__HOST__.'/';
 $config['static_url'] = 'http://static.nahaotest.com/';
 $config['teacher_url'] = 'http://teacher.nahaotest.com/';
 $config['admin_url'] = 'http://admin.nahaotest.com/';
