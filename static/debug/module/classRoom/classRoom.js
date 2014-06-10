@@ -84,41 +84,44 @@ define(function (require,exports){
 	//题目 做题
 	exports.doWork = function (){
 		$(".nextBtn").hide();
-		// var arr=["tim1","tim2"];
-		// var ans={a:[1,2,3,4];b:[]}
 
-		// var json = {
-		// 	con:[
-		// 		a:{}
-		// 	]
-		// }
 		var type = 1,
 			ind = 0,
-			ans = [];  
-
+			ans = [],
+			index = true,
+			qid = "",
+			answer = "";  
 		
 		$(".subAns").click(function (){
 
-			if(ind>4){
-				document.title = ind;
-				_popUp.popUp('.scorePageHtml');
-			}else{
-				//ajax
-
-				//right error
-				if(type == 1){
-					if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == "A"){
-						alert("r")
-						$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
-					}else{
-						alert(ans[ans.length-1])
-						$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
-						$(".answerList li").eq(ind*4).addClass("ansRight");
-						alert("e")
-					}
+			var aL = $(this).parent().parent().find(".answerList");
+			for(var i=0;i<aL.find("li").length;i++){
+				if(!aL.find("li").hasClass("curAnswer")){
+					alert("您还没有做题");
+					return;
 				}
+			}
+			if(ind>=4){
+				if(index){
+					$(this).show().html("chakandaan");
+					index = false;
+				}else{
+					$(".aui_content").html($(".scorePageHtml").html())
+				}
+			}else{
 				$(this).hide();
 				$(".nextBtn").show();	
+			}
+			//ajax
+			console.log(qid+"/"+answer)
+			//right error
+			if(type == 1){
+				if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == "A"){
+					$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
+				}else{
+					$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
+					$(".answerList li").eq(ind*4).addClass("ansRight");
+				}
 			}					
 		})
 
@@ -130,14 +133,9 @@ define(function (require,exports){
 			$(".doWorkList").eq(ind).removeClass("undis");
 			$(this).hide();
 			$(".subAns").show();
-			if(ind>3){
-				document.title = ind;
-				$(".subAns").html("chakandaan");
-			}
 		});	
 
 		$(".answerList li").click(function (){
-			console.log(ans)
 			if(type == 1){
 				$(".answerList li").removeClass("curAnswer");
 				$(this).addClass("curAnswer");
@@ -145,6 +143,11 @@ define(function (require,exports){
 				$(this).addClass("curAnswer");
 			}
 			ans.push($(".answerList li").index($(this)));
-		});
+			qid = $(this).parent().parent().find(".setqid").attr("qid")
+			var answers = [];
+
+			answers.push($(this).find(".options").html());
+			answer = answers.join();
+		}); 
 	}
 })
