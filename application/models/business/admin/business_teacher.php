@@ -281,22 +281,137 @@ class Business_Teacher extends NH_Model
         //var_dump($post);
         $post['nickname']=trim($post['nickname']);
         $post['password']=trim($post['password']);
+        $post['realname']=trim($post['realname']);
+        $post['age']=trim($post['age']);
         $post['school']=trim($post['school']);
         $post['basic_reward']=trim($post['basic_reward']);
         $post['phone_mask']=trim($post['phone_mask']);
         $post['email']=trim($post['email']);
+        $post['teacher_intro']=htmlspecialchars(trim($post['teacher_intro']));
+        $post['bank_id']=trim($post['bank_id']);
+        $post['id_card']=trim($post['id_card']);
+        $post['bank_Branch']=trim($post['bank_Branch']);
+        if($post['hide_school']==null)
+        {
+            $post['hide_school']=0;
+        }
+        if($post['hide_realname']==null)
+        {
+            $post['hide_realname']=0;
+        }
+        if($post['work_auth']==null)
+        {
+            $post['work_auth']=0;
+        }
+        if($post['teacher_auth']==null)
+        {
+            $post['teacher_auth']=0;
+        }
+        if($post['titile_auth']==null)
+        {
+            $post['titile_auth']=0;
+        }
+        if($post['city']==null)
+        {
+            $post['city']=0;
+        }
+        if($post['area']==null)
+        {
+            $post['area']=0;
+        }
+
+       // var_dump($post['nickname']);die;
+        if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['school']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100)
+        {
+            redirect("teacher/create");
+        }
 
         $preg = "/[\x{4e00}-\x{9fa5}]/u";
-        if(preg_match_all($preg,$post['nickname'],$matches)){
-            //print_r($matches[0]);
-            $zn_count=count($matches[0]);
-        }
         $preg2 = "/[^\x{4e00}-\x{9fa5}]/iu";
-        if(preg_match_all($preg2,$post['nickname'],$matches)){
-            //print_r($matches[0]);
-            $nozn_count=count($matches[0]);
+        if(preg_match_all($preg,$post['nickname'],$matches)){
+            $zn_nickname_count=count($matches[0]);
         }
-        echo $zn_count+$nozn_count;
+        if(preg_match_all($preg2,$post['nickname'],$matches)){
+            $nozn_nickname_count=count($matches[0]);
+        }
+        if(preg_match_all($preg,$post['password'],$matches)){
+            $zn_pwd_count=count($matches[0]);
+        }
+        if(preg_match_all($preg2,$post['password'],$matches)){
+            $nozn_pwd_count=count($matches[0]);
+        }
+        if(preg_match_all($preg,$post['realname'],$matches)){
+            $zn_realname_count=count($matches[0]);
+        }
+        if(preg_match_all($preg2,$post['realname'],$matches)){
+            $nozn_realname_count=count($matches[0]);
+        }
+        $nickname_count=$zn_nickname_count+$nozn_nickname_count;
+        $password_count=$zn_pwd_count+$nozn_pwd_count;
+        $realname_count=$zn_realname_count+$nozn_realname_count;
+        //echo $nickname_count,'<br />',$password_count,'<br />',$realname_count;
+        if($nickname_count < 2 || $nickname_count > 15 || $password_count < 6 || $password_count > 20 || $realname_count < 2 || $realname_count > 15)
+        {
+            redirect('teacher/create');
+        }
+
+        $nick=$this->model_user->check_nick($post['nickname']);
+        if($nick=="yes")
+        {
+            redirect('teacher/create');
+        }
+
+        $tel=$this->model_user->check_tel($post['phone_mask']);
+        if($tel!=NULL)
+        {
+            redirect('teacher/create');
+        }
+
+        $ema=$this->model_user->check_tec_email($post['email']);
+        if($ema!=NULL)
+        {
+            redirect('teacher/create');
+        }
+
+        $post_user['nickname']=$post['nickname'];
+        $post_user['phone_mask']=$post['phone_mask'];
+        $post_user['email']=$post['email'];
+        $post_user['salt']=random_string();
+        $post_user['password']=create_password($post_user['salt'],$post['password']);
+        $post_user['status']=1;
+        $post_user['register_time']=time();
+        $post_user['register_ip']=ip2long($this->input->ip_address());
+        $post_user['phone_verified']=1;
+        $post_user['email_verified']=1;
+        $post_user['teach_priv']=1;
+        $post_user['source']=1;
+        //var_dump($post_user);die;
+        $user_id=$this->model_user->create_user($post_user);
+        //var_dump($user_id);die;
+        $post_user_info['user_id']=$user_id;
+        $post_user_info['realname']=$post['realname'];
+        $post_user_info['age']=$post['age'];
+        $post_user_info['gender']=$post['gender'];
+        $post_user_info['hide_realname']=$post['hide_realname'];
+        $post_user_info['hide_school']=$post['hide_school'];
+        $post_user_info['bankname']=$post['bank'].$post['bank_Branch'];
+        $post_user_info['bankcard']=$post['bank_id'];
+        $post_user_info['id_code']=$post['id_card'];
+        $post_user_info['title']=$post['title'];
+        $post_user_info['work_auth']=$post['work_auth'];
+        $post_user_info['teacher_auth']=$post['teacher_auth'];
+        $post_user_info['titile_auth']=$post['titile_auth'];
+        $post_user_info['province']=$post['province'];
+        $post_user_info['city']=$post['city'];
+        $post_user_info['area']=$post['area'];
+        $post_user_info['school']=$post['school'];
+        $post_user_info['teacher_age']=$post['teacher_age'];
+        $post_user_info['stage']=$post['stage'];
+        $post_user_info['teacher_intro']=$post['teacher_intro'];
+        $post_user_info['basic_reward']=$post['basic_reward'];
+        $post_user_info['status']=1;
+        //var_dump($post_user_info);die;
+        return $this->model_user->create_user_info($post_user_info);
     }
     /**
      * 根据id取teacher

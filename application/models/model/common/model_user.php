@@ -114,7 +114,10 @@ class Model_User extends NH_Model
      */
     public function check_nick($nickname)
     {
-         return $this->db->select('user.id')->from('user')->where("user.nickname='$nickname'")->get()->row_array();
+         if($this->db->select('user.id')->from('user')->where("user.nickname='$nickname'")->get()->row_array())
+         {
+             return 'yes';
+         }
         // return $this->db->last_query();
     }
     /**

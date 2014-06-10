@@ -134,7 +134,10 @@ class Teacher extends NH_Admin_Controller {
     public function check_techer_post()
     {
         $post=$this->input->post(NULL,TRUE);
-        $this->teacher->check_post($post);
+        if($this->teacher->check_post($post))
+        {
+            redirect('teacher');
+        }
        // var_dump($post);
     }
     /**
@@ -183,8 +186,8 @@ class Teacher extends NH_Admin_Controller {
     public function nickname()
     {
         $nickname=$this->input->post('nickname',TRUE);
-        $c=$this->teacher->check_nick_name($nickname);
-        self::json_output($c['id']);
+        $nick=$this->teacher->check_nick_name($nickname);
+        self::json_output($nick);
     }
     /**
      * 电话是否存在
