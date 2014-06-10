@@ -69,15 +69,82 @@ define(function (require,exports){
 
 	//评论 几颗星
 	exports.starClick = function (){
-			var ind = true;
-			$(".evalu .starBg span").click(function (){
-				if(ind){
-					var _index = $(".evalu .starBg span").index($(this));
-					for(var i=0;i<_index+1;i++){
-						$(".evalu .starBg span").eq(i).addClass("cStar");
-					}
-					ind = false;
+		//var ind = true;
+		$(".evalu .starBg span").click(function (){
+			//if(ind){
+				var _index = $(".evalu .starBg span").index($(this));
+				for(var i=0;i<_index+1;i++){
+					$(".evalu .starBg span").eq(i).addClass("cStar");
 				}
-			});
+				//ind = false;
+			//}
+		});
+	}
+
+	//题目 做题
+	exports.doWork = function (){
+		$(".nextBtn").hide();
+		// var arr=["tim1","tim2"];
+		// var ans={a:[1,2,3,4];b:[]}
+
+		// var json = {
+		// 	con:[
+		// 		a:{}
+		// 	]
+		// }
+		var type = 1,
+			ind = 0,
+			ans = [];  
+
+		
+		$(".subAns").click(function (){
+
+			if(ind>4){
+				document.title = ind;
+				_popUp.popUp('.scorePageHtml');
+			}else{
+				//ajax
+
+				//right error
+				if(type == 1){
+					if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == "A"){
+						alert("r")
+						$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
+					}else{
+						alert(ans[ans.length-1])
+						$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
+						$(".answerList li").eq(ind*4).addClass("ansRight");
+						alert("e")
+					}
+				}
+				$(this).hide();
+				$(".nextBtn").show();	
+			}					
+		})
+
+		$(".nextBtn").click(function (){
+			ans = [];
+			ind++;
+			//last itme
+			$(".doWorkList").addClass("undis");
+			$(".doWorkList").eq(ind).removeClass("undis");
+			$(this).hide();
+			$(".subAns").show();
+			if(ind>3){
+				document.title = ind;
+				$(".subAns").html("chakandaan");
+			}
+		});	
+
+		$(".answerList li").click(function (){
+			console.log(ans)
+			if(type == 1){
+				$(".answerList li").removeClass("curAnswer");
+				$(this).addClass("curAnswer");
+			}else{
+				$(this).addClass("curAnswer");
+			}
+			ans.push($(".answerList li").index($(this)));
+		});
 	}
 })
