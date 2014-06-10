@@ -61,9 +61,9 @@
         <td><input type="checkbox"></td>
         <td>{$v.id}</td>
         <td>{$v.title}</td>
-        <td>{date("Y-m-d H:i",$v.start_time)}</td>
-        <td>{date("Y-m-d H:i",$v.sell_begin_time)}</td>
-        <td>{date("Y-m-d H:i",$v.sell_end_time)}</td>
+        <td>{if isset($v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
+        <td>{if isset($v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}</td>
+        <td>{if isset($v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
         <td>nickname</td>
         <td>process</td>
         <td>{$subjects[$v.subject]}</td>
@@ -71,7 +71,7 @@
         <td>{$v.bought_count}/{$v.caps}</td>
         <td>{$round_sale_status[$v.sale_status]}</td>
         <td>{$round_teach_status[$v.teach_status]}</td>
-        <td>{$v.scores}</td>
+        <td>{if isset($v.scores)}{date("Y-m-d H:i",$v.scores)}{/if}</td>
         <td>
             <a href="javascript:;" data-toggle="modal" data-target="#round_list_operation_modal" data-round_id="{$v.id}">更多</a>
             <a href="/round/edit/{$v.id}">修改</a>

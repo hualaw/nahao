@@ -36,6 +36,7 @@ class NH_Admin_Controller extends NH_Controller
                 //验证登录通过后拿到userinfo
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
+                $this->smarty->assign('current',$this->current);
                 $this->smarty->assign('js_module', DOMAIN.ucfirst($this->current['controller']));
             }else{
                 $bool_redirect = true;

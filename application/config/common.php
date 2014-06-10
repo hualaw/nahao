@@ -233,7 +233,6 @@ $config['order_log_action'][11] = "完成退款";
 $config['school_type'][1] = '公立小学';
 $config['school_type'][2] = '公立中学';
 
-
 //账户状态
 $config['account'][0] = '禁用';
 $config['account'][1] = '启用';

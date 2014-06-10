@@ -139,7 +139,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
-define('PER_PAGE_NO',1);
+define('PER_PAGE_NO',10);
 
 
 //tables
@@ -266,10 +266,6 @@ define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
 define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
-
-//昵称最大长度
-define('MIN_NICKNAME_LEN', 4);
-define('MAX_NICKNAME_LEN', 21);
 
 //单轮，单节最大人数
 define('NH_CLASS_PEOPLE_CAPS',100);
