@@ -16,7 +16,7 @@
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pname fl" validName="text">
+						<input type="text" name="nickname" class="pname fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -38,7 +38,7 @@
 				<li>
 					<p class="formName"><span>*</span>邮箱</p>
 					<div class="cf">
-						<input type="text" name="Email" class="pEmail fl" validName="text">
+						<input type="text" name="email" class="pEmail fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -47,7 +47,7 @@
 					<div class="cf">
 						<div class="fl">
 							<div>
-								<select name="" id="" validName="select" class="subjectInput">
+								<select name="grade" id="" validName="select" class="subjectInput">
 									<option value="">选择学科</option>
 									<option value="1">一年级</option>
 									<option value="2">二年级</option>
@@ -61,7 +61,7 @@
 				<li>
 					<p class="optional">真实姓名</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pUname fl" ignore="ignore" validName="text">
+						<input type="text" name="realname" class="pUname fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -69,8 +69,8 @@
 					<p class="optional">性别</p>
 					<div class="cf">
 						<div class="fl">
-							<input type="radio" name="sex" value="male" class="radio" ignore="ignore" validName="radio" /> 男
-							<input type="radio" name="sex" value="female" class="radio" ignore="ignore" validName="radio"/> 女
+							<input type="radio" name="gender" id="male" value="male" class="radio" validName="radio" /> <label for="male" class="">男</label> 
+							<input type="radio" id="female" name="gender" value="female" class="radio" validName="radio"/><label for="female" class="">女</label>  
 						</div>
 						<span class="Validform_checktip fl"></span>
 					</div>
@@ -86,14 +86,14 @@
 				</li>
 				<li class="attent">
 					<p class="optional">关注学科</p>
-					<input type="button" value="语文" class="blueBtn btn">
-					<input type="button" value="物理" class="blueBtn btn">
-					<input type="button" value="兴趣特长" class="blueBtn btn">
-					<input type="button" value="化学" class="blueBtn btn">
-					<input type="button" value="生物" class="blueBtn btn">
-					<input type="button" value="数学" class="blueBtn btn">
-					<input type="button" value="英语" class="blueBtn btn">
-					<input type="button" value="人文文化" class="blueBtn btn">
+					<input type="button" name="focus_subjects" value="语文" class="btn">
+					<input type="button" name="focus_subjects" value="物理" class="btn">
+					<input type="button" name="focus_subjects" value="兴趣特长" class="btn">
+					<input type="button" name="focus_subjects" value="化学" class="btn">
+					<input type="button" name="focus_subjects" value="生物" class="btn">
+					<input type="button" name="focus_subjects" value="数学" class="btn">
+					<input type="button" name="focus_subjects" value="英语" class="btn">
+					<input type="button" name="focus_subjects" value="人文文化" class="btn">
 					<div class="cf">
 						<p class="attNote fl">注：最多可选择3项</p>
 						<span class="Validform_checktip fl"></span>
@@ -102,7 +102,7 @@
 				<li>
 					<p class="optional">就读学校</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pSchool fl" validName="text" ignore="ignore">
+						<input type="text" name="school" class="pSchool fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -121,7 +121,7 @@
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pname fl" validName="text" value="{$user_detail.nickname}">
+						<input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -143,7 +143,7 @@
 				<li>
 					<p class="formName"><span>*</span>邮箱</p>
 					<div class="cf">
-						<input type="text" name="Email" class="pEmail fl" validName="text" value="{$user_detail.email}">
+						<input type="text" name="email" class="pEmail fl cInput yh" validName="text" value="{$user_detail.email}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -152,7 +152,7 @@
 					<div class="cf">
 						<div class="fl">
 							<div>
-								<select name="" id="" validName="select" class="subjectInput">
+								<select name="grade" id="" validName="select" class="subjectInput">
 									<option value="">选择年级</option>
                                     {foreach $grades as $key => $val}
 									<option value="{$key}" {if $key == $user_detail.grade}selected{/if}>{$val}</option>
@@ -167,7 +167,7 @@
 				<li>
 					<p class="optional">真实姓名</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pUname fl" ignore="ignore" validName="text" value="{$user_detail.realname}">
+						<input type="text" name="realname" class="pUname fl cInput yh" ignore="ignore" validName="text" value="{$user_detail.realname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -176,7 +176,7 @@
 					<div class="cf">
 						<div class="fl">
                             {foreach $gender as $key => $val}
-							<input type="radio" name="sex" value="{$key}" class="radio" ignore="ignore" validName="radio" {if $user_detail.gender == $key}checked{/if}/> {$val}
+							<input type="radio" name="gender" value="{$key}" class="radio" ignore="ignore" validName="radio" {if $user_detail.gender == $key}checked{/if}/> {$val}
                             {/foreach}
 						</div>
 						<span class="Validform_checktip fl"></span>
@@ -184,14 +184,14 @@
 				</li>
 				<li class="attent">
 					<p class="optional">关注学科</p>
-					<input type="button" value="语文" class="blueBtn btn">
-					<input type="button" value="物理" class="blueBtn btn">
-					<input type="button" value="兴趣特长" class="blueBtn btn">
-					<input type="button" value="化学" class="blueBtn btn">
-					<input type="button" value="生物" class="blueBtn btn">
-					<input type="button" value="数学" class="blueBtn btn">
-					<input type="button" value="英语" class="blueBtn btn">
-					<input type="button" value="人文文化" class="blueBtn btn">
+					<input type="button" name="focus_subjects" value="语文" class="btn">
+					<input type="button" name="focus_subjects" value="物理" class="btn">
+					<input type="button" name="focus_subjects" value="兴趣特长" class="btn">
+					<input type="button" name="focus_subjects" value="化学" class="btn">
+					<input type="button" name="focus_subjects" value="生物" class="btn">
+					<input type="button" name="focus_subjects" value="数学" class="btn">
+					<input type="button" name="focus_subjects" value="英语" class="btn">
+					<input type="button" name="focus_subjects" value="人文文化" class="btn">
 					<div class="cf">
 						<p class="attNote fl">注：最多可选择3项</p>
 						<span class="Validform_checktip fl"></span>
@@ -200,7 +200,7 @@
 				<li>
 					<p class="optional">就读学校</p>
 					<div class="cf">
-						<input type="text" name="Uname" class="pSchool fl" validName="text" ignore="ignore" value="{$school}">
+						<input type="text" name="school" class="pSchool fl cInput yh" validName="text" value="{$school}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -245,21 +245,21 @@
 				<li>
 					<p class="formName"><span>*</span>当前密码</p>
 					<div class="cf">
-						<input type="password" name="password" class="iniPassword fl" validName="text">
+						<input type="password" name="password" class="iniPassword fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li>
 					<p class="formName"><span>*</span>新密码</p>
 					<div class="cf">
-						<input type="password" name="setPassword" class="setPassword fl" validName="text">
+						<input type="password" name="setPassword" class="setPassword fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li>
 					<p class="formName"><span>*</span>确认新密码</p>
 					<div class="cf">
-						<input type="password" name="reSetPassword" class="reSetPassword fl" validName="text">
+						<input type="password" name="reSetPassword" class="reSetPassword fl cInput yh" validName="text">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>

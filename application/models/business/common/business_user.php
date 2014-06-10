@@ -3,7 +3,7 @@
 /**
  * User相关逻辑
  * Class Business_User
- * @author yanrui@tizi.com
+ * @author yanhengjia@tizi.com
  */
 class Business_User extends NH_Model
 {
@@ -69,9 +69,10 @@ class Business_User extends NH_Model
                            province,city,area,school,teacher_age,teacher_intro,teacher_signature,stage,grade';
             $arr_where = array(
                 'id' => $user_id,
-                'status' => 1,
+                TABLE_USER.'.status' => 1,
             );
             $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_return['phone'] = get_pnum_phone_server($user_id);
             #加载用户教学科目数据(可以为空主要针对老师用户)
             $arr_return['teacher_subject'] = $this->business_subject->get_teacher_subject($user_id);
             #加载用户感兴趣的科目(可以为空主要是针对学生用户)
@@ -79,5 +80,64 @@ class Business_User extends NH_Model
         }
         
         return $arr_return;
+    }
+    
+    /**
+     * 修改用户的个人信息
+     * @param  array $update_data 要更新的用户数据
+     * @param  int   $user_id 用户Id
+     * @reutrn bool
+     */
+    public function modify_user_data($update_data, $user_id)
+    {
+        $userinfo = array();
+        #user表中要更新的数据
+        $update_data['realname'] && $userinfo['realname'] = $update_data['realname'];
+        #user_info表中要更新的数据
+        $update_data['stage'] && $userinfo['stage'] = $update_data['stage'];
+        $update_data['title'] !== NUll && $userinfo['title'] = $update_data['title'];
+        $update_data['gender'] !== NULL && $userinfo['gender'] = $update_data['gender'];
+        $update_data['province'] && $userinfo['province'] = $update_data['province'];
+        $update_data['city'] && $userinfo['city'] = $update_data['city'];
+        $update_data['area'] && $userinfo['area'] = $update_data['area'];
+        $update_data['teacher_age'] && $userinfo['teacher_age'] = $update_data['teacher_age'];
+        $update_data['teacher_intro'] && $userinfo['teacher_intro'] = $update_data['teacher_intro'];
+        $update_data['bankname'] && $userinfo['bankname'] = $update_data['bankname'];
+        $update_data['bankbench'] && $userinfo['bankbench'] = $update_data['bankbench'];
+        $update_data['bankcard'] && $userinfo['bankcard'] = $update_data['bankcard'];
+        $update_data['id_code'] && $userinfo['id_code'] = $update_data['id_code'];
+//        $user_res = $this->model_user->update_user($userdata, array('id' => $user_id));
+
+        $user_info_res = $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
+
+        if($update_data['teacher_subject']) {
+            $this->update_user_subject($update_data['teacher_subject'], $user_id, 'teacher');
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 更新用户选择的学科
+     * @param mixed  $subject 学科ID组成的数组或者是字符串
+     * @param int    $user_id     用户Id
+     * @param string $type    student | teacher
+     * @return bool
+     */
+    public function update_user_subject($subject, $user_id, $type)
+    {
+        if(!is_array($subject)) {
+            $subject = explode(',', $subject);
+        }
+        
+        $table_name = $type . '_subject';
+        $user_field = $type . '_id';
+        #先把用户学科表里的记录清掉
+        $this->db->delete($table_name, array($user_field => $user_id));
+        foreach($subject as $val) {
+            $this->db->insert($table_name, array($user_field => $user_id, 'subject_id' => $val));
+        }
+        
+        return true;
     }
 }

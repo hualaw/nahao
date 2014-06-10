@@ -66,6 +66,7 @@ class Member extends NH_User_Controller {
 	    $show_page = $this->pagination->create_links();
 	    #订单列表
 	    $array_order_list = $this->student_member->get_order_list($int_user_id,$str_type,$int_start,PER_PAGE_NO);
+	    //var_dump($array_order_list);die;
 	    #订单总数
         $all_count  = $this->student_member->get_order_count($int_user_id,'all');
         $pay_count  = $this->student_member->get_order_count($int_user_id,'pay');

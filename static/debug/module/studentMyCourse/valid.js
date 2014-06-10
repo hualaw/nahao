@@ -170,9 +170,9 @@ define(function(require,exports){
             },
             {    
                 ele:".pUname",
-                ignore:"ignore",
                 datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
+                ignore:"ignore",
                 errormsg: "长度2-15个字符"
 
             },

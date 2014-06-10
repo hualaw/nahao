@@ -28,7 +28,10 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.msg);
+                if(data.status == 'ok') {
+                    window.location.reload();
+                }
             },
             usePlugin:{
                 jqtransform:{
@@ -80,20 +83,20 @@ define(function(require,exports){
                 errormsg: "请选择教师职称"
 
             },
-            {
-                ele:".province",
-                datatype: "*",
-                nullmsg: "请选择省份",
-                errormsg: "请选择省份"
-
-            },
-            {
-                ele:".city",
-                datatype: "*",
-                nullmsg: "请选择城市",
-                errormsg: "请选择城市"
-
-            },
+//            {
+//                ele:".province",
+//                datatype: "*",
+//                nullmsg: "请选择省份",
+//                errormsg: "请选择省份"
+//
+//            },
+//            {
+//                ele:".city",
+//                datatype: "*",
+//                nullmsg: "请选择城市",
+//                errormsg: "请选择城市"
+//
+//            },
             {
                 ele:".sex",
                 datatype: "*",
@@ -101,13 +104,13 @@ define(function(require,exports){
                 errormsg: "请选择性别"
 
             },
-            {
-                ele:".zone",
-                datatype: "*",
-                nullmsg: "请选择地区",
-                errormsg: "请选择地区"
-
-            },
+//            {
+//                ele:".zone",
+//                datatype: "*",
+//                nullmsg: "请选择地区",
+//                errormsg: "请选择地区"
+//
+//            },
             {
                 ele:".schoolAge",
                 datatype: "*",
