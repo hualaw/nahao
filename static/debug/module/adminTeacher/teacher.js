@@ -90,8 +90,9 @@ define(function(require,exports){
                         url:"/teacher/nickname",
                         data:"nickname="+$('#nickname').val(),
                         success:function(msg){
-                            if(msg>0)
+                            if(msg=="yes")
                             {
+                                //alert(msg);
                                 $('#span_nickname').show().css('color','red').html('昵称已存在');
                             }
                             else
@@ -160,11 +161,38 @@ define(function(require,exports){
                 {
                     $('#span_basic_reward').show().css('color','red').html('必须是一个数字');
                 }
+                else if($('#basic_reward').val()<0)
+                {
+                    $('#span_basic_reward').show().css('color','red').html('不能小于0');
+                }
                 else
                 {
                     $('#span_basic_reward').hide();
                 }
             })
+
+        $('#age').blur(function(){
+            if($.trim($('#age').val())=='')
+            {
+                $('#span_age').show().css('color','red').html('年龄不能为空');
+            }
+            else if(isNaN($('#age').val()))
+            {
+                $('#span_age').show().css('color','red').html('必须是一个数字');
+            }
+            else if($('#age').val()<20)
+            {
+                $('#span_age').show().css('color','red').html('不能小于20');
+            }
+            else if($('#age').val()>100)
+            {
+                $('#span_age').show().css('color','red').html('不能大于100');
+            }
+            else
+            {
+                $('#span_age').hide();
+            }
+        })
 
             $.ajax({
                 type:"post",
@@ -279,7 +307,6 @@ define(function(require,exports){
             }
         })
 
-
         $('#email').blur(function(){
             if($.trim($('#email').val())=="")
             {
@@ -308,6 +335,5 @@ define(function(require,exports){
                 })
             }
         })
-
     }
 })
