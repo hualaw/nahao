@@ -72,9 +72,10 @@ class Pay extends NH_User_Controller {
 	    $array_infor = $this->model_member->get_user_infor($int_user_id);
  	    // var_dump($int_user_id);
  	    #获取是否是手机号注册的
-	    $array_return = $this->model_member->check_phone_register($int_user_id);
+	    $int_return = $this->model_member->check_phone_register($int_user_id);
+	    //var_dump($array_return);die;
 	  //  echo '--';var_dump($array_return);die;
-	    $this->smarty->assign('array_return', $array_return);
+	    $this->smarty->assign('int_return', $int_return);
 	    $this->smarty->assign('realname', $array_infor['realname']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
@@ -171,7 +172,7 @@ class Pay extends NH_User_Controller {
 	            }
 	        }
 	        
-	        if($phone)
+	        if($phone!= $str_phone)
 	        {
 	            $pflag = change_pnum_phone_server($int_user_id,$str_phone);
 	            $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
@@ -181,6 +182,11 @@ class Pay extends NH_User_Controller {
 	            } else {
 	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>2));
 	            }
+	        }
+	        
+	        if($phone== $str_phone)
+	        {
+	            self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 	        }
 
 	    } else {
@@ -199,9 +205,10 @@ class Pay extends NH_User_Controller {
 	            }
 	        }
 
-	        if ($phone)
+	        if ($phone != $str_phone)
 	        {
 	            $pflag = change_pnum_phone_server($int_user_id,$str_phone);
+	            var_dump($pflag);die;
 	            $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
 	            $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
 	            if ($pflag && $uflag && $uiflag)
@@ -209,6 +216,17 @@ class Pay extends NH_User_Controller {
 	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 	            } else {
 	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>4));
+	            }
+	        }
+	        
+	        if($phone == $str_phone)
+	        {
+	            $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
+	            if ($uiflag)
+	            {
+	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
+	            } else {
+	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>5));
 	            }
 	        }
 	    }
