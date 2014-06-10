@@ -32,7 +32,7 @@ class Classes extends NH_Admin_Controller {
                     ++$int_section_count;
                 }
             }
-//            o($arr_course,true);
+//            o($arr_classes,true);
         }
         $this->smarty->assign('round',$arr_round);
         $this->smarty->assign('classes',$arr_classes);
