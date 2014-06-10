@@ -24,6 +24,17 @@
 			<form action="" mothed="post" onsubmit="return false" class="writeInfoForm">
 				<ul class="Oul">
 					<li class="cf">
+						<div class="cf schoolPar">
+							<span class="schoolFullName"></span>
+							<a href="javascript:void(0);" class="resetSchool optional">就读学校</a>
+							<input type="hidden" value="" name="school_id" id="schoolVal" />
+							<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+							<input type="hidden" value="" name="school_type" id="school_type">
+							<input type="hidden" value="" name="schoolname" id="schoolname" />
+							{include file='common/setSchool.html'}
+						</div>
+					</li>
+					<li class="cf">
 						<p class="fl">真实姓名</p>
 						<div class="cf">
 							<input type="text" name="Uname" class="wUname fl textInput" validName="text">

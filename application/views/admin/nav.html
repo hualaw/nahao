@@ -11,7 +11,7 @@
 
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li class="dropdown {if in_array($this->current['controller'],array('course','round'))}active{/if}">
+            <li class="dropdown {if in_array($current['controller'],array('course','round'))}active{/if}">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">课程体系<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/course">课程管理</a></li>
@@ -19,9 +19,9 @@
                 </ul>
             </li>
 
-            <li {if  in_array($this->current['controller'],array('student'))}active{/if}><a href="/student">学生管理</a></li>
-            <li {if  in_array($this->current['controller'],array('order'))}active{/if}><a href="/order">订单管理</a></li>
-            <li {if  in_array($this->current['controller'],array('salary'))}active{/if}><a href="/salary">课酬管理</a></li>
+            <li {if  in_array($current['controller'],array('student'))}active{/if}><a href="/student">学生管理</a></li>
+            <li {if  in_array($current['controller'],array('order'))}active{/if}><a href="/order">订单管理</a></li>
+            <li {if  in_array($current['controller'],array('salary'))}active{/if}><a href="/salary">课酬管理</a></li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">教师管理<b class="caret"></b></a>
@@ -32,7 +32,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown {if in_array($this->current['controller'],array('salary'))}active{/if}" >
+            <li class="dropdown {if in_array($current['controller'],array('salary'))}active{/if}" >
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/admin">管理员管理</a></li>

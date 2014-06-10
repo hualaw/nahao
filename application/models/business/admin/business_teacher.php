@@ -131,7 +131,8 @@ class Business_Teacher extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'teacher_info_subject';
             $str_result_type = 'list';
-            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,gender,realname,teacher_age,title,stage,register_time,nahao_areas.name,user.status,subject.name as sub_name';
+//            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area';
+            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,gender,realname,,source,gender,grade,province,city,area,teacher_age,title,stage,register_time,'.TABLE_NAHAO_AREAS.'.name,'.TABLE_USER.'.status,'.TABLE_SUBJECT.'.name as subject_name';
 
             $arr_where[TABLE_USER.'.teach_priv'] = 1;
             if(array_key_exists('title',$arr_where)){

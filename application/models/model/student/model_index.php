@@ -63,4 +63,16 @@ class Model_Index extends NH_Model{
 	    return $int_row > 0 ? true : false;
 	}
 	
+	/**
+	 * 意见反馈
+	 * @param  $array_data
+	 * @return boolean
+	 */
+	public function save_feedback($array_data)
+	{
+	    $this->db->insert('feedback', $array_data);
+	    $int_row = $this->db->affected_rows();
+	    return $int_row > 0 ? true : false;
+	}
+	
 }

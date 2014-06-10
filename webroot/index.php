@@ -1,5 +1,4 @@
 <?php
-//error_reporting(0);
 if (PHP_SAPI === 'cli') {
     $str_domain = 'auto';
 } else {

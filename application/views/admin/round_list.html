@@ -1,8 +1,3 @@
-<div class="form-group">
-    <a class="btn btn-success" href="/course/edit" target="_blank">
-        添加课程
-    </a>
-</div>
 <form class="form-horizontal" role="form">
     <div class="form-group">
         <label class="col-md-1 control-label">查询条件</label>
@@ -28,9 +23,9 @@
         </div>
         <div class="col-md-2">
             <select class="form-control" name="search_type">
-                <option value="1">课程名称</option>
+                <option value="1">班次名称</option>
                 <option value="2">授课老师</option>
-                <option value="3">课程ID</option>
+                <option value="3">班次ID</option>
             </select>
         </div>
         <div class="col-md-2">
@@ -44,41 +39,50 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>课程ID</th>
+        <th>班次ID</th>
         <th>课程名称</th>
-        <th>课节数</th>
-        <th>教师</th>
-        <th>状态</th>
+        <th>开课日期</th>
+        <th>销售开始时间</th>
+        <th>销售结束时间</th>
+        <th>教师昵称</th>
+        <th>班次进度</th>
         <th>科目</th>
         <th>课程类型</th>
-        <th>创建时间</th>
+        <th>已报名/限额</th>
+        <th>销售状态</th>
+        <th>授课状态</th>
+        <th>班次评分</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
     {foreach $list as $v}
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>{$v.id}</td>
-            <td>{$v.title}</td>
-            <td></td>
-            <td></td>
-            <td>{$course_status[$v.status]}</td>
-            <td>{$subjects[$v.subject]}</td>
-            <td>{$course_types[$v.course_type]}</td>
-            <td>{date('Y-m-d H:i',$v.create_time)}</td>
-            <td>
-                <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">更多</a>
-                <a href="/course/edit/{$v.id}">修改</a>
-                <a target="_blank" href="/lesson/index/{$v.id}">章节管理</a>
-                <a target="_blank" href="/round/edit?course_id={$v.id}">生成班次</a>
-            </td>
-        </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td>{$v.id}</td>
+        <td>{$v.title}</td>
+        <td>{if isset($v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
+        <td>{if isset($v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}</td>
+        <td>{if isset($v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
+        <td>nickname</td>
+        <td>process</td>
+        <td>{$subjects[$v.subject]}</td>
+        <td>{$course_types[$v.course_type]}</td>
+        <td>{$v.bought_count}/{$v.caps}</td>
+        <td>{$round_sale_status[$v.sale_status]}</td>
+        <td>{$round_teach_status[$v.teach_status]}</td>
+        <td>{if isset($v.scores)}{date("Y-m-d H:i",$v.scores)}{/if}</td>
+        <td>
+            <a href="javascript:;" data-toggle="modal" data-target="#round_list_operation_modal" data-round_id="{$v.id}">更多</a>
+            <a href="/round/edit/{$v.id}">修改</a>
+            <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
+        </td>
+    </tr>
     {/foreach}
     </tbody>
 </table>
 共{$count}条记录&nbsp;&nbsp;{$page}
-{include file="admin/course_list_operation.html"}
+{include file="admin/round_list_operation.html"}
 
 
 

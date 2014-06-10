@@ -17,6 +17,9 @@ $config['sql_admin'] = array(
     'area' => array(
         TABLE_NAHAO_AREAS => false
     ),
+    'class' => array(
+        TABLE_CLASS => false
+    ),
     'course' => array(
         TABLE_COURSE => false
     ),
@@ -43,6 +46,20 @@ $config['sql_admin'] = array(
     'user_info' => array(
         TABLE_USER => false,
         TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+    ),
+    'round' => array(
+        TABLE_ROUND => false
+    ),
+    'round_info' => array(
+        TABLE_ROUND => false,
+        TABLE_SUBJECT => array(TABLE_ROUND . '.subject=' . TABLE_SUBJECT . '.id', 'left'),
+        TABLE_COURSE_TYPE => array(TABLE_ROUND . '.course_type=' . TABLE_COURSE_TYPE . '.id', 'left'),
+        TABLE_ROUND_TEACHER_RELATION => array(TABLE_ROUND . '.id=' . TABLE_ROUND_TEACHER_RELATION . '.round_id', 'left'),
+        TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.nickname', 'left'),
+    ),
+    'round_teachers' => array(
+        TABLE_ROUND_TEACHER_RELATION => false,
+        TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION.'.teacher_id='.TABLE_USER.'.id','left'),
     ),
     'student_info' => array(
         TABLE_USER => false,

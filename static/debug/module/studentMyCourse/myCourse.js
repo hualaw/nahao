@@ -194,4 +194,18 @@ define(function(require,exports){
             })
         });
     }
+    
+	//评论 几颗星
+	exports.starClick = function (){
+			var ind = true;
+			$(".evalu .starBg span").click(function (){
+				if(ind){
+					var _index = $(".evalu .starBg span").index($(this));
+					for(var i=0;i<_index+1;i++){
+						$(".evalu .starBg span").eq(i).addClass("cStar");
+					}
+					ind = false;
+				}
+			});
+	}
 });

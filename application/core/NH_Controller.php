@@ -34,6 +34,7 @@ class NH_Controller extends CI_Controller
 
     protected function load_smarty()
     {
+        //var_dump($_SERVER);
         $this->smarty->assign('site_url', site_url());
         $this->smarty->assign('static_url', static_host_url());
         $this->smarty->assign('teacher_url', teacher_url());
@@ -43,6 +44,8 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('static_version', $static_version);
         $this->smarty->assign('is_login', $this->is_login);
         $this->smarty->assign('userdata', $this->session->all_userdata());
+        $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
+        $this->smarty->assign('perfect_url', site_url().'login/perfect');
     }
 
 
