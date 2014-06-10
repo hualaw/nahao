@@ -292,7 +292,7 @@ class Business_Teacher extends NH_Model
         $post['bank_id']=trim($post['bank_id']);
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
-        // $post['phone_mask']=substr_replace($post['phone_mask'],"****",3,4);
+
         if($post['hide_school']==null)
         {
             $post['hide_school']=0;
@@ -374,9 +374,9 @@ class Business_Teacher extends NH_Model
         {
             redirect('teacher/create');
         }
-
+        $phone_mask=substr_replace($post['phone_mask'],"****",3,4);
         $post_user['nickname']=$post['nickname'];
-        $post_user['phone_mask']=$post['phone_mask'];
+        $post_user['phone_mask']=$phone_mask;
         $post_user['email']=$post['email'];
         $post_user['salt']=random_string();
         $post_user['password']=create_password($post_user['salt'],$post['password']);
@@ -389,6 +389,10 @@ class Business_Teacher extends NH_Model
         $post_user['source']=1;
         //var_dump($post_user);die;
         $user_id=$this->model_user->create_user($post_user);
+        if($user_id!=0)
+        {
+            add_user_phone_server($user_id,$post['phone_mask']);
+        }
         //var_dump($user_id);die;
         $post_user_info['user_id']=$user_id;
         $post_user_info['realname']=$post['realname'];
