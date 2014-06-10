@@ -8,9 +8,9 @@ define(function (require, exports) {
 	//初始程序
 	exports.autorun = function(){
 		$(function () {
-			curtab = $("#myTab").attr('rel');
-			$('#myTab a[href="#'+curtab+'"]').tab('show');
-//			$('#myTab a[href="#profile"]').tab('show')
+//			curtab = $("#myTab").attr('rel');
+//			$('#myTab a[href="#'+curtab+'"]').tab('show');
+			$('#myTab a[href="#question_list"]').tab('show')
 		});
 	}
 	//加载编辑器
@@ -37,7 +37,7 @@ define(function (require, exports) {
         $(".delete_question").click(function(){
         	if(confirm("此操作不可恢复，是否继续？")){
         		param = $(this).attr('param');
-        		window.location.href="/question/lesson_delete/"+param;
+        		window.location.href="/question/lesson_delete/"+param+"/?"+((new Date).valueOf());
         	}
         });
         //增加选项

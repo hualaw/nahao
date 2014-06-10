@@ -381,7 +381,7 @@ class Business_Teacher extends NH_Model
      public function answer_user_num($param){
      	if(!$param['class_id']){exit('缺少必要课堂参数');}
      	$num = $this->model_teacher->practise_counter($param);
-     	return isset($num[0]['total']) ? $num[0]['total'] : 0; 
+     	return isset($num[0]['total']) ? $num[0]['total'] : 0;
      }
     
      /**

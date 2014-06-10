@@ -51,7 +51,7 @@ float:left;
 </ul>
 
 <div class="tab-content">
-  	<!--题目列表-->
+  	<!--1. 题目列表-->
 	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_list">
 		<blockquote class="quoteback">
 		  <p>课节（id{$data['lesson_info']['id']}）的所有题目，共：<span class="badge">9</span>道题目</p>
@@ -61,21 +61,25 @@ float:left;
 			{foreach $data['question_list'] as $key=>$val}
 			<div class="question-item-box">
 				<div class="control-box fn-clear">
-		        	<a class="btn btn-info" href="/question/lesson_question/{$data['lesson_info']['id']}/{$val['id']}"><span class="text-icon"><i class="icon-pencil icon-white"></i> 详细</span></a>
+		        	<a class="btn btn-info" href="/question/lesson_edit/{$data['lesson_info']['id']}/{$val['id']}"><span class="text-icon"><i class="icon-pencil icon-white"></i> 详细</span></a>
 		            &nbsp;
 		            <a class="btn btn-danger delete_question" param="{$data['lesson_info']['id']}/{$val['id']}" href="javascript:void(0)"><span class="del-icon"><i class="icon-trash icon-white"></i> 删除</span></a>
 		        </div>
 				<div class="question ">
 					<div class="answer undis">
 						<p style="float:left">{$key+1}、</p>
-						<p>{$val['question']}</p>
+						<p><font style="color:#a1a1a1">(id:{$val['id']})</font>{$val['question']}</p>
 						<div class="analysis-area">
 							{if $val['options']}
 								{foreach $val['options'] as $k=>$v}
+								{if $v}
 								<p class="option-item"> {$k}：</p><p>{$v}</p>
+								{/if}
 								{/foreach}
 							{/if}
 						</div>
+						<p style="float:left">答案：</p><p>{$val['answer']}</p>
+						<p style="float:left">解析：</p><p>{if $val['analysis']}{$val['analysis']}{else}无解析{/if}</p>
 					</div>
 				</div>
 			</div>
@@ -84,7 +88,7 @@ float:left;
 		</div>
 	</div>
 	<!--题目列表end-->
-	<!--添加题目-->
+	<!--2. 添加题目-->
 	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_add">
 		<blockquote class="quoteback">
 		  <p>为课节（id{$data['lesson_info']['id']}）添加新题。当前已有<code>9</code>道题目</p>
@@ -163,7 +167,7 @@ float:left;
 			    <div class="form-group">
 			        <label class="col-md-4 control-label"></label>
 			        <input type="hidden" name="lesson_id" value="{$data['lesson_info']['id']}">
-			        <button type="submit" class="btn btn-primary col-md-2" id="question_submit" data-action="/course/submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+			        <button type="submit" class="btn btn-primary col-md-2" id="question_submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
 			    	<span class="statusMsg"></span>
 			    </div>
 			</form>

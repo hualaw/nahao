@@ -286,6 +286,7 @@ class Model_Teacher extends NH_Model{
      					$res = $this->db->query("DELETE FROM nahao.question_lesson_relation WHERE question_id=".$param['id']);
      				}
      			}
+     			break;
      	}
      	return $res;
      }
