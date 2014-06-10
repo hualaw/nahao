@@ -9,7 +9,8 @@ define(function(require,exports){
 	var _tab = require("module/common/method/tab");
 	var _valid = require("module/studentMyCourse/valid");
 
-
+	// 选择学校组件
+	require('module/common/method/setSchool');
 
 //需要判断加载的  等开发完了 加
     // 个人资料 （手机版） 验证

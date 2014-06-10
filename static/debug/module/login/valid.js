@@ -27,7 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -93,7 +93,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -187,9 +187,9 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-                if(json.status == 'ok'){
-                    // 登陆成功后跳转到首页
-                    window.location=siteUrl;
+                if(data.status == 'ok'){
+                    // 登陆成功后跳转到跳转页
+                    window.location=data.data.redirect_url;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -239,7 +239,7 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".lEmail",
-                datatype: "e6-30",
+                datatype: "e",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "长度6-30个字符"
             },
@@ -339,13 +339,13 @@ define(function(require,exports){
         });
         _Form.config({
             showAllError:true,
-            url:"/login/send_reset_email",
+            url:"/login/send_reset_email"
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".inputEmail",
-                datatype:"e6-30",
+                datatype:"e",
                 nullmsg:"请输入邮箱",
                 errormsg:"长度6-30个字符",
                 ajaxurl:'/login/check_user_email'
@@ -377,7 +377,7 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".lEmail",
-                datatype: "e6-30",
+                datatype: "e",
                 nullmsg: "请输入邮箱地址",
                 errormsg: "请输入正确的邮箱地址"
             },
