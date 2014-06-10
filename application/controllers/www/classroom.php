@@ -5,10 +5,11 @@ class Classroom extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_classroom');
-        if(!$this->is_login)
+/*         if(!$this->is_login)
         {
             redirect('/login');
-        }
+        } */
+      
     }
 
     /**
@@ -42,6 +43,7 @@ class Classroom extends NH_User_Controller {
 	        self::json_output(array('status'=>'data_no','msg'=>'老师没有出题'));
 	    }
 	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence);
+	    //var_dump($array_data);die;
 	    if ($array_data) {
 	       self::json_output(array('status'=>'data_ok','msg'=>'获取练习题成功','data'=>$array_data));
 	    } else {
