@@ -1,7 +1,6 @@
-.htaccess
-/application/templates_c/*.php
-/application/logs/*
-/.idea/
-
 .DS_Store
+.htaccess
 
+/.idea/
+/application/logs/*
+/application/templates_c/*
