@@ -27,7 +27,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                     $.dialog({
                         content:json.msg
@@ -93,7 +93,7 @@ define(function(require,exports){
             },
             callback:function(json){
                 if(json.status =="ok"){
-                    window.location=siteUrl;
+                    window.location=perfectUrl;
                 }else{
                      $.dialog({
                         content:json.msg
@@ -339,7 +339,7 @@ define(function(require,exports){
         });
         _Form.config({
             showAllError:true,
-            url:"/login/send_reset_email",
+            url:"/login/send_reset_email"
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";

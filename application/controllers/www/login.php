@@ -14,6 +14,20 @@ class login extends NH_Controller
 		$this->smarty->display('www/login/login.html');
 	}
 
+
+    /*
+     * 完善个人信息页
+     */
+    public function perfect()
+    {
+        /*未登录的时候跳转到登录页*/
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
+        $this->smarty->display('www/login/loginAfter.html');
+    }
+
     /**
      * 忘记密码页
      */
