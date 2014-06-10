@@ -41,7 +41,16 @@ class Index extends NH_User_Controller {
 	 */
 	public function apply_teach()
 	{
-		
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');
+	}
+	
+	/**
+	 * 我要开课,提交
+	 */
+	public function apply_teach_doAdd()
+	{
+		
+		$param['question'] = $this->input->post('question');
+		
 	}
 }
