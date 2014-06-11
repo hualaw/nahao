@@ -3,6 +3,11 @@ define(function(require,exports){
 	require('module/common/method/curNav').curNav();
 	// 悬浮框
 	require('module/common/method/floatBox').floatBox($(".floatBox").get(0),$(".floatBox .returnTop"));
+	$(".feedback").click(function (){
+		require('module/common/method/popUp').popUp('.feedbackHtml');
+	    // 教室-意见反馈 验证
+		require("module/classRoom/valid").feedbackForm();
+	})
 
 	//判断支不支持 transform
 	//window.navigator.userAgent.indexOf("MSIE")!=-1  为了 区别火狐

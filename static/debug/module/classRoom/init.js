@@ -2,10 +2,6 @@ define(function(require,exports){
 	var _classRoom = require("module/classRoom/classRoom");
 
 	var _valid = require("module/classRoom/valid");
-    // 教室-意见反馈 验证
-    _valid.feedbackForm();
-    // 教室-评价 验证
-    _valid.evaluForm();
 
     //滚动条
     var _scroll = require("module/common/method/scroll");
@@ -48,11 +44,15 @@ define(function(require,exports){
     //意见反馈
     $(".feedbackBtn").click(function (){
         _popUp.popUp('.feedbackHtml');
+        // 教室-意见反馈 验证
+        _valid.feedbackForm();
     });
     //评价
     $(".evaluBtn").click(function (){
         _popUp.popUp('.evaluHtml');
         //评论 几颗星
         _classRoom.starClick();
+        // 教室-评价 验证
+        _valid.evaluForm();
     });
 })
