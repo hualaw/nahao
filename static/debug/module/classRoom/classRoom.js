@@ -1,7 +1,7 @@
 define(function (require,exports){
 	//做题选答案 (加背景色)
-	var options = function (){
-		$(".answerList li").click(function (){
+	exports.options = function (){
+		$(".answerList li").live('click',function (){
 			$(".answerList li").removeClass("curAnswer");
 			$(this).addClass("curAnswer");
 		})
@@ -132,7 +132,7 @@ define(function (require,exports){
 	
 	//题目 做题
 	exports.doWork = function (){
-		alert(1)
+		//alert(1)
 		//$(".nextBtn").hide();
 
 		var type = 1,
@@ -143,10 +143,11 @@ define(function (require,exports){
 			answer = "",
 		    sequence = 1,
 		    cid = 0;
-		var _len = $('.doWorkList').size()/2;
-		//console.log(_len);
-		$(".subAns").click(function (){
-
+		
+		
+		$(".subAns").live('click',function (){
+			var _len = $('.doWorkList').size()/2;
+			//console.log($('.doWorkList').size());
 			var aL = $(this).parent().parent().find(".answerList");
 			for(var i=0;i<aL.find("li").length;i++){
 				if(!aL.find("li").hasClass("curAnswer")){
@@ -166,7 +167,7 @@ define(function (require,exports){
 				$(".nextBtn").show();	
 			}
 			//ajax提交答案
-			console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+			//console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
 			var murl = '/classroom/save/';
             var mdata = {
             	class_id: cid,
@@ -176,7 +177,7 @@ define(function (require,exports){
             };
             $.post(murl, mdata, function (response) {
 
-            	console.log($(".answerList li").eq(ans[ans.length-1]).find(".options").html() +'/'+response.data.answer);
+            	//console.log($(".answerList li").eq(ans[ans.length-1]).find(".options").html() +'/'+response.data.answer);
             	if(type == 1){
     				if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
     					$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
@@ -200,7 +201,7 @@ define(function (require,exports){
 			}	*/				
 		});
 
-		$(".nextBtn").click(function (){
+		$(".nextBtn").live('click',function (){
 			ans = [];
 			ind++;
 			//last itme
@@ -210,8 +211,8 @@ define(function (require,exports){
 			$(".subAns").show();
 		});	
 
-		$(".answerList li").click(function (){
-			alert(22)
+		$(".answerList li").live('click',function (){
+			//alert(22)
 			if(type == 1){
 				$(".answerList li").removeClass("curAnswer");
 				$(this).addClass("curAnswer");
