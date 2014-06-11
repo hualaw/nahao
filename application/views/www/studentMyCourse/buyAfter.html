@@ -32,7 +32,7 @@
 	        		<div class="cf classCDList">
 	        			<span class="fl">距离上课还有：</span>
 	        			<div class="fl classCD">
-	        			<input type="hidden" id="stime" value="{$array_data.soon_class_stime}">
+	        			<input type="hidden" id="stime" value="{$array_data.soon_class_stime|date_format:'%Y-%m-%d %H:%M:%S'}">
 	        				<strong>1</strong>天
 	        				<strong>10</strong>小时
 	        				<strong>23</strong>分
@@ -65,7 +65,7 @@
 	        	<div class="fl schedule">
 	        		<span>目前已完成<strong class="redText">{$array_data.class}</strong>节课，可以再去复习一下，加油啊！</span>
 	        		<div class="fLine posr">
-	        			<div class="redLine"></div>
+	        			<div class="redLine" style="width:90%"></div>
 	        		</div>
 	        	</div>
 	        	<div class="fr bHeadR"></div>
@@ -76,24 +76,28 @@
 	        <div class="buyLeft fl">
 	            <!-- 课程大纲 -->
 	            <div class="outline cf">
-	             {foreach from=$array_outline item=item}
+	             {foreach from=$array_outline item=item name="parent"}
                 	<div class="outlineList">
 	                    <ul>
                     		{if $item.id > 1}
 								<h3>{$item.title}</h3>
 							{/if}
- 							{foreach from=$item.son item=it}
+ 							{foreach from=$item.son item=it name="son"}
 	                        <li class="cf">
 
 								{if $it.status=='1'}
-								    <a href="" class="soonClass cBtn fl">即将开始</a>
+								    <a href="" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
 								{elseif $it.status=='2'}
-									<a href="" class="goClass cBtn fl">去上课</a>
+									<a href="http://ribao.oa.tizi.com/meeting/{$it.classroom_id}/enter" target="_blank" title="可进教室了" class="goClass cBtn fl">去上课</a>
 								{elseif $it.status=='3'}
 									<a href="" class="replay cBtn fl">课程回放</a>
 								{/if}
 	                            <div class="fr rCon">
-	                            	<div class="fl line"></div>
+	                            	{if $smarty.foreach.son.last && $smarty.foreach.parent.last}
+	                                <div class="fl"></div>
+	                                {else}
+	                                <div class="fl line"></div>
+	                                {/if}
 		                            <div class="fr listb">
 		                            	<div class="cf cListHid undis">
 		                                	<p class="listh fl">{$it.title}</p>

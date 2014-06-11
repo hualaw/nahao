@@ -33,7 +33,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($array_team);
+        //var_dump($array_evaluate);die;
         
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
@@ -75,7 +75,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-	    //var_dump($array_classmate);
+	    //var_dump($array_data);die;
 
 	    $this->smarty->assign('array_classmate', $array_classmate);
 	    $this->smarty->assign('int_classmates', $int_classmates);
@@ -85,6 +85,21 @@ class Course extends NH_User_Controller {
 	    $this->smarty->display('www/studentMyCourse/buyAfter.html');
 	}
 	
+	/**
+	 * 购买后 查看笔记
+	 */
+	public function get_user_yun_note()
+	{
+	#判断是否登录
+	    if(!$this->is_login){
+	    redirect('/login');
+	    }
+	    #用户id
+	    $int_user_id = $this->session->userdata('user_id');                #TODO用户id
+	    #课的id
+	
+	    $this->course_model->get_user_yun_note();
+	}
 	
 	/**
 	 * 到核对订单信息页面前的AJAX判断，判断是否有买过该轮
@@ -169,6 +184,8 @@ class Course extends NH_User_Controller {
 	         self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
 	     }
 	 }
+	 
+
 }
 
 /* End of file welcome.php */
