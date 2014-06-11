@@ -236,4 +236,19 @@ class Model_Course extends NH_Model{
         return $int_row > 0 ? true : false;
     }
     
+    /**
+     * 根据教室id查找云笔记
+     * @param  $int_classroom_id
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function get_yun_note_by_classroom_id($int_classroom_id,$int_user_id)
+    {
+        $array_result = array();
+        $sql = "SELECT content FROM class_note WHERE classroom_id = ".$int_classroom_id." 
+                AND student_id = ".$int_user_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return  $array_result;
+    }
+    
 }

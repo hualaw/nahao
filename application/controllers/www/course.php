@@ -90,15 +90,26 @@ class Course extends NH_User_Controller {
 	 */
 	public function get_user_yun_note()
 	{
-	#判断是否登录
+	    #判断是否登录
 	    if(!$this->is_login){
-	    redirect('/login');
+	        redirect('/login');
 	    }
 	    #用户id
 	    $int_user_id = $this->session->userdata('user_id');                #TODO用户id
-	    #课的id
-	
-	    $this->course_model->get_user_yun_note();
+	    #教室id
+	    $int_classroom_id = intval($this->input->post(classroom_id));
+	    if (empty($int_classroom_id))
+	    {
+	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
+	    }
+	    #根据教室id查找云笔记
+	    $array_result = $this->course_member->get_yun_note_by_classroom_id($int_classroom_id,$int_user_id);
+	    if ($array_result)
+	    {
+	        self::json_output(array('status'=>'ok','msg'=>'','data'=>$array_result['content']));
+	    } else {
+	        self::json_output(array('status'=>'error','msg'=>'数据错误'));
+	    }
 	}
 	
 	/**
