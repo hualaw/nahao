@@ -247,3 +247,9 @@ $config['subject'][3] = '英语';
 //账户状态
 $config['account'][0] = '禁用';
 $config['account'][1] = '启用';
+
+//进入meeting的身份类型
+$config['nh_meeting_type'][0] = '学生';
+$config['nh_meeting_type'][1] = '老师';
+$config['nh_meeting_type'][2] = '管理员';
+$config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id
