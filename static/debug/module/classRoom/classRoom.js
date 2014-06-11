@@ -132,9 +132,6 @@ define(function (require,exports){
 	
 	//题目 做题
 	exports.doWork = function (){
-		//alert(1)
-		//$(".nextBtn").hide();
-
 		var type = 1,
 			ind = 0,
 			ans = [],
@@ -160,7 +157,11 @@ define(function (require,exports){
 					$(this).show().html("查看结果");
 					index = false;
 				}else{
-					$(".aui_content").html($(".scorePageHtml").html())
+					$(".aui_content").html($(".scoreBoxHtml").html());
+
+					$(".itemscore .result").click(function (){
+						$(".aui_content").html($(".scorePageHtml").html());
+					})
 				}
 			}else{
 				$(this).hide();
@@ -176,29 +177,26 @@ define(function (require,exports){
             	sequence:sequence
             };
             $.post(murl, mdata, function (response) {
-
-            	//console.log($(".answerList li").eq(ans[ans.length-1]).find(".options").html() +'/'+response.data.answer);
-            	if(type == 1){
+				if(type == 1){
     				if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
     					$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
     				}else{
+    					var n;
+    					switch(response.data.answer){
+    						case "A":
+    						n = 0;
+    						case "B":
+    						n = 1;
+    						case "C":
+    						n = 2;
+    						case "D":
+    						n = 3;
+    					}
     					$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
-    					//$(".answerList li").eq(ind*4).addClass("ansRight");
-    					// if($(".answerList li").eq(i).find(".options").html().indexOf(response.data.answer)){
-
-    					// }
+    					$(".answerList li").eq(ind*4+n).addClass("ansRight");
     				}
     			}
-            });
-			//right error
-/*			if(type == 1){
-				if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == answer){
-					$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
-				}else{
-					$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
-					$(".answerList li").eq(ind*4).addClass("ansRight");
-				}
-			}	*/				
+            });			
 		});
 
 		$(".nextBtn").live('click',function (){
@@ -212,7 +210,6 @@ define(function (require,exports){
 		});	
 
 		$(".answerList li").live('click',function (){
-			//alert(22)
 			if(type == 1){
 				$(".answerList li").removeClass("curAnswer");
 				$(this).addClass("curAnswer");
