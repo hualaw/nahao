@@ -211,13 +211,9 @@ define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST',
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
 
-//register type
-define('REG_TYPE_PHONE', 1);
-define('REG_TYPE_EMAIL', 2);
-
-//login status
-define('LOGIN_TYPE_PHONE', 1);
-define('LOGIN_TYPE_EMAIL', 2);
+//register&login type
+define('REG_LOGIN_TYPE_PHONE', 1);
+define('REG_LOGIN_TYPE_EMAIL', 2);
 
 //ok/error
 define('SUCCESS', 'ok');
