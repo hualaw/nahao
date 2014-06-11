@@ -111,12 +111,8 @@ class NH_Controller extends CI_Controller
      */
     protected static function json_output($arr_data)
     {
-        $str_json = '';
         header('Content-Type: application/json');
-        if($arr_data){
-            $str_json =  (isset($_GET['callback'])) ? $_GET['callback'].'('.json_encode($arr_data).')' : json_encode($arr_data);
-        }
-        die($str_json);
+        die( (isset($_GET['callback'])) ? $_GET['callback'].'('.json_encode($arr_data).')' : json_encode($arr_data));
     }
 }
 

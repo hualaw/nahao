@@ -104,7 +104,6 @@ class Business_Lesson extends NH_Model
         }
     }
 
-
     /**
      * 修改lesson
      * @param array $arr_param
@@ -202,5 +201,43 @@ class Business_Lesson extends NH_Model
         return $arr_return;
     }
 
+    /**
+     * add courseware to lesson
+     * @param $int_lesson_id
+     * @param $int_courseware_id
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function add_courseware($int_lesson_id, $int_courseware_id){
+        $bool_return = false;
+        if($int_lesson_id > 0 AND $int_courseware_id > 0){
+            $arr_param = array(
+                'courseware_id' => $int_courseware_id,
+            );
+            $arr_where = array(
+                'id' => $int_lesson_id
+            );
+            $bool_return = $this->model_lesson->update_lesson($arr_param, $arr_where);
+        }
+        return $bool_return;
+    }
 
+    /**
+     * delete courseware by lesson_id
+     * @param $int_lesson_id
+     * @return bool
+     */
+//    public function delete_coruse_by_lesson_id($int_lesson_id){
+//        $bool_return = false;
+//        if($int_lesson_id > 0){
+//            $arr_param = array(
+//                'courseware_id' => 0,
+//            );
+//            $arr_where = array(
+//                'id' => $int_lesson_id
+//            );
+//            $bool_return = $this->lesson->update_lesson($arr_param, $arr_where);
+//        }
+//        return $bool_return;
+//    }
 }

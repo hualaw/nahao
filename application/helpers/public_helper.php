@@ -416,37 +416,19 @@ if (!function_exists('getHttpResponse')) {
     }
 }
 
-if (!function_exists('crm_curl')) {
-    function crm_curl($int_user_id){
-        $str_random = 'crm_curl';
-        $str_param = 'student_id='.$int_user_id;
-        $str_param .= '&random_string='.$str_random;
-        $str_param .= '&secret_string='.md5(md5($str_random).API_SECRET_STRING_FOR_FRM);
-        $curl = curl_init();
-        $str_url =  'http://crm.91waijiao.com/api/customer_to_follow?'.$str_param;
-//        var_dump($str_url);exit;
-        curl_setopt($curl, CURLOPT_URL, $str_url);
-        curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
-        $data = curl_exec($curl);
-        curl_close($curl);
-    }
-}
-
-if (!function_exists('getPhoneArea')) {
-    function getPhoneArea($phone) {
-        $str_url = 'http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=';
-        $curl = curl_init($str_url.$phone);
-        curl_setopt($curl, CURLOPT_HEADER, 0 ); // 过滤HTTP头
-        curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
-        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
-        $responseText = curl_exec($curl);
-        //var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
-        curl_close($curl);
-        return $responseText;
-    }
-}
+//if (!function_exists('getPhoneArea')) {
+//    function getPhoneArea($phone) {
+//        $str_url = 'http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=';
+//        $curl = curl_init($str_url.$phone);
+//        curl_setopt($curl, CURLOPT_HEADER, 0 ); // 过滤HTTP头
+//        curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
+//        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+//        $responseText = curl_exec($curl);
+//        //var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
+//        curl_close($curl);
+//        return $responseText;
+//    }
+//}
 
 /**
  * 根据当前域名生成静态文件的url
@@ -522,7 +504,7 @@ function get_course_img_by_size($str_img_url, $str_size){
         }else if($str_size=='small'){
             $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
         }
-        $str_return = $str_img_url;
+        $str_return = NH_QINIU_URL.$str_img_url;
     }
     return $str_return;
 }
@@ -534,4 +516,108 @@ function get_course_img_by_size($str_img_url, $str_size){
  */
 function get_meeting_signature(){
     return md5(NH_MEETING_ACCESS_KEY.':'.TIME_STAMP.':'.NH_MEETING_SECRET_KEY);
+}
+
+/**
+ * general param for meeting
+ * @return array
+ * @author yanrui@tizi.com
+ */
+function get_meeting_param(){
+    return $arr_param = array(
+        'nonce' => TIME_STAMP,
+        'app_key' => NH_MEETING_ACCESS_KEY,
+        'signature' => get_meeting_signature()
+    );
+}
+
+/**
+ * common curl method
+ * @param $str_url
+ * @param $arr_param
+ * @return mixed
+ * @author yanrui@tizi.com
+ */
+function nh_curl($str_url,$arr_param) {
+    $obj_curl = curl_init();
+    curl_setopt($obj_curl,CURLOPT_URL,$str_url);
+    curl_setopt($obj_curl, CURLOPT_HEADER, 0 ); // 设置header 过滤HTTP头
+    curl_setopt($obj_curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
+    curl_setopt($obj_curl, CURLOPT_TIMEOUT, 2);
+    curl_setopt($obj_curl, CURLOPT_POST, 1);
+    if($arr_param){
+        curl_setopt($obj_curl, CURLOPT_POSTFIELDS, http_build_query($arr_param));
+    }
+    $str_response = curl_exec($obj_curl);
+//    echo http_build_query($arr_param);
+//    var_dump(curl_getinfo($obj_curl));exit;
+//    var_dump($str_response);exit;
+    //var_dump( curl_error($obj_curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
+    curl_close($obj_curl);
+    return $str_response;
+}
+
+/**
+ * get token to operation about meeting
+ * @param $int_meeting_id
+ * @param $int_user_type
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function get_meeting_token($int_meeting_id,$int_user_type){
+    $str_token = '';
+    if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
+        $arr_param = array(
+            'meeting_id' => $int_meeting_id,
+            'type' => $int_user_type,
+        );
+        $arr_meeting_param = get_meeting_param();
+        $arr_param = array_merge($arr_param,$arr_meeting_param);
+        $str_url = NH_MEETING_URL.'api/tokens/';
+        $str_response = nh_curl($str_url,$arr_param);
+        if($str_response){
+            $arr_response = json_decode($str_response,true);
+            $str_token = ($arr_response AND isset($arr_response['token'])) ? $arr_response['token'] : '';
+        }
+    }
+    return $str_token;
+}
+
+/**
+ * general_classroom_id
+ * @param $arr_param
+ * @return int
+ * @author yanrui@tizi.com
+ */
+function general_classroom_id($arr_param){
+    $int_return = 0;
+    if($arr_param){
+        $str_url = NH_MEETING_URL.'api/meetings/';
+        $arr_meeting_param = get_meeting_param();
+        $arr_param = array_merge($arr_param,$arr_meeting_param);
+        $str_response = nh_curl($str_url,$arr_param);
+        //log
+        if($str_response){
+            $arr_response = json_decode($str_response,true);
+//            o($str_response);
+            $int_return = ($arr_response AND isset($arr_response['id'])) ? $arr_response['id'] : 0;
+        }
+    }
+    return $int_return;
+}
+
+/**
+ * enter_classroom
+ * @param $int_meeting_id
+ * @param $int_user_type
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function enter_classroom($int_meeting_id,$int_user_type){
+    $str_enter_classroom_url = '';
+    if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
+        $str_token = get_meeting_token($int_meeting_id,$int_user_type);
+        $str_enter_classroom_url = $str_token ? NH_MEETING_ENTER_URL.$str_token : '';
+    }
+    return $str_enter_classroom_url;
 }

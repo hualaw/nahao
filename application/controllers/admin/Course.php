@@ -67,14 +67,14 @@ class Course extends NH_Admin_Controller {
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
-        ;
+//        o($arr_query_param,true);
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);
         $this->smarty->assign('course_status',config_item('course_status'));
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('course_types',$arr_course_types);
-        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('query_param', $arr_query_param);
         $this->smarty->assign('view', 'course_list');
         $this->smarty->display('admin/layout.html');
     }
@@ -157,7 +157,7 @@ class Course extends NH_Admin_Controller {
      */
     public function edit(){
         $int_course_id = $this->uri->rsegment(3) ? intval($this->uri->rsegment(3)) : 0;
-        $arr_course = $arr_lessons = array();
+        $arr_course = $arr_teachers = $arr_lessons = array();
 
         //update
         if($int_course_id){
@@ -189,31 +189,21 @@ class Course extends NH_Admin_Controller {
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
         //course img file name
-        $str_new_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
+        $str_new_img_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
+        $str_new_video_file_name = 'course_'.date('YmdHis',time()).'_v'.$str_salt.'.png';
 
+//        o($arr_subjects,true);
         $this->smarty->assign('course',$arr_course);
         $this->smarty->assign('teachers',$arr_teachers);
         $this->smarty->assign('lessons',$arr_lessons);
         $this->smarty->assign('upload_token',$str_upToken);
-        $this->smarty->assign('upload_key', $str_new_file_name);
+        $this->smarty->assign('upload_img_key', $str_new_img_file_name);
+        $this->smarty->assign('upload_video_key', $str_new_video_file_name);
         $this->smarty->assign('view', 'course_edit');
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('course_types',$arr_course_types);
         $this->smarty->assign('grades',config_item('grade'));
         $this->smarty->display('admin/layout.html');
-    }
-
-    /**
-     * Ajax添加课程时选取教师列表
-     * @author yanrui@tizi.com
-     */
-    public function teachers(){
-        $arr_return = array();
-        if($this->is_ajax()){
-            $this->load->model('business/admin/business_teacher','teacher');
-            $arr_return = $this->teacher->get_teacher_list(array(),0,20);
-        }
-        self::json_output($arr_return);
     }
 
 //    public function upload(){

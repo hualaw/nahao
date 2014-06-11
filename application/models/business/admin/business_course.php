@@ -92,7 +92,7 @@ class Business_Course extends NH_Model
     }
 
     /**
-     * 根据条件获取course count
+     * 根据条件获取course list
      * @param $arr_where
      * @param $int_start
      * @param $int_limit

@@ -5,6 +5,7 @@ class Index extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_index');
+        $this->load->model('business/teacher/business_teacher','teacher_b');
     }
 
     /**
@@ -24,6 +25,20 @@ class Index extends NH_User_Controller {
 	 */
 	public function apply_teach()
 	{
+		#判断是否登录
+	    if(! $this->is_login){
+	        redirect('/login');
+	    }
+		$param['stage'] = config_item('stage');
+		$param['teacher_title'] = config_item('teacher_title');
+		$param['teacher_type'] = config_item('teacher_type');
+		$param['subject'] = $this->teacher_b->get_subject();
+		$param['teach_years'] = 50;
+		$data = array(
+			'data' => $param,
+			'user_info' => $this->_user_detail,
+		);
+		$this->smarty->assign('data',$data);
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');
 	}
 	
@@ -39,10 +54,12 @@ class Index extends NH_User_Controller {
 	    $course = $this->input->post("course");
 	    $resume = $this->input->post("resume");
 	    $subject= $this->input->post("subject");
-	    $province= $this->input->post("province");
-	    $city= $this->input->post("city");
-	    $area= $this->input->post("area");
-	    $school= $this->input->post("school");
+	    $province= $this->input->post("province_id");
+	    $city= $this->input->post("city_id");
+	    $area= $this->input->post("area_county_id");
+	    $school= $this->input->post("school_id");
+	    $school_type= $this->input->post("school_type");
+	    $schoolname= $this->input->post("schoolname");
 	    $stage= $this->input->post("stage");
 	    $teach_years= $this->input->post("teach_years");
 	    $course_intro= $this->input->post("course_intro");
@@ -53,11 +70,15 @@ class Index extends NH_User_Controller {
 	    $phone= $this->input->post("phone");
 	    $email= $this->input->post("email");
 	    $qq= $this->input->post("qq");
+	    $date_time= $this->input->post("date_time");
 	    $start_time= $this->input->post("start_time");
 	    $end_time= $this->input->post("end_time");
+	    $start_time = strtotime($date_time.' '.$start_time);
+	    $end_time = strtotime($date_time.' '.$end_time);
 	    $name= $this->input->post("name");
 	    $user_id = $this->session->userdata('user_id');                        #TODO用户登录就是user_id
-	    $array_data = array(
+	    
+		$array_data = array(
             "course"=>$course,
             "resume"=>$resume,
             "subject"=>$subject,
@@ -67,6 +88,8 @@ class Index extends NH_User_Controller {
             "city"=>$city,
             "area"=>$area,
             "school"=>$school,
+            "school_type"=>$school_type,
+            "schoolname"=>$schoolname,
             "stage"=>$stage,
             "teach_years"=>$teach_years,
             "course_intro"=>$course_intro,
@@ -83,11 +106,14 @@ class Index extends NH_User_Controller {
 	        "user_id"=>$user_id
 	    );
 	    $bool_flag = $this->student_index->save_apply_teach($array_data);
+	    header('Content-Type:text/html;CHARSET=utf-8');
 	    if ($bool_flag)
 	    {
-	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
+//	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
+			echo '<script>alert("申请成功");window.location.href="/"</script>';
 	    } else {
-	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
+//	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
+			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
 	    }
 	}
 	
