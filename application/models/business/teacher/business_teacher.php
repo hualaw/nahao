@@ -339,7 +339,7 @@ class Business_Teacher extends NH_Model
 	    		);
 	    	$total = $this->model_teacher->practise_counter($param);
     		$val['answer_status']['right_total'] = isset($total[0]['total']) ? $total[0]['total'] : 0;
-    		$val['answer_status']['right_persent'] = 100*(round($val['answer_status']['right_total']/$val['answer_status']['total'],3)).'%';
+    		$val['answer_status']['right_persent'] = $val['answer_status']['total'] ? 100*(round($val['answer_status']['right_total']/$val['answer_status']['total'],3)).'%' : 0;
     		#开始统计选项比率
     		$val['options'] = json_decode($val['options'],true);
     		$option_total = 0;
@@ -359,7 +359,7 @@ class Business_Teacher extends NH_Model
     				'total' => $choose,
     				'is_correct' => (strpos('-'.$val['answer'],$k) ? 1 : 0),
     				//注意此比率表示多少人的选择包含该选项，总比率不一定为100%，若要100%请使用方案2代码
-    				'persent' => (100*(round($choose/$val['answer_status']['right_total'],3))).'%',
+    				'persent' => $val['answer_status']['right_total'] ? (100*(round($choose/$val['answer_status']['right_total'],3))).'%' : "0%",
     				);
     		}
     		/**
@@ -381,7 +381,7 @@ class Business_Teacher extends NH_Model
      public function answer_user_num($param){
      	if(!$param['class_id']){exit('缺少必要课堂参数');}
      	$num = $this->model_teacher->practise_counter($param);
-     	return isset($num[0]['total']) ? $num[0]['total'] : 0; 
+     	return isset($num[0]['total']) ? $num[0]['total'] : 0;
      }
     
      /**

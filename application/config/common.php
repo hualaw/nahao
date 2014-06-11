@@ -231,6 +231,11 @@ $config['school_type'][2] = '公立中学';
 $config['classroom_action'][1] = '进入';
 $config['classroom_action'][2] = '退出';
 
+//课堂学生小动作
+$config['classroom_student_action'][1] = '点赞';
+$config['classroom_student_action'][2] = '讲快点';
+$config['classroom_student_action'][3] = '讲慢点';
+
 //课里面的状态
 $config['class_teach_status'][0] = '初始化';
 $config['class_teach_status'][1] = '即将上课';
