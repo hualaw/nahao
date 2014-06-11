@@ -35,12 +35,6 @@ $config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这�
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
 
-//教师职称
-$config['teacher_title'][0] = '高级教师';
-$config['teacher_title'][1] = '一级教师';
-$config['teacher_title'][2] = '二级教师';
-$config['teacher_title'][3] = '三级教师';
-
 //教育阶段
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
@@ -232,6 +226,23 @@ $config['order_log_action'][11] = "完成退款";
 //学校类型
 $config['school_type'][1] = '公立小学';
 $config['school_type'][2] = '公立中学';
+
+//进出课堂动作
+$config['classroom_action'][1] = '进入';
+$config['classroom_action'][2] = '退出';
+
+//课里面的状态
+$config['class_teach_status'][0] = '初始化';
+$config['class_teach_status'][1] = '即将上课';
+$config['class_teach_status'][2] = '正在上课';
+$config['class_teach_status'][3] = '上完课';
+$config['class_teach_status'][4] = '缺课';
+$config['class_teach_status'][3] = '禁用';
+
+//学科
+$config['subject'][1] = '语文';
+$config['subject'][2] = '数学';
+$config['subject'][3] = '英语';
 
 //账户状态
 $config['account'][0] = '禁用';

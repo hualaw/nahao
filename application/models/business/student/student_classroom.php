@@ -30,7 +30,9 @@ class Student_Classroom extends NH_Model{
                 $array_infor = $this->model_classroom->get_question_infor($v['question_id']);               
                 #处理数据
                 $array_infor['options'] = json_decode($array_infor['options'],true);
+                $array_infor['sequence'] = $int_max_sequence;
                 $array_return[] = $array_infor;
+                
                 
             }
         }
