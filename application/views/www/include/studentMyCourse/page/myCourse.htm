@@ -77,9 +77,9 @@
 						<!--工作证，称职证，教师证（1-5）-->
 						<h3 class="cf">
 							<em class="fl">{$item.teacher.nickname}</em>
-							<span {if $item.work_auth}class="workCard fl"{/if}></span>
-							<span {if $item.titile_auth}class="TitleCard fl"{/if}></span>
-							<span {if $item.teacher_auth}class="teaCard fl"{/if}></span>
+							<span {if $item.teacher.work_auth}class="workCard fl"{/if}></span>
+							<span {if $item.teacher.titile_auth}class="TitleCard fl"{/if}></span>
+							<span {if $item.teacher.teacher_auth}class="teaCard fl"{/if}></span>
 						</h3>
 						<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 					</div>
