@@ -15,7 +15,6 @@ class Index extends NH_User_Controller {
         header('content-type: text/html; charset=utf-8');
         //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
-
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
