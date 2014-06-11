@@ -20,10 +20,10 @@ $config['gender'][1] = '男';
 $config['gender'][2] = '女';
 
 //教师职称
-$config['teacher_title'][0] = '高级教师';
-$config['teacher_title'][1] = '一级教师';
-$config['teacher_title'][2] = '二级教师';
-$config['teacher_title'][3] = '三级教师';
+//$config['teacher_title'][0] = '高级教师';
+//$config['teacher_title'][1] = '一级教师';
+//$config['teacher_title'][2] = '二级教师';
+//$config['teacher_title'][3] = '三级教师';
 
 //教育阶段
 $config['stage'][1] = '小学';

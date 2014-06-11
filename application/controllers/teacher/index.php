@@ -10,7 +10,6 @@ class Index extends NH_User_Controller {
 		 * 3. 
 		 */
         parent::__construct();
-        $this->smarty->assign('site_url',__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
     }
@@ -41,6 +40,14 @@ class Index extends NH_User_Controller {
 	 */
 	public function apply_teach()
 	{
+		$param['stage'] = config_item('stage');
+		$param['teacher_title'] = config_item('teacher_title');
+		$param['teacher_type'] = config_item('teacher_type');
+		$param['subject'] = $this->subject->get_subjects();
+		$data = array(
+			'data' => $param,
+		);
+		$this->smarty->assign('data',$data);
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');
 	}
 	
