@@ -18,9 +18,10 @@
         <td>{$v.title}</td>
         <td>
             {if $v.courseware_id==0}
-                <botton class="btn btn-primary btn-xs btn_upload_pdf">上传</botton>
+                <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
             {else}
-                <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/52">preview</a>
+                <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
+                <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
             {/if}
         </td>
         <td>{$v.id}</td>

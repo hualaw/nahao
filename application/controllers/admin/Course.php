@@ -203,19 +203,6 @@ class Course extends NH_Admin_Controller {
         $this->smarty->display('admin/layout.html');
     }
 
-    /**
-     * Ajax添加课程时选取教师列表
-     * @author yanrui@tizi.com
-     */
-    public function teachers(){
-        $arr_return = array();
-        if($this->is_ajax()){
-            $this->load->model('business/admin/business_teacher','teacher');
-            $arr_return = $this->teacher->get_teacher_list(array(),0,20);
-        }
-        self::json_output($arr_return);
-    }
-
 //    public function upload(){
 //        //uploads是相对于index.php的 最后尝试页面直接ajax给七牛
 //        $config['upload_path'] = '../uploads/';

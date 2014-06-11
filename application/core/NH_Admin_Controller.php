@@ -25,6 +25,7 @@ class NH_Admin_Controller extends NH_Controller
         parent::__construct();
         $this->load->model('business/admin/business_admin','admin');
         if($this->current['controller']!='admin'){
+            $this->current['controller'] = $this->current['controller']=='classes' ? 'class' : $this->current['controller'];
             $this->load->model('business/admin/business_'.$this->current['controller'],$this->current['controller']);
         }
         $bool_redirect = false;
@@ -35,6 +36,7 @@ class NH_Admin_Controller extends NH_Controller
                 //验证登录通过后拿到userinfo
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
+                $this->smarty->assign('current',$this->current);
                 $this->smarty->assign('js_module', DOMAIN.ucfirst($this->current['controller']));
             }else{
                 $bool_redirect = true;
