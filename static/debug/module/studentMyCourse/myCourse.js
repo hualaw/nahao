@@ -17,14 +17,6 @@ define(function(require,exports){
     //云笔记
     exports.cNote = function (){
         $(".cloudNotes").click(function (){
-            // $.tiziDialog({
-            //     //width:400,
-            //     title:false,
-            //     ok:false,
-            //     icon:false,
-            //     padding:0,
-            //     content:$(".noteDia").html()
-            // });
             _popUp.popUp('.noteDia');
         })
     }
@@ -40,12 +32,11 @@ define(function(require,exports){
         })
     }
     //倒计时
-    exports.countDown = function (){
+    exports.countDown = function (obj,id,type){
         var timer = null;
-
         function countDown(){
             var oDate=new Date();
-            array = $("#sell_endtime").val().split(" ");
+            array = $("#"+id).val().split(" ");
 	        FullYear = array['0'].split("-");
 	        Hours = array['1'].split(":");
             oDate.setFullYear(FullYear[0],FullYear[1],FullYear[2]);
@@ -65,9 +56,16 @@ define(function(require,exports){
             s%=60;
             if(days<=0&&hours<=0&&mins<=0&&s<=0){
                 clearInterval(timer);
-                $(".countdown").html("已到时");
+                obj.html("已到时");
             }else{
-                $(".countdown").html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                if(type==1){
+                    obj.html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                }else{
+                    obj.html('<strong>'+days+'</strong>天'+
+                            '<strong>'+hours+'</strong>小时'+
+                            '<strong>'+mins+'</strong>分'+
+                            '<strong>'+s+'</strong>秒');
+                }
             }
         }
         countDown();

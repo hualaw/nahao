@@ -108,7 +108,7 @@
 .classRoomPage .evalu .starBg span.cStar{background: url(../../images/classRoom/cevalBg.png) no-repeat;}
 .classRoomPage .evalu textarea{width: 560px;height: 238px;}
 /*  滚动条  */
-.classRoomPage .sconParl{height: 476px;/*overflow: hidden;*/overflow-y: scroll;}
+.classRoomPage .sconParl{height: 476px;/*overflow: hidden;*//*overflow-y: scroll;*/}
 .classRoomPage .sparent,
 .classRoomPage .cparent{position:absolute;width: 4px;background: #c9c9c9;}
 .classRoomPage .sparent{right: 0;top:0;height: 476px;}
@@ -116,4 +116,4 @@
 .classRoomPage .sparent .sbar,
 .classRoomPage .cparent .cbar{width: 4px;height: 30px;background: #0e455e;position: absolute;left: 0;top:0;}
 .classRoomPage .scoreBoxList{position:absolute;right: 0;top:0;width: 675px;}
-.classRoomPage .scoreBoxPar{height: 528px;overflow-y: scroll;}
+.classRoomPage .scoreBoxPar{height: 528px;/*overflow-y: scroll;*/}

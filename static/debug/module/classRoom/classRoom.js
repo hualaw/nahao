@@ -53,15 +53,12 @@ define(function (require,exports){
 	//选择题目 切换内容
 	exports.curItem	= function (){
 		//初始--选的题目内容显示，左侧对应列表高亮 
-		var ind = 2;
-		$(".itemscore .sconl li").eq(ind).addClass("curitme");
-		$(".itemscore .scoreBoxList").eq(ind).removeClass("undis");
+		//var ind = 2;
+		$(".itemscore .scoreBoxList").eq(0).removeClass("undis");
 
 		//点击时切换
 		$(".itemscore .sconl li").click(function (){
 			var _this = $(".itemscore .sconl li").index($(this));
-			$(".itemscore .sconl li").removeClass("curitme");
-			$(this).addClass("curitme");
 			$(".itemscore .scoreBoxList").addClass("undis");
 			$(".itemscore .scoreBoxList").eq(_this).removeClass("undis");
 		})
@@ -140,14 +137,13 @@ define(function (require,exports){
 			answer = "",
 		    sequence = 1,
 		    cid = 0;
-		
-		
+				
 		$(".subAns").live('click',function (){
 			var _len = $('.doWorkList').size()/2;
 			//console.log($('.doWorkList').size());
-			var aL = $(this).parent().parent().find(".answerList");
-			for(var i=0;i<aL.find("li").length;i++){
-				if(!aL.find("li").hasClass("curAnswer")){
+			var aL = $(".answerList").eq(ind).find("li");
+			for(var i=0;i<aL.length;i++){
+				if(!aL.hasClass("curAnswer")){
 					alert("您还没有做题");
 					return;
 				}
@@ -158,6 +154,8 @@ define(function (require,exports){
 					index = false;
 				}else{
 					$(".aui_content").html($(".scoreBoxHtml").html());
+			        //选择题目 切换内容
+			        exports.curItem();
 
 					$(".itemscore .result").click(function (){
 						$(".aui_content").html($(".scorePageHtml").html());
@@ -168,7 +166,7 @@ define(function (require,exports){
 				$(".nextBtn").show();	
 			}
 			//ajax提交答案
-			//console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+			console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
 			var murl = '/classroom/save/';
             var mdata = {
             	class_id: cid,

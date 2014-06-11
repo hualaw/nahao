@@ -32,11 +32,13 @@
 	        		<div class="cf classCDList">
 	        			<span class="fl">距离上课还有：</span>
 	        			<div class="fl classCD">
-	        			<input type="hidden" id="stime" value="{$array_data.soon_class_stime}">
-	        				<strong>1</strong>天
-	        				<strong>10</strong>小时
-	        				<strong>23</strong>分
-	        				<strong>54</strong>秒
+	        				<input type="hidden" id="stime" value="{$array_data.soon_class_stime|date_format:'%Y-%m-%d %H:%M:%S'}">
+	        				<div class="classCDcon">
+	        					<strong>1</strong>天
+		        				<strong>10</strong>小时
+		        				<strong>23</strong>分
+		        				<strong>54</strong>秒
+	        				</div>
 	        			</div>
 	        			<a href="" class="fr noShowBtn redBtn">去上课</a>
 	        		</div>
@@ -78,10 +80,13 @@
 	            <div class="outline cf">
 	             {foreach from=$array_outline item=item}
                 	<div class="outlineList">
+                		{if $item.id > 1}
+							<h3 class="cf">
+	                            <p>{$item.title}</p>
+	                            <span class="fl"></span>
+	                        </h3>
+						{/if}
 	                    <ul>
-                    		{if $item.id > 1}
-								<h3>{$item.title}</h3>
-							{/if}
  							{foreach from=$item.son item=it}
 	                        <li class="cf">
 
