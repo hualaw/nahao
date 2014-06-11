@@ -296,61 +296,62 @@ define(function(require,exports){
                             $.each(area,function(index,d){
                                 $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
+
+                            if($('#area').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#area').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
+                            else if($('#city').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#city').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+                            else if($('#province').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#province').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
                         }
                     })
-
-                    if($('#area').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#area').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                $('#school').empty();
-                                var school=eval(msg);
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
-                    else if($('#city').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#city').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                $('#school').empty();
-                                var school=eval(msg);
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-                    else if($('#province').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#province').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                $('#school').empty();
-                                var school=eval(msg);
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
                 }
             })
 
@@ -368,7 +369,6 @@ define(function(require,exports){
                     $.each(area,function(index,d){
                         $('#area').append("<option value="+d.id+">"+d.name+"</option>");
                     })
-
 
                     if($('#area').val()!=null)
                     {

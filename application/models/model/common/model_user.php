@@ -101,7 +101,7 @@ class Model_User extends NH_Model
         {
             return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.city_id',$school_id['school_id'])->get()->result_array();
         }
-        if($c['level']==2)
+        if($c['level']==1)
         {
             return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.province_id',$school_id['school_id'])->get()->result_array();
         }
