@@ -67,13 +67,13 @@ define(function(require,exports){
 		_myCourse.doCancelMyOrder();
 	}
 	
-    //教室弹层
-    var _popUp = require('module/common/method/popUp');
-    //评价
-    $(".evaluBtn").click(function (){
-        //评论 几颗星
-        _myCourse.starClick();
+    // //教室弹层
+    // var _popUp = require('module/common/method/popUp');
+    // //评价
+    // $(".evaluBtn").click(function (){
+    //     //评论 几颗星
+    //     _myCourse.starClick();
         
-        _popUp.popUp('.evaluHtml');
-    });
+    //     _popUp.popUp('.evaluHtml');
+    // });
 })

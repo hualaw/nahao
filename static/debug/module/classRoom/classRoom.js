@@ -137,11 +137,15 @@ define(function (require,exports){
 			answer = "",
 		    sequence = 1,
 		    cid = 0;
+		alert(ind)
 				
 		$(".subAns").live('click',function (){
+		document.title=(ind)
 			var _len = $('.doWorkList').size()/2;
 			//console.log($('.doWorkList').size());
+
 			var aL = $(".answerList").eq(ind).find("li");
+			console.log(aL.length)
 			for(var i=0;i<aL.length;i++){
 				if(!aL.hasClass("curAnswer")){
 					alert("您还没有做题");

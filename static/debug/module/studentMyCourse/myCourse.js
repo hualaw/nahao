@@ -158,52 +158,37 @@ define(function(require,exports){
     
     //我的课程购买之后 列表 课程回顾 背景圆
     exports.overCourse = function (){
-        console.log($(".outlineList li").length)
-        // for(var i in $(".outlineList li")){
-        //     console.log(i);
-        //     if(i.find(".replay")){
-        //         i.find(".rCon").addClass("rConOver");
-        //     }
-        // }
-
-
-
-        //  liebiao   bj   pj tc doubushi cur----------
-
-
-
-
-
         for(var i=0;i< $(".outlineList li").length;i++){
-            // if($(".outlineList li").eq(i).find(".replay")){
-            //     $(".outlineList li").eq(i).find(".rCon").addClass("rConOver");
-            // }
+            if($(".outlineList li").eq(i).find(".replay").length){
+                $(".outlineList li").eq(i).find(".rCon").addClass("rConOver");
+            }
         }
 
         //鼠标上去 显示 讲义，运笔记，评论星
         $(".outlineList li").mouseover(function (){
-            $(this).find(".cListHid").show();
-
-            // $(this).find(".starBg").click(function (){               
-            //     _popUp.popUp('.evaluHtml');
-            // })
-            $(".starBg").eq($(".outlineList li").index($(this))).click(function (){               
-                _popUp.popUp('.evaluHtml');
-            })
+            $(this).find(".cListHid").show();     
         });
+        $(".outlineList li").mouseout(function (){
+            $(this).find(".cListHid").hide();
+        });
+        $(".evaluBtn").click(function (){               
+            _popUp.popUp('.evaluHtml');
+            exports.starClick();
+            require("module/classRoom/valid").evaluForm();
+        })
     }
     
 	//评论 几颗星
 	exports.starClick = function (){
-			var ind = true;
-			$(".evalu .starBg span").click(function (){
-				if(ind){
-					var _index = $(".evalu .starBg span").index($(this));
-					for(var i=0;i<_index+1;i++){
-						$(".evalu .starBg span").eq(i).addClass("cStar");
-					}
-					ind = false;
+		//var ind = true;
+		$(".evalu .starBg span").click(function (){
+			//if(ind){
+				var _index = $(".evalu .starBg span").index($(this));
+				for(var i=0;i<_index+1;i++){
+					$(".evalu .starBg span").eq(i).addClass("cStar");
 				}
-			});
+				//ind = false;
+			//}
+		});
 	}
 });
