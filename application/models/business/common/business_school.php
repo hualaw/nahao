@@ -21,7 +21,6 @@ class Business_School extends NH_Model{
 		if (in_array($parentid, $id_replace)){
 			$parentid = $rel[$parentid];
 		}
-		$this->db->query("set names utf8");
 		$result = $this->db->query("select {$fields} from ".TABLE_NAHAO_AREAS." where
 				parentid=?", array($parentid))->result_array();
 		return $result;
@@ -36,7 +35,6 @@ class Business_School extends NH_Model{
      * @author liuhua
      */
     public function county_schools($county_id, $sctype, $fields = "*"){
-    	$this->db->query("set names utf8");
         //echo "select {$fields} from ".TABLE_NAHAO_SCHOOLS." where county_id=$county_id and sctype=$sctype";
         $r = $this->db->query("select {$fields} from ".TABLE_NAHAO_SCHOOLS." where county_id=? and sctype=?"
                                 , array($county_id, $sctype))->result_array();
@@ -52,7 +50,6 @@ class Business_School extends NH_Model{
      */
     public function school_info($school_id, $fields = '*')
     {
-    	$this->db->query("set names utf8");
         $arr_return = array();
         if($school_id) {
             $arr_return = $this->db->query("select {$fields} from " . TABLE_NAHAO_SCHOOLS . " where id=?", array($school_id))->row_array();
