@@ -34,7 +34,7 @@ class Business_Login extends NH_Model {
             if($user_id) $arr_where['id'] = $user_id;
             if($email) $arr_where['email'] = $email;
 
-            $str_fields = 'id,nickname,phone_mask,password,salt';
+            $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar';
             $ret_info = $this->model_user->get_user_by_param('user', 'list', $str_fields, $arr_where);
             if(!empty($ret_info) && isset($ret_info[0]))
             {
