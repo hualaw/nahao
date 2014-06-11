@@ -254,10 +254,12 @@ define('MAX_NICKNAME_LEN', 15);
 define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
 define('NH_MEETING_ACCESS_KEY','7e30a4');
 define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
-define('NH_MEETING_TYPE_STUDENT',0);
-define('NH_MEETING_TYPE_TEACHER',1);
-define('NH_MEETING_TYPE_ADMIN',2);
-define('NH_MEETING_TYPE_SUPER_ADMIN',110);
+//访问教室的用户类型
+define('NH_MEETING_TYPE_STUDENT',0);//学生
+define('NH_MEETING_TYPE_TEACHER',1);//老师
+define('NH_MEETING_TYPE_ADMIN',2);//管理员
+define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
+//进教室的链接，后面拼token就能进了
 define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/tnc/enter?token=');
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
