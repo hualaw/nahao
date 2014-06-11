@@ -139,7 +139,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
-define('PER_PAGE_NO',1);
+define('PER_PAGE_NO',10);
 
 
 //tables
@@ -183,6 +183,7 @@ define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
+define('TABLE_CLASS_NOTE', 'class_note');
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
@@ -250,8 +251,14 @@ define('MIN_NICKNAME_LEN', 2);
 define('MAX_NICKNAME_LEN', 15);
 
 //meeting account
+define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
 define('NH_MEETING_ACCESS_KEY','7e30a4');
 define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
+define('NH_MEETING_TYPE_STUDENT',0);
+define('NH_MEETING_TYPE_TEACHER',1);
+define('NH_MEETING_TYPE_ADMIN',2);
+define('NH_MEETING_TYPE_SUPER_ADMIN',110);
+
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
@@ -261,6 +268,13 @@ define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
 
+//单轮，单节最大人数
+define('NH_CLASS_PEOPLE_CAPS',100);
+
+//昵称最大长度
+/* define('MIN_NICKNAME_LEN', 4);
+define('MAX_NICKNAME_LEN', 21); */
+
 //教龄上限
 define('TEACHER_AGE_CEILING', 50);
 
@@ -268,5 +282,6 @@ define('TEACHER_AGE_CEILING', 50);
 define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
 define('CLASS_FASTER_ACTION', 3);//讲慢一点
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

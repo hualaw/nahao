@@ -1,44 +1,45 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * 课节管理
- * Class Lesson
+ * 课堂管理
+ * Class Classes
  * @author yanrui@tizi.com
  */
-class Lesson extends NH_Admin_Controller {
+class Classes extends NH_Admin_Controller {
 
     private $arr_response = array(
         'status' => 'error',
         'msg' => '操作失败',
-        'redirect' => '/lesson'
+        'redirect' => '/round'
     );
 
     /**
-     * lesson list
+     * classes list
      * @author yanrui@tizi.com
      */
     public function index () {
-        $int_course_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $arr_lesson = array();
-        if($int_course_id > 0){
-            $this->load->model('business/admin/business_course','course');
-            $arr_course = $this->course->get_course_by_id($int_course_id);
-            $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+        $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $arr_class = array();
+        if($int_round_id > 0){
+            $this->load->model('business/admin/business_round','round');
+            $arr_round = $this->round->get_round_by_id($int_round_id);
+            $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
             $int_chapter_count = $int_section_count = 0 ;
-            foreach($arr_lessons as $lesson){
-                if($lesson['parent_id'] == 0){
+            foreach($arr_classes as $class){
+                if($class['parent_id'] == 0){
                     ++$int_chapter_count;
                 }else{
                     ++$int_section_count;
                 }
             }
-//            o($arr_course,true);
+//            o($arr_classes,true);
         }
-        $this->smarty->assign('course',$arr_course);
-        $this->smarty->assign('lessons',$arr_lessons);
+        $this->smarty->assign('round',$arr_round);
+        $this->smarty->assign('classes',$arr_classes);
+        $this->smarty->assign('class_status',config_item('class_teach_status'));
         $this->smarty->assign('chapter_count',$int_chapter_count);
         $this->smarty->assign('section_count',$int_section_count);
-        $this->smarty->assign('view', 'lesson_list');
+        $this->smarty->assign('view', 'class_list');
         $this->smarty->display('admin/layout.html');
     }
 
@@ -55,20 +56,20 @@ class Lesson extends NH_Admin_Controller {
     }
 
     /**
-     * add / update courseware to lesson
+     * add / update courseware to class
      * @author yanrui@tizi.com
      */
     public function add_courseware(){
-        $int_lesson_id = $this->input->post('lesson_id') ? intval($this->input->post('lesson_id')) : 0;
+        $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
         $int_courseware_id = $this->input->post('courseware_id') ? intval($this->input->post('courseware_id')) : 0;
-//        o($int_lesson_id);
+//        o($int_class_id);
 //        o($int_courseware_id,true);
-        if($int_lesson_id > 0 AND $int_courseware_id > 0){
-            $bool_return = $this->lesson->add_courseware($int_lesson_id,$int_courseware_id);
+        if($int_class_id > 0 AND $int_courseware_id > 0){
+            $bool_return = $this->class->add_courseware($int_class_id,$int_courseware_id);
             if($bool_return==true){
                 $this->arr_response['status'] = 'ok';
                 $this->arr_response['msg'] = '添加成功';
-                $this->arr_response['redirect'] = '/lesson/index/'.$int_lesson_id;
+                $this->arr_response['redirect'] = '/class/index/'.$int_class_id;
             }
         }
         self::json_output($this->arr_response);
