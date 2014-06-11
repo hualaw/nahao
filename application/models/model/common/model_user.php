@@ -87,6 +87,27 @@ class Model_User extends NH_Model
         return TRUE;
     }
     /**
+     * 根据市城市查找学校
+     * @author shangshikai@tizi.com
+     */
+    public function school_model_pid($school_id)
+    {
+         $c=$this->db->select('nahao_areas.level')->from('nahao_areas')->where('nahao_areas.id',$school_id['school_id'])->get()->row_array();
+        if($c['level']==3)
+        {
+            return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.county_id',$school_id['school_id'])->get()->result_array();
+        }
+        if($c['level']==2)
+        {
+            return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.city_id',$school_id['school_id'])->get()->result_array();
+        }
+        if($c['level']==2)
+        {
+            return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.province_id',$school_id['school_id'])->get()->result_array();
+        }
+        //return $this->db->last_query();
+    }
+    /**
      * 根据省ID获取市
      * @author shangshikai@tizi.com
      */

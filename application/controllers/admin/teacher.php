@@ -150,6 +150,19 @@ class Teacher extends NH_Admin_Controller {
         echo json_encode($this->teacher->city1($province));
     }
     /**
+     * 根据市城市查找学校
+     * @author shangshikai@tizi.com
+     */
+    public function school()
+    {
+        $school_id=$this->input->post(NULL,TRUE);
+        echo json_encode($this->teacher->school_business_pid($school_id));
+        // echo $this->teacher->school_business_pid($school_id);
+         //$c=$this->teacher->school_business_pid($school_id);
+       // echo $school_id['school_id'];
+        //echo $c['level'];
+    }
+    /**
      * 根据市id查找区
      * @author shangshikai@tizi.com
      */

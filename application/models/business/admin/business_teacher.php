@@ -323,7 +323,7 @@ class Business_Teacher extends NH_Model
         }
        // var_dump($post);die;
        // var_dump($post['nickname']);die;
-        if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['school']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100)
+        if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100)
         {
             redirect("teacher/create");
         }
@@ -400,6 +400,14 @@ class Business_Teacher extends NH_Model
         $post_user_info['status']=1;
        // var_dump($post_user_info);die;
         return $this->model_user->create_user_info($post_user_info);
+    }
+    /**
+     * 根据市城市查找学校
+     * @author shangshikai@tizi.com
+     */
+    public function school_business_pid($school_id)
+    {
+        return $this->model_user->school_model_pid($school_id);
     }
     /**
      * 根据id取teacher

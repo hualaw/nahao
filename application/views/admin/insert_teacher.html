@@ -26,8 +26,25 @@
         </td>
     </tr>
     <tr height="35">
+        <td><font color="red">*</font>所在地区:</td>
+        <td>
+            <select name="province" id="province">
+                {foreach $province as $v}
+                <option value={$v.id}>{$v.name}</option>
+                {/foreach}
+            </select>
+            <select name="city" id="city">
+
+            </select>
+            <select name="area" id="area">
+            </select>
+        </td>
+    </tr>
+    <tr height="35">
         <td><font color="red">*</font>所在学校:</td>
-        <td><input type="text" name="school" placeholder="请填写学校" id="school" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_school" value=1>保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_school"></span></td>
+        <td><select name="school" id="school">
+
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_school" value=1>保密</td>
     </tr>
     <tr height="35">
         <td><font color="red">*</font>基本课酬:</td>
@@ -62,21 +79,7 @@
             </select>
         </td>
     </tr>
-    <tr height="35">
-        <td><font color="red">*</font>所在地区:</td>
-        <td>
-            <select name="province" id="province">
-                {foreach $province as $v}
-                <option value={$v.id}>{$v.name}</option>
-                {/foreach}
-            </select>
-            <select name="city" id="city">
 
-            </select>
-            <select name="area" id="area">
-            </select>
-        </td>
-    </tr>
     <tr height="35">
         <td><font color="red">*</font>教龄:</td>
         <td>
