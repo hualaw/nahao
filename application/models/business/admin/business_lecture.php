@@ -136,8 +136,8 @@
          */
         public function lecture_pass($post)
         {
+            //var_dump($post);die;
             $data=array(
-                'user_id'=>$post['user_id'],
                 'gender'=>$post['gender'],
                 'realname'=>$post['realname'],
                 'age'=>$post['age'],
@@ -151,9 +151,20 @@
                 'titile_auth'=>$post['titile_auth'],
                 'teacher_auth'=>1
             );
+            if(!get_uid_phone_server($post['phone']))
+            {
+                add_user_phone_server($post['user_id'],$post['phone']);
+            }
+            $phone_mask=substr_replace($post['phone'],"****",3,4);
+            $data_user=array(
+                'phone_mask'=>$phone_mask,
+                'email'=>$post['email'],
+                'phone_verified'=>1,
+                'email_verified'=>1
+            );
            // return $data['teacher_auth'];
             $this->load->model('model/admin/model_lecture');
-            return $this->model_lecture->lecture_teach_pass($post,$data);
+            return $this->model_lecture->lecture_teach_pass($post,$data,$data_user);
         }
 
         /**

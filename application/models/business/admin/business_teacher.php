@@ -321,37 +321,17 @@ class Business_Teacher extends NH_Model
         {
             $post['area']=0;
         }
-
+       // var_dump($post);die;
        // var_dump($post['nickname']);die;
         if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['school']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100)
         {
             redirect("teacher/create");
         }
 
-        $preg = "/[\x{4e00}-\x{9fa5}]/u";
-        $preg2 = "/[^\x{4e00}-\x{9fa5}]/iu";
-        if(preg_match_all($preg,$post['nickname'],$matches)){
-            $zn_nickname_count=count($matches[0]);
-        }
-        if(preg_match_all($preg2,$post['nickname'],$matches)){
-            $nozn_nickname_count=count($matches[0]);
-        }
-        if(preg_match_all($preg,$post['password'],$matches)){
-            $zn_pwd_count=count($matches[0]);
-        }
-        if(preg_match_all($preg2,$post['password'],$matches)){
-            $nozn_pwd_count=count($matches[0]);
-        }
-        if(preg_match_all($preg,$post['realname'],$matches)){
-            $zn_realname_count=count($matches[0]);
-        }
-        if(preg_match_all($preg2,$post['realname'],$matches)){
-            $nozn_realname_count=count($matches[0]);
-        }
-        $nickname_count=$zn_nickname_count+$nozn_nickname_count;
-        $password_count=$zn_pwd_count+$nozn_pwd_count;
-        $realname_count=$zn_realname_count+$nozn_realname_count;
-        //echo $nickname_count,'<br />',$password_count,'<br />',$realname_count;
+        $nickname_count=mb_strlen($post['nickname'],'utf8');
+        $password_count=mb_strlen($post['password'],'utf8');
+        $realname_count=mb_strlen($post['realname'],'utf8');
+        //echo $nickname_count,'<br />',$password_count,'<br />',$realname_count;die;
         if($nickname_count < 2 || $nickname_count > 15 || $password_count < 6 || $password_count > 20 || $realname_count < 2 || $realname_count > 15)
         {
             redirect('teacher/create');
@@ -387,20 +367,22 @@ class Business_Teacher extends NH_Model
         $post_user['email_verified']=1;
         $post_user['teach_priv']=1;
         $post_user['source']=1;
-        //var_dump($post_user);die;
+       // var_dump($post_user);die;
         $user_id=$this->model_user->create_user($post_user);
         if($user_id!=0)
         {
             add_user_phone_server($user_id,$post['phone_mask']);
         }
         //var_dump($user_id);die;
+
         $post_user_info['user_id']=$user_id;
         $post_user_info['realname']=$post['realname'];
         $post_user_info['age']=$post['age'];
         $post_user_info['gender']=$post['gender'];
         $post_user_info['hide_realname']=$post['hide_realname'];
         $post_user_info['hide_school']=$post['hide_school'];
-        $post_user_info['bankname']=$post['bank'].$post['bank_Branch'];
+        $post_user_info['bankname']=$post['bank'];
+        $post_user_info['bankbench']=$post['bank_Branch'];
         $post_user_info['bankcard']=$post['bank_id'];
         $post_user_info['id_code']=$post['id_card'];
         $post_user_info['title']=$post['title'];
@@ -416,7 +398,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['teacher_intro']=$post['teacher_intro'];
         $post_user_info['basic_reward']=$post['basic_reward'];
         $post_user_info['status']=1;
-        //var_dump($post_user_info);die;
+       // var_dump($post_user_info);die;
         return $this->model_user->create_user_info($post_user_info);
     }
     /**
