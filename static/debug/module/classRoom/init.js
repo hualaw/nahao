@@ -2,10 +2,6 @@ define(function(require,exports){
 	var _classRoom = require("module/classRoom/classRoom");
 
 	var _valid = require("module/classRoom/valid");
-    // 教室-意见反馈 验证
-    _valid.feedbackForm();
-    // 教室-评价 验证
-    _valid.evaluForm();
 
     //滚动条
     var _scroll = require("module/common/method/scroll");
@@ -17,6 +13,8 @@ define(function(require,exports){
         _popUp.popUp('.doWorkBoxHtml');
         _classRoom.show_question();
         _classRoom.doWork();
+        //做题选答案 (加背景色)
+        _classRoom.options();
 
     });
     //得分-题目选中
@@ -40,19 +38,22 @@ define(function(require,exports){
     //选择练习题
     $(".exerciseBtn").click(function (){
         _popUp.popUp('.exerciseHtml');
-        //做题选答案 (加背景色)
-        _classRoom.options();
+
         //选择练习题  左右点击切换 题目选中
         _classRoom.itemClick();
     });
     //意见反馈
     $(".feedbackBtn").click(function (){
         _popUp.popUp('.feedbackHtml');
+        // 教室-意见反馈 验证
+        _valid.feedbackForm();
     });
     //评价
     $(".evaluBtn").click(function (){
         _popUp.popUp('.evaluHtml');
         //评论 几颗星
         _classRoom.starClick();
+        // 教室-评价 验证
+        _valid.evaluForm();
     });
 })
