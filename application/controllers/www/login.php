@@ -65,7 +65,7 @@ class login extends NH_Controller
         if($new_pwd && $phone) {
             $user_id = get_uid_phone_server($phone);
             if($user_id) {
-                $a = $this->business_user->phone_reset_password($user_id, $new_pwd);
+                $a = $this->business_user->reset_password($user_id, $new_pwd);
                 $this->smarty->display('www/login/setSuccess.html');die;
             }
         }
@@ -82,7 +82,7 @@ class login extends NH_Controller
             if($new_pwd) {
                 $user_info = $this->business_user->get_user_by_email($user_email);
                 if($user_info['id']) {
-                    $this->business_user->phone_reset_password($user_info['id'], $new_pwd);
+                    $this->business_user->reset_password($user_info['id'], $new_pwd);
                     $this->smarty->display('www/login/setSuccess.html');die;
                 }
             }
@@ -143,23 +143,23 @@ class login extends NH_Controller
         self::json_output($arr_return);
     }
         
-        /**
-         * 检查用户的验证邮箱
-         */
-        public function check_user_email()
-        {
-            $arr_return = array();
-            //param 是validFrom的固定写法
-            $email = $this->input->post('param');
-            $user_info = $this->business_user->get_user_by_email($email);
-            if($user_info['id']) {
-                $arr_return = array('status' => 'y', 'info' => '验证通过');
-            } else {
-                $arr_return = array('status' => 'n', 'info' => '该邮箱未于任何用户绑定');
-            }
-            self::json_output($arr_return);
+    /**
+     * 检查用户的验证邮箱
+     */
+    public function check_user_email()
+    {
+        $arr_return = array();
+        //param 是validFrom的固定写法
+        $email = $this->input->post('email');
+        $user_info = $this->business_user->get_user_by_email($email);
+        if($user_info['id']) {
+            $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
+        } else {
+            $arr_return = array('status' => ERROR, 'info' => '该邮箱未于任何用户绑定');
         }
-
+        self::json_output($arr_return);
+    }
+    
     public function submit()
     {
         $username = trim($this->input->post('username'));
@@ -181,5 +181,5 @@ class login extends NH_Controller
     {
         $this->session->sess_destroy();
         header("Location: ".site_url());
-    }
+    } 
 }
