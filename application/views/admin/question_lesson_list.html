@@ -1,4 +1,11 @@
 <style>
+.body{
+border: 1px solid #fff;
+padding-bottom: 30px;
+}
+.body:hover{
+border-color: #2a8d6a;
+}
 .question-item-box {
 position: relative;
 border: 1px solid #fff;
@@ -8,83 +15,163 @@ top: 30px;
 border-color: #f60;
 background: #eee;
 }
+.control-box {
+position: absolute;
+right: 10px;
+top: 5px;
+_right: 2px;
+_top: 2px;
+border: 0 solid #ccc;
+padding: 4px;
+padding-left: 0;
+display: none;
+}
 .question-item-box .question {
 padding: 4px 18px;
 }
 .analysis-area {
 background: #fff;
-padding: 4px;
+padding: 6px;
+margin: 28px 0px 5px 0px;
+}
+.option-item{
+float:left
+}
+.quoteback{
+background-color: #f4f8fa;
+border-color: #bce8f1;
+}
+.checkbox{
+float:left;
 }
 </style>
-<div class="col-md-10">
-	<div class="question-item-box">
-		<div class="question ">
-			<div class="answer undis">
-				<p style="float:left">1、</p><p></p><p>Happiness and success often come to those <u>&nbsp; &nbsp; &nbsp; </u>&nbsp;are good at recognizing their own strengths.</p>
-<p></p><p class="option-item"> A：</p><p></p><p>whom</p>
-<p></p><p class="option-item"> B：</p><p></p><p>who</p>
-<p></p><p class="option-item"> C：</p><p></p><p>what</p>
-<p></p><p class="option-item"> D：</p><p></p><p>which</p>
-<p></p>
-				<div class="analysis-area" style="border: 1px dashed rgb(255, 102, 0); padding: 3px;"><p class="option-item-analysis">知识点：</p><p>语言知识语言知识-定语从句和名词性从句</p><p class="option-item-analysis">答案：</p><p>B</p><p class="option-item-analysis">解析：</p><p></p><p>考查定语从句。句意为:幸福与成功通常降临于那些擅长于认识到自己的长处的人。who在句中引导定语从句,且在从句中作主语。whom引导定语从句也指人,但是在从句中作宾语或用于介词+whom结构中。</p>
-<p></p></div>
+<ul class="nav nav-tabs" id="myTab" rel="{$data['tab']}">
+	<li {if $data['tab']=="question_list"}class="active"{/if}><a href="#question_list" data-toggle="tab">题目列表</a></li>
+	<li {if $data['tab']=="question_add"}class="active"{/if}><a href="#question_add" data-toggle="tab">添加题目</a></li>
+</ul>
+
+<div class="tab-content">
+  	<!--1. 题目列表-->
+	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_list">
+		<blockquote class="quoteback">
+		  <p>课节（id{$data['lesson_info']['id']}）的所有题目，共：<span class="badge">9</span>道题目</p>
+		</blockquote>
+		<div class="col-md-12 body">
+		{if $data['question_list']}
+			{foreach $data['question_list'] as $key=>$val}
+			<div class="question-item-box">
+				<div class="control-box fn-clear">
+		        	<a class="btn btn-info" href="/question/lesson_edit/{$data['lesson_info']['id']}/{$val['id']}"><span class="text-icon"><i class="icon-pencil icon-white"></i> 详细</span></a>
+		            &nbsp;
+		            <a class="btn btn-danger delete_question" param="{$data['lesson_info']['id']}/{$val['id']}" href="javascript:void(0)"><span class="del-icon"><i class="icon-trash icon-white"></i> 删除</span></a>
+		        </div>
+				<div class="question ">
+					<div class="answer undis">
+						<p style="float:left">{$key+1}、</p>
+						<p><font style="color:#a1a1a1">(id:{$val['id']})</font>{$val['question']}</p>
+						<div class="analysis-area">
+							{if $val['options']}
+								{foreach $val['options'] as $k=>$v}
+								{if $v}
+								<p class="option-item"> {$k}：</p><p>{$v}</p>
+								{/if}
+								{/foreach}
+							{/if}
+						</div>
+						<p style="float:left">答案：</p><p>{$val['answer']}</p>
+						<p style="float:left">解析：</p><p>{if $val['analysis']}{$val['analysis']}{else}无解析{/if}</p>
+					</div>
+				</div>
 			</div>
+			{/foreach}
+		{/if}
 		</div>
 	</div>
-	<div class="question-item-box">
-		<div class="question ">
-			<div class="answer undis">
-				<p style="float:left">1、</p><p></p><p>Happiness and success often come to those <u>&nbsp; &nbsp; &nbsp; </u>&nbsp;are good at recognizing their own strengths.</p>
-<p></p><p class="option-item"> A：</p><p></p><p>whom</p>
-<p></p><p class="option-item"> B：</p><p></p><p>who</p>
-<p></p><p class="option-item"> C：</p><p></p><p>what</p>
-<p></p><p class="option-item"> D：</p><p></p><p>which</p>
-<p></p>
-				<div class="analysis-area" style="border: 1px dashed rgb(255, 102, 0); padding: 3px;"><p class="option-item-analysis">知识点：</p><p>语言知识语言知识-定语从句和名词性从句</p><p class="option-item-analysis">答案：</p><p>B</p><p class="option-item-analysis">解析：</p><p></p><p>考查定语从句。句意为:幸福与成功通常降临于那些擅长于认识到自己的长处的人。who在句中引导定语从句,且在从句中作主语。whom引导定语从句也指人,但是在从句中作宾语或用于介词+whom结构中。</p>
-<p></p></div>
-			</div>
+	<!--题目列表end-->
+	<!--2. 添加题目-->
+	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_add">
+		<blockquote class="quoteback">
+		  <p>为课节（id{$data['lesson_info']['id']}）添加新题。当前已有<code>9</code>道题目</p>
+		</blockquote>
+		<div class="col-md-12">
+			<form class="form-horizontal" method="POST" id="question_form" role="form" action="/question/lesson_add">
+				<div class="form-group">
+			        <label class="col-md-2 control-label">题目内容</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="question" id="question" rows="5"></textarea>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			        <label class="col-md-2 control-label">正确答案:</label>
+			        <div class="col-md-10" id="answer_row">
+			            <label class="checkbox">
+					      	<input type="checkbox" name="answer[]" value="A"> A&nbsp;
+					    </label>
+					    <label class="checkbox">
+					      	<input type="checkbox" name="answer[]" value="B"> B&nbsp;
+					    </label>
+					    <label class="checkbox">
+					      	<input type="checkbox" name="answer[]" value="C"> C&nbsp;
+					    </label>
+					    <label class="checkbox">
+					      	<input type="checkbox" name="answer[]" value="D"> D&nbsp;
+					    </label>
+					    <label class="checkbox hide">
+					      	<input type="checkbox" name="answer[]" value="E"> E&nbsp;
+					    </label>
+					    <div class="pick_span">
+								<span><a class="btn btn-success btn-mini option-add"><i class="glyphicon glyphicon-plus"></i> 增加选项</a></span>
+								<span><a class="btn btn-success btn-mini option-remove"><i class="glyphicon glyphicon-minus"></i> 减少选项</a></span>
+							 </div>
+			        </div>
+			    </div>
+			    <div class="options form-group">
+			        <label class="col-md-2 control-label">选项A:</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="A" id="option-A" rows="5"></textarea>
+			        </div>
+			    </div>
+			    
+			    <div class="options form-group">
+			        <label class="col-md-2 control-label">选项B:</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="B" id="option-B" rows="5"></textarea>
+			        </div>
+			    </div>
+			    
+			    <div class="options form-group">
+			        <label class="col-md-2 control-label">选项C:</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="C" id="option-C" rows="5"></textarea>
+			        </div>
+			    </div>
+			    
+			    <div class="options form-group">
+			        <label class="col-md-2 control-label">选项D:</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="D" id="option-D" rows="5"></textarea>
+			        </div>
+			    </div>
+				<div class="options form-group hide">
+					<label class="col-md-2 control-label">选项E:</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="E" id="option-E" rows="5"></textarea>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			        <label class="col-md-2 control-label">题目解析</label>
+			        <div class="col-md-6">
+			            <textarea class="form-control" name="analysis" id="analysis" rows="5"></textarea>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			        <label class="col-md-4 control-label"></label>
+			        <input type="hidden" name="lesson_id" value="{$data['lesson_info']['id']}">
+			        <button type="submit" class="btn btn-primary col-md-2" id="question_submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+			    	<span class="statusMsg"></span>
+			    </div>
+			</form>
 		</div>
 	</div>
-	<div class="question-item-box">
-		<div class="question ">
-			<div class="answer undis">
-				<p style="float:left">1、</p><p></p><p>Happiness and success often come to those <u>&nbsp; &nbsp; &nbsp; </u>&nbsp;are good at recognizing their own strengths.</p>
-<p></p><p class="option-item"> A：</p><p></p><p>whom</p>
-<p></p><p class="option-item"> B：</p><p></p><p>who</p>
-<p></p><p class="option-item"> C：</p><p></p><p>what</p>
-<p></p><p class="option-item"> D：</p><p></p><p>which</p>
-<p></p>
-				<div class="analysis-area" style="border: 1px dashed rgb(255, 102, 0); padding: 3px;"><p class="option-item-analysis">知识点：</p><p>语言知识语言知识-定语从句和名词性从句</p><p class="option-item-analysis">答案：</p><p>B</p><p class="option-item-analysis">解析：</p><p></p><p>考查定语从句。句意为:幸福与成功通常降临于那些擅长于认识到自己的长处的人。who在句中引导定语从句,且在从句中作主语。whom引导定语从句也指人,但是在从句中作宾语或用于介词+whom结构中。</p>
-<p></p></div>
-			</div>
-		</div>
-	</div>
-	<div class="question-item-box">
-		<div class="question ">
-			<div class="answer undis">
-				<p style="float:left">1、</p><p></p><p>Happiness and success often come to those <u>&nbsp; &nbsp; &nbsp; </u>&nbsp;are good at recognizing their own strengths.</p>
-<p></p><p class="option-item"> A：</p><p></p><p>whom</p>
-<p></p><p class="option-item"> B：</p><p></p><p>who</p>
-<p></p><p class="option-item"> C：</p><p></p><p>what</p>
-<p></p><p class="option-item"> D：</p><p></p><p>which</p>
-<p></p>
-				<div class="analysis-area" style="border: 1px dashed rgb(255, 102, 0); padding: 3px;"><p class="option-item-analysis">知识点：</p><p>语言知识语言知识-定语从句和名词性从句</p><p class="option-item-analysis">答案：</p><p>B</p><p class="option-item-analysis">解析：</p><p></p><p>考查定语从句。句意为:幸福与成功通常降临于那些擅长于认识到自己的长处的人。who在句中引导定语从句,且在从句中作主语。whom引导定语从句也指人,但是在从句中作宾语或用于介词+whom结构中。</p>
-<p></p></div>
-			</div>
-		</div>
-	</div>
-	<div class="question-item-box">
-		<div class="question ">
-			<div class="answer undis">
-				<p style="float:left">1、</p><p></p><p>Happiness and success often come to those <u>&nbsp; &nbsp; &nbsp; </u>&nbsp;are good at recognizing their own strengths.</p>
-<p></p><p class="option-item"> A：</p><p></p><p>whom</p>
-<p></p><p class="option-item"> B：</p><p></p><p>who</p>
-<p></p><p class="option-item"> C：</p><p></p><p>what</p>
-<p></p><p class="option-item"> D：</p><p></p><p>which</p>
-<p></p>
-				<div class="analysis-area" style="border: 1px dashed rgb(255, 102, 0); padding: 3px;"><p class="option-item-analysis">知识点：</p><p>语言知识语言知识-定语从句和名词性从句</p><p class="option-item-analysis">答案：</p><p>B</p><p class="option-item-analysis">解析：</p><p></p><p>考查定语从句。句意为:幸福与成功通常降临于那些擅长于认识到自己的长处的人。who在句中引导定语从句,且在从句中作主语。whom引导定语从句也指人,但是在从句中作宾语或用于介词+whom结构中。</p>
-<p></p></div>
-			</div>
-		</div>
-	</div>
+	<!--添加题目end-->
 </div>
