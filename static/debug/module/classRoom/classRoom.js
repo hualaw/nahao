@@ -1,6 +1,6 @@
 define(function (require,exports){
 	//做题选答案 (加背景色)
-	exports.options = function (){
+	var options = function (){
 		$(".answerList li").click(function (){
 			$(".answerList li").removeClass("curAnswer");
 			$(this).addClass("curAnswer");
@@ -182,7 +182,10 @@ define(function (require,exports){
     					$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
     				}else{
     					$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
-    					$(".answerList li").eq(ind*4).addClass("ansRight");
+    					//$(".answerList li").eq(ind*4).addClass("ansRight");
+    					// if($(".answerList li").eq(i).find(".options").html().indexOf(response.data.answer)){
+
+    					// }
     				}
     			}
             });
