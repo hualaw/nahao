@@ -24,6 +24,7 @@
 .classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
 .classRoomPage .answerList{margin:50px 0 0;}
 .classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
+.classRoomPage .itemscore .result{cursor: pointer;}
 .classRoomPage .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
 .classRoomPage .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
 .classRoomPage .optionNav .curitme{background: #ed4111;}
