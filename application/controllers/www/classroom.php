@@ -5,11 +5,11 @@ class Classroom extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_classroom');
+        $this->load->model('business/teacher/business_teacher','teacher_b');
         if(!$this->is_login)
         {
             redirect('/login');
         }
-      
     }
 
     /**
@@ -18,6 +18,18 @@ class Classroom extends NH_User_Controller {
 	public function index()
 	{  
 	    header('content-type: text/html; charset=utf-8');
+	    $class_id = $this->uri->segment(3,0);
+	    $classroom_id = $this->uri->segment(4,0);
+	    //老师获得该课的所有题目
+	    $param = array(
+	    	'class_id' => $class_id,
+	    	'status' => -1,//没出过
+	    );
+	    $question_list = $this->teacher_b->class_question($param);
+	    $data = array(
+	    	'class_questions' => $question_list,
+	    );
+	    $this->smarty->assign('data',$data);
         $this->smarty->display('www/classRoom/index.html');
 	}
 	
@@ -227,17 +239,25 @@ class Classroom extends NH_User_Controller {
 	 * 老师获得该课的所有题目
 	 */
 	public function teacher_get_exercise_page(){
+		$classroom_id= $this->input->get('class_id');
 		
+	    $param = array(
+	    	'class_id' => $class_id,
+	    	'status' => -1,//没出过
+	    );
+	    $question_list = $this->teacher_b->class_question($param);
+	    echo json_encode($question_list);
+	    die;
 	}
 	
 	/**
 	 * 老师出题
 	 */
 	public function teacher_publish_questions(){
-		$int_course_id = $this->input->post("course_id");
-	    $array_data = array(
-	            'course_id'=>$int_course_id,
-	    );
+		$question_id_str = $this->input->get('question_id_str');
+		$quesiton_id_Arr = explode('-',$question_id_str);
+		
+		$this->teacher_b->class_question($param);
 	}
 	
 	/**
@@ -245,6 +265,15 @@ class Classroom extends NH_User_Controller {
 	 */
 	public function teacher_checkout_question_answer(){
 		
+		$sequence_id = $this->teacher_b->get_sequence($param);//获取当前批次
+		$param = array(
+	    	'class_id' => $class_id,
+	    	'status' => -1,//没出过
+	    	'sequence_id' => $sequence_id,
+	    );
+	    $question_list = $this->teacher_b->class_question($param);
+	    echo json_encode($question_list);
+	    die;
 	}
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
 }

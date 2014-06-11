@@ -2,6 +2,7 @@ define(function(require,exports){
 	if ($(".popBox").length>0) {
 		require("module/common/method/popUp").popUp(".popBox");
 	};
+	require("module/common/method/setSchool");
 	//我要开课验证
 	var _valid = require("module/studentStartClass/valid");
 	//判断当前页面时注册成功的关于我的页面

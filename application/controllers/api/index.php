@@ -9,11 +9,18 @@ class Index extends NH_User_Controller {
     }
     
 	/**
-	 * 【老师端】老师获得练习题
+	 * 【老师端】老师获得没出过的练习题
 	 */
 	public function teacher_get_exercise_page()
 	{
-		
+		$classroom_id= $this->input->get('classroom_id');
+	    $param = array(
+	    	'classroom_id' => $classroom_id,
+	    	'status' => -1,//没出过
+	    );
+	    $question_list = $this->teacher_b->class_question($param);
+	    echo json_encode($question_list);
+	    die;
 	}
 	
 	/**
@@ -21,7 +28,13 @@ class Index extends NH_User_Controller {
 	 */
 	public function teacher_get_exercise_stat()
 	{
-		
+		$param = array(
+			'class_id' => $class_id,
+			'sequence' => $sequence_id,
+		);
+		$question = $this->teacher_b->class_question($param);
+		self::json_output($question);
+		exit;
 	}
 	
 	/**

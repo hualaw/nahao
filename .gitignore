@@ -7,3 +7,5 @@ templates_c
 /.idea/
 /application/logs/*
 /application/templates_c/*
+/application/config/autoload.php
+/application/config/database.php

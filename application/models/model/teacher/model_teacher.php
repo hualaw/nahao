@@ -118,8 +118,10 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= $param['status'] ? ' AND qcr.status='.$param['status'] : ' AND qcr.status=1';
+		$where .= $param['status']>0 ? ' AND qcr.status='.$param['status'] : 
+					($param['status']==-1 ? ' AND qcr.status=0' : ' AND qcr.status=1');
 		$where .= $param['class_id'] ? ' AND cl.id='.$param['class_id'] : '';
+		$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
 		$order = " ORDER BY q.id ASC";
 		$column = $param['counter']==1 ? 'count(q.id) total' :
 				( $param['counter']==2 ? 'count(distinct q.question_id) total' 
