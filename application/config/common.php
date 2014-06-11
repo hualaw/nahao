@@ -231,6 +231,11 @@ $config['school_type'][2] = '公立中学';
 $config['classroom_action'][1] = '进入';
 $config['classroom_action'][2] = '退出';
 
+//课堂学生小动作
+$config['classroom_student_action'][1] = '点赞';
+$config['classroom_student_action'][2] = '讲快点';
+$config['classroom_student_action'][3] = '讲慢点';
+
 //课里面的状态
 $config['class_teach_status'][0] = '初始化';
 $config['class_teach_status'][1] = '即将上课';
@@ -247,3 +252,9 @@ $config['subject'][3] = '英语';
 //账户状态
 $config['account'][0] = '禁用';
 $config['account'][1] = '启用';
+
+//进入meeting的身份类型
+$config['nh_meeting_type'][0] = '学生';
+$config['nh_meeting_type'][1] = '老师';
+$config['nh_meeting_type'][2] = '管理员';
+$config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id

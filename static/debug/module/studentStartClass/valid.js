@@ -68,10 +68,16 @@ define(function(require,exports){
                 errormsg: "您未选择教学阶段！"
             },
             {
-                ele:".schoolname",
+                ele:".area_county_id",
                 datatype: "*",
-                nullmsg: "请输入所在学校名称",
-                errormsg: "请输入正确的学校名称"
+                nullmsg: "请选择所在区域",
+                errormsg: "请选择所在区域"
+            },
+            {
+                ele:"#school_type",
+                datatype: "*",
+                nullmsg: "请选择所在学校类型",
+                errormsg: "请选择所在学校类型"
             },
             {
                 ele:".teaTitle",
@@ -81,7 +87,8 @@ define(function(require,exports){
             },
             {
                 ele:".seniority",
-                datatype: "/^\\d{4}$/",
+//                datatype: "/^\\d{4}$/",
+                datatype: "*",
                 nullmsg: "请选择实际教龄",
                 errormsg: "请选择正确的实际教龄"
             },

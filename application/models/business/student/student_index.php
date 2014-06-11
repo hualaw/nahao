@@ -69,4 +69,11 @@ class Student_Index extends NH_Model{
         $array_return['img'] = empty($array_return['img']) ? HOME_IMG_DEFAULT : $array_return['img'];
         return $array_return;
     }
+    
+    /**
+	 * 申请开课
+	 **/
+    public function save_apply_teach($param){
+    	return $this->model_index->save_apply_teach($param);
+    }
 }

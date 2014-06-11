@@ -504,7 +504,7 @@ function get_course_img_by_size($str_img_url, $str_size){
         }else if($str_size=='small'){
             $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
         }
-        $str_return = $str_img_url;
+        $str_return = NH_QINIU_URL.$str_img_url;
     }
     return $str_return;
 }
@@ -559,21 +559,26 @@ function nh_curl($str_url,$arr_param) {
 
 /**
  * get token to operation about meeting
- * @return mixed|string
+ * @param $int_meeting_id
+ * @param $int_user_type
+ * @return string
  * @author yanrui@tizi.com
  */
-function get_meeting_token(){
+function get_meeting_token($int_meeting_id,$int_user_type){
     $str_token = '';
-    $arr_param = array(
-        'type' => NH_MEETING_TYPE_SUPER_ADMIN,
-    );
-    $arr_meeting_param = get_meeting_param();
-    $arr_param = array_merge($arr_param,$arr_meeting_param);
-    $str_url = NH_MEETING_URL.'api/tokens/';
-    $str_response = nh_curl($str_url,$arr_param);
-    if($str_response){
-        $arr_response = json_decode($str_response,true);
-        $str_token = ($arr_response AND isset($arr_response['token'])) ? $arr_response['token'] : '';
+    if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
+        $arr_param = array(
+            'meeting_id' => $int_meeting_id,
+            'type' => $int_user_type,
+        );
+        $arr_meeting_param = get_meeting_param();
+        $arr_param = array_merge($arr_param,$arr_meeting_param);
+        $str_url = NH_MEETING_URL.'api/tokens/';
+        $str_response = nh_curl($str_url,$arr_param);
+        if($str_response){
+            $arr_response = json_decode($str_response,true);
+            $str_token = ($arr_response AND isset($arr_response['token'])) ? $arr_response['token'] : '';
+        }
     }
     return $str_token;
 }
@@ -599,4 +604,20 @@ function general_classroom_id($arr_param){
         }
     }
     return $int_return;
+}
+
+/**
+ * enter_classroom
+ * @param $int_meeting_id
+ * @param $int_user_type
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function enter_classroom($int_meeting_id,$int_user_type){
+    $str_enter_classroom_url = '';
+    if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
+        $str_token = get_meeting_token($int_meeting_id,$int_user_type);
+        $str_enter_classroom_url = $str_token ? NH_MEETING_ENTER_URL.$str_token : '';
+    }
+    return $str_enter_classroom_url;
 }

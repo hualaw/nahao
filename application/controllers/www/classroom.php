@@ -124,8 +124,6 @@ class Classroom extends NH_User_Controller {
 	    }
 	}
 	
-
-
     public function save_stu_action()
     {
         $class_id = intval(trim($this->input->get("class_id")));
@@ -224,6 +222,31 @@ class Classroom extends NH_User_Controller {
 //        error_log($this->db->last_query()."\n",3,$log_path.'class_note.log');
 //        echo $return ? 1 : 0;
     }
+	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
+	/**
+	 * 老师获得该课的所有题目
+	 */
+	public function teacher_get_exercise_page(){
+		
+	}
+	
+	/**
+	 * 老师出题
+	 */
+	public function teacher_publish_questions(){
+		$int_course_id = $this->input->post("course_id");
+	    $array_data = array(
+	            'course_id'=>$int_course_id,
+	    );
+	}
+	
+	/**
+	 * 老师查看做完题的统计
+	 */
+	public function teacher_checkout_question_answer(){
+		
+	}
+	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
 }
 
 /* End of file welcome.php */

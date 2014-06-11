@@ -50,7 +50,7 @@ class Classes extends NH_Admin_Controller {
 //        $str = '?nonce='.TIME_STAMP.'&signature='.$str_signature.'&app_key='.NH_MEETING_ACCESS_KEY;
 //        o($str,true);
         $arr_token = array(
-            'token' => get_meeting_token()
+            'token' => get_meeting_token(0,NH_MEETING_TYPE_SUPER_ADMIN)
         );
         self::json_output($arr_token);
     }
@@ -73,5 +73,18 @@ class Classes extends NH_Admin_Controller {
             }
         }
         self::json_output($this->arr_response);
+    }
+
+    /**
+     * enter classroom
+     * @author yanrui@tizi.com
+     */
+    public function enter(){
+        $str_classroom_url = '';
+        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        if($int_classroom_id){
+            $str_classroom_url = enter_classroom($int_classroom_id,NH_MEETING_TYPE_SUPER_ADMIN);
+        }
+        echo $str_classroom_url;
     }
 }
