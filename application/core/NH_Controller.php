@@ -46,6 +46,11 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('userdata', $this->session->all_userdata());
         $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
         $this->smarty->assign('perfect_url', site_url().'login/perfect');
+        /*
+        echo "<pre>";
+        print_r($this->session->all_userdata());
+        echo "</pre>";
+        */
     }
 
 
