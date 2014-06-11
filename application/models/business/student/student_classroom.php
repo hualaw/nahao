@@ -82,5 +82,20 @@ class Student_Classroom extends NH_Model{
 
         return $array_return;
     }
+
+    /**
+     * 保存课堂笔记(课堂新增，学生后台修改)
+     * @param $arr_data
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function save_class_note($arr_data)
+    {
+        $bool_return = false;
+        if (is_array($arr_data) AND $arr_data) {
+            $bool_return = $this->model_classroom->save_class_note($arr_data);
+        }
+        return $bool_return;
+    }
     
 }

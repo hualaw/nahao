@@ -5,6 +5,7 @@
  * @author yanrui@tizi.com
  */
 
+//添加时按key字母排序
 $config['sql_config'] = array(
     'admin' => array(
         TABLE_ADMIN => false
@@ -85,10 +86,12 @@ $config['sql_config'] = array(
     'teacher_subject' => array(
         TABLE_TEACHER_SUBJECT => false,
     ),
-    'student_subject' => array(
-        TABLE_STUDENT_SUBJECT => false,
+    'user' => array(
+        TABLE_USER => false
     ),
-    'subject' => array(
-        TABLE_SUBJECT => false,
+    'user_info' => array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
     ),
 );
+//添加时按key字母排序

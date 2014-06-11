@@ -183,6 +183,7 @@ define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
+define('TABLE_CLASS_NOTE', 'class_note');
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
