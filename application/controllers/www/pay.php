@@ -364,13 +364,13 @@ class Pay extends NH_User_Controller {
 	    log_message("ERROR_NAHAO", var_export($_SERVER,true)."\n".var_export($_GET,true)."\n"
 	    .var_export($_POST,true)."\n---------------------------------------------------------
 	    ---------------------------\n");
-	    $int_user_id = $this->session->userdata('user_id');#TODO用户id
+	   
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
 	    $paymentChannel = $this->checkPaymentChannel();
 	    do {
 	    
-	        if (empty ($paymentChannel) || $paymentChannel == '') 
+	       /*  if (empty ($paymentChannel) || $paymentChannel == '') 
 	        {
 	            $response['message'] = '非法支付渠道';
 	            break;
@@ -378,12 +378,14 @@ class Pay extends NH_User_Controller {
 	        $this->load->helper('url');
 	        $this->load->model("business/pay/model_{$paymentChannel}", 'channel');
 	        $payResult = $this->channel->response();
-	        
+	        */
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
-	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);
-	        
+	        $payResult['order_id'] = 5;
+	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
+	        $int_user_id = $array_orderInfo['student_id'];#TODO用户id
+	        /*
 	        #未知的订单
 	        if (empty ($array_orderInfo)) 
 	        {
@@ -470,11 +472,12 @@ class Pay extends NH_User_Controller {
 	                }
 	        
 	            }
-	        }
+	        } */
 	        
-/* 	        #更新订单状态,写日志
+	        #更新订单状态,写日志
 	        $array_data = array(
-	        'order_id' =>2,# $payResult['order_id'],
+	        'user_id'=>$int_user_id,
+	        'order_id' =>$payResult['order_id'],
 	        'status'=>$order_updata['status'],
 	        'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
 	        'action'=>ORDER_STATUS_SUCC,             #日志动作
@@ -486,8 +489,8 @@ class Pay extends NH_User_Controller {
 	            $response['message'] = '数据库错误';
 	        } else {
 	            #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
-	            $this->student_order->add_student_class_relation(2);#$payResult['order_id']
-	        } */
+	            $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
+	        }
 	        
 	    }while(false);
 	    
@@ -536,7 +539,7 @@ class Pay extends NH_User_Controller {
 	}
 	
 	/**
-	 * 检查订单是否已经支付完成
+	 * Ajax检查订单是否已经支付完成
 	 */
 	public function check_pay()
 	{

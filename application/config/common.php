@@ -19,12 +19,6 @@ $config['course_status'][4] = '关闭';
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
 
-//教师职称
-$config['teacher_title'][0] = '高级教师';
-$config['teacher_title'][1] = '一级教师';
-$config['teacher_title'][2] = '二级教师';
-$config['teacher_title'][3] = '三级教师';
-
 //教育阶段
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
@@ -247,6 +241,10 @@ $config['class_teach_status'][3] = '上完课';
 $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
 
+//学科
+$config['subject'][1] = '语文';
+$config['subject'][2] = '数学';
+$config['subject'][3] = '英语';
 //账户状态
 $config['account'][0] = '禁用';
 $config['account'][1] = '启用';

@@ -11,24 +11,9 @@ define(function(require,exports){
     //做题块
     $(".doWorkBoxBtn").click(function (){
         _popUp.popUp('.doWorkBoxHtml');
+        _classRoom.show_question();
         _classRoom.doWork();
-        // var html="";
-        // var url = '/classroom/get_exercise/';
-        // var data = {
-        // 		class_id: 4
-        // };
-        // $.post(url, data, function (response) {
-        //     if (response.status == "data_no") {
-        //     	alert(response.msg);
-        //     } else if(response.status == "data_error"){
-        //     	alert(response.msg);
-        //     } else if(response.status == "data_ok"){
-            	
-        //     	$.each(,function(i,n){
-        //     		html +='<div>题目内容</div>';
-        //     	})
-        //     }
-        // }, "json");
+
     });
     //得分-题目选中
     $(".scoreBoxBtn").click(function (){

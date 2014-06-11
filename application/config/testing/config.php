@@ -15,9 +15,9 @@
 |
 */
 $config['base_url']	= 'http://'.__HOST__.'/';
-$config['static_url'] = 'http://static.nahaodev.com/';
-$config['teacher_url'] = 'http://teacher.nahaodev.com/';
-$config['admin_url'] = 'http://admin.nahaodev.com/';
+$config['static_url'] = 'http://static.nahaotest.com/';
+$config['teacher_url'] = 'http://teacher.nahaotest.com/';
+$config['admin_url'] = 'http://admin.nahaotest.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -269,7 +269,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= '.nahaodev.com';
+$config['cookie_domain']	= '.nahaotest.com';
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 
