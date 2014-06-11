@@ -23,6 +23,7 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
+                
             },
             callback:function(data){
                 alert('提交成功');
