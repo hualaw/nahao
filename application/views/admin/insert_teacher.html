@@ -1,6 +1,6 @@
 <h3>添加教师信息</h3>
 <hr>
-<form action="/teacher/check_techer_post" method="post">
+<form action="/teacher/check_techer_post" method="post" enctype="multipart/form-data">
 <table>
     <tr height="35">
         <td width="100"><font color="red">*</font>昵称:</td>
@@ -102,12 +102,6 @@
 <hr>
 <h4>教师简介</h4>
 <textarea class="form-control" rows="5" id="" placeholder="在此填写老师简介" name="teacher_intro"></textarea>
-<hr>
-    <h4>资质证明</h4>
-    <div class="col-md-2">
-        <input type="file" name="teacher_img" id="course_img" class="form-control" multiple="true" >
-        <img id="img_url" src="{if isset($course)}{$course.img}{/if}" style="display:none;">
-    </div>
 <hr>
 <h4>绑定银行账户</h4>
 结算银行:<select name="bank">

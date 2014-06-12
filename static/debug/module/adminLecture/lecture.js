@@ -88,21 +88,5 @@ define(function(require,exports){
             })
         })
 
-        $('#show').focus(function(){
-            $.ajax({
-                type:"post",
-                url:"/order/show_phone",
-                data:"uid="+$("#user_id").val(),
-                success:function(msg){
-                    $("#show").val(msg);
-                }
-            })
-        })
-
-        $('#show').blur(function(){
-            var p=$("#mask").val();
-            $("#show").val(p);
-        })
-
         }
     })

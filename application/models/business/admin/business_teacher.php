@@ -274,6 +274,14 @@ class Business_Teacher extends NH_Model
         return $this->model_user->check_tec_email($email);
     }
     /**
+     * 修改教师
+     * @author shangshikai@tizi.com
+     */
+    public function teacher_momdify($user_id)
+    {
+        return $this->model_user->modify_teacher($user_id);
+    }
+    /**
      * 验证教师表单
      * @author shangshikai@tizi.com
      */

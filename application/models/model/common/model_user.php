@@ -87,6 +87,21 @@ class Model_User extends NH_Model
         return TRUE;
     }
     /**
+     * 修改教师
+     * @author shangshikai@tizi.com
+     */
+    public function modify_teacher($user_id)
+    {
+        $teacher_data=array();
+        $phone=get_pnum_phone_server($user_id);
+        $user_data=$this->db->select(TABLE_USER.'.nickname,email')->from(TABLE_USER)->where(TABLE_USER.'.id',$user_id)->get()->row_array();
+        $user_info_data=$this->db->select(TABLE_USER_INFO.'.realname,age,gender,hide_realname,hide_school,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,teacher_age,stage,teacher_intro,basic_reward')->from(TABLE_USER_INFO)->where(TABLE_USER_INFO.'user_id',$user_id)->get()->row_array();
+        $user_data['phone']=$phone;
+        $teacher_data['user_data']=$user_data;
+        $teacher_data['user_info_data']=$user_info_data;
+        return $teacher_data;
+    }
+    /**
      * 根据市城市查找学校
      * @author shangshikai@tizi.com
      */
