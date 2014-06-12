@@ -29,6 +29,7 @@ class Index extends NH_User_Controller {
 	    if(! $this->is_login){
 	        redirect('/login');
 	    }
+	    
 		$param['stage'] = config_item('stage');
 		$param['teacher_title'] = config_item('teacher_title');
 		$param['teacher_type'] = config_item('teacher_type');
@@ -36,7 +37,7 @@ class Index extends NH_User_Controller {
 		$param['teach_years'] = 50;
 		$data = array(
 			'data' => $param,
-			'user_info' => $this->_user_detail,
+			'user_info' => isset($this->_user_detail) ? $this->_user_detail : array('phone'=>'','email'=>''),
 		);
 		$this->smarty->assign('data',$data);
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');

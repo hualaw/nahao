@@ -224,13 +224,12 @@ class Model_Member extends NH_Model{
     /**
      * 获取是否是手机号注册的
      * @param  $int_user_id
-     * @return $array_result
+     * @return $int_result
      */
     public function check_phone_register($int_user_id)
     {
-        $array_result = array();
-        $sql = "SELECT id FROM user WHERE id=".$int_user_id." AND phone_verified =1 ";
-        $array_result = $this->db->query($sql)->num_rows();
-        return $array_result;
+        $sql = "SELECT id FROM user WHERE id=".$int_user_id." AND reg_type =  ".REG_TYPE_PHONE;
+        $int_result = $this->db->query($sql)->num_rows();
+        return $int_result;
     }
 }
