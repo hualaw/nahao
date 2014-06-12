@@ -91,7 +91,7 @@ admin_url: {$admin_url}<br>
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
-				<li class="cf optional">
+				<!-- <li class="cf optional">
 					<p class="fl">关注学科</p>
 					<div class="fl objBox">
 						<a href="javascript:void(0)">语文</a>
@@ -114,24 +114,34 @@ admin_url: {$admin_url}<br>
 						<p class="tips fl">注：最多可选择3项</p>
 						<span class="Validform_checktip fl"></span>
 					</div>
+				</li> -->
+				<li class="attent">
+					<p class="optional">关注学科</p>
+					<input type="button" name="focus_subjects" subject_id="1" value="奥数" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="2" value="数学" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="3" value="作文" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="4" value="英语" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="5" value="物理" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="6" value="化学" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="7" value="生物" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="8" value="地理" class="btn ">
+					<input type="button" name="focus_subjects" subject_id="9" value="政治" class="btn ">
+                    <input type="hidden" name="selected_subjects" id="selected_subjects" value="">
+					<div class="cf">
+						<div class="attNote fl">注：最多可选择3项</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
 				</li>
 				<li class="cf">
-					<p class="optional">所属学校</p>
+					<p class="schooptional">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
 						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
-						<!-- ······················选择学校代码开始·························· -->
-						<!-- <span class="schoolFullName"></span> -->
-						<!-- <a href="javascript:void(0);" class="resetSchool aGreen" set="1" province="2" city="" county="500">选择学校</a> -->
-						<!-- <a href="javascript:void(0);" class="resetSchool aGreen">选择学校</a> -->
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
 						<input type="hidden" value="" name="schoolname" id="schoolname" />
-						<!-- ······················选择学校代码结束·························· -->
-						<!-- 加载选择学校html开始 -->
 						{include file='common/setSchool.html'}
-						<!-- 加载选择学校html结束 -->
 					</div>
 				</li>
 				<li>
