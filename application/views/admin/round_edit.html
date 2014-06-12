@@ -165,32 +165,35 @@
 
     <div class="form-group">
         <label class="col-md-2 control-label">添加图片</label>
-
-        <input name="new_file_name" id="new_file_name" type="hidden" value="{$upload_key}">
+        <input name="new_img_file_name" id="new_img_file_name" type="hidden" value="{$upload_img_key}">
         <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
-
         <div class="col-md-2">
             <input type="file" name="round_img" id="round_img" class="form-control" multiple="true" >
-            <img id="img_url" src="{if isset($round)}{$round.img}{/if}" style="display:none;">
-        </div>
-        <div class="col-md-3">
-            <img id="img_url_large" src="" >
-        </div>
-        <div class="col-md-3">
-            <img id="img_url_general" src="" >
-        </div>
-        <div class="col-md-3">
-            <img id="img_url_small" src="" >
+            <img id="img_url" src="{if isset($round.img)}{$round.img}{/if}" style="display:none;">img_url:{$round.img}
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">添加视频</label>
 
-        <div class="col-md-2">
-            <input type="file" class="form-control" id="video" rows="10" >
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{get_course_img_by_size($round.img,'large')}" >
         </div>
         <div class="col-md-3">
-            <div id="video_url" >{if isset($round)}{$round.video}{/if}</div>
+            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{get_course_img_by_size($round.img,'general')}" >
+        </div>
+        <div class="col-md-3">
+            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{get_course_img_by_size($round.img,'small')}" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">添加视频</label>
+        <input name="new_video_file_name" id="new_video_file_name" type="hidden" value="{$upload_video_key}">
+        <div class="col-md-2">
+            <input type="file" name="round_video" id="round_video" class="form-control" multiple="true" >
+        </div>
+        <div class="col-md-3">
+            <div id="video_url" >{if isset($round.video)}{$round.video}{/if}</div>
         </div>
     </div>
 

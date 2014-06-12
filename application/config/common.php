@@ -258,3 +258,14 @@ $config['nh_meeting_type'][0] = '学生';
 $config['nh_meeting_type'][1] = '老师';
 $config['nh_meeting_type'][2] = '管理员';
 $config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id
+
+//admin_course_list_search_type
+$config['admin_course_list_search_type'][1] = '课程名称';
+$config['admin_course_list_search_type'][2] = '授课老师';
+$config['admin_course_list_search_type'][3] = '课程ID';
+
+//admin_round_list_search_type
+$config['admin_round_list_search_type'][1] = '班次名称';
+$config['admin_round_list_search_type'][2] = '授课老师';
+$config['admin_round_list_search_type'][3] = '班次ID';
+
