@@ -260,7 +260,7 @@ define('NH_MEETING_TYPE_TEACHER',1);//老师
 define('NH_MEETING_TYPE_ADMIN',2);//管理员
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
-define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/tnc/enter?token=');
+define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
