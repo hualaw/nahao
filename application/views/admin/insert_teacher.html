@@ -41,7 +41,7 @@
         </td>
     </tr>
     <tr height="35">
-        <td><font color="red">*</font>所在学校:</td>
+        <td>所在学校:</td>
         <td><select name="school" id="school">
 
         </select>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_school" value=1>保密</td>
@@ -102,6 +102,12 @@
 <hr>
 <h4>教师简介</h4>
 <textarea class="form-control" rows="5" id="" placeholder="在此填写老师简介" name="teacher_intro"></textarea>
+<hr>
+    <h4>资质证明</h4>
+    <div class="col-md-2">
+        <input type="file" name="teacher_img" id="course_img" class="form-control" multiple="true" >
+        <img id="img_url" src="{if isset($course)}{$course.img}{/if}" style="display:none;">
+    </div>
 <hr>
 <h4>绑定银行账户</h4>
 结算银行:<select name="bank">

@@ -120,6 +120,29 @@ class Teacher extends NH_Admin_Controller {
         $province=$this->business_lecture->all_province();
 //        $province_id=$this->input->post('province',TRUE);
 //        $city=$this->teacher->city1($province_id);
+
+
+
+
+
+        $this->load->model('business/common/business_course_type','course_type');
+        $arr_course_types = $this->course_type->get_course_types_like_kv();
+        //generate param for uploading to qiniu
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $this->load->helper('string');
+        $str_salt = random_string('alnum', 6);
+        //course img file name
+        $str_new_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
+        $this->smarty->assign('token',$str_upToken);
+        $this->smarty->assign('key',$str_new_file_name);
+
+
+
+
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
         $this->smarty->assign('province',$province);
@@ -134,6 +157,9 @@ class Teacher extends NH_Admin_Controller {
     public function check_techer_post()
     {
         $post=$this->input->post(NULL,TRUE);
+        var_dump($post);
+        echo "<br />";
+        var_dump($_FILES);die;
         if($this->teacher->check_post($post))
         {
             redirect('teacher');
