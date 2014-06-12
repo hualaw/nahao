@@ -138,7 +138,7 @@ define(function(require, exports) {
                 if ($.trim(words) != ''){
                     if(/.*[\u4e00-\u9fa5]+.*$/.test(words)){
                         $.ajax({
-                            'url' : siteUrl + 'class/schools/convert?chinese='+encodeURIComponent(words),
+                            'url' : siteUrl + 'school/convert?chinese='+encodeURIComponent(words),
                             'type' : 'GET',
                             'dataType' : 'json',
                             success : function(json, status){
