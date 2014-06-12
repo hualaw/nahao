@@ -30,7 +30,7 @@
 .login .attent .Validform_right{height: 16px;}
 .login form .attent,.login form .schooptional{padding-left: 20px;}
 .login form .attent .btn{width: 90px;}
-.login form .attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;}
+.login form .attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;font-weight: bold;}
 .login form .attent .attentd,
 .login form .attent .btn:hover{background: #6dcde6;color:#fff;}
 .login form .attent .btn{box-shadow: none;height: 32px;line-height: 32px;font-size: 16px;margin:0 10px 14px 0;}
