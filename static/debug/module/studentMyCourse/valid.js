@@ -158,7 +158,7 @@ define(function(require,exports){
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -230,12 +230,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.msg);
+                if(data.status == 'ok') {
+                    window.location.reload();
+                }
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -246,6 +249,16 @@ define(function(require,exports){
                 datatype:"*2-15",
                 nullmsg:"请输入昵称",
                 errormsg:"长度2-15个字符"
+            },
+            {
+                ele: ".phone_number",
+                datatype:"m",
+                ignore:"ignore",
+                nullmsg:"请输入手机号",
+                errormsg:"请输入正确的手机号",
+                ajaxurl:'/register/check_phones',
+                ajaxUrlName:'phone',
+                
             },
             {    
                 ele:".loction",

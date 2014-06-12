@@ -191,4 +191,34 @@ define(function(require,exports){
 			//}
 		});
 	}
+    
+        //发送验证码
+    exports.sendValidateCode = function (){
+        $('.sendPhoneCode').click(function() {
+            var _this = $(this);
+            var phone = $("input[name='phone']").val();
+            var verify_type = $("input[name='verify_type']").val();
+            if(!(phone)) {
+                alert('请填写手机号');
+                return false;
+            } else if(!(/\d{11}/.test(phone))) {
+                alert('请输入正确的手机号')
+                return fasle;
+            }
+            $.ajax({
+                url : 'http://www.nahaodev.com/register/send_captcha',
+                type : 'post',
+                data : {'phone' : phone, 'type' : verify_type},
+                dataType : 'json',
+                success : function (result) {
+                    if(result.status == 'error') {
+                        alert(result.msg);
+                    }
+                    //手机验证倒计时
+                    require("module/common/method/countDown").countDown(_this);
+                }
+            }
+            );
+        });
+    }
 });
