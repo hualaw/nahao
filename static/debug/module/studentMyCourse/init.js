@@ -2,7 +2,7 @@ define(function(require,exports){
 	// 公共select模拟
 	require('select');
 	// 美化select
-	$('select').jqTransSelect();
+//	$('select').jqTransSelect();
 	// 美化radio
 	$('input[type=radio]').jqTransRadio();
 
@@ -43,17 +43,17 @@ define(function(require,exports){
 
 
 	if($(".buyAfter").length){
-		//开课 倒计时
-		//_myCourse.countDown();
 		//云笔记 弹框
 		_myCourse.cNote();
 	    //我的课程购买之后 列表 课程回顾 背景圆
 	    _myCourse.overCourse();
+		//开课 倒计时
+		_myCourse.countDown($(".classCDcon"),"stime",2);
 	}else if($(".buyBefore").length){
 	    //购买前  选开课时间
 		_myCourse.timeToggle();
 		//报名 倒计时
-		_myCourse.countDown();
+		_myCourse.countDown($(".countdown"),"sell_endtime",1);
 		//购买前--点击立即购买
 		_myCourse.soon_buy();
 		//购买前下面--点击购买课程
@@ -67,16 +67,19 @@ define(function(require,exports){
 		_myCourse.doCancelMyOrder();
 	}
 	
-    //教室弹层
-    var _popUp = require('module/common/method/popUp');
-    //评价
-    $(".evaluBtn").click(function (){
-        //评论 几颗星
-        _myCourse.starClick();
+    // //教室弹层
+    // var _popUp = require('module/common/method/popUp');
+    // //评价
+    // $(".evaluBtn").click(function (){
+    //     //评论 几颗星
+    //     _myCourse.starClick();
         
-        _popUp.popUp('.evaluHtml');
-        
-        
-
-    });
+    //     _popUp.popUp('.evaluHtml');
+    // });
+    //个人资料修改地区
+    if($("#province").length > 0) {
+        require("module/studentMyCourse/area").change_area();
+    }
+    //发送手机验证码
+    _myCourse.sendValidateCode();
 })

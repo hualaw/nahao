@@ -72,7 +72,7 @@
                         <div class="cf">
                             <div class="fl">
                                 <div>
-                                    <select name="teacher_subject" id="subject" class="fl subject"  validName="select">
+                                    <select name="teacher_subject" id="subject" class="fl subject select_beauty"  validName="select">
                                         <option value="">请选择教学科目</option>
                                         {foreach $subjects as $key => $val}
                                         <option value="{$key}" {if in_array($key, $user_detail.teacher_subject)}selected{/if}>{$val}</option>
@@ -91,7 +91,7 @@
                         <div class="cf">
                             <div class="fl">
                                 <div>
-                                    <select name="teacher_title" id="rank" class="fl rank"  validName="select">
+                                    <select name="teacher_title" id="rank" class="fl rank select_beauty"  validName="select">
                                         <option value="">请选择职称</option>
                                         {foreach $titles as $key => $val}
                                         <option value="{$key}" {if $key == $user_detail.title}selected{/if}>{$val}</option>
@@ -155,7 +155,7 @@
                         <div class="fl">
                             <div class="fl">
                                 <div>
-                                    <select name="zone" id="zone" class="zone" validName="select">
+                                    <select name="area" id="area" class="area" validName="select">
                                         <option value="">区</option>
                                         {if $area}
                                         {foreach $area as $val}
@@ -176,7 +176,7 @@
                         <div class="cf">
                             <div class="fl">
                                 <div>
-                                    <select name="teacher_age" id="schoolAge" validName="select" class="schoolAge">
+                                    <select name="teacher_age" id="schoolAge" validName="select" class="schoolAge select_beauty">
                                         <option value="">请选择教龄</option>
                                         {section name=age loop=$teacher_age_ceiling}
                                         <option value="{$smarty.section.age.index+1}" {if $smarty.section.age.index+1 == $user_detail.teacher_age}selected{/if}>{$smarty.section.age.index+1}年</option>
@@ -194,7 +194,7 @@
                         <p class="fl">手机号码</p>
                         <!--手机号码开始-->
                         <div class="cf">
-                            <input type="text" name="phone" class="fl textInput phone" validName="text" value="{$user_detail.phone_mask}" disabled="true"/>
+                            <input type="text" name="phone" class="fl textInput phone" validName="text" value="{$user_detail.phone}" disabled="true"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--手机号码结束-->
@@ -218,22 +218,26 @@
                         <p class="fl">资质证明<b class="verfyTip">（请至少上传一种资质证明，教师资格证必须上传）</b></p>
                         <div class="fl">
                             <div class="md_upload">
+                                <input name="work_auth_img" id="work_auth_img" type="hidden" value="{$upload_work_img_key}">
+                                <input name="title_auth_img" id="title_auth_img" type="hidden" value="{$upload_auth_img_key}">
+                                <input name="teacher_auth_img" id="teacher_auth_img" type="hidden" value="{$upload_title_img_key}">
+                                <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
                                 <a href="javascript:void(0);" class="uploada icon_upload1" data-fileId="shareFileUpField1">
                                     <b class="uploadTip">教师资格证书</b>
                                     <!--上传插件开始-->
-                                    <input type="file" name="shareFileUpField1" id="shareFileUpField1" class="file fl" multiple="true" style="display:none"/>
+                                    <input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
                                     <!--上传插件结束-->
                                 </a>
                                 <a href="javascript:void(0);" class="uploada icon_upload2" data-fileId="shareFileUpField2">
                                     <b class="uploadTip">教师职称证书</b>
                                     <!--上传插件开始-->
-                                    <input type="file" name="shareFileUpField2" id="shareFileUpField2" class="file fl" multiple="true" style="display:none"/>
+                                    <input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
                                     <!--上传插件结束-->
                                 </a>
                                 <a href="javascript:void(0);" class="uploada icon_upload3" data-fileId="shareFileUpField3">
                                     <b class="uploadTip">学校工作证</b>
                                     <!--上传插件开始-->
-                                    <input type="file" name="shareFileUpField3" id="shareFileUpField3" class="file fl" multiple="true" style="display:none"/>
+                                    <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
                                     <!--上传插件结束-->
                                 </a>
                             </div>
@@ -251,7 +255,7 @@
                         <div class="fl">
                             <div class="fl">
                                 <div>
-                                    <select name="bank" id="bankType" validName="select" class="bankType">
+                                    <select name="bank" id="bankType" validName="select" class="bankType select_beauty">
                                         <option value="">请选择银行</option>
                                         {foreach $banks as $key => $val}
                                         <option value="{$key}" {if $key == $user_detail.bankname}selected{/if}>{$val}</option>

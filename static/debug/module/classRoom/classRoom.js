@@ -53,15 +53,12 @@ define(function (require,exports){
 	//选择题目 切换内容
 	exports.curItem	= function (){
 		//初始--选的题目内容显示，左侧对应列表高亮 
-		var ind = 2;
-		$(".itemscore .sconl li").eq(ind).addClass("curitme");
-		$(".itemscore .scoreBoxList").eq(ind).removeClass("undis");
+		//var ind = 2;
+		$(".itemscore .scoreBoxList").eq(0).removeClass("undis");
 
 		//点击时切换
 		$(".itemscore .sconl li").click(function (){
 			var _this = $(".itemscore .sconl li").index($(this));
-			$(".itemscore .sconl li").removeClass("curitme");
-			$(this).addClass("curitme");
 			$(".itemscore .scoreBoxList").addClass("undis");
 			$(".itemscore .scoreBoxList").eq(_this).removeClass("undis");
 		})
@@ -139,33 +136,78 @@ define(function (require,exports){
 			qid = "",
 			answer = "",
 		    sequence = 1,
-		    cid = 0;
-		
-		
-		$(".subAns").live('click',function (){
-			var _len = $('.doWorkList').size()/2;
-			//console.log($('.doWorkList').size());
-			var aL = $(this).parent().parent().find(".answerList");
-			for(var i=0;i<aL.find("li").length;i++){
-				if(!aL.find("li").hasClass("curAnswer")){
-					alert("您还没有做题");
-					return;
+		    cid = 0;	
+
+		$(".aui_content .nextBtn").live('click',function (){
+			ans = [];
+			ind++;
+			//last itme
+			$(".aui_content .doWorkList").addClass("undis");
+			$(".aui_content .doWorkList").eq(ind).removeClass("undis");
+			$(this).hide();
+			$(".aui_content .subAns").show();
+		});	
+
+		$(".aui_content .answerList li").live('click',function (){
+			if(type == 1){
+				$(".aui_content .answerList li").removeClass("curAnswer");
+				$(this).addClass("curAnswer");
+			}else{
+				$(this).addClass("curAnswer");
+			}
+			ans.push($(".aui_content .answerList li").index($(this)));
+			qid = $(this).parent().parent().find(".setqid").attr("qid")
+			sequence = $(this).parent().parent().find(".setqid").attr("sequence")
+			cid = $(this).parent().parent().find(".setqid").attr("classid")
+			var answers = [];
+
+			answers.push($(this).find(".options").html());
+			answer = answers.join();
+		});	
+
+		var aa = true;
+
+		$(".aui_content .subAns").live('click',function (){
+			var _len = $('.aui_content .doWorkList').size();
+			var aL = $(".aui_content .answerList").eq(ind).find("li");
+			console.log($('.aui_content .doWorkList').size());
+			if(aa){
+				ind = 0;
+				for(var i=0;i<aL.length;i++){
+					if(!aL.hasClass("curAnswer")){
+						alert("您还没有做题");
+						return;
+					}
+				}
+				aa=false;
+			}else{
+				for(var i=0;i<aL.length;i++){
+					console.log(!aL.hasClass("curAnswer"))
+					if(!aL.hasClass("curAnswer")){
+						alert("您还没有做题");
+						return;
+					}
 				}
 			}
+			document.title=(ind)
 			if(ind>=_len-1){
 				if(index){
 					$(this).show().html("查看结果");
 					index = false;
 				}else{
 					$(".aui_content").html($(".scoreBoxHtml").html());
+			        //选择题目 切换内容
+			        exports.curItem();
 
-					$(".itemscore .result").click(function (){
-						$(".aui_content").html($(".scorePageHtml").html());
+					$(".aui_content .itemscore .result").click(function (){
+						$(this).addClass("resultArrow");
+						$(".aui_content .Hideresult").show();
+						$(".aui_content .Showresult").hide();
 					})
 				}
 			}else{
 				$(this).hide();
-				$(".nextBtn").show();	
+				$(".aui_content .nextBtn").show();	
 			}
 			//ajax提交答案
 			//console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
@@ -178,8 +220,8 @@ define(function (require,exports){
             };
             $.post(murl, mdata, function (response) {
 				if(type == 1){
-    				if($(".answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
-    					$(".answerList li").eq(ans[ans.length-1]).addClass("ansRight");
+    				if($(".aui_content .answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
+    					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansRight");
     				}else{
     					var n;
     					switch(response.data.answer){
@@ -192,38 +234,11 @@ define(function (require,exports){
     						case "D":
     						n = 3;
     					}
-    					$(".answerList li").eq(ans[ans.length-1]).addClass("ansError");
-    					$(".answerList li").eq(ind*4+n).addClass("ansRight");
+    					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
+    					$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
     				}
     			}
             });			
-		});
-
-		$(".nextBtn").live('click',function (){
-			ans = [];
-			ind++;
-			//last itme
-			$(".doWorkList").addClass("undis");
-			$(".doWorkList").eq(ind).removeClass("undis");
-			$(this).hide();
-			$(".subAns").show();
-		});	
-
-		$(".answerList li").live('click',function (){
-			if(type == 1){
-				$(".answerList li").removeClass("curAnswer");
-				$(this).addClass("curAnswer");
-			}else{
-				$(this).addClass("curAnswer");
-			}
-			ans.push($(".answerList li").index($(this)));
-			qid = $(this).parent().parent().find(".setqid").attr("qid")
-			sequence = $(this).parent().parent().find(".setqid").attr("sequence")
-			cid = $(this).parent().parent().find(".setqid").attr("classid")
-			var answers = [];
-
-			answers.push($(this).find(".options").html());
-			answer = answers.join();
 		}); 
 	}
 	

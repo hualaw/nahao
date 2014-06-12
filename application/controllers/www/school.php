@@ -36,4 +36,18 @@ class School extends NH_Controller {
         ksort ($school);
         $this->json_output($school);
     }
+
+    public function convert(){
+        $chinese = trim($this->input->get('chinese'));
+        $chinese = urldecode($chinese);
+        $this->load->helper('pinyin');
+        $pinyin = utf82py($chinese);
+        $convert = '';
+        foreach ($pinyin as $value){
+            $convert .= $value;
+        }
+        $data = array("py" => $convert);
+        $this->json_output($data);
+    }
+
 }

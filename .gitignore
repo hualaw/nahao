@@ -5,5 +5,10 @@ templates_c
 .htaccess
 
 /.idea/
+/webroot/index.php
 /application/logs/*
+/application/config/*.php
+/application/config/development/*.php
+/application/config/testing/*.php
+/application/config/production/*.php
 /application/templates_c/*

@@ -20,6 +20,7 @@
 	<!--做题块 开始-->
 	<div class="doWorkBoxHtml undis">
 		<div class="doWorkBox">
+		
 		</div>
 	</div>
 	<!--做题块 结束-->
@@ -29,20 +30,20 @@
 	<div class="scoreBoxHtml undis">
 		<div class="scoreBox itemscore">
 			<div class="fl optionNav">
-				<h3 class="result">结果</h3>
+				<h3 class="result">结果<span class="fr"></span></h3>
 				<div class="sconParl posr">
 					<ul class="sconl">
 						<li>第1题</li>
-						<li>第2题</li>
+						<li class="curitme">第2题</li>
 						<li>第3题</li>
-						<li>第4题</li>
+						<li class="curitme">第4题</li>
 					</ul>
 					<div class="sparent undis">
 						<div class="sbar"></div>
 					</div>
 				</div>
 			</div>
-			<div class="fl scoreCon posr">
+			<div class="fl scoreCon posr Showresult">
 				<div class="posr scoreBoxPar">
 					<div class="scoreBoxList undis">
 						<div>题目111111111111111111111内容</div>
@@ -126,6 +127,25 @@
 				<div class="cparent undis">
 					<div class="cbar"></div>
 				</div>
+			</div>
+			<div class="fl scoreCon Hideresult undis">
+				<div class="fl scoreShow">
+					<div class="score">
+						<h3>你的得分</h3>
+						<strong>50</strong>
+					</div>
+					<div class="scoref cf">
+						<span class="fl rightItem">
+							<span class="ansIco"></span>
+							<em>3</em>
+						</span>
+						<span class="fl errorItem">
+							<span class="ansIco"></span>
+							<em>2</em>
+						</span>
+					</div>
+				</div>
+				<p class="fl promText">请点击左侧按钮回顾您的作答情况，红色表示做错的题目，绿色表示做对的题目。请认真查看做错的题目，看看自己能否解出正确答案。如仍不能解出正确答案的，请耐心等待老师讲解哦！</p>
 			</div>
 		</div>
 	</div>
@@ -539,26 +559,26 @@
 	<div class="feedbackHtml undis">
 		<div class="feedback">
 			<h2>意见反馈</h2>
-			<form action="" class="feedbackForm" method="post" onsubmit="return false;">
+			<form action="/index/feedback/" class="feedbackForm" method="post" >
 				<ul>
 					<li class="cf posr">
 						<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>
 						<div class="cf">
-							<textarea name="aTextarea" class="fTextarea fl ctextarea" validName="textarea"></textarea>
+							<textarea name="content" class="fTextarea fl ctextarea" validName="textarea"></textarea>
 							<span class="Validform_checktip fl"></span>
 						</div>
 					</li>
 					<li class="posr">
 						<p class="formName">您的称呼</p>
 						<div class="cf">
-							<input type="text" placeholder="请输入您的称呼，以便我们和您联系" name="Uname" class="fname fl cInput" validName="text">
+							<input type="text" placeholder="请输入您的称呼，以便我们和您联系" name="nickname" class="fname fl cInput" validName="text">
 							<span class="Validform_checktip fl"></span>
 						</div>
 					</li>
 					<li class="cf posr">
 						<p class="formName">您的邮箱</p>
 						<div class="cf">
-							<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题" name="Email" class="fEmail fl cInput" validName="text">
+							<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题" name="email" class="fEmail fl cInput" validName="text">
 							<span class="Validform_checktip fl"></span>
 						</div>
 					</li>

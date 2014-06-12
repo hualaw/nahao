@@ -13,7 +13,7 @@ class register extends NH_Controller
 		if($this->session->userdata('user_id'))
 		{
 			$this->smarty->assign('nickname', $this->session->userdata('nickname'));
-			$this->smarty->display('www/index.html');		
+			$this->smarty->display('www/studentHomePage/index.html');
 		}
 		else
 		{
@@ -50,10 +50,10 @@ class register extends NH_Controller
 		$password = trim($this->input->post('password'));
 		$captcha = trim($this->input->post('captcha'));
 
-		if(empty($phone)) $reg_type = REG_TYPE_EMAIL;
-		else $reg_type = REG_TYPE_PHONE;
+		if(empty($phone)) $reg_type = REG_LOGIN_TYPE_EMAIL;
+		else $reg_type = REG_LOGIN_TYPE_PHONE;
 
-		if($reg_type == REG_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
+		if($reg_type == REG_LOGIN_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
 
 		$reg_ret = $this->business_register->submit($phone, $email, $password, $captcha, $reg_type);
 

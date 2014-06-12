@@ -98,7 +98,7 @@ class NH_Model extends CI_Model
         return $mix_return;
     }
 
-    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email)
+    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type)
     {
 
         if($nickname == '' )
@@ -130,6 +130,7 @@ class NH_Model extends CI_Model
             'phone' => $phone,
             'phone_mask' => $phone_mask,
             'email' => $email,
+            'reg_type' => $reg_type,
         );
         $this->session->set_userdata($userdata);
     }
