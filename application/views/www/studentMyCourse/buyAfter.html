@@ -67,7 +67,7 @@
 	        	<div class="fl schedule">
 	        		<span>目前已完成<strong class="redText">{$array_data.class}</strong>节课，可以再去复习一下，加油啊！</span>
 	        		<div class="fLine posr">
-	        			<div class="redLine" style="width:90%"></div>
+	        			<div class="redLine" style="width:{$array_data.class_rate}%"></div>
 	        		</div>
 	        	</div>
 	        	<div class="fr bHeadR"></div>
@@ -82,7 +82,7 @@
                 	<div class="outlineList">
                 		{if $item.id > 1}
 							<h3 class="cf">
-	                            <p>{$item.title}</p>
+	                            <p>第{$item.sequence+1}章&nbsp;&nbsp;{$item.title}</p>
 	                            <span class="fl"></span>
 	                        </h3>
 						{/if}
@@ -95,7 +95,7 @@
 								{elseif $it.status=='2'}
 									<a href="http://ribao.oa.tizi.com/meeting/{$it.classroom_id}/enter" target="_blank" title="可进教室了" class="goClass cBtn fl">去上课</a>
 								{elseif $it.status=='3'}
-									<a href="" class="replay cBtn fl">课程回放</a>									
+									<a href="" class="replay cBtn fl">已结课</a>									
 								{/if}
 	                            <div class="fr rCon">
 	                            	{if $smarty.foreach.son.last && $smarty.foreach.parent.last}
@@ -105,12 +105,17 @@
 	                                {/if}
 		                            <div class="fr listb">
 		                            	<div class="cf">
-		                                	<p class="listh fl">{$it.title}</p>
+		                                	<p class="listh fl">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}</p>
 		                                	<div class="cf cListHid undis">
 		                                		<span class="fl handout"></span>
-			                                	<span class="fl cloudNotes"></span>
-			                                	<a href="javascript:void(0)" class="cevaluBtn fr evaluBtn">评价</a>
+		                                		{if $it.status=='3'}
+			                                	<span class="fl cloudNotes" data-cid={$it.classroom_id}></span>
+			                                	{/if}
+			                                	{if $it.comment_status > 0}
 			                                	<span class="cevaluBtn fr sevaluBtn">已评价</span>
+			                                	{else}
+			                                	<a href="javascript:void(0)" evaluBtns="{$it.id}" class="cevaluBtn fr evaluBtn ">评价</a>
+			                                	{/if}
 			                            	</div>
 		                            	</div>
 		                                <p class="listc">{$it.time}</p>
@@ -175,12 +180,7 @@
 <!--云笔记 弹框-->
 <div class="noteDia undis">
 	<div class="cnDia">
-		<h2>第一章 机器人是什么样的</h2>	
-		<div class="cnCon">
-			<p>卡恢复可j阿航空附近噶结果飞机，阿克苏警方给j啊韩国飞机哈规划方案根据哈斯国防
-	阿花是否可j啊设计方案a各示范户j啊。非官方j啊还是国防军哈国防可是解放后恢复啦
-	看啦合法化哈根。</p>
-		</div>
+
 	</div>
 </div>
 <!--评论 弹框-->
@@ -194,16 +194,18 @@
 			<span></span>
 			<span></span>
 		</span>
-		<form action="" class="evaluForm" method="post" onsubmit="return false;">
+		<form action="/course/class_comment" class="evaluForm" method="post">
+			<input type="hidden" name="score" id="c_score" value="">
+			<input type="hidden" name="class_id" id="c_class_id" value="">
 			<ul>
 				<li>
 					<div class="cf">
-						<textarea name="eTextarea" class="eTextarea ctextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
+						<textarea name="content" class="eTextarea ctextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li class="cf">
-					<input type="submit" class="noShowBtn redBtn submit fr" value="提交">
+					<input type="submit" class="noShowBtn redBtn submit fr class_comment" value="提交">
 				</li>
 			</ul>
 		</form>

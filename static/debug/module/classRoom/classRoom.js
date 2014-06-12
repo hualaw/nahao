@@ -87,7 +87,10 @@ define(function (require,exports){
 		 };
 		 $.post(url, data, function (response) {
 			 if (response.status == "error") {
-				 alert(response.msg);
+					$.dialog({
+					    content:response.msg,
+					    icon:null
+					});
 			 } else if(response.status == "ok"){
 				 
 				 $.each(response.data, function(key, val) {
@@ -138,19 +141,41 @@ define(function (require,exports){
 		    sequence = 1,
 		    cid = 0;
 		alert(ind)
-				
-		$(".subAns").live('click',function (){
+				var flag = 0;
+		$(".aui_content").on('click','.subAns',function (){
+			//debugger;
 		document.title=(ind)
 			var _len = $('.doWorkList').size()/2;
 			//console.log($('.doWorkList').size());
-
+		console.log(ind)
 			var aL = $(".answerList").eq(ind).find("li");
+	
 			console.log(aL.length)
+			flag = 0;
 			for(var i=0;i<aL.length;i++){
-				if(!aL.hasClass("curAnswer")){
-					alert("您还没有做题");
+			
+	/*			if(!aL.eq(i).hasClass("curAnswer")){
+					//alert("您还没有做题");
+					$.dialog({
+					    content:"这里是文字",
+					    icon:null
+					});
 					return;
+					//break;
+				}*/
+				if(aL.eq(i).hasClass("curAnswer")){
+					flag += 0;
+				} else{
+					flag += 1;
 				}
+			}
+			console.log(flag);
+			if(flag >= 4){
+				$.dialog({
+				    content:"这里是文字",
+				    icon:null
+				});
+				return;
 			}
 			if(ind>=_len-1){
 				if(index){
@@ -228,46 +253,5 @@ define(function (require,exports){
 			answer = answers.join();
 		}); 
 	}
-	
-	
-/*	//提交答案
-	exports.save_answer = function(){
-		$('').click(function (){
-			
-			var url = '/classroom/save/';
-            var data = {
-            	class_id: $("#class_id").val(),
-            	question_id: $("#question_id").val(),
-            	selected:$("#selected").val(),
-            	sequence:$("#sequence").val(),
-            	answer:$("#answer").val(),
-            };
-            $.post(url, data, function (response) {
-                if (response.status == "ok") {
-                	alert(response.msg);
-                } else if(response.status == "error"){
-                	alert(response.msg);
-                }
-            });
-		});
-	}
-	
-	//查看结果
-	exports.save_answer = function(){
-		$('').click(function (){
-			
-			var url = '/classroom/get_question_result_data/';
-            var data = {
-            	class_id: $("#class_id").val(),
-            	selected:$("#selected").val()
-            };
-            $.post(url, data, function (response) {
-                if (response.status == "ok") {
-                	alert(response.msg);
-                } else if(response.status == "error"){
-                	alert(response.msg);
-                }
-            });
-		});
-	}*/
+
 })
