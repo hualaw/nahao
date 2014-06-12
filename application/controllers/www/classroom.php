@@ -236,7 +236,7 @@ class Classroom extends NH_User_Controller {
     }
 	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
 	/**
-	 * 老师获得该课的所有题目
+	 * 老师获得该课的当前未出过所有题目
 	 */
 	public function teacher_get_exercise_page(){
 		$classroom_id= $this->input->get('class_id');
@@ -246,34 +246,54 @@ class Classroom extends NH_User_Controller {
 	    	'status' => -1,//没出过
 	    );
 	    $question_list = $this->teacher_b->class_question($param);
-	    echo json_encode($question_list);
-	    die;
+	    if($question_list)
+	    {
+	    	self::json_output(array('status'=>'ok','msg'=>'获取未出过题目成功','data'=>$question_list));
+	    }else{
+	        self::json_output(array('status'=>'error','msg'=>'获取未出过题目失败或没有未出过的题目'));
+	    }
 	}
 	
 	/**
 	 * 老师出题
 	 */
 	public function teacher_publish_questions(){
-		$question_id_str = $this->input->get('question_id_str');
-		$quesiton_id_Arr = explode('-',$question_id_str);
-		
-		$this->teacher_b->class_question($param);
+		$question_id = $this->input->get('question_id');
+		$param = array(
+			'question_id' => $question_id,
+			'sequence' => $sequence,
+		);
+		$res = $this->teacher_b->teacher_publish_question($param);
+		if($res)
+	    {
+	    	self::json_output(array('status'=>'ok','msg'=>'出题成功'));
+	    }else{
+	        self::json_output(array('status'=>'error','msg'=>'出题失败'));
+	    }
 	}
-	
 	/**
 	 * 老师查看做完题的统计
 	 */
 	public function teacher_checkout_question_answer(){
-		
-		$sequence_id = $this->teacher_b->get_sequence($param);//获取当前批次
-		$param = array(
-	    	'class_id' => $class_id,
-	    	'status' => -1,//没出过
-	    	'sequence_id' => $sequence_id,
-	    );
-	    $question_list = $this->teacher_b->class_question($param);
-	    echo json_encode($question_list);
-	    die;
+		$class_id = $this->input->get('class_id');
+		$sequence_num 		= $this->teacher_b->get_sequence(array('class_id' => $class_id));//获取批次
+		if($sequence_num>0){
+			$list = array();
+			for ($i=1;$<=$sequence_num;$i++){
+				$question_list = array();
+				$sequence_id = $this->teacher_b->get_sequence($param);
+				$param = array(
+			    	'class_id' => $class_id,
+			    	'status' => 1,//出过
+			    	'sequence_id' => $i,
+			    );
+			    $question_list = $this->teacher_b->class_question($param);
+			    $list[$i] = $question_list;
+			}
+			self::json_output(array('status'=>'ok','msg'=>'获取答题统计成功','data'=>$list));
+		}else{
+			self::json_output(array('status'=>'error','msg'=>'没有出过一批题的记录'));
+		}
 	}
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
 }

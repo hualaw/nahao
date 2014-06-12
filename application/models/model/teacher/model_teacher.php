@@ -145,11 +145,13 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['class_id'] ? ' AND qcr.class_id='.$param['class_id'] : '';
+		$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
 		#2. 生成sql
         $this->db->query("set names utf8");
         
-		$sql = "SELECT max(qcr.sequence) total
-				FROM nahao.question_class_relation qcr
+		$sql = "SELECT max(qcr.sequence) total 
+				FROM nahao.question_class_relation qcr 
+				LEFT JOIN nahao.class cl ON qcr.class_id=cl.id 
 				".$where;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
@@ -168,6 +170,7 @@ class Model_Teacher extends NH_Model{
 		$where .= $param['is_correct'] ? ' AND sq.is_correct='.$param['is_correct'] : '';
 		$where .= $param['sequence'] ? ' AND sq.sequence='.$param['sequence'] : '';
 		$where .= $param['class_id'] ? ' AND sq.class_id='.$param['class_id'] : '';
+		$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
 		$where .= $param['answer'] ? ' AND FIND_IN_SET("'.$param['answer'].'",sq.answer)' : '';
 		$column = $param['counter']==1 ? 'count(sq.id) total' 
 			: ( $param['counter']==2 ? 'count(DISTINCT sq.student_id) total' 
@@ -176,7 +179,8 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
-				FROM nahao.sutdent_question sq ".$where;
+				FROM nahao.sutdent_question sq 
+				LEFT JOIN nahao.class cl ON sq.class_id=cl.id ".$where;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -323,7 +327,7 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['class_id'] ? ' AND qcr.class_id='.$param['class_id'] : '';
-		$where .= $param['question_id'] ? ' AND qcr.question_id in('.$param['question_id'].')' : '';
+		$where .= $param['question_id'] ? ' AND qcr.question_id in('.$param['question_id'].')' : '';//一批题
 		$set = $param['sequence'] > 0 ? ' SET qcr.status=1,qcr.sequence='.$param['sequence'] //出题
 			: ($param['sequence'] == -1 ? ' SET qcr.status=0,qcr.sequence=0' : ' SET qcr.status=1,qcr.sequence=1');//取消出题
 		#2. 生成sql
@@ -449,6 +453,22 @@ class Model_Teacher extends NH_Model{
      public function get_subject(){
      	$this->db->query("set names utf8");
      	$sql = "SELECT * FROM nahao.subject";
+     	return $this->db->query($sql)->result_array();
+     }
+     
+     /**
+	  * 获取课堂学生动作统计，赞快慢
+	  **/ 
+     public function count_classroom_action($param){
+     	$arr_result = array();
+        $where = ' WHERE 1';
+        $where .= $param['class_id'] ? ' AND cl.id='.$param['class_id'] : '';
+       	$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
+       	$group = ' GROUP BY scl.action';
+     	$column = "DISTINCT scl.action,COUNT(scl.action) total";
+     	$sql = "SELECT ".$column." FROM student_class_log scl 
+				LEFT JOIN nahao.class cl ON scl.class_id=cl.id 
+				".$where.$group;
      	return $this->db->query($sql)->result_array();
      }
 }
