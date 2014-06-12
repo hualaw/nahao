@@ -94,11 +94,8 @@
 								    <a href="" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
 								{elseif $it.status=='2'}
 									<a href="http://ribao.oa.tizi.com/meeting/{$it.classroom_id}/enter" target="_blank" title="可进教室了" class="goClass cBtn fl">去上课</a>
-
 								{elseif $it.status=='3'}
-									<a href="" class="goClass cBtn fl">去上课</a>
-								{elseif $it.status=='2'}
-									<a href="" class="replay cBtn fl">课程回放</a>
+									<a href="" class="replay cBtn fl">课程回放</a>									
 								{/if}
 	                            <div class="fr rCon">
 	                            	{if $smarty.foreach.son.last && $smarty.foreach.parent.last}
