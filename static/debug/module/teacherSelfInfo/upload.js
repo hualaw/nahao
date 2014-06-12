@@ -1,13 +1,12 @@
 define(function(require,exports){
     require("flashUploader");
     exports.addUpload = function(){
-        //upload teacher work authentication img
-        var workImgFormData = {'key':$('#work_auth_img').val(),'token':$('#nahao_token').val()};
-        $('#up_work_auth_img').uploadify({
-            'formData' : workImgFormData,
+        //upload teacher qualification img
+        var qualificationImgFormData = {'key':$('#teacher_auth_img').val(),'token':$('#nahao_token').val()};
+        $('#up_teacher_auth_img').uploadify({
+            'formData' : qualificationImgFormData,
             'swf'      : 'http://teacher.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
-            'multi'    : true,
             'buttonText' :"&nbsp;&nbsp;",
             'buttonClass' : 'choseFileBtn',
             'fileObjName' : 'file',
@@ -40,9 +39,13 @@ define(function(require,exports){
                 $('#img_url_general').attr('src',img_url_general);
                 $('#img_url_small').attr('src',img_url_small);
                 $('#img_url').attr('src',img_url);
+                /*添加教师资格证书图片*/
+                $("#teacher_auth_img").val(img_url_large);
+                $(".icon_upload1").hide();
+                var imgTag = '<img src="'+img_url_large+'"/><b class="uploadTip">教师资格证书</b>';
+                $(".md_upload .ImageSpan01").html(imgTag).show();
             }
         });
-        
         //upload teacher title authentication img
         var titleImgFormData = {'key':$('#title_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_title_auth_img').uploadify({
@@ -82,15 +85,21 @@ define(function(require,exports){
                 $('#img_url_general').attr('src',img_url_general);
                 $('#img_url_small').attr('src',img_url_small);
                 $('#img_url').attr('src',img_url);
+                /*添加教师职称证书图片*/
+                $("#title_auth_img").val(img_url_large);
+                $(".icon_upload2").hide();
+                var imgTag = '<img src="'+img_url_large+'"/><b class="uploadTip">教师职称证书</b>';
+                $(".md_upload .ImageSpan02").html(imgTag).show();
             }
         });
-        
-        //upload teacher qualification img
-        var qualificationImgFormData = {'key':$('#teacher_auth_img').val(),'token':$('#nahao_token').val()};
-        $('#up_teacher_auth_img').uploadify({
-            'formData' : qualificationImgFormData,
+
+        //upload teacher work authentication img
+        var workImgFormData = {'key':$('#work_auth_img').val(),'token':$('#nahao_token').val()};
+        $('#up_work_auth_img').uploadify({
+            'formData' : workImgFormData,
             'swf'      : 'http://teacher.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
+            'multi'    : true,
             'buttonText' :"&nbsp;&nbsp;",
             'buttonClass' : 'choseFileBtn',
             'fileObjName' : 'file',
@@ -117,14 +126,16 @@ define(function(require,exports){
 //                var img_url = data.src;
                 console.log(img_url);
                 console.log(img_url_large);
-                console.log(img_url_general);
-                console.log(img_url_small);
-                $('#img_url_large').attr('src',img_url_large);
-                $('#img_url_general').attr('src',img_url_general);
-                $('#img_url_small').attr('src',img_url_small);
-                $('#img_url').attr('src',img_url);
+//               /*添加学校工作证图片*/
+                $("#work_auth_img").val(img_url_large);
+                $(".icon_upload3").hide();
+                var imgTag = '<img src="'+img_url_large+'"/><b class="uploadTip">教师职称证书</b>';
+                $(".md_upload .ImageSpan03").html(imgTag).show();
             }
         });
+        
+
+
 
     }
 
