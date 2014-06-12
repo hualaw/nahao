@@ -32,11 +32,13 @@
 	        		<div class="cf classCDList">
 	        			<span class="fl">距离上课还有：</span>
 	        			<div class="fl classCD">
-	        			<input type="hidden" id="stime" value="{$array_data.soon_class_stime|date_format:'%Y-%m-%d %H:%M:%S'}">
-	        				<strong>1</strong>天
-	        				<strong>10</strong>小时
-	        				<strong>23</strong>分
-	        				<strong>54</strong>秒
+	        				<input type="hidden" id="stime" value="{$array_data.soon_class_stime|date_format:'%Y-%m-%d %H:%M:%S'}">
+	        				<div class="classCDcon">
+	        					<strong>1</strong>天
+		        				<strong>10</strong>小时
+		        				<strong>23</strong>分
+		        				<strong>54</strong>秒
+	        				</div>
 	        			</div>
 	        			<a href="" class="fr noShowBtn redBtn">去上课</a>
 	        		</div>
@@ -78,10 +80,13 @@
 	            <div class="outline cf">
 	             {foreach from=$array_outline item=item name="parent"}
                 	<div class="outlineList">
+                		{if $item.id > 1}
+							<h3 class="cf">
+	                            <p>{$item.title}</p>
+	                            <span class="fl"></span>
+	                        </h3>
+						{/if}
 	                    <ul>
-                    		{if $item.id > 1}
-								<h3>{$item.title}</h3>
-							{/if}
  							{foreach from=$item.son item=it name="son"}
 	                        <li class="cf">
 
@@ -89,7 +94,10 @@
 								    <a href="" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
 								{elseif $it.status=='2'}
 									<a href="http://ribao.oa.tizi.com/meeting/{$it.classroom_id}/enter" target="_blank" title="可进教室了" class="goClass cBtn fl">去上课</a>
+
 								{elseif $it.status=='3'}
+									<a href="" class="goClass cBtn fl">去上课</a>
+								{elseif $it.status=='2'}
 									<a href="" class="replay cBtn fl">课程回放</a>
 								{/if}
 	                            <div class="fr rCon">
@@ -99,14 +107,14 @@
 	                                <div class="fl line"></div>
 	                                {/if}
 		                            <div class="fr listb">
-		                            	<div class="cf cListHid undis">
+		                            	<div class="cf">
 		                                	<p class="listh fl">{$it.title}</p>
-		                                	<div class="cf">
+		                                	<div class="cf cListHid undis">
 		                                		<span class="fl handout"></span>
 			                                	<span class="fl cloudNotes"></span>
-			                                	<a href="javascript:void(0)" class="evaluBtn">评价</a>
-			                            		<span class="starBg fr"></span>
-		                                	</div>
+			                                	<a href="javascript:void(0)" class="cevaluBtn fr evaluBtn">评价</a>
+			                                	<span class="cevaluBtn fr sevaluBtn">已评价</span>
+			                            	</div>
 		                            	</div>
 		                                <p class="listc">{$it.time}</p>
 		                            </div>
@@ -193,33 +201,7 @@
 			<ul>
 				<li>
 					<div class="cf">
-						<textarea name="eTextarea" class="eTextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
-				<li class="cf">
-					<input type="submit" class="noShowBtn redBtn submit fr" value="提交">
-				</li>
-			</ul>
-		</form>
-	</div>
-</div>
-<!--教室-评价 开始-->
-<div class="evaluHtml undis">
-	<div class="evalu">
-		<h3>请您为本节课点评</h3>
-		<span class="starBg cf">
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
-		</span>
-		<form action="" class="evaluForm" method="post" onsubmit="return false;">
-			<ul>
-				<li>
-					<div class="cf">
-						<textarea name="eTextarea" class="eTextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
+						<textarea name="eTextarea" class="eTextarea ctextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
