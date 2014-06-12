@@ -136,9 +136,35 @@ define(function (require,exports){
 			qid = "",
 			answer = "",
 		    sequence = 1,
-		    cid = 0;
-		alert(ind)
-				
+		    cid = 0;	
+
+		$(".nextBtn").live('click',function (){
+			ans = [];
+			ind++;
+			//last itme
+			$(".doWorkList").addClass("undis");
+			$(".doWorkList").eq(ind).removeClass("undis");
+			$(this).hide();
+			$(".subAns").show();
+		});	
+
+		$(".answerList li").live('click',function (){
+			if(type == 1){
+				$(".answerList li").removeClass("curAnswer");
+				$(this).addClass("curAnswer");
+			}else{
+				$(this).addClass("curAnswer");
+			}
+			ans.push($(".answerList li").index($(this)));
+			qid = $(this).parent().parent().find(".setqid").attr("qid")
+			sequence = $(this).parent().parent().find(".setqid").attr("sequence")
+			cid = $(this).parent().parent().find(".setqid").attr("classid")
+			var answers = [];
+
+			answers.push($(this).find(".options").html());
+			answer = answers.join();
+		});	
+
 		$(".subAns").live('click',function (){
 		document.title=(ind)
 			var _len = $('.doWorkList').size()/2;
@@ -147,6 +173,7 @@ define(function (require,exports){
 			var aL = $(".answerList").eq(ind).find("li");
 			console.log(aL.length)
 			for(var i=0;i<aL.length;i++){
+				console.log(!aL.hasClass("curAnswer"))
 				if(!aL.hasClass("curAnswer")){
 					alert("您还没有做题");
 					return;
@@ -162,7 +189,9 @@ define(function (require,exports){
 			        exports.curItem();
 
 					$(".itemscore .result").click(function (){
-						$(".aui_content").html($(".scorePageHtml").html());
+						$(this).addClass("resultArrow");
+						$(".Hideresult").show();
+						$(".Showresult").hide();
 					})
 				}
 			}else{
@@ -199,33 +228,6 @@ define(function (require,exports){
     				}
     			}
             });			
-		});
-
-		$(".nextBtn").live('click',function (){
-			ans = [];
-			ind++;
-			//last itme
-			$(".doWorkList").addClass("undis");
-			$(".doWorkList").eq(ind).removeClass("undis");
-			$(this).hide();
-			$(".subAns").show();
-		});	
-
-		$(".answerList li").live('click',function (){
-			if(type == 1){
-				$(".answerList li").removeClass("curAnswer");
-				$(this).addClass("curAnswer");
-			}else{
-				$(this).addClass("curAnswer");
-			}
-			ans.push($(".answerList li").index($(this)));
-			qid = $(this).parent().parent().find(".setqid").attr("qid")
-			sequence = $(this).parent().parent().find(".setqid").attr("sequence")
-			cid = $(this).parent().parent().find(".setqid").attr("classid")
-			var answers = [];
-
-			answers.push($(this).find(".options").html());
-			answer = answers.join();
 		}); 
 	}
 	
