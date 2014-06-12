@@ -109,7 +109,10 @@
                 
                 	<div class="outlineList">
                 		{if $item.id > 1}
-                        <h3>{$item.title}</h3>
+                        <h3 class="cf">
+                            <p>{$item.title}</p>
+                            <span class="fl"></span>
+                        </h3>
                         {/if}
                         <ul>
 	                        {foreach from=$item.son item=it}

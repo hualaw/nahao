@@ -77,13 +77,13 @@
 				</li>
 				<li>
 					<p class="optional">手机号</p>
-					<input type="text" class="cInput ">
+					<input type="text" class="cInput nphone">
 				</li>
 				<li class="phoneVer">
 					<p class="optional">手机验证码</p>
 					<div class="cf">
 						<div class="fl">
-							<input type="text" name="realname" class="pUname fl cInput yh" validName="text">
+							<input type="text" name="realname" class="pUname fl cInput yh" validName="text"><br>
 							<span class="Validform_checktip fl"></span>
 						</div>
 						<a href="javascript:void(0)" class="btn blueBtn pnoneCode sendPhoneCode">免费获取验证码</a>
@@ -106,9 +106,10 @@
 					</div>
 				</li>
 				<li>
+					<p class="optional">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
-						<a href="javascript:void(0);" class="resetSchool optional">就读学校</a>
+						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
@@ -204,24 +205,16 @@
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
-				<li>
+				<li>					
+					<p class="optional">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
-						<a href="javascript:void(0);" class="resetSchool optional">就读学校</a>
-						<!-- ······················选择学校代码开始·························· -->
-						<!-- <span class="schoolFullName"></span> -->
-						<!-- <a href="javascript:void(0);" class="resetSchool aGreen" set="1" province="2" city="" county="500">选择学校</a> -->
-						<!-- <a href="javascript:void(0);" class="resetSchool aGreen">选择学校</a> -->
+						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
 						<input type="hidden" value="" name="schoolname" id="schoolname" />
-						<!-- ······················选择学校代码结束·························· -->
-						<!-- 加载选择学校html开始 -->
 						{include file='common/setSchool.html'}
-						<!-- 加载选择学校html结束 -->
-						<!-- <input type="text" name="school" class="pSchool fl cInput yh resetSchool schoolFullName" validName="text">
-						<span class="Validform_checktip fl"></span> -->
 					</div>
 				</li>
 				<li>

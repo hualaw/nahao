@@ -4,7 +4,6 @@
 .studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
 .studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
 .studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
-.studentMyCourse .schoolPar{margin: 20px 0 8px;}
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
@@ -247,12 +246,16 @@
 
 .studentMyCourse .buyBefore .outline,
 .studentMyCourse .buyAfter .outline{background: url(../../images/studentMyCourse/outline.png) 12px 22px no-repeat;padding-top:74px;}
-.studentMyCourse .outlineList h3{padding-left: 30px;font-weight: normal;font-size: 20px;background: url(../../images/studentMyCourse/graya.png) left 3px no-repeat;}
+.studentMyCourse .outlineList h3{font-weight: normal;font-size: 20px;background: url(../../images/studentMyCourse/graya.png) left 3px no-repeat;}
+.studentMyCourse .outlineList h3 p{padding-left: 30px;}
+.studentMyCourse .outlineList h3 span{width: 1px;height: 20px;background:#d4d4d4;margin-left: 10px;}
 .studentMyCourse .buyBefore .outlineList li{background: url(../../images/studentMyCourse/reda.png) 5px 3px no-repeat;height: 60px;}
 .studentMyCourse .buyBefore .revTimt,
 .studentMyCourse .buyBefore .allReview,
 .studentMyCourse .outlineList .listc{color:#6dcde6;}
-.studentMyCourse .outlineList ul{margin-top: 20px;}
+.studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
+.studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
+/*.studentMyCourse .outlineList ul{margin-top: 20px;}*/
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
 .studentMyCourse .outlineList .listh{font-size: 16px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
@@ -262,7 +265,7 @@
 .studentMyCourse .buyAfter .replay{border: 1px solid #6dcde6;color:#6dcde6;}
 .studentMyCourse .buyAfter .soonClass{border: 1px solid #e9e9e9;color:#f14211;}
 .studentMyCourse .buyAfter .goClass{border: 1px solid #f14211;color:#f14211;}
-.studentMyCourse .buyAfter .outlineList h3{margin:0 0 20px 110px;}
+.studentMyCourse .buyAfter .outlineList h3{margin:0 0 0 110px;}
 .studentMyCourse .buyAfter .outlineList .rCon{width: 458px;background: url(../../images/studentMyCourse/reda.png) 5px 3px no-repeat;}
 .studentMyCourse .buyAfter .outlineList .rConOver{background-image: url(../../images/studentMyCourse/greda.png);}
 .studentMyCourse .buyAfter .listb{padding-left: 52px;}
@@ -326,6 +329,9 @@
 .cnDia h2{padding-left: 30px;background: url(../../images/studentMyCourse/hcloudNotes.png) 1px center no-repeat;font-weight: normal;font-size: 16px;margin-bottom:3px;}
 .cnDia .cnCon{border-top: 1px solid #a2a2a2;padding: 22px 8px 35px 12px;line-height: 24px;font-size: 14px;width: 550px;}
 /* 评价 */
+.studentMyCourse .cevaluBtn{width: 48px;height: 20px;line-height: 20px;text-align: center;border-radius: 2px;}
+.studentMyCourse .evaluBtn{color:#1bb3da;border: 1px solid #1bb3da;}
+.studentMyCourse .sevaluBtn{color:#cecece;border: 1px solid #cecece;}
 .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
 .evalu h3{font-weight: normal;font-size: 18px;}
 .evalu .starBg{/*width: 170px;background: url(../../images/classRoom/evalBg.png);*/display: inline-block;margin:16px 0 26px;}
