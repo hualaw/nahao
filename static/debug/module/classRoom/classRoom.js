@@ -1,11 +1,5 @@
 define(function (require,exports){
-	//做题选答案 (加背景色)
-	exports.options = function (){
-		$(".answerList li").live('click',function (){
-			$(".answerList li").removeClass("curAnswer");
-			$(this).addClass("curAnswer");
-		})
-	}
+
 	//选择练习题  左右点击切换 题目选中
 	exports.itemClick = function (){
 		var iniW = $(".itemTabList").eq(0).outerWidth(true),
@@ -54,14 +48,23 @@ define(function (require,exports){
 	exports.curItem	= function (){
 		//初始--选的题目内容显示，左侧对应列表高亮 
 		//var ind = 2;
-		$(".itemscore .scoreBoxList").eq(0).removeClass("undis");
-
+		//$(".itemscore .scoreBoxList").eq(0).removeClass("undis");
 		//点击时切换
 		$(".itemscore .sconl li").click(function (){
+			$(".result").removeClass("resultArrow");
+			$(".aui_content .Hideresult").hide();
+			$(".aui_content .Showresult").show();
+
 			var _this = $(".itemscore .sconl li").index($(this));
 			$(".itemscore .scoreBoxList").addClass("undis");
 			$(".itemscore .scoreBoxList").eq(_this).removeClass("undis");
-		})
+		});
+
+		$(".aui_content .itemscore .result").click(function (){
+			$(this).addClass("resultArrow");
+			$(".aui_content .Hideresult").show();
+			$(".aui_content .Showresult").hide();
+		});
 	}
 
 	//评论 几颗星
@@ -124,6 +127,7 @@ define(function (require,exports){
 				 $('.doWorkBox').html(html);
 				 $(".nextBtn").hide();
 			 }
+			exports.doWork();
 		 }, "json");
 	}
 	
@@ -136,66 +140,45 @@ define(function (require,exports){
 			qid = "",
 			answer = "",
 		    sequence = 1,
-		    cid = 0;	
+		    cid = 0,
+		    _len = $('.aui_content .doWorkList').size(),
+		    chans = true; //打开做题弹框 判断初始只做一次题		
+
 
 		$(".aui_content .nextBtn").live('click',function (){
 			ans = [];
 			ind++;
+			
+			if(ind>_len){
+				ind = 0;
+			}
 			//last itme
 			$(".aui_content .doWorkList").addClass("undis");
 			$(".aui_content .doWorkList").eq(ind).removeClass("undis");
 			$(this).hide();
 			$(".aui_content .subAns").show();
+			chans = true;
 		});	
 
-		$(".aui_content .answerList li").live('click',function (){
-			if(type == 1){
-				$(".aui_content .answerList li").removeClass("curAnswer");
-				$(this).addClass("curAnswer");
-			}else{
-				$(this).addClass("curAnswer");
-			}
-			ans.push($(".aui_content .answerList li").index($(this)));
-			qid = $(this).parent().parent().find(".setqid").attr("qid")
-			sequence = $(this).parent().parent().find(".setqid").attr("sequence")
-			cid = $(this).parent().parent().find(".setqid").attr("classid")
-			var answers = [];
-
-			answers.push($(this).find(".options").html());
-			answer = answers.join();
-		});	
-
-		var aa = true;
-
-		$(".aui_content .subAns").live('click',function (){
-			var _len = $('.aui_content .doWorkList').size();
+		$(".aui_content .subAns").click(function (){
 			var aL = $(".aui_content .answerList").eq(ind).find("li");
-			console.log($('.aui_content .doWorkList').size());
-			if(aa){
-				ind = 0;
-				for(var i=0;i<aL.length;i++){
-					if(!aL.hasClass("curAnswer")){
-						alert("您还没有做题");
-						return;
-					}
-				}
-				aa=false;
-			}else{
-				for(var i=0;i<aL.length;i++){
-					console.log(!aL.hasClass("curAnswer"))
-					if(!aL.hasClass("curAnswer")){
-						alert("您还没有做题");
-						return;
-					}
+
+			for(var i=0;i<aL.length;i++){
+				console.log(!aL.hasClass("curAnswer"))
+				if(!aL.hasClass("curAnswer")){
+					alert("您还没有做题");
+					return;
+				}else{
+					chans = false;
 				}
 			}
-			document.title=(ind)
 			if(ind>=_len-1){
 				if(index){
 					$(this).show().html("查看结果");
 					index = false;
 				}else{
 					$(".aui_content").html($(".scoreBoxHtml").html());
+					$(".aui_content .result").addClass("resultArrow");
 			        //选择题目 切换内容
 			        exports.curItem();
 
@@ -238,8 +221,28 @@ define(function (require,exports){
     					$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
     				}
     			}
-            });			
+            });		
 		}); 
+
+		//提交完 答案之后就不能再选择了
+		$(".aui_content .answerList li").click(function (){	
+			if(chans == true){		
+				if(type == 1){
+					$(".aui_content .answerList li").removeClass("curAnswer");
+					$(this).addClass("curAnswer");
+				}else{
+					$(this).addClass("curAnswer");
+				}
+				ans.push($(".aui_content .answerList li").index($(this)));
+				qid = $(this).parent().parent().find(".setqid").attr("qid")
+				sequence = $(this).parent().parent().find(".setqid").attr("sequence")
+				cid = $(this).parent().parent().find(".setqid").attr("classid")
+				var answers = [];
+
+				answers.push($(this).find(".options").html());
+				answer = answers.join();
+			}
+		});	
 	}
 	
 	

@@ -12,9 +12,9 @@ define(function(require,exports){
     $(".doWorkBoxBtn").click(function (){
         _popUp.popUp('.doWorkBoxHtml');
         _classRoom.show_question();
-        _classRoom.doWork();
+
         //做题选答案 (加背景色)
-        _classRoom.options();
+       // _classRoom.options();
 
     });
     //得分-题目选中
