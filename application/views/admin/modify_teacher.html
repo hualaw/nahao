@@ -1,28 +1,20 @@
-<h3>添加教师信息</h3>
+<h3>修改教师信息</h3>
 <hr>
 <form action="/teacher/check_techer_post" method="post" enctype="multipart/form-data">
     <table>
         <tr height="35">
-            <td width="100"><font color="red">*</font>昵称:</td>
-            <td width="500"><input type="text" name="nickname" id="nickname" placeholder="昵称2-15位 匿名时显示" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_nickname"></span></td>
-        </tr>
-        <tr height="35">
-            <td><font color="red">*</font>密码:</td>
-            <td><input type="password" id="password" name="password" placeholder="请填写密码 6-20位" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_password"></span></td>
-        </tr>
-        <tr height="35">
-            <td><font color="red">*</font>真实姓名:</td>
-            <td><input type="text" name="realname" id="realname" placeholder="请填写真实姓名 2-15位" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_realname" value=1>保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_realname"></span></td>
+            <td width="100"><font color="red">*</font>真实姓名:</td>
+            <td width="500"><input type="text" name="realname" id="realname" placeholder="请填写真实姓名 2-15位" value="{if $teacher_details['user_info_data']['realname']}{$teacher_details['user_info_data']['realname']}{/if}" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_realname" value=1 {if $teacher_details['user_info_data']['hide_school']==1}checked{/if}>保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_realname"></span></td>
         </tr>
         <tr height="35">
             <td><font color="red">*</font>年龄:</td>
-            <td><input type="text" name="age" id="age" placeholder="请填写年龄" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_age"></span></td>
+            <td><input type="text" name="age" id="age" placeholder="请填写年龄" value="{if $teacher_details['user_info_data']['age']}{$teacher_details['user_info_data']['age']}{/if}" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_age"></span></td>
         </tr>
         <tr height="35">
             <td><font color="red">*</font>教学阶段:</td>
-            <td><input type="radio" name="stage" value=1 class="stage" checked>小学
-                <input type="radio" name="stage" value=2 class="stage">初中
-                <input type="radio" name="stage" value=3 class="stage">高中&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_stage"></span></td>
+            <td><input type="radio" name="stage" value=1 class="stage" checked {if $teacher_details['user_info_data']['stage']==1}checked{/if}>小学
+                <input type="radio" name="stage" value=2 class="stage" {if $teacher_details['user_info_data']['stage']==2}checked{/if}>初中
+                <input type="radio" name="stage" value=3 class="stage" {if $teacher_details['user_info_data']['stage']==3}checked{/if}>高中&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_stage"></span></td>
             </td>
         </tr>
         <tr height="35">
@@ -30,13 +22,18 @@
             <td>
                 <select name="province" id="province">
                     {foreach $province as $v}
-                    <option value={$v.id}>{$v.name}</option>
+                    <option value={$v.id} {if $v.id==$teacher_details['user_info_data']['province']}selected{/if}>{$v.name}</option>
                     {/foreach}
                 </select>
                 <select name="city" id="city">
-
+                    {foreach $city as $v}
+                        <option value={$v.id}>{$v.name}</option>
+                    {/foreach}
                 </select>
                 <select name="area" id="area">
+                    {foreach $area as $v}
+                        <option value={$v.id}>{$v.name}</option>
+                    {/foreach}
                 </select>
             </td>
         </tr>
@@ -89,14 +86,6 @@
                     {/for}
                 </select>
             </td>
-        </tr>
-        <tr height="35">
-            <td><font color="red">*</font>手机号:</td>
-            <td><input type="text" name="phone_mask" id="phone" placeholder="保密，不会对外公开">&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_phone"></span></td>
-        </tr>
-        <tr height="35">
-            <td><font color="red">*</font>邮箱:</td>
-            <td><input type="text" name="email" id="email" placeholder="保密，不会对外公开">&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_email"></span></td>
         </tr>
     </table>
     <hr>

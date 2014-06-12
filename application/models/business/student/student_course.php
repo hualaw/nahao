@@ -59,6 +59,7 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #根据$int_round_id获取该轮的部分信息
         $array_return = $this->model_course->get_round_info($int_round_id);
+       // var_dump($array_return);die;
         if ($array_return)
         {
             #售罄人数
@@ -71,6 +72,9 @@ class Student_Course extends NH_Model{
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
             $array_return['class_img'] = empty( $array_return['img']) ? HOME_IMG_DEFAULT : $array_return['img'];
+            #评分（四舍五入）
+            $array_return['score'] = round($array_return['score']);
+            
         }
         return $array_return;
     }
@@ -179,7 +183,10 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_return as $kk=>$vv)
             {
+                #获取用户头像
                 $array_return[$kk]['avater'] = $this->model_member->get_user_avater($vv['student_id']);
+                #评分（四舍五入）
+                $array_return[$kk]['score'] = round($vv['score']);
             }
         }
         return $array_return;
@@ -299,6 +306,7 @@ class Student_Course extends NH_Model{
         $array_team = $this->get_round_team($int_round_id);
         #即将开始的课的信息
         $array_soon = $this->model_course->get_soon_class_data($int_round_id);
+        //var_dump($array_soon);
         #已经上了几节课
         $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
         

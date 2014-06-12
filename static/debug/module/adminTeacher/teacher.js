@@ -221,7 +221,7 @@ define(function(require,exports){
                             success:function(msg){
                                // console.log(msg);
                                 var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
+                                $('#school').append("<option>请选择学校</option>");
                                 $.each(school,function(index,d){
                                     $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                 })
@@ -239,7 +239,7 @@ define(function(require,exports){
                             success:function(msg){
                                 // console.log(msg);
                                 var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
+                                $('#school').append("<option>请选择学校</option>");
                                 $.each(school,function(index,d){
                                     $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                 })
@@ -256,7 +256,7 @@ define(function(require,exports){
                             success:function(msg){
                                 // console.log(msg);
                                 var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
+                                $('#school').append("<option>请选择学校</option>");
                                 $.each(school,function(index,d){
                                     $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                 })
@@ -311,7 +311,7 @@ define(function(require,exports){
                                         // console.log(msg);
                                         $('#school').empty();
                                         var school=eval(msg);
-                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $('#school').append("<option>请选择学校</option>");
                                         $.each(school,function(index,d){
                                             $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                         })
@@ -330,7 +330,7 @@ define(function(require,exports){
                                         // console.log(msg);
                                         $('#school').empty();
                                         var school=eval(msg);
-                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $('#school').append("<option>请选择学校</option>");
                                         $.each(school,function(index,d){
                                             $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                         })
@@ -348,7 +348,7 @@ define(function(require,exports){
                                         // console.log(msg);
                                         $('#school').empty();
                                         var school=eval(msg);
-                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $('#school').append("<option>请选择学校</option>");
                                         $.each(school,function(index,d){
                                             $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                         })
@@ -387,7 +387,7 @@ define(function(require,exports){
                                 // console.log(msg);
                                 $('#school').empty();
                                 var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
+                                $('#school').append("<option>请选择学校</option>");
                                 $.each(school,function(index,d){
                                     $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                 })
@@ -406,7 +406,7 @@ define(function(require,exports){
                                 // console.log(msg);
                                 $('#school').empty();
                                 var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
+                                $('#school').append("<option>请选择学校</option>");
                                 $.each(school,function(index,d){
                                     $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                 })
@@ -424,7 +424,7 @@ define(function(require,exports){
                                 // console.log(msg);
                                 $('#school').empty();
                                 var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
+                                $('#school').append("<option>请选择学校</option>");
                                 $.each(school,function(index,d){
                                     $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
                                 })
@@ -448,9 +448,8 @@ define(function(require,exports){
                         // console.log(msg);
                         $('#school').empty();
                         var school=eval(msg);
-                        $('#school').append("<option value=0>请选择学校</option>");
                         $.each(school,function(index,d){
-                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                            $('#school').append("<option value=0>请选择学校</option><option value="+d.id+">"+d.schoolname+"</option>");
                         })
                     }
                 })
@@ -467,9 +466,8 @@ define(function(require,exports){
                         // console.log(msg);
                         $('#school').empty();
                         var school=eval(msg);
-                        $('#school').append("<option value=0>请选择学校</option>");
                         $.each(school,function(index,d){
-                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                            $('#school').append("<option value=0>请选择学校</option><option value="+d.id+">"+d.schoolname+"</option>");
                         })
                     }
                 })
@@ -485,9 +483,8 @@ define(function(require,exports){
                         // console.log(msg);
                         $('#school').empty();
                         var school=eval(msg);
-                        $('#school').append("<option value=0>请选择学校</option>");
                         $.each(school,function(index,d){
-                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                            $('#school').append("<option value=0>请选择学校</option><option value="+d.id+">"+d.schoolname+"</option>");
                         })
                     }
                 })

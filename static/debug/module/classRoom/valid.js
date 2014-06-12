@@ -28,15 +28,12 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
-                // 异步提交
-                //require("tizi_validform").reset_md5('.regTeacherForm');
-                if(!data.errorcode){
-                    require.async("tizi_validform",function(ex){
-                        // 提交注册结果
-                        ex.changeCaptcha('TeacherBox');
-                    });
-                }
+            	if(data.status == 'ok'){
+            		alert(data.msg);
+            		window.location.reload();
+            	} else {
+            		alert(data.msg);
+            	}
             }
         });
         // 冲掉库里面的'&nbsp:'

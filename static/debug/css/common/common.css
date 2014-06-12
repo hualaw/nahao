@@ -29,13 +29,12 @@ a:hover {text-decoration:none;}
 .noBBor{border-bottom: none!important;}
 .greenText{color:#7ba801!important;}
 
-/*input{padding: 0 10px;font-size: 14px;height: 30px;}   /*   回头看一下 这个border会不会对以前的有影响*/*/
+form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 .ctextarea{padding: 10px 20px;font-size: 14px;}
 .cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
 /*form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}*/
-form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 
 form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;width: 33px;height: 33px;top: -1px;right: -1px;}
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
@@ -114,8 +113,9 @@ table.md_table a:hover{color: #f90;}
 table.md_table td,table th{text-align:center;line-height:40px;/*border:1px solid #d7d7d7;*/border-bottom: 1px solid #d7d7d7;}
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
-.resetSchool{color: #0e455e;font-size: 16px}
-.schoolFullName{font-size: 16px;}
+.schoolPar{text-align: left;}
+.resetSchool{color: #6dcde6;font-size: 14px}
+.schoolFullName{font-size: 14px;}
 .resetSchool:hover{text-decoration:underline;}
 .codeSpan  {border-radius: 2px;background: #dedede;padding: 5px 8px;}
 /*全站分页代码样式开始*/

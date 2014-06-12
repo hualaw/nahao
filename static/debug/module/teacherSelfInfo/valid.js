@@ -36,7 +36,7 @@ define(function(require,exports){
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"
+                    selector:".select_beauty,:checkbox,:radio,.decorate"
                 }
             }
         });
@@ -83,20 +83,20 @@ define(function(require,exports){
                 errormsg: "请选择教师职称"
 
             },
-//            {
-//                ele:".province",
-//                datatype: "*",
-//                nullmsg: "请选择省份",
-//                errormsg: "请选择省份"
-//
-//            },
-//            {
-//                ele:".city",
-//                datatype: "*",
-//                nullmsg: "请选择城市",
-//                errormsg: "请选择城市"
-//
-//            },
+            {
+                ele:".province",
+                datatype: "*",
+                nullmsg: "请选择省份",
+                errormsg: "请选择省份"
+
+            },
+            {
+                ele:".city",
+                datatype: "*",
+                nullmsg: "请选择城市",
+                errormsg: "请选择城市"
+
+            },
             {
                 ele:".sex",
                 datatype: "*",

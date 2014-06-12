@@ -180,7 +180,7 @@ class Teacher extends NH_Admin_Controller {
     public function close_account(){
         $arr=$this->input->post('arr',TRUE);
        // echo $this->teacher->close_ban($arr);
-        self::json_output($this->teacher->close_ban($arr));
+        echo $this->teacher->close_ban($arr);
     }
 
     /**
@@ -190,7 +190,7 @@ class Teacher extends NH_Admin_Controller {
     public function open_account(){
         $arr=$this->input->post('arr',TRUE);
        // echo $this->teacher->close_ban($arr);
-        self::json_output($this->teacher->open_ban($arr));
+        echo $this->teacher->open_ban($arr);
     }
     /**
      * 昵称是否存在
@@ -200,7 +200,8 @@ class Teacher extends NH_Admin_Controller {
     {
         $nickname=$this->input->post('nickname',TRUE);
         $nick=$this->teacher->check_nick_name($nickname);
-        self::json_output($nick);
+        echo $nick;
+        //echo $nick;
     }
     /**
      * 电话是否存在
@@ -209,7 +210,7 @@ class Teacher extends NH_Admin_Controller {
     public function check_phone()
     {
         $phone=$this->input->post('phone');
-        self::json_output($this->teacher->check_mobile_phone($phone));
+        echo $this->teacher->check_mobile_phone($phone);
     }
     /**
      * 邮箱是否存在
@@ -218,7 +219,7 @@ class Teacher extends NH_Admin_Controller {
     public function check_email()
     {
         $email=$this->input->post('email');
-        self::json_output($this->teacher->check_email_tec($email));
+        echo $this->teacher->check_email_tec($email);
     }
 
      /**
@@ -229,7 +230,12 @@ class Teacher extends NH_Admin_Controller {
     {
         $user_id=$this->input->get('user_id',TRUE);
         $teacher_details=$this->teacher->teacher_momdify($user_id);
-        var_dump($teacher_details);die;
+        $city=$this->teacher->city1($teacher_details['user_info_data']['province']);
+        $area=$this->teacher->area1($teacher_details['user_info_data']['city']);
+        //var_dump(empty($city));die;
+
+        // var_dump($teacher_details);die;
+
         $this->load->model('business/common/business_subject','subject');
         $subject=$this->subject->get_subjects();
         $config_title=config_item('teacher_title');
@@ -237,6 +243,9 @@ class Teacher extends NH_Admin_Controller {
         $this->load->model('business/admin/business_lecture');
         $province=$this->business_lecture->all_province();
 
+        $this->smarty->assign('city',$city);
+        $this->smarty->assign('area',$area);
+        $this->smarty->assign('teacher_details',$teacher_details);
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
         $this->smarty->assign('province',$province);
