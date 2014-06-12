@@ -213,7 +213,7 @@ class Business_Class extends NH_Model
 
     /**
      * 根据course_id取class
-     * @param int $int_course_id
+     * @param int $int_round_id
      * @return array
      * @author yanrui@tizi.com
      */
@@ -223,7 +223,7 @@ class Business_Class extends NH_Model
         if($int_round_id){
             $str_table_range = 'class';
             $str_result_type = 'list';
-            $str_fields = 'id,round_id,title,courseware_id,status,parent_id,sequence';
+            $str_fields = 'id,course_id,round_id,lesson_id,title,begin_time,end_time,courseware_id,status,parent_id,sequence,classroom_id,checkout_status';
             $arr_where = array(
                 'round_id' => $int_round_id
             );

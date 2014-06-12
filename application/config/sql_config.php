@@ -5,7 +5,8 @@
  * @author yanrui@tizi.com
  */
 
-$config['sql_admin'] = array(
+//添加时按key字母排序
+$config['sql_config'] = array(
     'admin' => array(
         TABLE_ADMIN => false
     ),
@@ -43,10 +44,6 @@ $config['sql_admin'] = array(
     'lesson' => array(
         TABLE_LESSON => false
     ),
-    'user_info' => array(
-        TABLE_USER => false,
-        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
-    ),
     'round' => array(
         TABLE_ROUND => false
     ),
@@ -67,6 +64,9 @@ $config['sql_admin'] = array(
         TABLE_NAHAO_AREAS => array(TABLE_USER_INFO . '.province=' . TABLE_NAHAO_AREAS . '.id', 'left'),
         TABLE_STUDENT_SUBJECT => array(TABLE_USER . '.id=' . TABLE_STUDENT_SUBJECT . '.student_id', 'left')
     ),
+    'student_subject' => array(
+        TABLE_STUDENT_SUBJECT => false,
+    ),
     'subject' => array(
         TABLE_SUBJECT => false,
     ),
@@ -76,7 +76,6 @@ $config['sql_admin'] = array(
         TABLE_NAHAO_AREAS => array(TABLE_USER_INFO . '.province=' . TABLE_NAHAO_AREAS . '.id', 'left'),
         TABLE_TEACHER_SUBJECT => array(TABLE_USER . '.id=' . TABLE_TEACHER_SUBJECT . '.teacher_id', 'left')
     ),
-
     'teacher_info_subject' => array(
         TABLE_USER => false,
         TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
@@ -84,36 +83,15 @@ $config['sql_admin'] = array(
         TABLE_TEACHER_SUBJECT => array(TABLE_USER . '.id=' . TABLE_TEACHER_SUBJECT . '.teacher_id', 'left'),
         TABLE_SUBJECT => array(TABLE_SUBJECT . '.id=' . TABLE_TEACHER_SUBJECT . '.subject_id', 'left')
     ),
-);
-
-$config['sql_www'] = array(
-    'user' => array(
-        TABLE_USER => false
-    ),
-    'user_info' => array(
-        TABLE_USER => false,
-        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
-    ),
-        'teacher_subject' => array(
-        TABLE_TEACHER_SUBJECT => false,
-    ),
-    'student_subject' => array(
-        TABLE_STUDENT_SUBJECT => false,
-    ),
-);
-
-$config['sql_teacher'] = array(
-    'user' => array(
-        TABLE_USER => false
-    ),
-    'user_info' => array(
-        TABLE_USER => false,
-        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
-    ),
     'teacher_subject' => array(
         TABLE_TEACHER_SUBJECT => false,
     ),
-    'student_subject' => array(
-        TABLE_STUDENT_SUBJECT => false,
+    'user' => array(
+        TABLE_USER => false
+    ),
+    'user_info' => array(
+        TABLE_USER => false,
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
     ),
 );
+//添加时按key字母排序

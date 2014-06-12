@@ -61,13 +61,17 @@ class Classroom extends NH_User_Controller {
 	    $int_user_id = $this->session->userdata('user_id');  
 	    $int_question_id = $this->input->post('question_id');
 	    $str_selected = $this->input->post('selected');
-	    $str_answer = $this->input->post('answer');
-	    if ($str_answer == $str_selected)
+	    $array_result = $this->model_classroom->get_question_infor($int_question_id);
+	    if ($array_result && $array_result['answer'])
 	    {
-	        $int_is_correct = 1;
-	    } else {
-	        $int_is_correct = 0;
+	        if(!strpos($array_result['answer'],$str_selected))
+	        {
+	            $int_is_correct = 0;
+	        }else {
+	            $int_is_correct = 1;
+	        }
 	    }
+
 	    $int_sequence = $this->input->post('sequence');
 	    $array_data = array(
 	        'class_id'=>$int_class_id,
@@ -81,10 +85,10 @@ class Classroom extends NH_User_Controller {
 	    if ($bool_flag)
 	    {
 	        self::json_output(array('status'=>'ok','msg'=>'题目提交成功',
-	              'data'=>array('qid'=>$int_question_id,'answer'=>$str_answer,'seleced'=>$str_selected)));
+	              'data'=>array('qid'=>$int_question_id,'answer'=>$array_result['answer'],'seleced'=>$str_selected)));
 	    } else {
 	        self::json_output(array('status'=>'error','msg'=>'题目提交失败',
-	              'data'=>array('qid'=>$int_question_id,'answer'=>$str_answer,'seleced'=>$str_selected)));
+	              'data'=>array('qid'=>$int_question_id,'answer'=>$array_result['answer'],'seleced'=>$str_selected)));
 	    }
 	}
 	
@@ -120,8 +124,6 @@ class Classroom extends NH_User_Controller {
 	    }
 	}
 	
-
-
     public function save_stu_action()
     {
         $class_id = intval(trim($this->input->get("class_id")));
@@ -176,6 +178,75 @@ class Classroom extends NH_User_Controller {
 
         die($str_return);
     }
+
+    /**
+     * 课堂笔记API 课堂调用
+     * @author yanrui@91waijiao.com
+     */
+    public function class_note(){
+        $log_path = PATH_SEPARATOR==':' ? '/tmp/' : 'c:/wamp/logs/';
+        header("Content-type: text/html; charset=utf-8");
+        error_reporting(E_ALL);
+        ini_set('display_errors', true);
+        $int_class_id = intval($this->input->post('cid'));
+        $int_student_id = intval($this->input->post('uid'));
+        $str_content = trim($this->input->post('notes'));
+        if($int_class_id==0 AND $int_student_id==0 AND $str_content==''){
+            die('param error');
+        }
+        /* $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
+//        $str_content_log = iconv('UTF-8','GBK',$str_content_db);*/
+        $int_student_id = substr($int_student_id,0,strlen($int_student_id)-1);
+        $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
+
+//        $int_class_id = intval($this->input->get('cid'));
+//        $int_student_id = intval($this->input->get('uid'));
+//        $str_content = trim($this->input->get('notes'));
+//        if($int_class_id==0 AND $int_student_id==0 AND $str_content==''){
+//            die('param error');
+//        }
+
+//        error_log('--'.$int_class_id.'--'.$int_student_id.'--'.$str_content."\n",3,'c:/wamp/logs/test.log');
+        $this->load->model('business/student/student_classroom','classroom');
+        $data = array(
+            'class_id' => $int_class_id,
+            'student_id' => $int_student_id,
+//            'content' => $this->boolMagic ? $str_content_db : addslashes($str_content_db),
+            'content' => mysql_real_escape_string($str_content),
+            'create_time' => TIME_STAMP,
+            'update_time' => TIME_STAMP
+        );
+//        var_dump($data);
+        error_log(TIME_STAMP.'  '.date('Y-m-d H:i:s',TIME_STAMP).'  cid:'.$int_class_id.'    sid:'.$int_student_id.' content:'.$str_content."\n",3,$log_path.'class_note.log');
+        $return = $this->classroom->save_class_note($data);
+//        error_log($this->db->last_query()."\n",3,$log_path.'class_note.log');
+//        echo $return ? 1 : 0;
+    }
+	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
+	/**
+	 * 老师获得该课的所有题目
+	 */
+	public function teacher_get_exercise_page(){
+		
+	}
+	
+	/**
+	 * 老师出题
+	 */
+	public function teacher_publish_questions(){
+		$int_course_id = $this->input->post("course_id");
+	    $array_data = array(
+	            'course_id'=>$int_course_id,
+	    );
+	}
+	
+	/**
+	 * 老师查看做完题的统计
+	 */
+	public function teacher_checkout_question_answer(){
+		
+	}
+	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
 }
 
 /* End of file welcome.php */

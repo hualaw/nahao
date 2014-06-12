@@ -9,13 +9,13 @@
         <div class="col-md-2">
             <select class="form-control" name="course_type">
                 <option value="">全部课程类型</option>
-                {foreach $course_types as $course_type}<option value="{$course_type.id}">{$course_type.name}</option>{/foreach}
+                {foreach $course_types as $k => $v}<option value="{$k}" {if isset($course.course_type) AND $course.course_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="subject">
                 <option value="">全部学科</option>
-                {foreach $subjects as $subject}<option value="{$subject.id}">{$subject.name}</option>{/foreach}
+                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">

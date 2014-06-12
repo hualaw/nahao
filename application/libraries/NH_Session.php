@@ -420,7 +420,7 @@ class NH_Session extends CI_Session {
 			}
 			else if($this->_use_db) 
 			{
-				$this->CI->load->database('',true);
+				$this->CI->load->database();
 				$this->CI->db->query($this->CI->db->insert_string($this->sess_table_name, $this->userdata));
 			}
 		}

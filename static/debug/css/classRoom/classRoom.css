@@ -24,6 +24,7 @@
 .classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
 .classRoomPage .answerList{margin:50px 0 0;}
 .classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
+.classRoomPage .itemscore .result{cursor: pointer;}
 .classRoomPage .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
 .classRoomPage .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
 .classRoomPage .optionNav .curitme{background: #ed4111;}
@@ -99,15 +100,6 @@
 .classRoomPage .exercise .ef p{text-align: right;margin-top: 15px;}
 .classRoomPage .exercise .ef p a{margin:0 54px 0 25px;width: 190px;}
 .classRoomPage .exercise .ef p em{margin:0 6px;}
-/* 意见反馈 */
-.classRoomPage .feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:30px;}
-.classRoomPage .feedback h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
-.classRoomPage .feedback form .fbText{height: 28px;line-height: 28px;}
-.classRoomPage .feedback form textarea{width: 610px;height: 228px;}
-.classRoomPage .feedback form input{width:288px;}
-.classRoomPage .feedback .formName{font-size: 16px;}
-.classRoomPage .feedback .submit,
-.classRoomPage .evalu .submit{width: 140px;margin-top: 12px;height: 40px;line-height: 40px;font-weight: bold;font-size: 20px;}
 /* 评价 */
 .classRoomPage .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
 .classRoomPage .evalu h3{font-weight: normal;font-size: 18px;}

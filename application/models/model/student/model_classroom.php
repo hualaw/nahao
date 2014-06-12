@@ -110,4 +110,20 @@ class Model_Classroom extends NH_Model{
         $int_result = $this->db->query($sql)->num_rows();
         return $int_result;
     }
+
+    /**
+     * 保存课堂笔记(课堂新增，学生后台修改)
+     * @param $arr_data
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function save_class_note($arr_data)
+    {
+        $bool_return = false;
+        if (is_array($arr_data) AND $arr_data) {
+            $sql = 'INSERT INTO ' . TABLE_CLASS_NOTE . " (`class_id`,`student_id`,`content`,`create_time`,`update_time`) VALUES ('" . implode("','", $arr_data) . "') ON DUPLICATE KEY UPDATE content='" . $arr_data['content'] . "',update_time=" . $arr_data['update_time'];
+            $bool_return = $this->db->query($sql);
+        }
+        return $bool_return;
+    }
 }

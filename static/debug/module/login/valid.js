@@ -347,10 +347,27 @@ define(function(require,exports){
                 ele: ".inputEmail",
                 datatype:"e",
                 nullmsg:"请输入邮箱",
-                errormsg:"长度6-30个字符",
-                ajaxurl:'/login/check_user_email'
+                errormsg:"邮箱格式不正确",
+                ajaxurl:'/login/check_user_email',
+                ajaxUrlName:'email'
             }        
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    console.log(json);
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     }
     // 注册成功之后验证
     exports.regAfterForm = function(){

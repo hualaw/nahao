@@ -35,7 +35,7 @@ class NH_Model extends CI_Model
         $mix_return = array();
 //        echo $str_table_range.'--'.$str_result_type.'--'.$str_field."\n";echo "where : \n";var_dump($arr_where);echo "group_by : \n";var_dump($arr_group_by);echo "order_by : \n";var_dump($arr_order_by);echo "limit : \n";var_dump($arr_limit);//exit;
         if (is_array($arr_where)) {
-            $arr_config = config_item('sql_' . DOMAIN);
+            $arr_config = config_item('sql_config');
             if (array_key_exists($str_table_range, $arr_config)) {
                 $arr_keys = array_keys($arr_config[$str_table_range]);
                 $arr_keys = array_flip($arr_keys);
@@ -121,6 +121,7 @@ class NH_Model extends CI_Model
         }
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
+        else $avatar = static_url($avatar);
 
         $userdata = array(
             'user_id' => $user_id,

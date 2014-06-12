@@ -30,7 +30,9 @@ class Student_Classroom extends NH_Model{
                 $array_infor = $this->model_classroom->get_question_infor($v['question_id']);               
                 #处理数据
                 $array_infor['options'] = json_decode($array_infor['options'],true);
+                $array_infor['sequence'] = $int_max_sequence;
                 $array_return[] = $array_infor;
+                
                 
             }
         }
@@ -79,6 +81,21 @@ class Student_Classroom extends NH_Model{
         $array_return['data_question'] = $array_qids;
 
         return $array_return;
+    }
+
+    /**
+     * 保存课堂笔记(课堂新增，学生后台修改)
+     * @param $arr_data
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function save_class_note($arr_data)
+    {
+        $bool_return = false;
+        if (is_array($arr_data) AND $arr_data) {
+            $bool_return = $this->model_classroom->save_class_note($arr_data);
+        }
+        return $bool_return;
     }
     
 }

@@ -46,7 +46,9 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
+
 			error_reporting(E_ALL & ~E_NOTICE);
+
 		break;
 	
 		case 'testing':

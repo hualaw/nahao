@@ -45,7 +45,9 @@ define(function(require, exports) {
                 var class_id = $('#class_id').val();
                 var school_id = $('.aui_content .school li.active').attr('data-id');
                 var province = $(".schoolProvice li.active").html();
+                var province_id = $(".schoolProvice li.active").attr('data-id');
                 var city = $(".schoolCity li.active").html();
+                var city_id = $(".schoolCity li.active").attr('data-id');
                 var county = $(".schoolCounty li.active").html();
                 var county_id = $(".schoolCounty li.active").attr('data-id');
                 var sctype_id = $('.schoolGrade li.active').attr('data-id');
@@ -83,6 +85,8 @@ define(function(require, exports) {
                         $('.schoolBox').find('.ValidformInfo,.Validform_checktip').hide();
                     }
                 }
+                $('#province_id').val(province_id);
+                $('#city_id').val(city_id);
                 $('#schoolname').val(writeSchoolName);
                 $('#area_county_id').val(county_id);
                 $('#school_type').val(sctype_id);
