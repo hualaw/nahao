@@ -14,7 +14,7 @@ class Selfinfo extends NH_User_Controller {
             $post_data['teacher_subject'] = trim($this->input->post('teacher_subject'));
             $post_data['title'] = intval($this->input->post('teacher_title'));
             $post_data['gender'] = intval($this->input->post('gender'));
-            $post_data['provice'] = intval($this->input->post('province'));
+            $post_data['province'] = intval($this->input->post('province'));
             $post_data['city'] = intval($this->input->post('city'));
             $post_data['area'] = intval($this->input->post('area'));
             $post_data['teacher_age'] = intval($this->input->post('teacher_age'));
@@ -23,7 +23,7 @@ class Selfinfo extends NH_User_Controller {
             $post_data['bankbench'] = trim($this->input->post('bankbench'));
             $post_data['bankcard'] = trim($this->input->post('bankcard'));
             $post_data['id_code'] = trim($this->input->post('id_code'));
-            $result = $this->business_user->modify_user_data($post_data, $this->_user_detail['user_id']);
+            $result = $this->business_user->modify_user_info($post_data, $this->_user_detail['user_id']);
             if($result) {
                 $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
             } else {
@@ -54,6 +54,22 @@ class Selfinfo extends NH_User_Controller {
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
+        //generate param for uploading to qiniu 设置传图到七牛的图片
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $this->load->helper('string');
+        $str_salt = random_string('alnum', 6);
+        //course img file name
+        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
+        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
+        $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
+        $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
         $this->smarty->assign('stages', $stages);
         $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);

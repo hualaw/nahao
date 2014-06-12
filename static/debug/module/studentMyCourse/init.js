@@ -2,7 +2,7 @@ define(function(require,exports){
 	// 公共select模拟
 	require('select');
 	// 美化select
-	$('select').jqTransSelect();
+//	$('select').jqTransSelect();
 	// 美化radio
 	$('input[type=radio]').jqTransRadio();
 
@@ -76,4 +76,10 @@ define(function(require,exports){
         
     //     _popUp.popUp('.evaluHtml');
     // });
+    //个人资料修改地区
+    if($("#province").length > 0) {
+        require("module/studentMyCourse/area").change_area();
+    }
+    //发送手机验证码
+    _myCourse.sendValidateCode();
 })

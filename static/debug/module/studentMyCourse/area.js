@@ -3,7 +3,7 @@ define(function(require,exports){
         $('#province').change(function(){
             $.ajax({
                 type:"post",
-                url:"/selfInfo/get_city_list",
+                url:"/member/get_city_list",
                 data:"province="+$('#province').val(),
                 dataType:"",
                 success:function(msg){
@@ -19,7 +19,7 @@ define(function(require,exports){
                     })
                     $.ajax({
                         type:"post",
-                        url:"/selfInfo/get_county_list",
+                        url:"/member/get_county_list",
                         data:"city="+$('#city').val(),
                         dataType:"json",
                         success:function(msg){
@@ -42,7 +42,7 @@ define(function(require,exports){
         $('#city').change(function(){
             $.ajax({
                 type:"post",
-                url:"/selfInfo/get_county_list",
+                url:"/member/get_county_list",
                 data:"city="+$('#city').val(),
                 dataType:"json",
                 success:function(msg){
