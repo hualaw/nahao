@@ -28,20 +28,20 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= $param['id'] ? ' AND cl.id='.$param['id'] : '';
-		$where .= $param['round_id'] ? ' AND cl.round_id='.$param['round_id'] : '';
-		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
-		$where .= $param['begin_time'] ? ' AND cl.begin_time>='.$param['begin_time'] : '';
-		$where .= $param['end_time'] ? ' AND cl.end_time<='.$param['end_time'] : '';
+		$where .= isset($param['id']) ? ' AND cl.id='.$param['id'] : '';
+		$where .= isset($param['round_id']) ? ' AND cl.round_id='.$param['round_id'] : '';
+		$where .= isset($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= isset($param['begin_time']) ? ' AND cl.begin_time>='.$param['begin_time'] : '';
+		$where .= isset($param['end_time']) ? ' AND cl.end_time<='.$param['end_time'] : '';
 		$where .= $param['parent_id']>0 ? ' AND cl.parent_id='.$param['parent_id'] 
 				: ($param['parent_id']==-1 ? ' AND cl.parent_id=0' :			//-1表示只获取章
 				($param['parent_id']==-2 ? ' AND cl.parent_id>0' : ''));		//-2表示只获取所有节
-		$where .= $param['status'] ? ' AND cl.status in('.$param['status'].')' : '';//课状态（0 初始化1 即将上课2 正在上课3 上完课4 缺课5 禁用 （不能恢复））
-		$where .= $param['teach_status'] ? ' AND r.teach_status in('.$param['teach_status'].')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
-		$where .= $param['sale_status'] ? ' AND r.sale_status in('.$param['sale_status'].')' : '';//轮销售状态（销售状态0 未审核、1 审核不通过、2 审核通过（预售）、3 销售中、4 已售罄、5 已停售（时间到了还没售罄）、6 已下架（手动下架））
-		$where .= $param['subject'] ? ' AND r.subject='.$param['subject'] : '';//科目
-		$where .= $param['round_title'] ? ' AND r.title like "%'.$param['round_title'].'%"' : '';//轮名
-		$where .= $param['title'] ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
+		$where .= isset($param['status']) ? ' AND cl.status in('.$param['status'].')' : '';//课状态（0 初始化1 即将上课2 正在上课3 上完课4 缺课5 禁用 （不能恢复））
+		$where .= isset($param['teach_status']) ? ' AND r.teach_status in('.$param['teach_status'].')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
+		$where .= isset($param['sale_status']) ? ' AND r.sale_status in('.$param['sale_status'].')' : '';//轮销售状态（销售状态0 未审核、1 审核不通过、2 审核通过（预售）、3 销售中、4 已售罄、5 已停售（时间到了还没售罄）、6 已下架（手动下架））
+		$where .= isset($param['subject']) ? ' AND r.subject='.$param['subject'] : '';//科目
+		$where .= isset($param['round_title']) ? ' AND r.title like "%'.$param['round_title'].'%"' : '';//轮名
+		$where .= isset($param['title']) ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
 		$column = $param['counter']==1 ? 'count(cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
@@ -68,16 +68,16 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1 AND cl.parent_id>0 ';
-		$where .= $param['id'] ? ' AND r.id='.$param['id'] : '';
-		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
-		$where .= $param['start_time'] ? ' AND r.start_time>='.$param['start_time'] : '';
-		$where .= $param['end_time'] ? ' AND r.end_time<='.$param['end_time'] : '';
-		$where .= $param['teach_status'] ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
-		$where .= $param['course_type'] ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
-		$where .= $param['title'] ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
+		$where .= isset($param['id']) ? ' AND r.id='.$param['id'] : '';
+		$where .= isset($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= isset($param['start_time']) ? ' AND r.start_time>='.$param['start_time'] : '';
+		$where .= isset($param['end_time']) ? ' AND r.end_time<='.$param['end_time'] : '';
+		$where .= isset($param['teach_status']) ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
+		$where .= isset($param['course_type']) ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
+		$where .= isset($param['title']) ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
 		$group = " GROUP BY r.id";
 		$order = " ORDER BY cl.begin_time DESC";
-		$limit = $param['limit'] ? " LIMIT ".$param['limit'] : '';
+		$limit = isset($param['limit']) ? " LIMIT ".$param['limit'] : '';
 		$column = $param['counter']==1 ? 'count(r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
@@ -100,8 +100,8 @@ class Model_Teacher extends NH_Model{
     public function round_status_counter($param){
     	$arr_result = array();
 		$where = ' WHERE 1 ';
-		$where .= $param['teacher_id'] ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
-		$where .= $param['teach_status'] ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';
+		$where .= isset($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
+		$where .= isset($param['teach_status']) ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';
     	$sql = "SELECT count(distinct r.id) total
     			FROM nahao.round r 
     			LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
@@ -115,13 +115,14 @@ class Model_Teacher extends NH_Model{
 	 * pararm : status,class_id,counter
 	 */
 	public function question_seacher($param){
+		$param['counter'] = isset($param['counter']) ? $param['counter'] : '';
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['status']>0 ? ' AND qcr.status='.$param['status'] : 
 					($param['status']==-1 ? ' AND qcr.status=0' : ' AND qcr.status=1');
-		$where .= $param['class_id'] ? ' AND cl.id='.$param['class_id'] : '';
-		$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
+		$where .= isset($param['class_id']) ? ' AND cl.id='.$param['class_id'] : '';
+		$where .= isset($param['classroom_id']) ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
 		$order = " ORDER BY q.id ASC";
 		$column = $param['counter']==1 ? 'count(q.id) total' :
 				( $param['counter']==2 ? 'count(distinct q.question_id) total' 
@@ -144,8 +145,8 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= $param['class_id'] ? ' AND qcr.class_id='.$param['class_id'] : '';
-		$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
+		$where .= isset($param['class_id']) ? ' AND qcr.class_id='.$param['class_id'] : '';
+		$where .= isset($param['classroom_id']) ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
 		#2. 生成sql
         $this->db->query("set names utf8");
         
@@ -166,12 +167,12 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$param['counter'] = isset($param['counter']) ? $param['counter'] : 1;
 		$where = ' WHERE 1';
-		$where .= $param['question_id'] ? ' AND sq.question_id='.$param['question_id'] : '';
-		$where .= $param['is_correct'] ? ' AND sq.is_correct='.$param['is_correct'] : '';
-		$where .= $param['sequence'] ? ' AND sq.sequence='.$param['sequence'] : '';
-		$where .= $param['class_id'] ? ' AND sq.class_id='.$param['class_id'] : '';
-		$where .= $param['classroom_id'] ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
-		$where .= $param['answer'] ? ' AND FIND_IN_SET("'.$param['answer'].'",sq.answer)' : '';
+		$where .= isset($param['question_id']) ? ' AND sq.question_id='.$param['question_id'] : '';
+		$where .= isset($param['is_correct']) ? ' AND sq.is_correct='.$param['is_correct'] : '';
+		$where .= isset($param['sequence']) ? ' AND sq.sequence='.$param['sequence'] : '';
+		$where .= isset($param['class_id']) ? ' AND sq.class_id='.$param['class_id'] : '';
+		$where .= isset($param['classroom_id']) ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
+		$where .= isset($param['answer']) ? ' AND FIND_IN_SET("'.$param['answer'].'",sq.answer)' : '';
 		$column = $param['counter']==1 ? 'count(sq.id) total' 
 			: ( $param['counter']==2 ? 'count(DISTINCT sq.student_id) total' 
 			: ( $param['counter']==3 ? 'count(DISTINCT sq.question_id) total' 
@@ -193,11 +194,11 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= $param['id'] ? ' AND tcl.id='.$param['id'] : '';
-		$where .= $param['teacher_id'] ? ' AND tcl.teacher_id='.$param['teacher_id'] : '';
-		$where .= $param['status'] ? ' AND tcl.status='.$param['status'] : '';
-		$where .= $param['start_time'] ? ' AND tcl.pay_time>='.$param['start_time'] : '';
-		$where .= $param['end_time'] ? ' AND tcl.end_time<='.$param['end_time'] : '';
+		$where .= isset($param['id']) ? ' AND tcl.id='.$param['id'] : '';
+		$where .= isset($param['teacher_id']) ? ' AND tcl.teacher_id='.$param['teacher_id'] : '';
+		$where .= isset($param['status']) ? ' AND tcl.status='.$param['status'] : '';
+		$where .= isset($param['start_time']) ? ' AND tcl.pay_time>='.$param['start_time'] : '';
+		$where .= isset($param['end_time']) ? ' AND tcl.end_time<='.$param['end_time'] : '';
 		$order = ' ORDER BY tcl.create_time DESC';
 		#2. 生成sql
         $this->db->query("set names utf8");
@@ -215,11 +216,11 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= $param['round_id'] ? ' AND cf.round_id='.$param['round_id'] : '';
-		$where .= $param['class_id'] ? ' AND cf.class_id='.$param['class_id'] : '';
-		$where .= $param['student_id'] ? ' AND cf.student_id='.$param['student_id'] : '';
-		$where .= $param['is_show'] ? ' AND cf.is_show='.$param['is_show'] : '';
-		$where .= $param['score'] ? ' AND cf.score='.$param['score'] : '';
+		$where .= isset($param['round_id']) ? ' AND cf.round_id='.$param['round_id'] : '';
+		$where .= isset($param['class_id']) ? ' AND cf.class_id='.$param['class_id'] : '';
+		$where .= isset($param['student_id']) ? ' AND cf.student_id='.$param['student_id'] : '';
+		$where .= isset($param['is_show']) ? ' AND cf.is_show='.$param['is_show'] : '';
+		$where .= isset($param['score']) ? ' AND cf.score='.$param['score'] : '';
 		$order = " ORDER BY cf.".self::$_orderArr[($param['order'] ? $param['order'] : 4)]." ".self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
 		$column = $param['counter']==1 ? 'count(cf.id) total' :'cf.*';
 		#2. 生成sql

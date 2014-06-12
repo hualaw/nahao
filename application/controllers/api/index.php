@@ -36,7 +36,7 @@ class Index extends NH_User_Controller {
 		
 		if($sequence_num>0){
 			$list = array();
-			for ($i=1;$<=$sequence_num;$i++){
+			for ($i=1;$i<=$sequence_num;$i++){
 				$question_list = array();
 				$sequence_id = $this->teacher_b->get_sequence($param);
 				$param = array(

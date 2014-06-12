@@ -317,16 +317,17 @@ class Business_Teacher extends NH_Model
      **/
     public function class_question($param){
     	#1. 统计的情况
-    	if(!$param['class_id'] && !$param['classroom_id']){exit('缺少必要课堂参数');}
+    	if(!isset($param['class_id']) && !isset($param['classroom_id'])){exit('缺少必要课堂参数');}
     	$question = $this->model_teacher->question_seacher($param);
-    	if($param['counter']){return isset($param['counter']) ? $param['counter'] : 0;}
+    	if(isset($param['counter'])){return isset($param['counter']) ? $param['counter'] : 0;}
     	#2. 列表的情况
     	$sequence_question = array();
     	if($question) foreach($question as &$val){
     		/**					1. 统计该题答对状态与比例					**/
     		#该题总作答数
 	    		$param = array(
-	    			'class_id' => $param['class_id'],
+	    			'class_id' => isset($param['class_id']) ? $param['class_id'] : '',
+	    			'classroom_id' => isset($param['classroom_id']) ? $param['classroom_id'] : '',
 	    			'question_id' => $val['id'],
 	    		);
 	    	$total = $this->model_teacher->practise_counter($param);//选择人数
@@ -334,7 +335,8 @@ class Business_Teacher extends NH_Model
     		
     		#该题答对人数
 	    		$param = array(
-	    			'class_id' => $param['class_id'],
+	    			'class_id' => isset($param['class_id']) ? $param['class_id'] : '',
+	    			'classroom_id' => isset($param['classroom_id']) ? $param['classroom_id'] : '',
 	    			'question_id' => $val['id'],
 	    			'is_correct' => 1,
 	    		);
@@ -348,7 +350,8 @@ class Business_Teacher extends NH_Model
     		if($val['options']) foreach($val['options'] as $k=>&$v){
     			#该题作答时【包含该选项】的人总数
 	    		$param = array(
-	    			'class_id' => $param['class_id'],
+	    			'class_id' => isset($param['class_id']) ? $param['class_id'] : '',
+	    			'classroom_id' => isset($param['classroom_id']) ? $param['classroom_id'] : '',
 	    			'question_id' => $val['id'],
 	    			'answer' => $k,
 	    		);
@@ -374,14 +377,14 @@ class Business_Teacher extends NH_Model
     		*/
 			$sequence_question[$val['sequence']][] = $val;
     	}
-    	return $param['sort_sequence'] ? $sequence_question : $question;
+    	return isset($param['sort_sequence']) ? $sequence_question : $question;
     }
      
     /**
      * 统计课的答题用户数，可按批次查看
      **/
      public function answer_user_num($param){
-     	if(!$param['class_id'] && !$param['classroom_id']){exit('缺少必要课堂参数');}
+     	if(!isset($param['class_id']) && !isset($param['classroom_id'])){exit('缺少必要课堂参数');}
      	$num = $this->model_teacher->practise_counter($param);
      	return isset($num[0]['total']) ? $num[0]['total'] : 0;
      }
@@ -390,7 +393,7 @@ class Business_Teacher extends NH_Model
       * 获取课堂出题批次
       **/
      public function get_sequence($param){
-     	if(!$param['class_id'] && !$param['classroom_id']){exit('缺少必要课堂参数');}
+     	if(!isset($param['class_id']) && !isset($param['classroom_id'])){exit('缺少必要课堂参数');}
      	$num = $this->model_teacher->get_sequence($param);
      	return isset($num[0]['total']) ? $num[0]['total'] : 0;
      } 
@@ -435,7 +438,7 @@ class Business_Teacher extends NH_Model
      * 教师课酬结算列表
      **/
     public function pay_list($param){
-    	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+    	if(!isset($param['teacher_id'])){exit('请检查您的登录状态');}
     	$list = $this->model_teacher->pay_list($param);
     	return $list;
     }
@@ -462,8 +465,8 @@ class Business_Teacher extends NH_Model
      * 月结算详情
      **/
     public function pay_detail($param){
-    	if(!$param['teacher_id']){exit('请检查您的登录状态');}
-    	if(!$param['pay_id']){exit('缺少必要参数');}
+    	if(!isset($param['teacher_id'])){exit('请检查您的登录状态');}
+    	if(!isset($param['pay_id'])){exit('缺少必要参数');}
     	$detail = array();
 		$pay_info = $this->model_teacher->pay_list($param);
 		if(isset($pay_info[0])){
@@ -508,7 +511,7 @@ class Business_Teacher extends NH_Model
 	 * 教室学生动作统计
 	 **/ 
     public function class_student_action($param){
-    	if(!$param['class_id'] && !$param['classroom_id']){exit('缺少必要课参数');}
+    	if(!isset($param['class_id']) && !isset($param['classroom_id'])){exit('缺少必要课参数');}
     	$count = $this->model_teacher->count_classroom_action($param);
     	$result = array(
     			'please_total_count' => 0,

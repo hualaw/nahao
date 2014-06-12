@@ -1,10 +1,36 @@
 define(function (require,exports){
+	var pop = require('module/common/method/popUp');
 	//做题选答案 (加背景色)
 	exports.options = function (){
 		$(".answerList li").live('click',function (){
 			$(".answerList li").removeClass("curAnswer");
 			$(this).addClass("curAnswer");
 		})
+	}
+	//获取未出过的练习题
+	exports.load_questions = function (){
+		var classroom_id = $('#nahaoModule').attr('classroom-data');
+		var url = "/classroom/teacher_get_exercise_page/"+classroom_id+'/?'+((new Date).valueOf());
+		$.get(url,function(response){
+			if(response.status=='ok'){
+				var q_html = q_i_html = '';
+				$.each(response.data, function(key, val) {
+					//题目
+					q_html += '<li class="fl itemTabList"><div>'+(key+1)+'.'+val.question+'</div>';
+					 $.each(val.options, function(k, v) {
+					 	q_html += '<div class="cf eAns"><strong class="fl">'+k+'</strong><p class="fl">'+v.value+'</p></div>';
+					 });
+					q_html += '</li>';
+					//题目索引
+					q_i_html += '<a href="javascript:void(0)">'+(key+1)+'</a>';
+					$('.publish_questions').html(q_html);
+					$('.publish_questions_index').html(q_i_html);
+				});
+				pop.popUp('.exerciseHtml');
+			}else{
+				$('.publish_questions').html(response.msg);
+			}
+		});
 	}
 	//选择练习题  左右点击切换 题目选中
 	exports.itemClick = function (){

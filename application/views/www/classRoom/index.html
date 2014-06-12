@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap layout classRoom" id="nahaoModule" module="classRoom">
+<div class="wrap layout classRoom" id="nahaoModule" module="classRoom" classroom-data="{$data['classroom_id']}">
 	<a href="javascript:void(0)" class="doWorkBoxBtn">做题块</a><br><br>
 	<!--做题块 开始-->
 	<div class="doWorkBoxHtml undis">
@@ -318,8 +318,8 @@
 				<a href="jacascript:void(0)" class="clickL clickBtn"></a>
 				<a href="jacascript:void(0)" class="clickR clickBtn"></a>
 				<div class="itemTabBox posr">
-					<ul class="cf">
-					{if $data['class_questions']}
+					<ul class="cf publish_questions">
+					<!--{if $data['class_questions']}
 						{foreach $data['class_questions'] as $key => $val}
 							<li class="fl itemTabList">
 								<div>{$key+1}.{$val['question']}</div>
@@ -333,17 +333,17 @@
 								{/foreach}
 							</li>
 						{/foreach}
-					{/if}
+					{/if}-->
 					</ul>
 				</div>
 			</div>
 			<div class="ef">
-				<span class="Titem">
-					{if $data['class_questions']}
+				<span class="Titem publish_questions_index">
+					<!--{if $data['class_questions']}
 						{foreach $data['class_questions'] as $key => $val}
 							<a href="javascript:void(0)">{$key+1}</a>
 						{/foreach}
-					{/if}
+					{/if}-->
 				</span>
 				<p>
 					<span>当前已选<em class="redText itemNum">0</em>题</span>

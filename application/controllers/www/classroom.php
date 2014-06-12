@@ -18,16 +18,16 @@ class Classroom extends NH_User_Controller {
 	public function index()
 	{  
 	    header('content-type: text/html; charset=utf-8');
-	    $class_id = $this->uri->segment(3,0);
-	    $classroom_id = $this->uri->segment(4,0);
+	    $classroom_id = $this->uri->segment(3,0);
 	    //老师获得该课的所有题目
 	    $param = array(
-	    	'class_id' => $class_id,
+	    	'classroom_id' => $classroom_id,
 	    	'status' => -1,//没出过
 	    );
 	    $question_list = $this->teacher_b->class_question($param);
 	    $data = array(
 	    	'class_questions' => $question_list,
+	    	'classroom_id' => $classroom_id,
 	    );
 	    $this->smarty->assign('data',$data);
         $this->smarty->display('www/classRoom/index.html');
@@ -239,10 +239,10 @@ class Classroom extends NH_User_Controller {
 	 * 老师获得该课的当前未出过所有题目
 	 */
 	public function teacher_get_exercise_page(){
-		$classroom_id= $this->input->get('class_id');
+		$classroom_id= $this->uri->segment(3,0);
 		
 	    $param = array(
-	    	'class_id' => $class_id,
+	    	'classroom_id' => $classroom_id,
 	    	'status' => -1,//没出过
 	    );
 	    $question_list = $this->teacher_b->class_question($param);
@@ -258,7 +258,8 @@ class Classroom extends NH_User_Controller {
 	 * 老师出题
 	 */
 	public function teacher_publish_questions(){
-		$question_id = $this->input->get('question_id');
+		$question_id = $this->uri->segment(3,0);
+		$sequence = $this->uri->segment(4,1);
 		$param = array(
 			'question_id' => $question_id,
 			'sequence' => $sequence,
@@ -275,15 +276,15 @@ class Classroom extends NH_User_Controller {
 	 * 老师查看做完题的统计
 	 */
 	public function teacher_checkout_question_answer(){
-		$class_id = $this->input->get('class_id');
-		$sequence_num 		= $this->teacher_b->get_sequence(array('class_id' => $class_id));//获取批次
+		$classroom_id = $this->uri->segment(3,0);
+		$sequence_num 		= $this->teacher_b->get_sequence(array('class_id' => $classroom_id));//获取批次
 		if($sequence_num>0){
 			$list = array();
-			for ($i=1;$<=$sequence_num;$i++){
+			for ($i=1;$i<=$sequence_num;$i++){
 				$question_list = array();
 				$sequence_id = $this->teacher_b->get_sequence($param);
 				$param = array(
-			    	'class_id' => $class_id,
+			    	'class_id' => $classroom_id,
 			    	'status' => 1,//出过
 			    	'sequence_id' => $i,
 			    );
