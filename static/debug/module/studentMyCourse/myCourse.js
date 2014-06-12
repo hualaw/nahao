@@ -1,5 +1,7 @@
 define(function(require,exports){
     require("naHaoDialog");
+    //弹框
+    var _popUp = require('module/common/method/popUp');
     // 左侧栏 高亮
     exports.leftNav = function (){
         if($(".menu li").length){
@@ -15,14 +17,7 @@ define(function(require,exports){
     //云笔记
     exports.cNote = function (){
         $(".cloudNotes").click(function (){
-            $.tiziDialog({
-                //width:400,
-                title:false,
-                ok:false,
-                icon:false,
-                padding:0,
-                content:$(".noteDia").html()
-            });
+            _popUp.popUp('.noteDia');
         })
     }
     //购买前  选开课时间
@@ -37,12 +32,11 @@ define(function(require,exports){
         })
     }
     //倒计时
-    exports.countDown = function (){
+    exports.countDown = function (obj,id,type){
         var timer = null;
-
         function countDown(){
             var oDate=new Date();
-            array = $("#sell_endtime").val().split(" ");
+            array = $("#"+id).val().split(" ");
 	        FullYear = array['0'].split("-");
 	        Hours = array['1'].split(":");
             oDate.setFullYear(FullYear[0],FullYear[1],FullYear[2]);
@@ -62,9 +56,16 @@ define(function(require,exports){
             s%=60;
             if(days<=0&&hours<=0&&mins<=0&&s<=0){
                 clearInterval(timer);
-                $(".countdown").html("已到时");
+                obj.html("已到时");
             }else{
-                $(".countdown").html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                if(type==1){
+                    obj.html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                }else{
+                    obj.html('<strong>'+days+'</strong>天'+
+                            '<strong>'+hours+'</strong>小时'+
+                            '<strong>'+mins+'</strong>分'+
+                            '<strong>'+s+'</strong>秒');
+                }
             }
         }
         countDown();
@@ -74,18 +75,22 @@ define(function(require,exports){
     //购买前--点击立即购买
     exports.soon_buy = function (){
         $("#soon_buy").click(function (){
-            var url = '/pay/before_product/';
+            var url = '/course/before_check_order/';
             var data = {
             	product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "order_exist") {
-                    //window.location.reload();
                 	alert(response.msg);
+                	window.location.href="/member/my_order/all";
                 } else if(response.status == "order_buy"){
                 	alert(response.msg);
                 } else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
+                } else if(response.status == 'no_login'){
+                	seajs.use('module/nahaoCommon/commonLogin',function(_c){
+                		_c.cLogin();
+                	});
                 }
             }, "json");
         })
@@ -94,18 +99,22 @@ define(function(require,exports){
     //购买前下面--点击购买课程
     exports.soon_buy_xia = function (){
         $("#soon_buy_xia").click(function (){
-            var url = '/pay/before_product/';
+            var url = '/course/before_check_order/';
             var data = {
             	product_id: $('#product_id_xia').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "order_exist") {
-                    //window.location.reload();
                 	alert(response.msg);
+                	window.location.href="/member/my_order/all";
                 } else if(response.status == "order_buy"){
                 	alert(response.msg);
                 }else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
+                }else if(response.status == 'no_login'){
+                	seajs.use('module/nahaoCommon/commonLogin',function(_c){
+                		_c.cLogin();
+                	});
                 }
             }, "json");
         })
@@ -147,4 +156,69 @@ define(function(require,exports){
         });
     }
     
+    //我的课程购买之后 列表 课程回顾 背景圆
+    exports.overCourse = function (){
+        for(var i=0;i< $(".outlineList li").length;i++){
+            if($(".outlineList li").eq(i).find(".replay").length){
+                $(".outlineList li").eq(i).find(".rCon").addClass("rConOver");
+            }
+        }
+
+        //鼠标上去 显示 讲义，运笔记，评论星
+        $(".outlineList li").mouseover(function (){
+            $(this).find(".cListHid").show();     
+        });
+        $(".outlineList li").mouseout(function (){
+            $(this).find(".cListHid").hide();
+        });
+        $(".evaluBtn").click(function (){               
+            _popUp.popUp('.evaluHtml');
+            exports.starClick();
+            require("module/classRoom/valid").evaluForm();
+        })
+    }
+    
+	//评论 几颗星
+	exports.starClick = function (){
+		//var ind = true;
+		$(".evalu .starBg span").click(function (){
+			//if(ind){
+				var _index = $(".evalu .starBg span").index($(this));
+				for(var i=0;i<_index+1;i++){
+					$(".evalu .starBg span").eq(i).addClass("cStar");
+				}
+				//ind = false;
+			//}
+		});
+	}
+    
+        //发送验证码
+    exports.sendValidateCode = function (){
+        $('.sendPhoneCode').click(function() {
+            var _this = $(this);
+            var phone = $("input[name='phone']").val();
+            var verify_type = $("input[name='verify_type']").val();
+            if(!(phone)) {
+                alert('请填写手机号');
+                return false;
+            } else if(!(/\d{11}/.test(phone))) {
+                alert('请输入正确的手机号')
+                return fasle;
+            }
+            $.ajax({
+                url : 'http://www.nahaodev.com/register/send_captcha',
+                type : 'post',
+                data : {'phone' : phone, 'type' : verify_type},
+                dataType : 'json',
+                success : function (result) {
+                    if(result.status == 'error') {
+                        alert(result.msg);
+                    }
+                    //手机验证倒计时
+                    require("module/common/method/countDown").countDown(_this);
+                }
+            }
+            );
+        });
+    }
 });

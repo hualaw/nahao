@@ -10,6 +10,7 @@ class Lesson extends NH_Admin_Controller {
     private $arr_response = array(
         'status' => 'error',
         'msg' => '操作失败',
+        'redirect' => '/lesson'
     );
 
     /**
@@ -43,13 +44,33 @@ class Lesson extends NH_Admin_Controller {
 
 //self::json_output($this->arr_response);
 
-    public function get_token(){
-        $arr_token = array(
-            'token' => 'c3f3d35c19e844a88b7c1899ad1f3c22'
-        );
+    public function token(){
 //        $str_signature = get_meeting_signature();
 //        $str = '?nonce='.TIME_STAMP.'&signature='.$str_signature.'&app_key='.NH_MEETING_ACCESS_KEY;
 //        o($str,true);
+        $arr_token = array(
+            'token' => get_meeting_token()
+        );
         self::json_output($arr_token);
+    }
+
+    /**
+     * add / update courseware to lesson
+     * @author yanrui@tizi.com
+     */
+    public function add_courseware(){
+        $int_lesson_id = $this->input->post('lesson_id') ? intval($this->input->post('lesson_id')) : 0;
+        $int_courseware_id = $this->input->post('courseware_id') ? intval($this->input->post('courseware_id')) : 0;
+//        o($int_lesson_id);
+//        o($int_courseware_id,true);
+        if($int_lesson_id > 0 AND $int_courseware_id > 0){
+            $bool_return = $this->lesson->add_courseware($int_lesson_id,$int_courseware_id);
+            if($bool_return==true){
+                $this->arr_response['status'] = 'ok';
+                $this->arr_response['msg'] = '添加成功';
+                $this->arr_response['redirect'] = '/lesson/index/'.$int_lesson_id;
+            }
+        }
+        self::json_output($this->arr_response);
     }
 }

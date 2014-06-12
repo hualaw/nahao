@@ -9,22 +9,23 @@
 #teacherSetSchool ul li.active{background: #f14211;color: #fff;}
 #teacherSetSchool .schoolInfo .hd{padding-bottom:10px;}
 #teacherSetSchool .schoolInfo .cInput{height:27px;line-height: 27px;border:1px solid #ccc;}
-#teacherSetSchool .schoolInfo .hd .cBtnSilver{height:27px;line-height: 27px;margin-left:10px;background:#f14211;border-radius: 5px;color: #fff;cursor: pointer;border:0px;}
+#teacherSetSchool .schoolInfo .hd .cBtnSilver{height:27px;line-height: 27px;margin-left:10px;background:#f14211;border-radius: 5px;color: #fff;cursor: pointer;border:0px; padding:0px 20px;}
+#teacherSetSchool .schoolInfo .hd .cBtnSilver:hover{opacity: 0.9;filter: alpha(opacity=90);}
 #teacherSetSchool .schoolInfo .noMySchollBtn,
-#teacherSetSchool .schoolInfo .returnSetSchool{color:#09aa83;margin-left:10px;}
+#teacherSetSchool .schoolInfo .returnSetSchool{color:#F14211;margin-left:10px;}
 #teacherSetSchool .schoolInfo .noMySchollBtn:hover,
-#teacherSetSchool .schoolInfo .returnSetSchool:hover{color:#f14211;}
+#teacherSetSchool .schoolInfo .returnSetSchool:hover{color:#333;}
 #teacherSetSchool .schoolInfo .school,
 #teacherSetSchool .schoolInfo .seacherResult{height:90px;overflow-y: scroll;}
 #teacherSetSchool .schoolInfo .school dt{width:20px;text-align: center;font-size:14px;}
 #teacherSetSchool .schoolInfo .school dd{width: 760px;}
 #teacherSetSchool .schoolInfo .school dt{font-weight:bold;}
-#teacherSetSchool .schoolInfo span.reset{position: absolute;top: 8px;right:8px;background:url({/literal}{$static_url}{$static_version}{literal}lib/tizi_static/image/common/close.gif) no-repeat;);width:11px;height:11px;text-indent: -999em; overflow: hidden;cursor: pointer;}
+#teacherSetSchool .schoolInfo span.reset{position: absolute;top: 8px;right:8px;background:url({/literal}{$static_url}{$static_version}{literal}/images/common/close.gif) no-repeat;);width:11px;height:11px;text-indent: -999em; overflow: hidden;cursor: pointer;}
 #teacherSetSchool .schoolInfo .school dd li{width:25%;padding:0px;display:block;float: left;height:24px;overflow: hidden; cursor: pointer; text-indent: 10px;}
 #teacherSetSchool .seacherResult li{width:25%;padding:0px;display:block;float: left;height:24px;overflow: hidden; cursor: pointer; text-indent: 10px;}
 </style>
 {/literal}
-<div id="resetSchoolPop" class="pop_box">
+<div id="resetSchoolPop" class="pop_box undis">
     <div id="teacherSetSchool">
         <div class="pop_main resetSchoolPopCon_beta">
             <!-- 选择省份开始 -->
@@ -34,7 +35,7 @@
             <ul class="schooLocation schoolCity cf city undis"></ul>
             <!-- 选择城市结束 -->
             <!-- 选择区县开始 -->
-            <ul class="schooLocation schoolCounty cf county undis"></ul>
+            <ul class="schooLocation schoolCounty cf county"></ul>
             <!-- 选择区县结束 -->
             <!-- 选择学校性质开始 -->
             <ul class="schooLocation schoolGrade cf sctype undis"></ul>
@@ -42,8 +43,8 @@
             <!-- 选择学校开始 -->
             <div class="schoolInfo undis">
                 <div class="hd">
-                    <form action="###" class="seacherSchoolForm" method="post" onsubmit="return false;">
-                        <span class="fl">在<span id="sName"></span>中搜索：</span>
+                    <form class="seacherSchoolForm" method="post" onsubmit="return false;">
+                        <span class="fl">按选中的条件搜索：</span>
                         <div class="posr fl">
                             <input type="text" name="" class="cInput schoolNames" />
                             <div class="ValidformInfo">

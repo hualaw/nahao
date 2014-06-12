@@ -1,8 +1,6 @@
 define(function(require,exports){
 	// 请求验证库
     require("validForm");
-    // 请求公共验证信息
-   // var sDataType = require("module/common/basics/dataType").dataType();
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
@@ -47,9 +45,9 @@ define(function(require,exports){
             },
             {	
                	 ele:".Uname",
-               	 datatype: "*2-20",
+               	 datatype: "*2-15",
      		  	 nullmsg: "请输入姓名",
-       			 errormsg: "长度2-20个字符"
+       			 errormsg: "长度2-15个字符"
 
             },
             {   
@@ -94,12 +92,22 @@ define(function(require,exports){
     //选择和取消 关注
     function checkAttent(obj){        
         $(obj+" .attent .btn").click(function (){
-            if($(this).hasClass("attentd")){
-                $(this).removeClass("attentd");
-            }else{
-                $(this).addClass("attentd");
+            if($(obj+" .attentd").length < 3){//限制只能选3个学科
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
+                }else{
+                    $(this).addClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'add');
+                }
+            } else {
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
+                }
+                va.call(this);
             }
-            va.call(this);
+            
             //验证 最多关注
             $(obj+" .attent .btn").focus(function (){
                 va.call(this);
@@ -132,12 +140,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.msg);
+                if(data.status == 'ok') {
+                    window.location.reload();
+                }
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -145,9 +156,9 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".pname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
             },
             {    
                 ele:".loction",
@@ -172,10 +183,10 @@ define(function(require,exports){
             },
             {    
                 ele:".pUname",
-                ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                ignore:"ignore",
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -209,12 +220,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.msg);
+                if(data.status == 'ok') {
+                    window.location.reload();
+                }
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -222,9 +236,19 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".pname",
-                datatype:"*6-8",
+                datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度2-15个字符"
+            },
+            {
+                ele: ".phone_number",
+                datatype:"m",
+                ignore:"ignore",
+                nullmsg:"请输入手机号",
+                errormsg:"请输入正确的手机号",
+                ajaxurl:'/register/check_phones',
+                ajaxUrlName:'phone',
+                
             },
             {    
                 ele:".loction",
@@ -250,9 +274,9 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*6-8",
+                datatype: "*2-15",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度2-15个字符"
 
             },
             {    
@@ -284,47 +308,85 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                if(data.status == 'ok') {
+                    alert('密码修改成功, 页面将跳转到登陆页面');
+                    window.location = 'http://www.nahaodev.com';
+                } else {
+                    alert(data.info);
+                }
             }
         });
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".iniPassword",
-                datatype:"*6-16",
+                datatype:"*",
                 nullmsg:"请输入密码",
-                errormsg:"请输入正确的密码"
+                errormsg:"请输入正确的密码",
+                ajaxurl:'/member/front_check_password',
+                ajaxUrlName:'password'
             },
             {
                 ele:".setPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"新密码不能为空",
-                errormsg:"长度6-16个字符之间"
+                errormsg:"长度6-20个字符之间"
             },
             {
                 ele:".reSetPassword",
-                datatype:"*6-16",
-                recheck:"setPassword",
+                datatype:"*6-20",
+                recheck:"set_password",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
             }          
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/member/front_modify_password',
+            ajaxurl:{
+                success:function(json,obj){
+                    console.log(json);
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     }
-    //购买之后 选课时间 验证
-    // exports.enlistForm = function (){
-    //     var _Form=$(".enlistForm").Validform({
-    //         // 自定义tips在输入框上面显示
-    //         tiptype:commonTipType,
-    //         showAllError:false,
-    //         ajaxPost:true,
-    //         beforeSubmit: function(curform) {
-    //             if(!$(".enlistForm li").hasClass("ctimeOn")){
-    //                 return false;
-    //             }
-    //         },
-    //         callback:function(data){
-    //             alert('提交成功');
-    //         }
-    //     });
-    // }
+    
+    /**
+     * 记录学生已选感兴趣学科的学科ID
+     * @param obj  container_obj 盛放subject_id的对象
+     * @param obj subject_obj 当前所选学科
+     * @param str operation  add 增加 remove删除
+     * @returns void
+     */
+    function _record_interested_subjects(container_obj, subject_obj, operation) {
+        var selected_subjects = container_obj.val();
+        var subject_id = subject_obj.attr('subject_id');
+        if(operation == 'add') {
+            if(!selected_subjects) {
+                selected_subjects += subject_id;
+            } else {
+                selected_subjects = selected_subjects + '-' + subject_id;
+            }
+            container_obj.val(selected_subjects);           
+        } else if(operation == 'remove') {
+            var index = selected_subjects.indexOf(subject_id);
+            var opIndex = selected_subjects.indexOf('-');
+            if(index == 0 && opIndex > 0) {
+                selected_subjects = selected_subjects.replace(subject_id + '-', '');//已经选择一个以上学科,并要去掉第一个被选择的学科的情况
+            }else if(index == 0 && opIndex == -1){
+                selected_subjects = selected_subjects.replace(subject_id, '');//只选一个学科,去掉该学科的情况
+            } else {
+                selected_subjects = selected_subjects.replace('-' + subject_id, '');
+            }
+            container_obj.val(selected_subjects);
+        }
+    }
 })

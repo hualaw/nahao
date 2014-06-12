@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+header('content-type: text/html; charset=utf-8');
 class Member extends NH_User_Controller {
 
     function __construct(){
@@ -8,6 +8,10 @@ class Member extends NH_User_Controller {
         $this->load->model('business/student/student_order');
         $this->load->model('business/student/student_index');
         $this->load->model('business/student/student_course');
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
     }
 
     
@@ -17,7 +21,7 @@ class Member extends NH_User_Controller {
 	public function my_course()
 	{  
         header('content-type: text/html; charset=utf-8');
-        $int_user_id = 1;                                                    #TODO用户id
+        $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
         #头像
         $str_avater = DEFAULT_AVATER;
         #我购买的课程
@@ -39,7 +43,7 @@ class Member extends NH_User_Controller {
 	public function my_order($str_type = 'all')
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
         #头像
         $str_avater = DEFAULT_AVATER;
 
@@ -52,14 +56,17 @@ class Member extends NH_User_Controller {
 	    $this->load->library('pagination');
 	    $int_count  = $this->student_member->get_order_count($int_user_id,$str_type);
 	    $int_start = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+	    $config = config_item('page_student');
 	    $config['base_url'] = '/member/my_order/'.$str_type.'/';
 	    $config['total_rows'] = $int_count;
 	    $config['per_page'] = PER_PAGE_NO;
-	    $config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
+	    //$config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
+	    
 	    $this->pagination->initialize($config);
 	    $show_page = $this->pagination->create_links();
 	    #订单列表
 	    $array_order_list = $this->student_member->get_order_list($int_user_id,$str_type,$int_start,PER_PAGE_NO);
+	    //var_dump($array_order_list);die;
 	    #订单总数
         $all_count  = $this->student_member->get_order_count($int_user_id,'all');
         $pay_count  = $this->student_member->get_order_count($int_user_id,'pay');
@@ -85,7 +92,7 @@ class Member extends NH_User_Controller {
 	public function order_detail($int_order_id)
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
         #头像
         $str_avater = DEFAULT_AVATER;
 	    
@@ -97,7 +104,7 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=1) #TODO用户id$this->user['id']
+	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }
@@ -129,7 +136,7 @@ class Member extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                           #TODO用户id
 	    #头像
 	    $str_avater = DEFAULT_AVATER;
 	    $int_order_id = intval($int_order_id);
@@ -145,7 +152,7 @@ class Member extends NH_User_Controller {
 	    
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=1) #TODO用户id$this->user['id']
+	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }
@@ -226,7 +233,7 @@ class Member extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判读是否登录
-	    $int_user_id = 1;                                                    #TODO用户id
+	    $int_user_id = $this->session->userdata('user_id');                                               #TODO用户id
 	    $int_order_id = intval($this->input->post('id'));
 	    $str_reason = trim($this->input->post('reason'));
 	    $str_bank = trim($this->input->post('bank'));
@@ -243,7 +250,7 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=1) #TODO用户id$this->user['id']
+	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }
@@ -276,12 +283,79 @@ class Member extends NH_User_Controller {
 	 */
 	public function my_infor()
 	{
-	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = 1;                                                    #TODO用户id
+        $this->load->model('business/common/business_school');
+        $this->load->model('business/common/business_subject','subject');
+        $this->load->model('business/admin/business_lecture');
+        $this->load->model('business/admin/business_teacher');
+	    $user_id = $this->session->userdata('user_id');
+        if($this->is_post()) {
+            $this->load->model('business/common/business_user');
+            $post_data = array();
+            $phone = trim($this->input->post('phone'));
+            $code = intval($this->input->post('code'));
+            $verify_type = intval($this->input->post('verify_type'));
+            if($phone && $code && $verify_type == 2) {
+                #同时接收到手机、验证码并且验证类型是2,证明用户要绑定手机了
+                $this->load->model('business/common/business_register');
+                $check_ret = $this->business_register->_check_captcha($phone, $code, $verify_type == 2);
+                if(!$check_ret) {
+                    $arr_return = array('status' => ERROR, 'msg' => '验证码无效,请重新发送');
+                    self::json_output($arr_return);
+                } else {
+                    #phone_server加一条记录, user更新phone_mask和phone_verified
+                    $phone_data['phone_mask'] = phone_blur($phone);
+                    $phone_data['phone_verified'] = 1;
+                    add_user_phone_server($user_id, $phone);
+                    $this->business_user->modify_user($phone_data, $user_id);
+                }
+            }
+            $post_data['realname'] = trim($this->input->post('realname'));
+            $post_data['grade'] = intval($this->input->post('grade'));
+            $post_data['gender'] = intval($this->input->post('gender'));
+            $post_data['province'] = intval($this->input->post('province'));
+            $post_data['city'] = intval($this->input->post('city'));
+            $post_data['area'] = intval($this->input->post('area'));
+            $post_data['student_subject'] = $this->input->post('selected_subjects');
+            $post_data['school_id'] = intval($this->input->post('school_id'));
+            $result = $this->business_user->modify_user_info($post_data, $user_id);
+            if($result) {
+                $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
+            } else {
+                $arr_return = array('status' => 'error', 'msg' => '更新资料失败请稍后重试');
+            }
+            self::json_output($arr_return);
+        }
 	    #头像
 	    $str_avater = DEFAULT_AVATER;
+        #年纪信息
+        $grades = $this->config->item('grade');
+        #性别
+        $gender = $this->config->item('gender');
+        #学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
+        #学科
+        $subjects = $this->subject->get_subjects();
+        #我已选择的学科组成的字符串
+        $subject_str = implode('-', $this->_user_detail['student_subject']);
+        #地区数据
+        $province=$this->business_lecture->all_province();
+        if($this->_user_detail['province']) {
+            $city = $this->business_teacher->city1($this->_user_detail['province']);
+        }
+        if($this->_user_detail['city']) {
+            $area = $this->business_teacher->area1($this->_user_detail['city']);
+        }
+        $this->smarty->assign('grades', $grades);
+        $this->smarty->assign('gender', $gender);
+        $this->smarty->assign('school', $my_school['schoolname']);
+        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('subject_str', $subject_str);
 	    $this->smarty->assign('str_avater', $str_avater);
 	    $this->smarty->assign('page_type', 'myInfor');
+        $this->smarty->assign('province', $province);
+        $this->smarty->assign('area', $area);
+        $this->smarty->assign('city', $city);
+        $this->smarty->assign('reg_type', $this->session->userdata('reg_type'));
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }

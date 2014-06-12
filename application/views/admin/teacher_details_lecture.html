@@ -33,7 +33,7 @@
     </tr>
     <tr height="35">
         <td width="200">手机</td>
-        <td>{$details.phone}</td>
+        <td><input type="text" value="{$details.phone}" id="show"></td>
     </tr>
     <tr height="35">
         <td width="200">邮箱</td>
@@ -92,6 +92,7 @@
 {/for}
 <button type="button" class="btn btn-success" id="keep">保存</button>
 <input type="hidden" value="{$details.id}" id="lecture_id" />
+<input type="hidden" value="{$details.phone}" id="mask" />
 <input type="hidden" value="{$details.user_id}" id="user_id" />
 <input type="hidden" value="{$details.gender}" id="gender" />
 <input type="hidden" value="{$details.age}" id="age" />

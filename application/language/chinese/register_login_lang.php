@@ -11,6 +11,7 @@ $lang['reg_dup_phone'] = '此手机已注册，请换一个！';
 $lang['reg_db_error'] = '系统繁忙，请稍候再试！';
 $lang['reg_verify_captcha_failed'] = '验证码不对，请重新输入！';
 $lang['reg_phone_server_error'] = '系统繁忙，请稍候再试！';
+$lang['reg_no_nickname'] = '没有昵称';
 
 $lang['reg_verify_phone_msg'] = '(那好网手机验证码，请完成验证）如非本人操作，请忽略此短信。';
 $lang['reg_send_verify_code_failed'] = '验证码发送失败，请重试！';

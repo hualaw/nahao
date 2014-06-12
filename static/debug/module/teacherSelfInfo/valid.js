@@ -28,12 +28,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.msg);
+                if(data.status == 'ok') {
+                    window.location.reload();
+                }
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"
+                    selector:".select_beauty,:checkbox,:radio,.decorate"
                 }
             }
         });
@@ -101,13 +104,13 @@ define(function(require,exports){
                 errormsg: "请选择性别"
 
             },
-            {
-                ele:".zone",
-                datatype: "*",
-                nullmsg: "请选择地区",
-                errormsg: "请选择地区"
-
-            },
+//            {
+//                ele:".zone",
+//                datatype: "*",
+//                nullmsg: "请选择地区",
+//                errormsg: "请选择地区"
+//
+//            },
             {
                 ele:".schoolAge",
                 datatype: "*",
@@ -167,17 +170,24 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                if(data.status == 'ok') {
+                    alert('密码修改成功, 页面将跳转到登陆页面');
+                    window.location = 'http://www.nahaodev.com';
+                } else {
+                    alert(data.info);
+                }
             }
         });
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
         _Form.addRule([{
-            ele: ".iniPassword",
-            datatype:"*6-16",
-            nullmsg:"请输入密码",
-            errormsg:"请输入正确的密码"
-        },
+                ele: ".iniPassword",
+                datatype:"*6-16",
+                nullmsg:"请输入密码",
+                errormsg:"请输入正确的密码",
+                ajaxurl:'/selfInfo/front_check_password',
+                ajaxUrlName:'password'
+            },
             {
                 ele:".setPassword",
                 datatype:"*6-16",
@@ -187,11 +197,28 @@ define(function(require,exports){
             {
                 ele:".reSetPassword",
                 datatype:"*6-16",
-                recheck:"setPassword",
+                recheck:"set_password",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
             }
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/selfInfo/front_modify_password',
+            ajaxurl:{
+                success:function(json,obj){
+                    console.log(json);
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     };
     /*教师后台管理-个人资料表单验证结束*/
     /*教师后台管理-我要开课表单验证开始*/

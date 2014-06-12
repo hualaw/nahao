@@ -9,13 +9,13 @@
         <div class="col-md-2">
             <select class="form-control" name="course_type">
                 <option value="">全部课程类型</option>
-                {foreach $course_types as $course_type}<option value="{$course_type.id}">{$course_type.name}</option>{/foreach}
+                {foreach $course_types as $k => $v}<option value="{$k}" {if isset($course.course_type) AND $course.course_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="subject">
                 <option value="">全部学科</option>
-                {foreach $subjects as $subject}<option value="{$subject.id}">{$subject.name}</option>{/foreach}
+                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -51,7 +51,7 @@
         <th>状态</th>
         <th>科目</th>
         <th>课程类型</th>
-        <th>章节管理</th>
+        <th>创建时间</th>
         <th>操作</th>
     </tr>
     </thead>
@@ -61,8 +61,8 @@
             <td><input type="checkbox"></td>
             <td>{$v.id}</td>
             <td>{$v.title}</td>
-            <td>{$v.count}</td>
-            <td>{$v.teacher}</td>
+            <td></td>
+            <td></td>
             <td>{$course_status[$v.status]}</td>
             <td>{$subjects[$v.subject]}</td>
             <td>{$course_types[$v.course_type]}</td>
@@ -70,7 +70,8 @@
             <td>
                 <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">更多</a>
                 <a href="/course/edit/{$v.id}">修改</a>
-                <a href="/lesson/index/{$v.id}">章节管理</a>
+                <a target="_blank" href="/lesson/index/{$v.id}">章节管理</a>
+                <a target="_blank" href="/round/edit?course_id={$v.id}">生成班次</a>
             </td>
         </tr>
     {/foreach}

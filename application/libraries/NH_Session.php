@@ -9,13 +9,82 @@ class NH_Session extends CI_Session {
 
 	public function __construct($params = array())
 	{
-		parent::__construct();
-		$this->_redis_load();
-	}
+        log_message('debug', "Session Class Initialized");
+
+        // Set the super object to a local variable for use throughout the class
+        $this->CI =& get_instance();
+
+        //tizi load redis
+        $this->_redis_load();
+
+        // Set all the session preferences, which can either be set
+        // manually via the $params array above or via the config file
+        foreach (array('sess_encrypt_cookie', 'sess_use_database', 'sess_table_name', 'sess_expiration', 'sess_expire_on_close', 'sess_match_ip', 'sess_match_useragent', 'sess_cookie_name', 'cookie_path', 'cookie_domain', 'cookie_secure', 'sess_time_to_update', 'time_reference', 'cookie_prefix', 'encryption_key') as $key)
+        {
+            $this->$key = (isset($params[$key])) ? $params[$key] : $this->CI->config->item($key);
+        }
+
+        if ($this->encryption_key == '')
+        {
+            show_error('In order to use the Session class you are required to set an encryption key in your config file.');
+        }
+
+        // Load the string helper so we can use the strip_slashes() function
+        $this->CI->load->helper('string');
+
+        // Do we need encryption? If so, load the encryption class
+        if ($this->sess_encrypt_cookie == TRUE)
+        {
+            $this->CI->load->library('encrypt');
+        }
+
+        // Are we using a database?  If so, load it
+        if ($this->sess_use_database === TRUE AND $this->sess_table_name != '')
+        {
+            if($this->_use_db) $this->CI->load->database();
+        }
+
+        // Set the "now" time.  Can either be GMT or server time, based on the
+        // config prefs.  We use this to set the "last activity" time
+        $this->now = $this->_get_time();
+
+        // Set the session length. If the session expiration is
+        // set to zero we'll set the expiration two years from now.
+        if ($this->sess_expiration == 0)
+        {
+            $this->sess_expiration = (60*60*24*365*2);
+        }
+
+        // Set the cookie name
+        $this->sess_cookie_name = $this->cookie_prefix.$this->sess_cookie_name;
+
+        // Run the Session routine. If a session doesn't exist we'll
+        // create a new one.  If it does, we'll update it.
+        if ( ! $this->sess_read())
+        {
+            $this->sess_create();
+        }
+        else
+        {
+            $this->sess_update();
+        }
+
+        // Delete 'old' flashdata (from last request)
+        $this->_flashdata_sweep();
+
+        // Mark all new flashdata as old (data will be deleted before next request)
+        $this->_flashdata_mark();
+
+        // Delete expired sessions if necessary
+        $this->_sess_gc();
+
+        log_message('debug', "Session routines successfully run");
+    }
 
 	private function _redis_load()
 	{
 		$_nrd = $this->CI->input->cookie('_nrd');
+
 		if($this->_redis !== false && !$_nrd && extension_loaded('redis'))
 		{
 			$this->CI->config->load('redis', TRUE, TRUE);
@@ -31,7 +100,8 @@ class NH_Session extends CI_Session {
 			}
 			catch (RedisException $e)
 			{
-				log_message('ERROR_NAHAO', '10070:Redis session connection refused. '.$e->getMessage());
+                log_message('error_nahao', '10070:Redis session connection refused. '.$e->getMessage());
+				log_message('error', '10070:Redis session connection refused. '.$e->getMessage());
 				$return = false;
 			}
 			if($return)
@@ -43,7 +113,7 @@ class NH_Session extends CI_Session {
 				}
 				catch (RedisException $e)
 				{
-					log_message('ERROR_NAHAO', '10070:Redis session auth and select refused. '.$e->getMessage());
+					log_message('error', '10070:Redis session auth and select refused. '.$e->getMessage());
 					$return = false;
 				}
 			}
@@ -52,12 +122,14 @@ class NH_Session extends CI_Session {
 				$this->CI->input->set_cookie('_nrd','1',0);
 				$redis = false;
 			}
+
 			$this->_redis = $redis;
 		}
 		else if(!$_nrd)
 		{
 			$this->CI->input->set_cookie('_nrd','1',0);
 		}
+        //var_dump($this->_redis);die();
 	}
 
 	private function _redis_set($key, $value, $ttl)
@@ -69,7 +141,7 @@ class NH_Session extends CI_Session {
 		}
 		else 
 		{
-			log_message('ERROR_NAHAO', '100706:session redis set failed');
+			log_message('error', '100706:session redis set failed');
 		}
 	}
 
@@ -82,7 +154,7 @@ class NH_Session extends CI_Session {
 		}
 		else 
 		{
-			log_message('ERROR_NAHAO', '100707:session redis get failed');
+			log_message('error', '100707:session redis get failed');
 		}
 	}
 
@@ -95,7 +167,7 @@ class NH_Session extends CI_Session {
 		}
 		else 
 		{
-			log_message('ERROR_NAHAO', '100708:session redis del failed');
+			log_message('error', '100708:session redis del failed');
 		}
 	}
 
@@ -107,32 +179,39 @@ class NH_Session extends CI_Session {
 		}
 		else 
 		{
-			log_message('ERROR_NAHAO', '100709:session redis close failed');
+			log_message('error', '100709:session redis close failed');
 		}
 	}
 
 	function sess_read()
 	{
+        log_message('debug_nahao', "enter into sess_read() function");
+
 		// Fetch the cookie
 		$session = $this->CI->input->cookie($this->sess_cookie_name);
 		
 		//tizi check post session_id
+        /*
 		$segment = $this->CI->uri->segment_array();
 		$session_post = false;
 		if(!empty($segment) && $segment[1] == 'download') $session_post = $this->CI->input->get('session_id',true);
 		else if(!empty($segment) && $segment[1] == 'upload') $session_post = $this->CI->input->post('session_id',true);
 		if ($session === FALSE) $session = $session_post;
+        */
 
 		// No cookie?  Goodbye cruel world!...
 		if ($session === FALSE)
 		{
-			log_message('ERROR_NAHAO','session_cookie_not_found');
 			log_message('debug', 'A session cookie was not found.');
 			return FALSE;
 		}
+        else
+        {
+            log_message('debug_nahao', 'A session cookie was found.'.print_r($_COOKIE,1));
+        }
 
 		//tizi do not match useragent when post session id
-		if ($session === $session_post) $this->sess_match_useragent = false;
+		//if ($session === $session_post) $this->sess_match_useragent = false;
 
 		// Decrypt the cookie data
 		if ($this->sess_encrypt_cookie == TRUE)
@@ -159,15 +238,17 @@ class NH_Session extends CI_Session {
 		{
 			$session_id = $session;
 			$session = array();
-			//redis test
+
+            //redis test
 			if($this->_redis)
 			{
+                log_message('debug_nahao', "In sess_read(), redis is available");
 				$userdata = $this->_redis_get($session_id);
 				if(!empty($userdata)) $session = json_decode($userdata,true);
 			}
 			if(empty($session)&&$this->_use_db)
 			{
-				$this->CI->load->database('',true);
+				$this->CI->load->database();
 				$this->CI->db->where('session_id',$session_id);
 				$query = $this->CI->db->get($this->sess_table_name);
 
@@ -189,7 +270,7 @@ class NH_Session extends CI_Session {
 
 			if(empty($session))
 			{
-				log_message('ERROR_NAHAO','session_destroy_unload_session');
+				log_message('error','session_destroy_unload_session');
 				$this->sess_destroy();
 				return FALSE;
 			}
@@ -217,7 +298,7 @@ class NH_Session extends CI_Session {
 		// Is the session data we unserialized an array with the correct format?
 		if ( ! is_array($session) OR ! isset($session['session_id']) OR ! isset($session['ip_address']) OR ! isset($session['user_agent']) OR ! isset($session['last_activity']))
 		{
-			log_message('ERROR_NAHAO','session_destroy_session_info');
+			log_message('error','session_destroy_session_info');
 			$this->sess_destroy();
 			return FALSE;
 		}
@@ -225,7 +306,7 @@ class NH_Session extends CI_Session {
 		// Is the session current?
 		if (($session['last_activity'] + $this->sess_expiration) < $this->now)
 		{
-			log_message('ERROR_NAHAO','session_destroy_last_activity');
+			log_message('error','session_destroy_last_activity');
 			$this->sess_destroy();
 			return FALSE;
 		}
@@ -233,7 +314,7 @@ class NH_Session extends CI_Session {
 		// Does the IP Match?
 		if ($this->sess_match_ip == TRUE AND $session['ip_address'] != $this->CI->input->ip_address())
 		{
-			log_message('ERROR_NAHAO','session_destroy_ip_address');
+			log_message('error','session_destroy_ip_address');
 			$this->sess_destroy();
 			return FALSE;
 		}
@@ -241,7 +322,7 @@ class NH_Session extends CI_Session {
 		// Does the User Agent Match?
 		if ($this->sess_match_useragent == TRUE AND trim($session['user_agent']) != trim(substr($this->CI->input->user_agent(), 0, 120)))
 		{
-			log_message('ERROR_NAHAO','session_destroy_ip_address');
+			log_message('error','session_destroy_ip_address');
 			$this->sess_destroy();
 			return FALSE;
 		}
@@ -339,7 +420,7 @@ class NH_Session extends CI_Session {
 			}
 			else if($this->_use_db) 
 			{
-				$this->CI->load->database('',true);
+				$this->CI->load->database();
 				$this->CI->db->query($this->CI->db->insert_string($this->sess_table_name, $this->userdata));
 			}
 		}
@@ -348,67 +429,70 @@ class NH_Session extends CI_Session {
 		$this->_set_cookie();
 	}
 
-	function sess_update()
-	{
-		// We only update the session every five minutes by default
-		if (($this->userdata['last_activity'] + $this->sess_time_to_update) >= $this->now)
-		{
-			return;
-		}
 
-		// Save the old session id so we know which record to
-		// update in the database if we need it
-		$old_sessid = $this->userdata['session_id'];
-		$new_sessid = '';
-		while (strlen($new_sessid) < 32)
-		{
-			$new_sessid .= mt_rand(0, mt_getrandmax());
-		}
+    function sess_update()
+    {
+        log_message('debug_nahao', 'session sess_update() is called');
+        // We only update the session every five minutes by default
+        if (($this->userdata['last_activity'] + $this->sess_time_to_update) >= $this->now)
+        {
+            return;
+        }
 
-		// To make the session ID even more secure we'll combine it with the user's IP
-		$new_sessid .= $this->CI->input->ip_address();
+        // Save the old session id so we know which record to
+        // update in the database if we need it
+        $old_sessid = $this->userdata['session_id'];
+        $new_sessid = '';
+        while (strlen($new_sessid) < 32)
+        {
+            $new_sessid .= mt_rand(0, mt_getrandmax());
+        }
 
-		// Turn it into a hash
-		$new_sessid = md5(uniqid($new_sessid, TRUE));
+        // To make the session ID even more secure we'll combine it with the user's IP
+        $new_sessid .= $this->CI->input->ip_address();
 
-		// Update the session data in the session data array
-		$this->userdata['session_id'] = $new_sessid;
-		$this->userdata['last_activity'] = $this->now;
+        // Turn it into a hash
+        $new_sessid = md5(uniqid($new_sessid, TRUE));
 
-		// _set_cookie() will handle this for us if we aren't using database sessions
-		// by pushing all userdata to the cookie.
-		$cookie_data = NULL;
+        // Update the session data in the session data array
+        $this->userdata['session_id'] = $new_sessid;
+        $this->userdata['last_activity'] = $this->now;
 
-		// Update the session ID and last_activity field in the DB if needed
-		if ($this->sess_use_database === TRUE)
-		{
-			// set cookie explicitly to only have our session data
-			$cookie_data = array();
-			foreach (array('session_id','ip_address','user_agent','last_activity') as $val)
-			{
-				$cookie_data[$val] = $this->userdata[$val];
-			}
+        // _set_cookie() will handle this for us if we aren't using database sessions
+        // by pushing all userdata to the cookie.
+        $cookie_data = NULL;
 
-			if($this->_redis)
-			{
-				$userdata = $this->_redis_get($old_sessid);
-				$userdata = json_decode($userdata,true);
-				$userdata['last_activity'] = $this->now;
-				$userdata['session_id'] = $new_sessid;
-				$this->_redis_set($new_sessid,json_encode($userdata),$this->sess_expiration);
-				//$this->_redis_del($old_sessid);
-				$this->_redis_set($old_sessid,json_encode($userdata),120);
-			}
-			else if($this->_use_db) 
-			{
-				$this->CI->load->database('',true);
-				$this->CI->db->query($this->CI->db->update_string($this->sess_table_name, array('last_activity' => $this->now, 'session_id' => $new_sessid), array('session_id' => $old_sessid)));
-			}
-		}
+        // Update the session ID and last_activity field in the DB if needed
+        if ($this->sess_use_database === TRUE)
+        {
+            // set cookie explicitly to only have our session data
+            $cookie_data = array();
+            foreach (array('session_id','ip_address','user_agent','last_activity') as $val)
+            {
+                $cookie_data[$val] = $this->userdata[$val];
+            }
 
-		// Write the cookie
-		$this->_set_cookie($cookie_data);
-	}
+            if($this->_redis)
+            {
+                $userdata = $this->_redis_get($old_sessid);
+                $userdata = json_decode($userdata,true);
+                $userdata['last_activity'] = $this->now;
+                $userdata['session_id'] = $new_sessid;
+                $this->_redis_set($new_sessid,json_encode($userdata),$this->sess_expiration);
+                //$this->_redis_del($old_sessid);
+                $this->_redis_set($old_sessid,json_encode($userdata),120);
+            }
+            else if($this->_use_db)
+            {
+                $this->CI->load->database('',true);
+                $this->CI->db->query($this->CI->db->update_string($this->sess_table_name, array('last_activity' => $this->now, 'session_id' => $new_sessid), array('session_id' => $old_sessid)));
+            }
+        }
+
+        // Write the cookie
+        $this->_set_cookie($cookie_data);
+    }
+
 
 	function sess_destroy()
 	{
@@ -470,6 +554,7 @@ class NH_Session extends CI_Session {
 		}
 
 		$expire = ($this->sess_expire_on_close === TRUE) ? 0 : $this->sess_expiration + time();
+        log_message('debug_nahao', "expire time is {$this->sess_expiration}");
 
 		// Set the cookie
 		setcookie(

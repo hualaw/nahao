@@ -1,5 +1,6 @@
 /*注册成功样式开始*/
  .login {padding-bottom:20px;}
+ .login .schoolPar{padding-left: 20px;}
  .login  .regSuccessBox{border:1px solid #d5d5d5;margin-top:20px;background: #fff}
  .login  .regSuccessBox h2{height:60px;line-height: 60px;background: url(../../images/login/regSuccess.png) no-repeat 67px center #f7f7f7;padding-left:110px;font-size: 18px;color:#0e455e;}
  .login  .regSuccessBox h2.noIcon{background-image: none;padding-left: 80px}
@@ -22,7 +23,8 @@
 .login .regSuccessBox li .submit{width:130px;height: 40px;line-height: 40px; border: 0;margin-left:20px;cursor:pointer;}
 .login .jqTransformSelectWrapper{display: inline-block;margin-left: 20px;}
 .login .jqTransformSelectWrapper li{margin-bottom:0px;}
-.login .jqTransformRadioWrapper{float:left;margin: 6px 10px  0 20px;}
+/*.login .jqTransformRadioWrapper{float:left;margin: 6px 10px  0 20px;}*/
+.login .changeSex{margin-left: 20px;}
 /*注册成功样式结束*/
 
 

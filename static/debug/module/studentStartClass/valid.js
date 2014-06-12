@@ -23,6 +23,7 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
+                
             },
             callback:function(data){
                 alert('提交成功');
@@ -38,9 +39,9 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele:".wUname",
-                datatype:"*2-20",
+                datatype:"*2-15",
                 nullmsg:"请输入称呼",
-                errormsg:"长度2-20个字符"
+                errormsg:"长度2-15个字符"
             },
             {
                 ele:".loction",
@@ -56,7 +57,7 @@ define(function(require,exports){
             },
             {
                 ele:".wage",
-                datatype:"*",
+                datatype:"/^\\d{2}$/",
                 nullmsg:"请输入年龄",
                 errormsg:"请输入正确的年龄"
             },
@@ -67,10 +68,16 @@ define(function(require,exports){
                 errormsg: "您未选择教学阶段！"
             },
             {
-                ele:".schoolname",
+                ele:".area_county_id",
                 datatype: "*",
-                nullmsg: "请输入所在学校名称",
-                errormsg: "请输入正确的学校名称"
+                nullmsg: "请选择所在区域",
+                errormsg: "请选择所在区域"
+            },
+            {
+                ele:"#school_type",
+                datatype: "*",
+                nullmsg: "请选择所在学校类型",
+                errormsg: "请选择所在学校类型"
             },
             {
                 ele:".teaTitle",
@@ -80,6 +87,7 @@ define(function(require,exports){
             },
             {
                 ele:".seniority",
+//                datatype: "/^\\d{4}$/",
                 datatype: "*",
                 nullmsg: "请选择实际教龄",
                 errormsg: "请选择正确的实际教龄"
@@ -124,28 +132,19 @@ define(function(require,exports){
             {
                 ele:".startTime",
                 datatype:"*",
-                nullmsg:"请选择开始时间",
-                errormsg:"请选择正确的开始时间"
+                nullmsg:"请选择开始时间"
             },
             {
                 ele:".endTime",
                 datatype:"*",
-                nullmsg:"请选择结束时间",
-                errormsg:"请选择正确的结束时间"
+                nullmsg:"请选择结束时间"
             },
             {
                 ele:".subname",
                 datatype:"*",
                 nullmsg:"请输入课程名称",
                 errormsg:"请输入正确的课程名称"
-            }
-            // ,
-            // {
-            //     ele:".subname",
-            //     datatype:"*",
-            //     nullmsg:"请输入课程名称",
-            //     errormsg:"请输入正确的课程名称"
-            // },    
+            }   
         ]);
     }
     //我要开课 老师注册验证

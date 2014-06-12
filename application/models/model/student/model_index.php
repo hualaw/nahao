@@ -1,14 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * studnet相关逻辑
- * Class Model_Student
- * @author liubing@tizi.com
- */
+
 class Model_Index extends NH_Model{
     
     function __construct(){
         parent::__construct();
+        $this->db->query("set names utf8");
     }
 
     /**
@@ -62,7 +59,34 @@ class Model_Index extends NH_Model{
 	 */
 	public function save_apply_teach($array_data)
 	{
+		//没有学校id，先插学校返回学校id
+		if(!$array_data['school'] && $array_data['schoolname']){
+			$param = array(
+				'county_id' => $array_data['area'],
+				'schoolname' => $array_data['schoolname'],
+				'province_id' => $array_data['province'],
+				'city_id' => $array_data['city'],
+				'status' => 0,
+				'sctype' => $array_data['school_type'],
+			);
+			$this->db->insert('nahao_schools_create', $param);
+			$array_data['school'] = $this->db->insert_id();
+		}
+		unset($array_data['schoolname']);
+		unset($array_data['school_type']);
 	    $this->db->insert('teacher_lecture', $array_data);
+	    $int_row = $this->db->affected_rows();
+	    return $int_row > 0 ? true : false;
+	}
+	
+	/**
+	 * 意见反馈
+	 * @param  $array_data
+	 * @return boolean
+	 */
+	public function save_feedback($array_data)
+	{
+	    $this->db->insert('feedback', $array_data);
 	    $int_row = $this->db->affected_rows();
 	    return $int_row > 0 ? true : false;
 	}

@@ -35,7 +35,7 @@ class NH_Model extends CI_Model
         $mix_return = array();
 //        echo $str_table_range.'--'.$str_result_type.'--'.$str_field."\n";echo "where : \n";var_dump($arr_where);echo "group_by : \n";var_dump($arr_group_by);echo "order_by : \n";var_dump($arr_order_by);echo "limit : \n";var_dump($arr_limit);//exit;
         if (is_array($arr_where)) {
-            $arr_config = config_item('sql_' . DOMAIN);
+            $arr_config = config_item('sql_config');
             if (array_key_exists($str_table_range, $arr_config)) {
                 $arr_keys = array_keys($arr_config[$str_table_range]);
                 $arr_keys = array_flip($arr_keys);
@@ -98,28 +98,30 @@ class NH_Model extends CI_Model
         return $mix_return;
     }
 
-    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email)
+    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type)
     {
 
         if($nickname == '' )
         {
             if($phone_mask)  $nickname = $phone_mask;
             else if($email) $nickname = $email;
-        }
-        else
-        {
-            $info_arr = array(
-                'user_id'=>$user_id,
-                'nickname' => $nickname,
-                'avatar' => $avatar,
-                'phone' => $phone,
-                'phone_mask' => $phone_mask,
-                'email' => $email,
-            );
-            $this->_log_reg_info(ERROR, 'reg_no_nickname', $info_arr);
+
+            if($nickname == '')
+            {
+                $info_arr = array(
+                    'user_id'=>$user_id,
+                    'nickname' => $nickname,
+                    'avatar' => $avatar,
+                    'phone' => $phone,
+                    'phone_mask' => $phone_mask,
+                    'email' => $email,
+                );
+                $this->_log_reg_info(ERROR, 'reg_no_nickname', $info_arr);
+            }
         }
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
+        else $avatar = static_url($avatar);
 
         $userdata = array(
             'user_id' => $user_id,
@@ -128,6 +130,7 @@ class NH_Model extends CI_Model
             'phone' => $phone,
             'phone_mask' => $phone_mask,
             'email' => $email,
+            'reg_type' => $reg_type,
         );
         $this->session->set_userdata($userdata);
     }
@@ -147,7 +150,6 @@ class NH_Model extends CI_Model
     {
         //check phone is unique
         $user_id = get_uid_phone_server($phone);
-
         if($user_id)
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_phone', array('phone'=>$phone));

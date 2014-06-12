@@ -1,10 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * studnet相关逻辑
- * Class Model_Student
- * @author liubing@tizi.com
- */
+
 class Model_Course extends NH_Model{
     
     function __construct(){
@@ -32,8 +28,8 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,
-                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status 
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,
+                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status
                 FROM round WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
@@ -62,7 +58,7 @@ class Model_Course extends NH_Model{
     public function get_one_chapter_children($int_parent_id,$int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,begin_time,end_time,status FROM class WHERE parent_id = ".$int_parent_id.
+        $sql = "SELECT id,title,begin_time,end_time,status,classroom_id FROM class WHERE parent_id = ".$int_parent_id.
                " AND round_id = ".$int_round_id." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -76,7 +72,7 @@ class Model_Course extends NH_Model{
     public function get_all_section($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,begin_time,end_time,status FROM class WHERE parent_id = 1".
+        $sql = "SELECT id,title,begin_time,end_time,status,classroom_id FROM class WHERE parent_id = 1".
                " AND round_id = ".$int_round_id." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -102,7 +98,7 @@ class Model_Course extends NH_Model{
     public function get_round_evaluate($int_course_id)
     {
         $array_result = array();
-        $sql = "SELECT student_id,nickname,content,create_time FROM class_feedback
+        $sql = "SELECT student_id,nickname,content,create_time,score FROM class_feedback
                 WHERE course_id = ".$int_course_id." AND is_show = 1 ORDER BY create_time DESC LIMIT 5";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
@@ -165,7 +161,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT lesson_id,course_id,round_id FROM class WHERE round_id = ".$int_round_id." 
-                AND parent_id > 0 AND parent_id !='' ORDER BY sequence ASC";
+                AND parent_id > 0  ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -206,7 +202,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT title,begin_time,end_time FROM class WHERE round_id = ".$int_round_id." 
-                AND status = 1";
+                AND status = 1 AND parent_id > 0";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
@@ -224,6 +220,35 @@ class Model_Course extends NH_Model{
                 AND student_id = ".$int_user_id;
         $int_rows = $this->db->query($sql)->num_rows();
         return  $bool_result = $int_rows > 0 ? true : false;
+    }
+    
+
+
+    /**
+     * 课程评价
+     * @param  $array_data
+     * @return boolean
+     */
+    public function save_class_feedback($array_data)
+    {
+        $this->db->insert('class_feedback', $array_data);
+        $int_row = $this->db->affected_rows();
+        return $int_row > 0 ? true : false;
+    }
+    
+    /**
+     * 根据教室id查找云笔记
+     * @param  $int_classroom_id
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function get_yun_note_by_classroom_id($int_classroom_id,$int_user_id)
+    {
+        $array_result = array();
+        $sql = "SELECT content FROM class_note WHERE classroom_id = ".$int_classroom_id." 
+                AND student_id = ".$int_user_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return  $array_result;
     }
     
 }

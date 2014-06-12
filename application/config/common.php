@@ -15,15 +15,25 @@ $config['course_status'][2] = '审核通过';
 $config['course_status'][3] = '暂停';
 $config['course_status'][4] = '关闭';
 
+//round_sell_status
+$config['round_sale_status'][0] = '未审核';
+$config['round_sale_status'][1] = '审核不通过';
+$config['round_sale_status'][2] = '审核通过';//（预售）
+$config['round_sale_status'][3] = '销售中';
+$config['round_sale_status'][4] = '已售罄';
+$config['round_sale_status'][5] = '已停售';//（时间到了还没售罄）
+$config['round_sale_status'][6] = '已下架（手动下架）';
+
+//round_teach_status
+$config['round_teach_status'][1] = '等待开课';
+$config['round_teach_status'][2] = '授课中';
+$config['round_teach_status'][3] = '停课';//（手动操作）
+$config['round_teach_status'][4] = '结课';
+$config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这个状态改为过期)
+
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
-
-//教师职称
-$config['teacher_title'][0] = '高级教师';
-$config['teacher_title'][1] = '一级教师';
-$config['teacher_title'][2] = '二级教师';
-$config['teacher_title'][3] = '三级教师';
 
 //教育阶段
 $config['stage'][1] = '小学';
@@ -33,21 +43,6 @@ $config['stage'][3] = '高中';
 $config['has_bought'][1] = '注册用户';
 $config['has_bought'][2] = '付费用户';
 
-//轮里面的销售状态
-$config['round_sale_status'][0] = '未审核';
-$config['round_sale_status'][1] = '审核未通过';
-$config['round_sale_status'][2] = '审核通过';
-$config['round_sale_status'][3] = '销售中';
-$config['round_sale_status'][4] = '已售罄';
-$config['round_sale_status'][5] = '已停售';
-$config['round_sale_status'][6] = '已下架';
-
-//轮里面的授课状态
-$config['round_teach_status'][0] = '等待开课';
-$config['round_teach_status'][1] = '授课中';
-$config['round_teach_status'][2] = '停课';
-$config['round_teach_status'][3] = '结课';
-$config['round_teach_status'][4] = '过期（结课超过30天）';
 //短信日志表里面的短信类型
 $config['message_type'][0] = '注册';
 $config['message_type'][1] = '订单';
@@ -177,6 +172,7 @@ $config['gender']['1'] = '男';
 $config['gender']['2'] = '女';
 
 //职称
+$config['teacher_title'][0] = '无职称';
 $config['teacher_title'][1] = '正高级教师';
 $config['teacher_title'][2] = '高级教师';
 $config['teacher_title'][3] = '一级教师';
@@ -231,12 +227,14 @@ $config['order_log_action'][11] = "完成退款";
 $config['school_type'][1] = '公立小学';
 $config['school_type'][2] = '公立中学';
 
-
-
-
 //进出课堂动作
 $config['classroom_action'][1] = '进入';
 $config['classroom_action'][2] = '退出';
+
+//课堂学生小动作
+$config['classroom_student_action'][1] = '点赞';
+$config['classroom_student_action'][2] = '讲快点';
+$config['classroom_student_action'][3] = '讲慢点';
 
 //课里面的状态
 $config['class_teach_status'][0] = '初始化';
@@ -245,3 +243,18 @@ $config['class_teach_status'][2] = '正在上课';
 $config['class_teach_status'][3] = '上完课';
 $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
+
+//学科
+$config['subject'][1] = '语文';
+$config['subject'][2] = '数学';
+$config['subject'][3] = '英语';
+
+//账户状态
+$config['account'][0] = '禁用';
+$config['account'][1] = '启用';
+
+//进入meeting的身份类型
+$config['nh_meeting_type'][0] = '学生';
+$config['nh_meeting_type'][1] = '老师';
+$config['nh_meeting_type'][2] = '管理员';
+$config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id

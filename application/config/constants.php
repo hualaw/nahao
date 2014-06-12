@@ -183,6 +183,7 @@ define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
+define('TABLE_CLASS_NOTE', 'class_note');
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
@@ -202,9 +203,7 @@ define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
-define('STATIC_ADMIN_CSS_SIGNIN','/admin/css/signin.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
-
 
 
 //phone_server连接
@@ -212,47 +211,17 @@ define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST',
 define('PHONE_SERVER_PORT', 1899);
 define('PHONE_SERVER_APPNAME', 'nahao');
 
-//register type
-define('REG_TYPE_PHONE', 1);
-define('REG_TYPE_EMAIL', 2);
-
-//login status
-define('LOGIN_TYPE_PHONE', 1);
-define('LOGIN_TYPE_EMAIL', 2);
+//register&login type
+define('REG_LOGIN_TYPE_PHONE', 1);
+define('REG_LOGIN_TYPE_EMAIL', 2);
 
 //ok/error
 define('SUCCESS', 'ok');
 define('ERROR', 'error');
 
-//register status
-define('REG_SUCCESS', 1);
-define('REG_DUP_NICKNAME', 2);
-define('REG_DUP_EMAIL', 'dup');
-define('REG_DB_ERROR', 4);
-define('REG_INVALID_PHONE', 5);
-define('REG_INVALID_EMAIL', 6);
-define('REG_VERIFY_CAPTCHA_FAILED', 7);
-define('REG_PHONE_SERVER_ERROR', 8);
-define('REG_DUP_NICKNAME', 9);
-define('REG_DUP_PHONE', 10);
-
-//短信发送状态
-define('REG_SEND_VERIFY_CODE_FAILED', 11);
-define('REG_SEND_VERIFY_CODE_SUCCESS', 12);
-//check status
-define('REG_CHECK_PHONE_SUCCESS', 13);
-define('REG_CHECK_EMAIL_SUCCESS', 14);
-define('REG_CHECK_NICKNAME_SUCCESS',15);
-
 //过期时间
-
-define('REDIS_VERIFY_CODE_EXPIRE_TIME', 300); //5分钟
+define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应该改为5分钟
 //define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
-
-//phone_server连接
-define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
-define('PHONE_SERVER_PORT', 1899);
-define('PHONE_SERVER_APPNAME', 'nahao');
 
 
 //课程中的状态
@@ -278,8 +247,16 @@ define('MIN_NICKNAME_LEN', 2);
 define('MAX_NICKNAME_LEN', 15);
 
 //meeting account
+define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
 define('NH_MEETING_ACCESS_KEY','7e30a4');
 define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
+//访问教室的用户类型
+define('NH_MEETING_TYPE_STUDENT',0);//学生
+define('NH_MEETING_TYPE_TEACHER',1);//老师
+define('NH_MEETING_TYPE_ADMIN',2);//管理员
+define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
+//进教室的链接，后面拼token就能进了
+define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/tnc/enter?token=');
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
@@ -289,10 +266,20 @@ define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
 
-//昵称最大长度
-define('MIN_NICKNAME_LEN', 4);
-define('MAX_NICKNAME_LEN', 21);
+//单轮，单节最大人数
+define('NH_CLASS_PEOPLE_CAPS',100);
 
+//昵称最大长度
+/* define('MIN_NICKNAME_LEN', 4);
+define('MAX_NICKNAME_LEN', 21); */
+
+//教龄上限
+define('TEACHER_AGE_CEILING', 50);
+
+//教室学生操作类型定义
+define('CLASS_PLEASE_ACTION', 1);//赞
+define('CLASS_SLOWER_ACTION', 2);//讲快一点
+define('CLASS_FASTER_ACTION', 3);//讲慢一点
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

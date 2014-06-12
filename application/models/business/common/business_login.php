@@ -7,12 +7,13 @@ class Business_Login extends NH_Model {
         if(strlen($username) == 0 || strlen($password) == 0)
             return $this->_log_reg_info(ERROR, 'login_invalid_info', array('username'=>$username, 'password'=>$password));
 
-        if(strpos($username, '@')!== false) $login_type = LOGIN_TYPE_EMAIL;
-        else $login_type = LOGIN_TYPE_PHONE;
+        if(strpos($username, '@')!== false) $login_type = REG_LOGIN_TYPE_EMAIL;
+        else $login_type = REG_LOGIN_TYPE_PHONE;
+
 
         $user_id = 0;
         $email = '';
-        if($login_type == LOGIN_TYPE_PHONE)
+        if($login_type == REG_LOGIN_TYPE_PHONE)
         {
             $check_ret = $this->check_phone_format($username);
             if($check_ret['status'] != SUCCESS) return $check_ret;
@@ -26,6 +27,7 @@ class Business_Login extends NH_Model {
             $email = $username;
         }
 
+
         if($user_id || $email)
         {
             $this->load->model('model/common/model_user');
@@ -34,7 +36,7 @@ class Business_Login extends NH_Model {
             if($user_id) $arr_where['id'] = $user_id;
             if($email) $arr_where['email'] = $email;
 
-            $str_fields = 'id,nickname,phone_mask,password,salt';
+            $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar';
             $ret_info = $this->model_user->get_user_by_param('user', 'list', $str_fields, $arr_where);
             if(!empty($ret_info) && isset($ret_info[0]))
             {
@@ -48,7 +50,7 @@ class Business_Login extends NH_Model {
                     $nickname = '';
                     if(!$user_info['nickname'])
                     {
-                        if($login_type == LOGIN_TYPE_PHONE) $nickname = $user_info['phone_mask'];
+                        if($login_type == REG_LOGIN_TYPE_PHONE) $nickname = $user_info['phone_mask'];
                         else $nickname = $email;
                     }
 
@@ -56,7 +58,7 @@ class Business_Login extends NH_Model {
                     if($user_id) $phone = get_pnum_phone_server($user_id);
 
                     $this->set_session_data($user_info['id'], $nickname, $user_info['avatar'],
-                        $phone, $user_info['phone_mask'], $user_info['email']);
+                        $phone, $user_info['phone_mask'], $user_info['email'], $login_type);
 
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
                 }
@@ -76,6 +78,8 @@ class Business_Login extends NH_Model {
                 $info_arr = array(
                     'username'=> $username,
                     'input_password' => $password,
+                    'user_id' => $user_id,
+                    'email' => $email,
                 );
                 return $this->_log_reg_info(ERROR, 'login_unregister_username', $info_arr);
             }

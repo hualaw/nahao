@@ -6,7 +6,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">课程名称</label>
         <div class="col-md-4">
-            <input type="text" class="col-md-1 form-control" id="title" value="{if isset($course)}{$course.title}{/if}">
+            <input type="text" class="col-md-1 form-control" id="title" value="{if isset($course.title)}{$course.title}{/if}">
         </div>
     </div>
     <div class="form-group">
@@ -15,7 +15,7 @@
             <select class="form-control" id="subject">
                 <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}
-                <option value="{$k}" {if isset($course) AND $course.subject==$k }selected{/if}>{$v}</option>
+                <option value="{$k}" {if isset($course.subject) AND $course.subject==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -26,7 +26,7 @@
             <select class="form-control" id="course_type">
                 <option value="">全部课程类型</option>
                 {foreach $course_types as $k => $v}
-                <option value="{$k}" {if isset($course) AND $course.course_type==$k }selected{/if}>{$v}</option>
+                <option value="{$k}" {if isset($course.course_type) AND $course.course_type==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -41,7 +41,7 @@
             {/if}
             <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="5">张三</botton>-->
             <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="6">李四</botton>-->
-            <botton class="btn btn-success" data-action="/course/teachers" id="course_edit_teacher_select_btn">添加&nbsp;&nbsp;+</botton>
+            <botton class="btn btn-success" data-action="/teacher/teachers" id="course_edit_teacher_select_btn">添加&nbsp;&nbsp;+</botton>
         </div>
     </div>
     <div class="form-group">
@@ -51,7 +51,7 @@
             <select class="form-control"  id="grade_from">
                 <option value="0">开始年级</option>
                 {foreach $grades as $k => $v}
-                <option value="{$k}" {if isset($course) AND $course.grade_from==$k }selected{/if}>{$v}</option>
+                <option value="{$k}" {if isset($course.grade_from) AND $course.grade_from==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -59,7 +59,7 @@
             <select class="form-control" id="grade_to">
                 <option value="0">结束年级</option>
                 {foreach $grades as $k => $v}
-                <option value="{$k}" {if isset($course) AND $course.grade_to==$k }selected{/if}>{$v}</option>
+                <option value="{$k}" {if isset($course.grade_to) AND $course.grade_to==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -70,7 +70,7 @@
         <div class="col-md-2">
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
-                <input type="text" class="form-control" id="reward" value="{if isset($course)}{$course.reward}{/if}" >
+                <input type="text" class="form-control" id="reward" value="{if isset($course.reward)}{$course.reward}{/if}" >
                 <span class="input-group-addon">.00元</span>
             </div>
         </div>
@@ -81,7 +81,7 @@
         <div class="col-md-2">
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
-                <input type="text" class="form-control" id="price" value="{if isset($course)}{$course.price}{/if}">
+                <input type="text" class="form-control" id="price" value="{if isset($course.price)}{$course.price}{/if}">
                 <span class="input-group-addon">.00元</span>
             </div>
         </div>
@@ -90,59 +90,67 @@
     <div class="form-group">
         <label class="col-md-2 control-label">一句话简介</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" id="subtitle" value="{if isset($course)}{$course.subtitle}{/if}">
+            <input type="text" class="form-control" id="subtitle" value="{if isset($course.subtitle)}{$course.subtitle}{/if}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">课程简介</label>
         <div class="col-md-6">
-            <textarea class="form-control" id="intro" rows="5">{if isset($course)}{$course.intro}{/if}</textarea>
+            <textarea class="form-control" id="intro" rows="5">{if isset($course.intro)}{$course.intro}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">适合人群</label>
         <div class="col-md-6">
-            <textarea class="form-control" id="students" rows="5">{if isset($course)}{$course.students}{/if}</textarea>
+            <textarea class="form-control" id="students" rows="5">{if isset($course.students)}{$course.students}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
         <div class="col-md-8">
-            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10">{if isset($course)}{$course.description}{/if}</textarea>
+            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10">{if isset($course.description)}{$course.description}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">添加图片</label>
 
-        <input name="new_file_name" id="new_file_name" type="hidden" value="{$upload_key}">
+        <input name="new_img_file_name" id="new_img_file_name" type="hidden" value="{$upload_img_key}">
         <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
 
         <div class="col-md-2">
             <input type="file" name="course_img" id="course_img" class="form-control" multiple="true" >
-            <img id="img_url" src="{if isset($course)}{$course.img}{/if}" style="display:none;">
-        </div>
-        <div class="col-md-3">
-            <img id="img_url_large" src="" >
-        </div>
-        <div class="col-md-3">
-            <img id="img_url_general" src="" >
-        </div>
-        <div class="col-md-3">
-            <img id="img_url_small" src="" >
+            <img id="img_url" src="{if isset($course.img)}{$course.img}{/if}" style="display:none;">img_url:{$course.img}
         </div>
     </div>
+
+
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{get_course_img_by_size($course.img,'large')}" >
+        </div>
+        <div class="col-md-3">
+            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{get_course_img_by_size($course.img,'general')}" >
+        </div>
+        <div class="col-md-3">
+            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{get_course_img_by_size($course.img,'small')}" >
+        </div>
+    </div>
+
     <div class="form-group">
         <label class="col-md-2 control-label">添加视频</label>
 
+        <input name="new_video_file_name" id="new_video_file_name" type="hidden" value="{$upload_video_key}">
+
         <div class="col-md-2">
-            <input type="file" class="form-control" id="video" rows="10" >
+            <input type="file" name="course_video" id="course_video" class="form-control" multiple="true" >
         </div>
         <div class="col-md-3">
-            <div id="video_url" >{if isset($course)}{$course.video}{/if}</div>
+            <div id="video_url" >{if isset($course.video)}{$course.video}{/if}</div>
         </div>
     </div>
 

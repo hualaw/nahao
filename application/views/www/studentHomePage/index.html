@@ -9,9 +9,11 @@
 <!-- 加载头部公共变量定义结束 -->
 </head>
 <body>
-<!-- ······················选择学校代码开始·························· -->
 <span class="schoolFullName"></span>
-<a href="javascript:void(0);" class="resetSchool aGreen" set="1" province="14" city="210">选择学校</a>
+<a href="javascript:void(0);" class="resetSchool aGreen" set="1" province="2" city="" county="500">选择学校</a>
+<!-- ······················选择学校代码开始·························· -->
+<!-- <span class="schoolFullName"></span> -->
+<!-- <a href="javascript:void(0);" class="resetSchool aGreen" set="1" province="2" city="" county="500">选择学校</a> -->
 <!-- <a href="javascript:void(0);" class="resetSchool aGreen">选择学校</a> -->
 <input type="hidden" value="" name="school_id" id="schoolVal" />
 <input type="hidden" value="" name="area_county_id" id="area_county_id"/>
@@ -62,16 +64,16 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr">
+						<div class="clBoxShaow rotateBox posr" data-action="/course/buy_before/{$item.id}">
 							<div class="teaInfor cf">
 								<img src="{static_url({$item.teacher.avater})}" alt="头像" class="fl">
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">
 									<em class="fl">{$item.teacher.nickname}</em>
-									<span {if $item.work_auth}class="workCard fl"{/if}></span>
-									<span {if $item.titile_auth}class="TitleCard fl"{/if}></span>
-									<span {if $item.teacher_auth}class="teaCard fl"{/if}></span>
+									<span {if $item.teacher.work_auth}class="workCard fl"{/if}></span>
+									<span {if $item.teacher.titile_auth}class="TitleCard fl"{/if}></span>
+									<span {if $item.teacher.teacher_auth}class="teaCard fl"{/if}></span>
 									</h3>
 									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 								</div>
@@ -192,5 +194,40 @@
 	<a href="javascript:void(0);" class="returnTop">返回顶部</a>
 </div>
 <!-- 悬浮框结束 -->
+<!--意见反馈 开始-->
+<div class="feedbackHtml undis">
+	<div class="feedback">
+		<h2>意见反馈</h2>
+		<form action="/index/feedback/" class="feedbackForm" method="post" >
+			<ul>
+				<li class="cf posr">
+					<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>
+					<div class="cf">
+						<textarea name="content" class="fTextarea fl ctextarea" validName="textarea"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="posr">
+					<p class="formName">您的称呼</p>
+					<div class="cf">
+						<input type="text" placeholder="请输入您的称呼，以便我们和您联系" name="nickname" class="fname fl cInput" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="cf posr">
+					<p class="formName">您的邮箱</p>
+					<div class="cf">
+						<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题" name="email" class="fEmail fl cInput" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li>
+					<input type="submit" class="noShowBtn redBtn submit" value="提交">
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+<!--意见反馈 结束-->
 </body>
 </html>

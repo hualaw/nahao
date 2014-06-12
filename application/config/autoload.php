@@ -65,7 +65,6 @@ $autoload['libraries'] = array('session', 'smarty');
 */
 
 $autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt','phone','string');
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files

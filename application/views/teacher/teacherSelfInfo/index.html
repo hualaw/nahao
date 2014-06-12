@@ -18,14 +18,14 @@
         <div class="md_bd">
             <!--个人信息验证开始-->
             <h2 class="personTip">请填写以下基本信息，以便学生更好的了解您并利于学生选课。我们会对您的信息进行严格保密，请放心填写！</h2>
-            <form action="teacher.nahaodev.com/selfInfo/index" method="POST" class="teaInfoForm" name="teaInfoForm">
+            <form action="" method="POST" class="teaInfoForm" name="teaInfoForm">
                 <ul class="Oul">
                     <li class="cf">
                         <em>*</em>
                         <p class="fl">用户昵称</p>
                         <!--用户昵称开始-->
                         <div class="cf">
-                            <input type="text" name="userName" class="fl textInput userName" validName="text" value="{$user_detail.nickname}"/>
+                            <input type="text" name="userName" class="fl textInput userName" validName="text" value="{$user_detail.nickname}" disabled/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--用户昵称结束-->
@@ -35,7 +35,7 @@
                         <p class="fl">真实姓名</p>
                         <!--真实姓名开始-->
                         <div class="cf">
-                            <input type="text" name="userRealName" class="fl textInput userRealName" validName="text" value="{$user_detail.realname}">
+                            <input type="text" name="realname" class="fl textInput userRealName" validName="text" value="{$user_detail.realname}">
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--真实姓名结束-->
@@ -47,7 +47,7 @@
                         <div class="cf">
                             <div class="fl">
                                 {foreach $stages as $key => $val}
-                                <input type="radio" name="level" id="high" class="fl radioInput level" validName="radio" value="{$key}" {if $key == $user_detail.stage} checked{/if}/>
+                                <input type="radio" name="stage" id="high" class="fl radioInput level" validName="radio" value="{$key}" {if $key == $user_detail.stage} checked{/if}/>
                                     <label for="high" class="fl">{$val}</label>
                                 {/foreach}
                             </div>
@@ -72,7 +72,7 @@
                         <div class="cf">
                             <div class="fl">
                                 <div>
-                                    <select name="subject" id="subject" class="fl subject"  validName="select">
+                                    <select name="teacher_subject" id="subject" class="fl subject select_beauty"  validName="select">
                                         <option value="">请选择教学科目</option>
                                         {foreach $subjects as $key => $val}
                                         <option value="{$key}" {if in_array($key, $user_detail.teacher_subject)}selected{/if}>{$val}</option>
@@ -91,7 +91,7 @@
                         <div class="cf">
                             <div class="fl">
                                 <div>
-                                    <select name="rank" id="rank" class="fl rank"  validName="select">
+                                    <select name="teacher_title" id="rank" class="fl rank select_beauty"  validName="select">
                                         <option value="">请选择职称</option>
                                         {foreach $titles as $key => $val}
                                         <option value="{$key}" {if $key == $user_detail.title}selected{/if}>{$val}</option>
@@ -110,7 +110,7 @@
                         <div class="cf">
                             <div class="fl">
                                 {foreach $gender as $key => $val}
-                                <input type="radio" name="sex" value="{if $key == 1}male{elseif $key == 2}female{/if}" {if $key == $user_detail.gender}checked{/if} class="radioInput sex fl" validName="radio" id="{if $key == 1}male{elseif $key == 2}female{/if}"/>
+                                <input type="radio" name="gender" value="{$key}" {if $key == $user_detail.gender}checked{/if} class="radioInput sex fl" validName="radio" id="{if $key == 1}male{elseif $key == 2}female{/if}"/>
                                 <label for="{if $key == 1}male{elseif $key == 2}female{/if}" class="fl">{$val}</label>
                                 {/foreach}
                             </div>
@@ -127,8 +127,9 @@
                                 <div>
                                     <select name="province" id="province" class="province" validName="select">
                                         <option value="">省份</option>
-                                        <option value="1">北京</option>
-                                        <option value="2">北京</option>
+                                        {foreach $province as $val}
+                                        <option value="{$val.id}" {if $val.id == $user_detail.province}selected{/if}>{$val.name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -141,8 +142,9 @@
                                 <div>
                                     <select name="city" id="city" class="city" validName="select">
                                         <option value="">城市</option>
-                                        <option value="1">北京</option>
-                                        <option value="2">北京</option>
+                                        {foreach $city as $val}
+                                        <option value="{$val.id}" {if $val.id == $user_detail.city}selected{/if}>{$val.name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -153,10 +155,13 @@
                         <div class="fl">
                             <div class="fl">
                                 <div>
-                                    <select name="zone" id="zone" class="zone" validName="select">
+                                    <select name="area" id="area" class="area" validName="select">
                                         <option value="">区</option>
-                                        <option value="1">区</option>
-                                        <option value="2">区</option>
+                                        {if $area}
+                                        {foreach $area as $val}
+                                        <option value="{$val.id}" {if $val.id == $user_detail.area}selected{/if}>{$val.name}</option>
+                                        {/foreach}
+                                        {/if}
                                     </select>
                                 </div>
                             </div>
@@ -171,10 +176,11 @@
                         <div class="cf">
                             <div class="fl">
                                 <div>
-                                    <select name="schoolAge" id="schoolAge" validName="select" class="schoolAge">
+                                    <select name="teacher_age" id="schoolAge" validName="select" class="schoolAge select_beauty">
                                         <option value="">请选择教龄</option>
-                                        <option value="1">一年级</option>
-                                        <option value="2">二年级</option>
+                                        {section name=age loop=$teacher_age_ceiling}
+                                        <option value="{$smarty.section.age.index+1}" {if $smarty.section.age.index+1 == $user_detail.teacher_age}selected{/if}>{$smarty.section.age.index+1}年</option>
+                                        {/section}
                                     </select>
                                 </div>
                             </div>
@@ -188,7 +194,7 @@
                         <p class="fl">手机号码</p>
                         <!--手机号码开始-->
                         <div class="cf">
-                            <input type="text" name="phone" class="fl textInput phone" validName="text" value="{$user_detail.phone_mask}"/>
+                            <input type="text" name="phone" class="fl textInput phone" validName="text" value="{$user_detail.phone}" disabled="true"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--手机号码结束-->
@@ -199,35 +205,39 @@
                         <p class="fl">常用邮箱</p>
                         <!--常用邮箱开始-->
                         <div class="cf">
-                            <input type="text" name="email" class="fl textInput email" validName="text" value="{$user_detail.email}"/>
+                            <input type="text" name="email" class="fl textInput email" validName="text" value="{$user_detail.email}" disabled="true"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--常用邮箱结束-->
                     </li>
                     <li class="cf">
                         <p class="fl">个人简介</p>
-                        <textarea class="fl textArea brief" name="brief">{$user_detail.teacher_intro}</textarea>
+                        <textarea class="fl textArea brief" name="teacher_intro">{$user_detail.teacher_intro}</textarea>
                     </li>
                     <li class="cf">
                         <p class="fl">资质证明<b class="verfyTip">（请至少上传一种资质证明，教师资格证必须上传）</b></p>
                         <div class="fl">
                             <div class="md_upload">
+                                <input name="work_auth_img" id="work_auth_img" type="hidden" value="{$upload_work_img_key}">
+                                <input name="title_auth_img" id="title_auth_img" type="hidden" value="{$upload_auth_img_key}">
+                                <input name="teacher_auth_img" id="teacher_auth_img" type="hidden" value="{$upload_title_img_key}">
+                                <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
                                 <a href="javascript:void(0);" class="uploada icon_upload1" data-fileId="shareFileUpField1">
                                     <b class="uploadTip">教师资格证书</b>
                                     <!--上传插件开始-->
-                                    <input type="file" name="shareFileUpField1" id="shareFileUpField1" class="file fl" multiple="true" style="display:none"/>
+                                    <input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
                                     <!--上传插件结束-->
                                 </a>
                                 <a href="javascript:void(0);" class="uploada icon_upload2" data-fileId="shareFileUpField2">
                                     <b class="uploadTip">教师职称证书</b>
                                     <!--上传插件开始-->
-                                    <input type="file" name="shareFileUpField2" id="shareFileUpField2" class="file fl" multiple="true" style="display:none"/>
+                                    <input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
                                     <!--上传插件结束-->
                                 </a>
                                 <a href="javascript:void(0);" class="uploada icon_upload3" data-fileId="shareFileUpField3">
                                     <b class="uploadTip">学校工作证</b>
                                     <!--上传插件开始-->
-                                    <input type="file" name="shareFileUpField3" id="shareFileUpField3" class="file fl" multiple="true" style="display:none"/>
+                                    <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
                                     <!--上传插件结束-->
                                 </a>
                             </div>
@@ -245,10 +255,10 @@
                         <div class="fl">
                             <div class="fl">
                                 <div>
-                                    <select name="bankType" id="bankType" validName="select" class="bankType">
+                                    <select name="bank" id="bankType" validName="select" class="bankType select_beauty">
                                         <option value="">请选择银行</option>
                                         {foreach $banks as $key => $val}
-                                        <option value="{$key}">{$val}</option>
+                                        <option value="{$key}" {if $key == $user_detail.bankname}selected{/if}>{$val}</option>
                                         {/foreach}
                                         
                                     </select>
@@ -259,7 +269,7 @@
                         <!--结算银行结束-->
                         <!--结算银行名字开始-->
                         <div class="fl">
-                            <input type="text" name="bank" class="fl textInput bank" validName="text" value="{$user_detail.bankname}"/>
+                            <input type="text" name="bankbench" class="fl textInput bank" validName="text" value="{$user_detail.bankbench}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--结算银行名字结束-->
@@ -269,7 +279,7 @@
                         <p class="fl">银行卡帐号</p>
                         <!--银行卡帐号开始-->
                         <div class="cf">
-                            <input type="text" name="bankId" class="fl textInput bankId" validName="text" value="{$user_detail.bankcard}"/>
+                            <input type="text" name="bankcard" class="fl textInput bankId" validName="text" value="{$user_detail.bankcard}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--银行卡帐号结束-->
@@ -279,7 +289,7 @@
                         <p class="fl">身份证号</p>
                         <!--身份证号开始-->
                         <div class="cf">
-                            <input type="text" name="cardId" class="fl textInput cardId" validName="text" value="{$user_detail.id_code}"/>
+                            <input type="text" name="id_code" class="fl textInput cardId" validName="text" value="{$user_detail.id_code}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--身份证号结束-->

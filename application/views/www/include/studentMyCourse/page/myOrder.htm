@@ -6,7 +6,7 @@
 		<li {if $str_type == 'pay'}class="tabhOn"{/if}><a href="/member/my_order/pay">已付款<span class="redText">{$pay_count}</span></a></li>
 		<li {if $str_type == 'nopay'}class="tabhOn"{/if}><a href="/member/my_order/nopay">未付款<span class="redText">{$nopay_count}</span></a></li>
 		<li {if $str_type == 'cancel'}class="tabhOn"{/if}><a href="/member/my_order/cancel">已取消<span class="redText">{$cancel_count}</span></a></li>
-		<li {if $str_type == 'refund'}class="tabhOn"{/if}><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
+		<li {if $str_type == 'refund'}class="tabhOn"{/if} class="norbor"><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
 	</ul>
 	{if $str_type == 'all'}
 	<div class="tabCon">
@@ -66,8 +66,9 @@
 					</td>
 					<td>
 						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>			
-						<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>						
+											
 						{if $item.status == '0' || $item.status == '1'}
+						<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>	
 						<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
 							<span class="fl">支付</span>
 							<span class="fr"></span>
@@ -84,7 +85,7 @@
 				{/foreach}				
 				</tbody>
 			</table>
-			{$show_page}
+			
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
@@ -150,14 +151,15 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
+							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
 							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
 								<span class="fl">支付</span>
 								<span class="fr"></span>
 							</a>
-							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a>
+							
 							{elseif $item.status == '2' || $item.status == '3'}
 							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
@@ -170,7 +172,7 @@
 				{/foreach}
 				</tbody>
 			</table>
-			{$show_page}
+<!-- 			{$show_page} -->
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
@@ -236,14 +238,15 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
+							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
 							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
 								<span class="fl">支付</span>
 								<span class="fr"></span>
 							</a>
-							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a>
+							
 							{elseif $item.status == '2' || $item.status == '3'}
 							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
@@ -256,7 +259,7 @@
 				{/foreach}
 				</tbody>
 			</table>
-			{$show_page}
+<!-- 			{$show_page} -->
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
@@ -322,14 +325,15 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
+							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
 							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
 								<span class="fl">支付</span>
 								<span class="fr"></span>
 							</a>
-							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a>
+							
 							{elseif $item.status == '2' || $item.status == '3'}
 							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
@@ -342,7 +346,7 @@
 				{/foreach}
 				</tbody>
 			</table>
-			{$show_page}
+<!-- 			{$show_page} -->
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
@@ -408,14 +412,15 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a><br>
+						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
+							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
 							<a href="/pay/order/{$item.id}/{$item.payment_method}" class="cf btn3 btn">
 								<span class="fl">支付</span>
 								<span class="fr"></span>
 							</a>
-							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a>
+							
 							{elseif $item.status == '2' || $item.status == '3'}
 							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
@@ -428,7 +433,7 @@
 				{/foreach}
 				</tbody>
 			</table>
-			{$show_page}
+<!-- 			{$show_page} -->
 		</div>
 		<div class="undis tabBox">已付款</div>
 		<div class="undis tabBox">未付款</div>
@@ -437,6 +442,18 @@
 	</div>
 	{/if}
 </div>
+{$show_page}
+<!-- 	<div class="page cf">
+		<div class="fl"><a href="" class="prev">上一页</a></div>
+		<span class="fl">
+			<a href="" class="active">1</a>
+			<a href="">2</a>
+			<a href="">3</a>
+			<a href="">4</a>
+			<a href="">5</a>
+		</span>
+		<div class="fl"> <a href="" class="next">下一页</a></div>
+	</div> -->
 <!--订单详情-->
 <!-- <h3 class="pageName">订单详情</h3>
 <div class="detailBox">	
@@ -618,7 +635,7 @@
 			<li>
 				<p class="formName">姓名</p>
 				<div class="cf">
-					<input type="text" name="Uname" class="Uname fl" validName="text">
+					<input type="text" name="realname" class="Uname fl" validName="text">
 					<span class="Validform_checktip fl"></span>
 				</div>
 			</li>
