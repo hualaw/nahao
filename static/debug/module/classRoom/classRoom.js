@@ -1,5 +1,4 @@
 define(function (require,exports){
-	var pop = require('module/common/method/popUp');
 	//做题选答案 (加背景色)
 	exports.options = function (){
 		$(".answerList li").live('click',function (){
@@ -11,22 +10,23 @@ define(function (require,exports){
 	exports.load_questions = function (){
 		var classroom_id = $('#nahaoModule').attr('classroom-data');
 		var url = "/classroom/teacher_get_exercise_page/"+classroom_id+'/?'+((new Date).valueOf());
+		var itemControll = this;
 		$.get(url,function(response){
 			if(response.status=='ok'){
 				var q_html = q_i_html = '';
 				$.each(response.data, function(key, val) {
 					//题目
-					q_html += '<li class="fl itemTabList"><div>'+(key+1)+'.'+val.question+'</div>';
+					q_html += '<li class="fl itemTabList" rel="'+val.id+'"><div>'+(key+1)+'.'+val.question+'</div>';
 					 $.each(val.options, function(k, v) {
 					 	q_html += '<div class="cf eAns"><strong class="fl">'+k+'</strong><p class="fl">'+v.value+'</p></div>';
 					 });
 					q_html += '</li>';
 					//题目索引
-					q_i_html += '<a href="javascript:void(0)">'+(key+1)+'</a>';
+					q_i_html += '<a href="javascript:void(0)" data='+val.id+'>'+(key+1)+'</a>';
 					$('.publish_questions').html(q_html);
 					$('.publish_questions_index').html(q_i_html);
 				});
-				pop.popUp('.exerciseHtml');
+				itemControll.itemClick();
 			}else{
 				$('.publish_questions').html(response.msg);
 			}
@@ -52,7 +52,24 @@ define(function (require,exports){
 				$(".Titem a").eq(_this).addClass("titemOn");
 				$(".itemNum").html(($(".itemNum").html()-"")+1);
             }
-		})
+		});
+		//发布
+		$('.do_publish_questions').click(function(){
+			var question_id = ''; 
+			$('li.itemOn').each(function(){
+				question_id += $(this).attr('rel')+',';
+			})
+			var html='';
+			var url = '/classroom/get_exercise/';
+			var data = {
+				class_id: 4
+			};
+			$.post(url, data, function (response) {
+				if (response.status == "ok") {
+					
+				}
+			}, "json");
+		});
 		//左右切换
 		function roll(ind){
 			$(".itemTabBox").height($(".itemTabList").eq(ind).outerHeight(true));

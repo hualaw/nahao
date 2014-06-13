@@ -321,7 +321,7 @@ class Model_Teacher extends NH_Model{
      * param:class_id,question_id in(1,2,3)
      **/
     public function set_question($param){
-    	if(!$param['class_id']){
+    	if(!$param['class_id'] && !$param['classroom_id']){
     		exit('为避免误操作，班次id不能为空');
     	}
     	#1. 参数组合

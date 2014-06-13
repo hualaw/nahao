@@ -239,6 +239,7 @@ class Classroom extends NH_User_Controller {
 	 * 老师获得该课的当前未出过所有题目
 	 */
 	public function teacher_get_exercise_page(){
+		header("Content-type: text/html; charset=utf-8");
 		$classroom_id= $this->uri->segment(3,0);
 		
 	    $param = array(
@@ -258,13 +259,22 @@ class Classroom extends NH_User_Controller {
 	 * 老师出题
 	 */
 	public function teacher_publish_questions(){
-		$question_id = $this->uri->segment(3,0);
-		$sequence = $this->uri->segment(4,1);
+		header("Content-type: text/html; charset=utf-8");
+		$classroom_id = $this->uri->segment(3,0);
+		$sequence = $this->teacher_b->get_sequence(array('classroom_id'=>$classroom_id));
+		$question_id = $this->input->get('question_id');
+		$sequence = isset($sequence) && $sequence>0 ? $sequence : 1;
+		$question_id = isset($question_id) ? rtrim($question_id,',') : '';
+		if(!$question_id){exit('没有选中要发布的题目');}
+		$question_id = "5,6,7";
+		$sequence = 2;
 		$param = array(
+			'classroom_id' => $classroom_id,
 			'question_id' => $question_id,
 			'sequence' => $sequence,
 		);
 		$res = $this->teacher_b->teacher_publish_question($param);
+		var_dump($res);die;
 		if($res)
 	    {
 	    	self::json_output(array('status'=>'ok','msg'=>'出题成功'));
@@ -276,6 +286,7 @@ class Classroom extends NH_User_Controller {
 	 * 老师查看做完题的统计
 	 */
 	public function teacher_checkout_question_answer(){
+		header("Content-type: text/html; charset=utf-8");
 		$classroom_id = $this->uri->segment(3,0);
 		$sequence_num 		= $this->teacher_b->get_sequence(array('class_id' => $classroom_id));//获取批次
 		if($sequence_num>0){

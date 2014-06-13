@@ -319,35 +319,16 @@
 				<a href="jacascript:void(0)" class="clickR clickBtn"></a>
 				<div class="itemTabBox posr">
 					<ul class="cf publish_questions">
-					<!--{if $data['class_questions']}
-						{foreach $data['class_questions'] as $key => $val}
-							<li class="fl itemTabList">
-								<div>{$key+1}.{$val['question']}</div>
-								{foreach $val['options'] as $k=>$v}
-									{if $v['value']}
-									<div class="cf eAns">
-										<strong class="fl">{$k}</strong>
-										<p class="fl">{$v['value']}</p>
-									</div>
-									{/if}
-								{/foreach}
-							</li>
-						{/foreach}
-					{/if}-->
+					
 					</ul>
 				</div>
 			</div>
 			<div class="ef">
 				<span class="Titem publish_questions_index">
-					<!--{if $data['class_questions']}
-						{foreach $data['class_questions'] as $key => $val}
-							<a href="javascript:void(0)">{$key+1}</a>
-						{/foreach}
-					{/if}-->
 				</span>
 				<p>
 					<span>当前已选<em class="redText itemNum">0</em>题</span>
-					<a href="javascript:void(0);" class="btn redBtn">发布</a>
+					<a href="javascript:void(0);" class="btn redBtn do_publish_questions">发布</a>
 				</p>
 			</div>
 		</div>

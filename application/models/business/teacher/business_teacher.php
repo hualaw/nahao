@@ -405,8 +405,8 @@ class Business_Teacher extends NH_Model
       **/
      public function teacher_publish_question($param){
      	$param['sequence'] = isset($param['sequence']) ? $param['sequence'] : 1;
-     	$prarm['question_id'] = trim($prarm['question_id'],',');
-     	if(!$prarm['question_id']){exit('缺少必要出题题目id');}
+     	$param['question_id'] = trim($param['question_id'],',');
+     	if(!$param['question_id']){exit('缺少必要出题题目id');}
      	return $this->model_teacher->set_question($param);
      } 
      
