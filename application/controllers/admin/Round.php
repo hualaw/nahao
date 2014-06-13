@@ -77,9 +77,10 @@ class Round extends NH_Admin_Controller
         $this->smarty->assign('course_status',config_item('course_status'));
         $this->smarty->assign('round_sale_status',config_item('round_sale_status'));
         $this->smarty->assign('round_teach_status',config_item('round_teach_status'));
+        $this->smarty->assign('round_list_search_type',config_item('admin_round_list_search_type'));
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('course_types',$arr_course_types);
-        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('query_param', $arr_query_param);
         $this->smarty->assign('view', 'round_list');
         $this->smarty->display('admin/layout.html');
     }
@@ -187,58 +188,99 @@ class Round extends NH_Admin_Controller
         $arr_course = $arr_lessons = array();
         $str_action = 'create';
 
-        //update
+        $bool_round_flag = false;
+        $str_error = 'param error';
         if ($int_round_id > 0) {
+            //update round
             $str_action = 'update';
             $arr_round = $this->round->get_round_by_id($int_round_id);
             $arr_teachers = $this->round->get_teachers_by_round_id($int_round_id);
             $this->load->model('business/admin/business_class', 'class');
             $arr_classes = $this->round->get_classes_by_round_id($int_round_id);
+            $bool_round_flag = true;
         } else {
-            //create
+            //create round
             //course base info
             $this->load->model('business/admin/business_course', 'course');
             $arr_round = $arr_course = $this->course->get_course_by_id($int_course_id);
-            //course teachers
-            $arr_teachers = $this->course->get_teachers_by_course_id($int_course_id);
-//            o($this->db->last_query());
-//            o($arr_teachers,true);
-            $this->load->model('business/admin/business_lesson', 'lesson');
-            //course lessons
-            $arr_classes = $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+
+            //course can generate round while status==NAHAO_STATUS_COURSE_RUNNING
+            if($arr_course){
+                if($arr_course['status'] == NAHAO_STATUS_COURSE_RUNNING){
+                    //course teachers
+                    $arr_teachers = $this->course->get_teachers_by_course_id($int_course_id);
+                    if($arr_teachers){
+                        //course lessons validate if has lessons, pdf and question exists
+                        $this->load->model('business/admin/business_lesson', 'lesson');
+                        $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+                        if($arr_lessons){
+                            $bool_lesson_has_pdf_flag = true;
+                            $int_lesson_id = 0;
+                            foreach($arr_lessons as $k => $v){
+                                if($v['courseware_id'] < 1){
+                                    $bool_lesson_has_pdf_flag = false;
+                                    $int_lesson_id = $v['id'];
+                                    break;
+                                }
+                            }
+                            if($bool_lesson_has_pdf_flag==true){
+                                $bool_round_flag = true;//can generate round
+                            }else{
+                                $str_error = 'id为'.$int_lesson_id.'的课节没有pdf';
+                            }
+                        }else{
+                            $str_error = '没有课节';
+                        }
+                    }else{
+                        $str_error = '没有老师';
+                    }
+                }else{
+                    $arr_course_status = config_item('course_status');
+                    $str_error = '课程状态为'.$arr_course_status.',不能生成轮';
+                }
+            }else{
+                $str_error = '课程不存在';
+            }
         }
 
-        //create
-        //subjects
-        $this->load->model('business/common/business_subject', 'subject');
-        $arr_subjects = $this->subject->get_subjects_like_kv();
-        //course_types
-        $this->load->model('business/common/business_course_type', 'course_type');
-        $arr_course_types = $this->course_type->get_course_types_like_kv();
+        //can generate or edit round
+        if($bool_round_flag==true){
+            //subjects to display
+            $this->load->model('business/common/business_subject', 'subject');
+            $arr_subjects = $this->subject->get_subjects_like_kv();
+            //course_types to display
+            $this->load->model('business/common/business_course_type', 'course_type');
+            $arr_course_types = $this->course_type->get_course_types_like_kv();
 
-        //generate param for uploading to qiniu
-        require_once APPPATH . 'libraries/qiniu/rs.php';
-        require_once APPPATH . 'libraries/qiniu/io.php';
-        Qiniu_SetKeys(NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY);
-        $obj_putPolicy = new Qiniu_RS_PutPolicy (NH_QINIU_BUCKET);
-        $str_upToken = $obj_putPolicy->Token(null);
-        $this->load->helper('string');
-        $str_salt = random_string('alnum', 6);
-        //course img file name
-        $str_new_file_name = 'course_' . date('YmdHis', time()) . '_i' . $str_salt . '.png';
+            //generate param for uploading to qiniu
+            require_once APPPATH . 'libraries/qiniu/rs.php';
+            require_once APPPATH . 'libraries/qiniu/io.php';
+            Qiniu_SetKeys(NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY);
+            $obj_putPolicy = new Qiniu_RS_PutPolicy (NH_QINIU_BUCKET);
+            $str_upToken = $obj_putPolicy->Token(null);
+            $this->load->helper('string');
+            $str_salt = random_string('alnum', 6);
+            //course img video file name
+            $str_new_img_file_name = 'course_' . date('YmdHis', time()) . '_i' . $str_salt;
+            $str_new_video_file_name = 'course_' . date('YmdHis', time()) . '_v' . $str_salt;
 
-
-        $this->smarty->assign('action', $str_action);
-        $this->smarty->assign('round', $arr_round);
-        $this->smarty->assign('teachers', $arr_teachers);
-        $this->smarty->assign('classes', $arr_classes);
-        $this->smarty->assign('upload_token', $str_upToken);
-        $this->smarty->assign('upload_key', $str_new_file_name);
-        $this->smarty->assign('view', 'round_edit');
-        $this->smarty->assign('subjects', $arr_subjects);
-        $this->smarty->assign('course_types', $arr_course_types);
-        $this->smarty->assign('grades', config_item('grade'));
-        $this->smarty->display('admin/layout.html');
+            $this->smarty->assign('action', $str_action);
+            $this->smarty->assign('round', $arr_round);
+            $this->smarty->assign('teachers', $arr_teachers);
+            $this->smarty->assign('classes', $arr_classes);
+            $this->smarty->assign('upload_token', $str_upToken);
+            $this->smarty->assign('upload_img_key', $str_new_img_file_name);
+            $this->smarty->assign('upload_video_key', $str_new_video_file_name);
+            $this->smarty->assign('view', 'round_edit');
+            $this->smarty->assign('subjects', $arr_subjects);
+            $this->smarty->assign('course_types', $arr_course_types);
+            $this->smarty->assign('grades', config_item('grade'));
+            $this->smarty->display('admin/layout.html');
+        }else{
+//            die('此课程不能创建轮');
+            header("Content-type: text/html; charset=utf-8");
+            die($str_error);
+        }
     }
 
 }

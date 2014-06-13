@@ -31,8 +31,9 @@ class Model_Course extends NH_Model
     public function update_course($arr_param,$arr_where){
         $this->db->update(TABLE_COURSE, $arr_param, $arr_where);
         $int_affected_rows = $this->db->affected_rows();
-//        o($int_affected_rows);
-        return $int_affected_rows > 0 ? true :false;
+//        o($this->db->last_query());
+//        o($int_affected_rows,true);
+        return $int_affected_rows > 0 ? true :true;
     }
 
     /**

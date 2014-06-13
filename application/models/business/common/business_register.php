@@ -85,7 +85,12 @@ class Business_Register extends NH_Model {
                 //标记user_info表里的记录为无效状态
                 $this->model_user->update_user_info(array('status'=>0), array('user_id'=>$user_id));
 
-                return $this->_log_reg_info(ERROR, 'reg_phone_server_error', array('user_id'=>$user_id, 'phone'=>$phone));
+                $log_info = array(
+                    'error' => 'reg_phone_server_error',
+                    'user_id' => $user_id,
+                    'phone' => $phone,
+                );
+                return $this->_log_reg_info(ERROR, 'reg_phone_server_error', $log_info);
             }
         }
 
