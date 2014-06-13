@@ -84,7 +84,7 @@ define('ORDER_TYPE_OFFLINE', 4);
  * 默认头像 DEFAULT_AVATER
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
-define('DEFAULT_AVATER', '/images/common/default.png');
+define('DEFAULT_AVATER', '/images/login/default_avatar.png');
 /*
  * 老师角色
  * 主讲 0

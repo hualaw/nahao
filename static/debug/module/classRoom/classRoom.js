@@ -84,13 +84,17 @@ define(function (require,exports){
 	//题目展示
 	exports.show_question = function (){
 		 var html='';
-		 var url = '/classroom/get_exercise/';
+		 var url = '/classroom/get_exercise/?'+((new Date).valueOf());;
+		 var class_id = $('#nahaoModule').attr('class-data');
 		 var data = {
-				 class_id: 4
+				 class_id: class_id
 		 };
 		 $.post(url, data, function (response) {
 			 if (response.status == "error") {
-				 alert(response.msg);
+ 				$.dialog({
+				    content:response.msg,
+				    icon:null
+				});
 			 } else if(response.status == "ok"){
 				 
 				 $.each(response.data, function(key, val) {
@@ -100,7 +104,7 @@ define(function (require,exports){
 						 html+='<div class="doWorkList undis">';
 					 }
 				
-					 html+='<div class="setqid" sequence="'+val.sequence+'" classid=4 qid="'+val.id+'">'+val.question+'</div>';
+					 html+='<div class="setqid" sequence="'+val.sequence+'" select_type="'+val.type+'" classid="'+val.class_id+'" qid="'+val.id+'">'+val.question+'</div>';
 					 html+=	'<ul class="answerList">';
 					 $.each(val.options, function(k, v) {
 			
@@ -126,6 +130,13 @@ define(function (require,exports){
 
 				 $('.doWorkBox').html(html);
 				 $(".nextBtn").hide();
+				 $.dialog({
+		            title:false,
+		            ok:false,
+		            icon:false,
+		            padding:0,
+		            content:$(".doWorkBoxHtml").html()
+		        });
 			 }
 			exports.doWork();
 		 }, "json");
@@ -142,6 +153,7 @@ define(function (require,exports){
 		    sequence = 1,
 		    cid = 0,
 		    _len = $('.aui_content .doWorkList').size(),
+		    select_type = 0,
 		    chans = true; //打开做题弹框 判断初始只做一次题		
 
 
@@ -176,55 +188,149 @@ define(function (require,exports){
 				if(index){
 					$(this).show().html("查看结果");
 					index = false;
+					ajax_save();
 				}else{
-					$(".aui_content").html($(".scoreBoxHtml").html());
-					$(".aui_content .result").addClass("resultArrow");
+					 var rhtml='';
+					 var rurl = '/classroom/get_question_result_data/';
+					 var rdata = {
+							 class_id: cid,
+							 sequence:sequence
+					 };
+					 $.post(rurl, rdata, function (response) {
+						 if (response.status == "error") {
+							 alert(response.msg);
+						 } else if(response.status == "ok"){
+								 	rhtml+='<div class="scoreBox itemscore cf ">';
+									rhtml+='<div class="fl optionNav">';	
+									rhtml+='	<h3 class="result resultArrow">结果<span class="fr"></span></h3>';
+									rhtml+='	<div class="sconParl posr">';
+									rhtml+='		<ul class="sconl">';
+									$.each(response.data.data_question, function(k, v) {
+											if(v.is_correct == '1'){
+												rhtml+='	<li>第'+(k+1)+'题</li>';
+											} else if(v.is_correct == '0'){
+												rhtml+='	<li class="curitme">第'+(k+1)+'题</li>';		
+											}
+									})
+									rhtml+='		</ul>';
+									rhtml+='	<div class="sparent undis">';
+									rhtml+='		<div class="sbar"></div>';
+									rhtml+='	</div>';
+									rhtml+='	</div>';
+									rhtml+='</div>';
+									rhtml+='<div class="fl scoreCon posr Showresult">';
+									rhtml+='	<div class="posr scoreBoxPar">';
+		 							$.each(response.data.data_question, function(kk, vv) {
+									
+									rhtml+='		<div class="scoreBoxList undis">';
+									rhtml+='			<div>第'+(kk+1)+'题、'+vv.question+'</div>';
+									rhtml+='			<ul class="answerList">';
+											$.each(vv.options, function(kkk, vvv) {
+												if(vv.selected == kkk ){
+													aclass = "cf curAnswer";
+												} else {
+													aclass = "cf ";
+												}
+												if(vv.answer == kkk){
+													aclass += " ansRight";
+												} else {
+													if(vv.selected == kkk)
+													{
+													aclass += " ansError";
+													}
+												}
+												
+									rhtml+='				<li class="'+aclass+'">';
+									rhtml+='					<em class="fl ansIco"></em>';
+									rhtml+='					<span class="options fl">'+kkk+'</span>';
+									rhtml+='					<p class="fl">'+vvv+'</p>';
+									rhtml+='				</li>';
+											})
+									rhtml+='			</ul>';
+									rhtml+='<p>您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
+									rhtml+='		</div>';
+									
+									})
+									rhtml+='	</div>';
+									rhtml+='	<div class="cparent undis">';
+									rhtml+='		<div class="cbar"></div>';
+									rhtml+='	</div>';
+									rhtml+='</div>';
+									rhtml+='<div class="fl scoreCon Hideresult">';
+									rhtml+='	<div class="fl scoreShow">';
+									rhtml+='		<div class="score">';
+									rhtml+='			<h3>你的得分</h3>';
+									rhtml+='			<strong>'+response.data.count_score+'</strong>';
+									rhtml+='		</div>';
+									rhtml+='		<div class="scoref cf">';
+									rhtml+='			<span class="fl rightItem">';
+									rhtml+='				<span class="ansIco"></span>';
+									rhtml+='				<em>'+response.data.right_num+'</em>';
+									rhtml+='			</span>';
+									rhtml+='			<span class="fl errorItem">';
+									rhtml+='				<span class="ansIco"></span>';
+									rhtml+='				<em>'+response.data.error_num+'</em>';
+									rhtml+='			</span>';
+									rhtml+='		</div>';
+									rhtml+='	</div>';
+									rhtml+='	<p class="fl promText">请点击左侧按钮回顾您的作答情况，红色表示做错的题目，绿色表示做对的题目。请认真查看做错的题目，看看自己能否解出正确答案。如仍不能解出正确答案的，请耐心等待老师讲解哦！</p>';						
+									rhtml+='</div>';
+									rhtml+='</div>';
+			
+								    $('.scoreBoxHtml').html(rhtml);
 
-					$(".Showresult").hide();
-					$(".Hideresult").show();
-			        //选择题目 切换内容
-			        exports.curItem();
+								    $(".aui_content").html($(".scoreBoxHtml").html());
+									$(".aui_content .result").addClass("resultArrow");
+							        //选择题目 切换内容
+							        exports.curItem();
+	
+									$(".aui_content .itemscore .result").click(function (){
+										$(this).addClass("resultArrow");
+										$(".aui_content .Hideresult").show();
+										$(".aui_content .Showresult").hide();
+									})
+						 }
 
-					$(".aui_content .itemscore .result").click(function (){
-						$(this).addClass("resultArrow");
-						$(".aui_content .Hideresult").show();
-						$(".aui_content .Showresult").hide();
-					})
+					 }, "json");
 				}
 			}else{
 				$(this).hide();
 				$(".aui_content .nextBtn").show();	
+				ajax_save();
 			}
-			//ajax提交答案
-			console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
-			var murl = '/classroom/save/';
-            var mdata = {
-            	class_id: cid,
-            	question_id: qid,
-            	selected:answer,
-            	sequence:sequence
-            };
-            $.post(murl, mdata, function (response) {
-    					var n= 0;
-				if(type == 1){
-    				if($(".aui_content .answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
-    					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansRight");
-    				}else{
-						if(response.data.answer == "A"){
-							n = 0;
-						}else if(response.data.answer == "B"){
-							n = 1;
-						}else if(response.data.answer == "C"){
-							n = 2;
-						}else if(response.data.answer == "D"){
-							n = 3;
-						}
+			function ajax_save()
+			{
+				//ajax提交答案
+				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+				var murl = '/classroom/save/';
+	            var mdata = {
+	            	class_id: cid,
+	            	question_id: qid,
+	            	selected:answer,
+	            	sequence:sequence
+	            };
+	            $.post(murl, mdata, function (response) {
+    				var n= 0;
+					if(type == 1){
+						if($(".aui_content .answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
+							$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansRight");
+						}else{
+							if(response.data.answer == "A"){
+								n = 0;
+							}else if(response.data.answer == "B"){
+								n = 1;
+							}else if(response.data.answer == "C"){
+								n = 2;
+							}else if(response.data.answer == "D"){
+								n = 3;
+							}
 
-    					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
-    					$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
-    				}
-    			}
-            });		
+							$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
+							$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
+						}
+					}
+	            });		
+			}	
 		}); 
 		//提交完 答案之后就不能再选择了
 		$(".aui_content .answerList li").click(function (){	
@@ -239,6 +345,7 @@ define(function (require,exports){
 				qid = $(this).parent().parent().find(".setqid").attr("qid")
 				sequence = $(this).parent().parent().find(".setqid").attr("sequence")
 				cid = $(this).parent().parent().find(".setqid").attr("classid")
+				select_type = $(this).parent().parent().find(".setqid").attr("select_type")
 				var answers = [];
 
 				answers.push($(this).find(".options").html());
