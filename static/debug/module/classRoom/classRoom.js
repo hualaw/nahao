@@ -179,6 +179,9 @@ define(function (require,exports){
 				}else{
 					$(".aui_content").html($(".scoreBoxHtml").html());
 					$(".aui_content .result").addClass("resultArrow");
+
+					$(".Showresult").hide();
+					$(".Hideresult").show();
 			        //选择题目 切换内容
 			        exports.curItem();
 
@@ -202,29 +205,27 @@ define(function (require,exports){
             	sequence:sequence
             };
             $.post(murl, mdata, function (response) {
+    					var n= 0;
 				if(type == 1){
     				if($(".aui_content .answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
     					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansRight");
     				}else{
-    					var n;
-    					switch(response.data.answer){
-    						case "A":
-    						n = 0;
-    						case "B":
-    						n = 1;
-    						case "C":
-    						n = 2;
-    						case "D":
-    						n = 3;
-    					}
+						if(response.data.answer == "A"){
+							n = 0;
+						}else if(response.data.answer == "B"){
+							n = 1;
+						}else if(response.data.answer == "C"){
+							n = 2;
+						}else if(response.data.answer == "D"){
+							n = 3;
+						}
+
     					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
     					$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
-    					console.log((ind*4+"/"+n));
     				}
     			}
             });		
 		}); 
-
 		//提交完 答案之后就不能再选择了
 		$(".aui_content .answerList li").click(function (){	
 			if(chans == true){		
