@@ -50,18 +50,19 @@ define(function(require,exports){
         })
 
 
-        $('#show').focus(function(){
+        $('#show').click(function(){
             $.ajax({
                 type:"post",
                 url:"/order/show_phone",
                 data:"uid="+$("#student_id").val(),
                 success:function(msg){
                     $("#show").val(msg);
+                    //alert(msg);
                 }
             })
         })
 
-        $('#show').blur(function(){
+        $('#show').click(function(){
             var p=$("#mask").val();
             $("#show").val(p);
         })

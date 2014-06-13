@@ -97,7 +97,7 @@
             $config_refund=config_item('refund');
             $config_status=config_item("order_status");
             //$this->load->model("business/admin/order");
-            $details = $this->order->order_detail($int_order_id)->row_array();
+            $details = $this->order->order_detail($int_order_id);
             //var_dump($details);die;
             $note=$this->order->order_note($int_order_id)->result_array();
            // var_dump($this->data['note']);die;
@@ -122,7 +122,7 @@
             $student_id=$this->input->post('student_id',TRUE);
             $order_id=$this->input->post('order_id',TRUE);
             //$this->load->model("business/admin/order");
-            self::json_output($this->order->refund_ok($student_id,$order_id));
+            echo $this->order->refund_ok($student_id,$order_id);
         }
 
         /**
@@ -137,7 +137,7 @@
             $student_id=$this->input->post('student_id',TRUE);
             $order_id=$this->input->post('order_id',TRUE);
             //$this->load->model("business/admin/order");
-            self::json_output($this->order->agr_refund($student_id,$order_id));
+            echo $this->order->agr_refund($student_id,$order_id);
         }
 
         /**
@@ -152,7 +152,7 @@
             $order_id=$this->input->post('order_id',TRUE);
             //$this->load->model("business/admin/order");
             //echo $this->order->stu_refund($student_id,$order_id);
-            self::json_output($this->order->stu_refund($student_id,$order_id));
+            echo $this->order->stu_refund($student_id,$order_id);
         }
 
         /**
@@ -167,7 +167,7 @@
           $order_id=$this->input->post('order_id',TRUE);
           //$this->load->model("business/admin/order");
           //echo $this->order->note_insert($note,$order_id);
-          self::json_output($this->order->note_insert($note,$order_id));
+          echo $this->order->note_insert($note,$order_id);
         }
         /**
          * 显示手机号
@@ -178,8 +178,6 @@
         public function show_phone()
         {
             $int_uid=$this->input->post('uid',TRUE);
-            ////$this->load->model("business/admin/order");
-           // self::json_output($this->order->phone_show($int_uid));
             echo $this->order->phone_show($int_uid);
         }
     }

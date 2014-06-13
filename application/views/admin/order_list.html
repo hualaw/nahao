@@ -4,23 +4,23 @@
     </div>
     订单总数:{$sea_total}&nbsp;&nbsp;&nbsp;&nbsp;未付款订单:{$order_count['non_pay']}&nbsp;&nbsp;&nbsp;&nbsp;支付失败:{$order_count['pay_fail']}&nbsp;&nbsp;&nbsp;&nbsp;已取消订单:{$order_count['order_cancel']}&nbsp;&nbsp;&nbsp;&nbsp;已关闭订单:{$order_count['order_close']}&nbsp;&nbsp;&nbsp;&nbsp;已完成订单:{$order_count['pay_success']}&nbsp;&nbsp;&nbsp;&nbsp;已付款订单:{$order_count['pay_payment']}&nbsp;&nbsp;&nbsp;&nbsp;申请退款:{$order_count['apply_refund_round']}&nbsp;&nbsp;&nbsp;&nbsp;退款成功:{$order_count['refund_success_round']}&nbsp;&nbsp;&nbsp;&nbsp;
  退款完成:{$order_count['refund_ok_round']}&nbsp;&nbsp;&nbsp;&nbsp;退款失败:{$order_count['refund_fail_round']}&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />
-    订单号<input type="text" placeholder="请输入订单号" name="order_id" class="span2 search-query">&nbsp;&nbsp;
-    <select name="name_phone_email">
+    订单编号:<input type="text" placeholder="请输入订单号" name="order_id" class="span2 search-query" style="width:150px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select name="name_phone_email" style="width:150px">
         <option value=0>搜索条件</option>
         <option value=1>姓名</option>
         <option value=2>手机</option>
         <option value=3>邮箱</option>
     </select>
-    <input type="text" placeholder="请输入电话/姓名/邮箱" name="phone_name_email">&nbsp;&nbsp;
-    <select name="pay_type">
+    <input type="text" placeholder="请输入电话/姓名/邮箱" style="width:150px" name="phone_name_email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select name="pay_type" style="width:150px">
         <option value=''>全部支付方式</option>
         <option value=0>线上</option>
         <option value=1>网银</option>
         <option value=2>信用卡</option>
         <option value=3>支付宝</option>
         <option value=4>线下</option>
-    </select>&nbsp;&nbsp;
-    <select name="status">
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select name="status" style="width:150px">
         <option value=''>全部订单状态</option>
         <option value=0>未付款</option>
         <option value=1>支付失败</option>
@@ -32,9 +32,9 @@
         <option value=7>拒绝退款</option>
         <option value=8>同意退款</option>
         <option value=9>退款完成</option>
-    </select><br />
-    下单时间<input type="text" id="order_datetimepicker1" name="create_time1" readonly />-<input type="text" id="order_datetimepicker2" name="create_time2" readonly />&nbsp;&nbsp;
-    付款时间<input type="text" id="order_datetimepicker3" name="confirm_time1" readonly />-<input type="text" id="order_datetimepicker4" name="confirm_time2" readonly />
+    </select><br /><br />
+    下单时间:<input type="text" style="width:150px" id="order_datetimepicker1" name="create_time1" readonly placeholder="请选择搜索开始时间" />- - - -<input type="text" style="width:150px"  id="order_datetimepicker2" name="create_time2" readonly placeholder="请选择搜索结束时间" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    付款时间:<input type="text"  style="width:150px" id="order_datetimepicker3" name="confirm_time1" readonly placeholder="请选择搜索开始时间" />- - - -<input type="text" id="order_datetimepicker4" style="width:150px" name="confirm_time2" readonly placeholder="请选择搜索结束时间" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button type="submit" class="btn">搜索</button>
 </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$sea_total2}条数据</label><br />

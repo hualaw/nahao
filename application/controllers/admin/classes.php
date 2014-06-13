@@ -98,8 +98,8 @@ class Classes extends NH_Admin_Controller {
 //        //echo "errno:".curl_errno($ch)."<br>";
 //        curl_close($ch);
 //        echo $output;exit;
-
-        echo nh_curl($str_classroom_url,false);exit;
+o($str_classroom_url,true);
+//        echo nh_curl($str_classroom_url,false);exit;
         $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 
         $this->smarty->assign('iframe',$str_iframe);
