@@ -97,7 +97,7 @@
             $config_refund=config_item('refund');
             $config_status=config_item("order_status");
             //$this->load->model("business/admin/order");
-            $details = $this->order->order_detail($int_order_id)->row_array();
+            $details = $this->order->order_detail($int_order_id);
             //var_dump($details);die;
             $note=$this->order->order_note($int_order_id)->result_array();
            // var_dump($this->data['note']);die;
@@ -178,8 +178,6 @@
         public function show_phone()
         {
             $int_uid=$this->input->post('uid',TRUE);
-            ////$this->load->model("business/admin/order");
-           // self::json_output($this->order->phone_show($int_uid));
             echo $this->order->phone_show($int_uid);
         }
     }

@@ -83,7 +83,7 @@
             <td>{$v.teacher_age}</td>
             <td>{$config_title[$v.title]}</td>
             <td>{$v.name}</td>
-            <td>{$config_stage[$v.stage]}{$v.sub_name}</td>
+            <td>{$config_stage[$v.stage]}{$v.subject_name}</td>
             <td>{$v.register_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
             <td>{if $v.status==0}<font color="red">{$config_account[$v.status]}</font>
                 {else if $v.status==1}

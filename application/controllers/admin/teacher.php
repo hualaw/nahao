@@ -72,6 +72,7 @@ class Teacher extends NH_Admin_Controller {
         }
         $int_count = $this->teacher->get_teacher_count($arr_where);
         $arr_list = $this->teacher->get_teacher_list($arr_where, $int_start,PER_PAGE_NO);
+//        var_dump($arr_list);die;
         $this->load->model('business/admin/business_lecture');
         $province=$this->business_lecture->all_province();
         $this->load->model('business/common/business_subject','subject');
