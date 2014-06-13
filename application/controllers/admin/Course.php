@@ -105,7 +105,7 @@ class Course extends NH_Admin_Controller {
             $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            o($_POST);
+//            o($_POST);
             if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
@@ -122,8 +122,8 @@ class Course extends NH_Admin_Controller {
                 $arr_param['grade_to'] = $int_grade_to;
 
 //                o($_POST('description'));
-                o($this->input->post('description'));
-                o($str_description);
+//                o($this->input->post('description'));
+//                o($str_description);
 
                 if($int_course_id > 0){
                     //update
