@@ -225,9 +225,9 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应
 
 
 //课程中的状态
-define('NAHAO_STATUS_COURSE_INIT',0);//初始化
-define('NAHAO_STATUS_COURSE_CHECKING',1);//审核中
-define('NAHAO_STATUS_COURSE_RUNNING',2);//运营中
+define('NAHAO_STATUS_COURSE_INIT',0);//未审核
+define('NAHAO_STATUS_COURSE_CHECKING',1);//审核未通过
+define('NAHAO_STATUS_COURSE_RUNNING',2);//审核通过，运营中
 define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
 define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
 
