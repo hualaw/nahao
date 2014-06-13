@@ -85,6 +85,25 @@ class Classes extends NH_Admin_Controller {
         if($int_classroom_id){
             $str_classroom_url = enter_classroom($int_classroom_id,NH_MEETING_TYPE_SUPER_ADMIN);
         }
-        echo $str_classroom_url;
+
+//        echo $str_classroom_url;exit;
+//        $ch = curl_init($str_classroom_url);
+//        //var_dump($ch);
+//        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_HEADER, false);
+//        curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+//        $output = curl_exec($ch);
+//
+//        //echo "error:".curl_error($ch)."<br>";
+//        //echo "errno:".curl_errno($ch)."<br>";
+//        curl_close($ch);
+//        echo $output;exit;
+
+        echo nh_curl($str_classroom_url,false);exit;
+        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+
+        $this->smarty->assign('iframe',$str_iframe);
+        $this->smarty->assign('view', 'classroom');
+        $this->smarty->display('admin/layout.html');
     }
 }

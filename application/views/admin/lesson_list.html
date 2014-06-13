@@ -7,7 +7,7 @@
         <th>课节名称</th>
         <th>讲义</th>
         <th>习题管理</th>
-        <th>操作</th>
+        <!--<th>操作</th>-->
     </tr>
     </thead>
     <tbody>
@@ -17,17 +17,21 @@
         <td>{$v.id}</td>
         <td>{$v.title}</td>
         <td>
-            {if $v.courseware_id==0}
-                <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
-            {else}
-                <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
-                <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
+            {if $v.parent_id > 0}
+                {if $v.courseware_id==0}
+                    <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
+                {else}
+                    <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
+                    <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
+                {/if}
+                {else}
+                        是章
             {/if}
         </td>
         <td>{$v.id}</td>
-        <td>
-            <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">修改</a>
-        </td>
+        <!--<td>-->
+            <!--<a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">修改</a>-->
+        <!--</td>-->
     </tr>
     {/foreach}
     </tbody>
