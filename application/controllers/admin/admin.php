@@ -18,7 +18,7 @@ class Admin extends NH_Admin_Controller {
 
     public function test(){
         header("Content-type:application/x-javascript; charset=utf-8");
-        header('Access-Control-Allow-Origin: http://www.91waijiao.com');
+        header('Access-Control-Allow-Origin: http://www.nahaodev.com');
         $arr_return = array(
             'status' => 'ok',
             'msg' => date('Y-m-d H:i:s',time())

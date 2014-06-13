@@ -1,6 +1,6 @@
 .myCoursePage{background: #eee;} 
 .studentMyCourse .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
-
+.studentMyCourse .locaSele select{padding: 6px;margin-right:10px;}
 .studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
 .studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
 .studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}

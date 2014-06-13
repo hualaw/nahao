@@ -33,7 +33,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($array_evaluate);die;
+        //var_dump($str_evaluate_count);die;
         
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);

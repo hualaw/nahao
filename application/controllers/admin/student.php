@@ -88,8 +88,11 @@ class Student extends NH_Admin_Controller {
         $arr_tmp_areas = array_unique($arr_tmp_areas);
         $this->load->model('business/common/business_area','area');
         $arr_areas = $this->area->get_areas_by_ids_like_kv($arr_tmp_areas);
+//        o($arr_final_areas);
         foreach($arr_final_areas as $k => $v){
-            $arr_list[$k]['final_area'] = $arr_areas[$v['province']].$arr_areas[$v['city']].$arr_areas[$v['area']];
+//            $arr_list[$k]['final_area'] = ($v['province'] > 0 ? $arr_areas[$v['province']] : '').$arr_areas[$v['city']].$arr_areas[$v['area']];
+            $arr_list[$k]['final_area'] = ($v['province'] > 0 ? $arr_areas[$v['province']] : '').($v['city'] > 0 ? $arr_areas[$v['city']] : '').($v['area'] > 0 ? $arr_areas[$v['area']] : '');
+//            o($arr_list[$k]['final_area']);
         }
         $arr_provinces = $this->area->get_provinces();
         $this->load->model('business/common/business_subject','subject');
@@ -114,8 +117,10 @@ class Student extends NH_Admin_Controller {
         $this->smarty->assign('provinces',$arr_provinces);
         $this->smarty->assign('course_types',$arr_course_types);
         $this->smarty->assign('subjects',$arr_subjects);
+        $this->smarty->assign('search_type',config_item('admin_student_list_search_type'));
         $this->smarty->assign('genders',config_item('gender'));
-        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('has_bought',config_item('has_bought'));
+        $this->smarty->assign('query_param', $arr_query_param);
         $this->smarty->assign('view', 'student_list');
         $this->smarty->display('admin/layout.html');
     }
@@ -135,7 +140,7 @@ class Student extends NH_Admin_Controller {
                 $arr_where = array(
                     'id' => $int_user_id
                 );
-                $bool_return = $this->user->update_user($arr_param,$arr_where);
+                $bool_return = $this->student->update_student($arr_param,$arr_where);
                 if($bool_return > 0){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '修改成功';
