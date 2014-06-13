@@ -93,13 +93,52 @@ window.onunloadcancel = function(){
 	}
 function PopUpPageWin(type,classid)
 {
-/*	if(type == "student_get_exercise_page")
+	if(type == "student_get_exercise_page")
 		student_get_exercise_page(classid);
 	else if(type == "teacher_get_exercise_page")	
 		teacher_get_exercise_page(classid);
 	else if(type == "teacher_get_exercise_stat")
-		teacher_get_exercise_stat(classid); */
-	alert(type+" "+classid);
+		teacher_get_exercise_stat(classid); 
+	//alert(type+" "+classid);
+}
+
+
+
+
+
+var oS=null;
+function jsonp(url,data,fnSucc){
+    var fnName='jsonp'+Math.random();
+    fnName=fnName.replace(".","");
+    window[fnName]=fnSucc;
+    data.callback=fnName;
+    data.t=Math.random();
+    var arr=[];
+    for (var i in data){
+        arr.push(i+"="+data[i]);    
+    };
+    var oSrc=url+"?"+arr.join("&");
+    if (oS){
+        document.body.removeChild(oS);
+    }
+    oS=document.createElement("script");
+    oS.src=oSrc;
+    document.body.appendChild(oS);
+}
+window.onload = function (){
+	// jsonp("http://www.nahaodev.com/classroom",{callback:?},function (){
+
+	// })
+	//student_get_exercise_page(){
+		// jsonp("http://suggestion.baidu.com/su",{wd:"jsonp"},function (json){
+	 //        alert(json)
+	 //    });
+
+
+		jsonp("http://admin.nahaotest.com/admin/test",{wd:"jsonp"},function (json){
+	        alert(json)
+	    });
+	//}
 }
 </script> 
 <script language="JavaScript" type="text/javascript">

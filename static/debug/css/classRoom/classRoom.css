@@ -28,7 +28,8 @@
 .classRoomPage .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
 .classRoomPage .optionNav .curitme{background: #ed4111;}
 .classRoomPage .optionNav .curitme:hover{background: #f86035;border-left: 5px solid #c93107;}
-.classRoomPage .itemscore .scoreCon{padding: 0 32px 28px;}
+.classRoomPage .itemscore .scoreCon{padding: 0 32px 0px;}
+.classRoomPage .itemscore{padding-bottom: 28px;}
 .classRoomPage .scoreShow{width: 222px;}
 .classRoomPage .ansShow{width: 476px;border: 1px solid #b9b9b9;}
 .classRoomPage .itemscore .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
