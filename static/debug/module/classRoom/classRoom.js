@@ -104,7 +104,7 @@ define(function (require,exports){
 						 html+='<div class="doWorkList undis">';
 					 }
 				
-					 html+='<div class="setqid" sequence="'+val.sequence+'" classid="'+val.class_id+'" qid="'+val.id+'">'+val.question+'</div>';
+					 html+='<div class="setqid" sequence="'+val.sequence+'" select_type="'+val.type+'" classid="'+val.class_id+'" qid="'+val.id+'">'+val.question+'</div>';
 					 html+=	'<ul class="answerList">';
 					 $.each(val.options, function(k, v) {
 			
@@ -153,6 +153,7 @@ define(function (require,exports){
 		    sequence = 1,
 		    cid = 0,
 		    _len = $('.aui_content .doWorkList').size(),
+		    select_type = 0,
 		    chans = true; //打开做题弹框 判断初始只做一次题		
 
 
@@ -189,7 +190,7 @@ define(function (require,exports){
 					index = false;
 					ajax_save();
 				}else{
-									 var rhtml='';
+					 var rhtml='';
 					 var rurl = '/classroom/get_question_result_data/';
 					 var rdata = {
 							 class_id: cid,
@@ -291,19 +292,6 @@ define(function (require,exports){
 						 }
 
 					 }, "json");
-					// $(".aui_content").html($(".scoreBoxHtml").html());
-					// $(".aui_content .result").addClass("resultArrow");
-
-					// $(".Showresult").hide();
-					// $(".Hideresult").show();
-			        //选择题目 切换内容
-			        // exports.curItem();
-
-					// $(".aui_content .itemscore .result").click(function (){
-						// $(this).addClass("resultArrow");
-						// $(".aui_content .Hideresult").show();
-						// $(".aui_content .Showresult").hide();
-					// })
 				}
 			}else{
 				$(this).hide();
@@ -357,6 +345,7 @@ define(function (require,exports){
 				qid = $(this).parent().parent().find(".setqid").attr("qid")
 				sequence = $(this).parent().parent().find(".setqid").attr("sequence")
 				cid = $(this).parent().parent().find(".setqid").attr("classid")
+				select_type = $(this).parent().parent().find(".setqid").attr("select_type")
 				var answers = [];
 
 				answers.push($(this).find(".options").html());

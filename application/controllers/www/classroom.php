@@ -63,7 +63,7 @@ class Classroom extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'老师没有出题'));
 	    }
 	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence,$int_user_id);
-	    //var_dump($array_data['data']);die;
+	    //var_dump($array_data['data']);
 	    if ($array_data['status'] == 'ok') {
 	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data['data']));
 	    } else {
