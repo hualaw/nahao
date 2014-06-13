@@ -157,7 +157,8 @@ class Teacher extends NH_Admin_Controller {
     public function school()
     {
         $school_id=$this->input->post(NULL,TRUE);
-        echo json_encode($this->teacher->school_business_pid($school_id));
+       // echo json_encode($this->teacher->school_business_pid($school_id));
+        self::json_output($this->teacher->school_business_pid($school_id));
     }
     /**
      * 根据市id查找区
@@ -225,6 +226,7 @@ class Teacher extends NH_Admin_Controller {
      */
     public function modify()
     {
+        $subject_tea_id=array();
         $user_id=$this->input->get('user_id',TRUE);
         $teacher_details=$this->teacher->teacher_momdify($user_id);
        // var_dump($teacher_details);die;
@@ -254,10 +256,11 @@ class Teacher extends NH_Admin_Controller {
         $config_bank=config_item('bank');
         $this->load->model('business/admin/business_lecture');
         $province=$this->business_lecture->all_province();
-        $subject_tea_id=$this->subject->get_teacher_subject($user_id);
+        $subject_tea=$this->subject->get_teacher_subject($user_id);
+        $teacher_sub_id=$subject_tea[0];
         $phone=get_pnum_phone_server($user_id);
         //var_dump($subject_tea_id[0]);die;
-        $this->smarty->assign('subject_tea_id',$subject_tea_id[0]);
+        $this->smarty->assign('subject_tea_id',$teacher_sub_id);
         $this->smarty->assign('user_id',$user_id);
         $this->smarty->assign('phone',$phone);
         $this->smarty->assign('school',$school);
