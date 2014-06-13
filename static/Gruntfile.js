@@ -19,30 +19,30 @@ module.exports = function (grunt) {
                     '.css': [style.css2jsParser]
                 },
                 alias: {
-                	// 学生别名
+                    // 学生别名
                     "jquery": "lib/jquery/1.8.2/jquery",
-				    "naHaoDialog": "lib/artDialog/4.1.7/artDialog",
-				    "validForm": "lib/Validform/5.3.2/Validform",
-				    "kindEditor": "lib/kindeditor/4.1.10/kindeditor",
-				    "select": "module/lib/select",
-			        "jQDate": "lib/My97DatePicker/4.8/WdatePicker",
-			        // 老师别名
-			        "jquery": "lib/jquery/1.8.2/jquery",
-				    "naHaoDialog": "lib/artDialog/4.1.7/artDialog",
-				    "validForm": "lib/Validform/5.3.2/Validform",
-				    "kindEditor": "lib/kindeditor/4.1.10/kindeditor",
-				    "select": "module/lib/select",
-			        "ckEditorUploader": "lib/ckeditor/4.3/ckeditor",
-			        "ckSourceUploader": "lib/ckeditor/4.3/adapters/jquery",
-			        "flashUploader": "lib/uploadify/2.2/jquery.uploadify",
-			        "jQDate": "lib/My97DatePicker/4.8/WdatePicker"
+                    "naHaoDialog": "lib/artDialog/4.1.7/artDialog",
+                    "validForm": "lib/Validform/5.3.2/Validform",
+                    "kindEditor": "lib/kindeditor/4.1.10/kindeditor",
+                    "select": "module/lib/select",
+                    "jQDate": "lib/My97DatePicker/4.8/WdatePicker",
+                    // 老师别名
+                    "jquery": "lib/jquery/1.8.2/jquery",
+                    "naHaoDialog": "lib/artDialog/4.1.7/artDialog",
+                    "validForm": "lib/Validform/5.3.2/Validform",
+                    "kindEditor": "lib/kindeditor/4.1.10/kindeditor",
+                    "select": "module/lib/select",
+                    "ckEditorUploader": "lib/ckeditor/4.3/ckeditor",
+                    "ckSourceUploader": "lib/ckeditor/4.3/adapters/jquery",
+                    "flashUploader": "lib/uploadify/2.2/jquery.uploadify",
+                    "jQDate": "lib/My97DatePicker/4.8/WdatePicker"
                 }
             },
             build: {
                 files: [
                     {
                         cwd: sourceDir,
-                        src: ['module/**/*.js','!**/**/*-debug.js'],
+                        src: ['module/**/*.js'],
                         dest: buildDir
                     }
                 ]
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: buildDir,
-                        src: ['**/**/*.js'],
+                        src: ['**/**/*.js','!lib/*'],
                         dest: finalDir
                     }
                 ]
@@ -107,7 +107,7 @@ module.exports = function (grunt) {
                 expand: true,
                 flatten: false,
                 cwd: sourceDir,
-                src: ['!module/**/*.js','lib/**/*','public/**/*','fonts/**/*'],
+                src: ['html/*', '!module/**/*.js','lib/**/*','public/**/*'],
                 dest: finalDir,
                 filter: 'isFile'
             },
@@ -116,6 +116,14 @@ module.exports = function (grunt) {
                 flatten: false,
                 cwd: sourceDir,
                 src: ['images/**/*'],
+                dest: finalDir,
+                filter: 'isFile'
+            },
+            css : {
+                expand: true,
+                flatten: false,
+                cwd: sourceDir,
+                src: ['**/**/style.css'],
                 dest: finalDir,
                 filter: 'isFile'
             }
