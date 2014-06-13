@@ -77,9 +77,10 @@ class Round extends NH_Admin_Controller
         $this->smarty->assign('course_status',config_item('course_status'));
         $this->smarty->assign('round_sale_status',config_item('round_sale_status'));
         $this->smarty->assign('round_teach_status',config_item('round_teach_status'));
+        $this->smarty->assign('round_list_search_type',config_item('admin_round_list_search_type'));
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('course_types',$arr_course_types);
-        $this->smarty->assign('arr_query_param', $arr_query_param);
+        $this->smarty->assign('query_param', $arr_query_param);
         $this->smarty->assign('view', 'round_list');
         $this->smarty->display('admin/layout.html');
     }

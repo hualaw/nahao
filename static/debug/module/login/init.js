@@ -1,4 +1,6 @@
 define(function(require,exports){
+	// 公共select模拟
+	require('select');
 	require("module/login/tab").tab();
 	// 加载登陆验证
 	var _valid = require('module/login/valid');

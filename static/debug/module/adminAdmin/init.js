@@ -1,5 +1,5 @@
 define(function(require,exports){
-    require('module/adminCommon/bootstrap.min');
+    require('lib/bootstrap/bootstrap.min');
     var admin = require('module/adminAdmin/admin');
     admin.create_admin();
     admin.active_admin();

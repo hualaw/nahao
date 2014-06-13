@@ -40,6 +40,8 @@ class Business_Course extends NH_Model
     public function update_course($arr_param,$arr_where){
         $bool_flag = false;
         if($arr_param AND $arr_where){
+//            o($arr_param);
+//            o($arr_where,true);
             $bool_flag = $this->model_course->update_course($arr_param,$arr_where);
         }
         return $bool_flag;
@@ -104,7 +106,7 @@ class Business_Course extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'course_info';
             $str_result_type = 'list';
-            $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname';
+            $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname,lesson_count';
 //            $str_fields = '*';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];

@@ -68,7 +68,6 @@ class Lesson extends NH_Admin_Controller {
             if($bool_return==true){
                 $this->arr_response['status'] = 'ok';
                 $this->arr_response['msg'] = '添加成功';
-                $this->arr_response['redirect'] = '/lesson/index/'.$int_lesson_id;
             }
         }
         self::json_output($this->arr_response);

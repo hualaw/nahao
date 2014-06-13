@@ -159,7 +159,7 @@ define(function (require, exports) {
                 'title' : title,
                 'subtitle' : subtitle,
                 'intro' : intro,
-                'description' : description,
+                'description' : encodeURI(description),
                 'students' : students,
                 'subject' : subject,
                 'course_type' : course_type,
@@ -172,7 +172,8 @@ define(function (require, exports) {
                 'lessons' : arr_lessons,
                 'teachers' : teacher_ids
             };
-//            console.log(data);
+            console.log(encodeURI(description));
+            console.log(description);
 //            return false;
             $.post(action, data, function (response) {
                 alert(response.msg);
