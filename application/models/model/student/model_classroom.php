@@ -71,7 +71,7 @@ class Model_Classroom extends NH_Model{
     public function get_student_question_data($array_data)
     {
         $array_result = array();
-        $sql ="SELECT question_id,answer AS selected,sequence FROM sutdent_question 
+        $sql ="SELECT question_id,answer AS selected,sequence,is_correct FROM sutdent_question 
                WHERE class_id = ".$array_data['class_id']." AND student_id = ".$array_data['student_id'].
                " AND sequence = ".$array_data['sequence'];
         $array_result = $this->db->query($sql)->result_array();
@@ -125,5 +125,28 @@ class Model_Classroom extends NH_Model{
             $bool_return = $this->db->query($sql);
         }
         return $bool_return;
+    }
+    
+    /**
+     * 去答题记录表中查看用户是否做过当前批次的题，将这些题的id出来
+     */
+    public function get_student_question_qid($int_class_id,$int_max_sequence,$int_user_id)
+    {
+        $array_result = array();
+        $sql = "SELECT distinct question_id FROM sutdent_question WHERE class_id = ".$int_class_id." 
+                AND sequence = " .$int_max_sequence." AND student_id = ".$int_user_id;
+        $array_result = $this->db->query($sql)->result_array();
+        return $array_result;
+    }
+    
+    /**
+     * 根据classroom_id获取课id
+     */
+    public function get_class_id_by_classroom_id($int_classroom_id)
+    {
+        $array_result = array();
+        $sql = "SELECT id FROM class WHERE classroom_id = ".$int_classroom_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return $array_result;
     }
 }
