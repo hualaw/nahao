@@ -88,7 +88,7 @@ class Pay extends NH_User_Controller {
     	#ajax判断是否登录
     	if(!$this->is_login)
     	{
-    	    self::json_output(array('status'=>'error','msg'=>''));
+    	    self::json_output(array('status'=>'no_login'));
     	}
     	$int_user_id = $this->session->userdata('user_id'); #TODO
     	$str_real_name = trim($this->input->post("real_name"));
@@ -104,7 +104,7 @@ class Pay extends NH_User_Controller {
         	#若验证码不匹配
         	if (!$exists)
         	{
-        	    self::json_output(array('status'=>'verify_code_error','msg'=>'验证码不正确'));
+        	    self::json_output(array('status'=>'error','msg'=>'验证码不正确'));
         	}
     	}
     	#获取用户手机号
@@ -545,18 +545,18 @@ class Pay extends NH_User_Controller {
 	    $int_order_id = intval($this->input->post("order_id"));
 	    if ($int_order_id == 0)
 	    {
-	        self::json_output(array('status'=>'id_error','msg'=>'参数错误'));
+	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
 	    }
 	    $array_data = $this->model_order->get_order_by_id($int_order_id);
 	    if (empty($array_data))
 	    {
-	        self::json_output(array('status'=>'data_error','msg'=>'订单不存在'));
+	        self::json_output(array('status'=>'error','msg'=>'订单不存在'));
 	    }
 	    if ($array_data['status'] == '2')
 	    {
-	        self::json_output(array('status'=>'pay_ok','msg'=>'支付成功'));
+	        self::json_output(array('status'=>'ok','msg'=>'支付成功'));
 	    } else {
-	        self::json_output(array('status'=>'pay_error','msg'=>'支付失败'));
+	        self::json_output(array('status'=>'error','msg'=>'支付失败'));
 	    }
 	}
 }

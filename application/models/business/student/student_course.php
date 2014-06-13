@@ -113,11 +113,22 @@ class Student_Course extends NH_Model{
     public function get_one_chapter_children($int_chapter_id,$int_round_id)
     {
         $array_return = array();
+        #如果有章，获取下面的节
         $array_return = $this->model_course->get_one_chapter_children($int_chapter_id,$int_round_id);
+        //var_dump($array_return);die;
+       
         if ($array_return)
         {
             foreach ($array_return as $key=>$val)
             {
+                $int_user_id = $this->session->userdata('user_id');
+                if($int_user_id){
+                    #检查课是否被当前用户评论
+                    $boolen_comment = $this->check_class_comment($val['id'],$int_user_id);
+                    $array_return[$key]['comment_status'] = $boolen_comment ? 1 :0;
+                }
+
+                 #处理数据
                  $array_return[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
             }
         }
@@ -137,6 +148,13 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_result as $key=>$val)
             {
+                $int_user_id = $this->session->userdata('user_id');
+                if($int_user_id){
+                    #检查课是否被当前用户评论
+                    $boolen_comment = $this->check_class_comment($val['id'],$int_user_id);
+                    $array_result[$key]['comment_status'] = $boolen_comment ? 1 :0;
+                }
+                
                 $array_result[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
             }
         }
@@ -144,6 +162,18 @@ class Student_Course extends NH_Model{
         $array_return['title'] = '';
         $array_return['son'] = $array_result;
         return $array_return;
+    }
+    
+    /**
+     * 检查课是否被当前用户评论
+     * @param  $int_class_id
+     * @param  $int_user_id
+     * @return $boolen_return 
+     */
+    public function check_class_comment($int_class_id,$int_user_id)
+    {
+        $boolen_return = $this->model_course->check_class_comment($int_class_id,$int_user_id);
+        return $boolen_return;
     }
     
     /**
@@ -309,14 +339,18 @@ class Student_Course extends NH_Model{
         //var_dump($array_soon);
         #已经上了几节课
         $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
-        
+        #总共有几节课
+        $int_totle = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
+        #上课节数比例
+        $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
         #组合数据
         $array_return['round_id'] = $array_round['id'];
         $array_return['title'] = $array_round['title'];
         $array_return['team'] = $array_team;
         $array_return['soon_class_title'] = $array_soon['title'];
         $array_return['soon_class_stime'] = $array_soon['begin_time'];
-        $array_return['class'] = $int_num;
+        $array_return['class'] = $int_num; 
+        $array_return['class_rate'] = $class_rate;
         return $array_return;
     }
     
@@ -330,5 +364,39 @@ class Student_Course extends NH_Model{
     {
         $bool_return = $this->model_course->check_student_buy_round($int_user_id,$int_round_id);
         return $bool_return;
+    }
+    
+    /**
+     * 获取云笔记
+     * @param  $int_classroom_id
+     * @param  $int_user_id
+     * @return $array_return
+     */
+    public function get_user_cloud_notes($int_classroom_id,$int_user_id)
+    {
+        $array_return = array();
+        #获取云笔记
+        $array_return = $this->model_course->get_user_cloud_notes($int_classroom_id,$int_user_id);
+        if ($array_return){
+            #获取云笔记对应的课的标题
+            $array_class = $this->model_course->get_user_cloud_notes_class($array_return['classroom_id']);
+            
+            #处理数据
+            $array_return['class_title'] = $array_class['title'];
+        }
+
+        return $array_return;
+    }
+    
+    /**
+     * 根据课的id获取课的信息
+     * @param  $int_class_id
+     * @param  $array_return
+     */
+    public function get_class_infor($int_class_id)
+    {
+        $array_return = array();
+        $array_return = $this->model_course->get_class_infor($int_class_id);
+        return $array_return;
     }
 }

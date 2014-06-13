@@ -246,46 +246,4 @@ define(function (require,exports){
 			}
 		});	
 	}
-	
-	
-/*	//提交答案
-	exports.save_answer = function(){
-		$('').click(function (){
-			
-			var url = '/classroom/save/';
-            var data = {
-            	class_id: $("#class_id").val(),
-            	question_id: $("#question_id").val(),
-            	selected:$("#selected").val(),
-            	sequence:$("#sequence").val(),
-            	answer:$("#answer").val(),
-            };
-            $.post(url, data, function (response) {
-                if (response.status == "ok") {
-                	alert(response.msg);
-                } else if(response.status == "error"){
-                	alert(response.msg);
-                }
-            });
-		});
-	}
-	
-	//查看结果
-	exports.save_answer = function(){
-		$('').click(function (){
-			
-			var url = '/classroom/get_question_result_data/';
-            var data = {
-            	class_id: $("#class_id").val(),
-            	selected:$("#selected").val()
-            };
-            $.post(url, data, function (response) {
-                if (response.status == "ok") {
-                	alert(response.msg);
-                } else if(response.status == "error"){
-                	alert(response.msg);
-                }
-            });
-		});
-	}*/
 })
