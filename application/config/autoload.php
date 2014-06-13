@@ -78,7 +78,7 @@ $autoload['helper'] = array('language', 'cookie', 'url', 'public','encrypt','pho
 |
 */
 
-$autoload['config'] = array('page_config','sql_config','common','pay_config','version');
+$autoload['config'] = array('page_config','sql_config','common','pay_config','version','phone_server');
 
 
 /*
