@@ -573,6 +573,7 @@ function get_meeting_token($int_meeting_id = 0,$int_user_type = NH_MEETING_TYPE_
         );
         if($int_meeting_id > 0){
             $arr_param['meeting_id'] = $int_meeting_id;
+            $arr_param['params'] = json_encode(array('UserName' => 'yanrui'));
         }
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
@@ -621,6 +622,7 @@ function enter_classroom($int_meeting_id,$int_user_type){
     $str_enter_classroom_url = '';
     if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
         $str_token = get_meeting_token($int_meeting_id,$int_user_type);
+//        o($str_token,true);
         $str_enter_classroom_url = $str_token ? NH_MEETING_ENTER_URL.$str_token : '';
     }
     return $str_enter_classroom_url;

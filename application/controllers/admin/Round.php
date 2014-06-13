@@ -183,7 +183,8 @@ class Round extends NH_Admin_Controller
      */
     public function edit()
     {
-        $int_round_id = $this->input->get('round_id') ? intval($this->input->get('round_id')) : 0;
+//        $int_round_id = $this->input->get('round_id') ? intval($this->input->get('round_id')) : 0;
+        $int_round_id = $this->uri->segment(3) ? intval($this->uri->segment(3)) : 0;
         $int_course_id = $this->input->get('course_id') ? intval($this->input->get('course_id')) : 0;
         $arr_course = $arr_lessons = array();
         $str_action = 'create';
@@ -196,7 +197,7 @@ class Round extends NH_Admin_Controller
             $arr_round = $this->round->get_round_by_id($int_round_id);
             $arr_teachers = $this->round->get_teachers_by_round_id($int_round_id);
             $this->load->model('business/admin/business_class', 'class');
-            $arr_classes = $this->round->get_classes_by_round_id($int_round_id);
+            $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
             $bool_round_flag = true;
         } else {
             //create round
@@ -236,7 +237,7 @@ class Round extends NH_Admin_Controller
                     }
                 }else{
                     $arr_course_status = config_item('course_status');
-                    $str_error = '课程状态为'.$arr_course_status.',不能生成轮';
+                    $str_error = '课程状态为'.$arr_course_status[$arr_course['status']].',不能生成轮';
                 }
             }else{
                 $str_error = '课程不存在';
