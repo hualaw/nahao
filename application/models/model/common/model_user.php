@@ -34,7 +34,25 @@ class Model_User extends NH_Model
         $int_insert_id = $this->db->affected_rows();
         return $int_insert_id;
     }
+    /**
+     * 添加科目
+     * @author shangshikai@tizi.com
+     */
 
+    public function create_subject($post_subject)
+    {
+        $arr_result = $this->db->insert(TABLE_TEACHER_SUBJECT, $post_subject);
+        $int_insert_id = $this->db->affected_rows();
+        return $int_insert_id;
+    }
+    /**
+     * 修改教师科目
+     * @author shangshikai@tizi.com
+     */
+    public function modify_subject($post_subject,$teacher_id)
+    {
+        return $this->db->update(TABLE_TEACHER_SUBJECT,$post_subject,array('teacher_id'=>$teacher_id));
+    }
     /**
      * 修改user
      * @param array $arr_param
