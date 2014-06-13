@@ -91,13 +91,12 @@ define(function (require,exports){
 		 };
 		 $.post(url, data, function (response) {
 			 if (response.status == "error") {
-				 //alert(response.msg);
  				$.dialog({
 				    content:response.msg,
 				    icon:null
 				});
-				 //$('.doWorkBox').html(response.msg);
 			 } else if(response.status == "ok"){
+				 
 				 $.each(response.data, function(key, val) {
 					 if(key == '0'){
 						 html+='<div class="doWorkList" >';
@@ -131,7 +130,7 @@ define(function (require,exports){
 
 				 $('.doWorkBox').html(html);
 				 $(".nextBtn").hide();
-		    	$.dialog({
+				 $.dialog({
 		            title:false,
 		            ok:false,
 		            icon:false,
@@ -139,7 +138,6 @@ define(function (require,exports){
 		            content:$(".doWorkBoxHtml").html()
 		        });
 			 }
-			 
 			exports.doWork();
 		 }, "json");
 	}
@@ -190,10 +188,8 @@ define(function (require,exports){
 					$(this).show().html("查看结果");
 					index = false;
 					ajax_save();
-				}else{									
-					
-
-					 var rhtml='';
+				}else{
+									 var rhtml='';
 					 var rurl = '/classroom/get_question_result_data/';
 					 var rdata = {
 							 class_id: cid,
@@ -295,6 +291,19 @@ define(function (require,exports){
 						 }
 
 					 }, "json");
+					// $(".aui_content").html($(".scoreBoxHtml").html());
+					// $(".aui_content .result").addClass("resultArrow");
+
+					// $(".Showresult").hide();
+					// $(".Hideresult").show();
+			        //选择题目 切换内容
+			        // exports.curItem();
+
+					// $(".aui_content .itemscore .result").click(function (){
+						// $(this).addClass("resultArrow");
+						// $(".aui_content .Hideresult").show();
+						// $(".aui_content .Showresult").hide();
+					// })
 				}
 			}else{
 				$(this).hide();
@@ -313,30 +322,28 @@ define(function (require,exports){
 	            	sequence:sequence
 	            };
 	            $.post(murl, mdata, function (response) {
+    				var n= 0;
 					if(type == 1){
-	    				if($(".aui_content .answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
-	    					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansRight");
-	    				}else{
-	    					var n;
-	    					switch(response.data.answer){
-	    						case "A":
-	    						n = 0;
-	    						case "B":
-	    						n = 1;
-	    						case "C":
-	    						n = 2;
-	    						case "D":
-	    						n = 3;
-	    					}
-	    					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
-	    					$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
-	    					console.log((ind*4+"/"+n));
-	    				}
-	    			}
-	            });		
-			}
-		}); 
+						if($(".aui_content .answerList li").eq(ans[ans.length-1]).find(".options").html() == response.data.answer){
+							$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansRight");
+						}else{
+							if(response.data.answer == "A"){
+								n = 0;
+							}else if(response.data.answer == "B"){
+								n = 1;
+							}else if(response.data.answer == "C"){
+								n = 2;
+							}else if(response.data.answer == "D"){
+								n = 3;
+							}
 
+							$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
+							$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
+						}
+					}
+	            });		
+			}	
+		}); 
 		//提交完 答案之后就不能再选择了
 		$(".aui_content .answerList li").click(function (){	
 			if(chans == true){		
@@ -357,5 +364,4 @@ define(function (require,exports){
 			}
 		});	
 	}
-	
 })

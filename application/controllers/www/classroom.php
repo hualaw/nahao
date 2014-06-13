@@ -84,11 +84,11 @@ class Classroom extends NH_User_Controller {
 	    $array_result = $this->model_classroom->get_question_infor($int_question_id);
 	    if ($array_result && $array_result['answer'])
 	    {
-	        if(!strpos($array_result['answer'],$str_selected))
+	        if($array_result['answer']== $str_selected)
 	        {
-	            $int_is_correct = 0;
-	        }else {
 	            $int_is_correct = 1;
+	        }else {
+	            $int_is_correct = 0;
 	        }
 	    }
 
