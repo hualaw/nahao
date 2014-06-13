@@ -43,7 +43,7 @@ class Model_Course extends NH_Model{
     public function get_all_chapter($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title FROM class WHERE parent_id = 0  AND round_id = ".$int_round_id.
+        $sql = "SELECT id,title,sequence FROM class WHERE parent_id = 0  AND round_id = ".$int_round_id.
                " ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -58,7 +58,7 @@ class Model_Course extends NH_Model{
     public function get_one_chapter_children($int_parent_id,$int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,begin_time,end_time,status,classroom_id FROM class WHERE parent_id = ".$int_parent_id.
+        $sql = "SELECT id,title,begin_time,end_time,status,classroom_id,sequence FROM class WHERE parent_id = ".$int_parent_id.
                " AND round_id = ".$int_round_id." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -72,7 +72,7 @@ class Model_Course extends NH_Model{
     public function get_all_section($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,begin_time,end_time,status,classroom_id FROM class WHERE parent_id = 1".
+        $sql = "SELECT id,title,begin_time,end_time,status,classroom_id,sequence FROM class WHERE parent_id = 1".
                " AND round_id = ".$int_round_id." ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -242,13 +242,54 @@ class Model_Course extends NH_Model{
      * @param  $int_user_id
      * @return $array_result
      */
-    public function get_yun_note_by_classroom_id($int_classroom_id,$int_user_id)
+    public function get_user_cloud_notes($int_classroom_id,$int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT content FROM class_note WHERE classroom_id = ".$int_classroom_id." 
-                AND student_id = ".$int_user_id;
+        $sql = "SELECT content,classroom_id FROM class_note WHERE classroom_id = ".$int_classroom_id." 
+                AND student_id = ".$int_user_id." AND del = 0";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
     
+    
+    /**
+     * 获取云笔记对应的课的标题
+     * @param  $int_classroom_id
+     * @return $array_result 
+     */
+    public function get_user_cloud_notes_class($int_classroom_id)
+    {
+        $array_result = array();
+        $sql = "SELECT title FROM class WHERE classroom_id = ".$int_classroom_id." AND parent_id>0";
+        $array_result = $this->db->query($sql)->row_array();
+        return  $array_result;
+    }
+    
+    /**
+     * 检查课是否被当前用户评论
+     * @param  $int_class_id
+     * @param  $int_user_id
+     * @return boolean
+     */
+    public function check_class_comment($int_class_id,$int_user_id)
+    {
+        $sql = "SELECT id FROM class_feedback WHERE student_id = ".$int_user_id."
+                AND class_id = ".$int_class_id;
+        $int_row = $this->db->query($sql)->num_rows();
+        return  $int_row > 0 ? true : false;
+    }
+
+    /**
+     * 根据课的id获取课的信息
+     * @param  $int_class_id
+     * @param  $array_result
+     */
+    public function get_class_infor($int_class_id)
+    {
+        $array_result = array();
+        $sql = "SELECT course_id,round_id,lesson_id,title,begin_time,end_time,sequence,status,classroom_id
+                FROM class WHERE id = ".$int_class_id;
+        $array_result = $this->db->query($sql)->row_array();
+        return  $array_result;
+    }
 }

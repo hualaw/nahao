@@ -49,11 +49,18 @@ define(function(require,exports){
         _valid.feedbackForm();
     });
     //评价
-    $(".evaluBtn").click(function (){
-        _popUp.popUp('.evaluHtml');
+/*    $(".evaluBtn").click(function (){
+    	alert(12321);
+//        _popUp.popUp('.evaluHtml');
+//    	//_lens = $('.starBg ').children('.cStar').size();
+//        alert(22);
+//    	class_id = $(this).attr("evaluBtns");
+//    	alert(class_id);
+    	console.log(class_id);
+    	return fasle;
         //评论 几颗星
         _classRoom.starClick();
         // 教室-评价 验证
         _valid.evaluForm();
-    });
+    });*/
 })

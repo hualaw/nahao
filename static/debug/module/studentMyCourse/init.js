@@ -45,7 +45,7 @@ define(function(require,exports){
 	if($(".buyAfter").length){
 		//云笔记 弹框
 		_myCourse.cNote();
-	    //我的课程购买之后 列表 课程回顾 背景圆
+	    //我的课程购买之后 列表 课程回顾 背景圆(包括评价)
 	    _myCourse.overCourse();
 		//开课 倒计时
 		_myCourse.countDown($(".classCDcon"),"stime",2);
@@ -67,19 +67,12 @@ define(function(require,exports){
 		_myCourse.doCancelMyOrder();
 	}
 	
-    // //教室弹层
-    // var _popUp = require('module/common/method/popUp');
-    // //评价
-    // $(".evaluBtn").click(function (){
-    //     //评论 几颗星
-    //     _myCourse.starClick();
-        
-    //     _popUp.popUp('.evaluHtml');
-    // });
     //个人资料修改地区
     if($("#province").length > 0) {
         require("module/studentMyCourse/area").change_area();
     }
     //发送手机验证码
     _myCourse.sendValidateCode();
+    //最新课程页面跳转
+    _myCourse.new_class_skip();
 })

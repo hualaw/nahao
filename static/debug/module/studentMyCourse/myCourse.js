@@ -16,9 +16,30 @@ define(function(require,exports){
 
     //云笔记
     exports.cNote = function (){
-        $(".cloudNotes").click(function (){
-            _popUp.popUp('.noteDia');
-        })
+        $(".cListHid").on("click", '.cloudNotes', function () {
+        	var shtml ='';
+            var btn = $(this);
+            var action = '/course/get_user_cloud_notes';
+            var data = {
+            		cid:btn.data('cid')
+            };
+            $.post(action, data, function (response) {
+                if (response.status == "ok") {
+                	shtml+='<h2>'+response.data.class_title+'</h2>';
+                	shtml+='<div class="cnCon">';
+                	shtml+='<p>'+response.data.content+'</p>';
+                	shtml+='</div>';
+                	$(".cnDia").html(shtml);
+                	_popUp.popUp('.noteDia');
+                } else if(response.status == "error"){
+                	$.dialog({
+                	    content:response.msg,
+                	    icon:null
+                	});
+                }
+            }, "json");
+        });
+        
     }
     //购买前  选开课时间
     exports.timeToggle = function (){
@@ -80,11 +101,12 @@ define(function(require,exports){
             	product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
-                if (response.status == "order_exist") {
-                	alert(response.msg);
+                if (response.status == "error") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 	window.location.href="/member/my_order/all";
-                } else if(response.status == "order_buy"){
-                	alert(response.msg);
                 } else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
                 } else if(response.status == 'no_login'){
@@ -104,12 +126,13 @@ define(function(require,exports){
             	product_id: $('#product_id_xia').val()
             };
             $.post(url, data, function (response) {
-                if (response.status == "order_exist") {
-                	alert(response.msg);
+                if (response.status == "error") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 	window.location.href="/member/my_order/all";
-                } else if(response.status == "order_buy"){
-                	alert(response.msg);
-                }else if(response.status == "ok"){
+                } else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
                 }else if(response.status == 'no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
@@ -127,13 +150,17 @@ define(function(require,exports){
             var action = '/member/action/'+btn.data('id')+'/'+btn.data('type');
             var data = {};
             $.get(action, data, function (response) {
-                if (response.status == "del_ok") {
-                    alert(response.msg);
+                if (response.status == "ok") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                     window.location.reload();
-                } else if(response.status == "del_no"){
-                	alert(response.msg);
-                } else if(response.status == "del_error"){
-                	alert(response.msg);
+                } else if(response.status == "error"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 }
             }, "json");
         });
@@ -146,11 +173,17 @@ define(function(require,exports){
             var action = '/member/action/'+btn.data('id')+'/'+btn.data('type');
             var data = {};
             $.get(action, data, function (response) {
-                if (response.status == "cancel_ok") {
-                    alert(response.msg);
+                if (response.status == "ok") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                     window.location.reload();
-                } else if(response.status == "cancel_error"){
-                	alert(response.msg);
+                } else if(response.status == "error"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 }
             }, "json");
         });
@@ -172,9 +205,20 @@ define(function(require,exports){
             $(this).find(".cListHid").hide();
         });
         $(".evaluBtn").click(function (){               
-            _popUp.popUp('.evaluHtml');
+           // _popUp.popUp('.evaluHtml');
+        	$.dialog({
+        		id:"comment_close",
+                title:false,
+                ok:false,
+                icon:false,
+                padding:0,
+                content:$(".evaluHtml").html()
+            });
+            class_id = $(this).attr("evaluBtns");
+            $("#c_class_id").val(class_id);
             exports.starClick();
             require("module/classRoom/valid").evaluForm();
+            
         })
     }
     
@@ -187,6 +231,7 @@ define(function(require,exports){
 				for(var i=0;i<_index+1;i++){
 					$(".evalu .starBg span").eq(i).addClass("cStar");
 				}
+				$("#c_score").val(_index+1);
 				//ind = false;
 			//}
 		});
@@ -199,10 +244,16 @@ define(function(require,exports){
             var phone = $("input[name='phone']").val();
             var verify_type = $("input[name='verify_type']").val();
             if(!(phone)) {
-                alert('请填写手机号');
+				$.dialog({
+				    content:"请填写手机号",
+				    icon:null
+				});
                 return false;
             } else if(!(/\d{11}/.test(phone))) {
-                alert('请输入正确的手机号')
+				$.dialog({
+				    content:"请输入正确的手机号",
+				    icon:null
+				});
                 return fasle;
             }
             $.ajax({
@@ -212,7 +263,10 @@ define(function(require,exports){
                 dataType : 'json',
                 success : function (result) {
                     if(result.status == 'error') {
-                        alert(result.msg);
+        				$.dialog({
+        				    content:result.msg,
+        				    icon:null
+        				});
                     }
                     //手机验证倒计时
                     require("module/common/method/countDown").countDown(_this);
@@ -221,4 +275,12 @@ define(function(require,exports){
             );
         });
     }
+    
+    //最新课程页面跳转
+	exports.new_class_skip = function (){
+		$(".newList").on("click", '.rotateBox', function () {
+			var url = $(this).data('action');
+			window.open(url);
+		});		
+	}
 });
