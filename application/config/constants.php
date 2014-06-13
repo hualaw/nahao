@@ -205,15 +205,11 @@ define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
-
-//phone_server连接
-define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
-define('PHONE_SERVER_PORT', 1899);
-define('PHONE_SERVER_APPNAME', 'nahao');
-
 //register&login type
 define('REG_LOGIN_TYPE_PHONE', 1);
 define('REG_LOGIN_TYPE_EMAIL', 2);
+
+define('PHONE_SERVER_APPNAME', 'nahao');
 
 //ok/error
 define('SUCCESS', 'ok');
