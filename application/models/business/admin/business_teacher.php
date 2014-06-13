@@ -488,7 +488,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['stage']=$post['stage'];
         $post_user_info['teacher_intro']=$post['teacher_intro'];
         $post_user_info['basic_reward']=$post['basic_reward'];
-        $post_user_info['modify_time']=time();
+        $post_user_info['update_time']=time();
 
         if($post_user_info['hide_school']==null)
         {
