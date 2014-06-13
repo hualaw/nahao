@@ -164,7 +164,7 @@ define(function (require,exports){
 			var aL = $(".aui_content .answerList").eq(ind).find("li");
 
 			for(var i=0;i<aL.length;i++){
-				console.log(!aL.hasClass("curAnswer"))
+				//console.log(!aL.hasClass("curAnswer"))
 				if(!aL.hasClass("curAnswer")){
 					alert("您还没有做题");
 					return;
@@ -193,7 +193,7 @@ define(function (require,exports){
 				$(".aui_content .nextBtn").show();	
 			}
 			//ajax提交答案
-			//console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+			console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
 			var murl = '/classroom/save/';
             var mdata = {
             	class_id: cid,
@@ -219,6 +219,7 @@ define(function (require,exports){
     					}
     					$(".aui_content .answerList li").eq(ans[ans.length-1]).addClass("ansError");
     					$(".aui_content .answerList li").eq(ind*4+n).addClass("ansRight");
+    					console.log((ind*4+"/"+n));
     				}
     			}
             });		
