@@ -5,6 +5,8 @@ class Classroom extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_classroom');
+        $this->load->model('model/student/model_classroom');
+        $this->load->model('business/teacher/business_teacher','teacher_b');
         if(!$this->is_login)
         {
             redirect('/login');
@@ -18,6 +20,23 @@ class Classroom extends NH_User_Controller {
 	public function index()
 	{  
 	    header('content-type: text/html; charset=utf-8');
+	    $classroom_id = $this->uri->segment(3,0);
+	    $classroom_id = 3;
+	    //老师获得该课的所有题目
+	    $param = array(
+	            'classroom_id' => $classroom_id,
+	            'status' => -1,//没出过
+	    );
+	    $question_list = $this->teacher_b->class_question($param);
+	    $data = array(
+	            'class_questions' => $question_list,
+	            'classroom_id' => $classroom_id,
+	    );
+	    #根据classroom_id获取课id
+	    $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
+	    $this->smarty->assign('class_id',$array_class_id['id']);
+	    $this->smarty->assign('data',$data);
+	    #获取课id
         $this->smarty->display('www/classRoom/index.html');
 	}
 	
@@ -27,9 +46,10 @@ class Classroom extends NH_User_Controller {
 	public function get_exercise()
 	{
 	    header('content-type: text/html; charset=utf-8');
+	    $int_user_id = $this->session->userdata('user_id'); #TODO
 	    #课id
 	    $int_class_id = $this->input->post('class_id');
-	    $int_class_id = 4;
+	    //$int_class_id = 4;
 	    #获取最大批次
 	    $array_sequence = $this->model_classroom->get_max_sequence($int_class_id);
 	    #数组为空或者批次为0，则老师没有出题
@@ -42,12 +62,12 @@ class Classroom extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'老师没有出题'));
 	    }
-	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence);
-	    //var_dump($array_data);die;
-	    if ($array_data) {
-	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data));
+	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence,$int_user_id);
+	    //var_dump($array_data['data']);die;
+	    if ($array_data['status'] == 'ok') {
+	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data['data']));
 	    } else {
-	       self::json_output(array('status'=>'error','msg'=>'获取练习题失败'));
+	       self::json_output(array('status'=>'error','msg'=>$array_data['msg']));
 	    }
 	}
 	
@@ -58,7 +78,7 @@ class Classroom extends NH_User_Controller {
 	{
 	    #课id
 	    $int_class_id = $this->input->post('class_id');
-	    $int_user_id = $this->session->userdata('user_id');  
+	    $int_user_id = $this->session->userdata('user_id');  #TODO
 	    $int_question_id = $this->input->post('question_id');
 	    $str_selected = $this->input->post('selected');
 	    $array_result = $this->model_classroom->get_question_infor($int_question_id);
@@ -107,15 +127,9 @@ class Classroom extends NH_User_Controller {
             'student_id'=>$int_user_id,
 	        'sequence'=>$int_sequence
 	    );
-	    $array_data = array(
-	            'class_id'=>3,
-	            'student_id'=>1,
-	            'sequence'=>1
-	    );
 	    #获取学生做题统计以及做题的记录
 	    $array_data = $this->student_classroom->get_question_result_data($array_data);
-	    var_dump($array_data);die;
-
+	    //var_dump($array_data);
 	    if ($array_data)
 	    {
 	        self::json_output(array('status'=>'ok','msg'=>'获取做题结果成功','data'=>$array_data));
