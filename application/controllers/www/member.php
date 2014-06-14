@@ -60,6 +60,7 @@ class Member extends NH_User_Controller {
 	    $config['base_url'] = '/member/my_order/'.$str_type.'/';
 	    $config['total_rows'] = $int_count;
 	    $config['per_page'] = PER_PAGE_NO;
+	    $config['use_page_numbers'] = TRUE;
 	    //$config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
 	    
 	    $this->pagination->initialize($config);

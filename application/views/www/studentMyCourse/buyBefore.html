@@ -149,7 +149,7 @@
                             <div class="fr revCon">
                                 <h2 class="fl">
                                     <strong>{$item.nickname}</strong>
-                                    <span>{$item.teacher_signature}</span>
+                                    <span></span>
                                 </h2>
                                 <div class="fr">
                                     <span class="starBg">
@@ -171,7 +171,8 @@
                         <div class="cf">
                             <span class="fr allReview">所有评论（共{$str_evaluate_count}条）</span>
                         </div>
-                    {else if $str_evaluate_count >=5}
+                    {/if}
+                    {if $str_evaluate_count >=5}
                         <a href="" class="loadMore">本页最多显示最近的5条评论</a>
                     {/if}  
                         	{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
