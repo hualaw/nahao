@@ -23,6 +23,9 @@ class Selfinfo extends NH_User_Controller {
             $post_data['bankbench'] = trim($this->input->post('bankbench'));
             $post_data['bankcard'] = trim($this->input->post('bankcard'));
             $post_data['id_code'] = trim($this->input->post('id_code'));
+            $post_data['work_auth_img'] = trim($this->input->post('work_auth_img'));
+            $post_data['teacher_auth_img'] = trim($this->input->post('teacher_auth_img'));
+            $post_data['title_auth_img'] = trim($this->input->post('title_auth_img'));
             $result = $this->business_user->modify_user_info($post_data, $this->_user_detail['user_id']);
             if($result) {
                 $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
@@ -35,10 +38,11 @@ class Selfinfo extends NH_User_Controller {
         $this->load->model('business/common/business_school');
         $this->load->model('business/admin/business_lecture');
         $this->load->model('business/admin/business_teacher');
+        $this->load->model('business/common/business_subject');
         #教学阶段
         $stages = $this->config->item('stage');
         #科目
-        $subjects = $this->config->item('subject');
+        $subjects = $this->business_subject->get_subjects();
         #老师所属的学校
         $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
         #教师职称
@@ -89,6 +93,22 @@ class Selfinfo extends NH_User_Controller {
 		$this->smarty->display('teacher/teacherSelfinfo/password.html');
 	}
 	public function photo(){
+        if($this->is_post()) {
+            echo 111;die;
+        }
+        $user_id = $this->session->userdata('user_id');
+        //generate param for uploading to qiniu
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $this->load->helper('string');
+        $str_salt = random_string('alnum', 6);
+        //user photo name
+        $str_photo_name = 'user_photo_'.$user_id.date('YmdHis',time()).'_i'.$str_salt.'.jpg';
+        $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('photo_img_key', $str_photo_name);
 		$this->smarty->display('teacher/teacherSelfinfo/photo.html');
 	}
 	public function success(){
