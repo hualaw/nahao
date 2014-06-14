@@ -10,7 +10,6 @@ templates_c
 /application/templates_c/*
 /application/config/autoload.php
 /application/config/database.php
-/application/core/NH_User_Controller.php
 /application/config/*.php
 /application/config/development/*.php
 /application/config/testing/*.php
