@@ -10,18 +10,33 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
+                    <input type="hidden" name="course_operation_course_id" id="course_operation_course_id" value="">
                     <div class="form-group">
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="nickname" placeholder="输入老师昵称自动查询">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>审核通过</label>
+                                    <input type="radio" name="course_status" id="optionsRadios1" value="{$smarty.const.NAHAO_STATUS_COURSE_CHECKING}" checked>审核不通过
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="course_status" id="optionsRadios2" value="{$smarty.const.NAHAO_STATUS_COURSE_RUNNING}" checked>审核通过
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="course_status" id="optionsRadios3" value="{$smarty.const.NAHAO_STATUS_COURSE_PAUSE}" checked>暂停
+                                </label>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div id="teacher_list_area">
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_course_status_submit" data-action="/course/status"> &nbsp;创建
+                    &nbsp;</button>
             </div>
         </div>
         <!-- /.modal-content -->

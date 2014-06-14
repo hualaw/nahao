@@ -17,13 +17,16 @@ class Admin extends NH_Admin_Controller {
     }
 
     public function test(){
-        header("Content-type:application/x-javascript; charset=utf-8");
-        header('Access-Control-Allow-Origin: http://www.nahaodev.com');
+//        header("Content-type:application/x-javascript; charset=utf-8");
+//        header('Access-Control-Allow-Origin: http://www.nahaodev.com');
         $arr_return = array(
             'status' => 'ok',
             'msg' => date('Y-m-d H:i:s',time())
         );
-        self::json_output($arr_return);
+//        self::json_output($arr_return);
+
+        $this->smarty->assign('view', 'admin_test');
+        $this->smarty->display('admin/layout.html');
     }
 
     /**
