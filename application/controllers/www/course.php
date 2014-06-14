@@ -33,7 +33,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($str_evaluate_count);die;
+        //var_dump($array_team);die;
         
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
@@ -172,7 +172,7 @@ class Course extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login){
-	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录',));
+	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录','data'=>$this->session->all_userdata()));
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);

@@ -138,6 +138,19 @@ class Classroom extends NH_User_Controller {
 	    }
 	}
 	
+	/**
+	 * 进入教室
+	 */
+	public function enter()
+	{
+	    $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+	    $str_classroom_urlself::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+	    $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+        $this->smarty->assign('iframe',$str_iframe);
+        $this->smarty->assign('view', 'classroom');
+        $this->smarty->display('admin/layout.html');
+	}
+	
     public function save_stu_action()
     {
         $class_id = intval(trim($this->input->get("class_id")));
@@ -261,6 +274,24 @@ class Classroom extends NH_User_Controller {
 		
 	}
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
+
+    /**
+     * 进入教室
+     */
+    public function enter()
+    {
+        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+//        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+//        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
+//        echo $str_iframe;exit;
+        $this->smarty->assign('iframe',$str_iframe);
+//        $this->smarty->assign('js',$str_js);
+//        $this->smarty->assign('view', 'classroom');
+        $this->smarty->display('www/classRoom/index.html');
+//        $this->smarty->display('www/classRoom/index.html');
+    }
 }
 
 /* End of file welcome.php */

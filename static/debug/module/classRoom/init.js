@@ -64,12 +64,10 @@ define(function(require,exports){
         // 教室-评价 验证
         _valid.evaluForm();
     });*/
-
-    function student_get_exercise_page(){
-        alert(11111);
+    student_get_exercise_page = function (class_id){
         _popUp.popUp('.exerciseHtml');
-
         //选择练习题  左右点击切换 题目选中
         _classRoom.itemClick();
     }
+//    student_get_exercise_page(8);
 })
