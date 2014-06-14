@@ -29,7 +29,7 @@ $config['sql_config'] = array(
         TABLE_SUBJECT => array(TABLE_COURSE . '.subject=' . TABLE_SUBJECT . '.id', 'left'),
         TABLE_COURSE_TYPE => array(TABLE_COURSE . '.course_type=' . TABLE_COURSE_TYPE . '.id', 'left'),
         TABLE_COURSE_TEACHER_RELATION => array(TABLE_COURSE . '.id=' . TABLE_COURSE_TEACHER_RELATION . '.course_id', 'left'),
-        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.nickname', 'left'),
+        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.id', 'left'),
     ),
     'course_teachers' => array(
         TABLE_COURSE_TEACHER_RELATION => false,
@@ -52,7 +52,7 @@ $config['sql_config'] = array(
         TABLE_SUBJECT => array(TABLE_ROUND . '.subject=' . TABLE_SUBJECT . '.id', 'left'),
         TABLE_COURSE_TYPE => array(TABLE_ROUND . '.course_type=' . TABLE_COURSE_TYPE . '.id', 'left'),
         TABLE_ROUND_TEACHER_RELATION => array(TABLE_ROUND . '.id=' . TABLE_ROUND_TEACHER_RELATION . '.round_id', 'left'),
-        TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.nickname', 'left'),
+        TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.id', 'left'),
     ),
     'round_teachers' => array(
         TABLE_ROUND_TEACHER_RELATION => false,

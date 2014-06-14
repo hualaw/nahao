@@ -4,28 +4,26 @@
         <div class="col-md-2">
             <select class="form-control" name="course_type">
                 <option value="">全部课程类型</option>
-                {foreach $course_types as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
+                {foreach $course_types as $k => $v}<option value="{$k}" {if isset($query_param.course_type) AND $query_param.course_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="subject">
                 <option value="">全部学科</option>
-                {foreach $subjects as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
+                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="status">
                 <option value="">全部状态</option>
-                {foreach $course_status as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
+                {foreach $course_status as $k => $v}<option value="{$k}" {if isset($query_param.status) AND $query_param.status==$k }selected{/if}>{$v}</option>{/foreach}
                 <option value="1">已禁用</option>
                 <option value="2">已启用</option>
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="search_type">
-                <option value="1">班次名称</option>
-                <option value="2">授课老师</option>
-                <option value="3">班次ID</option>
+                {foreach $round_list_search_type as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -64,8 +62,8 @@
         <td>{if isset($v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
         <td>{if isset($v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}</td>
         <td>{if isset($v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
-        <td>nickname</td>
-        <td>process</td>
+        <td>{$v.nickname}</td>
+        <td>{$v.class_count}</td>
         <td>{$subjects[$v.subject]}</td>
         <td>{$course_types[$v.course_type]}</td>
         <td>{$v.bought_count}/{$v.caps}</td>

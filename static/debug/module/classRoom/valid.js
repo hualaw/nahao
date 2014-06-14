@@ -25,18 +25,21 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+            	
             },
             callback:function(data){
-                alert('提交成功');
-                // 异步提交
-                //require("tizi_validform").reset_md5('.regTeacherForm');
-                if(!data.errorcode){
-                    require.async("tizi_validform",function(ex){
-                        // 提交注册结果
-                        ex.changeCaptcha('TeacherBox');
-                    });
-                }
+            	if(data.status == 'ok'){
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+            		$.dialog.list['feedback_close'].close();
+            	} else {
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+            	}
             }
         });
         // 冲掉库里面的'&nbsp:'
@@ -66,7 +69,7 @@ define(function(require,exports){
     };
     // 教室-评价 验证
     exports.evaluForm = function(){
-        var _Form=$(".evaluForm").Validform({
+    	var _Form=$(".evaluForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
@@ -75,7 +78,25 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');                
+            	if(data.status=="ok")
+            	{
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+    				$.dialog.list['comment_close'].close();
+    				$('.cListHid').children("a").remove();
+    				$('.cListHid').append('<span class="cevaluBtn fr sevaluBtn">已评价</span>');
+            	}else if(data.status=="no_login"){
+                	seajs.use('module/nahaoCommon/commonLogin',function(_c){
+                		_c.cLogin();
+                	})
+            	} else {
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+            	}
             }
         });
         // 冲掉库里面的'&nbsp:'

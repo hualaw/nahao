@@ -30,12 +30,12 @@ class Business_Lesson extends NH_Model
                 //先清除该课程以前的课节，再插入新的课节
                 self::delete_lessons_by_course_id($int_course_id);
 
-                $int_sequence_flag = 0;
+                $int_sequence_flag = $int_chapter_flag = $int_section_flag = 0;
                 foreach($arr_lesson_tree as $k => $v){
                     $arr_chapter = array(
                         'course_id' => $int_course_id,
                         'title' => $v['title'],
-                        'sequence' => $int_sequence_flag++
+                        'sequence' => $int_chapter_flag++
                     );
                     //插入章
                     $int_parent_id = $this->model_lesson->create_lesson($arr_chapter);
@@ -45,7 +45,7 @@ class Business_Lesson extends NH_Model
                                 'course_id' => $int_course_id,
                                 'title' => $vv,
                                 'parent_id' => $int_parent_id,
-                                'sequence' => $int_sequence_flag++
+                                'sequence' => $int_section_flag++
                             );
                         }
                         //插入节

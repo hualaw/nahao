@@ -7,6 +7,7 @@ define(function(require,exports){
             $("#pdf_upload_area").hide();
             $("#token_load_area").show();
             var url = '/lesson/token';
+            console.log(123);
             var lesson_id = $(this).data('lesson_id');
             //get upload token
             $.get(url,function (response){
@@ -32,7 +33,7 @@ define(function(require,exports){
                                 $.post(url, data, function(response){
                                     if(response){
                                         alert(response.msg);
-                                        window.location.href = response.redirect;
+                                        window.location.reload;
                                     }
                                 });
                             }

@@ -83,12 +83,28 @@ class Business_User extends NH_Model
     }
     
     /**
-     * 修改用户的个人信息
+     * 修改用户的user表信息
      * @param  array $update_data 要更新的用户数据
      * @param  int   $user_id 用户Id
      * @reutrn bool
      */
-    public function modify_user_data($update_data, $user_id)
+    public function modify_user($update_data, $user_id)
+    {
+        $userdata = array();
+        $update_data['phone_mask'] && $userdata['phone_mask'] = $update_data['phone_mask'];
+        $update_data['phone_verified'] && $userdata['phone_verified'] = $update_data['phone_verified'];
+        $this->model_user->update_user($userdata, array('id' => $user_id));
+        
+        return true;
+    }
+    
+    /**
+     * 修改用户的user_info表信息
+     * @param  array $update_data 要更新的用户数据
+     * @param  int   $user_id 用户Id
+     * @reutrn bool
+     */
+    public function modify_user_info($update_data, $user_id)
     {
         $userinfo = array();
         #user表中要更新的数据
@@ -107,6 +123,7 @@ class Business_User extends NH_Model
         $update_data['bankcard'] && $userinfo['bankcard'] = $update_data['bankcard'];
         $update_data['id_code'] && $userinfo['id_code'] = $update_data['id_code'];
         $update_data['grade'] && $userinfo['grade'] = $update_data['grade'];
+        $update_data['school_id'] && $userinfo['school'] = $update_data['school_id'];
 //        $user_res = $this->model_user->update_user($userdata, array('id' => $user_id));
 
         $user_info_res = $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));

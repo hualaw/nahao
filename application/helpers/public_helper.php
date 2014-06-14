@@ -541,11 +541,12 @@ function get_meeting_param(){
 function nh_curl($str_url,$arr_param) {
     $obj_curl = curl_init();
     curl_setopt($obj_curl,CURLOPT_URL,$str_url);
-    curl_setopt($obj_curl, CURLOPT_HEADER, 0 ); // 设置header 过滤HTTP头
+//    curl_setopt($obj_curl, CURLOPT_HEADER,array("Content-length: 99999") ); // 设置header 过滤HTTP头
+    curl_setopt($obj_curl, CURLOPT_HEADER,0); // 设置header 过滤HTTP头
     curl_setopt($obj_curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
-    curl_setopt($obj_curl, CURLOPT_TIMEOUT, 2);
-    curl_setopt($obj_curl, CURLOPT_POST, 1);
+    curl_setopt($obj_curl, CURLOPT_TIMEOUT, 10);
     if($arr_param){
+        curl_setopt($obj_curl, CURLOPT_POST, 1);
         curl_setopt($obj_curl, CURLOPT_POSTFIELDS, http_build_query($arr_param));
     }
     $str_response = curl_exec($obj_curl);
@@ -564,17 +565,21 @@ function nh_curl($str_url,$arr_param) {
  * @return string
  * @author yanrui@tizi.com
  */
-function get_meeting_token($int_meeting_id,$int_user_type){
+function get_meeting_token($int_meeting_id = 0,$int_user_type = NH_MEETING_TYPE_SUPER_ADMIN){
     $str_token = '';
-    if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
+    if($int_meeting_id >= 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
         $arr_param = array(
-            'meeting_id' => $int_meeting_id,
             'type' => $int_user_type,
         );
+        if($int_meeting_id > 0){
+            $arr_param['meeting_id'] = $int_meeting_id;
+            $arr_param['params'] = json_encode(array('UserName' => 'yanrui'));
+        }
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_url = NH_MEETING_URL.'api/tokens/';
         $str_response = nh_curl($str_url,$arr_param);
+//        o($str_response,true);
         if($str_response){
             $arr_response = json_decode($str_response,true);
             $str_token = ($arr_response AND isset($arr_response['token'])) ? $arr_response['token'] : '';
@@ -617,6 +622,7 @@ function enter_classroom($int_meeting_id,$int_user_type){
     $str_enter_classroom_url = '';
     if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
         $str_token = get_meeting_token($int_meeting_id,$int_user_type);
+//        o($str_token,true);
         $str_enter_classroom_url = $str_token ? NH_MEETING_ENTER_URL.$str_token : '';
     }
     return $str_enter_classroom_url;

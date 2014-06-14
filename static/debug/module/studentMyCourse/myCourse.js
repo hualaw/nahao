@@ -16,17 +16,30 @@ define(function(require,exports){
 
     //云笔记
     exports.cNote = function (){
-        $(".cloudNotes").click(function (){
-            // $.tiziDialog({
-            //     //width:400,
-            //     title:false,
-            //     ok:false,
-            //     icon:false,
-            //     padding:0,
-            //     content:$(".noteDia").html()
-            // });
-            _popUp.popUp('.noteDia');
-        })
+        $(".cListHid").on("click", '.cloudNotes', function () {
+        	var shtml ='';
+            var btn = $(this);
+            var action = '/course/get_user_cloud_notes';
+            var data = {
+            		cid:btn.data('cid')
+            };
+            $.post(action, data, function (response) {
+                if (response.status == "ok") {
+                	shtml+='<h2>'+response.data.class_title+'</h2>';
+                	shtml+='<div class="cnCon">';
+                	shtml+='<p>'+response.data.content+'</p>';
+                	shtml+='</div>';
+                	$(".cnDia").html(shtml);
+                	_popUp.popUp('.noteDia');
+                } else if(response.status == "error"){
+                	$.dialog({
+                	    content:response.msg,
+                	    icon:null
+                	});
+                }
+            }, "json");
+        });
+        
     }
     //购买前  选开课时间
     exports.timeToggle = function (){
@@ -40,12 +53,11 @@ define(function(require,exports){
         })
     }
     //倒计时
-    exports.countDown = function (){
+    exports.countDown = function (obj,id,type){
         var timer = null;
-
         function countDown(){
             var oDate=new Date();
-            array = $("#sell_endtime").val().split(" ");
+            array = $("#"+id).val().split(" ");
 	        FullYear = array['0'].split("-");
 	        Hours = array['1'].split(":");
             oDate.setFullYear(FullYear[0],FullYear[1],FullYear[2]);
@@ -65,9 +77,16 @@ define(function(require,exports){
             s%=60;
             if(days<=0&&hours<=0&&mins<=0&&s<=0){
                 clearInterval(timer);
-                $(".countdown").html("已到时");
+                obj.html("已到时");
             }else{
-                $(".countdown").html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                if(type==1){
+                    obj.html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                }else{
+                    obj.html('<strong>'+days+'</strong>天'+
+                            '<strong>'+hours+'</strong>小时'+
+                            '<strong>'+mins+'</strong>分'+
+                            '<strong>'+s+'</strong>秒');
+                }
             }
         }
         countDown();
@@ -82,11 +101,12 @@ define(function(require,exports){
             	product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
-                if (response.status == "order_exist") {
-                	alert(response.msg);
+                if (response.status == "error") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 	window.location.href="/member/my_order/all";
-                } else if(response.status == "order_buy"){
-                	alert(response.msg);
                 } else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
                 } else if(response.status == 'no_login'){
@@ -106,12 +126,13 @@ define(function(require,exports){
             	product_id: $('#product_id_xia').val()
             };
             $.post(url, data, function (response) {
-                if (response.status == "order_exist") {
-                	alert(response.msg);
+                if (response.status == "error") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 	window.location.href="/member/my_order/all";
-                } else if(response.status == "order_buy"){
-                	alert(response.msg);
-                }else if(response.status == "ok"){
+                } else if(response.status == "ok"){
                 	window.location.href="/pay/product/"+response.id;
                 }else if(response.status == 'no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
@@ -129,13 +150,17 @@ define(function(require,exports){
             var action = '/member/action/'+btn.data('id')+'/'+btn.data('type');
             var data = {};
             $.get(action, data, function (response) {
-                if (response.status == "del_ok") {
-                    alert(response.msg);
+                if (response.status == "ok") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                     window.location.reload();
-                } else if(response.status == "del_no"){
-                	alert(response.msg);
-                } else if(response.status == "del_error"){
-                	alert(response.msg);
+                } else if(response.status == "error"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 }
             }, "json");
         });
@@ -148,11 +173,17 @@ define(function(require,exports){
             var action = '/member/action/'+btn.data('id')+'/'+btn.data('type');
             var data = {};
             $.get(action, data, function (response) {
-                if (response.status == "cancel_ok") {
-                    alert(response.msg);
+                if (response.status == "ok") {
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                     window.location.reload();
-                } else if(response.status == "cancel_error"){
-                	alert(response.msg);
+                } else if(response.status == "error"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 }
             }, "json");
         });
@@ -160,52 +191,96 @@ define(function(require,exports){
     
     //我的课程购买之后 列表 课程回顾 背景圆
     exports.overCourse = function (){
-        console.log($(".outlineList li").length)
-        // for(var i in $(".outlineList li")){
-        //     console.log(i);
-        //     if(i.find(".replay")){
-        //         i.find(".rCon").addClass("rConOver");
-        //     }
-        // }
-
-
-
-        //  liebiao   bj   pj tc doubushi cur----------
-
-
-
-
-
         for(var i=0;i< $(".outlineList li").length;i++){
-            // if($(".outlineList li").eq(i).find(".replay")){
-            //     $(".outlineList li").eq(i).find(".rCon").addClass("rConOver");
-            // }
+            if($(".outlineList li").eq(i).find(".replay").length){
+                $(".outlineList li").eq(i).find(".rCon").addClass("rConOver");
+            }
         }
 
         //鼠标上去 显示 讲义，运笔记，评论星
         $(".outlineList li").mouseover(function (){
-            $(this).find(".cListHid").show();
-
-            // $(this).find(".starBg").click(function (){               
-            //     _popUp.popUp('.evaluHtml');
-            // })
-            $(".starBg").eq($(".outlineList li").index($(this))).click(function (){               
-                _popUp.popUp('.evaluHtml');
-            })
+            $(this).find(".cListHid").show();     
         });
+        $(".outlineList li").mouseout(function (){
+            $(this).find(".cListHid").hide();
+        });
+        $(".evaluBtn").click(function (){               
+           // _popUp.popUp('.evaluHtml');
+        	$.dialog({
+        		id:"comment_close",
+                title:false,
+                ok:false,
+                icon:false,
+                padding:0,
+                content:$(".evaluHtml").html()
+            });
+            class_id = $(this).attr("evaluBtns");
+            $("#c_class_id").val(class_id);
+            exports.starClick();
+            require("module/classRoom/valid").evaluForm();
+            
+        })
     }
     
 	//评论 几颗星
 	exports.starClick = function (){
-			var ind = true;
-			$(".evalu .starBg span").click(function (){
-				if(ind){
-					var _index = $(".evalu .starBg span").index($(this));
-					for(var i=0;i<_index+1;i++){
-						$(".evalu .starBg span").eq(i).addClass("cStar");
-					}
-					ind = false;
+		//var ind = true;
+		$(".evalu .starBg span").click(function (){
+			//if(ind){
+				var _index = $(".evalu .starBg span").index($(this));
+				for(var i=0;i<_index+1;i++){
+					$(".evalu .starBg span").eq(i).addClass("cStar");
 				}
-			});
+				$("#c_score").val(_index+1);
+				//ind = false;
+			//}
+		});
+	}
+    
+        //发送验证码
+    exports.sendValidateCode = function (){
+        $('.sendPhoneCode').click(function() {
+            var _this = $(this);
+            var phone = $("input[name='phone']").val();
+            var verify_type = $("input[name='verify_type']").val();
+            if(!(phone)) {
+				$.dialog({
+				    content:"请填写手机号",
+				    icon:null
+				});
+                return false;
+            } else if(!(/\d{11}/.test(phone))) {
+				$.dialog({
+				    content:"请输入正确的手机号",
+				    icon:null
+				});
+                return fasle;
+            }
+            $.ajax({
+                url : 'http://www.nahaodev.com/register/send_captcha',
+                type : 'post',
+                data : {'phone' : phone, 'type' : verify_type},
+                dataType : 'json',
+                success : function (result) {
+                    if(result.status == 'error') {
+        				$.dialog({
+        				    content:result.msg,
+        				    icon:null
+        				});
+                    }
+                    //手机验证倒计时
+                    require("module/common/method/countDown").countDown(_this);
+                }
+            }
+            );
+        });
+    }
+    
+    //最新课程页面跳转
+	exports.new_class_skip = function (){
+		$(".newList").on("click", '.rotateBox', function () {
+			var url = $(this).data('action');
+			window.open(url);
+		});		
 	}
 });

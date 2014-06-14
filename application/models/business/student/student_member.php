@@ -28,6 +28,8 @@ class Student_Member extends NH_Model{
                 $array_return[$k]['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
                 #这轮上了M节
                 $array_return[$k]['class'] = $this->model_member->get_student_class_done($int_user_id,$v['round_id']);
+                #比例 = 上了M节/共M节
+                $array_return[$k]['class_rate'] = $array_return[$k]['totle_class'] == 0 ? 0 : round($array_return[$k]['class']/$array_return[$k]['totle_class'],2)*100;
                 #授课状态
                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
                 {

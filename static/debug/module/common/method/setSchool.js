@@ -45,9 +45,7 @@ define(function(require, exports) {
                 var class_id = $('#class_id').val();
                 var school_id = $('.aui_content .school li.active').attr('data-id');
                 var province = $(".schoolProvice li.active").html();
-                var province_id = $(".schoolProvice li.active").attr('data-id');
                 var city = $(".schoolCity li.active").html();
-                var city_id = $(".schoolCity li.active").attr('data-id');
                 var county = $(".schoolCounty li.active").html();
                 var county_id = $(".schoolCounty li.active").attr('data-id');
                 var sctype_id = $('.schoolGrade li.active').attr('data-id');
@@ -85,8 +83,6 @@ define(function(require, exports) {
                         $('.schoolBox').find('.ValidformInfo,.Validform_checktip').hide();
                     }
                 }
-                $('#province_id').val(province_id);
-                $('#city_id').val(city_id);
                 $('#schoolname').val(writeSchoolName);
                 $('#area_county_id').val(county_id);
                 $('#school_type').val(sctype_id);
@@ -98,12 +94,12 @@ define(function(require, exports) {
         });
         // 显示学校地区、学校等
         exports.showSchool();
+        // 加载没有我的学校方法
+        exports.noMyScholl();
         // 验证表单
         exports.seacherSchoolValid();
         // 搜索结果方法
         exports.seacheSchoolResult();
-        // 加载没有我的学校方法
-        exports.noMyScholl();
     });
     // 搜索结果方法
     exports.seacheSchoolResult = function(){
@@ -138,24 +134,24 @@ define(function(require, exports) {
             showAllError: false,
             ajaxPost: true,
             callback: function(data){
-				var words = $('.schoolNames').val();
-				if ($.trim(words) != ''){
-					if(/.*[\u4e00-\u9fa5]+.*$/.test(words)){
-						$.ajax({
-							'url' : siteUrl + 'class/schools/convert?chinese='+encodeURIComponent(words),
-							'type' : 'GET',
-							'dataType' : 'json',
-							success : function(json, status){
-								words = json.py;
-								exports.query(words);
-							}
-						});
-					} else {
-						exports.query(words);
-					}
-				} else {
-					exports.buildSchool();
-				}
+                var words = $('.schoolNames').val();
+                if ($.trim(words) != ''){
+                    if(/.*[\u4e00-\u9fa5]+.*$/.test(words)){
+                        $.ajax({
+                            'url' : siteUrl + 'school/convert?chinese='+encodeURIComponent(words),
+                            'type' : 'GET',
+                            'dataType' : 'json',
+                            success : function(json, status){
+                                words = json.py;
+                                exports.query(words);
+                            }
+                        });
+                    } else {
+                        exports.query(words);
+                    }
+                } else {
+                    exports.buildSchool();
+                }
                 $('.school').hide();
                 $('.seacherResult').fadeIn();
                 $('span.reset').removeClass('undis').show();
@@ -169,25 +165,23 @@ define(function(require, exports) {
             }
         ]);
     };
-    
     //搜索学校
     exports.query = function(words){
-    	var _li = '';
-    	$.each(school_array, function(k, v){
-    		$.each(v, function(k2, v2){
-    			if (typeof words != 'undefined' && $.trim(words) != ''){
-    				if (v2.schoolname.indexOf(words) != -1 || v2.py.indexOf(words) != -1 || v2.first_py.indexOf(words) != -1){
-    					_li += '<li data-id="'+v2.id+'">'+v2.schoolname+'</li>';
-    				}
-    			}
-    		});
-    	});
-    	if (_li == ''){
-    		_li = '没有找到相关学校，请重新输入关键词。';
-    	}
-    	$('.seacherResult ul').html(_li);
+        var _li = '';
+        $.each(school_array, function(k, v){
+            $.each(v, function(k2, v2){
+                if (typeof words != 'undefined' && $.trim(words) != ''){
+                    if (v2.schoolname.indexOf(words) != -1 || v2.py.indexOf(words) != -1 || v2.first_py.indexOf(words) != -1){
+                        _li += '<li data-id="'+v2.id+'">'+v2.schoolname+'</li>';
+                    }
+                }
+            });
+        });
+        if (_li == ''){
+            _li = '没有找到相关学校，请重新输入关键词。';
+        }
+        $('.seacherResult ul').html(_li);
     }
-    
     //取出学校第一个字母
     exports.buildSchool = function(query) {
         $('.resetSchoolPopCon .schoolInfo').fadeIn();
@@ -205,6 +199,15 @@ define(function(require, exports) {
     exports.showSchool = function(){
         //点击省份
         $('.resetSchoolPopCon .province li').live('click', function(){
+            // 重置搜索学校表单开始
+            $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
+            $('.ValidformInfo').hide();
+            // 屏蔽默认光标在输入框开始
+            $('.schoolNames').focus(function(){
+                return false;
+            });
+            // 重置搜索学校表单结束
+            var _this = $(this);
             $('.resetSchoolPopCon .sctype').hide();
             var _cityName = 
                 // 北京
@@ -239,11 +242,96 @@ define(function(require, exports) {
                             listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
                         }
                         if (ismunicipality == 1){
-                            $('.resetSchoolPopCon .county').html(listr);
-                            $('.resetSchoolPopCon .county').fadeIn();
+                            $('.resetSchoolPopCon .county').html(listr).fadeIn();
+                            // 展开默认城市开始
+                            // 默认第一个县给active
+                            $('.resetSchoolPopCon .county li').first().addClass('active');
+                            var _this = $('.resetSchoolPopCon .county li.active');
+                            $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
+                            $.ajax({
+                                'url' : siteUrl + 'school/type',
+                                'type' : 'GET',
+                                'dataType' : 'json',
+                                success : function(json, status){
+                                    var listr = '';
+                                    for (var i = 0; i < json.length; ++i){
+                                        listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
+                                    }
+                                    $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
+                                    $('.resetSchoolPopCon .sctype li').first().addClass('active');
+                                    var sctype = 1;
+                                    var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                                    $.ajax({
+                                        'url' : siteUrl+'school/get_school',
+                                        'type' : 'GET',
+                                        'dataType' : 'json',
+                                        'data' : {
+                                            'id' : county_id,
+                                            'sctype' : sctype
+                                        },
+                                        success : function(json, status){
+                                            school_array = json;
+                                            exports.buildSchool();
+                                        }
+                                    });
+                                }
+                            });
                         } else {
-                            $('.resetSchoolPopCon .city').html(listr);
-                            $('.resetSchoolPopCon .city').fadeIn();
+                            $('.resetSchoolPopCon .city').html(listr).fadeIn();
+                            // 默认第一个城市给active
+                            $('.resetSchoolPopCon .city li').first().addClass('active');
+                            var _this = $('.resetSchoolPopCon .city li.active');
+                            // 展开默认城市开始
+                            $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
+                            var id = _this.attr('data-id');
+                            $.ajax({
+                                'url' : siteUrl + 'school?id='+id,
+                                'type' : 'GET',
+                                'dataType' : 'json',
+                                success : function(json, status){
+                                    var listr = '';
+                                    for (var i = 0; i < json.length; ++i){
+                                        listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
+                                    }
+                                    $('.resetSchoolPopCon .county').html(listr).show();
+                                    // 默认第一个县给active
+                                    $('.resetSchoolPopCon .county li').first().addClass('active');
+                                    var _this = $('.resetSchoolPopCon .county li.active');
+                                    $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
+                                    $.ajax({
+                                        'url' : siteUrl + 'school/type',
+                                        'type' : 'GET',
+                                        'dataType' : 'json',
+                                        success : function(json, status){
+                                            var listr = '';
+                                            for (var i = 0; i < json.length; ++i){
+                                                listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
+                                            }
+                                            $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
+                                            $('.resetSchoolPopCon .sctype li').first().addClass('active');
+                                            var sctype = 1;
+                                            var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                                            $.ajax({
+                                                'url' : siteUrl+'school/get_school',
+                                                'type' : 'GET',
+                                                'dataType' : 'json',
+                                                'data' : {
+                                                    'id' : county_id,
+                                                    'sctype' : sctype
+                                                },
+                                                success : function(json, status){
+                                                    school_array = json;
+                                                    exports.buildSchool();
+                                                    // 验证表单
+                                                    exports.seacherSchoolValid();
+                                                }
+                                            });
+                                        }
+                                    });
+                                        
+                                }
+                            });
+                            // 展开默认城市结束
                         }
                     }
                 });
@@ -252,6 +340,14 @@ define(function(require, exports) {
         //点击城市
         $('.resetSchoolPopCon .city li').live('click', function(){
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
+            // 重置搜索学校表单开始
+            $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
+            $('.ValidformInfo').hide();
+            // 屏蔽默认光标在输入框开始
+            $('.schoolNames').focus(function(){
+                return false;
+            });
+            // 重置搜索学校表单结束
             if($(this).attr('class') !== 'active'){
                 var id = $(this).attr('data-id');
                 $.ajax({
@@ -263,8 +359,41 @@ define(function(require, exports) {
                         for (var i = 0; i < json.length; ++i){
                             listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
                         }
-                        $('.resetSchoolPopCon .county').html(listr);
-                        $('.resetSchoolPopCon .county').css('display', 'block');
+                        $('.resetSchoolPopCon .county').html(listr).show();
+                        // 默认第一个县给active
+                        $('.resetSchoolPopCon .county li').first().addClass('active');
+                        var _this = $('.resetSchoolPopCon .county li.active');
+                        $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
+                        $.ajax({
+                            'url' : siteUrl + 'school/type',
+                            'type' : 'GET',
+                            'dataType' : 'json',
+                            success : function(json, status){
+                                var listr = '';
+                                for (var i = 0; i < json.length; ++i){
+                                    listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
+                                }
+                                $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
+                                $('.resetSchoolPopCon .sctype li').first().addClass('active');
+                                var sctype = 1;
+                                var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                                $.ajax({
+                                    'url' : siteUrl+'school/get_school',
+                                    'type' : 'GET',
+                                    'dataType' : 'json',
+                                    'data' : {
+                                        'id' : county_id,
+                                        'sctype' : sctype
+                                    },
+                                    success : function(json, status){
+                                        school_array = json;
+                                        exports.buildSchool();
+                                        // 验证表单
+                                        exports.seacherSchoolValid();
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
@@ -272,6 +401,14 @@ define(function(require, exports) {
         //点击城镇
         $('.resetSchoolPopCon .county li').live('click', function(){
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
+            // 重置搜索学校表单开始
+            $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
+            $('.ValidformInfo').hide();
+            // 屏蔽默认光标在输入框开始
+            $('.schoolNames').focus(function(){
+                return false;
+            });
+            // 重置搜索学校表单结束
             $.ajax({
                 'url' : siteUrl + 'school/type',
                 'type' : 'GET',
@@ -281,20 +418,35 @@ define(function(require, exports) {
                     for (var i = 0; i < json.length; ++i){
                         listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
                     }
-                    $('.resetSchoolPopCon .sctype').html(listr);
-                    $('.resetSchoolPopCon .sctype').fadeIn();
+                    $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
+                    $('.resetSchoolPopCon .sctype li').first().addClass('active');
+                    var sctype = 1;
+                    var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                    $.ajax({
+                        'url' : siteUrl+'school/get_school',
+                        'type' : 'GET',
+                        'dataType' : 'json',
+                        'data' : {
+                            'id' : county_id,
+                            'sctype' : sctype
+                        },
+                        success : function(json, status){
+                            school_array = json;
+                            exports.buildSchool();
+                        }
+                    });
                 }
             });
         });
         //点击学校
         $('.resetSchoolPopCon .sctype li').live('click', function(){
             // 获取选择的省市县开始
-            var _thisPro = $('.resetSchoolPopCon .province li.active').html();
-            var _thisCity = $('.resetSchoolPopCon .city li.active').html();
-            if (typeof _thisCity == 'undefined'){_thisCity = '';}
-            var _thisCounty = $('.resetSchoolPopCon .county li.active').html();
-            var _thisSctype  = $(this).html();
-            $('span#sName').html(_thisPro+_thisCity+_thisCounty+"的"+_thisSctype);
+            // var _thisPro = $('.resetSchoolPopCon .province li.active').html();
+            // var _thisCity = $('.resetSchoolPopCon .city li.active').html();
+            // if (typeof _thisCity == 'undefined'){_thisCity = '';}
+            // var _thisCounty = $('.resetSchoolPopCon .county li.active').html();
+            // var _thisSctype  = $(this).html();
+            // $('span#sName').html(_thisPro+_thisCity+_thisCounty+"的"+_thisSctype);
             // 获取选择的省市县结束
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
             // 屏蔽默认光标在输入框开始
@@ -335,8 +487,8 @@ define(function(require, exports) {
         });
         //点击搜索结果的li
         $('.seacherResult li').live('click', function(){
-			$('.seacherResult li').removeClass('active');
-			$(this).addClass('active');
+            $('.seacherResult li').removeClass('active');
+            $(this).addClass('active');
         });  
     }
     // 点击没有我的学校
@@ -466,7 +618,7 @@ define(function(require, exports) {
                                     //     })
                                     // };
                                     // 隐藏没有我的学校功能
-                                    $('.noMySchollBtn').hide();
+                                    // $('.noMySchollBtn').hide();
                                 });
                                 // 加载城市数据结束
                                 $('.resetSchoolPopCon .city').fadeIn();

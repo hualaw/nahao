@@ -146,25 +146,59 @@ define(function(require,exports){
         });
     };
     //选择和取消 关注
-    function checkAttent(){        
-        $(".objBox a").click(function (){
-            if($(this).hasClass("active")){
-                $(this).removeClass("active");
+    // function checkAttent(){        
+    //     $(".attent .btn").click(function (){
+    //         if($(this).hasClass("attentd")){
+    //             $(this).removeClass("attentd");
+    //         }else{
+    //             $(this).addClass("attentd");
+    //         }
+    //         va.call(this);
+    //         //验证 最多关注
+    //         $(".attent .btn").focus(function (){
+    //             va.call(this);
+    //         })
+    //         //验证 最多关注
+    //         $(".attent .btn").blur(function (){
+    //             va.call(this);
+    //         })
+
+    //         function va(){
+    //             if($(".attentd").length>3){
+    //                 $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+    //             }else{
+    //                 $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+    //             }
+    //         }
+    //     });
+    // }
+    function checkAttent(obj){        
+        $(obj+" .attent .btn").live("click",function (){
+            var selected_subjects = $("#selected_subjects").val();
+            var subject_id = $(this).attr('subject_id');
+            if($(obj+" .attentd").length<3){
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                }else{
+                    $(this).addClass("attentd");
+                }
             }else{
-                $(this).addClass("active");
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                }
+                va.call(this);
             }
-            va.call(this);
             //验证 最多关注
-            $(".objBox a").focus(function (){
+            $(obj+" .attent .btn").live("focus",function (){
                 va.call(this);
             })
             //验证 最多关注
-            $(".objBox a").blur(function (){
+            $(obj+" .attent .btn").live("blur",function (){
                 va.call(this);
             })
 
             function va(){
-                if($(".objBox .active").length>3){
+                if($(obj+" .attentd").length>=3){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
@@ -188,8 +222,13 @@ define(function(require,exports){
 			},
             callback:function(data){
                 if(data.status == 'ok'){
-                    // 登陆成功后跳转到跳转页
-                    window.location=data.data.redirect_url;
+                	if(data.data.redirect_url == 'reload'){
+                		window.location.reload();
+                	} else{
+                        // 登陆成功后跳转到跳转页
+                        window.location=data.data.redirect_url;
+                	}
+
                 }else{
                     $.dialog({
                         content:json.msg
@@ -216,7 +255,7 @@ define(function(require,exports){
     };
     // 登陆之后验证
     exports.loginAfterForm = function(){
-        checkAttent();
+        checkAttent(".loginAfterForm");
         var _Form=$(".loginAfterForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
@@ -371,7 +410,7 @@ define(function(require,exports){
     }
     // 注册成功之后验证
     exports.regAfterForm = function(){
-        checkAttent();
+        checkAttent(".regAfterForm");
         var _Form=$(".regAfterForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,

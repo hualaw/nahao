@@ -46,6 +46,11 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('userdata', $this->session->all_userdata());
         $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
         $this->smarty->assign('perfect_url', site_url().'login/perfect');
+        
+/*         echo "<pre>";
+        print_r($this->session->all_userdata());
+        echo "</pre>"; */
+       
     }
 
 
@@ -101,14 +106,44 @@ class NH_Controller extends CI_Controller
     }
     /**
      * 以json格式输出
-     * @param array $arr_data
+     * @param array $arr_param
      * @author yanrui@91waijiao.com
      */
-    protected static function json_output($arr_data)
+    protected static function json_output($arr_param)
     {
+        $arr_data = is_array($arr_param) ? $arr_param : array();
         header('Content-Type: application/json');
         die( (isset($_GET['callback'])) ? $_GET['callback'].'('.json_encode($arr_data).')' : json_encode($arr_data));
     }
+
+
+    /**
+     * enter classroom
+     * @author yanrui@tizi.com
+     */
+    public function enter_classroom($int_classroom_id,$int_user_type){
+        $str_classroom_url = '';
+//        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        if($int_classroom_id){
+            $str_classroom_url = enter_classroom($int_classroom_id,$int_user_type);
+        }
+        $str_classroom_url = 'http://'.__HOST__.'/nahao_classroom/main.html';
+//        o($str_classroom_url,true);
+        return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+
+//        $str_classroom_url = 'http://admin.nahaotest.com/admin/test';
+//o($str_classroom_url,true);
+//        echo nh_curl($str_classroom_url,false);exit;
+//        $str_classroom_url = 'http://admin.nahaodev.com/nahao_classroom/main.html';
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+//        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("liubing!");}//student_get_exercise_page();</script>';
+//        echo $str_iframe;
+//        exit;
+//        $this->smarty->assign('iframe',$str_iframe);
+//        $this->smarty->assign('view', 'classroom');
+//        $this->smarty->display('admin/layout.html');
+    }
+
 }
 
 require(APPPATH . 'core/NH_Admin_Controller.php');

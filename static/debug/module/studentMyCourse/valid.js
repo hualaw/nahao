@@ -92,32 +92,22 @@ define(function(require,exports){
     //选择和取消 关注
     function checkAttent(obj){        
         $(obj+" .attent .btn").click(function (){
-            var selected_subjects = $("#selected_subjects").val();
-            var subject_id = $(this).attr('subject_id');
-            if($(this).hasClass("attentd")){
-                $(this).removeClass("attentd");
-                var index = selected_subjects.indexOf(subject_id);
-                var opIndex = selected_subjects.indexOf('-');
-                if(index == 0 && opIndex > 0) {
-                    selected_subjects = selected_subjects.replace(subject_id + '-', '');//已经选择一个以上学科,并要去掉第一个被选择的学科的情况
-                }else if(index == 0 && opIndex == -1){
-                    alert(subject_id);
-                    selected_subjects = selected_subjects.replace(subject_id, '');//只选一个学科,去掉该学科的情况
-                } else {
-                    selected_subjects = selected_subjects.replace('-' + subject_id, '');
+            if($(obj+" .attentd").length < 3){//限制只能选3个学科
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
+                }else{
+                    $(this).addClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'add');
                 }
-                $("#selected_subjects").val(selected_subjects);
-            }else{
-                $(this).addClass("attentd");
-                if(!selected_subjects) {
-                    selected_subjects += subject_id;
-                } else {
-                    selected_subjects = selected_subjects + '-' + subject_id;
+            } else {
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
                 }
-                $("#selected_subjects").val(selected_subjects);
+                va.call(this);
             }
             
-            va.call(this);
             //验证 最多关注
             $(obj+" .attent .btn").focus(function (){
                 va.call(this);
@@ -128,7 +118,7 @@ define(function(require,exports){
             })
 
             function va(){
-                if($(obj+" .attentd").length>3){
+                if($(obj+" .attentd").length>=3){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
@@ -147,7 +137,7 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                
             },
             callback:function(data){
                 alert(data.msg);
@@ -158,7 +148,7 @@ define(function(require,exports){
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -230,12 +220,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.msg);
+                if(data.status == 'ok') {
+                    window.location.reload();
+                }
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -246,6 +239,16 @@ define(function(require,exports){
                 datatype:"*2-15",
                 nullmsg:"请输入昵称",
                 errormsg:"长度2-15个字符"
+            },
+            {
+                ele: ".phone_number",
+                datatype:"m",
+                ignore:"ignore",
+                nullmsg:"请输入手机号",
+                errormsg:"请输入正确的手机号",
+                ajaxurl:'/register/check_phones',
+                ajaxUrlName:'phone',
+                
             },
             {    
                 ele:".loction",
@@ -354,5 +357,36 @@ define(function(require,exports){
                 }
             }
         });
+    }
+    
+    /**
+     * 记录学生已选感兴趣学科的学科ID
+     * @param obj  container_obj 盛放subject_id的对象
+     * @param obj subject_obj 当前所选学科
+     * @param str operation  add 增加 remove删除
+     * @returns void
+     */
+    function _record_interested_subjects(container_obj, subject_obj, operation) {
+        var selected_subjects = container_obj.val();
+        var subject_id = subject_obj.attr('subject_id');
+        if(operation == 'add') {
+            if(!selected_subjects) {
+                selected_subjects += subject_id;
+            } else {
+                selected_subjects = selected_subjects + '-' + subject_id;
+            }
+            container_obj.val(selected_subjects);           
+        } else if(operation == 'remove') {
+            var index = selected_subjects.indexOf(subject_id);
+            var opIndex = selected_subjects.indexOf('-');
+            if(index == 0 && opIndex > 0) {
+                selected_subjects = selected_subjects.replace(subject_id + '-', '');//已经选择一个以上学科,并要去掉第一个被选择的学科的情况
+            }else if(index == 0 && opIndex == -1){
+                selected_subjects = selected_subjects.replace(subject_id, '');//只选一个学科,去掉该学科的情况
+            } else {
+                selected_subjects = selected_subjects.replace('-' + subject_id, '');
+            }
+            container_obj.val(selected_subjects);
+        }
     }
 })

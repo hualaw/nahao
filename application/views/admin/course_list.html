@@ -9,7 +9,7 @@
         <div class="col-md-2">
             <select class="form-control" name="course_type">
                 <option value="">全部课程类型</option>
-                {foreach $course_types as $k => $v}<option value="{$k}" {if isset($course.course_type) AND $course.course_type==$k }selected{/if}>{$v}</option>{/foreach}
+                {foreach $course_types as $k => $v}<option value="{$k}" {if isset($query_param.course_type) AND $query_param.course_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -21,29 +21,26 @@
         <div class="col-md-2">
             <select class="form-control" name="status">
                 <option value="">全部状态</option>
-                {foreach $course_status as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
-                <option value="1">已禁用</option>
-                <option value="2">已启用</option>
+                {foreach $course_status as $k => $v}<option value="{$k}" {if isset($query_param.status) AND $query_param.status==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="search_type">
-                <option value="1">课程名称</option>
-                <option value="2">授课老师</option>
-                <option value="3">课程ID</option>
+                {foreach $course_list_search_type as $k => $v}<option value="{$k}" {if isset($query_param.search_type) AND $query_param.search_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
+            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($query_param.search_value)}{$query_param.search_value}{/if}">
         </div>
         <button type="submit" class="btn btn-primary">搜索</button>
+        <a class="btn btn-primary" href="/course">重置</a>
     </div>
 </form>
 
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>#</th>
+        <!--<th>#</th>-->
         <th>课程ID</th>
         <th>课程名称</th>
         <th>课节数</th>
@@ -58,17 +55,17 @@
     <tbody>
     {foreach $list as $v}
         <tr>
-            <td><input type="checkbox"></td>
+            <!--<td><input type="checkbox"></td>-->
             <td>{$v.id}</td>
             <td>{$v.title}</td>
-            <td></td>
-            <td></td>
+            <td>{$v.lesson_count}</td>
+            <td>{$v.nickname}</td>
             <td>{$course_status[$v.status]}</td>
             <td>{$subjects[$v.subject]}</td>
             <td>{$course_types[$v.course_type]}</td>
             <td>{date('Y-m-d H:i',$v.create_time)}</td>
             <td>
-                <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">更多</a>
+                <a href="javascript:;" class="course_operation" data-course_id="{$v.id}">更多</a>
                 <a href="/course/edit/{$v.id}">修改</a>
                 <a target="_blank" href="/lesson/index/{$v.id}">章节管理</a>
                 <a target="_blank" href="/round/edit?course_id={$v.id}">生成班次</a>

@@ -1,10 +1,10 @@
-<h3>添加教师信息</h3>
+<h2>添加教师信息</h2>
 <hr>
-<form action="/teacher/check_techer_post" method="post">
+<form action="/teacher/check_techer_post" method="post" enctype="multipart/form-data">
 <table>
     <tr height="35">
         <td width="100"><font color="red">*</font>昵称:</td>
-        <td width="500"><input type="text" name="nickname" id="nickname" placeholder="昵称2-15位 匿名时显示" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_nickname"></span></td>
+        <td width="650"><input type="text" name="nickname" id="nickname" placeholder="昵称2-15位 匿名时显示" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_nickname"></span></td>
     </tr>
     <tr height="35">
         <td><font color="red">*</font>密码:</td>
@@ -12,7 +12,11 @@
     </tr>
     <tr height="35">
         <td><font color="red">*</font>真实姓名:</td>
-        <td><input type="text" name="realname" id="realname" placeholder="请填写真实姓名 2-15位" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_realname">保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_realname"></span></td>
+        <td><input type="text" name="realname" id="realname" placeholder="请填写真实姓名 2-15位" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_realname" value=1>保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_realname"></span></td>
+    </tr>
+    <tr height="35">
+        <td><font color="red">*</font>年龄:</td>
+        <td><input type="text" name="age" id="age" placeholder="请填写年龄" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_age"></span></td>
     </tr>
     <tr height="35">
         <td><font color="red">*</font>教学阶段:</td>
@@ -22,12 +26,29 @@
         </td>
     </tr>
     <tr height="35">
-        <td><font color="red">*</font>所在学校:</td>
-        <td><input type="text" name="school" placeholder="请填写学校" id="school" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_school">保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_school"></span></td>
+        <td><font color="red">*</font>所在地区:</td>
+        <td>
+            <select name="province" id="province">
+                {foreach $province as $v}
+                <option value={$v.id}>{$v.name}</option>
+                {/foreach}
+            </select>
+            <select name="city" id="city">
+
+            </select>
+            <select name="area" id="area">
+            </select>
+        </td>
+    </tr>
+    <tr height="35">
+        <td>所在学校:</td>
+        <td><select name="school" id="school">
+
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_school" value=1>保密</td>
     </tr>
     <tr height="35">
         <td><font color="red">*</font>基本课酬:</td>
-        <td width="200"><input type="text" name="basic_reward" id="basic_reward" placeholder="请填写课酬 元/课时" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_basic_reward"></span></td>
+        <td width="200"><input type="text" name="basic_reward" id="basic_reward" placeholder="请填写课酬&nbsp;&nbsp;&nbsp;&nbsp;元/课时" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_basic_reward"></span></td>
     </tr>
     <tr height="35">
         <td><font color="red">*</font>教学科目:</td>
@@ -58,21 +79,7 @@
             </select>
         </td>
     </tr>
-    <tr height="35">
-        <td><font color="red">*</font>所在地区:</td>
-        <td>
-            <select name="province" id="province">
-                {foreach $province as $v}
-                <option value={$v.id}>{$v.name}</option>
-                {/foreach}
-            </select>
-            <select name="city" id="city">
 
-            </select>
-            <select name="area" id="area">
-            </select>
-        </td>
-    </tr>
     <tr height="35">
         <td><font color="red">*</font>教龄:</td>
         <td>
@@ -93,10 +100,10 @@
     </tr>
 </table>
 <hr>
-<h4>教师简介</h4>
+<h3>教师简介</h3>
 <textarea class="form-control" rows="5" id="" placeholder="在此填写老师简介" name="teacher_intro"></textarea>
 <hr>
-<h4>绑定银行账户</h4>
+<h3>绑定银行账户</h3>
 结算银行:<select name="bank">
             <option value=0>请选择银行</option>
             {for $i=1 to 12}
@@ -105,6 +112,28 @@
        </select>
        <input type="text" name="bank_Branch" placeholder="请填写具体支行信息" /><br /><br />
 银行卡号:<input type="text" name="bank_id" placeholder="请填写银行卡号" /><br /><br />
-身份证号:<input type="text" name="id_card" placeholder="请填写身份证号" /><br /><br /><br />
+身份证号:<input type="text" name="id_card" placeholder="请填写身份证号" />
+<hr>
+<h3>资质认证</h3>
+    <input id="work_auth_img" type="hidden" value="{$upload_work_img_key}">
+    <input id="title_auth_img" type="hidden" value="{$upload_auth_img_key}">
+    <input id="teacher_auth_img" type="hidden" value="{$upload_title_img_key}">
+    <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
+    <input type="hidden" name="work_auth_img" value="" id="work_authimg" />
+    <input type="hidden" name="title_auth_img" value="" id="title_authimg" />
+    <input type="hidden" name="teacher_auth_img" value="" id="teacher_authimg" />
+    <div class="teacher">
+        教师资格证:<input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_url_general" />
+    </div>
+    <div class="title">
+        教师职称证:<input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_title_general" />
+    </div>
+    <div class="work">
+        学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_work_general" />
+    </div>
+<br /><br />
 <button type="submit" class="btn btn-success">提交</button>
 </form>
