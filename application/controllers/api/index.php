@@ -40,7 +40,7 @@ class Index extends NH_User_Controller {
 				$question_list = array();
 				$sequence_id = $this->teacher_b->get_sequence($param);
 				$param = array(
-			    	'class_id' => $class_id,
+			    	'classroom_id' => $classroom_id,
 			    	'status' => 1,//出过
 			    	'sequence_id' => $i,
 			    );

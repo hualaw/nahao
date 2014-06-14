@@ -14,8 +14,21 @@
             <!--那好 nav结束-->
             <!--那好 info开始-->
             <div class="rightTips fr">
-                <span><a href="http://www.nahaodev.com/index/apply_teach" class="noShowBtn redBtn">我要开课</a></span>
-                <a class="hd_info">您好，<b>王小乐</b>老师</a>|<a class="logout" href="#">退出</a>
+            	<!--登录之前 开始-->
+                {if !$is_login}
+                <!--<span><a href="http://www.nahaodev.com/index/apply_teach" class="noShowBtn redBtn">我要开课</a></span>
+                <a class="hd_info">您好，<b>{$nickname}</b></a>|<a class="logout" href="/login/logout">退出</a>-->
+                
+				<a href="javascript:void(0)" class="blueText commonLoginBtn">登录</a>
+				<span>|</span>
+				<a href="http://www.nahaodev.com/register" class="blueText">注册</a>
+				<!--登录之前 结束-->
+                {else}
+				<!--登录之后 开始-->
+				<span><a href="http://www.nahaodev.com/index/apply_teach" class="noShowBtn redBtn">我要开课</a></span>
+                <a class="hd_info">您好，<b>{$nickname}</b></a>|<a class="logout" href="http://www.nahaodev.com/login/logout">退出</a>
+                {/if}
+				<!--登录之后 结束-->
             </div>
             <!--那好 info结束-->
         </div>

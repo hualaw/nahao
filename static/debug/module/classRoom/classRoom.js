@@ -1,4 +1,5 @@
 define(function (require,exports){
+	var _popinside = require('module/common/method/popUp');
 	//做题选答案 (加背景色)
 	exports.options = function (){
 		$(".answerList li").live('click',function (){
@@ -8,6 +9,19 @@ define(function (require,exports){
 	}
 	//获取未出过的练习题
 	exports.load_questions = function (){
+		//弹框
+		$.tiziDialog({
+            title:false,
+            ok:false,
+            icon:false,
+            id: 'exerciseHtml',
+            padding:0,
+            content:$('#exerciseHtml').html(),
+        });
+		//初始化弹出数据
+		$('.itemCurNum').html(0);
+		$('.publish_questions').html();
+		$('.publish_questions_index').html();
 		var classroom_id = $('#nahaoModule').attr('classroom-data');
 		var url = "/classroom/teacher_get_exercise_page/"+classroom_id+'/?'+((new Date).valueOf());
 		var itemControll = this;
@@ -47,10 +61,12 @@ define(function (require,exports){
 				$(this).removeClass("itemOn");
 				$(".Titem a").eq(_this).removeClass("titemOn");
 				$(".itemNum").html($(".itemNum").html()-1);
+				$(".itemCurNum").html($(".itemCurNum").html()-1);
             }else{
 				$(this).addClass("itemOn");
 				$(".Titem a").eq(_this).addClass("titemOn");
 				$(".itemNum").html(($(".itemNum").html()-"")+1);
+				$(".itemCurNum").html(($(".itemCurNum").html()-"")+1);
             }
 		});
 		//发布
@@ -59,14 +75,17 @@ define(function (require,exports){
 			$('li.itemOn').each(function(){
 				question_id += $(this).attr('rel')+',';
 			})
-			var html='';
-			var url = '/classroom/get_exercise/';
+			var classroom_id = $('#nahaoModule').attr('classroom-data');
+			var url = "/classroom/teacher_publish_questions/"+classroom_id+'/?tmp='+((new Date).valueOf());
+			
 			var data = {
-				class_id: 4
+				question_id: question_id
 			};
 			$.post(url, data, function (response) {
 				if (response.status == "ok") {
-					
+//					$.tiziDialog.list['exerciseHtml'].close();
+					alert(response.msg);
+					$.tiziDialog({ id: 'exerciseHtml' }).close();
 				}
 			}, "json");
 		});
@@ -92,6 +111,36 @@ define(function (require,exports){
 		$(".Titem a").click(function (){
 			roll($(".Titem a").index($(this)));
 		})
+	}
+	exports.load_questions_count = function(){
+		
+		var classroom_id = $('#nahaoModule').attr('classroom-data');
+		var url = "/classroom/teacher_checkout_question_answer/"+classroom_id+'/?'+((new Date).valueOf());
+		$.get(url,function(response){
+			if(response.status=='ok'){
+				$('.countTitle').html(response.data.total_html);
+				$('.suquence_total').html(response.data.html_head);
+				$('.CitemCon').html(response.data.html);
+				//临时修改样式
+				$('.aui_content').css({'max-height':'600px','overflow-y':'scroll'});
+				//弹框
+				$.tiziDialog({
+		            title:false,
+		            ok:false,
+		            icon:false,
+		            id: 'ansCountHtml',
+		            padding:0,
+		            content:$('#ansCountHtml').html(),
+		        });
+		        $('.cbutton').click(function(){
+		        	$(this).attr('class','cbutton redBtn').siblings().attr('class','cbutton countBtn');
+		        	cur_sequence = $(this).attr('rel');
+		        	$('.CitemList').fadeOut(500,function(){
+		        		$('.sequence-'+cur_sequence).fadeIn();
+		        	});
+		        });
+			}
+		});
 	}
 	//选择题目 切换内容
 	exports.curItem	= function (){

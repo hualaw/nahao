@@ -243,12 +243,14 @@
 
 	<a href="javascript:void(0)" class="ansCountBtn">答案统计</a><br><br>
 	<!--教室-老师-答案统计 开始-->
-	<div class="ansCountHtml undis">
+	<div class="ansCountHtml undis" id="ansCountHtml">
 		<div class="ansCount">
 			<h3 class="countTitle">
-				<span>本次练习共<em class="redText">199</em>人作答</span>
+				<span>本次练习共<em class="redText ">199</em>人作答</span>
 				<span>平均正确率<em class="redText">78.3%</em></span>
 			</h3>
+			<span class="suquence_total"></span>
+			
 			<div class="citemBox posr">
 				<ul class="CitemCon">
 					<li class="CitemList">
@@ -312,7 +314,7 @@
 
 	<a href="javascript:void(0)" class="exerciseBtn">选择练习题</a><br><br>
 	<!--教室-老师-选择练习题 开始-->
-	<div class="exerciseHtml undis">
+	<div class="exerciseHtml undis" id="exerciseHtml">
 		<div class="exercise">
 			<div class="itemTab posr">
 				<a href="jacascript:void(0)" class="clickL clickBtn"></a>
@@ -327,7 +329,7 @@
 				<span class="Titem publish_questions_index">
 				</span>
 				<p>
-					<span>当前已选<em class="redText itemNum">0</em>题</span>
+					<span>当前已选<em class="redText itemCurNum">0</em>题</span>&nbsp;/&nbsp;<span>总共已选<em class="redText itemNum">0</em>题</span>
 					<a href="javascript:void(0);" class="btn redBtn do_publish_questions">发布</a>
 				</p>
 			</div>
