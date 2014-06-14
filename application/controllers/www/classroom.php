@@ -261,6 +261,18 @@ class Classroom extends NH_User_Controller {
 		
 	}
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
+
+    /**
+     * 进入教室
+     */
+    public function enter()
+    {
+        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+        $this->smarty->assign('iframe',$str_iframe);
+        $this->smarty->assign('view', 'classroom');
+        $this->smarty->display('www/classRoom/index.html');
+    }
 }
 
 /* End of file welcome.php */
