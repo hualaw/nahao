@@ -172,7 +172,7 @@ class Course extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login){
-	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录',));
+	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录','data'=>$this->session->all_userdata()));
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);
