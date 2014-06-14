@@ -327,8 +327,6 @@ class Member extends NH_User_Controller {
             }
             self::json_output($arr_return);
         }
-	    #头像
-	    $str_avater = DEFAULT_AVATER;
         #性别
         $gender = $this->config->item('gender');
         #学校

@@ -26,10 +26,18 @@ class login extends NH_Controller
             redirect('/login');
         }
         $this->load->model('business/admin/business_lecture');
-//        var_dump($this->session->userdata);
+        $this->load->model('business/common/business_subject');
         #省和直辖市
         $province = $this->business_lecture->all_province();
+        #科目
+        $subjects = $this->business_subject->get_subjects();
+        #年纪
+        $grades = $this->config->item('grade');
+        $this->smarty->assign('grades', $grades);
+        $gender = $this->config->item('gender');
         $this->smarty->assign('province', $province);
+        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('gender', $gender);
         $this->smarty->display('www/login/loginAfter.html');
     }
 

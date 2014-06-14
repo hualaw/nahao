@@ -127,7 +127,7 @@ class register extends NH_Controller
 
     public function submit_personal_info()
     {
-        $input_names = array('email', 'nickname', 'area', 'grade', 'realname', 'gender', 'focus_subjects', 'school');
+        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'school_id');
         foreach($input_names as $input_name)
         {
             $$input_name = $this->_check_input($input_name);
@@ -138,38 +138,37 @@ class register extends NH_Controller
             'user_id'=> $user_id,
             'realname' => $realname,
             'gender'   => $gender,
+            'province' => $province,
+            'city'     => $city,
             'area'     => $area, //area id
             'grade'    => $grade, // grade id
-            'school'   => $school, //school id
+            'school'   => $school_id, //school id
         );
-
-        //TBD, to handle email
 
         //create user_info table record
         $this->load->model('model/common/model_user');
-        $this->model_user->update_user_info($user_info_arr);
-
-        if(!empty($focus_subjects))
+        $this->model_user->update_user_info($user_info_arr, array('user_id'=> $user_id));
+        
+        if(!empty($selected_subjects))
         {
             //create student_subject table record
             $this->load->model('model/student/model_student_subject');
-            $focus_subject_arr = explode(",", $focus_subjects);
+            $focus_subject_arr = explode("-", $selected_subjects);
             $this->model_student_subject->add($user_id, $focus_subject_arr);
         }
 
-        if(!empty($nickname))
-        {
-            //update nickname
-            $arr_params = array('nickname'=> $nickname);
-            $arr_where = array('id'=> $user_id);
-            $this->model_user->update_user($arr_params, $arr_where);
+        //update nickname and email
+        !empty($nickname) && $arr_params['nickname'] = $nickname;
+        !empty($email) && $arr_params['email'] = $email;
+        $arr_where = array('id'=> $user_id);
+        $this->model_user->update_user($arr_params, $arr_where);
 
-            //update nickname in session data
-            $this->session->set_userdata('nickname', $nickname);
-        }
+        //update nickname in session data
+        !empty($nickname) && $this->session->set_userdata('nickname', $nickname);
+        !empty($email) && $this->session->set_userdata('email', $email);
 
-        //TBD, assign variables
-        $this->smarty->display('www/studentHomePage/index.html');
+        $arr_return = array('status' => SUCCESS, 'info' => '提交成功');
+        self::json_output($arr_return);
     }
 
 	function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
