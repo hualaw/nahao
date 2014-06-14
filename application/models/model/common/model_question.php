@@ -35,10 +35,8 @@ class Model_Question extends NH_Model
      **/
      public function question_manager($param){
      	if(!$param['do']){exit("缺少操作参数");}
-     	$param['question'] = addslashes($param['question']);
      	$param['answer'] = addslashes($param['answer']);
      	$param['options'] = addslashes($param['options']);
-     	$param['analysis'] = addslashes($param['analysis']);
      	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
@@ -69,7 +67,7 @@ class Model_Question extends NH_Model
 							question.type=1,
 							analysis='".$param['analysis']."' 
 						WHERE 1 AND id=".$param['question_id'];
-     			$res = $this->db->query($sql);
+     			$res = $this->db->query($sql);var_dump($sql);
      			break;
      		case 'delete':
  				//删除题课节关系

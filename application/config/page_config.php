@@ -59,3 +59,18 @@ $config['page_student']['next_tag_open'] = '<div class="next fl">';
 $config['page_student']['next_tag_close'] = '</div>';
 $config['page_student']['prev_tag_open'] = '<div class="prev fl">';
 $config['page_student']['prev_tag_close'] = '</div>';
+
+$config['page_teacher']['uri_segment']      =   3;
+$config['page_teacher']['num_links']        =   3;
+$config['page_teacher']['full_tag_open']    =   '<div class="page cf">';
+$config['page_teacher']['full_tag_close']   =   '</div>';
+$config['page_teacher']['first_link']       =   '首页';;
+$config['page_teacher']['last_link']        =   '尾页';
+$config['page_teacher']['cur_tag_open']     =   '<a class="active" >';
+$config['page_teacher']['cur_tag_close']    =   '</a>';
+$config['page_teacher']['prev_link']        =   '上一页';
+$config['page_teacher']['next_link']        =   '下一页';
+$config['page_teacher']['next_tag_open'] = '<div class="next fl">';
+$config['page_teacher']['next_tag_close'] = '</div>';
+$config['page_teacher']['prev_tag_open'] = '<div class="prev fl">';
+$config['page_teacher']['prev_tag_close'] = '</div>';
