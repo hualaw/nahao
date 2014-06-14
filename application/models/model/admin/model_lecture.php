@@ -197,11 +197,9 @@
          * @return
          * @author shangshikai@nahao.com
          */
-        public function lecture_teach_pass($post,$data,$data_user)
+        public function lecture_teach_pass($post,$data,$data_user,$subject_data)
         {
-            $this->db->update('user',$data_user,array('id'=>$post['user_id']));
-            $this->db->update('user_info',$data,array('user_id'=>$post['user_id']));
-            if($this->db->update('user',array('user.teach_priv'=>1),array('user.id'=>$post['user_id'])) && $this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->insert('user_info',$data))
+            if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
              {
                  return TRUE;
              }

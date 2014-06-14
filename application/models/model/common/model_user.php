@@ -35,7 +35,7 @@ class Model_User extends NH_Model
         return $int_insert_id;
     }
     /**
-     * 添加科目
+     * 添加教师科目
      * @author shangshikai@tizi.com
      */
 
