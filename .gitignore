@@ -12,3 +12,4 @@ templates_c
 /application/config/testing/*.php
 /application/config/production/*.php
 /application/templates_c/*
+/webroot/index.php/*
