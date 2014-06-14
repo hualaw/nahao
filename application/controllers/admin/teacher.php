@@ -121,6 +121,22 @@ class Teacher extends NH_Admin_Controller {
         $province=$this->business_lecture->all_province();
 //        $province_id=$this->input->post('province',TRUE);
 //        $city=$this->teacher->city1($province_id);
+
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $str_salt = random_string('alnum', 6);
+
+        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
+        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
+        $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
+        $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
         $this->smarty->assign('province',$province);
