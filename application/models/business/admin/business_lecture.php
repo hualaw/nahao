@@ -150,7 +150,8 @@
                 'teacher_intro'=>$post['teacher_intro'],
                 'title'=>$post['title'],
                 'titile_auth'=>1,
-                'teacher_auth'=>1
+                'teacher_auth'=>1,
+                'update_time'=>time()
             );
 
             $subject_data['subject_id']=$post['subject'];

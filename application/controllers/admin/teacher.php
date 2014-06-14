@@ -119,8 +119,6 @@ class Teacher extends NH_Admin_Controller {
         $config_bank=config_item('bank');
         $this->load->model('business/admin/business_lecture');
         $province=$this->business_lecture->all_province();
-//        $province_id=$this->input->post('province',TRUE);
-//        $city=$this->teacher->city1($province_id);
 
         require_once APPPATH . 'libraries/qiniu/rs.php';
         require_once APPPATH . 'libraries/qiniu/io.php';
