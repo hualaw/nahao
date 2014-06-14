@@ -54,7 +54,7 @@
             <td>
                 <select name="subject" style="width:155px">
                     {foreach $subject as $v}
-                    <option value={$v.id} {if $v.id==$subject_tea_id}selected{/if}>{$v.name}</option>
+                    <option value={$v.id} {if isset($subject_tea_id) && $v.id==$subject_tea_id}selected{/if}>{$v.name}</option>
                     {/foreach}
                 </select>
             </td>
