@@ -1,4 +1,4 @@
-<h3>添加教师信息</h3>
+<h2>添加教师信息</h2>
 <hr>
 <form action="/teacher/check_techer_post" method="post" enctype="multipart/form-data">
 <table>
@@ -100,10 +100,10 @@
     </tr>
 </table>
 <hr>
-<h4>教师简介</h4>
+<h3>教师简介</h3>
 <textarea class="form-control" rows="5" id="" placeholder="在此填写老师简介" name="teacher_intro"></textarea>
 <hr>
-<h4>绑定银行账户</h4>
+<h3>绑定银行账户</h3>
 结算银行:<select name="bank">
             <option value=0>请选择银行</option>
             {for $i=1 to 12}
@@ -112,6 +112,28 @@
        </select>
        <input type="text" name="bank_Branch" placeholder="请填写具体支行信息" /><br /><br />
 银行卡号:<input type="text" name="bank_id" placeholder="请填写银行卡号" /><br /><br />
-身份证号:<input type="text" name="id_card" placeholder="请填写身份证号" /><br /><br /><br />
+身份证号:<input type="text" name="id_card" placeholder="请填写身份证号" />
+<hr>
+<h3>资质认证</h3>
+    <input id="work_auth_img" type="hidden" value="{$upload_work_img_key}">
+    <input id="title_auth_img" type="hidden" value="{$upload_auth_img_key}">
+    <input id="teacher_auth_img" type="hidden" value="{$upload_title_img_key}">
+    <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
+    <input type="hidden" name="work_auth_img" value="" id="work_authimg" />
+    <input type="hidden" name="title_auth_img" value="" id="title_authimg" />
+    <input type="hidden" name="teacher_auth_img" value="" id="teacher_authimg" />
+    <div class="teacher">
+        教师资格证:<input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_url_general" />
+    </div>
+    <div class="title">
+        教师职称证:<input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_title_general" />
+    </div>
+    <div class="work">
+        学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_work_general" />
+    </div>
+<br /><br />
 <button type="submit" class="btn btn-success">提交</button>
 </form>

@@ -411,6 +411,9 @@ class Business_Teacher extends NH_Model
         $post_user_info['stage']=$post['stage'];
         $post_user_info['teacher_intro']=$post['teacher_intro'];
         $post_user_info['basic_reward']=$post['basic_reward'];
+        $post_user_info['work_auth_img']=$post['work_auth_img'];
+        $post_user_info['title_auth_img']=$post['title_auth_img'];
+        $post_user_info['teacher_auth_img']=$post['teacher_auth_img'];
         $post_user_info['status']=1;
        // var_dump($post_user_info);die;
         return $this->model_user->create_user_info($post_user_info);
