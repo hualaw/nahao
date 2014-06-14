@@ -14,10 +14,38 @@ class Orderlist extends NH_User_Controller {
         $this->teacher_id = 1;
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
+        if(!$this->is_login)
+        {
+            redirect('http://www.nahaodev.com/login');
+        }
+        header("Content-type: text/html; charset=utf-8");
     }
     
 	public function index(){
 		$teach_status = config_item("round_teach_status");
+		//分页
+     	$this->load->library('pagination');
+        $config = config_item('page_teacher');
+        $config['suffix'] = '/?'.$this->input->server('QUERY_STRING');
+        $config['base_url'] = '/orderList/index';
+        $param = array(
+     			'teacher_id' 	=> $this->teacher_id,
+     			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3",
+     			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
+     			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
+     			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
+     			'start_time' 	=> isset($_GET['start_time']) ? $_GET['start_time'] : '',
+     			'end_time' 		=> isset($_GET['end_time']) ? $_GET['end_time'] : '',
+     			'counter' 		=> 1,
+     		);
+     	$int_count = $this->teacher_b->round_list($param);
+        $config['total_rows'] = $int_count;
+        $config['per_page'] = 10;
+        $this->pagination->initialize($config);
+//        parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
+        $pageBar = $this->pagination->create_links();
+        
+        //内容
 		$param = array(
      			'teacher_id' 	=> $this->teacher_id,
      			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3",
@@ -40,6 +68,7 @@ class Orderlist extends NH_User_Controller {
 			'subject_list' 			=> $this->teacher_b->get_subject(),
 			'teach_status_list' 	=> $teach_status,
 			'teach_status_count' 	=> $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
+			'pageBar'				=> $pageBar,
 		);
 		
 		$this->smarty->assign('data',$data);
@@ -119,6 +148,7 @@ class Orderlist extends NH_User_Controller {
 			'title' 		=> '班次详情',
 			'status_count' 	=> $this->teacher_b->count_zj_status($zjList),
 		);
+		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}

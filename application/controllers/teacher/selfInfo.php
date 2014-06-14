@@ -5,6 +5,11 @@ class Selfinfo extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/common/business_user');
+        if(!$this->is_login)
+        {
+            redirect('http://www.nahaodev.com/login');
+        }
+        $this->smarty->assign('data', array('active'=>'selfinfo'));
     }
 	public function index(){
         if($this->is_post()) {
@@ -29,7 +34,6 @@ class Selfinfo extends NH_User_Controller {
             } else {
                 $arr_return = array('status' => 'error', 'msg' => '更新资料失败请稍后重试');
             }
-            
             self::json_output($arr_return);
         }
         $this->load->model('business/common/business_school');

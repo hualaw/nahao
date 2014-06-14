@@ -84,7 +84,7 @@ define(function (require,exports){
 			$.post(url, data, function (response) {
 				if (response.status == "ok") {
 //					$.tiziDialog.list['exerciseHtml'].close();
-					alert(response.msg);
+					alert('第'+response.sequence+'批题'+response.msg);
 					$.tiziDialog({ id: 'exerciseHtml' }).close();
 				}
 			}, "json");
@@ -116,6 +116,7 @@ define(function (require,exports){
 		
 		var classroom_id = $('#nahaoModule').attr('classroom-data');
 		var url = "/classroom/teacher_checkout_question_answer/"+classroom_id+'/?'+((new Date).valueOf());
+		
 		$.get(url,function(response){
 			if(response.status=='ok'){
 				$('.countTitle').html(response.data.total_html);

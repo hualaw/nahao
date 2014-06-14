@@ -80,10 +80,10 @@ class Model_Teacher extends NH_Model{
 		$where .= !empty($param['teach_status']) ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
 		$where .= !empty($param['course_type']) ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
 		$where .= !empty($param['title']) ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
-		$group = " GROUP BY r.id";
+		$group = $param['counter'] ? '' : " GROUP BY r.id";
 		$order = " ORDER BY cl.begin_time DESC";
 		$limit = !empty($param['limit']) ? " LIMIT ".$param['limit'] : '';
-		$column = $param['counter']==1 ? 'count(r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
+		$column = $param['counter']==1 ? 'count(DISTINCT r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column."  
@@ -141,6 +141,7 @@ class Model_Teacher extends NH_Model{
 				FROM nahao.question q 
 				LEFT JOIN nahao.question_class_relation qcr ON qcr.question_id=q.id 
 				LEFT JOIN nahao.class cl ON qcr.class_id=cl.id ".$where.$order;
+		
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}

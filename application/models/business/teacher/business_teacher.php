@@ -68,6 +68,8 @@ class Business_Teacher extends NH_Model
      	$round_teach_status = config_item('round_teach_status');
      	#搜索
      	$res = $this->model_teacher->round_seacher($param);
+     	#统计的情况
+     	if(!empty($param['counter'])){return $res[0]['total'];}
      	if($res) foreach($res as &$val){
      		$val['status_name'] = $round_teach_status[$val['teach_status']];
      		#全部
@@ -148,6 +150,7 @@ class Business_Teacher extends NH_Model
      		foreach ($data as $val){
      			$count['j_count'] += count($val['jArr']);
      			foreach ($val['jArr'] as $v){
+     				$val['status'] = !empty($val['status']) ? $val['status'] : 0;
      				$count['j_status_5'] += $val['status'] == 5 ? 1 : 0;
 	     			$count['j_status_4'] += $val['status'] == 4 ? 1 : 0;
 	     			$count['j_status_3'] += $val['status'] == 3 ? 1 : 0;
@@ -169,7 +172,8 @@ class Business_Teacher extends NH_Model
      	$res = $this->model_teacher->class_seacher($param);
      	$zjArr = array();
      	if($res) foreach($res as &$val){
-     		$val['status_name'] = $round_teach_status[$val['status']];
+     		$val['status'] = !empty($val['status']) ? $val['status'] : 0;
+     		$val['status_name'] = isset($round_teach_status[$val['status']]) ? $round_teach_status[$val['status']] : '未知';
      		#全部
      		$total_param_item = $already_param_item = $param; 
      		$total_param_item['status'] = "";
@@ -319,7 +323,8 @@ class Business_Teacher extends NH_Model
     	#1. 统计的情况
     	if(empty($param['class_id']) && empty($param['classroom_id'])){exit('缺少必要课堂参数');}
     	$question = $this->model_teacher->question_seacher($param);
-    	if(empty($param['counter'])){return isset($param['counter']) ? $param['counter'] : 0;}
+    	
+    	if(!empty($param['counter'])){return isset($param['counter']) ? $param['counter'] : 0;}
     	#2. 列表的情况
     	$sequence_question = array();
     	if($question) foreach($question as &$val){
@@ -407,7 +412,7 @@ class Business_Teacher extends NH_Model
       * 注意question_id 格式逗号分开：12,23,34
       **/
      public function teacher_publish_question($param){
-     	$param['sequence'] = empty($param['sequence']) ? $param['sequence'] : 1;
+     	$param['sequence'] = !empty($param['sequence']) ? $param['sequence'] : 1;
      	$param['question_id'] = trim($param['question_id'],',');
      	if(!$param['question_id']){exit('缺少必要出题题目id');}
      	return $this->model_teacher->set_question($param);

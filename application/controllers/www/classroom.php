@@ -251,7 +251,7 @@ class Classroom extends NH_User_Controller {
 	    {
 	    	self::json_output(array('status'=>'ok','msg'=>'获取未出过题目成功','data'=>$question_list));
 	    }else{
-	        self::json_output(array('status'=>'error','msg'=>'该课没有题目或题目已出完'));
+	        self::json_output(array('status'=>'error','msg'=>'<h3 style="color:red">该课没有题目或题目已出完</h3>'));
 	    }
 	}
 	
@@ -264,6 +264,7 @@ class Classroom extends NH_User_Controller {
 		//查询旧批次最大值
 		$sequence = $this->teacher_b->get_sequence(array('classroom_id'=>$classroom_id));
 		$question_id = $this->input->post('question_id');
+//		$question_id =4;
 		//生成新批次
 		$sequence = isset($sequence) && $sequence>0 ? ($sequence+1) : 1;
 		$question_id = isset($question_id) ? rtrim($question_id,',') : '';
@@ -273,11 +274,10 @@ class Classroom extends NH_User_Controller {
 			'question_id' => $question_id,
 			'sequence' => $sequence,
 		);
-		
 		$res = $this->teacher_b->teacher_publish_question($param);
 		if($res)
 	    {
-	    	self::json_output(array('status'=>'ok','msg'=>'出题成功'));
+	    	self::json_output(array('status'=>'ok','msg'=>'出题成功','sequence'=>$sequence));
 	    }else{
 	        self::json_output(array('status'=>'error','msg'=>'出题失败'));
 	    }
@@ -292,6 +292,7 @@ class Classroom extends NH_User_Controller {
 		$sequence_num 		= $this->teacher_b->get_sequence(array('classroom_id' => $classroom_id));
 		//总答题人数
 		$answer_user_num 	= $this->teacher_b->answer_user_num(array('classroom_id'=>$classroom_id,'counter' =>2));
+		
 		if($sequence_num>0){
 			$list = array();
 			for ($i=1;$i<=$sequence_num;$i++){
@@ -303,13 +304,14 @@ class Classroom extends NH_User_Controller {
 			    	'sequence' => $i,
 			    );
 			    $question_list = $this->teacher_b->class_question($param);
+			    
 			    $list[$i] = $question_list;
 			}
 			//默认显示第一批，隐藏其他
 			$html = $this->teacher_b->build_question_count_html($list,1,$answer_user_num);
 			self::json_output(array('status'=>'ok','msg'=>'获取答题统计成功','data'=>$html));
 		}else{
-			self::json_output(array('status'=>'error','msg'=>'没有出过一批题的记录'));
+			self::json_output(array('status'=>'error','msg'=>'没有出过一批题的记录,或者学生没有过做题记录'));
 		}
 	}
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/

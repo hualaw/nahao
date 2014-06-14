@@ -12,6 +12,11 @@ class Index extends NH_User_Controller {
         parent::__construct();
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
+        if(!$this->is_login)
+        {
+            redirect('http://www.nahaodev.com/login');
+        }
+        header("Content-type: text/html; charset=utf-8");
     }
     
 	/**
@@ -35,29 +40,29 @@ class Index extends NH_User_Controller {
 		$this->smarty->display('teacher/teacherHomePage/index.html');
 	}
 	
-	/**
-	 * 我要开课
-	 */
-	public function apply_teach()
-	{
-		$param['stage'] = config_item('stage');
-		$param['teacher_title'] = config_item('teacher_title');
-		$param['teacher_type'] = config_item('teacher_type');
-		$param['subject'] = $this->subject->get_subjects();
-		$data = array(
-			'data' => $param,
-		);
-		$this->smarty->assign('data',$data);
-	    $this->smarty->display('www/studentStartClass/writeInfo.html');
-	}
-	
-	/**
-	 * 我要开课,提交
-	 */
-	public function apply_teach_doAdd()
-	{
-		
-		$param['question'] = $this->input->post('question');
-		
-	}
+//	/**
+//	 * 我要开课
+//	 */
+//	public function apply_teach()
+//	{
+//		$param['stage'] = config_item('stage');
+//		$param['teacher_title'] = config_item('teacher_title');
+//		$param['teacher_type'] = config_item('teacher_type');
+//		$param['subject'] = $this->subject->get_subjects();
+//		$data = array(
+//			'data' => $param,
+//		);
+//		$this->smarty->assign('data',$data);
+//	    $this->smarty->display('www/studentStartClass/writeInfo.html');
+//	}
+//	
+//	/**
+//	 * 我要开课,提交
+//	 */
+//	public function apply_teach_doAdd()
+//	{
+//		
+//		$param['question'] = $this->input->post('question');
+//		
+//	}
 }
