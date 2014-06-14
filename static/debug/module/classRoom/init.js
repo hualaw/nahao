@@ -10,11 +10,12 @@ define(function(require,exports){
     var _popUp = require('module/common/method/popUp');
     //做题块
     $(".doWorkBoxBtn").click(function (){
-        _popUp.popUp('.doWorkBoxHtml');
+       
         _classRoom.show_question();
-        _classRoom.doWork();
+       
+        //_popUp.popUp('.doWorkBoxHtml');
         //做题选答案 (加背景色)
-        _classRoom.options();
+       // _classRoom.options();
 
     });
     //得分-题目选中
@@ -49,11 +50,26 @@ define(function(require,exports){
         _valid.feedbackForm();
     });
     //评价
-    $(".evaluBtn").click(function (){
-        _popUp.popUp('.evaluHtml');
+/*    $(".evaluBtn").click(function (){
+    	alert(12321);
+//        _popUp.popUp('.evaluHtml');
+//    	//_lens = $('.starBg ').children('.cStar').size();
+//        alert(22);
+//    	class_id = $(this).attr("evaluBtns");
+//    	alert(class_id);
+    	console.log(class_id);
+    	return fasle;
         //评论 几颗星
         _classRoom.starClick();
         // 教室-评价 验证
         _valid.evaluForm();
-    });
+    });*/
+
+    function student_get_exercise_page(){
+        alert(11111);
+        _popUp.popUp('.exerciseHtml');
+
+        //选择练习题  左右点击切换 题目选中
+        _classRoom.itemClick();
+    }
 })

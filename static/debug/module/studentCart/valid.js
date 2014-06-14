@@ -27,14 +27,13 @@ define(function(require,exports){
             },
             callback:function(data){
             	if (data.status == "error") {
-                	alert(data.msg);
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
                 } else if(data.status == "ok"){
                 	window.location.href="/pay/neworder/"+data.data.product_id;
-                } else if(data.status =='verify_code_error'){
-                	alert(data.msg);
-                }else if(data.status =='phone_usered'){
-                	alert(data.msg);
-                }else if(data.status =='no_login'){
+                } else if(data.status =='no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
                 	});
@@ -79,10 +78,16 @@ define(function(require,exports){
             var _this = $(this);
             var phone = $("#phone").val();
             if(!(phone)) {
-                alert('请填写手机号');
+				$.dialog({
+				    content:"请填写手机号",
+				    icon:null
+				});
                 return false;
             } else if(!(/\d{11}/.test(phone))) {
-                alert('请输入正确的手机号')
+				$.dialog({
+				    content:"请输入正确的手机号",
+				    icon:null
+				});
                 return fasle;
             }
             $.ajax({
@@ -92,7 +97,10 @@ define(function(require,exports){
                 dataType : 'json',
                 success : function (result) {
                     if(result.status == 'error') {
-                        alert(result.msg);
+        				$.dialog({
+        				    content:result.msg,
+        				    icon:null
+        				});
                     }
                     //手机验证倒计时
                     require("module/common/method/countDown").countDown(_this);

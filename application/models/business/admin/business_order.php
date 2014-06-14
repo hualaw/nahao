@@ -1,12 +1,12 @@
 <?php
     class business_order extends NH_Model
     {
-        public function order($post)
-        {
-            //echo "this is business";die;
-            $this->load->model("model/admin/model_admin");
-            return $this->admin_order->order($post);
-        }
+//        public function order($post)
+//        {
+//            //echo "this is business";die;
+//            $this->load->model("model/admin/model_admin");
+//            return $this->model_admin->order($post);
+//        }
         /**
          * 查询总记录数
          * @param
@@ -148,6 +148,11 @@
             return $this->model_order->insert_order_note($note,$order_id);
         }
 
+        /**
+         * 显示手机号
+         * @param $int_uid
+         * @return mixed
+         */
         public function phone_show($int_uid)
         {
             $this->load->model("model/admin/model_order");

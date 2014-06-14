@@ -172,9 +172,9 @@ class Member extends NH_User_Controller {
 	        $bool_flag = $this->student_order->update_order_status($array_mdata);
 	        if ($bool_flag)
 	        {
-	            self::json_output(array('status'=>'cancel_ok','msg'=>'取消操作成功'));
+	            self::json_output(array('status'=>'ok','msg'=>'取消操作成功'));
 	        } else {
-	            self::json_output(array('status'=>'cancel_error','msg'=>'取消操作失败'));
+	            self::json_output(array('status'=>'error','msg'=>'取消操作失败'));
 	        }
 	    }
 	    
@@ -192,12 +192,12 @@ class Member extends NH_User_Controller {
 	            $bool_flag = $this->student_order->delete_order($array_ndata);
 	            if ($bool_flag)
 	            {
-	                self::json_output(array('status'=>'del_ok','msg'=>'删除操作成功'));
+	                self::json_output(array('status'=>'ok','msg'=>'删除操作成功'));
 	            } else {
-	                self::json_output(array('status'=>'del_error','msg'=>'删除操作失败'));
+	                self::json_output(array('status'=>'error','msg'=>'删除操作失败'));
 	            }
 	        } else {
-	            self::json_output(array('status'=>'del_no','msg'=>'不能执行删除操作'));
+	            self::json_output(array('status'=>'error','msg'=>'不能执行删除操作'));
 	        }
 
 	    }

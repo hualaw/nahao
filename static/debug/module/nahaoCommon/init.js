@@ -4,7 +4,15 @@ define(function(require,exports){
 	// 悬浮框
 	require('module/common/method/floatBox').floatBox($(".floatBox").get(0),$(".floatBox .returnTop"));
 	$(".feedback").click(function (){
-		require('module/common/method/popUp').popUp('.feedbackHtml');
+		//require('module/common/method/popUp').popUp('.feedbackHtml');
+    	$.dialog({
+    		id:"feedback_close",
+            title:false,
+            ok:false,
+            icon:false,
+            padding:0,
+            content:$(".feedbackHtml").html()
+        });
 	    // 教室-意见反馈 验证
 		require("module/classRoom/valid").feedbackForm();
 	})

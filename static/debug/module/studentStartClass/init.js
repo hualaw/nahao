@@ -1,4 +1,6 @@
-define(function(require,exports){
+define(function(require,exports){	
+	// 公共select模拟
+	require('select');
 	if ($(".popBox").length>0) {
 		require("module/common/method/popUp").popUp(".popBox");
 	};

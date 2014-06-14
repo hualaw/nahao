@@ -16,6 +16,16 @@ class Admin extends NH_Admin_Controller {
         parent::__construct();
     }
 
+    public function test(){
+        header("Content-type:application/x-javascript; charset=utf-8");
+        header('Access-Control-Allow-Origin: http://www.nahaodev.com');
+        $arr_return = array(
+            'status' => 'ok',
+            'msg' => date('Y-m-d H:i:s',time())
+        );
+        self::json_output($arr_return);
+    }
+
     /**
      * admin index
      * @author yanrui@tizi.com

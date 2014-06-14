@@ -4,31 +4,31 @@
         <div class="col-md-2">
             <select class="form-control" name="stage">
                 <option value="">全部阶段</option>
-                {foreach $stages as $stage_id => $stage_name}<option value="{$stage_id}">{$stage_name}</option>{/foreach}
+                {foreach $stages as $k => $v}<option value="{$k}" {if isset($query_param.stage) AND $query_param.stage==$k}selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="grade">
                 <option value="">全部年级</option>
-                {foreach $grades as $grade_id => $grade_name}<option value="{$grade_id}">{$grade_name}</option>{/foreach}
+                {foreach $grades as $k => $v}<option value="{$k}" {if isset($query_param.grade) AND $query_param.grade==$k}selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="province">
                 <option value="">全部省份</option>
-                {foreach $provinces as $province}<option value="{$province.id}">{$province.name}</option>{/foreach}
+                {foreach $provinces as $province}<option value="{$province.id}" {if isset($query_param.province) AND $query_param.province==$province.id}selected{/if}>{$province.name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="course_type">
                 <option value="">全部课程类型</option>
-                {foreach $course_types as $course_type}<option value="{$course_type.id}">{$course_type.name}</option>{/foreach}
+                {foreach $course_types as $course_type}<option value="{$course_type.id}" {if isset($query_param.course_type) AND $query_param.course_type==$course_type.id}selected{/if}>{$course_type.name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="subject">
                 <option value="">全部学科</option>
-                {foreach $subjects as $subject}<option value="{$subject.id}">{$subject.name}</option>{/foreach}
+                {foreach $subjects as $subject}<option value="{$subject.id}" {if isset($query_param.subject) AND $query_param.subject==$subject.id}selected{/if}>{$subject.name}</option>{/foreach}
             </select>
         </div>
     </div>
@@ -38,27 +38,26 @@
         <div class="col-md-2">
             <select class="form-control" name="gender">
                 <option value="">全部性别</option>
-                {foreach $genders as $gender_id => $gender_name}<option value="{$gender_id}">{$gender_name}</option>{/foreach}
+                {foreach $genders as $k => $v}<option value="{$k}" {if isset($query_param.gender) AND $query_param.gender==$k}selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="has_bought">
                 <option value="">全部用户</option>
-                {foreach $has_bought as $has_bought_id => $has_bought_name}<option value="{$has_bought_id}">{$has_bought_name}</option>{/foreach}
+                {foreach $has_bought as $k => $v}<option value="{$k}" {if isset($query_param.has_bought) AND $query_param.has_bought==$k}selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" name="search_type">
-                <option value="1">昵称</option>
-                <option value="2">邮箱</option>
-                <option value="3">手机号</option>
-                <option value="4">用户ID</option>
+                search_type
+                {foreach $search_type as $k => $v}<option value="{$k}" {if isset($query_param.search_type) AND $query_param.search_type==$k}selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
+            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($query_param.search_value)}{$query_param.search_value}{/if}">
         </div>
         <button type="submit" class="btn btn-primary">搜索</button>
+        <a href="/student" class="btn btn-primary">重置</a>
     </div>
 </form>
 
@@ -84,15 +83,15 @@
         <td>{$v.email}</td>
         <td>{$v.phone_mask}</td>
         <td>{$v.nickname}</td>
-        <td>{$genders[$v.gender]}</td>
-        <td>{$grades[$v.grade]}</td>
-        <td>{date('Y-md H:i',$v.create_time)}</td>
-        <td>{$v.final_area}</td>
+        <td>{if isset($v.gender) AND $v.gender}{$genders[$v.gender]}{/if}</td>
+        <td>{if isset($v.grade)}{$grades[$v.grade]}{/if}</td>
+        <td>{date('Y-md H:i',$v.register_time)}</td>
+        <td>{if isset($v.final_area)}{$v.final_area}{/if}</td>
         <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
         <td>
-            <a href="javascript:;" class="group_active" data-action="/user/active" data-user_id="{$v.id}"
+            <a href="javascript:;" class="student_active" data-action="/student/active" data-user_id="{$v.id}"
                data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
-            <a href="javascript:;">修改</a>
+            <!--<a href="javascript:;">修改</a>-->
         </td>
     </tr>
     {/foreach}

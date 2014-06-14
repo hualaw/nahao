@@ -45,6 +45,11 @@ define('ROLE_ADMIN', 1);//管理员
 define('ROLE_STUDENT', 2);//学生
 define('ROLE_TEACHER', 3);//教师
 
+//GENDER
+define('NH_GENDER_MALE', 1);//男
+define('NH_GENDER_FEMALE', 2);//女
+define('NH_GENDER_SECRET', 3);//保密
+
 
 /*  订单状态
  *  -2签名错误 -3金额校验错误
@@ -84,7 +89,7 @@ define('ORDER_TYPE_OFFLINE', 4);
  * 默认头像 DEFAULT_AVATER
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
-define('DEFAULT_AVATER', '/images/common/default.png');
+define('DEFAULT_AVATER', '/images/login/default_avatar.png');
 /*
  * 老师角色
  * 主讲 0
@@ -205,15 +210,11 @@ define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-datetimepicker.min.css');
 
-
-//phone_server连接
-define('PHONE_SERVER_HOST', "192.168.11.75");//线上define('PHONE_SERVER_HOST', "220.181.167.135");//:1899
-define('PHONE_SERVER_PORT', 1899);
-define('PHONE_SERVER_APPNAME', 'nahao');
-
 //register&login type
 define('REG_LOGIN_TYPE_PHONE', 1);
 define('REG_LOGIN_TYPE_EMAIL', 2);
+
+define('PHONE_SERVER_APPNAME', 'nahao');
 
 //ok/error
 define('SUCCESS', 'ok');
@@ -225,9 +226,9 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应
 
 
 //课程中的状态
-define('NAHAO_STATUS_COURSE_INIT',0);//初始化
-define('NAHAO_STATUS_COURSE_CHECKING',1);//审核中
-define('NAHAO_STATUS_COURSE_RUNNING',2);//运营中
+define('NAHAO_STATUS_COURSE_INIT',0);//未审核
+define('NAHAO_STATUS_COURSE_CHECKING',1);//审核未通过
+define('NAHAO_STATUS_COURSE_RUNNING',2);//审核通过，运营中
 define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
 define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
 
@@ -248,15 +249,16 @@ define('MAX_NICKNAME_LEN', 15);
 
 //meeting account
 define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
-define('NH_MEETING_ACCESS_KEY','7e30a4');
-define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
+define('NH_MEETING_ACCESS_KEY','525510');
+define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 //访问教室的用户类型
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
 define('NH_MEETING_TYPE_ADMIN',2);//管理员
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
-define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/tnc/enter?token=');
+//define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
+define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/nahao/enter?token=');
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);

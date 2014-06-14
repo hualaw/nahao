@@ -34,6 +34,7 @@ $config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这�
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
+$config['gender'][3] = '保密';
 
 //教育阶段
 $config['stage'][1] = '小学';
@@ -166,11 +167,6 @@ $config['teacher_type'][1] = '一对一';
 $config['teacher_type'][2] = '小班教育(15人以内)';
 $config['teacher_type'][3] = '大班教育不限人数';
 
-//性别
-$config['gender']['0'] = '保密';
-$config['gender']['1'] = '男';
-$config['gender']['2'] = '女';
-
 //职称
 $config['teacher_title'][0] = '无职称';
 $config['teacher_title'][1] = '正高级教师';
@@ -253,3 +249,20 @@ $config['nh_meeting_type'][0] = '学生';
 $config['nh_meeting_type'][1] = '老师';
 $config['nh_meeting_type'][2] = '管理员';
 $config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id
+
+//admin_course_list_search_type
+$config['admin_course_list_search_type'][1] = '课程名称';
+$config['admin_course_list_search_type'][2] = '授课老师';
+$config['admin_course_list_search_type'][3] = '课程ID';
+
+//admin_round_list_search_type
+$config['admin_round_list_search_type'][1] = '班次名称';
+$config['admin_round_list_search_type'][2] = '授课老师';
+$config['admin_round_list_search_type'][3] = '班次ID';
+
+//admin_student_list_search_type
+$config['admin_student_list_search_type'][1] = '昵称';
+$config['admin_student_list_search_type'][2] = '邮箱';
+$config['admin_student_list_search_type'][3] = '手机号';
+$config['admin_student_list_search_type'][4] = '用户ID';
+

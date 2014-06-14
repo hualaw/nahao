@@ -20,8 +20,7 @@
 .classRoomPage .optionNav{width: 75px;text-align: center;color:#fff;}
 .classRoomPage .scoreCon{width: 675px;padding: 0 40px 0 60px;}
 .classRoomPage .scoreCon .promText{width: 416px;margin-left: 20px;}
-.classRoomPage .scorePage .scoreCon{width: 711px;}
-.classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}
+.classRoomPage .itemscore .scoreCon{width: 711px;}
 .classRoomPage .answerList{margin:50px 0 0;}
 .classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
 .classRoomPage .itemscore .result{cursor: pointer;}
@@ -29,13 +28,14 @@
 .classRoomPage .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
 .classRoomPage .optionNav .curitme{background: #ed4111;}
 .classRoomPage .optionNav .curitme:hover{background: #f86035;border-left: 5px solid #c93107;}
-.classRoomPage .scorePage .scoreCon{padding: 0 32px 28px;}
+.classRoomPage .itemscore .scoreCon{padding: 0 32px 0px;}
+.classRoomPage .itemscore{padding-bottom: 28px;}
 .classRoomPage .scoreShow{width: 222px;}
 .classRoomPage .ansShow{width: 476px;border: 1px solid #b9b9b9;}
-.classRoomPage .scorePage .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
-.classRoomPage .scorePage .score h3{font-size: 24px;padding: 26px 0 13px;}
-.classRoomPage .scorePage .score strong{font-size: 48px;width: 120px;height: 120px;border: 1px solid #fff;border-radius: 60px;line-height: 120px;text-align: center;display: inline-block;}
-.classRoomPage .scorePage .result span{background:url(../../images/classRoom/rearrow.png) left center no-repeat;width: 9px;height: 74px;margin-right: -9px;}
+.classRoomPage .itemscore .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
+.classRoomPage .itemscore .score h3{font-size: 24px;padding: 26px 0 13px;}
+.classRoomPage .itemscore .score strong{font-size: 48px;width: 120px;height: 120px;border: 1px solid #fff;border-radius: 60px;line-height: 120px;text-align: center;display: inline-block;}
+.classRoomPage .itemscore .resultArrow span{background:url(../../images/classRoom/rearrow.png) left center no-repeat;width: 9px;height: 74px;margin-right: -9px;}
 .classRoomPage .scoref{border: 1px solid #b9b9b9;height: 70px;font-size: 18px;}
 .classRoomPage .scoref span{width: 109px;border-right: 1px solid #e5e5e5;text-align: center;padding: 14px 0 16px;height: 40px;}
 .classRoomPage .scoref span strong{font-size: 14px;}
@@ -103,17 +103,18 @@
 /* 评价 */
 .classRoomPage .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
 .classRoomPage .evalu h3{font-weight: normal;font-size: 18px;}
-.classRoomPage .evalu .starBg{/*width: 170px;background: url(../../images/classRoom/evalBg.png);*/display: inline-block;margin:16px 0 26px;}
+.classRoomPage .evalu .starBg{display: inline-block;margin:16px 0 26px;}
 .classRoomPage .evalu .starBg span{float:left;width: 32px;height: 30px;margin-right: 2px;background: url(../../images/classRoom/evalBg.png) no-repeat;cursor: pointer;}
 .classRoomPage .evalu .starBg span.cStar{background: url(../../images/classRoom/cevalBg.png) no-repeat;}
 .classRoomPage .evalu textarea{width: 560px;height: 238px;}
 /*  滚动条  */
-.classRoomPage .sconParl{height: 476px;/*overflow: hidden;*//*overflow-y: scroll;*/}
+.classRoomPage .sconParl{max-height: 476px;/*overflow-y: scroll;*/}
 .classRoomPage .sparent,
-.classRoomPage .cparent{position:absolute;width: 4px;background: #c9c9c9;}
+.classRoomPage .cparent{/*position:absolute;*/width: 4px;background: #c9c9c9;}
 .classRoomPage .sparent{right: 0;top:0;height: 476px;}
 .classRoomPage .cparent{right: 34px;top:0;height: 528px;}
 .classRoomPage .sparent .sbar,
 .classRoomPage .cparent .cbar{width: 4px;height: 30px;background: #0e455e;position: absolute;left: 0;top:0;}
-.classRoomPage .scoreBoxList{position:absolute;right: 0;top:0;width: 675px;}
-.classRoomPage .scoreBoxPar{height: 528px;/*overflow-y: scroll;*/}
+.classRoomPage .scoreBoxList{/*position:absolute;*/right: 0;top:0;width: 675px;}
+.classRoomPage .scoreBoxPar{max-height: 528px;/*min-height:300px;*//*overflow-y: scroll;*/}
+/*.classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}*/

@@ -90,8 +90,9 @@ define(function(require,exports){
                         url:"/teacher/nickname",
                         data:"nickname="+$('#nickname').val(),
                         success:function(msg){
-                            if(msg>0)
+                            if(msg=="yes")
                             {
+                                //alert(msg);
                                 $('#span_nickname').show().css('color','red').html('昵称已存在');
                             }
                             else
@@ -141,16 +142,6 @@ define(function(require,exports){
                 }
             })
 
-            $('#school').blur(function(){
-                if($.trim($('#school').val())=='')
-                {
-                    $('#span_school').show().css('color','red').html('学校不能为空');
-                }
-                else
-                {
-                    $('#span_school').hide();
-                }
-            })
             $('#basic_reward').blur(function(){
                 if($.trim($('#basic_reward').val())=='')
                 {
@@ -160,11 +151,38 @@ define(function(require,exports){
                 {
                     $('#span_basic_reward').show().css('color','red').html('必须是一个数字');
                 }
+                else if($('#basic_reward').val()<0)
+                {
+                    $('#span_basic_reward').show().css('color','red').html('不能小于0');
+                }
                 else
                 {
                     $('#span_basic_reward').hide();
                 }
             })
+
+        $('#age').blur(function(){
+            if($.trim($('#age').val())=='')
+            {
+                $('#span_age').show().css('color','red').html('年龄不能为空');
+            }
+            else if(isNaN($('#age').val()))
+            {
+                $('#span_age').show().css('color','red').html('必须是一个数字');
+            }
+            else if($('#age').val()<20)
+            {
+                $('#span_age').show().css('color','red').html('不能小于20');
+            }
+            else if($('#age').val()>100)
+            {
+                $('#span_age').show().css('color','red').html('不能大于100');
+            }
+            else
+            {
+                $('#span_age').hide();
+            }
+        })
 
             $.ajax({
                 type:"post",
@@ -192,6 +210,60 @@ define(function(require,exports){
                             })
                         }
                     })
+
+                    if($('#area').val()!=null)
+                    {
+                        $.ajax({
+                            type:"post",
+                            url:"/teacher/school",
+                            data:"school_id="+$('#area').val(),
+                            dataType:"json",
+                            success:function(msg){
+                               // console.log(msg);
+                                var school=eval(msg);
+                                $('#school').append("<option value=0>请选择学校</option>");
+                                $.each(school,function(index,d){
+                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                })
+                            }
+                        })
+                    }
+
+                    else if($('#city').val()!=null)
+                    {
+                        $.ajax({
+                            type:"post",
+                            url:"/teacher/school",
+                            data:"school_id="+$('#city').val(),
+                            dataType:"json",
+                            success:function(msg){
+                                // console.log(msg);
+                                var school=eval(msg);
+                                $('#school').append("<option value=0>请选择学校</option>");
+                                $.each(school,function(index,d){
+                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                })
+                            }
+                        })
+                    }
+                    else if($('#province').val()!=null)
+                    {
+                        $.ajax({
+                            type:"post",
+                            url:"/teacher/school",
+                            data:"school_id="+$('#province').val(),
+                            dataType:"json",
+                            success:function(msg){
+                                // console.log(msg);
+                                var school=eval(msg);
+                                $('#school').append("<option value=0>请选择学校</option>");
+                                $.each(school,function(index,d){
+                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                })
+                            }
+                        })
+                    }
+
                 }
             })
 
@@ -227,6 +299,63 @@ define(function(require,exports){
                             $.each(area,function(index,d){
                                 $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
+
+                            if($('#area').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#area').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
+                            else if($('#city').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#city').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+                            else if($('#province').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#province').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
                         }
                     })
                 }
@@ -246,8 +375,123 @@ define(function(require,exports){
                     $.each(area,function(index,d){
                         $('#area').append("<option value="+d.id+">"+d.name+"</option>");
                     })
+
+                    if($('#area').val()!=null)
+                    {
+                        $.ajax({
+                            type:"post",
+                            url:"/teacher/school",
+                            data:"school_id="+$('#area').val(),
+                            dataType:"json",
+                            success:function(msg){
+                                // console.log(msg);
+                                $('#school').empty();
+                                var school=eval(msg);
+                                $('#school').append("<option value=0>请选择学校</option>");
+                                $.each(school,function(index,d){
+                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                })
+                            }
+                        })
+                    }
+
+                    else if($('#city').val()!=null)
+                    {
+                        $.ajax({
+                            type:"post",
+                            url:"/teacher/school",
+                            data:"school_id="+$('#city').val(),
+                            dataType:"json",
+                            success:function(msg){
+                                // console.log(msg);
+                                $('#school').empty();
+                                var school=eval(msg);
+                                $('#school').append("<option value=0>请选择学校</option>");
+                                $.each(school,function(index,d){
+                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                })
+                            }
+                        })
+                    }
+                    else if($('#province').val()!=null)
+                    {
+                        $.ajax({
+                            type:"post",
+                            url:"/teacher/school",
+                            data:"school_id="+$('#province').val(),
+                            dataType:"json",
+                            success:function(msg){
+                                // console.log(msg);
+                                $('#school').empty();
+                                var school=eval(msg);
+                                $('#school').append("<option value=0>请选择学校</option>");
+                                $.each(school,function(index,d){
+                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                })
+                            }
+                        })
+                    }
+
                 }
             })
+        })
+
+        $('#area').change(function(){
+            if($('#area').val()!=null)
+            {
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/school",
+                    data:"school_id="+$('#area').val(),
+                    dataType:"json",
+                    success:function(msg){
+                        // console.log(msg);
+                        $('#school').empty();
+                        $('#school').append("<option value=0>请选择学校</option>");
+                        var school=eval(msg);
+                        $.each(school,function(index,d){
+                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                        })
+                    }
+                })
+            }
+
+            else if($('#city').val()!=null)
+            {
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/school",
+                    data:"school_id="+$('#city').val(),
+                    dataType:"json",
+                    success:function(msg){
+                        // console.log(msg);
+                        $('#school').empty();
+                        $('#school').append("<option value=0>请选择学校</option>");
+                        var school=eval(msg);
+                        $.each(school,function(index,d){
+                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                        })
+                    }
+                })
+            }
+            else if($('#province').val()!=null)
+            {
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/school",
+                    data:"school_id="+$('#province').val(),
+                    dataType:"json",
+                    success:function(msg){
+                        // console.log(msg);
+                        $('#school').empty();
+                        $('#school').append("<option value=0>请选择学校</option>");
+                        var school=eval(msg);
+                        $.each(school,function(index,d){
+                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                        })
+                    }
+                })
+            }
         })
 
         $('#phone').blur(function(){
@@ -279,7 +523,6 @@ define(function(require,exports){
             }
         })
 
-
         $('#email').blur(function(){
             if($.trim($('#email').val())=="")
             {
@@ -308,6 +551,5 @@ define(function(require,exports){
                 })
             }
         })
-
     }
 })
