@@ -138,6 +138,19 @@ class Classroom extends NH_User_Controller {
 	    }
 	}
 	
+	/**
+	 * 进入教室
+	 */
+	public function enter()
+	{
+	    $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+	    $str_classroom_urlself::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+	    $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+        $this->smarty->assign('iframe',$str_iframe);
+        $this->smarty->assign('view', 'classroom');
+        $this->smarty->display('admin/layout.html');
+	}
+	
     public function save_stu_action()
     {
         $class_id = intval(trim($this->input->get("class_id")));
