@@ -148,23 +148,23 @@
                 'stage'=>$post['stage'],
                 'teacher_age'=>$post['teacher_age'],
                 'teacher_intro'=>$post['teacher_intro'],
-                'titile_auth'=>$post['titile_auth'],
+                'title'=>$post['title'],
+                'titile_auth'=>1,
                 'teacher_auth'=>1
             );
-            if(!get_uid_phone_server($post['phone']))
-            {
-                add_user_phone_server($post['user_id'],$post['phone']);
-            }
-            $phone_mask=substr_replace($post['phone'],"****",3,4);
+
+            $subject_data['subject_id']=$post['subject'];
+            $subject_data['teacher_id']=$post['user_id'];
+
             $data_user=array(
-                'phone_mask'=>$phone_mask,
-                'email'=>$post['email'],
                 'phone_verified'=>1,
-                'email_verified'=>1
+                'email_verified'=>1,
+                'teach_priv'=>1,
+                'source'=>0
             );
            // return $data['teacher_auth'];
             $this->load->model('model/admin/model_lecture');
-            return $this->model_lecture->lecture_teach_pass($post,$data,$data_user);
+            return $this->model_lecture->lecture_teach_pass($post,$data,$data_user,$subject_data);
         }
 
         /**
