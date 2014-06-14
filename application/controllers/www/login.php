@@ -167,6 +167,7 @@ class login extends NH_Controller
         $redirect_url = trim($this->input->post('redirect_url'));
 
         $ret = $this->business_login->submit($username, $password);
+
         if(isset($ret['data']))
         {
             $ret['data']['redirect_url'] = $redirect_url == "" ? site_url() : $redirect_url;

@@ -45,6 +45,11 @@ define('ROLE_ADMIN', 1);//管理员
 define('ROLE_STUDENT', 2);//学生
 define('ROLE_TEACHER', 3);//教师
 
+//GENDER
+define('NH_GENDER_MALE', 1);//男
+define('NH_GENDER_FEMALE', 2);//女
+define('NH_GENDER_SECRET', 3);//保密
+
 
 /*  订单状态
  *  -2签名错误 -3金额校验错误
@@ -244,15 +249,16 @@ define('MAX_NICKNAME_LEN', 15);
 
 //meeting account
 define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
-define('NH_MEETING_ACCESS_KEY','7e30a4');
-define('NH_MEETING_SECRET_KEY','e6468571530d44418e67d18b6bb01488');
+define('NH_MEETING_ACCESS_KEY','525510');
+define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 //访问教室的用户类型
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
 define('NH_MEETING_TYPE_ADMIN',2);//管理员
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
-define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
+//define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
+define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/nahao/enter?token=');
 
 //课程封面图的三个尺寸 290*216  227*169   66*49
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);

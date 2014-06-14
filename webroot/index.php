@@ -46,7 +46,7 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+		    error_reporting(E_ALL);
 		break;
 	
 		case 'testing':
@@ -58,6 +58,7 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
+
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME

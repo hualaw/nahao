@@ -22,6 +22,21 @@ class Business_Student extends NH_Model
     }
 
     /**
+     * 修改student
+     * @param array $arr_param
+     * @param array $arr_where
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function update_student($arr_param,$arr_where){
+        $bool_flag = false;
+        if($arr_param AND $arr_where){
+            $bool_flag = $this->model_user->update_user($arr_param,$arr_where);
+        }
+        return $bool_flag;
+    }
+
+    /**
      * 根据条件获取student count
      * @param $arr_where
      * @return array
@@ -89,7 +104,7 @@ class Business_Student extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'student_info';
             $str_result_type = 'list';
-            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,status,source,gender,grade,province,city,area';
+            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area,register_time';
 
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
