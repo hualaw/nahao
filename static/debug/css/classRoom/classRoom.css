@@ -1,6 +1,7 @@
 .classRoom{font-size: 14px;color: #4b4b4b;} 
 .classRoom .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
-.classRoomPage{height: 100%;}
+.classRoomPage,html{height: 100%;}
+.classRoomPage .greenText{color: #3fa612;}
 /*  做题 --*/
 .classRoomPage .doWorkBox{padding: 0 60px 45px 66px;width: 676px;margin-top:30px;}
 .classRoomPage .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
@@ -16,10 +17,17 @@
 .classRoomPage .overBtn .subAns{background: #f14211;}
 .classRoomPage .overBtn .nextBtn{background: #6dcde6;}
 /*  得分 --*/
+.classRoomPage .promTextBox{text-align: center;width: 475px;height:292px;border:1px solid #b9b9b9;margin-left: 15px;}
+.classRoomPage .promTextBox h3{color: #4b4b4b;font-size: 20px;font-weight: normal;margin-bottom: 16px;padding-top: 166px;background: url(../../images/classRoom/happy.png) center 38px no-repeat;}
+.classRoomPage .promTextBox h3.comeOnBg{background-image: url(../../images/classRoom/nohappy.png);}
+.classRoomPage .promTextBox h3 .comeOn,
+.classRoomPage .promTextBox h3.comeOnBg .reward{display: none;}
+.classRoomPage .promTextBox h3.comeOnBg .comeOn{display: block;}
+.classRoomPage .scoreCon .promText{color: #999;line-height: 22px;}
+
 .classRoomPage .scoreBox{width: 850px;margin-top:30px;}
 .classRoomPage .optionNav{width: 75px;text-align: center;color:#fff;}
-.classRoomPage .scoreCon{width: 675px;padding: 0 40px 0 60px;}
-.classRoomPage .scoreCon .promText{width: 416px;margin-left: 20px;}
+.classRoomPage .scoreCon{width: 715px;padding: 0 30px 0 30px;}
 .classRoomPage .itemscore .scoreCon{width: 711px;}
 .classRoomPage .answerList{margin:50px 0 0;}
 .classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
