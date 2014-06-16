@@ -94,7 +94,7 @@ class Model_Teacher extends NH_Model{
 				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
 				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
 				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
-				".$where.$group.$order;
+				".$where.$group.$order.$limit;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
