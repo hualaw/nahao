@@ -143,12 +143,14 @@
 
 	<a href="javascript:void(0)" class="ansCountBtn">答案统计</a><br><br>
 	<!--教室-老师-答案统计 开始-->
-	<div class="ansCountHtml undis">
+	<div class="ansCountHtml undis" id="ansCountHtml">
 		<div class="ansCount">
 			<h3 class="countTitle">
-				<span>本次练习共<em class="redText">199</em>人作答</span>
+				<span>本次练习共<em class="redText ">199</em>人作答</span>
 				<span>平均正确率<em class="redText">78.3%</em></span>
 			</h3>
+			<span class="suquence_total"></span>
+			
 			<div class="citemBox posr">
 				<ul class="CitemCon">
 					<li class="CitemList">
@@ -212,222 +214,23 @@
 
 	<a href="javascript:void(0)" class="exerciseBtn">选择练习题</a><br><br>
 	<!--教室-老师-选择练习题 开始-->
-	<div class="exerciseHtml undis">
+	<div class="exerciseHtml undis" id="exerciseHtml">
 		<div class="exercise">
 			<div class="itemTab posr">
 				<a href="jacascript:void(0)" class="clickL clickBtn"></a>
 				<a href="jacascript:void(0)" class="clickR clickBtn"></a>
 				<div class="itemTabBox posr">
-					<ul class="cf">
-						<li class="fl itemTabList">
-							<div>1.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>2.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>3.题目<br>内容题目<br>内容题目<br>内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>4.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>5.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>6.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>7.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>8.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>9.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>10.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
+					<ul class="cf publish_questions">
+					
 					</ul>
 				</div>
 			</div>
 			<div class="ef">
-				<span class="Titem">
-					<a href="javascript:void(0)">1</a>
-					<a href="javascript:void(0)">2</a>
-					<a href="javascript:void(0)">3</a>
-					<a href="javascript:void(0)">4</a>
-					<a href="javascript:void(0)">5</a>
-					<a href="javascript:void(0)">6</a>
-					<a href="javascript:void(0)">7</a>
-					<a href="javascript:void(0)">8</a>
-					<a href="javascript:void(0)">9</a>
-					<a href="javascript:void(0)">10</a>
+				<span class="Titem publish_questions_index">
 				</span>
 				<p>
-					<span>当前已选<em class="redText itemNum">0</em>题</span>
-					<a href="javascript:void(0);" class="btn redBtn">发布</a>
+					<span>当前已选<em class="redText itemCurNum">0</em>题</span>&nbsp;/&nbsp;<span>总共已选<em class="redText itemNum">0</em>题</span>
+					<a href="javascript:void(0);" class="btn redBtn do_publish_questions">发布</a>
 				</p>
 			</div>
 		</div>
