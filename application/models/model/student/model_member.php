@@ -228,7 +228,7 @@ class Model_Member extends NH_Model{
      */
     public function check_phone_register($int_user_id)
     {
-        $sql = "SELECT id FROM user WHERE id=".$int_user_id." AND reg_type =  ".REG_TYPE_PHONE;
+        $sql = "SELECT id FROM user WHERE id=".$int_user_id." AND reg_type =  ".REG_LOGIN_TYPE_PHONE;
         $int_result = $this->db->query($sql)->num_rows();
         return $int_result;
     }
