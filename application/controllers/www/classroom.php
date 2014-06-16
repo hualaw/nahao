@@ -329,10 +329,10 @@ class Classroom extends NH_User_Controller {
 
 
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-//        $str_classroom_url = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
-        $str_classroom_url = '/nahao_classroom/main.html';
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+//        $str_classroom_url = '/classroom/main.html';
 //        o($str_classroom_url,true);
-        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
         #根据classroom_id获取课id
         $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
         $this->smarty->assign('classroom_id',$int_classroom_id);
