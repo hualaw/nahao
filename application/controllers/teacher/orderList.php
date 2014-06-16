@@ -23,6 +23,7 @@ class Orderlist extends NH_User_Controller {
     
 	public function index(){
 		$teach_status = config_item("round_teach_status");
+		$page = $this->uri->segment(3,1);
 		//分页
      	$this->load->library('pagination');
         $config = config_item('page_teacher');
@@ -40,11 +41,9 @@ class Orderlist extends NH_User_Controller {
      		);
      	$int_count = $this->teacher_b->round_list($param);
         $config['total_rows'] = $int_count;
-        $config['per_page'] = 10;
+        $config['per_page'] = 1;
         $this->pagination->initialize($config);
-//        parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
         $pageBar = $this->pagination->create_links();
-        
         //内容
 		$param = array(
      			'teacher_id' 	=> $this->teacher_id,
@@ -54,7 +53,7 @@ class Orderlist extends NH_User_Controller {
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
      			'start_time' 	=> isset($_GET['start_time']) ? $_GET['start_time'] : '',
      			'end_time' 		=> isset($_GET['end_time']) ? $_GET['end_time'] : '',
-     			'limit' 		=> isset($_GET['page']) ? (($_GET['page']-1)*10).',10' : '0,10',
+     			'limit' 		=> !empty($page) ? (($page-1)*$config['per_page']).','.$config['per_page'] : '0,'.$config['per_page'],
      		);
 		#1.列表
 		$listArr = $this->teacher_b->round_list($param);
