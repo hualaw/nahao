@@ -251,7 +251,7 @@ class Classroom extends NH_User_Controller {
 	    {
 	    	self::json_output(array('status'=>'ok','msg'=>'获取未出过题目成功','data'=>$question_list));
 	    }else{
-	        self::json_output(array('status'=>'error','msg'=>'<h3 style="color:red">该课没有题目或题目已出完</h3>'));
+	        self::json_output(array('status'=>'error','msg'=>'<h3>该课没有题目或题目已出完</h3>'));
 	    }
 	}
 	
