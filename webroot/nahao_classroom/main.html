@@ -93,13 +93,14 @@ window.onunloadcancel = function(){
 	}
 function PopUpPageWin(type,classid)
 {
-/*	if(type == "student_get_exercise_page")
-		student_get_exercise_page(classid);
-	else if(type == "teacher_get_exercise_page")	
-		teacher_get_exercise_page(classid);
-	else if(type == "teacher_get_exercise_stat")
-		teacher_get_exercise_stat(classid); */
-	alert(type+" "+classid);
+	if(type == "student_get_exercise_page"){
+        window.parent.student_get_exercise_page(classid);
+    }else if(type == "teacher_get_exercise_page"){
+        window.parent.teacher_get_exercise_page(classid);
+    }else if(type == "teacher_get_exercise_stat"){
+        window.parent.teacher_get_exercise_stat(classid);
+    }
+//    console.log(type+" "+classid);
 }
 </script> 
 <script language="JavaScript" type="text/javascript">
