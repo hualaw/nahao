@@ -21,7 +21,7 @@ define(function(require,exports){
 	//判断当前页面时注册成功的关于我的页面
 	if($('.regSuccessBox').length > 0){
 		// 美化select
-		$('select').jqTransSelect();
+//		$('select').jqTransSelect();
 		// 美化radio
 		$('input[type=radio]').jqTransRadio();
 	}
@@ -52,5 +52,7 @@ define(function(require,exports){
     if($('.setSuccess').length > 0) {
         setTimeout(_resetPwd.setPwdSuccessJump, 1000);
     }
-    
+    if($("#province").length > 0) {
+        require("module/studentMyCourse/area").change_area();
+    }
 })

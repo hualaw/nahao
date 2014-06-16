@@ -12,6 +12,8 @@ class Member extends NH_User_Controller {
         {
             redirect('/login');
         }
+        $grades = $this->config->item('grade');
+        $this->smarty->assign('grades', $grades);
     }
 
     
@@ -60,6 +62,7 @@ class Member extends NH_User_Controller {
 	    $config['base_url'] = '/member/my_order/'.$str_type.'/';
 	    $config['total_rows'] = $int_count;
 	    $config['per_page'] = PER_PAGE_NO;
+	    $config['use_page_numbers'] = TRUE;
 	    //$config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
 	    
 	    $this->pagination->initialize($config);
@@ -325,10 +328,6 @@ class Member extends NH_User_Controller {
             }
             self::json_output($arr_return);
         }
-	    #头像
-	    $str_avater = DEFAULT_AVATER;
-        #年纪信息
-        $grades = $this->config->item('grade');
         #性别
         $gender = $this->config->item('gender');
         #学校
@@ -345,7 +344,6 @@ class Member extends NH_User_Controller {
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
-        $this->smarty->assign('grades', $grades);
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);
