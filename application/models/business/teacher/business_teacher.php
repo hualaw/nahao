@@ -477,6 +477,7 @@ class Business_Teacher extends NH_Model
     	if(empty($param['pay_id'])){exit('缺少必要参数');}
     	$detail = array();
 		$pay_info = $this->model_teacher->pay_list($param);
+		$checkout_status = config_item('class_checkout_status');
 		if(isset($pay_info[0])){
 			#查询月上课详情
 			$param = array(
@@ -487,6 +488,9 @@ class Business_Teacher extends NH_Model
 				'status' => 3,
 			);
 			$detail = $this->model_teacher->class_seacher($param);
+			if($detail) foreach ($detail as &$val){
+				$val['checkout_status_name'] = isset($val['checkout_status']) ? $checkout_status[$val['checkout_status']] : '未知';
+			}
 		}
 		return $detail;
     }

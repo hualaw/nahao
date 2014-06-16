@@ -266,3 +266,7 @@ $config['admin_student_list_search_type'][2] = '邮箱';
 $config['admin_student_list_search_type'][3] = '手机号';
 $config['admin_student_list_search_type'][4] = '用户ID';
 
+//每一节课的结算状态
+$config['class_checkout_status'][0] = '不可结算';
+$config['class_checkout_status'][1] = '可结算';
+$config['class_checkout_status'][2] = '已结算';
