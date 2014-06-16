@@ -10,9 +10,10 @@ define(function(require,exports){
     var _popUp = require('module/common/method/popUp');
     //做题块
     $(".doWorkBoxBtn").click(function (){
-        _popUp.popUp('.doWorkBoxHtml');
+       
         _classRoom.show_question();
-
+       
+        //_popUp.popUp('.doWorkBoxHtml');
         //做题选答案 (加背景色)
        // _classRoom.options();
 
@@ -31,16 +32,20 @@ define(function(require,exports){
     $(".scorePageBtn").click(function (){
         _popUp.popUp('.scorePageHtml');
     });
+    //老师获取还没出过的题
+    
     //答案统计
     $(".ansCountBtn").click(function (){
-        _popUp.popUp('.ansCountHtml');
+//        _popUp.popUp('.ansCountHtml');
+        _classRoom.load_questions_count();
     });
     //选择练习题
     $(".exerciseBtn").click(function (){
-        _popUp.popUp('.exerciseHtml');
-
+//    	_popUp.popUp('.exerciseHtml');
+		//请求题目
+    	_classRoom.load_questions();
         //选择练习题  左右点击切换 题目选中
-        _classRoom.itemClick();
+//        _classRoom.itemClick();
     });
     //意见反馈
     $(".feedbackBtn").click(function (){
@@ -63,12 +68,10 @@ define(function(require,exports){
         // 教室-评价 验证
         _valid.evaluForm();
     });*/
-
-    function student_get_exercise_page(){
-        alert(11111);
+    student_get_exercise_page = function (class_id){
         _popUp.popUp('.exerciseHtml');
-
         //选择练习题  左右点击切换 题目选中
         _classRoom.itemClick();
     }
+//    student_get_exercise_page(8);
 })

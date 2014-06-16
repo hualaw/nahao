@@ -3,7 +3,7 @@
 	<ul class="myCourseList cf">
 		<!-- meiyou-->
 		<li class="fl noCourse">
-			<a href="/index/index"><span>快来添加课程吧！</span></a>
+			<a href="/"><span>快来添加课程吧！</span></a>
 		</li>
 		<!-- kecheng yi wancheng -->
 		{foreach from=$array_buy_course item=item}
@@ -11,7 +11,7 @@
 			<h3>{$item.title}</h3>
 			<img src="{static_url($item.class_img)}" alt="" class="cover">
 			<div class="progress">
-				<span class="bar"></span>
+				<span class="bar" style="width:{$item.class_rate}%"></span>
 			</div>
 			<div class="courseInfor">
 				<div class="lessons">

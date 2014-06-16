@@ -5,11 +5,29 @@
 define(function (require, exports) {
 
     //course_operation
-//    exports.course_operation = function () {
-//        $('.table').on("click",'.course_operation',function () {
+    exports.course_operation = function () {
+        //operation modal
+        $('.course_operation').on("click",function(){
+            course_id = $(this).data('course_id');
+            $("#course_operation_course_id").val(course_id);
+            $("#course_list_operation_modal").modal();
+        });
+
+        $('#btn_course_status_submit').on("click",function () {
+            var status = $('input[name="course_status"]:checked').val();
+            var course_id = $("#course_operation_course_id").val(course_id);
+            var url = $(this).data("action");
+            var data = {
+                "course_id" : course_id,
+                "status" : status
+            };
+            $.post(url,data,function(response){
+
+            });
+            console.log(course_status);
 //            modal.modal();
-//        });
-//    }
+        });
+    }
 
     //load ckeditor
     exports.load_ckeditor = function () {

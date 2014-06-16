@@ -6,16 +6,29 @@
             <!--那好 logo结束-->
             <!--那好 nav开始-->
             <ul class="fl">
-                <li class="fl nav_homePage curNav"><a href="/welcome/index" class="first">首页</a></li>
-                <li class="fl nav_orderList"><a href="/orderList/index">班次列表</a></li>
-                <li class="fl nav_selfInfo"><a href="/selfInfo/index">个人资料</a></li>
-                <li class="fl nav_pay"><a href="/pay/index">课酬结算</a></li>
+                <li class="fl nav_homePage {if in_array($data['active'],array('index_index'))}curNav{/if}"><a href="/index/index" class="first">首页</a></li>
+                <li class="fl nav_orderList {if in_array($data['active'],array('orderlist_index','orderlist_appraise','orderlist_count','orderlist_detail','orderlist_question'))}curNav{/if}"><a href="/orderList/index">班次列表</a></li>
+                <li class="fl nav_selfInfo {if in_array($data['active'],array('selfinfo'))}curNav{/if}"><a href="/selfInfo/index">个人资料</a></li>
+                <li class="fl nav_pay {if in_array($data['active'],array('pay_index','pay_detail'))}curNav{/if}"><a href="/pay/index">课酬结算</a></li>
             </ul>
             <!--那好 nav结束-->
             <!--那好 info开始-->
             <div class="rightTips fr">
-                <span><a href="http://www.nahaodev.com/index/apply_teach" class="noShowBtn redBtn">我要开课</a></span>
-                <a class="hd_info">您好，<b>王小乐</b>老师</a>|<a class="logout" href="#">退出</a>
+            	<!--登录之前 开始-->
+                {if !$is_login}
+                <!--<span><a href="http://www.nahaodev.com/index/apply_teach" class="noShowBtn redBtn">我要开课</a></span>
+                <a class="hd_info">您好，<b>{$nickname}</b></a>|<a class="logout" href="/login/logout">退出</a>-->
+                
+				<a href="http://www.nahaodev.com/login" class="blueText commonLoginBtn">登录</a>
+				<span>|</span>
+				<a href="http://www.nahaodev.com/register" class="blueText">注册</a>
+				<!--登录之前 结束-->
+                {else}
+				<!--登录之后 开始-->
+				<span><a href="http://www.nahaodev.com/index/apply_teach" class="noShowBtn redBtn">我要开课</a></span>
+                <a class="hd_info">您好，<b>{$nickname}</b></a>|<a class="logout" href="http://www.nahaodev.com/login/logout">退出</a>
+                {/if}
+				<!--登录之后 结束-->
             </div>
             <!--那好 info结束-->
         </div>

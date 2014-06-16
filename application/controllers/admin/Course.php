@@ -269,4 +269,13 @@ public function upload(){
     echo '<html><body><script type="text/javascript">window.parent.CKEDITOR.tools.callFunction('.$this->input->get('CKEditorFuncNum').', "http://n1a2h3a4o5.qiniudn.com/course_20140611112154_iANZ8Sy.png?imageView/1/w/290/h/216","");</script></body></html>';
 }
 
+    public function status(){
+        $int_course_id = $this->input->post('coruse_id') ? intval($this->input->post('coruse_id')) : 0;
+        $int_status = $this->input->post('status') ? intval($this->input->post('status')) : 0;
+        if($int_course_id > 0 AND $int_status >= 0){
+
+        }
+        self::json_output();
+    }
+
 }

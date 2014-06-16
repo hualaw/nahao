@@ -15,12 +15,12 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap layout classRoom" id="nahaoModule" module="classRoom">
+<div class="wrap layout classRoom" id="nahaoModule" module="classRoom" classroom-data="{$data['classroom_id']}" class-data="{$class_id}">
 	<a href="javascript:void(0)" class="doWorkBoxBtn">做题块</a><br><br>
 	<!--做题块 开始-->
 	<div class="doWorkBoxHtml undis">
 		<div class="doWorkBox">
-		
+
 		</div>
 	</div>
 	<!--做题块 结束-->
@@ -28,126 +28,6 @@
 	<a href="javascript:void(0)" class="scoreBoxBtn">做题块题目选中</a><br><br>
 	<!--得分-题目选中 开始-->
 	<div class="scoreBoxHtml undis">
-		<div class="scoreBox itemscore cf">
-			<div class="fl optionNav">
-				<h3 class="result resultArrow">结果<span class="fr"></span></h3>
-				<div class="sconParl posr">
-					<ul class="sconl">
-						<li>第1题</li>
-						<li class="curitme">第2题</li>
-						<li>第3题</li>
-						<li class="curitme">第4题</li>
-					</ul>
-					<div class="sparent undis">
-						<div class="sbar"></div>
-					</div>
-				</div>
-			</div>
-			<div class="fl scoreCon posr Showresult">
-				<div class="posr scoreBoxPar">
-					<div class="scoreBoxList undis">
-						<div>题目111111111111111111111内容</div>
-						<!--答案-->
-						<ul class="answerList">
-							<li class="cf">
-								<em class="fl ansIco"></em>
-								<span class="options fl">A</span>
-								<p class="fl">30</p>		
-							</li>
-							<li class="cf ansRight">
-								<em class="fl ansIco"></em>
-								<span class="options fl">B</span>
-								<p class="fl">40</p>		
-							</li>
-							<li class="cf ansError">
-								<em class="fl ansIco"></em>
-								<span class="options fl">C</span>
-								<p class="fl">45</p>		
-							</li>
-							<li class="cf">
-								<em class="fl ansIco"></em>
-								<span class="options fl">D</span>
-								<p class="fl">59</p>		
-							</li>
-						</ul>
-					</div>
-					<div class="scoreBoxList undis">
-						<div>题目222222222222222222222内容</div>
-						<!--答案-->
-						<ul class="answerList">
-							<li class="cf">
-								<em class="fl ansIco"></em>
-								<span class="options fl">A</span>
-								<p class="fl">30</p>		
-							</li>
-							<li class="cf ansRight">
-								<em class="fl ansIco"></em>
-								<span class="options fl">B</span>
-								<p class="fl">40</p>		
-							</li>
-							<li class="cf ansError">
-								<em class="fl ansIco"></em>
-								<span class="options fl">C</span>
-								<p class="fl">45</p>		
-							</li>
-							<li class="cf">
-								<em class="fl ansIco"></em>
-								<span class="options fl">D</span>
-								<p class="fl">59</p>		
-							</li>
-						</ul>
-					</div>
-					<div class="scoreBoxList undis">
-						<div>题<br>目<br>33<br>33<br>333<br></div>
-						<!--答案-->
-						<ul class="answerList">
-							<li class="cf">
-								<em class="fl ansIco"></em>
-								<span class="options fl">A</span>
-								<p class="fl">30</p>		
-							</li>
-							<li class="cf ansRight">
-								<em class="fl ansIco"></em>
-								<span class="options fl">B</span>
-								<p class="fl">40</p>		
-							</li>
-							<li class="cf ansError">
-								<em class="fl ansIco"></em>
-								<span class="options fl">C</span>
-								<p class="fl">45</p>		
-							</li>
-							<li class="cf">
-								<em class="fl ansIco"></em>
-								<span class="options fl">D</span>
-								<p class="fl">59</p>		
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="cparent undis">
-					<div class="cbar"></div>
-				</div>
-			</div>
-			<div class="fl scoreCon Hideresult">
-				<div class="fl scoreShow">
-					<div class="score">
-						<h3>你的得分</h3>
-						<strong>50</strong>
-					</div>
-					<div class="scoref cf">
-						<span class="fl rightItem">
-							<span class="ansIco"></span>
-							<em>3</em>
-						</span>
-						<span class="fl errorItem">
-							<span class="ansIco"></span>
-							<em>2</em>
-						</span>
-					</div>
-				</div>
-				<p class="fl promText">请点击左侧按钮回顾您的作答情况，红色表示做错的题目，绿色表示做对的题目。请认真查看做错的题目，看看自己能否解出正确答案。如仍不能解出正确答案的，请耐心等待老师讲解哦！</p>
-			</div>
-		</div>
 	</div>
 	<!--得分-题目选中 结束-->
 
@@ -263,12 +143,14 @@
 
 	<a href="javascript:void(0)" class="ansCountBtn">答案统计</a><br><br>
 	<!--教室-老师-答案统计 开始-->
-	<div class="ansCountHtml undis">
+	<div class="ansCountHtml undis" id="ansCountHtml">
 		<div class="ansCount">
 			<h3 class="countTitle">
-				<span>本次练习共<em class="redText">199</em>人作答</span>
+				<span>本次练习共<em class="redText ">199</em>人作答</span>
 				<span>平均正确率<em class="redText">78.3%</em></span>
 			</h3>
+			<span class="suquence_total"></span>
+			
 			<div class="citemBox posr">
 				<ul class="CitemCon">
 					<li class="CitemList">
@@ -332,222 +214,23 @@
 
 	<a href="javascript:void(0)" class="exerciseBtn">选择练习题</a><br><br>
 	<!--教室-老师-选择练习题 开始-->
-	<div class="exerciseHtml undis">
+	<div class="exerciseHtml undis" id="exerciseHtml">
 		<div class="exercise">
 			<div class="itemTab posr">
 				<a href="jacascript:void(0)" class="clickL clickBtn"></a>
 				<a href="jacascript:void(0)" class="clickR clickBtn"></a>
 				<div class="itemTabBox posr">
-					<ul class="cf">
-						<li class="fl itemTabList">
-							<div>1.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>2.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>3.题目<br>内容题目<br>内容题目<br>内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>4.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>5.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>6.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>7.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>8.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>9.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
-						<li class="fl itemTabList">
-							<div>10.题目内容</div>
-							<div class="cf eAns">
-								<strong class="fl">A</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">B</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">C</strong>
-								<p class="fl">eeree</p>
-							</div>
-							<div class="cf eAns">
-								<strong class="fl">D</strong>
-								<p class="fl">eeree</p>
-							</div>
-						</li>
+					<ul class="cf publish_questions">
+					
 					</ul>
 				</div>
 			</div>
 			<div class="ef">
-				<span class="Titem">
-					<a href="javascript:void(0)">1</a>
-					<a href="javascript:void(0)">2</a>
-					<a href="javascript:void(0)">3</a>
-					<a href="javascript:void(0)">4</a>
-					<a href="javascript:void(0)">5</a>
-					<a href="javascript:void(0)">6</a>
-					<a href="javascript:void(0)">7</a>
-					<a href="javascript:void(0)">8</a>
-					<a href="javascript:void(0)">9</a>
-					<a href="javascript:void(0)">10</a>
+				<span class="Titem publish_questions_index">
 				</span>
 				<p>
-					<span>当前已选<em class="redText itemNum">0</em>题</span>
-					<a href="javascript:void(0);" class="btn redBtn">发布</a>
+					<span>当前已选<em class="redText itemCurNum">0</em>题</span>&nbsp;/&nbsp;<span>总共已选<em class="redText itemNum">0</em>题</span>
+					<a href="javascript:void(0);" class="btn redBtn do_publish_questions">发布</a>
 				</p>
 			</div>
 		</div>
@@ -619,13 +302,16 @@
 		</div>
 	</div>
 	<!--教室-评价 结束-->
+{$iframe}
 </div>
+
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
 {include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
 {include file="www/include/js.htm"}
+
 <!--js引入结束-->
 </body>
 </html>

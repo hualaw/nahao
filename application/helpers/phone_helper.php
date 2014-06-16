@@ -45,7 +45,9 @@ use yiduoyun\phone\AlreadyExistsException;
 function connect_phone_server(){
     try {
         //Thrift connection handling
-        $socket = new TSocket( PHONE_SERVER_HOST , PHONE_SERVER_PORT );
+        $host = config_item('phone_server_host');
+        $port = config_item('phone_server_port');
+        $socket = new TSocket( $host , $port );
         $transport = new TBufferedTransport($socket, 1024, 1024);
         $protocol = new TBinaryProtocol($transport);
 

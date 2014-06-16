@@ -10,6 +10,8 @@ define(function(require,exports){
     course.add_lesson();
     course.delete_lesson();
     course.submit_course();
+    course.course_operation();
+
 
     var upload = require("module/adminCourse/upload");
     upload.addUpload();//调用上传图片

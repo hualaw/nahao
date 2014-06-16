@@ -25,6 +25,19 @@ class login extends NH_Controller
         {
             redirect('/login');
         }
+        $this->load->model('business/admin/business_lecture');
+        $this->load->model('business/common/business_subject');
+        #省和直辖市
+        $province = $this->business_lecture->all_province();
+        #科目
+        $subjects = $this->business_subject->get_subjects();
+        #年纪
+        $grades = $this->config->item('grade');
+        $this->smarty->assign('grades', $grades);
+        $gender = $this->config->item('gender');
+        $this->smarty->assign('province', $province);
+        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('gender', $gender);
         $this->smarty->display('www/login/loginAfter.html');
     }
 
@@ -167,6 +180,7 @@ class login extends NH_Controller
         $redirect_url = trim($this->input->post('redirect_url'));
 
         $ret = $this->business_login->submit($username, $password);
+
         if(isset($ret['data']))
         {
             $ret['data']['redirect_url'] = $redirect_url == "" ? site_url() : $redirect_url;
@@ -182,4 +196,23 @@ class login extends NH_Controller
         $this->session->sess_destroy();
         header("Location: ".site_url());
     } 
+    
+    /**
+     * 检查昵称是否可用
+     */
+    public function check_unique_nickname()
+    {
+        $nickname = trim($this->input->post('nickname'));
+        $arr_return = array('status' => ERROR);
+        if($nickname) {
+            $userdata = $this->business_user->get_user_by_nickname($nickname);
+            if($userdata['id']) {
+                $arr_return = array('status' => ERROR, 'info' => '该昵称已被占用');
+            } else {
+                $arr_return = array('status' => SUCCESS, 'info' => '昵称可用');
+            }
+        }
+        
+        self::json_output($arr_return);
+    }
 }

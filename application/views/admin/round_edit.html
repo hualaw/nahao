@@ -1,9 +1,9 @@
 <div class="alert alert-info">添加班次...</div>
 <form class="form-horizontal" role="form" action="javascript:;">
-    {if $action=='upate'}
+    {if $action=='update'}
         <input type="hidden" class="col-md-1 form-control" id="id" value="{$round.id}">
     {/if}
-    <input type="hidden" class="col-md-1 form-control" id="course_id" value="{if $action=='create'}{$round.id}{else}{$round.course}{/if}">
+    <input type="hidden" class="col-md-1 form-control" id="course_id" value="{if $action=='create'}{$round.id}{else}{$round.course_id}{/if}">
 
     <div class="form-group">
         <label class="col-md-2 control-label">班次名称</label>
@@ -176,13 +176,13 @@
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{get_course_img_by_size($round.img,'large')}" >
+            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{if $round.img}{get_course_img_by_size($round.img,'large')}{/if}" >
         </div>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{get_course_img_by_size($round.img,'general')}" >
+            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{if $round.img}{get_course_img_by_size($round.img,'general')}{/if}" >
         </div>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{get_course_img_by_size($round.img,'small')}" >
+            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{if $round.img}{get_course_img_by_size($round.img,'small')}{/if}" >
         </div>
     </div>
 
