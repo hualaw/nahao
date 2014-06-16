@@ -1,6 +1,6 @@
 .classRoom{font-size: 14px;color: #4b4b4b;} 
 .classRoom .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
-
+.classRoomPage{height: 100%;}
 /*  做题 --*/
 .classRoomPage .doWorkBox{padding: 0 60px 45px 66px;width: 676px;margin-top:30px;}
 .classRoomPage .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
