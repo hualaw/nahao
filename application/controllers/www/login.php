@@ -206,7 +206,7 @@ class login extends NH_Controller
         $arr_return = array('status' => ERROR);
         if($nickname) {
             $userdata = $this->business_user->get_user_by_nickname($nickname);
-            if($userdata['id']) {
+            if(isset($userdata['id'])) {
                 $arr_return = array('status' => ERROR, 'info' => '该昵称已被占用');
             } else {
                 $arr_return = array('status' => SUCCESS, 'info' => '昵称可用');
