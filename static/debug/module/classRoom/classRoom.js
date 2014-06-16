@@ -9,15 +9,15 @@ define(function (require,exports){
 	}
 	//获取未出过的练习题
 	exports.load_questions = function (){
-		//弹框
-		$.tiziDialog({
-            title:false,
-            ok:false,
-            icon:false,
-            id: 'exerciseHtml',
-            padding:0,
-            content:$('#exerciseHtml').html(),
-        });
+			//弹框
+			$.tiziDialog({
+	            title:false,
+	            ok:false,
+	            icon:false,
+	            id: 'exerciseHtml',
+	            padding:0,
+	            content:$('#exerciseHtml').html(),
+	        });
 		//初始化弹出数据
 		$('.itemCurNum').html(0);
 		$('.publish_questions').html();
@@ -27,6 +27,7 @@ define(function (require,exports){
 		var itemControll = this;
 		$.get(url,function(response){
 			if(response.status=='ok'){
+				$(".clickBtn").show();
 				var q_html = q_i_html = '';
 				$.each(response.data, function(key, val) {
 					//题目
@@ -42,7 +43,8 @@ define(function (require,exports){
 				});
 				itemControll.itemClick();
 			}else{
-				$('.publish_questions').html(response.msg);
+				$(".clickBtn").hide();
+				$('.publish_questions').html('<li>'+response.msg+'</li>');
 			}
 		});
 	}
@@ -372,7 +374,14 @@ define(function (require,exports){
 									rhtml+='			</span>';
 									rhtml+='		</div>';
 									rhtml+='	</div>';
-									rhtml+='	<p class="fl promText">请点击左侧按钮回顾您的作答情况，红色表示做错的题目，绿色表示做对的题目。请认真查看做错的题目，看看自己能否解出正确答案。如仍不能解出正确答案的，请耐心等待老师讲解哦！</p>';						
+									rhtml+='	<div class="promTextBox fl">'
+									rhtml+='		<h3 class="comeOnBg">'
+									rhtml+='			<span class="reward">恭喜你，名列前茅！</span>'
+									rhtml+='			<span class="comeOn">成绩不理想，要加油喽！</span>'
+									rhtml+='		</h3>'
+									rhtml+='		<p class="promText">请点击左侧按钮回顾您的作答情况，<br>'
+									rhtml+='		<span class="redText">红色</span>表示做错的题目，<span class="greenText">绿色</span>表示做对的题目。</p>'
+									rhtml+='	</div>';						
 									rhtml+='</div>';
 									rhtml+='</div>';
 			
