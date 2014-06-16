@@ -122,14 +122,15 @@ class NH_Controller extends CI_Controller
      * @author yanrui@tizi.com
      */
     public function enter_classroom($int_classroom_id,$int_user_type){
+        $str_classroom_url = '/classroom/main.html';
+        return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+
         $str_classroom_url = '';
 //        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        if($int_classroom_id){
-            $str_classroom_url = enter_classroom($int_classroom_id,$int_user_type);
-        }
-        $str_classroom_url = 'http://'.__HOST__.'/nahao_classroom/main.html';
-//        o($str_classroom_url,true);
-        return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+//        if($int_classroom_id){
+//            $str_classroom_url = enter_classroom($int_classroom_id,$int_user_type);
+//        }
+//        $str_classroom_url = 'http://'.__HOST__.'/nahao_classroom/main.html';
 
 //        $str_classroom_url = 'http://admin.nahaotest.com/admin/test';
 //o($str_classroom_url,true);
