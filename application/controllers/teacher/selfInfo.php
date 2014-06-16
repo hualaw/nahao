@@ -98,7 +98,7 @@ class Selfinfo extends NH_User_Controller {
 	}
 	public function photo(){
         if($this->is_post()) {
-            echo 111;die;
+            
         }
         $user_id = $this->session->userdata('user_id');
         //generate param for uploading to qiniu
