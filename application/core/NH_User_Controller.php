@@ -85,4 +85,31 @@ class NH_User_Controller extends NH_Controller
         self::json_output($arr_return);
     }
     
+    /**
+     * 获取城市列表,学生和教师的个人资料都要用
+     */
+    public function get_city_list()
+    {
+        $arr_return = array();
+        $province = intval($this->input->post('province'));
+        if($province) {
+            $this->load->model('business/admin/business_teacher');
+            $arr_return = $this->business_teacher->city1($province);
+        }
+        self::json_output($arr_return);
+    }
+    
+    /**
+     * 获取区、县列表
+     */
+    public function get_county_list()
+    {
+        $arr_return = array();
+        $city = intval($this->input->post('city'));
+        if($city) {
+            $this->load->model('business/admin/business_teacher');
+            $arr_return = $this->business_teacher->area1($city);
+        }
+        self::json_output($arr_return);
+    }
 }
