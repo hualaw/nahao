@@ -33,6 +33,28 @@ class Business_User extends NH_Model
         }
         return $arr_return;
     }
+    
+    /**
+     * 根据绑定的email取user
+     * @param string $str_username
+     * @return array
+     * @author yanhengjia@tizi.com
+     */
+    public function get_user_by_nickname($nickname)
+    {
+        $arr_return = array();
+        if($nickname){
+            $str_table_range = 'user';
+            $str_result_type = 'one';
+            $str_fields = 'id,nickname,email';
+            $arr_where = array(
+                'nickname' => $nickname
+            );
+//            echo $str_table_range.'--'.$str_result_type.'--'.$str_fields."\n";echo "where : \n";var_dump($arr_where);;exit;
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        }
+        return $arr_return;
+    }
 
     /**
      * 通过手机重新设置密码
@@ -65,8 +87,8 @@ class Business_User extends NH_Model
             $str_table_range = 'user_info';
             $str_result_type = 'one';
             $str_fields = 'id AS user_id,nickname,realname,phone_mask,email,avatar,phone_verified,email_verified,teach_priv,
-                           gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,
-                           province,city,area,school,teacher_age,teacher_intro,teacher_signature,stage,grade';
+                           gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,work_auth_img,
+                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,stage,grade';
             $arr_where = array(
                 'id' => $user_id,
                 TABLE_USER.'.status' => 1,
@@ -124,6 +146,9 @@ class Business_User extends NH_Model
         $update_data['id_code'] && $userinfo['id_code'] = $update_data['id_code'];
         $update_data['grade'] && $userinfo['grade'] = $update_data['grade'];
         $update_data['school_id'] && $userinfo['school'] = $update_data['school_id'];
+        $update_data['work_auth_img'] && $userinfo['work_auth_img'] = $update_data['work_auth_img'];
+        $update_data['teacher_auth_img'] && $userinfo['teacher_auth_img'] = $update_data['teacher_auth_img'];
+        $update_data['title_auth_img'] && $userinfo['title_auth_img'] = $update_data['title_auth_img'];
 //        $user_res = $this->model_user->update_user($userdata, array('id' => $user_id));
 
         $user_info_res = $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));

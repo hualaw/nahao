@@ -172,28 +172,31 @@ define(function(require,exports){
     //         }
     //     });
     // }
+    //选择和取消 关注
     function checkAttent(obj){        
-        $(obj+" .attent .btn").live("click",function (){
-            var selected_subjects = $("#selected_subjects").val();
-            var subject_id = $(this).attr('subject_id');
-            if($(obj+" .attentd").length<3){
+        $(obj+" .attent .btn").click(function (){
+            if($(obj+" .attentd").length < 3){//限制只能选3个学科
                 if($(this).hasClass("attentd")){
                     $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
                 }else{
                     $(this).addClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'add');
                 }
-            }else{
+            } else {
                 if($(this).hasClass("attentd")){
                     $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
                 }
                 va.call(this);
             }
+            
             //验证 最多关注
-            $(obj+" .attent .btn").live("focus",function (){
+            $(obj+" .attent .btn").focus(function (){
                 va.call(this);
             })
             //验证 最多关注
-            $(obj+" .attent .btn").live("blur",function (){
+            $(obj+" .attent .btn").blur(function (){
                 va.call(this);
             })
 
@@ -265,12 +268,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert('提交成功');
+                alert(data.info);
+                if(data.status == 'ok') {
+                    window.location = 'http://www.nahaodev.com';
+                }
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".beauty_select,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -286,7 +292,9 @@ define(function(require,exports){
                 ele: ".lname",
                 datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度2-15个字符"
+                errormsg:"长度2-15个字符",
+                ajaxurl:"/login/check_unique_nickname",
+                ajaxUrlName:'nickname'
 
             },
             {    
@@ -328,6 +336,23 @@ define(function(require,exports){
             }  
             
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            url : '/register/submit_personal_info',
+            ajaxurl:{
+                success:function(json,obj){
+                    console.log(json);
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     };
     //手机找回密码验证
     exports.phoneFindPW = function (){
@@ -511,5 +536,36 @@ define(function(require,exports){
                 errormsg:"两次密码不一致！"
             }          
         ]);
+    }
+    
+       /**
+     * 记录学生已选感兴趣学科的学科ID
+     * @param obj  container_obj 盛放subject_id的对象
+     * @param obj subject_obj 当前所选学科
+     * @param str operation  add 增加 remove删除
+     * @returns void
+     */
+    function _record_interested_subjects(container_obj, subject_obj, operation) {
+        var selected_subjects = container_obj.val();
+        var subject_id = subject_obj.attr('subject_id');
+        if(operation == 'add') {
+            if(!selected_subjects) {
+                selected_subjects += subject_id;
+            } else {
+                selected_subjects = selected_subjects + '-' + subject_id;
+            }
+            container_obj.val(selected_subjects);           
+        } else if(operation == 'remove') {
+            var index = selected_subjects.indexOf(subject_id);
+            var opIndex = selected_subjects.indexOf('-');
+            if(index == 0 && opIndex > 0) {
+                selected_subjects = selected_subjects.replace(subject_id + '-', '');//已经选择一个以上学科,并要去掉第一个被选择的学科的情况
+            }else if(index == 0 && opIndex == -1){
+                selected_subjects = selected_subjects.replace(subject_id, '');//只选一个学科,去掉该学科的情况
+            } else {
+                selected_subjects = selected_subjects.replace('-' + subject_id, '');
+            }
+            container_obj.val(selected_subjects);
+        }
     }
 })
