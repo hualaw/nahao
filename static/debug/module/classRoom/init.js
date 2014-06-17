@@ -32,16 +32,20 @@ define(function(require,exports){
     $(".scorePageBtn").click(function (){
         _popUp.popUp('.scorePageHtml');
     });
+    //老师获取还没出过的题
+    
     //答案统计
     $(".ansCountBtn").click(function (){
-        _popUp.popUp('.ansCountHtml');
+//        _popUp.popUp('.ansCountHtml');
+        _classRoom.load_questions_count();
     });
     //选择练习题
     $(".exerciseBtn").click(function (){
-        _popUp.popUp('.exerciseHtml');
-
+//    	_popUp.popUp('.exerciseHtml');
+		//请求题目
+    	_classRoom.load_questions();
         //选择练习题  左右点击切换 题目选中
-        _classRoom.itemClick();
+//        _classRoom.itemClick();
     });
     //意见反馈
     $(".feedbackBtn").click(function (){
@@ -64,13 +68,13 @@ define(function(require,exports){
         // 教室-评价 验证
         _valid.evaluForm();
     });*/
+    //学生做题
     student_get_exercise_page = function (class_id){
-        _popUp.popUp('.exerciseHtml');
-        //选择练习题  左右点击切换 题目选中
-        _classRoom.itemClick();
-
-           
-
+        _classRoom.show_question();
+    }
+    //老师出题
+    teacher_get_exercise_page = function (class_id) {
+        _classRoom.load_questions();
     }
 //    student_get_exercise_page(8);
 })

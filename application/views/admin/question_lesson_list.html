@@ -54,16 +54,16 @@ float:left;
   	<!--1. 题目列表-->
 	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_list">
 		<blockquote class="quoteback">
-		  <p>课节（id{$data['lesson_info']['id']}）的所有题目，共：<span class="badge">9</span>道题目</p>
+		  <p>课节（id{$data['lesson_id']}）的所有题目，共：<span class="badge">{$data['total']}</span>道题目</p>
 		</blockquote>
 		<div class="col-md-12 body">
 		{if $data['question_list']}
 			{foreach $data['question_list'] as $key=>$val}
 			<div class="question-item-box">
 				<div class="control-box fn-clear">
-		        	<a class="btn btn-info" href="/question/lesson_edit/{$data['lesson_info']['id']}/{$val['id']}"><span class="text-icon"><i class="icon-pencil icon-white"></i> 详细</span></a>
+		        	<a class="btn btn-info" href="/question/lesson_edit/{$data['lesson_id']}/{$val['id']}"><span class="text-icon"><i class="icon-pencil icon-white"></i> 详细</span></a>
 		            &nbsp;
-		            <a class="btn btn-danger delete_question" param="{$data['lesson_info']['id']}/{$val['id']}" href="javascript:void(0)"><span class="del-icon"><i class="icon-trash icon-white"></i> 删除</span></a>
+		            <a class="btn btn-danger delete_question" param="{$data['lesson_id']}/{$val['id']}" href="javascript:void(0)"><span class="del-icon"><i class="icon-trash icon-white"></i> 删除</span></a>
 		        </div>
 				<div class="question ">
 					<div class="answer undis">
@@ -91,7 +91,7 @@ float:left;
 	<!--2. 添加题目-->
 	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_add">
 		<blockquote class="quoteback">
-		  <p>为课节（id{$data['lesson_info']['id']}）添加新题。当前已有<code>9</code>道题目</p>
+		  <p>为课节（id{$data['lesson_id']}）添加新题。当前已有<code>9</code>道题目</p>
 		</blockquote>
 		<div class="col-md-12">
 			<form class="form-horizontal" method="POST" id="question_form" role="form" action="/question/lesson_add">
@@ -166,7 +166,7 @@ float:left;
 			    </div>
 			    <div class="form-group">
 			        <label class="col-md-4 control-label"></label>
-			        <input type="hidden" name="lesson_id" value="{$data['lesson_info']['id']}">
+			        <input type="hidden" name="lesson_id" value="{$data['lesson_id']}">
 			        <button type="submit" class="btn btn-primary col-md-2" id="question_submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
 			    	<span class="statusMsg"></span>
 			    </div>
