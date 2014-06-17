@@ -131,6 +131,15 @@ class Test extends CI_Controller {
     {
         $this->smarty->display('www/test.html');
     }
+
+    public function check_len_test()
+    {
+        $test_str = '123刘23华abc';
+        $test_str = "123abc__ as";
+        $test_str = "　　";
+        $ret = check_name_length($test_str, 4,16,'utf-8', true);
+        var_dump($ret);
+    }
 }
 
 /* End of file welcome.php */
