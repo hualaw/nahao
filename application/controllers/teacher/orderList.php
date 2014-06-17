@@ -29,6 +29,7 @@ class Orderlist extends NH_User_Controller {
         $config = config_item('page_teacher');
         $config['suffix'] = '/?'.$this->input->server('QUERY_STRING');
         $config['base_url'] = '/orderList/index';
+        $config['use_page_numbers'] = TRUE;
         $param = array(
      			'teacher_id' 	=> $this->teacher_id,
      			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3",
@@ -41,7 +42,7 @@ class Orderlist extends NH_User_Controller {
      		);
      	$int_count = $this->teacher_b->round_list($param);
         $config['total_rows'] = $int_count;
-        $config['per_page'] = 1;
+        $config['per_page'] = 10;
         $this->pagination->initialize($config);
         $pageBar = $this->pagination->create_links();
         //内容

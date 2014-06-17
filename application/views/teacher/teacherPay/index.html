@@ -32,14 +32,16 @@
 		            <td>{$val['class_times']}</td>
 		            <td>{$val['gross_income']}</td>
 		            <td>{$val['net_income']}</td>
-		            <td>{if $val['status']==0 || $val['status']==1}
+		            <td>{if $val['status']==1}
 		            		未结算
 		            	{elseif $val['status']==2}
 		            		已结算
+		            	{elseif $val['status']==3}
+		            		已付款
 		            	{/if}
 		            </td>
 		            <td class="pay_date"><b>{$val['create_time']|date_format:'%Y-%m-%d'}</b>{$val['create_time']|date_format:'%H: %M: %S'}</td>
-		            <td class="icon_detail"><a href="{$teacher_url}/pay/detail/{$val['id']}" target="_blank">查看详情</a></td>
+		            <td class="icon_detail"><a href="{$teacher_url}pay/detail/{$val['id']}" target="_blank">查看详情</a></td>
 		        </tr>
         	{/foreach}
     	{else}
