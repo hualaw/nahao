@@ -32,7 +32,7 @@
             $config_title=config_item('teacher_title');
             $lecture=$this->lecture->lecture_list()->result_array();
             $time_day=$this->lecture->day_lecture();
-            //var_dump($arr);die;
+           // var_dump($lecture);die;
             $this->smarty->assign('config_status',$config_status);
             $this->smarty->assign('config_tea_type',$config_tea_type);
             $this->smarty->assign('config_stage',$config_stage);
@@ -149,6 +149,7 @@
         public function pass_lecture()
         {
               $post=$this->input->post(NULL,TRUE);
+               //echo $post['basic_reward'];
               echo $this->lecture->lecture_pass($post);
         }
 

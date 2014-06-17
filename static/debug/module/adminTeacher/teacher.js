@@ -3,7 +3,7 @@
  * @author shangshikai@nahao.com
  */
 define(function(require,exports){
-    exports.teacher = function(){
+        exports.teacher = function(){
         $('#teacher_datetimepicker1').datetimepicker({
             format: "yyyy-MM-dd hh:ii",
             language: 'cn',
