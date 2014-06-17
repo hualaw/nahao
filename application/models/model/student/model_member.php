@@ -8,17 +8,6 @@ class Model_Member extends NH_Model{
     }
     
     /**
-     * 获取用户头像
-     * @param  $int_user_id
-     */
-    public function get_user_avater($int_user_id)
-    {
-        $sql = "SELECT avatar FROM user WHERE id = ".$int_user_id;
-        $array_result = $this->db->query($sql)->row_array();
-        return empty($array_result['avatar']) ? DEFAULT_AVATER :$array_result['avatar'];
-    }
-    
-    /**
      * 我购买的课程
      * @param  $int_user_id
      * @return $array_result

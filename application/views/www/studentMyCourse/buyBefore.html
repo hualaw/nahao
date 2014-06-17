@@ -145,7 +145,7 @@
                     <ul>
                     {foreach from=$array_evaluate item=item}
                         <li class="cf">
-                            <img src="{static_url($item.avater)}" alt="" class="fl">
+                            <img src="{$item.avatar}" alt="" class="fl">
                             <div class="fr revCon">
                                 <h2 class="fl">
                                     <strong>{$item.nickname}</strong>
@@ -230,7 +230,7 @@
                 {foreach from=$array_team item=item}
                     <li>
                         <div class="headBox posr">
-                            <img src="{static_url($item.avater)}" alt="" class="head">
+                            <img src="{$item.avatar}" alt="" class="head">
                             <div class="headR">
                                 <div class="teaDetail">
                                     <span class="redText cMan">{$item.teacher_role}</span>

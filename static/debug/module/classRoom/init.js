@@ -76,5 +76,8 @@ define(function(require,exports){
     teacher_get_exercise_page = function (class_id) {
         _classRoom.load_questions();
     }
-//    student_get_exercise_page(8);
+    //老师查看统计
+    teacher_get_exercise_stat = function (class_id) {
+        _classRoom.load_questions_count();
+    }
 })
