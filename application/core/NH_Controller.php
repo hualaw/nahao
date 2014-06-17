@@ -122,7 +122,15 @@ class NH_Controller extends CI_Controller
      * @author yanrui@tizi.com
      */
     public function enter_classroom($int_classroom_id,$int_user_type){
-        $str_classroom_url = '/classroom/main.html';
+        $str_classroom_url = '/classroom/main.html?';
+        $array_params = array(
+            'UserDBID' => $this->session->userdata('user_id'),
+            'ClassID'  => $int_classroom_id,
+            'UserType' => $int_user_type,
+            'UserName' => $this->session->userdata('nickname'),
+            'ClsSwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
+        );
+        $str_classroom_url .= http_build_query($array_params);
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 
         $str_classroom_url = '';

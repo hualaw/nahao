@@ -9,6 +9,8 @@ define(function (require,exports){
 	}
 	//获取未出过的练习题
 	exports.load_questions = function (){
+		$(".unclick").show();
+		$(".do_publish_questions").hide();
 			//弹框
 			$.tiziDialog({
 	            title:false,
@@ -44,16 +46,21 @@ define(function (require,exports){
 				itemControll.itemClick();
 			}else{
 				$(".clickBtn").hide();
+				$('.publish_questions_index').html("");
 				$('.publish_questions').html('<li>'+response.msg+'</li>');
+				$(".itemTabBox").height($(".aui_content .publish_questions li").outerHeight(true));
 			}
 		});
 	}
 	//选择练习题  左右点击切换 题目选中
 	exports.itemClick = function (){
+		$(".itemTabBox ul").css("left",0);
+
 		var iniW = $(".itemTabList").eq(0).outerWidth(true),
 			iniH = $(".itemTabList").eq(0).outerHeight(true),
 			ind = 0;
 		//初始高度	
+		document.title = iniH;
 		$(".itemTabBox").height(iniH);
 
 		//选题
@@ -64,11 +71,17 @@ define(function (require,exports){
 				$(".Titem a").eq(_this).removeClass("titemOn");
 				$(".itemNum").html($(".itemNum").html()-1);
 				$(".itemCurNum").html($(".itemCurNum").html()-1);
+				if($(".itemOn").length==0){
+					$(".do_publish_questions").hide();
+					$(".unclick").show();
+				}
             }else{
 				$(this).addClass("itemOn");
 				$(".Titem a").eq(_this).addClass("titemOn");
 				$(".itemNum").html(($(".itemNum").html()-"")+1);
 				$(".itemCurNum").html(($(".itemCurNum").html()-"")+1);
+				$(".do_publish_questions").show();
+				$(".unclick").hide();
             }
 		});
 		//发布
@@ -93,7 +106,7 @@ define(function (require,exports){
 		});
 		//左右切换
 		function roll(ind){
-			$(".itemTabBox").height($(".itemTabList").eq(ind).outerHeight(true));
+			$(".itemTabBox").height($(".aui_content .itemTabList").eq(ind).outerHeight(true));
 			$(".itemTabBox ul").stop().animate({left:-ind*iniW});
 		}
 		$(".clickL").click(function (){
@@ -105,8 +118,10 @@ define(function (require,exports){
 		});
 		$(".clickR").click(function (){
 			ind++;
-			if(ind>$(".itemTabList").length-1){
-				ind = $(".itemTabList").length-1;
+			document.title = ind;
+			console.log($(".aui_content .itemTabList").length-1)
+			if(ind>$(".aui_content .itemTabList").length-1){
+				ind = $(".aui_content .itemTabList").length-1;
 			}
 			roll(ind);
 		});
