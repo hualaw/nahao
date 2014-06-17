@@ -131,10 +131,6 @@ define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
 
-
-
-
-
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
 
@@ -145,8 +141,7 @@ define('STATIC_FILE_VERSION','0.0.0');
 define('__HOST__', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']:'');
 
 define('TIME_STAMP',time());
-define('PER_PAGE_NO',2);
-
+define('PER_PAGE_NO',10);
 
 //tables
 define('TABLE_ADMIN','admin');
@@ -268,6 +263,8 @@ define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
 define('NH_COURSE_IMG_GENERAL_WIDTH',227);
 define('NH_COURSE_IMG_SMALL_HEIGHT',49);
 define('NH_COURSE_IMG_SMALL_WIDTH',66);
+define('NH_TEACHER_IMG_HEIGHT', 225);
+define('NH_TEACHER_IMG_WIDTH', 300);
 
 //单轮，单节最大人数
 define('NH_CLASS_PEOPLE_CAPS',100);

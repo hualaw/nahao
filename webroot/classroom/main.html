@@ -1,0 +1,229 @@
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!--  BEGIN Browser History required section -->
+<link rel="stylesheet" type="text/css" href="history/history.css" />
+<!--  END Browser History required section -->
+
+<title></title>
+<script src="AC_OETags.js" language="javascript"></script>
+
+<!--  BEGIN Browser History required section -->
+<script src="history/history.js" language="javascript"></script>
+<!--  END Browser History required section -->
+
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+<script language="JavaScript" type="text/javascript">
+<!--
+// -----------------------------------------------------------------------------
+// Globals
+// Major version of Flash required
+var requiredMajorVersion = 11;
+// Minor version of Flash required
+var requiredMinorVersion = 1;
+// Minor version of Flash required
+var requiredRevision = 0;
+// -----------------------------------------------------------------------------
+// -->
+</script>
+</head>
+
+<body scroll="no" onUnload="cleanUp()">
+<input type="file" id="fileInput" style="display:none" onchange="OnFileChange()" />
+<script language="javascript"> 
+function cleanUp(){
+		MeetRoomClient.ClearUpAllCache();
+	}
+var ConfirmExit = {
+   prompt: true,
+   promptText: "Continue to lose any unsaved work. If not cancel and save your application from the top menu\n",     
+   setPrompt: function (value) {
+      if (value) {
+         ConfirmExit.prompt = true;
+      } else if (!value) {
+         ConfirmExit.prompt = false;
+      }
+   },
+   setPromptText: function (value) {
+      ConfirmExit.promptText = value;
+   }
+};
+var _t;
+window.onbeforeunload = function(ev) {
+	ev  = ev || window.event; 
+   if (ConfirmExit.prompt) {
+   	  setTimeout(function(){_t = setTimeout(onunloadcancel, 1000)}, 1000);
+   	  MeetRoomClient.UserPrepareLeave();
+   	  if (ev) { 
+		ev.returnValue = ConfirmExit.promptText; 
+	  } 
+           return ConfirmExit.promptText; 
+   }else{
+	thisMovie("mockflow").stopConnection();
+   }
+};
+
+window.onunloadcancel = function(){
+    clearTimeout(_t);
+    MeetRoomClient.UserCancelLeave();
+}
+	function Browser()
+	{
+		document.getElementById("fileInput").click();
+	}
+	
+	function OnFileChange()
+	{
+		 MeetRoomClient.OnFileChange(document.getElementById("fileInput").value);
+	}
+function PopUpPageWin(type,classid)
+{
+	if(type == "student_get_exercise_page"){
+        window.parent.student_get_exercise_page(classid);
+    }else if(type == "teacher_get_exercise_page"){
+        window.parent.teacher_get_exercise_page(classid);
+    }else if(type == "teacher_get_exercise_stat"){
+        window.parent.teacher_get_exercise_stat(classid);
+    }
+//    console.log(type+" "+classid);
+}
+</script> 
+<script language="JavaScript" type="text/javascript">
+<!--
+// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+var hasProductInstall = DetectFlashVer(11, 1, 0);
+
+// Version check based upon the values defined in globals
+var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+
+function closeIFrame(divID){
+	var divRef = document.getElementById(divID);
+	try{
+		divRef.parentNode.removeChild(divRef);
+	}catch(e){
+	
+	};
+}
+
+function request(paras){
+			var url = location.href;
+			var paraString = url.substring(url.indexOf("?")+1,url.length).split("&");
+			var paraObj = {}
+			for (i=0; j=paraString[i]; i++){
+				paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length);
+			}
+			var returnValue = paraObj[paras.toLowerCase()];
+			if(typeof(returnValue)=="undefined"){
+			return "";
+			}else{
+			return returnValue;
+			}
+		}
+	var mid = request("ClassID")
+	var nameValue =request("UserName")
+	var addr = request("Addr")
+	var userType= request("UserType")
+	var UserDBID = request("UserDBID")
+	var McuAddr = request("McuAddr");
+	var teach_Type = request("teach_Type");
+	var teacher_Type = request("teacher_Type");
+	var countryID = request("countryID");
+	var timelong = request("timelong");
+    var clsSwfVer = request("SwfVer");
+function downLoadOCX(){
+	window.open("http://www.flash.com/upload/package/setup.exe","_blank");
+}
+if ( hasProductInstall && !hasRequestedVersion ) {
+	// DO NOT MODIFY THE FOLLOWING FOUR LINES
+	// Location visited after installation is complete if installation is required
+	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+	var MMredirectURL = window.location;
+    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+    var MMdoctitle = document.title;
+
+	AC_FL_RunContent(
+		"allowFullScreen", "true", 
+		"src", "playerProductInstall?v="+clsSwfVer,
+		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+		"width", "100%",
+		"height", "100%",
+		"align", "middle",
+		"wmode","transparent",
+		"id", "MeetRoomClient",
+		"quality", "high",
+		"bgcolor", "#ffffff",
+		"name", "MeetRoomClient",
+		"allowScriptAccess","always",
+		"type", "application/x-shockwave-flash",
+		"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+} else if (hasRequestedVersion) {
+	// if we've detected an acceptable version
+	// embed the Flash Content SWF when all tests are passed
+	
+	var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName=thenewclass&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
+	
+	AC_FL_RunContent(
+			"src", "MeetRoomClient?v="+clsSwfVer,
+			"FlashVars", str,
+			"allowFullScreen", "true", 
+			"width", "100%",
+			"height", "100%",
+			"align", "middle",
+			"wmode","transparent",
+			"id", "MeetRoomClient",
+			"quality", "high",
+			"bgcolor", "#ffffff",
+			"name", "MeetRoomClient",
+			"allowScriptAccess","sameDomain",
+			"type", "application/x-shockwave-flash",
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+  } else {  // flash is too old or we can't detect the plugin
+    var alternateContent = 'Alternate HTML content should be placed here. '
+  	+ 'This content requires the Adobe Flash Player. '
+   + '<a href=http://www.adobe.com/go/getflashplayer>Get Flash</a>';
+    document.write(alternateContent);  // insert non-flash content
+  }
+// -->
+</script>
+<noscript>
+  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			id="MeetRoomClient" width="100%" height="100%"
+			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+			<param name="movie" value="MeetRoomClient.swf?20130913" />
+			<param name="quality" value="high" />
+			<param name="bgcolor" value="#ffffff" />
+			<param name="allowFullScreen" value="true" />
+			<param name="allowScriptAccess" value="always" />
+			<param name="wmode" value="transparent">
+			<param name="wmode" value="Opaque">
+			<embed src="MeetRoomClient.swf?20130913" quality="high" bgcolor="#ffffff"
+				width="100%" height="100%" name="MeetRoomClient" align="middle"
+				wmode="window"
+				play="true"
+				loop="false"
+				quality="high"
+				allowScriptAccess="sameDomain"
+				type="application/x-shockwave-flash"
+				pluginspage="http://www.adobe.com/go/getflashplayer">
+			</embed>
+	</object>
+</noscript>
+</body>
+</html>

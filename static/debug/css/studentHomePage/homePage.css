@@ -56,7 +56,7 @@
 .studentHomePage .coopSchool{background: url(../../images/studentHomePage/coop3.gif) center top no-repeat;}
 .studentHomePage .coopft{position: absolute;bottom:0;height: 56px;width: 980px;}
 .studentHomePage .coopere{width: 921px;background: #f14211;height: 44px;line-height: 44px;color:#fff;font-size: 18px;position: absolute;left: 30px;}
-.studentHomePage .coopere h3{width: 307px;text-align: center;}
+.studentHomePage .coopere h3{width: 307px;text-align: center;font-weight: normal;}
 .studentHomePage .coopft span{width: 56px;height: 56px;}
 .studentHomePage .coopft span.fl{background: url(../../images/studentHomePage/coopl.gif) left bottom no-repeat;}
 .studentHomePage .coopft span.fr{background: url(../../images/studentHomePage/coopr.gif) left bottom no-repeat;}

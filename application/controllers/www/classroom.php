@@ -1,17 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Classroom extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_classroom');
         $this->load->model('model/student/model_classroom');
+        $this->load->model('model/student/model_course');
         $this->load->model('business/teacher/business_teacher','teacher_b');
         if(!$this->is_login)
         {
             redirect('/login');
         }
-      
     }
 
     /**
@@ -19,24 +20,22 @@ class Classroom extends NH_User_Controller {
      */
 	public function index()
 	{  
-	    header('content-type: text/html; charset=utf-8');
 	    $classroom_id = $this->uri->segment(3,0);
-	    $classroom_id = 3;
 	    //老师获得该课的所有题目
 	    $param = array(
-	            'classroom_id' => $classroom_id,
-	            'status' => -1,//没出过
+	    	'classroom_id' => $classroom_id,
+	    	'status' => -1,//没出过
 	    );
 	    $question_list = $this->teacher_b->class_question($param);
 	    $data = array(
-	            'class_questions' => $question_list,
-	            'classroom_id' => $classroom_id,
+	    	'class_questions' => $question_list,
+	    	'classroom_id' => $classroom_id,
 	    );
+
 	    #根据classroom_id获取课id
 	    $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
 	    $this->smarty->assign('class_id',$array_class_id['id']);
 	    $this->smarty->assign('data',$data);
-	    #获取课id
         $this->smarty->display('www/classRoom/index.html');
 	}
 	
@@ -137,20 +136,7 @@ class Classroom extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'获取做题结果失败'));
 	    }
 	}
-	
-	/**
-	 * 进入教室
-	 */
-	public function enter()
-	{
-	    $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-	    $str_classroom_urlself::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
-	    $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-        $this->smarty->assign('iframe',$str_iframe);
-        $this->smarty->assign('view', 'classroom');
-        $this->smarty->display('admin/layout.html');
-	}
-	
+
     public function save_stu_action()
     {
         $class_id = intval(trim($this->input->get("class_id")));
@@ -251,27 +237,83 @@ class Classroom extends NH_User_Controller {
     }
 	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
 	/**
-	 * 老师获得该课的所有题目
+	 * 老师获得该课的当前未出过所有题目
 	 */
 	public function teacher_get_exercise_page(){
+		header("Content-type: text/html; charset=utf-8");
+		$classroom_id= $this->uri->segment(3,0);
 		
+	    $param = array(
+	    	'classroom_id' => $classroom_id,
+	    	'status' => -1,//没出过
+	    );
+	    $question_list = $this->teacher_b->class_question($param);
+	    if($question_list)
+	    {
+	    	self::json_output(array('status'=>'ok','msg'=>'获取未出过题目成功','data'=>$question_list));
+	    }else{
+	        self::json_output(array('status'=>'error','msg'=>'<h3>该课没有题目或题目已出完</h3>'));
+	    }
 	}
 	
 	/**
 	 * 老师出题
 	 */
 	public function teacher_publish_questions(){
-		$int_course_id = $this->input->post("course_id");
-	    $array_data = array(
-	            'course_id'=>$int_course_id,
-	    );
+		header("Content-type: text/html; charset=utf-8");
+		$classroom_id = $this->uri->segment(3,0);
+		//查询旧批次最大值
+		$sequence = $this->teacher_b->get_sequence(array('classroom_id'=>$classroom_id));
+		$question_id = $this->input->post('question_id');
+//		$question_id =4;
+		//生成新批次
+		$sequence = isset($sequence) && $sequence>0 ? ($sequence+1) : 1;
+		$question_id = isset($question_id) ? rtrim($question_id,',') : '';
+		if(!$question_id){exit('没有选中要发布的题目');}
+		$param = array(
+			'classroom_id' => $classroom_id,
+			'question_id' => $question_id,
+			'sequence' => $sequence,
+		);
+		$res = $this->teacher_b->teacher_publish_question($param);
+		if($res)
+	    {
+	    	self::json_output(array('status'=>'ok','msg'=>'出题成功','sequence'=>$sequence));
+	    }else{
+	        self::json_output(array('status'=>'error','msg'=>'出题失败'));
+	    }
 	}
-	
 	/**
 	 * 老师查看做完题的统计
 	 */
 	public function teacher_checkout_question_answer(){
+		header("Content-type: text/html; charset=utf-8");
+		$classroom_id = $this->uri->segment(3,0);
+		//获取批次
+		$sequence_num 		= $this->teacher_b->get_sequence(array('classroom_id' => $classroom_id));
+		//总答题人数
+		$answer_user_num 	= $this->teacher_b->answer_user_num(array('classroom_id'=>$classroom_id,'counter' =>2));
 		
+		if($sequence_num>0){
+			$list = array();
+			for ($i=1;$i<=$sequence_num;$i++){
+				$question_list = array();
+				
+				$param = array(
+			    	'classroom_id' => $classroom_id,
+			    	'status' => 1,//出过
+			    	'sequence' => $i,
+			    );
+			    $question_list = $this->teacher_b->class_question($param);
+			    
+			    $list[$i] = $question_list;
+			}
+			//默认显示第一批，隐藏其他
+			$html = $this->teacher_b->build_question_count_html($list,1,$answer_user_num);
+			self::json_output(array('status'=>'ok','msg'=>'获取答题统计成功','data'=>$html));
+		}else{
+			self::json_output(array('status'=>'error','msg'=>'没有出过一批题的记录,或者学生没有过做题记录'));
+		}
 	}
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
 
@@ -280,18 +322,37 @@ class Classroom extends NH_User_Controller {
      */
     public function enter()
     {
-        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+
 //        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 //        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
 //        echo $str_iframe;exit;
+
+
+        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+//        $str_classroom_url = '/classroom/main.html';
+//        o($str_classroom_url,true);
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+        #用户是否有登陆
+        #根据classroom_id获取课id
+        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+        if(empty($array_class_id)){
+            show_error('参数错误');
+        }
+        #登陆的用户是否有买过这堂课
+//         $int_user_id = $this->session->userdata('user_id'); #TODO 
+//         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class_id['id']);
+//         if(empty($bool_flag)){
+//             show_error('您没有购买这堂课');
+//         }
+        $this->smarty->assign('classroom_id',$int_classroom_id);
+        $this->smarty->assign('class_id',$array_class_id['id']);
         $this->smarty->assign('iframe',$str_iframe);
-//        $this->smarty->assign('js',$str_js);
-//        $this->smarty->assign('view', 'classroom');
         $this->smarty->display('www/classRoom/index.html');
-//        $this->smarty->display('www/classRoom/index.html');
     }
+
+
 }
 
 /* End of file welcome.php */

@@ -126,6 +126,11 @@ class Test extends CI_Controller {
         curl_close($ch);
         echo $output;
     }
+
+    public function jsonp_test()
+    {
+        $this->smarty->display('www/test.html');
+    }
 }
 
 /* End of file welcome.php */

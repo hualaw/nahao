@@ -627,3 +627,41 @@ function enter_classroom($int_meeting_id,$int_user_type){
     }
     return $str_enter_classroom_url;
 }
+
+/**
+ * @param $str, 待检查的字符串
+ * @param int $min_len，允许的最小长度，默认4个字符。注意一个汉字算2个字符
+ * @param $max_len，允许的最大长度，默认16个字符
+ * @param string $str_encoding， 带检查的字符串编码，默认utf-8
+ */
+function check_name_length($str, $min_len=4, $max_len=16, $str_encoding='utf-8', $debug=false)
+{
+    $str_encoding = strtolower($str_encoding);
+    if($str_encoding != 'utf-8')
+    {
+        $str = mb_convert_encoding($str, 'utf-8', $str_encoding);
+    }
+
+    $str = trim($str);
+    $total_len = 0;
+    //匹配中文
+    if(preg_match_all("/[\x{4e00}-\x{9fa5}]/u",$str, $matches))
+    {
+        if($debug) print_r($matches);
+        $total_len = $total_len + count($matches[0])*2;
+    }
+
+    //匹配数字字母
+    if(preg_match_all("/[\w\s]/", $str, $matches))
+    {
+        if($debug) print_r($matches);
+        $total_len = $total_len + count($matches[0]);
+    }
+
+    if($debug) echo "total_len: $total_len<br>";
+    if($total_len > $max_len || $total_len < $min_len )
+    {
+        return false;
+    }
+    return true;
+}

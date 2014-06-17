@@ -31,6 +31,11 @@
 .teacherSelfInfo .personInfo .md_upload .ImageSpan{display:none;float: left;margin-right:10px;width:300px;position: relative;margin-top:3px;}
 .teacherSelfInfo .personInfo .md_upload .ImageSpan img{width:300px; height:223px;border:1px solid #dfdfdf;}
 .teacherSelfInfo .personInfo .md_upload .ImageSpan .uploadTip{display:block;width:300px; height:30px; text-align:center; line-height:30px;font-size:14px;color:#a3adb7;font-weight: normal;}
+.teacherSelfInfo .personInfo .md_upload .ImageSpan1{float: left;margin-right:10px;width:300px;position: relative;margin-top:3px;}
+.teacherSelfInfo .personInfo .md_upload .ImageSpan1 img{width:300px; height:223px;border:1px solid #dfdfdf;}
+.teacherSelfInfo .personInfo .md_upload .ImageSpan1 .uploadTip{display:block;width:300px; height:30px; text-align:center; line-height:30px;font-size:14px;color:#a3adb7;font-weight: normal;}
+.teacherSelfInfo .personInfo .md_upload  .uploadTip{position: absolute;bottom:1px;left:120px;font-size:14px;color:#a3adb7;font-weight: normal;}
+
 /*个人资料页面样式结束*/
 /*修改密码页面样式开始*/
 .teacherSelfInfo .personInfo ul.passOul{padding:20px 0px 0 300px;}

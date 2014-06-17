@@ -292,4 +292,17 @@ class Model_Course extends NH_Model{
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
+    
+    /**
+     * 检查学生是否购买了这堂课
+     * @param  $int_user_id
+     * @param  $int_class_id
+     * @return boolean
+     */
+    public function check_user_buy_class($int_user_id,$int_class_id)
+    {
+        $sql = "SELECT id FROM WHERE student_id = ".$int_user_id." AND class_id = ".$int_class_id;
+        $int_result = $this->db->query($sql)->num_rows();
+        return  $int_result > 0 ? true : false;
+    }
 }
