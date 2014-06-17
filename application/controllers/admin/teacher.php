@@ -309,9 +309,7 @@ class Teacher extends NH_Admin_Controller {
     public function teachers(){
         $arr_return = array();
         if($this->is_ajax()){
-//            $this->load->model('business/admin/business_teacher','teacher');
             $arr_return = $this->teacher->get_teacher_list(array(),0,20);
-//            o($arr_return,true);
         }
         self::json_output($arr_return);
     }

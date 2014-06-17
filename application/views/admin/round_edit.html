@@ -1,4 +1,4 @@
-<div class="alert alert-info">添加班次...</div>
+<div class="alert alert-info">{if action eq 'create'}添加{else}修改{/if}班次</div>
 <form class="form-horizontal" role="form" action="javascript:;">
     {if $action=='update'}
         <input type="hidden" class="col-md-1 form-control" id="id" value="{$round.id}">
@@ -100,7 +100,7 @@
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
                 <input type="text" class="form-control" id="reward" value="{if isset($round.reward)}{$round.reward}{/if}" >
-                <span class="input-group-addon">.00元</span>
+                <span class="input-group-addon">元</span>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
                 <input type="text" class="form-control" id="price" value="{if isset($round.price)}{$round.price}{/if}">
-                <span class="input-group-addon">.00元</span>
+                <span class="input-group-addon">元</span>
             </div>
         </div>
     </div>

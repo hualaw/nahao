@@ -213,12 +213,12 @@ class Round extends NH_Admin_Controller
                     if($arr_teachers){
                         //course lessons validate if has lessons, pdf and question exists
                         $this->load->model('business/admin/business_lesson', 'lesson');
-                        $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+                        $arr_lessons = $arr_classes = $this->lesson->get_lessons_by_course_id($int_course_id);
                         if($arr_lessons){
                             $bool_lesson_has_pdf_flag = true;
                             $int_lesson_id = 0;
                             foreach($arr_lessons as $k => $v){
-                                if($v['courseware_id'] < 1){
+                                if($v['parent_id'] > 0 AND $v['courseware_id'] < 1){
                                     $bool_lesson_has_pdf_flag = false;
                                     $int_lesson_id = $v['id'];
                                     break;

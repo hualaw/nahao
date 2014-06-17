@@ -578,6 +578,8 @@ function get_meeting_token($int_meeting_id = 0,$int_user_type = NH_MEETING_TYPE_
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_url = NH_MEETING_URL.'api/tokens/';
+//        o($str_url);
+//        o($arr_param,true   );
         $str_response = nh_curl($str_url,$arr_param);
 //        o($str_response,true);
         if($str_response){
@@ -609,6 +611,31 @@ function general_classroom_id($arr_param){
         }
     }
     return $int_return;
+}
+
+/**
+ * set_courseware_to_classroom
+ * @param $int_classroom_id
+ * @param $int_courseware_id
+ * @return bool
+ * @author yanrui@tizi.com
+ */
+function set_courseware_to_classroom($int_classroom_id,$int_courseware_id){
+    $bool_flag = false;
+    if($int_classroom_id > 0 AND $int_courseware_id > 0){
+        $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'assoc_file';
+        $arr_meeting_param = get_meeting_param();
+        $arr_param['courseware_id'] = $int_courseware_id;
+        $arr_param = array_merge($arr_param,$arr_meeting_param);
+        $str_response = nh_curl($str_url,$arr_param);
+        //TODO log
+        if($str_response){
+            $arr_response = json_decode($str_response,true);
+//            o($str_response);
+            $bool_return = ($arr_response AND isset($arr_response['id'])) ? true : false;
+        }
+    }
+    return $bool_flag;
 }
 
 /**

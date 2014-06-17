@@ -186,6 +186,13 @@ define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
 define('TABLE_CLASS_NOTE', 'class_note');
 
+//各表中字段数据字典
+define('TABLE_USER_DIC_STATUS_OFF',0);
+define('TABLE_USER_DIC_STATUS_ON',1);
+
+define('TABLE_USER_DIC_TEACH_PRIV_OFF',0);
+define('TABLE_USER_DIC_TEACH_PRIV_ON',1);
+
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
 define('STATIC_ADMIN_JS_BOOTSTRAP_MIN','/admin/js/bootstrap.min.js');
@@ -223,7 +230,7 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应
 
 //课程中的状态
 define('NAHAO_STATUS_COURSE_INIT',0);//未审核
-define('NAHAO_STATUS_COURSE_CHECKING',1);//审核未通过
+define('NAHAO_STATUS_COURSE_DENY',1);//审核未通过
 define('NAHAO_STATUS_COURSE_RUNNING',2);//审核通过，运营中
 define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
 define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭

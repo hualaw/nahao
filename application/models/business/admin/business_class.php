@@ -31,52 +31,73 @@ class Business_Class extends NH_Model
                 //先清除该班次以前的课节，再插入新的课节
                 self::delete_classes_by_round_id($int_round_id);
 
-                $int_sequence_flag = 0;
+                $int_chapter_flag = $int_section_flag = 0;
                 foreach($arr_class_tree as $k => $v){
                     $arr_chapter = array(
                         'course_id' => $int_course_id,
                         'round_id' => $int_round_id,
                         'lesson_id' => $v['lesson_id'],
                         'title' => $v['title'],
-                        'courseware_id' => $v['courseware_id'],
-                        'classroom_id' => general_classroom_id(array('name' => $v['title'],'start_at' => $v['begin_time'],'end_at' => $v['end_time'])),
-                        'begin_time' => strtotime($v['begin_time']),
-                        'end_time' => strtotime($v['end_time']),
-                        'sequence' => $int_sequence_flag++
+//                        'courseware_id' => $v['courseware_id'],
+//                        'classroom_id' => general_classroom_id(array('name' => $v['title'],'start_at' => $v['begin_time'],'end_at' => $v['end_time'])),
+//                        'begin_time' => strtotime($v['begin_time']),
+//                        'end_time' => strtotime($v['end_time']),
+                        'sequence' => $int_chapter_flag++
                     );
 //                    o($arr_chapter);
                     //插入章
                     $int_parent_id = $this->model_class->create_class($arr_chapter);
                     if($int_parent_id > 0){
                         foreach($v['classes'] as $kk => $vv){
+                            $int_classroom_id = general_classroom_id(array('name' => $vv['title'],'start_at' => $vv['begin_time'],'end_at' => $vv['end_time']));
+                            $int_courseware_id = $vv['courseware_id'];
                             $arr_section[] = array(
                                 'course_id' => $int_course_id,
                                 'round_id' => $int_round_id,
                                 'lesson_id' => $vv['lesson_id'],
                                 'title' => $vv['title'],
-                                'courseware_id' => $vv['courseware_id'],
-                                'classroom_id' => general_classroom_id(array('name' => $vv['title'],'start_at' => $vv['begin_time'],'end_at' => $vv['end_time'])),
+                                'courseware_id' => $int_courseware_id,
+                                'classroom_id' => $int_classroom_id,
                                 'begin_time' => strtotime($vv['begin_time']),
                                 'end_time' => strtotime($vv['end_time']),
                                 'parent_id' => $int_parent_id,
-                                'sequence' => $int_sequence_flag++
+                                'sequence' => $int_section_flag++
                             );
-                        }
-//                        o($arr_section);
-                        //插入节
-                        $int_last_id = $this->model_class->create_class_batch($arr_section);
-//                        o($int_last_id,true);
-                        if($int_last_id > 0){
-//                                echo $k.'-'.count($arr_class_tree);
-                            if($k == count($arr_class_tree)-1){
-                                //last one return true
-                                $bool_return = true;
+                            $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
+                            if($bool_add_courseware == false){
+                                //add again
+                                $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
+                                if($bool_add_courseware==false){
+                                    break;
+                                }
                             }
+                        }
+                        if($bool_add_courseware==true){
+                            o($arr_section);
+                            //插入节
+                            $int_last_id = $this->model_class->create_class_batch($arr_section);
+//                        o($int_last_id,true);
+                            if($int_last_id > 0){
+//                                echo $k.'-'.count($arr_class_tree);
+                                if($k == count($arr_class_tree)-1){
+                                    //last one return true
+                                    $bool_return = true;
+                                }
+                            }else{
+                                //stop adding section
+                                break;
+                            }
+                            unset($arr_section);
                         }else{
+                            //stop adding section
                             break;
                         }
-                        unset($arr_section);
                     }else{
+                        //stop adding chapter
+                        break;
+                    }
+                    if($bool_add_courseware==false){
+                        //stop adding chapter
                         break;
                     }
                 }
