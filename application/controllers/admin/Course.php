@@ -105,7 +105,7 @@ class Course extends NH_Admin_Controller {
             $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            o($_POST);
+//            o($_POST);
             if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
@@ -122,8 +122,8 @@ class Course extends NH_Admin_Controller {
                 $arr_param['grade_to'] = $int_grade_to;
 
 //                o($_POST('description'));
-                o($this->input->post('description'));
-                o($str_description);
+//                o($this->input->post('description'));
+//                o($str_description);
 
                 if($int_course_id > 0){
                     //update
@@ -268,5 +268,14 @@ class Course extends NH_Admin_Controller {
 public function upload(){
     echo '<html><body><script type="text/javascript">window.parent.CKEDITOR.tools.callFunction('.$this->input->get('CKEditorFuncNum').', "http://n1a2h3a4o5.qiniudn.com/course_20140611112154_iANZ8Sy.png?imageView/1/w/290/h/216","");</script></body></html>';
 }
+
+    public function status(){
+        $int_course_id = $this->input->post('coruse_id') ? intval($this->input->post('coruse_id')) : 0;
+        $int_status = $this->input->post('status') ? intval($this->input->post('status')) : 0;
+        if($int_course_id > 0 AND $int_status >= 0){
+
+        }
+        self::json_output();
+    }
 
 }

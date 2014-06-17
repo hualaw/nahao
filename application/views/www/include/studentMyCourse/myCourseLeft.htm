@@ -2,12 +2,12 @@
     <div class="memberInfo">
 	    <p>
 	        <a href="http://user.tizi.com/teacher/user/avatar">
-	            <img src="{static_url($str_avater)}">
+	            <img src="{$userdata.avatar}">
 	        </a>
 	    </p>
 	    <h2 class="cf">
-	    	<span class="myGrade">三年级</span>
-	    	<span>成春娟</span>
+	    	<span class="myGrade">{$grades[$user_detail.grade]}</span>
+	    	<span>{$user_detail.realname}</span>
 	    </h2>
     </div>
     <div class="menu">

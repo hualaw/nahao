@@ -16,6 +16,7 @@ class Index extends NH_User_Controller {
         header('content-type: text/html; charset=utf-8');
         //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
+        //var_dump($array_data);die;
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
@@ -35,9 +36,11 @@ class Index extends NH_User_Controller {
 		$param['teacher_type'] = config_item('teacher_type');
 		$param['subject'] = $this->teacher_b->get_subject();
 		$param['teach_years'] = 50;
+		$user_info = $this->_user_detail;
+		
 		$data = array(
 			'data' => $param,
-			'user_info' => isset($this->_user_detail) ? $this->_user_detail : array('phone'=>'','email'=>''),
+			'user_info' => isset($user_info['phone']) || isset($user_info['email']) ? $user_info : array('phone'=>'','email'=>''),
 		);
 		$this->smarty->assign('data',$data);
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');

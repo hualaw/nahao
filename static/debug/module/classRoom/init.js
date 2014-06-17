@@ -10,9 +10,10 @@ define(function(require,exports){
     var _popUp = require('module/common/method/popUp');
     //做题块
     $(".doWorkBoxBtn").click(function (){
-        _popUp.popUp('.doWorkBoxHtml');
+       
         _classRoom.show_question();
-
+       
+        //_popUp.popUp('.doWorkBoxHtml');
         //做题选答案 (加背景色)
        // _classRoom.options();
 
@@ -31,16 +32,20 @@ define(function(require,exports){
     $(".scorePageBtn").click(function (){
         _popUp.popUp('.scorePageHtml');
     });
+    //老师获取还没出过的题
+    
     //答案统计
     $(".ansCountBtn").click(function (){
-        _popUp.popUp('.ansCountHtml');
+//        _popUp.popUp('.ansCountHtml');
+        _classRoom.load_questions_count();
     });
     //选择练习题
     $(".exerciseBtn").click(function (){
-        _popUp.popUp('.exerciseHtml');
-
+//    	_popUp.popUp('.exerciseHtml');
+		//请求题目
+    	_classRoom.load_questions();
         //选择练习题  左右点击切换 题目选中
-        _classRoom.itemClick();
+//        _classRoom.itemClick();
     });
     //意见反馈
     $(".feedbackBtn").click(function (){
@@ -49,11 +54,30 @@ define(function(require,exports){
         _valid.feedbackForm();
     });
     //评价
-    $(".evaluBtn").click(function (){
-        _popUp.popUp('.evaluHtml');
+/*    $(".evaluBtn").click(function (){
+    	alert(12321);
+//        _popUp.popUp('.evaluHtml');
+//    	//_lens = $('.starBg ').children('.cStar').size();
+//        alert(22);
+//    	class_id = $(this).attr("evaluBtns");
+//    	alert(class_id);
+    	console.log(class_id);
+    	return fasle;
         //评论 几颗星
         _classRoom.starClick();
         // 教室-评价 验证
         _valid.evaluForm();
-    });
+    });*/
+    //学生做题
+    student_get_exercise_page = function (class_id){
+        _classRoom.show_question();
+    }
+    //老师出题
+    teacher_get_exercise_page = function (class_id) {
+        _classRoom.load_questions();
+    }
+    //老师查看统计
+    teacher_get_exercise_stat = function (class_id) {
+        _classRoom.load_questions_count();
+    }
 })

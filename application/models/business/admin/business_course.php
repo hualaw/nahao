@@ -230,4 +230,12 @@ class Business_Course extends NH_Model
         return $arr_return;
     }
 
+
+    public function if_can_generate_round($int_course_id){
+        $bool_return = false;
+        if($int_course_id > 0){
+
+        }
+        return $bool_return;
+    }
 }

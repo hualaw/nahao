@@ -111,6 +111,26 @@ class Test extends CI_Controller {
         $this->load->model('model/student/model_student_class_log', 'stu_obj');
         $this->stu_obj->get_action_stat($class_id);
     }
+
+    public function test_class()
+    {
+        $ch = curl_init("http://classroom.oa.tizi.com/oa/enter?token=0316d2777ad14366bae3b2949001f736");
+        //var_dump($ch);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+        $output = curl_exec($ch);
+
+        //echo "error:".curl_error($ch)."<br>";
+        //echo "errno:".curl_errno($ch)."<br>";
+        curl_close($ch);
+        echo $output;
+    }
+
+    public function jsonp_test()
+    {
+        $this->smarty->display('www/test.html');
+    }
 }
 
 /* End of file welcome.php */

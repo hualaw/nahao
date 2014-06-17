@@ -34,7 +34,25 @@ class Model_User extends NH_Model
         $int_insert_id = $this->db->affected_rows();
         return $int_insert_id;
     }
+    /**
+     * 添加教师科目
+     * @author shangshikai@tizi.com
+     */
 
+    public function create_subject($post_subject)
+    {
+        $arr_result = $this->db->insert(TABLE_TEACHER_SUBJECT, $post_subject);
+        $int_insert_id = $this->db->affected_rows();
+        return $int_insert_id;
+    }
+    /**
+     * 修改教师科目
+     * @author shangshikai@tizi.com
+     */
+    public function modify_subject($post_subject,$teacher_id)
+    {
+        return $this->db->update(TABLE_TEACHER_SUBJECT,$post_subject,array('teacher_id'=>$teacher_id));
+    }
     /**
      * 修改user
      * @param array $arr_param
@@ -87,6 +105,42 @@ class Model_User extends NH_Model
         return TRUE;
     }
     /**
+     * 修改教师
+     * @author shangshikai@tizi.com
+     */
+    public function modify_teacher($user_id)
+    {
+        $teacher_data=array();
+        $phone=get_pnum_phone_server($user_id);
+        $user_data=$this->db->select(TABLE_USER.'.nickname,email')->from(TABLE_USER)->where(TABLE_USER.'.id',$user_id)->get()->row_array();
+        $user_info_data=$this->db->select(TABLE_USER_INFO.'.realname,age,gender,hide_realname,hide_school,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,teacher_age,stage,teacher_intro,basic_reward')->from(TABLE_USER_INFO)->where(TABLE_USER_INFO.'.user_id',$user_id)->get()->row_array();
+        $user_data['phone']=$phone;
+        $teacher_data['user_data']=$user_data;
+        $teacher_data['user_info_data']=$user_info_data;
+        return $teacher_data;
+    }
+    /**
+     * 根据市城市查找学校
+     * @author shangshikai@tizi.com
+     */
+    public function school_model_pid($school_id)
+    {
+         $c=$this->db->select('nahao_areas.level')->from('nahao_areas')->where('nahao_areas.id',$school_id['school_id'])->get()->row_array();
+        if($c['level']==3)
+        {
+            return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.county_id',$school_id['school_id'])->get()->result_array();
+        }
+        if($c['level']==2)
+        {
+            return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.city_id',$school_id['school_id'])->get()->result_array();
+        }
+        if($c['level']==1)
+        {
+            return $this->db->select('nahao_schools.id,nahao_schools.schoolname')->from('nahao_schools')->where('nahao_schools.province_id',$school_id['school_id'])->get()->result_array();
+        }
+        //return $this->db->last_query();
+    }
+    /**
      * 根据省ID获取市
      * @author shangshikai@tizi.com
      */
@@ -114,7 +168,10 @@ class Model_User extends NH_Model
      */
     public function check_nick($nickname)
     {
-         return $this->db->select('user.id')->from('user')->where("user.nickname='$nickname'")->get()->row_array();
+         if($this->db->select('user.id')->from('user')->where("user.nickname='$nickname'")->get()->row_array())
+         {
+             return 'yes';
+         }
         // return $this->db->last_query();
     }
     /**

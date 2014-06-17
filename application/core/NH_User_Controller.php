@@ -112,4 +112,99 @@ class NH_User_Controller extends NH_Controller
         }
         self::json_output($arr_return);
     }
+    
+    /**
+     * 头像处理
+     */
+    public function update_avatar()
+    {
+        $user_id = $this->session->userdata('user_id');
+        //generate param for uploading to qiniu
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $putExtra = new Qiniu_PutExtra();
+        $putExtra->Crc32 = 1; 
+        //user photo name
+        $this->load->helper('string');
+        $str_salt = random_string('alnum', 6);
+        $avatar_key = 'user_avartar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
+        $avatar_source_key = 'source_' . $avatar_key;//头像原图的key
+        $result = array('success'=>false,'msg'=>'上传失败');
+        $success_num = 0;        
+        while (list($key, $val) = each($_FILES))
+        {
+            if($key == '__source') {
+                $detect_res = $this->detect_avatar($_FILES[$key]);
+                if($detect_res['code'] == 1) {
+                    list($ret, $err) = Qiniu_PutFile($str_upToken, $avatar_source_key, $_FILES[$key]['tmp_name'], $putExtra);
+                    if($err === null) {
+                        $success_num++;
+                        $result['source_avatar_key'] = $ret['key'];
+                    }
+                }
+                else {
+                    self::json_output($detect_res);
+                }
+            } else {
+                $detect_res = $this->detect_avatar($_FILES[$key]);
+                if($detect_res['code'] == 1) {
+                    list($ret, $err) = Qiniu_PutFile($str_upToken, $avatar_key, $_FILES[$key]['tmp_name'], $putExtra);
+                    if($err === null) {
+                        $success_num++;
+                        $result['avatar_key'] = $ret['key'];
+                    }
+                } else {
+                    self::json_output($detect_res);
+                }
+            }
+            
+            if($success_num == 2) {
+                $result['success'] = true;
+                $result['msg'] = '上传成功';
+                $avatar_url = 'http://n1a2h3a4o5.qiniudn.com/' . $result['avatar_key'];
+                $this->session->set_userdata('avatar', $avatar_url);
+            }
+        }
+        
+        self::json_output($result);
+    }
+    
+    /**
+     * 侦测上传的头像是否符合规定
+     * @param resource $avatar_data  图片数据
+     */
+    public function detect_avatar($avatar_data)
+    {
+        $detect_res = 0;
+        if(!isset($avatar_data['error']) || $avatar_data['error'] > 0) {
+            $detect_res =  -1; //上传失败
+        }
+        
+        if(!$detect_res) {
+            $img_info = getimagesize($avatar_data['tmp_name']);
+            $image_type = $this->config->item('image_type');
+            if(empty($img_info) || !array_key_exists($img_info[2], $image_type)) {
+                $detect_res = -2; //图片类型不对
+            }
+        }
+        
+        if(!$detect_res) {
+            $avatar_size_limit = $this->config->item('avatar_size_limit');
+            if(!isset($avatar_data['size']) || $avatar_data['size'] > $avatar_size_limit) {
+                return -3;//文件过大
+            } 
+        }
+        
+        switch($detect_res) {
+            case -1:$arr_return = array("code"=> $detect_res, "msg"=>"上传失败");break;
+            case -2:$arr_return = array("code"=> $detect_res,"msg"=>"格式错误");break;
+            case -3:$arr_return = array("code"=> $detect_res,"msg"=>"文件过大");break;
+            default:$arr_return = array("code"=>1);break;
+        }
+        
+        return $arr_return;
+    }
 }

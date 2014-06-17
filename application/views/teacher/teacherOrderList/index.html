@@ -1,6 +1,6 @@
 {extends file='teacher/teacherOrderList/base.html'}
 
-{block name=title}学员评价{/block}
+{block name=title}班次列表{/block}
 
 {block name=container}
 <!--班次列表开始-->
@@ -106,13 +106,7 @@
 	        {/if}
         </table>
     </div>
-    <div class="page cf">
-    	<div class="pagination fr">
-    		<a href="javascript:void(0);" class="active">1</a>
-			<a href="javascript:void(0);">2</a>
-			<a href="javascript:void(0);">3</a>
-    	</div>
-    </div>
+    {$data['pageBar']}
 </div>
 <!--班次列表结束-->
 {/block}

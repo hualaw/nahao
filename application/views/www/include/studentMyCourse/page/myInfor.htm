@@ -21,7 +21,7 @@
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
-				<li>
+				<li class="locaSele">
 					<p class="formName"><span>*</span>地区</p>
 					<div class="cf" style="float:left">
 						<div class="fl">
@@ -111,7 +111,7 @@
 					<p class="optional">手机号</p>
                     <div class="cf">
 						<div class="fl">
-                            <input type="text" class="cInput {if !$user_detail.phone}phone_number{/if}" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}disabled{/if}>
+                            <input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}{/if}>
                             <span class="Validform_checktip fl"></span>
 						</div>
 					</div>

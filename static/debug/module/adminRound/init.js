@@ -8,5 +8,5 @@ define(function(require,exports){
     round.bind_everything();
     round.submit_round();
     var upload = require("module/adminRound/upload");
-    upload.addUpload();//调用上传图片
+    upload.addUpload();//调用上传图片\
 })

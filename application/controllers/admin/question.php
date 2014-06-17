@@ -30,6 +30,8 @@ class Question extends NH_Admin_Controller {
 		$data = array(
 			'lesson_info' => $lesson_info,
 			'question_list' => $question_list,
+			'total' => count($question_list),
+			'lesson_id' => $lesson_id,
 			'tab' => in_array($_GET['tab'],array('question_list','question_add','question_edit')) ? $_GET['tab'] : 'question_list' ,
 		);
     	$this->smarty->assign('view', 'question_lesson_list');
@@ -82,6 +84,8 @@ class Question extends NH_Admin_Controller {
         $question_list = $this->business_question->lesson_question($param);
         if(!isset($question_list[0])){exit('题目不存在或内容不全');}
         $data = array(
+        	'lesson_id' => $lesson_id,
+        	'question_id' => $question_id,
 			'lesson_info' => $lesson_info,
 			'question_info' => isset($question_list[0]) ? $question_list[0] : array(),
 		);
@@ -94,6 +98,7 @@ class Question extends NH_Admin_Controller {
      * 课节提交改题
      */
     public function lesson_doEdit(){
+    	header('Content-Type:text/html;CHARSET=utf-8');
     	$param['lesson_id'] = $this->input->post('lesson_id');
     	$param['question_id'] = $this->input->post('question_id');
     	if(!$param['lesson_id'] || !$param['question_id']){

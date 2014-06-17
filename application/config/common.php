@@ -34,6 +34,7 @@ $config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这�
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
+$config['gender'][3] = '保密';
 
 //教育阶段
 $config['stage'][1] = '小学';
@@ -166,11 +167,6 @@ $config['teacher_type'][1] = '一对一';
 $config['teacher_type'][2] = '小班教育(15人以内)';
 $config['teacher_type'][3] = '大班教育不限人数';
 
-//性别
-$config['gender']['0'] = '保密';
-$config['gender']['1'] = '男';
-$config['gender']['2'] = '女';
-
 //职称
 $config['teacher_title'][0] = '无职称';
 $config['teacher_title'][1] = '正高级教师';
@@ -244,11 +240,6 @@ $config['class_teach_status'][3] = '上完课';
 $config['class_teach_status'][4] = '缺课';
 $config['class_teach_status'][3] = '禁用';
 
-//学科
-$config['subject'][1] = '语文';
-$config['subject'][2] = '数学';
-$config['subject'][3] = '英语';
-
 //账户状态
 $config['account'][0] = '禁用';
 $config['account'][1] = '启用';
@@ -269,3 +260,21 @@ $config['admin_round_list_search_type'][1] = '班次名称';
 $config['admin_round_list_search_type'][2] = '授课老师';
 $config['admin_round_list_search_type'][3] = '班次ID';
 
+//admin_student_list_search_type
+$config['admin_student_list_search_type'][1] = '昵称';
+$config['admin_student_list_search_type'][2] = '邮箱';
+$config['admin_student_list_search_type'][3] = '手机号';
+$config['admin_student_list_search_type'][4] = '用户ID';
+
+//limit of avatar's size
+$config['avatar_size_limit'] = 1024 * 1024 * 2;//2M
+
+//image type  这个数组的键值根据php getimagesize 返回的类型来定
+$config['image_type'][1] = 'GIF';
+$config['image_type'][2] = 'JPG';
+$config['image_type'][3] = 'PNG';
+
+//每一节课的结算状态
+$config['class_checkout_status'][0] = '不可结算';
+$config['class_checkout_status'][1] = '可结算';
+$config['class_checkout_status'][2] = '已结算';

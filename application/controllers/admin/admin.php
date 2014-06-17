@@ -16,6 +16,7 @@ class Admin extends NH_Admin_Controller {
         parent::__construct();
     }
 
+
     /**
      * admin index
      * @author yanrui@tizi.com

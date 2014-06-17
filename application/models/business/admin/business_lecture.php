@@ -136,8 +136,8 @@
          */
         public function lecture_pass($post)
         {
+            //var_dump($post);die;
             $data=array(
-                'user_id'=>$post['user_id'],
                 'gender'=>$post['gender'],
                 'realname'=>$post['realname'],
                 'age'=>$post['age'],
@@ -148,12 +148,24 @@
                 'stage'=>$post['stage'],
                 'teacher_age'=>$post['teacher_age'],
                 'teacher_intro'=>$post['teacher_intro'],
-                'titile_auth'=>$post['titile_auth'],
-                'teacher_auth'=>1
+                'title'=>$post['title'],
+                'titile_auth'=>1,
+                'teacher_auth'=>1,
+                'update_time'=>time()
+            );
+
+            $subject_data['subject_id']=$post['subject'];
+            $subject_data['teacher_id']=$post['user_id'];
+
+            $data_user=array(
+                'phone_verified'=>1,
+                'email_verified'=>1,
+                'teach_priv'=>1,
+                'source'=>0
             );
            // return $data['teacher_auth'];
             $this->load->model('model/admin/model_lecture');
-            return $this->model_lecture->lecture_teach_pass($post,$data);
+            return $this->model_lecture->lecture_teach_pass($post,$data,$data_user,$subject_data);
         }
 
         /**

@@ -40,7 +40,7 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>#</th>
+        <!--<th>#</th>-->
         <th>课程ID</th>
         <th>课程名称</th>
         <th>课节数</th>
@@ -55,7 +55,7 @@
     <tbody>
     {foreach $list as $v}
         <tr>
-            <td><input type="checkbox"></td>
+            <!--<td><input type="checkbox"></td>-->
             <td>{$v.id}</td>
             <td>{$v.title}</td>
             <td>{$v.lesson_count}</td>
@@ -65,7 +65,7 @@
             <td>{$course_types[$v.course_type]}</td>
             <td>{date('Y-m-d H:i',$v.create_time)}</td>
             <td>
-                <a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">更多</a>
+                <a href="javascript:;" class="course_operation" data-course_id="{$v.id}">更多</a>
                 <a href="/course/edit/{$v.id}">修改</a>
                 <a target="_blank" href="/lesson/index/{$v.id}">章节管理</a>
                 <a target="_blank" href="/round/edit?course_id={$v.id}">生成班次</a>
