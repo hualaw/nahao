@@ -171,7 +171,7 @@ class NH_Model extends CI_Model
     public function check_email_unique($email)
     {
         //check email is unique
-        $email_count = $this->model_user->get_user_by_param('user', 'count', '*', array('email'=>$email));
+        $email_count = $this->model_user->get_user_by_param('user', 'count', '*', array('email'=>$email, 'status'=>1));
         if($email_count >= 1)
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_email', array('email'=>$email));
@@ -201,14 +201,13 @@ class NH_Model extends CI_Model
     public function check_nickname($nickname)
     {
         //check length
-        $len = strlen($nickname);
-        if($len < MIN_NICKNAME_LEN*3 || $len > MAX_NICKNAME_LEN*3)
+        if(!check_name_length($nickname))
         {
-            return $this->_log_reg_info(ERROR, 'reg_invalid_nickname', array('nickname'=>$nickname));
+            return $this->_log_reg_info(ERROR, 'reg_invalid_nickname', array('nickname'=>$nickname,'error'=>'nickname_length_abnormal'));
         }
 
         //check unique
-        $nickname_count = $this->model_user->get_user_by_param('user', 'count', '*', array('nickname'=>$nickname));
+        $nickname_count = $this->model_user->get_user_by_param('user', 'count', '*', array('nickname'=>$nickname, 'status'=>1));
         if($nickname_count >= 1)
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_nickname', array('nickname'=>$nickname));

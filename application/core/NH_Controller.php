@@ -39,6 +39,7 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('static_url', static_host_url());
         $this->smarty->assign('teacher_url', teacher_url());
         $this->smarty->assign('admin_url', admin_url());
+        $this->smarty->assign('student_url', student_url());
 
         $static_version = config_item('static_version');
         $this->smarty->assign('static_version', $static_version);
@@ -93,14 +94,14 @@ class NH_Controller extends CI_Controller
 
     protected function assign_nickname()
     {
-        log_message("debug_nahao", "IN ".__FUNCTION__." funtion, out of if()");
         if($this->is_login)
         {
-            log_message("debug_nahao", "IN ".__FUNCTION__." funtion, in if()");
             $show_nickname = $this->session->userdata('nickname');
-            $show_nickname_len = strlen($show_nickname);
-            if($show_nickname_len > 3*MAX_NICKNAME_LEN)
+            /*
+            $show_nickname_len = get_name_length($show_nickname);
+            if($show_nickname_len > MAX_NICKNAME_LEN)
                 $show_nickname = substr($show_nickname, 0 , 3*MAX_NICKNAME_LEN)."...";
+            */
             $this->smarty->assign('nickname', $show_nickname);
         }
     }

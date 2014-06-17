@@ -3,11 +3,17 @@
 //充值方式
 $config['pay_channel'] = array
 (
-    'alipay'=>array(
+/*     'alipay'=>array(
         'account' => 'xiaoxiangyanzi@gmail.com',
         'merchant_id' => '2088901014223251',
         'merchant_key' => 'o8cm5994xdpcvck4t76e08saz55046nl',
         'request_url' => 'https://mapi.alipay.com/gateway.do?',
+    ), */
+    'alipay'=>array(
+            'account' => 'nahao@tizi.com',
+            'merchant_id' => '2088411963723035',
+            'merchant_key' => '5swgtp6kt5kmbze4mw35rqqq3hv1kfdd',
+            'request_url' => 'https://mapi.alipay.com/gateway.do?',
     ),
     'netpay'=>array(
         'account' => '91waijiao',
@@ -72,4 +78,4 @@ $config['bank_code'] = array(
         'minsheng' => array('name' => '民生银行', 'type' => 'motoPay', 'code' => 'CMBC-EXPRESS-CREDIT'),
     ),
 );
-$config['pay_back_url'] = 'http://www.91waijiao.com/pay/payback';
+$config['pay_back_url'] = 'http://www.nahaodev.com/pay/payback';
