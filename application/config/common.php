@@ -266,3 +266,10 @@ $config['admin_student_list_search_type'][2] = '邮箱';
 $config['admin_student_list_search_type'][3] = '手机号';
 $config['admin_student_list_search_type'][4] = '用户ID';
 
+//limit of avatar's size
+$config['avatar_size_limit'] = 1024 * 1024 * 2;//2M
+
+//image type  这个数组的键值根据php getimagesize 返回的类型来定
+$config['image_type'][1] = 'GIF';
+$config['image_type'][2] = 'JPG';
+$config['image_type'][3] = 'PNG';
