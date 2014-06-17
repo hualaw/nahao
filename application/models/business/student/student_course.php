@@ -309,12 +309,14 @@ class Student_Course extends NH_Model{
                 {
                    #发布者是管理员
                     $array_return[$k]['nickname'] = '管理员';
-                    $array_return[$k]['avatar'] =DEFAULT_AVATER;
+                    $array_return[$k]['avatar'] = DEFAULT_AVATER;
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
                     $array_return[$k]['nickname'] = $array_result['nickname'];
-                    $array_return[$k]['avatar'] = empty($array_result['nickname']) ? DEFAULT_AVATER:$array_result['nickname'];
+                    #获取用户信息
+                    $array_data = $this->session->all_userdata();
+                    $array_return[$k]['avatar'] = $array_data['avatar'];
                 }
             }
         }

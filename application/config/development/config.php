@@ -19,6 +19,7 @@ $config['base_url']	= 'http://'.__HOST__.'/';
 $config['static_url'] = 'http://static.nahaodev.com/';
 $config['teacher_url'] = 'http://teacher.nahaodev.com/';
 $config['admin_url'] = 'http://admin.nahaodev.com/';
+$config['student_url'] = 'http://www.nahaodev.com/';
 
 /*
 |--------------------------------------------------------------------------

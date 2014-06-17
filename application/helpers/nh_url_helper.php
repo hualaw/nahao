@@ -72,7 +72,19 @@ if ( ! function_exists('admin_url'))
     }
 }
 
-
+/**
+ * student_url for nahao 
+ */
+if ( ! function_exists('student_url'))
+{
+    function student_url($site='')
+    {
+        if($site) $site = $site.'_';
+        $CI =& get_instance();
+        $student_url = $CI->config->item($site.'student_url');
+        return $student_url;
+    }
+}
 /**
  * Site URL
  *
