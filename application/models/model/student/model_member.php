@@ -8,17 +8,6 @@ class Model_Member extends NH_Model{
     }
     
     /**
-     * 获取用户头像
-     * @param  $int_user_id
-     */
-    public function get_user_avater($int_user_id)
-    {
-        $sql = "SELECT avatar FROM user WHERE id = ".$int_user_id;
-        $array_result = $this->db->query($sql)->row_array();
-        return empty($array_result['avatar']) ? DEFAULT_AVATER :$array_result['avatar'];
-    }
-    
-    /**
      * 我购买的课程
      * @param  $int_user_id
      * @return $array_result
@@ -26,7 +15,7 @@ class Model_Member extends NH_Model{
     public function get_my_course_for_buy($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM student_order so 
+        $sql = "SELECT so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM student_order so 
                 LEFT JOIN round r ON so.round_id = r.id
                 WHERE so.student_id = ".$int_user_id." AND (so.status = 2 OR so.status = 3
                 OR so.status = 6 OR so.status = 7 OR so.status = 8 OR so.status = 9)
