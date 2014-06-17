@@ -1,0 +1,32 @@
+.aboutPage{background: #eee;}
+.aboutPage .about{padding-top: 130px;}
+.aboutPage .sideLeftNav{width: 200px;}
+.aboutPage .aboutContent{font-size: 14px;width: 764px;color: #334251;background: #fff;border: 1px solid #dbe3ec;border-top: 0;box-shadow: 0 -1px 1px #b9c7d7 inset;}
+.aboutPage .aboutContent h2{font-weight: normal;}
+.aboutPage .aboutContent h2,.aboutPage .aboutContent h3{font-size: 14px;}
+
+.aboutPage .sideLeftNav ul li{margin-bottom: 5px;}
+.aboutPage .sideLeftNav ul a{display: block;font-size: 16px;color: #0e455e;height: 45px;line-height: 45px;text-align: center;background-color: #fff;border: 1px solid #dbe3ec;border-top: 0;box-shadow: 0 -1px 1px #b9c7d7 inset;}
+.aboutPage .sideLeftNav ul a:hover,
+.aboutPage .sideLeftNav ul .curNav a{background: #f14211;color: #fff;}
+/*   关于我们  */
+.aboutPage .aboutusBox{padding: 18px 34px 38px 14px;font-size: 12px;}
+.aboutPage .aboutusBox h2,.aboutPage .aboutusBox h3{font-size: 12px;}
+.aboutPage .aboutusBox p{line-height: 24px;}
+.aboutPage .aboutusBox div{margin-bottom: 28px;}
+/*   提出建议  */
+.aboutPage .adviseBox{padding: 12px 34px 36px;}
+.aboutPage .adviseBox .adviseForm{margin-top: 44px;}
+.aboutPage .adviseBox li{margin-bottom: 30px;}
+.aboutPage .adviseBox input,.aboutPage .adviseBox textarea{border: none;padding-left: 34px;}
+.aboutPage .adviseBox .submit{width: 188px;height: 38px;margin:100px 0 0 94px;}
+.aboutPage .adviseBox textarea{width: 596px;}
+/*   联系我们  */
+.aboutPage .contactusBox{padding: 55px 0px 77px 50px;}
+.aboutPage .contactusBox p{line-height: 36px;}
+/*   服务协议  */
+.aboutPage .serviceBox{padding: 16px 36px 26px 18px;font-size: 12px;}
+.aboutPage .serviceBox h3{font-size: 12px;line-height: 24px;}
+.aboutPage .serviceBox p{line-height: 24px;}
+
+
