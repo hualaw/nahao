@@ -75,14 +75,6 @@ define(function(require,exports){
                 {
                     $('#span_nickname').show().css('color','red').html('昵称不能为空');
                 }
-                else if($('#nickname').val().length<2)
-                {
-                    $('#span_nickname').show().css('color','red').html('昵称不能少于2个字');
-                }
-                else if($('#nickname').val().length>15)
-                {
-                    $('#span_nickname').show().css('color','red').html('昵称不能大于15个字');
-                }
                 else
                 {
                     $.ajax({
@@ -94,6 +86,10 @@ define(function(require,exports){
                             {
                                 //alert(msg);
                                 $('#span_nickname').show().css('color','red').html('昵称已存在');
+                            }
+                            else if(msg==2)
+                            {
+                                $('#span_nickname').show().css('color','red').html('不符合规则,至少两个汉字或四个字符，最多8个汉字或16个字符');
                             }
                             else
                             {
@@ -128,18 +124,25 @@ define(function(require,exports){
                 {
                     $('#span_realname').show().css('color','red').html('真实姓名不能为空');
                 }
-                else if($('#realname').val().length<2)
-                {
-                    $('#span_realname').show().css('color','red').html('真实姓名不能少于2个字');
-                }
-                else if($('#realname').val().length>15)
-                {
-                    $('#span_realname').show().css('color','red').html('真实姓名不能大于15个字');
-                }
                 else
                 {
-                    $('#span_realname').hide();
+                    $.ajax({
+                        type:"post",
+                        url:"/teacher/check_realname_length",
+                        data:"realname="+$('#realname').val(),
+                        success:function(msg){
+                            if(msg==2)
+                            {
+                                $('#span_realname').show().css('color','red').html('不符合规则,至少两个汉字或四个字符，最多8个汉字或16个字符');
+                            }
+                            else
+                            {
+                                $('#span_realname').hide();
+                            }
+                        }
+                    })
                 }
+
             })
 
             $('#basic_reward').blur(function(){
