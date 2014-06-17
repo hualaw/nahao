@@ -144,6 +144,7 @@ function request(paras){
 	var teacher_Type = request("teacher_Type");
 	var countryID = request("countryID");
 	var timelong = request("timelong");
+    var clsSwfVer = request("SwfVer");
 function downLoadOCX(){
 	window.open("http://www.flash.com/upload/package/setup.exe","_blank");
 }
@@ -157,7 +158,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 
 	AC_FL_RunContent(
 		"allowFullScreen", "true", 
-		"src", "playerProductInstall?20130913",
+		"src", "playerProductInstall?v="+clsSwfVer,
 		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
 		"width", "100%",
 		"height", "100%",
@@ -178,7 +179,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName=thenewclass&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
 	
 	AC_FL_RunContent(
-			"src", "MeetRoomClient?20130913",			
+			"src", "MeetRoomClient?v="+clsSwfVer,
 			"FlashVars", str,
 			"allowFullScreen", "true", 
 			"width", "100%",
