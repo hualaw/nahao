@@ -237,6 +237,7 @@ define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
 define('NH_QINIU_BUCKET','n1a2h3a4o5');
 define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 
+define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
 define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
