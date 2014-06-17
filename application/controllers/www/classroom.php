@@ -135,20 +135,7 @@ class Classroom extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'获取做题结果失败'));
 	    }
 	}
-	
-	/**
-	 * 进入教室
-	 */
-	public function enter()
-	{
-	    $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-	    $str_classroom_urlself::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
-	    $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-        $this->smarty->assign('iframe',$str_iframe);
-        $this->smarty->assign('view', 'classroom');
-        $this->smarty->display('admin/layout.html');
-	}
-	
+
     public function save_stu_action()
     {
         $class_id = intval(trim($this->input->get("class_id")));
@@ -264,7 +251,7 @@ class Classroom extends NH_User_Controller {
 	    {
 	    	self::json_output(array('status'=>'ok','msg'=>'获取未出过题目成功','data'=>$question_list));
 	    }else{
-	        self::json_output(array('status'=>'error','msg'=>'<h3 style="color:red">该课没有题目或题目已出完</h3>'));
+	        self::json_output(array('status'=>'error','msg'=>'<h3>该课没有题目或题目已出完</h3>'));
 	    }
 	}
 	
@@ -334,18 +321,27 @@ class Classroom extends NH_User_Controller {
      */
     public function enter()
     {
-        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+
 //        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 //        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
 //        echo $str_iframe;exit;
+
+
+        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+//        $str_classroom_url = '/classroom/main.html';
+//        o($str_classroom_url,true);
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+        #根据classroom_id获取课id
+        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+        $this->smarty->assign('classroom_id',$int_classroom_id);
+        $this->smarty->assign('class_id',$array_class_id['id']);
         $this->smarty->assign('iframe',$str_iframe);
-//        $this->smarty->assign('js',$str_js);
-//        $this->smarty->assign('view', 'classroom');
         $this->smarty->display('www/classRoom/index.html');
-//        $this->smarty->display('www/classRoom/index.html');
     }
+
+
 }
 
 /* End of file welcome.php */

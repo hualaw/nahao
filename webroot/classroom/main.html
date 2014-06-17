@@ -93,13 +93,14 @@ window.onunloadcancel = function(){
 	}
 function PopUpPageWin(type,classid)
 {
-/*	if(type == "student_get_exercise_page")
-		student_get_exercise_page(classid);
-	else if(type == "teacher_get_exercise_page")	
-		teacher_get_exercise_page(classid);
-	else if(type == "teacher_get_exercise_stat")
-		teacher_get_exercise_stat(classid); */
-	alert(type+" "+classid);
+	if(type == "student_get_exercise_page"){
+        window.parent.student_get_exercise_page(classid);
+    }else if(type == "teacher_get_exercise_page"){
+        window.parent.teacher_get_exercise_page(classid);
+    }else if(type == "teacher_get_exercise_stat"){
+        window.parent.teacher_get_exercise_stat(classid);
+    }
+//    console.log(type+" "+classid);
 }
 </script> 
 <script language="JavaScript" type="text/javascript">
@@ -143,6 +144,7 @@ function request(paras){
 	var teacher_Type = request("teacher_Type");
 	var countryID = request("countryID");
 	var timelong = request("timelong");
+    var clsSwfVer = request("SwfVer");
 function downLoadOCX(){
 	window.open("http://www.flash.com/upload/package/setup.exe","_blank");
 }
@@ -156,12 +158,12 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 
 	AC_FL_RunContent(
 		"allowFullScreen", "true", 
-		"src", "playerProductInstall?20130913",
+		"src", "playerProductInstall?v="+clsSwfVer,
 		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
 		"width", "100%",
 		"height", "100%",
 		"align", "middle",
-		"wmode","window",
+		"wmode","transparent",
 		"id", "MeetRoomClient",
 		"quality", "high",
 		"bgcolor", "#ffffff",
@@ -177,13 +179,13 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName=thenewclass&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
 	
 	AC_FL_RunContent(
-			"src", "MeetRoomClient?20130913",			
+			"src", "MeetRoomClient?v="+clsSwfVer,
 			"FlashVars", str,
 			"allowFullScreen", "true", 
 			"width", "100%",
 			"height", "100%",
 			"align", "middle",
-			"wmode","window",
+			"wmode","transparent",
 			"id", "MeetRoomClient",
 			"quality", "high",
 			"bgcolor", "#ffffff",
@@ -204,12 +206,14 @@ if ( hasProductInstall && !hasRequestedVersion ) {
   	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 			id="MeetRoomClient" width="100%" height="100%"
 			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-			<param name="wmode" value="window" />
+			
 			<param name="movie" value="MeetRoomClient.swf?20130913" />
 			<param name="quality" value="high" />
 			<param name="bgcolor" value="#ffffff" />
 			<param name="allowFullScreen" value="true" />
 			<param name="allowScriptAccess" value="always" />
+			<param name="wmode" value="transparent">
+			<param name="wmode" value="Opaque">
 			<embed src="MeetRoomClient.swf?20130913" quality="high" bgcolor="#ffffff"
 				width="100%" height="100%" name="MeetRoomClient" align="middle"
 				wmode="window"

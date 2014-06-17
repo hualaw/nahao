@@ -68,10 +68,16 @@ define(function(require,exports){
         // 教室-评价 验证
         _valid.evaluForm();
     });*/
+    //学生做题
     student_get_exercise_page = function (class_id){
-        _popUp.popUp('.exerciseHtml');
-        //选择练习题  左右点击切换 题目选中
-        _classRoom.itemClick();
+        _classRoom.show_question();
     }
-//    student_get_exercise_page(8);
+    //老师出题
+    teacher_get_exercise_page = function (class_id) {
+        _classRoom.load_questions();
+    }
+    //老师查看统计
+    teacher_get_exercise_stat = function (class_id) {
+        _classRoom.load_questions_count();
+    }
 })

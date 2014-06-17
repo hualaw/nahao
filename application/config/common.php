@@ -273,3 +273,8 @@ $config['avatar_size_limit'] = 1024 * 1024 * 2;//2M
 $config['image_type'][1] = 'GIF';
 $config['image_type'][2] = 'JPG';
 $config['image_type'][3] = 'PNG';
+
+//每一节课的结算状态
+$config['class_checkout_status'][0] = '不可结算';
+$config['class_checkout_status'][1] = '可结算';
+$config['class_checkout_status'][2] = '已结算';
