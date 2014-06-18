@@ -31,7 +31,6 @@ class Student_Classroom extends NH_Model{
         {
             $array_return = array('status'=>'error','msg'=>'获取练习题失败');
         }
-        $array_qid_done = array();
         #在当前批次中将已经做过的题去掉
         $array_diff = array_diff($array_qid, $array_qid_done);
         //var_dump($array_diff);die;

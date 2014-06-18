@@ -23,16 +23,13 @@ class Member extends NH_User_Controller {
 	public function my_course()
 	{  
         header('content-type: text/html; charset=utf-8');
-        $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
-        #头像
-        $str_avater = DEFAULT_AVATER;
+        $int_user_id = $this->session->userdata('user_id');#TODO用户id
         #我购买的课程
         $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
         $array_new = array_slice($array_new,0,3,true);
         
-        $this->smarty->assign('str_avater', $str_avater);
         $this->smarty->assign('array_buy_course', $array_buy_course);
         $this->smarty->assign('array_new', $array_new);
         $this->smarty->assign('page_type', 'myCourse');
@@ -45,9 +42,7 @@ class Member extends NH_User_Controller {
 	public function my_order($str_type = 'all')
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
-        #头像
-        $str_avater = DEFAULT_AVATER;
+	    $int_user_id = $this->session->userdata('user_id');   #TODO用户id
 
 	    $array_type = array('all','pay','nopay','cancel','refund');
 	    if (!in_array($str_type, $array_type))
@@ -76,8 +71,8 @@ class Member extends NH_User_Controller {
         $nopay_count  = $this->student_member->get_order_count($int_user_id,'nopay');
         $cancel_count  = $this->student_member->get_order_count($int_user_id,'cancel');
         $refund_count  = $this->student_member->get_order_count($int_user_id,'refund');
-	    $this->smarty->assign('str_avater', $str_avater);
-	    $this->smarty->assign('str_type', $str_type);
+
+        $this->smarty->assign('str_type', $str_type);
 	    $this->smarty->assign('array_order_list', $array_order_list);
 	    $this->smarty->assign('all_count', $all_count);
 	    $this->smarty->assign('pay_count', $pay_count);
@@ -96,8 +91,6 @@ class Member extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    $int_user_id = $this->session->userdata('user_id');                                                    #TODO用户id
-        #头像
-        $str_avater = DEFAULT_AVATER;
 	    
 	    #获取参数
 	    $int_order_id = intval($int_order_id);
@@ -126,7 +119,6 @@ class Member extends NH_User_Controller {
 	    }
 	    $this->smarty->assign('array_round', $array_round);
 	    $this->smarty->assign('array_order', $array_order);
-	    $this->smarty->assign('str_avater', $str_avater);
 	    $this->smarty->assign('page_type', 'order_detail');
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	    
@@ -139,9 +131,7 @@ class Member extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
-	    $int_user_id = $this->session->userdata('user_id');                                           #TODO用户id
-	    #头像
-	    $str_avater = DEFAULT_AVATER;
+	    $int_user_id = $this->session->userdata('user_id');  #TODO用户id
 	    $int_order_id = intval($int_order_id);
 	    if ($int_order_id == '0')
 	    {
@@ -212,7 +202,6 @@ class Member extends NH_User_Controller {
 	        $array_bank = config_item('bank');
 	        $this->smarty->assign('array_bank', $array_bank);
 	        $this->smarty->assign('array_data', $array_data);
-	        $this->smarty->assign('str_avater', $str_avater);
 	        $this->smarty->assign('int_order_id', $int_order_id);
 	        $this->smarty->assign('page_type', 'apply_refund');
 	        $this->smarty->display('www/studentMyCourse/index.html');
@@ -223,7 +212,6 @@ class Member extends NH_User_Controller {
 	    {
 	        $array_data = $this->student_member->get_student_refund_data($int_user_id,$array_order['round_id']);
 	        $this->smarty->assign('array_data', $array_data);
-	        $this->smarty->assign('str_avater', $str_avater);
 	        $this->smarty->assign('page_type', 'refund_detail');
 	        $this->smarty->display('www/studentMyCourse/index.html');
 	    }
@@ -348,7 +336,6 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
-	    $this->smarty->assign('str_avater', $str_avater);
 	    $this->smarty->assign('page_type', 'myInfor');
         $this->smarty->assign('province', $province);
         $this->smarty->assign('area', $area);

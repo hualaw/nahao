@@ -255,8 +255,23 @@ class Business_Teacher extends NH_Model
      */
     public function check_nick_name($nickname)
     {
+        if(!check_name_length($nickname))
+        {
+            return 2;
+        }
         return $this->model_user->check_nick($nickname);
     }
+    /**
+     * 真实姓名长度
+     * @author shangshikai@tizi.com
+     */
+     public function check_real_name($realname)
+     {
+         if(!check_name_length($realname))
+         {
+             return 2;
+         }
+     }
     /**
      * 电话是否合法
      * @author shangshikai@tizi.com
@@ -304,6 +319,7 @@ class Business_Teacher extends NH_Model
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
 
+
         if($post['hide_school']==null)
         {
             $post['hide_school']=0;
@@ -322,7 +338,7 @@ class Business_Teacher extends NH_Model
         }
        // var_dump($post);die;
        // var_dump($post['nickname']);die;
-        if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100)
+        if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['nickname']) || !check_name_length($post['realname']))
         {
             redirect("teacher/create");
         }
@@ -452,7 +468,7 @@ class Business_Teacher extends NH_Model
             unset($post['area']);
         }
         //var_dump($post);die;
-        if($post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100)
+        if($post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['realname']))
         {
             redirect("teacher/modify?user_id=$post[user_id]");
         }

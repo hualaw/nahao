@@ -266,6 +266,12 @@ $config['admin_student_list_search_type'][2] = '邮箱';
 $config['admin_student_list_search_type'][3] = '手机号';
 $config['admin_student_list_search_type'][4] = '用户ID';
 
+
+//老师课酬结算状态
+$config['teacher_balance'][1]='未结算';
+$config['teacher_balance'][2]='已结算';
+$config['teacher_balance'][3]='已付款';
+
 //limit of avatar's size
 $config['avatar_size_limit'] = 1024 * 1024 * 2;//2M
 

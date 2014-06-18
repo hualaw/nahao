@@ -11,14 +11,14 @@ float:left;
 	<ol class="breadcrumb">
 	  <li><font class="text-muted">GPS导航：</font></li>
 	  <li><a href="/">首页</a></li>
-	  <li><a href="/question/lesson_question/{$data['lesson_id']}">课节题目管理</a></li>
-	  <li><a href="/question/lesson_edit/{$data['lesson_id']}/{$data['question_id']}">课节题目修改</a></li>
+	  <li><a href="/question/class_question/{$data['class_id']}">课题目管理</a></li>
+	  <li><a href="/question/class_edit/{$data['class_id']}/{$data['question_id']}">课题目修改</a></li>
 	</ol>
 	<blockquote class="quoteback">
-		<p>修改课节（id{$data['lesson_id']}）的题目（id:{$data['question_id']}）</p>
+		<p>修改课（id{$data['class_id']}）的题目（id:{$data['question_id']}）</p>
 	</blockquote>
 	<div class="col-md-12">
-		<form class="form-horizontal" method="POST" id="question_form" role="form" action="/question/lesson_doEdit">
+		<form class="form-horizontal" method="POST" id="question_form" role="form" action="/question/class_doEdit">
 			<div class="form-group">
 		        <label class="col-md-2 control-label">题目内容</label>
 		        <div class="col-md-6">
@@ -65,7 +65,7 @@ float:left;
 		    </div>
 		    <div class="form-group">
 		        <label class="col-md-4 control-label"></label>
-		        <input type="hidden" name="lesson_id" value="{$data['lesson_id']}">
+		        <input type="hidden" name="class_id" value="{$data['class_id']}">
 		        <input type="hidden" name="question_id" value="{$data['question_id']}">
 		        <button type="submit" class="btn btn-primary col-md-2" id="question_submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
 		    	<span class="statusMsg"></span>

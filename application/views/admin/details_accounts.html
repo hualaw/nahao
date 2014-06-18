@@ -1,0 +1,40 @@
+教师昵称:{$get.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本月课时费总额:{$get.net_income}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课次数:{$get.teach_times}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课课时:{$get.class_times}<br /><br /><br />
+<table class="table table-hover">
+    <tr>
+        <th>上课日期</th>
+        <th>上课开始时间</th>
+        <th>上课结束时间</th>
+        <th>班次名称</th>
+        <th>班节名称</th>
+        <th>授课课时</th>
+    </tr>
+    {foreach $details as $v}
+    <tr>
+        <td>{$v.begin_time|date_format:'%Y-%m-%d'}</td>
+        <td>{$v.begin_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$v.end_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$v.round_title}</td>
+        <td>{$v.class_title}</td>
+        <td>2</td>
+    </tr>
+    {/foreach}
+</table>
+
+<label class="control-label" for="inputSuccess">
+    联系电话:<input type="text" readonly value="{$get.phone_mask}" id="show" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    结算时间: <span id="checkout_time">{if $get.checkout_time==0} ------ {else} {$get.checkout_time|date_format:'%Y-%m-%d %H:%M:%S'} {/if}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    付款时间: <span id="pay_time">{if $get.pay_time==0} ------ {else} {$get.pay_time|date_format:'%Y-%m-%d %H:%M:%S'} {/if}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    结算状态: {if $get.status==1}
+                {$teacher_balance[$get.status]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-info" id="ok_checkout">确认结算</button>
+                {elseif $get.status==2}
+                {$teacher_balance[$get.status]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-info" id="ok_pay">确认付款</button>
+                {elseif $get.status==3}
+                {$teacher_balance[$get.status]}
+             {/if}
+</label>
+<input type="hidden" id="checkout_id" value="{$checkout_id}" />
+<input type="hidden" id="user_id" value="{$get.user_id}" />
+<input type="hidden" id="net_income" value="{$get.net_income}" />
+<input type="hidden" id="mask" value="{$get.phone_mask}" />
