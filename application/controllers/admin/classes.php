@@ -77,8 +77,7 @@ class Classes extends NH_Admin_Controller {
 
     public function enter(){
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
-//        self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER);
+        self::enter_classroom($int_classroom_id);
     }
 
 }
