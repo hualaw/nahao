@@ -190,4 +190,5 @@ class Student_Member extends NH_Model{
         $array_data['title'] = $array_round['title'];
         return $array_data;
     }
+    
 }

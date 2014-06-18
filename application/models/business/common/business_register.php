@@ -96,7 +96,7 @@ class Business_Register extends NH_Model {
 
         //set session
         $avatar = $nickname = '';
-        $this->set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type);
+        $this->set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, NH_MEETING_TYPE_STUDENT);
 		return $this->_log_reg_info(SUCCESS, 'reg_success', array(), 'info');
 	}
 

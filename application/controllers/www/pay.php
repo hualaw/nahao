@@ -397,7 +397,7 @@ class Pay extends NH_User_Controller {
 	    $paymentChannel = $this->checkPaymentChannel();
 	    do {
 	    
-	       /*  if (empty ($paymentChannel) || $paymentChannel == '') 
+	        if (empty ($paymentChannel) || $paymentChannel == '') 
 	        {
 	            $response['message'] = '非法支付渠道';
 	            break;
@@ -405,14 +405,14 @@ class Pay extends NH_User_Controller {
 	        $this->load->helper('url');
 	        $this->load->model("business/pay/model_{$paymentChannel}", 'channel');
 	        $payResult = $this->channel->response();
-	        */
+	       
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
-	        $payResult['order_id'] = 5;
+	        //$payResult['order_id'] = 5;
 	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
 	        $int_user_id = $array_orderInfo['student_id'];#TODO用户id
-	        /*
+	        
 	        #未知的订单
 	        if (empty ($array_orderInfo)) 
 	        {
@@ -499,9 +499,9 @@ class Pay extends NH_User_Controller {
 	                }
 	        
 	            }
-	        } */
+	        }
 	        
-	        #更新订单状态,写日志
+/* 	        #更新订单状态,写日志
 	        $array_data = array(
 	        'user_id'=>$int_user_id,
 	        'order_id' =>$payResult['order_id'],
@@ -517,7 +517,7 @@ class Pay extends NH_User_Controller {
 	        } else {
 	            #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
 	            $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
-	        }
+	        } */
 	        
 	    }while(false);
 	    

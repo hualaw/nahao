@@ -24,37 +24,38 @@
     <!--关于我们 左侧 结束-->
 	<!--  aboutus  classmode   userhelp   advise  contactus  service-->
 	<!--关于我们 右侧 开始-->
-
+	{if $str_pram == 'aboutus'}
 	<!--关于我们-->
 	<div class="aboutContent fr" id="aboutContent" module="aboutus">
 	    {include file="www/include/about/page/aboutus.htm"}
     </div>
-	
+	{else if $str_pram == 'classmode'}
 	<!--上课模式-->
     <div class="aboutContent fr" id="aboutContent" module="classmode">
 	    {include file="www/include/about/page/classmode.htm"}
     </div>
-
+	{else if $str_pram == 'userhelp'}
 	<!--用户帮助-->
 	<div class="aboutContent fr" id="aboutContent" module="userhelp">
 	    {include file="www/include/about/page/userhelp.htm"}
     </div>
-	
+	{else if $str_pram == 'advise'}
 	<!--提出建议-->
     <div class="aboutContent fr" id="aboutContent" module="advise">
 	    {include file="www/include/about/page/advise.htm"}
     </div>
-
+	{else if $str_pram == 'contactus'}
 	<!--联系我们-->
 	<div class="aboutContent fr" id="aboutContent" module="contactus">
 	    {include file="www/include/about/page/contactus.htm"}
     </div>
-	
+	{else if $str_pram == 'service'}
 	<!--服务协议-->
     <div class="aboutContent fr" id="aboutContent" module="service">
 	    {include file="www/include/about/page/service.htm"}
     </div>
     <!--关于我们 右侧 结束-->
+    {/if}
 </div>
 <!-- 主要内容结束 -->
 <!-- js引入开始 -->
