@@ -21,20 +21,18 @@
 .teacherSelfInfo .personInfo li .verfyTip{font-size:14px;color:#a3adb7;font-weight: normal;}
 .teacherSelfInfo .personInfo li .textArea{width:880px;height: 255px;_width:850px;}
 .teacherSelfInfo .personInfo .md_upload{clear: both; overflow: hidden;}
-.teacherSelfInfo .personInfo .md_upload a{display: block;float: left;width:310px; height: 255px;position: relative;}
+.teacherSelfInfo .personInfo .md_upload a{display: block;float: left;width:310px; height: 250px;position: relative;}
 .teacherSelfInfo .personInfo .md_upload a.icon_upload1{background: url("../../images/teacherSelfInfo/icon_upload1.gif") no-repeat left top;}
 .teacherSelfInfo .personInfo .md_upload a.icon_upload2{background: url("../../images/teacherSelfInfo/icon_upload2.gif") no-repeat left top;}
 .teacherSelfInfo .personInfo .md_upload a.icon_upload3{background: url("../../images/teacherSelfInfo/icon_upload3.gif") no-repeat left top;}
-.teacherSelfInfo .personInfo .md_upload .uploada .uploadTip{position: absolute;bottom:1px;left:120px;font-size:14px;color:#a3adb7;font-weight: normal;}
 .teacherSelfInfo .personInfo .md_upload .uploadify .swfupload{left:0px;top:0px;}
 .teacherSelfInfo .personInfo .md_upload .uploada .uploadify-queue{display: none;}
-.teacherSelfInfo .personInfo .md_upload .ImageSpan{display:none;float: left;margin-right:10px;width:300px;position: relative;margin-top:3px;}
+.teacherSelfInfo .personInfo .md_upload .uploadTip{position: absolute;bottom:0px;left:120px;font-size:14px;color:#a3adb7;font-weight: normal;}
+.teacherSelfInfo .personInfo .md_upload .uploadFt{font-size:14px;color:#a3adb7;font-weight: normal;}
+.teacherSelfInfo .personInfo .md_upload .ImageSpan{display:none;float: left;margin-right:10px;width:300px;height: 255px;position: relative;margin-top:3px;}
 .teacherSelfInfo .personInfo .md_upload .ImageSpan img{width:300px; height:223px;border:1px solid #dfdfdf;}
-.teacherSelfInfo .personInfo .md_upload .ImageSpan .uploadTip{display:block;width:300px; height:30px; text-align:center; line-height:30px;font-size:14px;color:#a3adb7;font-weight: normal;}
 .teacherSelfInfo .personInfo .md_upload .ImageSpan1{float: left;margin-right:10px;width:300px;position: relative;margin-top:3px;}
-.teacherSelfInfo .personInfo .md_upload .ImageSpan1 img{width:300px; height:223px;border:1px solid #dfdfdf;}
-.teacherSelfInfo .personInfo .md_upload .ImageSpan1 .uploadTip{display:block;width:300px; height:30px; text-align:center; line-height:30px;font-size:14px;color:#a3adb7;font-weight: normal;}
-.teacherSelfInfo .personInfo .md_upload  .uploadTip{position: absolute;bottom:1px;left:120px;font-size:14px;color:#a3adb7;font-weight: normal;}
+.teacherSelfInfo .personInfo .md_upload .ImageSpan1 img{width:300px; height:225px;border:1px solid #dfdfdf;margin-bottom:1px;}
 
 /*个人资料页面样式结束*/
 /*修改密码页面样式开始*/

@@ -270,7 +270,7 @@ define(function(require,exports){
             callback:function(data){
                 alert(data.info);
                 if(data.status == 'ok') {
-                    window.location = 'http://www.nahaodev.com';
+                    window.location = data.url;
                 }
             },
             usePlugin:{
@@ -313,9 +313,11 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*2-15",
+                datatype: "*",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度2-15个字符"
+                errormsg: "长度4-25个字符",
+                ajaxurl:'/login/check_realname_length',
+                ajaxUrlName:'realname'
 
             },
             {    
