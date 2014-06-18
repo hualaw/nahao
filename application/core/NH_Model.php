@@ -98,7 +98,7 @@ class NH_Model extends CI_Model
         return $mix_return;
     }
 
-    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type)
+    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, $user_type)
     {
 
         if($nickname == '' )
@@ -121,7 +121,7 @@ class NH_Model extends CI_Model
         }
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
-        else $avatar = static_url($avatar);
+        else $avatar = NH_QINIU_URL.$avatar;
 
         $userdata = array(
             'user_id' => $user_id,
@@ -131,6 +131,7 @@ class NH_Model extends CI_Model
             'phone_mask' => $phone_mask,
             'email' => $email,
             'reg_type' => $reg_type,
+            'user_type' => $user_type, //0表示学生，1表示老师
         );
         $this->session->set_userdata($userdata);
     }
@@ -171,7 +172,7 @@ class NH_Model extends CI_Model
     public function check_email_unique($email)
     {
         //check email is unique
-        $email_count = $this->model_user->get_user_by_param('user', 'count', '*', array('email'=>$email));
+        $email_count = $this->model_user->get_user_by_param('user', 'count', '*', array('email'=>$email, 'status'=>1));
         if($email_count >= 1)
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_email', array('email'=>$email));
@@ -201,14 +202,13 @@ class NH_Model extends CI_Model
     public function check_nickname($nickname)
     {
         //check length
-        $len = strlen($nickname);
-        if($len < MIN_NICKNAME_LEN*3 || $len > MAX_NICKNAME_LEN*3)
+        if(!check_name_length($nickname))
         {
-            return $this->_log_reg_info(ERROR, 'reg_invalid_nickname', array('nickname'=>$nickname));
+            return $this->_log_reg_info(ERROR, 'reg_invalid_nickname', array('nickname'=>$nickname,'error'=>'nickname_length_abnormal'));
         }
 
         //check unique
-        $nickname_count = $this->model_user->get_user_by_param('user', 'count', '*', array('nickname'=>$nickname));
+        $nickname_count = $this->model_user->get_user_by_param('user', 'count', '*', array('nickname'=>$nickname, 'status'=>1));
         if($nickname_count >= 1)
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_nickname', array('nickname'=>$nickname));

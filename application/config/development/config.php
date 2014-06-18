@@ -19,6 +19,8 @@ $config['base_url']	= 'http://'.__HOST__.'/';
 $config['static_url'] = 'http://static.nahaodev.com/';
 $config['teacher_url'] = 'http://teacher.nahaodev.com/';
 $config['admin_url'] = 'http://admin.nahaodev.com/';
+$config['student_url'] = 'http://www.nahaodev.com/';
+$config['course_url'] = 'http://course.nahaodev.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -250,7 +252,7 @@ $config['encryption_key'] = 'nahao';
 */
 $config['sess_cookie_name']		= 'NHID';
 $config['sess_expiration']		= 7200;
-$config['sess_expire_on_close']	= FALSE;
+$config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'nahao_ci_sessions';

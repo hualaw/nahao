@@ -1,11 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Classroom extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_classroom');
         $this->load->model('model/student/model_classroom');
+        $this->load->model('model/student/model_course');
         $this->load->model('business/teacher/business_teacher','teacher_b');
         if(!$this->is_login)
         {
@@ -18,7 +20,6 @@ class Classroom extends NH_User_Controller {
      */
 	public function index()
 	{  
-	    header('content-type: text/html; charset=utf-8');
 	    $classroom_id = $this->uri->segment(3,0);
 	    //老师获得该课的所有题目
 	    $param = array(
@@ -321,24 +322,38 @@ class Classroom extends NH_User_Controller {
      */
     public function enter()
     {
+        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $str_iframe = self::enter_classroom($int_classroom_id);
 
-//        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
+        #用户是否有登陆
+        #根据classroom_id获取课id
+        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+        if(empty($array_class_id)){
+            show_error('参数错误');
+        }
+
+        $this->smarty->assign('classroom_id',$int_classroom_id);
+        $this->smarty->assign('class_id',$array_class_id['id']);
+        $this->smarty->assign('iframe',$str_iframe);
+        $this->smarty->display('www/classRoom/index.html');
+
+        //        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 //        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
 //        echo $str_iframe;exit;
 
 
-        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
 //        $str_classroom_url = '/classroom/main.html';
 //        o($str_classroom_url,true);
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-        #根据classroom_id获取课id
-        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
-        $this->smarty->assign('classroom_id',$int_classroom_id);
-        $this->smarty->assign('class_id',$array_class_id['id']);
-        $this->smarty->assign('iframe',$str_iframe);
-        $this->smarty->display('www/classRoom/index.html');
+
+        #登陆的用户是否有买过这堂课
+//         $int_user_id = $this->session->userdata('user_id'); #TODO
+//         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class_id['id']);
+//         if(empty($bool_flag)){
+//             show_error('您没有购买这堂课');
+//         }
+
     }
 
 

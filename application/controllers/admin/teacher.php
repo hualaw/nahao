@@ -204,7 +204,7 @@ class Teacher extends NH_Admin_Controller {
         echo $this->teacher->open_ban($arr);
     }
     /**
-     * 昵称是否存在
+     * 昵称验证
      * @author shangshikai@tizi.com
     */
     public function nickname()
@@ -213,6 +213,15 @@ class Teacher extends NH_Admin_Controller {
         $nick=$this->teacher->check_nick_name($nickname);
         echo $nick;
         //echo $nick;
+    }
+    /**
+     * 真实姓名长度
+     * @author shangshikai@tizi.com
+     */
+    public function check_realname_length()
+    {
+        $realname=$this->input->post('realname',TRUE);
+        echo $this->teacher->check_real_name($realname);
     }
     /**
      * 电话是否存在

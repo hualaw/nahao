@@ -53,14 +53,14 @@ swfobject.addDomLoadEvent(function () {
             case 5:
                 //如果上传成功
                 if (json.type == 0) {
-                    if(json.content.sourceUrl)
+                    if(json.content.source_avatar_key)
                     {
-                        //alert("头像已成功保存至服务器，url为：\n" +　json.content.sourceUrl);
+                        //alert("头像已成功保存至服务器，url为：\n" +　json.content.source_avatar_key);
                     }
                     //alert("头像已成功保存至服务器，url为：\n" + json.content.avatarUrls.join("\n"));
                     //$('.button_cancel').click();
                     $('.memberInfo').find('img').removeAttr('src');
-                    $('.memberInfo').find('img').attr('src',json.content.avatarUrls[0]+'?v='+(new Date).valueOf());
+                    $('.memberInfo').find('img').attr('src','http://n1a2h3a4o5.qiniudn.com/' + json.content.avatar_key+'?v='+(new Date).valueOf());
                     cancelClick();
                 }else if (json.type == 1) {
                     //$.tiziDialog({content:json.content.msg});
@@ -70,9 +70,20 @@ swfobject.addDomLoadEvent(function () {
                 break;
         }
     };
+    
+    //judge the host
+    var current_host = window.location.host;
+    var upload_request_url;
+    if(current_host.indexOf('teacher') > -1){
+        upload_request_url = 'http://' + current_host + '/selfInfo/update_avatar/';
+    } else {
+        upload_request_url = 'http://' + current_host + '/member/update_avatar/';
+    }
+    
     var TiZiAvatar = new TiZiavatar('TiZiAvatar', 335, {
         id: 'TiZiAvatar',
-        upload_url: 'upload/avatar'
+        upload_url: upload_request_url,
+        src_upload: 1
     }, callback);
     //选项卡点击事件
     $('dt').click(function () {

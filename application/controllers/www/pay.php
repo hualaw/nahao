@@ -68,13 +68,13 @@ class Pay extends NH_User_Controller {
 	        #根据$int_product_id获取订单里面该轮的部分信息
 	        $array_data = $this->student_order->get_order_round_info($int_product_id);
 	    }
-	   // var_dump($this->session->all_userdata());
+	    var_dump($this->session->all_userdata());
 	    $array_infor = $this->_user_detail;
  	    // var_dump($int_user_id);
  	    #获取是否是手机号注册的
-	    $int_is_phone_register = $this->model_member->check_phone_register($int_user_id);
+	  //  $int_is_phone_register = $this->model_member->check_phone_register($int_user_id);
 	  //  echo '--';var_dump($array_return);die;
-	    $this->smarty->assign('is_phone_register', $int_is_phone_register);
+	   // $this->smarty->assign('is_phone_register', $int_is_phone_register);
 	    $this->smarty->assign('realname', $array_infor['realname']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
@@ -121,6 +121,13 @@ class Pay extends NH_User_Controller {
                 	$uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
                 	if ($pflag && $uflag)
                 	{
+                	    #跟新session缓存
+            	        $userdata = array(
+                            'user_id' => $int_user_id,
+                            'phone' => $str_phone,
+                            'phone_mask' => phone_blur($str_phone)
+                        );
+                        $this->session->set_userdata($userdata);
         	            self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
         	        } else {
         	            self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>1));
@@ -133,6 +140,13 @@ class Pay extends NH_User_Controller {
         	        $uflag = $this->model_member->update_user(phone_blur($str_phone),$int_user_id);
         	        if ($pflag && $uflag)
         	        {
+        	            #跟新session缓存
+        	            $userdata = array(
+        	            'user_id' => $int_user_id,
+        	            'phone' => $str_phone,
+        	            'phone_mask' => phone_blur($str_phone)
+        	            );
+        	            $this->session->set_userdata($userdata);
         	           self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
         	        } else {
         	            self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>2));
@@ -153,6 +167,13 @@ class Pay extends NH_User_Controller {
     	            $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
     	            if ($pflag && $uflag && $uiflag)
     	            {
+    	                #跟新session缓存
+    	                $userdata = array(
+    	                'user_id' => $int_user_id,
+    	                'phone' => $str_phone,
+    	                'phone_mask' => phone_blur($str_phone)
+    	                );
+    	                $this->session->set_userdata($userdata);
     	                self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
     	            } else {
     	                self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>3));
@@ -166,6 +187,13 @@ class Pay extends NH_User_Controller {
 	                $uiflag = $this->model_member->update_user_info($str_real_name,$int_user_id);
 	                if ($pflag && $uflag && $uiflag)
 	                {
+	                    #跟新session缓存
+	                    $userdata = array(
+	                    'user_id' => $int_user_id,
+	                    'phone' => $str_phone,
+	                    'phone_mask' => phone_blur($str_phone)
+	                    );
+	                    $this->session->set_userdata($userdata);
                         self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 	                } else {
 	                    self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>4));
@@ -369,7 +397,7 @@ class Pay extends NH_User_Controller {
 	    $paymentChannel = $this->checkPaymentChannel();
 	    do {
 	    
-	       /*  if (empty ($paymentChannel) || $paymentChannel == '') 
+	        if (empty ($paymentChannel) || $paymentChannel == '') 
 	        {
 	            $response['message'] = '非法支付渠道';
 	            break;
@@ -377,14 +405,14 @@ class Pay extends NH_User_Controller {
 	        $this->load->helper('url');
 	        $this->load->model("business/pay/model_{$paymentChannel}", 'channel');
 	        $payResult = $this->channel->response();
-	        */
+	       
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
-	        $payResult['order_id'] = 5;
+	        //$payResult['order_id'] = 5;
 	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
 	        $int_user_id = $array_orderInfo['student_id'];#TODO用户id
-	        /*
+	        
 	        #未知的订单
 	        if (empty ($array_orderInfo)) 
 	        {
@@ -471,9 +499,9 @@ class Pay extends NH_User_Controller {
 	                }
 	        
 	            }
-	        } */
+	        }
 	        
-	        #更新订单状态,写日志
+/* 	        #更新订单状态,写日志
 	        $array_data = array(
 	        'user_id'=>$int_user_id,
 	        'order_id' =>$payResult['order_id'],
@@ -489,7 +517,7 @@ class Pay extends NH_User_Controller {
 	        } else {
 	            #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
 	            $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
-	        }
+	        } */
 	        
 	    }while(false);
 	    

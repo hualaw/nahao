@@ -1,7 +1,7 @@
 <div class="header">
 	<div class="headLogin">
 		<div class="layout headInfor">
-			<a href="javascript:vold(0);" class="fl phoneHref">400-123-1122</a>
+			<a href="javascript:vold(0);" class="fl phoneHref">400-680-1818</a>
 			<div class="fr headLoginBox">
 				<!--登录之前 开始-->
                 {if !$is_login}
@@ -14,7 +14,7 @@
                 {else}
 				<!--登录之后 开始-->
 				<div class="loginAfter">
-					<a href="" class="blueText">{$nickname}</a>
+					<a href="{$student_url}member/my_infor" class="blueText">{$nickname}</a>
 					<span>|</span>
 					<a href="/login/logout" class="grayText">退出</a>
 				</div>

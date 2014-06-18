@@ -89,7 +89,8 @@ define('ORDER_TYPE_OFFLINE', 4);
  * 默认头像 DEFAULT_AVATER
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
-define('DEFAULT_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
 /*
  * 老师角色
  * 主讲 0
@@ -244,8 +245,6 @@ define('ERROR', 'error');
 
 //过期时间
 define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应该改为5分钟
-//define('REDIS_VERIFY_CODE_PREFIX', 'PH_');//redis的listkey值不能用纯数字，所以加了个前缀
-
 
 //课程中的状态
 define('NAHAO_STATUS_COURSE_INIT',0);//未审核
@@ -265,9 +264,7 @@ define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
 define('NH_QINIU_BUCKET','n1a2h3a4o5');
 define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 
-//昵称最大长度2-15个汉字
-define('MIN_NICKNAME_LEN', 2);
-define('MAX_NICKNAME_LEN', 15);
+define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
 define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
@@ -294,10 +291,6 @@ define('NH_TEACHER_IMG_WIDTH', 300);
 
 //单轮，单节最大人数
 define('NH_CLASS_PEOPLE_CAPS',100);
-
-//昵称最大长度
-/* define('MIN_NICKNAME_LEN', 4);
-define('MAX_NICKNAME_LEN', 21); */
 
 //教龄上限
 define('TEACHER_AGE_CEILING', 50);
