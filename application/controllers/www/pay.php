@@ -313,7 +313,7 @@ class Pay extends NH_User_Controller {
 	        #我的订单
 	        redirect('/member/my_order');
 	    }
-	    
+	    $array_round = $this->model_course->get_round_info($array_order['id']);
 	    $method = $this->input->post('method');
 	    if($method == 'netpay')
 	    {
@@ -331,8 +331,8 @@ class Pay extends NH_User_Controller {
 	        $payMethod = isset($bank_code_config[$pay_method][$bank_code]['type']) ? $bank_code_config[$pay_method][$bank_code]['type']:'';
 	    }
 	    $order_id = $array_order['id'];
-	    $name = $array_order['id'];
-	    $desc = '33';
+	    $name = $array_round['title'];
+	    $desc = $array_round['subtitle'];
 	    $amount = $array_order['spend'];
 	    $create_time = $array_order['create_time'];
 	    
@@ -377,19 +377,10 @@ class Pay extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    //测试页面跳转回调连接
-/* 	    http://www.91waijiao.com/pay/payback?is_success=T&sign=b1af584504b8e845ebe40b8e0e733729&sign
-	    _type=MD5&body=Hello&buyer_email=xinjie_xj%40163.com&buyer_id=2088101000082594&exterfac
-	    e=create_direct_pay_by_user&out_trade_no=1534&payment_type=1&seller_email=chao.chenc1
-	    %40alipay.com&seller_id=2088901014223251&subject=%E5%A4%96%E9%83%A8FP&total_fee=2000.0
-	    0&trade_no=2008102303210710&trade_status=TRADE_FINISHED&notify_id=RqPnCoPT3K9%252F
-	    vwbh3I%252BODmZS9o4qChHwPWbaS7UMBJpUnBJlzg42y9A8gQlzU6m3fOhG&notify_time=2008-10-23+
-	    13%3A17%3A39&notify_type=trade_status_sync&extra_common_param=%E4%BD%A0%E5%A5%BD%EF%
-	    BC%8C%E8%BF%99%E6%98%AF%E6%B5%8B%E8%AF%95%E5%95%86%E6%88%B7%E7%9A%84%E5%B9%BF%E5%91%8A
-	    %E3%80%82&bank_seq_no=%E6%8B%9B%E8%A1%8C%E7%9A%84%E8%AE%A2%E5%8D%95%E5%8F%B7%E5%BD%A2%
-	    E5%A6%829220031730%3B%0D%0A%E5%BB%BA%E8%A1%8C%E7%9A%84%E5%BD%A2%E5%A6%8220100329000000859967 */
+/* 	   http://www.nahaodev.com/pay/payback?body=%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89&buyer_email=wsbnd9%40gmail.com&buyer_id=2088212220120365&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3InR8tGjRXYpexpaRGyeCWBjSZV1%252BqqtUD1W5T58ANYJw2sMq9G4&notify_time=2014-06-18+14%3A53%3A18&notify_type=trade_status_sync&out_trade_no=1&payment_type=1&seller_email=nahao%40tizi.com&seller_id=2088411963723035&subject=%E7%8E%8B%E8%80%81%E5%B8%88+2014%E5%B9%B4%E4%BA%94%E5%B9%B4%E7%BA%A7%E5%A5%A5%E6%95%B0%E6%9A%91%E5%81%87%E8%AE%AD%E7%BB%83%E8%90%A51&total_fee=0.01&trade_no=2014061831991336&trade_status=TRADE_SUCCESS&sign=d10440f551dd92b30ef83c40839a7d31&sign_type=MD5 */
 
 	    log_message("ERROR_NAHAO", var_export($_SERVER,true)."\n".var_export($_GET,true)."\n"
-	    .var_export($_POST,true)."\n---------------------------------------------------------
+	    .var_export($_POST,true)."\n".var_export($_REQUEST,true)."\n---------------------------------------------------------
 	    ---------------------------\n");
 	   
 	    $response = array('title' => '支付失败', 'message' => '');
@@ -405,7 +396,7 @@ class Pay extends NH_User_Controller {
 	        $this->load->helper('url');
 	        $this->load->model("business/pay/model_{$paymentChannel}", 'channel');
 	        $payResult = $this->channel->response();
-	       
+	       var_dump($payResult);die;
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
@@ -493,11 +484,9 @@ class Pay extends NH_User_Controller {
 	                if (! $bool_result) 
 	                {
 	                    $response['message'] = '数据库错误';
-	                } else {
-	                    #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
-	                    $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
-	                }
-	        
+	                } 
+                    #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
+                    $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
 	            }
 	        }
 	        
