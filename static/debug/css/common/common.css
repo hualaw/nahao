@@ -64,6 +64,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 	-ms-transition:.2s all ease;
 	color:#333;background: #fff;
 }
+.iniBox img{height: 172px;width: 230px;}
 .iniBox .iniInfor{ padding: 0 12px 0 8px;}
 .iniBox .iniInfor em.redText{ font-weight: bold;margin-right: 4px;}
 .iniBox .fitGrade{color:#a2a2a2;}
