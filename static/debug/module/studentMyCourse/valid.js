@@ -314,7 +314,7 @@ define(function(require,exports){
             callback:function(data){
                 if(data.status == 'ok') {
                     alert('密码修改成功, 页面将跳转到登陆页面');
-                    window.location = 'http://www.nahaodev.com';
+                    window.location = data.url;
                 } else {
                     alert(data.info);
                 }

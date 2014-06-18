@@ -75,7 +75,7 @@ class NH_User_Controller extends NH_Controller
         }
         $modify_res = $this->business_user->reset_password($user_id, $new_password);
         if($modify_res) {
-            $arr_return = array('status' => SUCCESS, 'info' => '密码修改成功');
+            $arr_return = array('status' => SUCCESS, 'info' => '密码修改成功', 'url' => student_url());
             #清除掉session中的信息
             $this->session->sess_destroy();
         } else {

@@ -270,7 +270,7 @@ define(function(require,exports){
             callback:function(data){
                 alert(data.info);
                 if(data.status == 'ok') {
-                    window.location = 'http://www.nahaodev.com';
+                    window.location = data.url;
                 }
             },
             usePlugin:{
