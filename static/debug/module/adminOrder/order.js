@@ -28,7 +28,6 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        $("#refund").html("退款通过");
                         location=location;
                     }
                 }
@@ -43,7 +42,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        $("#refund").html("退款完成");
+                        location=location;
                     }
                 }
             })
@@ -57,7 +56,6 @@ define(function(require,exports){
                 data:"uid="+$("#student_id").val(),
                 success:function(msg){
                     $("#show").val(msg);
-                    //alert(msg);
                 }
             })
         })
