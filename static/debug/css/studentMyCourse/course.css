@@ -201,7 +201,7 @@
 .studentMyCourse .buyCourse .review a:hover{color:#333;}
 .studentMyCourse .buyCourse .hreview{background: url(../../images/studentMyCourse/hreview.png) no-repeat;margin-left: 2px;width: 21px;height: 20px;float: left;}
 .studentMyCourse .buyCourse .starBg{display: inline-block;width: 115px;height: 20px;margin-left: -2px;background: url(../../images/studentMyCourse/review.png);}
-.studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 136px;margin:0;}
+.studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 143px;margin:0;}
 .studentMyCourse .buyCourse .fromf strong{font-size: 24px;height: 40px;line-height: 40px;margin-right: 14px;}
 .studentMyCourse .buyCourse .fromf strong span{font-size: 36px;margin-left: -5px;}
 .studentMyCourse .buyCourse .endTime .timeTitle{padding-left: 54px;background: url(../../images/studentMyCourse/endTime.png) 24px top no-repeat;height: 22px;}

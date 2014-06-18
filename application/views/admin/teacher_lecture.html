@@ -1,58 +1,67 @@
 共{$total}个试讲申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日新增{$time_day}个试讲申请<br /><br />
 <form action="/lecture/sea_lecture" method="get">
-       <select name="term" style="width:150px">
+    <div class="col-md-2">
+       <select name="term" class="form-control">
            <option value=0>搜索条件</option>
            <option value=1>试讲课程名称</option>
            <option value=2>姓名</option>
            <option value=3>手机号</option>
        </select>
-    <input type="text" name="basis" placeholder="请输入搜索内容" style="width:150px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <select name="subject" style="width:150px">
+        </div>
+    <div class="col-md-2"><input type="text" name="basis" placeholder="请输入搜索内容" class="form-control" /></div>
+    <div class="col-md-2">
+   <select name="subject" class="form-control">
        <option value=0>全部科目</option>
       {foreach $subject as $k=>$v}
             <option value={$v.id}>{$v.name}</option>
       {/foreach}
-   </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="teach_type" style="width:150px">
+   </select></div>
+    <div class="col-md-2">
+    <select name="teach_type" class="form-control">
         <option value=0>全部授课方式</option>
         <option value=1>一对一</option>
         <option value=2>小班</option>
         <option value=3>大班</option>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="province" style="width:150px">
+    </select></div>
+    <div class="col-md-2">
+    <select name="province" class="form-control">
         <option value=0>全部省份</option>
         {foreach $province as $k=>$v}
         <option value={$v.id}>{$v.name}</option>
         {/foreach}
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="status" style="width:150px">
+    </select></div>
+    <div class="col-md-2">
+    <select name="status" class="form-control">
         <option value=0>全部状态</option>
         <option value=1>未审核</option>
         <option value=2>审核通过</option>
         <option value=3>审核未通过</option>
-    </select><br /><br />
-    申请日期:<input type="text" name="create_time1" id="lecture_datetimepicker1" style="width:150px" readonly placeholder="请选择搜索开始时间" />- - - -<input type="text" name="create_time2" id="lecture_datetimepicker2" placeholder="请选择搜索结束时间" style="width:150px" readonly />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </select></div>
+    <div class="col-md-15">&nbsp;</div>
+    <div class="col-md-2"><input type="text" name="create_time1" class="form-control" id="lecture_datetimepicker1" readonly placeholder="请选择申请开始时间" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control" id="lecture_datetimepicker2" placeholder="请选择申请结束时间" readonly /></div>
+
     <button type="submit" class="btn">搜索</button>
  </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$sea_total}条数据</label>
-<table class="table table-bordered">
-    <tr class="active">
-        <td width="45">序号</td>
-        <td width="105">试讲课程名称</td>
-        <td width="105">预约上课时间</td>
-        <td width="80">教师姓名</td>
-        <td width="100">手机号</td>
-        <td width="90">职称</td>
-        <td width="45">教龄</td>
-        <td width="80">科目</td>
-        <td width="80">授课方式</td>
-        <td width="120">所在学校</td>
-        <td width="95">申请日期</td>
-        <td width="80">申请状态</td>
-        <td width="60">地区</td>
-        <td width="45">操作</td>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th width="50">序号</th>
+        <th width="110">试讲课程名称</th>
+        <th width="110">预约上课时间</th>
+        <th width="80">教师姓名</th>
+        <th width="100">手机号</th>
+        <th width="90">职称</th>
+        <th width="50">教龄</th>
+        <th width="80">科目</th>
+        <th width="80">授课方式</th>
+        <th width="120">所在学校</th>
+        <th width="95">申请日期</th>
+        <th width="80">申请状态</th>
+        <th width="60">地区</th>
+        <th width="50">操作</th>
     </tr>
+    </thead>
     {foreach $lecture as $k=>$v}
     <tr>
         <td>{$v.id}</td>

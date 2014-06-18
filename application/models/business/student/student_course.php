@@ -4,6 +4,7 @@ class Student_Course extends NH_Model{
     
     function __construct(){
         parent::__construct();
+
         $this->load->model('model/student/model_course');
         $this->load->model('model/student/model_index');
         $this->load->model('model/student/model_index');
@@ -207,8 +208,6 @@ class Student_Course extends NH_Model{
         {
             show_error("course错误");
         }
-        #获取用户信息
-        $array_data = $this->session->all_userdata();
         #获取该课程所有评价（取审核通过的5条）
         $array_return = $this->model_course->get_round_evaluate($int_course_id);
         if ($array_return)
@@ -216,7 +215,7 @@ class Student_Course extends NH_Model{
             foreach ($array_return as $kk=>$vv)
             {
                 #获取用户头像
-                $array_return[$kk]['avatar'] = $array_data['avatar'];
+                $array_return[$kk]['avatar'] = $this->get_user_avater($vv['student_id']);
                 #评分（四舍五入）
                 $array_return[$kk]['score'] = round($vv['score']);
             }
@@ -255,8 +254,6 @@ class Student_Course extends NH_Model{
         {
             show_error('无老师信息');
         }
-        #获取用户信息
-        $array_data = $this->session->all_userdata();
         #common.php里面的数据字典 老师角色
         $array_teacher_role = config_item('teacher_role');
         #获取老师的具体信息
@@ -265,7 +262,7 @@ class Student_Course extends NH_Model{
             $array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
             $array_return[$k]['teacher_role'] = $array_teacher_role[$k];
             #老师头像
-            $array_return[$k]['avatar'] = $array_data['avatar'];
+            $array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
         }
         return $array_return;
     }
@@ -290,7 +287,7 @@ class Student_Course extends NH_Model{
                 $array_result = $this->model_member->get_user_infor($v['student_id']);
                 
                 #处理数据
-                $array_return[$k]['avatar'] = $array_data['avatar'];
+                $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
                 $array_return[$k]['nickname'] = $array_result['nickname'];
             }
         }
@@ -305,8 +302,6 @@ class Student_Course extends NH_Model{
     public function get_class_note_data($int_round_id)
     {
         $array_return = array();
-        #获取用户信息
-        $array_data = $this->session->all_userdata();
         #去轮公告表寻找信息
         $array_return = $this->model_course->get_class_note_data($int_round_id);
         if ($array_return)
@@ -317,13 +312,13 @@ class Student_Course extends NH_Model{
                 {
                    #发布者是管理员
                     $array_return[$k]['nickname'] = '管理员';
-                    $array_return[$k]['avatar'] = $array_data['avatar'];
+                    $array_return[$k]['avatar'] = DEFAULT_TEACHER_AVATER;
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
                     $array_return[$k]['nickname'] = $array_result['nickname'];
 
-                    $array_return[$k]['avatar'] = $array_data['avatar'];
+                    $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
                 }
             }
         }
@@ -407,5 +402,23 @@ class Student_Course extends NH_Model{
         $array_return = array();
         $array_return = $this->model_course->get_class_infor($int_class_id);
         return $array_return;
+    }
+    
+    /**
+     * 获取用户头像
+     */
+    public function get_user_avater($int_user_id)
+    {
+    	$avatar = DEFAULT_STUDENT_AVATER;
+    	$array_return  = $this->model_member->get_user_avater($int_user_id);
+    	if ($array_return)
+    	{
+    		if ($array_return['teach_priv'] == 1){
+    			$avatar = DEFAULT_TEACHER_AVATER;
+    		} else{
+    			$avatar = DEFAULT_STUDENT_AVATER;
+    		}
+    	}
+    	return $avatar;
     }
 }

@@ -36,7 +36,7 @@ class Business_Login extends NH_Model {
             if($user_id) $arr_where['id'] = $user_id;
             if($email) $arr_where['email'] = $email;
 
-            $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar';
+            $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar,teach_priv';
             $ret_info = $this->model_user->get_user_by_param('user', 'list', $str_fields, $arr_where);
             if(!empty($ret_info) && isset($ret_info[0]))
             {
@@ -58,7 +58,7 @@ class Business_Login extends NH_Model {
                     if($user_id) $phone = get_pnum_phone_server($user_id);
 
                     $this->set_session_data($user_info['id'], $nickname, $user_info['avatar'],
-                        $phone, $user_info['phone_mask'], $user_info['email'], $login_type);
+                        $phone, $user_info['phone_mask'], $user_info['email'], $login_type, $user_info['teach_priv']);
 
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
                 }

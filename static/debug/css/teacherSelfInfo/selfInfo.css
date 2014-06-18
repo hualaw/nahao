@@ -56,6 +56,8 @@
 .teacherSelfInfo .personInfo .atareditor dt.current a{background:#f14211;color:#fff;}
 .teacherSelfInfo .personInfo .atareditor dt.current a.localUpload em{background-position:0px 7px;}
 .teacherSelfInfo .personInfo .atareditor dt.current a.videoUpload em{background-position:-470px 7px;}
+.teacherSelfInfo .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);}
+.teacherSelfInfo .photoFlash{margin-left: 25px;width: 600px;}
 /*修改头像页面样式结束*/
 /*我要开课样式开始*/
 .teacherSelfInfo .writeInfo{background: #fff;text-align: center;color:#0e455e;border: 1px solid #d5d5d5;}

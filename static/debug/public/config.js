@@ -103,5 +103,9 @@ seajs.use('jquery', function () {
         case 'adminQuestion':
             seajs.use("module/adminQuestion/init");
             break;
+        // 关于我们
+        case 'about':
+            seajs.use("module/about/init");
+            break;
     }
 })

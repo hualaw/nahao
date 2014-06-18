@@ -243,7 +243,7 @@ define(function(require,exports){
 		_Form.addRule([{
                 ele: ".userName",
                 datatype:"*",
-                nullmsg:"请输入手机号/邮箱/梯子网帐号",
+                nullmsg:"请输入手机号/邮箱",
                 errormsg:"长度2-15个字符"
             },
             {	

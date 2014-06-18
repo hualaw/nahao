@@ -158,4 +158,17 @@
             $this->load->model("model/admin/model_order");
             return $this->model_order->show_tel($int_uid);
         }
+        /**
+         * 修改订单价格
+         * @author shangshikai@tizi.com
+         */
+        public function price_modify($modify_price,$order_id,$spend)
+        {
+            if(!is_numeric($modify_price) || $modify_price<0 || $modify_price=="")
+            {
+                return FALSE;
+            }
+            $this->load->model("model/admin/model_order");
+            return $this->model_order->price_order_modify($modify_price,$order_id,$spend);
+        }
     }

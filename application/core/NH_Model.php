@@ -98,7 +98,7 @@ class NH_Model extends CI_Model
         return $mix_return;
     }
 
-    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type)
+    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, $user_type)
     {
 
         if($nickname == '' )
@@ -121,7 +121,7 @@ class NH_Model extends CI_Model
         }
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
-        else $avatar = static_url($avatar);
+        else $avatar = NH_QINIU_URL.$avatar;
 
         $userdata = array(
             'user_id' => $user_id,
@@ -131,6 +131,7 @@ class NH_Model extends CI_Model
             'phone_mask' => $phone_mask,
             'email' => $email,
             'reg_type' => $reg_type,
+            'user_type' => $user_type, //0表示学生，1表示老师
         );
         $this->session->set_userdata($userdata);
     }
