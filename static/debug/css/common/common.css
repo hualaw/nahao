@@ -137,7 +137,7 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:30px;}
 .feedback h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
 .feedback form .fbText{height: 28px;line-height: 28px;}
-.feedback form textarea{width: 610px;height: 228px;}
+.feedback form textarea{width: 610px;height: 100px;}
 .feedback form input{width:288px;}
 .feedback .formName{font-size: 16px;}
 .feedback .submit,

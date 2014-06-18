@@ -143,6 +143,16 @@ class Index extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
 	    }
 	}
+	
+	/**
+	 * 底部的页面
+	 */
+	public function about()
+	{
+	    $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
+	    $this->smarty->assign('str_pram',$str_pram);
+	    $this->smarty->display('www/about/index.html');
+	}
 }
 
 /* End of file welcome.php */

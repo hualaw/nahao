@@ -617,7 +617,7 @@ function general_classroom_id($arr_param){
  * @param $int_user_type
  * @return string
  * @author yanrui@tizi.com
- */
+
 function enter_classroom($int_meeting_id,$int_user_type){
     $str_enter_classroom_url = '';
     if($int_meeting_id > 0 AND in_array($int_user_type,array_keys(config_item('nh_meeting_type')))){
@@ -627,6 +627,7 @@ function enter_classroom($int_meeting_id,$int_user_type){
     }
     return $str_enter_classroom_url;
 }
+*/
 
 function get_name_length($str, $str_encoding='utf-8', $debug=false)
 {
