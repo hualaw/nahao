@@ -45,15 +45,19 @@ define(function(require,exports){
         _Form.addRule([
             {
                 ele: ".userName",
-                datatype:"*6-8",
+                datatype:"*",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度4-16个字符",
+                ajaxurl:'/selfInfo/validate_user_nickname',
+                ajaxUrlName:'nickname'
             },
             {
                 ele:".userRealName",
-                datatype: "*6-8",
+                datatype: "*",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度4-16个字符",
+                ajaxurl: "/selfInfo/check_realname_length",
+                ajaxUrlName:"realname"
 
             },
             {
@@ -120,9 +124,10 @@ define(function(require,exports){
             },
             {
                 ele:".phone",
-                datatype: "*",
+                datatype: "m",
                 nullmsg: "请输入手机号码",
-                errormsg: "请输入手机号码"
+                errormsg: "请输入手机号码",
+                ignore:"ignore"
 
             },
             {

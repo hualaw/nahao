@@ -11,9 +11,19 @@ class Selfinfo extends NH_User_Controller {
         }
         $this->smarty->assign('data', array('active'=>'selfinfo'));
     }
-	public function index(){
+    
+    
+	public function index()
+    {
         if($this->is_post()) {
-            $post_data = array();
+            $post_data = $arr_return = array();
+            $post_data['nickname'] = trim($this->input->post('nickname'));
+            if($post_data['nickname'] && $post_data['nickname'] != $this->_user_detail['nickname']) {
+                #修改数据库和redis中的昵称
+                $this->business_user->modify_user($post_data, $this->session->userdata('user_id'));
+                $this->session->set_userdata('nickname', $post_data['nickname']);
+            }
+            
             $post_data['realname'] = trim($this->input->post('realname'));
             $post_data['stage'] = intval($this->input->post('stage'));
             $post_data['teacher_subject'] = trim($this->input->post('teacher_subject'));
@@ -33,9 +43,9 @@ class Selfinfo extends NH_User_Controller {
             $post_data['title_auth_img'] = trim($this->input->post('title_auth_img'));
             $result = $this->business_user->modify_user_info($post_data, $this->_user_detail['user_id']);
             if($result) {
-                $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
+                $arr_return = array('status' => SUCCESS, 'msg' => '更新资料成功');
             } else {
-                $arr_return = array('status' => 'error', 'msg' => '更新资料失败请稍后重试');
+                $arr_return = array('status' => ERROR, 'msg' => '更新资料失败请稍后重试');
             }
             self::json_output($arr_return);
         }
@@ -47,8 +57,9 @@ class Selfinfo extends NH_User_Controller {
         $stages = $this->config->item('stage');
         #科目
         $subjects = $this->business_subject->get_subjects();
-        #老师所属的学校
+        #学校
         $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
+        $school_name = isset($my_school['schoolname']) ? $my_school['school_name'] : '';
         #教师职称
         $teacher_tile = $this->config->item('teacher_title');
         $gender = $this->config->item('gender');
@@ -56,6 +67,7 @@ class Selfinfo extends NH_User_Controller {
         $banks = $this->config->item('bank');
         #省和直辖市
         $province=$this->business_lecture->all_province();
+        $city = $area = array();
         if($this->_user_detail['province']) {
             $city = $this->business_teacher->city1($this->_user_detail['province']);
         }
@@ -70,16 +82,16 @@ class Selfinfo extends NH_User_Controller {
         $str_upToken = $obj_putPolicy->Token ( null );
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
-        //course img file name
-        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
-        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
-        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        //teacher auth img file name
+        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt;
+        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt;
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
         $this->smarty->assign('stages', $stages);
-        $this->smarty->assign('school', $my_school['schoolname']);
+        $this->smarty->assign('school', $school_name);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('titles', $teacher_tile);
         $this->smarty->assign('gender', $gender);
@@ -96,10 +108,8 @@ class Selfinfo extends NH_User_Controller {
 	public function password(){
 		$this->smarty->display('teacher/teacherSelfinfo/password.html');
 	}
-	public function photo(){
-        if($this->is_post()) {
-            
-        }
+	public function photo()
+    {
         $user_id = $this->session->userdata('user_id');
         //generate param for uploading to qiniu
         require_once APPPATH . 'libraries/qiniu/rs.php';

@@ -162,10 +162,12 @@ class NH_User_Controller extends NH_Controller
             }
             
             if($success_num == 2) {
+                $avatar_url = NH_QINIU_URL . $result['avatar_key'];
+                $update_data = array('avatar' => $result['avatar_key']);
+                $this->business_user->modify_user($update_data, $user_id);
+                $this->session->set_userdata('avatar', $avatar_url);
                 $result['success'] = true;
                 $result['msg'] = '上传成功';
-                $avatar_url = 'http://n1a2h3a4o5.qiniudn.com/' . $result['avatar_key'];
-                $this->session->set_userdata('avatar', $avatar_url);
             }
         }
         
@@ -206,5 +208,57 @@ class NH_User_Controller extends NH_Controller
         }
         
         return $arr_return;
+    }
+    
+    /**
+     * 检查用户的昵称,该方法只适用于update昵称时的验证,insert昵称的验证在login控制器里
+     */
+    public function validate_user_nickname()
+    {
+        $arr_return = array('status' => ERROR);
+        if(isset($this->_user_detail['user_id'])) {
+            $nickname = trim($this->input->post('nickname'));
+            if($nickname == $this->_user_detail['nickname']) {
+                #昵称未有改动直接返回成功, 这块是为了前台validFrom验证通过
+                $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
+                self::json_output($arr_return);
+            }
+            #验证昵称长度
+            $length_ret = check_name_length($nickname);
+            if(!$length_ret) {
+                $arr_return['info'] = '昵称要控制在4~25个字符,一个汉字按两个字符计算';
+                self::json_output($arr_return);
+            }
+            #验证昵称是否重复
+            $check_ret = $this->business_user->get_user_by_nickname($nickname);
+            if(isset($check_ret['id'])) {
+                $arr_return['info'] = "该昵称已被其他人占用";
+                self::json_output($arr_return);
+            } else {
+                $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
+                self::json_output($arr_return);
+            }
+            
+        }
+        $arr_return['info'] = '验证失败';
+        self::json_output($arr_return);
+    }
+    
+    /**
+     * 检查用户真实姓名的长度
+     */
+    public function check_realname_length()
+    {
+        $arr_return = array('status' => ERROR);
+        $realname = trim($this->input->post('realname'));
+        $check_ret = check_name_length($realname);
+        if(!$check_ret) {
+            $arr_return['info'] = '真实姓名要控制在4~25个字符,一个汉字按两个字符计算';
+        } else {
+            $arr_return['status'] = SUCCESS;
+            $arr_return['info'] = '验证通过';
+        }
+        
+        self::json_output($arr_return);
     }
 }
