@@ -121,7 +121,7 @@ class NH_Model extends CI_Model
         }
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
-        else $avatar = static_url($avatar);
+        else $avatar = NH_QINIU_URL.$avatar;
 
         $userdata = array(
             'user_id' => $user_id,
