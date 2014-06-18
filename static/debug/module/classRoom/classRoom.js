@@ -363,7 +363,7 @@ define(function (require,exports){
 									rhtml+='				</li>';
 											})
 									rhtml+='			</ul>';
-									rhtml+='<p>您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
+									rhtml+='<p class="chanText">您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
 									rhtml+='		</div>';
 									
 									})

@@ -45,6 +45,11 @@ border-color: #bce8f1;
 float:left;
 }
 </style>
+<ol class="breadcrumb">
+  <li><font class="text-muted">GPS导航：</font></li>
+  <li><a href="/">首页</a></li>
+  <li><a href="/question/lesson_question/{$data['lesson_id']}">课节题目管理</a></li>
+</ol>
 <ul class="nav nav-tabs" id="myTab" rel="{$data['tab']}">
 	<li {if $data['tab']=="question_list"}class="active"{/if}><a href="#question_list" data-toggle="tab">题目列表</a></li>
 	<li {if $data['tab']=="question_add"}class="active"{/if}><a href="#question_add" data-toggle="tab">添加题目</a></li>
@@ -54,7 +59,7 @@ float:left;
   	<!--1. 题目列表-->
 	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_list">
 		<blockquote class="quoteback">
-		  <p>课节（id{$data['lesson_id']}）的所有题目，共：<span class="badge">{$data['total']}</span>道题目</p>
+		  <p>课节（id{$data['lesson_id']}）的所有题目，共：<span class="badge" style="color: #fff;background-color: red;">{$data['total']}</span>道题目</p>
 		</blockquote>
 		<div class="col-md-12 body">
 		{if $data['question_list']}
@@ -91,7 +96,7 @@ float:left;
 	<!--2. 添加题目-->
 	<div class="tab-pane fade {if $data['tab']=='question_list'}in active{/if}" id="question_add">
 		<blockquote class="quoteback">
-		  <p>为课节（id{$data['lesson_id']}）添加新题。当前已有<code>9</code>道题目</p>
+		  <p>为课节（id{$data['lesson_id']}）添加新题。当前已有<code>{$data['total']}</code>道题目</p>
 		</blockquote>
 		<div class="col-md-12">
 			<form class="form-horizontal" method="POST" id="question_form" role="form" action="/question/lesson_add">

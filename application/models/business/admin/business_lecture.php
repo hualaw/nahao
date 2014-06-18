@@ -136,8 +136,13 @@
          */
         public function lecture_pass($post)
         {
+            if(trim($post['basic_reward'])=="" || !is_numeric($post['basic_reward']) || $post['basic_reward']<0 )
+            {
+                return 2;
+            }
             //var_dump($post);die;
             $data=array(
+                'basic_reward'=>$post['basic_reward'],
                 'gender'=>$post['gender'],
                 'realname'=>$post['realname'],
                 'age'=>$post['age'],

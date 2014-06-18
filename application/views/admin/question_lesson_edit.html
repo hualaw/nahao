@@ -8,6 +8,12 @@ float:left;
 }
 </style>
 <div class="tab-content">
+	<ol class="breadcrumb">
+	  <li><font class="text-muted">GPS导航：</font></li>
+	  <li><a href="/">首页</a></li>
+	  <li><a href="/question/lesson_question/{$data['lesson_id']}">课节题目管理</a></li>
+	  <li><a href="/question/lesson_edit/{$data['lesson_id']}/{$data['question_id']}">课节题目修改</a></li>
+	</ol>
 	<blockquote class="quoteback">
 		<p>修改课节（id{$data['lesson_id']}）的题目（id:{$data['question_id']}）</p>
 	</blockquote>

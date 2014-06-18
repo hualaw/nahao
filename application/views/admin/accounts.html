@@ -1,0 +1,48 @@
+已结算的课酬数:{$statistics['balance_total']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已结算的课酬总额:￥{$statistics['balance_income']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未结算的课酬数:{$statistics['unsettled_total']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未结算的课酬总额:￥{$statistics['unsettled_income']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已支付的课酬数:{$statistics['pay_total']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已支付的课酬总额:￥{$statistics['pay_income']}<br /><br />
+ <form method="get" action="/check_out/search">
+ <select name="term" style="width:100px">
+     <option value=0>请选择条件</option>
+     <option value=1>教师姓名</option>
+     <option value=2>教师昵称</option>
+     <option value=3>手机号</option>
+ </select>
+ <input type="text" name="term_val" style="width:200px" placeholder="请输入搜索条件" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 结算时间:<input type="text" name="settle_time" id="settle_datetimepicker1" style="width:200px" placeholder="请选择结算时间搜索" readonly />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 结算状态:<select name="status" style="width:100px">
+            <option value=0>请选择状态</option>
+            {for $i=1 to 3}
+            <option value={$i}>{$teacher_balance[$i]}</option>
+            {/for}
+        </select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-info">搜索</button>
+</form><br /><br />
+<label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
+<table class="table table-bordered">
+    <tr class="active">
+        <td width="80">教师姓名</td>
+        <td width="80">教师昵称</td>
+        <td width="100">联系方式</td>
+        <td width="80">授课次数</td>
+        <td width="80">授课课时</td>
+        <td width="80">总课时费</td>
+        <td width="80">税后收入</td>
+        <td width="80">结算状态</td>
+        <td width="180">结算日期</td>
+        <td width="80">当月详情</td>
+    </tr>
+    {foreach $list as $v}
+    <tr>
+        <td>{$v.realname}</td>
+        <td>{$v.nickname}</td>
+        <td>{$v.phone_mask}</td>
+        <td>{$v.teach_times}</td>
+        <td>{$v.class_times}</td>
+        <td>{$v.gross_income}</td>
+        <td>{$v.net_income}</td>
+        <td>{$teacher_balance[$v.status]}</td>
+        <td>{$v.checkout_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td><a href="/check_out/details_for_class?teacher_checkout_log_id={$v.id}">查看详情</a></td>
+    </tr>
+    {/foreach}
+</table>
+{$page}

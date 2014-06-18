@@ -10,8 +10,8 @@
 .transBtn{border-radius: 2px;color:#fff;display: inline-block;box-shadow: 1px 1px 3px rgba(0,0,0,.2),-1px -1px 3px rgba(0,0,0,.2);text-align: center;border: 1px solid rgba(255,255,255,.5);*border:1px solid #fff;border:1px solid #fff\9;}
 
 .btn3{padding:0 12px 0 30px;min-width: 90px;}
-.btn3 .fl{margin-left: 15px;-webkit-transition: .2s all ease;}
-.btn3 .fr{-webkit-transition: .2s all ease;background: url(../../images/common/btnBg.png) center center no-repeat;display: inline-block;width: 32px;height: 32px;margin:4px 15px 0 0;}
+.btn3 .fl{margin-left: 15px;-webkit-transition: .2s all ease;-moz-transition: .2s all ease;-o-transition: .2s all ease;-ms-transition: .2s all ease;}
+.btn3 .fr{-webkit-transition: .2s all ease;-moz-transition: .2s all ease;-o-transition: .2s all ease;-ms-transition: .2s all ease;background: url(../../images/common/btnBg.png) center center no-repeat;display: inline-block;width: 32px;height: 32px;margin:4px 15px 0 0;}
 .btn3:hover .fl{margin-left: 0px;}
 .btn3:hover{min-width: 90px;}
 .btn3:hover .fr{margin-right: 0px;background-image: url(../../images/common/hoverBg.png);}
