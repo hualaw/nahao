@@ -70,7 +70,6 @@ class Orderlist extends NH_User_Controller {
 			'teach_status_count' 	=> $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
 			'pageBar'				=> $pageBar,
 		);
-		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/index.html');
 	}

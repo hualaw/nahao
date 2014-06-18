@@ -330,6 +330,7 @@ class Classroom extends NH_User_Controller {
 
 
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        
         $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
 //        $str_classroom_url = '/classroom/main.html';
 //        o($str_classroom_url,true);

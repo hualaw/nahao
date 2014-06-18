@@ -54,7 +54,7 @@
 		            <tr>
 		                <td class="order_id">{$v['id']}</td>
 		                <td class="order_name">
-		                    <h3>{$v['title']} </h3>
+		                    <h3><a href="{$student_url}classroom/enter/{$v['classroom_id']}" title="{$v['title']}">{$v['title']}</a></h3>
 		                </td>
 		                <td class="class_date"><b>{$v['begin_time']|date_format:'%Y:%m:%d'}</b>{$v['begin_time']|date_format:'%H:%M:%S'}</td>
 		                <td class="class_statu">{$v['status_name']}</td>

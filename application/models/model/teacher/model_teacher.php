@@ -83,7 +83,7 @@ class Model_Teacher extends NH_Model{
 		$group = $param['counter'] ? '' : " GROUP BY r.id";
 		$order = " ORDER BY cl.begin_time DESC";
 		$limit = !empty($param['limit']) ? " LIMIT ".$param['limit'] : '';
-		$column = $param['counter']==1 ? 'count(DISTINCT r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
+		$column = $param['counter']==1 ? 'count(DISTINCT r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.classroom_id,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column."  
@@ -224,6 +224,7 @@ class Model_Teacher extends NH_Model{
 	public function student_comment($param){
 		$param['counter'] = !empty($param['counter']) ? $param['counter'] : '';
 		$param['order'] = !empty($param['order']) ? $param['order'] : '';
+		$param['orderType'] = !empty($param['orderType']) ? $param['orderType'] : '';
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
