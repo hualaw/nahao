@@ -9,13 +9,6 @@ class Index extends NH_User_Controller {
     }
 
     /**
-     * 关于我们
-     */
-	public function about()
-	{  
-        $this->smarty->display('www/about/index.html');
-	}
-    /**
      * 首页获取轮的列表信息
      */
 	public function index()
@@ -154,11 +147,11 @@ class Index extends NH_User_Controller {
 	/**
 	 * 底部的页面
 	 */
-	public function about_infor()
+	public function about()
 	{
-	    $str_pram = $this->uri->rsegment(2) ? $this->uri->rsegment(2) : 'about';
+	    $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
 	    $this->smarty->assign('str_pram',$str_pram);
-	    $this->smarty->display('www/studentHomePage/index.html');
+	    $this->smarty->display('www/about/index.html');
 	}
 }
 
