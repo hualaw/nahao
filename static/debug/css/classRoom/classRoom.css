@@ -4,7 +4,8 @@
 .classRoomPage .greenText{color: #3fa612;}
 /*  做题 --*/
 .classRoomPage .doWorkBox{padding: 0 60px 45px 66px;width: 676px;margin-top:30px;}
-.classRoomPage .answerList li{height: 28px;line-height: 28px;border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
+.classRoomPage .answerList li{min-height: 28px;/*height: 28px;line-height: 28px;*/border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
+.classRoomPage .answerList li p{width: 541px;}
 .classRoomPage .scoreBoxList .answerList li{margin-left: 51px;}
 .classRoomPage .answerList li .options{margin-right: 40px;}
 .classRoomPage .answerList li:hover,
@@ -28,17 +29,18 @@
 .classRoomPage .scoreBox{width: 850px;margin-top:30px;}
 .classRoomPage .optionNav{width: 75px;text-align: center;color:#fff;}
 .classRoomPage .scoreCon{width: 715px;padding: 0 30px 0 30px;}
-.classRoomPage .itemscore .scoreCon{width: 711px;}
+/*.classRoomPage .itemscore .scoreCon{width: 711px;}*/
 .classRoomPage .answerList{margin:50px 0 0;}
 .classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
 .classRoomPage .itemscore .result{cursor: pointer;}
-.classRoomPage .optionNav li{font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
+.classRoomPage .optionNav li{width:;font-size: 14px;height: 40px;line-height: 40px;border-top: 1px solid #f5f5f5;background: #8bb320;cursor: pointer;}
 .classRoomPage .optionNav li:hover{background: #a3ca39;border-left: 5px solid #678d00;}
 .classRoomPage .optionNav .curitme{background: #ed4111;}
 .classRoomPage .optionNav .curitme:hover{background: #f86035;border-left: 5px solid #c93107;}
-.classRoomPage .itemscore .scoreCon{padding: 0 32px 0px;}
+.classRoomPage .itemscore .scoreCon{padding: 0 30px 0px;}
 .classRoomPage .itemscore{padding-bottom: 28px;}
 .classRoomPage .scoreShow{width: 222px;}
+.classRoomPage .chanText{padding-left: 50px;}
 .classRoomPage .ansShow{width: 476px;border: 1px solid #b9b9b9;}
 .classRoomPage .itemscore .score{height: 222px;background: #ed4111;color: #fff;text-align: center;}
 .classRoomPage .itemscore .score h3{font-size: 24px;padding: 26px 0 13px;}
@@ -107,7 +109,7 @@
 .classRoomPage .exercise .ef .Titem{margin-right: -7px;}
 .classRoomPage .exercise .ef p{text-align: right;margin-top: 15px;}
 .classRoomPage .exercise .ef p .btn{margin:0 54px 0 25px;width: 190px;}
-.classRoomPage .exercise .ef p span.btn{background: #dedede;color: #4b4b4b;}
+.classRoomPage .exercise .ef p span.btn{background: #dedede;color: #4b4b4b;cursor: inherit;}
 .classRoomPage .exercise .ef p em{margin:0 6px;}
 /* 评价 */
 .classRoomPage .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
@@ -124,6 +126,7 @@
 .classRoomPage .cparent{right: 34px;top:0;height: 528px;}
 .classRoomPage .sparent .sbar,
 .classRoomPage .cparent .cbar{width: 4px;height: 30px;background: #0e455e;position: absolute;left: 0;top:0;}
-.classRoomPage .scoreBoxList{/*position:absolute;*/right: 0;top:0;width: 675px;}
+.classRoomPage .scoreBoxList{/*position:absolute;*/right: 0;top:0;width: 675px;height: 400px;overflow-y: scroll;}
 .classRoomPage .scoreBoxPar{max-height: 528px;/*min-height:300px;*//*overflow-y: scroll;*/}
 /*.classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}*/
+.classRoomPage .optionNav .sconl{height: 328px;overflow-y: scroll;}

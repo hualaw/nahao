@@ -4,7 +4,7 @@ define(function(require,exports){
     	$.tiziDialog({
             title:false,
             ok:false,
-            icon:false,
+            icon:null,
             padding:0,
             content:$(obj).html()
         });

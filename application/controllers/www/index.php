@@ -9,6 +9,13 @@ class Index extends NH_User_Controller {
     }
 
     /**
+     * 关于我们
+     */
+	public function about()
+	{  
+        $this->smarty->display('www/about/index.html');
+	}
+    /**
      * 首页获取轮的列表信息
      */
 	public function index()

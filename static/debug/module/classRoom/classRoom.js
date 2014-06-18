@@ -339,7 +339,7 @@ define(function (require,exports){
 		 							$.each(response.data.data_question, function(kk, vv) {
 									
 									rhtml+='		<div class="scoreBoxList undis">';
-									rhtml+='			<div>第'+(kk+1)+'题、'+vv.question+'</div>';
+									rhtml+='			<div>第'+(kk+1)+'题:'+vv.question+'</div>';
 									rhtml+='			<ul class="answerList">';
 											$.each(vv.options, function(kkk, vvv) {
 												if(vv.selected == kkk ){
@@ -363,7 +363,7 @@ define(function (require,exports){
 									rhtml+='				</li>';
 											})
 									rhtml+='			</ul>';
-									rhtml+='<p>您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
+									rhtml+='<p class="chanText">您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
 									rhtml+='		</div>';
 									
 									})
@@ -390,7 +390,11 @@ define(function (require,exports){
 									rhtml+='		</div>';
 									rhtml+='	</div>';
 									rhtml+='	<div class="promTextBox fl">'
-									rhtml+='		<h3 class="comeOnBg">'
+													if(response.data.count_score/100 >=0.5){
+									rhtml+='		<h3 class="">'	
+													} else {
+									rhtml+='		<h3 class="comeOnBg">'						
+													}
 									rhtml+='			<span class="reward">恭喜你，名列前茅！</span>'
 									rhtml+='			<span class="comeOn">成绩不理想，要加油喽！</span>'
 									rhtml+='		</h3>'

@@ -50,11 +50,15 @@ define(function(require,exports){
             $.ajax({
                 type:"post",
                 url:"/lecture/pass_lecture",
-                data:"lecture_id="+$('#lecture_id').val()+"&user_id="+$('#user_id').val()+"&gender="+$('#gender').val()+"&realname="+$('#tea_name').val()+"&age="+$('#age').val()+"&school="+$('#school').val()+"&province="+$('#province').val()+"&city="+$('#city').val()+"&area="+$('#area').val()+"&stage="+$('#stage').val()+"&teacher_age="+$('#teach_years').val()+"&teacher_intro="+$('#resume').val()+"&title="+$('#title').val()+"&subject="+$('#subject').val(),
+                data:"lecture_id="+$('#lecture_id').val()+"&user_id="+$('#user_id').val()+"&gender="+$('#gender').val()+"&realname="+$('#tea_name').val()+"&age="+$('#age').val()+"&school="+$('#school').val()+"&province="+$('#province').val()+"&city="+$('#city').val()+"&area="+$('#area').val()+"&stage="+$('#stage').val()+"&teacher_age="+$('#teach_years').val()+"&teacher_intro="+$('#resume').val()+"&title="+$('#title').val()+"&subject="+$('#subject').val()+"&basic_reward="+$('#basic_reward').val(),
                 success:function(msg){
                     if(msg==1)
                     {
                         $('#curr_status').html('审核通过');                                                                 location=location;
+                    }
+                    if(msg==2)
+                    {
+                        alert('课酬填写错误');
                     }
                 }
             })
@@ -104,5 +108,23 @@ define(function(require,exports){
             $("#show").val(p);
         })
 
+        $('#basic_reward').blur(function(){
+            if($.trim($('#basic_reward').val())=='')
+            {
+                $('#span_basic_reward').show().css('color','red').html('课酬不能为空');
+            }
+            else if(isNaN($('#basic_reward').val()))
+            {
+                $('#span_basic_reward').show().css('color','red').html('必须是一个数字');
+            }
+            else if($('#basic_reward').val()<0)
+            {
+                $('#span_basic_reward').show().css('color','red').html('不能小于0');
+            }
+            else
+            {
+                $('#span_basic_reward').hide();
+            }
+        })
         }
     })
