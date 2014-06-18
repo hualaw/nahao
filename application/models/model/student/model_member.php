@@ -221,4 +221,16 @@ class Model_Member extends NH_Model{
         $int_result = $this->db->query($sql)->num_rows();
         return $int_result;
     }
+    
+    /**
+     * 获取用户头像
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function get_user_avater($int_user_id)
+    {
+    	$sql = "SELECT teach_priv,avatar FROM user WHERE id = ".$int_user_id;
+    	$array_result = $this->db->query($sql)->row_array();
+    	return $array_result;
+    }
 }
