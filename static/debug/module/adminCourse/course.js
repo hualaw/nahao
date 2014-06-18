@@ -25,21 +25,6 @@ define(function (require, exports) {
                 }
             });
         });
-
-        $('#btn_course_status_submit').on("click",function () {
-            var status = $('input[name="course_status"]:checked').val();
-            var course_id = $("#course_operation_course_id").val(course_id);
-            var url = $(this).data("action");
-            var data = {
-                "course_id" : course_id,
-                "status" : status
-            };
-            $.post(url,data,function(response){
-
-            });
-            console.log(course_status);
-//            modal.modal();
-        });
     }
 
     //load ckeditor

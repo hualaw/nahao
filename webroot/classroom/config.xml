@@ -1,59 +1,67 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <url>
-	<domain></domain>
-	<server>
-		<ol>42.121.114.19</ol>
-		<pys>
-			<py>14.18.206.3</py>
-			<py>54.251.110.86</py>
-			<py>191.238.50.102</py>
-			<py>54.200.147.27</py>
-			<py>42.62.14.188</py>
-			<py>223.202.40.222</py>
-		</pys>
-	</server>
-	<sevport>1443</sevport>
-	<phDome></phDome>
-	<IpConfig>
-		<IpCity city="US,HK,JP,PH">
-			<ip>168.63.233.80</ip>
-			<ip>168.63.236.49</ip>
-			<ip>54.251.110.86</ip>
-			<ip>54.250.194.250</ip>
-			<ip>138.91.2.134</ip>
-			<ip>138.91.3.107</ip>
-			<ip>138.91.18.49</ip>
-			<ip>168.63.134.218</ip>
-			<ip>54.200.147.27</ip>
-			<ip>192.241.207.26</ip>
-			<ip>110.34.240.58</ip>  
-			<ip>191.238.50.102</ip>
-			<ip>191.238.58.8</ip>
-			<ip>203.90.245.15</ip>
-			<ip>207.46.150.29</ip>
-		</IpCity>
-		<IpCity city="CN">
-			<ip>42.121.34.105</ip> 
-			<ip>42.121.114.19</ip>
-			<ip>14.18.206.3</ip>
-			<ip>122.13.67.42</ip>
-			<ip>42.62.14.188</ip>
-			<ip>223.202.40.222</ip>
-			<ip>58.241.44.119</ip>
-			<ip>58.215.165.119</ip>
-			<ip>182.131.2.106</ip>
-			<ip>119.4.210.112</ip>
-			<ip>42.159.138.31</ip>
-			<ip>203.90.245.15</ip>
-			<ip>207.46.150.29</ip>
-			<ip>117.34.101.4</ip>
-			<ip>113.200.158.165</ip>
-		</IpCity>
-	</IpConfig>
-	<mgs>
-		<mg>
-			<oMG>14.18.206.3</oMG>
-			<mMG>122.13.67.42</mMG>
-		</mg>
-</mgs>
+    <!-- <domain>http://img.91waijiao.com/tnc/</domain> -->
+    <server>
+        <original>115.29.220.31:4443</original>
+        <reserve></reserve>
+        <proxys>
+            <proxy></proxy>
+        </proxys>
+    </server>
+    <serverport>4443</serverport>
+    <Sofeware>http://img.91waijiao.com/classroom/91WaijiaoClientSetup.exe</Sofeware>
+    <AutoUpdate>http://img.91waijiao.com/classroom/91WaijiaoClient.zip</AutoUpdate>
+    <PrePageCnt>2</PrePageCnt>
+    <ChangeCodeCnt>5</ChangeCodeCnt>
+    <TestMgCount>5</TestMgCount>
+    <TestMgTimeOut>50000</TestMgTimeOut>
+    <TestMgFirstTimeOut>20000</TestMgFirstTimeOut>
+    <TestMgSecondTimeOut>20000</TestMgSecondTimeOut>
+    <TestMgCompleteCount>2</TestMgCompleteCount>
+    <StudentDefaultMgAddr>42.121.114.19</StudentDefaultMgAddr>
+    <TeacherDefaultMgAddr>110.34.240.58</TeacherDefaultMgAddr>
+    <KickUserTime>30</KickUserTime>
+    <ChangeStreamMaxCount>2</ChangeStreamMaxCount>
+    <NoteUrl>http://api.91waijiao.com/app/class_note</NoteUrl>
+    <ImageErrorUrl>http://api.91waijiao.com/app/add_error</ImageErrorUrl>
+    <philippinesDome></philippinesDome>
+    <maxLostVideoPackets>50000</maxLostVideoPackets>
+    <maxLostAudioPackets>50000</maxLostAudioPackets>
+    <IpConfig>
+        <IpCity city="US,HK,JP,PH">
+            <IpAddr>203.90.245.15</IpAddr>
+            <IpAddr>207.46.150.29</IpAddr>
+            <IpAddr>168.63.233.80</IpAddr>
+            <IpAddr>54.251.110.86</IpAddr>
+            <IpAddr>54.250.194.250</IpAddr>
+            <IpAddr>138.91.3.107</IpAddr>
+            <IpAddr>138.91.18.49</IpAddr>
+            <IpAddr>54.200.147.27</IpAddr>
+            <IpAddr>192.241.207.26</IpAddr>
+            <IpAddr>110.34.240.58</IpAddr>
+            <IpAddr>23.99.19.231</IpAddr>
+            <IpAddr>191.238.50.102</IpAddr>
+        </IpCity>
+        <IpCity city="CN">
+            <IpAddr>42.121.34.105</IpAddr>
+            <IpAddr>42.121.114.19</IpAddr>
+            <IpAddr>14.18.206.3</IpAddr>
+            <IpAddr>42.62.14.188</IpAddr>
+            <IpAddr>223.202.40.222</IpAddr>
+            <IpAddr>58.241.44.119</IpAddr>
+            <IpAddr>58.215.165.119</IpAddr>
+            <IpAddr>203.90.245.15</IpAddr>
+            <IpAddr>207.46.150.29</IpAddr>
+            <IpAddr>124.228.238.247</IpAddr>
+            <IpAddr>115.182.0.9</IpAddr>
+        </IpCity>
+    </IpConfig>
+
+    <mgs>
+        <mg>
+            <originalMG>14.18.206.3</originalMG>
+            <matchMG>122.13.67.42</matchMG>
+        </mg>
+    </mgs>
+
 </url>

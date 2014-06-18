@@ -552,7 +552,7 @@ function nh_curl($str_url,$arr_param) {
     $str_response = curl_exec($obj_curl);
 //    echo http_build_query($arr_param);
 //    var_dump(curl_getinfo($obj_curl));exit;
-//    var_dump($str_response);exit;
+//    var_dump($str_response);
     //var_dump( curl_error($obj_curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
     curl_close($obj_curl);
     return $str_response;
@@ -581,7 +581,7 @@ function get_meeting_token($int_meeting_id = 0,$int_user_type = NH_MEETING_TYPE_
 //        o($str_url);
 //        o($arr_param,true   );
         $str_response = nh_curl($str_url,$arr_param);
-//        o($str_response,true);
+//        o($str_response);
         if($str_response){
             $arr_response = json_decode($str_response,true);
             $str_token = ($arr_response AND isset($arr_response['token'])) ? $arr_response['token'] : '';
@@ -623,16 +623,15 @@ function general_classroom_id($arr_param){
 function set_courseware_to_classroom($int_classroom_id,$int_courseware_id){
     $bool_flag = false;
     if($int_classroom_id > 0 AND $int_courseware_id > 0){
-        $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'assoc_file';
+        $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/assoc_file/';
         $arr_meeting_param = get_meeting_param();
-        $arr_param['courseware_id'] = $int_courseware_id;
+        $arr_param['file_id'] = $int_courseware_id;
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_response = nh_curl($str_url,$arr_param);
         //TODO log
         if($str_response){
             $arr_response = json_decode($str_response,true);
-//            o($str_response);
-            $bool_return = ($arr_response AND isset($arr_response['id'])) ? true : false;
+            $bool_flag = ($arr_response AND isset($arr_response['status'])) ? $arr_response['status'] : false;
         }
     }
     return $bool_flag;

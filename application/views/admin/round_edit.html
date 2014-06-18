@@ -206,32 +206,32 @@
         </div>
         {if isset($classes)}
         {foreach $classes as $k => $v}
-        <div class="form-group">
-            <label class="col-md-2 control-label"></label>
-            <div class="col-md-6">
-                <input type="text" class="form-control class" value="{$v.title}">
+        <div id="classes_{$k}">
+            <div class="form-group">
+                <label class="col-md-2 control-label"></label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control class" value="{$v.title}">
+                </div>
+                <div class="col-md-2">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="class_chapter" {if $v.parent_id==0}checked{/if}>是章
+                        <input type="hidden" class="lesson_id" value="{$v.id}">
+                        <input type="hidden" class="courseware_id" value="{$v.courseware_id}">
+                    </label>
+                    <label class="checkbox-inline">
+                        <botton class="btn btn-danger btn-xs delete_class_btn">x</botton>
+                    </label>
+                </div>
             </div>
-            <div class="col-md-2">
-                <label class="checkbox-inline">
-                    <input type="checkbox" class="class_chapter" {if $v.parent_id==0}checked{/if}>是章
-                    <input type="hidden" class="lesson_id" value="{$v.id}">
-                    <input type="hidden" class="courseware_id" value="{$v.courseware_id}">
 
-
-                </label>
-                <label class="checkbox-inline">
-                    <botton class="btn btn-danger btn-xs delete_class_btn">x</botton>
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label"></label>
-            <div class="col-md-2">
-                <input type="text" class="form-control pick_date class_start_time" placeholder="本节开始时间">
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control pick_date class_end_time" placeholder="本节结束时间">
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control pick_date class_start_time" placeholder="本节开始时间" {if (isset($v.begin_time) AND $v.begin_time)}value="{date('Y-m-d H:i',$v.begin_time)}"{/if}>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control pick_date class_end_time" placeholder="本节结束时间" {if (isset($v.end_time) AND $v.begin_time)}value="{date('Y-m-d H:i',$v.end_time)}"{/if}>
+                </div>
             </div>
         </div>
         {/foreach}

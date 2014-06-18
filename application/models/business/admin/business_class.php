@@ -31,7 +31,7 @@ class Business_Class extends NH_Model
                 //先清除该班次以前的课节，再插入新的课节
                 self::delete_classes_by_round_id($int_round_id);
 
-                $int_chapter_flag = $int_section_flag = 0;
+                $int_chapter_flag = 0;
                 foreach($arr_class_tree as $k => $v){
                     $arr_chapter = array(
                         'course_id' => $int_course_id,
@@ -48,6 +48,7 @@ class Business_Class extends NH_Model
                     //插入章
                     $int_parent_id = $this->model_class->create_class($arr_chapter);
                     if($int_parent_id > 0){
+                        $int_section_flag = 0;
                         foreach($v['classes'] as $kk => $vv){
                             $int_classroom_id = general_classroom_id(array('name' => $vv['title'],'start_at' => $vv['begin_time'],'end_at' => $vv['end_time']));
                             $int_courseware_id = $vv['courseware_id'];
@@ -63,7 +64,9 @@ class Business_Class extends NH_Model
                                 'parent_id' => $int_parent_id,
                                 'sequence' => $int_section_flag++
                             );
+//                            o($arr_section);
                             $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
+//                            o($bool_add_courseware,true);
                             if($bool_add_courseware == false){
                                 //add again
                                 $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
@@ -72,8 +75,9 @@ class Business_Class extends NH_Model
                                 }
                             }
                         }
+//                        o($arr_section,true);
                         if($bool_add_courseware==true){
-                            o($arr_section);
+//                            o($arr_section);
                             //插入节
                             $int_last_id = $this->model_class->create_class_batch($arr_section);
 //                        o($int_last_id,true);
@@ -119,14 +123,14 @@ class Business_Class extends NH_Model
             foreach($arr_classes as $k => $v){
 //                o($v);
                 if($v['is_chapter']==1){
+                    if($k != 0){
+                        $int_flag ++ ;
+                    }
                     $arr_return[$int_flag]['title'] = $v['name'];
                     $arr_return[$int_flag]['lesson_id'] = $v['lesson_id'];
                     $arr_return[$int_flag]['courseware_id'] = $v['courseware_id'];
                     $arr_return[$int_flag]['begin_time'] = $v['start_time'];
                     $arr_return[$int_flag]['end_time'] = $v['end_time'];
-                    if($k != 0){
-                        $int_flag ++;
-                    }
                 }else{
                     $arr_return[$int_flag]['classes'][] = array(
                         'title' => $v['name'],

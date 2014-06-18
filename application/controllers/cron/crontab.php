@@ -21,4 +21,8 @@ class Crontab extends NH_Controller {
     public function finish_class(){
 
     }
+
+    public function class_status(){
+        //init2comingsoon
+    }
 }
