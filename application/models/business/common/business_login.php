@@ -2,7 +2,7 @@
 
 class Business_Login extends NH_Model {
 
-    public function submit($username, $password)
+    public function submit($username, $password, $remember_me='')
     {
         if(strlen($username) == 0 || strlen($password) == 0)
             return $this->_log_reg_info(ERROR, 'login_invalid_info', array('username'=>$username, 'password'=>$password));
