@@ -1,13 +1,13 @@
 <h3>订单信息</h3>
 <hr>
-订单号:{$details.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单状态:{$config_status[$details.status]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间:{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}<br /><br />
+订单号:<span id="student_order_id">{$details.id}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单状态:{$config_status[$details.status]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间:{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}<br /><br />
 <h4>收货人信息</h4>
 姓名:{$details.nickname}<br />
 手机:<input type="text" value="{$details.phone_mask}" id="show" readonly /> <br />
 邮箱:{$details.email}<br />
 <hr>
 <h5>付款方式:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$config_pay[$details.pay_type]}</h5><br />
-<h5>订单金额:&nbsp;&nbsp;￥{$details.spend}&nbsp;元</h5><br />
+<h5>订单金额:&nbsp;&nbsp;￥<span id="spend">{$details.spend}</span>&nbsp;元</h5><br />
 <table class="table table-bordered">
     <tr class="active">
         <td>序号</td>
@@ -17,13 +17,14 @@
         <td>促销价</td>
         <td>操作时间</td>
         <td>退款状态</td>
+        <td>修改价格</td>
     </tr>
     <tr>
         <td>{$details.round_id}</td>
         <td>{$details.title}</td>
         <td>{$details.start_time|date_format:'%Y-%m-%d %H:%M:%S'}到{$details.end_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
         <td>{$details.price}</td>
-        <td>{$details.sale_price}</td>
+        <td>{$details.spend}</td>
         <td>{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
         <td id="refund" width="135" height="39">{if $details.status==6}
                 申请退款<br /><button type='button' class='btn btn-primary btn-xs' id='button'>拒绝</button>&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-xs' id='agr_button'>同意</button>
@@ -36,6 +37,7 @@
             {else}
                 ——
             {/if}</td>
+        <td><button type="button" id="modify_price" class='btn btn-primary btn-xs'>修改价格</button></td>
     </tr>
 </table>
 <input type="hidden" value="{$details.student_id}" id="student_id" />
@@ -54,3 +56,19 @@
 &nbsp;
 {/for}
 <button type="button" class="btn btn-info" id="memory">保存</button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>输入价格修改</label>
+                    <input type="text" class="form-control" id="price_modify" placeholder="请输入价格" value="" />
+                </div>
+                <button type="button" class="btn btn-default" id="ok_modify">修改</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

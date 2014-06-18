@@ -180,4 +180,16 @@
             $int_uid=$this->input->post('uid',TRUE);
             echo $this->order->phone_show($int_uid);
         }
+
+        /**
+         * 修改订单价格
+         * @author shangshikai@tizi.com
+         */
+        public function modify_price()
+        {
+            $modify_price=$this->input->post('modify_price',TRUE);
+            $order_id=$this->input->post('order_id',TRUE);
+            $spend=$this->input->post('spend',TRUE);
+            echo $this->order->price_modify($modify_price,$order_id,$spend);
+        }
     }
