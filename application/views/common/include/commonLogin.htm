@@ -4,7 +4,7 @@
 			<p id="msgInfo" class="msgInfo"></p>
 			<ul>
 				<li>
-					<input type="text" name="username" value="" class="userName yh" placeholder="手机号/邮箱">
+					<input type="text" name="username" value="" class="userName yh" autocomplete="off" placeholder="手机号/邮箱">
 					<div class="ValidInfo undis">
 						<span class="Validform_checktip"></span>
 						<span class="dec">
@@ -14,7 +14,7 @@
 					</div>
 				</li>
 				<li>
-					<input type="password" name="password" value="" class="pwd yh" placeholder="密码">
+					<input type="password" name="password" value="" autocomplete="off" class="pwd yh" placeholder="密码">
 					<div class="ValidInfo undis">
 						<span class="Validform_checktip"></span>
 						<span class="dec">
@@ -27,7 +27,7 @@
 					<input type="hidden" name="redirect_url" value="reload">
 					<input type="checkbox" name="rembme" id="autoLogin" class="fl autoLogin">
 					<label for="autoLogin" class="fl">自动登录</label>
-					<a href="javascript:void(0)" class="fr">忘记密码？</a>
+					<a href="{$site_url}login/find_pwd" class="fr">忘记密码？</a>
 				</li>
 				<li>
 					<input type="submit" class="redBtn yh btn redBtn submit" value="登录">

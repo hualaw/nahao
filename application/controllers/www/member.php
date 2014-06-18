@@ -300,6 +300,13 @@ class Member extends NH_User_Controller {
                     $this->business_user->modify_user($phone_data, $user_id);
                 }
             }
+            
+            $post_data['nickname'] = trim($this->input->post('nickname'));
+            if($post_data['nickname'] && $post_data['nickname'] != $this->_user_detail['nickname']) {
+                #修改数据库和redis中的昵称
+                $this->business_user->modify_user($post_data, $this->session->userdata('user_id'));
+                $this->session->set_userdata('nickname', $post_data['nickname']);
+            }
             $post_data['realname'] = trim($this->input->post('realname'));
             $post_data['grade'] = intval($this->input->post('grade'));
             $post_data['gender'] = intval($this->input->post('gender'));
@@ -318,22 +325,20 @@ class Member extends NH_User_Controller {
         }
         #性别
         $gender = $this->config->item('gender');
-        #学校
-        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
         #学科
         $subjects = $this->subject->get_subjects();
         #我已选择的学科组成的字符串
         $subject_str = implode('-', $this->_user_detail['student_subject']);
         #地区数据
         $province=$this->business_lecture->all_province();
+        $city = $area = array();
         if($this->_user_detail['province']) {
             $city = $this->business_teacher->city1($this->_user_detail['province']);
-        }
+        }        
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
         $this->smarty->assign('gender', $gender);
-        $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
 	    $this->smarty->assign('page_type', 'myInfor');

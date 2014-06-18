@@ -58,6 +58,7 @@ define(function(require,exports){
 		_myCourse.soon_buy();
 		//购买前下面--点击购买课程
 		_myCourse.soon_buy_xia();
+		require('module/common/method/share').shareInsertBg();
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();

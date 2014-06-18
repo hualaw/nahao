@@ -11,13 +11,13 @@
 		<form action="" method="post"  class="emailForm">
 			<p class="formName">邮箱
 				<span class="verWay">{$user_detail.email}</span>
-				<span class="hasVer">（已激活）</span>
+				<span class="hasVer">（{if $user_detail.email_verified}已{else}未{/if}激活）</span>
 			</p>
 			<ul>
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
-                        <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}" disabled="true">
+                        <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -27,7 +27,7 @@
 						<div class="fl">
 							<div>
 								<select name="province" id="province" validName="select" class="province">
-									<option value="">选择地区</option>
+									<option value="">选择省份</option>
                                     {foreach $province as $val}
                                     <option value="{$val.id}" {if $val.id == $user_detail.province}selected{/if}>{$val.name}</option>
                                     {/foreach}
@@ -40,10 +40,12 @@
 						<div class="fl">
 							<div>
 								<select name="city" id="city" validName="select" class="city">
-									<option value="">选择地区</option>
+									<option value="">选择城市</option>
+                                    {if $city}
                                     {foreach $city as $val}
                                     <option value="{$val.id}" {if $val.id == $user_detail.city}selected{/if}>{$val.name}</option>
                                     {/foreach}
+                                    {/if}
 								</select>
 							</div>
 						</div>
@@ -111,7 +113,7 @@
 					<p class="optional">手机号</p>
                     <div class="cf">
 						<div class="fl">
-                            <input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}{/if}>
+                            <input type="text" class="cInput {if !$user_detail.phone}phone_number{/if}" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}disabled{/if}>
                             <span class="Validform_checktip fl"></span>
 						</div>
 					</div>
