@@ -138,7 +138,7 @@
          */
         public function details_order($int_order_id)
         {
-            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,round.price,round.sale_price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get()->row_array();
+            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,student_order.price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get()->row_array();
         }
         /**
          * 订单备注
@@ -235,5 +235,17 @@
         public function show_tel($int_uid)
         {
             return get_pnum_phone_server($int_uid);
+        }
+
+    public function price_order_modify($modify_price,$order_id,$spend)
+        {
+            $admin_id=$this->userinfo['id'];
+            if($this->db->update(TABLE_STUDENT_ORDER,array(TABLE_STUDENT_ORDER.'.spend'=>$modify_price),array(TABLE_STUDENT_ORDER.'.id'=>$order_id)))
+            {
+                if($this->db->insert("order_action_log",array('order_id'=>$order_id,'user_type'=>1,'user_id'=>$admin_id,'action'=>12,'create_time'=>time(),'note'=>"修改订单价格,由$spend 元修改为 $modify_price 元")))
+                {
+                    return TRUE;
+                }
+            }
         }
     }

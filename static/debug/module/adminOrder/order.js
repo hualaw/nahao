@@ -132,5 +132,31 @@ define(function(require,exports){
         })
 //alert("d");
 
+        $('#modify_price').click(function(){
+            $('#myModal').modal();
+            $('#price_modify').val($('#spend').html());
+        })
+
+        $('#ok_modify').click(function(){
+            //alert($('#spend').html())
+            if($('#price_modify').val()<0 || $('#price_modify').val()=="" || isNaN($('#price_modify').val()))
+            {
+                alert('输入的价格不合法');
+                return false;
+            }
+            $.ajax({
+                type:"post",
+                url:"/order/modify_price",
+                data:"modify_price="+$("#price_modify").val()+"&order_id="+$('#student_order_id').html()+"&spend="+$('#spend').html(),
+                success:function(msg){
+                    //alert(msg);
+                    if(msg==1)
+                    {
+                        location=location;
+                    }
+                }
+            })
+        })
+
     }
 });

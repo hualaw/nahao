@@ -1,76 +1,106 @@
-教师总数{$total_count}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日新增老师{$day_count}人<br /><br />
+<h4>教师总数{$total_count}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日新增老师{$day_count}人</h4>
         <form method="get" action="/teacher">
-    <select name="term" style="width:150px">
-        <option value=0>选择搜索条件</option>
-        <option value=1>姓名</option>
-        <option value=2>昵称</option>
-        <option value=3>邮箱</option>
-        <option value=4>手机</option>
-        <option value=5>ID</option>
-    </select>
-    <input type="text" name="reason" style="width:150px" placeholder="请输入搜索条件" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="province" style="width:150px">
-        <option value=0>选择省份</option>
-        {foreach $province as $k=>$v}
-            <option value={$v.id}>{$v.name}</option>
-        {/foreach}
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="subject" style="width:150px">
-        <option value=0>选择可授课学科</option>
-        {foreach $subject as $k=>$v}
-        <option value={$v.id}>{$v.name}</option>
-        {/foreach}
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="gender" style="width:150px">
-        <option value=0>选择性别</option>
-        <option value=1>男</option>
-        <option value=2>女</option>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <select name="title" style="width:150px">
-        <option value=0>选择职称</option>
-        <option value=1>无职称</option>
-        <option value=2>正高级教师</option>
-        <option value=3>高级教师</option>
-        <option value=4>一级教师</option>
-        <option value=5>二级教师</option>
-        <option value=6>三级教师</option>
-    </select><br /><br />
-    <select name="account" style="width:150px">
-        <option value=0>选择账户状态</option>
-        <option value=1>禁用</option>
-        <option value=2>启用</option>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    请选择添加时间:
-    <input type="text" name="add_time1" id="teacher_datetimepicker1" placeholder="请选择搜索开始时间" style="width:150px" readonly>
-        - - - -
-    <input type="text" name="add_time2" id="teacher_datetimepicker2" placeholder="请选择搜索结束时间" style="width:150px" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn">搜索</button>
+            <div class="form-group">
+                <div class="col-md-2">
+                    <select name="term" class="form-control">
+                        <option value=0>选择搜索条件</option>
+                        <option value=1>姓名</option>
+                        <option value=2>昵称</option>
+                        <option value=3>邮箱</option>
+                        <option value=4>手机</option>
+                        <option value=5>ID</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="reason" class="form-control" placeholder="请输入搜索条件" />
+                </div>
+                <div class="col-md-2">
+                    <select name="province" class="form-control">
+                        <option value=0>选择省份</option>
+                        {foreach $province as $k=>$v}
+                            <option value={$v.id}>{$v.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="subject" class="form-control">
+                        <option value=0>选择可授课学科</option>
+                        {foreach $subject as $k=>$v}
+                        <option value={$v.id}>{$v.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="gender" class="form-control">
+                        <option value=0>选择性别</option>
+                        <option value=1>男</option>
+                        <option value=2>女</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="title" class="form-control">
+                        <option value=0>选择职称</option>
+                        <option value=1>无职称</option>
+                        <option value=2>正高级教师</option>
+                        <option value=3>高级教师</option>
+                        <option value=4>一级教师</option>
+                        <option value=5>二级教师</option>
+                        <option value=6>三级教师</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    <select name="account" class="form-control">
+                        <option value=0>选择账户状态</option>
+                        <option value=1>禁用</option>
+                        <option value=2>启用</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="add_time1" id="teacher_datetimepicker1" placeholder="请选择添加开始时间" class="form-control" readonly>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="add_time2" id="teacher_datetimepicker2" placeholder="请选择添加结束时间" class="form-control" readonly>
+                </div>
+                    <button type="submit" class="btn">搜索</button>
+            </div>
         </form>
-<br /><br />
-    <label class="control-label" for="inputSuccess">符合条件的有{$count}条数据</label>
-        {for $i=0 to 90}
-        &nbsp;
-        {/for}
+            <div class="form-group"></div>
+            <label class="control-label" for="inputSuccess">符合条件的有{$count}条数据</label>
+            {for $i=0 to 90}
+            &nbsp;
+            {/for}
     <a href="/teacher/create" target="_black"><button type="button" class="btn btn-success" id="insert_account">添加老师</button></a>
     <button type="button" class="btn btn-warning" id="close_account">禁用账户</button>
     <button type="button" class="btn btn-info" id="open_account">解除禁用</button>
-    <table class="table table-bordered">
-        <tr class="active">
-            <td width="30"><input type="checkbox" id="all"></td>
-            <td widyh="50">教师ID</td>
-            <td width="100">邮箱</td>
-            <td width="80">教师姓名</td>
-            <td width="80">教师昵称</td>
-            <td>性别</td>
-            <td width="100">手机号</td>
-            <td>教龄</td>
-            <td width="80">教师职称</td>
-            <td width="80">所在地区</td>
-            <td width="80">教授学科</td>
-            <td width="95">添加时间</td>
-            <td width="80">账户状态</td>
-            <td width="45">操作</td>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th width="30"><input type="checkbox" id="all"></th>
+            <th widyh="50">教师ID</th>
+            <th width="100">邮箱</th>
+            <th width="80">教师姓名</th>
+            <th width="80">教师昵称</th>
+            <th>性别</th>
+            <th width="100">手机号</th>
+            <th>教龄</th>
+            <th width="80">教师职称</th>
+            <th width="80">所在地区</th>
+            <th width="80">教授学科</th>
+            <th width="95">添加时间</th>
+            <th width="80">账户状态</th>
+            <th width="50">操作</th>
         </tr>
+        </thead>
             {foreach $list as $k=>$v}
         <tr>
             <td><input type="checkbox" value={$v.id} class="all"></td>
