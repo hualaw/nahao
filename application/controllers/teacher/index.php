@@ -16,6 +16,7 @@ class Index extends NH_User_Controller {
         {
             redirect('http://www.nahaodev.com/login');
         }
+        $this->teacher_id = 216;
         header("Content-type: text/html; charset=utf-8");
     }
     

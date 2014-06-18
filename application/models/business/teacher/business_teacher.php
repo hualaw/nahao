@@ -76,7 +76,7 @@ class Business_Teacher extends NH_Model
      		$total_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
-     			'status' => "1,2,3",
+     			'status' => "0,1,2,3,4,5",
      			'round_id' => $val['id'],
      			'counter' => 1,
      		);
@@ -148,8 +148,9 @@ class Business_Teacher extends NH_Model
      	if(count($data)>0){
      		$count['z_count'] = count($data);
      		foreach ($data as $val){
-     			$count['j_count'] += count($val['jArr']);
-     			foreach ($val['jArr'] as $v){
+     			
+     			$count['j_count'] += isset($val['jArr']) ? count($val['jArr']) : 0;
+     			if(isset($val['jArr'])) foreach ($val['jArr'] as $v){
      				$val['status'] = !empty($val['status']) ? $val['status'] : 0;
      				$count['j_status_5'] += $val['status'] == 5 ? 1 : 0;
 	     			$count['j_status_4'] += $val['status'] == 4 ? 1 : 0;
@@ -189,7 +190,8 @@ class Business_Teacher extends NH_Model
      		$total = $this->model_teacher->class_seacher($already_param_item);
      		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;     		
      		if($val['parent_id']==0){
-     			$zjArr[$val['id']] = $val;
+     			#如果已经出现了章,章节的排序值相同可能导致先出现节后出现章的问题
+     			$zjArr[$val['id']] = isset($zjArr[$val['id']]) ? array_merge($val,$zjArr[$val['id']]) : $val;
      		}else{
      			#统计出勤率
      			$persent = $this->class_attendance(array('class_id'=>$val['id']));;

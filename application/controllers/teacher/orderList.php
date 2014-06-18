@@ -11,13 +11,13 @@ class Orderlist extends NH_User_Controller {
 		 */
         parent::__construct();
         $this->smarty->assign('site_url','http://'.__HOST__);
-        $this->teacher_id = 1;
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
             redirect('http://www.nahaodev.com/login');
         }
+        $this->teacher_id = 216;
         header("Content-type: text/html; charset=utf-8");
     }
     
