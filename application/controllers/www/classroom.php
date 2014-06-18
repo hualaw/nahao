@@ -322,34 +322,38 @@ class Classroom extends NH_User_Controller {
      */
     public function enter()
     {
-
-//        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
-//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-//        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
-//        echo $str_iframe;exit;
-
-
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
-//        $str_classroom_url = '/classroom/main.html';
-//        o($str_classroom_url,true);
-//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+        $str_iframe = self::enter_classroom($int_classroom_id);
+
         #用户是否有登陆
         #根据classroom_id获取课id
         $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
         if(empty($array_class_id)){
             show_error('参数错误');
         }
-        #登陆的用户是否有买过这堂课
-//         $int_user_id = $this->session->userdata('user_id'); #TODO 
-//         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class_id['id']);
-//         if(empty($bool_flag)){
-//             show_error('您没有购买这堂课');
-//         }
+
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class_id['id']);
         $this->smarty->assign('iframe',$str_iframe);
         $this->smarty->display('www/classRoom/index.html');
+
+        //        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+//        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
+//        echo $str_iframe;exit;
+
+
+//        $str_classroom_url = '/classroom/main.html';
+//        o($str_classroom_url,true);
+//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+
+        #登陆的用户是否有买过这堂课
+//         $int_user_id = $this->session->userdata('user_id'); #TODO
+//         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class_id['id']);
+//         if(empty($bool_flag)){
+//             show_error('您没有购买这堂课');
+//         }
+
     }
 
 
