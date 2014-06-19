@@ -9,6 +9,7 @@ class Pay extends NH_User_Controller {
         $this->load->model('model/student/model_order');
         $this->load->model('model/student/model_member');
         $this->load->model('business/common/business_register');
+        $this->load->model('business/common/business_user');
         #判断是否登录
 /*         if(!$this->is_login)
         {
@@ -96,7 +97,11 @@ class Pay extends NH_User_Controller {
     	$str_verify_code = $this->input->post("verify_code");
     	$int_code_type = 2;
     	$int_product_id = $this->input->post("product_id");
-    	 
+    	#如果真实姓名为空
+    	if(empty($str_real_name))
+    	{
+    		self::json_output(array('status'=>'error','msg'=>'真实姓名不能为空'));
+    	}
     	#如果用户注册的时候填了手机号，就不用验证码了
     	if (!empty($str_phone) && $str_phone != $this->session->userdata('phone'))
     	{
@@ -113,7 +118,7 @@ class Pay extends NH_User_Controller {
     	$array_user = $this->_user_detail;
     	#$array_user = $this->model_member->get_user_infor($int_user_id);
     	 
-    	if ($array_user['realname'] == $str_real_name)
+    	if ($array_user['realname'])
     	{
             	if (empty($phone))
             	{
@@ -313,7 +318,7 @@ class Pay extends NH_User_Controller {
 	        #我的订单
 	        redirect('/member/my_order');
 	    }
-	    $array_round = $this->model_course->get_round_info($array_order['id']);
+	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
 	    $method = $this->input->post('method');
 	    if($method == 'netpay')
 	    {
@@ -376,18 +381,20 @@ class Pay extends NH_User_Controller {
 	public function payback()
 	{
 	    header('content-type: text/html; charset=utf-8');
+	    //echo 55;
 	    //测试页面跳转回调连接
 /* 	   http://www.nahaodev.com/pay/payback?body=%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89&buyer_email=wsbnd9%40gmail.com&buyer_id=2088212220120365&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3InR8tGjRXYpexpaRGyeCWBjSZV1%252BqqtUD1W5T58ANYJw2sMq9G4&notify_time=2014-06-18+14%3A53%3A18&notify_type=trade_status_sync&out_trade_no=1&payment_type=1&seller_email=nahao%40tizi.com&seller_id=2088411963723035&subject=%E7%8E%8B%E8%80%81%E5%B8%88+2014%E5%B9%B4%E4%BA%94%E5%B9%B4%E7%BA%A7%E5%A5%A5%E6%95%B0%E6%9A%91%E5%81%87%E8%AE%AD%E7%BB%83%E8%90%A51&total_fee=0.01&trade_no=2014061831991336&trade_status=TRADE_SUCCESS&sign=d10440f551dd92b30ef83c40839a7d31&sign_type=MD5 */
 
-	    log_message("ERROR_NAHAO", var_export($_SERVER,true)."\n".var_export($_GET,true)."\n"
-	    .var_export($_POST,true)."\n".var_export($_REQUEST,true)."\n---------------------------------------------------------
-	    ---------------------------\n");
+// 	    log_message("ERROR_NAHAO", var_export($_SERVER,true)."\n".var_export($_GET,true)."\n"
+// 	    .var_export($_POST,true)."\n".var_export($_REQUEST,true)."\n---------------------------------------------------------
+// 	    ---------------------------\n");
 	   
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
 	    $paymentChannel = $this->checkPaymentChannel();
+	    //echo 11;
 	    do {
-	    
+	    	//echo 22;
 	        if (empty ($paymentChannel) || $paymentChannel == '') 
 	        {
 	            $response['message'] = '非法支付渠道';
@@ -396,14 +403,14 @@ class Pay extends NH_User_Controller {
 	        $this->load->helper('url');
 	        $this->load->model("business/pay/model_{$paymentChannel}", 'channel');
 	        $payResult = $this->channel->response();
-	       var_dump($payResult);die;
+	      
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
 	        //$payResult['order_id'] = 5;
 	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
 	        $int_user_id = $array_orderInfo['student_id'];#TODO用户id
-	        
+	        //log_message("ERROR_NAHAO",'round_id:'.$array_orderInfo['round_id']);
 	        #未知的订单
 	        if (empty ($array_orderInfo)) 
 	        {
@@ -481,35 +488,27 @@ class Pay extends NH_User_Controller {
     	                'note'=>'支付成功'                          #日志记录
 	                );
 	                $bool_result = $this->student_order->update_order_status($array_data);
-	                if (! $bool_result) 
+	                if (!$bool_result) 
 	                {
 	                    $response['message'] = '数据库错误';
 	                } 
                     #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
                     $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
+                    #添加购买人数,如果是最后一个，将状态改为已售罄
+                    $this->student_order->update_round_data($array_orderInfo['round_id']);
+                    #是否付过费
+                    $array_user = $this->_user_detail;
+                    if($array_user['has_bought'] == '0')
+                    {
+                    	$this->business_user->modify_user_info(array('has_bought'=>1),$int_user_id);
+                    }
 	            }
+	            break;
 	        }
 	        
-/* 	        #更新订单状态,写日志
-	        $array_data = array(
-	        'user_id'=>$int_user_id,
-	        'order_id' =>$payResult['order_id'],
-	        'status'=>$order_updata['status'],
-	        'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-	        'action'=>ORDER_STATUS_SUCC,             #日志动作
-	        'note'=>'支付成功'                          #日志记录
-	        );
-	        $bool_result = $this->student_order->update_order_status($array_data);
-	        if (! $bool_result)
-	        {
-	            $response['message'] = '数据库错误';
-	        } else {
-	            #根据order_id,查找轮以及轮里面的课，添加学生与课的关系
-	            $this->student_order->add_student_class_relation($payResult['order_id'],$int_user_id);
-	        } */
-	        
 	    }while(false);
-	    
+	    //log_message("ERROR_NAHAO",'request_type:'.$payResult['request_type']);
+	    //echo 88;
 	    if ( $payResult['request_type'] == 'server' ) #后台调用
 	    {
 	        echo ($payResult['status'] == 1) ? $payResult['response'] : '';
@@ -517,9 +516,8 @@ class Pay extends NH_User_Controller {
 	        if($response['message'])
 	        {
 	            show_error($response['message']);
-	        }
-	        else
-	        {
+	        } else{
+	        	//echo 99;
 	            redirect('/member/my_order');
 	        }
 	    }

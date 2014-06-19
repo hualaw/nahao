@@ -27,6 +27,7 @@ class Student_Index extends NH_Model{
                 $array_return[] = $this->get_one_round_info($v['course_id'],$v['start_time'],$array_grade);
             }
         }
+        
         return $array_return;
     }
     

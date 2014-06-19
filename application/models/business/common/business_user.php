@@ -152,7 +152,7 @@ class Business_User extends NH_Model
         !empty($update_data['work_auth_img']) && $userinfo['work_auth_img'] = $update_data['work_auth_img'];
         !empty($update_data['teacher_auth_img']) && $userinfo['teacher_auth_img'] = $update_data['teacher_auth_img'];
         !empty($update_data['title_auth_img']) && $userinfo['title_auth_img'] = $update_data['title_auth_img'];
-
+        !empty($update_data['has_bought']) && $userinfo['has_bought'] = $update_data['has_bought'];
         $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
 
         if(isset($update_data['teacher_subject'])) {

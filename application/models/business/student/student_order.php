@@ -201,4 +201,29 @@ class Student_Order extends NH_Model{
         return $bool_return;
     }
 
+    /**
+     * 添加购买人数,如果是最后一个，将销售状态改为已售罄
+     * @param  $int_round_id
+     */
+    public function update_round_data($int_round_id)
+    {
+    	$bool_flag = false;
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	if ($array_round)
+    	{
+
+    		#如果购买人数小于100，人数加1
+    		if($array_round['bought_count'] < '100')
+    		{
+    			$bool_flag = $this->model_order->update_round_buy_count($int_round_id);
+    		}
+    		#如果已经购买的人数是99，将销售状态改为已售罄
+    		if($array_round['bought_count'] == '99')
+    		{
+    			$status = 4;
+    			$this->model_order->update_round_sale_status($int_round_id,$status);
+    		}
+    	}
+    	return $bool_flag;
+    }
 }

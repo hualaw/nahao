@@ -29,7 +29,8 @@ class Member extends NH_User_Controller {
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
         $array_new = array_slice($array_new,0,3,true);
-        
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_buy_course', $array_buy_course);
         $this->smarty->assign('array_new', $array_new);
         $this->smarty->assign('page_type', 'myCourse');
