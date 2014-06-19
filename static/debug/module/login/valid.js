@@ -233,8 +233,9 @@ define(function(require,exports){
                 	}
 
                 }else{
+                	console.log(data);
                     $.dialog({
-                        content:json.msg
+                        content:data.msg
                     });
                 }
                 return false;

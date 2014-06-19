@@ -5,15 +5,15 @@
 		<thead>
 			<tr>
 				<td>
-					<span class="orderName">订单编号</span>
+					<span class="orderName">订单编号:</span>
 					<span class='redText'>{$array_order.id}</span>
 				</td>
 				<td colspan="2">
-					<span class="orderName">下单时间</span>
+					<span class="orderName">下单时间:</span>
 					<span class='redText'>{$array_order.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</span>
 				</td>
 				<td>
-					<span class="orderName">订单状态</span>
+					<span class="orderName">订单状态:</span>
 					<span class='redText'>					
 					{if $array_order.status == '0'}
 					未付款
@@ -50,7 +50,7 @@
 				<td>操作</td>
 			</tr>
 			<tr class="tCon">
-				<td class="textal">{$array_round.title|truncate:18:"...":true}</td>
+				<td class="textal" title="{$array_round.title}">{$array_round.title|truncate:18:"...":true}</td>
 				<td class="iniPrice">¥{$array_round.price}</td>
 				<td class="redText">¥{$array_round.sale_price}</td>
 				<td>

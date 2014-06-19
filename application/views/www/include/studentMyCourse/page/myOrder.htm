@@ -33,7 +33,7 @@
 						<div>
 							<img src="{static_url($item.class_img)}" alt="">
 						</div>
-						<p class="orderTitle">{$item.title|truncate:18:"...":true}</p>
+						<p class="orderTitle" title="{$item.title}">{$item.title|truncate:18:"...":true}</p>
 					</td>
 					<td><strong class="redText">¥{$item.spend}</strong></td>
 					<td>
