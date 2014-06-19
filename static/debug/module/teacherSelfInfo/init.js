@@ -1,4 +1,7 @@
 define(function(require,exports){
+    // 选择学校组件
+    require('module/common/method/setSchool');
+    
     require('select');
     if ($(".popBox").length>0) {
         require("module/teacherSelfInfo/popUp").popUp(".popBox");

@@ -1,10 +1,11 @@
 <div id="commonLogin" class="undis">
 	<div id="comLogin">
-		<form action="{$site_url}login/submit" class="loginForm_beta" mothed="post" onsubmit="return false">
+		<form action="{$site_url}login/submit" class="loginForm_beta" mothed="post" autocomplete="off" onsubmit="return false">
 			<p id="msgInfo" class="msgInfo"></p>
 			<ul>
-				<li>
-					<input type="text" name="username" value="" class="userName yh" placeholder="手机号/邮箱">
+				<li class="posr">
+					<input type="text" name="username" value="" class="userName yh" autocomplete="off" placeholder="手机号/邮箱">
+					<div class="unBg loginInputBg"></div>
 					<div class="ValidInfo undis">
 						<span class="Validform_checktip"></span>
 						<span class="dec">
@@ -13,8 +14,9 @@
 						</span>
 					</div>
 				</li>
-				<li>
-					<input type="password" name="password" value="" class="pwd yh" placeholder="密码">
+				<li class="posr">
+					<input type="password" name="password" value="" autocomplete="off" class="pwd yh" placeholder="密码">
+					<div class="pwdBg loginInputBg"></div>
 					<div class="ValidInfo undis">
 						<span class="Validform_checktip"></span>
 						<span class="dec">
@@ -25,9 +27,9 @@
 				</li>
 				<li class="cf autoLi">
 					<input type="hidden" name="redirect_url" value="reload">
-					<input type="checkbox" id="autoLogin" class="fl autoLogin">
+					<input type="checkbox" name="rembme" id="autoLogin" class="fl autoLogin">
 					<label for="autoLogin" class="fl">自动登录</label>
-					<a href="javascript:void(0)" class="fr">忘记密码？</a>
+					<a href="{$site_url}login/find_pwd" class="fr">忘记密码？</a>
 				</li>
 				<li>
 					<input type="submit" class="redBtn yh btn redBtn submit" value="登录">

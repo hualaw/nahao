@@ -178,8 +178,9 @@ class login extends NH_Controller
         $username = trim($this->input->post('username'));
         $password = trim($this->input->post('password'));
         $redirect_url = trim($this->input->post('redirect_url'));
+        $remember_me = trim($this->input->post('rembme'));
 
-        $ret = $this->business_login->submit($username, $password);
+        $ret = $this->business_login->submit($username, $password, $remember_me);
 
         if(isset($ret['data']))
         {
@@ -205,12 +206,35 @@ class login extends NH_Controller
         $nickname = trim($this->input->post('nickname'));
         $arr_return = array('status' => ERROR);
         if($nickname) {
-            $userdata = $this->business_user->get_user_by_nickname($nickname);
-            if(isset($userdata['id'])) {
-                $arr_return = array('status' => ERROR, 'info' => '该昵称已被占用');
+            $length_ret = check_name_length($nickname);
+            if(!$length_ret) {
+                $arr_return['info'] = '昵称要控制在4~25个字符,一个汉字按两个字符计算';
             } else {
-                $arr_return = array('status' => SUCCESS, 'info' => '昵称可用');
+                $userdata = $this->business_user->get_user_by_nickname($nickname);
+                if(isset($userdata['id'])) {
+                    $arr_return['info'] = '该昵称已被占用';
+                } else {
+                    $arr_return = array('status' => SUCCESS, 'info' => '昵称可用');
+                }
             }
+        }
+        
+        self::json_output($arr_return);
+    }
+    
+    /**
+     * 检查用户真实姓名的长度
+     */
+    public function check_realname_length()
+    {
+        $arr_return = array('status' => ERROR);
+        $realname = trim($this->input->post('realname'));
+        $check_ret = check_name_length($realname);
+        if(!$check_ret) {
+            $arr_return['info'] = '真实姓名要控制在4~25个字符,一个汉字按两个字符计算';
+        } else {
+            $arr_return['status'] = SUCCESS;
+            $arr_return['info'] = '验证通过';
         }
         
         self::json_output($arr_return);

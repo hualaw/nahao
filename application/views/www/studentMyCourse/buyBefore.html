@@ -55,9 +55,10 @@
                         <strong class="redText"></strong>
                         <a href="#review">{$str_evaluate_count}条评价</a>
                     </div>
-                    <p class="fromf">
+                    <p class="fromf cf">
 						{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
 						<input type="hidden" id="product_id" value="{$array_data.id}">
+                        <span class="fl oldPrice">原价￥1999</span>
 						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
                             <span class="fl">立即报名</span>
                             <span class="fr"></span>
@@ -79,17 +80,24 @@
                         </a>
 						{/if}
                         <strong class="fr">¥
-                            <span class="redText">{$array_data.price|string_format:"%.0f"}</span>
+                            <span class="redText">{$array_data.price|string_format:"%.0f"}999</span>
                         </strong>
                     </p>
                 </div>
                 <div class="fr endTime">
                     <div class="timeTitle">报名截止剩余时间</div>
-                    <div class="countdown">23 天   24 小时   56’59“</div>
-                    <p class="cdp">仅剩 {$array_data.sold_out_count}名额即售罄</p>
+                    <div class="countdown"></div>
+                    <p class="cdp">仅剩 <span class="redText">  {$array_data.sold_out_count} 名额 </span>即售罄</p>
                     <p class="prompt ensure">第二节课前可退全部学费</p>
                     <p class="prompt retreat">未上课次可随时退款</p>
-                    <div class="share">分享</div>
+                    <div class="bdsharebuttonbox share">
+                        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                        <a href="#" class="bds_more" data-cmd="more"></a>
+                    </div>
                 </div>
             </div>
         </div>

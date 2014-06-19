@@ -11,13 +11,13 @@
 		<form action="" method="post"  class="emailForm">
 			<p class="formName">邮箱
 				<span class="verWay">{$user_detail.email}</span>
-				<span class="hasVer">（已激活）</span>
+				<span class="hasVer">（{if $user_detail.email_verified}已{else}未{/if}激活）</span>
 			</p>
 			<ul>
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
-                        <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}" disabled="true">
+                        <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -27,7 +27,7 @@
 						<div class="fl">
 							<div>
 								<select name="province" id="province" validName="select" class="province">
-									<option value="">选择地区</option>
+									<option value="">选择省份</option>
                                     {foreach $province as $val}
                                     <option value="{$val.id}" {if $val.id == $user_detail.province}selected{/if}>{$val.name}</option>
                                     {/foreach}
@@ -40,10 +40,12 @@
 						<div class="fl">
 							<div>
 								<select name="city" id="city" validName="select" class="city">
-									<option value="">选择地区</option>
+									<option value="">选择城市</option>
+                                    {if $city}
                                     {foreach $city as $val}
                                     <option value="{$val.id}" {if $val.id == $user_detail.city}selected{/if}>{$val.name}</option>
                                     {/foreach}
+                                    {/if}
 								</select>
 							</div>
 						</div>
@@ -90,14 +92,14 @@
 					<p class="detailText">提示：那好每年7月1日自动为您更新年纪，如果信息有误，请您及时调整</p>
 				</li>
 				<li>
-					<p class="optional">真实姓名</p>
+					<p class="optional noFillin">真实姓名</p>
 					<div class="cf">
 						<input type="text" name="realname" class="pUname fl cInput yh" ignore="ignore" validName="text" value="{$user_detail.realname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li>
-					<p class="optional">性别</p>
+					<p class="optional noFillin">性别</p>
 					<div class="cf">
 						<div class="fl">
                             {foreach $gender as $key => $val}
@@ -108,17 +110,17 @@
 					</div>
 				</li>
 				<li>
-					<p class="optional">手机号</p>
+					<p class="optional noFillin">手机号</p>
                     <div class="cf">
 						<div class="fl">
-                            <input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}{/if}>
+                            <input type="text" class="cInput {if !$user_detail.phone}phone_number{/if}" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}disabled{/if}>
                             <span class="Validform_checktip fl"></span>
 						</div>
 					</div>
 				</li>
                 {if $user_detail.phone_verified == 0}
 				<li class="phoneVer">
-					<p class="optional">手机验证码</p>
+					<p class="optional noFillin">手机验证码</p>
 					<div class="cf">
 						<div class="fl">
 							<input type="text" name="code" class="pUname fl cInput yh" validName="text">
@@ -131,7 +133,7 @@
 				</li>
                 {/if}
 				<li class="attent">
-					<p class="optional">关注学科</p>
+					<p class="optional noFillin">关注学科</p>
                     {foreach $subjects as $key => $val}
 					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
@@ -142,7 +144,7 @@
 					</div>
 				</li>
 				<li>
-					<p class="optional">所属学校</p>
+					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
 						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
@@ -242,14 +244,14 @@
 					<p class="detailText">提示：那好每年7月1日自动为您更新年纪，如果信息有误，请您及时调整</p>
 				</li>
 				<li>
-					<p class="optional">真实姓名</p>
+					<p class="optional noFillin">真实姓名</p>
 					<div class="cf">
 						<input type="text" name="realname" class="pUname fl cInput yh" ignore="ignore" validName="text" value="{$user_detail.realname}">
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li>
-					<p class="optional">性别</p>
+					<p class="optional noFillin">性别</p>
 					<div class="cf">
 						<div class="fl">
                             {foreach $gender as $key => $val}
@@ -260,7 +262,7 @@
 					</div>
 				</li>
 				<li class="attent">
-					<p class="optional">关注学科</p>
+					<p class="optional noFillin">关注学科</p>
                     {foreach $subjects as $key => $val}
 					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
@@ -271,7 +273,7 @@
 					</div>
 				</li>
 				<li>					
-					<p class="optional">所属学校</p>
+					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
 						<a href="javascript:void(0);" class="resetSchool">选择学校</a>

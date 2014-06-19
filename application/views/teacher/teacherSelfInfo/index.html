@@ -25,7 +25,7 @@
                         <p class="fl">用户昵称</p>
                         <!--用户昵称开始-->
                         <div class="cf">
-                            <input type="text" name="userName" class="fl textInput userName" validName="text" value="{$user_detail.nickname}" disabled/>
+                            <input type="text" name="nickname" class="fl textInput userName" validName="text" value="{$user_detail.nickname}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--用户昵称结束-->
@@ -59,9 +59,18 @@
                         <em>*</em>
                         <p class="fl">所在学校</p>
                         <!--所在学校开始-->
-                        <div class="cf">
+                       <!--  <div class="cf">
                             <input type="text" name="school" class="fl textInput school" validName="text"  value="{$school}"/>
                             <span class="Validform_checktip fl"></span>
+                        </div> -->
+                        <div class="cf schoolPar">
+                            <span class="schoolFullName"></span>
+                            <a href="javascript:void(0);" class="resetSchool">选择学校</a>
+                            <input type="hidden" value="" name="school_id" id="schoolVal" />
+                            <input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+                            <input type="hidden" value="" name="school_type" id="school_type">
+                            <input type="hidden" value="" name="schoolname" id="schoolname" />
+                            {include file='common/setSchool.html'}
                         </div>
                         <!--所在学校结束-->
                     </li>
@@ -118,7 +127,7 @@
                         </div>
                         <!--用户性别结束-->
                     </li>
-                    <li class="cf">
+                    <li class="cf areaSelect">
                         <em>*</em>
                         <p class="fl">所在地区</p>
                         <!--省份开始-->
@@ -228,8 +237,8 @@
                                 {if $user_detail.teacher_auth_img}
                                 <span class="ImageSpan1 ImageSpan01">
                                     <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.teacher_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <b class="uploadFt">教师资格证书</b>
                                 </span>
-                                <b class="uploadTip">教师资格证书</b>
                                 {else}
                                 <span class="ImageSpan ImageSpan01"></span>
                                 <a href="javascript:void(0);" class="uploada icon_upload1" data-fileId="shareFileUpField1">
@@ -243,8 +252,9 @@
                                 {if $user_detail.title_auth_img}
                                 <span class="ImageSpan1 ImageSpan02">
                                     <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.title_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <b class="uploadFt">教师职称证书</b>
                                 </span>
-                                <b class="uploadTip">教师职称证书</b>
+
                                 {else}
                                 <span class="ImageSpan ImageSpan02"></span>
                                 <a href="javascript:void(0);" class="uploada icon_upload2" data-fileId="shareFileUpField2">
@@ -258,8 +268,8 @@
                                 {if $user_detail.work_auth_img}
                                 <span class="ImageSpan1 ImageSpan03">
                                     <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.work_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <b class="uploadFt">学校工作证</b>
                                 </span>
-                                <b class="uploadTip">学校工作证</b>
                                 {else}
                                 <span class="ImageSpan ImageSpan03"></span>
                                 <a href="javascript:void(0);" class="uploada icon_upload3" data-fileId="shareFileUpField3">

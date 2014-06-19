@@ -1,4 +1,6 @@
 /*注册成功样式开始*/
+.login .areaSelect select{padding: 5px;}
+.login .hasEmail{padding-left: 20px;}
  .login {padding-bottom:20px;}
  .login .schoolPar{padding-left: 20px;}
  .login  .regSuccessBox{border:1px solid #d5d5d5;margin-top:20px;background: #fff}
