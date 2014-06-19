@@ -7,20 +7,11 @@
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/login/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
-<!--#include virtual="/include/var.htm"-->
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
 </head>
 <body>
-<!-- liuhua test
-<br>
-site_url: {$site_url}<br>
-static_url: {$static_url}<br>
-teacher_url: {$teacher_url}<br>
-admin_url: {$admin_url}<br>
--->
 <!-- 头部开始 -->
-<!--#include virtual="/include/header.htm"-->
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
@@ -139,12 +130,11 @@ admin_url: {$admin_url}<br>
 					<p class="schooptional">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
-						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
+						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">选择学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
 						<input type="hidden" value="" name="schoolname" id="schoolname" />
-						{include file='common/setSchool.html'}
 					</div>
 				</li>
 				<li>
@@ -156,12 +146,12 @@ admin_url: {$admin_url}<br>
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
-<!--#include virtual="/include/footer.htm"-->
 {include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
-<!--#include virtual="/include/js.htm"-->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
+<!--选择学校-->
+{include file='common/setSchool.html'}
 </body>
 </html>

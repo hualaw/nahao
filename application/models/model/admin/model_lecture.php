@@ -43,8 +43,15 @@
          */
         public function total_sea($get)
         {
-            $this->load->model('business/common/business_subject');
-            $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            if($get['subject']!=0)
+            {
+                $this->load->model('business/common/business_subject');
+                $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            }
+            else
+            {
+                $lecture_subject['name']='';
+            }
             $this->load->model('model/admin/model_lecture');
             $this->model_lecture->factor($get,$lecture_subject['name']);
             return $this->db->get()->num_rows();
@@ -58,8 +65,15 @@
          */
         public function seach_lecture_list($get)
         {
-            $this->load->model('business/common/business_subject');
-            $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            if($get['subject']!=0)
+            {
+                $this->load->model('business/common/business_subject');
+                $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            }
+            else
+            {
+                $lecture_subject['name']='';
+            }
             $this->load->model('model/admin/model_lecture');
             $this->model_lecture->factor($get,$lecture_subject['name']);
             return $this->db->get();
@@ -73,7 +87,10 @@
         public function factor($get,$subject)
         {
             $config_lecture = config_item('lecture_factor');
-            $con_lec=$config_lecture[$get['term']];
+            if($get['term']!=0)
+            {
+                $con_lec=$config_lecture[$get['term']];
+            }
             //var_dump($con_lec);die;
             $this->load->model('model/admin/model_lecture');
             $this->model_lecture->sql();

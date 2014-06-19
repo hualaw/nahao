@@ -31,7 +31,7 @@
 					</li>
                     <input type="hidden" name="redirect_url" value="{$last_refer_url}">
 					<li class="cf autoLi posr">
-						<input type="checkbox" name="rembme" id="autoLogin" class="fl autoLogin">
+						<input type="checkbox" checked name="rembme" id="autoLogin" class="fl autoLogin">
 						<label for="autoLogin" class="fl">自动登录</label>
 						<a href="{$student_url}login/find_pwd" class="fr">忘记密码？</a>
 					</li>
@@ -48,11 +48,9 @@
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
-<!--#include virtual="/include/footer.htm"-->
 {include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
-<!--#include virtual="/include/js.htm"-->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
 </body>

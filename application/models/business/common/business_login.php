@@ -2,7 +2,7 @@
 
 class Business_Login extends NH_Model {
 
-    public function submit($username, $password, $remember_me='')
+    public function submit($username, $password, $remb_me=1)
     {
         if(strlen($username) == 0 || strlen($password) == 0)
             return $this->_log_reg_info(ERROR, 'login_invalid_info', array('username'=>$username, 'password'=>$password));
@@ -61,7 +61,7 @@ class Business_Login extends NH_Model {
                     log_message('debug_nahao', "In business_login, user_id is $user_id , phone is $phone");
 
                     $this->set_session_data($user_info['id'], $nickname, $user_info['avatar'],
-                        $phone, $user_info['phone_mask'], $user_info['email'], $login_type, $user_info['teach_priv']);
+                        $phone, $user_info['phone_mask'], $user_info['email'], $login_type, $user_info['teach_priv'], $remb_me);
 
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
                 }

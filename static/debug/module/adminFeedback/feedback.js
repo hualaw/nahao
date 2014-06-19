@@ -9,7 +9,7 @@ define(function(require,exports){
                 {
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })
@@ -24,7 +24,7 @@ define(function(require,exports){
                 {
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })

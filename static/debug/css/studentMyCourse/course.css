@@ -129,9 +129,6 @@
 .studentMyCourse .applyState .detailInfor span{display: inline-block;margin-bottom: 6px;}
 /*   申请退课  */
 .studentMyCourse .applyFromBox{padding: 20px 0 50px 16px;font-size: 16px;color:#4b4b4b;}
-/*.studentMyCourse .applyFromBox .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
-.studentMyCourse form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}
-.studentMyCourse form input:focus,textarea:focus,select:focus{color:#4b4b4b;}*/
 .studentMyCourse .applyFromBox textarea{font-size: 14px;width: 580px;min-height: 130px;}
 .studentMyCourse form input{width: 325px;height: 30px;}
 .studentMyCourse form .btn{font-size: 18px;font-weight: bold;color:#fff;width: 130px;margin:26px 22px 0 0;height: 40px;box-shadow:0 0 3px #cdcdcd;}
@@ -259,7 +256,6 @@
 .studentMyCourse .outlineList .listc{color:#6dcde6;}
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
 .studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
-/*.studentMyCourse .outlineList ul{margin-top: 20px;}*/
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
 .studentMyCourse .outlineList .listh{font-size: 16px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
@@ -338,7 +334,7 @@
 .studentMyCourse .sevaluBtn{color:#cecece;border: 1px solid #cecece;}
 .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
 .evalu h3{font-weight: normal;font-size: 18px;}
-.evalu .starBg{/*width: 170px;background: url(../../images/classRoom/evalBg.png);*/display: inline-block;margin:16px 0 26px;}
+.evalu .starBg{display: inline-block;margin:16px 0 26px;}
 .evalu .starBg span{float:left;width: 32px;height: 30px;margin-right: 2px;background: url(../../images/classRoom/evalBg.png) no-repeat;cursor: pointer;}
 .evalu .starBg span.cStar{background: url(../../images/classRoom/cevalBg.png) no-repeat;}
 .evalu textarea{width: 560px;height: 238px;}
