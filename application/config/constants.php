@@ -161,6 +161,7 @@ define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
 define('TABLE_LESSON','lesson');
 define('TABLE_NAHAO_AREAS','nahao_areas');
 define('TABLE_NAHAO_SCHOOLS','nahao_schools');
+define('TABLE_SCHOOLS_CREATE', 'nahao_schools_create');
 define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
 define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
