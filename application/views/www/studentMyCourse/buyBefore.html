@@ -34,7 +34,7 @@
                     <ul class="cf">
                     	{foreach from=$array_round item=item}
                         <li class="fl ctime {if $item.id == $array_data.id}ctimeOn{/if}">
-                            <a href="/course/buy_before/{$item.id}">{$item.start_time}-{$item.end_time}</a>
+                            <a href="{$course_url}{$item.id}.html">{$item.start_time}-{$item.end_time}</a>
                         </li>
                         {/foreach}
                         <li class="fl more">
