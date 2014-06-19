@@ -16,7 +16,7 @@ class Model_Question extends NH_Model
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['question_id'] ? ' AND qlr.question_id='.$param['question_id'] : '';
-		$where .= $param['lesson_id'] ? ' AND qlr.lesson_id='.$param['lesson_id'] : '';
+		$where .= $param['lesson_id'] ? ' AND qlr.lesson_id in ('.$param['lesson_id'].')' : '';
 		$column = 'q.*,qlr.lesson_id ';
 		#2. 生成sql
         $this->db->query("set names utf8");
@@ -41,7 +41,7 @@ class Model_Question extends NH_Model
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['question_id'] ? ' AND qcr.question_id='.$param['question_id'] : '';
-		$where .= $param['class_id'] ? ' AND qcr.class_id='.$param['class_id'] : '';
+		$where .= $param['class_id'] ? ' AND qcr.class_id in ('.$param['class_id'].')' : '';
 		$column = 'q.*,qcr.class_id ';
 		#2. 生成sql
         $this->db->query("set names utf8");

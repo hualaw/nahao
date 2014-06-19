@@ -32,7 +32,7 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
-		$where .= !empty($param['id']) ? ' AND cl.id='.$param['id'] : '';
+		$where .= !empty($param['id']) ? ' AND cl.id in('.$param['id'].')' : '';
 		$where .= !empty($param['round_id']) ? ' AND cl.round_id='.$param['round_id'] : '';
 		$where .= !empty($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= !empty($param['begin_time']) ? ' AND cl.begin_time>='.$param['begin_time'] : '';

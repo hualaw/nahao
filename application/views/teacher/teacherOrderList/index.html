@@ -6,24 +6,11 @@
 <!--班次列表开始-->
 <div class="md_orderList">
     <div class="orderList_nav">
-	    {if $data['teach_status_count']['teach_status_all_total']}
-	    	<span>班次数量:<b class="fred">{$data['teach_status_count']['teach_status_all_total']}</b></span>
-	    {/if}
-	    {if $data['teach_status_count']['teach_status_1_total']}
-	        <span>等待开课：<b class="fred">{$data['teach_status_count']['teach_status_1_total']}</b></span>
-	    {/if}
-	    {if $data['teach_status_count']['teach_status_2_total']}
-	        <span>授课中：<b class="fred">{$data['teach_status_count']['teach_status_2_total']}</b></span>
-	    {/if}
-	    {if $data['teach_status_count']['teach_status_3_total']}
-	        <span>停课：<b class="fred">{$data['teach_status_count']['teach_status_3_total']}</b></span>
-	    {/if}
-	    {if $data['teach_status_count']['teach_status_4_total']}
-	        <span>结课：<b class="fred">{$data['teach_status_count']['teach_status_4_total']}</b></span>
-	    {/if}
-	    {if $data['teach_status_count']['teach_status_5_total']}
-	        <span>过期：<b class="fred">{$data['teach_status_count']['teach_status_5_total']}</b></span>
-	    {/if}
+    	{if $data['teach_status_count']}
+    		{foreach $data['teach_status_count'] as $val}
+    			<span>{$val['status_name']}:<b class="fred">{$val['total']}</b></span>
+    		{/foreach}
+    	{/if}
     </div>
     <div class="orderList_search">
         <form action="{$teacher_url}/orderList/index/" mothed="get" onsubmit="">
