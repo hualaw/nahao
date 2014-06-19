@@ -1,9 +1,10 @@
 .myCoursePage{background: #eee;} 
+.studentMyCourse .noFillin{font-weight: bold;}
 .studentMyCourse .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
 .studentMyCourse .locaSele select{padding: 6px;margin-right:10px;}
 .studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
 .studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
-.studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
+.studentMyCourse .Validform_right{width:0px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
@@ -47,6 +48,7 @@
 .studentMyCourse .noCourse span{color:#a2a2a2;font-size: 16px;padding-top: 60px;background: url(../../images/studentMyCourse/addCourse.png) center top no-repeat;}
 .studentMyCourse .noCourse:hover span{color:#f14211;background: url(../../images/studentMyCourse/addCourseh.png) center top no-repeat;}
 .studentMyCourse .noCourse:hover{background:#f2f2f2;}
+.studentMyCourse .myCourseList .noCourseList{height: 230px;line-height: 290px;}
 
 .studentMyCourse .hasCourse{color: #4b4b4b;text-align: center;}
 .studentMyCourse .hasCourse h3{font-size: 16px;font-weight: normal;height: 40px;line-height: 48px;text-align: center;}
@@ -201,11 +203,13 @@
 .studentMyCourse .buyCourse .review a:hover{color:#333;}
 .studentMyCourse .buyCourse .hreview{background: url(../../images/studentMyCourse/hreview.png) no-repeat;margin-left: 2px;width: 21px;height: 20px;float: left;}
 .studentMyCourse .buyCourse .starBg{display: inline-block;width: 115px;height: 20px;margin-left: -2px;background: url(../../images/studentMyCourse/review.png);}
-.studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 143px;margin:0;}
-.studentMyCourse .buyCourse .fromf strong{font-size: 24px;height: 40px;line-height: 40px;margin-right: 14px;}
-.studentMyCourse .buyCourse .fromf strong span{font-size: 36px;margin-left: -5px;}
+.studentMyCourse .buyCourse .fromf{line-height: 40px;}
+.studentMyCourse .buyCourse .fromf .oldPrice{color:#a2a2a2;font-size: 14px; }
+.studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 143px;margin:0;padding-left: 10px;}
+.studentMyCourse .buyCourse .fromf strong{font-size: 18px;height: 40px;line-height: 40px;margin-right: 14px;}
+.studentMyCourse .buyCourse .fromf strong span{font-size: 30px;margin-left: -5px;}
 .studentMyCourse .buyCourse .endTime .timeTitle{padding-left: 54px;background: url(../../images/studentMyCourse/endTime.png) 24px top no-repeat;height: 22px;}
-.studentMyCourse .buyCourse .countdown{font-size: 18px;margin:18px 0 26px;}
+.studentMyCourse .buyCourse .countdown{font-size: 18px;margin:18px 0 26px;text-align: center;}
 .studentMyCourse .buyCourse .cdp{font-size: 14px;color: #a2a2a2;padding-left: 40px;margin-bottom: 18px;}
 .studentMyCourse .buyCourse .prompt{height: 20px;line-height: 20px;margin-bottom: 5px;padding-left: 32px;font-size: 16px;}
 .studentMyCourse .buyCourse .ensure{background: url(../../images/studentMyCourse/ensure.png) no-repeat;}

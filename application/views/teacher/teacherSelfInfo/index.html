@@ -59,9 +59,18 @@
                         <em>*</em>
                         <p class="fl">所在学校</p>
                         <!--所在学校开始-->
-                        <div class="cf">
+                       <!--  <div class="cf">
                             <input type="text" name="school" class="fl textInput school" validName="text"  value="{$school}"/>
                             <span class="Validform_checktip fl"></span>
+                        </div> -->
+                        <div class="cf schoolPar">
+                            <span class="schoolFullName"></span>
+                            <a href="javascript:void(0);" class="resetSchool">选择学校</a>
+                            <input type="hidden" value="" name="school_id" id="schoolVal" />
+                            <input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+                            <input type="hidden" value="" name="school_type" id="school_type">
+                            <input type="hidden" value="" name="schoolname" id="schoolname" />
+                            {include file='common/setSchool.html'}
                         </div>
                         <!--所在学校结束-->
                     </li>
@@ -118,7 +127,7 @@
                         </div>
                         <!--用户性别结束-->
                     </li>
-                    <li class="cf">
+                    <li class="cf areaSelect">
                         <em>*</em>
                         <p class="fl">所在地区</p>
                         <!--省份开始-->

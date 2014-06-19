@@ -10,6 +10,8 @@
 @import url('../common/header.css');
 /*加载公共验证样式*/
 @import url('../common/valid.css');
+/*加载公共弹出框样式*/
+@import url('../common/dialog.css');
 /*加载模拟下拉框样式*/
 @import url('../common/jqtransform.css');
 /*加载公共登陆样式*/

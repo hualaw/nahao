@@ -5,6 +5,7 @@
 .teacherSelfInfo .personInfo .personNav a{display:block;float: left;font-size: 16px;font-weight: normal;padding:0px 40px;}
 .teacherSelfInfo .personInfo .personNav a.active{color:#f14211;background-color:#fff;border-top:2px solid #ed4111;}
 .teacherSelfInfo .personInfo ul.Oul{padding:20px 0px 0 40px;}
+.teacherSelfInfo .areaSelect select{padding: 5px;margin-right: 10px;}
 .teacherSelfInfo .personInfo li {margin-bottom:15px;position: relative;}
 .teacherSelfInfo .personInfo li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;color:#0e455e;margin-bottom:5px;text-align: left}
 .teacherSelfInfo .personInfo li .textInput{width: 228px;height:31px;border:1px solid #a2a2a2;padding:0 15px;}

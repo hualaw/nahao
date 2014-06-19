@@ -1,4 +1,4 @@
-.footer{background: #11243b;text-align: center;font-size: 14px;color: #fff;padding: 18px 0 14px;}
+.footer{background: #11243b;text-align: center;font-size: 12px;color: #fff;padding: 20px 0 16px;}
 .footer .ftNav a{color: #fff;}
 .footer .ftNav span{margin: 0 15px;color:#f14211;}
 .footer .fm a{color:#f14211;}
@@ -7,5 +7,5 @@
 .footer .sina:hover{color:#fff;background: url(../../images/common/footer/hsina.png) right bottom no-repeat;_background-image: url(../../images/common/footer/hsina_8.png);}
 .footer .wx:hover{color:#fff;background: url(../../images/common/footer/hwx.png) right bottom no-repeat;_background-image: url(../../images/common/footer/hwx_8.png);}
 .footer .phoneHref{background-position: left bottom;}
-.footer .fm{height: 66px;line-height: 66px;}
+.footer .fm{height: 70px;line-height: 70px;}
 .footer .fbSpan{margin-right: 15px;}

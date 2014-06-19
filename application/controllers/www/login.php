@@ -178,8 +178,9 @@ class login extends NH_Controller
         $username = trim($this->input->post('username'));
         $password = trim($this->input->post('password'));
         $redirect_url = trim($this->input->post('redirect_url'));
+        $remember_me = trim($this->input->post('rembme'));
 
-        $ret = $this->business_login->submit($username, $password);
+        $ret = $this->business_login->submit($username, $password, $remember_me);
 
         if(isset($ret['data']))
         {
