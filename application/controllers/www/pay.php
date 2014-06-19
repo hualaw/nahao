@@ -69,7 +69,7 @@ class Pay extends NH_User_Controller {
 	        #根据$int_product_id获取订单里面该轮的部分信息
 	        $array_data = $this->student_order->get_order_round_info($int_product_id);
 	    }
-	    var_dump($this->session->all_userdata());
+	    //var_dump($this->session->all_userdata());
 	    $array_infor = $this->_user_detail;
  	    // var_dump($int_user_id);
  	    #获取是否是手机号注册的
