@@ -98,8 +98,7 @@ define(function (require,exports){
 			};
 			$.post(url, data, function (response) {
 				if (response.status == "ok") {
-//					$.tiziDialog.list['exerciseHtml'].close();
-					alert('第'+response.sequence+'批题'+response.msg);
+					// alert('第'+response.sequence+'批题'+response.msg);
 					$.tiziDialog({ id: 'exerciseHtml' }).close();
 				}
 			}, "json");
@@ -163,8 +162,6 @@ define(function (require,exports){
 	//选择题目 切换内容
 	exports.curItem	= function (){
 		//初始--选的题目内容显示，左侧对应列表高亮 
-		//var ind = 2;
-		//$(".itemscore .scoreBoxList").eq(0).removeClass("undis");
 		//点击时切换
 		$(".itemscore .sconl li").click(function (){
 			$(".result").removeClass("resultArrow");
@@ -185,15 +182,11 @@ define(function (require,exports){
 
 	//评论 几颗星
 	exports.starClick = function (){
-		//var ind = true;
 		$(".evalu .starBg span").click(function (){
-			//if(ind){
-				var _index = $(".evalu .starBg span").index($(this));
-				for(var i=0;i<_index+1;i++){
-					$(".evalu .starBg span").eq(i).addClass("cStar");
-				}
-				//ind = false;
-			//}
+			var _index = $(".evalu .starBg span").index($(this));
+			for(var i=0;i<_index+1;i++){
+				$(".evalu .starBg span").eq(i).addClass("cStar");
+			}
 		});
 	}
 
@@ -292,7 +285,6 @@ define(function (require,exports){
 			var aL = $(".aui_content .answerList").eq(ind).find("li");
 
 			for(var i=0;i<aL.length;i++){
-				//console.log(!aL.hasClass("curAnswer"))
 				if(!aL.hasClass("curAnswer")){
 					alert("您还没有做题");
 					return;

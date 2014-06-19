@@ -34,7 +34,6 @@ form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 .cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
-/*form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}*/
 
 form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;width: 33px;height: 33px;top: -1px;right: -1px;}
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
@@ -43,8 +42,9 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 0;right: 0;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 140px;right: 0;}
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
+.floatBox a.feedback{margin-top: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
 .floatBox .feedback{background-image: url(../../images/common/feedback.jpg);}
 .floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;}
@@ -64,6 +64,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 	-ms-transition:.2s all ease;
 	color:#333;background: #fff;
 }
+.iniBox img{height: 172px;width: 230px;}
 .iniBox .iniInfor{ padding: 0 12px 0 8px;}
 .iniBox .iniInfor em.redText{ font-weight: bold;margin-right: 4px;}
 .iniBox .fitGrade{color:#a2a2a2;}
@@ -101,7 +102,6 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .lowHomePage .newList li:hover .rotateBox{display: block;}
 .lowHomePage .courseList li,
 .lowHomePage .newList li{border: 1px solid #dbdbdb;}
-/*.lowHomePage .reTitle{margin:0 auto;margin-top:-40px;line-height: 80px;}*/
 .lowHomePage .tipText{margin-top: 0px!important;}
 
 /*表格效果开始*/
@@ -110,7 +110,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 table.md_table{width:100%;font-size:14px;border:1px solid #d7d7d7;}
 table.md_table a{color: #17a27e;}
 table.md_table a:hover{color: #f90;}
-table.md_table td,table th{text-align:center;line-height:40px;/*border:1px solid #d7d7d7;*/border-bottom: 1px solid #d7d7d7;}
+table.md_table td,table th{text-align:center;line-height:40px;border-bottom: 1px solid #d7d7d7;}
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
 .schoolPar{text-align: left;}
@@ -134,7 +134,7 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .page span a:hover{color:#fff;background:#f14211;}
 /*全站分页代码样式结束*/
 /* 意见反馈 */
-.feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:30px;}
+.feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:20px;}
 .feedback h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
 .feedback form .fbText{height: 28px;line-height: 28px;}
 .feedback form textarea{width: 610px;height: 100px;}
@@ -142,7 +142,10 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .feedback .formName{font-size: 16px;}
 .feedback .submit,
 .evalu .submit{width: 140px;margin-top: 12px;height: 40px;line-height: 40px;font-weight: bold;font-size: 20px;}
-
+/*  登录 */
+.loginInputBg{position: absolute;width: 55px;height: 50px;left: 0;top:0;background: url(../../images/login/loginInputBg.png) no-repeat;}
+.unBg{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
+.pwdBg{background-position: 15px -50px;}
 
 
 

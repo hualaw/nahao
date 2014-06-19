@@ -2,14 +2,18 @@
 	<h3 class="pageName">我的课程</h3>
 	<ul class="myCourseList cf">
 		<!-- meiyou-->
-		<li class="fl noCourse">
+		{if $array_buy_course}
+		<li class="fl noCourse ">   
+		{else}
+		<li class="fl noCourse noCourseList">   
+		{/if}
 			<a href="/"><span>快来添加课程吧！</span></a>
 		</li>
 		<!-- kecheng yi wancheng -->
 		{foreach from=$array_buy_course item=item}
 		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
 			<h3>{$item.title}</h3>
-			<img src="{static_url($item.class_img)}" alt="" class="cover">
+			<img src="{$item.class_img}" alt="" class="cover">
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>
 			</div>
@@ -57,7 +61,7 @@
 		{foreach from=$array_new item=item}
 		<li class="fl">
 			<div class="clBoxShaow iniBox">
-				<img src="{static_url({$item.img})}" alt="">
+				<img src="{$item.img}" alt="">
 				<div class="iniInfor">
 					<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
 					<div class="cf">
@@ -70,9 +74,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="clBoxShaow rotateBox posr" data-action="/course/buy_before/{$item.id}">
+			<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html">
 				<div class="teaInfor cf">
-					<img src="" alt="头像" class="fl">
+					<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 					<div class="fl teaInforR">
 						<!--工作证，称职证，教师证（1-5）-->
 						<h3 class="cf">

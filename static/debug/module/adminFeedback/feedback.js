@@ -1,0 +1,33 @@
+define(function(require,exports){
+    exports.feedback = function(){
+        $('.show_feedback').click(function(){
+            $.ajax({
+                type:'post',
+                url:'/feedback/show_hide_feedback',
+                data:'id='+$(this).data('feedback_id')+"&a="+$(this).data('a'),
+                success:function(msg)
+                {
+                    if(msg==1)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        })
+
+        $('.hide_feedback').click(function(){
+            $.ajax({
+                type:'post',
+                url:'/feedback/show_hide_feedback',
+                data:'id='+$(this).data('feedback_id')+"&a="+$(this).data('a'),
+                success:function(msg)
+                {
+                    if(msg==1)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        })
+    }
+})

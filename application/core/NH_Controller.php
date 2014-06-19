@@ -46,7 +46,7 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('is_login', $this->is_login);
         $this->smarty->assign('userdata', $this->session->all_userdata());
         $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
-        $this->smarty->assign('perfect_url', site_url().'login/perfect');
+        $this->smarty->assign('perfect_url', student_url().'login/perfect');
         
 /*         echo "<pre>";
         print_r($this->session->all_userdata());
@@ -84,7 +84,7 @@ class NH_Controller extends CI_Controller
         $bool_return = false;
 
         //$this->session->sess_read();
-        log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
+        //log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
         if($this->session->userdata('user_id') > 0)
             $bool_return = true;
 

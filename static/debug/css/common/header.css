@@ -3,10 +3,10 @@
 .header .headLogin{height:26px;line-height:26px;background: #11243b;}
 .header .headLoginBox{font-size: 12px;}
 .header .headLoginBox span{color:#f14211;display: inline-block;margin: 0 6px;}
-.header .phoneHref{background: url(../../images/common/phone.png) left 2px no-repeat;}
+.header .phoneHref{background: url(../../images/common/phone.png) left 1px no-repeat;}
 .header .headNav{background: #f8f8f8;}
 .header .headNav li{padding: 25px 0 20px;}
-.header .headNav li a{padding: 0 32px;border-right: 1px solid #d4d6d8;font-size: 16px;font-weight: bold;color:#11243b;display: inline-block;height: 36px;line-height: 36px;}
+.header .headNav li a{padding: 0 32px;border-right: 1px solid #d4d6d8;font-size: 16px;color:#11243b;display: inline-block;height: 36px;line-height: 36px;}
 .header .startClass{margin-right: 26px;color: #f14211;}
 .header .headNav h1{width: 121px;margin-right: 20px;height: 80px;}
 .header .headNav h1 a{height: 54px;width: 100%;background:url(../../images/common/ico_nahao.png) no-repeat;display: inline-block;margin-top:14px;}
@@ -19,3 +19,6 @@
 .header .headNav li:hover a{color: #f14211;}
 .header .headNav .curNav,
 .header .headNav li:hover{background: url(../../images/common/header/arrow.png) center top no-repeat;_background-image: url(../../images/common/header/arrow_8.png);}
+.header .headNav .headR{height: 80px;line-height: 80px;}
+
+

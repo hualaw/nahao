@@ -21,8 +21,6 @@
 
             <li {if  in_array($current['controller'],array('student'))}active{/if}><a href="/student">学生管理</a></li>
             <li {if  in_array($current['controller'],array('order'))}active{/if}><a href="/order">订单管理</a></li>
-            <li {if  in_array($current['controller'],array('salary'))}active{/if}><a href="/salary">课酬管理</a></li>
-
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">教师管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -40,6 +38,7 @@
                     <li><a href="/admin/permission">权限管理</a></li>
                 </ul>
             </li>
+            <li><a href="/feedback">评价管理</a></li>
         </ul>
 
         <p class="navbar-text navbar-right">{$userinfo.username},<a href="/passport/logout" class="navbar-link">退出</a></p>

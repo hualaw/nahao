@@ -284,3 +284,7 @@ $config['image_type'][3] = 'PNG';
 $config['class_checkout_status'][0] = '不可结算';
 $config['class_checkout_status'][1] = '可结算';
 $config['class_checkout_status'][2] = '已结算';
+
+//课评价显示状态
+$config['feedback'][0] = '屏蔽';
+$config['feedback'][1] = '显示';

@@ -1,8 +1,6 @@
 define(function(require,exports){
     // 请求验证库
     require("validForm");
-    // 请求公共验证信息
-    //var sDataType = require("module/common/basics/dataType").dataType();
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
@@ -33,7 +31,9 @@ define(function(require,exports){
     				    content:data.msg,
     				    icon:null
     				});
-            		$.dialog.list['feedback_close'].close();
+                    if($(".feedback").length){
+                        $.dialog.list['feedback_close'].close();
+                    }
             	} else {
     				$.dialog({
     				    content:data.msg,

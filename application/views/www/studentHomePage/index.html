@@ -37,7 +37,7 @@
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
-							<img src="{static_url({$item.img})}" alt="">
+							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
 								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
 								<div class="cf">
@@ -50,9 +50,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="/course/buy_before/{$item.id}">
+						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html">
 							<div class="teaInfor cf">
-								<img src="{static_url({$item.teacher.avatar})}" alt="头像" class="fl">
+								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">
@@ -65,7 +65,6 @@
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<!-- <p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:16:"...":true}</a></p> -->
 							<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
 						</div>
 					</li>
@@ -101,7 +100,9 @@
 			</div>
 		</div>
 		<!-- 师资 认证过程 结束 -->
-		<div class="ad"></div>
+		<div class="ad posr">
+			<div class="cat"></div>
+		</div>
 		<!-- 贴心服务 随时退款 开始 -->
 		<div class="service">
 			<h2 class="cf comTitle">  
@@ -184,7 +185,7 @@
 <div class="feedbackHtml undis">
 	<div class="feedback">
 		<h2>意见反馈</h2>
-		<form action="/index/feedback/" class="feedbackForm" method="post" >
+		<form action="{$student_url}index/feedback" class="feedbackForm" method="post" >
 			<ul>
 				<li class="cf posr">
 					<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>
