@@ -147,7 +147,7 @@
 					<p class="optional">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName">{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}</span>
-						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
+						<a href="javascript:void(0);" class="resetSchool">{if isset($school_name)}重设{else}选择{/if}学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
