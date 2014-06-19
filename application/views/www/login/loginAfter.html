@@ -139,12 +139,11 @@ admin_url: {$admin_url}<br>
 					<p class="schooptional">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
-						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
+						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">选择学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
 						<input type="hidden" value="" name="schoolname" id="schoolname" />
-						{include file='common/setSchool.html'}
 					</div>
 				</li>
 				<li>
@@ -163,5 +162,7 @@ admin_url: {$admin_url}<br>
 <!--#include virtual="/include/js.htm"-->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
+<!--选择学校-->
+{include file='common/setSchool.html'}
 </body>
 </html>
