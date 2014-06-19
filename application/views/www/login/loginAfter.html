@@ -35,7 +35,7 @@ admin_url: {$admin_url}<br>
                         {if !$userdata.email}
 						<input type="text" name="Email" class="lEmail textInput fl" validName="text" value="{$userdata.email}" disabled>
                         {else}
-                        <span class="fl">{$userdata.email}</span>
+                        <span class="fl hasEmail">{$userdata.email}</span>
                         {/if}
 						<span class="Validform_checktip fl"></span>
 					</div>
@@ -47,7 +47,7 @@ admin_url: {$admin_url}<br>
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
-				<li class="cf">
+				<li class="cf areaSelect">
 					<p class="fl"><span>*</span>地区</p>
 					<div class="cf" style="float:left">
 						<div class="fl">

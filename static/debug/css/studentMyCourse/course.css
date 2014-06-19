@@ -4,7 +4,7 @@
 .studentMyCourse .locaSele select{padding: 6px;margin-right:10px;}
 .studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
 .studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
-.studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
+.studentMyCourse .Validform_right{width:0px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
