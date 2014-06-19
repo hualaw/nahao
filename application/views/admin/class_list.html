@@ -38,7 +38,7 @@
                 --
             {/if}
         </td>
-        <td>question</td>
+        <td>{if $v.parent_id gt 0}<a target="_blank" href="/question/class_question/{$v.id}">习题</a>{/if}</td>
         <td>
             {if $v.parent_id gt 0}
                 <a target="_blank" href="/classes/enter/{$v.classroom_id}">进入课堂</a>

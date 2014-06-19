@@ -176,8 +176,7 @@ class Round extends NH_Admin_Controller
                     $this->round->create_round_teacher_batch($int_round_id, $arr_teachers);
                     $this->load->model('business/admin/business_class', 'class');
                     $bool_class = $this->class->create_classes($int_course_id, $int_round_id, $arr_classes);
-//                o($bool_class,true);
-                    if($bool_flag==true){
+                    if($bool_class){
                         $this->arr_response['status'] = 'ok';
                         $this->arr_response['msg'] = '创建成功';
                         $this->arr_response['redirect'] = '/round';

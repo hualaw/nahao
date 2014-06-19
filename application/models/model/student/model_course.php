@@ -301,7 +301,8 @@ class Model_Course extends NH_Model{
      */
     public function check_user_buy_class($int_user_id,$int_class_id)
     {
-        $sql = "SELECT id FROM WHERE student_id = ".$int_user_id." AND class_id = ".$int_class_id;
+        $sql = "SELECT id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." AND class_id = ".$int_class_id;
+//        o($sql,true);
         $int_result = $this->db->query($sql)->num_rows();
         return  $int_result > 0 ? true : false;
     }
