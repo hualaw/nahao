@@ -140,7 +140,7 @@ class Student_Classroom extends NH_Model{
     }
 
     /**
-     * 保存课堂笔记(课堂新增，学生后台修改)
+     * 保存课堂笔记
      * @param $arr_data
      * @return bool
      * @author yanrui@tizi.com
@@ -152,6 +152,20 @@ class Student_Classroom extends NH_Model{
             $bool_return = $this->model_classroom->save_class_note($arr_data);
         }
         return $bool_return;
+    }
+
+    /**
+     * 取课堂笔记
+     * @param $arr_param
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_note($arr_param){
+        $arr_return = array();
+        if (is_array($arr_param) AND $arr_param) {
+            $arr_return = $this->model_classroom->get_class_note($arr_param);
+        }
+        return $arr_return;
     }
     
 }

@@ -16,13 +16,17 @@ class Business_Question extends NH_Model
     /**
      * 课节题目列表
      */
-    public function lesson_question($param){
-    	$list = $this->model_question->lesson_question_seacher($param);
-    	if(count($list)>0) foreach ($list as &$val){
-    		$options = json_decode($val['options'],true);
+    public function lesson_question($param,$str_type = 'common'){
+    	$list = $this->model_question->lesson_question_seacher($param,$str_type);
+    	if(count($list)>0){
+            if($str_type=='common'){
+                foreach ($list as &$val){
+                    $options = json_decode($val['options'],true);
 //    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
-    		$val['options'] = $options;
-    	}
+                    $val['options'] = $options;
+                }
+            }
+        }
     	return $list;
     }
     
@@ -92,8 +96,8 @@ class Business_Question extends NH_Model
      * param = [do,question_id,lesson_id]
      */
     public function class_question_doWrite($param){
-    	$param['type'] = count($param['answer']>1) ? 2 : 1;
-    	$param['answer'] = join($param['answer'],',');
+        $param['type'] = isset($param['answer']) ? (count($param['answer']>1) ? 2 : 1) : '';
+        $param['answer'] = isset($param['answer']) ? (join($param['answer'],',')) : '';
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';

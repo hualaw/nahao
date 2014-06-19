@@ -2,7 +2,7 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>#</th>
+        <!--<th>#</th>-->
         <th>课堂ID</th>
         <th>课堂名称</th>
         <th>上课时间</th>
@@ -18,26 +18,33 @@
     <tbody>
     {foreach $classes as $v}
     <tr>
-        <td><input type="checkbox"></td>
+        <!--<td><input type="checkbox"></td>-->
         <td>{$v.id}</td>
         <td>{$v.title}</td>
         <td>{date("Y-m-d H:i",$v.begin_time)}-{date("Y-m-d H:i",$v.end_time)}</td>
-        <td>{$class_status[$v.status]}</td>
+        <td>{if $v.parent_id gt 0}{$class_status[$v.status]}{/if}</td>
         <td></td>
         <td></td>
         <td>feedback</td>
         <td>
-            {if $v.courseware_id==0}
-            <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
-            {else}
-            <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
-            <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
+            {if $v.parent_id gt 0}
+                {if $v.courseware_id==0}
+                    <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
+                {else}
+                    <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
+                    <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
+                {/if}
+                {else}
+                --
             {/if}
         </td>
-        <td>question</td>
+        <td>{if $v.parent_id gt 0}<a target="_blank" href="/question/class_question/{$v.id}">习题</a>{/if}</td>
         <td>
-            <!--<a href="javascript:;" data-toggle="modal" data-target="#round_list_operation_modal" data-course_id="{$v.id}">修改</a>-->
-            <a target="_blank" href="/classes/enter/{$v.classroom_id}">进入课堂</a>
+            {if $v.parent_id gt 0}
+                <a target="_blank" href="/classes/enter/{$v.classroom_id}">进入课堂</a>
+            {else}
+                --
+            {/if}
         </td>
     </tr>
     {/foreach}

@@ -11,10 +11,14 @@ define(function(require,exports){
             var lesson_id = $(this).data('lesson_id');
             //get upload token
             $.get(url,function (response){
-                if(response && response.token !='' ){
-                    $("#token_load_area").hide();
-                    $("#pdf_upload_area").show();
-                    //upload to meeting system
+                console.log('get');
+                if(response){
+                    if(response.token !='' ){
+                        $("#token_load_area").hide();
+                        $("#pdf_upload_area").show();
+
+                        $('#lesson_pdf_upload').uploadify({});
+                        //upload to meeting system
                     $('#lesson_pdf_upload').uploadify({
                         'formData' : response,
                         'swf'      : 'http://admin.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
@@ -33,12 +37,16 @@ define(function(require,exports){
                                 $.post(url, data, function(response){
                                     if(response){
                                         alert(response.msg);
-                                        window.location.reload;
+                                        window.location.reload();
                                     }
                                 });
                             }
                         }
                     });
+                    }else{
+                        $("#token_display_area").html('token读取失败请重试');
+                    }
+
                 }
             })
             $('#lesson_upload_modal').modal();
