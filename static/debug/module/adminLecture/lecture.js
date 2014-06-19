@@ -35,7 +35,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                     else
                     {
@@ -54,7 +54,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        $('#curr_status').html('审核通过');                                                                 location=location;
+                        $('#curr_status').html('审核通过');                                                                 location.reload();
                     }
                     if(msg==2)
                     {
