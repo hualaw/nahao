@@ -44,9 +44,12 @@ define(function(require,exports){
                     } else if(response.status == "ok"){
         				$.dialog({
         				    content:response.msg,
-        				    icon:null
+        				    icon:null,
+        				    ok:function(){
+        				    	window.location.href="/member/my_order/all";
+        				    }
         				});
-        				window.location.href="/member/my_order/all";
+        				
                     } 
                 }, "json");
         	});
