@@ -49,9 +49,12 @@
         <td width="90">{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
         <td width="80">{$v.score}</td>
         <td width="80">{$config_feedback[$v.is_show]}</td>
-        <td width="130">
+        <td width="40">
+            {if $v.is_show==0}
             <button class="btn btn-success show_feedback" role="button" data-feedback_id="{$v.id}" data-a="1">显示</button>
+            {elseif $v.is_show==1}
             <button class="btn btn-warning hide_feedback" role="button" data-feedback_id="{$v.id}" data-a="0">屏蔽</button>
+            {/if}
         </td>
     </tr>
         {/foreach}
