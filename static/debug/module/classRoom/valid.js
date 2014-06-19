@@ -33,7 +33,9 @@ define(function(require,exports){
     				    content:data.msg,
     				    icon:null
     				});
-            		$.dialog.list['feedback_close'].close();
+                    if($(".feedback").length){
+                        $.dialog.list['feedback_close'].close();
+                    }
             	} else {
     				$.dialog({
     				    content:data.msg,
