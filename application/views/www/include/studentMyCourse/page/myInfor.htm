@@ -149,6 +149,8 @@
 						<span class="schoolFullName">{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}</span>
 						<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
+                        <input type="hidden" value="" name="province_id" id="province_id" />
+                        <input type="hidden" value="" name="city_id" id="city_id" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
 						<input type="hidden" value="" name="schoolname" id="schoolname" />
@@ -275,12 +277,11 @@
 					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
 						<span class="schoolFullName"></span>
-						<a href="javascript:void(0);" class="resetSchool">选择学校</a>
+						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">选择学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
 						<input type="hidden" value="" name="school_type" id="school_type">
 						<input type="hidden" value="" name="schoolname" id="schoolname" />
-						{include file='common/setSchool.html'}
 					</div>
 				</li>
 				<li>
@@ -350,6 +351,8 @@
 		</form>
 	</div>
 </div>
+<!--选择学校-->
+{include file='common/setSchool.html'}
 <script type="text/javascript" src="{static_url('/lib/jquery/1.8.2/jquery.js')}"></script>
 <script type="text/javascript">
     var noflash = '<span class="flashNotice"><a href="http://www.adobe.com/go/getflashplayer" target="_blank"><img src="{static_url('/image/common/get_flash_player.gif')}" alt="下载Flash播放器" /></a><span>您需要安装11.4.0以上的版本的Flash播放器，才能正常访问此页面。</span></span>';

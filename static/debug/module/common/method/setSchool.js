@@ -44,15 +44,17 @@ define(function(require, exports) {
                 $(".theGenusScholl_y").removeClass("undis");
                 var class_id = $('#class_id').val();
                 var school_id = $('.aui_content .school li.active').attr('data-id');
-                var province = $(".schoolProvice li.active").html();
-                var city = $(".schoolCity li.active").html();
-                var county = $(".schoolCounty li.active").html();
-                var county_id = $(".schoolCounty li.active").attr('data-id');
-                var sctype_id = $('.schoolGrade li.active').attr('data-id');
-                var schoolname = $(".schoolName li.active").html();
-                var seacherResultname = $('.schoolInfo .seacherResult li.active').html();
+                var province = $(".resetSchoolPopCon .schoolProvice li.active").html();
+                var city = $(".resetSchoolPopCon .schoolCity li.active").html();
+                var county = $(".resetSchoolPopCon .schoolCounty li.active").html();
+                var province_id = $(".resetSchoolPopCon .province li.active").attr('data-id');
+                var city_id = $(".resetSchoolPopCon .city li.active").attr('data-id');
+                var county_id = $(".resetSchoolPopCon .schoolCounty li.active").attr('data-id');
+                var sctype_id = $('.resetSchoolPopCon .schoolGrade li.active').attr('data-id');
+                var schoolname = $(".resetSchoolPopCon .schoolName li.active").html();
+                var seacherResultname = $('.resetSchoolPopCon .schoolInfo .seacherResult li.active').html();
                 var searcherResultid = $('.schoolInfo .seacherResult li.active').attr('data-id');
-                var writeSchoolName = $('.writeSchoolName').val();
+                var writeSchoolName = $('.resetSchoolPopCon .writeSchoolName').val();
                 if (typeof province == 'undefined'){province = '';}
                 if (typeof city == 'undefined'){city = '';}
                 if (typeof county == 'undefined'){county = '';}
@@ -82,7 +84,10 @@ define(function(require, exports) {
                     if($("#schoolVal").val() > 0){
                         $('.schoolBox').find('.ValidformInfo,.Validform_checktip').hide();
                     }
-                }
+                };
+
+                $('#province_id').val(province_id);
+                $('#city_id').val(city_id);
                 $('#schoolname').val(writeSchoolName);
                 $('#area_county_id').val(county_id);
                 $('#school_type').val(sctype_id);

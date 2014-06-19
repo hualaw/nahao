@@ -6,6 +6,7 @@ class Selfinfo extends NH_User_Controller {
         parent::__construct();
         $this->load->model('business/common/business_user');
         $this->load->model('business/common/business_area');
+        $this->load->model('business/common/business_school');
         if(!$this->is_login)
         {
             redirect('http://www.nahaodev.com/login');
@@ -42,6 +43,18 @@ class Selfinfo extends NH_User_Controller {
             $post_data['work_auth_img'] = trim($this->input->post('work_auth_img'));
             $post_data['teacher_auth_img'] = trim($this->input->post('teacher_auth_img'));
             $post_data['title_auth_img'] = trim($this->input->post('title_auth_img'));
+            $post_data['school_id'] = intval($this->input->post('school_id'));
+            $post_data['schoolname'] = trim($this->input->post('schoolname'));
+            if($post_data['schoolname'] && empty($post_data['school_id'])) {
+                #post过来的数据有学校名称但没学校ID, 这是用户自己输入的学校,需要把学校所属的地区也接收过来
+                $post_data['province_id'] = intval($this->input->post('province_id'));
+                $post_data['city_id'] = intval($this->input->post('city_id'));
+                $post_data['county_id'] = intval($this->input->post('area_county_id'));
+                $post_data['school_type'] = intval($this->input->post('school_type'));
+                $post_data['custom_school'] = 1;
+                $new_school_id = $this->business_school->add_custom_school($post_data);
+                $post_data['school_id'] = intval($new_school_id);
+            }
             $result = $this->business_user->modify_user_info($post_data, $this->_user_detail['user_id']);
             if($result) {
                 $arr_return = array('status' => SUCCESS, 'msg' => '更新资料成功');
@@ -59,10 +72,10 @@ class Selfinfo extends NH_User_Controller {
         #科目
         $subjects = $this->business_subject->get_subjects();
         #学校
-        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id');
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id', $this->_user_detail['custom_school']);
         $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
         array_shift($my_school);
-        $school_area = $this->business_area->get_areas_by_ids($my_school);        
+        $school_area = $this->business_area->get_areas_by_ids($my_school);
         #教师职称
         $teacher_tile = $this->config->item('teacher_title');
         $gender = $this->config->item('gender');
