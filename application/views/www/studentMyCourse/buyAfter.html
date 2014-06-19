@@ -25,7 +25,7 @@
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl">{$array_data.soon_class_title}</h3>
-		        		<a href="/course/buy_before/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		<div class="cf classCDList">
 	        			<span class="fl">距离上课还有：</span>
@@ -38,7 +38,7 @@
 		        				<strong>54</strong>秒
 	        				</div>
 	        			</div>
-	        			<a href="" class="fr noShowBtn redBtn">去上课</a>
+	        			<a href="/classroom/enter/{$array_data.classroom_id}" target="_blank" class="fr noShowBtn redBtn">去上课</a>
 	        		</div>
 	        	</div>
 	        	<ul class="fr manInfor">

@@ -34,7 +34,9 @@ class Course extends NH_User_Controller {
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
         //var_dump($array_evaluate);
-        
+        #课程列表的地址
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
         $this->smarty->assign('array_evaluate', $array_evaluate);
@@ -78,8 +80,10 @@ class Course extends NH_User_Controller {
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
 	    #每节课是否有评价
 	    
-	    //var_dump($array_outline);die;
-
+	    //var_dump($array_data);die;
+	    #课程列表的地址
+	    $course_url = config_item('course_url');
+	    $this->smarty->assign('course_url', $course_url);
 	    $this->smarty->assign('array_classmate', $array_classmate);
 	    $this->smarty->assign('int_classmates', $int_classmates);
 	    $this->smarty->assign('array_note', $array_note);

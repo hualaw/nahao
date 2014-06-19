@@ -354,6 +354,7 @@ class Student_Course extends NH_Model{
         $array_return['soon_class_stime'] = $array_soon['begin_time'];
         $array_return['class'] = $int_num; 
         $array_return['class_rate'] = $class_rate;
+        $array_return['classroom_id'] = $array_soon['classroom_id'];
         return $array_return;
     }
     
