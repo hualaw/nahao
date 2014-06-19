@@ -67,13 +67,6 @@ define(function(require,exports){
                 errormsg:"请选择教学阶段"
             },
             {
-                ele:".school",
-                datatype: "*",
-                nullmsg: "请输入就读学校名称",
-                errormsg: "学校名称有误"
-
-            },
-            {
                 ele:".subject",
                 datatype: "*",
                 nullmsg: "请选择教学科目",
@@ -88,33 +81,12 @@ define(function(require,exports){
 
             },
             {
-                ele:".province",
-                datatype: "*",
-                nullmsg: "请选择省份",
-                errormsg: "请选择省份"
-
-            },
-            {
-                ele:".city",
-                datatype: "*",
-                nullmsg: "请选择城市",
-                errormsg: "请选择城市"
-
-            },
-            {
                 ele:".sex",
                 datatype: "*",
                 nullmsg: "请选择性别",
                 errormsg: "请选择性别"
 
             },
-//            {
-//                ele:".zone",
-//                datatype: "*",
-//                nullmsg: "请选择地区",
-//                errormsg: "请选择地区"
-//
-//            },
             {
                 ele:".schoolAge",
                 datatype: "*",
