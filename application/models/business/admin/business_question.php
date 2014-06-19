@@ -20,7 +20,7 @@ class Business_Question extends NH_Model
     	$list = $this->model_question->lesson_question_seacher($param);
     	if(count($list)>0) foreach ($list as &$val){
     		$options = json_decode($val['options'],true);
-    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
+//    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
     		$val['options'] = $options;
     	}
     	return $list;
@@ -78,7 +78,7 @@ class Business_Question extends NH_Model
     	$list = $this->model_question->class_question_seacher($param);
     	if(count($list)>0) foreach ($list as &$val){
     		$options = json_decode($val['options'],true);
-    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
+//    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
     		$val['options'] = $options;
 //    		if($val['options']) foreach ($val['options'] as &$v){
 //    			$v = stripslashes($v);

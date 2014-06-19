@@ -14,8 +14,9 @@ class Index extends NH_User_Controller {
         $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
-            redirect('http://www.nahaodev.com/login');
+            redirect(student_url().'login');
         }
+        $this->teacher_id = 216;
         header("Content-type: text/html; charset=utf-8");
     }
     
@@ -27,6 +28,7 @@ class Index extends NH_User_Controller {
 	{
 		#1.今日列表
 		$listArr = $this->teacher_b->today_class(array('teacher_id'=>1));
+		$weekarray = array("日","一","二","三","四","五","六");
 		#3.页面数据
 		$data = array(
 			'listArr' => $listArr,
@@ -35,6 +37,7 @@ class Index extends NH_User_Controller {
 			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
 			'today_total' => count($listArr),
 			'date' => date('Y年m月d日',time()),
+			'week' => $weekarray[date('w')],
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherHomePage/index.html');

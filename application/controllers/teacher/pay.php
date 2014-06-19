@@ -4,14 +4,14 @@ class Pay extends NH_User_Controller {
 	public $teacher_id;
     function __construct(){
         parent::__construct();
-        $this->teacher_id = 120;
         $this->smarty->assign('site_url','http://'.__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
-            redirect('http://www.nahaodev.com/login');
+            redirect(student_url().'login');
         }
+        $this->teacher_id = $this->session->userdata('user_id');
     }
 	public function index(){
 		#1.月计算列表
@@ -33,13 +33,14 @@ class Pay extends NH_User_Controller {
 	public function detail(){
 		#1.详情列表
 		$pay_id = $this->uri->segment(3,0);
+		$pay_info = $this->teacher_b->pay_list(array('teacher_id' => $this->teacher_id,'id'=>$pay_id));
+		
 		$param = array(
 				'teacher_id' => $this->teacher_id,
 				'pay_id' => $pay_id,
+				'class_ids' => !empty($pay_info[0]['class_ids']) ? $pay_info[0]['class_ids'] : '',
      		);
-     	$detail = $this->teacher_b->pay_detail($param);
-     	$pay_info = $this->teacher_b->pay_list(array('teacher_id' => $this->teacher_id,'id'=>$pay_id));
-     	
+	    $detail = $this->teacher_b->pay_detail($param);
      	#3.页面数据
 		$data = array(
 			'detail' => $detail,

@@ -7,7 +7,7 @@ class Selfinfo extends NH_User_Controller {
         $this->load->model('business/common/business_user');
         if(!$this->is_login)
         {
-            redirect('http://www.nahaodev.com/login');
+            redirect(student_url().'login');
         }
         $this->smarty->assign('data', array('active'=>'selfinfo'));
     }
