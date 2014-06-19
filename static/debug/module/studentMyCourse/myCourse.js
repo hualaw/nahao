@@ -19,7 +19,7 @@ define(function(require,exports){
         $(".cListHid").on("click", '.cloudNotes', function () {
         	var shtml ='';
             var btn = $(this);
-            var action = '/course/get_user_cloud_notes';
+            var action = student_url+'course/get_user_cloud_notes';
             var data = {
             		cid:btn.data('cid')
             };
@@ -124,6 +124,7 @@ define(function(require,exports){
     //购买前--点击立即购买
     exports.soon_buy = function (){
         $("#soon_buy").click(function (){
+        	
             var url = '/course/before_check_order/';
             var data = {
             	product_id: $('#product_id').val()
@@ -134,9 +135,9 @@ define(function(require,exports){
     				    content:response.msg,
     				    icon:null
     				});
-                	window.location.href="/member/my_order/all";
+                	window.location.href= student_url+"member/my_order/all";
                 } else if(response.status == "ok"){
-                	window.location.href="/pay/product/"+response.id;
+                	window.location.href= student_url+"pay/product/"+response.id;
                 } else if(response.status == 'no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
@@ -159,9 +160,9 @@ define(function(require,exports){
     				    content:response.msg,
     				    icon:null
     				});
-                	window.location.href="/member/my_order/all";
+                	window.location.href= student_url+"member/my_order/all";
                 } else if(response.status == "ok"){
-                	window.location.href="/pay/product/"+response.id;
+                	window.location.href= student_url+"pay/product/"+response.id;
                 }else if(response.status == 'no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
@@ -285,7 +286,7 @@ define(function(require,exports){
                 return fasle;
             }
             $.ajax({
-                url : 'http://www.nahaodev.com/register/send_captcha',
+                url : '/register/send_captcha',
                 type : 'post',
                 data : {'phone' : phone, 'type' : verify_type},
                 dataType : 'json',

@@ -88,22 +88,22 @@ class Model_Alipay extends NH_Model
         if($this->input->server('REQUEST_METHOD') == 'POST')
         {
             //ci默认遍历$_POST变量所有字段urldecode 会导致签名不一致
-            $_POST['notify_id'] = $_REQUEST['notify_id'];
+            $_POST['notify_id'] = urlencode($_POST['notify_id']);
             $parameters = $_POST;
         }
         else
         {
             //ci默认遍历$_GET变量所有字段urldecode 会导致签名不一致
-            $_GET['notify_id'] = $_REQUEST['notify_id'];
+            $_GET['notify_id'] = urlencode($_GET['notify_id']);
             $parameters = $_GET;
         }
-
         $sort_para = $this->paraFilter($parameters);
 
         ksort($sort_para);
         reset($sort_para);
 
         $mySign = $this->buildMySign($sort_para, $this->conf ['merchant_key']);
+
         //状态值(status) 1 成功， 2 签名错误， 3 订单支付失败
         $rData['status'] = ORDER_STATUS_SUCC;
         if ($sign != $mySign) {
@@ -199,7 +199,6 @@ class Model_Alipay extends NH_Model
         $mySign = $this->buildMySign( $para, $this->conf ['merchant_key'] );
         $para['sign'] = $mySign;
         $para['sign_type'] = 'MD5';
-
         $sHtml = "<form id='aliPay_submit' name='aliPay_submit' action='".$gateway."' method='POST'>";
         foreach ($para as $key => $val) {
             $sHtml.= "<input type='hidden' name='".$key."' value='".$val."'/>".PHP_EOL;
