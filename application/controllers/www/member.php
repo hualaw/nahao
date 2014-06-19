@@ -278,6 +278,7 @@ class Member extends NH_User_Controller {
         $this->load->model('business/common/business_subject','subject');
         $this->load->model('business/admin/business_lecture');
         $this->load->model('business/admin/business_teacher');
+        $this->load->model('business/common/business_area');
 	    $user_id = $this->session->userdata('user_id');
         if($this->is_post()) {
             $this->load->model('business/common/business_user');
@@ -327,6 +328,11 @@ class Member extends NH_User_Controller {
         $gender = $this->config->item('gender');
         #学科
         $subjects = $this->subject->get_subjects();
+        #学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id');
+        $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        array_shift($my_school);
+        $school_area = $this->business_area->get_areas_by_ids($my_school);  
         #我已选择的学科组成的字符串
         $subject_str = implode('-', $this->_user_detail['student_subject']);
         #地区数据
@@ -341,6 +347,8 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
+        $this->smarty->assign('school_name', $school_name);
+        $this->smarty->assign('school_area', $school_area);
 	    $this->smarty->assign('page_type', 'myInfor');
         $this->smarty->assign('province', $province);
         $this->smarty->assign('area', $area);

@@ -5,6 +5,7 @@ class Selfinfo extends NH_User_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('business/common/business_user');
+        $this->load->model('business/common/business_area');
         if(!$this->is_login)
         {
             redirect('http://www.nahaodev.com/login');
@@ -58,8 +59,10 @@ class Selfinfo extends NH_User_Controller {
         #科目
         $subjects = $this->business_subject->get_subjects();
         #学校
-        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
-        $schoolname = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id');
+        $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        array_shift($my_school);
+        $school_area = $this->business_area->get_areas_by_ids($my_school);        
         #教师职称
         $teacher_tile = $this->config->item('teacher_title');
         $gender = $this->config->item('gender');
@@ -91,7 +94,8 @@ class Selfinfo extends NH_User_Controller {
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
         $this->smarty->assign('stages', $stages);
-        $this->smarty->assign('school', $schoolname);
+        $this->smarty->assign('school_name', $school_name);
+        $this->smarty->assign('school_area', $school_area);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('titles', $teacher_tile);
         $this->smarty->assign('gender', $gender);
