@@ -151,4 +151,29 @@ class Model_Order extends NH_Model{
         return $array_result;
     }
     
+    /**
+     * 更新轮的购买人数
+     * @param  $int_round_id
+     * @return boolean
+     */
+    public function update_round_buy_count($int_round_id)
+    {
+    	$sql = "UPDATE round SET bought_count = bought_count+1 WHERE id = ".$int_round_id;
+    	$this->db->query($sql);
+    	$int_row = $this->db->affected_rows();
+    	return $bool_result = $int_row > 0  ? true : false;
+    }
+    
+    /**
+     * 更新轮的销售状态
+     * @param  $int_round_id
+     * @param  $status
+     * @return boolean
+     */
+    public function update_round_sale_status($int_round_id,$status)
+    {
+        $this->db->update('round', array('sale_status'=>$status),array('id'=>$int_round_id));
+        $int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
+    }
 }

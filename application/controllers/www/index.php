@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Index extends NH_User_Controller {
 
     function __construct(){
@@ -13,10 +14,12 @@ class Index extends NH_User_Controller {
      */
 	public function index()
 	{  
-        header('content-type: text/html; charset=utf-8');
         //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
         //var_dump($array_data);die;
+        #课程列表的地址
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}

@@ -46,7 +46,7 @@
 	        	<ul class="fr manInfor">
 	        		{foreach from=$array_data.team item=item}
 	        		<li class="posr">
-                        <img src="{static_url({$item.avatar})}" alt="" class="head">
+                        <img src="{$item.avatar}" alt="" class="head">
                         <div class="headR">
                             <div class="teaDetail cf">
                                 <span class="cMan">{$item.teacher_role}</span>
@@ -142,7 +142,7 @@
 	        	{foreach from=$array_note item=item}
 	        		<li>
 						<div class="nhead cf posr">
-							<img src="{static_url({$item.avatar})}" alt="" class="fl">
+							<img src="{$item.avatar}" alt="" class="fl">
 							<div class="fl teaRCon">
 								<strong>{$item.nickname}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
@@ -158,7 +158,7 @@
 	        	<ul class="abuyTabBox undis cmBox cf">
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{static_url({$item.avatar})}" alt="">
+						<img src="{$item.avatar}" alt="">
 						<span>{$item.nickname}</span>
 					</li>
 	        	{/foreach}

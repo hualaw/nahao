@@ -26,7 +26,7 @@
                 <p>{$array_data.subtitle|truncate:66:"...":true}</p>
             </div>
             <div class="buyHeadf cf">
-                <img src="{static_url($array_data.class_img)}" alt="" class="fl">
+                <img src="{$array_data.class_img}" alt="" class="fl">
                 <div class="fl startTime">
                     <div class="cf timeTitle">
                         <span class="fl">开课时间</span>
@@ -58,7 +58,7 @@
                     <p class="fromf cf">
 						{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
 						<input type="hidden" id="product_id" value="{$array_data.id}">
-                        <span class="fl oldPrice">原价￥1999</span>
+                        <span class="fl oldPrice">原价￥{$array_data.price}</span>
 						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
                             <span class="fl">立即报名</span>
                             <span class="fr"></span>
@@ -80,7 +80,7 @@
                         </a>
 						{/if}
                         <strong class="fr">¥
-                            <span class="redText">{$array_data.price|string_format:"%.0f"}999</span>
+                            <span class="redText">{$array_data.sale_price}</span>
                         </strong>
                     </p>
                 </div>
@@ -153,7 +153,7 @@
                     <ul>
                     {foreach from=$array_evaluate item=item}
                         <li class="cf">
-                            <img src="{static_url({$item.avatar})}" alt="" class="fl">
+                            <img src="{$item.avatar}" alt="" class="fl">
                             <div class="fr revCon">
                                 <h2 class="fl">
                                     <strong>{$item.nickname}</strong>
@@ -238,7 +238,7 @@
                 {foreach from=$array_team item=item}
                     <li>
                         <div class="headBox posr">
-                            <img src="{static_url({$item.avatar})}" alt="" class="head">
+                            <img src="{$item.avatar}" alt="" class="head">
                             <div class="headR">
                                 <div class="teaDetail">
                                     <span class="redText cMan">{$item.teacher_role}</span>
