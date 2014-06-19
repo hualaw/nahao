@@ -26,7 +26,6 @@
 .login .loginWrap li .btn{width:305px;height:46px;line-height:46px;margin-bottom:20px;}
 .login .loginWrap li .submit{border:0;cursor:pointer;}
 .login .loginWrap .msgInfo{height:20px;line-height: 20px;margin-bottom:5px;}
-/*.login .loginWrap li .msgInfo .span{text-indent: -9999px;display: inline-block;height:20px;line-height: 20px;width: 10px;}*/
 /*登陆样式结束*/
 /*注册样式开始*/
 .login .regWrap{padding:20px 0 0 110px;margin-bottom:20px;}

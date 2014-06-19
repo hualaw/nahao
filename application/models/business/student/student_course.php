@@ -315,8 +315,8 @@ class Student_Course extends NH_Model{
                     $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
                 } else {
                     #获取发布者的信息
-                    $array_result = $this->model_member->get_user_infor($v['author']);
-                    $array_return[$k]['nickname'] = $array_result['nickname'];
+                    $array_result = $this->model_member->get_user_infor($v['author']);                  
+                    $array_return[$k]['nickname'] = isset($array_result['nickname'])  ? $array_result['nickname'] : '';
                     $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
                 }
             }
@@ -354,6 +354,7 @@ class Student_Course extends NH_Model{
         $array_return['soon_class_stime'] = $array_soon['begin_time'];
         $array_return['class'] = $int_num; 
         $array_return['class_rate'] = $class_rate;
+        $array_return['classroom_id'] = $array_soon['classroom_id'];
         return $array_return;
     }
     

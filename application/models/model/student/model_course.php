@@ -201,7 +201,7 @@ class Model_Course extends NH_Model{
     public function get_soon_class_data($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT title,begin_time,end_time FROM class WHERE round_id = ".$int_round_id." 
+        $sql = "SELECT title,begin_time,end_time,classroom_id FROM class WHERE round_id = ".$int_round_id." 
                 AND status = 1 AND parent_id > 0";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;

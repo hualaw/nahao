@@ -1,6 +1,6 @@
 <div id="commonLogin" class="undis">
 	<div id="comLogin">
-		<form action="{$student_url}login/submit" class="loginForm_beta" mothed="post" autocomplete="off" onsubmit="return false">
+		<form action="/login/submit" class="loginForm_beta" mothed="post" autocomplete="off" onsubmit="return false">
 			<p id="msgInfo" class="msgInfo"></p>
 			<ul>
 				<li class="posr">
@@ -27,7 +27,7 @@
 				</li>
 				<li class="cf autoLi">
 					<input type="hidden" name="redirect_url" value="reload">
-					<input type="checkbox" name="rembme" id="autoLogin" class="fl autoLogin">
+					<input type="checkbox" checked name="rembme" id="autoLogin" class="fl autoLogin">
 					<label for="autoLogin" class="fl">自动登录</label>
 					<a href="{$student_url}login/find_pwd" class="fr">忘记密码？</a>
 				</li>

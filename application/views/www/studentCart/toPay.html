@@ -7,13 +7,11 @@
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentCart/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
-<!--#include virtual="/include/var.htm"-->
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
 </head>
 <body>
 <!-- 头部开始 -->
-<!--#include virtual="/include/header.htm"-->
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
@@ -23,10 +21,6 @@
 		<div class="progressBar cf">
 			<div class="line"></div>
 			<ul class="fr">
-<!-- 				<li class="fl">
-					<em>1</em>
-					<span>我的购物车</span>
-				</li> -->
 				<li class="fl">
 					<em>1</em>
 					<span>填写并核对订单信息</span>
@@ -38,6 +32,19 @@
 			</ul>
 		</div>		
 		<!-- 进度条结束 -->
+		{if $payment_method == 'online'}
+			{if $sale_price == '0'}
+		<!-- 订单信息开始 -->
+		<div class="orderForm">
+			<h3>您已购买成功！</h3>
+			<p>
+				<span>订单编号<em class="red">{$array_order.id}</em></span>
+				<span>应付金额<em class="red">¥{$array_order.spend}</em></span>
+			</p>
+			<p class="last"><a href="/member/my_order/all">请点击去我的订单查看购买记录</a></p>
+			
+		</div>
+			{else}
 		<!-- 订单信息开始 -->
 		<div class="orderForm">
 			<h3>订单提交成功，请您尽快付款！</h3>
@@ -50,7 +57,6 @@
 		</div>
 		<!-- 订单信息结束 -->
 		<!-- 支付方式 开始-->
-		{if $payment_method == 'online'}
 		<div class="payType">
 			<h2><span>请选择支付方式：</span></h2>
 			<div class="payBox">
@@ -75,7 +81,6 @@
 								
 								{/foreach}
 							</ul>
-							<!-- <a href="javascript:void(0)" class="redBtn">去付款</a> -->
 							<a href="javascript:void(0)"  class="btn3  ortherBtn cf" id="click_banks">
 								<span class="fl">去付款</span>
 								<span class="fr"></span>
@@ -355,7 +360,6 @@
 									</li>
 								</ul>
 								<p>如果支付有限额，您可以点击支付宝，选择”快捷支付“的银行</p>
-								<!-- <a href="javascript:void(0)" class="redBtn">去付款</a> -->
 								<a href="javascript:void(0)"  class="btn3 ortherBtn cf"  id="click_alipayLi">
 											<span class="fl">去付款</span>
 											<span class="fr"></span>
@@ -365,6 +369,7 @@
 				</div>
 			</div>
 		</div>
+			{/if}
 		{else}
 		xx
 		{/if}
@@ -377,7 +382,6 @@
 				<div class="cf">
 					<div class="errorBox btnBox fl">
 						<p>支付遇到问题？</p>
-						<!-- <a href="javascript:void(0)" class=" btn redBtn">重新支付</a> -->
 						<a href="javascript:void(0)"  class="btn3 cf check_pay" >
 							<span class="fl">重新支付</span>
 							<span class="fr"></span>
@@ -396,30 +400,15 @@
 			</div>
 		</div>
 		<!-- 成功与否选择结束 -->
-		<!-- 购买成功开始 -->
-		<!-- <div class="popBox2 undis">
-			<div class="buySuccess">
-				<p class="title">您已经成功购买：</p>
-				<p>2014年五年级奥数暑期训练营</p>
-				<p>四年级优秀作文鉴赏赏析奥数暑期训练营</p>	
-				<a href="javascript:void(0)" class="transBtn">进入我的课程</a>	
-				<a href="javascript:void(0)"  class="btn3 blue cf" >
-							<span class="fl">进入我的课程</span>
-							<span class="fr"></span>
-				</a>		
-			</div>
-		</div> -->
-		<!-- 购买成功结束 -->
+		
 		<!--弹窗结束 -->
 	</div>
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
-<!--#include virtual="/include/footer.htm"-->
 {include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
-<!--#include virtual="/include/js.htm"-->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
 </body>
