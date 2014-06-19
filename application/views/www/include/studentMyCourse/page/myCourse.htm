@@ -2,7 +2,11 @@
 	<h3 class="pageName">我的课程</h3>
 	<ul class="myCourseList cf">
 		<!-- meiyou-->
-		<li class="fl noCourse">
+		{if $array_buy_course}
+		<li class="fl noCourse ">   <!--noCourseList -->
+		{else}
+		<li class="fl noCourse noCourseList">   <!--noCourseList -->
+		{/if}
 			<a href="/"><span>快来添加课程吧！</span></a>
 		</li>
 		<!-- kecheng yi wancheng -->
