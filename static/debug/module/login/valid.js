@@ -146,33 +146,6 @@ define(function(require,exports){
         });
     };
     //选择和取消 关注
-    // function checkAttent(){        
-    //     $(".attent .btn").click(function (){
-    //         if($(this).hasClass("attentd")){
-    //             $(this).removeClass("attentd");
-    //         }else{
-    //             $(this).addClass("attentd");
-    //         }
-    //         va.call(this);
-    //         //验证 最多关注
-    //         $(".attent .btn").focus(function (){
-    //             va.call(this);
-    //         })
-    //         //验证 最多关注
-    //         $(".attent .btn").blur(function (){
-    //             va.call(this);
-    //         })
-
-    //         function va(){
-    //             if($(".attentd").length>3){
-    //                 $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
-    //             }else{
-    //                 $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
-    //             }
-    //         }
-    //     });
-    // }
-    //选择和取消 关注
     function checkAttent(obj){        
         $(obj+" .attent .btn").click(function (){
             if($(obj+" .attentd").length < 3){//限制只能选3个学科
