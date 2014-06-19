@@ -72,7 +72,7 @@ class Student_Course extends NH_Model{
             #课时
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? HOME_IMG_DEFAULT : $array_return['img'];
+            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : $array_return['img'];
             #评分（四舍五入）
             $array_return['score'] = round($array_return['score']);
             
@@ -312,7 +312,7 @@ class Student_Course extends NH_Model{
                 {
                    #发布者是管理员
                     $array_return[$k]['nickname'] = '管理员';
-                    $array_return[$k]['avatar'] = DEFAULT_TEACHER_AVATER;
+                    $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
@@ -408,16 +408,22 @@ class Student_Course extends NH_Model{
      */
     public function get_user_avater($int_user_id)
     {
-    	$avatar = DEFAULT_STUDENT_AVATER;
+    	$avatar = static_url(DEFAULT_STUDENT_AVATER);
     	$array_return  = $this->model_member->get_user_avater($int_user_id);
     	if ($array_return)
     	{
-    		if ($array_return['teach_priv'] == 1){
-    			$avatar = DEFAULT_TEACHER_AVATER;
-    		} else{
-    			$avatar = DEFAULT_STUDENT_AVATER;
+    		if ($array_return['avatar'])
+    		{
+    			$avatar = NH_QINIU_URL.$array_return['avatar'];
+    		} else {
+    			if ($array_return['teach_priv'] == 1){
+    				$avatar = static_url(DEFAULT_TEACHER_AVATER);
+    			} else{
+    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
+    			}
     		}
     	}
+
     	return $avatar;
     }
 }

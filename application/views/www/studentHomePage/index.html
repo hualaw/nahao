@@ -37,7 +37,7 @@
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
-							<img src="{static_url({$item.img})}" alt="">
+							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
 								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
 								<div class="cf">
@@ -52,7 +52,7 @@
 						</div>
 						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html">
 							<div class="teaInfor cf">
-								<img src="{static_url({$item.teacher.avatar})}" alt="头像" class="fl">
+								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">

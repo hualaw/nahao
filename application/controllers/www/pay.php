@@ -69,7 +69,7 @@ class Pay extends NH_User_Controller {
 	        #根据$int_product_id获取订单里面该轮的部分信息
 	        $array_data = $this->student_order->get_order_round_info($int_product_id);
 	    }
-	    var_dump($this->session->all_userdata());
+	    //var_dump($this->session->all_userdata());
 	    $array_infor = $this->_user_detail;
  	    // var_dump($int_user_id);
  	    #获取是否是手机号注册的
@@ -97,11 +97,6 @@ class Pay extends NH_User_Controller {
     	$str_verify_code = $this->input->post("verify_code");
     	$int_code_type = 2;
     	$int_product_id = $this->input->post("product_id");
-    	#如果真实姓名为空
-    	if(empty($str_real_name))
-    	{
-    		self::json_output(array('status'=>'error','msg'=>'真实姓名不能为空'));
-    	}
     	#如果用户注册的时候填了手机号，就不用验证码了
     	if (!empty($str_phone) && $str_phone != $this->session->userdata('phone'))
     	{
