@@ -84,7 +84,7 @@ class NH_Controller extends CI_Controller
         $bool_return = false;
 
         //$this->session->sess_read();
-        log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
+        //log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
         if($this->session->userdata('user_id') > 0)
             $bool_return = true;
 

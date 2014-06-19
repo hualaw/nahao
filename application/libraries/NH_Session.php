@@ -19,7 +19,7 @@ class NH_Session extends CI_Session {
 
         // Set all the session preferences, which can either be set
         // manually via the $params array above or via the config file
-        foreach (array('sess_encrypt_cookie', 'sess_use_database', 'sess_table_name', 'sess_expiration', 'sess_expire_on_close', 'sess_match_ip', 'sess_match_useragent', 'sess_cookie_name', 'cookie_path', 'cookie_domain', 'cookie_secure', 'sess_time_to_update', 'time_reference', 'cookie_prefix', 'encryption_key') as $key)
+        foreach (array('sess_encrypt_cookie', 'sess_use_database', 'sess_table_name', 'sess_expiration', 'sess_expire_on_close', 'sess_match_ip', 'sess_match_useragent', 'sess_cookie_name', 'cookie_path', 'cookie_domain', 'cookie_secure', 'sess_time_to_update', 'time_reference', 'cookie_prefix', 'encryption_key', 'sess_autologin_expiration') as $key)
         {
             $this->$key = (isset($params[$key])) ? $params[$key] : $this->CI->config->item($key);
         }
@@ -54,6 +54,13 @@ class NH_Session extends CI_Session {
         {
             $this->sess_expiration = (60*60*24*365*2);
         }
+
+        //nahao add
+        if ($this->sess_autologin_expiration == 0)
+        {
+            $this->sess_autologin_expiration = (60*60*24*365*2);
+        }
+        //end nahao add
 
         // Set the cookie name
         $this->sess_cookie_name = $this->cookie_prefix.$this->sess_cookie_name;
@@ -207,7 +214,7 @@ class NH_Session extends CI_Session {
 		}
         else
         {
-            log_message('debug_nahao', 'A session cookie was found.'.print_r($_COOKIE,1));
+            log_message('debug_nahao', 'sess_read: A session cookie was found.'.print_r($_COOKIE,1));
         }
 
 		//tizi do not match useragent when post session id
@@ -331,11 +338,13 @@ class NH_Session extends CI_Session {
 		$this->userdata = $session;
 		unset($session);
 
+        log_message('debug_nahao', "go out of into sess_read() function");
 		return TRUE;
 	}
 
 	function sess_write()
 	{
+        log_message('debug_nahao', "enter into sess_write() function");
 		// Are we saving custom data to the DB?  If not, all we do is update the cookie
 		if ($this->sess_use_database === FALSE)
 		{
@@ -368,6 +377,7 @@ class NH_Session extends CI_Session {
 			$custom_userdata = $this->_serialize($custom_userdata);
 		}
 
+        log_message('debug_nahao', 'sess_write, custom_userdata is:'.print_r($this->_unserialize($custom_userdata),1));
 		// Run the update query
 		if($this->_redis)
 		{
@@ -375,7 +385,17 @@ class NH_Session extends CI_Session {
 			$userdata = json_decode($userdata,true);
 			$userdata['last_activity'] = $this->userdata['last_activity'];
 			$userdata['user_data'] = $custom_userdata;
-			$this->_redis_set($this->userdata['session_id'],json_encode($userdata),$this->sess_expiration);
+
+            //nahao logic
+            if(isset($custom_userdata['remb_me']) && $custom_userdata['remb_me'])
+            {
+			    $this->_redis_set($this->userdata['session_id'],json_encode($userdata),$this->sess_autologin_expiration);
+            }
+            else
+            {
+                $this->_redis_set($this->userdata['session_id'],json_encode($userdata),$this->sess_expiration);
+            }
+            //end nahao logic
 		}
 		else if($this->_use_db)
 		{
@@ -388,11 +408,15 @@ class NH_Session extends CI_Session {
 		// in this case that array contains custom data, which we do not want in the cookie.
 		
 		//tizi 更新数据不再更新cookie
-		//$this->_set_cookie($cookie_userdata);
+        log_message('debug_nahao', "sess_write: cookie_userdata:".print_r($cookie_userdata, 1));
+		$this->_set_cookie($cookie_userdata);
+
+        log_message('debug_nahao', "go out of sess_write() function");
 	}
 
 	function sess_create()
 	{
+        log_message('debug_nahao', "enter into sess_create() function");
 		$sessid = '';
 		while (strlen($sessid) < 32)
 		{
@@ -427,6 +451,7 @@ class NH_Session extends CI_Session {
 
 		// Write the cookie
 		$this->_set_cookie();
+        log_message('debug_nahao', "go out of sess_create() function");
 	}
 
 
@@ -478,19 +503,30 @@ class NH_Session extends CI_Session {
                 $userdata = json_decode($userdata,true);
                 $userdata['last_activity'] = $this->now;
                 $userdata['session_id'] = $new_sessid;
-                $this->_redis_set($new_sessid,json_encode($userdata),$this->sess_expiration);
+
+
+                if(isset($userdata['remb_me']) && $userdata['remb_me'] )
+                {
+                    $this->_redis_set($new_sessid,json_encode($userdata),$this->sess_autologin_expiration);
+                }
+                else
+                {
+                    $this->_redis_set($new_sessid,json_encode($userdata),$this->sess_expiration);
+                }
+
                 //$this->_redis_del($old_sessid);
                 $this->_redis_set($old_sessid,json_encode($userdata),120);
             }
             else if($this->_use_db)
             {
-                $this->CI->load->database('',true);
+                $this->CI->load->database();
                 $this->CI->db->query($this->CI->db->update_string($this->sess_table_name, array('last_activity' => $this->now, 'session_id' => $new_sessid), array('session_id' => $old_sessid)));
             }
         }
 
         // Write the cookie
         $this->_set_cookie($cookie_data);
+        log_message('debug_nahao', "go out of sess_update() function");
     }
 
 
@@ -553,8 +589,16 @@ class NH_Session extends CI_Session {
 			$cookie_data = $cookie_data.md5($cookie_data.$this->encryption_key);
 		}
 
-		$expire = ($this->sess_expire_on_close === TRUE) ? 0 : $this->sess_expiration + time();
-        log_message('debug_nahao', "expire time is {$this->sess_expiration}");
+        log_message('debug_nahao', "_set_cookie userdata is:".print_r($this->userdata, 1));
+
+
+        $expire = ($this->sess_expire_on_close === TRUE) ? 0 : $this->sess_expiration + time();
+        if(isset($this->userdata['remb_me']) && $this->userdata['remb_me'])
+        {
+            $expire = $this->sess_autologin_expiration + time();
+        }
+
+        log_message('debug_nahao', "_set_cookie expire time is $expire");
 
 		// Set the cookie
 		setcookie(
