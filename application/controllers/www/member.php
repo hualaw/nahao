@@ -279,6 +279,7 @@ class Member extends NH_User_Controller {
         $this->load->model('business/common/business_subject','subject');
         $this->load->model('business/admin/business_lecture');
         $this->load->model('business/admin/business_teacher');
+        $this->load->model('business/common/business_area');
 	    $user_id = $this->session->userdata('user_id');
         if($this->is_post()) {
             $this->load->model('business/common/business_user');
@@ -316,6 +317,17 @@ class Member extends NH_User_Controller {
             $post_data['area'] = intval($this->input->post('area'));
             $post_data['student_subject'] = $this->input->post('selected_subjects');
             $post_data['school_id'] = intval($this->input->post('school_id'));
+            $post_data['schoolname'] = trim($this->input->post('schoolname'));
+            if($post_data['schoolname'] && empty($post_data['school_id'])) {
+                #post过来的数据有学校名称但没学校ID, 这是用户自己输入的学校,需要把学校所属的地区也接收过来
+                $post_data['province_id'] = intval($this->input->post('province_id'));
+                $post_data['city_id'] = intval($this->input->post('city_id'));
+                $post_data['county_id'] = intval($this->input->post('area_county_id'));
+                $post_data['school_type'] = intval($this->input->post('school_type'));
+                $post_data['custom_school'] = 1;
+                $new_school_id = $this->business_school->add_custom_school($post_data);
+                $post_data['school_id'] = intval($new_school_id);
+            }
             $result = $this->business_user->modify_user_info($post_data, $user_id);
             if($result) {
                 $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
@@ -328,6 +340,11 @@ class Member extends NH_User_Controller {
         $gender = $this->config->item('gender');
         #学科
         $subjects = $this->subject->get_subjects();
+        #学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id', $this->_user_detail['custom_school']);
+        $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        array_shift($my_school);
+        $school_area = $this->business_area->get_areas_by_ids($my_school);  
         #我已选择的学科组成的字符串
         $subject_str = implode('-', $this->_user_detail['student_subject']);
         #地区数据
@@ -342,6 +359,8 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
+        $this->smarty->assign('school_name', $school_name);
+        $this->smarty->assign('school_area', $school_area);
 	    $this->smarty->assign('page_type', 'myInfor');
         $this->smarty->assign('province', $province);
         $this->smarty->assign('area', $area);
