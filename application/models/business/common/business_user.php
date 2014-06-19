@@ -26,7 +26,8 @@ class Business_User extends NH_Model
             $str_result_type = 'one';
             $str_fields = 'id,nickname,email';
             $arr_where = array(
-                'email' => $email
+                'email' => $email,
+                'status' => 1,
             );
 //            echo $str_table_range.'--'.$str_result_type.'--'.$str_fields."\n";echo "where : \n";var_dump($arr_where);;exit;
             $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
