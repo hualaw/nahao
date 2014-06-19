@@ -26,7 +26,7 @@
 				</div>
 				<div class="contentBox">
 					<div class="box phoneBox">
-						<form action="{$site_url}register/submit" class="regPhoneBox" method="POST" onsubmit="return false">
+						<form action="{$student_url}register/submit" class="regPhoneBox" method="POST" onsubmit="return false">
 							<ul>
 								<li>
 									<p>手机号</p>
@@ -55,7 +55,7 @@
 						</form>
 					</div>
 					<div class="box emailBox undis">
-						<form action="{$site_url}register/submit" class="regEmailBox" method="POST">
+						<form action="{$student_url}register/submit" class="regEmailBox" method="POST">
 							<ul>
 								<li>
 									<p>邮箱</p>
@@ -86,17 +86,15 @@
 		</div>
 		<div class="goLogin fr">
 			<p>已有帐户，点击这里</p>
-			<a href="javascript:void(0)" class="btn blueBtn">登录</a>
+			<a href="{$student_url}login" class="btn blueBtn">登录</a>
 		</div>
 	</div>
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
-<!--#include virtual="/include/footer.htm"-->
 {include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
-<!--#include virtual="/include/js.htm"-->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
 </body>

@@ -34,7 +34,9 @@ class Course extends NH_User_Controller {
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
         //var_dump($array_evaluate);
-        
+        #课程列表的地址
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
         $this->smarty->assign('array_evaluate', $array_evaluate);
@@ -78,8 +80,10 @@ class Course extends NH_User_Controller {
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
 	    #每节课是否有评价
 	    
-	    //var_dump($array_outline);die;
-
+	    //var_dump($array_data);die;
+	    #课程列表的地址
+	    $course_url = config_item('course_url');
+	    $this->smarty->assign('course_url', $course_url);
 	    $this->smarty->assign('array_classmate', $array_classmate);
 	    $this->smarty->assign('int_classmates', $int_classmates);
 	    $this->smarty->assign('array_note', $array_note);
@@ -143,6 +147,12 @@ class Course extends NH_User_Controller {
 	    }
 	    
 	    $int_score  = $this->input->post("score");
+	    if ($int_score >= 4)
+	    {
+	    	$is_show = 1;
+	    } else{
+	    	$is_show = 0;
+	    }
 	    $str_content = $this->input->post("content");
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
@@ -153,7 +163,7 @@ class Course extends NH_User_Controller {
 	            'content'=>$str_content,
 	            'score'=>  $int_score,
 	            'create_time'=>time(),
-	            'is_show'=>0
+	            'is_show'=>$is_show
 	            );
 	    $bool_flag = $this->model_course->save_class_feedback($array_data);
 	    if ($bool_flag)

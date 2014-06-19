@@ -1,0 +1,62 @@
+<form method="get" action="/feedback">
+    <div class="col-md-4">
+        <input type="text" name="content" class="form-control" placeholder="请输入内容进行搜索" />
+    </div>
+    <div class="col-md-2">
+        <select name="score_start" class="form-control">
+            <option value=0>请选择开始分数</option>
+            {for $i=1 to 5}
+                <option value={$i}>{$i}分</option>
+            {/for}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select name="score_end" class="form-control">
+            <option value=0>请选择结束分数</option>
+            {for $i=1 to 5}
+            <option value={$i}>{$i}分</option>
+            {/for}
+        </select>
+    </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+</form><br />
+<label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>课程ID</td>
+            <td>轮ID</td>
+            <td>课ID</td>
+            <td>学生ID</td>
+            <td>昵称</td>
+            <td>评价内容</td>
+            <td>评价时间</td>
+            <td>评价分数</td>
+            <td>是否显示</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+        {foreach $list as $v}
+    <tr>
+        <td width="10">{$v.id}</td>
+        <td width="80">{$v.course_id}</td>
+        <td width="50">{$v.round_id}</td>
+        <td width="50">{$v.class_id}</td>
+        <td width="60">{$v.student_id}</td>
+        <td width="80">{$v.nickname}</td>
+        <td>{$v.content}</td>
+        <td width="90">{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td width="80">{$v.score}</td>
+        <td width="80">{$config_feedback[$v.is_show]}</td>
+        <td width="40">
+            {if $v.is_show==0}
+            <button class="btn btn-success show_feedback" role="button" data-feedback_id="{$v.id}" data-a="1">显示</button>
+            {elseif $v.is_show==1}
+            <button class="btn btn-warning hide_feedback" role="button" data-feedback_id="{$v.id}" data-a="0">屏蔽</button>
+            {/if}
+        </td>
+    </tr>
+        {/foreach}
+</table>
+        {$page}

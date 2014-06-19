@@ -7,13 +7,11 @@
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentCart/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
-<!--#include virtual="/include/var.htm"-->
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
 </head>
 <body>
 <!-- 头部开始 -->
-<!--#include virtual="/include/header.htm"-->
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
@@ -23,10 +21,6 @@
 		<div class="progressBar cf">
 			<div class="line"></div>
 			<ul class="fr">
-<!-- 				<li class="fl">
-					<em>1</em>
-					<span>我的购物车</span>
-				</li> -->
 				<li class="fl">
 					<em>1</em>
 					<span>填写并核对订单信息</span>
@@ -83,7 +77,7 @@
 							<p class="title">真实姓名</p>
 							<div class="cf inputBox">
 								<input type="text" name="real_name" id="real_name" class="inname fl yh cInput" validName="text" 
-								{if $realname !=''}value="{$realname}" readonly {else}value=""{/if}>
+								{if $realname !=''}value="{$realname}" disabled {else}value=""{/if}>
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>
@@ -130,11 +124,9 @@
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
-<!--#include virtual="/include/footer.htm"-->
 {include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
-<!--#include virtual="/include/js.htm"-->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
 </body>

@@ -167,7 +167,7 @@ class register extends NH_Controller
         !empty($nickname) && $this->session->set_userdata('nickname', $nickname);
         !empty($email) && $this->session->set_userdata('email', $email);
 
-        $arr_return = array('status' => SUCCESS, 'info' => '提交成功');
+        $arr_return = array('status' => SUCCESS, 'info' => '提交成功', 'url' => student_url());
         self::json_output($arr_return);
     }
 

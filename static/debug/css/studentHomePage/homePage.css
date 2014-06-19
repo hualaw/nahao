@@ -14,31 +14,20 @@
 .studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}
 /*   师资 认证过程 开始  */
 .studentHomePage .comTitle{color:#0e455e;font-size: 50px;}
-.studentHomePage .reTitle{height: 80px;width: 515px;margin: 0 auto;border-width: 0 1px 0 1px;border-style:solid;border-color: #e3e3e3;text-align: center;
-	/*transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);
-	-webkit-transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);
-	-moz-transform:skewX(-30deg) rotate(3deg) translateY(-26px) translateX(-17px);
-	-ms-transform:skewX(-30deg) rotate(3deg) translateY(3px) translateX(20px);
-	-o-transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);*/
-	margin-top: -34px;
+.studentHomePage .reTitle{height: 80px;width: 515px;margin: 0 auto;border-width: 0 1px 0 1px;border-style:solid;border-color: #e3e3e3;text-align: center;margin-top: -34px;
 }
-.studentHomePage .courseRequire .reTitle h2{margin:0 auto;width:444px;
-	/*transform:skewX(30deg) rotate(-3deg) translateY(-6px);
-	-webkit-transform:skewX(30deg) rotate(-3deg) translateY(2px);
-	-moz-transform:skewX(30deg) rotate(-3deg) translateY(-6px);
-	-ms-transform:skewX(30deg) rotate(-3deg) translateY(-6px);
-	-o-transform:skewX(30deg) rotate(-3deg) translateY(-6px);*/
-}
+.studentHomePage .courseRequire .reTitle h2{margin:0 auto;width:444px;}
 .studentHomePage .tipText{font-size: 18px;text-align: center;margin: -13px 0 48px;}
 .studentHomePage .recomTea{padding-top: 245px;text-align: center;}
 .studentHomePage .autTea{width:326px;background: url(../../images/studentHomePage/teacher1.gif) center top no-repeat;}
 .studentHomePage .proTea{background: url(../../images/studentHomePage/teacher3.gif) center top no-repeat;width: 326px;}
 .studentHomePage .eavTea{background: url(../../images/studentHomePage/teacher2.gif) center top no-repeat;}
-.studentHomePage .courseRequire .recomTea h2{font-size: 24px;color:#484848;}
+.studentHomePage .courseRequire .recomTea h2{font-size: 24px;color:#484848;font-weight: normal;}
 .studentHomePage .courseRequire .recomTea p{font-size: 16px;color:#727272;}
 .studentHomePage .courseRequire .line{width: 60px;}
 
-.studentHomePage .ad{height: 435px;background:#f14211;margin:56px 0 44px;}
+.studentHomePage .ad{height: 437px;background:#ff4a0a url(../../images/studentHomePage/ad.png) center top no-repeat;margin:56px 0 44px;}
+.studentHomePage .ad .cat{position: absolute;width: 103px;height: 85px;background: url(../../images/studentHomePage/cat.png) no-repeat;bottom: -17px;right: 185px;}
 /*贴心服务 随时退款*/
 .studentHomePage .service{height: 541px;background: url(../../images/studentHomePage/line.gif) no-repeat;}
 .studentHomePage .service .comTitle{width: 430px;margin:0 auto;height: 80px;line-height: 80px;}
@@ -55,8 +44,11 @@
 .studentHomePage .founder{background: url(../../images/studentHomePage/coop2.gif) center top no-repeat;}
 .studentHomePage .coopSchool{background: url(../../images/studentHomePage/coop3.gif) center top no-repeat;}
 .studentHomePage .coopft{position: absolute;bottom:0;height: 56px;width: 980px;}
-.studentHomePage .coopere{width: 921px;background: #f14211;height: 44px;line-height: 44px;color:#fff;font-size: 18px;position: absolute;left: 30px;}
+.studentHomePage .coopere{width: 921px;background: #f14211;height: 44px;line-height: 44px;color:#fff;font-size: 16px;position: absolute;left: 30px;}
 .studentHomePage .coopere h3{width: 307px;text-align: center;font-weight: normal;}
+.studentHomePage .coopere h3:nth-child(1){width: 270px;}
+.studentHomePage .coopere h3:nth-child(2){width: 375px;}
+.studentHomePage .coopere h3:nth-child(3){width: 260px;text-align: right;}
 .studentHomePage .coopft span{width: 56px;height: 56px;}
 .studentHomePage .coopft span.fl{background: url(../../images/studentHomePage/coopl.gif) left bottom no-repeat;}
 .studentHomePage .coopft span.fr{background: url(../../images/studentHomePage/coopr.gif) left bottom no-repeat;}
@@ -70,11 +62,7 @@
 .studentHomePage .coopBoxCon div.fl{border-right: 1px solid #d6d5d5;width: 488px;}
 .studentHomePage .coopBoxCon .fp{text-align: center;height: 40px;line-height: 40px;margin-top:12px;}
 .studentHomePage .coopBoxCon .fp a{font-size: 16px;color:#f14211;margin-right: 20px;}
-.studentHomePage .coopBoxCon .dt{color:#1c1c1c;font-size: 20px;line-height: 44px;margin-top: 10px;}
+.studentHomePage .coopBoxCon .dt{color:#1c1c1c;font-size: 18px;line-height: 44px;margin-top: 10px;}
 .studentHomePage .coopBoxCon .dl{color:#727272;font-size: 16px;line-height: 22px;}
 .studentHomePage .coopBoxCon .edudt{margin-top: 20px;}
 /*   不支持 transform  的低版本浏览器*/
-/*.lowHomePage .reTitle{position: absolute\9;top:-40px;left:206px;}
-.lowHomePage .tipText{padding-top: 40px\9;}
-*/
-

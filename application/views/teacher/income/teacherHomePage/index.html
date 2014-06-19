@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="{static_url('/css/teacherHomePage/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+{include file="teacher/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body>
+<!-- 头部开始 -->
+{include file="teacher/include/header.htm"}
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap teacherHomePage" id="nahaoModule" module="teacherHomePage">
+    <div class="layout">
+        <!--首页表格开始-->
+	    <div class="md_classInfo">
+            <h2 class="hd_title">
+                <span class="hd_day">{$data['date']}</span>
+                <span class="hd_date">星期五</span>
+                <span class="hd_num">今天要上的班次：<b>{$data['today_total']}</b></span>
+            </h2>
+            <div class="md_bd">
+                <table class="md_table custom_table">
+                    <tr class="first">
+                        <th>上课时间</th>
+                        <th>班节名称</th>
+                        <th>课程进度</th>
+                        <th>类型</th>
+                        <th>课件讲义</th>
+                        <th class="th_last">练习题管理</th>
+                    </tr>
+                    {if $data['listArr']}
+	                    {foreach $data['listArr'] as $key=>$val}
+	                    <tr {if $val['status']==2}class="start"{elseif $val['status']==3}class="end"{/if}>
+	                        <td>
+	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
+	                            <a href="javascript:void(0)" class="readyGo">
+	                            	{if $val['status']==1}
+	                            		即将开始
+	                            	{elseif $val['status']==2}
+	                            		正在上课
+	                            	{elseif $val['status']==3}
+	                            		上完课
+	                            	{/if}
+	                            </a>
+	                        </td>
+	                        <td class="className">
+	                            <h3>{$val['title']}</h3>
+	                            <p>{$val['round_title']}</p>
+	                        </td>
+	                        <td><b class="fred">{$val['already_total']}</b> / {$val['total']}</td>
+	                        <td>{$val['course_type_name']}</td>
+	                        <td class="classWord"><em class="icon_note"></em><a href="#">{$val['courseware_name']}</a></td>
+	                        <td><em class="icon_notem"></em></td>
+	                    </tr>
+	                    {/foreach}
+	               {else}
+	               		<tr>
+	               			<td colspan="6" style="text-align:center;"><b>今天暂时没有您的课程</b></td>
+	               		</tr>
+	               {/if}
+                </table>
+            </div>
+	    </div>
+        <!--首页表格结束-->
+    </div>
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="teacher/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+{include file="teacher/include/js.htm"}
+<!--js引入结束-->
+</body>
+</html>

@@ -26,7 +26,8 @@ class Business_User extends NH_Model
             $str_result_type = 'one';
             $str_fields = 'id,nickname,email';
             $arr_where = array(
-                'email' => $email
+                'email' => $email,
+                'status' => 1,
             );
 //            echo $str_table_range.'--'.$str_result_type.'--'.$str_fields."\n";echo "where : \n";var_dump($arr_where);;exit;
             $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
@@ -89,7 +90,7 @@ class Business_User extends NH_Model
             $str_result_type = 'one';
             $str_fields = 'id AS user_id,nickname,realname,phone_mask,email,avatar,phone_verified,email_verified,teach_priv,
                            gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,work_auth_img,
-                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,stage,grade';
+                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,has_bought,stage,grade';
             $arr_where = array(
                 'id' => $user_id,
                 TABLE_USER.'.status' => 1,
@@ -114,8 +115,10 @@ class Business_User extends NH_Model
     public function modify_user($update_data, $user_id)
     {
         $userdata = array();
-        $update_data['phone_mask'] && $userdata['phone_mask'] = $update_data['phone_mask'];
-        $update_data['phone_verified'] && $userdata['phone_verified'] = $update_data['phone_verified'];
+        !empty($update_data['avatar']) && $userdata['avatar'] = $update_data['avatar'];
+        !empty($update_data['nickname']) && $userdata['nickname'] = $update_data['nickname'];
+        !empty($update_data['phone_mask']) && $userdata['phone_mask'] = $update_data['phone_mask'];
+        !empty($update_data['phone_verified']) && $userdata['phone_verified'] = $update_data['phone_verified'];
         $this->model_user->update_user($userdata, array('id' => $user_id));
         
         return true;
@@ -131,33 +134,32 @@ class Business_User extends NH_Model
     {
         $userinfo = array();
         #user表中要更新的数据
-        $update_data['realname'] && $userinfo['realname'] = $update_data['realname'];
+        !empty($update_data['realname']) && $userinfo['realname'] = $update_data['realname'];
         #user_info表中要更新的数据
-        $update_data['stage'] && $userinfo['stage'] = $update_data['stage'];
-        $update_data['title'] !== NUll && $userinfo['title'] = $update_data['title'];
-        $update_data['gender'] !== NULL && $userinfo['gender'] = $update_data['gender'];
-        $update_data['province'] && $userinfo['province'] = $update_data['province'];
-        $update_data['city'] && $userinfo['city'] = $update_data['city'];
-        $update_data['area'] && $userinfo['area'] = $update_data['area'];
-        $update_data['teacher_age'] && $userinfo['teacher_age'] = $update_data['teacher_age'];
-        $update_data['teacher_intro'] && $userinfo['teacher_intro'] = $update_data['teacher_intro'];
-        $update_data['bankname'] && $userinfo['bankname'] = $update_data['bankname'];
-        $update_data['bankbench'] && $userinfo['bankbench'] = $update_data['bankbench'];
-        $update_data['bankcard'] && $userinfo['bankcard'] = $update_data['bankcard'];
-        $update_data['id_code'] && $userinfo['id_code'] = $update_data['id_code'];
-        $update_data['grade'] && $userinfo['grade'] = $update_data['grade'];
-        $update_data['school_id'] && $userinfo['school'] = $update_data['school_id'];
-        $update_data['work_auth_img'] && $userinfo['work_auth_img'] = $update_data['work_auth_img'];
-        $update_data['teacher_auth_img'] && $userinfo['teacher_auth_img'] = $update_data['teacher_auth_img'];
-        $update_data['title_auth_img'] && $userinfo['title_auth_img'] = $update_data['title_auth_img'];
-//        $user_res = $this->model_user->update_user($userdata, array('id' => $user_id));
+        !empty($update_data['stage']) && $userinfo['stage'] = $update_data['stage'];
+        isset($update_data['title']) && $userinfo['title'] = $update_data['title'];
+        isset($update_data['gender']) && $userinfo['gender'] = $update_data['gender'];
+        !empty($update_data['province']) && $userinfo['province'] = $update_data['province'];
+        !empty($update_data['city']) && $userinfo['city'] = $update_data['city'];
+        !empty($update_data['area']) && $userinfo['area'] = $update_data['area'];
+        !empty($update_data['teacher_age']) && $userinfo['teacher_age'] = $update_data['teacher_age'];
+        !empty($update_data['teacher_intro']) && $userinfo['teacher_intro'] = $update_data['teacher_intro'];
+        !empty($update_data['bankname']) && $userinfo['bankname'] = $update_data['bankname'];
+        !empty($update_data['bankbench']) && $userinfo['bankbench'] = $update_data['bankbench'];
+        !empty($update_data['bankcard']) && $userinfo['bankcard'] = $update_data['bankcard'];
+        !empty($update_data['id_code']) && $userinfo['id_code'] = $update_data['id_code'];
+        !empty($update_data['grade']) && $userinfo['grade'] = $update_data['grade'];
+        !empty($update_data['school_id']) && $userinfo['school'] = $update_data['school_id'];
+        !empty($update_data['work_auth_img']) && $userinfo['work_auth_img'] = $update_data['work_auth_img'];
+        !empty($update_data['teacher_auth_img']) && $userinfo['teacher_auth_img'] = $update_data['teacher_auth_img'];
+        !empty($update_data['title_auth_img']) && $userinfo['title_auth_img'] = $update_data['title_auth_img'];
+        !empty($update_data['has_bought']) && $userinfo['has_bought'] = $update_data['has_bought'];
+        $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
 
-        $user_info_res = $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
-
-        if($update_data['teacher_subject']) {
+        if(isset($update_data['teacher_subject'])) {
             $this->update_user_subject($update_data['teacher_subject'], $user_id, 'teacher');
         }
-        if($update_data['student_subject']) {
+        if(isset($update_data['student_subject'])) {
             $this->update_user_subject($update_data['student_subject'], $user_id, 'student');
         }
         

@@ -236,9 +236,11 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".pname",
-                datatype:"*2-15",
+                datatype:"*",
                 nullmsg:"请输入昵称",
-                errormsg:"长度2-15个字符"
+                errormsg:"长度4-25个字符",
+                ajaxurl:"/member/validate_user_nickname",
+                ajaxUrlName:'nickname',
             },
             {
                 ele: ".phone_number",
@@ -274,9 +276,11 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*2-15",
+                datatype: "*",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度2-15个字符"
+                errormsg: "长度4-25个字符",
+                ajaxurl:"/member/check_realname_length",
+                ajaxUrlName:"realname"
 
             },
             {    
@@ -310,7 +314,7 @@ define(function(require,exports){
             callback:function(data){
                 if(data.status == 'ok') {
                     alert('密码修改成功, 页面将跳转到登陆页面');
-                    window.location = 'http://www.nahaodev.com';
+                    window.location = data.url;
                 } else {
                     alert(data.info);
                 }

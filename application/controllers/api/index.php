@@ -6,6 +6,7 @@ class Index extends NH_User_Controller {
         parent::__construct();
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
+        header("Content-type: text/html; charset=utf-8");
     }
     
 	/**

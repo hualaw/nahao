@@ -28,13 +28,13 @@
             <div class="md_ques_title">
             {if $data['sequence_num']}
             	{section name=loop loop=$data['sequence_num']} 
-					<a href="#" {if $data['sequence_id']==($smarty.section.loop.index+1)}class="cbutton redBtn"{else}class="cbutton countBtn"{/if}>第{$smarty.section.loop.index+1} 次答题统计</a>
+					<a href="/orderList/count/{$data['jInfo']['id']}/{$smarty.section.loop.index+1}" {if $data['sequence_id']==($smarty.section.loop.index+1)}class="cbutton redBtn"{else}class="cbutton countBtn"{/if}>第{$smarty.section.loop.index+1} 次答题统计</a>
 				{/section}
             {/if}
             </div>
             <!--答题信息提示结束-->
             <div class="md_ques_list">
-                <p><span>共 <b>{$data['answer_user_num']}</b>人作答</span><span>平均正确率：<b>73.1％</b></span></p>
+                <p><span>共 <b>{$data['answer_user_num']}</b>人作答</span><span>平均正确率：<b>{$data['jInfo']['correct_rate']}</b></span></p>
                 {if $data['question']}
                 {foreach $data['question'] as $val}
                 <!--单选答题卡模块开始-->

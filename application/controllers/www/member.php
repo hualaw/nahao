@@ -29,7 +29,8 @@ class Member extends NH_User_Controller {
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
         $array_new = array_slice($array_new,0,3,true);
-        
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_buy_course', $array_buy_course);
         $this->smarty->assign('array_new', $array_new);
         $this->smarty->assign('page_type', 'myCourse');
@@ -188,7 +189,7 @@ class Member extends NH_User_Controller {
 	                self::json_output(array('status'=>'error','msg'=>'删除操作失败'));
 	            }
 	        } else {
-	            self::json_output(array('status'=>'error','msg'=>'不能执行删除操作'));
+	            self::json_output(array('status'=>'error','msg'=>'不能执行删除操作,只在已关闭下才能删除'));
 	        }
 
 	    }
@@ -263,7 +264,7 @@ class Member extends NH_User_Controller {
 	    $sflag = $this->student_member->save_refund($array_data);
 	    if ($sflag)
 	    {
-	        self::json_output(array('status'=>'ok','msg'=>'申请提交成功'));
+	        self::json_output(array('status'=>'ok','msg'=>'申请提交成功！我们会在48小时内处理您的申请，请耐心等待！'));
 	    } else {
 	        self::json_output(array('status'=>'ok','msg'=>'申请提交失败'));
 	    }
@@ -300,6 +301,13 @@ class Member extends NH_User_Controller {
                     $this->business_user->modify_user($phone_data, $user_id);
                 }
             }
+            
+            $post_data['nickname'] = trim($this->input->post('nickname'));
+            if($post_data['nickname'] && $post_data['nickname'] != $this->_user_detail['nickname']) {
+                #修改数据库和redis中的昵称
+                $this->business_user->modify_user($post_data, $this->session->userdata('user_id'));
+                $this->session->set_userdata('nickname', $post_data['nickname']);
+            }
             $post_data['realname'] = trim($this->input->post('realname'));
             $post_data['grade'] = intval($this->input->post('grade'));
             $post_data['gender'] = intval($this->input->post('gender'));
@@ -318,22 +326,20 @@ class Member extends NH_User_Controller {
         }
         #性别
         $gender = $this->config->item('gender');
-        #学校
-        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
         #学科
         $subjects = $this->subject->get_subjects();
         #我已选择的学科组成的字符串
         $subject_str = implode('-', $this->_user_detail['student_subject']);
         #地区数据
         $province=$this->business_lecture->all_province();
+        $city = $area = array();
         if($this->_user_detail['province']) {
             $city = $this->business_teacher->city1($this->_user_detail['province']);
-        }
+        }        
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
         $this->smarty->assign('gender', $gender);
-        $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
 	    $this->smarty->assign('page_type', 'myInfor');
