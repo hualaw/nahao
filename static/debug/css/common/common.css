@@ -114,6 +114,7 @@ table.md_table td,table th{text-align:center;line-height:40px;border-bottom: 1px
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
 .schoolPar{text-align: left;}
+.schoolPar .schoolFullName{width: 325px;}
 .resetSchool{color: #6dcde6;font-size: 14px}
 .schoolFullName{font-size: 14px;}
 .resetSchool:hover{text-decoration:underline;}
