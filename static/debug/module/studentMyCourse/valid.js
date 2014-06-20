@@ -26,7 +26,21 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-            	alert('提交成功');
+            	if(data.status == 'ok')
+            	{
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.href="/member/my_order/all";
+    				    }
+    				});
+            	} else if(data.status == 'error') {
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+            	}
             },
             usePlugin:{
                 jqtransform:{
@@ -35,6 +49,11 @@ define(function(require,exports){
                 }
             }
 		});
+        _Form.config({
+        	showAllError:true,
+            url:"/member/save_refund",
+
+        })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
 		_Form.addRule([{

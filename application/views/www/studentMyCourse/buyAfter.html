@@ -23,26 +23,25 @@
 	        <div class="buyHeadt cf">
 	        	<div class="fl courseInfor">
 	        		<h2>{$array_data.title}</h2>
+	        		{if $array_data.status < '3'}
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl">{$array_data.soon_class_title}</h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
+	        		{/if}
 	        		<div class="cf classCDList">
 	        			<span class="fl">距离上课还有：</span>
 	        			<div class="fl classCD">
 	        				<input type="hidden" id="stime" value="{$array_data.soon_class_stime|date_format:'%Y-%m-%d %H:%M:%S'}">
 	        				<div class="classCDcon">
-	        					<strong>1</strong>天
-		        				<strong>10</strong>小时
-		        				<strong>23</strong>分
-		        				<strong>54</strong>秒
+
 	        				</div>
 	        			</div>
 	        			{if $array_data == '2'}
 	        			<a href="/classroom/enter/{$array_data.classroom_id}" target="_blank" class="fr noShowBtn redBtn">去上课</a>
 	        			{else}
-	        			<a href="javascript:;"  class="fr noShowBtn redBtn">去上课</a>
+	        			<a href="javascript:;" title="" class="fr noShowBtn redBtn">去上课</a>
 	        			{/if}
 	        		</div>
 	        	</div>
