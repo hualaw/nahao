@@ -61,4 +61,22 @@ define(function(require,exports){
         $('.tips span').text(seconds);
         setTimeout(exports.setPwdSuccessJump, 1000);
     }
+
+    //注册页面 右侧滚动
+    exports.scrollUpAndDown = function (){
+        var ind = 0;
+        $(".rollUpDownCopy").html($(".rollUpDown").html());
+        function roll(){
+            ind++;
+            if(ind>$(".rollUpDown li").length){
+                ind = 0;
+                $(".rollBox").css("top",0);
+                roll();
+            }
+            $(".rollBox").animate({top:-ind*$(".rollUpDown li").eq(0).outerHeight(true)},300);
+        }
+
+        roll();
+        var timer = setInterval(roll,2000);
+    }
 });

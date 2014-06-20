@@ -59,12 +59,16 @@
 .login .loginWrap {margin:0 auto;margin-top: 66px;border-top: 3px solid #f14211;box-shadow: 2px 2px 6px rgba(6,7,7,.35), -2px 0px 2px rgba(6,7,7,.35);background: #fff;padding:0 0 0 92px;width: 731px;}
 .login .loginWrap .loginBox{border: none;box-shadow: none;}
 .login .loginBgIco{width: 293px;height: 315px;background:url(../../images/login/loginadIco.png) no-repeat;margin-top: 64px;}
-/*.login .loginWrap .regTab {border: none;width: 343px;}
-.login .loginWrap .tabBox a{width: 171px;}
-.login .loginWrap .regTab{background: #fff;}*/
+.login .regWrap .regTab{background: #fff;}
+.loginPage .login .regWrap{margin-bottom: 0px;padding-left: 70px;}
 
-
-/*loginadIco.png*/
+.loginPage .login .regRight{padding: 40px 0 0 98px;width: 347px;border: 1px solid #d5d5d5;border-left: none;background: #fff url(../../images/login/regBg.png) 10px 52px no-repeat;margin-top: 50px;height: 427px;}
+.loginPage .login .regRight .redText{font-size: 16px;margin-bottom: 21px;}
+.loginPage .login .regRight li{font-size: 12px;margin-bottom: 22px;}
+.loginPage .login .regRight li span{margin-right: 9px;color: #777;}
+.loginPage .login .regRight li span.usename{color: #333;}
+.loginPage .rollPar{height: 340px;overflow: hidden;}
+.loginPage .rollBox{position: absolute;}
 
 
 
