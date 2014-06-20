@@ -14,7 +14,7 @@ define(function(require,exports){
                 return fasle;
             }
             $.ajax({
-                url : 'http://www.nahaodev.com/login/send_reset_captcha',
+                url : student_url + 'login/send_reset_captcha',
                 type : 'post',
                 data : 'phone='+ phone +'&type=3',
                 dataType : 'json',
