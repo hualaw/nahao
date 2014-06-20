@@ -33,7 +33,7 @@ class Business_Teacher extends NH_Model
      		'parent_id' => -2,
      		'status' => "1,2,3",
      		'order' => 2,
-     	);
+     	);var_dump($param);
      	$res = $this->model_teacher->class_seacher($param);
      	if($res) foreach($res as &$val){
      		$val['course_type_name'] = $course_type[$val['course_type']];
