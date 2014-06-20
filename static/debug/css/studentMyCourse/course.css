@@ -131,7 +131,7 @@
 .studentMyCourse .applyFromBox{padding: 20px 0 50px 16px;font-size: 16px;color:#4b4b4b;}
 .studentMyCourse .applyFromBox textarea{font-size: 14px;width: 580px;min-height: 130px;}
 .studentMyCourse form input{width: 325px;height: 30px;}
-.studentMyCourse form .btn{font-size: 18px;font-weight: bold;color:#fff;width: 130px;margin:26px 22px 0 0;height: 40px;box-shadow:0 0 3px #cdcdcd;}
+.studentMyCourse form .btn{font-size: 18px;font-weight: bold;color:#fff;width: 130px;margin:26px 22px 0 0;height: 40px;}
 .studentMyCourse .applyFromBox form .pageName{margin-top: 40px;}
 .studentMyCourse .applyFromBox form{padding: 0px 0 0 10px;}
 .studentMyCourse .applyFromBox .classDetail li{cursor:pointer;float:left;width: 98px;height: 98px;border-right:1px solid #f14211;color:#f14211;text-align: center;}
@@ -140,6 +140,7 @@
 .studentMyCourse .applyFromBox .classDetail{border: 1px solid #f14211;border-right:none;width: 396px;margin:22px 0 0;}
 .studentMyCourse .applyFromBox .detailText{line-height: 26px;}
 .studentMyCourse .applyFromBox .classDetail span{display: inline-block;margin:25px 0 6px;}
+.studentMyCourse .bankInfor{height: 34px;margin-left: 10px;}
 /*  申请成功  */
 .studentMyCourse .applysuc{border-top: 2px solid #f14211;width: 400px;height: 172px;text-align: center;background: #fff;}
 .studentMyCourse .applysuc .pt{font-weight: bold;font-size: 24px;color:#4b4b4b;margin:38px 0 20px;}
@@ -263,8 +264,10 @@
 .studentMyCourse .buyAfter .outline{padding-left: 30px;}
 .studentMyCourse .buyAfter .cBtn{width: 108px;height: 30px;line-height: 30px;border-radius: 2px;font-size: 18px;display: inline-block;text-align: center;}
 .studentMyCourse .buyAfter .replay{border: 1px solid #6dcde6;color:#6dcde6;}
+.studentMyCourse .buyAfter .replay:hover{background:#6dcde6;color: #fff;}
 .studentMyCourse .buyAfter .soonClass{border: 1px solid #e9e9e9;color:#f14211;}
 .studentMyCourse .buyAfter .goClass{border: 1px solid #f14211;color:#f14211;}
+.studentMyCourse .buyAfter .goClass:hover{background:#f14211;color:#fff;}
 .studentMyCourse .buyAfter .outlineList h3{margin:0 0 0 110px;}
 .studentMyCourse .buyAfter .outlineList .rCon{width: 458px;background: url(../../images/studentMyCourse/reda.png) 5px 3px no-repeat;}
 .studentMyCourse .buyAfter .outlineList .rConOver{background-image: url(../../images/studentMyCourse/greda.png);}
