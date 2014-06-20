@@ -89,7 +89,7 @@ class Business_User extends NH_Model
             $str_table_range = 'user_info';
             $str_result_type = 'one';
             $str_fields = 'id AS user_id,nickname,realname,phone_mask,email,avatar,phone_verified,email_verified,teach_priv,
-                           gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,work_auth_img,
+                           gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,work_auth_img,custom_school,
                            teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,has_bought,stage,grade';
             $arr_where = array(
                 'id' => $user_id,
@@ -154,6 +154,7 @@ class Business_User extends NH_Model
         !empty($update_data['teacher_auth_img']) && $userinfo['teacher_auth_img'] = $update_data['teacher_auth_img'];
         !empty($update_data['title_auth_img']) && $userinfo['title_auth_img'] = $update_data['title_auth_img'];
         !empty($update_data['has_bought']) && $userinfo['has_bought'] = $update_data['has_bought'];
+        !empty($update_data['custom_school']) && $userinfo['custom_school'] = $update_data['custom_school'];
         $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
 
         if(isset($update_data['teacher_subject'])) {

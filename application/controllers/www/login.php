@@ -178,9 +178,12 @@ class login extends NH_Controller
         $username = trim($this->input->post('username'));
         $password = trim($this->input->post('password'));
         $redirect_url = trim($this->input->post('redirect_url'));
-        $remember_me = trim($this->input->post('rembme'));
+        $rembme = trim($this->input->post('rembme'));
 
-        $ret = $this->business_login->submit($username, $password, $remember_me);
+        if($rembme == 'on') $remb_me = 1;
+        else $remb_me = 0;
+
+        $ret = $this->business_login->submit($username, $password, $remb_me);
 
         if(isset($ret['data']))
         {
@@ -195,7 +198,7 @@ class login extends NH_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        header("Location: ".site_url());
+        header("Location: ".student_url());
     } 
     
     /**

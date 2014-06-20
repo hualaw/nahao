@@ -28,7 +28,11 @@
                         是章
             {/if}
         </td>
-        <td><a href="/question/lesson_question/{$v.id}">习题</a></td>
+        <td>
+            {if $v.parent_id > 0}
+                <a href="/question/lesson_question/{$v.id}">习题</a>
+            {/if}
+        </td>
         <!--<td>-->
             <!--<a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">修改</a>-->
         <!--</td>-->

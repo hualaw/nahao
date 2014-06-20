@@ -11,13 +11,13 @@ class Orderlist extends NH_User_Controller {
 		 */
         parent::__construct();
         $this->smarty->assign('site_url','http://'.__HOST__);
-        $this->teacher_id = 1;
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
-            redirect('http://www.nahaodev.com/login');
+            redirect(student_url().'login');
         }
+        $this->teacher_id = $this->session->userdata('user_id');
         header("Content-type: text/html; charset=utf-8");
     }
     
@@ -36,8 +36,8 @@ class Orderlist extends NH_User_Controller {
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
-     			'start_time' 	=> isset($_GET['start_time']) ? $_GET['start_time'] : '',
-     			'end_time' 		=> isset($_GET['end_time']) ? $_GET['end_time'] : '',
+     			'start_time' 	=> isset($_GET['start_time']) ? strtotime($_GET['start_time']) : '',
+     			'end_time' 		=> isset($_GET['end_time']) ? strtotime($_GET['end_time']) : '',
      			'counter' 		=> 1,
      		);
      	$int_count = $this->teacher_b->round_list($param);
@@ -52,8 +52,8 @@ class Orderlist extends NH_User_Controller {
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
-     			'start_time' 	=> isset($_GET['start_time']) ? $_GET['start_time'] : '',
-     			'end_time' 		=> isset($_GET['end_time']) ? $_GET['end_time'] : '',
+     			'start_time' 	=> isset($_GET['start_time']) ? strtotime($_GET['start_time']) : '',
+     			'end_time' 		=> isset($_GET['end_time']) ? strtotime($_GET['end_time']) : '',
      			'limit' 		=> !empty($page) ? (($page-1)*$config['per_page']).','.$config['per_page'] : '0,'.$config['per_page'],
      		);
 		#1.列表
@@ -70,7 +70,6 @@ class Orderlist extends NH_User_Controller {
 			'teach_status_count' 	=> $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
 			'pageBar'				=> $pageBar,
 		);
-		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/index.html');
 	}
@@ -86,6 +85,7 @@ class Orderlist extends NH_User_Controller {
 		$zjList 	= $this->teacher_b->class_list($param);
 		$arr 		= array_pop($zjList);
 		$jInfo 		= isset($arr['jArr'][0]) ? $arr['jArr'][0] : '';
+		
 		#2.评价信息
 		$comment 	= $this->teacher_b->class_comment(array('class_id'=>$class_id));
 		

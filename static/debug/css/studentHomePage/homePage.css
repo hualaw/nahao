@@ -14,21 +14,9 @@
 .studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}
 /*   师资 认证过程 开始  */
 .studentHomePage .comTitle{color:#0e455e;font-size: 50px;}
-.studentHomePage .reTitle{height: 80px;width: 515px;margin: 0 auto;border-width: 0 1px 0 1px;border-style:solid;border-color: #e3e3e3;text-align: center;
-	/*transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);
-	-webkit-transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);
-	-moz-transform:skewX(-30deg) rotate(3deg) translateY(-26px) translateX(-17px);
-	-ms-transform:skewX(-30deg) rotate(3deg) translateY(3px) translateX(20px);
-	-o-transform:skewX(-30deg) rotate(3deg) translateY(-34px) translateX(-26px);*/
-	margin-top: -34px;
+.studentHomePage .reTitle{height: 80px;width: 515px;margin: 0 auto;border-width: 0 1px 0 1px;border-style:solid;border-color: #e3e3e3;text-align: center;margin-top: -34px;
 }
-.studentHomePage .courseRequire .reTitle h2{margin:0 auto;width:444px;
-	/*transform:skewX(30deg) rotate(-3deg) translateY(-6px);
-	-webkit-transform:skewX(30deg) rotate(-3deg) translateY(2px);
-	-moz-transform:skewX(30deg) rotate(-3deg) translateY(-6px);
-	-ms-transform:skewX(30deg) rotate(-3deg) translateY(-6px);
-	-o-transform:skewX(30deg) rotate(-3deg) translateY(-6px);*/
-}
+.studentHomePage .courseRequire .reTitle h2{margin:0 auto;width:444px;}
 .studentHomePage .tipText{font-size: 18px;text-align: center;margin: -13px 0 48px;}
 .studentHomePage .recomTea{padding-top: 245px;text-align: center;}
 .studentHomePage .autTea{width:326px;background: url(../../images/studentHomePage/teacher1.gif) center top no-repeat;}
@@ -78,7 +66,3 @@
 .studentHomePage .coopBoxCon .dl{color:#727272;font-size: 16px;line-height: 22px;}
 .studentHomePage .coopBoxCon .edudt{margin-top: 20px;}
 /*   不支持 transform  的低版本浏览器*/
-/*.lowHomePage .reTitle{position: absolute\9;top:-40px;left:206px;}
-.lowHomePage .tipText{padding-top: 40px\9;}
-*/
-

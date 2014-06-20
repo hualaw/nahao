@@ -17,7 +17,7 @@
     <div class="md_hd">
         <span><b>班节名称： {$data['jInfo']['title']}</b></span>
         <span>共<b class="fred">{$data['total']}</b>条评价</span>
-        <span>平均分：<b class="fred">{$data['jInfo']['score']}</b></span>
+        <span>平均分：<b class="fred">{if $data['jInfo']['score']}{$data['jInfo']['score']}{/if}</b></span>
     </div>
     <div class="md_bd">
         <table class="md_table">

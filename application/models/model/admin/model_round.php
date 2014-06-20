@@ -32,7 +32,7 @@ class Model_Round extends NH_Model
         $this->db->update(TABLE_ROUND, $arr_param, $arr_where);
         $int_affected_rows = $this->db->affected_rows();
 //        o($int_affected_rows);
-        return $int_affected_rows > 0 ? true :false;
+        return true;//$int_affected_rows >= 0 ? true :false;
     }
 
     /**
