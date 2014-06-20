@@ -72,6 +72,13 @@ define(function(require,exports){
 
             },
             {   
+                 ele:".bankInfor",
+                 datatype: "*",
+                 nullmsg: "请填写具体支行信息",
+                 errormsg: "请输入正确的支行信息"
+
+            },
+            {   
                  ele:".bankCode",
                  datatype: "*",
                  nullmsg: "请输入银行卡账号",

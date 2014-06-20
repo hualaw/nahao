@@ -227,10 +227,10 @@ define(function(require,exports){
         }
 
         //鼠标上去 显示 讲义，运笔记，评论星
-        $(".outlineList li").mouseover(function (){
+        $(".outlineList .listb").mouseover(function (){
             $(this).find(".cListHid").show();     
         });
-        $(".outlineList li").mouseout(function (){
+        $(".outlineList .listb").mouseout(function (){
             $(this).find(".cListHid").hide();
         });
         $(".evaluBtn").click(function (){               
