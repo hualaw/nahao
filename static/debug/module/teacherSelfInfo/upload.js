@@ -5,7 +5,7 @@ define(function(require,exports){
         var qualificationImgFormData = {'key':$('#new_teacher_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_teacher_auth_img').uploadify({
             'formData' : qualificationImgFormData,
-            'swf'      : 'http://teacher.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
+            'swf'      : siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf',
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
             'buttonText' :"&nbsp;&nbsp;",
             'buttonClass' : 'choseFileBtn',

@@ -198,7 +198,7 @@ class login extends NH_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        header("Location: ".site_url());
+        header("Location: ".student_url());
     } 
     
     /**

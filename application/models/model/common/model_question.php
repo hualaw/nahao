@@ -9,7 +9,7 @@ class Model_Question extends NH_Model
 	 * 【题目搜索器 - 课节】：
 	 * pararm : lesson_id
 	 */
-	public function lesson_question_seacher($param){
+	public function lesson_question_seacher($param,$str_type = 'common'){
 		$param['question_id'] = !empty($param['question_id']) ? $param['question_id'] : '';
 		$param['lesson_id'] = !empty($param['lesson_id']) ? $param['lesson_id'] : '';
 		#1. 参数组合
@@ -17,7 +17,11 @@ class Model_Question extends NH_Model
 		$where = ' WHERE 1';
 		$where .= $param['question_id'] ? ' AND qlr.question_id='.$param['question_id'] : '';
 		$where .= $param['lesson_id'] ? ' AND qlr.lesson_id in ('.$param['lesson_id'].')' : '';
-		$column = 'q.*,qlr.lesson_id ';
+        if($str_type=='generate_round'){
+            $column = 'qlr.question_id,qlr.lesson_id';
+        }else{
+            $column = 'q.*,qlr.lesson_id ';
+        }
 		#2. 生成sql
         $this->db->query("set names utf8");
         
@@ -93,6 +97,19 @@ class Model_Question extends NH_Model
      				}
      			}
      			break;
+            case 'add_relation':
+                //课的题
+                if(!empty($param['add_class_question'])){
+//                    o($param,true);
+                    if(isset($param['class_id']) AND $param['class_id']){
+                        if(is_array($param['class_id'])){
+                            $res = $this->db->insert_batch(TABLE_QUESTION_CLASS_RELATION,$param['class_id']);
+                        }else{
+                            $res = $this->db->insert(TABLE_QUESTION_CLASS_RELATION,$param['class_id']);
+                        }
+                    }
+                }
+                break;
      		case 'edit':
      			$sql = "UPDATE nahao.question 
 						SET question='".$param['question']."',
@@ -111,8 +128,23 @@ class Model_Question extends NH_Model
  				}
  				//删除题课关系
  				if(!empty($param['delete_class_question'])){
- 					$sql = "DELETE FROM nahao.question_class_relation WHERE question_id=".$param['question_id'];
- 					$res = $this->db->query($sql);
+                    if($param['question_id']){
+                        $sql = 'DELETE FROM '.TABLE_QUESTION_CLASS_RELATION;
+                        if(is_array($param['question_id'])){
+                            $sql .= " WHERE question_id in (".(implode(',',$param['question_id'])).')';
+                        }else{
+                            $sql .= " WHERE question_id=".$param['question_id'];
+                        }
+                        $res = $this->db->query($sql);
+                    }elseif($param['class_id']){
+                        $sql = 'DELETE FROM '.TABLE_QUESTION_CLASS_RELATION;
+                        if(is_array($param['class_id'])){
+                            $sql .= " WHERE class_id in (".(implode(',',$param['class_id'])).')';
+                        }else{
+                            $sql .= " WHERE class_id=".$param['class_id'];
+                        }
+                        $res = $this->db->query($sql);
+                    }
  				}
  				break;
      	}

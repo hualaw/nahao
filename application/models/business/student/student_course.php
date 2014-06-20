@@ -339,7 +339,6 @@ class Student_Course extends NH_Model{
         $array_team = $this->get_round_team($int_round_id);
         #即将开始的课的信息
         $array_soon = $this->model_course->get_soon_class_data($int_round_id);
-        //var_dump($array_soon);
         #已经上了几节课
         $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
         #总共有几节课
@@ -347,13 +346,15 @@ class Student_Course extends NH_Model{
         #上课节数比例
         $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
         #组合数据
-        $array_return['round_id'] = $array_round['id'];
-        $array_return['title'] = $array_round['title'];
-        $array_return['team'] = $array_team;
-        $array_return['soon_class_title'] = $array_soon['title'];
-        $array_return['soon_class_stime'] = $array_soon['begin_time'];
-        $array_return['class'] = $int_num; 
-        $array_return['class_rate'] = $class_rate;
+        $array_return['round_id'] = $array_round['id'];					#轮的id
+        $array_return['title'] = $array_round['title'];					#轮的标题
+        $array_return['team'] = $array_team;							#教室团队
+        $array_return['soon_class_title'] = $array_soon['title'];		#即将开始课的节
+        $array_return['soon_class_stime'] = $array_soon['begin_time'];	#课的开始时间
+        $array_return['class'] = $int_num; 								#已经上了几节课
+        $array_return['class_rate'] = $class_rate;						#上课节数比例
+        $array_return['classroom_id'] = $array_soon['classroom_id'];	#教室id
+        $array_return['status'] = $array_soon['status'];				#课的状态
         return $array_return;
     }
     

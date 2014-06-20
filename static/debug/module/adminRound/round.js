@@ -23,6 +23,27 @@ define(function(require,exports){
 
     exports.bind_everything = function () {
 
+        //round_list update status
+        $('.round_operation').on("click",function(){
+            var url = $(this).data('action');
+            var data = {
+                'round_id' : $(this).data('round_id'),
+                'type' : $(this).data('type'),
+                'status' : $(this).data('status')
+            };
+            $.post(url,data,function(response){
+                console.log(response);
+                if(response){
+                    alert(response.msg);
+                    if(response.status=='ok'){
+                        window.location.reload();
+                    }
+                }else{
+                    alert('系统错误');
+                }
+            });
+        });
+
         //get teacher list to select
         $("#round_edit_teacher_select_btn").on("click", function () {
             var modal = $("#round_edit_teacher_select_modal");
