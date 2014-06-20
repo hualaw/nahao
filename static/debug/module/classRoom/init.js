@@ -4,7 +4,7 @@ define(function(require,exports){
 	var _valid = require("module/classRoom/valid");
 
     //滚动条
-    var _scroll = require("module/common/method/scroll");
+    //var _scroll = require("module/common/method/scroll");
 
     //教室弹层
     var _popUp = require('module/common/method/popUp');
