@@ -55,7 +55,6 @@ $config['teach_type'][1] = '小班教育(15人以内)';
 $config['teach_type'][2] = '大班教育不限人数';
 
 //年级
-$config['grade'][0] = '其他';
 $config['grade'][1] = '一年级';
 $config['grade'][2] = '二年级';
 $config['grade'][3] = '三年级';
@@ -68,6 +67,7 @@ $config['grade'][9] = '初三';
 $config['grade'][10] = '高一';
 $config['grade'][11] = '高二';
 $config['grade'][12] = '高三';
+$config['grade'][0] = '其他';
 
 //订单状态
 
