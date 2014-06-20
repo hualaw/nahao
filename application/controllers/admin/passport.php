@@ -34,10 +34,9 @@ class Passport extends NH_Admin_Controller
         $bool_return = $this->passport->login($str_username, $str_password);
 //        o($bool_return);
         if ($bool_return === true) {
-            $str_redirect = '/index/main';
+            $str_redirect = '/';
         }
         redirect($str_redirect);
-
     }
 
     /**
