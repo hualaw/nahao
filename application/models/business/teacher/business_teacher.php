@@ -25,7 +25,6 @@ class Business_Teacher extends NH_Model
      **/
      public function today_class($param){
      	if(empty($param['teacher_id'])){exit('请检查您的登录状态');}
-     	$course_type = config_item('course_type');
      	$param = array(
      		'teacher_id' => $param['teacher_id'],
      		'begin_time' => strtotime(date("Y-m-d")),
@@ -33,10 +32,9 @@ class Business_Teacher extends NH_Model
      		'parent_id' => -2,
      		'status' => "1,2,3",
      		'order' => 2,
-     	);var_dump($param);
+     	);
      	$res = $this->model_teacher->class_seacher($param);
      	if($res) foreach($res as &$val){
-     		$val['course_type_name'] = $course_type[$val['course_type']];
      		$total_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
