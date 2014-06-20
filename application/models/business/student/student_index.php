@@ -24,7 +24,14 @@ class Student_Index extends NH_Model{
             #首页获取轮的信息列表
             foreach ($array_round as $k=>$v)
             {
-                $array_return[] = $this->get_one_round_info($v['course_id'],$v['start_time'],$array_grade);
+                $array_list = $this->get_one_round_info($v['course_id'],$v['start_time'],$array_grade);
+                #如果这一轮里面老师信息为空，则这个轮不显示在首页上面
+                if (empty($array_list['teacher']))
+                {
+                	continue;
+                } else {
+                	$array_return[] = $array_list;
+                }
             }
         }
         
@@ -48,7 +55,15 @@ class Student_Index extends NH_Model{
             $array_return['class_nums'] = $int_num;
             #获取该轮里面的主讲老师信息
             $teacher = $this->student_course->get_round_team($array_return['id'],TEACH_SPEAKER);
-            $array_return['teacher'] = $teacher['0'];
+            if($teacher['0'])
+            {
+            	$array_return['teacher'] = $teacher['0'];
+            } else {
+            	$array_return['teacher'] = array();
+            	log_message('ERROR_NAHAO','student_index里面get_one_round_info方法里找不到该老师信息或者用户表里面该老师的status=0，
+            	轮id为：'.$array_return['id']);
+            }
+            
         }
         #适合人群
         $gfrom = $array_return['grade_from'];

@@ -258,9 +258,14 @@ class Student_Course extends NH_Model{
 			foreach ($array_teacher as $k=>$v)
 			{
 				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-				$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
-				#老师头像
-				$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+				if(empty($array_return[0]))
+				{
+					break;
+				} else {
+					$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
+					#老师头像
+					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+				}
 			}
 		}
 
