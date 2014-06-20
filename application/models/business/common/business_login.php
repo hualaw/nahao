@@ -32,12 +32,24 @@ class Business_Login extends NH_Model {
         {
             $this->load->model('model/common/model_user');
             $arr_where = array();
-            $arr_where['status'] = 1;
             if($user_id) $arr_where['id'] = $user_id;
             if($email) $arr_where['email'] = $email;
 
-            $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar,teach_priv';
+            $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar,teach_priv,status';
             $ret_info = $this->model_user->get_user_by_param('user', 'list', $str_fields, $arr_where);
+
+            //log_message('debug_nahao', "in business_login submit(), ret_info is: ".print_r($ret_info,1));
+            $ret_info = $this->_filter_user_info($ret_info);
+            //log_message('debug_nahao', "in business_login submit(), after filter_user_info is: ".print_r($ret_info,1));
+
+            if(isset($ret_info['status']))
+            {
+                if( $ret_info['status'] == 'forbidden')
+                    return $this->_log_reg_info(ERROR, 'login_no_previlege', array('username'=>$username, 'password'=>$password));
+
+                unset($ret_info['status']);
+            }
+
             if(!empty($ret_info) && isset($ret_info[0]))
             {
                 $user_info = $ret_info[0];
@@ -96,4 +108,31 @@ class Business_Login extends NH_Model {
             return $this->_log_reg_info(ERROR, 'login_unregister_username', $info_arr);
         }
     }
+
+    protected function _filter_user_info($ret_info)
+    {
+        foreach($ret_info as $i => $one_info)
+        {
+            if(isset($one_info['status']))
+            {
+                if($one_info['status'] == 0)
+                {
+                    unset($ret_info[$i]);
+                }
+                else if($one_info['status'] == 1)
+                {
+                    $new_info = array();
+                    $new_info['status'] = 'ok';
+                    $new_info[0] = $one_info;
+                    return $new_info;
+                }
+            }
+        }
+
+        if(empty($ret_info)) $ret_info['status'] = 'forbidden';
+        else $ret_info['status'] = 'ok';
+
+        return $ret_info;
+    }
+
 }

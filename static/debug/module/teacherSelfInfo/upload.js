@@ -1,12 +1,15 @@
 define(function(require,exports){
     require("flashUploader");
+    var uploadify_swf = siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf';
+    var upload_url = 'http://up.qiniu.com';
+    var image_host = 'http://n1a2h3a4o5.qiniudn.com/';
     exports.addUpload = function(){
         //upload teacher qualification img
         var qualificationImgFormData = {'key':$('#new_teacher_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_teacher_auth_img').uploadify({
             'formData' : qualificationImgFormData,
-            'swf'      : siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf',
-            'uploader' : 'http://up.qiniu.com', //需要上传的url地址
+            'swf'      : uploadify_swf,
+            'uploader' : upload_url, //需要上传的url地址
             'buttonText' :"&nbsp;&nbsp;",
             'buttonClass' : 'choseFileBtn',
             'fileObjName' : 'file',
@@ -23,7 +26,7 @@ define(function(require,exports){
                     'small_height' : 225
                 };
                 var img_url = data.key;
-                var img_url_small = 'http://n1a2h3a4o5.qiniudn.com/'+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
 
                 console.log(img_url);
                 console.log(img_url_small);
@@ -38,8 +41,8 @@ define(function(require,exports){
         var titleImgFormData = {'key':$('#new_title_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_title_auth_img').uploadify({
             'formData' : titleImgFormData,
-            'swf'      : 'http://teacher.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
-            'uploader' : 'http://up.qiniu.com', //需要上传的url地址
+            'swf'      : uploadify_swf,
+            'uploader' : upload_url, //需要上传的url地址
             'multi'    : true,
             'buttonText' :"&nbsp;&nbsp;",
             'buttonClass' : 'choseFileBtn',
@@ -53,7 +56,7 @@ define(function(require,exports){
                     'small_height' : 225
                 };
                 var img_url = data.key;
-                var img_url_small = 'http://n1a2h3a4o5.qiniudn.com/'+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
 
                 console.log(img_url);
                 console.log(img_url_small);
@@ -69,8 +72,8 @@ define(function(require,exports){
         var workImgFormData = {'key':$('#new_work_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_work_auth_img').uploadify({
             'formData' : workImgFormData,
-            'swf'      : 'http://teacher.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
-            'uploader' : 'http://up.qiniu.com', //需要上传的url地址
+            'swf'      : uploadify_swf,
+            'uploader' : upload_url, //需要上传的url地址
             'multi'    : true,
             'buttonText' :"&nbsp;&nbsp;",
             'buttonClass' : 'choseFileBtn',
@@ -84,7 +87,7 @@ define(function(require,exports){
                     'small_height' : 225
                 };
                 var img_url = data.key;
-                var img_url_small = 'http://n1a2h3a4o5.qiniudn.com/'+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
                 console.log(img_url);
                 console.log(img_url_small);
 //               /*添加学校工作证图片*/

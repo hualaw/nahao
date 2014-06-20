@@ -1,7 +1,18 @@
 define(function(require,exports){
 	// 悬浮框
     exports.floatBox = function (oDiv,returnBtn){
+
+		window.onload = function (){
+			scrollTopfn();
+		}
+		window.onresize = function (){
+			scrollTopfn();
+		}
     	window.onscroll=function (){
+			scrollTopfn();
+		}
+
+		function scrollTopfn(){
 			var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
 			//判断ie6
 			if (window.navigator.userAgent.indexOf("MSIE 6")!=-1){

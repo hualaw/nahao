@@ -71,11 +71,7 @@ class Pay extends NH_User_Controller {
 	    }
 	    //var_dump($this->session->all_userdata());
 	    $array_infor = $this->_user_detail;
- 	    // var_dump($int_user_id);
- 	    #获取是否是手机号注册的
-	  //  $int_is_phone_register = $this->model_member->check_phone_register($int_user_id);
-	  //  echo '--';var_dump($array_return);die;
-	   // $this->smarty->assign('is_phone_register', $int_is_phone_register);
+
 	    $this->smarty->assign('realname', $array_infor['realname']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
