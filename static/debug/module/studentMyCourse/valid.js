@@ -42,12 +42,12 @@ define(function(require,exports){
     				});
             	}
             },
-/*            usePlugin:{
+            usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
                     selector:"select,:checkbox,:radio,.decorate"    
                 }
-            }*/
+            }
 		});
         _Form.config({
         	showAllError:true,
@@ -88,6 +88,13 @@ define(function(require,exports){
                  datatype: "*",
                  nullmsg: "请选择银行",
                  errormsg: ""
+
+            },
+            {   
+                 ele:".bankInfor",
+                 datatype: "*",
+                 nullmsg: "请填写具体支行信息",
+                 errormsg: "请输入正确的支行信息"
 
             },
             {   

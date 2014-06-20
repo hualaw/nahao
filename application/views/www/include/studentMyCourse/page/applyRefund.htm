@@ -11,7 +11,10 @@
 		<ul>
 			<li>
 				<p class="formName">课程名称</p>
-				<input type="text" class="userName" name="title" value="{$array_data.title}" disabled>
+				<div class="cf">
+					<input type="text" class="courseName cInput" name="title" validName="text" value="{$array_data.title}" disabled>
+					<span class="Validform_checktip"></span>
+				</div>
 				<ol class="classDetail cf">
 					<li>
 						<span>已上课次</span><br>
@@ -34,39 +37,65 @@
 			</li>
 			<li>
 				<p class="formName">姓名</p>
-				<input type="text" name="name" value="">
+				<div class="cf">
+					<input type="text" name="name" value="" class="cInput Uname" validName="text">
+					<span class="Validform_checktip"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">联系方式</p>
-				<input type="text" name="contact" value="">
+				<div class="cf">
+					<input type="text" name="contact" value="" class="cInput contact" validName="text">
+					<span class="Validform_checktip"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">退课理由</p>
-				<textarea name="reason" id="reason" placeholder="请详细填写退课理由，帮助我们对课程进行改进，感谢您的支持！"></textarea>
+				<div class="cf">
+					<textarea name="reason" id="reason" placeholder="请详细填写退课理由，帮助我们对课程进行改进，感谢您的支持！" validName="textarea" class="reason ctextarea"></textarea>
+					<span class="Validform_checktip"></span>
+				</div>
 			</li>
 			<li>
 				<h3 class="pageName">绑定银行帐户</h3>
 			</li>
-			<li>
+			<li class="cf">
 				<p class="formName">选择退款银行</p>
-				<select name="bank" id="bank" >
-					<option value="">选择退款银行</option>
-					{foreach from=$array_bank item=item key=key}
-					<option value="{$key}">{$item}</option>
-					{/foreach}
-				</select>
-				<input type="text" name="bankbench" value="" placeholder="请填写具体支行信息">
+				<div class="fl">
+					<div>
+						<div>
+							<select name="bank" id="bank" class="banks" validName="select">
+								<option value="">选择退款银行</option>
+								{foreach from=$array_bank item=item key=key}
+								<option value="{$key}">{$item}</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<span class="Validform_checktip"></span>
+				</div>
+				<div class="fl">
+					<input type="text" name="bankbench" value="" placeholder="请填写具体支行信息" class="cInput bankInfor" validName="text">
+					<span class="Validform_checktip"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">银行卡账号</p>
-				<input type="text" name="bankcard" value="">
+				<div class="cf">
+					<input type="text" name="bankcard" value="" class="cInput bankCode" validName="text">
+					<span class="Validform_checktip"></span>
+				</div>
 			</li>
 			<li>
 				<p class="formName">身份证号</p>
-				<input type="text" name="id_code" value="">
+				<div class="cf">
+					<input type="text" name="id_code" value="" class="cInput IDnum" validName="text">
+					<span class="Validform_checktip"></span>
+				</div>
 			</li>
 			<li>
 				<input type="submit" class="btn redBtn" value="提交">
+				<!-- <input type="button" class="btn blueBtn" value="取消"> -->
 			</li>
 		</ul>
 	</form>

@@ -14,7 +14,7 @@
 		{foreach from=$array_buy_course item=item}
 		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
 			<h3 title="{$item.title}">{$item.title|truncate:18:"...":true}</h3>
-			<img src="{$item.class_img}" alt="{$item.title}" class="cover">
+			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>
 			</div>
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-				<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
+				<p class="courseTitle" title="{$item.title}">{$item.title|truncate:16:"...":true}</p>
 			</div>
 		</li>
 		{/foreach}

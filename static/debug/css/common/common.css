@@ -30,7 +30,7 @@ a:hover {text-decoration:none;}
 .greenText{color:#7ba801!important;}
 
 form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
-.ctextarea{padding: 10px 20px;font-size: 14px;}
+.ctextarea{padding: 10px 20px;font-size: 14px;border: 1px solid #a2a2a2;}
 .cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
