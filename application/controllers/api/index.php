@@ -117,6 +117,7 @@ class Index extends NH_User_Controller {
                 $return = $this->classroom->save_class_note($data);
             }
         }
+        echo $return ? 1 : 0;
         /* $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
 //        $str_content_log = iconv('UTF-8','GBK',$str_content_db);*/
 
@@ -160,6 +161,6 @@ class Index extends NH_User_Controller {
                 $arr_return = $this->classroom->get_class_note($arr_param);
             }
         }
-        o($arr_return,true);
+        self::json_output($arr_return);
     }
 }
