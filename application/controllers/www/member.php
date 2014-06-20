@@ -266,7 +266,7 @@ class Member extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'ok','msg'=>'申请提交成功！我们会在48小时内处理您的申请，请耐心等待！'));
 	    } else {
-	        self::json_output(array('status'=>'ok','msg'=>'申请提交失败'));
+	        self::json_output(array('status'=>'error','msg'=>'申请提交失败'));
 	    }
 	}
 	

@@ -72,7 +72,7 @@ class Student_Course extends NH_Model{
             #课时
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : $array_return['img'];
+            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
             #评分（四舍五入）
             $array_return['score'] = round($array_return['score']);
             
@@ -250,20 +250,25 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #这个轮里面的所有老师id
         $array_teacher = $this->model_course->get_round_team($int_round_id,$int_type);
-        if (empty($array_teacher))
-        {
-            show_error('无老师信息');
-        }
-        #common.php里面的数据字典 老师角色
-        $array_teacher_role = config_item('teacher_role');
-        #获取老师的具体信息
-        foreach ($array_teacher as $k=>$v)
-        {
-            $array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-            $array_return[$k]['teacher_role'] = $array_teacher_role[$k];
-            #老师头像
-            $array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
-        }
+		if($array_teacher)
+		{
+			#common.php里面的数据字典 老师角色
+			$array_teacher_role = config_item('teacher_role');
+			#获取老师的具体信息
+			foreach ($array_teacher as $k=>$v)
+			{
+				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
+				if(empty($array_return[0]))
+				{
+					break;
+				} else {
+					$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
+					#老师头像
+					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+				}
+			}
+		}
+
         return $array_return;
     }
     

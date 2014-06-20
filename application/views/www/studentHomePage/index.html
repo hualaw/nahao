@@ -15,20 +15,30 @@
 <!-- 主要内容开始 -->
 <div class="wrap studentHomePage" id="nahaoModule" module="studentHomePage">
 	<div class="contop">
-		<!-- homePage Content nav -->
-		<div class="conNav">
-			<p>名师亲授</p>
-			<p>实时互动</p>
-			<p class="prompt">-享受最适合你的课堂-</p>
-			<div class="addBtn">
-				<a href="" class="transBtn">我是老师</a>
-				<span>
-					<var class="addLine"></var>
-					<em>加入</em>
-					<var class="addLine"></var>
-				</span>
-				<a href="" class="transBtn">我是学生/家长</a>
-			</div>
+		<!-- 首页轮播 -->
+		<div class="roll">
+			<ul class="cf">
+				<li class="fl rollshow">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+				<li class="fl">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+				<li class="fl">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+			</ul>
+			<ol class="cf rollNav">
+				<li class="fl active"></li>
+				<li class="fl"></li>
+				<li class="fl"></li>
+			</ol>
 		</div>
 		<!-- course show -->
 		<div class="courseBox">
@@ -66,7 +76,7 @@
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
+							<p class="courseTitle" title="{$item.title}">{$item.title|truncate:16:"...":true}</p>
 						</div>
 					</li>
 					{/foreach}
@@ -161,7 +171,7 @@
 					<p class="fp">
 						<a href="">那好期待与您的合作</a>
 						<a href="javascript:vold(0);" class="phoneHref">400-680-1818</a>
-						<a href="" class="mess">someone@nahao.com</a>
+						<a href="" class="mess">hezuo@nahao.com</a>
 					</p>
 				</div>
 			</div>
