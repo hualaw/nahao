@@ -32,11 +32,13 @@
                     </div>
                 	<input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
                     <ul class="cf">
+                    	{if $array_round}
                     	{foreach from=$array_round item=item}
                         <li class="fl ctime {if $item.id == $array_data.id}ctimeOn{/if}">
                             <a href="{$course_url}{$item.id}.html">{$item.start_time}-{$item.end_time}</a>
                         </li>
                         {/foreach}
+                        {/if}
                         <li class="fl more">
                             <input type="hidden" name="">
                             更多班次敬请期待
@@ -44,7 +46,7 @@
                     </ul>
                     <div class="review cf">
                         <span class="starBg cf">
-                        {if $array_data.score > 0}
+                        {if $array_data.score}
                         {section name=loop loop=$array_data.score}
                         	<span class="hreview"></span>
                         {/section}
@@ -113,6 +115,7 @@
                 </div>
                 <!-- 课程大纲 -->
                 <div class="outline cBox">
+                {if $array_outline}
                 {foreach from=$array_outline item=item name="parent"}
                 
                 	<div class="outlineList">
@@ -123,6 +126,7 @@
                         </h3>
                         {/if}
                         <ul>
+                        	{if $item.son}
 	                        {foreach from=$item.son item=it name="son"}
 		                       <li class="cf">
 		                       		{if $smarty.foreach.son.last && $smarty.foreach.parent.last}
@@ -136,9 +140,11 @@
 	                                </div>
 	                            </li>
 	                        {/foreach}
+	                        {/if}
                         </ul>
                     </div>
                 {/foreach}
+                {/if}
                 </div>
                 <!-- 授课提要 -->
                 <div class="summary cBox">
@@ -148,6 +154,7 @@
                 <div class="creview cBox">                    
                     <a name="review"></a>
                     <ul>
+                    {if $array_evaluate}
                     {foreach from=$array_evaluate item=item}
                         <li class="cf">
                             <img src="{$item.avatar}" alt="" class="fl">
@@ -158,7 +165,7 @@
                                 </h2>
                                 <div class="fr">
                                     <span class="starBg">
-                                    {if $item.score > 0}
+                                    {if $item.score}
 			                        {section name=loops loop=$item.score}
 			                        	<span class="hreview"></span>
 			                        {/section}
@@ -170,9 +177,10 @@
                             </div>
                         </li>
                     {/foreach}
+                    {/if}
                     </ul>
                     <div class="fclick">
-                    {if $str_evaluate_count >0}
+                    {if $str_evaluate_count}
                         <div class="cf">
                             <span class="fr allReview">所有评论（共{$str_evaluate_count}条）</span>
                         </div>
@@ -232,6 +240,7 @@
             <!-- 购买前 右侧 -->
             <div class="buyRight fr">
                 <ul>
+                {if $array_team}
                 {foreach from=$array_team item=item}
                     <li>
                         <div class="headBox posr">
@@ -249,6 +258,7 @@
                         </p>
                     </li>
 				{/foreach}
+				{/if}
                 </ul>
             </div>
         </div>

@@ -29,7 +29,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,
-                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status
+                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward
                 FROM round WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
@@ -133,6 +133,7 @@ class Model_Course extends NH_Model{
         $array_result = array();
         $sql = "SELECT teacher_id,role FROM round_teacher_relation 
                 WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC";
+        //echo $sql.'-----------';
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -201,7 +202,7 @@ class Model_Course extends NH_Model{
     public function get_soon_class_data($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT title,begin_time,end_time,classroom_id FROM class WHERE round_id = ".$int_round_id." 
+        $sql = "SELECT title,begin_time,end_time,classroom_id,status FROM class WHERE round_id = ".$int_round_id." 
                 AND status = 1 AND parent_id > 0";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
