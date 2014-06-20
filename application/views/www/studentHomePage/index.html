@@ -34,6 +34,7 @@
 		<div class="courseBox">
 			<div class="layout">
 				<ul class="cf courseList">
+					{if $array_data}
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
@@ -69,6 +70,7 @@
 						</div>
 					</li>
 					{/foreach}
+					{/if}
 				</ul>
 			</div>
 		</div>

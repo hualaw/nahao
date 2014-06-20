@@ -19,7 +19,7 @@ define(function(require,exports){
         $(".cListHid").on("click", '.cloudNotes', function () {
         	var shtml ='';
             var btn = $(this);
-            var action = student_url+'course/get_user_cloud_notes';
+            var action = '/course/get_user_cloud_notes';
             var data = {
             		cid:btn.data('cid')
             };
@@ -133,9 +133,13 @@ define(function(require,exports){
                 if (response.status == "error") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.href= student_url+"member/my_order/all";
+    				    	return false;
+    				    }
     				});
-                	window.location.href= student_url+"member/my_order/all";
+                	
                 } else if(response.status == "ok"){
                 	window.location.href= student_url+"pay/product/"+response.id;
                 } else if(response.status == 'no_login'){
@@ -158,9 +162,12 @@ define(function(require,exports){
                 if (response.status == "error") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+      				    ok:function(){
+    				    	window.location.href= student_url+"member/my_order/all";
+    				    	return false;
+    				    }
     				});
-                	window.location.href= student_url+"member/my_order/all";
                 } else if(response.status == "ok"){
                 	window.location.href= student_url+"pay/product/"+response.id;
                 }else if(response.status == 'no_login'){
@@ -182,9 +189,12 @@ define(function(require,exports){
                 if (response.status == "ok") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.reload();
+    				    }
     				});
-                    window.location.reload();
+                    
                 } else if(response.status == "error"){
     				$.dialog({
     				    content:response.msg,
@@ -205,9 +215,13 @@ define(function(require,exports){
                 if (response.status == "ok") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+    				    ok:function()
+    				    {
+    				    	window.location.reload();
+    				    }
     				});
-                    window.location.reload();
+                    
                 } else if(response.status == "error"){
     				$.dialog({
     				    content:response.msg,

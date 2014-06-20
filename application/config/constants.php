@@ -161,6 +161,7 @@ define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
 define('TABLE_LESSON','lesson');
 define('TABLE_NAHAO_AREAS','nahao_areas');
 define('TABLE_NAHAO_SCHOOLS','nahao_schools');
+define('TABLE_SCHOOLS_CREATE', 'nahao_schools_create');
 define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
 define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
@@ -186,6 +187,32 @@ define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
 define('TABLE_CLASS_NOTE', 'class_note');
+
+//各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
+
+//ROUND sale_status
+define('TABLE_ROUND_DIC_SALE_STATUS_INIT',0);//未审核
+define('TABLE_ROUND_DIC_SALE_STATUS_DENY',1);//审核未通过
+define('TABLE_ROUND_DIC_SALE_STATUS_RUNNING',2);//审核通过（进入预售期）
+define('TABLE_ROUND_DIC_SALE_STATUS_ON_SALE',3);//在售
+define('TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT',4);//售罄
+define('TABLE_ROUND_DIC_SALE_STATUS_STOP',5);//停售（时间到）
+define('TABLE_ROUND_DIC_SALE_STATUS_OFFLINE',6);//下架
+
+//ROUND teach_status
+define('TABLE_ROUND_DIC_TEACH_STATUS_INIT',1);//等待开课
+define('TABLE_ROUND_DIC_TEACH_STATUS_RUNNING',2);//授课中
+define('TABLE_ROUND_DIC_TEACH_STATUS_STOP',3);//停课（手动操作）
+define('TABLE_ROUND_DIC_TEACH_STATUS_FINISH',4);//结课
+define('TABLE_ROUND_DIC_TEACH_STATUS_EXPIRE',5);//过期(结课后一个月cron会把结课改为过期)
+
+//USER status
+define('TABLE_USER_DIC_STATUS_OFF',0);
+define('TABLE_USER_DIC_STATUS_ON',1);
+
+//USER teach_priv
+define('TABLE_USER_DIC_TEACH_PRIV_OFF',0);
+define('TABLE_USER_DIC_TEACH_PRIV_ON',1);
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
@@ -222,7 +249,7 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应
 
 //课程中的状态
 define('NAHAO_STATUS_COURSE_INIT',0);//未审核
-define('NAHAO_STATUS_COURSE_CHECKING',1);//审核未通过
+define('NAHAO_STATUS_COURSE_DENY',1);//审核未通过
 define('NAHAO_STATUS_COURSE_RUNNING',2);//审核通过，运营中
 define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
 define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭

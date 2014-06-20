@@ -15,7 +15,6 @@
 |
 */
 $config['base_url']	= 'http://'.__HOST__.'/';
-//$config['static_url'] = 'http://www.nahaodev.com/static/';
 $config['static_url'] = 'http://static.nahaodev.com/';
 $config['teacher_url'] = 'http://teacher.nahaodev.com/';
 $config['admin_url'] = 'http://admin.nahaodev.com/';
@@ -259,6 +258,7 @@ $config['sess_table_name']		= 'nahao_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update']	= 300;
+$config['sess_autologin_expiration'] = 604800; //nahao define
 
 /*
 |--------------------------------------------------------------------------

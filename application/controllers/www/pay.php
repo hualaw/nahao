@@ -255,8 +255,7 @@ class Pay extends NH_User_Controller {
 	            show_error("创建订单失败");
 	        }
 	    }
-
-	    redirect("/pay/order/{$int_order_id}/$payment_method", 'location', 302);
+		redirect("/pay/order/{$int_order_id}/$payment_method", 'location', 302);
 	}
 	
 	
@@ -284,10 +283,27 @@ class Pay extends NH_User_Controller {
 	        redirect('/member/my_order');
 	    }
 	    //var_dump($array_order);die;
+	    #查找该轮的信息(主要是轮的价格)
+	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
+	    #如果是0元免费课程，执行下面的操作
+	    if ($array_round['sale_price'] == '0'){
+	    	#更新订单状态,写日志
+	    	$array_data = array(
+	    	'round_id'=>$array_order['round_id'],
+	    	'user_id'=>$int_user_id,
+	    	'order_id' =>$array_order['id'],
+	    	'status'=>ORDER_STATUS_SUCC,
+	    	'pay_type' =>$payment_method,            #支付方式
+	    	'action'=>ORDER_STATUS_SUCC,             #日志动作
+	    	'note'=>'支付成功'                        #日志记录
+	    	);
+	    	$this->zero_order_action($array_data);
+	    }
 	    $bank_code = config_item('bank_code');
 	    $this->smarty->assign('bank_code', $bank_code);
 	    $this->smarty->assign('array_order', $array_order);
 	    $this->smarty->assign('payment_method', $payment_method);
+	    $this->smarty->assign('sale_price', $array_round['sale_price']);
 	    $this->smarty->display('www/studentCart/toPay.html');   
 	}
 	
@@ -376,7 +392,7 @@ class Pay extends NH_User_Controller {
 	public function payback()
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    //echo 55;
+
 	    //测试页面跳转回调连接
 /* 	   http://www.nahaodev.com/pay/payback?body=%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89&buyer_email=wsbnd9%40gmail.com&buyer_id=2088212220120365&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3InR8tGjRXYpexpaRGyeCWBjSZV1%252BqqtUD1W5T58ANYJw2sMq9G4&notify_time=2014-06-18+14%3A53%3A18&notify_type=trade_status_sync&out_trade_no=1&payment_type=1&seller_email=nahao%40tizi.com&seller_id=2088411963723035&subject=%E7%8E%8B%E8%80%81%E5%B8%88+2014%E5%B9%B4%E4%BA%94%E5%B9%B4%E7%BA%A7%E5%A5%A5%E6%95%B0%E6%9A%91%E5%81%87%E8%AE%AD%E7%BB%83%E8%90%A51&total_fee=0.01&trade_no=2014061831991336&trade_status=TRADE_SUCCESS&sign=d10440f551dd92b30ef83c40839a7d31&sign_type=MD5 */
 
@@ -387,9 +403,9 @@ class Pay extends NH_User_Controller {
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
 	    $paymentChannel = $this->checkPaymentChannel();
-	    //echo 11;
+
 	    do {
-	    	//echo 22;
+
 	        if (empty ($paymentChannel) || $paymentChannel == '') 
 	        {
 	            $response['message'] = '非法支付渠道';
@@ -480,7 +496,7 @@ class Pay extends NH_User_Controller {
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
     	                'action'=>ORDER_STATUS_SUCC,             #日志动作
-    	                'note'=>'支付成功'                          #日志记录
+    	                'note'=>'支付成功'                        #日志记录
 	                );
 	                $bool_result = $this->student_order->update_order_status($array_data);
 	                if (!$bool_result) 
@@ -502,8 +518,7 @@ class Pay extends NH_User_Controller {
 	        }
 	        
 	    }while(false);
-	    //log_message("ERROR_NAHAO",'request_type:'.$payResult['request_type']);
-	    //echo 88;
+
 	    if ( $payResult['request_type'] == 'server' ) #后台调用
 	    {
 	        echo ($payResult['status'] == 1) ? $payResult['response'] : '';
@@ -512,7 +527,6 @@ class Pay extends NH_User_Controller {
 	        {
 	            show_error($response['message']);
 	        } else{
-	        	//echo 99;
 	            redirect('/member/my_order');
 	        }
 	    }
@@ -568,6 +582,24 @@ class Pay extends NH_User_Controller {
 	    } else {
 	        self::json_output(array('status'=>'error','msg'=>'支付失败'));
 	    }
+	}
+	
+	/**
+	 * 如果是0元免费课程,执行下面的操作
+	 */
+	function zero_order_action($array_data)
+	{
+		$this->student_order->update_order_status($array_data);
+		#根据order_id,查找轮以及轮里面的课，添加学生与课的关系
+		$this->student_order->add_student_class_relation($array_data['order_id'],$array_data['user_id']);
+		#添加购买人数,如果是最后一个，将状态改为已售罄
+		$this->student_order->update_round_data($array_data['round_id']);
+		#是否付过费
+		$array_user = $this->_user_detail;
+		if($array_user['has_bought'] == '0')
+		{
+			$this->business_user->modify_user_info(array('has_bought'=>1),$array_data['user_id']);
+		}
 	}
 }
 

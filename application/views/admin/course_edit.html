@@ -1,4 +1,4 @@
-<div class="alert alert-info">添加课程...</div>
+<div class="alert alert-info">{if $action eq 'create'}添加{else}修改{/if}课程</div>
 <form class="form-horizontal" role="form" action="javascript:;">
     {if isset($course) AND $course}
         <input type="hidden" class="col-md-1 form-control" id="id" value="{$course.id}">
@@ -71,7 +71,7 @@
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
                 <input type="text" class="form-control" id="reward" value="{if isset($course.reward)}{$course.reward}{/if}" >
-                <span class="input-group-addon">.00元</span>
+                <span class="input-group-addon">元</span>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
                 <input type="text" class="form-control" id="price" value="{if isset($course.price)}{$course.price}{/if}">
-                <span class="input-group-addon">.00元</span>
+                <span class="input-group-addon">元</span>
             </div>
         </div>
     </div>
@@ -130,13 +130,13 @@
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{get_course_img_by_size($course.img,'large')}" >{/if}
+            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{if isset($course.img)}{get_course_img_by_size($course.img,'large')}{/if}" >{/if}
         </div>
         <div class="col-md-3">
-            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{get_course_img_by_size($course.img,'general')}" >{/if}
+            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{if isset($course.img)}{get_course_img_by_size($course.img,'general')}{/if}" >{/if}
         </div>
         <div class="col-md-3">
-            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{get_course_img_by_size($course.img,'small')}" >{/if}
+            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{if isset($course.img)}{get_course_img_by_size($course.img,'small')}{/if}" >{/if}
         </div>
     </div>
 

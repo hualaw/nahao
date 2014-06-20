@@ -59,13 +59,14 @@
                         <em>*</em>
                         <p class="fl">所在学校</p>
                         <div class="cf schoolPar">
-                            <span class="schoolFullName"></span>
-                            <a href="javascript:void(0);" class="resetSchool">选择学校</a>
+                            <span class="schoolFullName">{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}</span>
+                            <a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
                             <input type="hidden" value="" name="school_id" id="schoolVal" />
+                            <input type="hidden" value="" name="province_id" id="province_id" />
+                            <input type="hidden" value="" name="city_id" id="city_id" />
                             <input type="hidden" value="" name="area_county_id" id="area_county_id"/>
                             <input type="hidden" value="" name="school_type" id="school_type">
                             <input type="hidden" value="" name="schoolname" id="schoolname" />
-                            {include file='common/setSchool.html'}
                         </div>
                         <!--所在学校结束-->
                     </li>
@@ -337,4 +338,5 @@
         </div>
     </div>
 </div>
+{include file='common/setSchool.html'}
 {/block}

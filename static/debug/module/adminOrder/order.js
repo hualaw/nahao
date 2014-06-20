@@ -28,7 +28,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })
@@ -42,7 +42,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })
@@ -74,7 +74,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                     else
                     {
@@ -152,7 +152,7 @@ define(function(require,exports){
                     //alert(msg);
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })

@@ -98,7 +98,10 @@ class NH_Model extends CI_Model
         return $mix_return;
     }
 
-    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, $user_type)
+    /*
+     * $remb_me: 0表示不自动登录，1表示自动登录，默认自动登录
+     */
+    public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, $user_type, $remb_me=1)
     {
 
         if($nickname == '' )
@@ -132,6 +135,7 @@ class NH_Model extends CI_Model
             'email' => $email,
             'reg_type' => $reg_type,
             'user_type' => $user_type, //0表示学生，1表示老师
+            'remb_me' => $remb_me,
         );
         $this->session->set_userdata($userdata);
     }

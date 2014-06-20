@@ -54,13 +54,13 @@
 		            <tr>
 		                <td class="order_id">{$v['id']}</td>
 		                <td class="order_name">
-		                    <h3>{$v['title']} </h3>
+		                    <h3><a href="{$student_url}classroom/enter/{$v['classroom_id']}" title="{$v['title']}">{$v['title']}</a></h3>
 		                </td>
 		                <td class="class_date"><b>{$v['begin_time']|date_format:'%Y:%m:%d'}</b>{$v['begin_time']|date_format:'%H:%M:%S'}</td>
 		                <td class="class_statu">{$v['status_name']}</td>
 		                <td class="class_number">{$v['attendance_persent']}</td>
 		                <td class="class_praise"><a href="/orderList/comment/{$v['id']}">查看评价</a></td>
-		                <td class="class_word"><em class="icon_note"></em><a href="/orderList/count/{$v['id']}">{$v['courseware_name']}</a></td>
+		                <td class="class_word"><em class="icon_note"></em><a href="http://classroom.oa.tizi.com/meeting/preview/{$v['courseware_id']}" target="_blank" title="预览此讲义">{$v['courseware_name']}</a></td>
 		                <td class="class_manage"><a href="/orderList/question/{$v['id']}"><em class="icon_notem"></em></a></td>
 		            </tr>
 	            {/foreach}

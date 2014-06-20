@@ -126,6 +126,20 @@ class Model_Classroom extends NH_Model{
         }
         return $bool_return;
     }
+
+    /**
+     * 取课堂笔记
+     * @param $arr_param
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_note($arr_param){
+        $arr_return = array();
+        if (is_array($arr_param) AND $arr_param) {
+            $arr_return = $this->db->select('*')->from(TABLE_CLASS_NOTE)->where($arr_param)->get()->result_array();
+        }
+        return $arr_return;
+    }
     
     /**
      * 去答题记录表中查看用户是否做过当前批次的题，将这些题的id出来

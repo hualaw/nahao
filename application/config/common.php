@@ -9,26 +9,26 @@ $config['teacher_role'][0] = '主讲';
 $config['teacher_role'][1] = '助教';
 
 //course status
-$config['course_status'][0] = '未审核';
-$config['course_status'][1] = '审核未通过';
-$config['course_status'][2] = '审核通过';
+$config['course_status'][0] = '未审';
+$config['course_status'][1] = '拒审';
+$config['course_status'][2] = '过审';
 $config['course_status'][3] = '暂停';
 $config['course_status'][4] = '关闭';
 
 //round_sell_status
-$config['round_sale_status'][0] = '未审核';
-$config['round_sale_status'][1] = '审核不通过';
-$config['round_sale_status'][2] = '审核通过';//（预售）
-$config['round_sale_status'][3] = '销售中';
-$config['round_sale_status'][4] = '已售罄';
-$config['round_sale_status'][5] = '已停售';//（时间到了还没售罄）
-$config['round_sale_status'][6] = '已下架（手动下架）';
+$config['round_sale_status'][0] = '未审';
+$config['round_sale_status'][1] = '拒审';
+$config['round_sale_status'][2] = '过审';//（预售）
+$config['round_sale_status'][3] = '在售';
+$config['round_sale_status'][4] = '售罄';
+$config['round_sale_status'][5] = '停售';//（销售结束时间到，但没售罄，cron改）
+$config['round_sale_status'][6] = '下架';//（手动下架，恢复时回到未审核）
 
 //round_teach_status
-$config['round_teach_status'][1] = '等待开课';
+$config['round_teach_status'][1] = '未开课';
 $config['round_teach_status'][2] = '授课中';
-$config['round_teach_status'][3] = '停课';//（手动操作）
-$config['round_teach_status'][4] = '结课';
+$config['round_teach_status'][3] = '停课';//手动操作,恢复时回到1或2，需判断
+$config['round_teach_status'][4] = '结课';//上完课cron修改为此状态
 $config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这个状态改为过期)
 
 //性别

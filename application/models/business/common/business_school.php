@@ -45,16 +45,36 @@ class Business_School extends NH_Model{
      * 根据学校ID获取学校的信息
      * @param int      $school_id 学校Id
      * @param string   $fields    要查询的字段
+     * @param bool     $custom_school 用户的学校是否是自定义的
      * return array
      * @author yanhj
      */
-    public function school_info($school_id, $fields = '*')
+    public function school_info($school_id, $fields = '*', $custom_school = false)
     {
         $arr_return = array();
         if($school_id) {
-            $arr_return = $this->db->query("select {$fields} from " . TABLE_NAHAO_SCHOOLS . " where id=?", array($school_id))->row_array();
+            $table = $custom_school ? TABLE_SCHOOLS_CREATE : TABLE_NAHAO_SCHOOLS;
+            $arr_return = $this->db->query("select {$fields} from " . $table . " where id=?", array($school_id))->row_array();
         }
         
         return $arr_return;
+    }
+    
+    /**
+     * 添加用户自填的学校信息
+     * @param Array $insert_data 要插入的数据
+     * @return $int_school_id 新增的学校Id
+     */
+    public function add_custom_school($insert_data)
+    {
+        $school_data = array();
+        !empty($insert_data['province_id']) && $school_data['province_id'] = $insert_data['province_id'];
+        !empty($insert_data['city_id']) && $school_data['city_id'] = $insert_data['city_id'];
+        !empty($insert_data['county_id']) && $school_data['county_id'] = $insert_data['county_id'];
+        !empty($insert_data['schoolname']) && $school_data['schoolname'] = $insert_data['schoolname'];
+        !empty($insert_data['school_type']) && $school_data['sctype'] = $insert_data['school_type'];
+        $this->db->insert(TABLE_SCHOOLS_CREATE, $school_data);
+
+        return $this->db->insert_id();
     }
 }
