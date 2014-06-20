@@ -279,13 +279,6 @@ define(function(require,exports){
                 
             },
             {    
-                ele:".loction",
-                datatype: "*",
-                nullmsg: "请输入选择地区",
-                errormsg: "请选择正确的地区"
-
-            },
-            {    
                 ele:".pEmail",
                 datatype: "e",
                 nullmsg: "请输入邮箱地址",
