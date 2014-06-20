@@ -108,7 +108,8 @@ class Index extends NH_User_Controller {
                     'classroom_id' => $int_classroom_id,
                     'student_id' => $int_student_id,
 //            'content' => $this->boolMagic ? $str_content_db : addslashes($str_content_db),
-                    'content' => mysql_real_escape_string($str_content),
+//                    'content' => mysql_real_escape_string($str_content),
+                    'content' => $str_content,
                     'create_time' => TIME_STAMP,
                     'update_time' => TIME_STAMP
                 );
@@ -132,8 +133,8 @@ class Index extends NH_User_Controller {
         error_reporting(E_ALL);
         ini_set('display_errors', true);
 
-        $int_classroom_id = intval($this->input->post('cid'));
-        $int_student_id = intval($this->input->post('uid'));
+        $int_classroom_id = intval($this->input->get('cid'));
+        $int_student_id = intval($this->input->get('uid'));
 
 //        $int_classroom_id = intval($this->input->get('cid'));
 //        $int_student_id = intval($this->input->get('uid'));
