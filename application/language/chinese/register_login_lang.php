@@ -27,3 +27,4 @@ $lang['login_success'] = '登录成功!';
 $lang['login_password_verify_failed'] = '密码错误';
 $lang['login_unregister_username'] = '用户名密码不匹配';
 $lang['login_invalid_info'] = '登录信息不完整';
+$lang['login_no_previlege'] = '此账户权限不足，请联系管理员开通';
