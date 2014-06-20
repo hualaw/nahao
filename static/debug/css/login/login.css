@@ -53,7 +53,18 @@
 .login .regWrap .goLogin a{width:190px;height:40px;line-height:40px;}
 /*注册样式结束*/
 
+/*   新的登录注册页面  */
+.loginPage{background: #eee;}
+.loginPage .login{padding-bottom: 240px;}
+.login .loginWrap {margin:0 auto;margin-top: 66px;border-top: 3px solid #f14211;box-shadow: 2px 2px 6px rgba(6,7,7,.35), -2px 0px 2px rgba(6,7,7,.35);background: #fff;padding:0 0 0 92px;width: 731px;}
+.login .loginWrap .loginBox{border: none;box-shadow: none;}
+.login .loginBgIco{width: 293px;height: 315px;background:url(../../images/login/loginadIco.png) no-repeat;margin-top: 64px;}
+/*.login .loginWrap .regTab {border: none;width: 343px;}
+.login .loginWrap .tabBox a{width: 171px;}
+.login .loginWrap .regTab{background: #fff;}*/
 
+
+/*loginadIco.png*/
 
 
 
