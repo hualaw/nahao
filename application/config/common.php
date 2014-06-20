@@ -34,7 +34,6 @@ $config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这�
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
-$config['gender'][3] = '保密';
 
 //教育阶段
 $config['stage'][1] = '小学';
