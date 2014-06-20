@@ -250,7 +250,6 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #这个轮里面的所有老师id
         $array_teacher = $this->model_course->get_round_team($int_round_id,$int_type);
-        var_dump($array_teacher).'-----';
 		if($array_teacher)
 		{
 			#common.php里面的数据字典 老师角色
