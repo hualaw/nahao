@@ -8,8 +8,9 @@
 		<li {if $str_type == 'cancel'}class="tabhOn"{/if}><a href="/member/my_order/cancel">已取消<span class="redText">{$cancel_count}</span></a></li>
 		<li {if $str_type == 'refund'}class="tabhOn"{/if} class="norbor"><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
 	</ul>
-	{if $str_type == 'all'}
+	
 	<div class="tabCon">
+		<!-- 全部订单 -->
 		<div class="tabBox">
 			<table>
 				<thead>
@@ -66,7 +67,7 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>			
+						<a href="/member/order_detail/{$item.id}" target="_blank" class="blueText">查看</a>			
 											
 						{if $item.status == '0' || $item.status == '1'}
 						<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>	
@@ -75,11 +76,11 @@
 							<span class="fr"></span>
 						</a>
 						{elseif $item.status == '2' || $item.status == '3'}
-						<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+						<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 						{elseif $item.status == '4' || $item.status == '5'}
 						<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
 						{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
-						<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+						<a href="/member/action/{$item.id}/4" target="_blank" class="blueText">退课详情</a>
 						{/if}
 					</td>
 				</tr>
@@ -89,17 +90,10 @@
 			</table>
 			
 		</div>
-		<div class="undis tabBox">已付款</div>
-		<div class="undis tabBox">未付款</div>
-		<div class="undis tabBox">已取消</div>
-		<div class="undis tabBox">已退款</div>
-	</div>
-	{/if}
-	
-	{if $str_type == 'pay'}
-	<div class="tabCon">
-		<div class="tabBox">
-			<table>
+		
+		<!-- 已付款  -->
+		<div class="undis tabBox">
+					<table>
 				<thead>
 					<tr>
 						<td class="orderName oInfor">订单信息</td>
@@ -154,7 +148,7 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
+						<a href="/member/order_detail/{$item.id}" target="_blank" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
 							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
@@ -164,11 +158,11 @@
 							</a>
 							
 							{elseif $item.status == '2' || $item.status == '3'}
-							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
 							<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
 							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
-							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							<a href="/member/action/{$item.id}/4" target="_blank" class="blueText">退课详情</a>
 							{/if}
 					</td>
 				</tr>
@@ -176,19 +170,11 @@
 				{/if}
 				</tbody>
 			</table>
-<!-- 			{$show_page} -->
 		</div>
-		<div class="undis tabBox">已付款</div>
-		<div class="undis tabBox">未付款</div>
-		<div class="undis tabBox">已取消</div>
-		<div class="undis tabBox">已退款</div>
-	</div>
-	{/if}
 	
-	{if $str_type == 'nopay'}
-	<div class="tabCon">
-		<div class="tabBox">
-			<table>
+		<!-- 未付款 -->
+		<div class="undis tabBox">
+		<table>
 				<thead>
 					<tr>
 						<td class="orderName oInfor">订单信息</td>
@@ -243,7 +229,7 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
+						<a href="/member/order_detail/{$item.id}" target="_blank" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
 							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
@@ -253,11 +239,11 @@
 							</a>
 							
 							{elseif $item.status == '2' || $item.status == '3'}
-							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
 							<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
 							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
-							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							<a href="/member/action/{$item.id}/4" target="_blank" class="blueText">退课详情</a>
 							{/if}
 					</td>
 				</tr>
@@ -265,19 +251,11 @@
 				{/if}
 				</tbody>
 			</table>
-<!-- 			{$show_page} -->
 		</div>
-		<div class="undis tabBox">已付款</div>
-		<div class="undis tabBox">未付款</div>
-		<div class="undis tabBox">已取消</div>
-		<div class="undis tabBox">已退款</div>
-	</div>
-	{/if}
-	
-	{if $str_type == 'cancel'}
-	<div class="tabCon">
-		<div class="tabBox">
-			<table>
+		
+		<!-- 已取消 -->
+		<div class="undis tabBox">
+		<table>
 				<thead>
 					<tr>
 						<td class="orderName oInfor">订单信息</td>
@@ -332,7 +310,7 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
+						<a href="/member/order_detail/{$item.id}" target="_blank" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
 							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
@@ -342,11 +320,11 @@
 							</a>
 							
 							{elseif $item.status == '2' || $item.status == '3'}
-							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
 							<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
 							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
-							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							<a href="/member/action/{$item.id}/4" target="_blank" class="blueText">退课详情</a>
 							{/if}
 					</td>
 				</tr>
@@ -354,19 +332,11 @@
 				{/if}
 				</tbody>
 			</table>
-<!-- 			{$show_page} -->
 		</div>
-		<div class="undis tabBox">已付款</div>
-		<div class="undis tabBox">未付款</div>
-		<div class="undis tabBox">已取消</div>
-		<div class="undis tabBox">已退款</div>
-	</div>
-	{/if}
-	
-	{if $str_type == 'refund'}
-	<div class="tabCon">
-		<div class="tabBox">
-			<table>
+		
+		<!-- 已退款  -->
+		<div class="undis tabBox">
+		<table>
 				<thead>
 					<tr>
 						<td class="orderName oInfor">订单信息</td>
@@ -421,7 +391,7 @@
 					{/if}
 					</td>
 					<td>
-						<a href="/member/order_detail/{$item.id}" class="blueText">查看</a>
+						<a href="/member/order_detail/{$item.id}" target="_blank" class="blueText">查看</a>
 						
 							{if $item.status == '0' || $item.status == '1'}
 							<a href="javascript:void(0);" class="blueText docancel" data-id="{$item.id}" data-type="1" >取消</a><br>
@@ -431,11 +401,11 @@
 							</a>
 							
 							{elseif $item.status == '2' || $item.status == '3'}
-							<a href="/member/action/{$item.id}/3" class="blueText">申请退课</a>
+							<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 							{elseif $item.status == '4' || $item.status == '5'}
 							<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
 							{elseif $item.status == '6' || $item.status == '7' || $item.status == '8' || $item.status == '9'}
-							<a href="/member/action/{$item.id}/4" class="blueText">退课详情</a>
+							<a href="/member/action/{$item.id}/4" target="_blank" class="blueText">退课详情</a>
 							{/if}
 					</td>
 				</tr>
@@ -443,14 +413,9 @@
 				{/if}
 				</tbody>
 			</table>
-<!-- 			{$show_page} -->
 		</div>
-		<div class="undis tabBox">已付款</div>
-		<div class="undis tabBox">未付款</div>
-		<div class="undis tabBox">已取消</div>
-		<div class="undis tabBox">已退款</div>
+		
 	</div>
-	{/if}
 </div>
 {$show_page}
 
