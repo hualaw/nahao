@@ -8,13 +8,9 @@ class NH_Admin_Controller extends NH_Controller
 {
     protected $not_need_login_controller = array('passport');
     protected $arr_admin_init_css = array(
-//        STATIC_ADMIN_CSS_BOOTSTRAP,
-//        STATIC_ADMIN_CSS_NAV
         STATIC_ADMIN_CSS_PUBLIC
     );
     protected $arr_admin_init_js = array(
-//        STATIC_ADMIN_JS_JQUERY_MIN,
-//        STATIC_ADMIN_JS_BOOTSTRAP_MIN
         STATIC_ADMIN_JS_SEA,
         STATIC_ADMIN_JS_CONFIG
     );
@@ -83,7 +79,6 @@ class NH_Admin_Controller extends NH_Controller
      * @return bool
      * @author yanrui@tizi.com
      */
-
     protected function check_admin_login()
     {
         $bool_return = true;

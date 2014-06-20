@@ -18,20 +18,13 @@ class Index extends NH_Admin_Controller
      */
     public function index()
     {
-        redirect('/passport');
-    }
-
-    /**
-     * admin首页
-     * @author yanrui@tizi.com
-     */
-    public function main()
-    {
         $data['str'] = 'welcome! layout!';
 //        o($this->userinfo);
         $this->smarty->assign('view', 'index_main');
         $this->smarty->display('admin/layout.html');
+//        redirect('/passport');
     }
+
 }
 
 /* End of file welcome.php */
