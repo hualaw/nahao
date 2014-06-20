@@ -16,7 +16,7 @@ class Index extends NH_User_Controller {
         {
             redirect(student_url().'login');
         }
-        $this->teacher_id = 216;
+        $this->teacher_id = $this->session->userdata('user_id');
         header("Content-type: text/html; charset=utf-8");
     }
     
@@ -27,7 +27,7 @@ class Index extends NH_User_Controller {
 	public function index()
 	{
 		#1.今日列表
-		$listArr = $this->teacher_b->today_class(array('teacher_id'=>1));
+		$listArr = $this->teacher_b->today_class(array('teacher_id'=>$this->teacher_id));
 		$weekarray = array("日","一","二","三","四","五","六");
 		#3.页面数据
 		$data = array(

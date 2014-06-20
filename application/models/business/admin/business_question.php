@@ -24,6 +24,9 @@ class Business_Question extends NH_Model
                     $options = json_decode($val['options'],true);
 //    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
                     $val['options'] = $options;
+                    if($val['options']) foreach ($val['options'] as &$v){
+		    			$v = urldecode($v);
+		    		}
                 }
             }
         }
@@ -44,11 +47,11 @@ class Business_Question extends NH_Model
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
 //		$param['options']['D'] = !empty($param['D']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['D'])) : '';
 //		$param['options']['E'] = !empty($param['E']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['E'])) : '';
-		$param['options']['A'] = !empty($param['A']) ? $param['A'] : '';
-		$param['options']['B'] = !empty($param['B']) ? $param['B'] : '';
-		$param['options']['C'] = !empty($param['C']) ? $param['C'] : '';
-		$param['options']['D'] = !empty($param['D']) ? $param['D'] : '';
-		$param['options']['E'] = !empty($param['E']) ? $param['E'] : '';
+		$param['options']['A'] = !empty($param['A']) ? urlencode($param['A']) : '';
+		$param['options']['B'] = !empty($param['B']) ? urlencode($param['B']) : '';
+		$param['options']['C'] = !empty($param['C']) ? urlencode($param['C']) : '';
+		$param['options']['D'] = !empty($param['D']) ? urlencode($param['D']) : '';
+		$param['options']['E'] = !empty($param['E']) ? urlencode($param['E']) : '';
 		
 		$input = array(
     		'question' => $param['question'],
@@ -84,15 +87,15 @@ class Business_Question extends NH_Model
     		$options = json_decode($val['options'],true);
 //    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
     		$val['options'] = $options;
-//    		if($val['options']) foreach ($val['options'] as &$v){
-//    			$v = stripslashes($v);
-//    		}
+    		if($val['options']) foreach ($val['options'] as &$v){
+    			$v = urldecode($v);
+    		}
     	}
     	return $list;
     }
     
     /**
-     * 课节添题
+     * 课添题
      * param = [do,question_id,lesson_id]
      */
     public function class_question_doWrite($param){
@@ -105,11 +108,11 @@ class Business_Question extends NH_Model
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
 //		$param['options']['D'] = !empty($param['D']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['D'])) : '';
 //		$param['options']['E'] = !empty($param['E']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['E'])) : '';
-		$param['options']['A'] = !empty($param['A']) ? $param['A'] : '';
-		$param['options']['B'] = !empty($param['B']) ? $param['B'] : '';
-		$param['options']['C'] = !empty($param['C']) ? $param['C'] : '';
-		$param['options']['D'] = !empty($param['D']) ? $param['D'] : '';
-		$param['options']['E'] = !empty($param['E']) ? $param['E'] : '';
+		$param['options']['A'] = !empty($param['A']) ? urlencode($param['A']) : '';
+		$param['options']['B'] = !empty($param['B']) ? urlencode($param['B']) : '';
+		$param['options']['C'] = !empty($param['C']) ? urlencode($param['C']) : '';
+		$param['options']['D'] = !empty($param['D']) ? urlencode($param['D']) : '';
+		$param['options']['E'] = !empty($param['E']) ? urlencode($param['E']) : '';
 		$input = array(
     		'question' => $param['question'],
     		'analysis' => $param['analysis'],
@@ -123,7 +126,7 @@ class Business_Question extends NH_Model
     	#修改
     	if(!empty($param['question_id'])){
     		$input['question_id'] = $param['question_id'];
-    	}
+    	}var_dump($input);
 		return $this->model_question->question_manager($input);
     }
     
