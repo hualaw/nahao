@@ -90,7 +90,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .rotateBox h3{font-size: 14px;}
 .rotateBox .detailInfor{font-size: 12px;margin-top:3px;}
 .rotateBox .courseTitle{position: absolute;bottom: 10px;left: 16px;width: 202px;height: 32px;line-height: 32px;background: url(../../images/common/hoverBg.png) right top no-repeat;}
-.rotateBox .brief{line-height: 20px;padding: 25px 16px 0;}
+.rotateBox .brief{line-height: 20px;padding: 25px 16px 0;font-size: 12px;}
 .studentHomePage .courseList li:hover .iniBox,
 .studentMyCourse .newList li:hover .iniBox{-webkit-transform:rotateY(90deg);-moz-transform:rotateY(90deg);-ms-transform:rotateY(90deg);}
 .studentHomePage .courseList li:hover .rotateBox,
