@@ -67,7 +67,7 @@ class Student_Index extends NH_Model{
         #处理数据
         $array_return['start_time'] = date("m月d日",$array_return['start_time']);
         $array_return['end_time'] = date("m月d日",$array_return['end_time']);
-        $array_return['img'] = empty($array_return['img']) ? static_url(HOME_IMG_DEFAULT) : $array_return['img'];
+        $array_return['img'] = empty($array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
         return $array_return;
     }
     

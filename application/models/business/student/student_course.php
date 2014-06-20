@@ -72,7 +72,7 @@ class Student_Course extends NH_Model{
             #课时
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : $array_return['img'];
+            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
             #评分（四舍五入）
             $array_return['score'] = round($array_return['score']);
             
@@ -250,20 +250,20 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #这个轮里面的所有老师id
         $array_teacher = $this->model_course->get_round_team($int_round_id,$int_type);
-        if (empty($array_teacher))
-        {
-            show_error('无老师信息');
-        }
-        #common.php里面的数据字典 老师角色
-        $array_teacher_role = config_item('teacher_role');
-        #获取老师的具体信息
-        foreach ($array_teacher as $k=>$v)
-        {
-            $array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-            $array_return[$k]['teacher_role'] = $array_teacher_role[$k];
-            #老师头像
-            $array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
-        }
+		if($array_teacher)
+		{
+			#common.php里面的数据字典 老师角色
+			$array_teacher_role = config_item('teacher_role');
+			#获取老师的具体信息
+			foreach ($array_teacher as $k=>$v)
+			{
+				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
+				$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
+				#老师头像
+				$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+			}
+		}
+
         return $array_return;
     }
     
@@ -339,7 +339,6 @@ class Student_Course extends NH_Model{
         $array_team = $this->get_round_team($int_round_id);
         #即将开始的课的信息
         $array_soon = $this->model_course->get_soon_class_data($int_round_id);
-        //var_dump($array_soon);
         #已经上了几节课
         $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
         #总共有几节课
@@ -347,14 +346,15 @@ class Student_Course extends NH_Model{
         #上课节数比例
         $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
         #组合数据
-        $array_return['round_id'] = $array_round['id'];
-        $array_return['title'] = $array_round['title'];
-        $array_return['team'] = $array_team;
-        $array_return['soon_class_title'] = $array_soon['title'];
-        $array_return['soon_class_stime'] = $array_soon['begin_time'];
-        $array_return['class'] = $int_num; 
-        $array_return['class_rate'] = $class_rate;
-        $array_return['classroom_id'] = $array_soon['classroom_id'];
+        $array_return['round_id'] = $array_round['id'];					#轮的id
+        $array_return['title'] = $array_round['title'];					#轮的标题
+        $array_return['team'] = $array_team;							#教室团队
+        $array_return['soon_class_title'] = $array_soon['title'];		#即将开始课的节
+        $array_return['soon_class_stime'] = $array_soon['begin_time'];	#课的开始时间
+        $array_return['class'] = $int_num; 								#已经上了几节课
+        $array_return['class_rate'] = $class_rate;						#上课节数比例
+        $array_return['classroom_id'] = $array_soon['classroom_id'];	#教室id
+        $array_return['status'] = $array_soon['status'];				#课的状态
         return $array_return;
     }
     

@@ -34,6 +34,7 @@
 		<div class="courseBox">
 			<div class="layout">
 				<ul class="cf courseList">
+					{if $array_data}
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
@@ -65,10 +66,11 @@
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
+							<p class="courseTitle" title="{$item.title}">{$item.title|truncate:16:"...":true}</p>
 						</div>
 					</li>
 					{/foreach}
+					{/if}
 				</ul>
 			</div>
 		</div>
@@ -159,7 +161,7 @@
 					<p class="fp">
 						<a href="">那好期待与您的合作</a>
 						<a href="javascript:vold(0);" class="phoneHref">400-680-1818</a>
-						<a href="" class="mess">someone@nahao.com</a>
+						<a href="" class="mess">hezuo@nahao.com</a>
 					</p>
 				</div>
 			</div>
