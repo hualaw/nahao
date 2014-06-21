@@ -126,7 +126,7 @@ class Business_Question extends NH_Model
     	#修改
     	if(!empty($param['question_id'])){
     		$input['question_id'] = $param['question_id'];
-    	}var_dump($input);
+    	}
 		return $this->model_question->question_manager($input);
     }
     
