@@ -96,11 +96,15 @@
 	                        <li class="cf">
 
 								{if $it.status=='1'}
-								    <a href="" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
+								    <a href="javascript:;" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
 								{elseif $it.status=='2'}
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="可进教室了" class="goClass cBtn fl">去上课</a>
 								{elseif $it.status=='3'}
-									<a href="" class="replay cBtn fl">已结课</a>									
+									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
+								{elseif $it.status=='4'}
+									<a href="javascript:;" class="replay cBtn fl">缺课</a>	
+								{elseif $it.status=='5'}
+									<a href="javascript:;" class="replay cBtn fl">停课</a>								
 								{/if}
 	                            <div class="fr rCon">
 	                            	{if $smarty.foreach.son.last && $smarty.foreach.parent.last}

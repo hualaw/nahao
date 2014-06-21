@@ -26,6 +26,5 @@ define(function(require,exports){
     require("module/studentCart/valid").inforCheckForm();
     // 发送手机验证码
     require("module/studentCart/valid").sendValidateCode();
-    
 
 })
