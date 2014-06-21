@@ -31,6 +31,14 @@ define(function(require,exports){
     				    content:data.msg,
     				    icon:null
     				});
+                } else if(data.status == "been_buy"){
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.href="/member/my_order/all";
+    				    }
+    				});
                 } else if(data.status == "ok"){
                 	window.location.href="/pay/neworder/"+data.data.product_id;
                 } else if(data.status =='no_login'){
