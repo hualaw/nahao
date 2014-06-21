@@ -53,10 +53,9 @@ define(function (require, exports) {
         });
         //提交表单
         $("#question_submit").click(function(){
-			re = question_manage.subCheck();
-			return false;
+//			re = question_manage.subCheck();
 //			if(re){
-//				document.getElementById('question_form').submit();
+				document.getElementById('question_form').submit();
 //			}else{
 //				$('.statusMsg').html('<b class="red">请检查表单遗漏！</b>');
 //				return false;
@@ -66,21 +65,21 @@ define(function (require, exports) {
     //验证表单
     exports.subCheck = function(){
     	flag = 1;
-//		if(!$('#question').val()){
-//			alert('题目内容必须填写');
-//			flag = 0;
-//			return false;
-//		}
+		if(!$('#question').val()){
+			alert('题目内容必须填写');
+			flag = 0;
+			return false;
+		}
 		if(!($("input[name='answer[]']:checked").length>0)){
 			alert('正确答案必选');
 			flag = 0;
 			return false;
 		}
-//		if(!$('#analysis').val()){
-//			alert('题目解析必须填写');
-//			flag = 0;
-//			return false;
-//		}
+		if(!$('#analysis').val()){
+			alert('题目解析必须填写');
+			flag = 0;
+			return false;
+		}
 		if(!$('#option-A').val()){
 			alert('A选项必须填写');
 			flag = 0;
