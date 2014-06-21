@@ -20,19 +20,19 @@
                         <option value="">班级名次</option>
                         {if $data['listArr']}
 	                    	{foreach $data['listArr'] as $key=>$val}
-                        		<option value="{$val['id']}">{$val['id']}</option>
+                        		<option value="{$val['id']}" {if $data['query_param']['id']==$val['id']}selected{/if}>{$val['id']}</option>
                         	{/foreach}
                         {/if}
                     </select>
                 </li>
                 <li class="seachLi">
-                    <input name="title" type="text" value="" placeholder="要搜索的班次名" class="textInput"/>
+                    <input name="title" type="text" value="{$data['query_param']['title']}" placeholder="要搜索的班次名" class="textInput"/>
                 </li>
                 <li class="seachLi">
                     <select name="teach_status" id="" class="fl">
                         <option value="">课程状态</option>
                         {foreach $data['teach_status_list'] as $key=>$val}
-                        	<option value="{if $key==0}-1{else}{$key}{/if}">{$val}</option>
+                        	<option value="{if $key==0}-1{else}{$key}{/if}" {if $data['query_param']['teach_status']==$key}selected{/if}>{$val}</option>
                         {/foreach}
                     </select>
                 </li>
@@ -40,15 +40,15 @@
                     <select name="course_type" id="" class="fl">
                         <option value="">课程类型</option>
                         {foreach $data['course_type_list'] as $val}
-                        	<option value="{$val['id']}">{$val['name']}</option>
+                        	<option value="{$val['id']}" {if $data['query_param']['course_type']==$val['id']}selected{/if}>{$val['name']}</option>
                         {/foreach}
                     </select>
                 </li>
                 <li class="seachLi">
-                   <input type="text" name="start_time" value="" placeholder="班次开始时间" class="textInput textTime startClassTime"/>
+                   <input type="text" name="start_time" value="{$data['query_param']['start_time']|date_format:'%Y-%m-%d'}" placeholder="班次开始时间" class="textInput textTime startClassTime"/>
                 </li>
                 <li class="seachLi">
-                    <input type="text" name="end_time" value="" placeholder="班次结束时间" class="textInput textTime endClassTime"/>
+                    <input type="text" name="end_time" value="{$data['query_param']['end_time']|date_format:'%Y-%m-%d'}" placeholder="班次结束时间" class="textInput textTime endClassTime"/>
                 </li>
                 <li class="seachLi">
                     <input type="submit" value="搜索" class="lbutton"/>
@@ -74,7 +74,7 @@
             		<tr {if $val['teach_status']==0}class="start"{elseif $val['teach_status']==3}class="end"{/if}>
             			<td class="order_id">{$val['id']}</td>
 		                <td class="order_name">
-		                    <h3><a href="{$student_url}classroom/enter/{$val['classroom_id']}" title="{$val['class_name']}">{$val['class_name']}</a></h3>
+		                    <h3><a {if in_array($val['class_status'],array(1,2))}href="{$student_url}classroom/enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} title="{$val['class_name']}">{$val['class_name']}</a></h3>
 		                    <p>{$val['title']}</p>
 		                </td>
 		                <td class="class_date"><b>{$val['class_start_time']|date_format:'%Y-%m-%d'}</b>{$val['class_start_time']|date_format:'%H: %M: %S'}</td>
