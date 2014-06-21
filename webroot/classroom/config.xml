@@ -2,8 +2,7 @@
 <url>
 	<domain></domain>
 	<server>
-        <ol>42.121.114.19</ol>
-		<!--<ol>115.29.220.31</ol>-->
+        <ol>42.159.84.157</ol>
 		<pys>
 			<py>14.18.206.3</py>
 			<py>54.251.110.86</py>
@@ -12,7 +11,7 @@
 			<py>207.46.150.29</py>
 		</pys>
 	</server>
-	<sevport>4443</sevport>
+	<sevport>21443</sevport>
 	<phDome></phDome>
 	<version>5</version>
 	<IpConfig>
