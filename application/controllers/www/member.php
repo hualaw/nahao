@@ -309,6 +309,12 @@ class Member extends NH_User_Controller {
                 $this->business_user->modify_user($post_data, $this->session->userdata('user_id'));
                 $this->session->set_userdata('nickname', $post_data['nickname']);
             }
+            $post_data['email'] = trim($this->input->post('email'));
+            if($post_data['email'] && empty($this->_user_detail['email'])) {
+                #如果之前没有设置过邮箱才可以修改
+                $this->business_user->modify_user(array('email' => $post_data['email']), $this->session->userdata('user_id'));
+                $this->session->set_userdata('email', $post_data['email']);
+            }
             $post_data['realname'] = trim($this->input->post('realname'));
             $post_data['grade'] = intval($this->input->post('grade'));
             $post_data['gender'] = intval($this->input->post('gender'));

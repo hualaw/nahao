@@ -197,7 +197,9 @@ define(function(require,exports){
                 ele:".pEmail",
                 datatype: "e",
                 nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址"
+                errormsg: "请输入正确的邮箱地址",
+                ajaxurl:'/member/check_email_availability/',
+                ajaxUrlName:'email'
 
             },
             {    
@@ -282,7 +284,9 @@ define(function(require,exports){
                 ele:".pEmail",
                 datatype: "e",
                 nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址"
+                errormsg: "请输入正确的邮箱地址",
+                ajaxurl:'/member/check_email_availability/',
+                ajaxUrlName:'email'
 
             },
             {    

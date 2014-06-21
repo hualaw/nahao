@@ -7,7 +7,7 @@
 	    </p>
 	    <h2 class="cf">
 	    	<span class="myGrade">{$grades[$user_detail.grade]}</span>
-	    	<span>{if $user_detail.realname}{$user_detail.realname}{else}{$userdata.nickname}{/if}</span>
+	    	<span>{if $user_detail.realname}{$user_detail.realname|truncate:10:''}{else}{$userdata.nickname|truncate:10:''}{/if}</span>
 	    </h2>
     </div>
     <div class="menu">
