@@ -18,6 +18,7 @@ class Classes extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index () {
+//        test_nahao_classroom('api/meetings/162/files/');
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
         if($int_round_id > 0){
@@ -77,7 +78,11 @@ class Classes extends NH_Admin_Controller {
 
     public function enter(){
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
+        $this->session->userdata('user_type',NH_MEETING_TYPE_ADMIN);
+        o($this->session->userdata('user_type'),true);
+        $this->session->userdata('user_id',$this->userinfo('id'));
+        $this->session->userdata('nickname',$this->userinfo('yanrui'));
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_ADMIN);
         echo $str_iframe;exit;
 //        self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER);
     }
