@@ -68,7 +68,7 @@ class Business_Teacher extends NH_Model
      	$res = $this->model_teacher->round_seacher($param);
      	#统计的情况
      	if(!empty($param['counter'])){return $res[0]['total'];}
-     	if($res) foreach($res as &$val){
+     	if($res) foreach($res as $key => &$val){
      		$val['status_name'] = $round_teach_status[$val['teach_status']];
      		#全部
      		$total_param_item = array(
@@ -91,8 +91,43 @@ class Business_Teacher extends NH_Model
      		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      		$total = $this->model_teacher->class_seacher($already_param_item);
      		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     		#查找当前进度节
+     		$val['cur_class'] = $this->round_progress(array('round_id'=>$val['id']));
      	}
      	return $res;
+     }
+     
+     /**
+      * 轮循环中获取当前进度节信息
+      * 1. 有即将开课显示该课
+      * 2. 没有即将开课显示结课的最后一课
+      **/ 
+     public function round_progress($param){
+     	if(empty($param['round_id'])){exit('轮id不能为空');}
+     	$input = array(
+     		'round_id'=>$param['round_id'],
+     		'status'=>'0,1',
+     		'parent_id' => -2,//只获取节
+     		'order' => 2,//按开始时间
+     		'limit' => '1',
+     	); 
+     	#1. 查看是否有即将开课的课，显示最前一个
+     	$class = $this->model_teacher->class_seacher($input);
+     	if(!empty($class[0])){
+     		$cur_class = $class[0];
+     	}else{
+     		$input = array(
+	     		'round_id'=>$param['round_id'],
+	     		'status'=>'3',
+	     		'parent_id' => -2,//只获取节
+	     		'order' => 2,//按开始时间
+	     		'orderType' => 2,
+	     		'limit' => '1',
+	     	);
+	     	#2. 查看是否有结课的课，显示最后一个
+     		$class = $this->model_teacher->class_seacher($input);
+     	}
+     	return !empty($class[0]) ? $class[0] : array();
      }
      
      /**
@@ -100,7 +135,7 @@ class Business_Teacher extends NH_Model
       **/
      public function round_status_count($param){
      	$param['teacher_id'] = !empty($param['teacher_id']) ? $param['teacher_id'] : '';
-     	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+     	if(empty($param['teacher_id'])){exit('请检查您的登录状态');}
      	$res = array();
      	$status_array = config_item('round_teach_status');
      	#全部
@@ -166,13 +201,13 @@ class Business_Teacher extends NH_Model
      			
      			$count['j_count'] += isset($val['jArr']) ? count($val['jArr']) : 0;
      			if(isset($val['jArr'])) foreach ($val['jArr'] as $v){
-     				$val['status'] = !empty($val['status']) ? $val['status'] : 0;
-     				$count['j_status_5'] += $val['status'] == 5 ? 1 : 0;
-	     			$count['j_status_4'] += $val['status'] == 4 ? 1 : 0;
-	     			$count['j_status_3'] += $val['status'] == 3 ? 1 : 0;
-	     			$count['j_status_2'] += $val['status'] == 2 ? 1 : 0;
-	     			$count['j_status_1'] += $val['status'] == 1 ? 1 : 0;
-	     			$count['j_status_0'] += $val['status'] == 0 ? 1 : 0;
+     				$v['status'] = !empty($v['status']) ? $v['status'] : 0;
+     				$count['j_status_5'] += $v['status'] == 5 ? 1 : 0;
+	     			$count['j_status_4'] += $v['status'] == 4 ? 1 : 0;
+	     			$count['j_status_3'] += $v['status'] == 3 ? 1 : 0;
+	     			$count['j_status_2'] += $v['status'] == 2 ? 1 : 0;
+	     			$count['j_status_1'] += $v['status'] == 1 ? 1 : 0;
+	     			$count['j_status_0'] += $v['status'] == 0 ? 1 : 0;
      			}
      		}
      	}
@@ -340,8 +375,7 @@ class Business_Teacher extends NH_Model
     	#1. 统计的情况
     	if(empty($param['class_id']) && empty($param['classroom_id'])){exit('缺少必要课堂参数');}
     	$question = $this->model_teacher->question_seacher($param);
-    	
-    	if(!empty($param['counter'])){return isset($param['counter']) ? $param['counter'] : 0;}
+    	if(!empty($param['counter'])){return isset($param['counter']) ? $question[0]['total'] : 0;}
     	#2. 列表的情况
     	$sequence_question = array();
     	if($question) foreach($question as &$val){
@@ -384,7 +418,7 @@ class Business_Teacher extends NH_Model
     			$choose = isset($total[0]['total']) ? $total[0]['total'] : 0;
     			$option_total += $choose;//总选项包含数
     			$v = array(
-    				'value' => $v,
+    				'value' => urldecode($v),
     				'total' => $choose,
     				'is_correct' => (strpos('-'.$val['answer'],$k) ? 1 : 0),
     				//注意此比率表示多少人的选择包含该选项，总比率不一定为100%，若要100%请使用方案2代码
