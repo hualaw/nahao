@@ -8,4 +8,10 @@
     nahao_schools
     nahao_areas
 
+含有初始化数据的表有：
+    nahao_schools 279222条
+    nahao_areas 3485条
+    lesson 1条
+    class 1条
+
 nahao_db_init.sql文件持续维护。
