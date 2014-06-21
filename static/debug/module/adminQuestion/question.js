@@ -1,6 +1,7 @@
 define(function (require, exports) {
 	//入口脚本
 	exports.init = function(){
+		question_manage = this;
 		this.autorun();
 		this.operation();
 		this.load_ckeditor();
@@ -10,7 +11,7 @@ define(function (require, exports) {
 		$(function () {
 //			curtab = $("#myTab").attr('rel');
 //			$('#myTab a[href="#'+curtab+'"]').tab('show');
-			$('#myTab a[href="#question_list"]').tab('show')
+			$('#myTab a[href="#question_list"]').tab('show');
 		});
 	}
 	//加载编辑器
@@ -52,32 +53,34 @@ define(function (require, exports) {
         });
         //提交表单
         $("#question_submit").click(function(){
-			re = this.subCheck();
-			if(re){
-				document.getElementById('question_form').submit();
-			}else{
-				$('.statusMsg').html('<b class="red">请检查表单遗漏！</b>');
-			}
+			re = question_manage.subCheck();
+			return false;
+//			if(re){
+//				document.getElementById('question_form').submit();
+//			}else{
+//				$('.statusMsg').html('<b class="red">请检查表单遗漏！</b>');
+//				return false;
+//			}
 		});
     }
     //验证表单
     exports.subCheck = function(){
     	flag = 1;
-		if(!$('#question').val()){
-			alert('题目内容必须填写');
-			flag = 0;
-			return false;
-		}
+//		if(!$('#question').val()){
+//			alert('题目内容必须填写');
+//			flag = 0;
+//			return false;
+//		}
 		if(!($("input[name='answer[]']:checked").length>0)){
 			alert('正确答案必选');
 			flag = 0;
 			return false;
 		}
-		if(!$('#analysis').val()){
-			alert('题目解析必须填写');
-			flag = 0;
-			return false;
-		}
+//		if(!$('#analysis').val()){
+//			alert('题目解析必须填写');
+//			flag = 0;
+//			return false;
+//		}
 		if(!$('#option-A').val()){
 			alert('A选项必须填写');
 			flag = 0;
