@@ -40,6 +40,7 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('teacher_url', teacher_url());
         $this->smarty->assign('admin_url', admin_url());
         $this->smarty->assign('student_url', student_url());
+        $this->smarty->assign('qiniu_url', NH_QINIU_URL);
 
         $static_version = config_item('static_version');
         $this->smarty->assign('static_version', $static_version);
