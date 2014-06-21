@@ -3,7 +3,7 @@ define(function(require,exports){
     exports.pay_click_submit = function (){
     	// 点击网银支付按钮
     	$("#click_banks").click(function(){
-    		$(".onlineBank form").submit();
+            $(".onlineBank form").submit();
     	});
     	// 点击信用卡支付按钮
     	$("#click_credit").click(function(){
@@ -12,6 +12,7 @@ define(function(require,exports){
     	// 点击支付宝支付按钮
     	$("#click_alipayLi").click(function(){
     		$(".alipayBox form").submit();
+    		
     	});
     }
     

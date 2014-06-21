@@ -33,7 +33,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($array_evaluate);
+        //var_dump($array_team);
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
@@ -78,7 +78,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-		//var_dump($array_data);die;
+		//var_dump($array_classmate);die;
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
@@ -180,7 +180,7 @@ class Course extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login){
-	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录','data'=>$this->session->all_userdata()));
+	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录'));
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);
@@ -223,12 +223,15 @@ class Course extends NH_User_Controller {
     	            break;
 	       }
         }
+        
+        #购买前加入没有名额的判断
+        $array_round = $this->model_course->get_round_info($int_product_id);
+        if ($array_round['bought_count'] == 100)
+        {
+        	self::json_output(array('status'=>'error','msg'=>'这轮已售罄了'));
+        }
 
 	 }
-	 
-
-	 
-
 }
 
 /* End of file welcome.php */

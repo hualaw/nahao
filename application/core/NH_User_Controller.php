@@ -261,4 +261,25 @@ class NH_User_Controller extends NH_Controller
         
         self::json_output($arr_return);
     }
+    
+    /**
+     * 检查邮箱是否可用
+     */
+    public function check_email_availability()
+    {
+        $arr_return = array('status' => ERROR);
+        $email = trim($this->input->post('email'));
+        if($email == $this->session->userdata('email')) {
+            #用户邮箱未做更改直通过验证，这块是为了前台validFrom验证通过
+            $arr_return['status'] = SUCCESS;
+            self::json_output($arr_return);
+        }
+        $user_info = $this->business_user->get_user_by_email($email);
+        if(isset($user_info['id'])) {
+            $arr_return = array('status' => ERROR, 'info' => '该邮箱已绑定其他账户');
+        } else {
+            $arr_return = array('status' => SUCCESS, 'info' => '邮箱可用');
+        }
+        self::json_output($arr_return);
+    }
 }

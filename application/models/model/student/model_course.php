@@ -203,7 +203,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT title,begin_time,end_time,classroom_id,status FROM class WHERE round_id = ".$int_round_id." 
-                AND status = 1 AND parent_id > 0";
+                AND status = 1 AND parent_id !=0";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }

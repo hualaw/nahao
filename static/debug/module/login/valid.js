@@ -260,7 +260,9 @@ define(function(require,exports){
                 ele:".lEmail",
                 datatype: "e",
                 nullmsg: "请输入邮箱地址",
-                errormsg: "长度6-30个字符"
+                errormsg: "请输入正确格式的邮箱",
+                ajaxurl:'/member/check_email_availability',
+                ajaxUrlName:'email'
             },
             {    
                 ele: ".lname",
