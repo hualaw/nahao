@@ -19,7 +19,6 @@ class ten_minute extends NH_Controller
         foreach ($methods as $method) {
         	call_user_func(array($this, $method));
         }
-
     }
 
     /**
