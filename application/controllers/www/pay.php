@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Pay extends NH_User_Controller {
 
     function __construct(){
@@ -107,8 +108,13 @@ class Pay extends NH_User_Controller {
     	$phone = get_pnum_phone_server($int_user_id);
     	#获取用户真实姓名
     	$array_user = $this->_user_detail;
-    	#$array_user = $this->model_member->get_user_infor($int_user_id);
     	 
+    	#检查用户是否已经买了该轮
+    	$array_result = $this->model_order->check_product_in_order($int_product_id,$int_user_id);
+    	if ($array_result['0']['status'] >1)
+    	{
+    		self::json_output(array('status'=>'','msg'=>'您已经买过该轮了,请不要重复下单'));
+    	}
     	if ($array_user['realname'])
     	{
             	if (empty($phone))
@@ -207,6 +213,8 @@ class Pay extends NH_User_Controller {
             	    }
             	}
     	    }
+    	    
+
 	
 	}
 	
@@ -309,7 +317,11 @@ class Pay extends NH_User_Controller {
 	 */
 	public function request($int_order_id=ORDER_START_VALUE)
 	{
-	    header('content-type: text/html; charset=utf-8');
+	    #判断是否登录
+	    if(!$this->is_login)
+	    {
+	     	redirect('/login');
+	    }
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $str_nickname = $this->session->userdata('nickname');
 	    #根据order_id获取订单信息
@@ -320,10 +332,18 @@ class Pay extends NH_User_Controller {
 	        show_error('订单不存在'); 
 	    }
 	    
-	    if($array_order['status'] > 1)
+/* 	    if($array_order['status'] > 1)
 	    {
 	        #我的订单
 	        redirect('/member/my_order');
+	    } */
+	    $int_user_id = $this->session->userdata('user_id');
+	    #检查用户是否买过该订单里的这轮，防止重复购买
+	    $array_result = $this->model_order->check_product_in_order($array_order['round_id'],$int_user_id);
+	    //var_dump($array_result);die;
+	    if ($array_result['0']['status'] >1)
+	    {
+	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
 	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
 	    $method = $this->input->post('method');

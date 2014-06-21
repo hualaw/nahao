@@ -290,10 +290,17 @@ class Student_Course extends NH_Model{
             {
                 #用户信息
                 $array_result = $this->model_member->get_user_infor($v['student_id']);
+                if (empty($array_result))
+                {
+                	unset($array_return[$k]);
+                	break;
+                } else {
+                	#处理数据
+                	$array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
+                	$array_return[$k]['nickname'] = $array_result['nickname'];
+                }
                 
-                #处理数据
-                $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
-                $array_return[$k]['nickname'] = $array_result['nickname'];
+
             }
         }
         return $array_return;
@@ -320,9 +327,11 @@ class Student_Course extends NH_Model{
                     $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
                 } else {
                     #获取发布者的信息
-                    $array_result = $this->model_member->get_user_infor($v['author']);                  
+                    $array_result = $this->model_member->get_user_infor($v['author']);
+
                     $array_return[$k]['nickname'] = isset($array_result['nickname'])  ? $array_result['nickname'] : '';
                     $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
+          
                 }
             }
         }
