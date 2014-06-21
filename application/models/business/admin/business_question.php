@@ -42,6 +42,8 @@ class Business_Question extends NH_Model
     	$param['answer'] = join($param['answer'],',');
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
+		#验证
+		$this->check_param($param);
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';
 //		$param['options']['B'] = !empty($param['B']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['B'])) : '';
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
@@ -52,7 +54,6 @@ class Business_Question extends NH_Model
 		$param['options']['C'] = !empty($param['C']) ? urlencode($param['C']) : '';
 		$param['options']['D'] = !empty($param['D']) ? urlencode($param['D']) : '';
 		$param['options']['E'] = !empty($param['E']) ? urlencode($param['E']) : '';
-		
 		$input = array(
     		'question' => $param['question'],
     		'analysis' => $param['analysis'],
@@ -70,6 +71,18 @@ class Business_Question extends NH_Model
 		return $this->model_question->question_manager($input);
     }
     
+    /**
+     * 验证参数
+     **/
+    public function check_param($param){
+    	foreach ($param as $key => $val){
+    		if(empty($val) && $key != 'E'){
+    			echo '<script>alert("'.$key.'不能为空，请重新填写");history.go(-1);</script>';
+    			exit;
+    		}
+    	}
+    }
+     
     /**
      * 课节删题
      * param = [do,question_id,lesson_id]
@@ -103,6 +116,8 @@ class Business_Question extends NH_Model
         $param['answer'] = isset($param['answer']) ? (join($param['answer'],',')) : '';
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
+		#验证
+		$this->check_param($param);
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';
 //		$param['options']['B'] = !empty($param['B']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['B'])) : '';
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
