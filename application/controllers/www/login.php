@@ -172,14 +172,14 @@ class login extends NH_Controller
         //param 是validFrom的固定写法
         $email = $this->input->post('email');
         $user_info = $this->business_user->get_user_by_email($email);
-        if($user_info['id']) {
+        if(isset($user_info['id'])) {
             $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
         } else {
             $arr_return = array('status' => ERROR, 'info' => '该邮箱未于任何用户绑定');
         }
         self::json_output($arr_return);
     }
-    
+        
     public function submit()
     {
         $username = trim($this->input->post('username'));
