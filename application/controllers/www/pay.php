@@ -111,9 +111,10 @@ class Pay extends NH_User_Controller {
     	 
     	#检查用户是否已经买了该轮
     	$array_result = $this->model_order->check_product_in_order($int_product_id,$int_user_id);
-    	if ($array_result['0']['status'] >1)
+    	
+    	if ($array_result && $array_result[0]['status'] >1)
     	{
-    		self::json_output(array('status'=>'','msg'=>'您已经买过该轮了,请不要重复下单'));
+    		self::json_output(array('status'=>'been_buy','msg'=>'您已经买过该轮了,请不要重复下单'));
     	}
     	if ($array_user['realname'])
     	{
