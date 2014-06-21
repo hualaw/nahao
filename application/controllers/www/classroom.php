@@ -45,7 +45,7 @@ class Classroom extends NH_User_Controller {
 	public function get_exercise()
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_user_id = $this->session->userdata('user_id'); #TODO
+/* 	    $int_user_id = $this->session->userdata('user_id'); #TODO
 	    #课id
 	    $int_class_id = $this->input->post('class_id');
 	    //$int_class_id = 4;
@@ -60,9 +60,12 @@ class Classroom extends NH_User_Controller {
 	    if ($int_max_sequence == '0')
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'老师没有出题'));
-	    }
+	    } */
+	    $int_class_id = 228;
+	    $int_max_sequence = 1;
+	    $int_user_id = 149;
 	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence,$int_user_id);
-	    //var_dump($array_data['data']);
+	    var_dump($array_data['data']);
 	    if ($array_data['status'] == 'ok') {
 	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data['data']));
 	    } else {

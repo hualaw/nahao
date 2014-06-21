@@ -26,7 +26,7 @@ class Student_Classroom extends NH_Model{
         //var_dump($array_qid); echo '----';
         #去答题记录表中查看用户是否做过当前批次的题，将这些题的id出来
         $array_qid_done = $this->get_student_question_qid($int_class_id,$int_max_sequence,$int_user_id);
-        //var_dump($array_qid_done);die;
+        $array_qid_done = array();
         if (empty($array_qid))
         {
             $array_return = array('status'=>'error','msg'=>'获取练习题失败');
@@ -45,7 +45,15 @@ class Student_Classroom extends NH_Model{
             {
                 $array_infor = $this->model_classroom->get_question_infor($v);
                 #处理数据
-                $array_infor['options'] = json_decode($array_infor['options'],true);
+                if ($array_infor && $array_infor['options']){
+                	$array_infor['options'] = json_decode($array_infor['options'],true);
+                	foreach ($array_infor['options'] as $kk=>$vv)
+                	{
+                		$array_infor['options'][$kk] = urldecode($vv);
+                	}
+                } else {
+                	$array_infor['options'] = array();
+                }               
                 $array_infor['sequence'] = $int_max_sequence;
                 $array_infor['class_id'] = $int_class_id;
                 $array_data[] = $array_infor;
