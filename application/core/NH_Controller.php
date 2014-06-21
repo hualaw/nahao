@@ -152,6 +152,43 @@ class NH_Controller extends CI_Controller
 //        $this->smarty->assign('view', 'classroom');
 //        $this->smarty->display('admin/layout.html');
     }
+    
+    /**
+     * send official email of nahao
+     * @param string $email_address
+     * @param string $subject
+     * @param string $email_content
+     * @return array
+     */
+    public function send_email($email_address, $subject, $email_content)
+    {
+        $arr_return = array();
+        if(!(is_email($email_address) && $subject && $email_content)) {
+            $arr_return = array('status' => ERROR, 'info' => '参数错误');
+            return $arr_return;
+        }
+        $this->load->library('mail');
+        $ret = $this->mail->send($email_address, $subject, $email_content);
+        if($ret['ret'] == 1) {
+            //store this  emailinformation into redis
+			$this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
+            $duration = 86400;
+            $save_data = array(
+                'email' => $email_address,
+                'send_time' => time(),
+                'subject' => $subject
+            );
+            $this->cache->redis->set(md5($email_address), json_encode($save_data), $duration);
+            $arr_return['status'] = SUCCESS;
+            $arr_return['info'] = '发送成功';
+        } else {
+            $arr_return['status'] = ERROR;
+            $arr_return['info'] = '发送失败,请检查邮件地址是否正确';
+        }
+        
+        return $arr_return;
+    }
 
 }
 
