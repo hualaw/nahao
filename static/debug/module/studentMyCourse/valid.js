@@ -184,7 +184,9 @@ define(function(require,exports){
                 ele: ".pname",
                 datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度2-15个字符"
+                errormsg:"长度2-15个字符",
+                ajaxurl:"/member/validate_user_nickname",
+                ajaxUrlName:'nickname',
             },
             {    
                 ele:".loction",
