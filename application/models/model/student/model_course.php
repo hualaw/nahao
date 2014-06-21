@@ -29,7 +29,8 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,
-                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward
+                price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,
+                grade_to,grade_from
                 FROM round WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
