@@ -15,20 +15,30 @@
 <!-- 主要内容开始 -->
 <div class="wrap studentHomePage" id="nahaoModule" module="studentHomePage">
 	<div class="contop">
-		<!-- homePage Content nav -->
-		<div class="conNav">
-			<p>名师亲授</p>
-			<p>实时互动</p>
-			<p class="prompt">-享受最适合你的课堂-</p>
-			<div class="addBtn">
-				<a href="" class="transBtn">我是老师</a>
-				<span>
-					<var class="addLine"></var>
-					<em>加入</em>
-					<var class="addLine"></var>
-				</span>
-				<a href="" class="transBtn">我是学生/家长</a>
-			</div>
+		<!-- 首页轮播 -->
+		<div class="roll">
+			<ul class="cf">
+				<li class="fl rollshow">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+				<li class="fl">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+				<li class="fl">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+			</ul>
+			<!-- <ol class="cf rollNav">
+				<li class="fl active"></li>
+				<li class="fl"></li>
+				<li class="fl"></li>
+			</ol> -->
 		</div>
 		<!-- course show -->
 		<div class="courseBox">
@@ -38,6 +48,7 @@
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
+							<div class="courseFree"></div>
 							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
 								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
@@ -51,7 +62,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html">
+						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
 							<div class="teaInfor cf">
 								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">

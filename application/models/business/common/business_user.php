@@ -117,6 +117,7 @@ class Business_User extends NH_Model
         $userdata = array();
         !empty($update_data['avatar']) && $userdata['avatar'] = $update_data['avatar'];
         !empty($update_data['nickname']) && $userdata['nickname'] = $update_data['nickname'];
+        !empty($update_data['email']) && $userdata['email'] = $update_data['email'];
         !empty($update_data['phone_mask']) && $userdata['phone_mask'] = $update_data['phone_mask'];
         !empty($update_data['phone_verified']) && $userdata['phone_verified'] = $update_data['phone_verified'];
         $this->model_user->update_user($userdata, array('id' => $user_id));

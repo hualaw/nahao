@@ -51,4 +51,6 @@ define(function(require,exports){
     if($("#province").length > 0) {
         require("module/studentMyCourse/area").change_area();
     }
+    //注册页面 右侧滚动
+    _resetPwd.scrollUpAndDown();
 })

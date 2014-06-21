@@ -67,11 +67,12 @@
 						<a href="javascript:void(0)" class="alipay fl">支付宝</a>
 					</p>					
 				</h3>
+				<input type="hidden" id="id" value="{$array_order.id}">
 				<div class="tabBox">
 					<div class="box bank onlineBank">
 						<h4>网银支付，需开通网上银行</h4>
-						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
-							<input type="hidden" id="id" value="{$array_order.id}">
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank" >
+							
 							<ul class="cf bankList">
 								{foreach from=$bank_code['banks'] item=item key=key}
 								<li class="fl {$key}">
@@ -81,7 +82,9 @@
 								
 								{/foreach}
 							</ul>
-							<a href="javascript:void(0)"  class="btn3  ortherBtn cf" id="click_banks">
+							
+							<a href="javascript:void(0)"  class="btn3  ortherBtn cf" id="click_banks" >
+								
 								<span class="fl">去付款</span>
 								<span class="fr"></span>
 							</a>
@@ -385,7 +388,7 @@
 						<a href="javascript:void(0)"  class="btn3 cf check_pay" >
 							<span class="fl">重新支付</span>
 							<span class="fr"></span>
-							<span id="ddd">eee</span>
+							<span id="ddd"></span>
 						</a>
 
 					</div>

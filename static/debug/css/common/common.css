@@ -42,7 +42,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 140px;right: 0;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 140px;right: 0;z-index: 1111;}
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
 .floatBox a.feedback{margin-top: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
@@ -90,7 +90,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .rotateBox h3{font-size: 14px;}
 .rotateBox .detailInfor{font-size: 12px;margin-top:3px;}
 .rotateBox .courseTitle{position: absolute;bottom: 10px;left: 16px;width: 202px;height: 32px;line-height: 32px;background: url(../../images/common/hoverBg.png) right top no-repeat;}
-.rotateBox .brief{line-height: 20px;padding: 25px 16px 0;}
+.rotateBox .brief{line-height: 20px;padding: 25px 16px 0;font-size: 12px;}
 .studentHomePage .courseList li:hover .iniBox,
 .studentMyCourse .newList li:hover .iniBox{-webkit-transform:rotateY(90deg);-moz-transform:rotateY(90deg);-ms-transform:rotateY(90deg);}
 .studentHomePage .courseList li:hover .rotateBox,
@@ -114,6 +114,7 @@ table.md_table td,table th{text-align:center;line-height:40px;border-bottom: 1px
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
 .schoolPar{text-align: left;}
+.schoolPar .schoolFullName{width: 325px;}
 .resetSchool{color: #6dcde6;font-size: 14px}
 .schoolFullName{font-size: 14px;}
 .resetSchool:hover{text-decoration:underline;}
@@ -146,6 +147,7 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .loginInputBg{position: absolute;width: 55px;height: 50px;left: 0;top:0;background: url(../../images/login/loginInputBg.png) no-repeat;}
 .unBg{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
 .pwdBg{background-position: 15px -50px;}
-
+/*  免费  */
+.courseFree{background: url(../../images/common/free.png) top right no-repeat;position: absolute;right: -6px;top:-6px;width: 87px;height: 89px;z-index: 111;}
 
 

@@ -74,13 +74,13 @@ define(function(require, exports) {
                 // 判断是否是重设学校
                 if(_this.hasClass('resetSchool')){
                     $(".theGenusScholl_n").add("undis");
-                    _this.siblings('.schoolFullName').html(fullname);
-                    _this.text('重设学校');
+                    $('.schoolFullName').val(fullname);
+                    $('.resetSchool').text('重设学校');
                     $("#schoolVal").val(school_id);
                 }else{
                     $("#schoolVal").val(school_id);
-                    _this.siblings('.schoolFullName').html(fullname);
-                    _this.text('重设学校');
+                    $('.schoolFullName').val(fullname);
+                    $('.resetSchool').text('重设学校');
                     if($("#schoolVal").val() > 0){
                         $('.schoolBox').find('.ValidformInfo,.Validform_checktip').hide();
                     }

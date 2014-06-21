@@ -117,6 +117,7 @@ class Index extends NH_User_Controller {
                 $return = $this->classroom->save_class_note($data);
             }
         }
+        echo $return ? 1 : 0;
         /* $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
 //        $str_content_log = iconv('UTF-8','GBK',$str_content_db);*/
 
@@ -150,16 +151,16 @@ class Index extends NH_User_Controller {
         if($array_class_id){
             $bool_flag = $this->model_course->check_user_buy_class($int_student_id,$array_class_id['id']);
 //            o($bool_flag);
+            $bool_flag = true;//TODO
             if($bool_flag){
                 $arr_param = array(
                     'student_id' => $int_student_id,
                     'classroom_id' => $int_classroom_id
                 );
-                o($arr_param);
                 $this->load->model('business/student/student_classroom','classroom');
                 $arr_return = $this->classroom->get_class_note($arr_param);
             }
         }
-        o($arr_return,true);
+        self::json_output($arr_return);
     }
 }

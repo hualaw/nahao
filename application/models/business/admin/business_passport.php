@@ -40,7 +40,7 @@ class Business_Passport extends NH_Model{
     }
 
     /**
-     * logout
+     * login
      * @param $str_username
      * @param $str_password
      * @return bool
