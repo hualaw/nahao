@@ -283,12 +283,13 @@ class Classroom extends NH_User_Controller {
         $int_classroom_id = intval($this->uri->rsegment(3));
         if (empty($int_classroom_id))
         {
-        	show_error('参数错误');
+        	show_error('参数错误1');
         }
         $str_iframe = self::enter_classroom($int_classroom_id);
 
         #根据classroom_id获取课id
         $array_class = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+        
         if(empty($array_class)){
             show_error('参数错误');
         }
