@@ -1,4 +1,4 @@
-.aboutPage{background: #eee;}
+.aboutPage{background: #eee;padding-bottom: 60px;}
 .aboutPage .about{padding-top: 130px;}
 .aboutPage .sideLeftNav{width: 200px;}
 .aboutPage .aboutContent{font-size: 14px;width: 764px;color: #334251;background: #fff;border: 1px solid #dbe3ec;border-top: 0;box-shadow: 0 -1px 1px #b9c7d7 inset;}
@@ -29,5 +29,26 @@
 .aboutPage .serviceBox{padding: 16px 36px 26px 18px;font-size: 12px;}
 .aboutPage .serviceBox h3{font-size: 12px;line-height: 24px;}
 .aboutPage .serviceBox p{line-height: 24px;}
+/*   加入我们  */
+.aboutPage .addUsBox{padding: 14px 18px 50px 12px;font-size: 12px;}
+.aboutPage .addUsBox p{line-height: 28px;}
+.aboutPage .addUsBox h3{font-weight: normal;}
+.aboutPage .addUsBox .weneed{margin-top: 12px;}
+.aboutPage .addUsBox .weneed p{line-height: 24px;}
+.aboutPage .addUsBox .weneed .sendJL{margin:16px 0 44px;}
+.aboutPage .addUsBox .section{margin-bottom: 30px;}
+/*   用户帮助  */
+.aboutPage .userhelpBox{padding: 14px 20px 32px 12px;font-size: 12px;}
+.aboutPage .userhelpBox h3{font-weight: normal;font-size: 12px;}
+.aboutPage .userhelpBox p{line-height: 26px;}
 
-
+.aboutPage .userhelpBox .comproblem p{padding: 0 10px 0 22px;}
+.aboutPage .userhelpBox .comproblem{margin-top: 20px;}
+.aboutPage .userhelpBox .comproblem li{margin-bottom: 18px;}
+.aboutPage .userhelpBox .process{margin: 14px 0 20px;}
+.aboutPage .userhelpBox .process img{width: 722px;margin:4px 0 24px;border: 1px solid #d7d7d7;}
+.aboutPage .userhelpBox .buyStep{padding-top: 88px;background: url(../../images/about/buyStep.png) 46px 30px no-repeat;height: 44px;border: 1px solid #dedede;border-left: none;border-right: none;margin:10px 0 33px;}
+.aboutPage .userhelpBox h2{margin-bottom: 17px;}
+.aboutPage .userhelpBox .buyStep .margin1{margin:0 30px 0 22px;}
+.aboutPage .userhelpBox .buyStep .margin2{margin:0 70px 0 60px;}
+.aboutPage .userhelpBox .buyStep .margin3{margin-left:35px;}
