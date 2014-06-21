@@ -128,9 +128,10 @@ class Student_Course extends NH_Model{
                     $boolen_comment = $this->check_class_comment($val['id'],$int_user_id);
                     $array_return[$key]['comment_status'] = $boolen_comment ? 1 :0;
                 }
-
+                $stime = $val['begin_time'] ? $val['begin_time'] : 0;
+                $etime = $val['end_time'] ? $val['end_time'] : 0;
                  #处理数据
-                 $array_return[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
+                 $array_return[$key]['time'] = $this->handle_time($stime, $etime);
             }
         }
         return $array_return;
@@ -155,8 +156,9 @@ class Student_Course extends NH_Model{
                     $boolen_comment = $this->check_class_comment($val['id'],$int_user_id);
                     $array_result[$key]['comment_status'] = $boolen_comment ? 1 :0;
                 }
-                
-                $array_result[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
+                $stime = $val['begin_time'] ? $val['begin_time'] : 0;      
+                $etime = $val['end_time'] ? $val['end_time'] : 0;
+                $array_result[$key]['time'] = $this->handle_time($stime, $etime);
             }
         }
         $array_return['id'] = 1;
@@ -366,10 +368,14 @@ class Student_Course extends NH_Model{
         $array_return['team'] = $array_team;							#教室团队
         $array_return['class'] = $int_num; 								#已经上了几节课
         $array_return['class_rate'] = $class_rate;						#上课节数比例
-        $array_return['classroom_id'] = $array_soon ? $array_soon['classroom_id'] : '';		#教室id
+       
+       
+        $array_return['soon_class_infor'] = $array_soon;
+        
+/*         $array_return['classroom_id'] = $array_soon ? $array_soon['classroom_id'] : '';		#教室id
         $array_return['status'] = $array_soon ? $array_soon['status'] : '';					#课的状态
         $array_return['soon_class_title'] = $array_soon ? $array_soon['title'] : '';		#即将开始课的节
-        $array_return['soon_class_stime'] = $array_soon ? $array_soon['begin_time'] : '';	#课的开始时间
+        $array_return['soon_class_stime'] = $array_soon ? $array_soon['begin_time'] : '';	#课的开始时间 */
         return $array_return;
     }
     

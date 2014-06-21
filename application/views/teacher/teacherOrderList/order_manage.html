@@ -7,7 +7,7 @@
 <div class="nav_crumbs">
     <a href="/welcome/index/">首页></a>
     <a href="/orderList/index/">班次列表></a>
-    <a href="/orderList/detail/{$data['jInfo']['id']}">班次章节></a>
+    <a href="/orderList/detail/{$data['jInfo']['round_id']}">班次章节></a>
     <a href="javascript:void(0)" class="nav_detail">练习题管理</a>
 </div>
 <!--小导航结束-->
@@ -42,6 +42,10 @@
 	           </div>
 	           <!--单选答题卡模块结束-->
         	{/foreach}
+        {else}
+        	<div class="md_ques">
+        		暂无习题
+        	</div>
         {/if}
         </div>
         <div class="tab_content" id="tab_content2" style="display:none;">

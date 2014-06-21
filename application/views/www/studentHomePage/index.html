@@ -48,6 +48,7 @@
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
+							<div class="courseFree"></div>
 							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
 								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
@@ -61,7 +62,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html">
+						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
 							<div class="teaInfor cf">
 								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">
