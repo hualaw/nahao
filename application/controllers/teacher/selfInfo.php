@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 header('content-type:text/html;charset=utf-8');
-class Selfinfo extends NH_User_Controller {
+class SelfInfo extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
