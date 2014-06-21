@@ -81,7 +81,7 @@
         <td>{$v.email}</td>
         <td>{$v.phone_mask}</td>
         <td>{$v.nickname}</td>
-        <td>{if isset($v.gender) AND $v.gender}{$genders[$v.gender]}{/if}</td>
+        <td>{if isset($v.gender) AND isset($genders[$v.gender])}{$genders[$v.gender]}{/if}</td>
         <td>{if isset($v.grade)}{$grades[$v.grade]}{/if}</td>
         <td>{date('Y-md H:i',$v.register_time)}</td>
         <td>{if isset($v.final_area)}{$v.final_area}{/if}</td>

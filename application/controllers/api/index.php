@@ -151,12 +151,12 @@ class Index extends NH_User_Controller {
         if($array_class_id){
             $bool_flag = $this->model_course->check_user_buy_class($int_student_id,$array_class_id['id']);
 //            o($bool_flag);
+            $bool_flag = true;//TODO
             if($bool_flag){
                 $arr_param = array(
                     'student_id' => $int_student_id,
                     'classroom_id' => $int_classroom_id
                 );
-                o($arr_param);
                 $this->load->model('business/student/student_classroom','classroom');
                 $arr_return = $this->classroom->get_class_note($arr_param);
             }
