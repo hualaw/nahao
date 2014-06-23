@@ -146,7 +146,7 @@ class Student_Order extends NH_Model{
                 'student_id'=>$int_user_id,                                        #TODO用户id
                 'course_id'=>$vv['course_id'],
                 'round_id'=>$vv['round_id'],
-                'class_id'=>$vv['lesson_id'],
+                'class_id'=>$vv['id'],
                 'status'=>0
             );
             $bool_return = $this->model_order->add_student_class_relation($array_data);

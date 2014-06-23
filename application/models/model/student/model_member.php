@@ -61,7 +61,7 @@ class Model_Member extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT begin_time,end_time FROM class WHERE round_id =".$int_round_id." AND `status` =1 
-                AND parent_id > 0 AND parent_id !=''";
+                AND parent_id > 0 ";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
