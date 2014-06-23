@@ -26,10 +26,10 @@ class NH_Admin_Controller extends NH_Controller
         }
         $bool_redirect = false;
         if(!in_array($this->current['controller'],$this->not_need_login_controller)){
-            $bool_login_flag = self::check_admin_login(ROLE_ADMIN);
-//            o($bool_login_flag);
-            if($bool_login_flag===true){
+            if($this->is_login===true){
                 //验证登录通过后拿到userinfo
+//                o($this->session->all_userdata(),true);
+		        $this->userinfo = $this->session->all_userdata();
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
                 $this->smarty->assign('current',$this->current);
