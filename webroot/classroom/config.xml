@@ -7,4 +7,5 @@
 	<sevport>4443</sevport>
 	<phDome></phDome>
 	<version>5</version>
+	<apiurl>http://api.nahaodev.com/</apiurl>
 </url>

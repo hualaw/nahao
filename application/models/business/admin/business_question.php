@@ -43,7 +43,7 @@ class Business_Question extends NH_Model
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
 		#验证
-		$this->check_param($param);
+        $this->check_param($param);
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';
 //		$param['options']['B'] = !empty($param['B']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['B'])) : '';
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
@@ -112,12 +112,14 @@ class Business_Question extends NH_Model
      * param = [do,question_id,lesson_id]
      */
     public function class_question_doWrite($param){
-        $param['type'] = isset($param['answer']) ? (count($param['answer']>1) ? 2 : 1) : '';
+        $param['type'] = isset($param['type']) ? $param['type'] :(isset($param['answer']) ? (count($param['answer']>1) ? 2 : 1) : '');
         $param['answer'] = isset($param['answer']) ? (join($param['answer'],',')) : '';
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
 		#验证
-		$this->check_param($param);
+        if(!isset($param['no_check'])){
+            $this->check_param($param);
+        }
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';
 //		$param['options']['B'] = !empty($param['B']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['B'])) : '';
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
