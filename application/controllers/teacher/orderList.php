@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Orderlist extends NH_User_Controller {
+class OrderList extends NH_User_Controller {
    
    public $teacher_id;
    public function __construct(){

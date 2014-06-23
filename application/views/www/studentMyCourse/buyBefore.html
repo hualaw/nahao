@@ -121,7 +121,7 @@
                 	<div class="outlineList">
                 		{if $item.id > 1}
                         <h3 class="cf">
-                            <p>第{$item.sequence+1}章&nbsp;&nbsp;{$item.title}</p>
+                            <p title="第{$item.sequence+1}章&nbsp;&nbsp;{$item.title}">第{$item.sequence+1}章&nbsp;&nbsp;{$item.title|truncate:10:"...":true}</p>
                             <span class="fl"></span>
                         </h3>
                         {/if}
@@ -135,7 +135,7 @@
 	                                <div class="fl line"></div>
 	                                {/if}
 	                                <div class="fr listb">
-	                                    <p class="listh">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}</p>
+	                                    <p class="listh" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title|truncate:10:"...":true}</p>
 	                                    <p class="listc">{$it.time}</p>
 	                                </div>
 	                            </li>

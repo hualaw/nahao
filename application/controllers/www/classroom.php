@@ -5,6 +5,7 @@ class Classroom extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
+        $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_classroom');
         $this->load->model('model/student/model_classroom');
         $this->load->model('model/student/model_course');
@@ -61,8 +62,9 @@ class Classroom extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'老师没有出题'));
 	    }
+
 	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence,$int_user_id);
-	    //var_dump($array_data['data']);
+
 	    if ($array_data['status'] == 'ok') {
 	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data['data']));
 	    } else {
@@ -136,62 +138,6 @@ class Classroom extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'获取做题结果失败'));
 	    }
 	}
-
-    public function save_stu_action()
-    {
-        $class_id = intval(trim($this->input->get("class_id")));
-        $user_id = intval(trim($this->input->get("user_id")));
-        $action_type = intval(trim($this->input->get("type")));
-
-        $info = array(
-            'class_id' => $class_id,
-            'user_id' => $user_id,
-            'action_type' => $action_type,
-        );
-        if($class_id <= 0 OR $user_id <= 0 OR $action_type <= 0)
-        {
-            log_message('error_nahao', "save student class action failed", $info);
-            die(ERROR);
-        }
-
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $this->stu_obj->save_action($class_id, $user_id, $action_type);
-        log_message('info_nahao', "save student class action", $info);
-        die(SUCCESS);
-    }
-
-    public function get_action_stat()
-    {
-        $class_id = intval(trim($this->input->get("class_id")));
-        if($class_id <= 0)
-        {
-            log_message('error_nahao', "get class action stat failed", array('class_id'=>$class_id));
-        }
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $result = $this->stu_obj->get_action_stat($class_id);
-
-        $arr_return = array(
-            'please_total_count' => 0,
-            'slower_total_count' => 0,
-            'faster_total_count' => 0,
-        );
-        if(!empty($result))
-        {
-            foreach($result as $val)
-            {
-                if($val['action'] == CLASS_PLEASE_ACTION) $arr_return['please_total_count'] = $val['count'];
-                else if($val['action'] == CLASS_SLOWER_ACTION) $arr_return['slower_total_count'] = $val['count'];
-                else if($val['action'] == CLASS_FASTER_ACTION) $arr_return['faster_total_count'] = $val['count'];
-            }
-        }
-
-        $str_return = "{\"please_total_count\":{$arr_return['please_total_count']},";
-        $str_return .=  "\"slower_total_count\":{$arr_return['slower_total_count']},";
-        $str_return .=  "\"faster_total_count\":{$arr_return['faster_total_count']}}";
-
-        die($str_return);
-    }
-
 
 	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
 	/**
@@ -297,11 +243,25 @@ class Classroom extends NH_User_Controller {
         #用户是否有登陆
         #登陆的用户是否有买过这堂课
         $int_user_id = $this->session->userdata('user_id'); #TODO
-        $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
-        if(empty($bool_flag))
+        $int_user_type = $this->session->userdata('user_type');
+        #判断当前用户是学生还是老师。 0是学生，1是老师
+        if($int_user_type == '0')
         {
-        	show_error('您没有购买这堂课');
+        	#如果是学生判断是否买了这一堂课
+        	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
+        	if(empty($bool_flag))
+        	{
+        		show_error('您没有购买这堂课');
+        	}
+        } else if($int_user_type == '1'){
+        	#如果是老师判断是否是这节课的老师
+        	$bool_flag = $this->student_course->check_is_teacher_in_class($int_user_id,$array_class['id']);
+        	if(empty($bool_flag))
+        	{
+        		show_error('您不是这节课的老师');
+        	}
         }
+
         #判断这节课是不是在"去上课"的状态
         if ($array_class['status'] !='2')
         {

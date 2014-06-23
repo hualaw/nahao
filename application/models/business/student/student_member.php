@@ -18,6 +18,7 @@ class Student_Member extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_member->get_my_course_for_buy($int_user_id);
+        //var_dump($array_return);
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
@@ -39,13 +40,13 @@ class Student_Member extends NH_Model{
                     {
                     	$stime = $next_class_time['begin_time'];
                     	$etime = $next_class_time['end_time'];
-                    	
+                    	#处理下节课上课时间
+                    	$array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
                     } else {
-                    	$stime = 0;
-                    	$etime = 0;
+	                    #处理下节课上课时间
+	                    $array_return[$k]['next_class_time'] = '';
                     }
-                    #处理下节课上课时间
-                    $array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
+
                 }
                 #组合数据
                 $array_return[$k]['class_img'] = $class_img;
