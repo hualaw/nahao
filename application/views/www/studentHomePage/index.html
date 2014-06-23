@@ -51,7 +51,7 @@
 							<div class="courseFree"></div>
 							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
-								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
+								<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
 								<div class="cf">
 									<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
 									<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
@@ -77,7 +77,7 @@
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<p class="courseTitle" title="{$item.title}">{$item.title|truncate:16:"...":true}</p>
+							<p class="courseTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</p>
 						</div>
 					</li>
 					{/foreach}
