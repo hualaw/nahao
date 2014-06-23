@@ -74,7 +74,13 @@
             		<tr {if $val['teach_status']==0}class="start"{elseif $val['teach_status']==3}class="end"{/if}>
             			<td class="order_id">{$val['id']}</td>
 		                <td class="order_name">
-		                    <h3><a {if in_array($val['class_status'],array(1,2))}href="{$student_url}classroom/enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} title="{$val['class_name']}">{$val['class_name']}</a></h3>
+		                	{if $val['cur_class']}
+			                	{if in_array($val['cur_class']['status'],array(0,1,2))}
+			                		<h3><a href="{$student_url}classroom/enter/{$val['cur_class']['classroom_id']}" title="{$val['cur_class']['title']}">{$val['cur_class']['title']}</a></h3>
+			                	{else}
+			                		<h3>{$val['cur_class']['title']}</h3>
+			                	{/if}
+			                {/if}
 		                    <p>{$val['title']}</p>
 		                </td>
 		                <td class="class_date"><b>{$val['class_start_time']|date_format:'%Y-%m-%d'}</b>{$val['class_start_time']|date_format:'%H: %M: %S'}</td>

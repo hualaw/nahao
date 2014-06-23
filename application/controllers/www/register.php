@@ -202,7 +202,10 @@ class register extends NH_Controller
         $code_type = intval($this->input->post('code_type'));
         $exists = $this->business_register->_check_captcha($phone, $verify_code, $code_type);
         $arr_info['effective'] = $exists ? 1 : 0;
-        
+        if($arr_info['effective']) {
+            //验证码有效,把这个手机号存入到session
+            $this->session->set_userdata('reset_pwd_phone', $phone);
+        }
         self::json_output($arr_info);
     }
 
