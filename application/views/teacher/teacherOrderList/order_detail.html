@@ -54,7 +54,7 @@
 		            <tr>
 		                <td class="order_id">{$v['id']}</td>
 		                <td class="order_name">
-		                	{if in_array($v['status'],array(0,1,2))}
+		                	{if in_array($v['status'],array(2))}
 		                    	<h3><a href="{$student_url}classroom/enter/{$v['classroom_id']}" title="{$v['title']}">{$v['title']}</a></h3>
 		                    {else}
 		                    	<h3>{$v['title']}</h3>

@@ -26,7 +26,7 @@ class Model_Question extends NH_Model
         $this->db->query("set names utf8");
         
 		$sql = "SELECT ".$column." 
-				FROM nahao.question q 
+				FROM question q 
 				LEFT JOIN question_lesson_relation qlr ON q.id=qlr.question_id
 				".$where;
 		$arr_result = $this->db->query($sql)->result_array();
@@ -51,7 +51,7 @@ class Model_Question extends NH_Model
         $this->db->query("set names utf8");
         
 		$sql = "SELECT ".$column." 
-				FROM nahao.question q 
+				FROM question q 
 				LEFT JOIN question_class_relation qcr ON q.id=qcr.question_id
 				".$where;
 		$arr_result = $this->db->query($sql)->result_array();
@@ -78,20 +78,20 @@ class Model_Question extends NH_Model
      	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
-     			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
+     			$sql = "INSERT INTO question(question,answer,options,question.type,analysis) 
 						VALUES('".$param['question']."','".$param['answer']."','".$param['options']."',".$param['type'].",'".$param['analysis']."')";
      			$res = $this->db->query($sql);
      			$id = $this->db->insert_id();
      			if($id){
      				//课节的题
      				if(!empty($param['add_lesson_question'])){
-     					$sql = "INSERT INTO nahao.question_lesson_relation(question_id,lesson_id) 
+     					$sql = "INSERT INTO question_lesson_relation(question_id,lesson_id) 
 							VALUES(".$id.",".$param['lesson_id'].")";
      					$res = $this->db->query($sql);
      				}
      				//课的题
      				if(!empty($param['add_class_question'])){
-     					$sql = "REPLACE INTO nahao.question_class_relation(class_id,question_id,question_class_relation.status,sequence) 
+     					$sql = "REPLACE INTO question_class_relation(class_id,question_id,question_class_relation.status,sequence) 
 							VALUES(".$param['class_id'].",".$id.",0,0)";
      					$res = $this->db->query($sql);
      				}
@@ -111,7 +111,7 @@ class Model_Question extends NH_Model
                 }
                 break;
      		case 'edit':
-     			$sql = "UPDATE nahao.question 
+     			$sql = "UPDATE question 
 						SET question='".$param['question']."',
 							answer='".$param['answer']."',
 							options='".$param['options']."',
@@ -123,7 +123,7 @@ class Model_Question extends NH_Model
      		case 'delete':
  				//删除题课节关系
  				if(!empty($param['delete_lesson_question'])){
- 					$sql = "DELETE FROM nahao.question_lesson_relation WHERE question_id=".$param['question_id'];
+ 					$sql = "DELETE FROM question_lesson_relation WHERE question_id=".$param['question_id'];
  					$res = $this->db->query($sql);
  				}
  				//删除题课关系

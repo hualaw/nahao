@@ -62,8 +62,9 @@ class Question extends NH_Admin_Controller {
     	$res = $this->business_question->lesson_question_doWrite($param);
     	
     	if($res){
-			echo '<script>alert("添加成功");if(confirm("是否继续添加？")){window.location.href="/question/lesson_question/'.$param['lesson_id'].'/?tag=question_add&tmp='.time().'";}else{window.location.href="/question/lesson_question/'.$param['lesson_id'].'/?tmp='.time().'"};</script>';
-		}else{
+//			echo '<script>alert("添加成功");if(confirm("是否继续添加？")){window.location.href="/question/lesson_question/'.$param['lesson_id'].'/?tag=question_add&tmp='.time().'";}else{window.location.href="/question/lesson_question/'.$param['lesson_id'].'/?tmp='.time().'"};</script>';
+			echo '<script>alert("添加成功");window.location.href="/question/lesson_question/'.$param['lesson_id'].'/?tmp='.time().'";</script>';
+    	}else{
 			echo '<script>alert("添加失败");window.history.go(-1);</script>';
 		}
 		exit;
@@ -187,8 +188,9 @@ class Question extends NH_Admin_Controller {
     	$res = $this->business_question->class_question_doWrite($param);
     	
     	if($res){
-			echo '<script>alert("添加成功");if(confirm("是否继续添加？")){window.location.href="/question/class_question/'.$param['class_id'].'/?tag=question_add&tmp='.time().'";}else{window.location.href="/question/class_question/'.$param['class_id'].'/?tmp='.time().'"};</script>';
-		}else{
+//			echo '<script>alert("添加成功");if(confirm("是否继续添加？")){window.location.href="/question/class_question/'.$param['class_id'].'/?tag=question_add&tmp='.time().'";}else{window.location.href="/question/class_question/'.$param['class_id'].'/?tmp='.time().'"};</script>';
+			echo '<script>alert("添加成功");window.location.href="/question/class_question/'.$param['class_id'].'/?tmp='.time().'";</script>';
+    	}else{
 			echo '<script>alert("添加失败");window.history.go(-1);</script>';
 		}
 		exit;
