@@ -218,7 +218,11 @@
         {
             if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
              {
-                 return TRUE;
+                 $session_id=$this->db->select(TABLE_SESSION_LOG.'.session_id')->from(TABLE_SESSION_LOG)->where(TABLE_SESSION_LOG.'.user_id',$post['user_id'])->get()->row_array();
+                 $redis = new Redis();
+                 $redis->connect('192.168.11.75',6379);
+                 $val = $redis->get($session_id['session_id']);
+                 return $val;
              }
         }
         /**

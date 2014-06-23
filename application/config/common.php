@@ -287,3 +287,12 @@ $config['class_checkout_status'][2] = '已结算';
 //课评价显示状态
 $config['feedback'][0] = '屏蔽';
 $config['feedback'][1] = '显示';
+
+//公告发布者角色
+$config['author_role'][1] = '管理员';
+$config['author_role'][3] = '老师';
+
+//公告状态
+$config['affiche_status'][1] = '未审核';
+$config['affiche_status'][2] = '审核不通过';
+$config['affiche_status'][3] = '审核通过';
