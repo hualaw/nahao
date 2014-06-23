@@ -125,12 +125,10 @@ class NH_Controller extends CI_Controller
      */
     public function enter_classroom($int_classroom_id){
         $str_classroom_url = '/classroom/main.html?';
-        $array_user = $this->_user_detail;
-        $int_user_type = $array_user['teach_priv'];
         $array_params = array(
             'UserDBID' => $this->session->userdata('user_id'),
             'ClassID'  => $int_classroom_id,
-            'UserType' => $int_user_type,
+            'UserType' => $this->session->userdata('user_type'),
             'UserName' => $this->session->userdata('nickname'),
             'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
         );
