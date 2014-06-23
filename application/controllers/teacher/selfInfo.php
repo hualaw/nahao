@@ -11,6 +11,10 @@ class Selfinfo extends NH_User_Controller {
         {
             redirect(student_url().'login');
         }
+        if(!($this->session->userdata('user_type')==1))
+        {
+        	exit('<script>alert("您还不是那好课堂的老师！");window.location.href="'.student_url().'";</script>');
+        }
         $this->smarty->assign('data', array('active'=>'selfinfo'));
     }
     
@@ -117,6 +121,7 @@ class Selfinfo extends NH_User_Controller {
         $this->smarty->assign('province', $province);
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
+        $this->smarty->assign('special_city', array(2, 25, 27, 32));
 		$this->smarty->display('teacher/teacherSelfinfo/index.html');
 	}
 	public function openClass(){

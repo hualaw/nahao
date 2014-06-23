@@ -159,7 +159,8 @@
                         <!--区开始-->
                         <div class="fl">
                             <div class="fl">
-                                <div>
+                                <div id="area_div">
+                                {if !in_array($user_detail.province, $special_city)}
                                     <select name="area" id="area" class="area" validName="select">
                                         <option value="">区</option>
                                         {if $area}
@@ -168,6 +169,7 @@
                                         {/foreach}
                                         {/if}
                                     </select>
+                                {/if}
                                 </div>
                             </div>
                             <span class="Validform_checktip fl"></span>

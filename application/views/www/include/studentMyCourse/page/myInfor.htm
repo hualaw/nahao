@@ -53,7 +53,8 @@
 					</div>
                     <div class="cf">
 						<div class="fl">
-							<div>
+							<div id="area_div">
+                            {if !in_array($user_detail.province, $special_city)}
 								<select name="area" id="area" validName="select" class="area">
 									<option value="">选择地区</option>
                                     {if $area}
@@ -62,6 +63,7 @@
                                     {/foreach}
                                     {/if}
 								</select>
+                            {/if}
 							</div>
 						</div>
 						<span class="Validform_checktip fl"></span>
@@ -206,7 +208,8 @@
 					</div>
                     <div class="cf">
 						<div class="fl">
-							<div>
+							<div id="area_div">
+                            {if !in_array($user_detail.province, $special_city)}
 								<select name="area" id="area" validName="select" class="area">
 									<option value="">选择地区</option>
                                     {if $area}
@@ -215,6 +218,7 @@
                                     {/foreach}
                                     {/if}
 								</select>
+                            {/if}
 							</div>
 						</div>
 						<span class="Validform_checktip fl"></span>

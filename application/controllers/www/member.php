@@ -371,6 +371,7 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('province', $province);
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
+        $this->smarty->assign('special_city', array(2, 25, 27, 32));
         $this->smarty->assign('reg_type', $this->session->userdata('reg_type'));
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
