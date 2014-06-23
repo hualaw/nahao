@@ -29,6 +29,7 @@ define(function(require,exports){
                 content:$(".popBox").html()
                 
         	});
+            $(".aui_close").hide();
         	//检查支付状态
         	$(".choiceBox").on("click", '.check_pay', function () {
         		var url = '/pay/check_pay/';
