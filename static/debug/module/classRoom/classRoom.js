@@ -129,10 +129,8 @@ define(function (require,exports){
 		})
 	}
 	exports.load_questions_count = function(){
-		
 		var classroom_id = $('#nahaoModule').attr('classroom-data');
 		var url = "/classroom/teacher_checkout_question_answer/"+classroom_id+'/?'+((new Date).valueOf());
-		
 		$.get(url,function(response){
 			if(response.status=='ok'){
 				$('.countTitle').html(response.data.total_html);
@@ -155,6 +153,12 @@ define(function (require,exports){
 		        	$('.CitemList').fadeOut(500,function(){
 		        		$('.sequence-'+cur_sequence).fadeIn();
 		        	});
+		        });
+			}else{
+				//弹框
+				$.tiziDialog({
+		            content:response.msg,
+				    icon:null
 		        });
 			}
 		});
