@@ -32,10 +32,12 @@
 				</div>
 				{else}
 				<div class="classTime">
+					{if $item.next_class_time !=''}
 					<p>下节课</p>
 					<p class="redText">
 						<span>{$item.next_class_time}</span>
 					</p>
+					{/if}
 				</div>
 				{/if}
 			</div>
