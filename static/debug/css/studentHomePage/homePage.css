@@ -1,12 +1,16 @@
 /*首页 内容 */
 .studentHomePage .contop{background: #f4f4f4;}
-.studentHomePage .conNav{background: #d59879;padding: 75px 0 96px;}
-.studentHomePage .conNav,.studentHomePage .conNav p{text-align: center;color: #fff;}
-.studentHomePage .conNav p{font-size: 60px;}
-.studentHomePage .conNav p.prompt{font-size: 18px;margin: 20px 0 86px;}
-.studentHomePage .addBtn a{width: 144px;height: 34px;line-height: 34px;font-size: 16px;}
-.studentHomePage .addBtn span{font-size: 18px;display: inline-block;margin: 0 30px;}
-.studentHomePage .addBtn .addLine{width: 20px;display: inline-block;background: #fff;height: 1px;margin:0 8px 5px;}
+/* 大图滚动 开始*/
+.studentHomePage .roll{ overflow: hidden;position: relative;}
+.studentHomePage .roll ul{ width:100%;overflow:hidden;height:420px;}
+.studentHomePage .roll img{ height:420px;width: 980px;}
+.studentHomePage .rollNav{ position: absolute;bottom:12px;z-index: 300;left:50%;margin-left: -40px;}
+.studentHomePage .roll ul li{ position:absolute;opacity:0;width:100%;}
+.studentHomePage .roll ul li.rollshow{ opacity:1;z-index: 2;}
+.studentHomePage .roll ul li a{display: block;text-align: center;}
+.studentHomePage .rollNav li{ width:12px; height:12px;margin-right:14px;border: 1px solid #f14211;border-radius: 7px;background: #fff;}
+.studentHomePage .rollNav li.active{ background:#f14211;}
+/* 大图滚动 结束*/
 /*课程展示*/
 .studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 55px 86px;}
 .studentHomePage .courseList li{width: 230px;height: 270px;margin:0 20px 36px 0;position: relative;/*-webkit-perspective:800;*/}
@@ -26,7 +30,7 @@
 .studentHomePage .courseRequire .recomTea p{font-size: 16px;color:#727272;}
 .studentHomePage .courseRequire .line{width: 60px;}
 
-.studentHomePage .ad{height: 437px;background:#ff4a0a url(../../images/studentHomePage/ad.png) center top no-repeat;margin:56px 0 44px;}
+.studentHomePage .ad{height: 437px;background:#ff4a0a url(../../images/studentHomePage/ad.png) center top no-repeat;margin:56px 0 44px;*background-color: #ee5a34;}
 .studentHomePage .ad .cat{position: absolute;width: 103px;height: 85px;background: url(../../images/studentHomePage/cat.png) no-repeat;bottom: -17px;right: 185px;}
 /*贴心服务 随时退款*/
 .studentHomePage .service{height: 541px;background: url(../../images/studentHomePage/line.gif) no-repeat;}

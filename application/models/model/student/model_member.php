@@ -179,7 +179,7 @@ class Model_Member extends NH_Model{
         $sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
                 ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u
                 LEFT JOIN user_info ui ON u.id = ui.user_id
-                WHERE ui.user_id = ".$int_user_id;
+                WHERE ui.user_id = ".$int_user_id." AND u.status = 1";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
@@ -211,25 +211,13 @@ class Model_Member extends NH_Model{
     }
     
     /**
-     * 获取是否是手机号注册的
-     * @param  $int_user_id
-     * @return $int_result
-     */
-    public function check_phone_register($int_user_id)
-    {
-        $sql = "SELECT id FROM user WHERE id=".$int_user_id." AND reg_type =  ".REG_LOGIN_TYPE_PHONE;
-        $int_result = $this->db->query($sql)->num_rows();
-        return $int_result;
-    }
-    
-    /**
      * 获取用户头像
      * @param  $int_user_id
      * @return $array_result
      */
     public function get_user_avater($int_user_id)
     {
-    	$sql = "SELECT teach_priv,avatar FROM user WHERE id = ".$int_user_id;
+    	$sql = "SELECT teach_priv,avatar FROM user WHERE id = ".$int_user_id." AND status = 1";
     	$array_result = $this->db->query($sql)->row_array();
     	return $array_result;
     }

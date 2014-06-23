@@ -13,7 +13,7 @@
                 {else}
 				<!--登录之后 开始-->
 				<div class="loginAfter">
-					{if $user_detail['teach_priv']==1}
+					{if isset($user_detail['teach_priv']) && $user_detail['teach_priv']==1}
 					<a href='{$teacher_url}' class=" redText">教室后台</a>
 					<span>|</span>
 					{/if}

@@ -61,8 +61,9 @@ class Classroom extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'老师没有出题'));
 	    }
+
 	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence,$int_user_id);
-	    //var_dump($array_data['data']);
+
 	    if ($array_data['status'] == 'ok') {
 	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data['data']));
 	    } else {
@@ -192,89 +193,6 @@ class Classroom extends NH_User_Controller {
         die($str_return);
     }
 
-    /**
-     * 课堂笔记API 课堂调用
-     * @author yanrui@91waijiao.com
-     */
-    public function set_class_note(){
-        $log_path = PATH_SEPARATOR==':' ? '/tmp/' : 'c:/wamp/logs/';
-        header("Content-type: text/html; charset=utf-8");
-        error_reporting(E_ALL);
-        ini_set('display_errors', true);
-
-//        $int_classroom_id = intval($this->input->post('cid'));
-//        $int_student_id = intval($this->input->post('uid'));
-//        $str_content = trim($this->input->post('notes'));
-
-        $int_classroom_id = intval($this->input->get('cid'));
-        $int_student_id = intval($this->input->get('uid'));
-        $str_content = trim($this->input->get('notes'));
-
-        if($int_classroom_id==0 AND $int_student_id==0 AND $str_content==''){
-            die('param error');
-        }
-        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
-        if($array_class_id){
-            $bool_flag = $this->model_course->check_user_buy_class($int_student_id,$array_class_id['id']);
-            if($bool_flag){
-                $int_student_id = substr($int_student_id,0,strlen($int_student_id)-1);
-                $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
-                $this->load->model('business/student/student_classroom','classroom');
-                $data = array(
-                    'classroom_id' => $int_classroom_id,
-                    'student_id' => $int_student_id,
-//            'content' => $this->boolMagic ? $str_content_db : addslashes($str_content_db),
-                    'content' => mysql_real_escape_string($str_content),
-                    'create_time' => TIME_STAMP,
-                    'update_time' => TIME_STAMP
-                );
-                error_log(TIME_STAMP.'  '.date('Y-m-d H:i:s',TIME_STAMP).'  cid:'.$int_classroom_id.'    sid:'.$int_student_id.' content:'.$str_content."\n",3,$log_path.'class_note.log');
-                $return = $this->classroom->save_class_note($data);
-            }
-        }
-        /* $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
-//        $str_content_log = iconv('UTF-8','GBK',$str_content_db);*/
-
-
-
-//        error_log('--'.$int_class_id.'--'.$int_student_id.'--'.$str_content."\n",3,'c:/wamp/logs/test.log');
-//        var_dump($data);
-//        error_log($this->db->last_query()."\n",3,$log_path.'class_note.log');
-//        echo $return ? 1 : 0;
-    }
-
-    public function get_class_note(){
-        header("Content-type: text/html; charset=utf-8");
-        error_reporting(E_ALL);
-        ini_set('display_errors', true);
-
-//        $int_classroom_id = intval($this->input->post('cid'));
-//        $int_student_id = intval($this->input->post('uid'));
-
-        $int_classroom_id = intval($this->input->get('cid'));
-        $int_student_id = intval($this->input->get('uid'));
-
-        if($int_classroom_id==0 AND $int_student_id==0){
-            die('param error');
-        }
-        $arr_return = array();
-        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
-//        o($array_class_id);
-        if($array_class_id){
-            $bool_flag = $this->model_course->check_user_buy_class($int_student_id,$array_class_id['id']);
-//            o($bool_flag);
-            if($bool_flag){
-                $arr_param = array(
-                    'student_id' => $int_student_id,
-                    'classroom_id' => $int_classroom_id
-                );
-                o($arr_param);
-                $this->load->model('business/student/student_classroom','classroom');
-                $arr_return = $this->classroom->get_class_note($arr_param);
-            }
-        }
-        o($arr_return,true);
-    }
 
 	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
 	/**
@@ -363,22 +281,39 @@ class Classroom extends NH_User_Controller {
      */
     public function enter()
     {
-        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $int_classroom_id = intval($this->uri->rsegment(3));
+        if (empty($int_classroom_id))
+        {
+        	show_error('参数错误1');
+        }
         $str_iframe = self::enter_classroom($int_classroom_id);
 
-        #用户是否有登陆
         #根据classroom_id获取课id
-        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
-        if(empty($array_class_id)){
+        $array_class = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+        
+        if(empty($array_class)){
             show_error('参数错误');
         }
 
+        #用户是否有登陆
+        #登陆的用户是否有买过这堂课
+        $int_user_id = $this->session->userdata('user_id'); #TODO
+        $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
+        if(empty($bool_flag))
+        {
+        	show_error('您没有购买这堂课');
+        }
+        #判断这节课是不是在"去上课"的状态
+        if ($array_class['status'] !='2')
+        {
+        	show_error('上课时间已过，您不能进入教室了');
+        }
         $this->smarty->assign('classroom_id',$int_classroom_id);
-        $this->smarty->assign('class_id',$array_class_id['id']);
+        $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);
         $this->smarty->display('www/classRoom/index.html');
 
-        //        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
+//        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 //        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("asdfghj!");}//student_get_exercise_page();</script>';
 //        echo $str_iframe;exit;
@@ -388,12 +323,7 @@ class Classroom extends NH_User_Controller {
 //        o($str_classroom_url,true);
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 
-        #登陆的用户是否有买过这堂课
-//         $int_user_id = $this->session->userdata('user_id'); #TODO
-//         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class_id['id']);
-//         if(empty($bool_flag)){
-//             show_error('您没有购买这堂课');
-//         }
+
 
     }
 

@@ -121,7 +121,8 @@ class Model_Classroom extends NH_Model{
     {
         $bool_return = false;
         if (is_array($arr_data) AND $arr_data) {
-            $sql = 'INSERT INTO ' . TABLE_CLASS_NOTE . " (`class_id`,`student_id`,`content`,`create_time`,`update_time`) VALUES ('" . implode("','", $arr_data) . "') ON DUPLICATE KEY UPDATE content='" . $arr_data['content'] . "',update_time=" . $arr_data['update_time'];
+            $sql = 'INSERT INTO ' . TABLE_CLASS_NOTE . " (`classroom_id`,`student_id`,`content`,`create_time`,`update_time`) VALUES ('" . implode("','", $arr_data) . "') ON DUPLICATE KEY UPDATE content='" . $arr_data['content'] . "',update_time=" . $arr_data['update_time'];
+//            o($sql,true);
             $bool_return = $this->db->query($sql);
         }
         return $bool_return;
@@ -159,7 +160,7 @@ class Model_Classroom extends NH_Model{
     public function get_class_id_by_classroom_id($int_classroom_id)
     {
         $array_result = array();
-        $sql = "SELECT id FROM class WHERE classroom_id = ".$int_classroom_id;
+        $sql = "SELECT id,status FROM class WHERE classroom_id = ".$int_classroom_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }

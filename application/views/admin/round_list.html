@@ -32,8 +32,14 @@
         <div class="col-md-2">
             <input type="text" class="form-control input-sm col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
         </div>
-        <button type="submit" class="btn btn-sm btn-primary">搜索</button>
-        <a href="/round" class="btn btn-sm btn-primary">重置</a>
+    </div>
+    <div class="form-group">
+        <div class="col-md-1">
+        <button type="submit" class="form-control btn-sm btn btn-primary">搜索</button>
+        </div>
+            <div class="col-md-1">
+        <a href="/round" class="form-control btn-sm btn btn-primary">重置</a>
+            </div>
     </div>
 </form>
 

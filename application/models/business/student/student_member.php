@@ -23,21 +23,35 @@ class Student_Member extends NH_Model{
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-                $array_return[$k]['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
+               	$class_img = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
                 #这轮共M节
-                $array_return[$k]['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
+               	$totle_class = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
                 #这轮上了M节
-                $array_return[$k]['class'] = $this->model_member->get_student_class_done($int_user_id,$v['round_id']);
+                $class  = $this->model_member->get_student_class_done($int_user_id,$v['round_id']);
                 #比例 = 上了M节/共M节
-                $array_return[$k]['class_rate'] = $array_return[$k]['totle_class'] == 0 ? 0 : round($array_return[$k]['class']/$array_return[$k]['totle_class'],2)*100;
+                $class_rate = $totle_class == 0 ? 0 : round($class/$totle_class,2)*100;
                 #授课状态
                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
                 {
                     #下节课上课时间
                     $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
+                    if($next_class_time)
+                    {
+                    	$stime = $next_class_time['begin_time'];
+                    	$etime = $next_class_time['end_time'];
+                    	
+                    } else {
+                    	$stime = 0;
+                    	$etime = 0;
+                    }
                     #处理下节课上课时间
-                    $array_return[$k]['next_class_time'] = $this->student_course->handle_time($next_class_time['begin_time'],$next_class_time['end_time']);
+                    $array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
                 }
+                #组合数据
+                $array_return[$k]['class_img'] = $class_img;
+                $array_return[$k]['totle_class'] = $totle_class;
+                $array_return[$k]['class'] = $class;
+                $array_return[$k]['class_rate'] = $class_rate;
             }
         }
         return $array_return;

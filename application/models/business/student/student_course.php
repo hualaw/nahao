@@ -128,9 +128,10 @@ class Student_Course extends NH_Model{
                     $boolen_comment = $this->check_class_comment($val['id'],$int_user_id);
                     $array_return[$key]['comment_status'] = $boolen_comment ? 1 :0;
                 }
-
+                $stime = $val['begin_time'] ? $val['begin_time'] : 0;
+                $etime = $val['end_time'] ? $val['end_time'] : 0;
                  #处理数据
-                 $array_return[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
+                 $array_return[$key]['time'] = $this->handle_time($stime, $etime);
             }
         }
         return $array_return;
@@ -155,8 +156,9 @@ class Student_Course extends NH_Model{
                     $boolen_comment = $this->check_class_comment($val['id'],$int_user_id);
                     $array_result[$key]['comment_status'] = $boolen_comment ? 1 :0;
                 }
-                
-                $array_result[$key]['time'] = $this->handle_time($val['begin_time'], $val['end_time']);
+                $stime = $val['begin_time'] ? $val['begin_time'] : 0;      
+                $etime = $val['end_time'] ? $val['end_time'] : 0;
+                $array_result[$key]['time'] = $this->handle_time($stime, $etime);
             }
         }
         $array_return['id'] = 1;
@@ -250,6 +252,7 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #这个轮里面的所有老师id
         $array_teacher = $this->model_course->get_round_team($int_round_id,$int_type);
+        //var_dump($array_teacher);die;
 		if($array_teacher)
 		{
 			#common.php里面的数据字典 老师角色
@@ -258,9 +261,14 @@ class Student_Course extends NH_Model{
 			foreach ($array_teacher as $k=>$v)
 			{
 				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-				$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
-				#老师头像
-				$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+				if(empty($array_return[0]))
+				{
+					break;
+				} else {
+					$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
+					#老师头像
+					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+				}
 			}
 		}
 
@@ -285,10 +293,17 @@ class Student_Course extends NH_Model{
             {
                 #用户信息
                 $array_result = $this->model_member->get_user_infor($v['student_id']);
+                if (empty($array_result))
+                {
+                	unset($array_return[$k]);
+                	break;
+                } else {
+                	#处理数据
+                	$array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
+                	$array_return[$k]['nickname'] = $array_result['nickname'];
+                }
                 
-                #处理数据
-                $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
-                $array_return[$k]['nickname'] = $array_result['nickname'];
+
             }
         }
         return $array_return;
@@ -315,9 +330,11 @@ class Student_Course extends NH_Model{
                     $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
                 } else {
                     #获取发布者的信息
-                    $array_result = $this->model_member->get_user_infor($v['author']);                  
+                    $array_result = $this->model_member->get_user_infor($v['author']);
+
                     $array_return[$k]['nickname'] = isset($array_result['nickname'])  ? $array_result['nickname'] : '';
                     $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
+          
                 }
             }
         }
@@ -337,24 +354,29 @@ class Student_Course extends NH_Model{
         $array_round = $this->model_course->get_round_info($int_round_id);
         #获取轮的老师团队
         $array_team = $this->get_round_team($int_round_id);
-        #即将开始的课的信息
-        $array_soon = $this->model_course->get_soon_class_data($int_round_id);
+
         #已经上了几节课
         $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
         #总共有几节课
         $int_totle = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
         #上课节数比例
         $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
+        #即将开始的课的信息
+        $array_soon = $this->model_course->get_soon_class_data($int_round_id);
         #组合数据
         $array_return['round_id'] = $array_round['id'];					#轮的id
         $array_return['title'] = $array_round['title'];					#轮的标题
         $array_return['team'] = $array_team;							#教室团队
-        $array_return['soon_class_title'] = $array_soon['title'];		#即将开始课的节
-        $array_return['soon_class_stime'] = $array_soon['begin_time'];	#课的开始时间
         $array_return['class'] = $int_num; 								#已经上了几节课
         $array_return['class_rate'] = $class_rate;						#上课节数比例
-        $array_return['classroom_id'] = $array_soon['classroom_id'];	#教室id
-        $array_return['status'] = $array_soon['status'];				#课的状态
+       
+       
+        $array_return['soon_class_infor'] = $array_soon;
+        
+/*         $array_return['classroom_id'] = $array_soon ? $array_soon['classroom_id'] : '';		#教室id
+        $array_return['status'] = $array_soon ? $array_soon['status'] : '';					#课的状态
+        $array_return['soon_class_title'] = $array_soon ? $array_soon['title'] : '';		#即将开始课的节
+        $array_return['soon_class_stime'] = $array_soon ? $array_soon['begin_time'] : '';	#课的开始时间 */
         return $array_return;
     }
     

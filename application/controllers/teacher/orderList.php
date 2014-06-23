@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Orderlist extends NH_User_Controller {
+class OrderList extends NH_User_Controller {
    
    public $teacher_id;
    public function __construct(){
@@ -58,7 +58,13 @@ class Orderlist extends NH_User_Controller {
      		);
 		#1.列表
 		$listArr = $this->teacher_b->round_list($param);
-		
+		#2.初始化参数
+		$query_string = $this->input->server('QUERY_STRING');
+		if(!empty($query_string)){
+			parse_str($query_string,$query_param);
+		}else{
+			$query_param = array('id'=>'','title'=>'','teach_status'=>'','course_type'=>'','start_time'=>'','end_time'=>'');
+		}
 		#3.页面数据
 		$data = array(
 			'listArr' 				=> $listArr,
@@ -69,6 +75,7 @@ class Orderlist extends NH_User_Controller {
 			'teach_status_list' 	=> $teach_status,
 			'teach_status_count' 	=> $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
 			'pageBar'				=> $pageBar,
+			'query_param'			=> $query_param,
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/index.html');
@@ -148,7 +155,6 @@ class Orderlist extends NH_User_Controller {
 			'title' 		=> '班次详情',
 			'status_count' 	=> $this->teacher_b->count_zj_status($zjList),
 		);
-		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}

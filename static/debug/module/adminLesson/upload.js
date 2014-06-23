@@ -21,7 +21,7 @@ define(function(require,exports){
                         //upload to meeting system
                     $('#lesson_pdf_upload').uploadify({
                         'formData' : response,
-                        'swf'      : 'http://admin.nahaodev.com/static/debug/lib/uploadify/2.2/uploadify.swf',
+                        'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
                         'uploader' : 'http://classroom.oa.tizi.com/api/files/', //post to meeting system
                         'multi'    : true,
                         'fileObjName' : 'fileobj',
@@ -46,7 +46,6 @@ define(function(require,exports){
                     }else{
                         $("#token_display_area").html('token读取失败请重试');
                     }
-
                 }
             })
             $('#lesson_upload_modal').modal();

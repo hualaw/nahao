@@ -631,9 +631,9 @@ function set_courseware_to_classroom($int_classroom_id,$int_courseware_id){
         $arr_param['file_id'] = $int_courseware_id;
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_response = nh_curl($str_url,$arr_param);
-        o($str_url);
-        o($arr_param);
-        o($str_response);
+//        o($str_url);
+//        o($arr_param);
+//        o($str_response);
         //TODO log
         if($str_response){
             $arr_response = json_decode($str_response,true);
@@ -718,8 +718,8 @@ function test_nahao_classroom($str_uri,$arr_param=array()){
     $arr_meeting_param = get_meeting_param();
     $arr_param = $arr_param ? array_merge($arr_param,$arr_meeting_param) : $arr_meeting_param;
     $str_response = nh_curl($str_url,$arr_param,'get');
-    o($str_url);
-    o($arr_param);
-    o(json_decode($str_response));
+//    o($str_url);
+//    o($arr_param);
+//    o(json_decode($str_response));
     exit;
 }

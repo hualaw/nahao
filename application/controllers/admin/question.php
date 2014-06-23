@@ -153,7 +153,6 @@ class Question extends NH_Admin_Controller {
         $class_info = $this->business_class->get_class_by_id($class_id);
         #2. 课题目列表
         $question_list = $this->business_question->class_question(array('class_id'=>$class_id));
-//        var_dump($class_info);var_dump($question_list);die;
         $_GET['tab'] = "question_add";
 		$data = array(
 			'class_info' => $class_info,

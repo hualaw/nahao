@@ -49,6 +49,7 @@ class Model_Teacher extends NH_Model{
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
 		$column = $param['counter']==1 ? 'count(cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
+		$limit = !empty($param['limit']) ? ' LIMIT '.$param['limit'] : '';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
@@ -59,7 +60,7 @@ class Model_Teacher extends NH_Model{
 				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
 				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
 				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
-				".$where.$order;
+				".$where.$order.$limit;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -74,6 +75,7 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$where = ' WHERE 1 AND cl.parent_id>0 ';
 		$where .= !empty($param['id']) ? ' AND r.id='.$param['id'] : '';
+		$where .= !empty($param['class_status']) ? ' AND cl.status in('.$param['class_status'].')' : '';
 		$where .= !empty($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= !empty($param['start_time']) ? ' AND r.start_time>='.$param['start_time'] : '';
 		$where .= !empty($param['end_time']) ? ' AND r.end_time<='.$param['end_time'] : '';
@@ -83,7 +85,7 @@ class Model_Teacher extends NH_Model{
 		$group = $param['counter'] ? '' : " GROUP BY r.id";
 		$order = " ORDER BY cl.begin_time DESC";
 		$limit = !empty($param['limit']) ? " LIMIT ".$param['limit'] : '';
-		$column = $param['counter']==1 ? 'count(DISTINCT r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.classroom_id,cl.begin_time class_start_time,cl.end_time class_end_time,ct.name course_type_name,sub.name subject_name';
+		$column = $param['counter']==1 ? 'count(DISTINCT r.id) total' :'DISTINCT r.*,c.score course_score,cw.name courseware_name,cl.title class_name,cl.classroom_id,cl.begin_time class_start_time,cl.end_time class_end_time,cl.status class_status,ct.name course_type_name,sub.name subject_name';
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column."  
@@ -126,13 +128,13 @@ class Model_Teacher extends NH_Model{
 		$arr_result = array();
 		$where = ' WHERE 1';
 		$where .= $param['status']>0 ? ' AND qcr.status='.$param['status'] : 
-					($param['status']==-1 ? ' AND qcr.status=0' : ' AND qcr.status=1');
-		$where .= !empty($param['class_id']) ? ' AND cl.id='.$param['class_id'] : '';
+					($param['status']==-1 ? ' AND qcr.status=0' : '');
+		$where .= !empty($param['class_id']) ? ' AND qcr.class_id='.$param['class_id'] : '';
 		$where .= !empty($param['classroom_id']) ? ' AND cl.classroom_id='.$param['classroom_id'] : '';
 		$where .= !empty($param['sequence']) ? ' AND qcr.sequence='.$param['sequence'] : '';
 		$order = " ORDER BY q.id ASC";
 		$column = $param['counter']==1 ? 'count(q.id) total' :
-				( $param['counter']==2 ? 'count(distinct q.question_id) total' 
+				( $param['counter']==2 ? 'count(distinct q.id) total' 
 				: 'cl.title class_title,cl.id class_id,q.*,qcr.question_id,qcr.status,qcr.sequence');
 		#2. 生成sql
         $this->db->query("set names utf8");
@@ -141,7 +143,6 @@ class Model_Teacher extends NH_Model{
 				FROM nahao.question q 
 				LEFT JOIN nahao.question_class_relation qcr ON qcr.question_id=q.id 
 				LEFT JOIN nahao.class cl ON qcr.class_id=cl.id ".$where.$order;
-		
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
