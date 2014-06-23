@@ -147,6 +147,7 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .loginInputBg{position: absolute;width: 55px;height: 50px;left: 0;top:0;background: url(../../images/login/loginInputBg.png) no-repeat;}
 .unBg{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
 .pwdBg{background-position: 15px -50px;}
-
+/*  免费  */
+.courseFree{background: url(../../images/common/free.png) top right no-repeat;position: absolute;right: -6px;top:-6px;width: 87px;height: 89px;z-index: 111;}
 
 

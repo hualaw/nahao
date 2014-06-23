@@ -69,9 +69,8 @@ define(function(require,exports){
         function roll(){
             ind++;
             if(ind>$(".rollUpDown li").length){
-                ind = 0;
                 $(".rollBox").css("top",0);
-                roll();
+                ind = 1;
             }
             $(".rollBox").animate({top:-ind*$(".rollUpDown li").eq(0).outerHeight(true)},300);
         }

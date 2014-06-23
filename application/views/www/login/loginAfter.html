@@ -24,7 +24,7 @@
 					<p class="fl"><span>*</span>邮箱</p>
 					<div class="cf">
                         {if !$userdata.email}
-						<input type="text" name="Email" class="lEmail textInput fl" validName="text" value="{$userdata.email}" disabled>
+						<input type="text" name="email" class="lEmail textInput fl" validName="text" value="{$userdata.email}" >
                         {else}
                         <span class="fl hasEmail">{$userdata.email}</span>
                         {/if}

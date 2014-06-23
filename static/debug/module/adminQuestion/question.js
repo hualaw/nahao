@@ -1,6 +1,7 @@
 define(function (require, exports) {
 	//入口脚本
 	exports.init = function(){
+		question_manage = this;
 		this.autorun();
 		this.operation();
 		this.load_ckeditor();
@@ -10,7 +11,7 @@ define(function (require, exports) {
 		$(function () {
 //			curtab = $("#myTab").attr('rel');
 //			$('#myTab a[href="#'+curtab+'"]').tab('show');
-			$('#myTab a[href="#question_list"]').tab('show')
+			$('#myTab a[href="#question_list"]').tab('show');
 		});
 	}
 	//加载编辑器
@@ -52,12 +53,13 @@ define(function (require, exports) {
         });
         //提交表单
         $("#question_submit").click(function(){
-			re = this.subCheck();
-			if(re){
+//			re = question_manage.subCheck();
+//			if(re){
 				document.getElementById('question_form').submit();
-			}else{
-				$('.statusMsg').html('<b class="red">请检查表单遗漏！</b>');
-			}
+//			}else{
+//				$('.statusMsg').html('<b class="red">请检查表单遗漏！</b>');
+//				return false;
+//			}
 		});
     }
     //验证表单

@@ -93,11 +93,11 @@ define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
 define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
 /*
  * 老师角色
- * 主讲 0
- * 助教 1
+ * 主讲 1
+ * 助教 2
  */
-define('TEACH_SPEAKER', 0);
-define('TEACH_ASSISTANT', 1);
+define('TEACH_SPEAKER', 1);
+define('TEACH_ASSISTANT', 2);
 
 /*
  * 订单编号开始值

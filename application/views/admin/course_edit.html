@@ -123,20 +123,20 @@
 
         <div class="col-md-2">
             <input type="file" name="course_img" id="course_img" class="form-control" multiple="true" >
-            <img id="img_url" src="{if isset($course.img) AND $course.img}{$course.img}{/if}" style="display:none;">img_url:{$course.img}
+            <img id="img_url" src="{if isset($course.img) AND $course.img}{$course.img}{/if}" style="display:none;">img_url:{if isset($course.img) AND $course.img}{$course.img}{/if}
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{if isset($course.img)}{get_course_img_by_size($course.img,'large')}{/if}" >{/if}
+            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{if isset($course.img)}{get_course_img_by_size($course.img,'large')}{/if}" >
         </div>
         <div class="col-md-3">
-            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{if isset($course.img)}{get_course_img_by_size($course.img,'general')}{/if}" >{/if}
+            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{if isset($course.img)}{get_course_img_by_size($course.img,'general')}{/if}" >
         </div>
         <div class="col-md-3">
-            {if isset($course.img) AND $course.img}{$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{if isset($course.img)}{get_course_img_by_size($course.img,'small')}{/if}" >{/if}
+            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{if isset($course.img)}{get_course_img_by_size($course.img,'small')}{/if}" >
         </div>
     </div>
 

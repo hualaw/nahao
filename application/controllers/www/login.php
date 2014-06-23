@@ -56,6 +56,8 @@ class login extends NH_Controller
         #找回密码的方法 1:手机找回, 2:邮件找回
         $find_ways = $this->input->get('find_ways');
         if($find_ways) {
+            #把用户登陆信息清掉,确保是在无登陆状态下找回密码
+            $this->session->sess_destroy();
             $this->smarty->assign('find_ways', $find_ways);
             $this->smarty->display('www/login/findPwd.html');
         } else {
@@ -69,16 +71,21 @@ class login extends NH_Controller
      */
     public function reset_pwd()
     {
-        //手机找回密码部分
         $new_pwd = trim($this->input->post('setPassword'));
-        $phone = trim($this->input->post('phone_number'));
+        $phone = $this->session->userdata('reset_pwd_phone');
         $code = trim($this->input->get('code'));//邮箱找回密码的加密口令
+        if(!$code && !$phone) {
+            //上边两个都没有是非法请求,直接跳转首页
+            redirect(student_url());
+        }
         $this->smarty->assign('code', $code);
         $this->smarty->assign('phone_number', $phone);
+        //手机找回密码部分
         if($new_pwd && $phone) {
             $user_id = get_uid_phone_server($phone);
             if($user_id) {
-                $a = $this->business_user->reset_password($user_id, $new_pwd);
+                $this->business_user->reset_password($user_id, $new_pwd);
+                $this->session->set_userdata('reset_pwd_phone', 0);
                 $this->smarty->display('www/login/setSuccess.html');die;
             }
         }
@@ -94,7 +101,7 @@ class login extends NH_Controller
             list($user_email, $post_time) = $decrypted_data;
             if($new_pwd) {
                 $user_info = $this->business_user->get_user_by_email($user_email);
-                if($user_info['id']) {
+                if(isset($user_info['id'])) {
                     $this->business_user->reset_password($user_info['id'], $new_pwd);
                     $this->smarty->display('www/login/setSuccess.html');die;
                 }
@@ -165,14 +172,14 @@ class login extends NH_Controller
         //param 是validFrom的固定写法
         $email = $this->input->post('email');
         $user_info = $this->business_user->get_user_by_email($email);
-        if($user_info['id']) {
+        if(isset($user_info['id'])) {
             $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
         } else {
             $arr_return = array('status' => ERROR, 'info' => '该邮箱未于任何用户绑定');
         }
         self::json_output($arr_return);
     }
-    
+        
     public function submit()
     {
         $username = trim($this->input->post('username'));

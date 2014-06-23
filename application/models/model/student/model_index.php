@@ -16,7 +16,7 @@ class Model_Index extends NH_Model{
     public function get_course_latest_round()
     {
         $array_result = array();
-        $sql = "SELECT course_id,MIN(start_time) AS start_time FROM round
+        $sql = "SELECT id,MIN(start_time) AS start_time FROM round
                 WHERE sale_status >= 2 AND sale_status <= 3 GROUP BY course_id ORDER BY start_time ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -40,14 +40,15 @@ class Model_Index extends NH_Model{
     }
     
     /**
-     * 一轮里面有机次课
+     * 一轮里面有几次课
      * @param $int_round_id
      * @return int $int_result
      */
     public function round_has_class_nums($int_round_id)
     {
         $sql = "SELECT count(id) AS num FROM class WHERE 
-                AND round_id = ".$int_round_id." AND parent_id !=0";
+                round_id = ".$int_round_id." AND parent_id !=0";
+        //echo $sql;die;
         $arr_row = $this->db->query($sql)->row_array();
         return $int_result = empty($arr_row['num']) ? 0 : $arr_row['num'];
     }
