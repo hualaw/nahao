@@ -203,6 +203,7 @@
 .studentMyCourse .buyCourse .starBg{display: inline-block;width: 115px;height: 20px;margin-left: -2px;background: url(../../images/studentMyCourse/review.png);}
 .studentMyCourse .buyCourse .fromf{line-height: 40px;}
 .studentMyCourse .buyCourse .fromf .oldPrice{color:#a2a2a2;font-size: 14px; }
+.studentMyCourse .buyCourse .fromf .oldPrice span{text-decoration: line-through;}
 .studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 143px;margin:0;padding-left: 10px;}
 .studentMyCourse .buyCourse .fromf strong{font-size: 18px;height: 40px;line-height: 40px;margin-right: 14px;}
 .studentMyCourse .buyCourse .fromf strong span{font-size: 30px;margin-left: -5px;}

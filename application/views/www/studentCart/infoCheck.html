@@ -40,28 +40,30 @@
 			<div class="innerBox">
 				<dl>
 					<dt>
-						<span class="num">序号</span>
+						<!-- <span class="num">序号</span> -->
 						<span class="name">课程名称</span>
+						<span class="time">上课时间</span>
 						<span class="oldPrice">原价</span>
 						<span class="newPrice">优惠价</span>
-						<span class="operation">操作</span>
+						<!-- <span class="operation">操作</span> -->
 					</dt>
 
 					<dd>
-						<span class="num">1</span>
+						<!-- span class="num">1</span> -->
 						<span class="name">{$array_data.title}</span>
+						<span class="time">2014-06-23</span>
 						<span class="oldPrice">¥{$array_data.price}<em></em></span>
 						<span class="newPrice">¥{$array_data.sale_price}</span>
-						<span class="operation"><a href="javascript:void(0)">删除</a></span>
+						<!-- <span class="operation"><a href="javascript:void(0)">删除</a></span> -->
 					</dd>
 
 				</dl>
 			</div>
 			
-			<p class="total">
-				<span>共选<em>1</em>门课程</span>
-				<span class="price">总金额<em>¥{$array_data.totle_money}</em></span>
-				<span class="save">您本次共节省了<em>{$array_data.save_money}</em>元</span>
+			<p class="total cf">
+				<!-- <span>共选<em>1</em>门课程</span> -->
+				<span class="price fr">总金额<em>¥{$array_data.totle_money}</em></span>
+				<span class="save fr">您本次共节省了<em>{$array_data.save_money}</em>元</span>
 			</p>
 		</div>
 		

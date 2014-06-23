@@ -100,6 +100,8 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .lowHomePage .rotateBox{display: none;}
 .lowHomePage .courseList li:hover .rotateBox,
 .lowHomePage .newList li:hover .rotateBox{display: block;}
+.lowHomePage .courseList li:hover .courseFree,
+.lowHomePage .newList li:hover .courseFree{display: none;}
 .lowHomePage .courseList li,
 .lowHomePage .newList li{border: 1px solid #dbdbdb;}
 .lowHomePage .tipText{margin-top: 0px!important;}
