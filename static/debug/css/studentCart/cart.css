@@ -105,8 +105,8 @@
 .studentCart .checkForm .num{width:60px;}
 .studentCart .checkForm .name{width:508px;}
 /*.studentCart .checkForm dd .name{text-align: left}*/
-.studentCart .checkForm .oldPrice{width:110px;position: relative;text-decoration:line-through }
-.studentCart .checkForm .newPrice{width:110px;}
+.studentCart .checkForm .oldPrice{width:110px;position: relative;}
+.studentCart .checkForm dd .oldPrice{text-decoration:line-through }
 .studentCart .checkForm .time{width:162px;}
 .studentCart .checkForm dd .newPrice{color:#f14211;font-weight: bold;font-size:20px}
 .studentCart .checkForm .operation{width:110px;}
