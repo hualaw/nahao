@@ -1,3 +1,3 @@
 <?php
 $config['static_version'] = 'online';
-$config['classroom_swf_version'] = 'v0.4';
+$config['classroom_swf_version'] = 'v0.5';
