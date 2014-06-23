@@ -299,8 +299,10 @@ class Classroom extends NH_User_Controller {
         #用户是否有登陆
         #登陆的用户是否有买过这堂课
         $int_user_id = $this->session->userdata('user_id'); #TODO
-        $int_user_type = $this->session->userdata('user_type');
-        #判断当前用户是学生还是老师。 0是学生，1是老师
+        //$int_user_type = $this->session->userdata('user_type');
+        $array_user = $this->_user_detail;
+        $int_user_type = $array_user['teach_priv'];
+/*         #判断当前用户是学生还是老师。 0是学生，1是老师
         if($int_user_type == '0')
         {
         	#如果是学生判断是否买了这一堂课
@@ -321,8 +323,8 @@ class Classroom extends NH_User_Controller {
         #判断这节课是不是在"去上课"的状态
         if ($array_class['status'] !='2')
         {
-        	show_error('上课时间已过，您不能进入教室了');
-        }
+        	show_error('您不能进入教室了，您的课的状态不是“正在上课”');
+        } */
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);

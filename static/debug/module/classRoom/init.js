@@ -1,4 +1,6 @@
 define(function(require,exports){
+	
+	var _classRoom = require("module/classRoom/classRoom");
     //学生做题
     student_get_exercise_page = function (class_id){
         _classRoom.show_question();

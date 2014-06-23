@@ -32,6 +32,7 @@ class Model_Course extends NH_Model{
                 price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,
                 grade_to,grade_from
                 FROM round WHERE id = ".$int_round_id;
+        //echo $sql.'---';
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -127,14 +128,20 @@ class Model_Course extends NH_Model{
     public function get_round_team($int_round_id,$int_type = '-1')
     {
         $where = '';
-        if ($int_type >= 0)
+        $limit = '';
+        if ($int_type >= TEACH_SPEAKER)
         {
             $where.= " AND role = ".$int_type;
         }
+        #如果是主讲只取一个
+        if ($int_type == TEACH_SPEAKER)
+        {
+        	$limit.= " limit 1";
+        }
         $array_result = array();
         $sql = "SELECT teacher_id,role FROM round_teacher_relation 
-                WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC";
-        //echo $sql.'-----------';
+                WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC".$limit;
+        //echo $sql.'+++';
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -148,8 +155,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,start_time,end_time,sell_begin_time,sell_end_time FROM round 
-                WHERE course_id = ".$int_course_id." AND sale_status >= 2 AND 
-                sale_status <= 3 ORDER BY course_id";
+                WHERE course_id = ".$int_course_id." AND sale_status = 3 ORDER BY course_id";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -182,15 +188,15 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 课程公告
+     * 课程公告(先按置顶时间倒序，再按创建时间倒序)
      * @param  $int_round_id
      * @return $array_result
      */
     public function get_class_note_data($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT author,author_role,content,create_time FROM round_note WHERE round_id = ".$int_round_id."
-                AND status = 3 ORDER BY id DESC";
+        $sql = "SELECT round_id,author,author_role,content,create_time FROM round_note WHERE (round_id = ".$int_round_id." OR round_id = 0)
+                AND status = 3 ORDER BY top_time,create_time DESC LIMIT 5";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
