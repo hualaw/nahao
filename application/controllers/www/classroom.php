@@ -5,6 +5,7 @@ class Classroom extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
+        $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_classroom');
         $this->load->model('model/student/model_classroom');
         $this->load->model('model/student/model_course');
@@ -298,11 +299,25 @@ class Classroom extends NH_User_Controller {
         #用户是否有登陆
         #登陆的用户是否有买过这堂课
         $int_user_id = $this->session->userdata('user_id'); #TODO
-        $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
-        if(empty($bool_flag))
+        $int_user_type = $this->session->userdata('user_type');
+        #判断当前用户是学生还是老师。 0是学生，1是老师
+        if($int_user_type == '0')
         {
-        	show_error('您没有购买这堂课');
+        	#如果是学生判断是否买了这一堂课
+        	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
+        	if(empty($bool_flag))
+        	{
+        		show_error('您没有购买这堂课');
+        	}
+        } else if($int_user_type == '1'){
+        	#如果是老师判断是否是这节课的老师
+        	$bool_flag = $this->student_course->check_is_teacher_in_class($int_user_id,$array_class['id']);
+        	if(empty($bool_flag))
+        	{
+        		show_error('您不是这节课的老师');
+        	}
         }
+
         #判断这节课是不是在"去上课"的状态
         if ($array_class['status'] !='2')
         {

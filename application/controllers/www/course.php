@@ -232,6 +232,7 @@ class Course extends NH_User_Controller {
         }
 
 	 }
+	 
 }
 
 /* End of file welcome.php */
