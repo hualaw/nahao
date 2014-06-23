@@ -107,8 +107,8 @@ class Round extends NH_Admin_Controller
             $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
             $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
-            $int_reward = $this->input->post('reward') ? intval($this->input->post('reward')) : 0;
-            $int_price = $this->input->post('price') ? intval($this->input->post('price')) : 0;
+            $int_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
+            $int_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
             $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
@@ -116,13 +116,13 @@ class Round extends NH_Admin_Controller
             $arr_classes = $this->input->post('classes') ? $this->input->post('classes') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : '';
+            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
             $int_caps = $this->input->post('caps') ? intval($this->input->post('caps')) : '';
-            $float_sale_price = $this->input->post('sale_price') ? trim($this->input->post('sale_price')) : '';
+            $float_sale_price = $this->input->post('sale_price') ? (filter_var($this->input->post('sale_price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('sale_price') : 0) : 0;
             $int_sell_begin_time = $this->input->post('sell_begin_time') ? strtotime(trim($this->input->post('sell_begin_time'))) : 0;
-            $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : '';
-            $int_start_time = $this->input->post('start_time') ? strtotime(trim($this->input->post('start_time'))) : '';
-            $int_end_time = $this->input->post('end_time') ? strtotime(trim($this->input->post('end_time'))) : '';
+            $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : 0;
+            $int_start_time = $this->input->post('start_time') ? strtotime(trim($this->input->post('start_time'))) : 0;
+            $int_end_time = $this->input->post('end_time') ? strtotime(trim($this->input->post('end_time'))) : 0;
 
 //            o($this->input->post(),true);
 

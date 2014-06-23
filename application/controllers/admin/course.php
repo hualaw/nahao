@@ -96,8 +96,8 @@ class Course extends NH_Admin_Controller {
             $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
             $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
-            $int_reward = $this->input->post('reward') ? intval($this->input->post('reward')) : 0;
-            $int_price = $this->input->post('price') ? intval($this->input->post('price')) : 0;
+            $int_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
+            $int_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
             $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;

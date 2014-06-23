@@ -32,36 +32,36 @@ class Business_Lesson extends NH_Model
 
                 $int_sequence_flag = $int_chapter_flag = $int_section_flag = 0;
                 foreach($arr_lesson_tree as $k => $v){
-                    $arr_chapter = array(
-                        'course_id' => $int_course_id,
-                        'title' => $v['title'],
-                        'sequence' => $int_chapter_flag++
-                    );
                     //插入章
-                    $int_parent_id = $this->model_lesson->create_lesson($arr_chapter);
-                    if($int_parent_id > 0){
-                        foreach($v['lessons'] as $kk => $vv){
-                            $arr_section[] = array(
-                                'course_id' => $int_course_id,
-                                'title' => $vv,
-                                'parent_id' => $int_parent_id,
-                                'sequence' => $int_section_flag++
-                            );
-                        }
-                        //插入节
-                        $int_last_id = $this->model_lesson->create_lesson_batch($arr_section);
-                        if($int_last_id > 0){
-                            if($k == count($arr_lesson_tree)-1){
+                    $int_parent_id = 1;//默认没有章的
+                    if(isset($v['title'])){
+                        $arr_chapter = array(
+                            'course_id' => $int_course_id,
+                            'title' => $v['title'],
+                            'sequence' => $int_chapter_flag++
+                        );
+                        $int_parent_id = $this->model_lesson->create_lesson($arr_chapter);
+                    }
+//                    o($int_parent_id,true);
+                    foreach($v['lessons'] as $kk => $vv){
+                        $arr_section[] = array(
+                            'course_id' => $int_course_id,
+                            'title' => $vv,
+                            'parent_id' => $int_parent_id,
+                            'sequence' => $int_section_flag++
+                        );
+                    }
+                    //插入节
+                    $int_last_id = $this->model_lesson->create_lesson_batch($arr_section);
+                    if($int_last_id > 0){
+                        if($k == count($arr_lesson_tree)-1){
 //                                echo $k.'-'.count($arr_lesson_tree);
-                                $bool_return = true;
-                            }
-                        }else{
-                            break;
+                            $bool_return = true;
                         }
-                        unset($arr_section);
                     }else{
                         break;
                     }
+                    unset($arr_section);
                 }
             }
         }

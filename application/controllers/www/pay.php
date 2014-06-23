@@ -72,7 +72,7 @@ class Pay extends NH_User_Controller {
 	    }
 	    //var_dump($this->session->all_userdata());
 	    $array_infor = $this->_user_detail;
-
+		//var_dump($array_infor);
 	    $this->smarty->assign('realname', $array_infor['realname']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
@@ -111,8 +111,8 @@ class Pay extends NH_User_Controller {
     	 
     	#检查用户是否已经买了该轮
     	$array_result = $this->model_order->check_product_in_order($int_product_id,$int_user_id);
-    	
-    	if ($array_result && $array_result[0]['status'] >1)
+    	//echo $array_result[0]['status'];die;
+    	if ($array_result && (in_array($array_result[0]['status'], array(2,3,6,7,8,9))))
     	{
     		self::json_output(array('status'=>'been_buy','msg'=>'您已经买过该轮了,请不要重复下单'));
     	}
@@ -342,7 +342,7 @@ class Pay extends NH_User_Controller {
 	    #检查用户是否买过该订单里的这轮，防止重复购买
 	    $array_result = $this->model_order->check_product_in_order($array_order['round_id'],$int_user_id);
 	    //var_dump($array_result);die;
-	    if ($array_result['0']['status'] >1)
+	    if ($array_result && (in_array($array_result[0]['status'], array(2,3,6,7,8,9))))
 	    {
 	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
@@ -435,7 +435,6 @@ class Pay extends NH_User_Controller {
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
-	        //$payResult['order_id'] = 5;
 	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
 	        $int_user_id = $array_orderInfo['student_id'];#TODO用户id
 	        //log_message("ERROR_NAHAO",'round_id:'.$array_orderInfo['round_id']);
