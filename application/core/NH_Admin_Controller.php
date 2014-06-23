@@ -28,7 +28,8 @@ class NH_Admin_Controller extends NH_Controller
         if(!in_array($this->current['controller'],$this->not_need_login_controller)){
             if($this->is_login===true){
                 //验证登录通过后拿到userinfo
-                $this->load->vars('userinfo',$this->session->all_userdata());
+		$this->userinfo = $this->session->all_userdata();
+                $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
                 $this->smarty->assign('current',$this->current);
                 $this->smarty->assign('js_module', DOMAIN.ucfirst($this->current['controller']));
