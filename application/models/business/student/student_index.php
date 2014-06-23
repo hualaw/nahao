@@ -17,6 +17,7 @@ class Student_Index extends NH_Model{
     {
         #首页获取一门课程里面最新的一轮（在审核通过和销售中）
         $array_round = $this->model_index->get_course_latest_round();
+        //var_dump($array_round);die;
         $array_return = array();
         if ($array_round)
         {
@@ -26,6 +27,7 @@ class Student_Index extends NH_Model{
             foreach ($array_round as $k=>$v)
             {
                 $array_list = $this->get_one_round_info($v['id'],$array_grade);
+                //var_dump($array_list);
                 #如果这一轮里面老师信息为空，则这个轮不显示在首页上面
                 if (empty($array_list['teacher']))
                 {

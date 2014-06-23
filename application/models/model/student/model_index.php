@@ -17,7 +17,7 @@ class Model_Index extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,MIN(start_time) AS start_time FROM round
-                WHERE sale_status >= 2 AND sale_status <= 3 GROUP BY course_id ORDER BY start_time ASC";
+                WHERE sale_status = 3 GROUP BY course_id ORDER BY start_time ASC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
