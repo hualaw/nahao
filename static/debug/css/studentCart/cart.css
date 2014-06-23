@@ -98,14 +98,16 @@
 .studentCart .infoCheck .outerBox h2 {height:37px;padding: 17px 0 0 2px;}
 .studentCart .infoCheck .outerBox h2 span{padding-left:6px;border-left:3px solid #f14211;height:20px;line-height:20px;font-size:18px;color:#0e455e;}
 .studentCart .innerBox{border:1px solid #d5d5d5;}
+.studentCart .checkForm dt{border-bottom:1px solid #d5d5d5;}
 .studentCart .checkForm dt,
-.studentCart .checkForm dd{padding-left:35px;border-bottom:1px solid #d5d5d5;background: #f7f7f7;height:42px;line-height:42px;font-size:16px;color:#4b4b4b;}
+.studentCart .checkForm dd{padding-left:35px;background: #f7f7f7;height:42px;line-height:42px;font-size:16px;color:#4b4b4b;}
 .studentCart .checkForm span{display:inline-block;text-align: center}
 .studentCart .checkForm .num{width:60px;}
 .studentCart .checkForm .name{width:508px;}
-.studentCart .checkForm dd .name{text-align: left}
-.studentCart .checkForm .oldPrice{width:110px;position: relative;text-decoration:line-through }
-.studentCart .checkForm .newPrice{width:110px;}
+/*.studentCart .checkForm dd .name{text-align: left}*/
+.studentCart .checkForm .oldPrice{width:110px;position: relative;}
+.studentCart .checkForm dd .oldPrice{text-decoration:line-through }
+.studentCart .checkForm .time{width:162px;}
 .studentCart .checkForm dd .newPrice{color:#f14211;font-weight: bold;font-size:20px}
 .studentCart .checkForm .operation{width:110px;}
 .studentCart .checkForm .operation a:hover{color: #f90}

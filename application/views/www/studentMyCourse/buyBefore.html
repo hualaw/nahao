@@ -58,7 +58,7 @@
                     <p class="fromf cf">
 						{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
 						<input type="hidden" id="product_id" value="{$array_data.id}">
-                        <span class="fl oldPrice">原价￥{$array_data.price|string_format:"%.0f"}</span>
+                        <span class="fl oldPrice">原价<span>￥{$array_data.price|string_format:"%.0f"}</span></span>
 						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
                             <span class="fl">立即报名</span>
                             <span class="fr"></span>
