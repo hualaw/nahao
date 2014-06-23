@@ -56,6 +56,7 @@ class Business_Passport extends NH_Model{
 //                    $this->passport->set_token_to_cookie($arr_user_info);
                     $this->session->set_userdata($arr_user_info);
                     $this->session->set_userdata('user_id',$arr_user_info['id']);
+                    $this->session->set_userdata('user_type', NH_MEETING_TYPE_ADMIN);
                     $bool_return = true;
                 }
             }
@@ -68,8 +69,9 @@ class Business_Passport extends NH_Model{
      * @author yanrui@tizi.com
      */
     public function logout(){
-        $str_cookie_key = '_token_'.ROLE_ADMIN;
-        delete_cookie($str_cookie_key);
+//        $str_cookie_key = '_token_'.ROLE_ADMIN;
+//        delete_cookie($str_cookie_key);
+        $this->session->sess_destroy();
     }
 
     /**
