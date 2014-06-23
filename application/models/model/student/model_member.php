@@ -180,6 +180,7 @@ class Model_Member extends NH_Model{
                 ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u
                 LEFT JOIN user_info ui ON u.id = ui.user_id
                 WHERE ui.user_id = ".$int_user_id." AND u.status = 1";
+        //echo $sql.'---';
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
