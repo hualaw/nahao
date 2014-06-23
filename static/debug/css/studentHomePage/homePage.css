@@ -30,8 +30,13 @@
 .studentHomePage .courseRequire .recomTea p{font-size: 16px;color:#727272;}
 .studentHomePage .courseRequire .line{width: 60px;}
 
-.studentHomePage .ad{height: 437px;background:#ff4a0a url(../../images/studentHomePage/ad.png) center top no-repeat;margin:56px 0 44px;*background-color: #ee5a34;}
+.studentHomePage .ad{height: 437px;background:#ff4a0a url(../../images/studentHomePage/ad.png) center top no-repeat;margin:56px 0 44px;}
 .studentHomePage .ad .cat{position: absolute;width: 103px;height: 85px;background: url(../../images/studentHomePage/cat.png) no-repeat;bottom: -17px;right: 185px;}
+
+/*.studentHomePage .ad{height: 437px;background:#ff4a0a url(../../images/studentHomePage/ad.png) center top no-repeat;margin:56px 0 44px;*background-color: #ee5a34;}
+*/.studentHomePage .ieadBgc{background-color:#ee5a34;}
+
+
 /*贴心服务 随时退款*/
 .studentHomePage .service{height: 541px;background: url(../../images/studentHomePage/line.gif) no-repeat;}
 .studentHomePage .service .comTitle{width: 430px;margin:0 auto;height: 80px;line-height: 80px;}

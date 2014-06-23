@@ -11,6 +11,10 @@ class Pay extends NH_User_Controller {
         {
             redirect(student_url().'login');
         }
+        if(!($this->session->userdata('user_type')==1))
+        {
+        	exit('<script>alert("您还不是那好课堂的老师！");window.location.href="'.student_url().'";</script>');
+        }
         $this->teacher_id = $this->session->userdata('user_id');
     }
 	public function index(){
