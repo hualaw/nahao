@@ -10,20 +10,20 @@
          * 评价展示
          * @author shangshikai@tizi.com
          */
-        public function feedback_list($class_id,$content,$score_start,$score_end,$course_id,$round_id,$student_id)
+        public function feedback_list($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end)
         {
             //echo $score_start,$score_end;
             $content=trim($content);
-            return $this->model_feedback->list_feedback($class_id,$content,$score_start,$score_end,$course_id,$round_id,$student_id);
+            return $this->model_feedback->list_feedback($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end);
         }
         /**
          * 评价数量
          * @author shanshikai@tizi.com
          */
-        public function feedback_total($class_id,$content,$score_start,$score_end,$course_id,$round_id,$student_id)
+        public function feedback_total($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end)
         {
             $content=trim($content);
-            return $this->model_feedback->total_feedback($class_id,$content,$score_start,$score_end,$course_id,$round_id,$student_id);
+            return $this->model_feedback->total_feedback($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end);
         }
         /**
          * 切换评价状态

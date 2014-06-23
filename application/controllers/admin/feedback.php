@@ -7,16 +7,15 @@
          */
         public function index()
         {
-            $this->input->get('course_id',TRUE) ? $this->input->get('course_id',TRUE) : "";
-            $this->input->get('round_id',TRUE) ? $this->input->get('round_id',TRUE) : "";
-            $this->input->get('student_id',TRUE) ? $this->input->get('student_id',TRUE) : "";
-            $this->input->get('class_id',TRUE) ? $this->input->get('class_id',TRUE) : "";
-            $this->input->get('content',TRUE) ? $this->input->get('content',TRUE) : "";
-            $this->input->get('score_start',TRUE) ? $this->input->get('score_start',TRUE) : 0;
-            $this->input->get('score_end',TRUE) ? $this->input->get('score_end',TRUE) : 0;
-
+            $course_id=$this->input->get('course_id',TRUE) ? $this->input->get('course_id',TRUE) : "";
+            $round_id=$this->input->get('round_id',TRUE) ? $this->input->get('round_id',TRUE) : "";
+            $student_id=$this->input->get('student_id',TRUE) ? $this->input->get('student_id',TRUE) : "";
+            $class_id=$this->input->get('class_id',TRUE) ? $this->input->get('class_id',TRUE) : "";
+            $content=$this->input->get('content',TRUE) ? $this->input->get('content',TRUE) : "";
+            $score_start=$this->input->get('score_start',TRUE) ? $this->input->get('score_start',TRUE) : 0;
+            $score_end=$this->input->get('score_end',TRUE) ? $this->input->get('score_end',TRUE) : 0;
             $config_feedback=config_item('feedback');
-            $total=$this->feedback->feedback_total($this->input->get('class_id',TRUE),$this->input->get('content',TRUE),$this->input->get('score_start',TRUE),$this->input->get('score_end',TRUE),$this->input->get('course_id',TRUE),$this->input->get('round_id',TRUE),$this->input->get('student_id',TRUE));
+            $total=$this->feedback->feedback_total($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end);
             $search_total=$total;
             $this->load->library('pagination');
             $config = config_item('page_admin');
@@ -28,7 +27,7 @@
             $int_start=$this->uri->segment(3);
             $this->db->limit(PER_PAGE_NO,$int_start);
             $page = $this->pagination->create_links();
-            $list=$this->feedback->feedback_list($this->input->get('class_id',TRUE),$this->input->get('content',TRUE),$this->input->get('score_start',TRUE),$this->input->get('score_end',TRUE),$this->input->get('course_id',TRUE),$this->input->get('round_id',TRUE),$this->input->get('student_id',TRUE));
+            $list=$this->feedback->feedback_list($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end);
 
             $this->smarty->assign('config_feedback',$config_feedback);
             $this->smarty->assign('page',$page);
