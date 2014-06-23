@@ -66,7 +66,7 @@ $config['grade'][9] = '初三';
 $config['grade'][10] = '高一';
 $config['grade'][11] = '高二';
 $config['grade'][12] = '高三';
-$config['grade'][0] = '其他';
+$config['grade'][99] = '其他';
 
 //订单状态
 
