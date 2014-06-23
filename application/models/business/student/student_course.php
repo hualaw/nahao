@@ -449,4 +449,20 @@ class Student_Course extends NH_Model{
 
     	return $avatar;
     }
+    
+    /**
+     * 判断是否是这节课的老师
+     * @param  $int_user_id
+     * @param  $int_class_id
+     * @return boolean
+     */
+    public function check_is_teacher_in_class($int_user_id,$int_class_id)
+    {
+    	$array_class = $this->model_course->get_class_infor($int_class_id);
+    	if($array_class)
+    	{
+    		$bool_flag = $this->model_course->check_is_teacher_in_class($int_user_id,$array_class['round_id']);
+    		return $bool_flag;
+    	}
+    }
 }
