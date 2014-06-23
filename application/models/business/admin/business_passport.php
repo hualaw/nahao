@@ -53,7 +53,8 @@ class Business_Passport extends NH_Model{
             $str_salt = $arr_user_info['salt'];
             if(sha1($str_salt.sha1($str_password))===$arr_user_info['password']){
                 if($arr_user_info['status']==1 OR $arr_user_info['id']==1){//超管和非冻结账户才能登录
-                    $this->passport->set_token_to_cookie($arr_user_info);
+//                    $this->passport->set_token_to_cookie($arr_user_info);
+                    $this->session->set_userdata($arr_user_info);
                     $bool_return = true;
                 }
             }
