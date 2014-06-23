@@ -40,7 +40,7 @@
 /* 右侧框架开始 */
 .studentMyCourse .pageName{font-size: 18px;color:#0e455e;border-left: 3px solid #f14211;padding-left: 6px;height: 20px;line-height: 20px;margin-bottom: 10px;}
 /*  我的课程  */
-.studentMyCourse .courseConList li{width: 230px;margin:0 35px 6px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
+.studentMyCourse .courseConList li{width: 230px;margin:0 35px 20px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
 .studentMyCourse .courseConList{margin-right: -35px;}
 .studentMyCourse .myCourseList li{background: #fff;height: 320px;}
 
@@ -62,7 +62,7 @@
 .studentMyCourse .hasCourse:hover .btn{background:#6dcde6;}
 .studentMyCourse .hasCourse .over{font-size: 18px;font-weight: bold;margin-top: 5px;}
 .studentMyCourse .courseOver .bar{width: 100%;}
-.studentMyCourse .newList{margin-top: 35px;}
+.studentMyCourse .newList{margin-top: 20px;}
 .studentMyCourse .newList li{height: 270px;margin-top: 4px;position: relative;}
 /*  我的订单  开始*/
 .studentMyCourse .myOrderCon{font-size: 16px;}

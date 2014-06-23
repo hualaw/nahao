@@ -6,6 +6,7 @@ class Student_Index extends NH_Model{
         parent::__construct();
         $this->load->model('model/student/model_index');
         $this->load->model('business/student/student_course');
+        $this->load->model('model/student/model_course');
     }
     
     /**
@@ -24,7 +25,7 @@ class Student_Index extends NH_Model{
             #首页获取轮的信息列表
             foreach ($array_round as $k=>$v)
             {
-                $array_list = $this->get_one_round_info($v['course_id'],$v['start_time'],$array_grade);
+                $array_list = $this->get_one_round_info($v['id'],$array_grade);
                 #如果这一轮里面老师信息为空，则这个轮不显示在首页上面
                 if (empty($array_list['teacher']))
                 {
@@ -44,10 +45,11 @@ class Student_Index extends NH_Model{
      * @param  $int_start_time
      * @return $array_return
      */
-    public function get_one_round_info($int_course_id,$int_start_time,$array_grade)
+    public function get_one_round_info($int_round_id,$array_grade)
     {
         $array_return = array();
-        $array_return = $this->model_index->get_one_round_info($int_course_id,$int_start_time);
+        $array_return = $this->model_course->get_round_info($int_round_id);
+        //var_dump($array_return);die;
         #获取每一轮里面有几次课
         if ($array_return)
         {
@@ -55,6 +57,7 @@ class Student_Index extends NH_Model{
             $array_return['class_nums'] = $int_num;
             #获取该轮里面的主讲老师信息
             $teacher = $this->student_course->get_round_team($array_return['id'],TEACH_SPEAKER);
+           
             if($teacher['0'])
             {
             	$array_return['teacher'] = $teacher['0'];
@@ -65,24 +68,27 @@ class Student_Index extends NH_Model{
             }
             
         }
-        #适合人群
-        $gfrom = $array_return['grade_from'];
-        $gto   = $array_return['grade_to'];
-        if ($gfrom == $gto)
-        {
-            $array_return['for_people'] = $array_grade[$gfrom];
-        } else {
-            if (( $gfrom >0  && $gfrom <6) || ($gto >0 && $gto <6 ))
-            {
-                $array_return['for_people'] = $gfrom.'-'.$gto."年级";
-            } else { 
-                $array_return['for_people'] = $array_grade[$gfrom].'-'.$array_grade[$gto];
-            }
-        }
-        #处理数据
-        $array_return['start_time'] = date("m月d日",$array_return['start_time']);
-        $array_return['end_time'] = date("m月d日",$array_return['end_time']);
-        $array_return['img'] = empty($array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
+
+        	#适合人群
+        	$gfrom = $array_return['grade_from'];
+        	$gto   = $array_return['grade_to'];
+        	if ($gfrom == $gto)
+        	{
+        		$array_return['for_people'] = $array_grade[$gfrom];
+        	} else {
+        		if (( $gfrom >0  && $gfrom <6) || ($gto >0 && $gto <6 ))
+        		{
+        			$array_return['for_people'] = $gfrom.'-'.$gto."年级";
+        		} else {
+        			$array_return['for_people'] = $array_grade[$gfrom].'-'.$array_grade[$gto];
+        		}
+        	}
+        	#处理数据
+        	$array_return['start_time'] = date("m月d日",$array_return['start_time']);
+        	$array_return['end_time'] = date("m月d日",$array_return['end_time']);
+        	$array_return['img'] = empty($array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
+         
+
         return $array_return;
     }
     

@@ -62,8 +62,6 @@ define(function(require,exports){
 	        Hours = array['1'].split(":");
             oDate.setFullYear(FullYear[0],FullYear[1],FullYear[2]);
             oDate.setHours(Hours[0],Hours[1],Hours[2]);
-            // oDate.setFullYear(2014,6,18);
-            // oDate.setHours(0,0,0);
 
             var today=new Date();
             today.setFullYear(today.getFullYear(),((today.getMonth()-"")+1),today.getDate());
@@ -81,41 +79,22 @@ define(function(require,exports){
             if(days<=0&&hours<=0&&mins<=0&&s<=0){
                 days=0;hours=0;mins=0;s=0;
                 clearInterval(timer);
-                //obj.html("已到时");
             }
 
-
             //如果是一位的时候加前面0
-            // var narr = [days,hours,mins,s];
-            // alert(narr[0])
-            // for(var i in narr){
-            //     if(narr[i]<10){
-            //         days = "0"+narr[0];
-            //         hours = "0"+narr[1];
-            //         mins = "0"+narr[2];
-            //         s = "0"+narr[3];
-            //     console.log(days+","+typeof days)
-            //     }else{
-            //         days = narr[0];
-            //         hours = narr[1];
-            //         mins = narr[2];
-            //         s = narr[3];
-            //     }
-            // }
             days<10?days="0"+days:days = days;
             hours<10?hours = "0"+hours:hours = hours;
             mins<10?mins = "0"+mins:mins = mins;
             s<10?s = "0"+s:s = s;
-            //else{
-                if(type==1){
-                    obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
-                }else{
-                    obj.html('<strong>'+days+'</strong>天'+
-                            '<strong>'+hours+'</strong>小时'+
-                            '<strong>'+mins+'</strong>分'+
-                            '<strong>'+s+'</strong>秒');
-                }
-            //}
+
+            if(type==1){
+                obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
+            }else{
+                obj.html('<strong>'+days+'</strong>天'+
+                        '<strong>'+hours+'</strong>小时'+
+                        '<strong>'+mins+'</strong>分'+
+                        '<strong>'+s+'</strong>秒');
+            }
         }
         countDown();
         timer = setInterval(countDown, 1000);   
@@ -267,16 +246,16 @@ define(function(require,exports){
     
 	//评论 几颗星
 	exports.starClick = function (){
-		//var ind = true;
 		$(".evalu .starBg span").click(function (){
-			//if(ind){
-				var _index = $(".evalu .starBg span").index($(this));
-				for(var i=0;i<_index+1;i++){
-					$(".evalu .starBg span").eq(i).addClass("cStar");
-				}
-				$("#c_score").val(_index+1);
-				//ind = false;
-			//}
+            for(var i=0;i<$(".evalu .starBg span").length;i++){
+                $(".evalu .starBg span").eq(i).removeClass("cStar");
+            }
+            
+			var _index = $(".evalu .starBg span").index($(this));
+			for(var i=0;i<_index+1;i++){
+				$(".evalu .starBg span").eq(i).addClass("cStar");
+			}
+			$("#c_score").val(_index+1);
 		});
 	}
     

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Orderlist extends NH_User_Controller {
+class OrderList extends NH_User_Controller {
    
    public $teacher_id;
    public function __construct(){
@@ -155,7 +155,6 @@ class Orderlist extends NH_User_Controller {
 			'title' 		=> '班次详情',
 			'status_count' 	=> $this->teacher_b->count_zj_status($zjList),
 		);
-		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}
