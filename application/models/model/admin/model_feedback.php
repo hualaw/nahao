@@ -5,10 +5,10 @@
         * 评价展示
         * @author shangshikai@tizi.com
         */
-       public function list_feedback($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end)
+       public function list_feedback($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end,$start_time,$end_time)
        {
            //echo $course_id,$round_id,$student_id,die;
-           self::sql($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end);
+           self::sql($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end,$start_time,$end_time);
            return $this->db->order_by(TABLE_CLASS_FEEDBACK.'.create_time','desc')->get()->result_array();
            //return $this->db->last_query();
        }
@@ -17,16 +17,16 @@
         * 评价数量
         * @author shangshikai@tizi.com
         */
-       public function total_feedback($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end)
+       public function total_feedback($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end,$start_time,$end_time)
        {
-           self::sql($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end);
+           self::sql($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end,$start_time,$end_time);
            return $this->db->get()->num_rows();
        }
        /**
         * sql语句
         * @author shangshikai@tizi.com
         */
-       public function sql($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end)
+       public function sql($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end,$start_time,$end_time)
        {
            $this->db->select(TABLE_CLASS_FEEDBACK.'.id,course_id,round_id,class_id,student_id,nickname,content,create_time,score,is_show')->from(TABLE_CLASS_FEEDBACK);
            if($content!="")
@@ -56,6 +56,14 @@
            if($score_end!=0)
            {
                $this->db->where(TABLE_CLASS_FEEDBACK.'.score<',$score_end);
+           }
+           if($start_time!="")
+           {
+               $this->db->where(TABLE_CLASS_FEEDBACK.'.create_time>=',$start_time);
+           }
+           if($end_time!="")
+           {
+               $this->db->where(TABLE_CLASS_FEEDBACK.'.create_time<',$end_time);
            }
        }
        /**
