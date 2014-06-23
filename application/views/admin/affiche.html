@@ -1,0 +1,73 @@
+<form method="get" action="/affiche">
+    <div class="col-md-4">
+        <input type="text" name="content" class="form-control" placeholder="请输入内容进行搜索" />
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="admin_name" class="form-control" placeholder="请输入发布者ID进行搜索" />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="start_time" id="start_time" class="form-control" placeholder="请选择发布开始时间进行搜索" readonly />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="end_time" id="end_time" class="form-control" placeholder="请选择发布结束时间进行搜索" readonly />
+    </div>
+    <div class="col-md-15">&nbsp;</div>
+    <div class="col-md-2">
+        <select name="status" class="form-control">
+            <option value=0>请选择状态</option>
+            <option value=1>未审核</option>
+            <option value=2>审核不通过</option>
+            <option value=3>审核通过</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select name="author_role" class="form-control">
+            <option value=0>请选择角色</option>
+            <option value=1>管理员</option>
+            <option value=3>老师</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">搜索</button>
+</form><br />
+<label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>轮ID</td>
+            <td>发布者ID</td>
+            <td>发布者角色</td>
+            <td width="300">内容</td>
+            <td width="90">发布时间</td>
+            <td width="90">置顶时间</td>
+            <td>公告状态</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+        {foreach $list_affiche as $v}
+        <tr>
+            <td>{$v.id}</td>
+            <td>{$v.round_id}</td>
+            <td>{$v.author}</td>
+            <td>{$config_role[$v.author_role]}</td>
+            <td>{$v.content}</td>
+            <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+            <td>{if $v.top_time==0}------{else}{$v.top_time|date_format:'%Y-%m-%d %H:%M:%S'}{/if}</td>
+            <td>{$affiche_status[$v.status]}</td>
+            <td><button type="button" class="btn btn-info btn-xs">编辑</button>
+                {if $v.status==1}
+                <button type="button" class="btn btn-success btn-xs">通过</button>
+                {else if $v.status==2}
+                <button type="button" class="btn btn-warning btn-xs">不通过</button>
+                {else if $v.status==3}
+                    {if $v.top_time==0}
+                <button type="button" class="btn btn-danger btn-xs">置顶</button>
+                    {else}
+                <button type="button" class="btn btn-primary btn-xs">取消置顶</button>
+                    {/if}
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+</table>
+{$page}
