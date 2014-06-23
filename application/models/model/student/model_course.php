@@ -162,7 +162,7 @@ class Model_Course extends NH_Model{
     public function get_class_under_round_id($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT lesson_id,course_id,round_id FROM class WHERE round_id = ".$int_round_id." 
+        $sql = "SELECT id,course_id,round_id FROM class WHERE round_id = ".$int_round_id." 
                 AND parent_id > 0  ORDER BY sequence ASC";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
@@ -307,5 +307,18 @@ class Model_Course extends NH_Model{
 //        o($sql,true);
         $int_result = $this->db->query($sql)->num_rows();
         return  $int_result > 0 ? true : false;
+    }
+    
+    /**
+     * 判断是否是这节课的老师
+     * @param  $int_user_id
+     * @param  $int_round_id
+     * @return boolean
+     */
+    public function check_is_teacher_in_class($int_user_id,$int_round_id)
+    {
+    	$sql = "SELECT id FROM round_teacher_relation WHERE teacher_id=".$int_user_id." AND round_id = ".$int_round_id;
+    	$int_result = $this->db->query($sql)->num_rows();
+    	return  $int_result > 0 ? true : false;
     }
 }
