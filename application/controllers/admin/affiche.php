@@ -8,9 +8,7 @@
         public function index()
         {
             $round_id=$this->input->get('round_id',TRUE) ? $this->input->get('round_id',TRUE) : 0;
-            //echo $round_id;die;
             $round_title=$this->input->get('round_title',TRUE) ? $this->input->get('round_title',TRUE) : '请输入公告内容';
-           // echo $round_title;die;
             $admin_name=$this->input->get('admin_name',TRUE) ? $this->input->get('admin_name',TRUE) : "";
             $author_role=$this->input->get('author_role',TRUE) ? $this->input->get('author_role',TRUE) : 0;
             $content=$this->input->get('content',TRUE) ? $this->input->get('content',TRUE) : "";
