@@ -100,18 +100,19 @@
 .studentCart .innerBox{border:1px solid #d5d5d5;}
 .studentCart .checkForm dt{border-bottom:1px solid #d5d5d5;}
 .studentCart .checkForm dt,
-.studentCart .checkForm dd{padding-left:35px;background: #f7f7f7;height:42px;line-height:42px;font-size:16px;color:#4b4b4b;}
+.studentCart .checkForm dd{background: #f7f7f7;height:42px;line-height:42px;font-size:16px;color:#4b4b4b;}
 .studentCart .checkForm span{display:inline-block;text-align: center}
 .studentCart .checkForm .num{width:60px;}
-.studentCart .checkForm .name{width:508px;}
+.studentCart .checkForm .name{width:428px;}
 /*.studentCart .checkForm dd .name{text-align: left}*/
-.studentCart .checkForm .oldPrice{width:110px;position: relative;}
+.studentCart .checkForm .oldPrice,
+.studentCart .checkForm .newPrice{width:120px;position: relative;}
 .studentCart .checkForm dd .oldPrice{text-decoration:line-through }
-.studentCart .checkForm .time{width:162px;}
+.studentCart .checkForm .time{width:260px;}
 .studentCart .checkForm dd .newPrice{color:#f14211;font-weight: bold;font-size:20px}
 .studentCart .checkForm .operation{width:110px;}
 .studentCart .checkForm .operation a:hover{color: #f90}
-.studentCart .checkForm dd{background: #fff;padding-left:0;width:918px;margin-left:35px;}
+.studentCart .checkForm dd{background: #fff;padding-left:0;}
 .studentCart .checkForm dd.noBorder{border:none;}
 .studentCart .checkForm .total{height:42px;line-height:42px;padding-left: 30px}
 .studentCart .checkForm .total span{font-size:16px;margin-right:50px;}
@@ -128,7 +129,7 @@
 .studentCart .contactInfo .getVerCodeBtn .getVerCodespan{width:130px;height:32px;line-height:32px;margin:0 10px;font-size: 14px;background: #dedede;text-align: center;border-radius: 2px;display: inline-block;color: #a5a5a5;}
 .studentCart .contactInfo .getVerCodeBtn .Validform_checktip{display: block;padding-left: 0;margin-top:4px;}
 .studentCart .contactInfo .getVerCodeBtn .undis{display: none}
-.studentCart .contactInfo li .submitBtn{width:190px;height:50px;line-height:50px;border:none;font-size: 20pxcursor:pointer;}
+.studentCart .contactInfo li .submitBtn{width:190px;border:none;}
 
 
 
