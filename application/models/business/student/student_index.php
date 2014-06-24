@@ -59,7 +59,8 @@ class Student_Index extends NH_Model{
             $array_return['class_nums'] = $int_num;
             #获取该轮里面的主讲老师信息
             $teacher = $this->student_course->get_round_team($array_return['id'],TEACH_SPEAKER);
-            if($teacher && $teacher['0'])
+           
+            if(isset($teacher['0']) && $teacher['0'])
             {
             	$array_return['teacher'] = $teacher['0'];
             } else {
