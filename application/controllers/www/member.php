@@ -139,7 +139,7 @@ class Member extends NH_User_Controller {
 	    {
 	        show_error("参数错误");
 	    }
-	    #获取参数 取消1  删除2 申请退课3 退课详情4
+	    #获取参数 1取消  2删除 3申请退课 4退课详情
 	    if (!in_array($str_type, array(1,2,3,4)))
 	    {
 	        show_error("参数错误");

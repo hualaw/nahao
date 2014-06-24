@@ -23,7 +23,6 @@ class Student_Classroom extends NH_Model{
         
         #获取练习题的题目id数组
         $array_qid = $this->get_exercise_qid($int_class_id,$int_max_sequence);
-        //var_dump($array_qid); echo '----';
         #去答题记录表中查看用户是否做过当前批次的题，将这些题的id出来
         $array_qid_done = $this->get_student_question_qid($int_class_id,$int_max_sequence,$int_user_id);
         $array_qid_done = array();
@@ -33,7 +32,6 @@ class Student_Classroom extends NH_Model{
         }
         #在当前批次中将已经做过的题去掉
         $array_diff = array_diff($array_qid, $array_qid_done);
-        //var_dump($array_diff);die;
         if (empty($array_diff))
         {
             $array_return = array('status'=>'error','msg'=>'用户已经做过题了');

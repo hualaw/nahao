@@ -132,6 +132,69 @@ define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
 
+/* 课的状态
+ * 初始化 0
+* 即将上课1
+* 可进教室2
+* 正在上课3
+* 上完课4
+* 老师缺课5
+* 禁用（不能恢复）6
+*  */
+define('CLASS_STATUS_INIT', 0);
+define('CLASS_STATUS_SOON_CLASS', 1);
+define('CLASS_STATUS_ENTER_ROOM', 2);
+define('CLASS_STATUS_CLASSING', 3);
+define('CLASS_STATUS_CLASS_OVER', 4);
+define('CLASS_STATUS_MISS_CLASS', 5);
+define('CLASS_STATUS_FORI_CLASS', 6);
+
+/**
+ * 轮的销售状态
+ * 未审核0
+ * 审核不通过1
+ * 审核通过（预售）2
+ * 销售中3
+ * 已售罄4
+ * 已停售（时间到了还没售罄）5
+ * 已下架（手动下架）6
+ */
+define('ROUND_SALE_STATUS_INIT', 0);
+define('ROUND_SALE_STATUS_NO_PASS', 1);
+define('ROUND_SALE_STATUS_PASS', 2);
+define('ROUND_SALE_STATUS_SALE', 3);
+define('ROUND_SALE_STATUS_OVER', 4);
+define('ROUND_SALE_STATUS_FINISH', 5);
+define('ROUND_SALE_STATUS_OFF', 6);
+
+/**
+ * 轮的授课状态
+ * 等待开课1
+ * 授课中2
+ * 停课（手动操作）3
+ * 结课4
+ * 过期(节课后一个月cron会把这个状态改为过期)5
+ */
+define('ROUND_TEACH_STATUS_INIT', 1);
+define('ROUND_TEACH_STATUS_TEACH', 2);
+define('ROUND_TEACH_STATUS_STOP', 3);
+define('ROUND_TEACH_STATUS_FINISH', 4);
+define('ROUND_TEACH_STATUS_OVER', 5);
+
+
+/**
+ * 学生退款记录表student_refund退款状态
+ * 处理中 0
+ * 退款失败1
+ * 同意退款2
+ * 退款完成3
+ */
+define('REFUND_STATUS_INIT', 0);
+define('REFUND_STATUS_FAIL', 1);
+define('REFUND_STATUS_AGREE', 2);
+define('REFUND_STATUS_FINISH', 3);
+
+
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
 
@@ -301,53 +364,6 @@ define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
 define('CLASS_FASTER_ACTION', 3);//讲慢一点
 
-/* 课的状态
- * 初始化 0
- * 即将上课1
- * 可进教室2
- * 正在上课3
- * 上完课4
- * 老师缺课5
- * 禁用（不能恢复）6
- *  */
-define('CLASS_STATUS_INIT', 0);
-define('CLASS_STATUS_SOON_CLASS', 1);
-define('CLASS_STATUS_ENTER_ROOM', 2);
-define('CLASS_STATUS_CLASSING', 3);
-define('CLASS_STATUS_CLASS_OVER', 4);
-define('CLASS_STATUS_MISS_CLASS', 5);
-define('CLASS_STATUS_FORI_CLASS', 6);
 
-/**
- * 轮的销售状态
- * 未审核0
- * 审核不通过1
- * 审核通过（预售）2
- * 销售中3
- * 已售罄4
- * 已停售（时间到了还没售罄）5
- * 已下架（手动下架）6
- */
-define('ROUND_SALE_STATUS_INIT', 0);
-define('ROUND_SALE_STATUS_NO_PASS', 1);
-define('ROUND_SALE_STATUS_PASS', 2);
-define('ROUND_SALE_STATUS_SALE', 3);
-define('ROUND_SALE_STATUS_OVER', 4);
-define('ROUND_SALE_STATUS_FINISH', 5);
-define('ROUND_SALE_STATUS_OFF', 6);
-
-/**
- * 轮的授课状态
- * 等待开课
- * 授课中
- * 停课（手动操作）
- * 结课
- * 过期(节课后一个月cron会把这个状态改为过期)
- */
-define('ROUND_TEACH_STATUS_INIT', 1);
-define('ROUND_TEACH_STATUS_TEACH', 2);
-define('ROUND_TEACH_STATUS_STOP', 3);
-define('ROUND_TEACH_STATUS_FINISH', 4);
-define('ROUND_TEACH_STATUS_OVER', 5);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

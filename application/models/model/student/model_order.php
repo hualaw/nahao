@@ -6,20 +6,6 @@ class Model_Order extends NH_Model{
     function __construct(){
         parent::__construct();
     }
-
-    /**
-     * 首页获取一门课程里面最新的一轮（在审核通过和销售中）
-     * @return $array_result
-     * @author liubing@tizi.com
-     */
-    public function get_course_latest_round()
-    {
-        $array_result = array();
-        $sql = "SELECT course_id,MIN(start_time) AS start_time FROM round
-                WHERE sale_status >= 2 AND sale_status <= 3 GROUP BY course_id";
-        $array_result = $this->db->query($sql)->result_array();
-        return $array_result;
-    }
     
     /**
      * 创建订单,向数据库里面写一条记录(订单表)

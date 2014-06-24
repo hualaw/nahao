@@ -61,24 +61,24 @@
                         <a href="#review">{$str_evaluate_count}条评价</a>
                     </div>
                     <p class="fromf cf">
-						{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
+						{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
 						<input type="hidden" id="product_id" value="{$array_data.id}">
-                        <span class="fl oldPrice">原价<span>￥{$array_data.price|string_format:"%.0f"}</span></span>
+                        <span class="fl oldPrice">原价<span>￥{$array_data.price}</span></span>
 						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
                             <span class="fl">立即报名</span>
                             <span class="fr"></span>
                         </a>
-                        {elseif $array_data.sale_status == '4'}
+                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
                         <a href="javascript:void(0);" class="fr btn btn3">
                             <span class="fl">已售罄</span>
                             <span class="fr"></span>
                         </a>
-                        {elseif $array_data.sale_status == '5'}
+                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
                         <a href="javascript:void(0);" class="fr btn btn3">
                             <span class="fl">已停售</span>
                             <span class="fr"></span>
                         </a>
-                        {else if $array_data.sale_status == '5'}
+                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
                         <a href="javascript:void(0);" class="fr btn btn3">
                             <span class="fl">已下架</span>
                             <span class="fr"></span>
@@ -112,11 +112,11 @@
                 <div class="slash"></div>
                 <!-- 课程简介 -->
                 <div class="introd cBox">
-                    <p>{$array_data.intro|truncate:300:"...":true}</p>
+                    <p>{$array_data.intro|truncate:250:"...":true}</p>
                 </div>
                 <!-- 适合学生 -->
                 <div class="fitStu cBox">
-					{$array_data.intro|truncate:300:"...":true}
+					{$array_data.intro|truncate:250:"...":true}
                 </div>
                 <!-- 课程大纲 -->
                 <div class="outline cBox">
@@ -193,7 +193,7 @@
                     {if $str_evaluate_count >=5}
                         <a href="" class="loadMore">本页最多显示最近的5条评论</a>
                     {/if}  
-                        	{if $array_data.sale_status == '2' || $array_data.sale_status == '3'}
+                        	{if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
 							<input type="hidden" id="product_id_xia" value="{$array_data.id}">
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
                             <span class="fl">
@@ -205,7 +205,7 @@
                                 <em>未上课次随时退款</em>
                             </span>
                         	</a>
-                            {elseif $array_data.sale_status == '4'}
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
                             <span class="fl">
                                 ¥
@@ -216,7 +216,7 @@
                                 <em>未上课次随时退款</em>
                             </span>
                         	</a>
-                            {elseif $array_data.sale_status == '5'}
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
                             <span class="fl">
                                 ¥
@@ -227,11 +227,11 @@
                                 <em>未上课次随时退款</em>
                             </span>
                         	</a>
-                            {else if $array_data.sale_status == '5'}
+                            {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
                             <span class="fl">
                                 ¥
-                                <strong>{$array_data.price|string_format:"%.0f"}</strong>
+                                <strong>{$array_data.price}</strong>
                             </span>
                             <span class="fr">
                                 <span>已下架</span>
@@ -259,7 +259,7 @@
                             </div>
                         </div>
                         <p class="teaIntrod">
-							{$item.teacher_intro|truncate:300:"...":true}
+							{$item.teacher_intro|truncate:250:"...":true}
                         </p>
                     </li>
 				{/foreach}
