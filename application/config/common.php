@@ -232,13 +232,6 @@ $config['classroom_student_action'][1] = '点赞';
 $config['classroom_student_action'][2] = '讲快点';
 $config['classroom_student_action'][3] = '讲慢点';
 
-//课里面的状态
-$config['class_teach_status'][0] = '初始化';
-$config['class_teach_status'][1] = '即将上课';
-$config['class_teach_status'][2] = '正在上课';
-$config['class_teach_status'][3] = '上完课';
-$config['class_teach_status'][4] = '缺课';
-$config['class_teach_status'][3] = '禁用';
 
 //账户状态
 $config['account'][0] = '禁用';
