@@ -29,7 +29,11 @@ class NH_Admin_Controller extends NH_Controller
             if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='enter'){
                 $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_CLASSROOM);
             }
-            if($this->is_login===true){
+            if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='preview'){
+                $this->arr_admin_init_css[] = STATIC_ADMIN_CSS_PREVIEW;
+            }
+//            o($this->is_login,true);
+            if($this->is_login===true AND $this->session->userdata('user_type')==NH_MEETING_TYPE_ADMIN){
                 //验证登录通过后拿到userinfo
 		        $this->userinfo = $this->session->all_userdata();
 //                o($this->userinfo,true);

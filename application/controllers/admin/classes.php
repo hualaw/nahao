@@ -89,4 +89,20 @@ class Classes extends NH_Admin_Controller {
         $this->smarty->display('admin/classroom.html');
     }
 
+    /**
+     * 预览pdf
+     * @author yanrui@tizi.com
+     */
+    public function preview(){
+        $int_courseware_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        if($int_courseware_id){
+            $arr_coruseware = get_courseware_info($int_courseware_id);
+            $this->smarty->assign('coruseware_id', $arr_coruseware['id']);
+            $this->smarty->assign('pagenum', $arr_coruseware['pagenum']);
+            $this->smarty->assign('swfpath', $arr_coruseware['swfpath']);
+            $this->smarty->assign('view', 'preview');
+            $this->smarty->display('admin/layout.html');
+        }
+    }
+
 }
