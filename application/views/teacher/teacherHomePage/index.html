@@ -38,15 +38,7 @@
 	                        <td>
 	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
 	                            <a {if in_array($val['status'],$data['enter_classroom'])}href="{$student_url}classroom/enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} target="_blank" class="readyGo">
-	                            	{if $val['status']==1}
-	                            		即将开始
-	                            	{elseif $val['status']==2}
-	                            		可进教室
-	                            	{elseif $val['status']==3}
-	                            		正在上课
-	                            	{elseif $val['status']==4}
-	                            		上完课
-	                            	{/if}
+	                            {$val['status_name']}
 	                            </a>
 	                        </td>
 	                        <td class="className">

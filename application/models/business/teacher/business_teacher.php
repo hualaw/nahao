@@ -33,8 +33,10 @@ class Business_Teacher extends NH_Model
      		'status' => "1,2,3",
      		'order' => 2,
      	);
+     	$status = config_item('class_teach_status');
      	$res = $this->model_teacher->class_seacher($param);
      	if($res) foreach($res as &$val){
+     		$val['status_name'] = $status[$val['status']];
      		$total_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
