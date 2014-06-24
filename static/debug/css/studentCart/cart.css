@@ -103,12 +103,12 @@
 .studentCart .checkForm dd{background: #f7f7f7;height:42px;line-height:42px;font-size:16px;color:#4b4b4b;}
 .studentCart .checkForm span{display:inline-block;text-align: center}
 .studentCart .checkForm .num{width:60px;}
-.studentCart .checkForm .name{width:428px;}
+.studentCart .checkForm .name{width:400px;}
 /*.studentCart .checkForm dd .name{text-align: left}*/
 .studentCart .checkForm .oldPrice,
 .studentCart .checkForm .newPrice{width:120px;position: relative;}
 .studentCart .checkForm dd .oldPrice{text-decoration:line-through }
-.studentCart .checkForm .time{width:260px;}
+.studentCart .checkForm .time{width:300px;}
 .studentCart .checkForm dd .newPrice{color:#f14211;font-weight: bold;font-size:20px}
 .studentCart .checkForm .operation{width:110px;}
 .studentCart .checkForm .operation a:hover{color: #f90}
