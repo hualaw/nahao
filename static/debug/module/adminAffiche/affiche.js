@@ -21,14 +21,14 @@ define(function(require,exports){
 
         $('.edit').click(function(){
             $('#myModal').modal();
-            $('#edit_content').val($(this).data('content'));
+            CKEDITOR.instances.edit_content.setData($(this).data('content'));
             $('#affiche_id').val($(this).data('affiche_id'));
         })
         $('#edit').click(function(){
             $.ajax({
                 type:'post',
                 url:'/affiche/edit_content',
-                data:'id='+$('#affiche_id').val()+"&content="+$('#edit_content').val(),
+                data:'id='+$('#affiche_id').val()+"&content="+CKEDITOR.instances.edit_content.getData(),
                 success:function(msg)
                 {
                     if(msg==1)
@@ -96,14 +96,15 @@ define(function(require,exports){
         })
 
         $('#insert_affiche').click(function(){
-            $('#insert_content').val("");
+            CKEDITOR.instances.insert_content.setData("");
             $("#insert_Modal").modal();
         })
         $('#insert').click(function(){
             $.ajax({
                 type:'post',
                 url:'/affiche/insert_affiche',
-                data:'content='+$('#insert_content').val()+'&role=1'+'&round_id='+$('#round_id').val(),
+                data:'content='+CKEDITOR.instances.insert_content.getData()
+            +'&role=1'+'&round_id='+$('#round_id').val(),
                 success:function(msg)
                 {
                     if(msg==1)
@@ -113,5 +114,10 @@ define(function(require,exports){
                 }
             })
         })
+    }
+    exports.load_ckeditor = function ()
+    {
+        CKEDITOR.replace('insert_content');
+        CKEDITOR.replace('edit_content');
     }
 })

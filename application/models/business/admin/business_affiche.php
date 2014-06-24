@@ -38,6 +38,10 @@
         public function content_edit($post)
         {
             $post['content']=trim(htmlspecialchars($post['content']));
+            if($post['content']=="")
+            {
+                return FALSE;
+            }
             return $this->model_affiche->modify_content($post);
         }
         /**
@@ -78,6 +82,11 @@
          */
         public function affiche_insert($post)
         {
+            $post['content']=trim(htmlspecialchars($post['content']));
+            if($post['content']=="")
+            {
+                return FALSE;
+            }
             if($post['role']==1)//1是管理员发的 3是老师发的
             {
                 //管理员发公告
