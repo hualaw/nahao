@@ -38,9 +38,9 @@ class Business_Login extends NH_Model {
             $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar,teach_priv,status';
             $ret_info = $this->model_user->get_user_by_param('user', 'list', $str_fields, $arr_where);
 
-            //log_message('debug_nahao', "in business_login submit(), ret_info is: ".print_r($ret_info,1));
-            $ret_info = $this->_filter_user_info($ret_info);
-            //log_message('debug_nahao', "in business_login submit(), after filter_user_info is: ".print_r($ret_info,1));
+            log_message('debug_nahao', "in business_login submit(), ret_info is: ".print_r($ret_info,1));
+            if( !empty($ret_info)) $ret_info = $this->_filter_user_info($ret_info);
+            log_message('debug_nahao', "in business_login submit(), after filter_user_info is: ".print_r($ret_info,1));
 
             if(isset($ret_info['status']))
             {
