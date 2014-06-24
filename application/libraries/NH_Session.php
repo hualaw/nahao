@@ -426,12 +426,13 @@ class NH_Session extends CI_Session {
 		// To make the session ID even more secure we'll combine it with the user's IP
 		$sessid .= $this->CI->input->ip_address();
 
+        $session_id = md5(uniqid($sessid, TRUE));
 		$this->userdata = array(
-							'session_id'	=> md5(uniqid($sessid, TRUE)),
+							'session_id'	=> $session_id,
 							'ip_address'	=> $this->CI->input->ip_address(),
 							'user_agent'	=> substr($this->CI->input->user_agent(), 0, 120),
 							'last_activity'	=> $this->now,
-							'user_data'		=> ''
+							'user_data'		=> '',
 							);
 
 
@@ -451,6 +452,14 @@ class NH_Session extends CI_Session {
 
 		// Write the cookie
 		$this->_set_cookie();
+
+        $this->CI->load->model('model/common/model_session_log', 'msl');
+        $session_log = array(
+            'session_id' => $session_id,
+        );
+
+        $this->CI->msl->save_session_log($session_log);
+
         log_message('debug_nahao', "go out of sess_create() function");
 	}
 
@@ -526,6 +535,22 @@ class NH_Session extends CI_Session {
 
         // Write the cookie
         $this->_set_cookie($cookie_data);
+
+        $this->CI->load->model('model/common/model_session_log', 'msl');
+        $session_log = array(
+            'session_id' => $new_sessid,
+            /*
+            'user_id' => isset($session_log["user_id"]) ? $session_log["user_id"] : '',
+            'nickname' => isset($session_log["nickname"]) ? $session_log["nickname"] : '',
+            'ip' => ip2long($CI->input->ip_address()),
+            'generate_time' => time(),
+            'expire_time' => time() + config_item('sess_expiration'),
+            'user_type' => isset($session_log["user_type"]) ? $session_log["user_type"] : 0,
+            'exit_time' => '',
+            */
+        );
+
+        $this->CI->msl->save_session_log($session_log);
         log_message('debug_nahao', "go out of sess_update() function");
     }
 

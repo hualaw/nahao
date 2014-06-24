@@ -18,7 +18,7 @@ class Student_Member extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_member->get_my_course_for_buy($int_user_id);
-        //var_dump($array_return);
+        //var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
@@ -47,6 +47,8 @@ class Student_Member extends NH_Model{
 	                    $array_return[$k]['next_class_time'] = '';
                     }
 
+                } else{
+                	$array_return[$k]['next_class_time'] = '';
                 }
                 #组合数据
                 $array_return[$k]['class_img'] = $class_img;

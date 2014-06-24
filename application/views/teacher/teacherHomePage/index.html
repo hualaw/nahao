@@ -37,7 +37,7 @@
 	                    <tr {if $val['status']==2}class="start"{elseif $val['status']==3}class="end"{/if}>
 	                        <td>
 	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
-	                            <a {if in_array($val['status'],array(1,2))}href="{$student_url}classroom/enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} target="_blank" class="readyGo">
+	                            <a {if in_array($val['status'],array(2))}href="{$student_url}classroom/enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} target="_blank" class="readyGo">
 	                            	{if $val['status']==1}
 	                            		即将开始
 	                            	{elseif $val['status']==2}
@@ -48,7 +48,7 @@
 	                            </a>
 	                        </td>
 	                        <td class="className">
-	                        	{if in_array($val['status'],array(1,2))}
+	                        	{if in_array($val['status'],array(2))}
 	                            	<h3><a href="{$student_url}classroom/enter/{$val['classroom_id']}">{$val['title']}</a></h3>
 	                        	{else}
 	                        		<h3>{$val['title']}</h3>

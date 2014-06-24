@@ -3,6 +3,7 @@ define(function(require,exports){
     exports.popUp = function (obj){
     	$.tiziDialog({
             title:false,
+            close:null,
             ok:false,
             icon:null,
             padding:0,

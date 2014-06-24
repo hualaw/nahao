@@ -53,13 +53,13 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
-				FROM nahao.class cl 
-				LEFT JOIN nahao.round r ON cl.round_id=r.id 
-				LEFT JOIN nahao.course c ON r.course_id=c.id 
-				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
-				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
-				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
-				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
+				FROM class cl 
+				LEFT JOIN round r ON cl.round_id=r.id 
+				LEFT JOIN course c ON r.course_id=c.id 
+				LEFT JOIN courseware cw ON cw.id=cl.courseware_id 
+				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id 
+				LEFT JOIN course_type ct ON r.course_type=ct.id 
+				LEFT JOIN subject sub ON r.subject=sub.id 
 				".$where.$order.$limit;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
@@ -89,13 +89,13 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column."  
-				FROM nahao.round r 
-				LEFT JOIN nahao.class cl ON cl.round_id=r.id 
-				LEFT JOIN nahao.course c ON r.course_id=c.id 
-				LEFT JOIN nahao.courseware cw ON cw.id=cl.courseware_id 
-				LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
-				LEFT JOIN nahao.course_type ct ON r.course_type=ct.id 
-				LEFT JOIN nahao.subject sub ON r.subject=sub.id 
+				FROM round r 
+				LEFT JOIN class cl ON cl.round_id=r.id 
+				LEFT JOIN course c ON r.course_id=c.id 
+				LEFT JOIN courseware cw ON cw.id=cl.courseware_id 
+				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id 
+				LEFT JOIN course_type ct ON r.course_type=ct.id 
+				LEFT JOIN subject sub ON r.subject=sub.id 
 				".$where.$group.$order.$limit;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
@@ -110,8 +110,8 @@ class Model_Teacher extends NH_Model{
 		$where .= !empty($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= !empty($param['teach_status']) ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';
     	$sql = "SELECT count(distinct r.id) total
-    			FROM nahao.round r 
-    			LEFT JOIN nahao.round_teacher_relation rtr ON rtr.round_id=r.id 
+    			FROM round r 
+    			LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id 
     			".$where;
     	$arr_result = $this->db->query($sql)->result_array();
     	return $arr_result;
@@ -140,9 +140,9 @@ class Model_Teacher extends NH_Model{
         $this->db->query("set names utf8");
         
 		$sql = "SELECT ".$column." 
-				FROM nahao.question q 
-				LEFT JOIN nahao.question_class_relation qcr ON qcr.question_id=q.id 
-				LEFT JOIN nahao.class cl ON qcr.class_id=cl.id ".$where.$order;
+				FROM question q 
+				LEFT JOIN question_class_relation qcr ON qcr.question_id=q.id 
+				LEFT JOIN class cl ON qcr.class_id=cl.id ".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -160,8 +160,8 @@ class Model_Teacher extends NH_Model{
         $this->db->query("set names utf8");
         
 		$sql = "SELECT max(qcr.sequence) total 
-				FROM nahao.question_class_relation qcr 
-				LEFT JOIN nahao.class cl ON qcr.class_id=cl.id 
+				FROM question_class_relation qcr 
+				LEFT JOIN class cl ON qcr.class_id=cl.id 
 				".$where;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
@@ -189,8 +189,8 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
-				FROM nahao.sutdent_question sq 
-				LEFT JOIN nahao.class cl ON sq.class_id=cl.id ".$where;
+				FROM sutdent_question sq 
+				LEFT JOIN class cl ON sq.class_id=cl.id ".$where;
 //		var_dump($sql);
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
@@ -213,7 +213,7 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT tcl.*
-				FROM nahao.teacher_checkout_log tcl ".$where.$order;
+				FROM teacher_checkout_log tcl ".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
@@ -239,7 +239,7 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
-				FROM nahao.class_feedback cf ".$where.$order;
+				FROM class_feedback cf ".$where.$order;
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	} 
@@ -279,18 +279,18 @@ class Model_Teacher extends NH_Model{
      	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
-     			$sql = "INSERT INTO nahao.question(question,answer,options,question.type,analysis) 
+     			$sql = "INSERT INTO question(question,answer,options,question.type,analysis) 
 						VALUES('".$param['question']."','".$param['answer']."','".$param['options']."',".$param['type'].",'".$param['analysis']."')";
      			$res= $this->db->query($sql);
      			$id = $this->db->insert_id();
      			if($id){
-     				$sql = "REPLACE INTO nahao.question_class_relation(class_id,question_id,question_class_relation.status,sequence) 
+     				$sql = "REPLACE INTO question_class_relation(class_id,question_id,question_class_relation.status,sequence) 
 							VALUES(".$id.",".$param['question_id'].",".$param['status'].",".$param['sequence'].")";
      				$res = $this->db->query($sql);
      			}
      			break;
      		case 'edit':
-     			$sql = "UPDATE nahao.question 
+     			$sql = "UPDATE question 
 						SET question='".$param['question']."',
 							answer='".$param['answer']."',
 							options='".$param['options']."',
@@ -303,16 +303,16 @@ class Model_Teacher extends NH_Model{
      			if(!empty($param['delete_class_question']) && !empty($param['delete_lesson_question'])){
      				exit('为防止误操作，不可缺少参数');
      			}
-     			$sql = "DELETE FROM nahao.question WHERE id=".$param['id'];
+     			$sql = "DELETE FROM question WHERE id=".$param['id'];
      			$ress = $this->db->query($sql);
      			if($ress){
      				//删除题课关系
      				if($param['delete_class_question']){
-     					$res = $this->db->query("DELETE FROM nahao.question_class_relation WHERE question_id=".$param['id']);
+     					$res = $this->db->query("DELETE FROM question_class_relation WHERE question_id=".$param['id']);
      				}
      				//删除题课节关系
      				if($param['delete_lesson_question']){
-     					$res = $this->db->query("DELETE FROM nahao.question_lesson_relation WHERE question_id=".$param['id']);
+     					$res = $this->db->query("DELETE FROM question_lesson_relation WHERE question_id=".$param['id']);
      				}
      			}
      			break;
@@ -329,7 +329,7 @@ class Model_Teacher extends NH_Model{
      	$this->db->query("set names utf8");
      	switch ($param['do']){
      		case 'add':
-     			$sql = "INSERT INTO nahao.courseware(name,create_time,courseware.status) 
+     			$sql = "INSERT INTO courseware(name,create_time,courseware.status) 
 						VALUES('对外汉语.pdf',1401321321,0)";
      			$id = $this->db->query($sql)->insert_id();
      			break;
@@ -360,7 +360,7 @@ class Model_Teacher extends NH_Model{
 			: ($param['sequence'] == -1 ? ' SET qcr.status=0,qcr.sequence=0' : ' SET qcr.status=1,qcr.sequence=1');//取消出题
 		#2. 生成sql
         $this->db->query("set names utf8");
-		$sql = "UPDATE nahao.question_class_relation qcr ".$set.$where;
+		$sql = "UPDATE question_class_relation qcr ".$set.$where;
         return $this->db->query($sql);
     }
      
@@ -376,7 +376,7 @@ class Model_Teacher extends NH_Model{
     	$param['is_correct'] = !empty($param['is_correct']) ? $param['is_correct'] : '';
     	$param['sequence'] = !empty($param['sequence']) ? $param['sequence'] : '';
     	$this->db->query("set names utf8");
-    	$sql = "INSERT INTO nahao.sutdent_question(class_id,student_id,question_id,answer,is_correct,sequence) 
+    	$sql = "INSERT INTO sutdent_question(class_id,student_id,question_id,answer,is_correct,sequence) 
 				VALUES(".$param['class_id'].",".$param['student_id'].",".$param['question_id'].",'".$param['answer']."',
 				".$param['is_correct'].",".$param['sequence'].")";
     	return $this->db->query($sql);
@@ -410,8 +410,8 @@ class Model_Teacher extends NH_Model{
         $this->db->query("set names utf8");
         $sql = 'SELECT rtr.*,r.title,r.course_type,r.teach_status,r.subject,c.score course_score 
         		FROM round_teacher_relation rtr
- 				LEFT JOIN nahao.round r ON rtr.round_id=r.id 
- 				LEFT JOIN nahao.course c ON r.course_id=c.id 
+ 				LEFT JOIN round r ON rtr.round_id=r.id 
+ 				LEFT JOIN course c ON r.course_id=c.id 
  				WHERE rtr.teacher_id='.$param['user_id'];
         
         $arr_result = $this->db->query($sql)->result_array();
@@ -470,7 +470,7 @@ class Model_Teacher extends NH_Model{
     	$param['name'] = !empty($param['name']) ? $param['name'] : '';
     	$param['user_id'] = !empty($param['user_id']) ? $param['user_id'] : '';
     	$this->db->query("set names utf8");
-    	$sql = 'INSERT INTO nahao.teacher_lecture(course,resume,subject,teacher_lecture.status,admin_id,
+    	$sql = 'INSERT INTO teacher_lecture(course,resume,subject,teacher_lecture.status,admin_id,
     		create_time,province,city,area,school,stage,teach_years,course_intro,teach_type,gender,title,
     		age,phone,email,qq,start_time,end_time,name,user_id) 
 		VALUES("'.$param['course'].'","'.$param['resume'].'","'.$param['subject'].'",'.$param['status'].',
@@ -502,7 +502,7 @@ class Model_Teacher extends NH_Model{
 	 **/
      public function get_course_type(){
      	$this->db->query("set names utf8");
-     	$sql = "SELECT * FROM nahao.course_type";
+     	$sql = "SELECT * FROM course_type";
      	return $this->db->query($sql)->result_array();
      }
      
@@ -511,7 +511,7 @@ class Model_Teacher extends NH_Model{
 	 **/
      public function get_subject(){
      	$this->db->query("set names utf8");
-     	$sql = "SELECT * FROM nahao.subject";
+     	$sql = "SELECT * FROM subject";
      	return $this->db->query($sql)->result_array();
      }
      
@@ -528,7 +528,7 @@ class Model_Teacher extends NH_Model{
        	$group = ' GROUP BY scl.action';
      	$column = "DISTINCT scl.action,COUNT(scl.action) total";
      	$sql = "SELECT ".$column." FROM student_class_log scl 
-				LEFT JOIN nahao.class cl ON scl.class_id=cl.id 
+				LEFT JOIN class cl ON scl.class_id=cl.id 
 				".$where.$group;
      	return $this->db->query($sql)->result_array();
      }

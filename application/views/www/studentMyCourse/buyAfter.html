@@ -23,8 +23,8 @@
 	        <div class="buyHeadt cf">
 	        	<div class="fl courseInfor">
 	        		<h2>{$array_data.title}</h2>
-	        		<!-- 有即将上的课 -->
-	        		{if $array_data.soon_class_infor}
+	        		<!-- 授课状态：等待开课 -->
+	        		{if $array_data.teach_status == '1' && $array_data.soon_class_infor}
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl">{$array_data.soon_class_infor.title}</h3>
@@ -40,10 +40,38 @@
 	        				</div>
 	        			</div>
 	        		
-	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn">去上课</a>
 	        		</div>
-	        		<!-- 没有即将上的课 -->
-	        		{else}
+	        		<!-- 授课状态：授课中 -->
+	        		{else if $array_data.teach_status == '2' && $array_data.soon_class_infor}
+	        	    <span>即将开始的是：</span>
+	        		<div class="cf h3Box">
+		        		<h3 class="fl">{$array_data.soon_class_infor.title}</h3>
+		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+	        		</div>
+	        		
+	        		<div class="cf classCDList">
+	        			<span class="fl">距离上课还有：</span>
+	        			<div class="fl classCD">
+	        				<input type="hidden" id="stime" value="{$array_data.soon_class_infor.begin_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+	        				<div class="classCDcon">
+
+	        				</div>
+	        			</div>
+	        		
+	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn" title="在开课时间前30分钟，可提前进教室">去上课</a>
+	        		</div>
+	        		{else if $array_data.teach_status == '3'}
+	        	    <span></span>
+	        		<div class="cf h3Box">
+		        		<h3 class="fl"></h3>
+		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+	        		</div>
+	        		
+	        		<div class="cf classCDList">
+	        			<span class="fl"></span>
+	        		        
+	        		</div>
+	        		{else if $array_data.teach_status == '4'}
 	        		<span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
@@ -52,7 +80,18 @@
 	        		
 	        		<div class="cf classCDList">
 	        			<span class="fl"></span>
-	        			<a href="javascript:;"  class="fr noShowBtn redBtn">去上课</a>
+        		        
+	        		</div>
+	        		{else if $array_data.teach_status == '5'}
+	        	    <span></span>
+	        		<div class="cf h3Box">
+		        		<h3 class="fl"></h3>
+		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+	        		</div>
+	        		
+	        		<div class="cf classCDList">
+	        			<span class="fl"></span>
+      		        
 	        		</div>
 	        		{/if}
 	        	</div>
@@ -109,7 +148,7 @@
 								{if $it.status=='1'}
 								    <a href="javascript:;" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
 								{elseif $it.status=='2'}
-									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="可进教室了" class="goClass cBtn fl">去上课</a>
+									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">去上课</a>
 								{elseif $it.status=='3'}
 									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
 								{elseif $it.status=='4'}
@@ -127,14 +166,18 @@
 		                            	<div class="cf">
 		                                	<p class="listh fl" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title|truncate:10:"...":true}</p>
 		                                	<div class="cf cListHid undis">
+		                                		{if $array_data.teach_status!=5}
 		                                		<span class="fl handout"></span>
-		                                		{if $it.status=='3'}
+		                                		{/if}
+		                                		{if $it.status=='3' && $array_data.teach_status!=5}
 			                                	<span class="fl cloudNotes" data-cid={$it.classroom_id}></span>
 			                                	{/if}
 			                                	{if $it.comment_status > 0}
 			                                	<span class="cevaluBtn fr sevaluBtn">已评价</span>
 			                                	{else}
+			                                		{if $it.status == '3' && $array_data.teach_status!=5}
 			                                	<a href="javascript:void(0)" evaluBtns="{$it.id}" class="cevaluBtn fr evaluBtn ">评价</a>
+			                                		{/if}
 			                                	{/if}
 			                            	</div>
 		                            	</div>
@@ -163,6 +206,7 @@
 	        	<ul class="abuyTabBox ntBox">
 	        	{if $array_note}
 	        	{foreach from=$array_note item=item}
+	        		{if $item.round_id =='0'}
 	        		<li>
 						<div class="nhead cf posr">
 							<img src="{$item.avatar}" alt="" class="fl">
@@ -176,6 +220,24 @@
 							<p class="indent">{$item.content}</p>
 						</div>
 					</li>
+					{/if}
+	        	{/foreach}
+	        	{foreach from=$array_note item=item}
+	        		{if $item.round_id !=0}
+	        		<li>
+						<div class="nhead cf posr">
+							<img src="{$item.avatar}" alt="" class="fl">
+							<div class="fl teaRCon">
+								<strong>{$item.nickname}</strong>
+								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
+							</div>
+						</div>
+						<div class="nDetailCon">
+							<p>各位同学</p>
+							<p class="indent">{$item.content}</p>
+						</div>
+					</li>
+					{/if}
 	        	{/foreach}
 	        	{/if}
 	        	</ul>

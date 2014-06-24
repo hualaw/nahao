@@ -139,62 +139,6 @@ class Classroom extends NH_User_Controller {
 	    }
 	}
 
-    public function save_stu_action()
-    {
-        $class_id = intval(trim($this->input->get("class_id")));
-        $user_id = intval(trim($this->input->get("user_id")));
-        $action_type = intval(trim($this->input->get("type")));
-
-        $info = array(
-            'class_id' => $class_id,
-            'user_id' => $user_id,
-            'action_type' => $action_type,
-        );
-        if($class_id <= 0 OR $user_id <= 0 OR $action_type <= 0)
-        {
-            log_message('error_nahao', "save student class action failed", $info);
-            die(ERROR);
-        }
-
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $this->stu_obj->save_action($class_id, $user_id, $action_type);
-        log_message('info_nahao', "save student class action", $info);
-        die(SUCCESS);
-    }
-
-    public function get_action_stat()
-    {
-        $class_id = intval(trim($this->input->get("class_id")));
-        if($class_id <= 0)
-        {
-            log_message('error_nahao', "get class action stat failed", array('class_id'=>$class_id));
-        }
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $result = $this->stu_obj->get_action_stat($class_id);
-
-        $arr_return = array(
-            'please_total_count' => 0,
-            'slower_total_count' => 0,
-            'faster_total_count' => 0,
-        );
-        if(!empty($result))
-        {
-            foreach($result as $val)
-            {
-                if($val['action'] == CLASS_PLEASE_ACTION) $arr_return['please_total_count'] = $val['count'];
-                else if($val['action'] == CLASS_SLOWER_ACTION) $arr_return['slower_total_count'] = $val['count'];
-                else if($val['action'] == CLASS_FASTER_ACTION) $arr_return['faster_total_count'] = $val['count'];
-            }
-        }
-
-        $str_return = "{\"please_total_count\":{$arr_return['please_total_count']},";
-        $str_return .=  "\"slower_total_count\":{$arr_return['slower_total_count']},";
-        $str_return .=  "\"faster_total_count\":{$arr_return['faster_total_count']}}";
-
-        die($str_return);
-    }
-
-
 	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
 	/**
 	 * 老师获得该课的当前未出过所有题目
@@ -299,8 +243,10 @@ class Classroom extends NH_User_Controller {
         #用户是否有登陆
         #登陆的用户是否有买过这堂课
         $int_user_id = $this->session->userdata('user_id'); #TODO
-        $int_user_type = $this->session->userdata('user_type');
-        #判断当前用户是学生还是老师。 0是学生，1是老师
+        //$int_user_type = $this->session->userdata('user_type');
+        $array_user = $this->_user_detail;
+        $int_user_type = $array_user['teach_priv'];
+/*         #判断当前用户是学生还是老师。 0是学生，1是老师
         if($int_user_type == '0')
         {
         	#如果是学生判断是否买了这一堂课
@@ -321,8 +267,8 @@ class Classroom extends NH_User_Controller {
         #判断这节课是不是在"去上课"的状态
         if ($array_class['status'] !='2')
         {
-        	show_error('上课时间已过，您不能进入教室了');
-        }
+        	show_error('您不能进入教室了，您的课的状态不是“正在上课”');
+        } */
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);
