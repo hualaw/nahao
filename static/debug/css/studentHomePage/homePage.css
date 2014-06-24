@@ -1,6 +1,6 @@
-ï»¿/*é¦–é¡µ å†…å®¹ */
+/*Ê×Ò³ ÄÚÈİ */
 .studentHomePage .contop{background: #f4f4f4;}
-/* å¤§å›¾æ»šåŠ¨ å¼€å§‹*/
+/* ´óÍ¼¹ö¶¯ ¿ªÊ¼*/
 .studentHomePage .roll{ overflow: hidden;position: relative;}
 .studentHomePage .roll ul{ width:100%;overflow:hidden;height:420px;}
 .studentHomePage .roll img{ height:420px;width: 980px;}
@@ -10,13 +10,13 @@
 .studentHomePage .roll ul li a{display: block;text-align: center;}
 .studentHomePage .rollNav li{ width:12px; height:12px;margin-right:14px;border: 1px solid #f14211;border-radius: 7px;background: #fff;}
 .studentHomePage .rollNav li.active{ background:#f14211;}
-/* å¤§å›¾æ»šåŠ¨ ç»“æŸ*/
-/*è¯¾ç¨‹å±•ç¤º*/
+/* ´óÍ¼¹ö¶¯ ½áÊø*/
+/*¿Î³ÌÕ¹Ê¾*/
 .studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 55px 86px;}
 .studentHomePage .courseList li{width: 230px;height: 270px;margin:0 20px 36px 0;position: relative;/*-webkit-perspective:800;*/}
 .studentHomePage .courseList{margin-right: -28px;}
 .studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}
-/*   å¸ˆèµ„ è®¤è¯è¿‡ç¨‹ å¼€å§‹  */
+/*   Ê¦×Ê ÈÏÖ¤¹ı³Ì ¿ªÊ¼  */
 .studentHomePage .comTitle{color:#0e455e;font-size: 50px;}
 .studentHomePage .reTitle{height: 80px;width: 515px;margin: 0 auto;border-width: 0 1px 0 1px;border-style:solid;border-color: #e3e3e3;text-align: center;margin-top: -34px;
 }
@@ -30,9 +30,9 @@
 .studentHomePage .courseRequire .recomTea p{font-size: 16px;color:#727272;}
 .studentHomePage .courseRequire .line{width: 60px;}
 .studentHomePage .ad{background:url(../../images/studentHomePage/adbgc.png);margin:56px 0 44px;}
-.studentHomePage .ad .adbgc{background:url(../../images/studentHomePage/ad.png) no-repeat;width: 1200px;margin:0 auto;height: 437px;}
+.studentHomePage .ad .adbgc{background:url(../../images/studentHomePage/ad.png) no-repeat;width: 980px;margin:0 auto;height: 437px;}
 .studentHomePage .ad .cat{position: absolute;width: 103px;height: 85px;background: url(../../images/studentHomePage/cat.png) no-repeat;bottom: -17px;right: 13.69%;}
-/*è´´å¿ƒæœåŠ¡ éšæ—¶é€€æ¬¾*/
+/*ÌùĞÄ·şÎñ ËæÊ±ÍË¿î*/
 .studentHomePage .service{height: 541px;background: url(../../images/studentHomePage/line.gif) no-repeat;}
 .studentHomePage .service .comTitle{width: 430px;margin:0 auto;height: 80px;line-height: 80px;}
 .studentHomePage .line{height: 2px;background: #f14211;display: block;margin:5px auto 8px;}
@@ -42,7 +42,7 @@
 .studentHomePage .audition{background: url(../../images/studentHomePage/audition.gif) no-repeat;}
 .studentHomePage .dropCourse{background: url(../../images/studentHomePage/dropCourse.gif) no-repeat;}
 .studentHomePage .study{background: url(../../images/studentHomePage/study.gif) no-repeat;}
-/*å¸ˆèµ„ è¯¾ç¨‹ å­¦æ ¡ åˆä½œ*/
+/*Ê¦×Ê ¿Î³Ì Ñ§Ğ£ ºÏ×÷*/
 .studentHomePage .cooph .headBg{width: 326px;height: 230px;}         
 .studentHomePage .investor{background: url(../../images/studentHomePage/coop1.gif) center top no-repeat;}
 .studentHomePage .founder{background: url(../../images/studentHomePage/coop2.gif) center top no-repeat;}
@@ -69,4 +69,4 @@
 .studentHomePage .coopBoxCon .dt{color:#1c1c1c;font-size: 18px;line-height: 44px;margin-top: 10px;}
 .studentHomePage .coopBoxCon .dl{color:#727272;font-size: 16px;line-height: 22px;}
 .studentHomePage .coopBoxCon .edudt{margin-top: 20px;}
-/*   ä¸æ”¯æŒ transform  çš„ä½ç‰ˆæœ¬æµè§ˆå™¨*/
+/*   ²»Ö§³Ö transform  µÄµÍ°æ±¾ä¯ÀÀÆ÷*/
