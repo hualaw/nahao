@@ -15,25 +15,25 @@
 				<td>
 					<span class="orderName">订单状态:</span>
 					<span class='redText'>					
-					{if $array_order.status == '0'}
+					{if $array_order.status == $smarty.const.ORDER_STATUS_INIT}
 					未付款
-					{elseif $array_order.status == '1'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_FAIL}
 					付款失败
-					{elseif $array_order.status == '2'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_SUCC}
 					已付款
-					{elseif $array_order.status == '3'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_FINISH}
 					已付款
-					{elseif $array_order.status == '4'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_CANCEL}
 					已取消
-					{elseif $array_order.status == '5'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_CLOSE}
 					已关闭
-					{elseif $array_order.status == '6'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_APPLYREFUND}
 					申请退款
-					{elseif $array_order.status == '7'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_APPLYREFUND_FAIL}
 					拒绝退款
-					{elseif $array_order.status == '8'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_APPLYREFUND_AGREE}
 					同意退款
-					{elseif $array_order.status == '9'}
+					{elseif $array_order.status == $smarty.const.ORDER_STATUS_APPLYREFUND_SUCC}
 					已退款
 					{/if}
 					</span>
@@ -58,7 +58,7 @@
 
 				</td>
 			</tr>
-			{if $array_order.status == '0' || $array_order.status == '1'}
+			{if $array_order.status == $smarty.const.ORDER_STATUS_INIT || $smarty.const.ORDER_STATUS_FAIL}
 			<tr class="tf">
 				<td  colspan="4">
 					<p>金额总计<strong class="redText">¥{$array_order.spend}</strong></p>

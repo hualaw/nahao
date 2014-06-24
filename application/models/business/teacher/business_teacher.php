@@ -33,8 +33,10 @@ class Business_Teacher extends NH_Model
      		'status' => "1,2,3",
      		'order' => 2,
      	);
+     	$status = config_item('class_teach_status');
      	$res = $this->model_teacher->class_seacher($param);
      	if($res) foreach($res as &$val){
+     		$val['status_name'] = $status[$val['status']];
      		$total_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
@@ -186,28 +188,37 @@ class Business_Teacher extends NH_Model
       **/ 
      public function count_zj_status($data){
      	$count = array(
-     		'z_count' => 0,
-     		'j_count' => 0,
-     		'j_status_5' => 0,//禁用
-     		'j_status_4' => 0,//缺课
-     		'j_status_3' => 0,//已结课
-     		'j_status_2' => 0,//正在上课
-     		'j_status_1' => 0,//即将上课
-     		'j_status_0' => 0,//初始化
+     		'z_count' => array('name'=>'章','num'=>0),
+     		'j_count' => array('name'=>'节','num'=>0),
+//     		'j_status_5' => 0,//禁用
+//     		'j_status_4' => 0,//缺课
+//     		'j_status_3' => 0,//已结课
+//     		'j_status_2' => 0,//正在上课
+//     		'j_status_1' => 0,//即将上课
+//     		'j_status_0' => 0,//初始化
      	);
+     	#初始化已定义的状态数目
+     	$status = config_item('class_teach_status');
+     	foreach($status as $key => $val){
+     		$count['j_status_'.$key] = array(
+     			'name' => $val,
+     			'num'  => 0,
+     		);
+     	}
      	if(count($data)>0){
-     		$count['z_count'] = count($data);
+     		$count['z_count']['num'] = count($data);
      		foreach ($data as $val){
      			
-     			$count['j_count'] += isset($val['jArr']) ? count($val['jArr']) : 0;
+     			$count['j_count']['num'] += isset($val['jArr']) ? count($val['jArr']) : 0;
      			if(isset($val['jArr'])) foreach ($val['jArr'] as $v){
      				$v['status'] = !empty($v['status']) ? $v['status'] : 0;
-     				$count['j_status_5'] += $v['status'] == 5 ? 1 : 0;
-	     			$count['j_status_4'] += $v['status'] == 4 ? 1 : 0;
-	     			$count['j_status_3'] += $v['status'] == 3 ? 1 : 0;
-	     			$count['j_status_2'] += $v['status'] == 2 ? 1 : 0;
-	     			$count['j_status_1'] += $v['status'] == 1 ? 1 : 0;
-	     			$count['j_status_0'] += $v['status'] == 0 ? 1 : 0;
+     				$count['j_status_'.$v['status']]['num'] += 1;
+//     				$count['j_status_5'] += $v['status'] == 5 ? 1 : 0;
+//	     			$count['j_status_4'] += $v['status'] == 4 ? 1 : 0;
+//	     			$count['j_status_3'] += $v['status'] == 3 ? 1 : 0;
+//	     			$count['j_status_2'] += $v['status'] == 2 ? 1 : 0;
+//	     			$count['j_status_1'] += $v['status'] == 1 ? 1 : 0;
+//	     			$count['j_status_0'] += $v['status'] == 0 ? 1 : 0;
      			}
      		}
      	}
@@ -219,12 +230,12 @@ class Business_Teacher extends NH_Model
      **/
      public function class_list($param){
      	if(empty($param['teacher_id'])){exit('请检查您的登录状态');}
-     	$round_teach_status = config_item('round_teach_status');
+     	$class_teach_status = config_item('class_teach_status');
      	$res = $this->model_teacher->class_seacher($param);
      	$zjArr = array();
      	if($res) foreach($res as &$val){
      		$val['status'] = !empty($val['status']) ? $val['status'] : 0;
-     		$val['status_name'] = isset($round_teach_status[$val['status']]) ? $round_teach_status[$val['status']] : '未知';
+     		$val['status_name'] = isset($class_teach_status[$val['status']]) ? $class_teach_status[$val['status']] : '没有状态';
      		#全部
      		$total_param_item = $already_param_item = $param; 
      		$total_param_item['status'] = "";

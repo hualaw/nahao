@@ -15,10 +15,11 @@ class Model_Member extends NH_Model{
     public function get_my_course_for_buy($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM student_order so 
+        $sql = "SELECT r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM student_order so 
                 LEFT JOIN round r ON so.round_id = r.id
-                WHERE so.student_id = ".$int_user_id." AND (so.status = 2 OR so.status = 3
-                OR so.status = 6 OR so.status = 7 OR so.status = 8 OR so.status = 9)
+                WHERE so.student_id = ".$int_user_id." AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH."
+                OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." 
+                OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." )
                 ORDER BY so.id DESC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -53,14 +54,14 @@ class Model_Member extends NH_Model{
     }
     
     /**
-     * 下节课上课时间
+     * 下节课上课时间(即将开始的课)
      * @param  $int_round_id
      * @return $array_result
      */
     public function get_next_class_time($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT begin_time,end_time FROM class WHERE round_id =".$int_round_id." AND `status` =1 
+        $sql = "SELECT begin_time,end_time FROM class WHERE round_id =".$int_round_id." AND `status` =".CLASS_STATUS_SOON_CLASS."
                 AND parent_id > 0 ";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
@@ -78,10 +79,10 @@ class Model_Member extends NH_Model{
         switch ($str_type)
         {
             case 'all': $where.='';break;
-            case 'pay': $where.=' AND status = 2';break;
-            case 'nopay': $where.=' AND status = 0';break;
-            case 'cancel': $where.=' AND status = 4';break;
-            case 'refund': $where.=' AND status = 9';break;
+            case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
+            case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
+            case 'cancel': $where.=' AND status = '.ORDER_STATUS_CANCEL.' AND status = '.ORDER_STATUS_CLOSE;break;
+            case 'refund': $where.=' AND status = '.ORDER_STATUS_APPLYREFUND_SUCC;break;
         }
         $array_result = array();
         $sql = "SELECT id,spend,create_time,status,round_id,pay_type FROM student_order 
@@ -101,10 +102,10 @@ class Model_Member extends NH_Model{
         switch ($str_type)
         {
             case 'all': $where.='';break;
-            case 'pay': $where.=' AND status = 2';break;
-            case 'nopay': $where.=' AND status = 0';break;
-            case 'cancel': $where.=' AND status = 4';break;
-            case 'refund': $where.=' AND status = 9';break;
+            case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
+            case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
+            case 'cancel': $where.=' AND status = '.ORDER_STATUS_CANCEL.' AND status = '.ORDER_STATUS_CLOSE;break;
+            case 'refund': $where.=' AND status = '.ORDER_STATUS_APPLYREFUND_SUCC;break;
         }
         $array_result = array();
         $sql = "SELECT COUNT(id) AS count FROM student_order WHERE student_id = ".$int_user_id.$where;
@@ -180,7 +181,6 @@ class Model_Member extends NH_Model{
                 ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM user u
                 LEFT JOIN user_info ui ON u.id = ui.user_id
                 WHERE ui.user_id = ".$int_user_id." AND u.status = 1";
-        //echo $sql.'---';
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }

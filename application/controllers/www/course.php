@@ -78,7 +78,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-		//var_dump($array_outline);
+		//var_dump($array_data);
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
@@ -190,6 +190,21 @@ class Course extends NH_User_Controller {
 	    {
 	        show_error("参数错误");
 	    }
+	    #购买前加入没有名额的判断
+	    $array_round = $this->model_course->get_round_info($int_product_id);
+	    if ($array_round['bought_count'] == $array_round['caps'])
+	    {
+	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已售罄了'));
+	    }
+	    #购买前加入是否售罄、已停售、已下架
+	    if ($array_round['sale_status'] == '5')
+	    {
+	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已停售了'));
+	    }
+	    if ($array_round['sale_status'] == '6')
+	    {
+	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已下架了'));
+	    }
 	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
 	    $int_user_id = $this->session->userdata('user_id');                 #TODO
 	    $array_result = $this->student_order->check_product_in_order($int_product_id,$int_user_id);
@@ -222,13 +237,6 @@ class Course extends NH_User_Controller {
     	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
     	            break;
 	       }
-        }
-        
-        #购买前加入没有名额的判断
-        $array_round = $this->model_course->get_round_info($int_product_id);
-        if ($array_round['bought_count'] == 100)
-        {
-        	self::json_output(array('status'=>'error','msg'=>'这轮已售罄了'));
         }
 
 	 }

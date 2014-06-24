@@ -80,6 +80,7 @@ class OrderList extends NH_User_Controller {
 			'teach_status_count' 	=> $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
 			'pageBar'				=> $pageBar,
 			'query_param'			=> $query_param,
+			'enter_classroom'		=> array(CLASS_STATUS_ENTER_ROOM,CLASS_STATUS_CLASSING),
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/index.html');
@@ -146,6 +147,8 @@ class OrderList extends NH_User_Controller {
 	//章节详细
 	public function detail(){
 		$round_id = $this->uri->segment(3,0);
+		$round_info = $this->teacher_b->round_list(array('id'=>$round_id,'teacher_id'=>$this->teacher_id));
+		if(!isset($round_info[0])){exit('<script>alert("该班次信息不全");history.go(-1);</script>');}
 		$param = array(
 				'teacher_id' 	=> $this->teacher_id,
      			'round_id' 		=> isset($round_id) ? $round_id : '',
@@ -154,10 +157,12 @@ class OrderList extends NH_User_Controller {
 		$zjList = $this->teacher_b->class_list($param);
 		
 		$data = array(
-			'zjList' 		=> $zjList,
-			'active' 		=> 'orderlist_detail',
-			'title' 		=> '班次详情',
-			'status_count' 	=> $this->teacher_b->count_zj_status($zjList),
+			'zjList' 			=> $zjList,
+			'round_info'		=> $round_info[0],
+			'active' 			=> 'orderlist_detail',
+			'title' 			=> '班次详情',
+			'status_count' 		=> $this->teacher_b->count_zj_status($zjList),
+			'enter_classroom'	=> array(CLASS_STATUS_ENTER_ROOM,CLASS_STATUS_CLASSING),
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
