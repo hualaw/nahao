@@ -325,6 +325,7 @@ class Member extends NH_User_Controller {
             $post_data['student_subject'] = $this->input->post('selected_subjects');
             $post_data['school_id'] = intval($this->input->post('school_id'));
             $post_data['schoolname'] = trim($this->input->post('schoolname'));
+            $post_data['custom_school'] = 0;
             if($post_data['schoolname'] && empty($post_data['school_id'])) {
                 #post过来的数据有学校名称但没学校ID, 这是用户自己输入的学校,需要把学校所属的地区也接收过来
                 $post_data['province_id'] = intval($this->input->post('province_id'));
