@@ -1,8 +1,66 @@
 <html>
 <head>
     <style> body, iframe { margin: 0; padding: 0; overflow: hidden; } </style>
+    {include file="admin/header.html"}
 </head>
-<body>
+<body class="classRoomPage">
+{include file="admin/var.html"}
+<div class="container" id="nahaoModule" classroom-data="{$classroom_id}" module="{$js_module}">
 {$iframe}
+    <!--做题块 开始-->
+    <div class="doWorkBoxHtml undis">
+        <div class="doWorkBox">
+        </div>
+    </div>
+    <!--做题块 结束-->
+
+    <!--得分-题目选中 开始-->
+    <div class="scoreBoxHtml undis">
+    </div>
+    <!--得分-题目选中 结束-->
+
+    <!--教室-老师-答案统计 开始-->
+    <div class="ansCountHtml undis" id="ansCountHtml">
+        <div class="ansCount">
+            <h3 class="countTitle">
+                <span>本次练习共<em class="redText ">199</em>人作答</span>
+                <span>平均正确率<em class="redText">78.3%</em></span>
+            </h3>
+            <span class="suquence_total"></span>
+
+            <div class="citemBox posr">
+                <ul class="CitemCon">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--教室-老师-答案统计 结束-->
+
+    <!--教室-老师-选择练习题 开始-->
+    <div class="exerciseHtml undis" id="exerciseHtml">
+        <div class="exercise">
+            <div class="itemTab posr">
+                <span class="clickL clickBtn undis"></span>
+                <span class="clickR clickBtn undis"></span>
+                <div class="itemTabBox posr">
+                    <ul class="cf publish_questions">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="ef">
+				<span class="Titem publish_questions_index">
+				</span>
+                <p>
+                    <span>当前已选<em class="redText itemCurNum">0</em>题</span>&nbsp;/&nbsp;<span>总共已选<em class="redText itemNum">0</em>题</span>
+                    <a href="javascript:void(0);" class="btn redBtn do_publish_questions">发布</a>
+                    <span class="btn unclick">发布</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--教室-老师-选择练习题 结束-->
+</div>
+{include file="admin/footer.html"}
 </body>
 </html>

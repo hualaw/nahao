@@ -35,13 +35,14 @@ class Index extends NH_User_Controller {
 		$weekarray = array("日","一","二","三","四","五","六");
 		#3.页面数据
 		$data = array(
-			'listArr' => $listArr,
-			'active' => 'index_index',
-			'title' => '今日上课',
-			'host' => 'http://'.$_SERVER ['HTTP_HOST'],
-			'today_total' => count($listArr),
-			'date' => date('Y年m月d日',time()),
-			'week' => $weekarray[date('w')],
+			'listArr' 			=> $listArr,
+			'active' 			=> 'index_index',
+			'title' 			=> '今日上课',
+			'host' 				=> 'http://'.$_SERVER ['HTTP_HOST'],
+			'today_total' 		=> count($listArr),
+			'date' 				=> date('Y年m月d日',time()),
+			'week' 				=> $weekarray[date('w')],
+			'enter_classroom'	=> array(CLASS_STATUS_ENTER_ROOM,CLASS_STATUS_CLASSING),
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherHomePage/index.html');

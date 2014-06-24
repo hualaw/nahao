@@ -128,6 +128,11 @@ define(function(require,exports){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
                 	});
+                } else if(response.status == "nerror"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 }
             }, "json");
         })
@@ -156,6 +161,11 @@ define(function(require,exports){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
                 	});
+                }else if(response.status == "nerror"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null 				  
+    				});
                 }
             }, "json");
         })

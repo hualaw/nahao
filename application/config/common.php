@@ -148,10 +148,11 @@ $config['classroom_action'][2] = '退出';
 //课里面的状态
 $config['class_teach_status'][0] = '初始化';
 $config['class_teach_status'][1] = '即将上课';
-$config['class_teach_status'][2] = '正在上课';
-$config['class_teach_status'][3] = '上完课';
-$config['class_teach_status'][4] = '缺课';
-$config['class_teach_status'][3] = '禁用';
+$config['class_teach_status'][2] = '可进教室';
+$config['class_teach_status'][3] = '正在上课';
+$config['class_teach_status'][4] = '上完课';
+$config['class_teach_status'][5] = '缺课';
+$config['class_teach_status'][6] = '禁用';
 
 
 
@@ -231,13 +232,6 @@ $config['classroom_student_action'][1] = '点赞';
 $config['classroom_student_action'][2] = '讲快点';
 $config['classroom_student_action'][3] = '讲慢点';
 
-//课里面的状态
-$config['class_teach_status'][0] = '初始化';
-$config['class_teach_status'][1] = '即将上课';
-$config['class_teach_status'][2] = '正在上课';
-$config['class_teach_status'][3] = '上完课';
-$config['class_teach_status'][4] = '缺课';
-$config['class_teach_status'][3] = '禁用';
 
 //账户状态
 $config['account'][0] = '禁用';
@@ -287,3 +281,12 @@ $config['class_checkout_status'][2] = '已结算';
 //课评价显示状态
 $config['feedback'][0] = '屏蔽';
 $config['feedback'][1] = '显示';
+
+//公告发布者角色
+$config['author_role'][1] = '管理员';
+$config['author_role'][3] = '老师';
+
+//公告状态
+$config['affiche_status'][1] = '未审核';
+$config['affiche_status'][2] = '审核不通过';
+$config['affiche_status'][3] = '审核通过';

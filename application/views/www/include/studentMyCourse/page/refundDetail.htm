@@ -38,13 +38,13 @@
 				<td class="stateTd">
 					<span>申请状态</span><br>
 					<strong class="redText">
-					{if $array_data.status == '0'}
+					{if $array_data.status == $smarty.const.REFUND_STATUS_INIT}
 					 	处理中
-					{elseif $array_data.status == '1'}
+					{elseif $array_data.status == $smarty.const.REFUND_STATUS_FAIL}
 						退款失败
-					{elseif $array_data.status == '2'}
+					{elseif $array_data.status == $smarty.const.REFUND_STATUS_AGREE}
 						同意退款
-					{elseif $array_data.status == '3'}
+					{elseif $array_data.status == $smarty.const.REFUND_STATUS_FINISH}
 						退款完成												
 					{/if}
 					</strong>

@@ -37,6 +37,21 @@ class Pay extends NH_User_Controller {
 	    {
 	        show_error("参数错误");
 	    }
+	    #购买前加入没有名额的判断
+	    $array_round = $this->model_course->get_round_info($int_product_id);
+	    if ($array_round['bought_count'] == $array_round['caps'])
+	    {
+	    	show_error("这轮已售罄了");
+	    }
+	    #购买前加入是否售罄、已停售、已下架
+	    if ($array_round['sale_status'] == '5')
+	    {
+	    	show_error("这轮已停售了");
+	    }
+	    if ($array_round['sale_status'] == '6')
+	    {
+	    	show_error("这轮已下架了");
+	    }
 	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
 	    $int_user_id = $this->session->userdata('user_id');                 #TODO
 	    $array_result = $this->student_order->check_product_in_order($int_product_id,$int_user_id);
