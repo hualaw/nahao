@@ -15,7 +15,7 @@ class Model_Member extends NH_Model{
     public function get_my_course_for_buy($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM student_order so 
+        $sql = "SELECT r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM student_order so 
                 LEFT JOIN round r ON so.round_id = r.id
                 WHERE so.student_id = ".$int_user_id." AND (so.status = 2 OR so.status = 3
                 OR so.status = 6 OR so.status = 7 OR so.status = 8 OR so.status = 9)

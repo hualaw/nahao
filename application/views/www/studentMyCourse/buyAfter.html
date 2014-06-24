@@ -122,7 +122,11 @@
 	        			<div class="redLine" style="width:{$array_data.class_rate}%"></div>
 	        		</div>
 	        	</div>
+	        	{if $array_data.class_rate == '100'}
+	        	<div class="fr bHeadR colorCup"></div>
+	        	{else}
 	        	<div class="fr bHeadR"></div>
+	        	{/if}
 	        </div>
 	        {/if}
 	    </div>

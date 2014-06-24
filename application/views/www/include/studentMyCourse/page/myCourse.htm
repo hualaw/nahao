@@ -12,8 +12,14 @@
 		<!-- kecheng yi wancheng -->
 		{if $array_buy_course}
 		{foreach from=$array_buy_course item=item}
-		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
+		
+		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if} posr">
+			{if $item.sale_price == '0'}
+			<div class="courseFree"></div>
+			{/if}
 			<h3 title="{$item.title}">{$item.title|truncate:15:"...":true}</h3>
+			
+
 			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>

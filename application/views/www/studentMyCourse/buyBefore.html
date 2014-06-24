@@ -24,7 +24,12 @@
                 <p title="{$array_data.subtitle}"> {$array_data.subtitle|truncate:66:"...":true}</p>
             </div>
             <div class="buyHeadf cf">
+      			<div class="posr fl">
+      			{if $array_data.sale_price == '0'}
+				<div class="courseFree"></div>
+				{/if}
                 <img src="{$array_data.class_img}" alt="" class="fl">
+                </div>
                 <div class="fl startTime">
                     <div class="cf timeTitle">
                         <span class="fl">开课时间</span>
@@ -80,7 +85,7 @@
                         </a>
 						{/if}
                         <strong class="fr">¥
-                            <span class="redText">{$array_data.sale_price|string_format:"%.0f"}</span>
+                            <span class="redText">{$array_data.sale_price}</span>
                         </strong>
                     </p>
                 </div>
@@ -193,7 +198,7 @@
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
                             <span class="fl">
                                 ¥
-                                <strong>{$array_data.price|string_format:"%.0f"}</strong>
+                                <strong>{$array_data.price}</strong>
                             </span>
                             <span class="fr">
                                 <span>购买课程</span>
