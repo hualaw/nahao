@@ -26,7 +26,7 @@ class Member extends NH_User_Controller {
         $int_user_id = $this->session->userdata('user_id');#TODO用户id
         #我购买的课程
         $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
-        //var_dump($array_buy_course);die;
+        //var_dump($array_buy_course);
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
         $array_new = array_slice($array_new,0,3,true);

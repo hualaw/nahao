@@ -7,25 +7,51 @@
 密码: <input type="password" id="password" value="">
 <br><input type="submit" id="submit" name="提交">
 </div>
-        <script type="text/javascript">
+<script type="text/javascript" src="http://static.nahaodev.com/debug/lib/jquery/1.8.2/jquery.js"></script>
+<script type="text/javascript">
 
-            $(function() {
+    $(function() {
 
-                $('#submit').click(function() {
-                    $.ajax({
-                        type:"POST",
-                        url:"http://www.nahaodev.com/login/submit",
-                        data: {username:$("#username").val(), password:$("#password").val()},
-                        datatype:"json",
-                        success: function(data) {
-                            if(data.status == 'ok')
-                            {
-                                alert(data.data.redirect_url);
-                            }
-                        }
-                    })
-                })
+        $('#submit').click(function() {
+
+            //var username = $('#username').val();
+            //var password = $('#password').val();
+            //var url = "http://www.nahaotest.com/jsonp_login/submit?username="+username+"&password="+password+"&callback=?";
+            /*
+            var url = "http://www.nahaotest.com/jsonp_login/submit?username="+$('#username').val()+"&password="+$('#password').val()+"&callback=?";
+            $.getJSON(url, function(data) {
+                if(data.status == 'ok')
+                {
+                    alert(data.data.redirect_url);
+                }
+                else
+                {
+                    alert(data.status);
+                }
             });
-        </script>
+            */
+
+
+            $.ajax({
+                type:"GET",
+                url:"http://www.nahaotest.com/jsonp_login/submit?username="+$('#username').val()+"&password="+$('#password').val()+"&callback=?",
+                dataType:"jsonp",
+                success: function(data) {
+
+                    console.log(data);
+
+                    if(data.status == 'ok')
+                    {
+                        alert(data.data.redirect_url);
+                    }
+                    else
+                    {
+                        alert(data.status);
+                    }
+                }
+            })
+        })
+    });
+</script>
 
 

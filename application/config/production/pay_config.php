@@ -72,4 +72,4 @@ $config['bank_code'] = array(
         'minsheng' => array('name' => '民生银行', 'type' => 'motoPay', 'code' => 'CMBC-EXPRESS-CREDIT'),
     ),
 );
-$config['pay_back_url'] = 'http://www88.nahao.com/pay/payback';
+$config['pay_back_url'] = 'http://www.nahao.com/pay/payback';
