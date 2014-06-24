@@ -21,8 +21,9 @@
 	    <div class="buyHead">
 	    	{if $array_data}
 	        <div class="buyHeadt cf">
-	        	<div class="fl courseInfor">
+	        	<div class="fl courseInfor posr">
 	        		<h2>{$array_data.title}</h2>
+	        		<div class="cstate undis"></div>
 	        		<!-- 授课状态：等待开课 -->
 	        		{if $array_data.teach_status == '1' && $array_data.soon_class_infor}
 	        		<span>即将开始的是：</span>
