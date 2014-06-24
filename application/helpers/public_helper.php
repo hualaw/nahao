@@ -547,6 +547,7 @@ function nh_curl($str_url,$arr_param,$str_type='post') {
     }else{
         $str_url .= '?'.http_build_query($arr_param);
     }
+//    o($str_url,true);
     curl_setopt($obj_curl,CURLOPT_URL,$str_url);
 //    curl_setopt($obj_curl, CURLOPT_HEADER,array("Content-length: 99999") ); // 设置header 过滤HTTP头
     curl_setopt($obj_curl, CURLOPT_HEADER,0); // 设置header 过滤HTTP头
@@ -722,4 +723,33 @@ function test_nahao_classroom($str_uri,$arr_param=array()){
 //    o($arr_param);
 //    o(json_decode($str_response));
     exit;
+}
+
+function get_courseware_info($int_courseware_id){
+//    "id": 98,
+//    "url": "http://classroom.oa.tizi.com/api/files/98/",
+//    "fileobj": "98/\u767e\u5ea6\uff1a2013\u5728\u7ebf\u6559\u80b2\u7814\u7a76\u62a5\u544a.pdf",
+//    "filesize": 1678091,
+//    "filetype": "pdf",
+//    "filename": "\u767e\u5ea6\uff1a2013\u5728\u7ebf\u6559\u80b2\u7814\u7a76\u62a5\u544a.pdf",
+//    "docname": "\u767e\u5ea6\uff1a2013\u5728\u7ebf\u6559\u80b2\u7814\u7a76\u62a5\u544a",
+//    "swfpath": "http://classroom.oa.tizi.com/media/98/swf/xxxx.swf",
+//    "pagenum": 37,
+//    "params": "{}",
+//    "created_at": "2014-06-18T09:12:24Z",
+//    "updated_at": "2014-06-18T09:12:41Z",
+//    "download_url": "http://classroom.oa.tizi.com/media/98/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf",
+//    "preview_url": "http://classroom.oa.tizi.com/meeting/preview/98",
+//    "display_filesize": "1.6 M",
+//    "display_created_at": "2014-06-18 17:12",
+//    "display_updated_at": "2014-06-18 17:12"
+    $arr_response = array();
+    $str_url = NH_MEETING_URL.'api/files/'.$int_courseware_id.'/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'get');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+        $arr_response = isset($arr_response['id']) ? $arr_response : array();
+    }
+    return $arr_response;
 }
