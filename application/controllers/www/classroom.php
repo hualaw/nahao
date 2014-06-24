@@ -274,7 +274,7 @@ class Classroom extends NH_User_Controller {
         }
         
         #判断这节课是不是在"可进教室 或者 正在上课"的状态 并且 student_class表里面的课的状态等于0或者2
-        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM || $array_class['status'] != CLASS_STATUS_CLASSING )
+        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
         {
         	show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
         }

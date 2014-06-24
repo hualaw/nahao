@@ -127,7 +127,8 @@ class register extends NH_Controller
 
     public function submit_personal_info()
     {
-        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'school_id');
+        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'school_id',
+                              'schoolname', 'province_id', 'city_id', 'area_county_id', 'school_type');
         foreach($input_names as $input_name)
         {
             $$input_name = $this->_check_input($input_name);
@@ -144,17 +145,29 @@ class register extends NH_Controller
             'grade'    => $grade, // grade id
             'school'   => $school_id, //school id
         );
-
+        $user_info_arr = array_filter($user_info_arr);
+        if(!empty($schoolname)) {
+            //province_id 是学校省份Id 上面的province是用户的地区, 两者可能不一样
+            $this->load->model('business/common/business_school');
+            $custom_school['schoolname'] = $schoolname;
+            $custom_school['province_id'] = $province_id;
+            $custom_school['city_id'] = $city_id;
+            $custom_school['county_id'] = $area_county_id;
+            $custom_school['school_type'] = $school_type;
+            $new_school_id = $this->business_school->add_custom_school($custom_school);
+            $user_info_arr['school'] = intval($new_school_id);
+            $user_info_arr['custom_school'] = $user_info_arr['school'] ? 1 : 0;
+        } else {
+            $user_info_arr['custom_school'] = 0;
+        }
         //create user_info table record
         $this->load->model('model/common/model_user');
         $this->model_user->update_user_info($user_info_arr, array('user_id'=> $user_id));
-        
         if(!empty($selected_subjects))
         {
             //create student_subject table record
-            $this->load->model('model/student/model_student_subject');
-            $focus_subject_arr = explode("-", $selected_subjects);
-            $this->model_student_subject->add($user_id, $focus_subject_arr);
+            $this->load->model('business/common/business_user');
+            $this->business_user->update_user_subject($selected_subjects, $user_id, 'student');
         }
 
         //update nickname and email
@@ -218,6 +231,9 @@ class register extends NH_Controller
     {
         $name = trim($this->input->post('name'));
         $param = trim($this->input->post('phone'));
+        if($param == $this->session->userdata('phone')) {
+            self::json_output(array('status' => 'ok'));//这块是为了让前台未更改手机号时验证通过
+        }
         $result = $this->business_register->check_phone($param);
         if($result['status']=='ok') {
             $arr_return = array('status' => 'ok', 'info' => $result['msg']);

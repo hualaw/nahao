@@ -7,10 +7,16 @@ define(function(require,exports){
             var _this = $(this);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
-                alert('请填写手机号');
+                $.tiziDialog({
+		            content:'请填写手机号',
+				    icon:null
+		        });
                 return false;
             } else if(!(/\d{11}/.test(phone))) {
-                alert('请输入正确的手机号')
+                $.tiziDialog({
+		            content:'请输入正确的手机号',
+				    icon:null
+		        });
                 return fasle;
             }
             $.ajax({
@@ -20,7 +26,10 @@ define(function(require,exports){
                 dataType : 'json',
                 success : function (result) {
                     if(result.status == 'error') {
-                        alert(result.msg);
+                        $.tiziDialog({
+                            content:result.msg,
+                            icon:null
+                        });
                     }
                     //手机验证倒计时
                     require("module/common/method/countDown").countDown(_this);
@@ -45,7 +54,10 @@ define(function(require,exports){
                 if(result.effective) {
                     $('.phoneFindPW').submit();
                 } else {
-                    alert('验证码无效或已过期');
+                    $.tiziDialog({
+                        content:'验证码无效或已过期',
+                        icon:null
+                    });
                     return false;
                 }
             }
