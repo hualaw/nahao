@@ -26,10 +26,13 @@ class NH_Admin_Controller extends NH_Controller
         }
         $bool_redirect = false;
         if(!in_array($this->current['controller'],$this->not_need_login_controller)){
+            if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='enter'){
+                $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_CLASSROOM);
+            }
             if($this->is_login===true){
                 //验证登录通过后拿到userinfo
-//                o($this->session->all_userdata(),true);
 		        $this->userinfo = $this->session->all_userdata();
+//                o($this->userinfo,true);
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
                 $this->smarty->assign('current',$this->current);
@@ -95,7 +98,7 @@ class NH_Admin_Controller extends NH_Controller
                     $bool_return = false;
                 }
             }else{
-                $arr_user_db = $this->passport->get_user_from_db(ROLE_ADMIN,$int_user_id);
+                $arr_user_db = $this->passport->get_user_from_db(NH_MEETING_TYPE_ADMIN,$int_user_id);
                 if($arr_user_db){
                     if (isset($arr_user_db['password']) && $arr_user_db['password'] === $str_password) {
                         $this->userinfo = $arr_user_db;

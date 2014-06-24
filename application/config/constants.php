@@ -229,6 +229,7 @@ define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
 
 //static css
 define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
+define('STATIC_ADMIN_CSS_CLASSROOM','/css/classRoom/style.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
@@ -275,6 +276,7 @@ define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
 define('NH_MEETING_TYPE_ADMIN',2);//管理员
+define('NH_MEETING_TYPE_SYSTEM',3);//系统，记录日志时用到
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');

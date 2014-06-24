@@ -23,7 +23,7 @@ class Business_Course extends NH_Model
         $int_return = 0;
         if($arr_param){
             $arr_param['create_time'] = TIME_STAMP;
-            $arr_param['role'] = ROLE_ADMIN;
+            $arr_param['role'] = NH_MEETING_TYPE_ADMIN;
             $arr_param['user_id'] = $this->userinfo['id'];
             $int_return = $this->model_course->create_course($arr_param);
         }
