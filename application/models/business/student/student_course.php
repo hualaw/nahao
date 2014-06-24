@@ -257,21 +257,22 @@ class Student_Course extends NH_Model{
 		{
 			#common.php里面的数据字典 老师角色
 			$array_teacher_role = config_item('teacher_role');
+			//var_dump($array_teacher_role);die;
 			#获取老师的具体信息
 			foreach ($array_teacher as $k=>$v)
 			{
 				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
+				//var_dump($array_return);die;
 				if(empty($array_return[0]))
 				{
 					break;
 				} else {
-					$array_return[$k]['teacher_role'] = $array_teacher_role[$k];
+					$array_return[$k]['teacher_role'] = $array_teacher_role[$v['role']];
 					#老师头像
 					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
 				}
 			}
 		}
-
         return $array_return;
     }
     
@@ -365,6 +366,7 @@ class Student_Course extends NH_Model{
         $array_soon = $this->model_course->get_soon_class_data($int_round_id);
         #组合数据
         $array_return['round_id'] = $array_round['id'];					#轮的id
+        $array_return['teach_status'] = $array_round['teach_status'];	#轮的授课状态
         $array_return['title'] = $array_round['title'];					#轮的标题
         $array_return['team'] = $array_team;							#教室团队
         $array_return['class'] = $int_num; 								#已经上了几节课

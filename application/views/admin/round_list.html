@@ -95,6 +95,8 @@
             {elseif  $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}
                 <botton class="round_operation btn-xs btn btn-info" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}">重开</botton>
             {/if}
+            <a href="/affiche/index?round_id={$v.id}&round_title={$v.title}" class="btn btn-info btn-lg active btn-xs" role="button">公告管理</a>
+            <a href="/feedback/index?round_id={$v.id}" class="btn btn-info btn-lg active btn-xs" role="button">评价管理</a>
         </td>
     </tr>
     {/foreach}

@@ -12,8 +12,14 @@
 		<!-- kecheng yi wancheng -->
 		{if $array_buy_course}
 		{foreach from=$array_buy_course item=item}
-		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
+		
+		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if} posr">
+			{if $item.sale_price == '0'}
+			<div class="courseFree"></div>
+			{/if}
 			<h3 title="{$item.title}">{$item.title|truncate:15:"...":true}</h3>
+			
+
 			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>
@@ -22,13 +28,17 @@
 				<div class="lessons">
 					<span class="redText">已上{$item.class}节</span> / 共{$item.totle_class}
 				</div>
-				{if $item.teach_status == '2'}
+				{if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
 			    <div class="over">
 					停课
 				</div>
-				{elseif $item.teach_status == '3' || $item.teach_status == '4'}
+				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
 				<div class="over">
 					已结课
+				</div>
+				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
+				<div class="over" title="已过期：已结课一个月之后">
+					已过期
 				</div>
 				{else}
 				<div class="classTime">
@@ -42,16 +52,9 @@
 				{/if}
 			</div>
 			
-			{if ($item.teach_status == '3' || $item.teach_status =='4' || $item.teach_status =='5') && ( $item.status == '9'
-			     || $item.status == '8' || $item.status == '6')}
-			<a href="javascript:void(0);" class="btn blueBtn">
-				进入课程
-			</a>
-			{else}
 			<a href="/course/buy_after/{$item.round_id}" class="btn blueBtn">
 				进入课程
-		    </a>
-			{/if}			
+		    </a>			
 			
 		</li>
 		{/foreach}
@@ -66,6 +69,9 @@
 		{foreach from=$array_new item=item}
 		<li class="fl">
 			<div class="clBoxShaow iniBox">
+				{if $item.sale_price == '0'}
+				<div class="courseFree"></div>
+				{/if}
 				<img src="{$item.img}" alt="">
 				<div class="iniInfor">
 					<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>

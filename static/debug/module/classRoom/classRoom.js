@@ -129,10 +129,8 @@ define(function (require,exports){
 		})
 	}
 	exports.load_questions_count = function(){
-		
 		var classroom_id = $('#nahaoModule').attr('classroom-data');
 		var url = "/classroom/teacher_checkout_question_answer/"+classroom_id+'/?'+((new Date).valueOf());
-		
 		$.get(url,function(response){
 			if(response.status=='ok'){
 				$('.countTitle').html(response.data.total_html);
@@ -155,6 +153,12 @@ define(function (require,exports){
 		        	$('.CitemList').fadeOut(500,function(){
 		        		$('.sequence-'+cur_sequence).fadeIn();
 		        	});
+		        });
+			}else{
+				//弹框
+				$.tiziDialog({
+		            content:response.msg,
+				    icon:null
 		        });
 			}
 		});
@@ -286,7 +290,11 @@ define(function (require,exports){
 
 			for(var i=0;i<aL.length;i++){
 				if(!aL.hasClass("curAnswer")){
-					alert("您还没有做题");
+	 				$.dialog({
+					    content:"您还没有做题",
+					    icon:null
+					});
+					//alert("您还没有做题");
 					return;
 				}else{
 					chans = false;
@@ -306,7 +314,11 @@ define(function (require,exports){
 					 };
 					 $.post(rurl, rdata, function (response) {
 						 if (response.status == "error") {
-							 alert(response.msg);
+			 				$.dialog({
+							    content:response.msg,
+							    icon:null
+							});
+							 //alert(response.msg);
 						 } else if(response.status == "ok"){
 								 	rhtml+='<div class="scoreBox itemscore cf ">';
 									rhtml+='<div class="fl optionNav">';	

@@ -26,10 +26,17 @@ class NH_Admin_Controller extends NH_Controller
         }
         $bool_redirect = false;
         if(!in_array($this->current['controller'],$this->not_need_login_controller)){
-            $bool_login_flag = self::check_admin_login(ROLE_ADMIN);
-//            o($bool_login_flag);
-            if($bool_login_flag===true){
+            if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='enter'){
+                $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_CLASSROOM);
+            }
+            if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='preview'){
+                $this->arr_admin_init_css[] = STATIC_ADMIN_CSS_PREVIEW;
+            }
+//            o($this->is_login,true);
+            if($this->is_login===true AND $this->session->userdata('user_type')==NH_MEETING_TYPE_ADMIN){
                 //验证登录通过后拿到userinfo
+		        $this->userinfo = $this->session->all_userdata();
+//                o($this->userinfo,true);
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
                 $this->smarty->assign('current',$this->current);
@@ -95,7 +102,7 @@ class NH_Admin_Controller extends NH_Controller
                     $bool_return = false;
                 }
             }else{
-                $arr_user_db = $this->passport->get_user_from_db(ROLE_ADMIN,$int_user_id);
+                $arr_user_db = $this->passport->get_user_from_db(NH_MEETING_TYPE_ADMIN,$int_user_id);
                 if($arr_user_db){
                     if (isset($arr_user_db['password']) && $arr_user_db['password'] === $str_password) {
                         $this->userinfo = $arr_user_db;

@@ -49,8 +49,6 @@
         </div>
     </div>
 
-
-
     <div class="form-group">
         <label class="col-md-2 control-label">适用年级</label>
 
@@ -72,27 +70,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">销售开始时间</label>
-        <div class="col-md-2">
-            <input type="text" class="form-control pick_date" id="sell_begin_time" value="{if isset($round.sell_begin_time) AND $round.sell_begin_time}{date('Y-m-d H:i:s',$round.sell_begin_time)}{else}{date('Y-m-d H:i:s',time())}{/if}" >
-        </div>
-        <label class="col-md-2 control-label">销售结束时间</label>
-        <div class="col-md-2">
-            <input type="text" class="form-control pick_date" id="sell_end_time" value="{if isset($round.sell_end_time) AND $round.sell_end_time}{date('Y-m-d H:i:s',$round.sell_end_time)}{else}{date('Y-m-d H:i:s',time())}{/if}" >
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">开课时间</label>
-        <div class="col-md-2">
-            <input type="text" class="form-control pick_date" id="start_time" value="{if isset($round.start_time) AND $round.start_time}{date('Y-m-d H:i:s',$round.start_time)}{else}{date('Y-m-d H:i:s',time())}{/if}" >
-        </div>
-        <label class="col-md-2 control-label">结束时间</label>
-        <div class="col-md-2">
-            <input type="text" class="form-control pick_date" id="end_time" value="{if isset($round.end_time) AND $round.end_time}{date('Y-m-d H:i:s',$round.end_time)}{else}{date('Y-m-d H:i:s',time())}{/if}" >
-        </div>
-    </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">讲课课酬</label>
@@ -121,7 +98,7 @@
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
                 <input type="text" class="form-control" id="sale_price" value="{if isset($round.sale_price) AND $round.sale_price}{$round.sale_price}{else}{$round.price}{/if}">
-                <span class="input-group-addon">.00元</span>
+                <span class="input-group-addon">元</span>
             </div>
         </div>
     </div>
@@ -197,11 +174,33 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-md-2 control-label">销售开始时间</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control pick_date" id="sell_begin_time" value="{if isset($round.sell_begin_time) AND $round.sell_begin_time}{date('Y-m-d H:i:s',$round.sell_begin_time)}{/if}" >
+        </div>
+        <label class="col-md-2 control-label">销售结束时间</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control pick_date" id="sell_end_time" value="{if isset($round.sell_end_time) AND $round.sell_end_time}{date('Y-m-d H:i:s',$round.sell_end_time)}{/if}" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">开课时间</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control pick_date" id="start_time" value="{if isset($round.start_time) AND $round.start_time}{date('Y-m-d H:i:s',$round.start_time)}{else}{date('Y-m-d H:i:s',time())}{/if}" >
+        </div>
+        <label class="col-md-2 control-label">结束时间</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control pick_date" id="end_time" value="{if isset($round.end_time) AND $round.end_time}{date('Y-m-d H:i:s',$round.end_time)}{else}{date('Y-m-d H:i:s',time())}{/if}" >
+        </div>
+    </div>
+
     <div id="round_edit_class_list_div">
         <div class="form-group">
             <label class="col-md-2 control-label">章节</label>
             <div class="col-md-2" id="round_edit_class_add_div">
-                <botton class="btn btn-success" id="round_edit_class_add_btn">添加&nbsp;&nbsp;+</botton>
+                <!--<botton class="btn btn-success" id="round_edit_class_add_btn">添加&nbsp;&nbsp;+</botton>-->
             </div>
         </div>
         {if isset($classes)}
@@ -224,13 +223,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" {if $v.parent_id==0}style="display:none"{/if}>
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-2">
                     <input type="text" class="form-control pick_date class_start_time" placeholder="本节开始时间" {if (isset($v.begin_time) AND $v.begin_time)}value="{date('Y-m-d H:i',$v.begin_time)}"{/if}>
                 </div>
                 <div class="col-md-2">
-                    <input type="text" class="form-control pick_date class_end_time" placeholder="本节结束时间" {if (isset($v.end_time) AND $v.begin_time)}value="{date('Y-m-d H:i',$v.end_time)}"{/if}>
+                    <input type="text" class="form-control pick_date class_end_time" placeholder="本节结束时间" {if (isset($v.end_time) AND $v.end_time)}value="{date('Y-m-d H:i',$v.end_time)}"{/if}>
                 </div>
             </div>
         </div>

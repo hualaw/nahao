@@ -48,7 +48,9 @@
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
+							{if $item.sale_price == '0'}
 							<div class="courseFree"></div>
+							{/if}
 							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
 								<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
@@ -114,6 +116,7 @@
 		</div>
 		<!-- 师资 认证过程 结束 -->
 		<div class="ad posr">
+			<div class="adbgc"></div>
 			<div class="cat"></div>
 		</div>
 		<!-- 贴心服务 随时退款 开始 -->

@@ -27,7 +27,7 @@ class Business_Class extends NH_Model
             //生成树形结构的章节数据，二维数组
             $arr_class_tree = self::get_class_tree($arr_classes);
 //            o($arr_classes);
-//            o($arr_class_tree，true);
+//            o($arr_class_tree,true);
             if($arr_class_tree){
                 //清除该班次以前的章和课节
                 self::delete_classes_by_round_id($int_round_id);
@@ -35,16 +35,20 @@ class Business_Class extends NH_Model
                 $int_chapter_sequence = 0;
                 //插入新的章和课节
                 foreach($arr_class_tree as $k => $v){
-                    //组织章数据
-                    $arr_chapter = array(
-                        'course_id' => $int_course_id,
-                        'round_id' => $int_round_id,
-                        'lesson_id' => $v['lesson_id'],
-                        'title' => $v['title'],
-                        'sequence' => $int_chapter_sequence++
-                    );
-                    //插入章
-                    $int_parent_id = $this->model_class->create_class($arr_chapter);
+                    $int_parent_id = 1;
+                    if(isset($v['title'])){
+                        //组织章数据
+                        $arr_chapter = array(
+                            'course_id' => $int_course_id,
+                            'round_id' => $int_round_id,
+                            'lesson_id' => $v['lesson_id'],
+                            'title' => $v['title'],
+                            'sequence' => $int_chapter_sequence++
+                        );
+                        //插入章
+                        $int_parent_id = $this->model_class->create_class($arr_chapter);
+                    }
+//                    o($int_parent_id,true);
                     if($int_parent_id > 0){
                         $bool_section_flag = true;//每节课数组组成功的标记
                         $int_section_sequence = 0;//节的序列
@@ -71,6 +75,8 @@ class Business_Class extends NH_Model
                                 $arr_lesson_ids[] = $vv['lesson_id'];
                                 //为每个classroom添加courseware
                                 $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
+//                                o($arr_lesson_ids);
+//                                o($bool_add_courseware,true);
                                 if($bool_add_courseware == false){
                                     //添加失败重试一次
                                     $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
@@ -88,6 +94,7 @@ class Business_Class extends NH_Model
                         }//组织本章所有节数据循环结束
                         if($bool_section_flag==true){
                             //本章中每个课堂数据正常，并且为每堂课添加courseware成功，则把组织好的class数据插入class表
+//                                o($arr_section,true);
                             $int_last_id = $this->model_class->create_class_batch($arr_section);
                             if($int_last_id > 0){
                                 if($k == count($arr_class_tree)-1){
@@ -113,6 +120,7 @@ class Business_Class extends NH_Model
                     $this->load->model('business/admin/business_question', 'question');
                     $arr_param = array('lesson_id' => implode(',',$arr_lesson_ids));
                     $arr_questions = $this->question->lesson_question($arr_param,'generate_round');
+//                    o($arr_section);
 //                    o($arr_questions,true);
                     if($arr_questions){
                         $arr_question_ids = array();
@@ -124,9 +132,9 @@ class Business_Class extends NH_Model
                                 break;
                             }
                         }
-                    }else{
+                    }/*else{可以没有题
                         $bool_return = false;
-                    }
+                    }*/
                     if($bool_return==true){
                         $arr_classes = self::get_classes_by_round_id($int_round_id);
                         if($arr_classes){
@@ -143,6 +151,7 @@ class Business_Class extends NH_Model
                                     }
                                 }
                             }
+//                            o($arr_questions_classes,true);
                             //根据class_id删除question_class_relation中的数据
                             if($arr_delete_question_class_ids){
                                 $delete_arr_param = array(
@@ -154,15 +163,18 @@ class Business_Class extends NH_Model
                             }
                             $add_arr_param = array(
                                 'do' => 'add_relation',
-                                'add_class_question' => true,
+//                                'add_class_question' => true,
+                                'no_check' => 1,
                                 'class_id' => $arr_questions_classes
                             );
                             $bool_return = $this->question->class_question_doWrite($add_arr_param);
+//                            o($bool_return,true);
                         }
                     }
                 }
             }
         }
+//        o($bool_return,true);
         return $bool_return;
     }
 
