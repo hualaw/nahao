@@ -65,7 +65,7 @@ class Student_Order extends NH_Model{
         $array_prams = array(
             'order_id'=>$int_insert_id,
             'user_id'=>$int_user_id,                                      #TODO用户id
-            'user_type'=>ROLE_STUDENT,                         #用户类型 ：学生
+            'user_type'=>NH_MEETING_TYPE_STUDENT,                         #用户类型 ：学生
             'action'=>1,                                       #创建订单
             'create_time'=>time(),
             'note'=>$order_msg
@@ -105,7 +105,7 @@ class Student_Order extends NH_Model{
         {
             $array_order_log = array(
                 'order_id'=>$array_data['order_id'],
-                'user_type'=> ROLE_STUDENT,              #用户类型 ：学生
+                'user_type'=> NH_MEETING_TYPE_STUDENT,              #用户类型 ：学生
                 'user_id'=>$array_data['user_id'],       #TODO用户id
                 'action'=>$array_data['action'],
                 'create_time'=>time(),
@@ -189,7 +189,7 @@ class Student_Order extends NH_Model{
         {
             $array_order_log = array(
                 'order_id'=>$array_data['order_id'],
-                'user_type'=> ROLE_STUDENT,              #用户类型 ：学生
+                'user_type'=> NH_MEETING_TYPE_STUDENT,              #用户类型 ：学生
                 'user_id'=>$array_data['user_id'],       #TODO用户id
                 'action'=>$array_data['action'],
                 'create_time'=>time(),
