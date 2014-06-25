@@ -497,6 +497,7 @@ class NH_Session extends CI_Session {
         $cookie_data = NULL;
 
         // Update the session ID and last_activity field in the DB if needed
+        $expire = $this->sess_expiration;
         if ($this->sess_use_database === TRUE)
         {
             // set cookie explicitly to only have our session data
@@ -517,6 +518,7 @@ class NH_Session extends CI_Session {
                 if(isset($userdata['remb_me']) && $userdata['remb_me'] )
                 {
                     $this->_redis_set($new_sessid,json_encode($userdata),$this->sess_autologin_expiration);
+                    $expire = $this->sess_autologin_expiration;
                 }
                 else
                 {
@@ -536,18 +538,17 @@ class NH_Session extends CI_Session {
         // Write the cookie
         $this->_set_cookie($cookie_data);
 
+        log_message('debug_nahao', 'session_update this->userdata is:'.print_r($this->userdata, 1));
+
         $this->CI->load->model('model/common/model_session_log', 'msl');
         $session_log = array(
             'session_id' => $new_sessid,
-            /*
-            'user_id' => isset($session_log["user_id"]) ? $session_log["user_id"] : '',
-            'nickname' => isset($session_log["nickname"]) ? $session_log["nickname"] : '',
-            'ip' => ip2long($CI->input->ip_address()),
-            'generate_time' => time(),
-            'expire_time' => time() + config_item('sess_expiration'),
-            'user_type' => isset($session_log["user_type"]) ? $session_log["user_type"] : 0,
-            'exit_time' => '',
-            */
+            'user_id' => isset($this->userdata['user_id']) ? $this->userdata['user_id'] : '',
+            'nickname' => isset($this->userdata['nickname']) ? $this->userdata['nickname'] :'',
+            'ip' => $this->CI->input->ip_address(),
+            'expire_time' => $expire + time(),
+            'user_type' => isset($this->userdata['user_type']) ? $this->userdata['user_type'] : 0,
+            'exit_time' => 0,
         );
 
         $this->CI->msl->save_session_log($session_log);
@@ -557,11 +558,13 @@ class NH_Session extends CI_Session {
 
 	function sess_destroy()
 	{
+        log_message('debug_nahao', "enter into  sess_destroy() function");
 		// Kill the session DB row
 		if ($this->sess_use_database === TRUE && isset($this->userdata['session_id']))
 		{
 			if($this->_redis) 
 			{
+                log_message('debug_nahao', "del session_id is: ".$this->userdata['session_id']);
 				$this->_redis_del($this->userdata['session_id']);
 			}
 			else if($this->_use_db)
@@ -573,6 +576,7 @@ class NH_Session extends CI_Session {
 		}
 
 		// Kill the cookie
+        log_message('debug_nahao', "sess_destory setcookie cookie_name is: $this->sess_cookie_name");
 		setcookie(
 			$this->sess_cookie_name,
 			addslashes(serialize(array())),
@@ -584,6 +588,7 @@ class NH_Session extends CI_Session {
 
 		// Kill session data
 		$this->userdata = array();
+        log_message('debug_nahao', "go out of  sess_destroy() function");
 	}
 
 	function _set_cookie($cookie_data = NULL)
