@@ -236,7 +236,7 @@ define('TABLE_STUDENT_REFUND','student_refund');
 define('TABLE_STUDENT_SUBJECT','student_subject');
 define('TABLE_STUDENT_QUESTION','student_question');
 define('TABLE_TEACHER_CHECKOUT_LOG','teacher_checkout_log');
-define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
+define('TABLE_TEACHER_LECTURE','teacher_lecture');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
