@@ -146,7 +146,7 @@ class register extends NH_Controller
             $new_school_id = $this->business_school->add_custom_school($custom_school);
             $user_info_arr['school'] = intval($new_school_id);
             $user_info_arr['custom_school'] = $user_info_arr['school'] ? 1 : 0;
-        } else {
+        } else if(!empty($school_id) && empty($schoolname)){
             $user_info_arr['custom_school'] = 0;
         }
         //create user_info table record
