@@ -236,7 +236,7 @@ define('TABLE_STUDENT_REFUND','student_refund');
 define('TABLE_STUDENT_SUBJECT','student_subject');
 define('TABLE_STUDENT_QUESTION','student_question');
 define('TABLE_TEACHER_CHECKOUT_LOG','teacher_checkout_log');
-define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
+define('TABLE_TEACHER_LECTURE','teacher_lecture');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
@@ -326,9 +326,11 @@ define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
-define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
+define('NH_MEETING_URL','http://classroom.oa.tizi.com/');
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
+
+define('NH_PDF_DOWNLOAD_URL',NH_MEETING_URL.'media/');
 //访问教室的用户类型
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师

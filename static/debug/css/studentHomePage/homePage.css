@@ -47,7 +47,7 @@
 .studentHomePage .investor{background: url(../../images/studentHomePage/coop1.gif) center top no-repeat;}
 .studentHomePage .founder{background: url(../../images/studentHomePage/coop2.gif) center top no-repeat;}
 .studentHomePage .coopSchool{background: url(../../images/studentHomePage/coop3.gif) center top no-repeat;}
-.studentHomePage .coopft{position: absolute;bottom:0;height: 56px;width: 980px;}
+.studentHomePage .coopft{position: absolute;bottom:0;left: 0;height: 56px;width: 980px;}
 .studentHomePage .coopere{width: 921px;background: #f14211;height: 44px;line-height: 44px;color:#fff;font-size: 16px;position: absolute;left: 30px;}
 .studentHomePage .coopere h3{width: 307px;text-align: center;font-weight: normal;}
 .studentHomePage .coopere h3:nth-child(1){width: 270px;}
