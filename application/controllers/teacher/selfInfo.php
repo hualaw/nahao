@@ -49,7 +49,6 @@ class SelfInfo extends NH_User_Controller {
             $post_data['title_auth_img'] = trim($this->input->post('title_auth_img'));
             $post_data['school_id'] = intval($this->input->post('school_id'));
             $post_data['schoolname'] = trim($this->input->post('schoolname'));
-            $post_data['custom_school'] = 0;
             if($post_data['schoolname'] && empty($post_data['school_id'])) {
                 #post过来的数据有学校名称但没学校ID, 这是用户自己输入的学校,需要把学校所属的地区也接收过来
                 $post_data['province_id'] = intval($this->input->post('province_id'));
@@ -59,6 +58,9 @@ class SelfInfo extends NH_User_Controller {
                 $post_data['custom_school'] = 1;
                 $new_school_id = $this->business_school->add_custom_school($post_data);
                 $post_data['school_id'] = intval($new_school_id);
+            } else if($post_data['school_id'] && empty($post_data['schoolname'])) {
+                #相反post过来的数据有学校id没学校名称,这是用户选择系统里的学校,把custom_school设成0,防止用户之前自定义过学校
+                $post_data['custom_school'] = 0;
             }
             $result = $this->business_user->modify_user_info($post_data, $this->_user_detail['user_id']);
             if($result) {

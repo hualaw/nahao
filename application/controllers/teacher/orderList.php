@@ -10,6 +10,7 @@ class OrderList extends NH_User_Controller {
 		 * 2. 调redis：	  加载model/redis_model.php
 		 */
         parent::__construct();
+        header("Content-type: text/html; charset=utf-8");
         $this->smarty->assign('site_url','http://'.__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
@@ -22,7 +23,6 @@ class OrderList extends NH_User_Controller {
         	exit('<script>alert("您还不是那好课堂的老师！");window.location.href="'.student_url().'";</script>');
         }
         $this->teacher_id = $this->session->userdata('user_id');
-        header("Content-type: text/html; charset=utf-8");
     }
     
 	public function index(){
@@ -97,7 +97,6 @@ class OrderList extends NH_User_Controller {
 		$zjList 	= $this->teacher_b->class_list($param);
 		$arr 		= array_pop($zjList);
 		$jInfo 		= isset($arr['jArr'][0]) ? $arr['jArr'][0] : '';
-		
 		#2.评价信息
 		$comment 	= $this->teacher_b->class_comment(array('class_id'=>$class_id));
 		
