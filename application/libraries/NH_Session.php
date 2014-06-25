@@ -558,11 +558,13 @@ class NH_Session extends CI_Session {
 
 	function sess_destroy()
 	{
+        log_message('debug_nahao', "enter into  sess_destroy() function");
 		// Kill the session DB row
 		if ($this->sess_use_database === TRUE && isset($this->userdata['session_id']))
 		{
 			if($this->_redis) 
 			{
+                log_message('debug_nahao', "del session_id is: ".$this->userdata['session_id']);
 				$this->_redis_del($this->userdata['session_id']);
 			}
 			else if($this->_use_db)
@@ -574,6 +576,7 @@ class NH_Session extends CI_Session {
 		}
 
 		// Kill the cookie
+        log_message('debug_nahao', "sess_destory setcookie cookie_name is: $this->sess_cookie_name");
 		setcookie(
 			$this->sess_cookie_name,
 			addslashes(serialize(array())),
@@ -585,6 +588,7 @@ class NH_Session extends CI_Session {
 
 		// Kill session data
 		$this->userdata = array();
+        log_message('debug_nahao', "go out of  sess_destroy() function");
 	}
 
 	function _set_cookie($cookie_data = NULL)

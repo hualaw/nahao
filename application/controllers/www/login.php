@@ -7,10 +7,13 @@ class login extends NH_Controller
         parent::__construct();
         $this->load->model('business/common/business_login');
         $this->load->model('business/common/business_user');
+
     }
 
 	public function index()
 	{
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
 		$this->smarty->display('www/login/login.html');
 	}
 
@@ -46,6 +49,8 @@ class login extends NH_Controller
      */
     public function forget_pwd()
     {
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
         $this->smarty->display('www/login/forgetPwd.html');
     }
     /**
@@ -53,6 +58,9 @@ class login extends NH_Controller
      */
     public function find_pwd()
     {
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
+
         #找回密码的方法 1:手机找回, 2:邮件找回
         $find_ways = $this->input->get('find_ways');
         if($find_ways) {
@@ -71,6 +79,9 @@ class login extends NH_Controller
      */
     public function reset_pwd()
     {
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
+
         $new_pwd = trim($this->input->post('setPassword'));
         $phone = $this->session->userdata('reset_pwd_phone');
         $code = trim($this->input->get('code'));//邮箱找回密码的加密口令
@@ -182,6 +193,9 @@ class login extends NH_Controller
         
     public function submit()
     {
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
+
         $username = trim($this->input->post('username'));
         $password = trim($this->input->post('password'));
         $redirect_url = trim($this->input->post('redirect_url'));
@@ -204,6 +218,8 @@ class login extends NH_Controller
 
     public function logout()
     {
+        //未登录时，要跳转到首页
+        if(!$this->is_login) redirect('/');
         $this->session->sess_destroy();
         header("Location: ".student_url());
     } 
