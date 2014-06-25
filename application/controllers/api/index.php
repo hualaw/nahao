@@ -221,4 +221,26 @@ class Index extends NH_User_Controller {
 
         die($str_return);
     }
+
+    /**
+     * 用户进出教室调用接口
+     * @author shangshikai@tizi.com
+     */
+    public function classroom_status()
+    {
+        echo "d";
+//        $classroom_status=$this->input->get(NULL,TRUE);
+//        $this->load->model('business/api/business_class_status');
+//        $this->business_class_status->status_classroom($classroom_status);
+    }
+    /**
+     * 用户上课下课调用接口
+     * @author shangshikai@tizi.com
+     */
+    public function class_status()
+    {
+        $class_status=$this->input->get(NULL,TRUE);
+        $this->load->model('business/api/business_class_status');
+        $this->business_class_status->status_class($class_status);
+    }
 }
