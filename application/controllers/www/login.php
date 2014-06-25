@@ -7,7 +7,6 @@ class login extends NH_Controller
         parent::__construct();
         $this->load->model('business/common/business_login');
         $this->load->model('business/common/business_user');
-
     }
 
 	public function index()
