@@ -82,10 +82,4 @@ class Lesson extends NH_Admin_Controller {
         }
         self::json_output($this->arr_response);
     }
-    public function test(){
-
-        $this->load->model('business/common/business_courseware','courseware');
-        $arr_return = $this->courseware->get_courseware_by_id(array(127,128));
-        o($arr_return,true);
-    }
 }
