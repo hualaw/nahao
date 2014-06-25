@@ -290,7 +290,11 @@ define(function (require,exports){
 
 			for(var i=0;i<aL.length;i++){
 				if(!aL.hasClass("curAnswer")){
-					alert("您还没有做题");
+	 				$.dialog({
+					    content:"您还没有做题",
+					    icon:null
+					});
+					//alert("您还没有做题");
 					return;
 				}else{
 					chans = false;
@@ -310,7 +314,11 @@ define(function (require,exports){
 					 };
 					 $.post(rurl, rdata, function (response) {
 						 if (response.status == "error") {
-							 alert(response.msg);
+			 				$.dialog({
+							    content:response.msg,
+							    icon:null
+							});
+							 //alert(response.msg);
 						 } else if(response.status == "ok"){
 								 	rhtml+='<div class="scoreBox itemscore cf ">';
 									rhtml+='<div class="fl optionNav">';	

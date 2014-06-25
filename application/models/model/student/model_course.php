@@ -8,13 +8,13 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效：在预售和销售中的轮
+     * 检查这个$int_round_id是否有效：在销售中的轮
      * @param  $int_round_id
      * @return $bool_result
      */
     public function check_round_id($int_round_id)
     {
-        $sql = "SELECT id FROM round WHERE id = ".$int_round_id." AND sale_status >=2 AND sale_status<=3";
+        $sql = "SELECT id FROM round WHERE id = ".$int_round_id." AND sale_status =".ROUND_SALE_STATUS_SALE;
         $int_num = $this->db->query($sql)->num_rows();
         $bool_result = $int_num > 0 ? true : false;
         return $bool_result;
@@ -32,7 +32,6 @@ class Model_Course extends NH_Model{
                 price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,
                 grade_to,grade_from
                 FROM round WHERE id = ".$int_round_id;
-        //echo $sql.'---';
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -141,7 +140,6 @@ class Model_Course extends NH_Model{
         $array_result = array();
         $sql = "SELECT teacher_id,role FROM round_teacher_relation 
                 WHERE round_id = ".$int_round_id.$where." ORDER BY sequence ASC".$limit;
-        //echo $sql.'+++';
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -210,7 +208,8 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT title,begin_time,end_time,classroom_id,status FROM class WHERE round_id = ".$int_round_id." 
-                AND status = 1 AND parent_id !=0";
+                AND (status = ".CLASS_STATUS_SOON_CLASS." OR status = ".CLASS_STATUS_ENTER_ROOM." OR status = ".CLASS_STATUS_CLASSING
+        		." OR status =". CLASS_STATUS_CLASS_OVER." OR status = ".CLASS_STATUS_MISS_CLASS.") AND parent_id !=0 LIMIT 1";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
@@ -310,7 +309,6 @@ class Model_Course extends NH_Model{
     public function check_user_buy_class($int_user_id,$int_class_id)
     {
         $sql = "SELECT id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." AND class_id = ".$int_class_id;
-//        o($sql,true);
         $int_result = $this->db->query($sql)->num_rows();
         return  $int_result > 0 ? true : false;
     }
@@ -326,5 +324,18 @@ class Model_Course extends NH_Model{
     	$sql = "SELECT id FROM round_teacher_relation WHERE teacher_id=".$int_user_id." AND round_id = ".$int_round_id;
     	$int_result = $this->db->query($sql)->num_rows();
     	return  $int_result > 0 ? true : false;
+    }
+    
+    /**
+     * 获取一节课的状态（student_class）
+     * @param  $int_user_id
+     * @param  $int_class_id
+     * @return $array_result
+     */
+    public function get_student_class_status($int_user_id,$int_class_id)
+    {
+    	$sql = "SELECT status  FROM  student_class WHERE student_id =".$int_user_id." AND class_id = ".$int_class_id;
+    	$array_result = $this->db->query($sql)->row_array();
+    	return  $array_result;
     }
 }

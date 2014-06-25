@@ -213,12 +213,12 @@ class Student_Order extends NH_Model{
     	{
 
     		#如果购买人数小于100，人数加1
-    		if($array_round['bought_count'] < '100')
+    		if($array_round['bought_count'] < $array_round['caps'])
     		{
     			$bool_flag = $this->model_order->update_round_buy_count($int_round_id);
     		}
     		#如果已经购买的人数是99，将销售状态改为已售罄
-    		if($array_round['bought_count'] == '99')
+    		if($array_round['bought_count'] == ($array_round['caps']-1))
     		{
     			$status = 4;
     			$this->model_order->update_round_sale_status($int_round_id,$status);
