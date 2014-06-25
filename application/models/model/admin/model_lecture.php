@@ -218,7 +218,18 @@
         {
             if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
              {
-                 return TRUE;
+                 //以下为修改redis，还未测试
+//                 $now_time=time();
+//                 $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+//
+//                 $this->load->model('model/common/model_redis', 'redis');
+//                 $this->redis->connect('session');
+//                 $redis_data=$this->cache->redis->get($session_id['session_id']);
+//                 $redis_data['teach_priv']=1;
+//                 if($this->cache->redis->set($session_id['session_id'],$redis_data))
+//                 {
+                     return TRUE;
+//                 }
              }
         }
         /**
