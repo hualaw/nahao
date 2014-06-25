@@ -267,12 +267,18 @@ class Course extends NH_User_Controller {
 	 	$array_class = $this->model_course->get_class_infor($int_class_id);
 	 	if(empty($array_class))
 	 	{
-	 		show_error('抱歉!这节课没有课件');
+	 		show_error('抱歉!这节课没有上传课件啊');
 	 	}
 	 	
 	 	#课里面有课件，拼接课件地址
-	 	
-	 	$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
+	 	$this->load->model('business/common/business_courseware','courseware');
+	 	$array_courseware = $this->courseware->get_courseware_by_id(array($array_class['courseware_id']));
+	 	if (empty($array_courseware))
+	 	{
+	 		show_error('抱歉!这节课没有上传课件');
+	 	}
+	 	$wordStr = $array_courseware['0']['download_url'];
+	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
 	 	$this->forceDownload($wordStr);
 	 }
 	 
