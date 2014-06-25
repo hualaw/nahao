@@ -44,6 +44,7 @@
 .login .regWrap .box li span.pnoneCode{padding: 0px;}
 .login .regWrap li span.pnoneCode{display:inline-block;background: #dedede;text-align: center;}
 .login .regWrap .box li .codeInput{width:140px;border-color:#d5d5d5;}
+.login .reg_validate_code{width:156px;}
 .login .regWrap .box li .undis{display: none;}
 .login .regWrap .box li.agreementLi {font-size: 14px;;margin-top: 40px;text-align: center;}
 .login .regWrap .box li.agreementLi a{color: #f14211}

@@ -12,7 +12,7 @@ define(function(require,exports){
 				    icon:null
 		        });
                 return false;
-            } else if(!(/\d{11}/.test(phone))) {
+            } else if(!(/^1[3|5|8]\d{9}$/.test(phone))) {
                 $.tiziDialog({
 		            content:'请输入正确的手机号',
 				    icon:null
@@ -30,12 +30,12 @@ define(function(require,exports){
                             content:result.msg,
                             icon:null
                         });
+                    } else {
+                        //手机验证倒计时
+                        require("module/common/method/countDown").countDown(_this); 
                     }
-                    //手机验证倒计时
-                    require("module/common/method/countDown").countDown(_this);
                 }
-            }
-            );
+            });
         });
     }
     
