@@ -58,7 +58,7 @@
 
 				</td>
 			</tr>
-			{if $array_order.status == $smarty.const.ORDER_STATUS_INIT || $smarty.const.ORDER_STATUS_FAIL}
+			{if $array_order.status == $smarty.const.ORDER_STATUS_INIT || $array_order.status ==$smarty.const.ORDER_STATUS_FAIL}
 			<tr class="tf">
 				<td  colspan="4">
 					<p>金额总计<strong class="redText">¥{$array_order.spend}</strong></p>

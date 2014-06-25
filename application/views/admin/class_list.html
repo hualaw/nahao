@@ -5,6 +5,7 @@
         <!--<th>#</th>-->
         <th>课堂ID</th>
         <th>课堂名称</th>
+        <th>教室ID</th>
         <th>上课时间</th>
         <th>课堂状态</th>
         <th>实到/应到</th>
@@ -21,18 +22,19 @@
         <!--<td><input type="checkbox"></td>-->
         <td>{$v.id}</td>
         <td>{$v.title}</td>
-        <td>{date("Y-m-d H:i",$v.begin_time)}-{date("Y-m-d H:i",$v.end_time)}</td>
+        <td>{$v.classroom_id}</td>
+        <td>{if $v.parent_id gt 0}{date("Y-m-d H:i",$v.begin_time)}-{date("Y-m-d H:i",$v.end_time)}{/if}</td>
         <td>{if $v.parent_id gt 0}{$class_status[$v.status]}{/if}</td>
         <td></td>
         <td></td>
-        <td>feedback</td>
+        <td>{if $v.parent_id gt 0}<a href="/feedback/index?class_id={$v.id}">评价</a>{/if}</td>
         <td>
             {if $v.parent_id gt 0}
                 {if $v.courseware_id==0}
                     <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
                 {else}
-                    <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
-                    <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
+                    <a target="_blank" href="/classes/preview/{$v.courseware_id}">预览</a>
+                    <!--<botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>-->
                 {/if}
                 {else}
                 --

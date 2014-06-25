@@ -25,7 +25,6 @@ class Student_Classroom extends NH_Model{
         $array_qid = $this->get_exercise_qid($int_class_id,$int_max_sequence);
         #去答题记录表中查看用户是否做过当前批次的题，将这些题的id出来
         $array_qid_done = $this->get_student_question_qid($int_class_id,$int_max_sequence,$int_user_id);
-        $array_qid_done = array();
         if (empty($array_qid))
         {
             $array_return = array('status'=>'error','msg'=>'获取练习题失败');
@@ -34,7 +33,7 @@ class Student_Classroom extends NH_Model{
         $array_diff = array_diff($array_qid, $array_qid_done);
         if (empty($array_diff))
         {
-            $array_return = array('status'=>'error','msg'=>'用户已经做过题了');
+            $array_return = array('status'=>'error','msg'=>'您已经做过题了');
         }
         #根据练习题的题目id，获取练习题的具体数据
         if ($array_diff)
@@ -124,6 +123,10 @@ class Student_Classroom extends NH_Model{
                 
                 #处理数据
                 $array_infor['options'] = json_decode($array_infor['options'],true);
+                foreach ($array_infor['options'] as $kk=>$vv)
+                {
+                	$array_infor['options'][$kk] = urldecode($vv);
+                }
                 $array_qids[$k] = array_merge($array_qids[$k], $array_infor);
                 
             }
@@ -173,5 +176,4 @@ class Student_Classroom extends NH_Model{
         }
         return $arr_return;
     }
-    
 }
