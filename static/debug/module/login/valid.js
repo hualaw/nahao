@@ -197,7 +197,8 @@ define(function(require,exports){
 			beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".pwd").val());
-                console.log(hash.words)
+                $(".pwd").val(hash.toString())
+
 			},
             callback:function(data){
                 if(data.status == 'ok'){
