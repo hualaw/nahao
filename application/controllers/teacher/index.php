@@ -10,6 +10,7 @@ class Index extends NH_User_Controller {
 		 * 3. 
 		 */
         parent::__construct();
+        header("Content-type: text/html; charset=utf-8");
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
@@ -21,7 +22,6 @@ class Index extends NH_User_Controller {
         	exit('<script>alert("您还不是那好课堂的老师！");window.location.href="'.student_url().'";</script>');
         }
         $this->teacher_id = $this->session->userdata('user_id');
-        header("Content-type: text/html; charset=utf-8");
     }
     
 	/**
@@ -30,8 +30,35 @@ class Index extends NH_User_Controller {
 	 */
 	public function index()
 	{
-		#1.今日列表
-		$listArr = $this->teacher_b->today_class(array('teacher_id'=>$this->teacher_id));
+		$page = $this->uri->segment(3,1);
+		#1.分页
+     	$this->load->library('pagination');
+        $config = config_item('page_teacher');
+        $config['base_url'] = '/index/index';
+        $config['use_page_numbers'] = TRUE;
+        $param = array(
+     			'teacher_id' 	=> $this->teacher_id,
+     			'begin_time' 	=> strtotime(date("Y-m-d")),
+	     		'end_time' 		=> strtotime(date("Y-m-d",strtotime("+1 day"))),
+	     		'parent_id' 	=> -2,
+     			'counter' 		=> 1,
+     		);
+     	
+     	$int_count = $this->teacher_b->class_list($param);
+        $config['total_rows'] = $int_count;
+        $config['per_page'] = 10;
+        $this->pagination->initialize($config);
+        $pageBar = $this->pagination->create_links();
+        #2.今日列表
+		$listArr = $this->teacher_b->class_list(array(
+				'teacher_id'	=> $this->teacher_id,
+				'begin_time' 	=> strtotime(date("Y-m-d")),
+	     		'end_time' 		=> strtotime(date("Y-m-d",strtotime("+1 day"))),
+	     		'parent_id' 	=> -2,
+	     		'order' 		=> 2,
+	     		'limit'			=> (($page-1)*$config['per_page']).','.$config['per_page'],
+	     		'no_sort'		=> 1,//特殊处理，不排序章节
+			));
 		$weekarray = array("日","一","二","三","四","五","六");
 		#3.页面数据
 		$data = array(
@@ -39,10 +66,11 @@ class Index extends NH_User_Controller {
 			'active' 			=> 'index_index',
 			'title' 			=> '今日上课',
 			'host' 				=> 'http://'.$_SERVER ['HTTP_HOST'],
-			'today_total' 		=> count($listArr),
+			'today_total' 		=> $int_count,
 			'date' 				=> date('Y年m月d日',time()),
 			'week' 				=> $weekarray[date('w')],
 			'enter_classroom'	=> array(CLASS_STATUS_ENTER_ROOM,CLASS_STATUS_CLASSING),
+			'pageBar'			=> $pageBar,
 		);
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherHomePage/index.html');

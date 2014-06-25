@@ -90,7 +90,7 @@
 .classRoomPage .exercise .itemTab{padding:8px 12px;}
 .classRoomPage .exercise .itemTabBox{border:1px solid #f14211;margin:0 auto;width: 690px;overflow: hidden;}
 .classRoomPage .exercise .itemTabBox ul{/*width:1000%;*/position: absolute;}
-.classRoomPage .exercise .itemTabBox li{width: 645px;padding: 20px 25px 20px 20px;cursor: pointer;}
+.classRoomPage .exercise .itemTabBox li{width: 645px;padding: 20px 25px 20px 20px;cursor: pointer;max-height: 300px;overflow-y: scroll;}
 .classRoomPage .exercise .itemTabBox li.itemOn{background: #fef2f2;}
 .classRoomPage .exercise .clickBtn{width: 20px;height: 33px;position: absolute;top:45%;}
 .classRoomPage .exercise .clickL{background: url(../../images/classRoom/cleft.png) no-repeat;left:12px;}

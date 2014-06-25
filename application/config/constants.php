@@ -204,6 +204,7 @@ define('TABLE_ADMIN','admin');
 define('TABLE_ADMIN_GROUP','admin_group');
 define('TABLE_ADMIN_PERMISSION_RELATION','admin_permission_relation');
 define('TABLE_CLASS','class');
+define('TABLE_CLASS_ACTION_LOG','class_action_log');
 define('TABLE_CLASS_DISCUSS_LOG','class_discuss_log');
 define('TABLE_CLASS_FEEDBACK','class_feedback');
 define('TABLE_FEEDBACK','feedback');
@@ -230,7 +231,6 @@ define('TABLE_SHOPPING_CART','shopping_cart');
 define('TABLE_SMS_LOG','sms_log');
 define('TABLE_SMS_VERIFY_CODE','sms_verify_code');
 define('TABLE_STUDENT_CLASS','student_class');
-define('TABLE_STUDENT_CLASS_LOG','student_class_log');
 define('TABLE_STUDENT_ORDER','student_order');
 define('TABLE_STUDENT_REFUND','student_refund');
 define('TABLE_STUDENT_SUBJECT','student_subject');
@@ -359,6 +359,8 @@ define('TEACHER_AGE_CEILING', 50);
 define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
 define('CLASS_FASTER_ACTION', 3);//讲慢一点
+define('CLASS_BEGIN_ACTION', 4);//点上课
+define('CLASS_OVER_ACTION', 5);//点下课
 
 
 /* End of file constants.php */

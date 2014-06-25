@@ -41,8 +41,7 @@ define(function(require,exports){
                                 $.post(url, data, function(response){
                                     if(response){
                                         alert(response.msg);
-                                        console.log(response);
-//                                        window.location.reload();
+                                        window.location.reload();
                                     }
                                 });
                             }
