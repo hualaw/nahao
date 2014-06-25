@@ -326,9 +326,11 @@ define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
-define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
+define('NH_MEETING_URL','http://classroom.oa.tizi.com/');
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
+
+define('NH_PDF_DOWNLOAD_URL',NH_MEETING_URL.'media/');
 //访问教室的用户类型
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
