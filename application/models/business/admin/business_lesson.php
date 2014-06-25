@@ -211,8 +211,9 @@ class Business_Lesson extends NH_Model
     public function add_courseware($int_lesson_id, $arr_courseware){
         $bool_return = false;
         if($int_lesson_id > 0 AND is_array($arr_courseware) AND $arr_courseware){
-            $this->model_lesson->add_courseware($arr_courseware);
 
+            $this->load->model('business/common/business_courseware','courseware');
+            $this->courseware->create_courseware($arr_courseware);
             $arr_param = array(
                 'courseware_id' => $arr_courseware['id'],
             );
