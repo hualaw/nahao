@@ -96,4 +96,5 @@ class Student_Index extends NH_Model{
     {
     	return $this->model_index->save_apply_teach($param);
     }
+
 }
