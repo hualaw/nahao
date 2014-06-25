@@ -97,6 +97,9 @@ class Business_Question extends NH_Model
     public function class_question($param){
     	$list = $this->model_question->class_question_seacher($param);
     	if(count($list)>0) foreach ($list as &$val){
+//    		echo $val['question'];
+    		$val['question'] = htmlspecialchars_decode($val['question']);
+//    		echo $val['question'];
     		$options = json_decode($val['options'],true);
 //    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
     		$val['options'] = $options;

@@ -13,7 +13,7 @@ define(function (require,exports){
 		$(".do_publish_questions").hide();
 			//弹框
 			$.tiziDialog({
-	            title:false,
+	            title:'选择用于学生练习的题目',
 	            ok:false,
 	            icon:false,
 	            id: 'exerciseHtml',
@@ -48,6 +48,9 @@ define(function (require,exports){
 				$(".clickBtn").hide();
 				$('.publish_questions_index').html("");
 				$('.publish_questions').html('<li>'+response.msg+'</li>');
+				if($(".aui_content .publish_questions li").outerHeight(true)>300){
+					$(".aui_content .publish_questions li").outerHeight(true)=300;
+				}
 				$(".itemTabBox").height($(".aui_content .publish_questions li").outerHeight(true));
 			}
 		});
@@ -60,7 +63,9 @@ define(function (require,exports){
 			iniH = $(".itemTabList").eq(0).outerHeight(true),
 			ind = 0;
 		//初始高度	
-		document.title = iniH;
+		if(iniH>300){
+			iniH=300;
+		}
 		$(".itemTabBox").height(iniH);
 
 		//选题
@@ -98,13 +103,15 @@ define(function (require,exports){
 			};
 			$.post(url, data, function (response) {
 				if (response.status == "ok") {
-					// alert('第'+response.sequence+'批题'+response.msg);
 					$.tiziDialog({ id: 'exerciseHtml' }).close();
 				}
 			}, "json");
 		});
 		//左右切换
 		function roll(ind){
+			if($(".aui_content .itemTabList").eq(ind).outerHeight(true)>300){
+				$(".aui_content .itemTabList").eq(ind).height(260);
+			}
 			$(".itemTabBox").height($(".aui_content .itemTabList").eq(ind).outerHeight(true));
 			$(".itemTabBox ul").stop().animate({left:-ind*iniW});
 		}
@@ -117,8 +124,6 @@ define(function (require,exports){
 		});
 		$(".clickR").click(function (){
 			ind++;
-			document.title = ind;
-			console.log($(".aui_content .itemTabList").length-1)
 			if(ind>$(".aui_content .itemTabList").length-1){
 				ind = $(".aui_content .itemTabList").length-1;
 			}
@@ -438,7 +443,7 @@ define(function (require,exports){
 			function ajax_save()
 			{
 				//ajax提交答案
-				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+//				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
 				var murl = '/classroom/save/';
 	            var mdata = {
 	            	class_id: cid,

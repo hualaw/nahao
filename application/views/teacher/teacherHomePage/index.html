@@ -34,7 +34,7 @@
                     </tr>
                     {if $data['listArr']}
 	                    {foreach $data['listArr'] as $key=>$val}
-	                    <tr {if $val['status']==2}class="start"{elseif $val['status']==3}class="end"{/if}>
+	                    <tr {if $val['status']==3}class="start"{elseif $val['status']==4}class="end"{/if}>
 	                        <td>
 	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
 	                            <a {if in_array($val['status'],$data['enter_classroom'])}href="{$student_url}classroom/enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} target="_blank" class="readyGo">
@@ -42,7 +42,7 @@
 	                            </a>
 	                        </td>
 	                        <td class="className">
-	                        	{if in_array($val['status'],array(2))}
+	                        	{if in_array($val['status'],$data['enter_classroom'])}
 	                            	<h3><a href="{$student_url}classroom/enter/{$val['classroom_id']}">{$val['title']}</a></h3>
 	                        	{else}
 	                        		<h3>{$val['title']}</h3>
@@ -62,6 +62,7 @@
 	               {/if}
                 </table>
             </div>
+            {$data['pageBar']}
 	    </div>
         <!--首页表格结束-->
     </div>
