@@ -4,6 +4,7 @@ class Pay extends NH_User_Controller {
 	public $teacher_id;
     function __construct(){
         parent::__construct();
+        header("Content-type: text/html; charset=utf-8");
         $this->smarty->assign('site_url','http://'.__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
