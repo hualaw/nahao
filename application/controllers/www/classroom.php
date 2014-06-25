@@ -255,14 +255,13 @@ class Classroom extends NH_User_Controller {
         	}
         	#如果是学生，检查这节课在student_class里面的状态
         	$array = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
-        	//var_dump($array['status']);die;
         	if(empty($array))
         	{
-        		show_error('您没有没有权限进入教室1');
+        		show_error('您没有没有权限进入教室');
         	}
         	if($array['status']!='0' && $array['status']!='2' )
         	{
-        		show_error('您没有没有权限进入教室2');
+        		show_error('您没有没有权限进入教室');
         	}
         } else if($int_user_type == '1'){
         	#如果是老师判断是否是这节课的老师
@@ -277,6 +276,27 @@ class Classroom extends NH_User_Controller {
         if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
         {
         	show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+        }
+        
+        #可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
+        $array_insert = array(
+        	'user_id'=>$int_user_id,
+        	'create_time'=>time(),
+        	'action'=>1,
+        	'class_id'=>$array_class['id'],
+        	'ip'=>$this->input->ip_address()
+        );
+        $this->model_classroom->add_entering_classroom_data($array_insert);
+        
+        if($int_user_type == '0'){
+        	#获取student_class表里面的status
+        	$array_result = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
+        	if($array_result && $array_result['status']!=2)
+        	{
+        		$status = 2;	#进过教室
+        		$this->model_member->update_student_class(array('status'=>2),array('student_id'=>$int_user_id));
+        	}
+
         }
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
