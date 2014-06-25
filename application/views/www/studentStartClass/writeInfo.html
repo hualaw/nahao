@@ -24,7 +24,7 @@
 					<li class="cf">
 						<p class="fl">真实姓名</p>
 						<div class="cf">
-							<input type="text" name="name" class="wUname fl textInput" validName="text" value="">
+							<input type="text" name="name" class="wUname fl textInput" validName="text" value="{$user_detail['realname']}">
 							<span class="Validform_checktip fl"></span>
 						</div>
 						<p class="tips fl">保密，方便我们与您电话沟通详细情况</p>
@@ -33,13 +33,13 @@
 						<p class="fl">所在地区与学校</p>
 						<div class="cf">
 							<div class="cf schoolPar">
-								<input class="schoolFullName cInput yh" readonly="readonly" value=""></input>
+								<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"></input>
 								<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">就读学校</a>
-								<input type="hidden" value="" name="province_id" id="province_id" />
-								<input type="hidden" value="" name="city_id" id="city_id" />
-								<input type="hidden" value="" name="school_id" id="schoolVal" />
-								<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
-								<input type="hidden" value="" name="school_type" id="school_type">
+								<input type="hidden" value="{$data['school']['province_id']}" name="province_id" id="province_id" />
+								<input type="hidden" value="{$data['school']['city_id']}" name="city_id" id="city_id" />
+								<input type="hidden" value="{$data['school']['id']}" name="school_id" id="schoolVal" />
+								<input type="hidden" value="{$data['school']['county_id']}" name="area_county_id" id="area_county_id"/>
+								<input type="hidden" value="{$data['school']['sctype']}" name="school_type" id="school_type">
 								<input type="hidden" value="" name="schoolname" id="schoolname" />
 							</div>
 							<span class="Validform_checktip fl"></span>

@@ -15,8 +15,20 @@ define(function(require,exports){
             objtip.text(msg);
         }
     };
+    //验证试讲时间
+    function check_time_pick(){
+        $('.endTime').live("change"function(){
+        	var start = parseInt($('.startTime').val());
+        	var end = parseInt($(this).val());
+        	alert(start+'@@'+end);
+        	if(start>=end){
+        		$('.timeSecelt').eq(1).find('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
+        	}
+        });
+    }
     //我要开课 试讲 信息 验证
     exports.writeInfoForm = function (){
+    	check_time_pick();
         var _Form=$(".writeInfoForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
@@ -106,8 +118,7 @@ define(function(require,exports){
             },
             {
                 ele:".wQQ",
-                datatype:"n5-12 | /^\\w{0}$/",
-                datatype_nonull:"n5-12",
+				datatype:"/^\\d{5,12}$/",
                 nullmsg:"请输入QQ号码！",
                 errormsg:"长度5-12个数字"
             },
