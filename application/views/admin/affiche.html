@@ -56,7 +56,7 @@
             <td>{$v.round_id}</td>
             <td>{$v.author}</td>
             <td>{$config_role[$v.author_role]}</td>
-            <td><textarea class="form-control" rows="3">{$v.content}</textarea></td>
+            <td><textarea class="form-control" rows="2" disabled>{$v.content}</textarea></td>
             <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
             <td>{if $v.top_time==0}------{else}{$v.top_time|date_format:'%Y-%m-%d %H:%M:%S'}{/if}</td>
             <td>{$affiche_status[$v.status]}</td>
