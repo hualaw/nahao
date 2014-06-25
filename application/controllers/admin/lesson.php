@@ -61,10 +61,22 @@ class Lesson extends NH_Admin_Controller {
     public function add_courseware(){
         $int_lesson_id = $this->input->post('lesson_id') ? intval($this->input->post('lesson_id')) : 0;
         $int_courseware_id = $this->input->post('courseware_id') ? intval($this->input->post('courseware_id')) : 0;
+        $int_create_time = $this->input->post('create_time') ? strtotime($this->input->post('create_time')) : 0;
+        $str_filename = $this->input->post('filename') ? trim($this->input->post('filename')) : '';
+        $int_filesize = $this->input->post('filesize') ? intval($this->input->post('filesize')) : 0;
+        $int_filetype = $this->input->post('filetype') ? intval($this->input->post('filetype')) : 0;
+
 //        o($int_lesson_id);
 //        o($int_courseware_id,true);
-        if($int_lesson_id > 0 AND $int_courseware_id > 0){
-            $bool_return = $this->lesson->add_courseware($int_lesson_id,$int_courseware_id);
+        if($int_lesson_id > 0 AND $int_courseware_id > 0 AND $int_create_time > 0 AND $str_filename){
+            $arr_courseware = array(
+                'id' => $int_courseware_id,
+                'create_time' => $int_create_time,
+                'name' => $str_filename,
+                'filesize' => $int_filesize,
+                'filetype' => $int_filetype,
+            );
+            $bool_return = $this->lesson->add_courseware($int_lesson_id,$arr_courseware);
             if($bool_return==true){
                 $this->arr_response['status'] = 'ok';
                 $this->arr_response['msg'] = '添加成功';

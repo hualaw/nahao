@@ -132,22 +132,14 @@ define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
 
-/* 课的状态
- * 初始化 0
-* 即将上课1
-* 可进教室2
-* 正在上课3
-* 上完课4
-* 老师缺课5
-* 禁用（不能恢复）6
-*  */
-define('CLASS_STATUS_INIT', 0);
-define('CLASS_STATUS_SOON_CLASS', 1);
-define('CLASS_STATUS_ENTER_ROOM', 2);
-define('CLASS_STATUS_CLASSING', 3);
-define('CLASS_STATUS_CLASS_OVER', 4);
-define('CLASS_STATUS_MISS_CLASS', 5);
-define('CLASS_STATUS_FORI_CLASS', 6);
+// 课的状态
+define('CLASS_STATUS_INIT', 0);//初始化
+define('CLASS_STATUS_SOON_CLASS', 1);//即将上课
+define('CLASS_STATUS_ENTER_ROOM', 2);//可进教室
+define('CLASS_STATUS_CLASSING', 3);//正在上课
+define('CLASS_STATUS_CLASS_OVER', 4);//上完课
+define('CLASS_STATUS_MISS_CLASS', 5);//老师缺课
+define('CLASS_STATUS_FORI_CLASS', 6);//禁用（不能恢复）
 
 /**
  * 轮的销售状态
