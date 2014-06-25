@@ -70,7 +70,8 @@ class Business_Class extends NH_Model
                                     'begin_time' => strtotime($vv['begin_time']),
                                     'end_time' => strtotime($vv['end_time']),
                                     'parent_id' => $int_parent_id,
-                                    'sequence' => $int_section_sequence++
+                                    'sequence' => $int_section_sequence++,
+                                    'status' => ($int_chapter_sequence==1 AND $int_section_sequence==1) ? CLASS_STATUS_SOON_CLASS : CLASS_STATUS_INIT
                                 );
                                 $arr_lesson_ids[] = $vv['lesson_id'];
                                 //为每个classroom添加courseware
@@ -122,6 +123,7 @@ class Business_Class extends NH_Model
                     $arr_questions = $this->question->lesson_question($arr_param,'generate_round');
 //                    o($arr_section);
 //                    o($arr_questions,true);
+                    //可以没有题 有题再添加
                     if($arr_questions){
                         $arr_question_ids = array();
                         foreach($arr_questions as $value){
@@ -132,45 +134,46 @@ class Business_Class extends NH_Model
                                 break;
                             }
                         }
-                    }/*else{可以没有题
-                        $bool_return = false;
-                    }*/
-                    if($bool_return==true){
-                        $arr_classes = self::get_classes_by_round_id($int_round_id);
-                        if($arr_classes){
-                            $arr_delete_question_class_ids = $arr_questions_classes = array();
-                            //产生要插入question_class_relation中的数据组
-                            foreach($arr_classes as $value){
-                                $arr_delete_question_class_ids[] = $value['id'];// for delete question_class_relation
-                                if(isset($arr_question_ids[$value['lesson_id']])){
-                                    foreach($arr_question_ids[$value['lesson_id']] as $k => $v){
-                                        $arr_questions_classes[] = array(
-                                            'class_id' => $value['id'],
-                                            'question_id' => $v
-                                        );
+
+                        if($bool_return==true){
+                            $arr_classes = self::get_classes_by_round_id($int_round_id);
+                            if($arr_classes){
+                                $arr_delete_question_class_ids = $arr_questions_classes = array();
+                                //产生要插入question_class_relation中的数据组
+                                foreach($arr_classes as $value){
+                                    $arr_delete_question_class_ids[] = $value['id'];// for delete question_class_relation
+                                    if(isset($arr_question_ids[$value['lesson_id']])){
+                                        foreach($arr_question_ids[$value['lesson_id']] as $k => $v){
+                                            $arr_questions_classes[] = array(
+                                                'class_id' => $value['id'],
+                                                'question_id' => $v
+                                            );
+                                        }
                                     }
                                 }
-                            }
 //                            o($arr_questions_classes,true);
-                            //根据class_id删除question_class_relation中的数据
-                            if($arr_delete_question_class_ids){
-                                $delete_arr_param = array(
-                                    'do' => 'delete',
-                                    'delete_class_question' => true,
-                                    'class_id' => $arr_delete_question_class_ids
-                                );
-                                $this->question->class_question_delete($delete_arr_param);
-                            }
-                            $add_arr_param = array(
-                                'do' => 'add_relation',
+                                //根据class_id删除question_class_relation中的数据
+                                if($arr_delete_question_class_ids){
+                                    $delete_arr_param = array(
+                                        'do' => 'delete',
+                                        'delete_class_question' => true,
+                                        'class_id' => $arr_delete_question_class_ids
+                                    );
+                                    $this->question->class_question_delete($delete_arr_param);
+                                }
+                                $add_arr_param = array(
+                                    'do' => 'add_relation',
 //                                'add_class_question' => true,
-                                'no_check' => 1,
-                                'class_id' => $arr_questions_classes
-                            );
-                            $bool_return = $this->question->class_question_doWrite($add_arr_param);
+                                    'no_check' => 1,
+                                    'class_id' => $arr_questions_classes
+                                );
+                                $bool_return = $this->question->class_question_doWrite($add_arr_param);
 //                            o($bool_return,true);
+                            }
                         }
+
                     }
+
                 }
             }
         }
@@ -222,7 +225,7 @@ class Business_Class extends NH_Model
     public function delete_classes_by_round_id($int_round_id){
         if($int_round_id > 0){
             $arr_where = array(
-                'course_id' => $int_round_id
+                'round_id' => $int_round_id
             );
             $this->model_class->delete_class_by_param($arr_where);
         }
