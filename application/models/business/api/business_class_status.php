@@ -4,7 +4,7 @@
 
         public function __construct()
         {
-            parent::__construct;
+            parent::__construct();
             $this->load->model('model/api/model_class_status');
         }
 
@@ -18,7 +18,7 @@
                 TABLE_ENTERING_CLASSROOM.'.user_id'=>$classroom_status['uid'],
                 TABLE_ENTERING_CLASSROOM.'.classroom_id'=>$classroom_status['cid'],
                 TABLE_ENTERING_CLASSROOM.'.ip'=>$classroom_status['ip'],
-                TABLE_ENTERING_CLASSROOM.'.type'=>$classroom_status['type'],
+                TABLE_ENTERING_CLASSROOM.'.user_type'=>$classroom_status['type'],
                 TABLE_ENTERING_CLASSROOM.'.action'=>$classroom_status['action'],
                 TABLE_ENTERING_CLASSROOM.'.create_time'=>time()
             );
@@ -41,8 +41,7 @@
             $arr_data=array(
                 TABLE_CLASS_ACTION_LOG.'.user_id'=>$class_status['uid'],
                 TABLE_CLASS_ACTION_LOG.'.classroom_id'=>$class_status['cid'],
-                TABLE_CLASS_ACTION_LOG.'.ip'=>$class_status['ip'],
-                TABLE_CLASS_ACTION_LOG.'.type'=>$class_status['type'],
+                TABLE_CLASS_ACTION_LOG.'.user_type'=>$class_status['type'],
                 TABLE_CLASS_ACTION_LOG.'.action'=>$class_status['action'],
                 TABLE_CLASS_ACTION_LOG.'.create_time'=>time()
             );
