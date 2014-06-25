@@ -22,4 +22,28 @@ class Business_Courseware extends NH_Model{
             $this->model_courseware->create_courseware($arr_param);
         }
     }
+
+    /**
+     * 根据ID获取courseware
+     * @param $arr_courseware_id
+     * @return array
+     */
+    public function get_courseware_by_id($arr_courseware_id){
+        $arr_return = array();
+        if(is_array($arr_courseware_id) AND $arr_courseware_id){
+            $str_table_range = 'courseware';
+            $str_result_type = 'list';
+            $str_fields = '*';
+            $arr_where = array(
+                'id' => $arr_courseware_id
+            );
+            $arr_return = $this->model_courseware->get_courseware_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            if($arr_return){
+                foreach($arr_return as $k => $v){
+                    $arr_return[$k]['download_url'] = NH_PDF_DOWNLOAD_URL.$v['id'].'/'.$v['name'];
+                }
+            }
+        }
+        return $arr_return;
+    }
 }
