@@ -103,16 +103,22 @@ class login extends NH_Controller
         //邮箱找回密码部分
         if($code) {
             $this->load->library('encrypt');
-            $decrypted_code = $this->encrypt->decode($code, 'nahao');
-            $decrypted_data = explode('|', $decrypted_code);
-            if(count($decrypted_data) < 2 || ($decrypted_data[1] - time()) > 86400) {
-                exit('该链接已经失效,请重新发送邮件并及时查收');
+            $encrytion_key = $this->config->item('encryption_key');
+            $user_email = $this->encrypt->decode($code, $encrytion_key);
+            $this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
+            $email_record_str = $this->cache->redis->get(md5($user_email));
+            $email_record_arr = json_decode($email_record_str, true);
+            if(empty($email_record_arr)) {
+                redirect('/login/find_pwd');
             }
-            list($user_email, $post_time) = $decrypted_data;
+
             if($new_pwd) {
                 $user_info = $this->business_user->get_user_by_email($user_email);
                 if(isset($user_info['id'])) {
                     $this->business_user->reset_password($user_info['id'], $new_pwd);
+                    #clear redis cache after user reset password through email
+                    $this->cache->redis->delete(md5($user_email));
                     $this->smarty->display('www/login/setSuccess.html');die;
                 }
             }
@@ -150,27 +156,35 @@ class login extends NH_Controller
      */
     public function send_reset_email()
     {
-        $this->load->library('encrypt');
         $email_address = trim($this->input->post('email'));
-        $subject = '那好网重置密码邮件';
-        $code = $email_address . '|' . time();
-        $encrypted_code = urlencode($this->encrypt->encode($code, 'nahao'));
-        $reset_pwd_url = __HOST__ . '/login/reset_pwd?code='.$encrypted_code;
-        $this->load->library('mail');
-        $mail_content = '<body style="margin-bottom: 0px; margin-top: 0px; padding-bottom: 0px; padding-top: 0px;">尊敬的用户：<br>
-                        您好！您已申请那好网重置密码服务。<br>
-                        本邮件24小时内有效，请点击如下链接来完成密码重置：<br><a href="http://'. $reset_pwd_url .'" target="_blank">'. __HOST__ .'/logi/reset_pwd?code='. $reset_pwd_url .'</a><br>
-                        如果浏览器不能自动打开，请您把地址复制到浏览器地址栏中手动打开。<br><br>欢迎您使用那好网（www.nahao.com）！<br>
-                        本邮件由那好系统自动发出，请勿直接回复！若非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br>
-                        感谢您对那好网的支持！
-                        </body>';
-        $result = $this->mail->send($email_address, $subject, $mail_content);
-        if($result['ret'] == 1) {
-            $arr_return = array('status' => 1, 'msg' => '重设密码的邮箱已经发送到您的邮箱：'. $email_address . '请您注意查收');
-        } else {
-            $arr_return = array('status' => 2, 'msg' => '服务器繁忙请稍后重试');
+        $send_result = array();
+        if(is_email($email_address)) {
+            $this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
+            $email_record_str = $this->cache->redis->get(md5($email_address));
+            $email_record_arr = json_decode($email_record_str, true);
+            if(isset($email_record_arr['send_time']) && time() - $email_record_arr['send_time'] < 60) {
+                $send_result = array('status' => ERROR, 'info' => '邮递员正在忙着派送您的邮件, 请休息一分钟再来召唤他');
+                self::json_output($send_result);
+            }
+            
+            $this->load->library('encrypt');
+            $subject = '那好网重置密码邮件';
+            $encryption_key = $this->config->item('encryption_key');
+            $encrypted_code = urlencode($this->encrypt->encode($email_address, $encryption_key));
+            $reset_pwd_url = student_url() . 'login/reset_pwd?code='.$encrypted_code;
+            $mail_content = '<body style="margin-bottom: 0px; margin-top: 0px; padding-bottom: 0px; padding-top: 0px;">尊敬的用户：<br>
+                            您好！您已申请那好网重置密码服务。<br>
+                            本邮件24小时内有效，请点击如下链接来完成密码重置：<br><a href="'. $reset_pwd_url .'" target="_blank">'. $reset_pwd_url .'</a><br>
+                            如果浏览器不能自动打开，请您把地址复制到浏览器地址栏中手动打开。<br><br>欢迎您使用那好网（www.nahao.com）！<br>
+                            本邮件由那好系统自动发出，请勿直接回复！若非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br>
+                            感谢您对那好网的支持！
+                            </body>';
+            $success_msg = '重设密码的邮箱已经发送到您的邮箱：'. $email_address . '请您注意查收';
+            $send_result = $this->_send_email($email_address, $subject, $mail_content, $success_msg);
+            
         }
-        self::json_output($arr_return);
+        self::json_output($send_result);
     }
         
     /**
