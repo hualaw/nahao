@@ -56,7 +56,7 @@
 .studentMyCourse .hasCourse .progress{position: relative;height: 2px;background: #6dcde6;}
 .studentMyCourse .hasCourse .bar{position: absolute;height: 2px;background: #f14211;width: 20%;left:0;}
 .studentMyCourse .hasCourse .lessons{text-align: right;}
-.studentMyCourse .hasCourse .btn{height: 30px;line-height: 30px;width: 160px;}
+.studentMyCourse .hasCourse .btn{height: 30px;line-height: 30px;width: 160px;position: absolute;bottom: 14px;left: 50%;margin-left: -80px;}
 .studentMyCourse .hasCourse .classTime{text-align: left;margin-top: -8px;}
 .studentMyCourse .hasCourse .courseInfor{font-size: 14px;padding: 0 8px 8px;}
 .studentMyCourse .hasCourse:hover .btn{background:#6dcde6;}
@@ -262,6 +262,11 @@
 .studentMyCourse .outlineList .listh{font-size: 16px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
 /*   我的课程购买后  */
+.studentMyCourse .buyAfter .cstate{width: 270px;height: 152px;position: absolute;right:100px;top:24px;background-repeat: no-repeat;}
+.studentMyCourse .buyAfter .cend{background-image: url(../../images/studentMyCourse/cend.png);}
+.studentMyCourse .buyAfter .cstop{background-image: url(../../images/studentMyCourse/cstop.png);}
+.studentMyCourse .buyAfter .coverdue{background-image: url(../../images/studentMyCourse/coverdue.png);}
+
 .studentMyCourse .buyAfter .outline{padding-left: 30px;}
 .studentMyCourse .buyAfter .cBtn{width: 108px;height: 30px;line-height: 30px;border-radius: 2px;font-size: 18px;display: inline-block;text-align: center;}
 .studentMyCourse .buyAfter .replay{border: 1px solid #6dcde6;color:#6dcde6;}
@@ -299,7 +304,7 @@
 .studentMyCourse .abuyTab .nDetailCon .indent{text-indent: 2em;}
 .studentMyCourse .buyAfter .buyHead{background: url(../../images/studentMyCourse/buyHeadBg.png) no-repeat;height: 284px;margin-bottom: 30px;}
 .studentMyCourse .buyAfter .buyHeadt{border-top:2px solid #f14211;padding-top: 23px;}
-.studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;}
+.studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;height: 175px;}
 .studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;height: 179px;overflow-y: scroll;}
 .studentMyCourse .buyAfter .courseInfor h2{font-size: 24px;height: 24px;line-height: 24px;margin-bottom: 32px;}
 .studentMyCourse .buyAfter .courseInfor h3{font-weight: normal;font-size: 20px;}

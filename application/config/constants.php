@@ -132,6 +132,69 @@ define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
 
+/* 课的状态
+ * 初始化 0
+* 即将上课1
+* 可进教室2
+* 正在上课3
+* 上完课4
+* 老师缺课5
+* 禁用（不能恢复）6
+*  */
+define('CLASS_STATUS_INIT', 0);
+define('CLASS_STATUS_SOON_CLASS', 1);
+define('CLASS_STATUS_ENTER_ROOM', 2);
+define('CLASS_STATUS_CLASSING', 3);
+define('CLASS_STATUS_CLASS_OVER', 4);
+define('CLASS_STATUS_MISS_CLASS', 5);
+define('CLASS_STATUS_FORI_CLASS', 6);
+
+/**
+ * 轮的销售状态
+ * 未审核0
+ * 审核不通过1
+ * 审核通过（预售）2
+ * 销售中3
+ * 已售罄4
+ * 已停售（时间到了还没售罄）5
+ * 已下架（手动下架）6
+ */
+define('ROUND_SALE_STATUS_INIT', 0);
+define('ROUND_SALE_STATUS_NO_PASS', 1);
+define('ROUND_SALE_STATUS_PASS', 2);
+define('ROUND_SALE_STATUS_SALE', 3);
+define('ROUND_SALE_STATUS_OVER', 4);
+define('ROUND_SALE_STATUS_FINISH', 5);
+define('ROUND_SALE_STATUS_OFF', 6);
+
+/**
+ * 轮的授课状态
+ * 等待开课1
+ * 授课中2
+ * 停课（手动操作）3
+ * 结课4
+ * 过期(节课后一个月cron会把这个状态改为过期)5
+ */
+define('ROUND_TEACH_STATUS_INIT', 1);
+define('ROUND_TEACH_STATUS_TEACH', 2);
+define('ROUND_TEACH_STATUS_STOP', 3);
+define('ROUND_TEACH_STATUS_FINISH', 4);
+define('ROUND_TEACH_STATUS_OVER', 5);
+
+
+/**
+ * 学生退款记录表student_refund退款状态
+ * 处理中 0
+ * 退款失败1
+ * 同意退款2
+ * 退款完成3
+ */
+define('REFUND_STATUS_INIT', 0);
+define('REFUND_STATUS_FAIL', 1);
+define('REFUND_STATUS_AGREE', 2);
+define('REFUND_STATUS_FINISH', 3);
+
+
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
 
@@ -151,6 +214,7 @@ define('TABLE_ADMIN_PERMISSION_RELATION','admin_permission_relation');
 define('TABLE_CLASS','class');
 define('TABLE_CLASS_DISCUSS_LOG','class_discuss_log');
 define('TABLE_CLASS_FEEDBACK','class_feedback');
+define('TABLE_FEEDBACK','feedback');
 define('TABLE_COURSE','course');
 define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
 define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
@@ -187,7 +251,7 @@ define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
 define('TABLE_CLASS_NOTE', 'class_note');
-
+define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
 //各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
 
 //ROUND sale_status
@@ -229,6 +293,8 @@ define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
 
 //static css
 define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
+define('STATIC_ADMIN_CSS_CLASSROOM','/css/classRoom/style.css');
+define('STATIC_ADMIN_CSS_PREVIEW','/css/adminPublic/preview.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
@@ -275,6 +341,7 @@ define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
 define('NH_MEETING_TYPE_ADMIN',2);//管理员
+define('NH_MEETING_TYPE_SYSTEM',3);//系统，记录日志时用到
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
@@ -300,6 +367,7 @@ define('TEACHER_AGE_CEILING', 50);
 define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
 define('CLASS_FASTER_ACTION', 3);//讲慢一点
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

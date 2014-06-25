@@ -405,6 +405,7 @@ define(function(require, exports) {
         });
         //点击城镇
         $('.resetSchoolPopCon .county li').live('click', function(){
+            _this = $(this);
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
@@ -426,7 +427,7 @@ define(function(require, exports) {
                     $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
                     $('.resetSchoolPopCon .sctype li').first().addClass('active');
                     var sctype = 1;
-                    var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                    var county_id = _this.attr('data-id');
                     $.ajax({
                         'url' : siteUrl+'school/get_school',
                         'type' : 'GET',
@@ -564,8 +565,25 @@ define(function(require, exports) {
                                                 for (var i = 0; i < json.length; ++i){
                                                     listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
                                                 }
-                                                $('.resetSchoolPopCon .sctype').html(listr);
-                                                $('.resetSchoolPopCon .sctype').fadeIn();
+                                                $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
+                                                $('.resetSchoolPopCon .sctype li').first().addClass('active');
+                                                var sctype = 1;
+                                                var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                                                $.ajax({
+                                                    'url' : siteUrl+'school/get_school',
+                                                    'type' : 'GET',
+                                                    'dataType' : 'json',
+                                                    'data' : {
+                                                        'id' : county_id,
+                                                        'sctype' : sctype
+                                                    },
+                                                    success : function(json, status){
+                                                        school_array = json;
+                                                        exports.buildSchool();
+                                                        // 验证表单
+                                                        exports.seacherSchoolValid();
+                                                    }
+                                                });
                                             }
                                         });
                                     }

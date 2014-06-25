@@ -20,6 +20,7 @@ class Business_Register extends NH_Model {
 				return $check_ret;
 			}
 			$phone_verified = 1;
+            $nickname = $phone_mask = phone_blur($phone);
 
 			//check captcha
 			$bool_ret = $this->_check_captcha($phone, $captcha, REGISTER_VERIFY_CODE);
@@ -29,19 +30,20 @@ class Business_Register extends NH_Model {
 		{
 			$phone_verified = 0;			
 			$check_ret = $this->check_email($email);
-            //print_r($check_ret);
+            $nickname = $email;
+            $phone_mask = $phone;
+
 			if($check_ret['status'] != SUCCESS){
 				return $check_ret;
 			}
 		}
 
 		//save register information, get user_id
-		$phone_mask = ($reg_type == REG_LOGIN_TYPE_PHONE) ? phone_blur($phone) : $phone; //邮箱注册选填的手机号明文存储
 		$this->load->helper('string');
         $str_salt = random_string('alnum', 6);
 
 		$user_table_data = array(
-			'nickname' => '',
+			'nickname' => $nickname,
 			'phone_mask' => $phone_mask,
 			'email' => $email,
 			'salt' => $str_salt,

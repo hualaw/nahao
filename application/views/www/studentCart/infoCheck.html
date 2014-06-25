@@ -50,8 +50,8 @@
 
 					<dd>
 						<!-- span class="num">1</span> -->
-						<span class="name">{$array_data.title}</span>
-						<span class="time">2014-06-23:2014-06-28</span>
+						<span class="name">{$array_data.title|truncate:21:"...":true}</span>
+						<span class="time">{$array_data.start_time|date_format:'%Y/%m/%d %H:%M'}--{$array_data.end_time|date_format:'%Y/%m/%d %H:%M'}</span>
 						<span class="oldPrice">¥{$array_data.price}<em></em></span>
 						<span class="newPrice">¥{$array_data.sale_price}</span>
 						<!-- <span class="operation"><a href="javascript:void(0)">删除</a></span> -->

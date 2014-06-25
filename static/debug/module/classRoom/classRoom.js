@@ -220,12 +220,15 @@ define(function (require,exports){
 					 html+='<div class="setqid" sequence="'+val.sequence+'" select_type="'+val.type+'" classid="'+val.class_id+'" qid="'+val.id+'">'+val.question+'</div>';
 					 html+=	'<ul class="answerList">';
 					 $.each(val.options, function(k, v) {
-			
-						 html+=	'<li class="cf ">';
-						 html+=	'<em class="fl ansIco"></em>';
-						 html+=	'<span class="options fl">'+k+'</span>';
-						 html+=	'<p class="fl">'+v+'</p>';
-						 html+=	'</li>';
+						 if(v)
+						 {
+							 html+=	'<li class="cf ">';
+							 html+=	'<em class="fl ansIco"></em>';
+							 html+=	'<span class="options fl">'+k+'</span>';
+							 html+=	'<p class="fl">'+v+'</p>';
+							 html+=	'</li>';
+						 }
+
 					 });
 					 html+=	'</ul>';
 					 html+=	'</div>';
@@ -290,7 +293,11 @@ define(function (require,exports){
 
 			for(var i=0;i<aL.length;i++){
 				if(!aL.hasClass("curAnswer")){
-					alert("您还没有做题");
+	 				$.dialog({
+					    content:"您还没有做题",
+					    icon:null
+					});
+					//alert("您还没有做题");
 					return;
 				}else{
 					chans = false;
@@ -310,7 +317,11 @@ define(function (require,exports){
 					 };
 					 $.post(rurl, rdata, function (response) {
 						 if (response.status == "error") {
-							 alert(response.msg);
+			 				$.dialog({
+							    content:response.msg,
+							    icon:null
+							});
+							 //alert(response.msg);
 						 } else if(response.status == "ok"){
 								 	rhtml+='<div class="scoreBox itemscore cf ">';
 									rhtml+='<div class="fl optionNav">';	

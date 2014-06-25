@@ -21,10 +21,11 @@
 	    <div class="buyHead">
 	    	{if $array_data}
 	        <div class="buyHeadt cf">
-	        	<div class="fl courseInfor">
+	        	<div class="fl courseInfor posr">
 	        		<h2>{$array_data.title}</h2>
+	        		<div class="cstate undis"></div>
 	        		<!-- 授课状态：等待开课 -->
-	        		{if $array_data.teach_status == '1' && $array_data.soon_class_infor}
+	        		{if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_INIT && $array_data.soon_class_infor}
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl">{$array_data.soon_class_infor.title}</h3>
@@ -42,7 +43,7 @@
 	        		
 	        		</div>
 	        		<!-- 授课状态：授课中 -->
-	        		{else if $array_data.teach_status == '2' && $array_data.soon_class_infor}
+	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_TEACH && $array_data.soon_class_infor}
 	        	    <span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl">{$array_data.soon_class_infor.title}</h3>
@@ -57,10 +58,11 @@
 
 	        				</div>
 	        			</div>
-	        		
+	        			{if $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_ENTER_ROOM ||  $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_CLASSING}
 	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn" title="在开课时间前30分钟，可提前进教室">去上课</a>
+	        			{/if}
 	        		</div>
-	        		{else if $array_data.teach_status == '3'}
+	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
 	        	    <span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
@@ -71,7 +73,7 @@
 	        			<span class="fl"></span>
 	        		        
 	        		</div>
-	        		{else if $array_data.teach_status == '4'}
+	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
 	        		<span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
@@ -82,7 +84,7 @@
 	        			<span class="fl"></span>
         		        
 	        		</div>
-	        		{else if $array_data.teach_status == '5'}
+	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
 	        	    <span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
@@ -122,7 +124,11 @@
 	        			<div class="redLine" style="width:{$array_data.class_rate}%"></div>
 	        		</div>
 	        	</div>
+	        	{if $array_data.class_rate == '100'}
+	        	<div class="fr bHeadR colorCup"></div>
+	        	{else}
 	        	<div class="fr bHeadR"></div>
+	        	{/if}
 	        </div>
 	        {/if}
 	    </div>
@@ -145,15 +151,15 @@
  							{foreach from=$item.son item=it name="son"}
 	                        <li class="cf">
 
-								{if $it.status=='1'}
+								{if $it.status== $smarty.const.CLASS_STATUS_SOON_CLASS}
 								    <a href="javascript:;" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
-								{elseif $it.status=='2'}
+								{elseif $it.status== $smarty.const.CLASS_STATUS_ENTER_ROOM || $it.status== $smarty.const.CLASS_STATUS_CLASSING}
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">去上课</a>
-								{elseif $it.status=='3'}
+								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER}
 									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
-								{elseif $it.status=='4'}
+								{elseif $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
 									<a href="javascript:;" class="replay cBtn fl">缺课</a>	
-								{elseif $it.status=='5'}
+								{elseif $it.status==$smarty.const.CLASS_STATUS_FORI_CLASS}
 									<a href="javascript:;" class="replay cBtn fl">停课</a>								
 								{/if}
 	                            <div class="fr rCon">
@@ -166,16 +172,27 @@
 		                            	<div class="cf">
 		                                	<p class="listh fl" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title|truncate:10:"...":true}</p>
 		                                	<div class="cf cListHid undis">
-		                                		{if $array_data.teach_status!=5}
+		                                		{if $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
 		                                		<span class="fl handout"></span>
 		                                		{/if}
-		                                		{if $it.status=='3' && $array_data.teach_status!=5}
+		                                		{if ($it.status==$smarty.const.CLASS_STATUS_CLASS_OVER) && $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
 			                                	<span class="fl cloudNotes" data-cid={$it.classroom_id}></span>
 			                                	{/if}
 			                                	{if $it.comment_status > 0}
 			                                	<span class="cevaluBtn fr sevaluBtn">已评价</span>
 			                                	{else}
-			                                		{if $it.status == '3' && $array_data.teach_status!=5}
+			                                		{if ($it.status == $smarty.const.CLASS_STATUS_CLASSING
+			                                		||
+			                                		$it.status == $smarty.const.CLASS_STATUS_CLASS_OVER
+			                                		||
+			                                		$it.status == $smarty.const.CLASS_STATUS_MISS_CLASS
+			                                		) 
+			                                		&& 
+			                                		($array_data.teach_status==$smarty.const.ROUND_TEACH_STATUS_TEACH 
+			                                		|| 
+			                                		$array_data.teach_status==$smarty.const.ROUND_TEACH_STATUS_STOP
+			                                		|| 
+			                                		$array_data.teach_status==$smarty.const.ROUND_TEACH_STATUS_FINISH)}
 			                                	<a href="javascript:void(0)" evaluBtns="{$it.id}" class="cevaluBtn fr evaluBtn ">评价</a>
 			                                		{/if}
 			                                	{/if}

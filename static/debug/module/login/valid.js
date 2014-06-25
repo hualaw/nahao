@@ -1,4 +1,5 @@
 define(function(require,exports){
+    require("naHaoDialog");
 	// 请求验证库
     require("validForm");
     // 定义公共tipType;
@@ -194,7 +195,9 @@ define(function(require,exports){
 			showAllError:false,
 			ajaxPost:true,
 			beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                console.log(hash.words)
 			},
             callback:function(data){
                 if(data.status == 'ok'){
@@ -242,10 +245,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert(data.info);
-                if(data.status == 'ok') {
-                    window.location = data.url;
-                }
+                $.dialog({
+                    content:data.info,
+                    icon:null,
+                    ok:function() {
+                        if(data.status == 'ok') {
+                            window.location = data.url;
+                        }
+                    }
+                });
             },
             usePlugin:{
                 jqtransform:{
@@ -375,7 +383,10 @@ define(function(require,exports){
             },
             callback:function(data){
                 if(data.status == 1) {
-                    alert(data.msg);
+                    $.dialog({
+                        content:data.msg,
+                        icon:null
+                    });
                 }
             }
         });

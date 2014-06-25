@@ -49,7 +49,6 @@ class Classroom extends NH_User_Controller {
 	    $int_user_id = $this->session->userdata('user_id'); #TODO
 	    #课id
 	    $int_class_id = $this->input->post('class_id');
-	    //$int_class_id = 4;
 	    #获取最大批次
 	    $array_sequence = $this->model_classroom->get_max_sequence($int_class_id);
 	    #数组为空或者批次为0，则老师没有出题
@@ -243,10 +242,9 @@ class Classroom extends NH_User_Controller {
         #用户是否有登陆
         #登陆的用户是否有买过这堂课
         $int_user_id = $this->session->userdata('user_id'); #TODO
-        //$int_user_type = $this->session->userdata('user_type');
         $array_user = $this->_user_detail;
         $int_user_type = $array_user['teach_priv'];
-/*         #判断当前用户是学生还是老师。 0是学生，1是老师
+        #判断当前用户是学生还是老师。 0是学生，1是老师
         if($int_user_type == '0')
         {
         	#如果是学生判断是否买了这一堂课
@@ -254,6 +252,16 @@ class Classroom extends NH_User_Controller {
         	if(empty($bool_flag))
         	{
         		show_error('您没有购买这堂课');
+        	}
+        	#如果是学生，检查这节课在student_class里面的状态
+        	$array = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
+        	if(empty($array))
+        	{
+        		show_error('您没有没有权限进入教室');
+        	}
+        	if($array['status']!='0' && $array['status']!='2' )
+        	{
+        		show_error('您没有没有权限进入教室');
         	}
         } else if($int_user_type == '1'){
         	#如果是老师判断是否是这节课的老师
@@ -263,12 +271,33 @@ class Classroom extends NH_User_Controller {
         		show_error('您不是这节课的老师');
         	}
         }
-
-        #判断这节课是不是在"去上课"的状态
-        if ($array_class['status'] !='2')
+        
+        #判断这节课是不是在"可进教室 或者 正在上课"的状态 并且 student_class表里面的课的状态等于0或者2
+        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
         {
-        	show_error('您不能进入教室了，您的课的状态不是“正在上课”');
-        } */
+        	show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+        }
+        
+        #可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
+        $array_insert = array(
+        	'user_id'=>$int_user_id,
+        	'create_time'=>time(),
+        	'action'=>1,
+        	'class_id'=>$array_class['id'],
+        	'ip'=>$this->input->ip_address()
+        );
+        $this->model_classroom->add_entering_classroom_data($array_insert);
+        
+        if($int_user_type == '0'){
+        	#获取student_class表里面的status
+        	$array_result = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
+        	if($array_result && $array_result['status']!=2)
+        	{
+        		$status = 2;	#进过教室
+        		$this->model_member->update_student_class(array('status'=>2),array('student_id'=>$int_user_id));
+        	}
+
+        }
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);

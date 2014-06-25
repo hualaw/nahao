@@ -320,6 +320,7 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #去轮公告表寻找信息
         $array_return = $this->model_course->get_class_note_data($int_round_id);
+        //var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
@@ -337,6 +338,8 @@ class Student_Course extends NH_Model{
                     $array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
           
                 }
+                #处理数据
+                $array_return[$k]['content'] = htmlspecialchars_decode($v['content']);
             }
         }
         return $array_return;

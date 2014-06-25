@@ -12,27 +12,16 @@
 <!--小导航结束-->
 <!--班次列表详情页面开始-->
 <div class="md_orderDetail">
-    <h2>班次名称：2014年小升初暑假特训营（第一期）</h2>
+    <h2>班次名称：{$data['round_info']['title']}</h2>
     <div class="md_hd">
-        <span class="chapter">共<b>{$data['status_count']['z_count']}</b>章</span>
-        <span class="course"><b>{$data['status_count']['j_count']}</b>节课</span>
-        {if $data['status_count']['j_status_0']}
-        	<span>初始化：<b>{$data['status_count']['j_status_0']}</b></span>
-        {/if}
-        {if $data['status_count']['j_status_1']}
-        	<span>即将开始：<b>{$data['status_count']['j_status_1']}</b></span>
-        {/if}
-        {if $data['status_count']['j_status_2']}
-        	<span>正在上课：<b>{$data['status_count']['j_status_2']}</b></span>
-        {/if}
-        {if $data['status_count']['j_status_3']}
-        	<span>已结课：<b>{$data['status_count']['j_status_3']}</b></span>
-        {/if}
-        {if $data['status_count']['j_status_4']}
-        	<span>缺课：<b>{$data['status_count']['j_status_4']}</b></span>
-        {/if}
-		{if $data['status_count']['j_status_5']}
-        	<span>禁用：<b>{$data['status_count']['j_status_5']}</b></span>
+        <span class="chapter">共<b>{$data['status_count']['z_count']['num']}</b>章</span>
+        <span class="course"><b>{$data['status_count']['j_count']['num']}</b>节课</span>
+        {if $data['status_count']}
+        	{foreach $data['status_count'] as $key => $val}
+        		{if $val['num'] && !in_array($val['name'],array('章','节'))}
+		        	<span>{$val['name']}：<b>{$val['num']}</b></span>
+		        {/if}
+        	{/foreach}
         {/if}
     </div>
     <div class="md_bd">
@@ -54,7 +43,7 @@
 		            <tr>
 		                <td class="order_id">{$v['id']}</td>
 		                <td class="order_name">
-		                	{if in_array($v['status'],array(2))}
+		                	{if in_array($v['status'],$data['enter_classroom'])}
 		                    	<h3><a href="{$student_url}classroom/enter/{$v['classroom_id']}" title="{$v['title']}">{$v['title']}</a></h3>
 		                    {else}
 		                    	<h3>{$v['title']}</h3>
@@ -70,6 +59,8 @@
 	            {/foreach}
 	        </table>
     	{/foreach}
+    {else}
+    	<center><h3>班次：{$data['round_info']['title']}目前还没有创建章节!<h3></center>
     {/if}
     </div>
 </div>

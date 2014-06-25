@@ -12,25 +12,31 @@
 		<!-- kecheng yi wancheng -->
 		{if $array_buy_course}
 		{foreach from=$array_buy_course item=item}
-		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
+		
+		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if} posr">
+			{if $item.sale_price == '0'}
+			<div class="courseFree"></div>
+			{/if}
 			<h3 title="{$item.title}">{$item.title|truncate:15:"...":true}</h3>
+			
+
 			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>
 			</div>
 			<div class="courseInfor">
 				<div class="lessons">
-					<span class="redText">已上{$item.class}节</span> / 共{$item.totle_class}
+					<span class="redText">已上{$item.class}节</span> / 共{$item.totle_class}节
 				</div>
-				{if $item.teach_status == '3'}
+				{if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
 			    <div class="over">
 					停课
 				</div>
-				{elseif $item.teach_status == '4'}
+				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
 				<div class="over">
 					已结课
 				</div>
-				{elseif $item.teach_status == '5'}
+				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
 				<div class="over" title="已过期：已结课一个月之后">
 					已过期
 				</div>
