@@ -81,7 +81,7 @@ class Model_Member extends NH_Model{
             case 'all': $where.='';break;
             case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
             case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
-            case 'cancel': $where.=' AND status = '.ORDER_STATUS_CANCEL.' AND status = '.ORDER_STATUS_CLOSE;break;
+            case 'cancel': $where.=' AND status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE;break;
             case 'refund': $where.=' AND status = '.ORDER_STATUS_APPLYREFUND_SUCC;break;
         }
         $array_result = array();
@@ -104,7 +104,7 @@ class Model_Member extends NH_Model{
             case 'all': $where.='';break;
             case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
             case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
-            case 'cancel': $where.=' AND status = '.ORDER_STATUS_CANCEL.' AND status = '.ORDER_STATUS_CLOSE;break;
+            case 'cancel': $where.=' AND status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE;break;
             case 'refund': $where.=' AND status = '.ORDER_STATUS_APPLYREFUND_SUCC;break;
         }
         $array_result = array();
