@@ -1,4 +1,5 @@
 define(function(require,exports){
+    require("naHaoDialog");
     // 请求验证库
     require("validForm");
     // 请求公共验证信息
@@ -28,10 +29,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert(data.msg);
-                if(data.status == 'ok') {
-                    window.location.reload();
-                }
+                $.dialog({
+                    content:data.msg,
+                    icon:null,
+                    ok: function() {
+                        if(data.status == 'ok') {
+                            window.location.reload();
+                        }    
+                    }
+                })
             },
             usePlugin:{
                 jqtransform:{
@@ -148,10 +154,17 @@ define(function(require,exports){
             },
             callback:function(data){
                 if(data.status == 'ok') {
-                    alert('密码修改成功, 页面将跳转到登陆页面');
-                    window.location = data.url;
+                    $.dialog({
+                        content:'密码修改成功, 页面将跳转到登陆页面',
+                        icon:null,
+                        ok:function () {
+                            window.location = data.url;
+                        }
+                    })
                 } else {
-                    alert(data.info);
+                    $.dialog({
+                        content:data.info
+                    })
                 }
             }
         });

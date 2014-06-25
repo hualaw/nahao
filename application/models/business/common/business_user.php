@@ -96,7 +96,6 @@ class Business_User extends NH_Model
                 TABLE_USER.'.status' => 1,
             );
             $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
-            $arr_return['phone'] = get_pnum_phone_server($user_id);
             #加载用户教学科目数据(可以为空主要针对老师用户)
             $arr_return['teacher_subject'] = $this->business_subject->get_teacher_subject($user_id);
             #加载用户感兴趣的科目(可以为空主要是针对学生用户)
@@ -155,7 +154,7 @@ class Business_User extends NH_Model
         !empty($update_data['teacher_auth_img']) && $userinfo['teacher_auth_img'] = $update_data['teacher_auth_img'];
         !empty($update_data['title_auth_img']) && $userinfo['title_auth_img'] = $update_data['title_auth_img'];
         !empty($update_data['has_bought']) && $userinfo['has_bought'] = $update_data['has_bought'];
-        !empty($update_data['custom_school']) && $userinfo['custom_school'] = $update_data['custom_school'];
+        isset($update_data['custom_school']) && $userinfo['custom_school'] = $update_data['custom_school'];
         $this->model_user->update_user_info($userinfo, array('user_id' => $user_id));
 
         if(isset($update_data['teacher_subject'])) {

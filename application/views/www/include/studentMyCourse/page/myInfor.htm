@@ -115,7 +115,7 @@
 					<p class="optional noFillin">手机号</p>
                     <div class="cf">
 						<div class="fl">
-                            <input type="text" class="cInput {if !$user_detail.phone}phone_number{/if}" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone}disabled{/if}>
+                            <input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone_verified}disabled{/if}>
                             <span class="Validform_checktip"></span>
 						</div>
 					</div>
