@@ -349,25 +349,28 @@ define(function (require,exports){
 									rhtml+='			<div>第'+(kk+1)+'题:'+vv.question+'</div>';
 									rhtml+='			<ul class="answerList">';
 											$.each(vv.options, function(kkk, vvv) {
-												if(vv.selected == kkk ){
-													aclass = "cf curAnswer";
-												} else {
-													aclass = "cf ";
-												}
-												if(vv.answer == kkk){
-													aclass += " ansRight";
-												} else {
-													if(vv.selected == kkk)
-													{
-													aclass += " ansError";
+												if(vvv)
+												{
+													if(vv.selected == kkk ){
+														aclass = "cf curAnswer";
+													} else {
+														aclass = "cf ";
 													}
+													if(vv.answer == kkk){
+														aclass += " ansRight";
+													} else {
+														if(vv.selected == kkk)
+														{
+														aclass += " ansError";
+														}
+													}
+													
+													rhtml+='				<li class="'+aclass+'">';
+													rhtml+='					<em class="fl ansIco"></em>';
+													rhtml+='					<span class="options fl">'+kkk+'</span>';
+													rhtml+='					<p class="fl">'+vvv+'</p>';
+													rhtml+='				</li>';
 												}
-												
-									rhtml+='				<li class="'+aclass+'">';
-									rhtml+='					<em class="fl ansIco"></em>';
-									rhtml+='					<span class="options fl">'+kkk+'</span>';
-									rhtml+='					<p class="fl">'+vvv+'</p>';
-									rhtml+='				</li>';
 											})
 									rhtml+='			</ul>';
 									rhtml+='<p class="chanText">您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';

@@ -5,6 +5,7 @@ class Student_Member extends NH_Model{
     function __construct(){
         parent::__construct();
         $this->load->model('model/student/model_member');
+        $this->load->model('model/student/model_course');
         $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_order');
     }
@@ -24,7 +25,7 @@ class Student_Member extends NH_Model{
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-               	$class_img = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
+               	$class_img = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'general');
                 #这轮共M节
                	$totle_class = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
                 #这轮上了M节
@@ -70,15 +71,16 @@ class Student_Member extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_member->get_order_list($int_user_id,$str_type,$int_start,$int_limit);
+        //var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
             {
                 #获取轮的信息
-                $array_round = $this->student_course->get_round_info($v['round_id']);
+                $array_round = $this->model_course->get_round_info($v['round_id']);
                 #处理时间
                 $array_return[$k]['create_time'] = date('Y/m/d H:i:s',$v['create_time']);
-                $array_return[$k]['class_img'] = $array_round['class_img'];
+                $array_return[$k]['class_img'] = empty( $array_round['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_round['img'],'small');
                 $array_return[$k]['title'] = $array_round['title'];
                 #处理付款方式
                 if ($v['pay_type'] == '0'|| $v['pay_type'] == '1' ||$v['pay_type'] == '2'||$v['pay_type'] == '3')

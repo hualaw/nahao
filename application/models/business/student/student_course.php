@@ -12,7 +12,7 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 从首页链接到课程购买前页面  获取一个课程下的所有轮（在审核通过和销售中）
+     * 从首页链接到课程购买前页面  获取一个课程下的所有轮（在销售中）
      * 根据$int_round_id获取对应课程下的所有轮
      * @param  $int_round_id
      * @return $array_result
@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在审核通过和销售中）
+        #根据course_id获取该课程下的所有轮（在销售中）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -72,7 +72,7 @@ class Student_Course extends NH_Model{
             #课时
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : NH_QINIU_URL.$array_return['img'];
+            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
             $array_return['score'] = round($array_return['score']);
             
