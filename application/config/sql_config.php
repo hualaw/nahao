@@ -38,6 +38,9 @@ $config['sql_config'] = array(
     'course_type' => array(
         TABLE_COURSE_TYPE => false,
     ),
+    'courseware' => array(
+        TABLE_COURSEWARE => false,
+    ),
     'group' => array(
         TABLE_ADMIN_GROUP => false
     ),

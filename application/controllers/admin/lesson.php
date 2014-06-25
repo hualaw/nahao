@@ -66,8 +66,6 @@ class Lesson extends NH_Admin_Controller {
         $int_filesize = $this->input->post('filesize') ? intval($this->input->post('filesize')) : 0;
         $int_filetype = $this->input->post('filetype') ? intval($this->input->post('filetype')) : 0;
 
-//        o($int_lesson_id);
-//        o($int_courseware_id,true);
         if($int_lesson_id > 0 AND $int_courseware_id > 0 AND $int_create_time > 0 AND $str_filename){
             $arr_courseware = array(
                 'id' => $int_courseware_id,
