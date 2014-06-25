@@ -95,12 +95,11 @@ define(function(require,exports){
                             '<strong>'+hours+'</strong>小时'+
                             '<strong>'+mins+'</strong>分'+
                             '<strong>'+s+'</strong>秒');
-                }
+                }              
             }
-            countDown();
-            timer = setInterval(countDown, 1000);  
-            }
- 
+        }
+        countDown();
+        timer = setInterval(countDown, 1000);  
     }
     
     //购买前--点击立即购买

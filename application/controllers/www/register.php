@@ -10,6 +10,7 @@ class register extends NH_Controller
 
 	public function index()
 	{
+        if($this->is_login) redirect('/');
 		if($this->session->userdata('user_id'))
 		{
 			$this->smarty->assign('nickname', $this->session->userdata('nickname'));
@@ -112,18 +113,6 @@ class register extends NH_Controller
 	{
 
 	}
-
-    public function reg_success()
-    {
-        $this->smarty->display('www/login/regSuccess.html');
-    }
-
-
-    //for tizi user
-    public function login_after()
-    {
-        $this->smarty->display('www/login/loginAfter.html');
-    }
 
     public function submit_personal_info()
     {

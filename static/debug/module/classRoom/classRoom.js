@@ -220,12 +220,15 @@ define(function (require,exports){
 					 html+='<div class="setqid" sequence="'+val.sequence+'" select_type="'+val.type+'" classid="'+val.class_id+'" qid="'+val.id+'">'+val.question+'</div>';
 					 html+=	'<ul class="answerList">';
 					 $.each(val.options, function(k, v) {
-			
-						 html+=	'<li class="cf ">';
-						 html+=	'<em class="fl ansIco"></em>';
-						 html+=	'<span class="options fl">'+k+'</span>';
-						 html+=	'<p class="fl">'+v+'</p>';
-						 html+=	'</li>';
+						 if(v)
+						 {
+							 html+=	'<li class="cf ">';
+							 html+=	'<em class="fl ansIco"></em>';
+							 html+=	'<span class="options fl">'+k+'</span>';
+							 html+=	'<p class="fl">'+v+'</p>';
+							 html+=	'</li>';
+						 }
+
 					 });
 					 html+=	'</ul>';
 					 html+=	'</div>';
