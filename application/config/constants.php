@@ -206,6 +206,7 @@ define('TABLE_ADMIN_PERMISSION_RELATION','admin_permission_relation');
 define('TABLE_CLASS','class');
 define('TABLE_CLASS_DISCUSS_LOG','class_discuss_log');
 define('TABLE_CLASS_FEEDBACK','class_feedback');
+define('TABLE_FEEDBACK','feedback');
 define('TABLE_COURSE','course');
 define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
 define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
@@ -242,7 +243,7 @@ define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
 define('TABLE_CLASS_NOTE', 'class_note');
-
+define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
 //各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
 
 //ROUND sale_status
