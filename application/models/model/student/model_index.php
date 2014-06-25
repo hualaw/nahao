@@ -57,7 +57,7 @@ class Model_Index extends NH_Model{
 		}
 		unset($array_data['schoolname']);
 		unset($array_data['school_type']);
-	    $this->db->insert(TABLE_TEACHER_LECTRUE, $array_data);
+	    $this->db->insert(TABLE_TEACHER_LECTURE, $array_data);
 	    $int_row = $this->db->affected_rows();
 	    return $int_row > 0 ? true : false;
 	}
