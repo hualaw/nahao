@@ -123,6 +123,10 @@ class Student_Classroom extends NH_Model{
                 
                 #处理数据
                 $array_infor['options'] = json_decode($array_infor['options'],true);
+                foreach ($array_infor['options'] as $kk=>$vv)
+                {
+                	$array_infor['options'][$kk] = urldecode($vv);
+                }
                 $array_qids[$k] = array_merge($array_qids[$k], $array_infor);
                 
             }

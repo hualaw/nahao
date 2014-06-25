@@ -98,6 +98,7 @@ class Model_Question extends NH_Model
      			}
      			break;
             case 'add_relation':
+//                o($param,true);
                 //课的题
                 if(!empty($param['add_class_question'])){
 //                    o($param,true);

@@ -6,7 +6,7 @@ define(function(require,exports){
               $(".wtime").on("click",function(){
                   var picker = WdatePicker({
                       dateFmt:'yyyy-MM-dd',
-                      minDate:'%y-%M-#{%d+1}',
+                      minDate:'%y-%M-#{%d}',
                       onpicked:function($dp){
 
                       }

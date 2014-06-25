@@ -132,22 +132,14 @@ define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
 
-/* 课的状态
- * 初始化 0
-* 即将上课1
-* 可进教室2
-* 正在上课3
-* 上完课4
-* 老师缺课5
-* 禁用（不能恢复）6
-*  */
-define('CLASS_STATUS_INIT', 0);
-define('CLASS_STATUS_SOON_CLASS', 1);
-define('CLASS_STATUS_ENTER_ROOM', 2);
-define('CLASS_STATUS_CLASSING', 3);
-define('CLASS_STATUS_CLASS_OVER', 4);
-define('CLASS_STATUS_MISS_CLASS', 5);
-define('CLASS_STATUS_FORI_CLASS', 6);
+// 课的状态
+define('CLASS_STATUS_INIT', 0);//初始化
+define('CLASS_STATUS_SOON_CLASS', 1);//即将上课
+define('CLASS_STATUS_ENTER_ROOM', 2);//可进教室
+define('CLASS_STATUS_CLASSING', 3);//正在上课
+define('CLASS_STATUS_CLASS_OVER', 4);//上完课
+define('CLASS_STATUS_MISS_CLASS', 5);//老师缺课
+define('CLASS_STATUS_FORI_CLASS', 6);//禁用（不能恢复）
 
 /**
  * 轮的销售状态
@@ -212,6 +204,7 @@ define('TABLE_ADMIN','admin');
 define('TABLE_ADMIN_GROUP','admin_group');
 define('TABLE_ADMIN_PERMISSION_RELATION','admin_permission_relation');
 define('TABLE_CLASS','class');
+define('TABLE_CLASS_ACTION_LOG','class_action_log');
 define('TABLE_CLASS_DISCUSS_LOG','class_discuss_log');
 define('TABLE_CLASS_FEEDBACK','class_feedback');
 define('TABLE_FEEDBACK','feedback');
@@ -238,7 +231,6 @@ define('TABLE_SHOPPING_CART','shopping_cart');
 define('TABLE_SMS_LOG','sms_log');
 define('TABLE_SMS_VERIFY_CODE','sms_verify_code');
 define('TABLE_STUDENT_CLASS','student_class');
-define('TABLE_STUDENT_CLASS_LOG','student_class_log');
 define('TABLE_STUDENT_ORDER','student_order');
 define('TABLE_STUDENT_REFUND','student_refund');
 define('TABLE_STUDENT_SUBJECT','student_subject');
@@ -334,9 +326,11 @@ define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
-define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
+define('NH_MEETING_URL','http://classroom.oa.tizi.com/');
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
+
+define('NH_PDF_DOWNLOAD_URL',NH_MEETING_URL.'media/');
 //访问教室的用户类型
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
@@ -347,13 +341,13 @@ define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
 define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/nahao/enter?token=');
 
-//课程封面图的三个尺寸 290*216  227*169   66*49
+//课程封面图的三个尺寸 288*216  230*172   50*50
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
-define('NH_COURSE_IMG_LARGE_WIDTH',290);
-define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
-define('NH_COURSE_IMG_GENERAL_WIDTH',227);
-define('NH_COURSE_IMG_SMALL_HEIGHT',49);
-define('NH_COURSE_IMG_SMALL_WIDTH',66);
+define('NH_COURSE_IMG_LARGE_WIDTH',288);
+define('NH_COURSE_IMG_GENERAL_HEIGHT',172);
+define('NH_COURSE_IMG_GENERAL_WIDTH',230);
+define('NH_COURSE_IMG_SMALL_HEIGHT',50);
+define('NH_COURSE_IMG_SMALL_WIDTH',50);
 define('NH_TEACHER_IMG_HEIGHT', 225);
 define('NH_TEACHER_IMG_WIDTH', 300);
 
@@ -367,6 +361,8 @@ define('TEACHER_AGE_CEILING', 50);
 define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
 define('CLASS_FASTER_ACTION', 3);//讲慢一点
+define('CLASS_BEGIN_ACTION', 4);//点上课
+define('CLASS_OVER_ACTION', 5);//点下课
 
 
 /* End of file constants.php */
