@@ -173,7 +173,8 @@
 		                                	<p class="listh fl" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title|truncate:10:"...":true}</p>
 		                                	<div class="cf cListHid undis">
 		                                		{if $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
-		                                		<span class="fl handout"></span>
+		                                		<a href="/course/courseware/{$it.id}" ><span class="fl handout"></span></a>
+		                                		
 		                                		{/if}
 		                                		{if ($it.status==$smarty.const.CLASS_STATUS_CLASS_OVER) && $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
 			                                	<span class="fl cloudNotes" data-cid={$it.classroom_id}></span>

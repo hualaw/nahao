@@ -228,7 +228,7 @@ class Classroom extends NH_User_Controller {
         $int_classroom_id = intval($this->uri->rsegment(3));
         if (empty($int_classroom_id))
         {
-        	show_error('参数错误1');
+        	show_error('参数错误');
         }
         $str_iframe = self::enter_classroom($int_classroom_id);
 
