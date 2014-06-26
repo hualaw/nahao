@@ -171,10 +171,10 @@ class Member extends NH_User_Controller {
 	        }
 	    }
 	    
-	    #删除,并写日志(只在已关闭下才能删除)
+	    #删除,并写日志(在已关闭和已取消下才能删除)
 	    if ($str_type == '2')
 	    {
-	        if ($array_order['status'] == ORDER_STATUS_CLOSE)
+	        if ($array_order['status'] == ORDER_STATUS_CLOSE || $array_order['status'] == ORDER_STATUS_CANCEL)
 	        {
 	            $array_ndata = array(
 	                    'user_id'=>$int_user_id,
