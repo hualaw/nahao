@@ -49,7 +49,7 @@ define(function(require,exports){
         })
 
 
-        $('#show').click(function(){
+        $('#show').focus(function(){
             $.ajax({
                 type:"post",
                 url:"/order/show_phone",
@@ -60,7 +60,7 @@ define(function(require,exports){
             })
         })
 
-        $('#show').click(function(){
+        $('#show').blur(function(){
             var p=$("#mask").val();
             $("#show").val(p);
         })
