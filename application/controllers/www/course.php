@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Course extends NH_User_Controller {
 
     function __construct(){
@@ -51,7 +52,6 @@ class Course extends NH_User_Controller {
 	 */
 	public function buy_after($int_round_id)
 	{
-	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login)
 	    {
@@ -241,6 +241,67 @@ class Course extends NH_User_Controller {
 
 	 }
 	 
+	 /**
+	  * 购买后下载课件
+	  */
+	 public function courseware()
+	 {
+	 	#判断是否登录
+	 	if(!$this->is_login)
+	 	{
+	 		redirect('/login');
+	 	}
+	 	$int_class_id = intval($this->uri->rsegment(3));
+	 	if (empty($int_class_id))
+	 	{
+	 		show_error('参数错误');
+	 	}
+	 	#检查用户是否买过这门课 
+	 	$int_user_id = $this->session->userdata('user_id');#TODOuser_id
+	 	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$int_class_id);
+	 	if(empty($bool_flag))
+	 	{
+	 		show_error('您没有买过这门课，没有下载这门课的权限');
+	 	}
+	 	#根据课id找课件id
+	 	$array_class = $this->model_course->get_class_infor($int_class_id);
+	 	if(empty($array_class))
+	 	{
+	 		show_error('抱歉!这节课没有上传课件啊');
+	 	}
+	 	
+	 	#课里面有课件，拼接课件地址
+	 	$this->load->model('business/common/business_courseware','courseware');
+	 	$array_courseware = $this->courseware->get_courseware_by_id(array($array_class['courseware_id']));
+	 	if (empty($array_courseware))
+	 	{
+	 		show_error('抱歉!这节课没有上传课件');
+	 	}
+	 	$wordStr = $array_courseware['0']['download_url'];
+	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
+	 	$this->forceDownload($wordStr);
+	 }
+	 
+	 /**
+	  * 下载课件PDF文件
+	  * @param unknown_type $filename
+	  */
+	 protected function forceDownload($filename) {
+	 
+	 	// http headers
+	 	header('Content-Type: application-x/force-download');
+	 	header('Content-Disposition: attachment; filename="' . basename($filename) .'"');
+	 	header('Content-length: ' . filesize($filename));
+	 
+	 	// for IE6
+	 	if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) {
+	 		header('Cache-Control: no-cache, must-revalidate');
+	 	}
+	 	header('Pragma: no-cache');
+	 	 
+	 	// read file content and output
+	 	return readfile($filename);;
+	 }
 }
 
 /* End of file welcome.php */

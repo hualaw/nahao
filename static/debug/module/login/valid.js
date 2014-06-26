@@ -197,7 +197,8 @@ define(function(require,exports){
 			beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".pwd").val());
-                console.log(hash.words)
+                $(".pwd").val(hash.toString())
+
 			},
             callback:function(data){
                 if(data.status == 'ok'){
@@ -382,12 +383,10 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                if(data.status == 1) {
-                    $.dialog({
-                        content:data.msg,
-                        icon:null
-                    });
-                }
+                $.dialog({
+                    content:data.info,
+                    icon:null
+                });
             }
         });
         _Form.config({

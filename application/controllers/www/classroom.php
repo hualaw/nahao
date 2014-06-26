@@ -228,7 +228,7 @@ class Classroom extends NH_User_Controller {
         $int_classroom_id = intval($this->uri->rsegment(3));
         if (empty($int_classroom_id))
         {
-        	show_error('参数错误1');
+        	show_error('参数错误');
         }
         $str_iframe = self::enter_classroom($int_classroom_id);
 
@@ -281,9 +281,10 @@ class Classroom extends NH_User_Controller {
         #可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
         $array_insert = array(
         	'user_id'=>$int_user_id,
+        	'user_type'=>$int_user_type,
         	'create_time'=>time(),
         	'action'=>1,
-        	'class_id'=>$array_class['id'],
+        	'classroom_id'=>$int_classroom_id,
         	'ip'=>$this->input->ip_address()
         );
         $this->model_classroom->add_entering_classroom_data($array_insert);
