@@ -125,7 +125,7 @@ class SelfInfo extends NH_User_Controller {
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
         $this->smarty->assign('special_city', array(2, 25, 27, 32));
-		$this->smarty->display('teacher/teacherSelfinfo/index.html');
+		$this->smarty->display('teacher/teacherSelfInfo/index.html');
 	}
 	public function openClass(){
 		$this->smarty->display('teacher/teacherSelfinfo/openClass.html');

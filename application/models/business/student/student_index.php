@@ -95,7 +95,7 @@ class Student_Index extends NH_Model{
     public function save_apply_teach($param)
     {
     	foreach ($param as $key => $val){
-    		if(!$val && !in_array($key,array('schoolname','school'))){
+    		if(!$val && !in_array($key,array('schoolname','school','city'))){
     			exit('<script>alert("'.$key.'不能为空，请重新填写");history.go(-1);</script>');
     		}
     	}
