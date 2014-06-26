@@ -159,15 +159,17 @@ class NH_Controller extends CI_Controller
      * @param string $email_address
      * @param string $subject
      * @param string $email_content
+     * @param string $success_msg  renturn message when the mail is being send successfully
      * @return array
      */
-    public function send_email($email_address, $subject, $email_content)
+    protected function _send_email($email_address, $subject, $email_content, $success_msg)
     {
         $arr_return = array();
-        if(!(is_email($email_address) && $subject && $email_content)) {
+        if(!($email_address && $subject && $email_content)) {
             $arr_return = array('status' => ERROR, 'info' => '参数错误');
             return $arr_return;
         }
+        
         $this->load->library('mail');
         $ret = $this->mail->send($email_address, $subject, $email_content);
         if($ret['ret'] == 1) {
@@ -180,12 +182,17 @@ class NH_Controller extends CI_Controller
                 'send_time' => time(),
                 'subject' => $subject
             );
-            $this->cache->redis->set(md5($email_address), json_encode($save_data), $duration);
-            $arr_return['status'] = SUCCESS;
-            $arr_return['info'] = '发送成功';
+            $save_result = $this->cache->redis->set(md5($email_address), json_encode($save_data), $duration);
+            if($save_result) {
+                $arr_return['status'] = SUCCESS;
+                $arr_return['info'] = $success_msg;
+            } else {
+                $arr_return['status'] = ERROR;
+                $arr_return['info'] = '服务器繁忙,请稍后再试';
+            }
         } else {
             $arr_return['status'] = ERROR;
-            $arr_return['info'] = '发送失败,请检查邮件地址是否正确';
+            $arr_return['info'] = '发送失败,请稍后重试';
         }
         
         return $arr_return;

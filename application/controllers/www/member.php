@@ -291,16 +291,19 @@ class Member extends NH_User_Controller {
             if($phone && $code && $verify_type == 2) {
                 #同时接收到手机、验证码并且验证类型是2,证明用户要绑定手机了
                 $this->load->model('business/common/business_register');
-                $check_ret = $this->business_register->_check_captcha($phone, $code, $verify_type == 2);
+                $check_ret = $this->business_register->_check_captcha($phone, $code, $verify_type);
                 if(!$check_ret) {
                     $arr_return = array('status' => ERROR, 'msg' => '验证码无效,请重新发送');
                     self::json_output($arr_return);
                 } else {
                     #phone_server加一条记录, user更新phone_mask和phone_verified
-                    $phone_data['phone_mask'] = phone_blur($phone);
-                    $phone_data['phone_verified'] = 1;
-                    add_user_phone_server($user_id, $phone);
-                    $this->business_user->modify_user($phone_data, $user_id);
+                    $add_phone_res = add_user_phone_server($user_id, $phone);
+                    if($add_phone_res) {
+                        $phone_data['phone_mask'] = phone_blur($phone);
+                        $phone_data['phone_verified'] = 1;
+                        $this->business_user->modify_user($phone_data, $user_id);
+                        $this->session->set_userdata('phone', $phone);
+                    }
                 }
             }
             

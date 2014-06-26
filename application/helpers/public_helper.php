@@ -463,6 +463,18 @@ function check_password($salt, $password, $sys_password)
     return create_password($salt, $password) === $sys_password;
 }
 
+
+/**
+ * @param $salt
+ * @param $sha1_password
+ * @param $sys_password
+ * @return bool
+ */
+function check_sha1_password($salt, $sha1_password, $sys_password)
+{
+    return sha1($salt.$sha1_password) === $sys_password;
+}
+
 /**
  * 验证手机号
  * @param $str_mobile
