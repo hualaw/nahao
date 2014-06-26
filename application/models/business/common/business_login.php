@@ -58,7 +58,7 @@ class Business_Login extends NH_Model {
                 if($check_ret)
                 {
                     $phone = $user_info['phone_mask'];//邮箱选填的手机号存储在phone_mask字段里
-                    if($user_id) $phone = get_pnum_phone_server($user_id);
+//                    if($user_id) $phone = get_pnum_phone_server($user_id);
                     if($user_id == 0 ) $user_id = $user_info['id']; //获取email注册用户的user_id
 
                     log_message('debug_nahao', "In business_login, user_id is $user_id , phone is $phone");
