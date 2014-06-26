@@ -453,6 +453,16 @@ function create_password($str_salt,$str_password = NH_INIT_PASSWORD){
 }
 
 /**
+ * 前台用的创建密码
+ * @param string $str_salt
+ * @param string $sha1_password
+ * @return string
+ */
+function create_sha1_password($str_salt, $sha1_password){
+    return sha1($str_salt . $sha1_password);
+}
+
+/**
  * @param $password
  * @param $salt
  * @param $sys_password

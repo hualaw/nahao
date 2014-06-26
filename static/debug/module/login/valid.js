@@ -180,7 +180,7 @@ define(function(require,exports){
             })
             //验证 最多关注
             $(obj+" .attent .btn").blur(function (){
-                va.call(this);
+                va_blur.call(this);
             })
 
             function va(){
@@ -188,6 +188,14 @@ define(function(require,exports){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+                       
+            function va_blur() {
+                if($(obj+" .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
         });
