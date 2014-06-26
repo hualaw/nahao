@@ -1,6 +1,7 @@
 define(function(require,exports){
 	// 请求验证库
     require("validForm");
+    require("naHaoDialog");
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
@@ -31,19 +32,17 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:true,
-            beforeSubmit: function(curform) {
-            	if($('.timeSecelt').eq(1).children('.Validform_checktip').hasClass('.Validform_wrong')){
-            		
-            	}
+            // ajaxPost:true,
+            beforeSubmit: function() {
+
             },
             callback:function(data){
-                alert('提交成功');
+               
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"  
                 }
             }
         });
@@ -56,10 +55,10 @@ define(function(require,exports){
                 errormsg:"长度2-15个字符"
             },
             {
-                ele:".loction",
+                ele:".schoolFullName",
                 datatype:"*",
-                nullmsg:"请选择地区",
-                errormsg:"请选择正确的地区"
+                nullmsg:"请选择学校",
+                errormsg:"请选择正确的学校"
             },
             {
                 ele:".radioInput",
@@ -78,18 +77,6 @@ define(function(require,exports){
                 datatype: "*",
                 nullmsg: "请选择教学阶段",
                 errormsg: "您未选择教学阶段！"
-            },
-            {
-                ele:".area_county_id",
-                datatype: "*",
-                nullmsg: "请选择所在区域",
-                errormsg: "请选择所在区域"
-            },
-            {
-                ele:"#school_type",
-                datatype: "*",
-                nullmsg: "请选择所在学校类型",
-                errormsg: "请选择所在学校类型"
             },
             {
                 ele:".teaTitle",
@@ -156,7 +143,7 @@ define(function(require,exports){
                 errormsg:"请输入正确的课程名称"
             }   
         ]);
-        check_time_pick();
+       check_time_pick();
     }
     //我要开课 老师注册验证
     exports.teaRegForm = function (){
