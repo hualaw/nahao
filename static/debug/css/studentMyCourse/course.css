@@ -262,7 +262,7 @@
 .studentMyCourse .outlineList .listh{font-size: 16px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
 /*   我的课程购买后  */
-.studentMyCourse .buyAfter .cstate{width: 270px;height: 152px;position: absolute;right:100px;top:24px;background-repeat: no-repeat;}
+.studentMyCourse .buyAfter .cstate{width: 162px;height: 91px;position: absolute;left:25%;top:50px;background-repeat: no-repeat;}
 .studentMyCourse .buyAfter .cend{background-image: url(../../images/studentMyCourse/cend.png);}
 .studentMyCourse .buyAfter .cstop{background-image: url(../../images/studentMyCourse/cstop.png);}
 .studentMyCourse .buyAfter .coverdue{background-image: url(../../images/studentMyCourse/coverdue.png);}
