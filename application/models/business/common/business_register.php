@@ -31,7 +31,7 @@ class Business_Register extends NH_Model {
 			$phone_verified = 0;			
 			$check_ret = $this->check_email($email);
             $nickname = $email;
-            $phone_mask = $phone;
+            $phone_mask = $phone; //存储phone_mask用明文phone，这样方便登录时取出未验证的完整手机号
 
 			if($check_ret['status'] != SUCCESS){
 				return $check_ret;
@@ -97,7 +97,8 @@ class Business_Register extends NH_Model {
         }
 
         //set session
-        $avatar = $nickname = '';
+        $avatar = '';
+        $phone_mask = (strpos($phone_mask, '*') !== false) ? $phone_mask : phone_blur($phone_mask);
         $this->set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, NH_MEETING_TYPE_STUDENT);
 		return $this->_log_reg_info(SUCCESS, 'reg_success', array(), 'info');
 	}
