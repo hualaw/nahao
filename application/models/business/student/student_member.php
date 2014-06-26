@@ -113,23 +113,24 @@ class Student_Member extends NH_Model{
      * @param  $int_user_id
      * @return $array_return
      */
-    public function get_apply_refund_data($int_user_id,$int_round_id)
+    public function get_apply_refund_data($int_user_id,$array_order)
     {
         $array_return = array();
         #获取轮的信息
-        $array_round = $this->model_course->get_round_info($int_round_id);
+        $array_round = $this->model_course->get_round_info($array_order['round_id']);
         #这个人买的这轮上了N节
-        $array_return['class'] = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
+        $array_return['class'] = $this->model_member->get_student_class_done($int_user_id,$array_order['round_id']);
         #这个人买的这轮总共M节
-        $array_return['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
+        $array_return['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$array_order['round_id']);
         #获取轮的标题
         $array_return['title'] = $array_round['title'];
         #课程总金额
-        $array_return['totle_money'] = $array_round['sale_price'];
+        $array_return['totle_money'] = $array_order['spend'];
         #课时费
         $array_return['reward'] = $array_round['reward'];
         #可退金额
         $array_return['return_money'] = $array_return['totle_money'] - $array_return['class'] * $array_return['reward']*2;
+        $array_return['return_money'] = $array_return['return_money'] <=0 ? 0 :$array_return['return_money'];
         #这个人买的这轮没上N节
         $array_return['unclass'] = $array_return['totle_class'] - $array_return['class'];
         #轮id
@@ -200,12 +201,12 @@ class Student_Member extends NH_Model{
      * @param  $int_round_id
      * @return $array_data
      */
-    public function get_student_refund_data($int_user_id,$int_round_id)
+    public function get_student_refund_data($int_user_id,$array_order)
     {
         #获取轮的数据
-        $array_round = $this->student_course->get_round_info($int_round_id);
+        $array_round = $this->student_course->get_round_info($array_order['round_id']);
         #获取学生退款记录
-        $array_data = $this->model_member->get_student_refund_data($int_user_id,$int_round_id);
+        $array_data = $this->model_member->get_student_refund_data($int_user_id,$array_order['round_id']);
         $array_data['title'] = $array_round['title'];
         return $array_data;
     }

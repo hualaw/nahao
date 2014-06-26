@@ -128,10 +128,10 @@ class SelfInfo extends NH_User_Controller {
 		$this->smarty->display('teacher/teacherSelfInfo/index.html');
 	}
 	public function openClass(){
-		$this->smarty->display('teacher/teacherSelfinfo/openClass.html');
+		$this->smarty->display('teacher/teacherSelfInfo/openClass.html');
 	}
 	public function password(){
-		$this->smarty->display('teacher/teacherSelfinfo/password.html');
+		$this->smarty->display('teacher/teacherSelfInfo/password.html');
 	}
 	public function photo()
     {
@@ -148,10 +148,10 @@ class SelfInfo extends NH_User_Controller {
         $str_photo_name = 'user_photo_'.$user_id.date('YmdHis',time()).'_i'.$str_salt.'.jpg';
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('photo_img_key', $str_photo_name);
-		$this->smarty->display('teacher/teacherSelfinfo/photo.html');
+		$this->smarty->display('teacher/teacherSelfInfo/photo.html');
 	}
 	public function success(){
-		$this->smarty->display('teacher/teacherSelfinfo/success.html');
+		$this->smarty->display('teacher/teacherSelfInfo/success.html');
 	}
 	
 }
