@@ -67,7 +67,7 @@ class Business_User extends NH_Model
     {
         $user_info = $this->model_user->get_user_by_param('user', 'one', '*', array('id' => $user_id));
         if($user_info) {
-            $new_password = create_password($user_info['salt'], $password);
+            $new_password = create_sha1_password($user_info['salt'], $password);
             $res = $this->model_user->update_user(array('password' => $new_password), array('id' => $user_info['id']));
             return $res === false ? false : true;
         }
@@ -203,7 +203,7 @@ class Business_User extends NH_Model
             $str_fields = 'id,password,salt';
             $arr_where  = array('id' => $user_id);
             $user_info = $this->model_user->get_user_by_param('user', 'one', $str_fields, $arr_where);
-            $check_ret = check_password($user_info['salt'], $password, $user_info['password']);
+            $check_ret = check_sha1_password($user_info['salt'], $password, $user_info['password']);
             return $check_ret;
         }
         

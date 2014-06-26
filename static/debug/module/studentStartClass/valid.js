@@ -17,25 +17,25 @@ define(function(require,exports){
     };
     //验证试讲时间
     function check_time_pick(){
-        $('.endTime').live("change"function(){
-        	var start = parseInt($('.startTime').val());
-        	var end = parseInt($(this).val());
-        	alert(start+'@@'+end);
-        	if(start>=end){
-        		$('.timeSecelt').eq(1).find('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
+    	$('.timeSecelt').eq(1).find('li a').click(function(){
+    		var start = parseInt($('.startTime').val());
+        	var end = parseInt($('.endTime').val());
+    		if(start>=end){
+        		$('.timeSecelt').eq(1).children('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
         	}
-        });
+    	});
     }
     //我要开课 试讲 信息 验证
     exports.writeInfoForm = function (){
-    	check_time_pick();
         var _Form=$(".writeInfoForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+            	if($('.timeSecelt').eq(1).children('.Validform_checktip').hasClass('.Validform_wrong')){
+            		
+            	}
             },
             callback:function(data){
                 alert('提交成功');
@@ -99,7 +99,6 @@ define(function(require,exports){
             },
             {
                 ele:".seniority",
-//                datatype: "/^\\d{4}$/",
                 datatype: "*",
                 nullmsg: "请选择实际教龄",
                 errormsg: "请选择正确的实际教龄"
@@ -157,6 +156,7 @@ define(function(require,exports){
                 errormsg:"请输入正确的课程名称"
             }   
         ]);
+        check_time_pick();
     }
     //我要开课 老师注册验证
     exports.teaRegForm = function (){
