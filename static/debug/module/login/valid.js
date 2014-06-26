@@ -24,7 +24,10 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                $(".pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -93,7 +96,10 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                $(".pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
