@@ -2,10 +2,10 @@
 
 class Business_Login extends NH_Model {
 
-    public function submit($username, $password, $remb_me=1)
+    public function submit($username, $sha1_password, $remb_me=1)
     {
-        if(strlen($username) == 0 || strlen($password) == 0)
-            return $this->_log_reg_info(ERROR, 'login_invalid_info', array('username'=>$username, 'password'=>$password));
+        if(strlen($username) == 0 || strlen($sha1_password) == 0)
+            return $this->_log_reg_info(ERROR, 'login_invalid_info', array('username'=>$username, 'sha1_password'=>$sha1_password));
 
         if(strpos($username, '@')!== false) $login_type = REG_LOGIN_TYPE_EMAIL;
         else $login_type = REG_LOGIN_TYPE_PHONE;
@@ -45,8 +45,7 @@ class Business_Login extends NH_Model {
             if(isset($ret_info['status']))
             {
                 if( $ret_info['status'] == 'forbidden')
-                    return $this->_log_reg_info(ERROR, 'login_no_previlege', array('username'=>$username, 'password'=>$password));
-
+                    return $this->_log_reg_info(ERROR, 'login_no_previlege', array('username'=>$username, 'sha1_password'=>$sha1_password));
                 unset($ret_info['status']);
             }
 
@@ -55,7 +54,7 @@ class Business_Login extends NH_Model {
                 $user_info = $ret_info[0];
                 //var_dump($ret_info);
 
-                $check_ret = check_password($user_info['salt'], $password, $user_info['password']);
+                $check_ret = check_sha1_password($user_info['salt'], $sha1_password, $user_info['password']);
                 if($check_ret)
                 {
                     $phone = $user_info['phone_mask'];//邮箱选填的手机号存储在phone_mask字段里
@@ -74,7 +73,7 @@ class Business_Login extends NH_Model {
                 {
                     $info_arr = array(
                         'username' => $username,
-                        'input_password' => $password,
+                        'input_sha1_password' => $sha1_password,
                         'sys_password' => $user_info['password'],
                         'salt' => $user_info['salt'],
                     );
@@ -85,7 +84,7 @@ class Business_Login extends NH_Model {
             {
                 $info_arr = array(
                     'username'=> $username,
-                    'input_password' => $password,
+                    'input_sha1_password' => $sha1_password,
                     'user_id' => $user_id,
                     'email' => $email,
                 );
@@ -96,7 +95,7 @@ class Business_Login extends NH_Model {
         {
             $info_arr = array(
                 'username'=> $username,
-                'input_password' => $password,
+                'input_sha1_password' => $sha1_password,
             );
             return $this->_log_reg_info(ERROR, 'login_unregister_username', $info_arr);
         }
