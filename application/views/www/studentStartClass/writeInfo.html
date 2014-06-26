@@ -24,7 +24,7 @@
 					<li class="cf">
 						<p class="fl">真实姓名</p>
 						<div class="cf">
-							<input type="text" name="name" class="wUname fl textInput" validName="text" value="{$user_detail['realname']}">
+							<input type="text" name="name" class="wUname fl textInput" validName="text" value="{if $user_detail['realname'] && $user_detail['realname']!='undefined'}{$user_detail['realname']}{/if}">
 							<span class="Validform_checktip fl"></span>
 						</div>
 						<p class="tips fl">保密，方便我们与您电话沟通详细情况</p>
@@ -33,13 +33,13 @@
 						<p class="fl">所在地区与学校</p>
 						<div class="cf">
 							<div class="cf schoolPar">
-								<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"></input>
+								<input class="schoolFullName cInput yh" readonly="readonly" value="{if $data['school_area']}{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}{/if}"></input>
 								<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">就读学校</a>
-								<input type="hidden" value="{$data['school']['province_id']}" name="province_id" id="province_id" />
-								<input type="hidden" value="{$data['school']['city_id']}" name="city_id" id="city_id" />
-								<input type="hidden" value="{$data['school']['id']}" name="school_id" id="schoolVal" />
-								<input type="hidden" value="{$data['school']['county_id']}" name="area_county_id" id="area_county_id"/>
-								<input type="hidden" value="{$data['school']['sctype']}" name="school_type" id="school_type">
+								<input type="hidden" value="{if $data['school']['province_id']}{$data['school']['province_id']}{/if}" name="province_id" id="province_id" />
+								<input type="hidden" value="{if $data['school']['city_id']}{$data['school']['city_id']}{/if}" name="city_id" id="city_id" />
+								<input type="hidden" value="{if $data['school']['id']}{$data['school']['id']}{/if}" name="school_id" id="schoolVal" />
+								<input type="hidden" value="{if $data['school']['county_id']}{$data['school']['county_id']}{/if}" name="area_county_id" id="area_county_id"/>
+								<input type="hidden" value="{if $data['school']['sctype']}{$data['school']['sctype']}{/if}" name="school_type" id="school_type">
 								<input type="hidden" value="" name="schoolname" id="schoolname" />
 							</div>
 							<span class="Validform_checktip fl"></span>
@@ -106,7 +106,7 @@
 					<li class="cf">
 						<p class="fl">手机号码</p>						
 						<div class="cf">
-							<input type="text" name="phone" class="wphone textInput fl" validName="text" value="{$data['user_info']['phone']}">
+							<input type="text" name="phone" class="wphone textInput fl" validName="text" value="{if $data['user_info']['phone']}{$data['user_info']['phone']}{/if}">
 							<span class="Validform_checktip fl"></span>
 						</div>
 						<p class="tips fl">保密，方便我们与您电话沟通详细情况</p>	
@@ -114,7 +114,7 @@
 					<li class="cf">
 						<p class="fl">常用邮箱</p>
 						<div class="cf">
-							<input type="text" name="email" class="wEmail textInput fl" validName="text" value="{$data['user_info']['email']}">
+							<input type="text" name="email" class="wEmail textInput fl" validName="text" value="{if $data['user_info']['email']}{$data['user_info']['email']}{/if}">
 							<span class="Validform_checktip fl"></span>
 						</div>
 					</li>

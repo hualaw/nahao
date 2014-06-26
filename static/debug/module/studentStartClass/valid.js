@@ -31,7 +31,7 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:true,
+//            ajaxPost:true,
             beforeSubmit: function(curform) {
             	if($('.timeSecelt').eq(1).children('.Validform_checktip').hasClass('.Validform_wrong')){
             		
