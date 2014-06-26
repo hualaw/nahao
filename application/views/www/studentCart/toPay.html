@@ -63,7 +63,7 @@
 				<h3>
 					<p class="cf">
 						<a href="javascript:void(0)" class="active fl">网上银行</a>
-						<a href="javascript:void(0)" class="fl">信用卡<span>可分期</span></a>
+						<a href="javascript:void(0)" class="fl">信用卡<!-- <span>可分期</span> --></a>
 						<a href="javascript:void(0)" class="alipay fl">支付宝</a>
 					</p>					
 				</h3>
@@ -340,9 +340,9 @@
 
 									{foreach from=$bank_code['credit'] item=item key=key}
 									<li class="fl {$key}">
-										<input type="radio" id="credit|{$key}" class="fl" name="method" value="credit|{$key}" {if $key == 'guangda'}checked="true"{/if}>
+										<input type="radio" id="credit|{$key}" class="fl" name="method" value="credit|{$key}" {if $key == 'zhaoshang'}checked="true"{/if}>
 										<label for="credit|{$key}" class="fl"></label>
-										<span class="stagingIcon"></span>
+										<!-- <span class="stagingIcon"></span> -->
 									</li>
 									{/foreach}
 								</ul>
