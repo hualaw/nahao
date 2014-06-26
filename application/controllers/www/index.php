@@ -7,6 +7,8 @@ class Index extends NH_User_Controller {
         parent::__construct();
         $this->load->model('business/student/student_index');
         $this->load->model('business/teacher/business_teacher','teacher_b');
+        $this->load->model('business/common/business_area');
+        $this->load->model('business/common/business_school');
     }
 
     /**
@@ -40,10 +42,25 @@ class Index extends NH_User_Controller {
 		$param['subject'] = $this->teacher_b->get_subject();
 		$param['teach_years'] = 50;
 		$user_info = $this->_user_detail;
-		
+		#学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id,id,sctype', $this->_user_detail['custom_school']);
+        $school = array(
+        	'province_id' => isset($my_school['province_id']) ? $my_school['province_id'] : '',
+        	'city_id' 	=> isset($my_school['city_id']) ? $my_school['city_id'] : '',
+        	'county_id' => isset($my_school['county_id']) ? $my_school['county_id'] : '',
+        	'sctype'	=> isset($my_school['sctype']) ? $my_school['sctype'] : '',
+        	'id'		=> isset($my_school['id']) ? $my_school['id'] : '',
+        );
+        $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        array_shift($my_school);
+        $school_area = $this->business_area->get_areas_by_ids($my_school);
+        
 		$data = array(
-			'data' => $param,
-			'user_info' => isset($user_info['phone']) || isset($user_info['email']) ? $user_info : array('phone'=>'','email'=>''),
+			'school'		=> $school,
+			'school_name' 	=> $school_name,
+			'school_area' 	=> $school_area,
+			'data' 			=> $param,
+			'user_info' 	=> isset($user_info['phone']) || isset($user_info['email']) ? $user_info : array('phone'=>'','email'=>''),
 		);
 		$this->smarty->assign('data',$data);
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');
