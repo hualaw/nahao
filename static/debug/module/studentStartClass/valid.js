@@ -37,9 +37,9 @@ define(function(require,exports){
             		
             	}
             },
-            callback:function(data){
-                alert('提交成功');
-            },
+//            callback:function(data){
+//                alert('提交成功');
+//            },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
