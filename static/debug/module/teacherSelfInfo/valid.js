@@ -150,7 +150,13 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".iniPassword").val());
+                $(".iniPassword").val(hash.toString());
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
             },
             callback:function(data){
                 if(data.status == 'ok') {
@@ -172,21 +178,19 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".iniPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"请输入密码",
-                errormsg:"请输入正确的密码",
-                ajaxurl:'/selfInfo/front_check_password',
-                ajaxUrlName:'password'
+                errormsg:"请输入正确的密码"
             },
             {
                 ele:".setPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"新密码不能为空",
-                errormsg:"长度6-16个字符之间"
+                errormsg:"长度6-20个字符之间"
             },
             {
                 ele:".reSetPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 recheck:"set_password",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
