@@ -199,7 +199,7 @@ class Member extends NH_User_Controller {
 	    if ($str_type == '3')
 	    {
 	        #获取申请退课数据
-	        $array_data = $this->student_member->get_apply_refund_data($int_user_id,$array_order['round_id']);
+	        $array_data = $this->student_member->get_apply_refund_data($int_user_id,$array_order);
 	        //var_dump($array_data);die;
 	        $array_bank = config_item('bank');
 	        $this->smarty->assign('array_bank', $array_bank);
@@ -212,7 +212,7 @@ class Member extends NH_User_Controller {
 	    #退课详情
 	    if ($str_type == '4')
 	    {
-	        $array_data = $this->student_member->get_student_refund_data($int_user_id,$array_order['round_id']);
+	        $array_data = $this->student_member->get_student_refund_data($int_user_id,$array_order);
 	        $this->smarty->assign('array_data', $array_data);
 	        $this->smarty->assign('page_type', 'refund_detail');
 	        $this->smarty->display('www/studentMyCourse/index.html');

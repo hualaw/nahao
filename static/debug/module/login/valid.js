@@ -24,7 +24,10 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                $(".pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -81,6 +84,9 @@ define(function(require,exports){
         });
         // 发送手机验证码
         require('module/common/method/send').sendPhoneNum(1);
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){
@@ -90,7 +96,10 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                $(".pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -171,7 +180,7 @@ define(function(require,exports){
             })
             //验证 最多关注
             $(obj+" .attent .btn").blur(function (){
-                va.call(this);
+                va_blur.call(this);
             })
 
             function va(){
@@ -179,6 +188,14 @@ define(function(require,exports){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+                       
+            function va_blur() {
+                if($(obj+" .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
         });
