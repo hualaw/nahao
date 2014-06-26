@@ -103,7 +103,7 @@ class NH_Model extends CI_Model
      */
     public function set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, $user_type, $remb_me=1)
     {
-
+        /*
         if($nickname == '' )
         {
             if($phone_mask)  $nickname = $phone_mask;
@@ -122,6 +122,7 @@ class NH_Model extends CI_Model
                 $this->_log_reg_info(ERROR, 'reg_no_nickname', $info_arr);
             }
         }
+        */
 
         if($avatar == '') $avatar = static_url('/images/login/default_avatar.png');
         else $avatar = NH_QINIU_URL.$avatar;

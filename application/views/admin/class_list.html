@@ -1,8 +1,7 @@
-课程名称 : {$round.title}     共{$chapter_count}章  {$section_count}节课  即将开课        等待上课         完成进度
+课程名称 : {$round.title}     共{$chapter_count}章  {$section_count}节课  等待上课         完成进度
 <table class="table table-hover">
     <thead>
     <tr>
-        <!--<th>#</th>-->
         <th>课堂ID</th>
         <th>课堂名称</th>
         <th>教室ID</th>
@@ -19,7 +18,6 @@
     <tbody>
     {foreach $classes as $v}
     <tr>
-        <!--<td><input type="checkbox"></td>-->
         <td>{$v.id}</td>
         <td>{$v.title}</td>
         <td>{$v.classroom_id}</td>

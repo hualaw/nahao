@@ -217,7 +217,8 @@ class login extends NH_Controller
         if($rembme == 'on') $remb_me = 1;
         else $remb_me = 0;
 
-        $ret = $this->business_login->submit($username, $password, $remb_me);
+        $sha1_password = $password;
+        $ret = $this->business_login->submit($username, $sha1_password, $remb_me);
 
         if(isset($ret['data']))
         {
