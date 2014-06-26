@@ -81,6 +81,9 @@ define(function(require,exports){
         });
         // 发送手机验证码
         require('module/common/method/send').sendPhoneNum(1);
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){
