@@ -25,4 +25,20 @@
             $name=trim($name);
             return $this->model_subject->subject_total($status,$name);
         }
+        /**
+         * 禁用学科
+         * @author shangshikai@tizi.com
+         */
+        public function subject_close($ids)
+        {
+                return $this->model_subject->disabled_subject($ids);
+        }
+        /**
+         * 启用学科
+         * @author shangshikai@tizi.com
+         */
+        public function subject_open($ids)
+        {
+                return $this->model_subject->open_subject($ids);
+        }
     }

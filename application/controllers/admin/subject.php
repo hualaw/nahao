@@ -23,4 +23,23 @@
             $page = $this->pagination->create_links();
             $list=$this->subject->all_subject($status,$name);
         }
+
+        /**
+         * 禁用学科
+         * @author shangshikai@tizi.com
+         */
+        public function close_subject()
+        {
+            $ids=$this->input->post('id',TRUE);
+            $this->subject->subject_close($ids);
+        }
+        /**
+         * 启用学科
+         * @author shangshikai@tizi.com
+         */
+        public function start_subject()
+        {
+            $ids=$this->input->post('id',TRUE);
+            $this->subject->subject_open($ids);
+        }
     }
