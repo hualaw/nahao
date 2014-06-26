@@ -55,12 +55,12 @@ define(function(require,exports){
                 nullmsg:"请输入称呼",
                 errormsg:"长度2-15个字符"
             },
-            {
-                ele:".loction",
-                datatype:"*",
-                nullmsg:"请选择地区",
-                errormsg:"请选择正确的地区"
-            },
+//            {
+//                ele:".loction",
+//                datatype:"*",
+//                nullmsg:"请选择地区",
+//                errormsg:"请选择正确的地区"
+//            },
             {
                 ele:".radioInput",
                 datatype:"*",
