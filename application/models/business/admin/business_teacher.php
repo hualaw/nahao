@@ -372,7 +372,7 @@ class Business_Teacher extends NH_Model
         $post_user['nickname']=$post['nickname'];
         $post_user['phone_mask']=$phone_mask;
         $post_user['email']=$post['email'];
-        $post_user['salt']=random_string();
+        $post_user['salt']=random_string('alnum',6);
         $post_user['password']=create_password($post_user['salt'],$post['password']);
         $post_user['status']=1;
         $post_user['register_time']=time();
