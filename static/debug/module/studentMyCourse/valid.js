@@ -141,7 +141,7 @@ define(function(require,exports){
             })
             //验证 最多关注
             $(obj+" .attent .btn").blur(function (){
-                va.call(this);
+                va_blur.call(this);
             })
 
             function va(){
@@ -149,6 +149,14 @@ define(function(require,exports){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+            
+            function va_blur() {
+                if($(obj+" .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
         });
@@ -345,7 +353,13 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".iniPassword").val());
+                $(".iniPassword").val(hash.toString());
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
             },
             callback:function(data){
                 if(data.status == 'ok') {
@@ -369,9 +383,7 @@ define(function(require,exports){
                 ele: ".iniPassword",
                 datatype:"*",
                 nullmsg:"请输入密码",
-                errormsg:"请输入正确的密码",
-                ajaxurl:'/member/front_check_password',
-                ajaxUrlName:'password'
+                errormsg:"请输入正确的密码"
             },
             {
                 ele:".setPassword",

@@ -64,8 +64,9 @@ class Business_Login extends NH_Model {
                     log_message('debug_nahao', "In business_login, user_id is $user_id , phone is $phone");
 
                     //set session data
+                    $phone_mask = (strpos($user_info['phone_mask'], '*') !== false) ? $user_info['phone_mask'] : phone_blur($user_info['phone_mask']);
                     $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],
-                        $phone, $user_info['phone_mask'], $user_info['email'], $login_type, $user_info['teach_priv'], $remb_me);
+                        $phone, $phone_mask, $user_info['email'], $login_type, $user_info['teach_priv'], $remb_me);
 
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
                 }

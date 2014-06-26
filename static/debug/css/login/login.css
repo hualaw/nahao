@@ -37,6 +37,7 @@
 .login .regWrap .contentBox .box{padding:20px 55px;}
 .login .regWrap .box li {font-size:16px;margin-bottom:20px; position: relative;*zoom:1;}
 .login .regWrap .box li .Validform_checktip{ position: absolute; top: 0px;right:0px;}
+.login .regWrap .box li .Validform_tip_info{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li.liPhoneCode{padding-top:25px;}
 .login .regWrap .box li p{height:22px;line-height:22px;margin-bottom:5px;}
 .login .regWrap .box li .regInput{width: 90%;border:1px solid #6dcde6;height:38px;line-height:38px;padding:0 5%;font-size:16px;}
