@@ -22,13 +22,13 @@
 	    	{if $array_data}
 	        <div class="buyHeadt cf">
 	        	<div class="fl courseInfor posr">
-	        		<h2>{$array_data.title}</h2>
+	        		<h2 title="{$array_data.title}">{$array_data.title|truncate:20:"...":true}</h2>
 	        		<div class="cstate undis"></div>
 	        		<!-- 授课状态：等待开课 -->
 	        		{if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_INIT && $array_data.soon_class_infor}
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
-		        		<h3 class="fl">{$array_data.soon_class_infor.title}</h3>
+		        		<h3 class="fl">{$array_data.soon_class_infor.title|truncate:15:"...":true}</h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
@@ -46,7 +46,7 @@
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_TEACH && $array_data.soon_class_infor}
 	        	    <span>即将开始的是：</span>
 	        		<div class="cf h3Box">
-		        		<h3 class="fl">{$array_data.soon_class_infor.title}</h3>
+		        		<h3 class="fl">{$array_data.soon_class_infor.title|truncate:15:"...":true}</h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
