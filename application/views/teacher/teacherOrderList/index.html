@@ -76,7 +76,7 @@
 		                <td class="order_name">
 		                	{if $val['cur_class']}
 			                	{if in_array($val['cur_class']['status'],$data['enter_classroom'])}
-			                		<h3><a href="{$student_url}classroom/enter/{$val['cur_class']['classroom_id']}" title="{$val['cur_class']['title']}">{$val['cur_class']['title']}</a></h3>
+			                		<h3><a href="{$student_url}classroom/teacher_enter/{$val['cur_class']['classroom_id']}" title="{$val['cur_class']['title']}">{$val['cur_class']['title']}</a></h3>
 			                	{else}
 			                		<h3>{$val['cur_class']['title']}</h3>
 			                	{/if}

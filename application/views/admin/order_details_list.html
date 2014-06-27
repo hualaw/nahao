@@ -37,7 +37,13 @@
             {else}
                 ——
             {/if}</td>
-        <td><button type="button" id="modify_price" class='btn btn-primary btn-xs'>修改价格</button></td>
+        <td>
+            {if $details.status==0 || $details.status==1}
+            <button type="button" id="modify_price" class='btn btn-primary btn-xs'>修改价格</button>
+            {else}
+            已无法修改
+            {/if}
+        </td>
     </tr>
 </table>
 <input type="hidden" value="{$details.student_id}" id="student_id" />
