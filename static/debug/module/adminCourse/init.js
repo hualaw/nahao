@@ -7,8 +7,8 @@ define(function(require,exports){
     course.teacher_select();
     course.submit_teacher();
     course.delete_teacher();
-    course.add_lesson();
-    course.delete_lesson();
+//    course.add_lesson();
+//    course.delete_lesson();
     course.submit_course();
     course.course_operation();
 

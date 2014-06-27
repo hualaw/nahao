@@ -46,8 +46,8 @@ class Business_Student extends NH_Model
         $int_return = array();
         if(is_array($arr_where)){
             $str_table_range = 'student_info';
-            $str_result_type = 'count';
-            $str_fields = 'count(1) as count';
+            $str_result_type = 'list';
+            $str_fields = 'user.id';
 
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
@@ -85,8 +85,12 @@ class Business_Student extends NH_Model
                 $arr_where[TABLE_USER.'.id'] = $arr_where['id'];
                 unset($arr_where['id']);
             }
+            $arr_group_by = array(
+                TABLE_USER.'.id'
+            );
 //            o($arr_where);
-            $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by);
+            $int_return = count($arr_return);
         }
         return $int_return;
     }
