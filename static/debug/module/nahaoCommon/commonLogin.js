@@ -5,6 +5,7 @@ define(function(require,exports){
     exports.loginForm = function(){
         $('.commonLoginBtn').click(function(){
             exports.cLogin();
+            $(".aui_content .userName").focus();
         });
     };
     
@@ -18,7 +19,8 @@ define(function(require,exports){
             icon:null,
             width:348,
             ok:false
-        })
+        });
+        $(".userName").focus();
         require('module/login/valid').loginForm();
     }
 })

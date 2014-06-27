@@ -201,8 +201,11 @@ class Member extends NH_User_Controller {
 	        #获取申请退课数据
 	        $array_data = $this->student_member->get_apply_refund_data($int_user_id,$array_order);	        
 	        //var_dump($array_data);die;
+	        $array_user = $this->_user_detail;
+	        //var_export($array_user);die;
 	        $array_bank = config_item('bank');
 	        $this->smarty->assign('array_bank', $array_bank);
+	        $this->smarty->assign('array_user', $array_user);
 	        $this->smarty->assign('array_data', $array_data);
 	        $this->smarty->assign('int_order_id', $int_order_id);
 	        $this->smarty->assign('page_type', 'apply_refund');

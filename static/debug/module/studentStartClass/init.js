@@ -21,20 +21,22 @@ define(function(require,exports){
 	    require("module/studentStartClass/datePlugin").addDatePlugin();
    		
 
-   		$("#apply_teach_submit").click(function (){
-   			var start = parseInt($('.startTime').val());
-            var end = parseInt($('.endTime').val());
-            if(start>=end){
-                $('.timeSecelt').eq(1).children('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
-
-                $.tiziDialog({
-                    icon:null,
-                    content:"结束时间不能大于开始时间"
-                });
-                return false;
-            }
-            $(".writeInfoForm").submit();
-   		});
+//   		$("#apply_teach_submit").click(function (){
+//   			var start = parseInt($('.startTime').val());
+//            var end = parseInt($('.endTime').val());
+////            alert($('#postEditor').val());
+////            alert(($('#introEditor').val())+'@@@'+($('#introEditor').html()));
+//            if(start>=end){
+//                $('.timeSecelt').eq(1).children('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
+//
+//                $.tiziDialog({
+//                    icon:null,
+//                    content:"结束时间不能大于开始时间"
+//                });
+//                return false;
+//            }
+//            $(".writeInfoForm").submit();
+//   		});
    		//我要开课 试讲 信息 验证
 		_valid.writeInfoForm();
 	}

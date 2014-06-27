@@ -14,6 +14,7 @@ define(function(require,exports){
                         //（字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字。）
                         K('.word_count2').html(10000-this.count('text'));
                         $('.word_count1').html(KindEditor.instances[0].html().length);
+                        this.sync();
                     }
                 });
             });
@@ -31,6 +32,7 @@ define(function(require,exports){
                         //（字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字。）
                         K('.word_count2').html(10000-this.count('text'));
                         $('.word_count1').html(KindEditor.instances[0].html().length);
+                        this.sync();
                     }
                 });
             });

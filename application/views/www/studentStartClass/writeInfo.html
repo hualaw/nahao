@@ -19,13 +19,14 @@
 	<div class="writeInfo">
 		<div class="box layout">
 			<h2>请填写试讲信息<span>(以下信息会严格保密，请您放心填写）</span></h2>
-			<form action="{$site_url}index/save_apply_teach/" method="POST" class="writeInfoForm" >
+			<form action="{$site_url}index/save_apply_teach" method="POST" class="writeInfoForm" onsubmit="return false">
 				<ul class="Oul">
 					<li class="cf">
 						<p class="fl">真实姓名</p>
 						<div class="cf">
 							<input type="text" name="name" class="wUname fl textInput" validName="text" value="{if $user_detail['realname'] && $user_detail['realname']!='undefined'}{$user_detail['realname']}{/if}">
-							<span class="Validform_checktip fl"></span>
+							<div class="Validform_tip_info fl undis">请输入真实姓名</div>
+                          	<div class="Validform_checktip fl"></div>
 						</div>
 						<p class="tips fl">保密，方便我们与您电话沟通详细情况</p>
 					</li>
@@ -35,6 +36,8 @@
 							<div class="cf schoolPar">
 								<input class="schoolFullName cInput yh" validName="text" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"></input>
 								<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">就读学校</a>
+								<div class="Validform_tip_info undis">请选择就读学校</div>
+                          		<div class="Validform_checktip"></div>
 								<input type="hidden" value="{if $data['school']['province_id']}{$data['school']['province_id']}{/if}" name="province_id" id="province_id" />
 								<input type="hidden" value="{if $data['school']['city_id']}{$data['school']['city_id']}{/if}" name="city_id" id="city_id" />
 								<input type="hidden" value="{if $data['school']['id']}{$data['school']['id']}{/if}" name="school_id" id="schoolVal" />
@@ -42,7 +45,6 @@
 								<input type="hidden" value="{if $data['school']['sctype']}{$data['school']['sctype']}{/if}" name="school_type" id="school_type">
 								<input type="hidden" value="" name="schoolname" id="schoolname" />
 							</div>
-							<span class="Validform_checktip fl"></span>
 						</div>
 					</li>
 					<li class="cf">
@@ -59,7 +61,8 @@
 						<p class="fl">年龄</p>
 						<div class="cf">
 							<input type="text" name="age" class="wage fl textInput" validName="text" value="">
-							<span class="Validform_checktip fl"></span>
+							<div class="Validform_tip_info fl undis">请输入年龄</div>
+                      		<div class="Validform_checktip fl"></div>
 						</div>
 					</li>
 					<li class="cf">
@@ -107,7 +110,8 @@
 						<p class="fl">手机号码</p>						
 						<div class="cf">
 							<input type="text" name="phone" class="wphone textInput fl" validName="text" value="{if $data['user_info']['phone']}{$data['user_info']['phone']}{/if}">
-							<span class="Validform_checktip fl"></span>
+							<div class="Validform_tip_info fl undis">请输入手机号码</div>
+                      		<div class="Validform_checktip fl"></div>
 						</div>
 						<p class="tips fl">保密，方便我们与您电话沟通详细情况</p>	
 					</li>
@@ -115,14 +119,16 @@
 						<p class="fl">常用邮箱</p>
 						<div class="cf">
 							<input type="text" name="email" class="wEmail textInput fl" validName="text" value="{if $data['user_info']['email']}{$data['user_info']['email']}{/if}">
-							<span class="Validform_checktip fl"></span>
+							<div class="Validform_tip_info fl undis">请输入常用邮箱</div>
+                      		<div class="Validform_checktip fl"></div>
 						</div>
 					</li>
 					<li class="cf">
 						<p class="fl">QQ号</p>		
 						<div class="cf">
 							<input type="text" name="qq" class="wQQ textInput fl" validName="text" value="">
-							<span class="Validform_checktip fl"></span>
+							<div class="Validform_tip_info fl undis">请输入QQ号</div>
+                      		<div class="Validform_checktip fl"></div>
 						</div>
 					</li>
 					<li class="cf">
@@ -160,7 +166,8 @@
 						<div class="cf">
 							<div class="fl">
 								<input type="text" name="date_time" class="wtime textInput" validName="text">
-								<span class="Validform_checktip"></span>
+								<div class="Validform_tip_info fl undis">请输入试讲时间</div>
+	                      		<div class="Validform_checktip fl"></div>
 							</div>
 							<div class="fl timeSecelt">
 								<div>
@@ -220,7 +227,8 @@
 						<p class="fl">课程名称</p>
 						<div class="cf">
 							<input type="text" name="course" class="subname textInput fl" validName="text">
-							<span class="Validform_checktip fl"></span>
+							<div class="Validform_tip_info fl undis">请输入课程名称</div>
+                      		<div class="Validform_checktip fl"></div>
 						</div>
 					</li>
 					<li>

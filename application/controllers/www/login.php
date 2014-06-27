@@ -180,7 +180,7 @@ class login extends NH_Controller
                             本邮件由那好系统自动发出，请勿直接回复！若非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br>
                             感谢您对那好网的支持！
                             </body>';
-            $success_msg = '重设密码的邮箱已经发送到您的邮箱：'. $email_address . '请您注意查收';
+            $success_msg = '重设密码的邮件已经发送到您的邮箱：'. $email_address . '请您注意查收';
             $send_result = $this->_send_email($email_address, $subject, $mail_content, $success_msg);
             
         }
