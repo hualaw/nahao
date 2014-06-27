@@ -31,7 +31,8 @@
          */
         public function subject_close($ids)
         {
-                return $this->model_subject->disabled_subject($ids);
+            $ids=explode(',',$ids);
+            return $this->model_subject->disabled_subject($ids);
         }
         /**
          * 启用学科
@@ -39,6 +40,40 @@
          */
         public function subject_open($ids)
         {
-                return $this->model_subject->open_subject($ids);
+            $ids=explode(',',$ids);
+            return $this->model_subject->open_subject($ids);
+        }
+        /**
+         * 添加学科
+         * @author shangshikai@tizi.com
+         */
+        public function insert_subject($name)
+        {
+            $name=trim($name);
+            if($name=="")
+            {
+                return FALSE;
+            }
+            if(self::subject_only($name)==FALSE)
+            {
+                return FALSE;
+            }
+            else
+            {
+                $data=array(
+                    TABLE_SUBJECT.'.name'=>$name,
+                    TABLE_SUBJECT.'.status'=>1
+                );
+                return $this->model_subject->add_subject($data);
+            }
+        }
+
+        /**
+         * 学科是否存在
+         * @author shangshikai@tizi.com
+         */
+        public function subject_only($name)
+        {
+            return $this->model_subject->only_subject($name);
         }
     }

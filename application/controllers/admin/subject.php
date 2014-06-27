@@ -16,12 +16,18 @@
             $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
             $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
             $config['total_rows'] = $total;
-            $config['per_page'] = 1;
+            $config['per_page'] = PER_PAGE_NO;
             $this->pagination->initialize($config);
             $int_start=$this->uri->segment(3);
-            $this->db->limit(1,$int_start);
+            $this->db->limit(PER_PAGE_NO,$int_start);
             $page = $this->pagination->create_links();
             $list=$this->subject->all_subject($status,$name);
+
+            $this->smarty->assign('page',$page);
+            $this->smarty->assign('list',$list);
+            $this->smarty->assign('search_total',$search_total);
+            $this->smarty->assign('view','subject');
+            $this->smarty->display('admin/layout.html');
         }
 
         /**
@@ -30,8 +36,8 @@
          */
         public function close_subject()
         {
-            $ids=$this->input->post('id',TRUE);
-            $this->subject->subject_close($ids);
+            $ids=$this->input->post('ids',TRUE);
+            echo $this->subject->subject_close($ids);
         }
         /**
          * 启用学科
@@ -39,7 +45,16 @@
          */
         public function start_subject()
         {
-            $ids=$this->input->post('id',TRUE);
-            $this->subject->subject_open($ids);
+            $ids=$this->input->post('ids',TRUE);
+            echo $this->subject->subject_open($ids);
+        }
+        /**
+         * 添加学科
+         * @author shangshikai@tizi.com
+         */
+        public function subject_insert()
+        {
+            $name=$this->input->post('subject_name',TRUE);
+            echo $this->subject->insert_subject($name);
         }
     }

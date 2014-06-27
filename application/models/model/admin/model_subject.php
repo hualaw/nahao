@@ -28,11 +28,11 @@
             self::sql($status,$name);
             if($status!=0)
             {
-                $this->db->where(TABLE_SUBJECT.'status',$status);
+                $this->db->where(TABLE_SUBJECT.'.status',$status-1);
             }
             if($name!='')
             {
-                $this->db->where(TABLE_SUBJECT.'name',$name);
+                $this->db->where(TABLE_SUBJECT.'.name',$name);
             }
         }
         /**
@@ -66,5 +66,25 @@
                 $this->db->update(TABLE_SUBJECT,array(TABLE_SUBJECT.'.status'=>1),array(TABLE_SUBJECT.'.id'=>$v));
             }
             return TRUE;
+        }
+        /**
+         * 学科是否存在
+         * @author shangshikai@tizi.com
+         */
+        public function only_subject($name)
+        {
+            self::search_subject(0,$name);
+            if($this->db->get()->num_rows()>0)
+            {
+                return FALSE;
+            }
+        }
+        /**
+         * 添加学科
+         * @author shangshikai@tizi.com
+         */
+        public function add_subject($data)
+        {
+            return $this->db->insert(TABLE_SUBJECT,$data);
         }
     }

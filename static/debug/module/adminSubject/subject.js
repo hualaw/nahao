@@ -1,0 +1,84 @@
+define(function(require,exports){
+    exports.subject = function(){
+        $("#all").click(function(){
+            if($("#all").attr("checked"))
+            {
+                $(".options").attr("checked","checked");
+            }
+            else
+            {
+                $(".options").removeAttr("checked");
+            }
+        })
+
+        $('#close_subject').click(function(){
+            var arr_v = new Array();
+            $("input[type='checkbox']:checked").each(function(){
+                arr_v.push($(this).val());
+            });
+            $.ajax({
+                url:'/subject/close_subject',
+                type:'post',
+                data:'ids='+arr_v,
+                success:function(msg)
+                {
+                    if(msg==true)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        })
+
+        $('#open_subject').click(function(){
+            var arr_v = new Array();
+            $("input[type='checkbox']:checked").each(function(){
+                arr_v.push($(this).val());
+            });
+            $.ajax({
+                url:'/subject/start_subject',
+                type:'post',
+                data:'ids='+arr_v,
+                success:function(msg)
+                {
+                    if(msg==true)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        })
+
+        $('#insert_subject').click(function(){
+            $('#subject_name').val("");
+            $('#span_insert').hide();
+            $('#insert_model').modal();
+        })
+
+        $('#insert').click(function(){
+            if($.trim($('#subject_name').val())=='')
+            {
+                $('#span_insert').show().css('color','red').html('学科不能为空');
+            }
+            else
+            {
+                $.ajax({
+                    url:'/subject/subject_insert',
+                    type:'post',
+                    data:'subject_name='+$('#subject_name').val(),
+                    success:function(msg)
+                    {
+                        if(msg==false)
+                        {
+                            $('#span_insert').show().css('color','red').html('学科已存在');
+                        }
+                        if(msg==1)
+                        {
+                            location.reload();
+                        }
+                    }
+                })
+            }
+        })
+    }
+})

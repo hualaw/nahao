@@ -392,9 +392,9 @@ class Business_Teacher extends NH_Model
         $post_subject['teacher_id']=$user_id;
         $this->model_user->create_subject($post_subject);
 
-        $post['work_auth_img']=="" ? $post_user_info['teacher_auth']=0 : $post_user_info['teacher_auth']=1;
-        $post['work_title_img']=="" ? $post_user_info['titile_auth']=0 : $post_user_info['titile_auth']=1;
-        $post['work_teacher_img']=="" ? $post_user_info['work_auth']=0 : $post_user_info['work_auth']=1;
+        $post['teacher_auth_img']=="" ? $post_user_info['teacher_auth']=0 : $post_user_info['teacher_auth']=1;
+        $post['title_auth_img']=="" ? $post_user_info['titile_auth']=0 : $post_user_info['titile_auth']=1;
+        $post['work_auth_img']=="" ? $post_user_info['work_auth']=0 : $post_user_info['work_auth']=1;
         $post_user_info['user_id']=$user_id;
         $post_user_info['realname']=$post['realname'];
         $post_user_info['age']=$post['age'];
@@ -418,6 +418,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['title_auth_img']=$post['title_auth_img'];
         $post_user_info['teacher_auth_img']=$post['teacher_auth_img'];
         $post_user_info['status']=1;
+        var_dump($post_user_info);die;
        // var_dump($post_user_info);die;
         return $this->model_user->create_user_info($post_user_info);
     }
@@ -473,6 +474,9 @@ class Business_Teacher extends NH_Model
         }
         $post_subject['subject_id']=$post['subject'];
 
+        $post['teacher_auth_img']=="" ? $post_user_info['teacher_auth']=0 : $post_user_info['teacher_auth']=1;
+        $post['title_auth_img']=="" ? $post_user_info['titile_auth']=0 : $post_user_info['titile_auth']=1;
+        $post['work_auth_img']=="" ? $post_user_info['work_auth']=0 : $post_user_info['work_auth']=1;
         $post_user_info['realname']=$post['realname'];
         $post_user_info['age']=$post['age'];
         $post_user_info['gender']=$post['gender'];
@@ -494,8 +498,11 @@ class Business_Teacher extends NH_Model
         $post_user_info['stage']=$post['stage'];
         $post_user_info['teacher_intro']=$post['teacher_intro'];
         $post_user_info['basic_reward']=$post['basic_reward'];
+        $post_user_info['work_auth_img']=$post['work_auth_img'];
+        $post_user_info['title_auth_img']=$post['title_auth_img'];
+        $post_user_info['teacher_auth_img']=$post['teacher_auth_img'];
         $post_user_info['update_time']=time();
-
+var_dump($post_user_info);die;
         if($post_user_info['hide_school']==null)
         {
             unset($post_user_info['hide_school']);
