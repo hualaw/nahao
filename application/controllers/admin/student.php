@@ -75,7 +75,7 @@ class Student extends NH_Admin_Controller {
 
         $int_count = $this->student->get_student_count($arr_where);
         $arr_list = $this->student->get_student_list($arr_where, $int_start,PER_PAGE_NO);
-//        o($arr_list,true);
+//        o($int_count,true);
         $arr_tmp_areas = $arr_final_areas = array();
         foreach($arr_list as $k => $v){
             if($v['province']>0){

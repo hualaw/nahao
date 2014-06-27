@@ -171,9 +171,9 @@
 		                            <div class="fr listb">
 		                            	<div class="cf">
 		                                	<p class="listh fl" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title|truncate:10:"...":true}</p>
-		                                	<div class="cf cListHid undis">
+		                                	<div class="fr cListHid undis">
 		                                		{if $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
-		                                		<a href="/course/courseware/{$it.id}" ><span class="fl handout"></span></a>
+		                                		<a href="/course/courseware/{$it.id}" class="fl handout"></a>
 		                                		
 		                                		{/if}
 		                                		{if ($it.status==$smarty.const.CLASS_STATUS_CLASS_OVER) && $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}

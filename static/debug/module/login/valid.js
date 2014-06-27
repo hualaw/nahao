@@ -362,6 +362,9 @@ define(function(require,exports){
                 }
             }
         });
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //手机找回密码验证
     exports.phoneFindPW = function (){
@@ -518,6 +521,9 @@ define(function(require,exports){
             }  
             
         ]);
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //设置新密码验证
     exports.setPWForm = function (){

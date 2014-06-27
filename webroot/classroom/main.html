@@ -145,6 +145,7 @@ function request(paras){
 	var countryID = request("countryID");
 	var timelong = request("timelong");
     var clsSwfVer = request("SwfVer");
+    var ClassName = request("ClassName");
 function downLoadOCX(){
 	window.open("http://www.flash.com/upload/package/setup.exe","_blank");
 }
@@ -176,7 +177,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	// if we've detected an acceptable version
 	// embed the Flash Content SWF when all tests are passed
 	
-	var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName=thenewclass&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
+	var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName="+ClassName+"&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
 	
 	AC_FL_RunContent(
 			"src", "MeetRoomClient?v="+clsSwfVer,

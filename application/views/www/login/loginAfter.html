@@ -25,17 +25,20 @@
 					<div class="cf">
                         {if !$userdata.email}
 						<input type="text" name="email" class="lEmail textInput fl" validName="text" value="{$userdata.email}" >
+						<div class="Validform_tip_info undis">请输入邮箱</div>
+          				<div class="Validform_checktip"></div>
                         {else}
                         <span class="fl hasEmail">{$userdata.email}</span>
                         {/if}
-						<span class="Validform_checktip fl"></span>
+						<!-- <span class="Validform_checktip fl"></span> -->
 					</div>
 				</li>
 				<li class="cf">
 					<p class="fl"><span>*</span>昵称</p>
 					<div class="cf">
 						<input type="text" name="nickname" class="lname textInput fl" validName="text">
-						<span class="Validform_checktip fl"></span>
+						<div class="Validform_tip_info undis">请输入昵称</div>
+          				<div class="Validform_checktip"></div>
 					</div>
 				</li>
 				<li class="cf areaSelect">
