@@ -96,7 +96,9 @@ class login extends NH_Controller
             if($user_id) {
                 $this->business_user->reset_password($user_id, $new_pwd);
                 $this->session->set_userdata('reset_pwd_phone', 0);
-                $this->smarty->display('www/login/setSuccess.html');die;
+                self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=1'));
+            } else {
+                self::json_output(array('status' => ERROR, 'info' => '无效的用户'));
             }
         }
             
@@ -119,11 +121,23 @@ class login extends NH_Controller
                     $this->business_user->reset_password($user_info['id'], $new_pwd);
                     #clear redis cache after user reset password through email
                     $this->cache->redis->delete(md5($user_email));
-                    $this->smarty->display('www/login/setSuccess.html');die;
+                    self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=2'));
+                } else {
+                    self::json_output(array('status' => ERROR, 'info' => '无效的用户'));
                 }
             }
         }
         $this->smarty->display('www/login/setNewPwd.html');
+    }
+    
+    /**
+     * 重设密码成功页面
+     */
+    public function reset_pwd_success()
+    {
+        $find_ways = intval($this->input->get('find_ways'));
+        $this->smarty->assign('find_ways', $find_ways);
+        $this->smarty->display('www/login/setSuccess.html');
     }
         
     /**
@@ -138,13 +152,14 @@ class login extends NH_Controller
         if($user_id) {
             $post_fiedls = array('phone' => $phone, 'type' => $type);
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, __HOST__ . '/register/send_captcha');
+            curl_setopt($ch, CURLOPT_URL, student_url() . 'register/send_captcha');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fiedls);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
             curl_setopt($ch, CURLOPT_TIMEOUT, 25);
             $result = curl_exec($ch);
+            curl_close($ch);
             exit($result);
         }
 
@@ -180,7 +195,7 @@ class login extends NH_Controller
                             本邮件由那好系统自动发出，请勿直接回复！若非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br>
                             感谢您对那好网的支持！
                             </body>';
-            $success_msg = '重设密码的邮箱已经发送到您的邮箱：'. $email_address . '请您注意查收';
+            $success_msg = '重设密码的邮件已经发送到您的邮箱：'. $email_address . '请您注意查收';
             $send_result = $this->_send_email($email_address, $subject, $mail_content, $success_msg);
             
         }

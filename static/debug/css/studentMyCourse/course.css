@@ -250,7 +250,11 @@
 .studentMyCourse .buyBefore .outline,
 .studentMyCourse .buyAfter .outline{background: url(../../images/studentMyCourse/outline.png) 12px 22px no-repeat;padding-top:74px;}
 .studentMyCourse .outlineList h3{font-weight: normal;font-size: 20px;background: url(../../images/studentMyCourse/graya.png) left 3px no-repeat;}
-.studentMyCourse .outlineList h3 p{padding-left: 30px;}
+.studentMyCourse .outlineList h3 p{padding-left: 30px;width: 423px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;}
+
 .studentMyCourse .outlineList h3 span{width: 1px;height: 20px;background:#d4d4d4;margin-left: 10px;}
 .studentMyCourse .buyBefore .outlineList li{background: url(../../images/studentMyCourse/reda.png) 5px 3px no-repeat;height: 60px;}
 .studentMyCourse .buyBefore .revTimt,
@@ -259,7 +263,12 @@
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
 .studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
-.studentMyCourse .outlineList .listh{font-size: 16px;}
+.studentMyCourse .outlineList .listh{font-size: 16px;width: 279px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;}
+.studentMyCourse .buyAfter .outlineList .listh{width: width: 279px;}
+.studentMyCourse .buyBefore .outlineList .listh{width: 423px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
 /*   我的课程购买后  */
 .studentMyCourse .buyAfter .cstate{width: 162px;height: 91px;position: absolute;left:25%;top:50px;background-repeat: no-repeat;}
@@ -306,14 +315,21 @@
 .studentMyCourse .buyAfter .buyHeadt{border-top:2px solid #f14211;padding-top: 23px;}
 .studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;height: 175px;}
 .studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;height: 179px;overflow-y: scroll;}
-.studentMyCourse .buyAfter .courseInfor h2{font-size: 24px;height: 24px;line-height: 24px;margin-bottom: 32px;}
-.studentMyCourse .buyAfter .courseInfor h3{font-weight: normal;font-size: 20px;}
+.studentMyCourse .buyAfter .courseInfor h2{font-size: 24px;height: 30px;line-height: 30px;margin-bottom: 28px;width: 569px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;}
+.studentMyCourse .buyAfter .courseInfor h3{font-weight: normal;font-size: 20px;width: 420px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;}
 .studentMyCourse .buyAfter .classCD{width: 224px;padding-left:16px;height: 28px;line-height: 28px;background: #fafafa;border: 1px solid #fff;color: #f14211;font-size: 18px;}
 .studentMyCourse .buyAfter .buyHead strong{font-size: 20px;}
 .studentMyCourse .buyAfter .courseInfor .noShowBtn{width: 130px;}
 .studentMyCourse .buyAfter .buyHead span{font-size: 16px;color: #868686;}
 .studentMyCourse .buyAfter .classCDList{line-height: 32px;}
 .studentMyCourse .buyAfter .h3Box{margin:10px 0 24px;}
+.studentMyCourse .buyAfter .h3Box1{margin: 100px 20px 0;}
 .studentMyCourse .buyAfter .manInfor .head{width: 70px;height: 70px;border-left: 2px solid #f14211;}
 .studentMyCourse .buyAfter .headR{position: absolute;bottom: 0;left:84px;}
 .studentMyCourse .buyAfter .manInfor .cMan{font-size: 12px;color: #868686;}
@@ -330,9 +346,8 @@
 .studentMyCourse .buyAfter .buyHeadf{padding: 14px 0 0;}
 .studentMyCourse .buyAfter .schedule strong{margin:0 14px;}
 .studentMyCourse .buyAfter .starBg:hover{background: url(../../images/studentMyCourse/ahreview.png);}
-.studentMyCourse .buyAfter .listb span{cursor: pointer;}
-.studentMyCourse .buyAfter .handout{width:13px;height: 18px;margin-left: 16px;background: url(../../images/studentMyCourse/handout.png) no-repeat;}
-.studentMyCourse .buyAfter .cloudNotes{width: 20px;height: 18px;margin-left: 10px;background: url(../../images/studentMyCourse/cloudNotes.png) no-repeat;}
+.studentMyCourse .buyAfter .handout{width:13px;height: 18px;margin-right: 10px;background: url(../../images/studentMyCourse/handout.png) no-repeat;}
+.studentMyCourse .buyAfter .cloudNotes{width: 20px;height: 18px;margin-right: 10px;background: url(../../images/studentMyCourse/cloudNotes.png) no-repeat;}
 .studentMyCourse .buyAfter .handout:hover{background-image: url(../../images/studentMyCourse/hhandout.png);}
 .studentMyCourse .buyAfter .cloudNotes:hover{background-image: url(../../images/studentMyCourse/hcloudNotes.png);}
 .cnDia h2{padding-left: 30px;background: url(../../images/studentMyCourse/hcloudNotes.png) 1px center no-repeat;font-weight: normal;font-size: 16px;margin-bottom:3px;}
