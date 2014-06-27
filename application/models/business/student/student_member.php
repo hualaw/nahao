@@ -82,6 +82,7 @@ class Student_Member extends NH_Model{
                 $array_return[$k]['create_time'] = date('Y/m/d H:i:s',$v['create_time']);
                 $array_return[$k]['class_img'] = empty( $array_round['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_round['img'],'small');
                 $array_return[$k]['title'] = $array_round['title'];
+                $array_return[$k]['teach_status'] = $array_round['teach_status'];
                 #处理付款方式
                 if ($v['pay_type'] == '0'|| $v['pay_type'] == '1' ||$v['pay_type'] == '2'||$v['pay_type'] == '3')
                 {
@@ -135,6 +136,8 @@ class Student_Member extends NH_Model{
         $array_return['unclass'] = $array_return['totle_class'] - $array_return['class'];
         #轮id
         $array_return['round_id'] = $array_round['id'];
+        #轮的授课状态
+        $array_return['teach_status'] = $array_round['teach_status'];
         return $array_return;
     }
     

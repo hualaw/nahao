@@ -22,14 +22,14 @@
 	    	{if $array_data}
 	        <div class="buyHeadt cf">
 	        	<div class="fl courseInfor posr">
-	        		<h2 title="{$array_data.title}">{$array_data.title|truncate:20:"...":true}</h2>
+	        		<h2 title="{$array_data.title}">{$array_data.title}</h2>
 	        		<!--已结课 cend     已停课 cstop    已过期  coverdue-->
 	        		<!-- <div class="cstate "></div> -->
 	        		<!-- 授课状态：等待开课 -->
 	        		{if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_INIT && $array_data.soon_class_infor}
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
-		        		<h3 class="fl">{$array_data.soon_class_infor.title|truncate:15:"...":true}</h3>
+		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
@@ -47,7 +47,7 @@
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_TEACH && $array_data.soon_class_infor}
 	        	    <span>即将开始的是：</span>
 	        		<div class="cf h3Box">
-		        		<h3 class="fl">{$array_data.soon_class_infor.title|truncate:15:"...":true}</h3>
+		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
@@ -66,7 +66,7 @@
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
 	        		<div class="cstate cstop"></div>
 	        	    <span></span>
-	        		<div class="cf h3Box">
+	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
@@ -78,7 +78,7 @@
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
 	        		<div class="cstate cend"></div>
 	        		<span></span>
-	        		<div class="cf h3Box">
+	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
@@ -90,7 +90,7 @@
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
 	        		<div class="cstate coverdue"></div>
 	        	    <span></span>
-	        		<div class="cf h3Box">
+	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
 		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
@@ -177,11 +177,11 @@
 		                                	<p class="listh fl" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title|truncate:10:"...":true}</p>
 		                                	<div class="cf cListHid undis">
 		                                		{if $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
-		                                		<a href="/course/courseware/{$it.id}" ><span class="fl handout"></span></a>
+		                                		<a href="/course/courseware/{$it.id}" ><span class="fl handout" title="下载课件"></span></a>
 		                                		
 		                                		{/if}
 		                                		{if ($it.status==$smarty.const.CLASS_STATUS_CLASS_OVER) && $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
-			                                	<span class="fl cloudNotes" data-cid={$it.classroom_id}></span>
+			                                	<span class="fl cloudNotes" data-cid={$it.classroom_id} title="云笔记"></span>
 			                                	{/if}
 			                                	{if $it.comment_status > 0}
 			                                	<span class="cevaluBtn fr sevaluBtn">已评价</span>
@@ -250,7 +250,7 @@
 						<div class="nhead cf posr">
 							<img src="{$item.avatar}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong>{$item.nickname}</strong>
+								<strong title="{$item.nickname}">{$item.nickname|truncate:7:"...":true}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
@@ -268,7 +268,7 @@
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
 						<img src="{$item.avatar}" alt="">
-						<span>{$item.nickname}</span>
+						<span title="{$item.nickname}">{$item.nickname|truncate:10:"...":true}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}

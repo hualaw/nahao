@@ -75,7 +75,8 @@
 							<span class="fl">支付</span>
 							<span class="fr"></span>
 						</a>
-						{elseif $item.status == $smarty.const.ORDER_STATUS_SUCC || $item.status == $smarty.const.ORDER_STATUS_FINISH}
+						{elseif ($item.status == $smarty.const.ORDER_STATUS_SUCC || $item.status == $smarty.const.ORDER_STATUS_FINISH) 
+						&& ($item.teach_status!=$smarty.const.ROUND_TEACH_STATUS_FINISH && $item.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER) }
 						<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 						{elseif $item.status == $smarty.const.ORDER_STATUS_CANCEL || $item.status == $smarty.const.ORDER_STATUS_CLOSE}
 						<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>
