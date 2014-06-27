@@ -41,7 +41,7 @@
 					{if $array_data.status == $smarty.const.REFUND_STATUS_INIT}
 					 	处理中
 					{elseif $array_data.status == $smarty.const.REFUND_STATUS_FAIL}
-						退款失败
+						退款申请被拒绝
 					{elseif $array_data.status == $smarty.const.REFUND_STATUS_AGREE}
 						同意退款
 					{elseif $array_data.status == $smarty.const.REFUND_STATUS_FINISH}
