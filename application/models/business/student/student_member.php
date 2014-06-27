@@ -153,6 +153,7 @@ class Student_Member extends NH_Model{
             'round_price'=>$array_data['round_price'],
             'refund_price'=>$array_data['refund_price'],
             'create_time'=>time(),
+            'status'=>0,
             'order_id'=>$array_data['order_id'],
             'reason'=>$array_data['reason']
         );
