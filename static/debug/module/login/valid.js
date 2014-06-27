@@ -17,7 +17,8 @@ define(function(require,exports){
         }
     };
     // 手机注册验证
-    exports.regPhoneBoxForm = function(){
+    exports.regPhoneBoxForm = function(){       
+        $(".regPhoneBox .phoneNum").focus();
         var _Form=$(".regPhoneBox").Validform({
             // 自定义tips在输入框上面显示
             tiptype:3,
@@ -89,7 +90,8 @@ define(function(require,exports){
         require("module/login/validFocus");
     };
     // 邮箱注册验证
-    exports.regEmailBoxForm = function(){
+    exports.regEmailBoxForm = function(){    
+        $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
             // 自定义tips在输入框上面显示
             tiptype:3,
@@ -202,6 +204,7 @@ define(function(require,exports){
     }
 	// 登陆验证开始
 	exports.loginForm = function(){
+        $(".userName").focus();
 		var _Form=$(".loginForm").Validform({
 			// 自定义tips在输入框上面显示
 			tiptype:function(msg,o,cssctl){
