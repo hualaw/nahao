@@ -42,7 +42,7 @@ define(function(require,exports){
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:".select_beauty,:checkbox,:radio,.decorate"  
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
