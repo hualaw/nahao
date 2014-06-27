@@ -133,11 +133,11 @@ class Index extends NH_User_Controller {
 	    header('Content-Type:text/html;CHARSET=utf-8');
 	    if ($bool_flag)
 	    {
-//	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
-			echo '<script>alert("申请成功");window.location.href="/"</script>';
+	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
+//			echo '<script>alert("申请成功");window.location.href="'.teacher_url().'"</script>';
 	    } else {
-//	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
-			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
+	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
+//			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
 	    }
 	}
 	
