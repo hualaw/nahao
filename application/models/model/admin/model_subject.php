@@ -68,6 +68,18 @@
             return TRUE;
         }
         /**
+         * 删除学科
+         * @author shangshikai@tizi.com
+         */
+        public function delete_subject($ids)
+        {
+            foreach($ids as $v)
+            {
+                $this->db->delete(TABLE_SUBJECT,array(TABLE_SUBJECT.'.id'=>$v));
+            }
+            return TRUE;
+        }
+        /**
          * 学科是否存在
          * @author shangshikai@tizi.com
          */
@@ -78,6 +90,10 @@
             {
                 return FALSE;
             }
+            else
+            {
+                return TRUE;
+            }
         }
         /**
          * 添加学科
@@ -86,5 +102,13 @@
         public function add_subject($data)
         {
             return $this->db->insert(TABLE_SUBJECT,$data);
+        }
+        /**
+         * 修改学科
+         * @author shangshikai@tizi.com
+         */
+        public function edit_subject($data,$id)
+        {
+            return $this->db->update(TABLE_SUBJECT,$data,array(TABLE_SUBJECT.'.id'=>$id));
         }
     }

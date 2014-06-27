@@ -51,10 +51,16 @@ define(function(require,exports){
 
         $('#insert_subject').click(function(){
             $('#subject_name').val("");
+            $('#subject_id').val($(this).data('id'));
             $('#span_insert').hide();
             $('#insert_model').modal();
         })
-
+        $('.edit_subject').click(function(){
+            $('#subject_name').val($(this).data('name'));
+            $('#subject_id').val($(this).data('id'));
+            $('#span_insert').hide();
+            $('#insert_model').modal();
+        })
         $('#insert').click(function(){
             if($.trim($('#subject_name').val())=='')
             {
@@ -65,7 +71,7 @@ define(function(require,exports){
                 $.ajax({
                     url:'/subject/subject_insert',
                     type:'post',
-                    data:'subject_name='+$('#subject_name').val(),
+                    data:'subject_name='+$('#subject_name').val()+'&id='+$('#subject_id').val(),
                     success:function(msg)
                     {
                         if(msg==false)
@@ -78,6 +84,32 @@ define(function(require,exports){
                         }
                     }
                 })
+            }
+        })
+
+        $('#del_subject').click(function(){
+            if(confirm("确定要删除吗？"))
+            {
+                var arr_v = new Array();
+                $("input[type='checkbox']:checked").each(function(){
+                    arr_v.push($(this).val());
+                });
+                $.ajax({
+                    url:'/subject/del_subject',
+                    type:'post',
+                    data:'ids='+arr_v,
+                    success:function(msg)
+                    {
+                        if(msg==true)
+                        {
+                            location.reload();
+                        }
+                    }
+                })
+            }
+            else
+            {
+                return false;
             }
         })
     }

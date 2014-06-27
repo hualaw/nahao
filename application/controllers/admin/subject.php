@@ -55,6 +55,16 @@
         public function subject_insert()
         {
             $name=$this->input->post('subject_name',TRUE);
-            echo $this->subject->insert_subject($name);
+            $id=$this->input->post('id',TRUE);
+            echo $this->subject->insert_subject($name,$id);
+        }
+        /**
+         * 删除学科
+         * @author shangshikai@tizi.com
+         */
+        public function del_subject()
+        {
+            $ids=$this->input->post('ids',TRUE);
+            echo $this->subject->subject_del($ids);
         }
     }
