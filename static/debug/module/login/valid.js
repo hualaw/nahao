@@ -17,7 +17,8 @@ define(function(require,exports){
         }
     };
     // 手机注册验证
-    exports.regPhoneBoxForm = function(){
+    exports.regPhoneBoxForm = function(){       
+        $(".regPhoneBox .phoneNum").focus();
         var _Form=$(".regPhoneBox").Validform({
             // 自定义tips在输入框上面显示
             tiptype:3,
@@ -25,8 +26,8 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                var hash = CryptoJS.SHA1($(".pwd").val());
-                $(".pwd").val(hash.toString());
+                var hash = CryptoJS.SHA1($(".regPhoneBox .pwd").val());
+                $(".regPhoneBox .pwd").val(hash.toString());
 
             },
             callback:function(json){
@@ -89,7 +90,8 @@ define(function(require,exports){
         require("module/login/validFocus");
     };
     // 邮箱注册验证
-    exports.regEmailBoxForm = function(){
+    exports.regEmailBoxForm = function(){    
+        $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
             // 自定义tips在输入框上面显示
             tiptype:3,
@@ -97,9 +99,9 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                var hash = CryptoJS.SHA1($(".pwd").val());
-                $(".pwd").val(hash.toString());
-
+                //alert($(".regEmailBox .pwd").val());
+                var hash = CryptoJS.SHA1($(".regEmailBox .pwd").val());
+                $(".regEmailBox .pwd").val(hash.toString());
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -204,6 +206,7 @@ define(function(require,exports){
     }
 	// 登陆验证开始
 	exports.loginForm = function(){
+        $(".userName").focus();
 		var _Form=$(".loginForm").Validform({
 			// 自定义tips在输入框上面显示
 			tiptype:function(msg,o,cssctl){
