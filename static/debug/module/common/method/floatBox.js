@@ -1,7 +1,18 @@
 define(function(require,exports){
 	// 悬浮框
     exports.floatBox = function (oDiv,returnBtn){
-    	window.onload=window.onscroll=window.onresize=function (){
+
+		window.onload = function (){
+			scrollTopfn();
+		}
+		window.onresize = function (){
+			scrollTopfn();
+		}
+    	window.onscroll=function (){
+			scrollTopfn();
+		}
+
+		function scrollTopfn(){
 			var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
 			//判断ie6
 			if (window.navigator.userAgent.indexOf("MSIE 6")!=-1){
@@ -13,10 +24,10 @@ define(function(require,exports){
 			}else{
 				returnBtn.show();
 			}
-			//点击返回首部		
-			returnBtn.click(function (){
-				$("html,body").animate({scrollTop:0});
-			})
 		}
+		//点击返回首部		
+		returnBtn.click(function (){
+			$("html,body").animate({scrollTop:0});
+		})
     }
 })

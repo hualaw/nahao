@@ -20,8 +20,6 @@ define(function(require,exports){
 
 	//判断当前页面时注册成功的关于我的页面
 	if($('.regSuccessBox').length > 0){
-		// 美化select
-//		$('select').jqTransSelect();
 		// 美化radio
 		$('input[type=radio]').jqTransRadio();
 	}
@@ -30,8 +28,6 @@ define(function(require,exports){
 	//}
 	// 登陆之后验证
 	_valid.loginAfterForm();
-    //手机找回密码验证
-//	_valid.phoneFindPW();
     //手机找回密码验证
 	_valid.EmailFindPW();
     // 注册成功之后验证
@@ -55,4 +51,6 @@ define(function(require,exports){
     if($("#province").length > 0) {
         require("module/studentMyCourse/area").change_area();
     }
+    //注册页面 右侧滚动
+    _resetPwd.scrollUpAndDown();
 })

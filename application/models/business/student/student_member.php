@@ -5,6 +5,7 @@ class Student_Member extends NH_Model{
     function __construct(){
         parent::__construct();
         $this->load->model('model/student/model_member');
+        $this->load->model('model/student/model_course');
         $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_order');
     }
@@ -18,26 +19,43 @@ class Student_Member extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_member->get_my_course_for_buy($int_user_id);
+        //var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-                $array_return[$k]['class_img'] = empty( $array_return['img']) ? HOME_IMG_DEFAULT : $array_return['img'];
+               	$class_img = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'general');
                 #这轮共M节
-                $array_return[$k]['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
+               	$totle_class = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
                 #这轮上了M节
-                $array_return[$k]['class'] = $this->model_member->get_student_class_done($int_user_id,$v['round_id']);
+                $class  = $this->model_member->get_student_class_done($int_user_id,$v['round_id']);
                 #比例 = 上了M节/共M节
-                $array_return[$k]['class_rate'] = $array_return[$k]['totle_class'] == 0 ? 0 : round($array_return[$k]['class']/$array_return[$k]['totle_class'],2)*100;
+                $class_rate = $totle_class == 0 ? 0 : round($class/$totle_class,2)*100;
                 #授课状态
                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
                 {
                     #下节课上课时间
                     $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
-                    #处理下节课上课时间
-                    $array_return[$k]['next_class_time'] = $this->student_course->handle_time($next_class_time['begin_time'],$next_class_time['end_time']);
+                    if($next_class_time)
+                    {
+                    	$stime = $next_class_time['begin_time'];
+                    	$etime = $next_class_time['end_time'];
+                    	#处理下节课上课时间
+                    	$array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
+                    } else {
+	                    #处理下节课上课时间
+	                    $array_return[$k]['next_class_time'] = '';
+                    }
+
+                } else{
+                	$array_return[$k]['next_class_time'] = '';
                 }
+                #组合数据
+                $array_return[$k]['class_img'] = $class_img;
+                $array_return[$k]['totle_class'] = $totle_class;
+                $array_return[$k]['class'] = $class;
+                $array_return[$k]['class_rate'] = $class_rate;
             }
         }
         return $array_return;
@@ -53,15 +71,16 @@ class Student_Member extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_member->get_order_list($int_user_id,$str_type,$int_start,$int_limit);
+        //var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
             {
                 #获取轮的信息
-                $array_round = $this->student_course->get_round_info($v['round_id']);
+                $array_round = $this->model_course->get_round_info($v['round_id']);
                 #处理时间
                 $array_return[$k]['create_time'] = date('Y/m/d H:i:s',$v['create_time']);
-                $array_return[$k]['class_img'] = $array_round['class_img'];
+                $array_return[$k]['class_img'] = empty( $array_round['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_round['img'],'small');
                 $array_return[$k]['title'] = $array_round['title'];
                 #处理付款方式
                 if ($v['pay_type'] == '0'|| $v['pay_type'] == '1' ||$v['pay_type'] == '2'||$v['pay_type'] == '3')
@@ -94,23 +113,24 @@ class Student_Member extends NH_Model{
      * @param  $int_user_id
      * @return $array_return
      */
-    public function get_apply_refund_data($int_user_id,$int_round_id)
+    public function get_apply_refund_data($int_user_id,$array_order)
     {
         $array_return = array();
         #获取轮的信息
-        $array_round = $this->model_course->get_round_info($int_round_id);
+        $array_round = $this->model_course->get_round_info($array_order['round_id']);
         #这个人买的这轮上了N节
-        $array_return['class'] = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
+        $array_return['class'] = $this->model_member->get_student_class_done($int_user_id,$array_order['round_id']);
         #这个人买的这轮总共M节
-        $array_return['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
+        $array_return['totle_class'] = $this->model_member->get_student_class_totle($int_user_id,$array_order['round_id']);
         #获取轮的标题
         $array_return['title'] = $array_round['title'];
         #课程总金额
-        $array_return['totle_money'] = $array_round['sale_price'];
+        $array_return['totle_money'] = $array_order['spend'];
         #课时费
         $array_return['reward'] = $array_round['reward'];
         #可退金额
         $array_return['return_money'] = $array_return['totle_money'] - $array_return['class'] * $array_return['reward']*2;
+        $array_return['return_money'] = $array_return['return_money'] <=0 ? 0 :$array_return['return_money'];
         #这个人买的这轮没上N节
         $array_return['unclass'] = $array_return['totle_class'] - $array_return['class'];
         #轮id
@@ -181,13 +201,14 @@ class Student_Member extends NH_Model{
      * @param  $int_round_id
      * @return $array_data
      */
-    public function get_student_refund_data($int_user_id,$int_round_id)
+    public function get_student_refund_data($int_user_id,$array_order)
     {
         #获取轮的数据
-        $array_round = $this->student_course->get_round_info($int_round_id);
+        $array_round = $this->student_course->get_round_info($array_order['round_id']);
         #获取学生退款记录
-        $array_data = $this->model_member->get_student_refund_data($int_user_id,$int_round_id);
+        $array_data = $this->model_member->get_student_refund_data($int_user_id,$array_order['round_id']);
         $array_data['title'] = $array_round['title'];
         return $array_data;
     }
+    
 }

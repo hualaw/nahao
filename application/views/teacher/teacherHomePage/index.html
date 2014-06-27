@@ -19,8 +19,8 @@
 	    <div class="md_classInfo">
             <h2 class="hd_title">
                 <span class="hd_day">{$data['date']}</span>
-                <span class="hd_date">星期五</span>
-                <span class="hd_num">今天要上的班次：<b>{$data['today_total']}</b></span>
+                <span class="hd_date">星期{$data['week']}</span>
+                <span class="hd_num">今天要上的课：<b>{$data['today_total']}</b></span>
             </h2>
             <div class="md_bd">
                 <table class="md_table custom_table">
@@ -34,27 +34,25 @@
                     </tr>
                     {if $data['listArr']}
 	                    {foreach $data['listArr'] as $key=>$val}
-	                    <tr {if $val['status']==2}class="start"{elseif $val['status']==3}class="end"{/if}>
+	                    <tr {if $val['status']==3}class="start"{elseif $val['status']==4}class="end"{/if}>
 	                        <td>
 	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
-	                            <a href="javascript:void(0)" class="readyGo">
-	                            	{if $val['status']==1}
-	                            		即将开始
-	                            	{elseif $val['status']==2}
-	                            		正在上课
-	                            	{elseif $val['status']==3}
-	                            		上完课
-	                            	{/if}
+	                            <a {if in_array($val['status'],$data['enter_classroom'])}href="{$student_url}classroom/teacher_enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} target="_blank" class="readyGo">
+	                            {$val['status_name']}
 	                            </a>
 	                        </td>
 	                        <td class="className">
-	                            <h3>{$val['title']}</h3>
+	                        	{if in_array($val['status'],$data['enter_classroom'])}
+	                            	<h3><a href="{$student_url}classroom/teacher_enter/{$val['classroom_id']}">{$val['title']}</a></h3>
+	                        	{else}
+	                        		<h3>{$val['title']}</h3>
+	                            {/if}
 	                            <p>{$val['round_title']}</p>
 	                        </td>
 	                        <td><b class="fred">{$val['already_total']}</b> / {$val['total']}</td>
 	                        <td>{$val['course_type_name']}</td>
-	                        <td class="classWord"><em class="icon_note"></em><a href="#">{$val['courseware_name']}</a></td>
-	                        <td><em class="icon_notem"></em></td>
+	                        <td class="classWord"><em class="icon_note"></em><a href="http://classroom.oa.tizi.com/meeting/preview/{$val['courseware_id']}" target="_blank">{$val['courseware_name']}</a></td>
+	                        <td><a href="/orderList/question/{$val['id']}" title="查看练习题" target="_blank"><em class="icon_notem"></em></a></td>
 	                    </tr>
 	                    {/foreach}
 	               {else}
@@ -64,6 +62,7 @@
 	               {/if}
                 </table>
             </div>
+            {$data['pageBar']}
 	    </div>
         <!--首页表格结束-->
     </div>

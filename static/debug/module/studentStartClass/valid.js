@@ -1,6 +1,7 @@
 define(function(require,exports){
 	// 请求验证库
     require("validForm");
+    require("naHaoDialog");
     // 定义公共tipType;
     var commonTipType = function(msg,o,cssctl){
         if(!o.obj.is("form")){
@@ -15,23 +16,56 @@ define(function(require,exports){
             objtip.text(msg);
         }
     };
+    //验证试讲时间
+    function check_time_pick(){
+    	$('.timeSecelt').eq(1).find('li a').click(function(){
+    		var start = parseInt($('.startTime').val());
+        	var end = parseInt($('.endTime').val());
+    		if(start>=end){
+        		$('.timeSecelt').eq(1).children('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
+        	}
+    	});
+    }
     //我要开课 试讲 信息 验证
     exports.writeInfoForm = function (){
         var _Form=$(".writeInfoForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:true,
-            beforeSubmit: function(curform) {
-                
+             ajaxPost:true,
+            beforeSubmit: function() {
+	   			var start = parseInt($('.startTime').val());
+	            var end = parseInt($('.endTime').val());
+	            if(start>=end){
+	                $('.timeSecelt').eq(1).children('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
+	
+	                $.tiziDialog({
+	                    icon:null,
+	                    content:"开始时间不能晚于结束时间"
+	                });
+	                return false;
+	            }
             },
             callback:function(data){
-                alert('提交成功');
+            	if(data.status=='ok'){
+            		$.tiziDialog({
+               			icon: 'succeed',
+	                    content:"开课申请成功",
+	                    ok:function(){
+	                    	window.location.href="/";
+	                    },
+	                });
+            	}else{
+            		$.tiziDialog({
+               			icon: 'error',
+	                    content:data.msg,
+	                });
+            	}
             },
             usePlugin:{
                 jqtransform:{
                     //会在当前表单下查找这些元素;
-                    selector:"select,:checkbox,:radio,.decorate"    
+                    selector:".select_beauty,:checkbox,:radio,.decorate"    
                 }
             }
         });
@@ -44,10 +78,10 @@ define(function(require,exports){
                 errormsg:"长度2-15个字符"
             },
             {
-                ele:".loction",
+                ele:".schoolFullName",
                 datatype:"*",
-                nullmsg:"请选择地区",
-                errormsg:"请选择正确的地区"
+                nullmsg:"请选择学校",
+                errormsg:"请选择正确的学校"
             },
             {
                 ele:".radioInput",
@@ -68,18 +102,6 @@ define(function(require,exports){
                 errormsg: "您未选择教学阶段！"
             },
             {
-                ele:".area_county_id",
-                datatype: "*",
-                nullmsg: "请选择所在区域",
-                errormsg: "请选择所在区域"
-            },
-            {
-                ele:"#school_type",
-                datatype: "*",
-                nullmsg: "请选择所在学校类型",
-                errormsg: "请选择所在学校类型"
-            },
-            {
                 ele:".teaTitle",
                 datatype: "*",
                 nullmsg: "请选择教师职称",
@@ -87,7 +109,6 @@ define(function(require,exports){
             },
             {
                 ele:".seniority",
-//                datatype: "/^\\d{4}$/",
                 datatype: "*",
                 nullmsg: "请选择实际教龄",
                 errormsg: "请选择正确的实际教龄"
@@ -106,8 +127,7 @@ define(function(require,exports){
             },
             {
                 ele:".wQQ",
-                datatype:"n5-12 | /^\\w{0}$/",
-                datatype_nonull:"n5-12",
+				datatype:"/^\\d{5,12}$/",
                 nullmsg:"请输入QQ号码！",
                 errormsg:"长度5-12个数字"
             },
@@ -146,6 +166,16 @@ define(function(require,exports){
                 errormsg:"请输入正确的课程名称"
             }   
         ]);
+       check_time_pick();
+        // ajaxurl提交成功处理
+        _Form.config({
+            url : '/index/save_apply_teach',
+            ajaxurl:{
+                success:function(json,obj){
+                    console.log(json);
+                }
+            }
+        });
     }
     //我要开课 老师注册验证
     exports.teaRegForm = function (){

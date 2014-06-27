@@ -20,7 +20,7 @@ a:hover {text-decoration:none;}
 .blueText:hover{text-decoration: underline;color:#6dcde6;}
 .grayText{color: #a3adb7;}
 .yh{font-family: "微软雅黑";font-weight: normal;}
-.cInput{border: 1px solid #a2a2a2;padding: 0 10px;font-size: 14px;height: 30px;}
+.cInput{border: 1px solid #a2a2a2;padding: 0 10px;font-size: 14px;height: 30px;line-height: 30px;}
 .undis{display: none;}
 .dis{display: block;}
 .undisIm{display:none!important;}
@@ -30,11 +30,10 @@ a:hover {text-decoration:none;}
 .greenText{color:#7ba801!important;}
 
 form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
-.ctextarea{padding: 10px 20px;font-size: 14px;}
+.ctextarea{padding: 10px 20px;font-size: 14px;border: 1px solid #a2a2a2;}
 .cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
-/*form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}*/
 
 form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;width: 33px;height: 33px;top: -1px;right: -1px;}
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
@@ -43,8 +42,9 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 0;right: 0;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 140px;right: 0;z-index: 1111;}
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
+.floatBox a.feedback{margin-top: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
 .floatBox .feedback{background-image: url(../../images/common/feedback.jpg);}
 .floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;}
@@ -64,6 +64,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 	-ms-transition:.2s all ease;
 	color:#333;background: #fff;
 }
+.iniBox img{height: 172px;width: 230px;}
 .iniBox .iniInfor{ padding: 0 12px 0 8px;}
 .iniBox .iniInfor em.redText{ font-weight: bold;margin-right: 4px;}
 .iniBox .fitGrade{color:#a2a2a2;}
@@ -89,7 +90,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .rotateBox h3{font-size: 14px;}
 .rotateBox .detailInfor{font-size: 12px;margin-top:3px;}
 .rotateBox .courseTitle{position: absolute;bottom: 10px;left: 16px;width: 202px;height: 32px;line-height: 32px;background: url(../../images/common/hoverBg.png) right top no-repeat;}
-.rotateBox .brief{line-height: 20px;padding: 25px 16px 0;}
+.rotateBox .brief{line-height: 20px;padding: 25px 16px 0;font-size: 12px;}
 .studentHomePage .courseList li:hover .iniBox,
 .studentMyCourse .newList li:hover .iniBox{-webkit-transform:rotateY(90deg);-moz-transform:rotateY(90deg);-ms-transform:rotateY(90deg);}
 .studentHomePage .courseList li:hover .rotateBox,
@@ -99,9 +100,10 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .lowHomePage .rotateBox{display: none;}
 .lowHomePage .courseList li:hover .rotateBox,
 .lowHomePage .newList li:hover .rotateBox{display: block;}
+.lowHomePage .courseList li:hover .courseFree,
+.lowHomePage .newList li:hover .courseFree{display: none;}
 .lowHomePage .courseList li,
 .lowHomePage .newList li{border: 1px solid #dbdbdb;}
-/*.lowHomePage .reTitle{margin:0 auto;margin-top:-40px;line-height: 80px;}*/
 .lowHomePage .tipText{margin-top: 0px!important;}
 
 /*表格效果开始*/
@@ -110,14 +112,16 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 table.md_table{width:100%;font-size:14px;border:1px solid #d7d7d7;}
 table.md_table a{color: #17a27e;}
 table.md_table a:hover{color: #f90;}
-table.md_table td,table th{text-align:center;line-height:40px;/*border:1px solid #d7d7d7;*/border-bottom: 1px solid #d7d7d7;}
+table.md_table td,table th{text-align:center;line-height:40px;border-bottom: 1px solid #d7d7d7;}
 table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:normal;}
 /*表格效果结束*/
 .schoolPar{text-align: left;}
+.schoolPar .schoolFullName{width: 325px;}
 .resetSchool{color: #6dcde6;font-size: 14px}
 .schoolFullName{font-size: 14px;}
 .resetSchool:hover{text-decoration:underline;}
 .codeSpan  {border-radius: 2px;background: #dedede;padding: 5px 8px;}
+.login .codeSpan{padding:0 8px;margin-left: 10px;}
 /*全站分页代码样式开始*/
 .page {margin:10px 0px; line-height:30px;}
 .page a{float:left;height: 38px;line-height: 38px;padding: 0 15px;font-size: 16px;color: #4b4b4b;margin-right: 3px;background: #fff;}
@@ -134,15 +138,17 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .page span a:hover{color:#fff;background:#f14211;}
 /*全站分页代码样式结束*/
 /* 意见反馈 */
-.feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:30px;}
+.feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:20px;}
 .feedback h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
 .feedback form .fbText{height: 28px;line-height: 28px;}
-.feedback form textarea{width: 610px;height: 228px;}
+.feedback form textarea{width: 610px;height: 100px;}
 .feedback form input{width:288px;}
 .feedback .formName{font-size: 16px;}
 .feedback .submit,
 .evalu .submit{width: 140px;margin-top: 12px;height: 40px;line-height: 40px;font-weight: bold;font-size: 20px;}
-
-
-
-
+/*  登录 */
+.loginInputBg{position: absolute;width: 55px;height: 50px;left: 0;top:0;background: url(../../images/login/loginInputBg.png) no-repeat;}
+.unBg{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
+.pwdBg{background-position: 15px -50px;}
+/*  免费  */
+.courseFree{background: url(../../images/common/free.png) top right no-repeat;position: absolute;right: -6px;top:-6px;width: 87px;height: 89px;z-index: 111;}

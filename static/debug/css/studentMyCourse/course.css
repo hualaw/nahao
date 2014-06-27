@@ -1,9 +1,10 @@
 .myCoursePage{background: #eee;} 
+.studentMyCourse .noFillin{font-weight: bold;}
 .studentMyCourse .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
 .studentMyCourse .locaSele select{padding: 6px;margin-right:10px;}
 .studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
 .studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
-.studentMyCourse .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
+.studentMyCourse .Validform_right{width:0px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
 .studentMyCourse .identity .teaCard{background-position: -50px 0;width: 14px;}
@@ -39,7 +40,7 @@
 /* 右侧框架开始 */
 .studentMyCourse .pageName{font-size: 18px;color:#0e455e;border-left: 3px solid #f14211;padding-left: 6px;height: 20px;line-height: 20px;margin-bottom: 10px;}
 /*  我的课程  */
-.studentMyCourse .courseConList li{width: 230px;margin:0 35px 6px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
+.studentMyCourse .courseConList li{width: 230px;margin:0 35px 20px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
 .studentMyCourse .courseConList{margin-right: -35px;}
 .studentMyCourse .myCourseList li{background: #fff;height: 320px;}
 
@@ -47,6 +48,7 @@
 .studentMyCourse .noCourse span{color:#a2a2a2;font-size: 16px;padding-top: 60px;background: url(../../images/studentMyCourse/addCourse.png) center top no-repeat;}
 .studentMyCourse .noCourse:hover span{color:#f14211;background: url(../../images/studentMyCourse/addCourseh.png) center top no-repeat;}
 .studentMyCourse .noCourse:hover{background:#f2f2f2;}
+.studentMyCourse .myCourseList .noCourseList{height: 230px;line-height: 290px;}
 
 .studentMyCourse .hasCourse{color: #4b4b4b;text-align: center;}
 .studentMyCourse .hasCourse h3{font-size: 16px;font-weight: normal;height: 40px;line-height: 48px;text-align: center;}
@@ -54,13 +56,13 @@
 .studentMyCourse .hasCourse .progress{position: relative;height: 2px;background: #6dcde6;}
 .studentMyCourse .hasCourse .bar{position: absolute;height: 2px;background: #f14211;width: 20%;left:0;}
 .studentMyCourse .hasCourse .lessons{text-align: right;}
-.studentMyCourse .hasCourse .btn{height: 30px;line-height: 30px;width: 160px;}
+.studentMyCourse .hasCourse .btn{height: 30px;line-height: 30px;width: 160px;position: absolute;bottom: 14px;left: 50%;margin-left: -80px;}
 .studentMyCourse .hasCourse .classTime{text-align: left;margin-top: -8px;}
 .studentMyCourse .hasCourse .courseInfor{font-size: 14px;padding: 0 8px 8px;}
 .studentMyCourse .hasCourse:hover .btn{background:#6dcde6;}
 .studentMyCourse .hasCourse .over{font-size: 18px;font-weight: bold;margin-top: 5px;}
 .studentMyCourse .courseOver .bar{width: 100%;}
-.studentMyCourse .newList{margin-top: 35px;}
+.studentMyCourse .newList{margin-top: 20px;}
 .studentMyCourse .newList li{height: 270px;margin-top: 4px;position: relative;}
 /*  我的订单  开始*/
 .studentMyCourse .myOrderCon{font-size: 16px;}
@@ -127,12 +129,9 @@
 .studentMyCourse .applyState .detailInfor span{display: inline-block;margin-bottom: 6px;}
 /*   申请退课  */
 .studentMyCourse .applyFromBox{padding: 20px 0 50px 16px;font-size: 16px;color:#4b4b4b;}
-/*.studentMyCourse .applyFromBox .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
-.studentMyCourse form input,textarea,select{color:#c1c1c1;border: 1px solid #a2a2a2;}
-.studentMyCourse form input:focus,textarea:focus,select:focus{color:#4b4b4b;}*/
 .studentMyCourse .applyFromBox textarea{font-size: 14px;width: 580px;min-height: 130px;}
 .studentMyCourse form input{width: 325px;height: 30px;}
-.studentMyCourse form .btn{font-size: 18px;font-weight: bold;color:#fff;width: 130px;margin:26px 22px 0 0;height: 40px;box-shadow:0 0 3px #cdcdcd;}
+.studentMyCourse form .btn{font-size: 18px;font-weight: bold;color:#fff;width: 130px;margin:26px 22px 0 0;height: 40px;}
 .studentMyCourse .applyFromBox form .pageName{margin-top: 40px;}
 .studentMyCourse .applyFromBox form{padding: 0px 0 0 10px;}
 .studentMyCourse .applyFromBox .classDetail li{cursor:pointer;float:left;width: 98px;height: 98px;border-right:1px solid #f14211;color:#f14211;text-align: center;}
@@ -141,6 +140,7 @@
 .studentMyCourse .applyFromBox .classDetail{border: 1px solid #f14211;border-right:none;width: 396px;margin:22px 0 0;}
 .studentMyCourse .applyFromBox .detailText{line-height: 26px;}
 .studentMyCourse .applyFromBox .classDetail span{display: inline-block;margin:25px 0 6px;}
+.studentMyCourse .bankInfor{height: 34px;margin-left: 10px;}
 /*  申请成功  */
 .studentMyCourse .applysuc{border-top: 2px solid #f14211;width: 400px;height: 172px;text-align: center;background: #fff;}
 .studentMyCourse .applysuc .pt{font-weight: bold;font-size: 24px;color:#4b4b4b;margin:38px 0 20px;}
@@ -201,11 +201,14 @@
 .studentMyCourse .buyCourse .review a:hover{color:#333;}
 .studentMyCourse .buyCourse .hreview{background: url(../../images/studentMyCourse/hreview.png) no-repeat;margin-left: 2px;width: 21px;height: 20px;float: left;}
 .studentMyCourse .buyCourse .starBg{display: inline-block;width: 115px;height: 20px;margin-left: -2px;background: url(../../images/studentMyCourse/review.png);}
-.studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 136px;margin:0;}
-.studentMyCourse .buyCourse .fromf strong{font-size: 24px;height: 40px;line-height: 40px;margin-right: 14px;}
-.studentMyCourse .buyCourse .fromf strong span{font-size: 36px;margin-left: -5px;}
+.studentMyCourse .buyCourse .fromf{line-height: 40px;}
+.studentMyCourse .buyCourse .fromf .oldPrice{color:#a2a2a2;font-size: 14px; }
+.studentMyCourse .buyCourse .fromf .oldPrice span{text-decoration: line-through;}
+.studentMyCourse .buyCourse .fromf .btn3{font-weight: normal;width: 143px;margin:0;padding-left: 10px;}
+.studentMyCourse .buyCourse .fromf strong{font-size: 18px;height: 40px;line-height: 40px;margin-right: 14px;}
+.studentMyCourse .buyCourse .fromf strong span{font-size: 30px;margin-left: -5px;}
 .studentMyCourse .buyCourse .endTime .timeTitle{padding-left: 54px;background: url(../../images/studentMyCourse/endTime.png) 24px top no-repeat;height: 22px;}
-.studentMyCourse .buyCourse .countdown{font-size: 18px;margin:18px 0 26px;}
+.studentMyCourse .buyCourse .countdown{font-size: 18px;margin:18px 0 26px;text-align: center;}
 .studentMyCourse .buyCourse .cdp{font-size: 14px;color: #a2a2a2;padding-left: 40px;margin-bottom: 18px;}
 .studentMyCourse .buyCourse .prompt{height: 20px;line-height: 20px;margin-bottom: 5px;padding-left: 32px;font-size: 16px;}
 .studentMyCourse .buyCourse .ensure{background: url(../../images/studentMyCourse/ensure.png) no-repeat;}
@@ -255,16 +258,22 @@
 .studentMyCourse .outlineList .listc{color:#6dcde6;}
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
 .studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
-/*.studentMyCourse .outlineList ul{margin-top: 20px;}*/
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
 .studentMyCourse .outlineList .listh{font-size: 16px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
 /*   我的课程购买后  */
+.studentMyCourse .buyAfter .cstate{width: 162px;height: 91px;position: absolute;left:25%;top:50px;background-repeat: no-repeat;}
+.studentMyCourse .buyAfter .cend{background-image: url(../../images/studentMyCourse/cend.png);}
+.studentMyCourse .buyAfter .cstop{background-image: url(../../images/studentMyCourse/cstop.png);}
+.studentMyCourse .buyAfter .coverdue{background-image: url(../../images/studentMyCourse/coverdue.png);}
+
 .studentMyCourse .buyAfter .outline{padding-left: 30px;}
 .studentMyCourse .buyAfter .cBtn{width: 108px;height: 30px;line-height: 30px;border-radius: 2px;font-size: 18px;display: inline-block;text-align: center;}
 .studentMyCourse .buyAfter .replay{border: 1px solid #6dcde6;color:#6dcde6;}
+.studentMyCourse .buyAfter .replay:hover{background:#6dcde6;color: #fff;}
 .studentMyCourse .buyAfter .soonClass{border: 1px solid #e9e9e9;color:#f14211;}
 .studentMyCourse .buyAfter .goClass{border: 1px solid #f14211;color:#f14211;}
+.studentMyCourse .buyAfter .goClass:hover{background:#f14211;color:#fff;}
 .studentMyCourse .buyAfter .outlineList h3{margin:0 0 0 110px;}
 .studentMyCourse .buyAfter .outlineList .rCon{width: 458px;background: url(../../images/studentMyCourse/reda.png) 5px 3px no-repeat;}
 .studentMyCourse .buyAfter .outlineList .rConOver{background-image: url(../../images/studentMyCourse/greda.png);}
@@ -295,7 +304,7 @@
 .studentMyCourse .abuyTab .nDetailCon .indent{text-indent: 2em;}
 .studentMyCourse .buyAfter .buyHead{background: url(../../images/studentMyCourse/buyHeadBg.png) no-repeat;height: 284px;margin-bottom: 30px;}
 .studentMyCourse .buyAfter .buyHeadt{border-top:2px solid #f14211;padding-top: 23px;}
-.studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;}
+.studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;height: 175px;}
 .studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;height: 179px;overflow-y: scroll;}
 .studentMyCourse .buyAfter .courseInfor h2{font-size: 24px;height: 24px;line-height: 24px;margin-bottom: 32px;}
 .studentMyCourse .buyAfter .courseInfor h3{font-weight: normal;font-size: 20px;}
@@ -334,7 +343,7 @@
 .studentMyCourse .sevaluBtn{color:#cecece;border: 1px solid #cecece;}
 .evalu{padding: 14px 48px 88px;width: 602px;margin-top:30px;}
 .evalu h3{font-weight: normal;font-size: 18px;}
-.evalu .starBg{/*width: 170px;background: url(../../images/classRoom/evalBg.png);*/display: inline-block;margin:16px 0 26px;}
+.evalu .starBg{display: inline-block;margin:16px 0 26px;}
 .evalu .starBg span{float:left;width: 32px;height: 30px;margin-right: 2px;background: url(../../images/classRoom/evalBg.png) no-repeat;cursor: pointer;}
 .evalu .starBg span.cStar{background: url(../../images/classRoom/cevalBg.png) no-repeat;}
 .evalu textarea{width: 560px;height: 238px;}

@@ -1,4 +1,5 @@
 define(function(require,exports){
+    require("naHaoDialog");
     // 请求验证库
     require("validForm");
     // 请求公共验证信息
@@ -28,10 +29,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert(data.msg);
-                if(data.status == 'ok') {
-                    window.location.reload();
-                }
+                $.dialog({
+                    content:data.msg,
+                    icon:null,
+                    ok: function() {
+                        if(data.status == 'ok') {
+                            window.location.reload();
+                        }    
+                    }
+                })
             },
             usePlugin:{
                 jqtransform:{
@@ -45,15 +51,19 @@ define(function(require,exports){
         _Form.addRule([
             {
                 ele: ".userName",
-                datatype:"*6-8",
+                datatype:"*",
                 nullmsg:"请输入昵称",
-                errormsg:"长度6-8个字符"
+                errormsg:"长度4-16个字符",
+                ajaxurl:'/selfInfo/validate_user_nickname',
+                ajaxUrlName:'nickname'
             },
             {
                 ele:".userRealName",
-                datatype: "*6-8",
+                datatype: "*",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度6-8个字符"
+                errormsg: "长度4-16个字符",
+                ajaxurl: "/selfInfo/check_realname_length",
+                ajaxUrlName:"realname"
 
             },
             {
@@ -61,13 +71,6 @@ define(function(require,exports){
                 datatype:"*",
                 nullmsg:"请选择教学阶段",
                 errormsg:"请选择教学阶段"
-            },
-            {
-                ele:".school",
-                datatype: "*",
-                nullmsg: "请输入就读学校名称",
-                errormsg: "学校名称有误"
-
             },
             {
                 ele:".subject",
@@ -84,33 +87,12 @@ define(function(require,exports){
 
             },
             {
-                ele:".province",
-                datatype: "*",
-                nullmsg: "请选择省份",
-                errormsg: "请选择省份"
-
-            },
-            {
-                ele:".city",
-                datatype: "*",
-                nullmsg: "请选择城市",
-                errormsg: "请选择城市"
-
-            },
-            {
                 ele:".sex",
                 datatype: "*",
                 nullmsg: "请选择性别",
                 errormsg: "请选择性别"
 
             },
-//            {
-//                ele:".zone",
-//                datatype: "*",
-//                nullmsg: "请选择地区",
-//                errormsg: "请选择地区"
-//
-//            },
             {
                 ele:".schoolAge",
                 datatype: "*",
@@ -120,9 +102,10 @@ define(function(require,exports){
             },
             {
                 ele:".phone",
-                datatype: "*",
+                datatype: "m",
                 nullmsg: "请输入手机号码",
-                errormsg: "请输入手机号码"
+                errormsg: "请输入手机号码",
+                ignore:"ignore"
 
             },
             {
@@ -167,14 +150,27 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".iniPassword").val());
+                $(".iniPassword").val(hash.toString());
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
             },
             callback:function(data){
                 if(data.status == 'ok') {
-                    alert('密码修改成功, 页面将跳转到登陆页面');
-                    window.location = 'http://www.nahaodev.com';
+                    $.dialog({
+                        content:'密码修改成功, 页面将跳转到登陆页面',
+                        icon:null,
+                        ok:function () {
+                            window.location = data.url;
+                        }
+                    })
                 } else {
-                    alert(data.info);
+                    $.dialog({
+                        content:data.info
+                    })
                 }
             }
         });
@@ -182,21 +178,19 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".iniPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"请输入密码",
-                errormsg:"请输入正确的密码",
-                ajaxurl:'/selfInfo/front_check_password',
-                ajaxUrlName:'password'
+                errormsg:"请输入正确的密码"
             },
             {
                 ele:".setPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 nullmsg:"新密码不能为空",
-                errormsg:"长度6-16个字符之间"
+                errormsg:"长度6-20个字符之间"
             },
             {
                 ele:".reSetPassword",
-                datatype:"*6-16",
+                datatype:"*6-20",
                 recheck:"set_password",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"

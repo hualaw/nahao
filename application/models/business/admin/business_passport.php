@@ -14,7 +14,7 @@ class Business_Passport extends NH_Model{
      */
     public function get_token_from_cookie(){
         $arr_return = array();
-        $str_cookie_key = '_token_'.ROLE_ADMIN;
+        $str_cookie_key = '_token_'.NH_MEETING_TYPE_ADMIN;
         $str_cookie_value = get_cookie($str_cookie_key);
         if ($str_cookie_value) {
             $arr_cookie_value = json_decode(authcode($str_cookie_value, 'DECODE'),true);
@@ -30,7 +30,7 @@ class Business_Passport extends NH_Model{
      * @author yanrui@tizi.com
      */
     public function set_token_to_cookie($arr_user_info){
-        $str_cookie_key = '_token_'.ROLE_ADMIN;
+        $str_cookie_key = '_token_'.NH_MEETING_TYPE_ADMIN;
         $arr_cookie_value = array(
             'user_id' => $arr_user_info['id'],
             'password' => $arr_user_info['password'],
@@ -40,7 +40,7 @@ class Business_Passport extends NH_Model{
     }
 
     /**
-     * logout
+     * login
      * @param $str_username
      * @param $str_password
      * @return bool
@@ -53,7 +53,10 @@ class Business_Passport extends NH_Model{
             $str_salt = $arr_user_info['salt'];
             if(sha1($str_salt.sha1($str_password))===$arr_user_info['password']){
                 if($arr_user_info['status']==1 OR $arr_user_info['id']==1){//超管和非冻结账户才能登录
-                    $this->passport->set_token_to_cookie($arr_user_info);
+//                    $this->passport->set_token_to_cookie($arr_user_info);
+                    $this->session->set_userdata($arr_user_info);
+                    $this->session->set_userdata('user_id',$arr_user_info['id']);
+                    $this->session->set_userdata('user_type', NH_MEETING_TYPE_ADMIN);
                     $bool_return = true;
                 }
             }
@@ -66,8 +69,9 @@ class Business_Passport extends NH_Model{
      * @author yanrui@tizi.com
      */
     public function logout(){
-        $str_cookie_key = '_token_'.ROLE_ADMIN;
-        delete_cookie($str_cookie_key);
+//        $str_cookie_key = '_token_'.ROLE_ADMIN;
+//        delete_cookie($str_cookie_key);
+        $this->session->sess_destroy();
     }
 
     /**
@@ -95,9 +99,9 @@ class Business_Passport extends NH_Model{
      */
     public function get_user_from_db($int_user_type,$int_user_id){
         $arr_return = array();
-        $arr_role = array(ROLE_ADMIN,ROLE_STUDENT,ROLE_TEACHER);
+        $arr_role = array(NH_MEETING_TYPE_ADMIN,NH_MEETING_TYPE_STUDENT,NH_MEETING_TYPE_TEACHER);
         if(in_array($int_user_type,$arr_role) AND $int_user_id > 0){
-            if($int_user_type==ROLE_ADMIN){
+            if($int_user_type==NH_MEETING_TYPE_ADMIN){
                 $this->load->model('model/admin/Model_Admin', 'admin');
                 $arr_return = $this->admin->get_admin_by_id($int_user_id);
 //                $arr_return['permission'] = $this->admin->get_admin_permission($int_user_id, 'format');

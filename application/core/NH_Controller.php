@@ -40,18 +40,18 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('teacher_url', teacher_url());
         $this->smarty->assign('admin_url', admin_url());
         $this->smarty->assign('student_url', student_url());
+        $this->smarty->assign('qiniu_url', NH_QINIU_URL);
 
         $static_version = config_item('static_version');
         $this->smarty->assign('static_version', $static_version);
         $this->smarty->assign('is_login', $this->is_login);
         $this->smarty->assign('userdata', $this->session->all_userdata());
         $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
-        $this->smarty->assign('perfect_url', site_url().'login/perfect');
-        
-/*         echo "<pre>";
-        print_r($this->session->all_userdata());
-        echo "</pre>"; */
-       
+        $this->smarty->assign('perfect_url', student_url().'login/perfect');
+
+        $log_msg = 'In NH_Controller, all_userdata: '.print_r($this->session->all_userdata(), 1);
+
+        log_message('debug_nahao', $log_msg);
     }
 
 
@@ -84,7 +84,7 @@ class NH_Controller extends CI_Controller
         $bool_return = false;
 
         //$this->session->sess_read();
-        log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
+        //log_message('debug_nahao', "In check_login(), ".print_r($this->session->all_userdata(),1));
         if($this->session->userdata('user_id') > 0)
             $bool_return = true;
 
@@ -122,19 +122,19 @@ class NH_Controller extends CI_Controller
      * enter classroom
      * @author yanrui@tizi.com
      */
-    public function enter_classroom($int_classroom_id,$int_user_type){
+    public function enter_classroom($int_classroom_id,$user_type,$array_data){
         $str_classroom_url = '/classroom/main.html?';
         $array_params = array(
             'UserDBID' => $this->session->userdata('user_id'),
             'ClassID'  => $int_classroom_id,
-            'UserType' => $int_user_type,
+            'UserType' => $user_type,
             'UserName' => $this->session->userdata('nickname'),
-            'ClsSwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
+            'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
+            'ClassName'=>$array_data['class_title']
         );
         $str_classroom_url .= http_build_query($array_params);
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 
-        $str_classroom_url = '';
 //        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
 //        if($int_classroom_id){
 //            $str_classroom_url = enter_classroom($int_classroom_id,$int_user_type);
@@ -152,6 +152,50 @@ class NH_Controller extends CI_Controller
 //        $this->smarty->assign('iframe',$str_iframe);
 //        $this->smarty->assign('view', 'classroom');
 //        $this->smarty->display('admin/layout.html');
+    }
+    
+    /**
+     * send official email of nahao
+     * @param string $email_address
+     * @param string $subject
+     * @param string $email_content
+     * @param string $success_msg  renturn message when the mail is being send successfully
+     * @return array
+     */
+    protected function _send_email($email_address, $subject, $email_content, $success_msg)
+    {
+        $arr_return = array();
+        if(!($email_address && $subject && $email_content)) {
+            $arr_return = array('status' => ERROR, 'info' => '参数错误');
+            return $arr_return;
+        }
+        
+        $this->load->library('mail');
+        $ret = $this->mail->send($email_address, $subject, $email_content);
+        if($ret['ret'] == 1) {
+            //store this  emailinformation into redis
+			$this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
+            $duration = 86400;
+            $save_data = array(
+                'email' => $email_address,
+                'send_time' => time(),
+                'subject' => $subject
+            );
+            $save_result = $this->cache->redis->set(md5($email_address), json_encode($save_data), $duration);
+            if($save_result) {
+                $arr_return['status'] = SUCCESS;
+                $arr_return['info'] = $success_msg;
+            } else {
+                $arr_return['status'] = ERROR;
+                $arr_return['info'] = '服务器繁忙,请稍后再试';
+            }
+        } else {
+            $arr_return['status'] = ERROR;
+            $arr_return['info'] = '发送失败,请稍后重试';
+        }
+        
+        return $arr_return;
     }
 
 }

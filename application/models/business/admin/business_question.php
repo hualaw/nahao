@@ -16,13 +16,20 @@ class Business_Question extends NH_Model
     /**
      * 课节题目列表
      */
-    public function lesson_question($param){
-    	$list = $this->model_question->lesson_question_seacher($param);
-    	if(count($list)>0) foreach ($list as &$val){
-    		$options = json_decode($val['options'],true);
-    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
-    		$val['options'] = $options;
-    	}
+    public function lesson_question($param,$str_type = 'common'){
+    	$list = $this->model_question->lesson_question_seacher($param,$str_type);
+    	if(count($list)>0){
+            if($str_type=='common'){
+                foreach ($list as &$val){
+                    $options = json_decode($val['options'],true);
+//    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
+                    $val['options'] = $options;
+                    if($val['options']) foreach ($val['options'] as &$v){
+		    			$v = urldecode($v);
+		    		}
+                }
+            }
+        }
     	return $list;
     }
     
@@ -35,17 +42,18 @@ class Business_Question extends NH_Model
     	$param['answer'] = join($param['answer'],',');
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
+		#验证
+        $this->check_param($param);
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';
 //		$param['options']['B'] = !empty($param['B']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['B'])) : '';
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
 //		$param['options']['D'] = !empty($param['D']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['D'])) : '';
 //		$param['options']['E'] = !empty($param['E']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['E'])) : '';
-		$param['options']['A'] = !empty($param['A']) ? $param['A'] : '';
-		$param['options']['B'] = !empty($param['B']) ? $param['B'] : '';
-		$param['options']['C'] = !empty($param['C']) ? $param['C'] : '';
-		$param['options']['D'] = !empty($param['D']) ? $param['D'] : '';
-		$param['options']['E'] = !empty($param['E']) ? $param['E'] : '';
-		
+		$param['options']['A'] = !empty($param['A']) ? urlencode($param['A']) : '';
+		$param['options']['B'] = !empty($param['B']) ? urlencode($param['B']) : '';
+		$param['options']['C'] = !empty($param['C']) ? urlencode($param['C']) : '';
+		$param['options']['D'] = !empty($param['D']) ? urlencode($param['D']) : '';
+		$param['options']['E'] = !empty($param['E']) ? urlencode($param['E']) : '';
 		$input = array(
     		'question' => $param['question'],
     		'analysis' => $param['analysis'],
@@ -64,6 +72,18 @@ class Business_Question extends NH_Model
     }
     
     /**
+     * 验证参数
+     **/
+    public function check_param($param){
+    	foreach ($param as $key => $val){
+    		if(empty($val) && $key != 'E'){
+    			echo '<script>alert("'.$key.'不能为空，请重新填写");history.go(-1);</script>';
+    			exit;
+    		}
+    	}
+    }
+     
+    /**
      * 课节删题
      * param = [do,question_id,lesson_id]
      */
@@ -77,35 +97,42 @@ class Business_Question extends NH_Model
     public function class_question($param){
     	$list = $this->model_question->class_question_seacher($param);
     	if(count($list)>0) foreach ($list as &$val){
+//    		echo $val['question'];
+    		$val['question'] = htmlspecialchars_decode($val['question']);
+//    		echo $val['question'];
     		$options = json_decode($val['options'],true);
-    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
+//    		$options = unserialize(mb_convert_encoding(serialize($options),'utf-8','gbk'));
     		$val['options'] = $options;
-//    		if($val['options']) foreach ($val['options'] as &$v){
-//    			$v = stripslashes($v);
-//    		}
+    		if($val['options']) foreach ($val['options'] as &$v){
+    			$v = urldecode($v);
+    		}
     	}
     	return $list;
     }
     
     /**
-     * 课节添题
+     * 课添题
      * param = [do,question_id,lesson_id]
      */
     public function class_question_doWrite($param){
-    	$param['type'] = count($param['answer']>1) ? 2 : 1;
-    	$param['answer'] = join($param['answer'],',');
+        $param['type'] = isset($param['type']) ? $param['type'] :(isset($param['answer']) ? (count($param['answer']>1) ? 2 : 1) : '');
+        $param['answer'] = isset($param['answer']) ? (join($param['answer'],',')) : '';
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
+		#验证
+        if(!isset($param['no_check'])){
+            $this->check_param($param);
+        }
 //    	$param['options']['A'] = !empty($param['A']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['A'])) : '';
 //		$param['options']['B'] = !empty($param['B']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['B'])) : '';
 //		$param['options']['C'] = !empty($param['C']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['C'])) : '';
 //		$param['options']['D'] = !empty($param['D']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['D'])) : '';
 //		$param['options']['E'] = !empty($param['E']) ? preg_replace('/data-mathml=\"[^\"]+\"/','',addslashes($param['E'])) : '';
-		$param['options']['A'] = !empty($param['A']) ? $param['A'] : '';
-		$param['options']['B'] = !empty($param['B']) ? $param['B'] : '';
-		$param['options']['C'] = !empty($param['C']) ? $param['C'] : '';
-		$param['options']['D'] = !empty($param['D']) ? $param['D'] : '';
-		$param['options']['E'] = !empty($param['E']) ? $param['E'] : '';
+		$param['options']['A'] = !empty($param['A']) ? urlencode($param['A']) : '';
+		$param['options']['B'] = !empty($param['B']) ? urlencode($param['B']) : '';
+		$param['options']['C'] = !empty($param['C']) ? urlencode($param['C']) : '';
+		$param['options']['D'] = !empty($param['D']) ? urlencode($param['D']) : '';
+		$param['options']['E'] = !empty($param['E']) ? urlencode($param['E']) : '';
 		$input = array(
     		'question' => $param['question'],
     		'analysis' => $param['analysis'],

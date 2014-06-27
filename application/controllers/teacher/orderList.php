@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Orderlist extends NH_User_Controller {
+class OrderList extends NH_User_Controller {
    
    public $teacher_id;
    public function __construct(){
@@ -10,15 +10,19 @@ class Orderlist extends NH_User_Controller {
 		 * 2. 调redis：	  加载model/redis_model.php
 		 */
         parent::__construct();
+        header("Content-type: text/html; charset=utf-8");
         $this->smarty->assign('site_url','http://'.__HOST__);
-        $this->teacher_id = 1;
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
-            redirect('http://www.nahaodev.com/login');
+            redirect(student_url().'login');
         }
-        header("Content-type: text/html; charset=utf-8");
+        if(!($this->session->userdata('user_type')==1))
+        {
+        	exit('<script>alert("您还不是那好课堂的老师！");window.location.href="'.student_url().'";</script>');
+        }
+        $this->teacher_id = $this->session->userdata('user_id');
     }
     
 	public function index(){
@@ -36,8 +40,8 @@ class Orderlist extends NH_User_Controller {
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
-     			'start_time' 	=> isset($_GET['start_time']) ? $_GET['start_time'] : '',
-     			'end_time' 		=> isset($_GET['end_time']) ? $_GET['end_time'] : '',
+     			'start_time' 	=> isset($_GET['start_time']) ? strtotime($_GET['start_time']) : '',
+     			'end_time' 		=> isset($_GET['end_time']) ? strtotime($_GET['end_time']) : '',
      			'counter' 		=> 1,
      		);
      	$int_count = $this->teacher_b->round_list($param);
@@ -52,13 +56,19 @@ class Orderlist extends NH_User_Controller {
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
-     			'start_time' 	=> isset($_GET['start_time']) ? $_GET['start_time'] : '',
-     			'end_time' 		=> isset($_GET['end_time']) ? $_GET['end_time'] : '',
+     			'start_time' 	=> isset($_GET['start_time']) ? strtotime($_GET['start_time']) : '',
+     			'end_time' 		=> isset($_GET['end_time']) ? strtotime($_GET['end_time']) : '',
      			'limit' 		=> !empty($page) ? (($page-1)*$config['per_page']).','.$config['per_page'] : '0,'.$config['per_page'],
      		);
 		#1.列表
 		$listArr = $this->teacher_b->round_list($param);
-		
+		#2.初始化参数
+		$query_string = $this->input->server('QUERY_STRING');
+		if(!empty($query_string)){
+			parse_str($query_string,$query_param);
+		}else{
+			$query_param = array('id'=>'','title'=>'','teach_status'=>'','course_type'=>'','start_time'=>'','end_time'=>'');
+		}
 		#3.页面数据
 		$data = array(
 			'listArr' 				=> $listArr,
@@ -69,8 +79,9 @@ class Orderlist extends NH_User_Controller {
 			'teach_status_list' 	=> $teach_status,
 			'teach_status_count' 	=> $this->teacher_b->round_status_count(array('teacher_id'=>$this->teacher_id)),
 			'pageBar'				=> $pageBar,
+			'query_param'			=> $query_param,
+			'enter_classroom'		=> array(CLASS_STATUS_ENTER_ROOM,CLASS_STATUS_CLASSING),
 		);
-		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/index.html');
 	}
@@ -135,6 +146,8 @@ class Orderlist extends NH_User_Controller {
 	//章节详细
 	public function detail(){
 		$round_id = $this->uri->segment(3,0);
+		$round_info = $this->teacher_b->round_list(array('id'=>$round_id,'teacher_id'=>$this->teacher_id));
+		if(!isset($round_info[0])){exit('<script>alert("该班次信息不全");history.go(-1);</script>');}
 		$param = array(
 				'teacher_id' 	=> $this->teacher_id,
      			'round_id' 		=> isset($round_id) ? $round_id : '',
@@ -143,12 +156,13 @@ class Orderlist extends NH_User_Controller {
 		$zjList = $this->teacher_b->class_list($param);
 		
 		$data = array(
-			'zjList' 		=> $zjList,
-			'active' 		=> 'orderlist_detail',
-			'title' 		=> '班次详情',
-			'status_count' 	=> $this->teacher_b->count_zj_status($zjList),
+			'zjList' 			=> $zjList,
+			'round_info'		=> $round_info[0],
+			'active' 			=> 'orderlist_detail',
+			'title' 			=> '班次详情',
+			'status_count' 		=> $this->teacher_b->count_zj_status($zjList),
+			'enter_classroom'	=> array(CLASS_STATUS_ENTER_ROOM,CLASS_STATUS_CLASSING),
 		);
-		
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}

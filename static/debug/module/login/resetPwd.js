@@ -7,26 +7,35 @@ define(function(require,exports){
             var _this = $(this);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
-                alert('请填写手机号');
+                $.tiziDialog({
+		            content:'请填写手机号',
+				    icon:null
+		        });
                 return false;
-            } else if(!(/\d{11}/.test(phone))) {
-                alert('请输入正确的手机号')
+            } else if(!(/^1[3|5|8]\d{9}$/.test(phone))) {
+                $.tiziDialog({
+		            content:'请输入正确的手机号',
+				    icon:null
+		        });
                 return fasle;
             }
             $.ajax({
-                url : 'http://www.nahaodev.com/login/send_reset_captcha',
+                url : student_url + 'login/send_reset_captcha',
                 type : 'post',
                 data : 'phone='+ phone +'&type=3',
                 dataType : 'json',
                 success : function (result) {
                     if(result.status == 'error') {
-                        alert(result.msg);
+                        $.tiziDialog({
+                            content:result.msg,
+                            icon:null
+                        });
+                    } else {
+                        //手机验证倒计时
+                        require("module/common/method/countDown").countDown(_this); 
                     }
-                    //手机验证倒计时
-                    require("module/common/method/countDown").countDown(_this);
                 }
-            }
-            );
+            });
         });
     }
     
@@ -45,7 +54,10 @@ define(function(require,exports){
                 if(result.effective) {
                     $('.phoneFindPW').submit();
                 } else {
-                    alert('验证码无效或已过期');
+                    $.tiziDialog({
+                        content:'验证码无效或已过期',
+                        icon:null
+                    });
                     return false;
                 }
             }
@@ -60,5 +72,22 @@ define(function(require,exports){
         }
         $('.tips span').text(seconds);
         setTimeout(exports.setPwdSuccessJump, 1000);
+    }
+
+    //注册页面 右侧滚动
+    exports.scrollUpAndDown = function (){
+        var ind = 0;
+        $(".rollUpDownCopy").html($(".rollUpDown").html());
+        function roll(){
+            ind++;
+            if(ind>$(".rollUpDown li").length){
+                $(".rollBox").css("top",0);
+                ind = 1;
+            }
+            $(".rollBox").animate({top:-ind*$(".rollUpDown li").eq(0).outerHeight(true)},300);
+        }
+
+        roll();
+        var timer = setInterval(roll,2000);
     }
 });

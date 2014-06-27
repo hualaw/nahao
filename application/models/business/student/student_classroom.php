@@ -23,20 +23,17 @@ class Student_Classroom extends NH_Model{
         
         #获取练习题的题目id数组
         $array_qid = $this->get_exercise_qid($int_class_id,$int_max_sequence);
-        //var_dump($array_qid); echo '----';
         #去答题记录表中查看用户是否做过当前批次的题，将这些题的id出来
         $array_qid_done = $this->get_student_question_qid($int_class_id,$int_max_sequence,$int_user_id);
-        //var_dump($array_qid_done);die;
         if (empty($array_qid))
         {
             $array_return = array('status'=>'error','msg'=>'获取练习题失败');
         }
         #在当前批次中将已经做过的题去掉
         $array_diff = array_diff($array_qid, $array_qid_done);
-        //var_dump($array_diff);die;
         if (empty($array_diff))
         {
-            $array_return = array('status'=>'error','msg'=>'用户已经做过题了');
+            $array_return = array('status'=>'error','msg'=>'您已经做过题了');
         }
         #根据练习题的题目id，获取练习题的具体数据
         if ($array_diff)
@@ -45,7 +42,15 @@ class Student_Classroom extends NH_Model{
             {
                 $array_infor = $this->model_classroom->get_question_infor($v);
                 #处理数据
-                $array_infor['options'] = json_decode($array_infor['options'],true);
+                if ($array_infor && $array_infor['options']){
+                	$array_infor['options'] = json_decode($array_infor['options'],true);
+                	foreach ($array_infor['options'] as $kk=>$vv)
+                	{
+                		$array_infor['options'][$kk] = urldecode($vv);
+                	}
+                } else {
+                	$array_infor['options'] = array();
+                }               
                 $array_infor['sequence'] = $int_max_sequence;
                 $array_infor['class_id'] = $int_class_id;
                 $array_data[] = $array_infor;
@@ -118,6 +123,10 @@ class Student_Classroom extends NH_Model{
                 
                 #处理数据
                 $array_infor['options'] = json_decode($array_infor['options'],true);
+                foreach ($array_infor['options'] as $kk=>$vv)
+                {
+                	$array_infor['options'][$kk] = urldecode($vv);
+                }
                 $array_qids[$k] = array_merge($array_qids[$k], $array_infor);
                 
             }
@@ -140,7 +149,7 @@ class Student_Classroom extends NH_Model{
     }
 
     /**
-     * 保存课堂笔记(课堂新增，学生后台修改)
+     * 保存课堂笔记
      * @param $arr_data
      * @return bool
      * @author yanrui@tizi.com
@@ -153,5 +162,18 @@ class Student_Classroom extends NH_Model{
         }
         return $bool_return;
     }
-    
+
+    /**
+     * 取课堂笔记
+     * @param $arr_param
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_note($arr_param){
+        $arr_return = array();
+        if (is_array($arr_param) AND $arr_param) {
+            $arr_return = $this->model_classroom->get_class_note($arr_param);
+        }
+        return $arr_return;
+    }
 }

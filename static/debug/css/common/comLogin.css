@@ -1,9 +1,7 @@
-#comLogin{}
 #comLogin li {line-height:50px;}
 #comLogin li .userName,
-#comLogin li .pwd{font-size:16px;height:50px;line-height:50px;padding:0 15px 0 55px;display: block;border: 0;width:235px;background: url(../../images/login/loginInputBg.png) no-repeat #f1f1f1;_background: url(../../images/login/loginInputBg-ie.png) no-repeat #f1f1f1;}
-#comLogin li .userName{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
-#comLogin li .pwd{background-position: 15px -50px;}
+#comLogin li .pwd{font-size:16px;height:50px;line-height:50px;padding:0 15px 0 55px;display: block;border: 0;width:235px;background:#f1f1f1;/*background: url(../../images/login/loginInputBg.png) no-repeat #f1f1f1;*/_background: url(../../images/login/loginInputBg-ie.png) no-repeat #f1f1f1;}
+#comLogin li .userName{border-bottom:1px solid #dfdede;}
 #comLogin li .userName:focus,
 #comLogin li .pwd:focus{background-color: #f8f8f8}
 #comLogin .autoLi{font-size:14px;}

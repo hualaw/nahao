@@ -32,36 +32,36 @@ class Business_Lesson extends NH_Model
 
                 $int_sequence_flag = $int_chapter_flag = $int_section_flag = 0;
                 foreach($arr_lesson_tree as $k => $v){
-                    $arr_chapter = array(
-                        'course_id' => $int_course_id,
-                        'title' => $v['title'],
-                        'sequence' => $int_chapter_flag++
-                    );
                     //插入章
-                    $int_parent_id = $this->model_lesson->create_lesson($arr_chapter);
-                    if($int_parent_id > 0){
-                        foreach($v['lessons'] as $kk => $vv){
-                            $arr_section[] = array(
-                                'course_id' => $int_course_id,
-                                'title' => $vv,
-                                'parent_id' => $int_parent_id,
-                                'sequence' => $int_section_flag++
-                            );
-                        }
-                        //插入节
-                        $int_last_id = $this->model_lesson->create_lesson_batch($arr_section);
-                        if($int_last_id > 0){
-                            if($k == count($arr_lesson_tree)-1){
+                    $int_parent_id = 1;//默认没有章的
+                    if(isset($v['title'])){
+                        $arr_chapter = array(
+                            'course_id' => $int_course_id,
+                            'title' => $v['title'],
+                            'sequence' => $int_chapter_flag++
+                        );
+                        $int_parent_id = $this->model_lesson->create_lesson($arr_chapter);
+                    }
+//                    o($int_parent_id,true);
+                    foreach($v['lessons'] as $kk => $vv){
+                        $arr_section[] = array(
+                            'course_id' => $int_course_id,
+                            'title' => $vv,
+                            'parent_id' => $int_parent_id,
+                            'sequence' => $int_section_flag++
+                        );
+                    }
+                    //插入节
+                    $int_last_id = $this->model_lesson->create_lesson_batch($arr_section);
+                    if($int_last_id > 0){
+                        if($k == count($arr_lesson_tree)-1){
 //                                echo $k.'-'.count($arr_lesson_tree);
-                                $bool_return = true;
-                            }
-                        }else{
-                            break;
+                            $bool_return = true;
                         }
-                        unset($arr_section);
                     }else{
                         break;
                     }
+                    unset($arr_section);
                 }
             }
         }
@@ -204,15 +204,18 @@ class Business_Lesson extends NH_Model
     /**
      * add courseware to lesson
      * @param $int_lesson_id
-     * @param $int_courseware_id
+     * @param $arr_courseware
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function add_courseware($int_lesson_id, $int_courseware_id){
+    public function add_courseware($int_lesson_id, $arr_courseware){
         $bool_return = false;
-        if($int_lesson_id > 0 AND $int_courseware_id > 0){
+        if($int_lesson_id > 0 AND is_array($arr_courseware) AND $arr_courseware){
+
+            $this->load->model('business/common/business_courseware','courseware');
+            $this->courseware->create_courseware($arr_courseware);
             $arr_param = array(
-                'courseware_id' => $int_courseware_id,
+                'courseware_id' => $arr_courseware['id'],
             );
             $arr_where = array(
                 'id' => $int_lesson_id
@@ -221,23 +224,4 @@ class Business_Lesson extends NH_Model
         }
         return $bool_return;
     }
-
-    /**
-     * delete courseware by lesson_id
-     * @param $int_lesson_id
-     * @return bool
-     */
-//    public function delete_coruse_by_lesson_id($int_lesson_id){
-//        $bool_return = false;
-//        if($int_lesson_id > 0){
-//            $arr_param = array(
-//                'courseware_id' => 0,
-//            );
-//            $arr_where = array(
-//                'id' => $int_lesson_id
-//            );
-//            $bool_return = $this->lesson->update_lesson($arr_param, $arr_where);
-//        }
-//        return $bool_return;
-//    }
 }

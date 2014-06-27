@@ -5,6 +5,7 @@ class Classroom extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
+        $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_classroom');
         $this->load->model('model/student/model_classroom');
         $this->load->model('model/student/model_course');
@@ -48,7 +49,6 @@ class Classroom extends NH_User_Controller {
 	    $int_user_id = $this->session->userdata('user_id'); #TODO
 	    #课id
 	    $int_class_id = $this->input->post('class_id');
-	    //$int_class_id = 4;
 	    #获取最大批次
 	    $array_sequence = $this->model_classroom->get_max_sequence($int_class_id);
 	    #数组为空或者批次为0，则老师没有出题
@@ -61,8 +61,9 @@ class Classroom extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'老师没有出题'));
 	    }
+
 	    $array_data = $this->student_classroom->get_exercise_data($int_class_id,$int_max_sequence,$int_user_id);
-	    //var_dump($array_data['data']);
+
 	    if ($array_data['status'] == 'ok') {
 	       self::json_output(array('status'=>'ok','msg'=>'获取练习题成功','data'=>$array_data['data']));
 	    } else {
@@ -137,104 +138,6 @@ class Classroom extends NH_User_Controller {
 	    }
 	}
 
-    public function save_stu_action()
-    {
-        $class_id = intval(trim($this->input->get("class_id")));
-        $user_id = intval(trim($this->input->get("user_id")));
-        $action_type = intval(trim($this->input->get("type")));
-
-        $info = array(
-            'class_id' => $class_id,
-            'user_id' => $user_id,
-            'action_type' => $action_type,
-        );
-        if($class_id <= 0 OR $user_id <= 0 OR $action_type <= 0)
-        {
-            log_message('error_nahao', "save student class action failed", $info);
-            die(ERROR);
-        }
-
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $this->stu_obj->save_action($class_id, $user_id, $action_type);
-        log_message('info_nahao', "save student class action", $info);
-        die(SUCCESS);
-    }
-
-    public function get_action_stat()
-    {
-        $class_id = intval(trim($this->input->get("class_id")));
-        if($class_id <= 0)
-        {
-            log_message('error_nahao', "get class action stat failed", array('class_id'=>$class_id));
-        }
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $result = $this->stu_obj->get_action_stat($class_id);
-
-        $arr_return = array(
-            'please_total_count' => 0,
-            'slower_total_count' => 0,
-            'faster_total_count' => 0,
-        );
-        if(!empty($result))
-        {
-            foreach($result as $val)
-            {
-                if($val['action'] == CLASS_PLEASE_ACTION) $arr_return['please_total_count'] = $val['count'];
-                else if($val['action'] == CLASS_SLOWER_ACTION) $arr_return['slower_total_count'] = $val['count'];
-                else if($val['action'] == CLASS_FASTER_ACTION) $arr_return['faster_total_count'] = $val['count'];
-            }
-        }
-
-        $str_return = "{\"please_total_count\":{$arr_return['please_total_count']},";
-        $str_return .=  "\"slower_total_count\":{$arr_return['slower_total_count']},";
-        $str_return .=  "\"faster_total_count\":{$arr_return['faster_total_count']}}";
-
-        die($str_return);
-    }
-
-    /**
-     * 课堂笔记API 课堂调用
-     * @author yanrui@91waijiao.com
-     */
-    public function class_note(){
-        $log_path = PATH_SEPARATOR==':' ? '/tmp/' : 'c:/wamp/logs/';
-        header("Content-type: text/html; charset=utf-8");
-        error_reporting(E_ALL);
-        ini_set('display_errors', true);
-        $int_class_id = intval($this->input->post('cid'));
-        $int_student_id = intval($this->input->post('uid'));
-        $str_content = trim($this->input->post('notes'));
-        if($int_class_id==0 AND $int_student_id==0 AND $str_content==''){
-            die('param error');
-        }
-        /* $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
-//        $str_content_log = iconv('UTF-8','GBK',$str_content_db);*/
-        $int_student_id = substr($int_student_id,0,strlen($int_student_id)-1);
-        $str_content = urldecode(gzinflate((string)base64_decode($str_content)));
-
-//        $int_class_id = intval($this->input->get('cid'));
-//        $int_student_id = intval($this->input->get('uid'));
-//        $str_content = trim($this->input->get('notes'));
-//        if($int_class_id==0 AND $int_student_id==0 AND $str_content==''){
-//            die('param error');
-//        }
-
-//        error_log('--'.$int_class_id.'--'.$int_student_id.'--'.$str_content."\n",3,'c:/wamp/logs/test.log');
-        $this->load->model('business/student/student_classroom','classroom');
-        $data = array(
-            'class_id' => $int_class_id,
-            'student_id' => $int_student_id,
-//            'content' => $this->boolMagic ? $str_content_db : addslashes($str_content_db),
-            'content' => mysql_real_escape_string($str_content),
-            'create_time' => TIME_STAMP,
-            'update_time' => TIME_STAMP
-        );
-//        var_dump($data);
-        error_log(TIME_STAMP.'  '.date('Y-m-d H:i:s',TIME_STAMP).'  cid:'.$int_class_id.'    sid:'.$int_student_id.' content:'.$str_content."\n",3,$log_path.'class_note.log');
-        $return = $this->classroom->save_class_note($data);
-//        error_log($this->db->last_query()."\n",3,$log_path.'class_note.log');
-//        echo $return ? 1 : 0;
-    }
 	/**↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓老师端势力范围↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓**/
 	/**
 	 * 老师获得该课的当前未出过所有题目
@@ -318,10 +221,82 @@ class Classroom extends NH_User_Controller {
 	/***↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑老师端势力范围↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑**/
 
     /**
-     * 进入教室
+     * 学生进入教室入口
      */
     public function enter()
     {
+        $int_classroom_id = intval($this->uri->rsegment(3));
+        if (empty($int_classroom_id))
+        {
+        	show_error('参数错误');
+        }
+
+
+        #根据classroom_id获取课id
+        $array_class = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+        
+        if(empty($array_class)){
+            show_error('参数错误');
+        }
+
+        #用户是否有登陆
+        #登陆的用户是否有买过这堂课
+        $int_user_id = $this->session->userdata('user_id'); #TODO
+        $array_user = $this->_user_detail;
+        $int_user_type = $array_user['teach_priv'];
+
+        #判断用户是否买了这一堂课
+        $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
+        if(empty($bool_flag))
+        {
+        	show_error('您没有购买这堂课');
+        }
+        #检查这节课用户在student_class里面的状态
+        $array = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
+        if(empty($array))
+        {
+        	show_error('您没有购买这堂课啊');
+        }
+        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='4')
+        {
+        	show_error('您在进行退款流程，现在不能进入教室');
+        }
+
+        
+        #判断这节课是不是在"可进教室 或者 正在上课"的状态 
+        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+        {
+       		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+        }
+        
+        #可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
+        $array_insert = array(
+        	'user_id'=>$int_user_id,
+        	'user_type'=>$int_user_type,
+        	'create_time'=>time(),
+        	'action'=>1,
+        	'classroom_id'=>$int_classroom_id,
+        	'ip'=>$this->input->ip_address()
+        );
+        $this->model_classroom->add_entering_classroom_data($array_insert);
+        
+        if($int_user_type == '0')
+        {
+        	#获取student_class表里面的status
+        	$array_result = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
+        	if($array_result && $array_result['status']!=2)
+        	{
+        		$status = 2;	#进过教室
+        		$this->model_member->update_student_class(array('status'=>2),array('student_id'=>$int_user_id));
+        	}
+
+        }
+        
+        $str_iframe = self::enter_classroom($int_classroom_id,'0',array('class_title'=>$array_class['title']));
+        $this->smarty->assign('classroom_id',$int_classroom_id);
+        $this->smarty->assign('class_id',$array_class['id']);
+        $this->smarty->assign('iframe',$str_iframe);
+        $this->smarty->display('www/classRoom/index.html');
 
 //        $str_classroom_url = 'http://www.nahaodev.com/nahao_classroom/main.html';
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
@@ -329,27 +304,73 @@ class Classroom extends NH_User_Controller {
 //        echo $str_iframe;exit;
 
 
-        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT);
 //        $str_classroom_url = '/classroom/main.html';
 //        o($str_classroom_url,true);
 //        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-        #用户是否有登陆
-        #根据classroom_id获取课id
-        $array_class_id = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
-        if(empty($array_class_id)){
-            show_error('参数错误');
-        }
-        #登陆的用户是否有买过这堂课
-//         $int_user_id = $this->session->userdata('user_id'); #TODO 
-//         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class_id['id']);
-//         if(empty($bool_flag)){
-//             show_error('您没有购买这堂课');
-//         }
-        $this->smarty->assign('classroom_id',$int_classroom_id);
-        $this->smarty->assign('class_id',$array_class_id['id']);
-        $this->smarty->assign('iframe',$str_iframe);
-        $this->smarty->display('www/classRoom/index.html');
+
+
+
+    }
+    
+    /**
+     * 老师进教室入口
+     */
+    public function teacher_enter()
+    {
+    	$int_classroom_id = intval($this->uri->rsegment(3));
+    	if (empty($int_classroom_id))
+    	{
+    		show_error('参数错误');
+    	}
+    	
+    	#根据classroom_id获取课id
+    	$array_class = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+    	
+    	if(empty($array_class)){
+    		show_error('参数错误');
+    	}
+    	
+    	#用户是否有登陆
+    	#登陆的用户是否有买过这堂课
+    	$int_user_id = $this->session->userdata('user_id'); #TODO
+    	$array_user = $this->_user_detail;
+    	$int_user_type = $array_user['teach_priv'];
+    	#判断当前用户是学生还是老师。 0是学生，1是老师
+    	if($int_user_type == '0')
+    	{
+    		show_error('您不是老师身份，不能进教室讲课');
+    	}
+    	if($int_user_type == '1')
+    	{
+    		#如果是老师判断是否是这节课的老师
+    		$bool_flag = $this->student_course->check_is_teacher_in_class($int_user_id,$array_class['id']);
+    		if(empty($bool_flag))
+    		{
+    			show_error('您不是这节课的老师');
+    		}
+    	}
+    	
+    	#判断这节课是不是在"可进教室 或者 正在上课"的状态 
+    	if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+    	{
+    	       show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+    	}
+    	
+    	#可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
+    	$array_insert = array(
+    		'user_id'=>$int_user_id,
+    		'user_type'=>$int_user_type,
+    		'create_time'=>time(),
+    		'action'=>1,
+    		'classroom_id'=>$int_classroom_id,
+    		'ip'=>$this->input->ip_address()
+    	);
+    	$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
+    	$this->model_classroom->add_entering_classroom_data($array_insert);
+    	$this->smarty->assign('classroom_id',$int_classroom_id);
+    	$this->smarty->assign('class_id',$array_class['id']);
+    	$this->smarty->assign('iframe',$str_iframe);
+    	$this->smarty->display('www/classRoom/index.html');
     }
 
 

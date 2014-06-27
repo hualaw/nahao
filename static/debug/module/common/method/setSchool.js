@@ -44,15 +44,17 @@ define(function(require, exports) {
                 $(".theGenusScholl_y").removeClass("undis");
                 var class_id = $('#class_id').val();
                 var school_id = $('.aui_content .school li.active').attr('data-id');
-                var province = $(".schoolProvice li.active").html();
-                var city = $(".schoolCity li.active").html();
-                var county = $(".schoolCounty li.active").html();
-                var county_id = $(".schoolCounty li.active").attr('data-id');
-                var sctype_id = $('.schoolGrade li.active').attr('data-id');
-                var schoolname = $(".schoolName li.active").html();
-                var seacherResultname = $('.schoolInfo .seacherResult li.active').html();
+                var province = $(".resetSchoolPopCon .schoolProvice li.active").html();
+                var city = $(".resetSchoolPopCon .schoolCity li.active").html();
+                var county = $(".resetSchoolPopCon .schoolCounty li.active").html();
+                var province_id = $(".resetSchoolPopCon .province li.active").attr('data-id');
+                var city_id = $(".resetSchoolPopCon .city li.active").attr('data-id');
+                var county_id = $(".resetSchoolPopCon .schoolCounty li.active").attr('data-id');
+                var sctype_id = $('.resetSchoolPopCon .schoolGrade li.active').attr('data-id');
+                var schoolname = $(".resetSchoolPopCon .schoolName li.active").html();
+                var seacherResultname = $('.resetSchoolPopCon .schoolInfo .seacherResult li.active').html();
                 var searcherResultid = $('.schoolInfo .seacherResult li.active').attr('data-id');
-                var writeSchoolName = $('.writeSchoolName').val();
+                var writeSchoolName = $('.resetSchoolPopCon .writeSchoolName').val();
                 if (typeof province == 'undefined'){province = '';}
                 if (typeof city == 'undefined'){city = '';}
                 if (typeof county == 'undefined'){county = '';}
@@ -72,17 +74,20 @@ define(function(require, exports) {
                 // 判断是否是重设学校
                 if(_this.hasClass('resetSchool')){
                     $(".theGenusScholl_n").add("undis");
-                    _this.siblings('.schoolFullName').html(fullname);
-                    _this.text('重设学校');
+                    $('.schoolFullName').val(fullname);
+                    $('.resetSchool').text('重设学校');
                     $("#schoolVal").val(school_id);
                 }else{
                     $("#schoolVal").val(school_id);
-                    _this.siblings('.schoolFullName').html(fullname);
-                    _this.text('重设学校');
+                    $('.schoolFullName').val(fullname);
+                    $('.resetSchool').text('重设学校');
                     if($("#schoolVal").val() > 0){
                         $('.schoolBox').find('.ValidformInfo,.Validform_checktip').hide();
                     }
-                }
+                };
+
+                $('#province_id').val(province_id);
+                $('#city_id').val(city_id);
                 $('#schoolname').val(writeSchoolName);
                 $('#area_county_id').val(county_id);
                 $('#school_type').val(sctype_id);
@@ -400,6 +405,7 @@ define(function(require, exports) {
         });
         //点击城镇
         $('.resetSchoolPopCon .county li').live('click', function(){
+            _this = $(this);
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
@@ -421,7 +427,7 @@ define(function(require, exports) {
                     $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
                     $('.resetSchoolPopCon .sctype li').first().addClass('active');
                     var sctype = 1;
-                    var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                    var county_id = _this.attr('data-id');
                     $.ajax({
                         'url' : siteUrl+'school/get_school',
                         'type' : 'GET',
@@ -559,8 +565,25 @@ define(function(require, exports) {
                                                 for (var i = 0; i < json.length; ++i){
                                                     listr += '<li data-id="'+json[i].id+'">'+json[i].name+'</li>';
                                                 }
-                                                $('.resetSchoolPopCon .sctype').html(listr);
-                                                $('.resetSchoolPopCon .sctype').fadeIn();
+                                                $('.resetSchoolPopCon .sctype').html(listr).fadeIn();
+                                                $('.resetSchoolPopCon .sctype li').first().addClass('active');
+                                                var sctype = 1;
+                                                var county_id = $('.resetSchoolPopCon .county li').first().attr('data-id');
+                                                $.ajax({
+                                                    'url' : siteUrl+'school/get_school',
+                                                    'type' : 'GET',
+                                                    'dataType' : 'json',
+                                                    'data' : {
+                                                        'id' : county_id,
+                                                        'sctype' : sctype
+                                                    },
+                                                    success : function(json, status){
+                                                        school_array = json;
+                                                        exports.buildSchool();
+                                                        // 验证表单
+                                                        exports.seacherSchoolValid();
+                                                    }
+                                                });
                                             }
                                         });
                                     }

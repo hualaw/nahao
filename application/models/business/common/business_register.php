@@ -7,9 +7,9 @@ class Business_Register extends NH_Model {
 		$this->load->model('model/common/model_user');
 	}
 
-	public function submit($phone, $email, $password, $captcha, $reg_type)
+	public function submit($phone, $email, $sha1_password, $captcha, $reg_type)
 	{
-        $check_ret = $this->_check_register_data($phone, $email, $password, $captcha, $reg_type);
+        $check_ret = $this->_check_register_data($phone, $email, $sha1_password, $captcha, $reg_type);
         if($check_ret['status'] != SUCCESS) return $check_ret;
 
 		//check data
@@ -20,6 +20,7 @@ class Business_Register extends NH_Model {
 				return $check_ret;
 			}
 			$phone_verified = 1;
+            $nickname = $phone_mask = phone_blur($phone);
 
 			//check captcha
 			$bool_ret = $this->_check_captcha($phone, $captcha, REGISTER_VERIFY_CODE);
@@ -29,23 +30,24 @@ class Business_Register extends NH_Model {
 		{
 			$phone_verified = 0;			
 			$check_ret = $this->check_email($email);
-            //print_r($check_ret);
+            $nickname = $email;
+            $phone_mask = $phone; //存储phone_mask用明文phone，这样方便登录时取出未验证的完整手机号
+
 			if($check_ret['status'] != SUCCESS){
 				return $check_ret;
 			}
 		}
 
 		//save register information, get user_id
-		$phone_mask = ($reg_type == REG_LOGIN_TYPE_PHONE) ? phone_blur($phone) : $phone; //邮箱注册选填的手机号明文存储
 		$this->load->helper('string');
         $str_salt = random_string('alnum', 6);
 
 		$user_table_data = array(
-			'nickname' => '',
+			'nickname' => $nickname,
 			'phone_mask' => $phone_mask,
 			'email' => $email,
 			'salt' => $str_salt,
-			'password'=> create_password($str_salt, $password),
+			'password'=> create_sha1_password($str_salt, $sha1_password),
 			'register_time' => time(),
 			'register_ip' => ip2long($this->input->ip_address()),
 			'source' => 1,
@@ -95,8 +97,9 @@ class Business_Register extends NH_Model {
         }
 
         //set session
-        $avatar = $nickname = '';
-        $this->set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type);
+        $avatar = '';
+        $phone_mask = (strpos($phone_mask, '*') !== false) ? $phone_mask : phone_blur($phone_mask);
+        $this->set_session_data($user_id, $nickname, $avatar, $phone, $phone_mask, $email, $reg_type, NH_MEETING_TYPE_STUDENT);
 		return $this->_log_reg_info(SUCCESS, 'reg_success', array(), 'info');
 	}
 
@@ -140,19 +143,19 @@ class Business_Register extends NH_Model {
         return $compare_result;
 	}
 
-    function _check_register_data($phone, $email, $password, $captcha, $reg_type)
+    function _check_register_data($phone, $email, $sha1_password, $captcha, $reg_type)
     {
         $sign = 1;
         if($reg_type == REG_LOGIN_TYPE_PHONE)
         {
-            if(strlen($phone) == 0 || strlen($password) == 0 || strlen($captcha) == 0)
+            if(strlen($phone) == 0 || strlen($sha1_password) == 0 || strlen($captcha) == 0)
             {
                 $sign = 2;
             }
         }
         else if($reg_type == REG_LOGIN_TYPE_EMAIL)
         {
-            if(strlen($email) == 0 || strlen($password) == 0)
+            if(strlen($email) == 0 || strlen($sha1_password) == 0)
             {
                 $sign = 2;
             }
@@ -163,7 +166,7 @@ class Business_Register extends NH_Model {
             $arr_log = array(
                 'phone'=>$phone,
                 'email'=>$email,
-                'password'=>$password,
+                'sha1_password'=>$sha1_password,
                 'captcha'=>$captcha,
                 'reg_type'=>$reg_type,
             );

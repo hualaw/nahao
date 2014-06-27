@@ -23,7 +23,7 @@ class Business_Course extends NH_Model
         $int_return = 0;
         if($arr_param){
             $arr_param['create_time'] = TIME_STAMP;
-            $arr_param['role'] = ROLE_ADMIN;
+            $arr_param['role'] = NH_MEETING_TYPE_ADMIN;
             $arr_param['user_id'] = $this->userinfo['id'];
             $int_return = $this->model_course->create_course($arr_param);
         }
@@ -223,7 +223,9 @@ class Business_Course extends NH_Model
             $str_result_type = 'list';
             $str_fields = TABLE_USER.'.id,nickname';
             $arr_where = array(
-                'course_id' => $int_course_id
+                'course_id' => $int_course_id,
+                TABLE_USER.'.teach_priv' => TABLE_USER_DIC_TEACH_PRIV_ON,
+                TABLE_USER.'.status' => TABLE_USER_DIC_STATUS_ON,
             );
             $arr_return = $this->model_course->get_course_teacher_relation_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
@@ -231,11 +233,35 @@ class Business_Course extends NH_Model
     }
 
 
+    /**
+     * if_can_generate_round
+     * @param $int_course_id
+     * @return bool
+     * @author yanrui@tizi.com
+     */
     public function if_can_generate_round($int_course_id){
         $bool_return = false;
         if($int_course_id > 0){
 
         }
         return $bool_return;
+    }
+
+    /**
+     * get_section_count
+     * @param $arr_lessons
+     * @return int
+     * @author yanrui@tizi.com
+     */
+    public function get_section_count($arr_lessons){
+        $int_return = 0;
+        if(is_array($arr_lessons) AND $arr_lessons){
+            foreach($arr_lessons as $k => $v){
+                if(!$v['is_chapter']){
+                    $int_return++;
+                }
+            }
+        }
+        return $int_return;
     }
 }

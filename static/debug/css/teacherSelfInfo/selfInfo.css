@@ -5,6 +5,7 @@
 .teacherSelfInfo .personInfo .personNav a{display:block;float: left;font-size: 16px;font-weight: normal;padding:0px 40px;}
 .teacherSelfInfo .personInfo .personNav a.active{color:#f14211;background-color:#fff;border-top:2px solid #ed4111;}
 .teacherSelfInfo .personInfo ul.Oul{padding:20px 0px 0 40px;}
+.teacherSelfInfo .areaSelect select{padding: 5px;margin-right: 10px;}
 .teacherSelfInfo .personInfo li {margin-bottom:15px;position: relative;}
 .teacherSelfInfo .personInfo li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;color:#0e455e;margin-bottom:5px;text-align: left}
 .teacherSelfInfo .personInfo li .textInput{width: 228px;height:31px;border:1px solid #a2a2a2;padding:0 15px;}
@@ -56,6 +57,8 @@
 .teacherSelfInfo .personInfo .atareditor dt.current a{background:#f14211;color:#fff;}
 .teacherSelfInfo .personInfo .atareditor dt.current a.localUpload em{background-position:0px 7px;}
 .teacherSelfInfo .personInfo .atareditor dt.current a.videoUpload em{background-position:-470px 7px;}
+.teacherSelfInfo .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);}
+.teacherSelfInfo .photoFlash{margin-left: 25px;width: 600px;}
 /*修改头像页面样式结束*/
 /*我要开课样式开始*/
 .teacherSelfInfo .writeInfo{background: #fff;text-align: center;color:#0e455e;border: 1px solid #d5d5d5;}

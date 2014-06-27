@@ -35,7 +35,7 @@ define(function(require,exports){
                 success:function(msg){
                    if(msg==true)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })
@@ -54,7 +54,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==true)
                     {
-                        location=location;
+                        location.reload();
                     }
                 }
             })

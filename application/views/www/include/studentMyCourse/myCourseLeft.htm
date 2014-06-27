@@ -1,13 +1,13 @@
 <div class="slideBox posr">
     <div class="memberInfo">
 	    <p>
-	        <a href="http://user.tizi.com/teacher/user/avatar">
+	        <a href="{$student_url}member/my_infor">
 	            <img src="{$userdata.avatar}">
 	        </a>
 	    </p>
 	    <h2 class="cf">
-	    	<span class="myGrade">{$grades[$user_detail.grade]}</span>
-	    	<span>{$user_detail.realname}</span>
+	    	<span class="myGrade">{if isset($grades[$user_detail.grade])}{$grades[$user_detail.grade]}{/if}</span>
+	    	<span>{if $user_detail.realname}{$user_detail.realname|truncate:10:''}{else}{$userdata.nickname|truncate:10:''}{/if}</span>
 	    </h2>
     </div>
     <div class="menu">

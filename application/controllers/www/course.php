@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Course extends NH_User_Controller {
 
     function __construct(){
@@ -33,8 +34,10 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($array_team);die;
-        
+        //var_dump($array_team);
+        #课程列表的地址
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
         $this->smarty->assign('array_evaluate', $array_evaluate);
@@ -49,7 +52,6 @@ class Course extends NH_User_Controller {
 	 */
 	public function buy_after($int_round_id)
 	{
-	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login)
 	    {
@@ -76,10 +78,10 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-	    #每节课是否有评价
-	    
-	    //var_dump($array_outline);die;
-
+		//var_dump($array_outline);
+	    #课程列表的地址
+	    $course_url = config_item('course_url');
+	    $this->smarty->assign('course_url', $course_url);
 	    $this->smarty->assign('array_classmate', $array_classmate);
 	    $this->smarty->assign('int_classmates', $int_classmates);
 	    $this->smarty->assign('array_note', $array_note);
@@ -143,6 +145,12 @@ class Course extends NH_User_Controller {
 	    }
 	    
 	    $int_score  = $this->input->post("score");
+	    if ($int_score >= 4)
+	    {
+	    	$is_show = 1;
+	    } else{
+	    	$is_show = 0;
+	    }
 	    $str_content = $this->input->post("content");
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
@@ -153,7 +161,7 @@ class Course extends NH_User_Controller {
 	            'content'=>$str_content,
 	            'score'=>  $int_score,
 	            'create_time'=>time(),
-	            'is_show'=>0
+	            'is_show'=>$is_show
 	            );
 	    $bool_flag = $this->model_course->save_class_feedback($array_data);
 	    if ($bool_flag)
@@ -172,7 +180,7 @@ class Course extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login){
-	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录','data'=>$this->session->all_userdata()));
+	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录'));
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);
@@ -181,6 +189,21 @@ class Course extends NH_User_Controller {
 	    if (!$bool_flag)
 	    {
 	        show_error("参数错误");
+	    }
+	    #购买前加入没有名额的判断
+	    $array_round = $this->model_course->get_round_info($int_product_id);
+	    if ($array_round['bought_count'] == $array_round['caps'])
+	    {
+	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已售罄了'));
+	    }
+	    #购买前加入是否售罄、已停售、已下架
+	    if ($array_round['sale_status'] == '5')
+	    {
+	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已停售了'));
+	    }
+	    if ($array_round['sale_status'] == '6')
+	    {
+	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已下架了'));
 	    }
 	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
 	    $int_user_id = $this->session->userdata('user_id');                 #TODO
@@ -218,9 +241,67 @@ class Course extends NH_User_Controller {
 
 	 }
 	 
-
+	 /**
+	  * 购买后下载课件
+	  */
+	 public function courseware()
+	 {
+	 	#判断是否登录
+	 	if(!$this->is_login)
+	 	{
+	 		redirect('/login');
+	 	}
+	 	$int_class_id = intval($this->uri->rsegment(3));
+	 	if (empty($int_class_id))
+	 	{
+	 		show_error('参数错误');
+	 	}
+	 	#检查用户是否买过这门课 
+	 	$int_user_id = $this->session->userdata('user_id');#TODOuser_id
+	 	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$int_class_id);
+	 	if(empty($bool_flag))
+	 	{
+	 		show_error('您没有买过这门课，没有下载这门课的权限');
+	 	}
+	 	#根据课id找课件id
+	 	$array_class = $this->model_course->get_class_infor($int_class_id);
+	 	if(empty($array_class))
+	 	{
+	 		show_error('抱歉!这节课没有上传课件啊');
+	 	}
+	 	
+	 	#课里面有课件，拼接课件地址
+	 	$this->load->model('business/common/business_courseware','courseware');
+	 	$array_courseware = $this->courseware->get_courseware_by_id(array($array_class['courseware_id']));
+	 	if (empty($array_courseware))
+	 	{
+	 		show_error('抱歉!这节课没有上传课件');
+	 	}
+	 	$wordStr = $array_courseware['0']['download_url'];
+	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
+	 	$this->forceDownload($wordStr);
+	 }
 	 
-
+	 /**
+	  * 下载课件PDF文件
+	  * @param unknown_type $filename
+	  */
+	 protected function forceDownload($filename) {
+	 
+	 	// http headers
+	 	header('Content-Type: application-x/force-download');
+	 	header('Content-Disposition: attachment; filename="' . basename($filename) .'"');
+	 	header('Content-length: ' . filesize($filename));
+	 
+	 	// for IE6
+	 	if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) {
+	 		header('Cache-Control: no-cache, must-revalidate');
+	 	}
+	 	header('Pragma: no-cache');
+	 	 
+	 	// read file content and output
+	 	return readfile($filename);;
+	 }
 }
 
 /* End of file welcome.php */

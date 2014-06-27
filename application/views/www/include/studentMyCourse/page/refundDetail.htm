@@ -7,7 +7,7 @@
  			<tr class="imporInfor">
 				<td colspan="4" class="talignLeft">
 					<span>课程名称</span>
-					<strong>{$array_data.title|truncate:18:"...":true}</strong>
+					<strong title="{$array_data.title}">{$array_data.title|truncate:18:"...":true}</strong>
 				</td>
 				<td colspan="2" class="talignRight">
 					<span>申请时间</span>
@@ -38,13 +38,13 @@
 				<td class="stateTd">
 					<span>申请状态</span><br>
 					<strong class="redText">
-					{if $array_data.status == '0'}
+					{if $array_data.status == $smarty.const.REFUND_STATUS_INIT}
 					 	处理中
-					{elseif $array_data.status == '1'}
+					{elseif $array_data.status == $smarty.const.REFUND_STATUS_FAIL}
 						退款失败
-					{elseif $array_data.status == '2'}
+					{elseif $array_data.status == $smarty.const.REFUND_STATUS_AGREE}
 						同意退款
-					{elseif $array_data.status == '3'}
+					{elseif $array_data.status == $smarty.const.REFUND_STATUS_FINISH}
 						退款完成												
 					{/if}
 					</strong>

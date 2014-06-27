@@ -8,24 +8,22 @@ define(function (require, exports) {
     exports.course_operation = function () {
         //operation modal
         $('.course_operation').on("click",function(){
-            course_id = $(this).data('course_id');
-            $("#course_operation_course_id").val(course_id);
-            $("#course_list_operation_modal").modal();
-        });
-
-        $('#btn_course_status_submit').on("click",function () {
-            var status = $('input[name="course_status"]:checked').val();
-            var course_id = $("#course_operation_course_id").val(course_id);
-            var url = $(this).data("action");
+            var url = $(this).data('action');
             var data = {
-                "course_id" : course_id,
-                "status" : status
+                'course_id' : $(this).data('course_id'),
+                'status' : $(this).data('status')
             };
             $.post(url,data,function(response){
-
+                console.log(response);
+                if(response){
+                    alert(response.msg);
+                    if(response.status=='ok'){
+                        window.location.reload();
+                    }
+                }else{
+                    alert('系统错误');
+                }
             });
-            console.log(course_status);
-//            modal.modal();
         });
     }
 

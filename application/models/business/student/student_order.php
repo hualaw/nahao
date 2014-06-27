@@ -53,7 +53,7 @@ class Student_Order extends NH_Model{
                 'round_id'=>$int_product_id,
                 'student_id'=>$int_user_id,                                    #TODO用户id
                 'create_time'=>time(),
-                'price'=>$price,
+                'price'=>$sale_price,
                 'status'=>ORDER_STATUS_INIT,
                 'spend'=>$sale_price,
                 'pay_type'=>$pay_type
@@ -65,7 +65,7 @@ class Student_Order extends NH_Model{
         $array_prams = array(
             'order_id'=>$int_insert_id,
             'user_id'=>$int_user_id,                                      #TODO用户id
-            'user_type'=>ROLE_STUDENT,                         #用户类型 ：学生
+            'user_type'=>NH_MEETING_TYPE_STUDENT,                         #用户类型 ：学生
             'action'=>1,                                       #创建订单
             'create_time'=>time(),
             'note'=>$order_msg
@@ -105,7 +105,7 @@ class Student_Order extends NH_Model{
         {
             $array_order_log = array(
                 'order_id'=>$array_data['order_id'],
-                'user_type'=> ROLE_STUDENT,              #用户类型 ：学生
+                'user_type'=> NH_MEETING_TYPE_STUDENT,              #用户类型 ：学生
                 'user_id'=>$array_data['user_id'],       #TODO用户id
                 'action'=>$array_data['action'],
                 'create_time'=>time(),
@@ -146,7 +146,7 @@ class Student_Order extends NH_Model{
                 'student_id'=>$int_user_id,                                        #TODO用户id
                 'course_id'=>$vv['course_id'],
                 'round_id'=>$vv['round_id'],
-                'class_id'=>$vv['lesson_id'],
+                'class_id'=>$vv['id'],
                 'status'=>0
             );
             $bool_return = $this->model_order->add_student_class_relation($array_data);
@@ -189,7 +189,7 @@ class Student_Order extends NH_Model{
         {
             $array_order_log = array(
                 'order_id'=>$array_data['order_id'],
-                'user_type'=> ROLE_STUDENT,              #用户类型 ：学生
+                'user_type'=> NH_MEETING_TYPE_STUDENT,              #用户类型 ：学生
                 'user_id'=>$array_data['user_id'],       #TODO用户id
                 'action'=>$array_data['action'],
                 'create_time'=>time(),
@@ -201,4 +201,29 @@ class Student_Order extends NH_Model{
         return $bool_return;
     }
 
+    /**
+     * 添加购买人数,如果是最后一个，将销售状态改为已售罄
+     * @param  $int_round_id
+     */
+    public function update_round_data($int_round_id)
+    {
+    	$bool_flag = false;
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	if ($array_round)
+    	{
+
+    		#如果购买人数小于100，人数加1
+    		if($array_round['bought_count'] < $array_round['caps'])
+    		{
+    			$bool_flag = $this->model_order->update_round_buy_count($int_round_id);
+    		}
+    		#如果已经购买的人数是99，将销售状态改为已售罄
+    		if($array_round['bought_count'] == ($array_round['caps']-1))
+    		{
+    			$status = 4;
+    			$this->model_order->update_round_sale_status($int_round_id,$status);
+    		}
+    	}
+    	return $bool_flag;
+    }
 }

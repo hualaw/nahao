@@ -26,10 +26,12 @@ class Member extends NH_User_Controller {
         $int_user_id = $this->session->userdata('user_id');#TODO用户id
         #我购买的课程
         $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
+        //var_dump($array_buy_course);
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
         $array_new = array_slice($array_new,0,3,true);
-        
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_buy_course', $array_buy_course);
         $this->smarty->assign('array_new', $array_new);
         $this->smarty->assign('page_type', 'myCourse');
@@ -137,7 +139,7 @@ class Member extends NH_User_Controller {
 	    {
 	        show_error("参数错误");
 	    }
-	    #获取参数 取消1  删除2 申请退课3 退课详情4
+	    #获取参数 1取消  2删除 3申请退课 4退课详情
 	    if (!in_array($str_type, array(1,2,3,4)))
 	    {
 	        show_error("参数错误");
@@ -169,10 +171,10 @@ class Member extends NH_User_Controller {
 	        }
 	    }
 	    
-	    #删除,并写日志(只在已关闭下才能删除)
+	    #删除,并写日志(在已关闭和已取消下才能删除)
 	    if ($str_type == '2')
 	    {
-	        if ($array_order['status'] == ORDER_STATUS_CLOSE)
+	        if ($array_order['status'] == ORDER_STATUS_CLOSE || $array_order['status'] == ORDER_STATUS_CANCEL)
 	        {
 	            $array_ndata = array(
 	                    'user_id'=>$int_user_id,
@@ -188,7 +190,7 @@ class Member extends NH_User_Controller {
 	                self::json_output(array('status'=>'error','msg'=>'删除操作失败'));
 	            }
 	        } else {
-	            self::json_output(array('status'=>'error','msg'=>'不能执行删除操作'));
+	            self::json_output(array('status'=>'error','msg'=>'不能执行删除操作,只在已关闭下才能删除'));
 	        }
 
 	    }
@@ -197,7 +199,7 @@ class Member extends NH_User_Controller {
 	    if ($str_type == '3')
 	    {
 	        #获取申请退课数据
-	        $array_data = $this->student_member->get_apply_refund_data($int_user_id,$array_order['round_id']);
+	        $array_data = $this->student_member->get_apply_refund_data($int_user_id,$array_order);
 	        //var_dump($array_data);die;
 	        $array_bank = config_item('bank');
 	        $this->smarty->assign('array_bank', $array_bank);
@@ -210,7 +212,7 @@ class Member extends NH_User_Controller {
 	    #退课详情
 	    if ($str_type == '4')
 	    {
-	        $array_data = $this->student_member->get_student_refund_data($int_user_id,$array_order['round_id']);
+	        $array_data = $this->student_member->get_student_refund_data($int_user_id,$array_order);
 	        $this->smarty->assign('array_data', $array_data);
 	        $this->smarty->assign('page_type', 'refund_detail');
 	        $this->smarty->display('www/studentMyCourse/index.html');
@@ -263,9 +265,9 @@ class Member extends NH_User_Controller {
 	    $sflag = $this->student_member->save_refund($array_data);
 	    if ($sflag)
 	    {
-	        self::json_output(array('status'=>'ok','msg'=>'申请提交成功'));
+	        self::json_output(array('status'=>'ok','msg'=>'申请提交成功！我们会在48小时内处理您的申请，请耐心等待！'));
 	    } else {
-	        self::json_output(array('status'=>'ok','msg'=>'申请提交失败'));
+	        self::json_output(array('status'=>'error','msg'=>'申请提交失败'));
 	    }
 	}
 	
@@ -278,6 +280,7 @@ class Member extends NH_User_Controller {
         $this->load->model('business/common/business_subject','subject');
         $this->load->model('business/admin/business_lecture');
         $this->load->model('business/admin/business_teacher');
+        $this->load->model('business/common/business_area');
 	    $user_id = $this->session->userdata('user_id');
         if($this->is_post()) {
             $this->load->model('business/common/business_user');
@@ -288,17 +291,33 @@ class Member extends NH_User_Controller {
             if($phone && $code && $verify_type == 2) {
                 #同时接收到手机、验证码并且验证类型是2,证明用户要绑定手机了
                 $this->load->model('business/common/business_register');
-                $check_ret = $this->business_register->_check_captcha($phone, $code, $verify_type == 2);
+                $check_ret = $this->business_register->_check_captcha($phone, $code, $verify_type);
                 if(!$check_ret) {
                     $arr_return = array('status' => ERROR, 'msg' => '验证码无效,请重新发送');
                     self::json_output($arr_return);
                 } else {
                     #phone_server加一条记录, user更新phone_mask和phone_verified
-                    $phone_data['phone_mask'] = phone_blur($phone);
-                    $phone_data['phone_verified'] = 1;
-                    add_user_phone_server($user_id, $phone);
-                    $this->business_user->modify_user($phone_data, $user_id);
+                    $add_phone_res = add_user_phone_server($user_id, $phone);
+                    if($add_phone_res) {
+                        $phone_data['phone_mask'] = phone_blur($phone);
+                        $phone_data['phone_verified'] = 1;
+                        $this->business_user->modify_user($phone_data, $user_id);
+                        $this->session->set_userdata('phone', $phone);
+                    }
                 }
+            }
+            
+            $post_data['nickname'] = trim($this->input->post('nickname'));
+            if($post_data['nickname'] && $post_data['nickname'] != $this->_user_detail['nickname']) {
+                #修改数据库和redis中的昵称
+                $this->business_user->modify_user($post_data, $this->session->userdata('user_id'));
+                $this->session->set_userdata('nickname', $post_data['nickname']);
+            }
+            $post_data['email'] = trim($this->input->post('email'));
+            if($post_data['email'] && empty($this->_user_detail['email'])) {
+                #如果之前没有设置过邮箱才可以修改
+                $this->business_user->modify_user(array('email' => $post_data['email']), $this->session->userdata('user_id'));
+                $this->session->set_userdata('email', $post_data['email']);
             }
             $post_data['realname'] = trim($this->input->post('realname'));
             $post_data['grade'] = intval($this->input->post('grade'));
@@ -308,6 +327,20 @@ class Member extends NH_User_Controller {
             $post_data['area'] = intval($this->input->post('area'));
             $post_data['student_subject'] = $this->input->post('selected_subjects');
             $post_data['school_id'] = intval($this->input->post('school_id'));
+            $post_data['schoolname'] = trim($this->input->post('schoolname'));
+            if($post_data['schoolname'] && empty($post_data['school_id'])) {
+                #post过来的数据有学校名称但没学校ID, 这是用户自己输入的学校,需要把学校所属的地区也接收过来
+                $post_data['province_id'] = intval($this->input->post('province_id'));
+                $post_data['city_id'] = intval($this->input->post('city_id'));
+                $post_data['county_id'] = intval($this->input->post('area_county_id'));
+                $post_data['school_type'] = intval($this->input->post('school_type'));
+                $post_data['custom_school'] = 1;
+                $new_school_id = $this->business_school->add_custom_school($post_data);
+                $post_data['school_id'] = intval($new_school_id);
+            } else if($post_data['school_id'] && empty($post_data['schoolname'])) {
+                #相反post过来的数据有学校id没学校名称,这是用户选择系统里的学校,把custom_school设成0,防止用户之前自定义过学校
+                $post_data['custom_school'] = 0;
+            }
             $result = $this->business_user->modify_user_info($post_data, $user_id);
             if($result) {
                 $arr_return = array('status' => 'ok', 'msg' => '更新资料成功');
@@ -318,28 +351,34 @@ class Member extends NH_User_Controller {
         }
         #性别
         $gender = $this->config->item('gender');
-        #学校
-        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname');
         #学科
         $subjects = $this->subject->get_subjects();
+        #学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id', $this->_user_detail['custom_school']);
+        $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        array_shift($my_school);
+        $school_area = $this->business_area->get_areas_by_ids($my_school);  
         #我已选择的学科组成的字符串
         $subject_str = implode('-', $this->_user_detail['student_subject']);
         #地区数据
         $province=$this->business_lecture->all_province();
+        $city = $area = array();
         if($this->_user_detail['province']) {
             $city = $this->business_teacher->city1($this->_user_detail['province']);
-        }
+        }        
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
         $this->smarty->assign('gender', $gender);
-        $this->smarty->assign('school', $my_school['schoolname']);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
+        $this->smarty->assign('school_name', $school_name);
+        $this->smarty->assign('school_area', $school_area);
 	    $this->smarty->assign('page_type', 'myInfor');
         $this->smarty->assign('province', $province);
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
+        $this->smarty->assign('special_city', array(2, 25, 27, 32));
         $this->smarty->assign('reg_type', $this->session->userdata('reg_type'));
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}

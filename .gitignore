@@ -7,3 +7,4 @@ templates_c
 /.idea/
 /application/logs/*
 /application/templates_c/*
+/application/controllers/www/Test.php

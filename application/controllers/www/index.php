@@ -1,11 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('content-type: text/html; charset=utf-8');
 class Index extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
         $this->load->model('business/student/student_index');
         $this->load->model('business/teacher/business_teacher','teacher_b');
+        $this->load->model('business/common/business_area');
+        $this->load->model('business/common/business_school');
     }
 
     /**
@@ -13,10 +16,12 @@ class Index extends NH_User_Controller {
      */
 	public function index()
 	{  
-        header('content-type: text/html; charset=utf-8');
         //var_dump($this->session->all_userdata());
         $array_data = $this->student_index->get_course_latest_round_list();
-        //var_dump($array_data);die;
+        //var_dump($array_data);
+        #课程列表的地址
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
@@ -37,10 +42,25 @@ class Index extends NH_User_Controller {
 		$param['subject'] = $this->teacher_b->get_subject();
 		$param['teach_years'] = 50;
 		$user_info = $this->_user_detail;
-		
+		#学校
+        $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id,id,sctype', $this->_user_detail['custom_school']);
+        $school = array(
+        	'province_id' => isset($my_school['province_id']) ? $my_school['province_id'] : '',
+        	'city_id' 	=> isset($my_school['city_id']) ? $my_school['city_id'] : '',
+        	'county_id' => isset($my_school['county_id']) ? $my_school['county_id'] : '',
+        	'sctype'	=> isset($my_school['sctype']) ? $my_school['sctype'] : '',
+        	'id'		=> isset($my_school['id']) ? $my_school['id'] : '',
+        );
+        $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
+        array_shift($my_school);
+        $school_area = $this->business_area->get_areas_by_ids($my_school);
+        
 		$data = array(
-			'data' => $param,
-			'user_info' => isset($user_info['phone']) || isset($user_info['email']) ? $user_info : array('phone'=>'','email'=>''),
+			'school'		=> $school,
+			'school_name' 	=> $school_name,
+			'school_area' 	=> $school_area,
+			'data' 			=> $param,
+			'user_info' 	=> isset($user_info['phone']) || isset($user_info['email']) ? $user_info : array('phone'=>'','email'=>''),
 		);
 		$this->smarty->assign('data',$data);
 	    $this->smarty->display('www/studentStartClass/writeInfo.html');
@@ -113,11 +133,11 @@ class Index extends NH_User_Controller {
 	    header('Content-Type:text/html;CHARSET=utf-8');
 	    if ($bool_flag)
 	    {
-//	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
-			echo '<script>alert("申请成功");window.location.href="/"</script>';
+	        self::json_output(array('status'=>'ok','msg'=>'申请试讲操作成功'));
+//			echo '<script>alert("申请成功");window.location.href="'.teacher_url().'"</script>';
 	    } else {
-//	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
-			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
+	        self::json_output(array('status'=>'error','msg'=>'申请试讲操作失败'));
+//			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
 	    }
 	}
 	
@@ -142,6 +162,16 @@ class Index extends NH_User_Controller {
 	    } else {
 	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
 	    }
+	}
+	
+	/**
+	 * 底部的页面
+	 */
+	public function about()
+	{
+	    $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
+	    $this->smarty->assign('str_pram',$str_pram);
+	    $this->smarty->display('www/about/index.html');
 	}
 }
 

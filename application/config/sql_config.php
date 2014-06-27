@@ -33,10 +33,13 @@ $config['sql_config'] = array(
     ),
     'course_teachers' => array(
         TABLE_COURSE_TEACHER_RELATION => false,
-        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION.'.teacher_id='.TABLE_USER.'.id','left'),
+        TABLE_USER => array(TABLE_COURSE_TEACHER_RELATION.'.teacher_id='.TABLE_USER.'.id','right'),
     ),
     'course_type' => array(
         TABLE_COURSE_TYPE => false,
+    ),
+    'courseware' => array(
+        TABLE_COURSEWARE => false,
     ),
     'group' => array(
         TABLE_ADMIN_GROUP => false

@@ -1,8 +1,9 @@
 define(function(require,exports){
-	require("naHaoDialog")
+	require("naHaoDialog");
     exports.popUp = function (obj){
     	$.tiziDialog({
             title:false,
+            close:null,
             ok:false,
             icon:null,
             padding:0,

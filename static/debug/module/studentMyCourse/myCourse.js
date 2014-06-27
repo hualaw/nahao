@@ -57,45 +57,55 @@ define(function(require,exports){
         var timer = null;
         function countDown(){
             var oDate=new Date();
-            array = $("#"+id).val().split(" ");
-	        FullYear = array['0'].split("-");
-	        Hours = array['1'].split(":");
-            oDate.setFullYear(FullYear[0],FullYear[1],FullYear[2]);
-            oDate.setHours(Hours[0],Hours[1],Hours[2]);
-            
-            var today=new Date();
-            today.setFullYear(today.getFullYear(),((today.getMonth()-"")+1),today.getDate());
-            today.setHours(today.getHours(),today.getMinutes(),today.getSeconds());
-            var s1=parseInt(oDate.getTime());
-            var s2=parseInt(today.getTime());
-            var s=parseInt((s1-s2)/1000);
-            var days=parseInt(s/86400);
-            s%=86400;
-            var hours=parseInt(s/3600);
-            s%=3600;
-            var mins=parseInt(s/60);
-            s%=60;
-            if(days<=0&&hours<=0&&mins<=0&&s<=0){
-                clearInterval(timer);
-                obj.html("已到时");
-            }else{
+            if($("#"+id).val()){
+                array = $("#"+id).val().split(" ");
+    	        FullYear = array['0'].split("-");
+    	        Hours = array['1'].split(":");
+                oDate.setFullYear(FullYear[0],FullYear[1],FullYear[2]);
+                oDate.setHours(Hours[0],Hours[1],Hours[2]);
+
+                var today=new Date();
+                today.setFullYear(today.getFullYear(),((today.getMonth()-"")+1),today.getDate());
+                today.setHours(today.getHours(),today.getMinutes(),today.getSeconds());
+                var s1=parseInt(oDate.getTime());
+                var s2=parseInt(today.getTime());
+                var s=parseInt((s1-s2)/1000);
+                var days=parseInt(s/86400);
+                s%=86400;
+                var hours=parseInt(s/3600);
+                s%=3600;
+                var mins=parseInt(s/60);
+                s%=60;
+
+                if(days<=0&&hours<=0&&mins<=0&&s<=0){
+                    days=0;hours=0;mins=0;s=0;
+                    clearInterval(timer);
+                }
+
+                //如果是一位的时候加前面0
+                days<10?days="0"+days:days = days;
+                hours<10?hours = "0"+hours:hours = hours;
+                mins<10?mins = "0"+mins:mins = mins;
+                s<10?s = "0"+s:s = s;
+
                 if(type==1){
-                    obj.html(days+'天   '+hours+'小时   '+mins+'’'+s+'“');
+                    obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
                 }else{
                     obj.html('<strong>'+days+'</strong>天'+
                             '<strong>'+hours+'</strong>小时'+
                             '<strong>'+mins+'</strong>分'+
                             '<strong>'+s+'</strong>秒');
-                }
+                }              
             }
         }
         countDown();
-        timer = setInterval(countDown, 1000);   
+        timer = setInterval(countDown, 1000);  
     }
     
     //购买前--点击立即购买
     exports.soon_buy = function (){
         $("#soon_buy").click(function (){
+        	
             var url = '/course/before_check_order/';
             var data = {
             	product_id: $('#product_id').val()
@@ -104,15 +114,24 @@ define(function(require,exports){
                 if (response.status == "error") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.href= student_url+"member/my_order/all";
+    				    	return false;
+    				    }
     				});
-                	window.location.href="/member/my_order/all";
+                	
                 } else if(response.status == "ok"){
-                	window.location.href="/pay/product/"+response.id;
+                	window.location.href= student_url+"pay/product/"+response.id;
                 } else if(response.status == 'no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
                 	});
+                } else if(response.status == "nerror"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null
+    				});
                 }
             }, "json");
         })
@@ -129,15 +148,23 @@ define(function(require,exports){
                 if (response.status == "error") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+      				    ok:function(){
+    				    	window.location.href= student_url+"member/my_order/all";
+    				    	return false;
+    				    }
     				});
-                	window.location.href="/member/my_order/all";
                 } else if(response.status == "ok"){
-                	window.location.href="/pay/product/"+response.id;
+                	window.location.href= student_url+"pay/product/"+response.id;
                 }else if(response.status == 'no_login'){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
                 	});
+                }else if(response.status == "nerror"){
+    				$.dialog({
+    				    content:response.msg,
+    				    icon:null 				  
+    				});
                 }
             }, "json");
         })
@@ -153,9 +180,12 @@ define(function(require,exports){
                 if (response.status == "ok") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.reload();
+    				    }
     				});
-                    window.location.reload();
+                    
                 } else if(response.status == "error"){
     				$.dialog({
     				    content:response.msg,
@@ -176,9 +206,13 @@ define(function(require,exports){
                 if (response.status == "ok") {
     				$.dialog({
     				    content:response.msg,
-    				    icon:null
+    				    icon:null,
+    				    ok:function()
+    				    {
+    				    	window.location.reload();
+    				    }
     				});
-                    window.location.reload();
+                    
                 } else if(response.status == "error"){
     				$.dialog({
     				    content:response.msg,
@@ -198,10 +232,10 @@ define(function(require,exports){
         }
 
         //鼠标上去 显示 讲义，运笔记，评论星
-        $(".outlineList li").mouseover(function (){
+        $(".outlineList .listb").mouseover(function (){
             $(this).find(".cListHid").show();     
         });
-        $(".outlineList li").mouseout(function (){
+        $(".outlineList .listb").mouseout(function (){
             $(this).find(".cListHid").hide();
         });
         $(".evaluBtn").click(function (){               
@@ -224,16 +258,16 @@ define(function(require,exports){
     
 	//评论 几颗星
 	exports.starClick = function (){
-		//var ind = true;
 		$(".evalu .starBg span").click(function (){
-			//if(ind){
-				var _index = $(".evalu .starBg span").index($(this));
-				for(var i=0;i<_index+1;i++){
-					$(".evalu .starBg span").eq(i).addClass("cStar");
-				}
-				$("#c_score").val(_index+1);
-				//ind = false;
-			//}
+            for(var i=0;i<$(".evalu .starBg span").length;i++){
+                $(".evalu .starBg span").eq(i).removeClass("cStar");
+            }
+            
+			var _index = $(".evalu .starBg span").index($(this));
+			for(var i=0;i<_index+1;i++){
+				$(".evalu .starBg span").eq(i).addClass("cStar");
+			}
+			$("#c_score").val(_index+1);
 		});
 	}
     
@@ -249,7 +283,7 @@ define(function(require,exports){
 				    icon:null
 				});
                 return false;
-            } else if(!(/\d{11}/.test(phone))) {
+            } else if(!(/^1[3|5|8]\d{9}$/.test(phone))) {
 				$.dialog({
 				    content:"请输入正确的手机号",
 				    icon:null
@@ -257,7 +291,7 @@ define(function(require,exports){
                 return fasle;
             }
             $.ajax({
-                url : 'http://www.nahaodev.com/register/send_captcha',
+                url : '/register/send_captcha',
                 type : 'post',
                 data : {'phone' : phone, 'type' : verify_type},
                 dataType : 'json',
@@ -267,9 +301,10 @@ define(function(require,exports){
         				    content:result.msg,
         				    icon:null
         				});
+                    } else {
+                        //手机验证倒计时
+                        require("module/common/method/countDown").countDown(_this);   
                     }
-                    //手机验证倒计时
-                    require("module/common/method/countDown").countDown(_this);
                 }
             }
             );

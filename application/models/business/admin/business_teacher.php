@@ -133,8 +133,7 @@ class Business_Teacher extends NH_Model
             $str_result_type = 'list';
 //            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area';
             $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,gender,realname,,source,gender,grade,province,city,area,teacher_age,title,stage,register_time,'.TABLE_NAHAO_AREAS.'.name,'.TABLE_USER.'.status,'.TABLE_SUBJECT.'.name as subject_name';
-
-            $arr_where[TABLE_USER.'.teach_priv'] = 1;
+            $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_ON;
             if(array_key_exists('title',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title']-1;
                 unset($arr_where['title']);
@@ -373,7 +372,7 @@ class Business_Teacher extends NH_Model
         $post_user['nickname']=$post['nickname'];
         $post_user['phone_mask']=$phone_mask;
         $post_user['email']=$post['email'];
-        $post_user['salt']=random_string();
+        $post_user['salt']=random_string('alnum',6);
         $post_user['password']=create_password($post_user['salt'],$post['password']);
         $post_user['status']=1;
         $post_user['register_time']=time();

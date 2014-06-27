@@ -23,15 +23,21 @@ define(function(require,exports){
                         data:"city="+$('#city').val(),
                         dataType:"json",
                         success:function(msg){
-                            if(msg=="")
-                            {
-                               $('#area').hide();
+                            var area_select = $("#area");
+                            if(area_select.length == 0) {
+                                area_select = $("<select id='area' name='area' class='area'></select>");
+                                $("#area_div").append(area_select);
                             }
-                            $('#area').empty();
-                            var area=eval(msg);
-                            $.each(area,function(index,d){
-                                $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
-                            })
+                            
+                            if(msg == "") {
+                               $('#area').remove();
+                            }  else {
+                                $('#area').empty();
+                                var area=eval(msg);
+                                $.each(area,function(index,d){
+                                    $('#area').append("<option value="+d.id+">"+d.name+"</option>");
+                                });
+                            }                              
                         }
                     })
                 }
@@ -46,11 +52,13 @@ define(function(require,exports){
                 data:"city="+$('#city').val(),
                 dataType:"json",
                 success:function(msg){
-                    $('#area').empty();
-                    var area=eval(msg);
-                    $.each(area,function(index,d){
-                        $('#area').append("<option value="+d.id+">"+d.name+"</option>");
-                    })
+                    if(msg != '') {
+                        $('#area').empty();
+                        var area=eval(msg);
+                        $.each(area,function(index,d){
+                            $('#area').append("<option value="+d.id+">"+d.name+"</option>");
+                        });
+                    }
                 }
             })
         })

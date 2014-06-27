@@ -1,4 +1,4 @@
-{extends file='teacher/teacherSelfinfo/base.html'}
+{extends file='teacher/teacherSelfInfo/base.html'}
 
 {block name=title}个人信息{/block}
 
@@ -25,7 +25,7 @@
                         <p class="fl">用户昵称</p>
                         <!--用户昵称开始-->
                         <div class="cf">
-                            <input type="text" name="userName" class="fl textInput userName" validName="text" value="{$user_detail.nickname}" disabled/>
+                            <input type="text" name="nickname" class="fl textInput userName" validName="text" value="{$user_detail.nickname}"/>
                             <span class="Validform_checktip fl"></span>
                         </div>
                         <!--用户昵称结束-->
@@ -58,10 +58,15 @@
                     <li class="cf">
                         <em>*</em>
                         <p class="fl">所在学校</p>
-                        <!--所在学校开始-->
-                        <div class="cf">
-                            <input type="text" name="school" class="fl textInput school" validName="text"  value="{$school}"/>
-                            <span class="Validform_checktip fl"></span>
+                        <div class="cf schoolPar">
+                            <input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"></input>
+                            <a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
+                            <input type="hidden" value="" name="school_id" id="schoolVal" />
+                            <input type="hidden" value="" name="province_id" id="province_id" />
+                            <input type="hidden" value="" name="city_id" id="city_id" />
+                            <input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+                            <input type="hidden" value="" name="school_type" id="school_type">
+                            <input type="hidden" value="" name="schoolname" id="schoolname" />
                         </div>
                         <!--所在学校结束-->
                     </li>
@@ -118,7 +123,7 @@
                         </div>
                         <!--用户性别结束-->
                     </li>
-                    <li class="cf">
+                    <li class="cf areaSelect">
                         <em>*</em>
                         <p class="fl">所在地区</p>
                         <!--省份开始-->
@@ -154,7 +159,8 @@
                         <!--区开始-->
                         <div class="fl">
                             <div class="fl">
-                                <div>
+                                <div id="area_div">
+                                {if !in_array($user_detail.province, $special_city)}
                                     <select name="area" id="area" class="area" validName="select">
                                         <option value="">区</option>
                                         {if $area}
@@ -163,6 +169,7 @@
                                         {/foreach}
                                         {/if}
                                     </select>
+                                {/if}
                                 </div>
                             </div>
                             <span class="Validform_checktip fl"></span>
@@ -333,4 +340,5 @@
         </div>
     </div>
 </div>
+{include file='common/setSchool.html'}
 {/block}

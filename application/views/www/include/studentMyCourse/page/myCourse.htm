@@ -2,64 +2,79 @@
 	<h3 class="pageName">我的课程</h3>
 	<ul class="myCourseList cf">
 		<!-- meiyou-->
-		<li class="fl noCourse">
-			<a href="/"><span>快来添加课程吧！</span></a>
+		{if $array_buy_course}
+		<li class="fl noCourse ">   
+		{else}
+		<li class="fl noCourse noCourseList">   
+		{/if}
+			<a href="{$student_url}"><span>快来添加课程吧！</span></a>
 		</li>
 		<!-- kecheng yi wancheng -->
+		{if $array_buy_course}
 		{foreach from=$array_buy_course item=item}
-		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if}">
-			<h3>{$item.title}</h3>
-			<img src="{static_url($item.class_img)}" alt="" class="cover">
+		
+		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if} posr">
+			{if $item.sale_price == '0'}
+			<div class="courseFree"></div>
+			{/if}
+			<h3 title="{$item.title}">{$item.title|truncate:15:"...":true}</h3>
+			
+
+			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>
 			</div>
 			<div class="courseInfor">
 				<div class="lessons">
-					<span class="redText">已上{$item.class}节</span> / 共{$item.totle_class}
+					<span class="redText">已上{$item.class}节</span> / 共{$item.totle_class}节
 				</div>
-				{if $item.teach_status == '2'}
+				{if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
 			    <div class="over">
 					停课
 				</div>
-				{elseif $item.teach_status == '3' || $item.teach_status == '4'}
+				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
 				<div class="over">
 					已结课
 				</div>
+				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
+				<div class="over" title="已过期：已结课一个月之后">
+					已过期
+				</div>
 				{else}
 				<div class="classTime">
+					{if $item.next_class_time !=''}
 					<p>下节课</p>
 					<p class="redText">
 						<span>{$item.next_class_time}</span>
 					</p>
+					{/if}
 				</div>
 				{/if}
 			</div>
 			
-			{if ($item.teach_status == '3' || $item.teach_status =='4' || $item.teach_status =='5') && ( $item.status == '9'
-			     || $item.status == '8' || $item.status == '6')}
-			<a href="javascript:void(0);" class="btn blueBtn">
-				进入课程
-			</a>
-			{else}
 			<a href="/course/buy_after/{$item.round_id}" class="btn blueBtn">
 				进入课程
-		    </a>
-			{/if}			
+		    </a>			
 			
 		</li>
 		{/foreach}
+		{/if}
 	</ul>
 </div>
 <div class="courseConList newList">
 	<h3 class="pageName">最新课程</h3>
 	<ul class="cf">
+		{if $array_new}
 		<!--  xuanzhuan-->
 		{foreach from=$array_new item=item}
 		<li class="fl">
 			<div class="clBoxShaow iniBox">
-				<img src="{static_url({$item.img})}" alt="">
+				{if $item.sale_price == '0'}
+				<div class="courseFree"></div>
+				{/if}
+				<img src="{$item.img}" alt="">
 				<div class="iniInfor">
-					<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
+					<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
 					<div class="cf">
 						<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
 						<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
@@ -70,9 +85,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="clBoxShaow rotateBox posr" data-action="/course/buy_before/{$item.id}">
+			<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
 				<div class="teaInfor cf">
-					<img src="" alt="头像" class="fl">
+					<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 					<div class="fl teaInforR">
 						<!--工作证，称职证，教师证（1-5）-->
 						<h3 class="cf">
@@ -85,9 +100,10 @@
 					</div>
 				</div>
 				<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-				<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
+				<p class="courseTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</p>
 			</div>
 		</li>
 		{/foreach}
+		{/if}
 	</ul>
 </div>

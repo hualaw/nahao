@@ -15,31 +15,45 @@
 <!-- 主要内容开始 -->
 <div class="wrap studentHomePage" id="nahaoModule" module="studentHomePage">
 	<div class="contop">
-		<!-- homePage Content nav -->
-		<div class="conNav">
-			<p>名师亲授</p>
-			<p>实时互动</p>
-			<p class="prompt">-享受最适合你的课堂-</p>
-			<div class="addBtn">
-				<a href="" class="transBtn">我是老师</a>
-				<span>
-					<var class="addLine"></var>
-					<em>加入</em>
-					<var class="addLine"></var>
-				</span>
-				<a href="" class="transBtn">我是学生/家长</a>
-			</div>
+		<!-- 首页轮播 -->
+		<div class="roll">
+			<ul class="cf">
+				<li class="fl rollshow">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+				<li class="fl">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+				<li class="fl">
+					<a target="_blank" href="">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+					</a>
+				</li>
+			</ul>
+			<!-- <ol class="cf rollNav">
+				<li class="fl active"></li>
+				<li class="fl"></li>
+				<li class="fl"></li>
+			</ol> -->
 		</div>
 		<!-- course show -->
 		<div class="courseBox">
 			<div class="layout">
 				<ul class="cf courseList">
+					{if $array_data}
 					{foreach from=$array_data item=item}
 					<li class="fl">
 						<div class="clBoxShaow iniBox">
-							<img src="{static_url({$item.img})}" alt="">
+							{if $item.sale_price == '0'}
+							<div class="courseFree"></div>
+							{/if}
+							<img src="{$item.img}" alt="">
 							<div class="iniInfor">
-								<p class="courseTitle">{$item.title|truncate:18:"...":true}</p>
+								<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
 								<div class="cf">
 									<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
 									<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
@@ -50,7 +64,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="/course/buy_before/{$item.id}">
+						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
 							<div class="teaInfor cf">
 								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">
@@ -65,11 +79,11 @@
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<!-- <p class="courseTitle"><a href="/course/buy_before/{$item.id}" target="_blank">{$item.title|truncate:16:"...":true}</a></p> -->
-							<p class="courseTitle">{$item.title|truncate:16:"...":true}</p>
+							<p class="courseTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</p>
 						</div>
 					</li>
 					{/foreach}
+					{/if}
 				</ul>
 			</div>
 		</div>
@@ -101,7 +115,10 @@
 			</div>
 		</div>
 		<!-- 师资 认证过程 结束 -->
-		<div class="ad"></div>
+		<div class="ad posr">
+			<div class="adbgc"></div>
+			<div class="cat"></div>
+		</div>
 		<!-- 贴心服务 随时退款 开始 -->
 		<div class="service">
 			<h2 class="cf comTitle">  
@@ -157,8 +174,8 @@
 					</div>
 					<p class="fp">
 						<a href="">那好期待与您的合作</a>
-						<a href="javascript:vold(0);" class="phoneHref">400-123-1122</a>
-						<a href="" class="mess">someone@nahao.com</a>
+						<a href="javascript:vold(0);" class="phoneHref">400-680-1818</a>
+						<a href="" class="mess">hezuo@nahao.com</a>
 					</p>
 				</div>
 			</div>
@@ -184,7 +201,7 @@
 <div class="feedbackHtml undis">
 	<div class="feedback">
 		<h2>意见反馈</h2>
-		<form action="/index/feedback/" class="feedbackForm" method="post" >
+		<form action="{$student_url}index/feedback" class="feedbackForm" method="post" >
 			<ul>
 				<li class="cf posr">
 					<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>

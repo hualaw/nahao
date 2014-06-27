@@ -19,45 +19,6 @@ class Business_Teacher extends NH_Model
 				</div>';
     	return $pos;
     }
-    
-    /**
-     * 今日上课数据
-     **/
-     public function today_class($param){
-     	if(empty($param['teacher_id'])){exit('请检查您的登录状态');}
-     	$course_type = config_item('course_type');
-     	$param = array(
-     		'teacher_id' => $param['teacher_id'],
-     		'begin_time' => strtotime(date("Y-m-d")),
-     		'end_time' => strtotime(date("Y-m-d",strtotime("+1 day"))),
-     		'parent_id' => -2,
-     		'status' => "1,2,3",
-     		'order' => 2,
-     	);
-     	$res = $this->model_teacher->class_seacher($param);
-     	if($res) foreach($res as &$val){
-     		$val['course_type_name'] = $course_type[$val['course_type']];
-     		$total_param_item = array(
-     			'teacher_id' => $param['teacher_id'],
-     			'parent_id' => -2,
-     			'status' => "1,2,3",
-     			'round_id' => $val['round_id'],
-     			'counter' => 1,
-     		);
-     		$already_param_item = array(
-     			'teacher_id' => $param['teacher_id'],
-     			'parent_id' => -2,
-     			'status' => "3",
-     			'round_id' => $val['round_id'],
-     			'counter' => 1,
-     		);
-     		$total = $this->model_teacher->class_seacher($total_param_item);
-     		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
-     		$total = $this->model_teacher->class_seacher($already_param_item);
-     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
-     	}
-     	return $res;
-     }
      
      /**
       * 所有轮（班次）数据
@@ -70,13 +31,13 @@ class Business_Teacher extends NH_Model
      	$res = $this->model_teacher->round_seacher($param);
      	#统计的情况
      	if(!empty($param['counter'])){return $res[0]['total'];}
-     	if($res) foreach($res as &$val){
+     	if($res) foreach($res as $key => &$val){
      		$val['status_name'] = $round_teach_status[$val['teach_status']];
      		#全部
      		$total_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
-     			'status' => "1,2,3",
+     			'status' => "0,1,2,3,4,5",
      			'round_id' => $val['id'],
      			'counter' => 1,
      		);
@@ -93,8 +54,43 @@ class Business_Teacher extends NH_Model
      		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      		$total = $this->model_teacher->class_seacher($already_param_item);
      		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     		#查找当前进度节
+     		$val['cur_class'] = $this->round_progress(array('round_id'=>$val['id']));
      	}
      	return $res;
+     }
+     
+     /**
+      * 轮循环中获取当前进度节信息
+      * 1. 有即将开课显示该课
+      * 2. 没有即将开课显示结课的最后一课
+      **/ 
+     public function round_progress($param){
+     	if(empty($param['round_id'])){exit('轮id不能为空');}
+     	$input = array(
+     		'round_id'=>$param['round_id'],
+     		'status'=>'0,1',
+     		'parent_id' => -2,//只获取节
+     		'order' => 2,//按开始时间
+     		'limit' => '1',
+     	); 
+     	#1. 查看是否有即将开课的课，显示最前一个
+     	$class = $this->model_teacher->class_seacher($input);
+     	if(!empty($class[0])){
+     		$cur_class = $class[0];
+     	}else{
+     		$input = array(
+	     		'round_id'=>$param['round_id'],
+	     		'status'=>'3',
+	     		'parent_id' => -2,//只获取节
+	     		'order' => 2,//按开始时间
+	     		'orderType' => 2,
+	     		'limit' => '1',
+	     	);
+	     	#2. 查看是否有结课的课，显示最后一个
+     		$class = $this->model_teacher->class_seacher($input);
+     	}
+     	return !empty($class[0]) ? $class[0] : array();
      }
      
      /**
@@ -102,32 +98,24 @@ class Business_Teacher extends NH_Model
       **/
      public function round_status_count($param){
      	$param['teacher_id'] = !empty($param['teacher_id']) ? $param['teacher_id'] : '';
-     	if(!$param['teacher_id']){exit('请检查您的登录状态');}
+     	if(empty($param['teacher_id'])){exit('请检查您的登录状态');}
      	$res = array();
-     	#即将上课
-     	$param['teach_status'] = -1;
-     	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_0_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
-     	#授课中
-     	$param['teach_status'] = 1;
-     	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_1_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
-     	#停课
-     	$param['teach_status'] = 2;
-     	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_2_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
-     	#结课
-     	$param['teach_status'] = 3;
-     	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_3_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
-     	#过期
-     	$param['teach_status'] = 4;
-     	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_4_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	$status_array = config_item('round_teach_status');
      	#全部
-     	$param['teach_status'] = "0,1,2,3,4";
+     	$param['teach_status'] = join(array_keys($status_array),',');
      	$total = $this->model_teacher->round_status_counter($param);
-     	$res['teach_status_all_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     	$res['teach_status_all_total'] = array(
+     		'total' => $total[0]['total'] ? $total[0]['total'] : 0,
+     		'status_name' => '班次数量',
+     	);
+     	foreach ($status_array as $key => $val){
+     		$param['teach_status'] = $key;
+     		$total = $this->model_teacher->round_status_counter($param);
+     		$res['teach_status_'.$key.'_total'] = array(
+     			'total' => $total[0]['total'] ? $total[0]['total'] : 0,
+     			'status_name' => $val,
+     		);
+     	}
      	return $res;
      } 
      
@@ -136,27 +124,25 @@ class Business_Teacher extends NH_Model
       **/ 
      public function count_zj_status($data){
      	$count = array(
-     		'z_count' => 0,
-     		'j_count' => 0,
-     		'j_status_5' => 0,//禁用
-     		'j_status_4' => 0,//缺课
-     		'j_status_3' => 0,//已结课
-     		'j_status_2' => 0,//正在上课
-     		'j_status_1' => 0,//即将上课
-     		'j_status_0' => 0,//初始化
+     		'z_count' => array('name'=>'章','num'=>0),
+     		'j_count' => array('name'=>'节','num'=>0),
      	);
+     	#初始化已定义的状态数目
+     	$status = config_item('class_teach_status');
+     	foreach($status as $key => $val){
+     		$count['j_status_'.$key] = array(
+     			'name' => $val,
+     			'num'  => 0,
+     		);
+     	}
      	if(count($data)>0){
-     		$count['z_count'] = count($data);
+     		$count['z_count']['num'] = count($data);
      		foreach ($data as $val){
-     			$count['j_count'] += count($val['jArr']);
-     			foreach ($val['jArr'] as $v){
-     				$val['status'] = !empty($val['status']) ? $val['status'] : 0;
-     				$count['j_status_5'] += $val['status'] == 5 ? 1 : 0;
-	     			$count['j_status_4'] += $val['status'] == 4 ? 1 : 0;
-	     			$count['j_status_3'] += $val['status'] == 3 ? 1 : 0;
-	     			$count['j_status_2'] += $val['status'] == 2 ? 1 : 0;
-	     			$count['j_status_1'] += $val['status'] == 1 ? 1 : 0;
-	     			$count['j_status_0'] += $val['status'] == 0 ? 1 : 0;
+     			
+     			$count['j_count']['num'] += isset($val['jArr']) ? count($val['jArr']) : 0;
+     			if(isset($val['jArr'])) foreach ($val['jArr'] as $v){
+     				$v['status'] = !empty($v['status']) ? $v['status'] : 0;
+     				$count['j_status_'.$v['status']]['num'] += 1;
      			}
      		}
      	}
@@ -168,33 +154,44 @@ class Business_Teacher extends NH_Model
      **/
      public function class_list($param){
      	if(empty($param['teacher_id'])){exit('请检查您的登录状态');}
-     	$round_teach_status = config_item('round_teach_status');
+     	$param['no_sort'] = !empty($param['no_sort']) ? $param['no_sort'] : '';
+     	$class_teach_status = config_item('class_teach_status');
      	$res = $this->model_teacher->class_seacher($param);
+     	#统计的情况
+     	if(!empty($param['counter'])){return $res[0]['total'];}
      	$zjArr = array();
      	if($res) foreach($res as &$val){
      		$val['status'] = !empty($val['status']) ? $val['status'] : 0;
-     		$val['status_name'] = isset($round_teach_status[$val['status']]) ? $round_teach_status[$val['status']] : '未知';
+     		$val['status_name'] = isset($class_teach_status[$val['status']]) ? $class_teach_status[$val['status']] : '没有状态';
      		#全部
-     		$total_param_item = $already_param_item = $param; 
+//     		$total_param_item = $already_param_item = $param; 
+			$total_param_item = $already_param_item = array();
      		$total_param_item['status'] = "";
      		$total_param_item['counter'] = 1;
+     		$total_param_item['parent_id'] = -2;
      		$total_param_item['round_id'] = $val['round_id'];
      		#已完成
-     		$already_param_item['status'] = "3";
+     		$already_param_item['status'] = CLASS_STATUS_CLASS_OVER;
      		$already_param_item['counter'] = 1;
+     		$already_param_item['parent_id'] = -2;
      		$already_param_item['round_id'] = $val['round_id'];
      		#查询进度
      		$total = $this->model_teacher->class_seacher($total_param_item);
      		$val['total'] = $total[0]['total'] ? $total[0]['total'] : 0;
      		$total = $this->model_teacher->class_seacher($already_param_item);
-     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;     		
-     		if($val['parent_id']==0){
-     			$zjArr[$val['id']] = $val;
-     		}else{
-     			#统计出勤率
-     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
-     			$val['attendance_persent'] = $persent;
-     			$zjArr[$val['parent_id']]['jArr'][] = $val;
+     		$val['already_total'] = $total[0]['total'] ? $total[0]['total'] : 0;
+     		if(!$param['no_sort']){#默认排序章节
+	     		if($val['parent_id']==0){
+	     			#如果已经出现了章,章节的排序值相同可能导致先出现节后出现章的问题
+	     			$zjArr[$val['id']] = isset($zjArr[$val['id']]) ? array_merge($val,$zjArr[$val['id']]) : $val;
+	     		}else{
+	     			#统计出勤率
+	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
+	     			$val['attendance_persent'] = $persent;
+	     			$zjArr[$val['parent_id']]['jArr'][] = $val;
+	     		}
+     		}else{#不排序章节
+     			$zjArr[] = $val;
      		}
      	}
      	return $zjArr;
@@ -323,11 +320,11 @@ class Business_Teacher extends NH_Model
     	#1. 统计的情况
     	if(empty($param['class_id']) && empty($param['classroom_id'])){exit('缺少必要课堂参数');}
     	$question = $this->model_teacher->question_seacher($param);
-    	
-    	if(!empty($param['counter'])){return isset($param['counter']) ? $param['counter'] : 0;}
+    	if(!empty($param['counter'])){return isset($param['counter']) ? $question[0]['total'] : 0;}
     	#2. 列表的情况
     	$sequence_question = array();
     	if($question) foreach($question as &$val){
+    		$val['question'] = htmlspecialchars_decode($val['question']);
     		/**					1. 统计该题答对状态与比例					**/
     		#该课该题总作答数
     		$param = array(
@@ -355,6 +352,10 @@ class Business_Teacher extends NH_Model
     		$option_total = 0;
     		/**					2. 统计该题各个选项作答状态与比例					**/
     		if($val['options']) foreach($val['options'] as $k=>&$v){
+    			if(!$v){
+    				unset($val['options'][$k]);
+    				continue;
+    			}
     			#该题作答时【包含该选项】的人总数
 	    		$param = array(
 	    			'class_id' => isset($param['class_id']) ? $param['class_id'] : '',
@@ -367,7 +368,7 @@ class Business_Teacher extends NH_Model
     			$choose = isset($total[0]['total']) ? $total[0]['total'] : 0;
     			$option_total += $choose;//总选项包含数
     			$v = array(
-    				'value' => $v,
+    				'value' => urldecode($v),
     				'total' => $choose,
     				'is_correct' => (strpos('-'.$val['answer'],$k) ? 1 : 0),
     				//注意此比率表示多少人的选择包含该选项，总比率不一定为100%，若要100%请使用方案2代码
@@ -482,10 +483,11 @@ class Business_Teacher extends NH_Model
 			#查询月上课详情
 			$param = array(
 				'teacher_id' => $param['teacher_id'],
-				'begin_time' => strtotime(date('Y-m',$pay_info[0]['create_time'])),
-				'end_time' => $pay_info[0]['create_time'],
+//				'begin_time' => strtotime(date('Y-m',$pay_info[0]['create_time'])),
+//				'end_time' => $pay_info[0]['create_time'],
 				'parent_id' => -2,
-				'status' => 3,
+//				'status' => 3,
+				'id' => $param['class_ids'],
 			);
 			$detail = $this->model_teacher->class_seacher($param);
 			if($detail) foreach ($detail as &$val){

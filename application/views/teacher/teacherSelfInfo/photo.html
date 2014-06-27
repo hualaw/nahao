@@ -1,4 +1,4 @@
-{extends file='teacher/teacherSelfinfo/base.html'}
+{extends file='teacher/teacherSelfInfo/base.html'}
 
 {block name=title}个人信息{/block}
 
@@ -23,8 +23,14 @@
                     <dt id="webcam" class=""><a href="javascript:void(0);" class="videoUpload"><em></em><span>拍照上传</span></a></dt>
                     <dd class="cf">
                         <p>仅支持GIF  JPG  PNG 图片文件，请注意头像清晰度</p>
-                        <div id="avatar">
-                            <div id="TiZiAvatar"></div>
+                        <div id="avatar" class="cf">
+
+                            <div class="memberInfo fl">
+                                <img src="{$userdata['avatar']}"/>
+                            </div>
+                            <div class="fl photoFlash">
+                                <div id="TiZiAvatar"></div>
+                            </div>
                         </div>
                         <!--<div class="savePanelButtons">-->
                             <!--<a href="javascript:void(0)" class="noShowBtn redBtn button_save">保存</a>-->
@@ -45,9 +51,6 @@
             <!--添加头像结束-->
         </div>
     </div>
-</div>
-<div class="memberInfo">
-    <img src=""/>
 </div>
 {/block}
 {block name=script}

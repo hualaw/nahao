@@ -25,15 +25,19 @@ class Round extends NH_Admin_Controller
     public function index()
     {
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_status = $this->input->get('status') ? intval($this->input->get('status')) : 0 ;
+        $int_sale_status = $this->input->get('sale_status') ? intval($this->input->get('sale_status')) : 0 ;
+        $int_teach_status = $this->input->get('teach_status') ? intval($this->input->get('teach_status')) : 0 ;
         $int_subject = $this->input->get('subject') ? intval($this->input->get('subject')) : 0 ;
         $str_course_type = $this->input->get('course_type') ? intval($this->input->get('course_type')) : 0 ;
         $str_search_type = $this->input->get('search_type') ? intval($this->input->get('search_type')) : 0 ;
         $str_search_value = $this->input->get('search_value') ? trim($this->input->get('search_value')) : '' ;
 
         $arr_where = array();
-        if($int_status > 0){
-            $arr_where['status'] = --$int_status;
+        if($int_sale_status > 0){
+            $arr_where['sale_status'] = $int_sale_status;
+        }
+        if($int_teach_status > 0){
+            $arr_where['status'] = $int_teach_status;
         }
         if($int_subject > 0){
             $arr_where['subject'] = $int_subject;
@@ -71,6 +75,7 @@ class Round extends NH_Admin_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
+//        o($arr_list,true);
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);
@@ -86,6 +91,7 @@ class Round extends NH_Admin_Controller
     }
 
     /**
+     * TODO 创建轮之前的验证。时间，课节数什么的
      * create/update round
      * @author yanrui@tizi.com
      */
@@ -101,8 +107,8 @@ class Round extends NH_Admin_Controller
             $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
             $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
-            $int_reward = $this->input->post('reward') ? intval($this->input->post('reward')) : 0;
-            $int_price = $this->input->post('price') ? intval($this->input->post('price')) : 0;
+            $int_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
+            $int_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
             $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
@@ -110,13 +116,13 @@ class Round extends NH_Admin_Controller
             $arr_classes = $this->input->post('classes') ? $this->input->post('classes') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : '';
+            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
             $int_caps = $this->input->post('caps') ? intval($this->input->post('caps')) : '';
-            $float_sale_price = $this->input->post('sale_price') ? trim($this->input->post('sale_price')) : '';
+            $float_sale_price = $this->input->post('sale_price') ? (filter_var($this->input->post('sale_price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('sale_price') : 0) : 0;
             $int_sell_begin_time = $this->input->post('sell_begin_time') ? strtotime(trim($this->input->post('sell_begin_time'))) : 0;
-            $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : '';
-            $int_start_time = $this->input->post('start_time') ? strtotime(trim($this->input->post('start_time'))) : '';
-            $int_end_time = $this->input->post('end_time') ? strtotime(trim($this->input->post('end_time'))) : '';
+            $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : 0;
+            $int_start_time = $this->input->post('start_time') ? strtotime(trim($this->input->post('start_time'))) : 0;
+            $int_end_time = $this->input->post('end_time') ? strtotime(trim($this->input->post('end_time'))) : 0;
 
 //            o($this->input->post(),true);
 
@@ -143,8 +149,12 @@ class Round extends NH_Admin_Controller
                 $arr_param['start_time'] = $int_start_time;
                 $arr_param['end_time'] = $int_end_time;
 
+                $this->load->model('business/admin/business_course', 'course');
+//                o($arr_classes);
+                $int_section_count = $this->course->get_section_count($arr_classes);
+                $arr_param['class_count'] = $int_section_count;
 
-//                o($arr_param,true);
+//                o($int_section_count,true);
 
                 if ($int_round_id > 0) {
                     //update
@@ -166,10 +176,11 @@ class Round extends NH_Admin_Controller
                     $this->round->create_round_teacher_batch($int_round_id, $arr_teachers);
                     $this->load->model('business/admin/business_class', 'class');
                     $bool_class = $this->class->create_classes($int_course_id, $int_round_id, $arr_classes);
-//                o($bool_class,true);
-                    $this->arr_response['status'] = 'ok';
-                    $this->arr_response['msg'] = '创建成功';
-                    $this->arr_response['redirect'] = '/round';
+                    if($bool_class){
+                        $this->arr_response['status'] = 'ok';
+                        $this->arr_response['msg'] = '创建成功';
+                        $this->arr_response['redirect'] = '/round';
+                    }
                 }
             }
         }
@@ -213,12 +224,12 @@ class Round extends NH_Admin_Controller
                     if($arr_teachers){
                         //course lessons validate if has lessons, pdf and question exists
                         $this->load->model('business/admin/business_lesson', 'lesson');
-                        $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+                        $arr_lessons = $arr_classes = $this->lesson->get_lessons_by_course_id($int_course_id);
                         if($arr_lessons){
                             $bool_lesson_has_pdf_flag = true;
                             $int_lesson_id = 0;
                             foreach($arr_lessons as $k => $v){
-                                if($v['courseware_id'] < 1){
+                                if($v['parent_id'] > 0 AND $v['courseware_id'] < 1){
                                     $bool_lesson_has_pdf_flag = false;
                                     $int_lesson_id = $v['id'];
                                     break;
@@ -282,6 +293,39 @@ class Round extends NH_Admin_Controller
             header("Content-type: text/html; charset=utf-8");
             die($str_error);
         }
+    }
+
+    /**
+     * 修改slae_status和teach_status
+     * @author yanrui@tizi.com
+     */
+    public function status(){
+        $int_round_id = $this->input->post('round_id') ? intval($this->input->post('round_id')) : 0;
+        $str_type = $this->input->post('type') ? trim($this->input->post('type')) : '';
+        $int_status = $this->input->post('status') ? intval($this->input->post('status')) : 0;
+//        o($int_round_id);
+//        o($str_type);
+//        o($int_status,true);
+        if($int_round_id > 0 AND $int_status >= 0 AND $str_type){
+            if($str_type=='sale_status'){
+                $arr_param = array(
+                    'sale_status' => $int_status
+                );
+            }else{
+                $arr_param = array(
+                    'teach_status' => $int_status
+                );
+            }
+            $arr_where = array(
+                'id' => $int_round_id
+            );
+            $bool_return = $this->round->update_round($arr_param,$arr_where);
+            if($bool_return==true){
+                $this->arr_response['status'] = 'ok';
+                $this->arr_response['msg'] = '操作成功';
+            }
+        }
+        self::json_output($this->arr_response);
     }
 
 }

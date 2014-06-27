@@ -1,10 +1,9 @@
 define(function(require,exports){
 	// 首页导航 高亮
-	require('module/common/method/curNav').curNav();
+	require('module/common/method/curNav').curNav(".headNav","nahaoModule");
 	// 悬浮框
 	require('module/common/method/floatBox').floatBox($(".floatBox").get(0),$(".floatBox .returnTop"));
 	$(".feedback").click(function (){
-		//require('module/common/method/popUp').popUp('.feedbackHtml');
     	$.dialog({
     		id:"feedback_close",
             title:false,

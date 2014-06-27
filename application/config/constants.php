@@ -89,14 +89,15 @@ define('ORDER_TYPE_OFFLINE', 4);
  * 默认头像 DEFAULT_AVATER
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
-define('DEFAULT_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
 /*
  * 老师角色
- * 主讲 0
- * 助教 1
+ * 主讲 1
+ * 助教 2
  */
-define('TEACH_SPEAKER', 0);
-define('TEACH_ASSISTANT', 1);
+define('TEACH_SPEAKER', 1);
+define('TEACH_ASSISTANT', 2);
 
 /*
  * 订单编号开始值
@@ -131,6 +132,61 @@ define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
 
+// 课的状态
+define('CLASS_STATUS_INIT', 0);//初始化
+define('CLASS_STATUS_SOON_CLASS', 1);//即将上课
+define('CLASS_STATUS_ENTER_ROOM', 2);//可进教室
+define('CLASS_STATUS_CLASSING', 3);//正在上课
+define('CLASS_STATUS_CLASS_OVER', 4);//上完课
+define('CLASS_STATUS_MISS_CLASS', 5);//老师缺课
+define('CLASS_STATUS_FORI_CLASS', 6);//禁用（不能恢复）
+
+/**
+ * 轮的销售状态
+ * 未审核0
+ * 审核不通过1
+ * 审核通过（预售）2
+ * 销售中3
+ * 已售罄4
+ * 已停售（时间到了还没售罄）5
+ * 已下架（手动下架）6
+ */
+define('ROUND_SALE_STATUS_INIT', 0);
+define('ROUND_SALE_STATUS_NO_PASS', 1);
+define('ROUND_SALE_STATUS_PASS', 2);
+define('ROUND_SALE_STATUS_SALE', 3);
+define('ROUND_SALE_STATUS_OVER', 4);
+define('ROUND_SALE_STATUS_FINISH', 5);
+define('ROUND_SALE_STATUS_OFF', 6);
+
+/**
+ * 轮的授课状态
+ * 等待开课1
+ * 授课中2
+ * 停课（手动操作）3
+ * 结课4
+ * 过期(节课后一个月cron会把这个状态改为过期)5
+ */
+define('ROUND_TEACH_STATUS_INIT', 1);
+define('ROUND_TEACH_STATUS_TEACH', 2);
+define('ROUND_TEACH_STATUS_STOP', 3);
+define('ROUND_TEACH_STATUS_FINISH', 4);
+define('ROUND_TEACH_STATUS_OVER', 5);
+
+
+/**
+ * 学生退款记录表student_refund退款状态
+ * 处理中 0
+ * 退款失败1
+ * 同意退款2
+ * 退款完成3
+ */
+define('REFUND_STATUS_INIT', 0);
+define('REFUND_STATUS_FAIL', 1);
+define('REFUND_STATUS_AGREE', 2);
+define('REFUND_STATUS_FINISH', 3);
+
+
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');
 
@@ -148,8 +204,10 @@ define('TABLE_ADMIN','admin');
 define('TABLE_ADMIN_GROUP','admin_group');
 define('TABLE_ADMIN_PERMISSION_RELATION','admin_permission_relation');
 define('TABLE_CLASS','class');
+define('TABLE_CLASS_ACTION_LOG','class_action_log');
 define('TABLE_CLASS_DISCUSS_LOG','class_discuss_log');
 define('TABLE_CLASS_FEEDBACK','class_feedback');
+define('TABLE_FEEDBACK','feedback');
 define('TABLE_COURSE','course');
 define('TABLE_COURSE_GRADE_RELATION','course_grade_relation');
 define('TABLE_COURSE_TEACHER_RELATION','course_teacher_relation');
@@ -160,6 +218,7 @@ define('TABLE_GROUP_PERMISSION_RELATION','group_permission_relation');
 define('TABLE_LESSON','lesson');
 define('TABLE_NAHAO_AREAS','nahao_areas');
 define('TABLE_NAHAO_SCHOOLS','nahao_schools');
+define('TABLE_SCHOOLS_CREATE', 'nahao_schools_create');
 define('TABLE_ORDER_ROUND_RELATION','order_round_relation');
 define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
@@ -172,19 +231,44 @@ define('TABLE_SHOPPING_CART','shopping_cart');
 define('TABLE_SMS_LOG','sms_log');
 define('TABLE_SMS_VERIFY_CODE','sms_verify_code');
 define('TABLE_STUDENT_CLASS','student_class');
-define('TABLE_STUDENT_CLASS_LOG','student_class_log');
 define('TABLE_STUDENT_ORDER','student_order');
 define('TABLE_STUDENT_REFUND','student_refund');
 define('TABLE_STUDENT_SUBJECT','student_subject');
 define('TABLE_STUDENT_QUESTION','student_question');
 define('TABLE_TEACHER_CHECKOUT_LOG','teacher_checkout_log');
-define('TABLE_TEACHER_LECTRUE','teacher_lectrue');
+define('TABLE_TEACHER_LECTURE','teacher_lecture');
 define('TABLE_TEACHER_SUBJECT','teacher_subject');
 define('TABLE_USER','user');
 define('TABLE_USER_INFO','user_info');
 define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
 define('TABLE_CLASS_NOTE', 'class_note');
+define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
+//各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
+
+//ROUND sale_status
+define('TABLE_ROUND_DIC_SALE_STATUS_INIT',0);//未审核
+define('TABLE_ROUND_DIC_SALE_STATUS_DENY',1);//审核未通过
+define('TABLE_ROUND_DIC_SALE_STATUS_RUNNING',2);//审核通过（进入预售期）
+define('TABLE_ROUND_DIC_SALE_STATUS_ON_SALE',3);//在售
+define('TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT',4);//售罄
+define('TABLE_ROUND_DIC_SALE_STATUS_STOP',5);//停售（时间到）
+define('TABLE_ROUND_DIC_SALE_STATUS_OFFLINE',6);//下架
+
+//ROUND teach_status
+define('TABLE_ROUND_DIC_TEACH_STATUS_INIT',1);//等待开课
+define('TABLE_ROUND_DIC_TEACH_STATUS_RUNNING',2);//授课中
+define('TABLE_ROUND_DIC_TEACH_STATUS_STOP',3);//停课（手动操作）
+define('TABLE_ROUND_DIC_TEACH_STATUS_FINISH',4);//结课
+define('TABLE_ROUND_DIC_TEACH_STATUS_EXPIRE',5);//过期(结课后一个月cron会把结课改为过期)
+
+//USER status
+define('TABLE_USER_DIC_STATUS_OFF',0);
+define('TABLE_USER_DIC_STATUS_ON',1);
+
+//USER teach_priv
+define('TABLE_USER_DIC_TEACH_PRIV_OFF',0);
+define('TABLE_USER_DIC_TEACH_PRIV_ON',1);
 
 //static js
 define('STATIC_ADMIN_JS_JQUERY_MIN','/admin/js/jquery_1.10.2.min.js');
@@ -201,6 +285,8 @@ define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
 
 //static css
 define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
+define('STATIC_ADMIN_CSS_CLASSROOM','/css/classRoom/style.css');
+define('STATIC_ADMIN_CSS_PREVIEW','/css/adminPublic/preview.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
@@ -221,7 +307,7 @@ define('REDIS_VERIFY_CODE_EXPIRE_TIME', 3600); //测试暂定1小时，上线应
 
 //课程中的状态
 define('NAHAO_STATUS_COURSE_INIT',0);//未审核
-define('NAHAO_STATUS_COURSE_CHECKING',1);//审核未通过
+define('NAHAO_STATUS_COURSE_DENY',1);//审核未通过
 define('NAHAO_STATUS_COURSE_RUNNING',2);//审核通过，运营中
 define('NAHAO_STATUS_COURSE_PAUSE',3);//暂停
 define('NAHAO_STATUS_COURSE_CLOSE',4);//关闭
@@ -240,25 +326,28 @@ define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
-define('NH_MEETING_URL','http://classroom.oa.tizi.com:80/');
+define('NH_MEETING_URL','http://classroom.oa.tizi.com/');
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
+
+define('NH_PDF_DOWNLOAD_URL',NH_MEETING_URL.'media/');
 //访问教室的用户类型
 define('NH_MEETING_TYPE_STUDENT',0);//学生
 define('NH_MEETING_TYPE_TEACHER',1);//老师
 define('NH_MEETING_TYPE_ADMIN',2);//管理员
+define('NH_MEETING_TYPE_SYSTEM',3);//系统，记录日志时用到
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
 define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/nahao/enter?token=');
 
-//课程封面图的三个尺寸 290*216  227*169   66*49
+//课程封面图的三个尺寸 288*216  230*172   50*50
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
-define('NH_COURSE_IMG_LARGE_WIDTH',290);
-define('NH_COURSE_IMG_GENERAL_HEIGHT',169);
-define('NH_COURSE_IMG_GENERAL_WIDTH',227);
-define('NH_COURSE_IMG_SMALL_HEIGHT',49);
-define('NH_COURSE_IMG_SMALL_WIDTH',66);
+define('NH_COURSE_IMG_LARGE_WIDTH',288);
+define('NH_COURSE_IMG_GENERAL_HEIGHT',172);
+define('NH_COURSE_IMG_GENERAL_WIDTH',230);
+define('NH_COURSE_IMG_SMALL_HEIGHT',50);
+define('NH_COURSE_IMG_SMALL_WIDTH',50);
 define('NH_TEACHER_IMG_HEIGHT', 225);
 define('NH_TEACHER_IMG_WIDTH', 300);
 
@@ -272,6 +361,9 @@ define('TEACHER_AGE_CEILING', 50);
 define('CLASS_PLEASE_ACTION', 1);//赞
 define('CLASS_SLOWER_ACTION', 2);//讲快一点
 define('CLASS_FASTER_ACTION', 3);//讲慢一点
+define('CLASS_BEGIN_ACTION', 4);//点上课
+define('CLASS_OVER_ACTION', 5);//点下课
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

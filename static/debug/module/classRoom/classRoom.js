@@ -13,7 +13,7 @@ define(function (require,exports){
 		$(".do_publish_questions").hide();
 			//弹框
 			$.tiziDialog({
-	            title:false,
+	            title:'选择用于学生练习的题目',
 	            ok:false,
 	            icon:false,
 	            id: 'exerciseHtml',
@@ -48,6 +48,9 @@ define(function (require,exports){
 				$(".clickBtn").hide();
 				$('.publish_questions_index').html("");
 				$('.publish_questions').html('<li>'+response.msg+'</li>');
+				if($(".aui_content .publish_questions li").outerHeight(true)>300){
+					$(".aui_content .publish_questions li").outerHeight(true)=300;
+				}
 				$(".itemTabBox").height($(".aui_content .publish_questions li").outerHeight(true));
 			}
 		});
@@ -60,7 +63,9 @@ define(function (require,exports){
 			iniH = $(".itemTabList").eq(0).outerHeight(true),
 			ind = 0;
 		//初始高度	
-		document.title = iniH;
+		if(iniH>300){
+			iniH=300;
+		}
 		$(".itemTabBox").height(iniH);
 
 		//选题
@@ -98,14 +103,15 @@ define(function (require,exports){
 			};
 			$.post(url, data, function (response) {
 				if (response.status == "ok") {
-//					$.tiziDialog.list['exerciseHtml'].close();
-					alert('第'+response.sequence+'批题'+response.msg);
 					$.tiziDialog({ id: 'exerciseHtml' }).close();
 				}
 			}, "json");
 		});
 		//左右切换
 		function roll(ind){
+			if($(".aui_content .itemTabList").eq(ind).outerHeight(true)>300){
+				$(".aui_content .itemTabList").eq(ind).height(260);
+			}
 			$(".itemTabBox").height($(".aui_content .itemTabList").eq(ind).outerHeight(true));
 			$(".itemTabBox ul").stop().animate({left:-ind*iniW});
 		}
@@ -118,8 +124,6 @@ define(function (require,exports){
 		});
 		$(".clickR").click(function (){
 			ind++;
-			document.title = ind;
-			console.log($(".aui_content .itemTabList").length-1)
 			if(ind>$(".aui_content .itemTabList").length-1){
 				ind = $(".aui_content .itemTabList").length-1;
 			}
@@ -130,10 +134,8 @@ define(function (require,exports){
 		})
 	}
 	exports.load_questions_count = function(){
-		
 		var classroom_id = $('#nahaoModule').attr('classroom-data');
 		var url = "/classroom/teacher_checkout_question_answer/"+classroom_id+'/?'+((new Date).valueOf());
-		
 		$.get(url,function(response){
 			if(response.status=='ok'){
 				$('.countTitle').html(response.data.total_html);
@@ -157,14 +159,18 @@ define(function (require,exports){
 		        		$('.sequence-'+cur_sequence).fadeIn();
 		        	});
 		        });
+			}else{
+				//弹框
+				$.tiziDialog({
+		            content:response.msg,
+				    icon:null
+		        });
 			}
 		});
 	}
 	//选择题目 切换内容
 	exports.curItem	= function (){
 		//初始--选的题目内容显示，左侧对应列表高亮 
-		//var ind = 2;
-		//$(".itemscore .scoreBoxList").eq(0).removeClass("undis");
 		//点击时切换
 		$(".itemscore .sconl li").click(function (){
 			$(".result").removeClass("resultArrow");
@@ -185,15 +191,11 @@ define(function (require,exports){
 
 	//评论 几颗星
 	exports.starClick = function (){
-		//var ind = true;
 		$(".evalu .starBg span").click(function (){
-			//if(ind){
-				var _index = $(".evalu .starBg span").index($(this));
-				for(var i=0;i<_index+1;i++){
-					$(".evalu .starBg span").eq(i).addClass("cStar");
-				}
-				//ind = false;
-			//}
+			var _index = $(".evalu .starBg span").index($(this));
+			for(var i=0;i<_index+1;i++){
+				$(".evalu .starBg span").eq(i).addClass("cStar");
+			}
 		});
 	}
 
@@ -223,12 +225,15 @@ define(function (require,exports){
 					 html+='<div class="setqid" sequence="'+val.sequence+'" select_type="'+val.type+'" classid="'+val.class_id+'" qid="'+val.id+'">'+val.question+'</div>';
 					 html+=	'<ul class="answerList">';
 					 $.each(val.options, function(k, v) {
-			
-						 html+=	'<li class="cf ">';
-						 html+=	'<em class="fl ansIco"></em>';
-						 html+=	'<span class="options fl">'+k+'</span>';
-						 html+=	'<p class="fl">'+v+'</p>';
-						 html+=	'</li>';
+						 if(v)
+						 {
+							 html+=	'<li class="cf ">';
+							 html+=	'<em class="fl ansIco"></em>';
+							 html+=	'<span class="options fl">'+k+'</span>';
+							 html+=	'<p class="fl">'+v+'</p>';
+							 html+=	'</li>';
+						 }
+
 					 });
 					 html+=	'</ul>';
 					 html+=	'</div>';
@@ -292,9 +297,12 @@ define(function (require,exports){
 			var aL = $(".aui_content .answerList").eq(ind).find("li");
 
 			for(var i=0;i<aL.length;i++){
-				//console.log(!aL.hasClass("curAnswer"))
 				if(!aL.hasClass("curAnswer")){
-					alert("您还没有做题");
+	 				$.dialog({
+					    content:"您还没有做题",
+					    icon:null
+					});
+					//alert("您还没有做题");
 					return;
 				}else{
 					chans = false;
@@ -314,7 +322,11 @@ define(function (require,exports){
 					 };
 					 $.post(rurl, rdata, function (response) {
 						 if (response.status == "error") {
-							 alert(response.msg);
+			 				$.dialog({
+							    content:response.msg,
+							    icon:null
+							});
+							 //alert(response.msg);
 						 } else if(response.status == "ok"){
 								 	rhtml+='<div class="scoreBox itemscore cf ">';
 									rhtml+='<div class="fl optionNav">';	
@@ -342,28 +354,31 @@ define(function (require,exports){
 									rhtml+='			<div>第'+(kk+1)+'题:'+vv.question+'</div>';
 									rhtml+='			<ul class="answerList">';
 											$.each(vv.options, function(kkk, vvv) {
-												if(vv.selected == kkk ){
-													aclass = "cf curAnswer";
-												} else {
-													aclass = "cf ";
-												}
-												if(vv.answer == kkk){
-													aclass += " ansRight";
-												} else {
-													if(vv.selected == kkk)
-													{
-													aclass += " ansError";
+												if(vvv)
+												{
+													if(vv.selected == kkk ){
+														aclass = "cf curAnswer";
+													} else {
+														aclass = "cf ";
 													}
+													if(vv.answer == kkk){
+														aclass += " ansRight";
+													} else {
+														if(vv.selected == kkk)
+														{
+														aclass += " ansError";
+														}
+													}
+													
+													rhtml+='				<li class="'+aclass+'">';
+													rhtml+='					<em class="fl ansIco"></em>';
+													rhtml+='					<span class="options fl">'+kkk+'</span>';
+													rhtml+='					<p class="fl">'+vvv+'</p>';
+													rhtml+='				</li>';
 												}
-												
-									rhtml+='				<li class="'+aclass+'">';
-									rhtml+='					<em class="fl ansIco"></em>';
-									rhtml+='					<span class="options fl">'+kkk+'</span>';
-									rhtml+='					<p class="fl">'+vvv+'</p>';
-									rhtml+='				</li>';
 											})
 									rhtml+='			</ul>';
-									rhtml+='<p>您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
+									rhtml+='<p class="chanText">您选择的是'+vv.selected+',正确答案是'+vv.answer+'</p>';
 									rhtml+='		</div>';
 									
 									})
@@ -428,7 +443,7 @@ define(function (require,exports){
 			function ajax_save()
 			{
 				//ajax提交答案
-				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+//				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
 				var murl = '/classroom/save/';
 	            var mdata = {
 	            	class_id: cid,

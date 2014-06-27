@@ -5,36 +5,35 @@
  */
 
 //教师团里的身份
-$config['teacher_role'][0] = '主讲';
-$config['teacher_role'][1] = '助教';
+$config['teacher_role'][1] = '主讲';
+$config['teacher_role'][2] = '助教';
 
 //course status
-$config['course_status'][0] = '未审核';
-$config['course_status'][1] = '审核未通过';
-$config['course_status'][2] = '审核通过';
+$config['course_status'][0] = '未审';
+$config['course_status'][1] = '拒审';
+$config['course_status'][2] = '过审';
 $config['course_status'][3] = '暂停';
 $config['course_status'][4] = '关闭';
 
 //round_sell_status
-$config['round_sale_status'][0] = '未审核';
-$config['round_sale_status'][1] = '审核不通过';
-$config['round_sale_status'][2] = '审核通过';//（预售）
-$config['round_sale_status'][3] = '销售中';
-$config['round_sale_status'][4] = '已售罄';
-$config['round_sale_status'][5] = '已停售';//（时间到了还没售罄）
-$config['round_sale_status'][6] = '已下架（手动下架）';
+$config['round_sale_status'][0] = '未审';
+$config['round_sale_status'][1] = '拒审';
+$config['round_sale_status'][2] = '过审';//（预售）
+$config['round_sale_status'][3] = '在售';
+$config['round_sale_status'][4] = '售罄';
+$config['round_sale_status'][5] = '停售';//（销售结束时间到，但没售罄，cron改）
+$config['round_sale_status'][6] = '下架';//（手动下架，恢复时回到未审核）
 
 //round_teach_status
-$config['round_teach_status'][1] = '等待开课';
+$config['round_teach_status'][1] = '未开课';
 $config['round_teach_status'][2] = '授课中';
-$config['round_teach_status'][3] = '停课';//（手动操作）
-$config['round_teach_status'][4] = '结课';
+$config['round_teach_status'][3] = '停课';//手动操作,恢复时回到1或2，需判断
+$config['round_teach_status'][4] = '结课';//上完课cron修改为此状态
 $config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这个状态改为过期)
 
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
-$config['gender'][3] = '保密';
 
 //教育阶段
 $config['stage'][1] = '小学';
@@ -55,7 +54,6 @@ $config['teach_type'][1] = '小班教育(15人以内)';
 $config['teach_type'][2] = '大班教育不限人数';
 
 //年级
-$config['grade'][0] = '其他';
 $config['grade'][1] = '一年级';
 $config['grade'][2] = '二年级';
 $config['grade'][3] = '三年级';
@@ -68,6 +66,7 @@ $config['grade'][9] = '初三';
 $config['grade'][10] = '高一';
 $config['grade'][11] = '高二';
 $config['grade'][12] = '高三';
+$config['grade'][99] = '其他';
 
 //订单状态
 
@@ -149,10 +148,11 @@ $config['classroom_action'][2] = '退出';
 //课里面的状态
 $config['class_teach_status'][0] = '初始化';
 $config['class_teach_status'][1] = '即将上课';
-$config['class_teach_status'][2] = '正在上课';
-$config['class_teach_status'][3] = '上完课';
-$config['class_teach_status'][4] = '缺课';
-$config['class_teach_status'][3] = '禁用';
+$config['class_teach_status'][2] = '可进教室';
+$config['class_teach_status'][3] = '正在上课';
+$config['class_teach_status'][4] = '上完课';
+$config['class_teach_status'][5] = '缺课';
+$config['class_teach_status'][6] = '禁用';
 
 
 
@@ -232,13 +232,6 @@ $config['classroom_student_action'][1] = '点赞';
 $config['classroom_student_action'][2] = '讲快点';
 $config['classroom_student_action'][3] = '讲慢点';
 
-//课里面的状态
-$config['class_teach_status'][0] = '初始化';
-$config['class_teach_status'][1] = '即将上课';
-$config['class_teach_status'][2] = '正在上课';
-$config['class_teach_status'][3] = '上完课';
-$config['class_teach_status'][4] = '缺课';
-$config['class_teach_status'][3] = '禁用';
 
 //账户状态
 $config['account'][0] = '禁用';
@@ -284,3 +277,16 @@ $config['image_type'][3] = 'PNG';
 $config['class_checkout_status'][0] = '不可结算';
 $config['class_checkout_status'][1] = '可结算';
 $config['class_checkout_status'][2] = '已结算';
+
+//课评价显示状态
+$config['feedback'][0] = '屏蔽';
+$config['feedback'][1] = '显示';
+
+//公告发布者角色
+$config['author_role'][1] = '管理员';
+$config['author_role'][3] = '老师';
+
+//公告状态
+$config['affiche_status'][1] = '未审核';
+$config['affiche_status'][2] = '审核不通过';
+$config['affiche_status'][3] = '审核通过';

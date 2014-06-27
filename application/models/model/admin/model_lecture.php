@@ -43,8 +43,15 @@
          */
         public function total_sea($get)
         {
-            $this->load->model('business/common/business_subject');
-            $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            if($get['subject']!=0)
+            {
+                $this->load->model('business/common/business_subject');
+                $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            }
+            else
+            {
+                $lecture_subject['name']='';
+            }
             $this->load->model('model/admin/model_lecture');
             $this->model_lecture->factor($get,$lecture_subject['name']);
             return $this->db->get()->num_rows();
@@ -58,8 +65,15 @@
          */
         public function seach_lecture_list($get)
         {
-            $this->load->model('business/common/business_subject');
-            $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            if($get['subject']!=0)
+            {
+                $this->load->model('business/common/business_subject');
+                $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
+            }
+            else
+            {
+                $lecture_subject['name']='';
+            }
             $this->load->model('model/admin/model_lecture');
             $this->model_lecture->factor($get,$lecture_subject['name']);
             return $this->db->get();
@@ -73,7 +87,10 @@
         public function factor($get,$subject)
         {
             $config_lecture = config_item('lecture_factor');
-            $con_lec=$config_lecture[$get['term']];
+            if($get['term']!=0)
+            {
+                $con_lec=$config_lecture[$get['term']];
+            }
             //var_dump($con_lec);die;
             $this->load->model('model/admin/model_lecture');
             $this->model_lecture->sql();
@@ -201,7 +218,18 @@
         {
             if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
              {
-                 return TRUE;
+                 //以下为修改redis，还未测试
+//                 $now_time=time();
+//                 $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+//
+//                 $this->load->model('model/common/model_redis', 'redis');
+//                 $this->redis->connect('session');
+//                 $redis_data=$this->cache->redis->get($session_id['session_id']);
+//                 $redis_data['teach_priv']=1;
+//                 if($this->cache->redis->set($session_id['session_id'],$redis_data))
+//                 {
+                     return TRUE;
+//                 }
              }
         }
         /**

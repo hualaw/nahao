@@ -1,47 +1,56 @@
 <form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="col-md-1 control-label">查询条件</label>
         <div class="col-md-2">
-            <select class="form-control" name="course_type">
+            <select class="form-control input-sm" name="course_type">
                 <option value="">全部课程类型</option>
                 {foreach $course_types as $k => $v}<option value="{$k}" {if isset($query_param.course_type) AND $query_param.course_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="subject">
+            <select class="form-control input-sm" name="subject">
                 <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="status">
-                <option value="">全部状态</option>
-                {foreach $course_status as $k => $v}<option value="{$k}" {if isset($query_param.status) AND $query_param.status==$k }selected{/if}>{$v}</option>{/foreach}
-                <option value="1">已禁用</option>
-                <option value="2">已启用</option>
+            <select class="form-control input-sm" name="sale_status">
+                <option value="">销售状态</option>
+                {foreach $round_sale_status as $k => $v}<option value="{$k}" {if isset($query_param.sale_status) AND $query_param.sale_status==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="search_type">
+            <select class="form-control input-sm" name="teach_status">
+                <option value="">授课状态</option>
+                {foreach $round_teach_status as $k => $v}<option value="{$k}" {if isset($query_param.teach_status) AND $query_param.teach_status==$k }selected{/if}>{$v}</option>{/foreach}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control input-sm" name="search_type">
                 {foreach $round_list_search_type as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
+            <input type="text" class="form-control input-sm col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
         </div>
-        <button type="submit" class="btn btn-primary">搜索</button>
+    </div>
+    <div class="form-group">
+        <div class="col-md-1">
+        <button type="submit" class="form-control btn-sm btn btn-primary">搜索</button>
+        </div>
+            <div class="col-md-1">
+        <a href="/round" class="form-control btn-sm btn btn-primary">重置</a>
+            </div>
     </div>
 </form>
 
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>#</th>
+        <!--<th>#</th>-->
         <th>班次ID</th>
         <th>课程名称</th>
         <th>开课日期</th>
-        <th>销售开始时间</th>
-        <th>销售结束时间</th>
+        <th>销售开始结束时间</th>
         <th>教师昵称</th>
         <th>班次进度</th>
         <th>科目</th>
@@ -49,31 +58,45 @@
         <th>已报名/限额</th>
         <th>销售状态</th>
         <th>授课状态</th>
-        <th>班次评分</th>
+        <th>评分</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
     {foreach $list as $v}
     <tr>
-        <td><input type="checkbox"></td>
+        <!--<td><input type="checkbox"></td>-->
         <td>{$v.id}</td>
         <td>{$v.title}</td>
-        <td>{if isset($v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
-        <td>{if isset($v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}</td>
-        <td>{if isset($v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
+        <td>{if (isset($v.start_time) AND $v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
+        <td>{if (isset($v.sell_begin_time) AND $v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}至{if (isset($v.sell_end_time) AND $v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
         <td>{$v.nickname}</td>
         <td>{$v.class_count}</td>
         <td>{$subjects[$v.subject]}</td>
         <td>{$course_types[$v.course_type]}</td>
         <td>{$v.bought_count}/{$v.caps}</td>
         <td>{$round_sale_status[$v.sale_status]}</td>
-        <td>{$round_teach_status[$v.teach_status]}</td>
-        <td>{if isset($v.scores)}{date("Y-m-d H:i",$v.scores)}{/if}</td>
+        <td>{if ($v.sale_status ge $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT) AND ($v.sale_status le $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_STOP)}{$round_teach_status[$v.teach_status]}{else}--{/if}</td>
+        <td>{if isset($v.scores)}{$v.scores}{/if}</td>
         <td>
-            <a href="javascript:;" data-toggle="modal" data-target="#round_list_operation_modal" data-round_id="{$v.id}">更多</a>
-            <a href="/round/edit/{$v.id}">修改</a>
-            <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
+            {if $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}
+                <a href="/round/edit/{$v.id}">修改</a>
+                <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
+                <botton class="round_operation btn-xs btn btn-success" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING}">过审</botton>
+                <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_DENY}">拒审</botton>
+            {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_ON_SALE)}
+                <botton class="round_operation btn-xs btn btn-warning" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}">停售</botton>
+            {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_STOP)}
+                {if ($v.teach_status eq $smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_INIT) or ($v.teach_status eq $smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_RUNNING)}
+                    <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="teach_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_STOP}">停课</botton>
+                {elseif $v.teach_status eq $smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_STOP}
+                    <botton class="round_operation btn-xs btn btn-info" data-action="/round/status" data-type="teach_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_INIT}">复课</botton>
+                {/if}
+            {elseif  $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}
+                <botton class="round_operation btn-xs btn btn-info" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}">重开</botton>
+            {/if}
+            <a href="/affiche/index?round_id={$v.id}&round_title={$v.title}" class="btn btn-info btn-lg active btn-xs" role="button">公告管理</a>
+            <a href="/feedback/index?round_id={$v.id}" class="btn btn-info btn-lg active btn-xs" role="button">评价管理</a>
         </td>
     </tr>
     {/foreach}

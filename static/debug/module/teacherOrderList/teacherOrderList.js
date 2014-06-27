@@ -6,7 +6,8 @@ define(function(require,exports){
               $(".startClassTime").on("click",function(){
                   var picker = WdatePicker({
                       dateFmt:'yyyy-MM-dd',
-                      minDate:'%y-%M-#{%d+1}',
+//                      minDate:'%y-%M-#{%d+1}',
+                      minDate:'2014-06-01',
                       onpicked:function($dp){
 
                       }
@@ -16,7 +17,8 @@ define(function(require,exports){
               $(".endClassTime").on("click",function(){
                   var picker = WdatePicker({
                       dateFmt:'yyyy-MM-dd',
-                      minDate:'%y-%M-#{%d+1}',
+//                      minDate:'%y-%M-#{%d+1}',
+					  minDate:'2014-06-01',
                       onpicked:function($dp){
                           var startClassTime = $(".startClassTime").val();
                           var endClassTime = $(".endClassTime").val();

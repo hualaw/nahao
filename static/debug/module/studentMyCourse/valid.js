@@ -1,4 +1,5 @@
 define(function(require,exports){
+    require("naHaoDialog");
 	// 请求验证库
     require("validForm");
     // 定义公共tipType;
@@ -26,7 +27,21 @@ define(function(require,exports){
 
 			},
             callback:function(data){
-            	alert('提交成功');
+            	if(data.status == 'ok')
+            	{
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null,
+    				    ok:function(){
+    				    	window.location.href="/member/my_order/all";
+    				    }
+    				});
+            	} else if(data.status == 'error') {
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+            	}
             },
             usePlugin:{
                 jqtransform:{
@@ -35,6 +50,11 @@ define(function(require,exports){
                 }
             }
 		});
+        _Form.config({
+        	showAllError:true,
+            url:"/member/save_refund",
+
+        })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
 		_Form.addRule([{
@@ -69,6 +89,13 @@ define(function(require,exports){
                  datatype: "*",
                  nullmsg: "请选择银行",
                  errormsg: ""
+
+            },
+            {   
+                 ele:".bankInfor",
+                 datatype: "*",
+                 nullmsg: "请填写具体支行信息",
+                 errormsg: "请输入正确的支行信息"
 
             },
             {   
@@ -114,7 +141,7 @@ define(function(require,exports){
             })
             //验证 最多关注
             $(obj+" .attent .btn").blur(function (){
-                va.call(this);
+                va_blur.call(this);
             })
 
             function va(){
@@ -122,6 +149,14 @@ define(function(require,exports){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+            
+            function va_blur() {
+                if($(obj+" .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
         });
@@ -140,10 +175,15 @@ define(function(require,exports){
                 
             },
             callback:function(data){
-                alert(data.msg);
-                if(data.status == 'ok') {
-                    window.location.reload();
-                }
+                $.dialog({
+                    content:data.msg,
+                    icon:null,
+                    ok: function() {
+                        if(data.status == 'ok') {
+                            window.location.reload();
+                        }   
+                    }
+                })
             },
             usePlugin:{
                 jqtransform:{
@@ -158,7 +198,9 @@ define(function(require,exports){
                 ele: ".pname",
                 datatype:"*2-15",
                 nullmsg:"请输入昵称",
-                errormsg:"长度2-15个字符"
+                errormsg:"长度2-15个字符",
+                ajaxurl:"/member/validate_user_nickname",
+                ajaxUrlName:'nickname',
             },
             {    
                 ele:".loction",
@@ -171,7 +213,9 @@ define(function(require,exports){
                 ele:".pEmail",
                 datatype: "e",
                 nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址"
+                errormsg: "请输入正确的邮箱地址",
+                ajaxurl:'/member/check_email_availability/',
+                ajaxUrlName:'email'
 
             },
             {    
@@ -220,10 +264,15 @@ define(function(require,exports){
 
             },
             callback:function(data){
-                alert(data.msg);
-                if(data.status == 'ok') {
-                    window.location.reload();
-                }
+                $.dialog({
+                    content:data.msg,
+                    icon:null,
+                    ok: function (){
+                        if(data.status == 'ok') {
+                            window.location.reload();
+                        }    
+                    }
+                })
             },
             usePlugin:{
                 jqtransform:{
@@ -236,9 +285,11 @@ define(function(require,exports){
         _Form.tipmsg.r=" ";
         _Form.addRule([{
                 ele: ".pname",
-                datatype:"*2-15",
+                datatype:"*",
                 nullmsg:"请输入昵称",
-                errormsg:"长度2-15个字符"
+                errormsg:"长度4-25个字符",
+                ajaxurl:"/member/validate_user_nickname",
+                ajaxUrlName:'nickname',
             },
             {
                 ele: ".phone_number",
@@ -251,20 +302,6 @@ define(function(require,exports){
                 
             },
             {    
-                ele:".loction",
-                datatype: "*",
-                nullmsg: "请输入选择地区",
-                errormsg: "请选择正确的地区"
-
-            },
-            {    
-                ele:".pEmail",
-                datatype: "e",
-                nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址"
-
-            },
-            {    
                 ele:".subjectInput",
                 datatype: "*",
                 nullmsg: "请选择年级",
@@ -274,9 +311,11 @@ define(function(require,exports){
             {    
                 ele:".pUname",
                 ignore:"ignore",
-                datatype: "*2-15",
+                datatype: "*",
                 nullmsg: "请输入真实姓名",
-                errormsg: "长度2-15个字符"
+                errormsg: "长度4-25个字符",
+                ajaxurl:"/member/check_realname_length",
+                ajaxUrlName:"realname"
 
             },
             {    
@@ -305,14 +344,27 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".iniPassword").val());
+                $(".iniPassword").val(hash.toString());
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
             },
             callback:function(data){
                 if(data.status == 'ok') {
-                    alert('密码修改成功, 页面将跳转到登陆页面');
-                    window.location = 'http://www.nahaodev.com';
+                    $.dialog({
+                        content:'密码修改成功, 页面将跳转到登陆页面',
+                        icon:null,
+                        ok:function () {
+                            window.location = data.url;
+                        }
+                    })
                 } else {
-                    alert(data.info);
+                    $.dialog({
+                        content:data.info
+                    })
                 }
             }
         });
@@ -322,9 +374,7 @@ define(function(require,exports){
                 ele: ".iniPassword",
                 datatype:"*",
                 nullmsg:"请输入密码",
-                errormsg:"请输入正确的密码",
-                ajaxurl:'/member/front_check_password',
-                ajaxUrlName:'password'
+                errormsg:"请输入正确的密码"
             },
             {
                 ele:".setPassword",

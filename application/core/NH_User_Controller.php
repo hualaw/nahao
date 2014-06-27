@@ -29,31 +29,10 @@ class NH_User_Controller extends NH_Controller
         $user_id = $this->session->userdata('user_id');
         if($user_id) {
             $this->_user_detail = $this->business_user->get_user_detail($user_id);
+            $this->_user_detail['phone'] = $this->session->userdata('phone');
         }
     }
-    
-    /**
-     * 检查用户密码是否正确, 用于前台修改密码时对密码实时验证
-     */
-    public function front_check_password()
-    {
-        $arr_return = array();
-        $password = $this->input->post('password');
-        $user_id = $this->session->userdata('user_id');
-        if(!$user_id){
-            $arr_return = array('status' => ERROR, 'info' => '用户信息错误');
-            self::json_output($arr_return);
-        }
-        $check_ret = $this->business_user->check_user_password($user_id, $password);
-        if($check_ret) {
-            $arr_return = array('status' => SUCCESS, 'info' => '密码正确');
-        } else {
-            $arr_return = array('status' => ERROR, 'info' => '密码错误');
-        }
-        self::json_output($arr_return);
-    }
-
-    
+   
     /**
      * 前台修改密码
      */
@@ -70,12 +49,12 @@ class NH_User_Controller extends NH_Controller
         $password_repition = $this->input->post('reset_password');
         $check_ret = $this->business_user->check_user_password($user_id, $old_password);
         if(!$check_ret || ($new_password != $password_repition)) {
-            $arr_return = array('status' => ERROR, info => '用户信息错误');
+            $arr_return = array('status' => ERROR, 'info' => '输入的密码不正确!');
             self::json_output($arr_return);
         }
         $modify_res = $this->business_user->reset_password($user_id, $new_password);
         if($modify_res) {
-            $arr_return = array('status' => SUCCESS, 'info' => '密码修改成功');
+            $arr_return = array('status' => SUCCESS, 'info' => '密码修改成功', 'url' => student_url());
             #清除掉session中的信息
             $this->session->sess_destroy();
         } else {
@@ -162,10 +141,12 @@ class NH_User_Controller extends NH_Controller
             }
             
             if($success_num == 2) {
+                $avatar_url = NH_QINIU_URL . $result['avatar_key'];
+                $update_data = array('avatar' => $result['avatar_key']);
+                $this->business_user->modify_user($update_data, $user_id);
+                $this->session->set_userdata('avatar', $avatar_url);
                 $result['success'] = true;
                 $result['msg'] = '上传成功';
-                $avatar_url = 'http://n1a2h3a4o5.qiniudn.com/' . $result['avatar_key'];
-                $this->session->set_userdata('avatar', $avatar_url);
             }
         }
         
@@ -206,5 +187,78 @@ class NH_User_Controller extends NH_Controller
         }
         
         return $arr_return;
+    }
+    
+    /**
+     * 检查用户的昵称,该方法只适用于update昵称时的验证,insert昵称的验证在login控制器里
+     */
+    public function validate_user_nickname()
+    {
+        $arr_return = array('status' => ERROR);
+        if(isset($this->_user_detail['user_id'])) {
+            $nickname = trim($this->input->post('nickname'));
+            if($nickname == $this->_user_detail['nickname']) {
+                #昵称未有改动直接返回成功, 这块是为了前台validFrom验证通过
+                $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
+                self::json_output($arr_return);
+            }
+            #验证昵称长度
+            $length_ret = check_name_length($nickname);
+            if(!$length_ret) {
+                $arr_return['info'] = '昵称要控制在4~25个字符,一个汉字按两个字符计算';
+                self::json_output($arr_return);
+            }
+            #验证昵称是否重复
+            $check_ret = $this->business_user->get_user_by_nickname($nickname);
+            if(isset($check_ret['id'])) {
+                $arr_return['info'] = "该昵称已被其他人占用";
+                self::json_output($arr_return);
+            } else {
+                $arr_return = array('status' => SUCCESS, 'info' => '验证通过');
+                self::json_output($arr_return);
+            }
+            
+        }
+        $arr_return['info'] = '验证失败';
+        self::json_output($arr_return);
+    }
+    
+    /**
+     * 检查用户真实姓名的长度
+     */
+    public function check_realname_length()
+    {
+        $arr_return = array('status' => ERROR);
+        $realname = trim($this->input->post('realname'));
+        $check_ret = check_name_length($realname);
+        if(!$check_ret) {
+            $arr_return['info'] = '真实姓名要控制在4~25个字符,一个汉字按两个字符计算';
+        } else {
+            $arr_return['status'] = SUCCESS;
+            $arr_return['info'] = '验证通过';
+        }
+        
+        self::json_output($arr_return);
+    }
+    
+    /**
+     * 检查邮箱是否可用
+     */
+    public function check_email_availability()
+    {
+        $arr_return = array('status' => ERROR);
+        $email = trim($this->input->post('email'));
+        if($email == $this->session->userdata('email')) {
+            #用户邮箱未做更改直通过验证，这块是为了前台validFrom验证通过
+            $arr_return['status'] = SUCCESS;
+            self::json_output($arr_return);
+        }
+        $user_info = $this->business_user->get_user_by_email($email);
+        if(isset($user_info['id'])) {
+            $arr_return = array('status' => ERROR, 'info' => '该邮箱已绑定其他账户');
+        } else {
+            $arr_return = array('status' => SUCCESS, 'info' => '邮箱可用');
+        }
+        self::json_output($arr_return);
     }
 }

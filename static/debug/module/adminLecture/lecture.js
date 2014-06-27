@@ -35,7 +35,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        location=location;
+                        location.reload();
                     }
                     else
                     {
@@ -52,9 +52,15 @@ define(function(require,exports){
                 url:"/lecture/pass_lecture",
                 data:"lecture_id="+$('#lecture_id').val()+"&user_id="+$('#user_id').val()+"&gender="+$('#gender').val()+"&realname="+$('#tea_name').val()+"&age="+$('#age').val()+"&school="+$('#school').val()+"&province="+$('#province').val()+"&city="+$('#city').val()+"&area="+$('#area').val()+"&stage="+$('#stage').val()+"&teacher_age="+$('#teach_years').val()+"&teacher_intro="+$('#resume').val()+"&title="+$('#title').val()+"&subject="+$('#subject').val()+"&basic_reward="+$('#basic_reward').val(),
                 success:function(msg){
+//                    alert(msg);
+//                    var gg=eval(msg);
+//                    for(var index in gg)
+//                    {
+//                        alert(gg[index]);
+//                    }
                     if(msg==1)
                     {
-                        $('#curr_status').html('审核通过');                                                                 location=location;
+                        $('#curr_status').html('审核通过');                                                                 location.reload();
                     }
                     if(msg==2)
                     {
