@@ -24,7 +24,10 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                $(".pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -49,7 +52,7 @@ define(function(require,exports){
                  ele:".pwd",
                  datatype: "*6-20",
                  nullmsg: "请输入密码",
-                 errormsg: "密码输入错误"
+                 errormsg: "密码长度只能在6-20位字符之间"
             },
             {   
                  ele:".codeInput",
@@ -93,7 +96,10 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".pwd").val());
+                $(".pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -111,7 +117,7 @@ define(function(require,exports){
                 ajaxurl:siteUrl + "register/check_email",
                 ajaxUrlName:'email',
                 nullmsg:"请输入邮箱地址",
-                errormsg:"长度6-30个字符"
+                errormsg:"长度6-30个字符的邮箱地址"
             },
             {   
                  ele:".pwd",
@@ -148,6 +154,8 @@ define(function(require,exports){
                 }
             }
         });
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //选择和取消 关注
     function checkAttent(obj){        
