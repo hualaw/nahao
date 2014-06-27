@@ -23,7 +23,8 @@
 	        <div class="buyHeadt cf">
 	        	<div class="fl courseInfor posr">
 	        		<h2 title="{$array_data.title}">{$array_data.title|truncate:20:"...":true}</h2>
-	        		<div class="cstate undis"></div>
+	        		<!--已结课 cend     已停课 cstop    已过期  coverdue-->
+	        		<!-- <div class="cstate "></div> -->
 	        		<!-- 授课状态：等待开课 -->
 	        		{if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_INIT && $array_data.soon_class_infor}
 	        		<span>即将开始的是：</span>
@@ -63,6 +64,7 @@
 	        			{/if}
 	        		</div>
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
+	        		<div class="cstate cstop"></div>
 	        	    <span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
@@ -74,6 +76,7 @@
 	        		        
 	        		</div>
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
+	        		<div class="cstate cend"></div>
 	        		<span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
@@ -85,6 +88,7 @@
         		        
 	        		</div>
 	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
+	        		<div class="cstate coverdue"></div>
 	        	    <span></span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl"></h3>
