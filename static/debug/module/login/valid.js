@@ -25,8 +25,8 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                var hash = CryptoJS.SHA1($(".pwd").val());
-                $(".pwd").val(hash.toString());
+                var hash = CryptoJS.SHA1($(".regPhoneBox .pwd").val());
+                $(".regPhoneBox .pwd").val(hash.toString());
 
             },
             callback:function(json){
@@ -97,9 +97,9 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                var hash = CryptoJS.SHA1($(".pwd").val());
-                $(".pwd").val(hash.toString());
-
+                //alert($(".regEmailBox .pwd").val());
+                var hash = CryptoJS.SHA1($(".regEmailBox .pwd").val());
+                $(".regEmailBox .pwd").val(hash.toString());
             },
             callback:function(json){
                 if(json.status =="ok"){
