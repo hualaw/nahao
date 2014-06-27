@@ -32,12 +32,35 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            // ajaxPost:true,
+             ajaxPost:true,
             beforeSubmit: function() {
-
+	   			var start = parseInt($('.startTime').val());
+	            var end = parseInt($('.endTime').val());
+	            if(start>=end){
+	                $('.timeSecelt').eq(1).children('.Validform_checktip').removeClass('Validform_right').addClass('Validform_wrong').html('开始时间不能晚于结束时间');
+	
+	                $.tiziDialog({
+	                    icon:null,
+	                    content:"开始时间不能晚于结束时间"
+	                });
+	                return false;
+	            }
             },
             callback:function(data){
-               
+            	if(data.status=='ok'){
+            		$.tiziDialog({
+               			icon: 'succeed',
+	                    content:"开课申请成功",
+	                    ok:function(){
+	                    	window.location.href="/";
+	                    },
+	                });
+            	}else{
+            		$.tiziDialog({
+               			icon: 'error',
+	                    content:data.msg,
+	                });
+            	}
             },
             usePlugin:{
                 jqtransform:{
@@ -146,6 +169,15 @@ define(function(require,exports){
        check_time_pick();
         // 请求focus的时候出现提示文字的样式
         require("module/login/validFocus");
+        // ajaxurl提交成功处理
+        _Form.config({
+            url : '/index/save_apply_teach',
+            ajaxurl:{
+                success:function(json,obj){
+                    console.log(json);
+                }
+            }
+        });
     }
     //我要开课 老师注册验证
     exports.teaRegForm = function (){
