@@ -102,15 +102,15 @@ class Course extends NH_Admin_Controller {
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
-            $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
+//            $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND $arr_lessons and $arr_teachers){
+            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND /*$arr_lessons and*/ $arr_teachers){
                 if($arr_teachers){
-                    if($arr_lessons){
+//                    if($arr_lessons){
                         //has lessons
-                        $int_section_count = $this->course->get_section_count($arr_lessons);
-                        if($int_section_count){
+//                        $int_section_count = $this->course->get_section_count($arr_lessons);
+//                        if($int_section_count){
                             $arr_param['title'] = $str_title;
                             $arr_param['subtitle'] = $str_subtitle;
                             $arr_param['intro'] = $str_intro;
@@ -124,7 +124,7 @@ class Course extends NH_Admin_Controller {
                             $arr_param['img'] = $str_img;
                             $arr_param['grade_from'] = $int_grade_from;
                             $arr_param['grade_to'] = $int_grade_to;
-                            $arr_param['lesson_count'] = $int_section_count;
+//                            $arr_param['lesson_count'] = $int_section_count;
                             if($int_course_id > 0){
                                 //update
                                 $str_action = '修改';
@@ -141,18 +141,18 @@ class Course extends NH_Admin_Controller {
                             if($bool_flag==true){
                                 //create或update都要先清除teachers和lessons再重新插入
                                 $this->course->create_course_teacher_batch($int_course_id,$arr_teachers);
-                                $this->load->model('business/admin/business_lesson','lesson');
-                                $bool_lesson = $this->lesson->create_lessons($int_course_id,$arr_lessons);
+//                                $this->load->model('business/admin/business_lesson','lesson');
+//                                $bool_lesson = $this->lesson->create_lessons($int_course_id,$arr_lessons);
                                 $this->arr_response['status'] = 'ok';
                                 $this->arr_response['msg'] = $str_action.'成功';
                                 $this->arr_response['redirect'] = '/course';
                             }
-                        }else{
-                            $this->arr_response['msg'] = '没有课节';
-                        }
-                    }else{
-                        $this->arr_response['msg'] = '没有章节';
-                    }
+//                        }else{
+//                            $this->arr_response['msg'] = '没有课节';
+//                        }
+//                    }else{
+//                        $this->arr_response['msg'] = '没有章节';
+//                    }
                 }else{
                     $this->arr_response['msg'] = '没有老师';
                 }
@@ -180,9 +180,9 @@ class Course extends NH_Admin_Controller {
             $arr_teachers = $this->course->get_teachers_by_course_id($int_course_id);
 //            o($this->db->last_query());
 //            o($arr_teachers,true);
-            $this->load->model('business/admin/business_lesson','lesson');
+//            $this->load->model('business/admin/business_lesson','lesson');
             //course lessons
-            $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+//            $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
         }
 
         //create
@@ -208,7 +208,7 @@ class Course extends NH_Admin_Controller {
         $this->smarty->assign('action',$str_action);
         $this->smarty->assign('course',$arr_course);
         $this->smarty->assign('teachers',$arr_teachers);
-        $this->smarty->assign('lessons',$arr_lessons);
+//        $this->smarty->assign('lessons',$arr_lessons);
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_img_key', $str_new_img_file_name);
         $this->smarty->assign('upload_video_key', $str_new_video_file_name);

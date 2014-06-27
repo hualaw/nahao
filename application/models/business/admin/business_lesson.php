@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+ <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Lesson相关逻辑
@@ -19,7 +19,7 @@ class Business_Lesson extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function create_lessons($int_course_id,$arr_lessons)
+    public function create_lessons_OLD($int_course_id,$arr_lessons)
     {
         $bool_return = false;
         if($int_course_id > 0 AND is_array($arr_lessons) AND $arr_lessons){
@@ -69,6 +69,81 @@ class Business_Lesson extends NH_Model
     }
 
     /**
+     * create lesson
+     * @param $arr_param
+     * @return int
+     * @author yanrui@tizi.com
+     */
+    public function create_lesson($arr_param){
+        $int_return = 0;
+        if(is_array($arr_param) AND $arr_param){
+            $int_return = $this->model_lesson->create_lesson($arr_param);
+        }
+        return $int_return;
+    }
+
+    /**
+     * get_lessons_list_tree
+     * @param $arr_lessons
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_lessons_list_tree($arr_lessons){
+        $arr_return = array();
+        if(is_array($arr_lessons) AND $arr_lessons){
+            foreach($arr_lessons as $k => $v){
+                if($v['parent_id']==0){
+                    $arr_return[$v['id']] = $v;
+                    $int_parent_id = $v['id'];
+                    $int_sequence = 0;
+                }else{
+                    $v['parent_id'] = $int_parent_id;
+                    $v['sequence'] = $int_sequence++;
+                    $arr_return[$int_parent_id]['sections'][] = $v;
+//                    if(isset($arr_return[$v['parent_id']])){
+
+//                        if($arr_return[$v['parent_id']]==1){
+//                        }else{
+//                            $arr_return[$v['parent_id']]['sections'][] = $v;
+//                        }
+//                    }
+                }
+            }
+        }
+        return $arr_return;
+    }
+
+    /**
+     * get_lessons_list after sort
+     * @param $arr_lessons
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_lessons_list($arr_lessons){
+        $arr_return = array();
+        if(is_array($arr_lessons) AND $arr_lessons){
+            $arr_tree = array();
+            $arr_tree = self::get_lessons_list_tree($arr_lessons);
+            foreach($arr_tree as $k => $v){
+                if(isset($v['sections'])){
+                    $arr_sections = $v['sections'];
+                    unset($v['sections']);
+                    $arr_return[] = $v;
+                    if($arr_sections){
+//                        o($arr_sections,true);
+                        foreach($arr_sections as $kk => $vv){
+                            $arr_return[] = $vv;
+                        }
+                    }
+                }else{
+                    $arr_return[] = $v;
+                }
+            }
+        }
+        return $arr_return;
+    }
+
+    /**
      * 把提交过来的原始的lesson数据组合成章节树形结构
      * @param $arr_lessons
      * @return array
@@ -77,14 +152,21 @@ class Business_Lesson extends NH_Model
     public function get_lesson_tree($arr_lessons){
         $arr_return = array();
         if($arr_lessons){
-            $int_flag = 0 ;
+            $int_chapter_flag = $int_section_flag = $parent_id = 0 ;
             foreach($arr_lessons as $k => $v){
-                if($v['is_chapter']==1){
-                    $int_flag ++;
-                    $arr_return[$int_flag]['title'] = $v['name'];
+                $arr_tmp = array(
+                    'id' => $v['lesson_id'],
+                );
+                if($v['parent_id']==0){
+                    $arr_tmp['parent_id'] = 0;
+                    $arr_tmp['sequence'] = $int_chapter_flag++;
+                    $int_section_flag = 0 ;
+                    $parent_id = $v['lesson_id'];
                 }else{
-                    $arr_return[$int_flag]['lessons'][] = $v['name'];
+                    $arr_tmp['parent_id'] = $parent_id;
+                    $arr_tmp['sequence'] = $int_section_flag++;
                 }
+                $arr_return[] = $arr_tmp;
             }
         }
         return $arr_return;
@@ -117,6 +199,36 @@ class Business_Lesson extends NH_Model
             $bool_flag = $this->model_lesson->update_lesson($arr_param,$arr_where);
         }
         return $bool_flag;
+    }
+
+    /**
+     * 批量修改lessons
+     * @param array $arr_param
+     * @param array $str_field
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function update_lesson_batch($arr_param,$str_field){
+        $bool_flag = false;
+        if($arr_param AND $str_field){
+            $bool_flag = $this->model_lesson->update_lesson_batch($arr_param,$str_field);
+        }
+        return $bool_flag;
+    }
+
+    /**
+     * lessons sort
+     * @param $arr_param
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function sort($arr_param){
+        $bool_return = false;
+        if(is_array($arr_param) AND $arr_param){
+            $str_field = 'id';
+            $bool_return = self::update_lesson_batch($arr_param,$str_field);
+        }
+        return $bool_return;
     }
 
     /**
@@ -196,7 +308,11 @@ class Business_Lesson extends NH_Model
             $arr_where = array(
                 'course_id' => $int_course_id
             );
-            $arr_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_order = array(
+                'parent_id' => 'asc',
+                'sequence' => 'asc'
+            );
+            $arr_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,array(),$arr_order);
         }
         return $arr_return;
     }
@@ -224,4 +340,25 @@ class Business_Lesson extends NH_Model
         }
         return $bool_return;
     }
+
+     /**
+      * get_chapters_by_course_id
+      * @param $int_course_id
+      * @return array
+      * @author yanrui@tizi.com
+      */
+     public function get_chapters_by_course_id($int_course_id){
+         $arr_return = array();
+         if($int_course_id){
+             $str_table_range = 'lesson';
+             $str_result_type = 'list';
+             $str_fields = 'id,title';
+             $arr_where = array(
+                 'course_id' => $int_course_id,
+                 'parent_id' => 0
+             );
+             $arr_return = $this->model_lesson->get_lesson_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+         }
+         return $arr_return;
+     }
 }
