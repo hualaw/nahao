@@ -144,6 +144,8 @@ define(function(require,exports){
             }   
         ]);
        check_time_pick();
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     }
     //我要开课 老师注册验证
     exports.teaRegForm = function (){
