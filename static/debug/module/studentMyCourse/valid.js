@@ -18,13 +18,31 @@ define(function(require,exports){
     };
     // 退课 申请状态 验证
 	exports.applyFrom = function(){
+        var _card = require("module/common/method/bankcard");
+        var _idcard = require("module/common/method/idCard");
 		var _Form=$(".applyFrom").Validform({
 			// 自定义tips在输入框上面显示
 			tiptype:commonTipType,
 			showAllError:false,
 			ajaxPost:true,
 			beforeSubmit: function(curform) {
-
+                cardReg();
+                idcardReg();
+                
+                if($(".IDnum").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的身份证号",
+                        icon:null
+                    });
+                    return false;
+                }
+                if($(".bankCode").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的银行卡账号",
+                        icon:null
+                    });
+                    return false;
+                }
 			},
             callback:function(data){
             	if(data.status == 'ok')
@@ -72,9 +90,9 @@ define(function(require,exports){
             },
             {   
                  ele:".contact",
-                 datatype: "*",
+                 datatype: "m",
                  nullmsg: "请输入联系方式",
-                 errormsg: "请输入正确的联系方式"
+                 errormsg: "请输入正确的手机号码"
 
             },
             {   
@@ -114,6 +132,26 @@ define(function(require,exports){
             }
             
         ]);
+        function cardReg(){
+            if(_card.luhmCheck($(".bankCode").val())==false&&$(".bankCode").val()!=""){
+                $(".bankCode").addClass("Validform_error");
+                $(".bankCode").next(".Validform_checktip").addClass("Validform_wrong").removeClass("Validform_right").html("请输入正确的银行卡账号");
+            }
+        }
+        function idcardReg(){       
+            if(_idcard.idCard($(".IDnum").val())==false&&$(".IDnum").val()!=""){
+                $(".IDnum").addClass("Validform_error");
+                $(".IDnum").next(".Validform_checktip").addClass("Validform_wrong").removeClass("Validform_right").html("请输入正确的身份证号");
+            }
+        }
+
+        $(".bankCode").blur(function (){
+            cardReg();
+        });
+
+        $(".IDnum").blur(function (){
+            idcardReg();
+        });
     };
 
     //选择和取消 关注
@@ -141,7 +179,7 @@ define(function(require,exports){
             })
             //验证 最多关注
             $(obj+" .attent .btn").blur(function (){
-                va.call(this);
+                va_blur.call(this);
             })
 
             function va(){
@@ -149,6 +187,14 @@ define(function(require,exports){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+            
+            function va_blur() {
+                if($(obj+" .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
         });
@@ -294,15 +340,6 @@ define(function(require,exports){
                 
             },
             {    
-                ele:".pEmail",
-                datatype: "e",
-                nullmsg: "请输入邮箱地址",
-                errormsg: "请输入正确的邮箱地址",
-                ajaxurl:'/member/check_email_availability/',
-                ajaxUrlName:'email'
-
-            },
-            {    
                 ele:".subjectInput",
                 datatype: "*",
                 nullmsg: "请选择年级",
@@ -345,7 +382,13 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".iniPassword").val());
+                $(".iniPassword").val(hash.toString());
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
             },
             callback:function(data){
                 if(data.status == 'ok') {
@@ -369,9 +412,7 @@ define(function(require,exports){
                 ele: ".iniPassword",
                 datatype:"*",
                 nullmsg:"请输入密码",
-                errormsg:"请输入正确的密码",
-                ajaxurl:'/member/front_check_password',
-                ajaxUrlName:'password'
+                errormsg:"请输入正确的密码"
             },
             {
                 ele:".setPassword",

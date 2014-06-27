@@ -161,7 +161,7 @@ class Model_Classroom extends NH_Model{
     public function get_class_id_by_classroom_id($int_classroom_id)
     {
         $array_result = array();
-        $sql = "SELECT id,status FROM ".TABLE_CLASS." WHERE classroom_id = ".$int_classroom_id;
+        $sql = "SELECT id,status,title FROM ".TABLE_CLASS." WHERE classroom_id = ".$int_classroom_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }

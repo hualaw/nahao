@@ -17,14 +17,18 @@ define(function(require,exports){
         }
     };
     // 手机注册验证
-    exports.regPhoneBoxForm = function(){
+    exports.regPhoneBoxForm = function(){       
+        $(".regPhoneBox .phoneNum").focus();
         var _Form=$(".regPhoneBox").Validform({
             // 自定义tips在输入框上面显示
             tiptype:3,
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                var hash = CryptoJS.SHA1($(".regPhoneBox .pwd").val());
+                $(".regPhoneBox .pwd").val(hash.toString());
+
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -49,7 +53,7 @@ define(function(require,exports){
                  ele:".pwd",
                  datatype: "*6-20",
                  nullmsg: "请输入密码",
-                 errormsg: "密码输入错误"
+                 errormsg: "密码长度只能在6-20位字符之间"
             },
             {   
                  ele:".codeInput",
@@ -81,16 +85,23 @@ define(function(require,exports){
         });
         // 发送手机验证码
         require('module/common/method/send').sendPhoneNum(1);
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     // 邮箱注册验证
-    exports.regEmailBoxForm = function(){
+    exports.regEmailBoxForm = function(){    
+        $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
             // 自定义tips在输入框上面显示
             tiptype:3,
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-                
+                require("cryptoJs");
+                //alert($(".regEmailBox .pwd").val());
+                var hash = CryptoJS.SHA1($(".regEmailBox .pwd").val());
+                $(".regEmailBox .pwd").val(hash.toString());
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -108,7 +119,7 @@ define(function(require,exports){
                 ajaxurl:siteUrl + "register/check_email",
                 ajaxUrlName:'email',
                 nullmsg:"请输入邮箱地址",
-                errormsg:"长度6-30个字符"
+                errormsg:"长度6-30个字符的邮箱地址"
             },
             {   
                  ele:".pwd",
@@ -145,6 +156,8 @@ define(function(require,exports){
                 }
             }
         });
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //选择和取消 关注
     function checkAttent(obj){        
@@ -171,7 +184,7 @@ define(function(require,exports){
             })
             //验证 最多关注
             $(obj+" .attent .btn").blur(function (){
-                va.call(this);
+                va_blur.call(this);
             })
 
             function va(){
@@ -181,10 +194,19 @@ define(function(require,exports){
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }
             }
+                       
+            function va_blur() {
+                if($(obj+" .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+                }
+            }
         });
     }
 	// 登陆验证开始
 	exports.loginForm = function(){
+        $(".userName").focus();
 		var _Form=$(".loginForm").Validform({
 			// 自定义tips在输入框上面显示
 			tiptype:function(msg,o,cssctl){
@@ -197,7 +219,7 @@ define(function(require,exports){
 			beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".pwd").val());
-                $(".pwd").val(hash.toString())
+                $(".pwd").val(hash.toString());
 
 			},
             callback:function(data){
@@ -340,6 +362,9 @@ define(function(require,exports){
                 }
             }
         });
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //手机找回密码验证
     exports.phoneFindPW = function (){
@@ -496,6 +521,9 @@ define(function(require,exports){
             }  
             
         ]);
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //设置新密码验证
     exports.setPWForm = function (){

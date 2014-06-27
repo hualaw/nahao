@@ -48,11 +48,10 @@ class NH_Controller extends CI_Controller
         $this->smarty->assign('userdata', $this->session->all_userdata());
         $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
         $this->smarty->assign('perfect_url', student_url().'login/perfect');
-        
-/*         echo "<pre>";
-        print_r($this->session->all_userdata());
-        echo "</pre>"; */
-       
+
+        $log_msg = 'In NH_Controller, all_userdata: '.print_r($this->session->all_userdata(), 1);
+
+        log_message('debug_nahao', $log_msg);
     }
 
 
@@ -123,14 +122,15 @@ class NH_Controller extends CI_Controller
      * enter classroom
      * @author yanrui@tizi.com
      */
-    public function enter_classroom($int_classroom_id){
+    public function enter_classroom($int_classroom_id,$user_type,$array_data){
         $str_classroom_url = '/classroom/main.html?';
         $array_params = array(
             'UserDBID' => $this->session->userdata('user_id'),
             'ClassID'  => $int_classroom_id,
-            'UserType' => $this->session->userdata('user_type'),
+            'UserType' => $user_type,
             'UserName' => $this->session->userdata('nickname'),
             'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
+            'ClassName'=>$array_data['class_title']
         );
         $str_classroom_url .= http_build_query($array_params);
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';

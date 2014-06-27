@@ -1,5 +1,5 @@
 /* 那好 开始 2014-5-16-17：00 */
-.header{border: 1px solid #fff;border-top: none;box-shadow: 0 1px 3px #c7c7c7;position: absolute;width: 100%;box-sizing:border-box;}
+.header{border: 1px solid #fff;border-top: none;box-shadow: 0 1px 3px #c7c7c7;position: absolute;width: 100%;box-sizing:border-box;left:0px;top:0;}
 .header .headLogin{height:26px;line-height:26px;background: #11243b;}
 .header .headLoginBox{font-size: 12px;}
 .header .headLoginBox span{color:#f14211;display: inline-block;margin: 0 6px;}
