@@ -75,7 +75,7 @@ define(function(require,exports){
 		});
         _Form.config({
         	showAllError:true,
-            url:"/member/save_refund",
+            url:"/member/save_refund"
 
         })
         // 冲掉库里面的'&nbsp:'
