@@ -18,7 +18,7 @@
     <tbody>
     {foreach $classes as $v}
     <tr>
-        <td>{$v.id}</td>
+        <td class="list_class_id">{$v.id}</td>
         <td>{$v.title}</td>
         <td>{$v.classroom_id}</td>
         <td>{if $v.parent_id gt 0}{date("Y-m-d H:i",$v.begin_time)}-{date("Y-m-d H:i",$v.end_time)}{/if}</td>

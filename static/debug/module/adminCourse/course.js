@@ -82,40 +82,40 @@ define(function (require, exports) {
     }
 
     //append lesson input area
-    exports.add_lesson = function () {
-
-        $("#course_edit_lesson_add_div").on("click", '#course_edit_lesson_add_btn', function () {
-            var lesson_input_html =
-                '<div class="form-group">' +
-                    '<label class="col-md-2 control-label"></label>' +
-                    '<div class="col-md-6">' +
-                        '<input type="text" class="form-control lesson" placeholder="">' +
-                    '</div>' +
-                    '<div class="col-md-2">' +
-                        '<label class="checkbox-inline">' +
-                            '<input type="checkbox" class="lesson_chapter">是章' +
-                        '</label>'+
-                        '<label class="checkbox-inline">'+
-                            '<botton class="btn btn-danger btn-xs delete_lesson_btn">x</botton>'+
-                        '</label>'+
-                    '</div>' +
-                '</div>';
-            $("#course_edit_lesson_list_div").append(lesson_input_html);
-        });
-
-    }
+//    exports.add_lesson = function () {
+//
+//        $("#course_edit_lesson_add_div").on("click", '#course_edit_lesson_add_btn', function () {
+//            var lesson_input_html =
+//                '<div class="form-group">' +
+//                    '<label class="col-md-2 control-label"></label>' +
+//                    '<div class="col-md-6">' +
+//                        '<input type="text" class="form-control lesson" placeholder="">' +
+//                    '</div>' +
+//                    '<div class="col-md-2">' +
+//                        '<label class="checkbox-inline">' +
+//                            '<input type="checkbox" class="lesson_chapter">是章' +
+//                        '</label>'+
+//                        '<label class="checkbox-inline">'+
+//                            '<botton class="btn btn-danger btn-xs delete_lesson_btn">x</botton>'+
+//                        '</label>'+
+//                    '</div>' +
+//                '</div>';
+//            $("#course_edit_lesson_list_div").append(lesson_input_html);
+//        });
+//
+//    }
 
     //delete lesson input area
-    exports.delete_lesson = function (){
-
-        $("#course_edit_lesson_list_div").on("click", '.delete_lesson_btn', function () {
-            var result = confirm("删除该章节？");
-            if(result==true){
-                $($(this).parent().parent().parent()).remove();
-            }
-        });
-
-    }
+//    exports.delete_lesson = function (){
+//
+//        $("#course_edit_lesson_list_div").on("click", '.delete_lesson_btn', function () {
+//            var result = confirm("删除该章节？");
+//            if(result==true){
+//                $($(this).parent().parent().parent()).remove();
+//            }
+//        });
+//
+//    }
 
     //validate and post after click submit btn
     exports.submit_course = function () {
@@ -156,17 +156,17 @@ define(function (require, exports) {
             }
 
             //validate lessons
-            var arr_lessons = new Array();
-            var lessons = $(".lesson");
-            var chapters = $(".lesson_chapter");
-            if(lessons.length > 0){
-                lessons.each(function(k,v){
-                    arr_lessons[k] = {'name' : $(v).val(),'is_chapter' : $(chapters[k]).attr("checked")=='checked' ? 1 : 0};
-                });
-            }else{
-                alert('请添加章节');
-                return false;
-            }
+//            var arr_lessons = new Array();
+//            var lessons = $(".lesson");
+//            var chapters = $(".lesson_chapter");
+//            if(lessons.length > 0){
+//                lessons.each(function(k,v){
+//                    arr_lessons[k] = {'name' : $(v).val(),'is_chapter' : $(chapters[k]).attr("checked")=='checked' ? 1 : 0};
+//                });
+//            }else{
+//                alert('请添加章节');
+//                return false;
+//            }
 
             var action = $('#course_edit_submit_course').data('action');
 
@@ -185,7 +185,7 @@ define(function (require, exports) {
                 'img' : img,
                 'grade_from' : grade_from,
                 'grade_to' : grade_to,
-                'lessons' : arr_lessons,
+//                'lessons' : arr_lessons,
                 'teachers' : teacher_ids
             };
             console.log(encodeURI(description));
