@@ -360,6 +360,9 @@ define(function(require,exports){
                 }
             }
         });
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //手机找回密码验证
     exports.phoneFindPW = function (){
@@ -516,6 +519,9 @@ define(function(require,exports){
             }  
             
         ]);
+        
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //设置新密码验证
     exports.setPWForm = function (){
@@ -523,9 +529,26 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:false,
+            ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
+            },
+            callback: function(data) {
+                if(data.status == 'ok') {
+                    window.location = data.url;
+                } else {
+                    $.dialog({
+                        content:data.info,
+                        icon:null,
+                        ok: function () {
+                            window.location = student_url;
+                        }
+                    });    
+                }
             }
         });
         // 冲掉库里面的'&nbsp:'

@@ -167,6 +167,8 @@ define(function(require,exports){
             }   
         ]);
        check_time_pick();
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
         // ajaxurl提交成功处理
         _Form.config({
             url : '/index/save_apply_teach',

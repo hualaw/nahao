@@ -193,10 +193,16 @@ define(function(require,exports){
                 data:"province="+$('#province').val(),
                 dataType:"json",
                 success:function(msg){
-                var city=eval(msg);
+                    if(msg=="")
+                    {
+                        $('#city').hide();
+                        $('#area').hide();
+                    }
+                    $('#city').empty();
+                    var city=eval(msg);
                     $.each(city,function(index,d){
-                        $('#city').append("<option value="+d.id+">"+d.name+"</option>");
-                   })
+                        $('#city').show().append("<option value="+d.id+">"+d.name+"</option>");
+                    })
                     $.ajax({
                         type:"post",
                         url:"/teacher/area",
@@ -207,66 +213,70 @@ define(function(require,exports){
                             {
                                 $('#area').hide();
                             }
+                            $('#area').empty();
                             var area=eval(msg);
                             $.each(area,function(index,d){
                                 $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
+
+                            if($('#area').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#area').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
+                            else if($('#city').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#city').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+                            else if($('#province').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#province').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
                         }
                     })
-
-                    if($('#area').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#area').val(),
-                            dataType:"json",
-                            success:function(msg){
-                               // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
-                    else if($('#city').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#city').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-                    else if($('#province').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#province').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
                 }
             })
 

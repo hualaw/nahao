@@ -68,7 +68,7 @@ $config['bank_code'] = array(
         'zhongxin' => array('name' => '中信银行', 'type' => 'creditPay', 'code' => 'CITIC'),
         'pingan' => array('name' => '平安银行', 'type' => 'creditPay', 'code' => 'SPABANK'),
         'xingye' => array('name' => '兴业银行', 'type' => 'creditPay', 'code' => 'CIB'),
-        'huaxia' => array('name' => '华夏银行', 'type' => 'creditPay', 'code' => 'HXBANK'),
+        'pufa' => array('name' => '浦发银行', 'type' => 'creditPay', 'code' => 'SPDB'),
         'minsheng' => array('name' => '民生银行', 'type' => 'creditPay', 'code' => 'CMBC'),
     ),
 );

@@ -64,7 +64,7 @@ define(function(require,exports){
         });
     }
     
-    exports.setPwdSuccessJump = function (){    
+    exports.setPwdSuccessJump = function (){
         var seconds = $('.tips span').text();
         seconds = seconds - 1;
         if(seconds == 0) {

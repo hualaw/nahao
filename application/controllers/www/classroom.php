@@ -242,8 +242,6 @@ class Classroom extends NH_User_Controller {
         #用户是否有登陆
         #登陆的用户是否有买过这堂课
         $int_user_id = $this->session->userdata('user_id'); #TODO
-        $array_user = $this->_user_detail;
-        $int_user_type = $array_user['teach_priv'];
 
         #判断用户是否买了这一堂课
         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
@@ -272,25 +270,13 @@ class Classroom extends NH_User_Controller {
         #可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
         $array_insert = array(
         	'user_id'=>$int_user_id,
-        	'user_type'=>$int_user_type,
+        	'user_type'=>0,
         	'create_time'=>time(),
         	'action'=>1,
         	'classroom_id'=>$int_classroom_id,
         	'ip'=>$this->input->ip_address()
         );
         $this->model_classroom->add_entering_classroom_data($array_insert);
-        
-        if($int_user_type == '0')
-        {
-        	#获取student_class表里面的status
-        	$array_result = $this->model_course->get_student_class_status($int_user_id,$array_class['id']);
-        	if($array_result && $array_result['status']!=2)
-        	{
-        		$status = 2;	#进过教室
-        		$this->model_member->update_student_class(array('status'=>2),array('student_id'=>$int_user_id));
-        	}
-
-        }
         
         $str_iframe = self::enter_classroom($int_classroom_id,'0',array('class_title'=>$array_class['title']));
         $this->smarty->assign('classroom_id',$int_classroom_id);
@@ -348,24 +334,25 @@ class Classroom extends NH_User_Controller {
     		{
     			show_error('您不是这节课的老师');
     		}
-    	}
-    	
-    	#判断这节课是不是在"可进教室 或者 正在上课"的状态 
-    	if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
-    	{
-    	       show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
-    	}
-    	
-    	#可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
-    	$array_insert = array(
-    		'user_id'=>$int_user_id,
-    		'user_type'=>$int_user_type,
-    		'create_time'=>time(),
-    		'action'=>1,
-    		'classroom_id'=>$int_classroom_id,
-    		'ip'=>$this->input->ip_address()
-    	);
-    	$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
+
+			
+			#判断这节课是不是在"可进教室 或者 正在上课"的状态 
+			if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+			{
+				   show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+			}
+			
+			#可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
+			$array_insert = array(
+				'user_id'=>$int_user_id,
+				'user_type'=>$int_user_type,
+				'create_time'=>time(),
+				'action'=>1,
+				'classroom_id'=>$int_classroom_id,
+				'ip'=>$this->input->ip_address()
+			);
+			$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
+		}
     	$this->model_classroom->add_entering_classroom_data($array_insert);
     	$this->smarty->assign('classroom_id',$int_classroom_id);
     	$this->smarty->assign('class_id',$array_class['id']);
