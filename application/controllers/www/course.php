@@ -145,13 +145,7 @@ class Course extends NH_User_Controller {
 	    }
 	    
 	    $int_score  = $this->input->post("score");
-	    if ($int_score >= 4)
-	    {
-	    	$is_show = 1;
-	    } else{
-	    	$is_show = 0;
-	    }
-	    $str_content = $this->input->post("content");
+	    $str_content = $this->input->post("content",true);
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
 	            'round_id'=>$array_result['round_id'],
@@ -161,14 +155,14 @@ class Course extends NH_User_Controller {
 	            'content'=>$str_content,
 	            'score'=>  $int_score,
 	            'create_time'=>time(),
-	            'is_show'=>$is_show
+	            'is_show'=>1
 	            );
 	    $bool_flag = $this->model_course->save_class_feedback($array_data);
 	    if ($bool_flag)
 	    {
-	        self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
+	        self::json_output(array('status'=>'ok','msg'=>'提交评论成功'));
 	    } else {
-	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
+	        self::json_output(array('status'=>'error','msg'=>'提交评论失败'));
 	    }
 	 }
 	
@@ -286,7 +280,8 @@ class Course extends NH_User_Controller {
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 protected function forceDownload($filename) {
+	 protected function forceDownload($filename) 
+	 {
 	 
 	 	// http headers
 	 	header('Content-Type: application-x/force-download');

@@ -3,7 +3,7 @@ define(function(require,exports){
     var getInfoObj=function(){
         return  $(this).parent().find(".Validform_tip_info");
     };
-    $("[datatype]").focusin(function(){
+    $("[datatype]").live("focusin",function(){
         if(this.timeout){clearTimeout(this.timeout);}
         var infoObj=getInfoObj.call(this);
         infoObj.prev('input').removeClass('Validform_error');
@@ -12,7 +12,7 @@ define(function(require,exports){
         }
         infoObj.show().next().hide();
         
-    }).focusout(function(){
+    }).live("focusout",function(){
         var infoObj=getInfoObj.call(this);
         infoObj.prev('input').addClass('Validform_error');
         this.timeout=setTimeout(function(){

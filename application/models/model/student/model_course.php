@@ -100,7 +100,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT student_id,nickname,content,create_time,score FROM ".TABLE_CLASS_FEEDBACK."
-                WHERE course_id = ".$int_course_id." AND is_show = 1 ORDER BY create_time DESC LIMIT 5";
+                WHERE course_id = ".$int_course_id." AND is_show = 1 AND score >=4 ORDER BY create_time DESC LIMIT 5";
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }

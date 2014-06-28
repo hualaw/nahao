@@ -87,7 +87,7 @@ define(function(require,exports){
         require('module/common/method/send').sendPhoneNum(1);
         
         // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
+        seajs.use("module/login/validFocus");
     };
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){    
@@ -156,8 +156,6 @@ define(function(require,exports){
                 }
             }
         });
-        // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
     };
     //选择和取消 关注
     function checkAttent(obj){        
@@ -242,9 +240,9 @@ define(function(require,exports){
 		});
 		_Form.addRule([{
                 ele: ".userName",
-                datatype:"*",
+                datatype:"m|e",
                 nullmsg:"请输入手机号/邮箱",
-                errormsg:"长度2-15个字符"
+                errormsg:"请输入正确的手机号/邮箱"
             },
             {	
                	 ele:".pwd",
@@ -531,9 +529,26 @@ define(function(require,exports){
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
-            ajaxPost:false,
+            ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                require("cryptoJs");
+                var hash_set = CryptoJS.SHA1($(".setPassword").val());
+                $(".setPassword").val(hash_set.toString());
+                var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
+                $(".reSetPassword").val(hash_reset.toString());
+            },
+            callback: function(data) {
+                if(data.status == 'ok') {
+                    window.location = data.url;
+                } else {
+                    $.dialog({
+                        content:data.info,
+                        icon:null,
+                        ok: function () {
+                            window.location = student_url;
+                        }
+                    });    
+                }
             }
         });
         // 冲掉库里面的'&nbsp:'
