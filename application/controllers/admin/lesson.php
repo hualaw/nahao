@@ -24,7 +24,7 @@ class Lesson extends NH_Admin_Controller {
             $this->load->model('business/admin/business_course','course');
             $arr_course = $this->course->get_course_by_id($int_course_id);
             $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
-//            o($arr_lessons,true);
+            o($arr_lessons,true);
             $arr_lessons = $this->lesson->get_lessons_list($arr_lessons);
 //            o($arr_lessons,true);
             $int_chapter_count = $int_section_count = 0 ;
