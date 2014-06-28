@@ -83,7 +83,7 @@ define(function (require, exports) {
 //                            console.log(update_parent_id.data("parent_id"));
                             exports.lessons_sort();
 //                            window.location.reload();
-                            
+
                         }
                     }
                 });
