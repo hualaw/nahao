@@ -52,7 +52,7 @@ define(function(require,exports){
                			icon: 'succeed',
 	                    content:"开课申请成功",
 	                    ok:function(){
-	                    	window.location.href="/";
+	                    	window.location.href = '/';
 	                    },
 	                });
             	}else{
@@ -169,7 +169,7 @@ define(function(require,exports){
        check_time_pick();
         // ajaxurl提交成功处理
         _Form.config({
-            url : '/index/save_apply_teach',
+            url : student_url+'index/save_apply_teach',
             ajaxurl:{
                 success:function(json,obj){
                     console.log(json);
