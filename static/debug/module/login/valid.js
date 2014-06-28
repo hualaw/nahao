@@ -242,9 +242,9 @@ define(function(require,exports){
 		});
 		_Form.addRule([{
                 ele: ".userName",
-                datatype:"*",
+                datatype:"m|e",
                 nullmsg:"请输入手机号/邮箱",
-                errormsg:"长度2-15个字符"
+                errormsg:"请输入正确的手机号/邮箱"
             },
             {	
                	 ele:".pwd",
