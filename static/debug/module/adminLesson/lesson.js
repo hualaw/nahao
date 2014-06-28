@@ -11,7 +11,6 @@ define(function (require, exports) {
 
         //edit lesson modal
         $("#btn_lesson_create,#btn_lesson_update").on('click',function(){
-            console.log(111);
             //clear all input and bind
             $("#lesson_name").val('');
             $("#lesson_is_chapter").attr('checked',false);
@@ -69,17 +68,22 @@ define(function (require, exports) {
 //                            console.log(action);
 //                            console.log( response.id);
 //                            console.log(action=="create" && response.id);
+//                            console.log(data['lesson_is_chapter']);
+//                            console.log(update_parent_id.data("is_chapter"));
                             if(action=="create"){
                                 var new_tr = '<tr class="lesson_list">';
-                                new_tr += '<td data-parent_id="'+(data['lesson_is_chapter']==1 ? 0 : 1)+'">'+response.id+'</td></tr>';
+                                new_tr += '<td data-is_chapter="'+data['lesson_is_chapter']+'">'+response.id+'</td></tr>';
 //                                console.log(new_tr);
                                 $("#lesson_list_tbody").append(new_tr);
                             }else{
-                                update_parent_id.data("parent_id",data['lesson_is_chapter']==1 ? 0 : 1);
+                                update_parent_id.data("is_chapter",data['lesson_is_chapter']);
                             }
+//                            console.log(update_parent_id.data("is_chapter"));
+//                            console.log('1111');
 //                            console.log(update_parent_id.data("parent_id"));
                             exports.lessons_sort();
 //                            window.location.reload();
+                            
                         }
                     }
                 });
@@ -117,14 +121,17 @@ define(function (require, exports) {
             var tds = $(this).children();
             var value = {
                 'id' : $(tds[0]).text(),
-                'parent_id' : $(tds[0]).data("parent_id")
+                'is_chapter' : $(tds[0]).data("is_chapter")
             }
             arr.push(value);
         });
         var data = { 'lessons' : arr};
-//        console.log(data);
+//        $.each(arr,function(){
+//            console.log(this.id+','+this.is_chapter);
+//        })
+
         $.post(url,data,function(response){
-//                console.log(response);
+            window.location.reload();
         });
     }
 

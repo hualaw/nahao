@@ -100,13 +100,6 @@ class Business_Lesson extends NH_Model
                     $v['parent_id'] = $int_parent_id;
                     $v['sequence'] = $int_sequence++;
                     $arr_return[$int_parent_id]['sections'][] = $v;
-//                    if(isset($arr_return[$v['parent_id']])){
-
-//                        if($arr_return[$v['parent_id']]==1){
-//                        }else{
-//                            $arr_return[$v['parent_id']]['sections'][] = $v;
-//                        }
-//                    }
                 }
             }
         }
@@ -143,6 +136,7 @@ class Business_Lesson extends NH_Model
         return $arr_return;
     }
 
+
     /**
      * 把提交过来的原始的lesson数据组合成章节树形结构
      * @param $arr_lessons
@@ -167,6 +161,55 @@ class Business_Lesson extends NH_Model
                     $arr_tmp['sequence'] = $int_section_flag++;
                 }
                 $arr_return[] = $arr_tmp;
+            }
+        }
+        return $arr_return;
+    }
+
+    //=========================================================
+    /**
+     * lesson_list for index show
+     * @param $arr_lessons
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_lessons_list_show($arr_lessons){
+        $arr_return = array();
+        if(is_array($arr_lessons) AND $arr_lessons){
+            $arr_tree = self::get_lessons_list_tree_show($arr_lessons);
+//            o($arr_tree);
+//            echo '======';
+            foreach($arr_tree as $k => $v){
+                if(isset($v['sections'])){
+                    $arr_sections = $v['sections'];
+                    unset($v['sections']);
+                    $arr_return[] = $v;
+                    foreach($arr_sections as $kk => $vv){
+                        $arr_return[] = $vv;
+                    }
+                }else{
+                    $arr_return[] = $v;
+                }
+            }
+        }
+        return $arr_return;
+    }
+
+    /**
+     * lesson_list_tree for index show
+     * @param $arr_lessons
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_lessons_list_tree_show($arr_lessons){
+        $arr_return = array();
+        if(is_array($arr_lessons) AND $arr_lessons){
+            foreach($arr_lessons as $k => $v){
+                if($v['parent_id']==0){
+                    $arr_return[$v['id']] = $v;
+                }else{
+                    $arr_return[$v['parent_id']]['sections'][] = $v;
+                }
             }
         }
         return $arr_return;
