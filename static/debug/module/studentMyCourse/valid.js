@@ -299,7 +299,7 @@ define(function(require,exports){
     // 个人资料 （邮箱版） 验证
     exports.emailForm = function(){
         //选择和取消 关注
-        //checkAttent(".emailForm");
+        checkAttent(".emailForm");
         var _Form=$(".emailForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
