@@ -11,6 +11,7 @@ define(function (require, exports) {
 
         //edit lesson modal
         $("#btn_lesson_create,#btn_lesson_update").on('click',function(){
+            console.log(111);
             //clear all input and bind
             $("#lesson_name").val('');
             $("#lesson_is_chapter").attr('checked',false);
