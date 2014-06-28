@@ -29,16 +29,21 @@ define(function(require,exports){
                 cardReg();
                 idcardReg();
                 
-                if($(".IDnum").hasClass("Validform_error")){
+                if($(".IDnum").hasClass("Validform_error")&&!$(".bankCode").hasClass("Validform_error")){
                     $.dialog({
                         content:"请输入正确的身份证号",
                         icon:null
                     });
                     return false;
-                }
-                if($(".bankCode").hasClass("Validform_error")){
+                }else if($(".bankCode").hasClass("Validform_error")&&!$(".IDnum").hasClass("Validform_error")){
                     $.dialog({
                         content:"请输入正确的银行卡账号",
+                        icon:null
+                    });
+                    return false;
+                }else if($(".bankCode").hasClass("Validform_error")&&$(".IDnum").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的银行卡账号和身份证号",
                         icon:null
                     });
                     return false;
