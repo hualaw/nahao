@@ -34,7 +34,7 @@ form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 .cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
-
+.Validform_tip_info{padding-left: 10px;}
 form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;width: 33px;height: 33px;top: -1px;right: -1px;}
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
 /* phone+ cart*/
