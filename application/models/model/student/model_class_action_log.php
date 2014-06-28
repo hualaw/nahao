@@ -10,7 +10,7 @@
  *
  * @author liuhua@tizi.com
  */
-class Model_Student_Class_Log extends NH_Model {
+class Model_Class_Action_Log extends NH_Model {
 
     public function __construct()
     {
@@ -27,13 +27,13 @@ class Model_Student_Class_Log extends NH_Model {
             'create_time' => time(),
         );
 
-        $this->db->insert(TABLE_STUDENT_CLASS_LOG, $record);
+        $this->db->insert(TABLE_CLASS_ACTION_LOG, $record);
         return $this->db->affected_rows();
     }
 
     public function get_action_stat($class_id)
     {
-        $sql = "select `action`, count(*) as count from ".TABLE_STUDENT_CLASS_LOG." where `class_id` = ? group by `action`";
+        $sql = "select `action`, count(*) as count from ".TABLE_CLASS_ACTION_LOG." where `class_id` = ? group by `action`";
         $result = $this->db->query($sql, array($class_id))->result_array();
 
         /*
