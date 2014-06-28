@@ -32,7 +32,7 @@ define(function(require,exports){
                 'status' : $(this).data('status')
             };
             $.post(url,data,function(response){
-                console.log(response);
+//                console.log(response);
                 if(response){
                     alert(response.msg);
                     if(response.status=='ok'){

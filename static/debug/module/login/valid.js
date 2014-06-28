@@ -232,7 +232,7 @@ define(function(require,exports){
                 	}
 
                 }else{
-                	console.log(data);
+//                	console.log(data);
                     $.dialog({
                         content:data.msg
                     });
@@ -350,7 +350,7 @@ define(function(require,exports){
             url : '/register/submit_personal_info',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
@@ -433,7 +433,7 @@ define(function(require,exports){
         _Form.config({
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');

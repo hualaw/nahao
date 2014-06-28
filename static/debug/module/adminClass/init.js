@@ -11,7 +11,7 @@ define(function(require,exports){
         //	$("input[name=list1SortOrder]").val(data.join("|"));
         $('.list_class_id').each(function(){
 
-            console.log($(this).text());
+//            console.log($(this).text());
 //            $(this).each(function(){
 //                $(this).each(function(k,v){
 //                var td = $(this);
