@@ -77,7 +77,7 @@ class Teacher extends NH_Admin_Controller {
         $province=$this->business_lecture->all_province();
         $this->load->model('business/common/business_subject','subject');
         $subject=$this->subject->get_subjects();
-        $total_count=$this->teacher->total_count();
+        $total_count=$int_count;
         $day_count=$this->teacher->day_count();
         $this->load->library('pagination');
         $config = config_item('page_admin');

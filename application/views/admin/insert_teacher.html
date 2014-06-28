@@ -130,11 +130,16 @@
     <div class="col-md-4">
        <input type="text" name="bank_Branch" placeholder="请填写具体支行信息" class="form-control" />
     </div>
+    <div class="col-md-25">&nbsp;</div><br />
     <div class="col-md-3">
-        <input type="text" name="bank_id" placeholder="请填写银行卡号" class="form-control" />
+        <input type="text" name="bank_id" id="bank_id" placeholder="请填写银行卡号" class="form-control" />
     </div>
-    <div class="col-md-3"><input type="text" name="id_card" placeholder="请填写身份证号" class="form-control" />&nbsp;</div>
-    <div class="col-md-15"></div>
+    <div class="col-md-3"><span id="bank_span"></span></div>
+    <div class="col-md-25">&nbsp;</div><br />
+    <div class="col-md-3"><input type="text" name="id_card" id="id_card" placeholder="请填写身份证号" class="form-control" />
+    </div>
+    <div class="col-md-3"><span id="card_span"></span></div>
+    <div class="col-md-25">&nbsp;</div><br />
 <hr>
 <h3>资质认证</h3>
     <input id="work_auth_img" type="hidden" value="{$upload_work_img_key}">
