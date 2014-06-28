@@ -564,5 +564,42 @@ define(function(require,exports){
                 })
             }
         })
+            var _card = require("module/common/method/bankcard");
+            var _idcard = require("module/common/method/idCard");
+
+            $("#id_card").blur(function(){
+                if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
+                {
+                    $("#card_span").show().css('color','red').html("身份证号填写不对");
+                }
+                else
+                {
+                    $("#card_span").hide();
+                }
+            })
+
+            $("#bank_id").blur(function(){
+                if(_card.luhmCheck($("#bank_id").val())==false&&$("#bank_id").val()!="")
+                {
+                    $("#bank_span").show().css('color','red').html("银行卡号填写不对");
+                }
+                else
+                {
+                    $("#bank_span").hide();
+                }
+            })
+
+            $('form').submit(function(){
+                if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
+                {
+                    alert('身份证号不对');
+                    return false;
+                }
+                if(_card.luhmCheck($("#bank_id").val())==false&&$("#bank_id").val()!="")
+                {
+                    alert('银行卡号不对');
+                    return false;
+                }
+            })
     }
 })
