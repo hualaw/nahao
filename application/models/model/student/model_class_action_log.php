@@ -3,10 +3,10 @@
 
 /**
  * 学生课堂活动记录，包括赞，讲快一点，讲慢一点
- * Class Model_Student_Class_Log
+ * Class Model_Class_Action_Log
  * 使用方法：
- * $this->load->model('model/student/student_class_log', scl_obj);
- * $this->scl_obj->set_class_id($class_id);
+ * $this->load->model('model/student/model_class_action_log', cal_obj);
+ * $this->cal_obj->set_class_id($class_id);
  *
  * @author liuhua@tizi.com
  */
@@ -18,11 +18,12 @@ class Model_Class_Action_Log extends NH_Model {
     }
 
 
-    public function save_action($class_id, $user_id, $action_type)
+    public function save_action($classroom_id, $user_id, $user_type, $action_type)
     {
         $record = array(
-            'student_id' => $user_id,
-            'class_id' => $class_id,
+            'user_id' => $user_id,
+            'user_type'=>$user_type,
+            'classroom_id' => $classroom_id,
             'action' => $action_type,
             'create_time' => time(),
         );
@@ -31,18 +32,10 @@ class Model_Class_Action_Log extends NH_Model {
         return $this->db->affected_rows();
     }
 
-    public function get_action_stat($class_id)
+    public function get_action_stat($classroom_id)
     {
-        $sql = "select `action`, count(*) as count from ".TABLE_CLASS_ACTION_LOG." where `class_id` = ? group by `action`";
-        $result = $this->db->query($sql, array($class_id))->result_array();
-
-        /*
-        echo $this->db->last_query();
-        echo "<br><pre>";
-
-        print_r($result);
-        echo "</pre>";
-        */
+        $sql = "select `action`, count(*) as count from ".TABLE_CLASS_ACTION_LOG." where `classroom_id` = ? group by `action`";
+        $result = $this->db->query($sql, array($classroom_id))->result_array();
 
         return $result;
     }

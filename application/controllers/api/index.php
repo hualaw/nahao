@@ -168,23 +168,25 @@ class Index extends NH_User_Controller {
     public function save_stu_action()
     {
         header("Content-type: text/html; charset=utf-8");
-        $class_id = intval(trim($this->input->get("class_id")));
+        $classroom_id = intval(trim($this->input->get("class_id")));
         $user_id = intval(trim($this->input->get("user_id")));
+        $user_type = 0; //only student call this interface
         $action_type = intval(trim($this->input->get("type")));
 
         $info = array(
-            'class_id' => $class_id,
+            'classroom_id' => $classroom_id,
             'user_id' => $user_id,
+            'user_type'=> $user_type,
             'action_type' => $action_type,
         );
-        if($class_id <= 0 OR $user_id <= 0 OR $action_type <= 0)
+        if($classroom_id <= 0 OR $user_id <= 0 OR $action_type <= 0)
         {
-            log_message('error_nahao', "save student class action failed", $info);
+            log_message('error_nahao', "save student class action failed,".print_r($info,1));
             die(ERROR);
         }
 
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $this->stu_obj->save_action($class_id, $user_id, $action_type);
+        $this->load->model('model/student/model_class_action_log', 'cal_obj');
+        $this->cal_obj->save_action($classroom_id, $user_id, $user_type, $action_type);
         log_message('info_nahao', "save student class action", $info);
         die(SUCCESS);
     }
@@ -192,13 +194,13 @@ class Index extends NH_User_Controller {
     public function get_action_stat()
     {
         header("Content-type: text/html; charset=utf-8");
-        $class_id = intval(trim($this->input->get("class_id")));
-        if($class_id <= 0)
+        $classroom_id = intval(trim($this->input->get("class_id")));
+        if($classroom_id <= 0)
         {
-            log_message('error_nahao', "get class action stat failed", array('class_id'=>$class_id));
+            log_message('error_nahao', "get class action stat failed", array('classroom_id'=>$classroom_id));
         }
-        $this->load->model('model/student/model_student_class_log', 'stu_obj');
-        $result = $this->stu_obj->get_action_stat($class_id);
+        $this->load->model('model/student/model_class_action_log', 'cal_obj');
+        $result = $this->cal_obj->get_action_stat($classroom_id);
 
         $arr_return = array(
             'please_total_count' => 0,
