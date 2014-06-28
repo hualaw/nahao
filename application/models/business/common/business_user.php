@@ -138,7 +138,7 @@ class Business_User extends NH_Model
         #user_info表中要更新的数据
         !empty($update_data['stage']) && $userinfo['stage'] = $update_data['stage'];
         isset($update_data['title']) && $userinfo['title'] = $update_data['title'];
-        isset($update_data['gender']) && $userinfo['gender'] = $update_data['gender'];
+        !empty($update_data['gender']) && $userinfo['gender'] = $update_data['gender'];
         !empty($update_data['province']) && $userinfo['province'] = $update_data['province'];
         !empty($update_data['city']) && $userinfo['city'] = $update_data['city'];
         !empty($update_data['area']) && $userinfo['area'] = $update_data['area'];

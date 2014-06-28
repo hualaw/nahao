@@ -20,13 +20,31 @@ define(function(require,exports){
     };
 	/*教师后台管理-个人资料表单验证开始*/
 	exports.teaInfoValid = function(){
+        var _card = require("module/common/method/bankcard");
+        var _idcard = require("module/common/method/idCard");
 		var _Form=$(".teaInfoForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                cardReg();
+                idcardReg();
+                
+                if($(".bankId").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的身份证号",
+                        icon:null
+                    });
+                    return false;
+                }
+                if($(".cardId").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的银行卡账号",
+                        icon:null
+                    });
+                    return false;
+                }
             },
             callback:function(data){
                 $.dialog({
@@ -140,6 +158,26 @@ define(function(require,exports){
                 errormsg: "请输入身份证号码"
             }
         ]);
+        function cardReg(){
+            if(_card.luhmCheck($(".bankId").val())==false&&$(".bankId").val()!=""){
+                $(".bankId").addClass("Validform_error");
+                $(".bankId").next(".Validform_checktip").addClass("Validform_wrong").removeClass("Validform_right").html("请输入正确的银行卡账号");
+            }
+        }
+        function idcardReg(){       
+            if(_idcard.idCard($(".cardId").val())==false&&$(".cardId").val()!=""){
+                $(".cardId").addClass("Validform_error");
+                $(".cardId").next(".Validform_checktip").addClass("Validform_wrong").removeClass("Validform_right").html("请输入正确的身份证号");
+            }
+        }
+
+        $(".bankId").blur(function (){
+            cardReg();
+        });
+
+        $(".cardId").blur(function (){
+            idcardReg();
+        });
     };
     /*教师后台管理-个人资料表单验证结束*/
     /*教师后台管理-修改密码表单验证开始*/
