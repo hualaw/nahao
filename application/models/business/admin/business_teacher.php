@@ -195,8 +195,11 @@ class Business_Teacher extends NH_Model
             $arr_group_by = array(
                 TABLE_USER.'.id'
             );
+            $arr_order_by=array(
+                TABLE_USER.'.register_time'=>'desc'
+            );
            // var_dump($arr_where);
-            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, array(),$arr_limit);
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by,$arr_limit);
         }
         return $arr_return;
     }
