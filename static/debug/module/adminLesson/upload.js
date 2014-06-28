@@ -27,7 +27,7 @@ define(function(require,exports){
                             var data = jQuery.parseJSON(data);
 
                             if(data.id && data.id>0){
-                                console.log(data);
+//                                console.log(data);
                                 var url = '/lesson/add_courseware';
                                 var data = {
                                     'lesson_id' : lesson_id,

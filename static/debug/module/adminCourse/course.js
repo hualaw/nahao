@@ -14,7 +14,7 @@ define(function (require, exports) {
                 'status' : $(this).data('status')
             };
             $.post(url,data,function(response){
-                console.log(response);
+//                console.log(response);
                 if(response){
                     alert(response.msg);
                     if(response.status=='ok'){
@@ -188,8 +188,8 @@ define(function (require, exports) {
 //                'lessons' : arr_lessons,
                 'teachers' : teacher_ids
             };
-            console.log(encodeURI(description));
-            console.log(description);
+//            console.log(encodeURI(description));
+//            console.log(description);
 //            return false;
             $.post(action, data, function (response) {
                 alert(response.msg);

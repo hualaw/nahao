@@ -239,7 +239,7 @@ define(function(require,exports){
             url:'/selfInfo/front_modify_password',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
