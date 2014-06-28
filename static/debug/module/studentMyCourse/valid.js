@@ -29,16 +29,21 @@ define(function(require,exports){
                 cardReg();
                 idcardReg();
                 
-                if($(".IDnum").hasClass("Validform_error")){
+                if($(".IDnum").hasClass("Validform_error")&&!$(".bankCode").hasClass("Validform_error")){
                     $.dialog({
                         content:"请输入正确的身份证号",
                         icon:null
                     });
                     return false;
-                }
-                if($(".bankCode").hasClass("Validform_error")){
+                }else if($(".bankCode").hasClass("Validform_error")&&!$(".IDnum").hasClass("Validform_error")){
                     $.dialog({
                         content:"请输入正确的银行卡账号",
+                        icon:null
+                    });
+                    return false;
+                }else if($(".bankCode").hasClass("Validform_error")&&$(".IDnum").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的银行卡账号和身份证号",
                         icon:null
                     });
                     return false;
@@ -288,11 +293,13 @@ define(function(require,exports){
 
             }           
         ]);
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     // 个人资料 （邮箱版） 验证
     exports.emailForm = function(){
         //选择和取消 关注
-        checkAttent(".emailForm")
+        //checkAttent(".emailForm");
         var _Form=$(".emailForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
@@ -373,6 +380,8 @@ define(function(require,exports){
 
             }           
         ]);
+        // 请求focus的时候出现提示文字的样式
+        require("module/login/validFocus");
     };
     //基本资料 修改密码验证
     exports.ichangePWForm = function (){

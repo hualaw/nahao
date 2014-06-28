@@ -60,8 +60,8 @@ class Business_Teacher extends NH_Model
         $int_return = array();
         if(is_array($arr_where)){
             $str_table_range = 'teacher_info_subject';
-            $str_result_type = 'count';
-            $str_fields = 'count(1) as count';
+            $str_result_type = 'list';
+            $str_fields = TABLE_USER.'.id';
             $arr_where[TABLE_USER.'.teach_priv'] = 1;
             if(array_key_exists('title',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title']-1;
@@ -112,7 +112,13 @@ class Business_Teacher extends NH_Model
                 unset($arr_where['add_time2']);
              }
 //            o($arr_where);
-            $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_group_by = array(
+                TABLE_USER.'.id'
+            );
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by);
+            $int_return = count($arr_return);
+//            echo '--';
+//            var_dump($int_return);
         }
         return $int_return;
     }
