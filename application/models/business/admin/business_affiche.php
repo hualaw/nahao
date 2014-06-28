@@ -17,7 +17,14 @@
             $content=trim($content);
             $start_time=strtotime($start_time);
             $end_time=strtotime($end_time);
-            return $this->model_affiche->affiche_list($admin_name,$author_role,$content,$start_time,$end_time,$status,$round_id);
+            $arr=$this->model_affiche->affiche_list($admin_name,$author_role,$content,$start_time,$end_time,$status,$round_id);
+            foreach($arr as $k=>$v)
+            {
+                $arr[$k]['content']=htmlspecialchars_decode( $arr[$k]['content']);
+                $arr[$k]['content']=strip_tags($arr[$k]['content']);
+            }
+
+            return $arr;
         }
         /**
          * 公告数量
