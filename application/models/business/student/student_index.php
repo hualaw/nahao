@@ -23,9 +23,9 @@ class Student_Index extends NH_Model{
             #年级
             $array_grade = config_item('grade');
             #首页获取轮的信息列表
-            foreach ($array_round as $k=>$v)
+            foreach ($array_round as $key=>$value)
             {
-                $array_list = $this->get_one_round_info($v['id'],$array_grade);
+                $array_list = $this->get_one_round_info($value['id'],$array_grade);
                 #如果这一轮里面老师信息为空，则这个轮不显示在首页上面
                 if (empty($array_list['teacher']))
                 {
@@ -66,7 +66,7 @@ class Student_Index extends NH_Model{
             	轮id为：'.$array_return['id']);
             }
             
-        }
+        
 
         #适合人群
         $gfrom = $array_return['grade_from'];
@@ -86,6 +86,7 @@ class Student_Index extends NH_Model{
         $array_return['start_time'] = date("m月d日",$array_return['start_time']);
         $array_return['end_time'] = date("m月d日",$array_return['end_time']);
         $array_return['img'] = empty($array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'general');
+        }
         return $array_return;
     }
     

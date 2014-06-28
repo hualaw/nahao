@@ -160,9 +160,9 @@ class Course extends NH_User_Controller {
 	    $bool_flag = $this->model_course->save_class_feedback($array_data);
 	    if ($bool_flag)
 	    {
-	        self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
+	        self::json_output(array('status'=>'ok','msg'=>'提交评论成功'));
 	    } else {
-	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
+	        self::json_output(array('status'=>'error','msg'=>'提交评论失败'));
 	    }
 	 }
 	
@@ -280,7 +280,8 @@ class Course extends NH_User_Controller {
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 protected function forceDownload($filename) {
+	 protected function forceDownload($filename) 
+	 {
 	 
 	 	// http headers
 	 	header('Content-Type: application-x/force-download');

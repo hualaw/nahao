@@ -25,8 +25,8 @@
 					<div class="cf">
                         {if !$userdata.email}
 						<input type="text" name="email" class="lEmail textInput fl" validName="text" value="{$userdata.email}" >
-						<div class="Validform_tip_info undis">请输入邮箱</div>
-          				<div class="Validform_checktip"></div>
+						<div class="Validform_tip_info fl undis">请输入邮箱</div>
+          				<div class="Validform_checktip fl"></div>
                         {else}
                         <span class="fl hasEmail">{$userdata.email}</span>
                         {/if}
@@ -37,8 +37,8 @@
 					<p class="fl"><span>*</span>昵称</p>
 					<div class="cf">
 						<input type="text" name="nickname" class="lname textInput fl" validName="text">
-						<div class="Validform_tip_info undis">请输入昵称</div>
-          				<div class="Validform_checktip"></div>
+						<div class="Validform_tip_info fl undis">请输入昵称</div>
+          				<div class="Validform_checktip fl"></div>
 					</div>
 				</li>
 				<li class="cf areaSelect">
@@ -132,7 +132,7 @@
 				<li class="cf">
 					<p class="schooptional">所属学校</p>
 					<div class="cf schoolPar">
-						<input class="schoolFullName cInput yh" readonly="readonly" value=""></input>
+						<input class="schoolFullName cInput yh" readonly="readonly" value="" />
 						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">选择学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
                         <input type="hidden" value="" name="province_id" id="province_id" />

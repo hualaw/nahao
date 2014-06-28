@@ -34,7 +34,7 @@
 						<p class="fl">所在地区与学校</p>
 						<div class="cf">
 							<div class="cf schoolPar">
-								<input class="schoolFullName cInput yh" validName="text" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"></input>
+								<input class="schoolFullName cInput yh" validName="text" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"/>
 								<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">就读学校</a>
 								<div class="Validform_tip_info undis">请选择就读学校</div>
                           		<div class="Validform_checktip"></div>
@@ -164,7 +164,7 @@
 					<li class="cf cookedTime">
 						<p>试讲时间</p>							
 						<div class="cf">
-							<div class="fl">
+							<div class="fl wtimeBox">
 								<input type="text" name="date_time" class="wtime textInput" validName="text">
 								<div class="Validform_tip_info fl undis">请输入试讲时间</div>
 	                      		<div class="Validform_checktip fl"></div>
