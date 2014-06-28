@@ -87,7 +87,7 @@ define(function(require,exports){
         require('module/common/method/send').sendPhoneNum(1);
         
         // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
+        seajs.use("module/login/validFocus");
     };
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){    
@@ -156,8 +156,6 @@ define(function(require,exports){
                 }
             }
         });
-        // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
     };
     //选择和取消 关注
     function checkAttent(obj){        
