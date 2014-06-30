@@ -632,7 +632,7 @@ function general_classroom_id($arr_param){
         //log
         if($str_response){
             $arr_response = json_decode($str_response,true);
-//            o($str_response);
+//            o($str_response,true);
             $int_return = ($arr_response AND isset($arr_response['id'])) ? $arr_response['id'] : 0;
         }
     }
@@ -741,9 +741,9 @@ function test_nahao_classroom($str_uri,$arr_param=array()){
     $arr_meeting_param = get_meeting_param();
     $arr_param = $arr_param ? array_merge($arr_param,$arr_meeting_param) : $arr_meeting_param;
     $str_response = nh_curl($str_url,$arr_param,'get');
-//    o($str_url);
-//    o($arr_param);
-//    o(json_decode($str_response));
+    o($str_url);
+    o($arr_param);
+    o(json_decode($str_response));
     exit;
 }
 
