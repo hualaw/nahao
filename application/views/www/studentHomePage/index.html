@@ -71,9 +71,9 @@
 									<!--工作证，称职证，教师证（1-5）-->
 									<h3 class="cf">
 									<em class="fl">{$item.teacher.nickname}</em>
-									<span {if $item.teacher.work_auth}class="workCard fl"{/if}></span>
-									<span {if $item.teacher.titile_auth}class="TitleCard fl"{/if}></span>
-									<span {if $item.teacher.teacher_auth}class="teaCard fl"{/if}></span>
+									<span {if $item.teacher.work_auth}class="workCard fl"{else}class="fl"{/if}></span>
+									<span {if $item.teacher.titile_auth}class="TitleCard fl"{else}class="fl"{/if}></span>
+									<span {if $item.teacher.teacher_auth}class="teaCard fl"{else}class="fl"{/if}></span>
 									</h3>
 									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
 								</div>
@@ -146,7 +146,7 @@
 					<span class="fl"></span>
 					<span class="fr"></span>
 					<div class="coopere cf">
-						<h3 class="fl">徐小平老师战略投资</h3>
+						<h3 class="fl">徐小平老师天使投资</h3>
 						<h3 class="fl">龚海燕（小龙女）倾心创办</h3>
 						<h3 class="fl">北京大学教育学院战略合作</h3>
 					</div>

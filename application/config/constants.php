@@ -186,6 +186,17 @@ define('REFUND_STATUS_FAIL', 1);
 define('REFUND_STATUS_AGREE', 2);
 define('REFUND_STATUS_FINISH', 3);
 
+/**
+ * 
+ * 学生与课的关系表里面的状态
+ */
+define('STUDENT_CLASS_INIT', 0);
+define('STUDENT_CLASS_LOST', 1);
+define('STUDENT_CLASS_ENTER', 2);
+define('STUDENT_CLASS_APPLY_REFUND', 3);
+define('STUDENT_CLASS_REFUND_AGREE', 4);
+define('STUDENT_CLASS_REFUND_FINISH', 5);
+define('STUDENT_CLASS_REFUND_FAIL', 6);
 
 define('CURRENT_TIMESTAMP',time());
 define('NH_INIT_PASSWORD','oknahao');

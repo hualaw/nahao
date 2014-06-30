@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<url>
+    <domain></domain>
+    <server>
+        <ol>115.29.220.31</ol>
+    </server>
+    <sevport>4443</sevport>
+    <phDome></phDome>
+    <version>5</version>
+    <apiurl>http://api.nahaotest.com/</apiurl>
+</url>

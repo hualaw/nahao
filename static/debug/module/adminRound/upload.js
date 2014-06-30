@@ -47,7 +47,7 @@ define(function(require,exports){
             'fileObjName' : 'file',
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
-                console.log(data);
+//                console.log(data);
             }
         });
     }

@@ -204,6 +204,8 @@ define(function(require, exports) {
     exports.showSchool = function(){
         //点击省份
         $('.resetSchoolPopCon .province li').live('click', function(){
+            $('.seacherResult').hide();
+            $('span.reset').addClass('undis');
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
             $('.ValidformInfo').hide();
@@ -344,6 +346,8 @@ define(function(require, exports) {
         });
         //点击城市
         $('.resetSchoolPopCon .city li').live('click', function(){
+            $('.seacherResult').hide();
+            $('span.reset').addClass('undis');
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
@@ -406,6 +410,8 @@ define(function(require, exports) {
         //点击城镇
         $('.resetSchoolPopCon .county li').live('click', function(){
             _this = $(this);
+            $('.seacherResult').hide();
+            $('span.reset').addClass('undis');
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
@@ -446,6 +452,8 @@ define(function(require, exports) {
         });
         //点击学校
         $('.resetSchoolPopCon .sctype li').live('click', function(){
+            $('.seacherResult').hide();
+            $('span.reset').addClass('undis');
             // 获取选择的省市县开始
             // var _thisPro = $('.resetSchoolPopCon .province li.active').html();
             // var _thisCity = $('.resetSchoolPopCon .city li.active').html();
@@ -488,6 +496,8 @@ define(function(require, exports) {
         }); 
         //设置学校点击学校效果
         $('.school li').live('click', function(){
+            $('.seacherResult').hide();
+            $('span.reset').addClass('undis');
             $('.school li').removeClass('active');
             $(this).addClass('active');
         });

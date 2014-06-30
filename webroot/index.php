@@ -7,7 +7,6 @@ if (PHP_SAPI === 'cli') {
     $str_domain = !in_array($str_domain, $arr_allowed_domain) ? 'www' : $str_domain;
 }
 define('DOMAIN', $str_domain);
-
 //echo DOMAIN;EXIT;
 /*
  *---------------------------------------------------------------
@@ -222,7 +221,6 @@ if (defined('ENVIRONMENT'))
 define('LOG4PHP_DIR', APPPATH.'third_party/log4php/');
 require_once LOG4PHP_DIR.'Logger.php';
 Logger::configure(LOG4PHP_DIR.'log4php.properties');
-
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

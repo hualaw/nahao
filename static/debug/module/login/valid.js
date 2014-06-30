@@ -87,7 +87,7 @@ define(function(require,exports){
         require('module/common/method/send').sendPhoneNum(1);
         
         // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
+        seajs.use("module/login/validFocus");
     };
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){    
@@ -156,8 +156,6 @@ define(function(require,exports){
                 }
             }
         });
-        // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
     };
     //选择和取消 关注
     function checkAttent(obj){        
@@ -232,7 +230,7 @@ define(function(require,exports){
                 	}
 
                 }else{
-                	console.log(data);
+//                	console.log(data);
                     $.dialog({
                         content:data.msg
                     });
@@ -242,9 +240,9 @@ define(function(require,exports){
 		});
 		_Form.addRule([{
                 ele: ".userName",
-                datatype:"*",
+                datatype:"m|e",
                 nullmsg:"请输入手机号/邮箱",
-                errormsg:"长度2-15个字符"
+                errormsg:"请输入正确的手机号/邮箱"
             },
             {	
                	 ele:".pwd",
@@ -350,7 +348,7 @@ define(function(require,exports){
             url : '/register/submit_personal_info',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
@@ -433,7 +431,7 @@ define(function(require,exports){
         _Form.config({
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');

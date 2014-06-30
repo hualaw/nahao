@@ -24,8 +24,10 @@ class Lesson extends NH_Admin_Controller {
             $this->load->model('business/admin/business_course','course');
             $arr_course = $this->course->get_course_by_id($int_course_id);
             $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
-            o($arr_lessons,true);
-            $arr_lessons = $this->lesson->get_lessons_list($arr_lessons);
+
+//            o($arr_lessons);
+//            echo '======';
+            $arr_lessons = $this->lesson->get_lessons_list_show($arr_lessons);
 //            o($arr_lessons,true);
             $int_chapter_count = $int_section_count = 0 ;
             foreach($arr_lessons as $lesson){
@@ -35,13 +37,6 @@ class Lesson extends NH_Admin_Controller {
                     ++$int_section_count;
                 }
             }
-
-//            $int_chapter_count = count($arr_lessons);
-//            $int_section_count = 0 ;
-//            foreach($arr_lessons as $k => $v){
-//                $int_section_count += count($v);
-//            }
-//            o($arr_course,true);
         }
         $this->smarty->assign('course',$arr_course);
         $this->smarty->assign('lessons',$arr_lessons);
@@ -111,7 +106,7 @@ class Lesson extends NH_Admin_Controller {
                 $arr_param = array(
                     'title' => $str_lesson_name,
                 );
-                $arr_param['parent_id'] = $int_lesson_is_chapter==1 ? 0 : 1;
+//                $arr_param['parent_id'] = $int_lesson_is_chapter==1 ? 0 : 1;
                 if($int_lesson_id){
                     //update
                     $arr_where = array(
@@ -151,10 +146,31 @@ class Lesson extends NH_Admin_Controller {
             'msg' => '操作失败',
         );
         if(is_array($arr_lessons)){
-//            o($arr_lessons);
-            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
+            $arr_update = array();
+            $int_parent_id = $int_chapter_sequence = $int_section_sequence = 0;
+            foreach($arr_lessons as $k => $v){
+                if($v['is_chapter']==1){
+                    $int_parent_id = $int_section_sequence = 0;
+                    $arr_tmp = array(
+                        'id' => $v['id'],
+                        'parent_id' => $int_parent_id,
+                        'sequence' => $int_chapter_sequence++
+                    );
+                    $int_parent_id = $v['id'];
+                }else{
+                    $arr_tmp = array(
+                        'id' => $v['id'],
+                        'parent_id' => $int_parent_id,
+                        'sequence' => $int_section_sequence++
+                    );
+                }
+                $arr_update[] = $arr_tmp;
+            }
+
+//            o($arr_update,true);
+//            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
 //            o($arr_lessons_tree,true);
-            $bool_return = $this->lesson->sort($arr_lessons_tree);
+            $bool_return = $this->lesson->sort($arr_update);
 //            o($bool_return);
 //            o($arr_lessons_tree,true);
             if($bool_return){

@@ -1,4 +1,4 @@
-.studentStartClass{}
+.studentStartClass .wtimeBox{text-align: left;width: 188px;}
 .studentStartClass .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
 .studentStartClass .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 /*开课成功样式开始*/
@@ -23,7 +23,7 @@
 .studentStartClass .writeInfo ul.Oul{padding:20px 0px 0 80px;}
 .studentStartClass .writeInfo li {margin-bottom:15px;}
 .studentStartClass .writeInfo li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;color:#0e455e;margin-bottom:5px;text-align: left}
-.studentStartClass .writeInfo li .textInput{width: 228px;height:31px;border:1px solid #a2a2a2;padding:0 15px;}
+.studentStartClass .writeInfo li .textInput{width: 228px;height:31px;line-height:31px;border:1px solid #a2a2a2;padding:0 15px;}
 .studentStartClass .writeInfo li .tips{font-size: 14px;color:#919191;}
 .studentStartClass .writeInfo li label{height:30px;line-height:30px;font-size: 14px;margin-right: 20px;}
 .studentStartClass .jqTransformSelectWrapper{display: inline-block;margin-right: 20px;text-align: left;float: left;}

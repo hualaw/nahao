@@ -28,8 +28,6 @@ define(function(require,exports){
                 var img_url = data.key;
                 var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
 
-                console.log(img_url);
-                console.log(img_url_small);
                 /*添加教师资格证书图片*/
                 $("#teacher_auth_img").val(data.key);
                 $(".icon_upload1").hide();
@@ -58,8 +56,6 @@ define(function(require,exports){
                 var img_url = data.key;
                 var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
 
-                console.log(img_url);
-                console.log(img_url_small);
                 /*添加教师职称证书图片*/
                 $("#title_auth_img").val(data.key);
                 $(".icon_upload2").hide();
@@ -88,8 +84,6 @@ define(function(require,exports){
                 };
                 var img_url = data.key;
                 var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
-                console.log(img_url);
-                console.log(img_url_small);
 //               /*添加学校工作证图片*/
                 $("#work_auth_img").val(data.key);
                 $(".icon_upload3").hide();

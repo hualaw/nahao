@@ -68,16 +68,9 @@ class Model_Order extends NH_Model{
      * @param  $array_data 
      * @return $bool_result
      */
-    public function update_order_status($array_data)
+    public function update_order_status($array_update,$array_where)
     {
-        $data = array(
-                'status' => $array_data['status'],
-                'id' => $array_data['order_id'],
-                'confirm_time' => time()
-        );
-        
-        $this->db->where('id', $array_data['order_id']);
-        $this->db->update(TABLE_STUDENT_ORDER, $data);
+        $this->db->update(TABLE_STUDENT_ORDER, $array_update,$array_where);
         $int_row = $this->db->affected_rows();
         return $bool_result = $int_row > 0  ? true : false;
     }
