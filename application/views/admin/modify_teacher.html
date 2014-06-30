@@ -124,11 +124,19 @@
     {/for}
 </select>
         </div>
-    <div class="col-md-4"><input type="text" name="bank_Branch" placeholder="请填写具体支行信息" value="{$teacher_details['user_info_data']['bankbench']}" class="form-control" /></div>
-    <div class="col-md-3"><input type="text" name="bank_id" placeholder="请填写银行卡号" value="{$teacher_details['user_info_data']['bankcard']}" class="form-control" /></div>
-    <div class="col-md-3"><input type="text" name="id_card" placeholder="请填写身份证号" value="{$teacher_details['user_info_data']['id_code']}" class="form-control" /></div>
-    <input type="hidden" value="{$user_id}" name="user_id" />
-    <div class="col-md-15">&nbsp;</div>
+    <div class="col-md-4">
+        <input type="text" name="bank_Branch" placeholder="请填写具体支行信息" class="form-control" />
+    </div>
+    <div class="col-md-25">&nbsp;</div><br />
+    <div class="col-md-3">
+        <input type="text" name="bank_id" id="bank_id" placeholder="请填写银行卡号" class="form-control" />
+    </div>
+    <div class="col-md-3"><span id="bank_span"></span></div>
+    <div class="col-md-25">&nbsp;</div><br />
+    <div class="col-md-3"><input type="text" name="id_card" id="id_card" placeholder="请填写身份证号" class="form-control" />
+    </div>
+    <div class="col-md-3"><span id="card_span"></span></div>
+    <div class="col-md-25">&nbsp;</div><br />
     <hr>
     <h3>资质认证</h3>
     <input id="work_auth_img" type="hidden" value="{$upload_work_img_key}">

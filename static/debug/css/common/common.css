@@ -34,7 +34,7 @@ form input:focus,textarea:focus,select:focus{color:#4b4b4b;}
 .cselect{font-size: 16px;height: 32px;height: 30px;}
 .formName{margin: 20px 0 8px;color:#0e455e;font-weight: bold;}
 .pageName span{font-size: 14px;font-weight: normal;margin-left: 10px;}
-
+.Validform_tip_info{padding-left: 10px;}
 form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../images/common/form/selectBj.gif) no-repeat;width: 33px;height: 33px;top: -1px;right: -1px;}
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
 /* phone+ cart*/
@@ -81,7 +81,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 }
 .teaInfor{padding: 32px 18px 0;border-bottom: 1px solid #d54c27;height: 42px;}
 .teaInfor h3 span{display: inline-block;width: 18px;height: 15px;margin-left: 10px;}
-.teaInfor h3 em{line-height: 14px;}
+.teaInfor h3 em{line-height: 14px;width: 68px;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;}
 .teaInfor .teaInforR{padding-top: 3px;}
 .teaInfor .workCard{background: url(../../images/studenthomePage/workCard.gif) center center no-repeat;}
 .teaInfor .TitleCard{background: url(../../images/studenthomePage/TitleCard.png) center center no-repeat;_background-image: url(../../images/studenthomePage/TitleCard_8.png);}

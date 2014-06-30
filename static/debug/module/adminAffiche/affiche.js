@@ -117,7 +117,7 @@ define(function(require,exports){
     }
     exports.load_ckeditor = function ()
     {
-        CKEDITOR.replace('insert_content');
-        CKEDITOR.replace('edit_content');
+        CKEDITOR.replace('insert_content',{ toolbar:'Basic'});
+        CKEDITOR.replace('edit_content',{ toolbar:'Basic'});
     }
 })

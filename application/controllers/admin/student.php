@@ -61,7 +61,8 @@ class Student extends NH_Admin_Controller {
             }elseif($int_search_type == 2){//邮箱
                 $arr_where['email'] = $str_search_value;
             }elseif($int_search_type == 3){//手机号
-                $int_user_id = 0;//get from phone server
+//                $int_user_id = 0;//get from phone server
+                $int_user_id = get_uid_phone_server($str_search_value);
                 $arr_where['id'] = $int_user_id;
             }elseif($int_search_type == 4){//用户ID
                 $int_user_id = intval($str_search_value);
