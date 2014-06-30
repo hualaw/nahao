@@ -48,6 +48,9 @@ class Model_Teacher extends NH_Model{
 		$where .= !empty($param['title']) ? ' AND cl.title like "%'.$param['title'].'%"' : '';//课名
 		
 		$order = ' ORDER BY cl.'.self::$_orderArr[($param['order'] ? $param['order'] : 1)].' '.self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
+		if($param['order']==5){
+			$order = " ORDER BY cl.parent_id ASC,cl.sequence ASC ";
+		}
 		$column = $param['counter']==1 ? 'count(cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
 		$limit = !empty($param['limit']) ? ' LIMIT '.$param['limit'] : '';
 		#2. 生成sql
@@ -106,11 +109,12 @@ class Model_Teacher extends NH_Model{
 	 **/
     public function round_status_counter($param){
     	$arr_result = array();
-		$where = ' WHERE 1 ';
+		$where = ' WHERE 1 AND cl.parent_id>0 ';
 		$where .= !empty($param['teacher_id']) ? ' AND rtr.teacher_id='.$param['teacher_id'] : '';
 		$where .= !empty($param['teach_status']) ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';
     	$sql = "SELECT count(distinct r.id) total
     			FROM round r 
+    			LEFT JOIN class cl ON cl.round_id=r.id 
     			LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id 
     			".$where;
     	$arr_result = $this->db->query($sql)->result_array();
@@ -534,6 +538,26 @@ class Model_Teacher extends NH_Model{
 				".$where.$group;
      	return $this->db->query($sql)->result_array();
      }
+     
+     /**
+      * 只获取教师课id列表
+      **/
+      public function teacher_class_ids($param){
+      	 $sql = "SELECT cl.id FROM class cl 
+      	         LEFT JOIN round_teacher_relation rtr ON cl.round_id=rtr.round_id
+      	         WHERE 1 AND rtr.teacher_id=".$param['teacher_id'];
+      	 return $this->db->query($sql)->result_array();
+      }
+      
+      /**
+      * 只获取教师课id列表
+      **/
+      public function teacher_round_ids($param){
+      	 $sql = "SELECT r.id FROM round r 
+      	         LEFT JOIN round_teacher_relation rtr ON r.id=rtr.round_id
+      	         WHERE 1 AND rtr.teacher_id=".$param['teacher_id'];
+      	 return $this->db->query($sql)->result_array();
+      }
      
      /*******************************		自动运行操作start		********************************/
      /**
