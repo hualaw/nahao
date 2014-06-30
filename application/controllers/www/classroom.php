@@ -255,7 +255,7 @@ class Classroom extends NH_User_Controller {
         {
         	show_error('您没有购买这堂课啊');
         }
-        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='4')
+        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='5')
         {
         	show_error('您在进行退款流程，现在不能进入教室');
         }

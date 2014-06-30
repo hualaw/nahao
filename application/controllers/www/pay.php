@@ -89,6 +89,7 @@ class Pay extends NH_User_Controller {
 	    $array_infor = $this->_user_detail;
 		//var_dump($array_infor);
 	    $this->smarty->assign('realname', $array_infor['realname']);
+	    $this->smarty->assign('phone_verified', $array_infor['phone_verified']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
 	}
@@ -313,9 +314,9 @@ class Pay extends NH_User_Controller {
 	    	'user_id'=>$int_user_id,
 	    	'order_id' =>$array_order['id'],
 	    	'status'=>ORDER_STATUS_SUCC,
-	    	'pay_type' =>$payment_method,            #支付方式
-	    	'action'=>ORDER_STATUS_SUCC,             #日志动作
-	    	'note'=>'支付成功'                        #日志记录
+	    	'pay_type' =>$payment_method,                        #支付方式
+	    	'action'=>ORDER_STATUS_SUCC,            			 #日志动作
+	    	'note'=>'0元免费课程支付成功'                         #日志记录
 	    	);
 	    	$this->zero_order_action($array_data);
 	    }

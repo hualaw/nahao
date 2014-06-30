@@ -189,6 +189,13 @@ define('REFUND_STATUS_FINISH', 3);
 /**
  * 
  * 学生与课的关系表里面的状态
+ * 初始化（未到上课时间）0
+ * 缺席（进入教师按钮可用时间段内，学生没点过此按钮算缺席）1
+ * 进过教室 2
+ * 申请退款3
+ * 退款同意 4
+ * 完成退款5
+ * 退款失败6
  */
 define('STUDENT_CLASS_INIT', 0);
 define('STUDENT_CLASS_LOST', 1);

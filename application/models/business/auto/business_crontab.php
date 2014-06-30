@@ -85,26 +85,67 @@
         }
 
         /**
-         * 根据课id找出上过这节课的学生
+         * 查找学生在entering_classroom里面是否有进入记录
+         * @param  $int_user_id
          * @param  $int_classroom_id
+         * @return $bool_return
          */
-        public function get_enter_classroom_user_id($int_classroom_id)
+        public function check_entering_classroom_data($int_user_id,$int_classroom_id)
         {
-        	$array_return = array();
-        	$array_return = $this->model_crontab->get_enter_classroom_user_id($int_classroom_id);
-        	return $array_return;
+        	$bool_return = $this->model_crontab->check_entering_classroom_data($int_user_id,$int_classroom_id);
+        	return $bool_return;
         }
         
         /**
          * 根据课id在student_class表里面找到买过这节课的学生
          * @param  $int_class_id
          */
-        public function get_buy_class_user($int_class_id)
+        public function get_buy_class($int_class_id)
         {
         	$array_return = array();
-        	$array_return = $this->model_crontab->get_buy_class_user($int_class_id);
+        	$array_return = $this->model_crontab->get_buy_class($int_class_id);
         	return $array_return;
         }
+        
+        /**
+         * 更新student_class表里面的状态
+         * @param  $array_update
+         * @param  $array_where
+         * @return boolean
+         */
+        public function update_student_class_status($array_update,$array_where)
+        {
+        	$bool_return = $this->model_crontab->update_student_class_status($array_update,$array_where);
+        	return $bool_return;
+        }
+        
+        /**
+         * 获取每个课的出席人数
+         * @param  $int_classroom_id
+         * @return $array_return
+         */
+        public function get_class_count_attendance($int_classroom_id)
+        {
+        	$array_return = array();
+        	$array_return = $this->model_crontab->get_class_count_attendance($int_classroom_id);
+        	return $array_return;
+        }
+        
+        /**
+         * 获取每个课上做题的正确率
+         * @param  $int_class_id
+         * @return $array_return
+         */
+        public function get_class_count_correctrate($int_class_id)
+        {
+        	$array_totle = $this->model_crontab->get_student_question_totle($int_class_id);
+        	$totle = empty($array_totle) ? 0 : $array_totle['num'];
+        	$array_correct_totle = $this->model_crontab->get_student_question_correct_totle($int_class_id);
+        	$array_correct_totle = empty($array_correct_totle) ? 0 : $array_correct_totle['num'];
+        	$correctrate = $totle == '0' ? 0 : round($array_correct_totle/$totle,2);
+        	return $correctrate;
+        }
+
 
         /**
          *轮的状态
