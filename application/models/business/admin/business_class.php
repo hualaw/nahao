@@ -374,6 +374,26 @@ class Business_Class extends NH_Model
     }
 
     /**
+     * 根据classroom_id取class
+     * @param $int_classroom_id
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_by_classroom_id($int_classroom_id){
+        $arr_return = array();
+        if($int_classroom_id){
+            $str_table_range = 'class';
+            $str_result_type = 'one';
+            $str_fields = '*';
+            $arr_where = array(
+                'classroom_id' => $int_classroom_id
+            );
+            $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        }
+        return $arr_return;
+    }
+
+    /**
      * 根据course_id取class
      * @param int $int_round_id
      * @return array

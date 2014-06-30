@@ -11,6 +11,7 @@ define(function(require,exports){
             'buttonClass'     : 'choseFileBtn',
             'fileObjName' : 'file',
             'fileTypeExts' : '*.png;*.jpg;',
+//            'fileSizeLimit' : 2048000,
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {

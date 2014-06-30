@@ -18,7 +18,7 @@ class Classes extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index () {
-//        test_nahao_classroom('api/meetings/162/files/');
+//        test_nahao_classroom('api/meetings/307/files/');
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
         if($int_round_id > 0){
@@ -44,7 +44,51 @@ class Classes extends NH_Admin_Controller {
         $this->smarty->display('admin/layout.html');
     }
 
-//self::json_output($this->arr_response);
+    /**
+     * class update
+     * @author yanrui@tizi.com
+     */
+    public function update(){
+        $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
+        $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : 0;
+        $str_end_time = $this->input->post('end_time') ? trim($this->input->post('end_time')) : 0;
+
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '操作失败'
+        );
+        if($int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0){
+
+            $arr_class = $this->class->get_class_by_id($int_class_id);
+            $int_classroom_id = $arr_class['classroom_id'];
+            $int_courseware_id = $arr_class['courseware_id'];
+            if($arr_class['classroom_id']==0){
+                $arr_classroom_param = array(
+                    'name' => $arr_class['title'],
+                    'start_at' => $str_begin_time,
+                    'end_at' => $str_end_time
+                );
+                $int_classroom_id = general_classroom_id($arr_classroom_param);
+            }
+            $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
+//            o($bool_add_courseware,true);
+
+            $arr_param = array(
+                'classroom_id' => $int_classroom_id,
+                'begin_time' => strtotime($str_begin_time),
+                'end_time' => strtotime($str_end_time)
+            );
+            $arr_where = array(
+                'id' => $int_class_id
+            );
+            $this->class->update_class($arr_param,$arr_where);
+            $arr_response = array(
+                'status' => 'ok',
+                'msg' => '修改成功'
+            );
+        }
+        self::json_output($arr_response);
+    }
 
     public function token(){
 //        $str_signature = get_meeting_signature();
@@ -82,11 +126,16 @@ class Classes extends NH_Admin_Controller {
      */
     public function enter(){
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-        $str_iframe = self::enter_classroom($int_classroom_id);
-        $this->smarty->assign('js_module', 'classRoom');
-        $this->smarty->assign('classroom_id', $int_classroom_id);
-        $this->smarty->assign('iframe', $str_iframe);
-        $this->smarty->display('admin/classroom.html');
+        $arr_class = $this->class->get_class_by_classroom_id($int_classroom_id);
+        if($arr_class){
+            $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_ADMIN,array('class_title'=>$arr_class['title']));
+            $this->smarty->assign('js_module', 'classRoom');
+            $this->smarty->assign('classroom_id', $int_classroom_id);
+            $this->smarty->assign('iframe', $str_iframe);
+            $this->smarty->display('admin/classroom.html');
+        }else{
+            die('');
+        }
     }
 
     /**

@@ -6,6 +6,7 @@
         <th>课堂名称</th>
         <th>教室ID</th>
         <th>上课时间</th>
+        <th>下课时间</th>
         <th>课堂状态</th>
         <th>实到/应到</th>
         <th>上课到达率</th>
@@ -21,7 +22,8 @@
         <td class="list_class_id">{$v.id}</td>
         <td>{$v.title}</td>
         <td>{$v.classroom_id}</td>
-        <td>{if ($v.begin_time gt 0) AND ($v.end_time gt 0)}{date("Y-m-d H:i",$v.begin_time)}-{date("Y-m-d H:i",$v.end_time)}{/if}</td>
+        <td>{if ($v.begin_time gt 0) }{date("Y-m-d H:i",$v.begin_time)}{/if}</td>
+        <td>{if ($v.end_time gt 0) }{date("Y-m-d H:i",$v.end_time)}{/if}</td>
         <td>{if $v.parent_id gt 0}{$class_status[$v.status]}{/if}</td>
         <td>{if ($v.parent_id gt 0) AND ($smarty.const.TIME_STAMP > $v.begin_time)}{$v.attendance}{/if}</td>
         <td></td>
@@ -45,8 +47,12 @@
             {else}
                 --
             {/if}
+            {if $v.parent_id gt 0}
+            <a href="javascript:;" class="btn_class_edit" data-class_id="{$v.id}">修改</a>
+            {/if}
         </td>
     </tr>
     {/foreach}
     </tbody>
 </table>
+{include file="admin/class_list_modal_operation.html"}
