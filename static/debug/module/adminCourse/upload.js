@@ -30,8 +30,8 @@ define(function(require,exports){
 //                var img_url_general = data.general;
 //                var img_url_small = data.small;
 //                var img_url = data.src;
-                console.log(img_url);
-                console.log(img_url_large);
+//                console.log(img_url);
+//                console.log(img_url_large);
 //                console.log(img_url_general);
 //                console.log(img_url_small);
                 $('#img_url_large').attr('src',img_url_large);
@@ -52,7 +52,7 @@ define(function(require,exports){
             'fileObjName' : 'file',
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
-                console.log(data);
+//                console.log(data);
             }
         });
     }

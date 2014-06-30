@@ -29,16 +29,21 @@ define(function(require,exports){
                 cardReg();
                 idcardReg();
                 
-                if($(".IDnum").hasClass("Validform_error")){
+                if($(".IDnum").hasClass("Validform_error")&&!$(".bankCode").hasClass("Validform_error")){
                     $.dialog({
                         content:"请输入正确的身份证号",
                         icon:null
                     });
                     return false;
-                }
-                if($(".bankCode").hasClass("Validform_error")){
+                }else if($(".bankCode").hasClass("Validform_error")&&!$(".IDnum").hasClass("Validform_error")){
                     $.dialog({
                         content:"请输入正确的银行卡账号",
+                        icon:null
+                    });
+                    return false;
+                }else if($(".bankCode").hasClass("Validform_error")&&$(".IDnum").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的银行卡账号和身份证号",
                         icon:null
                     });
                     return false;
@@ -70,7 +75,7 @@ define(function(require,exports){
 		});
         _Form.config({
         	showAllError:true,
-            url:"/member/save_refund",
+            url:"/member/save_refund"
 
         })
         // 冲掉库里面的'&nbsp:'
@@ -437,7 +442,6 @@ define(function(require,exports){
             url:'/member/front_modify_password',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
