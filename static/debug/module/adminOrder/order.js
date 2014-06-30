@@ -139,7 +139,7 @@ define(function(require,exports){
 
         $('#ok_modify').click(function(){
             //alert($('#spend').html())
-            if($('#price_modify').val()<0 || $('#price_modify').val()=="" || isNaN($('#price_modify').val()))
+            if($('#price_modify').val()<0 || $('#price_modify').val()==0 || $('#price_modify').val()=="" || isNaN($('#price_modify').val()))
             {
                 alert('输入的价格不合法');
                 return false;
@@ -157,6 +157,5 @@ define(function(require,exports){
                 }
             })
         })
-
     }
 });

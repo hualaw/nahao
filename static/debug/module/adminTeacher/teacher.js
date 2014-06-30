@@ -589,7 +589,7 @@ define(function(require,exports){
                 }
             })
 
-            $('form').submit(function(){
+            $('#sum').click(function(){
                 if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
                 {
                     alert('身份证号不对');

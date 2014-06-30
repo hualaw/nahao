@@ -447,22 +447,25 @@ class Business_Teacher extends NH_Model
         $post['bank_id']=trim($post['bank_id']);
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
-        if($post['hide_school']==null)
+
+        //var_dump($post);die;
+        if(!isset($post['hide_school']))
         {
-            unset($post['hide_school']);
+            $post['hide_school']=0;
         }
-        if($post['hide_realname']==null)
+        if(!isset($post['hide_realname']))
         {
-            unset($post['hide_realname']);
+            $post['hide_realname']=0;
         }
-        if($post['city']==null || $post['city']==1)
+        if(!isset($post['city']))
         {
-            unset($post['city']);
+            $post['city']=0;
         }
-        if($post['area']==null || $post['area']==1)
+        if(!isset($post['area']))
         {
-            unset($post['area']);
+            $post['area']=0;
         }
+        //var_dump($post);die;
         //var_dump($post);die;
         if($post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['realname']))
         {
@@ -525,6 +528,7 @@ class Business_Teacher extends NH_Model
             unset($post_user_info['area']);
         }
         $post_update['user_id']=$post['user_id'];
+        //var_dump($post['user_id']);die;
         if($this->model_user->modify_subject($post_subject,$post['user_id']))
         {
             return $this->model_user->update_user_info($post_user_info,$post_update);
