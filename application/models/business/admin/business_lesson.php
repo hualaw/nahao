@@ -183,7 +183,9 @@ class Business_Lesson extends NH_Model
                 if(isset($v['sections'])){
                     $arr_sections = $v['sections'];
                     unset($v['sections']);
-                    $arr_return[] = $v;
+                    if(isset($v['title'])){
+                        $arr_return[] = $v;//非默认章
+                    }
                     foreach($arr_sections as $kk => $vv){
                         $arr_return[] = $vv;
                     }

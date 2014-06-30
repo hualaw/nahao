@@ -30,11 +30,13 @@ class Lesson extends NH_Admin_Controller {
             $arr_lessons = $this->lesson->get_lessons_list_show($arr_lessons);
 //            o($arr_lessons,true);
             $int_chapter_count = $int_section_count = 0 ;
-            foreach($arr_lessons as $lesson){
-                if($lesson['parent_id'] == 0){
-                    ++$int_chapter_count;
-                }else{
-                    ++$int_section_count;
+            if($arr_lessons){
+                foreach($arr_lessons as $lesson){
+                    if($lesson['parent_id'] == 0){
+                        ++$int_chapter_count;
+                    }else{
+                        ++$int_section_count;
+                    }
                 }
             }
         }
@@ -106,7 +108,7 @@ class Lesson extends NH_Admin_Controller {
                 $arr_param = array(
                     'title' => $str_lesson_name,
                 );
-//                $arr_param['parent_id'] = $int_lesson_is_chapter==1 ? 0 : 1;
+                $arr_param['parent_id'] = $int_lesson_is_chapter==1 ? 0 : 1;
                 if($int_lesson_id){
                     //update
                     $arr_where = array(
@@ -149,6 +151,7 @@ class Lesson extends NH_Admin_Controller {
         if($int_course_id AND is_array($arr_lessons) AND $arr_lessons){
             $arr_update = array();
             $int_parent_id = $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
+            o($arr_lessons,true);
             foreach($arr_lessons as $k => $v){
                 if($v['is_chapter']==1){
                     $int_parent_id = $int_section_sequence = 0;

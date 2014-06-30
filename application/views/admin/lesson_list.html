@@ -39,7 +39,7 @@
             {if $v.parent_id > 0}
                 <a href="/question/lesson_question/{$v.id}">习题</a>
             {/if}
-            <a href="javascript:;" id="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
+            <a href="javascript:;" class="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
         </td>
     </tr>
     {/foreach}
