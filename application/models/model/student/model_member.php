@@ -239,7 +239,7 @@ class Model_Member extends NH_Model{
     {
     	$array_result = array();
     	$sql = "SELECT class_id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$array_data['student_id']." 
-    			AND round_id = ".$array_data['round_id']." AND ";
+    			AND round_id = ".$array_data['round_id'];
     	$array_result = $this->db->query($sql)->result_array();
     	return $array_result;
     }
