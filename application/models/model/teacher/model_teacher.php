@@ -193,9 +193,8 @@ class Model_Teacher extends NH_Model{
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
-				FROM sutdent_question sq 
+				FROM student_question sq 
 				LEFT JOIN class cl ON sq.class_id=cl.id ".$where;
-//		var_dump($sql);
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
