@@ -164,7 +164,7 @@
          */
         public function price_modify($modify_price,$order_id,$spend)
         {
-            if(!is_numeric($modify_price) || $modify_price<0 || $modify_price=="")
+            if(!is_numeric($modify_price) || $modify_price<0 || $modify_price==0 || $modify_price=="")
             {
                 return FALSE;
             }
