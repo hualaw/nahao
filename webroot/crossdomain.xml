@@ -4,4 +4,7 @@
     <allow-access-from domain="www.nahao.com"/>
     <allow-access-from domain="www.nahaotest.com"/>
     <allow-access-from domain="www.nahaodev.com"/>
+    <allow-access-from domain="admin.nahao.com"/>
+    <allow-access-from domain="admin.nahaotest.com"/>
+    <allow-access-from domain="admin.nahaodev.com"/>
 </cross-domain-policy>
