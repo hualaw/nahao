@@ -380,6 +380,11 @@ define(function(require,exports){
 
             }           
         ]);
+        _Form.config({
+            showAllError:true,
+            url:"/member/my_infor"
+
+        });
         // 请求focus的时候出现提示文字的样式
         require("module/login/validFocus");
     };

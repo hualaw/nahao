@@ -9,7 +9,6 @@ define(function(require,exports){
 	var _valid = require("module/studentStartClass/valid");
 	//判断当前页面时注册成功的关于我的页面
 	if($('.writeInfo').length > 0){
-		debugger;
 		// 美化select
 		$('select').jqTransSelect();
 		// 美化radio
