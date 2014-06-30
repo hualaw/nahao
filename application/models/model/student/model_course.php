@@ -113,7 +113,7 @@ class Model_Course extends NH_Model{
     public function get_evaluate_count($int_course_id)
     {
         $array_result = array();
-        $sql = "SELECT COUNT(id) AS num FROM ".TABLE_CLASS_FEEDBACK." WHERE course_id = ".$int_course_id;
+        $sql = "SELECT COUNT(id) AS num FROM ".TABLE_CLASS_FEEDBACK." WHERE course_id = ".$int_course_id." AND is_show =1";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
