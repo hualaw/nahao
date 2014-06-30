@@ -1,21 +1,30 @@
+<div class="form-group">
+    <btn class="btn btn-success" id="btn_lesson_create" data-action="create">
+        添加章节
+    </btn>
+    <!--<btn class="btn btn-primary" id="btn_lesson_sort" data-action="/lesson/sort">-->
+        <!--保存序列-->
+    <!--</btn>-->
+</div>
 课程名称 : {$course.title}     共{$chapter_count}章  {$section_count}节课
 <table class="table table-hover">
+    <input type="hidden" id="course_id" value="{$course.id}">
     <thead>
     <tr>
-        <th>#</th>
         <th>课节ID</th>
         <th>课节名称</th>
+        <th>章/节</th>
         <th>讲义</th>
         <th>习题管理</th>
         <!--<th>操作</th>-->
     </tr>
     </thead>
-    <tbody>
+    <tbody id="lesson_list_tbody">
     {foreach $lessons as $v}
-    <tr>
-        <td><input type="checkbox"></td>
-        <td>{$v.id}</td>
+    <tr class="lesson_list">
+        <td data-parent_id="{$v.parent_id}">{$v.id}</td>
         <td>{$v.title}</td>
+        <td>{if $v.parent_id gt 0}节{else}章{/if}</td>
         <td>
             {if $v.parent_id > 0}
                 {if $v.courseware_id==0}
@@ -24,20 +33,16 @@
                     <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
                     <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
                 {/if}
-                {else}
-                        是章
             {/if}
         </td>
         <td>
             {if $v.parent_id > 0}
                 <a href="/question/lesson_question/{$v.id}">习题</a>
             {/if}
+            <a href="javascript:;" id="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
         </td>
-        <!--<td>-->
-            <!--<a href="javascript:;" data-toggle="modal" data-target="#course_list_operation_modal" data-course_id="{$v.id}">修改</a>-->
-        <!--</td>-->
     </tr>
     {/foreach}
     </tbody>
 </table>
-{include file="admin/lesson_operation.html"}
+{include file="admin/lesson_list_modal_operation.html"}

@@ -4,10 +4,9 @@ define(function(require,exports){
             format: "yyyy-MM",
             language: 'cn',
             autoclose : true,
-            hourStep: 1,
-            minuteStep: 15,
-            secondStep: 30,
-            inputMask: true
+            inputMask: true,
+            startView:3,
+            minView:3
         })
 
         $("#ok_checkout").click(function(){

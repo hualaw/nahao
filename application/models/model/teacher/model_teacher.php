@@ -229,13 +229,15 @@ class Model_Teacher extends NH_Model{
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1';
+		$where .= !empty($param['course_id']) ? ' AND cf.course_id='.$param['course_id'] : '';
 		$where .= !empty($param['round_id']) ? ' AND cf.round_id='.$param['round_id'] : '';
 		$where .= !empty($param['class_id']) ? ' AND cf.class_id='.$param['class_id'] : '';
 		$where .= !empty($param['student_id']) ? ' AND cf.student_id='.$param['student_id'] : '';
 		$where .= !empty($param['is_show']) ? ' AND cf.is_show='.$param['is_show'] : '';
 		$where .= !empty($param['score']) ? ' AND cf.score='.$param['score'] : '';
 		$order = " ORDER BY cf.".self::$_orderArr[($param['order'] ? $param['order'] : 4)]." ".self::$_orderType[($param['orderType'] ? $param['orderType'] : 1)];
-		$column = $param['counter']==1 ? 'count(cf.id) total' :'cf.*';
+		$column = $param['counter']==1 ? 'count(cf.id) total' :
+				($param['counter']==2 ? 'avg(cf.score) score' : 'cf.*');
 		#2. 生成sql
         $this->db->query("set names utf8");
 		$sql = "SELECT ".$column." 
@@ -531,5 +533,103 @@ class Model_Teacher extends NH_Model{
 				LEFT JOIN class cl ON scl.class_id=cl.id 
 				".$where.$group;
      	return $this->db->query($sql)->result_array();
+     }
+     
+     /*******************************		自动运行操作start		********************************/
+     /**
+      * 重置课平均分
+      **/ 
+     public function set_class_score($param){
+     	$param['class_id'] = !empty($param['class_id']) ? $param['class_id'] : 0;
+     	$param['score'] = !empty($param['score']) ? $param['score'] : 0;
+     	$sql = "UPDATE class cl SET cl.score='".$param['score']."' WHERE cl.id=".$param['class_id']." LIMIT 1";
+     	$this->db->query($sql);
+     	$int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
+     }
+     
+     /**
+      * 重置轮平均分
+      **/ 
+     public function set_round_score($param){
+     	$param['round_id'] = !empty($param['round_id']) ? $param['round_id'] : 0;
+     	$param['score'] = !empty($param['score']) ? $param['score'] : 0;
+     	$sql = "UPDATE round r SET r.score='".$param['score']."' WHERE r.id=".$param['round_id']." LIMIT 1";
+     	$this->db->query($sql);
+     	$int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
+     }
+     
+     /**
+      * 重置课程平均分
+      **/ 
+     public function set_course_score($param){
+     	$param['course_id'] = !empty($param['course_id']) ? $param['course_id'] : 0;
+     	$param['score'] = !empty($param['score']) ? $param['score'] : 0;
+     	$sql = "UPDATE course c SET c.score='".$param['score']."' WHERE c.id=".$param['course_id']." LIMIT 1";
+     	$this->db->query($sql);
+     	$int_row = $this->db->affected_rows();
+        return $bool_result = $int_row > 0  ? true : false;
+     }
+     
+     /**
+	  * 设置订单状态
+	  **/
+     public function set_order_status($param){
+     	$where = ' WHERE 1 ';
+     	$where .= !empty($param['create_time_from']) ? ' AND so.create_time>'.$param['create_time_from'] : '';
+     	$where .= !empty($param['create_time_to']) ? ' AND so.create_time<'.$param['create_time_to'] : '';
+     	$where .= !empty($param['statusFrom']) ? ' AND so.status in('.$param['statusFrom'].')' : '';
+     	$where .= !empty($param['sale_status']) ? ' AND r.sale_status in('.$param['sale_status'].')' : '';
+     	$set = '';
+     	$set .= !empty($param['statusTo']) ? ' ,so.status='.$param['statusTo'] : '';
+     	$set = trim($set,',');
+     	$sql = "UPDATE student_order so 
+     			LEFT JOIN round.r ON r.id=so.round_id 
+     			SET ".$set.$where;
+     	$this->db->query($sql);
+     	$int_row = $this->db->affected_rows();
+     	return $bool_result = $int_row > 0  ? true : false;
+     } 
+     
+     /**
+	  * 按整月取上课记录，属于上述方法class_seacher（27行）的简单版。
+	  **/ 
+     public function month_class_seacher($param){
+     	$where = ' WHERE 1 ';
+     	$where .= !empty($param['start_time']) ? ' AND cl.begin_time>'.$param['start_time'].' AND cl.end_time>'.$param['start_time'] : '';
+     	$where .= !empty($param['end_time']) ? ' AND cl.begin_time<='.$param['end_time'].' AND cl.end_time<='.$param['end_time'] : '';
+     	$where .= !empty($param['status']) ? ' AND cl.status in('.$param['status'].')' : '';
+     	$sql = "SELECT cl.id,cl.title,cl.round_id,cl.school_hour,rtr.teacher_id,r.reward FROM class cl 
+				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=cl.round_id 
+				LEFT JOIN round r ON r.id=cl.round_id 
+				".$where;
+     	return $this->db->query($sql)->result_array();
+     }
+     
+     /**
+      * 修改每一个课的结算状态
+      **/
+     public function set_class_checkout_status($param){
+     	$param['to_checkout_status'] = !empty($param['to_checkout_status']) ? $param['to_checkout_status'] : 1;
+     	$sql = "UPDATE class SET checkout_status=".$param['to_checkout_status']." WHERE id=".$param['class_id'];
+     	$this->db->query($sql);
+     	$int_row = $this->db->affected_rows();
+     	return $bool_result = $int_row > 0  ? true : false;
+     }
+     
+      
+     /**
+	  *	生成新月份课酬统计记录
+	  **/ 
+     public function create_teacher_checkout_log($param){
+     	$sql = "INSERT INTO teacher_checkout_log(teacher_id,status,teach_times,class_times,
+     				gross_income,net_income,deduct,tax,create_time,pay_time,checkout_time,class_ids)
+				VALUES(".$param['teacher_id'].",".$param['status'].",".$param['teach_times'].",
+					".$param['class_times'].",".$param['gross_income'].",".$param['net_income'].",
+					".$param['deduct'].",".$param['tax'].",unix_timestamp(),'','','".$param['class_ids']."')";
+     	$this->db->query($sql);
+     	$int_row = $this->db->affected_rows();
+     	return $bool_result = $int_row > 0  ? true : false;
      }
 }

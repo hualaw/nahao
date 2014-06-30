@@ -24,6 +24,9 @@ class Lesson extends NH_Admin_Controller {
             $this->load->model('business/admin/business_course','course');
             $arr_course = $this->course->get_course_by_id($int_course_id);
             $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+//            o($arr_lessons,true);
+            $arr_lessons = $this->lesson->get_lessons_list($arr_lessons);
+//            o($arr_lessons,true);
             $int_chapter_count = $int_section_count = 0 ;
             foreach($arr_lessons as $lesson){
                 if($lesson['parent_id'] == 0){
@@ -32,6 +35,12 @@ class Lesson extends NH_Admin_Controller {
                     ++$int_section_count;
                 }
             }
+
+//            $int_chapter_count = count($arr_lessons);
+//            $int_section_count = 0 ;
+//            foreach($arr_lessons as $k => $v){
+//                $int_section_count += count($v);
+//            }
 //            o($arr_course,true);
         }
         $this->smarty->assign('course',$arr_course);
@@ -81,5 +90,106 @@ class Lesson extends NH_Admin_Controller {
             }
         }
         self::json_output($this->arr_response);
+    }
+
+    /**
+     * create/update lesson
+     * @author yanrui@tizi.com
+     */
+    public function submit(){
+        $str_action = $this->input->post('action') ? trim($this->input->post('action')) : '';
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '操作失败',
+        );
+        if(in_array($str_action,array('create','update'))){
+            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
+            $int_lesson_id = $this->input->post('lesson_id') ? intval($this->input->post('lesson_id')) : 0;
+            $str_lesson_name = $this->input->post('lesson_name') ? trim($this->input->post('lesson_name')) : '';
+            $int_lesson_is_chapter = $this->input->post('lesson_is_chapter') ? intval($this->input->post('lesson_is_chapter')) : 0;
+            if($str_lesson_name AND $int_lesson_is_chapter >= 0){
+                $arr_param = array(
+                    'title' => $str_lesson_name,
+                );
+                $arr_param['parent_id'] = $int_lesson_is_chapter==1 ? 0 : 1;
+                if($int_lesson_id){
+                    //update
+                    $arr_where = array(
+                        'id' => $int_lesson_id
+                    );
+//                    o($arr_param);
+//                    o($arr_where,true);
+                    $mix_return = $this->lesson->update_lesson($arr_param,$arr_where);
+                }else{
+                    //create
+//                    o($arr_param,true);
+                    $arr_param['course_id'] = $int_course_id;
+                    $mix_return = $this->lesson->create_lesson($arr_param);
+                }
+                if($mix_return){
+                    $arr_response = array(
+                        'status' => 'ok',
+                        'msg' => '操作成功',
+                    );
+                    if($str_action=='create'){
+                        $arr_response['id'] = $mix_return;
+                    }
+                }
+            }
+        }
+        self::json_output($arr_response);
+    }
+
+    /**
+     * sort lessons
+     * @author yanrui@tizi.com
+     */
+    public function sort(){
+        $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '操作失败',
+        );
+        if(is_array($arr_lessons)){
+//            o($arr_lessons);
+            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
+//            o($arr_lessons_tree,true);
+            $bool_return = $this->lesson->sort($arr_lessons_tree);
+//            o($bool_return);
+//            o($arr_lessons_tree,true);
+            if($bool_return){
+                $arr_response = array(
+                    'status' => 'ok',
+                    'msg' => '操作成功',
+                );
+            }
+        }
+        self::json_output($arr_response);
+    }
+
+    /**
+     * get_chapters_by_course_id
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function chapters(){
+        $arr_return['data'] = array(
+            array(
+                'id' => 0,
+                'title' => '是章，或者选择下面章'
+            ),
+        );
+        $int_course_id = $this->uri->rsegment(3) ? intval($this->uri->rsegment(3)) : 0;
+        if($int_course_id){
+            $arr_chapters = $this->lesson->get_chapters_by_course_id($int_course_id);
+            if(!$arr_chapters){
+                $arr_chapters[] = array(
+                    'id' => 1,
+                    'title' => '默认章'
+                );
+            }
+            $arr_return['data'] = array_merge($arr_return['data'],$arr_chapters);
+        }
+        self::json_output($arr_return);
     }
 }

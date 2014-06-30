@@ -58,17 +58,17 @@ $config['bank_code'] = array(
         'minsheng' => array('name' => '民生银行', 'type' => 'bankPay', 'code' => 'CMBC'),
     ),
     'credit' => array(
-/*         'guangda' => array('name' => '光大银行', 'type' => 'CCIP', 'code' => 'CEB-CCIP'), */
+        'guangda' => array('name' => '光大银行', 'type' => 'creditPay', 'code' => 'CEBBANK'),
         'zhaoshang' => array('name' => '招商银行', 'type' => 'creditPay', 'code' => 'CMB'),
         'gongshang' => array('name' => '工商银行', 'type' => 'creditPay', 'code' => 'ICBC'),
-/*         'zhongguo' => array('name' => '中国银行', 'type' => 'CCIP', 'code' => 'BOC-CCIP'), */
+        'zhongguo' => array('name' => '中国银行', 'type' => 'creditPay', 'code' => 'BOCBTB'),
         'guangfa' => array('name' => '广发银行', 'type' => 'creditPay', 'code' => 'GDB'),
         'jianshe' => array('name' => '建设银行', 'type' => 'creditPay', 'code' => 'CCB'),
-/*         'nongye' => array('name' => '农业银行', 'type' => 'CCIP', 'code' => 'ABC-CCIP'), */
+        'nongye' => array('name' => '农业银行', 'type' => 'creditPay', 'code' => 'ABC'),
         'zhongxin' => array('name' => '中信银行', 'type' => 'creditPay', 'code' => 'CITIC'),
-/*         'pingan' => array('name' => '平安银行', 'type' => 'CCIP', 'code' => 'SPABANK-CCIP'), */
+        'pingan' => array('name' => '平安银行', 'type' => 'creditPay', 'code' => 'SPABANK'),
         'xingye' => array('name' => '兴业银行', 'type' => 'creditPay', 'code' => 'CIB'),
-        'huaxia' => array('name' => '华夏银行', 'type' => 'creditPay', 'code' => 'HXBANK'),
+        'pufa' => array('name' => '浦发银行', 'type' => 'creditPay', 'code' => 'SPDB'),
         'minsheng' => array('name' => '民生银行', 'type' => 'creditPay', 'code' => 'CMBC'),
     ),
 );

@@ -31,7 +31,7 @@ define(function(require,exports){
         var titleImgFormData = {'key':$('#title_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_title_auth_img').uploadify({
             'formData' : titleImgFormData,
-            'swf'      : _qiniu_url+'/lib/uploadify/2.2/uploadify.swf',
+            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
             'multi'    : true,
             'buttonText' :"点击上传",
@@ -57,7 +57,7 @@ define(function(require,exports){
         var workImgFormData = {'key':$('#work_auth_img').val(),'token':$('#nahao_token').val()};
         $('#up_work_auth_img').uploadify({
             'formData' : workImgFormData,
-            'swf'      : _qiniu_url+'/lib/uploadify/2.2/uploadify.swf',
+            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
             'multi'    : true,
             'buttonText' :"点击上传",

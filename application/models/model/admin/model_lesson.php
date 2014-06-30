@@ -52,11 +52,22 @@ class Model_Lesson extends NH_Model
      */
     public function update_lesson($arr_param,$arr_where){
         $this->db->update(TABLE_LESSON, $arr_param, $arr_where);
-        $int_affected_rows = $this->db->affected_rows();
+//        $int_affected_rows = $this->db->affected_rows();
 //        o($int_affected_rows);
-        return $int_affected_rows > 0 ? true :false;
+        return true;
     }
 
+    /**
+     * 批量修改lessons
+     * @param array $arr_param
+     * @param array $str_field
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function update_lesson_batch($arr_param,$str_field){
+        $this->db->update_batch(TABLE_LESSON, $arr_param, $str_field);
+        return true ;
+    }
 
     /**
      * 根据参数获取lesson

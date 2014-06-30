@@ -39,7 +39,7 @@ class SelfInfo extends NH_User_Controller {
             $post_data['city'] = intval($this->input->post('city'));
             $post_data['area'] = intval($this->input->post('area'));
             $post_data['teacher_age'] = intval($this->input->post('teacher_age'));
-            $post_data['teacher_intro'] = trim($this->input->post('teacher_intro'));
+            $post_data['teacher_intro'] = strip_tags(trim($this->input->post('teacher_intro')));
             $post_data['bankname'] = intval($this->input->post('bank'));
             $post_data['bankbench'] = trim($this->input->post('bankbench'));
             $post_data['bankcard'] = trim($this->input->post('bankcard'));

@@ -26,7 +26,7 @@ $(function() {
     // load page, set current page
     var loadPage = function(page) {
         if (!validPage(page)) {
-            alert('椤电爜涓嶅');
+//            alert('椤电爜涓嶅');
             return;
         }
 
