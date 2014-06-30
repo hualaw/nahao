@@ -74,6 +74,7 @@ class Model_Order extends NH_Model{
         $int_row = $this->db->affected_rows();
         return $bool_result = $int_row > 0  ? true : false;
     }
+
     
     /**
      * 添加学生与课的关系
