@@ -174,7 +174,7 @@ define(function(require,exports){
             url : '/index/save_apply_teach',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+                    
                 }
             }
         });
