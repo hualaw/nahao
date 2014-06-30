@@ -100,7 +100,9 @@ class Student_Order extends NH_Model{
      */
     public function update_order_status($array_data)
     {
-        $bool_return = $this->model_order->update_order_status($array_data);
+    	$array_update = array('status' => $array_data['status'],'confirm_time' => time());
+    	$array_where = array('id'=>$array_data['order_id']);
+        $bool_return = $this->model_order->update_order_status($array_update,$array_where);
         if ($bool_return)
         {
             $array_order_log = array(

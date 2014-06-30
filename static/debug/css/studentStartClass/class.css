@@ -17,6 +17,7 @@
 .studentStartClass .startSuccess .process .arrowDown{background-position: -120px 10px;height:70px;margin-right: 95px}
 /*开课成功样式结束*/
 /*填写信息样式开始*/
+.studentStartClass .cookedTime .timeSecelt{width: 178px;}
 .studentStartClass .writeInfo .box{padding-top: 0}
 .studentStartClass .writeInfo h2{height:50px;line-height: 50px;padding-left: 80px;font-size: 18px;background: #f7f7f7;text-align: left;}
 .studentStartClass .writeInfo h2 span{font-size: 14px;font-weight: normal;margin-left: 10px;}
