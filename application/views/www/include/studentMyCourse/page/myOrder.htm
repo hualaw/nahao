@@ -2,11 +2,11 @@
 <h3 class="pageName">我的订单</h3>
 <div class="orderComBox">
 	<ul class="tabh cf">
-		<li {if $str_type == 'all'}class="tabhOn"{/if}><a href="/member/my_order/all">全部订单</a></li>
+		<li {if $str_type == 'all'}class="tabhOn"{/if}><a href="/member/my_order/all">全部订单<span class="redText">{$all_count}</span></a></li>
 		<li {if $str_type == 'pay'}class="tabhOn"{/if}><a href="/member/my_order/pay">已付款<span class="redText">{$pay_count}</span></a></li>
 		<li {if $str_type == 'nopay'}class="tabhOn"{/if}><a href="/member/my_order/nopay">未付款<span class="redText">{$nopay_count}</span></a></li>
 		<li {if $str_type == 'cancel'}class="tabhOn"{/if}><a href="/member/my_order/cancel">已取消/已关闭<span class="redText">{$cancel_count}</span></a></li>
-		<li {if $str_type == 'refund'}class="tabhOn"{/if} class="norbor"><a href="/member/my_order/refund">已退款<span class="redText">{$refund_count}</span></a></li>
+		<li {if $str_type == 'refund'}class="tabhOn"{/if} class="norbor"><a href="/member/my_order/refund">退款<span class="redText">{$refund_count}</span></a></li>
 	</ul>
 	
 	<div class="tabCon">
@@ -76,7 +76,8 @@
 							<span class="fr"></span>
 						</a>
 						{elseif ($item.status == $smarty.const.ORDER_STATUS_SUCC || $item.status == $smarty.const.ORDER_STATUS_FINISH) 
-						&& ($item.teach_status!=$smarty.const.ROUND_TEACH_STATUS_FINISH && $item.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER) }
+						&& ($item.teach_status!=$smarty.const.ROUND_TEACH_STATUS_FINISH && $item.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER)
+						&&  $item.spend !='0'}
 						<a href="/member/action/{$item.id}/3" target="_blank" class="blueText">申请退课</a>
 						{elseif $item.status == $smarty.const.ORDER_STATUS_CANCEL || $item.status == $smarty.const.ORDER_STATUS_CLOSE}
 						<a href="javascript:void(0);" class="blueText dodel" data-id="{$item.id}" data-type="2">删除</a>

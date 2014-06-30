@@ -8,7 +8,7 @@
 	<div class="inforTabBox">
         {if $reg_type == 2}
 		<!--邮箱版-->
-		<form action="" method="post"  class="emailForm">
+		<form action="" method="post"  class="emailForm" onsubmit="return false;">
 			<p class="formName">邮箱
 				<span class="verWay">{$user_detail.email}</span>
 				<span class="hasVer">（{if $user_detail.email_verified}已{else}未{/if}激活）</span>
