@@ -36,7 +36,7 @@ class OrderList extends NH_User_Controller {
         $config['use_page_numbers'] = TRUE;
         $param = array(
      			'teacher_id' 	=> $this->teacher_id,
-     			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3",
+     			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3,4",
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
@@ -52,7 +52,7 @@ class OrderList extends NH_User_Controller {
         //内容
 		$param = array(
      			'teacher_id' 	=> $this->teacher_id,
-     			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3",
+     			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3,4",
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
@@ -71,6 +71,7 @@ class OrderList extends NH_User_Controller {
 		}
 		#3.页面数据
 		$data = array(
+			'ids'					=> $this->teacher_m->teacher_round_ids(array('teacher_id' => $this->teacher_id)),
 			'listArr' 				=> $listArr,
 			'active' 				=> 'orderlist_index',
 			'title' 				=> '课程列表',
@@ -151,7 +152,7 @@ class OrderList extends NH_User_Controller {
 		$param = array(
 				'teacher_id' 	=> $this->teacher_id,
      			'round_id' 		=> isset($round_id) ? $round_id : '',
-     			'order' 		=> 3,
+     			'order' 		=> 5,
      		);
 		$zjList = $this->teacher_b->class_list($param);
 		
@@ -178,7 +179,7 @@ class OrderList extends NH_User_Controller {
 		$zjList 	= $this->teacher_b->class_list($param);
 		$arr 		= array_pop($zjList);
 		$jInfo 		= isset($arr['jArr'][0]) ? $arr['jArr'][0] : '';
-		#2.评价信息
+		#2.题目列表
 		$question 	= $this->teacher_b->class_question(array('class_id'=>$class_id));
 		
 		$data = array(
