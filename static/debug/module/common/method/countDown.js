@@ -4,10 +4,7 @@ define(function(require,exports){
 		//验证倒计时
         if(oswitch){
             var ind=60;
-            document.title = ind;
-            console.log(ind)
             var timer = setInterval(function(){
-                console.log(ind);
                 ind--;
                 if(ind<0){
                     clearInterval(timer);
