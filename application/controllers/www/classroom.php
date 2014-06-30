@@ -333,7 +333,6 @@ class Classroom extends NH_User_Controller {
 			
 			$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
 		}
-    	$this->model_classroom->add_entering_classroom_data($array_insert);
     	$this->smarty->assign('classroom_id',$int_classroom_id);
     	$this->smarty->assign('class_id',$array_class['id']);
     	$this->smarty->assign('iframe',$str_iframe);
