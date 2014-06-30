@@ -77,7 +77,7 @@ class Teacher extends NH_Admin_Controller {
         $province=$this->business_lecture->all_province();
         $this->load->model('business/common/business_subject','subject');
         $subject=$this->subject->get_subjects();
-        $total_count=$this->teacher->total_count();
+        $total_count=$int_count;
         $day_count=$this->teacher->day_count();
         $this->load->library('pagination');
         $config = config_item('page_admin');
@@ -285,6 +285,21 @@ class Teacher extends NH_Admin_Controller {
         {
             $this->smarty->assign('subject_tea_id',$subject_tea_id[0]);
         }
+
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $str_salt = random_string('alnum', 6);
+        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
+        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
+        $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
+        $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+
         $this->smarty->assign('user_id',$user_id);
         $this->smarty->assign('phone',$phone);
         $this->smarty->assign('school',$school);

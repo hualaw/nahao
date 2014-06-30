@@ -14,6 +14,7 @@
          */
         public function status_classroom($classroom_status)
         {
+            $classroom_status['ip']=ip2long($classroom_status['ip']);
             $arr_data=array(
                 TABLE_ENTERING_CLASSROOM.'.user_id'=>$classroom_status['uid'],
                 TABLE_ENTERING_CLASSROOM.'.classroom_id'=>$classroom_status['cid'],

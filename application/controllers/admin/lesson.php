@@ -24,24 +24,21 @@ class Lesson extends NH_Admin_Controller {
             $this->load->model('business/admin/business_course','course');
             $arr_course = $this->course->get_course_by_id($int_course_id);
             $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
-//            o($arr_lessons,true);
-            $arr_lessons = $this->lesson->get_lessons_list($arr_lessons);
+
+//            o($arr_lessons);
+//            echo '======';
+            $arr_lessons = $this->lesson->get_lessons_list_show($arr_lessons);
 //            o($arr_lessons,true);
             $int_chapter_count = $int_section_count = 0 ;
-            foreach($arr_lessons as $lesson){
-                if($lesson['parent_id'] == 0){
-                    ++$int_chapter_count;
-                }else{
-                    ++$int_section_count;
+            if($arr_lessons){
+                foreach($arr_lessons as $lesson){
+                    if($lesson['parent_id'] == 0){
+                        ++$int_chapter_count;
+                    }else{
+                        ++$int_section_count;
+                    }
                 }
             }
-
-//            $int_chapter_count = count($arr_lessons);
-//            $int_section_count = 0 ;
-//            foreach($arr_lessons as $k => $v){
-//                $int_section_count += count($v);
-//            }
-//            o($arr_course,true);
         }
         $this->smarty->assign('course',$arr_course);
         $this->smarty->assign('lessons',$arr_lessons);
@@ -145,16 +142,48 @@ class Lesson extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function sort(){
+        $int_course_id = $this->input->post('course_id') ? $this->input->post('course_id') : 0;
         $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
         $arr_response = array(
             'status' => 'error',
             'msg' => '操作失败',
         );
-        if(is_array($arr_lessons)){
-//            o($arr_lessons);
-            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
+        if($int_course_id AND is_array($arr_lessons) AND $arr_lessons){
+            $arr_update = array();
+            $int_parent_id = $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
+            o($arr_lessons,true);
+            foreach($arr_lessons as $k => $v){
+                if($v['is_chapter']==1){
+                    $int_parent_id = $int_section_sequence = 0;
+                    $arr_tmp = array(
+                        'id' => $v['id'],
+                        'parent_id' => $int_parent_id,
+                        'sequence' => $int_chapter_sequence++
+                    );
+                    $int_parent_id = $v['id'];
+                }else{
+                    $arr_tmp = array(
+                        'id' => $v['id'],
+                        'parent_id' => $int_parent_id,
+                        'sequence' => $int_section_sequence++
+                    );
+                    ++$int_section_count;
+                }
+                $arr_update[] = $arr_tmp;
+            }
+
+//            o($arr_update,true);
+//            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
 //            o($arr_lessons_tree,true);
-            $bool_return = $this->lesson->sort($arr_lessons_tree);
+            $bool_return = $this->lesson->sort($arr_update);
+            $arr_param = array(
+                'lesson_count' => $int_section_count
+            );
+            $arr_where = array(
+                'id' => $int_course_id
+            );
+            $this->load->model("business/admin/business_course",'course');
+            $this->course->update_course($arr_param,$arr_where);
 //            o($bool_return);
 //            o($arr_lessons_tree,true);
             if($bool_return){
@@ -172,24 +201,24 @@ class Lesson extends NH_Admin_Controller {
      * @return array
      * @author yanrui@tizi.com
      */
-    public function chapters(){
-        $arr_return['data'] = array(
-            array(
-                'id' => 0,
-                'title' => '是章，或者选择下面章'
-            ),
-        );
-        $int_course_id = $this->uri->rsegment(3) ? intval($this->uri->rsegment(3)) : 0;
-        if($int_course_id){
-            $arr_chapters = $this->lesson->get_chapters_by_course_id($int_course_id);
-            if(!$arr_chapters){
-                $arr_chapters[] = array(
-                    'id' => 1,
-                    'title' => '默认章'
-                );
-            }
-            $arr_return['data'] = array_merge($arr_return['data'],$arr_chapters);
-        }
-        self::json_output($arr_return);
-    }
+//    public function chapters(){
+//        $arr_return['data'] = array(
+//            array(
+//                'id' => 0,
+//                'title' => '是章，或者选择下面章'
+//            ),
+//        );
+//        $int_course_id = $this->uri->rsegment(3) ? intval($this->uri->rsegment(3)) : 0;
+//        if($int_course_id){
+//            $arr_chapters = $this->lesson->get_chapters_by_course_id($int_course_id);
+//            if(!$arr_chapters){
+//                $arr_chapters[] = array(
+//                    'id' => 1,
+//                    'title' => '默认章'
+//                );
+//            }
+//            $arr_return['data'] = array_merge($arr_return['data'],$arr_chapters);
+//        }
+//        self::json_output($arr_return);
+//    }
 }

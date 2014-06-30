@@ -20,8 +20,8 @@ define(function(require,exports){
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
 
-                console.log(img_url);
-                console.log(img_url_general);
+//                console.log(img_url);
+//                console.log(img_url_general);
                 $("#teacher_authimg").val(img_url);
                 $('#img_url_general').attr('src',img_url_general);
                 /*添加教师资格证书图片*/
@@ -45,8 +45,8 @@ define(function(require,exports){
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
-                console.log(img_url);
-                console.log(img_url_general);
+//                console.log(img_url);
+//                console.log(img_url_general);
                 $("#title_authimg").val(img_url);
                 $('#img_title_general').attr('src',img_url_general);
                 /*添加教师职称证书图片*/
@@ -71,8 +71,8 @@ define(function(require,exports){
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
-                console.log(img_url);
-                console.log(img_url_general);
+//                console.log(img_url);
+//                console.log(img_url_general);
 //               /*添加学校工作证图片*/
                 $("#work_authimg").val(img_url);
                 $("#img_work_general").attr('src',img_url_general);

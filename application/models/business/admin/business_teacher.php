@@ -60,8 +60,8 @@ class Business_Teacher extends NH_Model
         $int_return = array();
         if(is_array($arr_where)){
             $str_table_range = 'teacher_info_subject';
-            $str_result_type = 'count';
-            $str_fields = 'count(1) as count';
+            $str_result_type = 'list';
+            $str_fields = TABLE_USER.'.id';
             $arr_where[TABLE_USER.'.teach_priv'] = 1;
             if(array_key_exists('title',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title']-1;
@@ -112,7 +112,13 @@ class Business_Teacher extends NH_Model
                 unset($arr_where['add_time2']);
              }
 //            o($arr_where);
-            $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+            $arr_group_by = array(
+                TABLE_USER.'.id'
+            );
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by);
+            $int_return = count($arr_return);
+//            echo '--';
+//            var_dump($int_return);
         }
         return $int_return;
     }
@@ -189,8 +195,11 @@ class Business_Teacher extends NH_Model
             $arr_group_by = array(
                 TABLE_USER.'.id'
             );
+            $arr_order_by=array(
+                TABLE_USER.'.register_time'=>'desc'
+            );
            // var_dump($arr_where);
-            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, array(),$arr_limit);
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by,$arr_limit);
         }
         return $arr_return;
     }
@@ -318,7 +327,6 @@ class Business_Teacher extends NH_Model
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
 
-
         if($post['hide_school']==null)
         {
             $post['hide_school']=0;
@@ -392,9 +400,9 @@ class Business_Teacher extends NH_Model
         $post_subject['teacher_id']=$user_id;
         $this->model_user->create_subject($post_subject);
 
-        $post['work_auth_img']=="" ? $post_user_info['teacher_auth']=0 : $post_user_info['teacher_auth']=1;
-        $post['work_title_img']=="" ? $post_user_info['titile_auth']=0 : $post_user_info['titile_auth']=1;
-        $post['work_teacher_img']=="" ? $post_user_info['work_auth']=0 : $post_user_info['work_auth']=1;
+        $post['teacher_auth_img']=="" ? $post_user_info['teacher_auth']=0 : $post_user_info['teacher_auth']=1;
+        $post['title_auth_img']=="" ? $post_user_info['titile_auth']=0 : $post_user_info['titile_auth']=1;
+        $post['work_auth_img']=="" ? $post_user_info['work_auth']=0 : $post_user_info['work_auth']=1;
         $post_user_info['user_id']=$user_id;
         $post_user_info['realname']=$post['realname'];
         $post_user_info['age']=$post['age'];
@@ -418,6 +426,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['title_auth_img']=$post['title_auth_img'];
         $post_user_info['teacher_auth_img']=$post['teacher_auth_img'];
         $post_user_info['status']=1;
+        //var_dump($post_user_info);die;
        // var_dump($post_user_info);die;
         return $this->model_user->create_user_info($post_user_info);
     }
@@ -446,18 +455,6 @@ class Business_Teacher extends NH_Model
         {
             unset($post['hide_realname']);
         }
-        if($post['work_auth']==null)
-        {
-            unset($post['work_auth']);
-        }
-        if($post['teacher_auth']==null)
-        {
-            unset($post['teacher_auth']);
-        }
-        if($post['titile_auth']==null)
-        {
-            unset($post['titile_auth']);
-        }
         if($post['city']==null || $post['city']==1)
         {
             unset($post['city']);
@@ -472,6 +469,9 @@ class Business_Teacher extends NH_Model
             redirect("teacher/modify?user_id=$post[user_id]");
         }
         $post_subject['subject_id']=$post['subject'];
+        $post['teacher_auth_img']=="" ? $post_user_info['teacher_auth']=0 : $post_user_info['teacher_auth']=1;
+        $post['title_auth_img']=="" ? $post_user_info['titile_auth']=0 : $post_user_info['titile_auth']=1;
+        $post['work_auth_img']=="" ? $post_user_info['work_auth']=0 : $post_user_info['work_auth']=1;
 
         $post_user_info['realname']=$post['realname'];
         $post_user_info['age']=$post['age'];
@@ -483,9 +483,6 @@ class Business_Teacher extends NH_Model
         $post_user_info['bankcard']=$post['bank_id'];
         $post_user_info['id_code']=$post['id_card'];
         $post_user_info['title']=$post['title'];
-        $post_user_info['work_auth']=$post['work_auth'];
-        $post_user_info['teacher_auth']=$post['teacher_auth'];
-        $post_user_info['titile_auth']=$post['titile_auth'];
         $post_user_info['province']=$post['province'];
         $post_user_info['city']=$post['city'];
         $post_user_info['area']=$post['area'];
@@ -494,6 +491,9 @@ class Business_Teacher extends NH_Model
         $post_user_info['stage']=$post['stage'];
         $post_user_info['teacher_intro']=$post['teacher_intro'];
         $post_user_info['basic_reward']=$post['basic_reward'];
+        $post_user_info['work_auth_img']=$post['work_auth_img'];
+        $post_user_info['title_auth_img']=$post['title_auth_img'];
+        $post_user_info['teacher_auth_img']=$post['teacher_auth_img'];
         $post_user_info['update_time']=time();
 
         if($post_user_info['hide_school']==null)

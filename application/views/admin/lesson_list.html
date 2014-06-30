@@ -22,7 +22,7 @@
     <tbody id="lesson_list_tbody">
     {foreach $lessons as $v}
     <tr class="lesson_list">
-        <td data-parent_id="{$v.parent_id}">{$v.id}</td>
+        <td data-parent_id="{$v.parent_id}" data-is_chapter="{if $v.parent_id==0}1{else}0{/if}">{$v.id}</td>
         <td>{$v.title}</td>
         <td>{if $v.parent_id gt 0}节{else}章{/if}</td>
         <td>
@@ -39,7 +39,7 @@
             {if $v.parent_id > 0}
                 <a href="/question/lesson_question/{$v.id}">习题</a>
             {/if}
-            <a href="javascript:;" id="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
+            <a href="javascript:;" class="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
         </td>
     </tr>
     {/foreach}

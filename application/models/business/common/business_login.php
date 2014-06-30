@@ -54,6 +54,7 @@ class Business_Login extends NH_Model {
                 $user_info = $ret_info[0];
                 //var_dump($ret_info);
 
+                log_message('debug_nahao', 'IN '.__CLASS__.", function: ".__FUNCTION__.", salt: {$user_info['salt']}, sha1_pwd: $sha1_password, password:".$user_info['password']);
                 $check_ret = check_sha1_password($user_info['salt'], $sha1_password, $user_info['password']);
                 if($check_ret)
                 {

@@ -193,10 +193,16 @@ define(function(require,exports){
                 data:"province="+$('#province').val(),
                 dataType:"json",
                 success:function(msg){
-                var city=eval(msg);
+                    if(msg=="")
+                    {
+                        $('#city').hide();
+                        $('#area').hide();
+                    }
+                    $('#city').empty();
+                    var city=eval(msg);
                     $.each(city,function(index,d){
-                        $('#city').append("<option value="+d.id+">"+d.name+"</option>");
-                   })
+                        $('#city').show().append("<option value="+d.id+">"+d.name+"</option>");
+                    })
                     $.ajax({
                         type:"post",
                         url:"/teacher/area",
@@ -207,66 +213,70 @@ define(function(require,exports){
                             {
                                 $('#area').hide();
                             }
+                            $('#area').empty();
                             var area=eval(msg);
                             $.each(area,function(index,d){
                                 $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
+
+                            if($('#area').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#area').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
+                            else if($('#city').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#city').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+                            else if($('#province').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#province').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
                         }
                     })
-
-                    if($('#area').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#area').val(),
-                            dataType:"json",
-                            success:function(msg){
-                               // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
-                    else if($('#city').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#city').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-                    else if($('#province').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#province').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
                 }
             })
 
@@ -554,5 +564,42 @@ define(function(require,exports){
                 })
             }
         })
+            var _card = require("module/common/method/bankcard");
+            var _idcard = require("module/common/method/idCard");
+
+            $("#id_card").blur(function(){
+                if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
+                {
+                    $("#card_span").show().css('color','red').html("身份证号填写不对");
+                }
+                else
+                {
+                    $("#card_span").hide();
+                }
+            })
+
+            $("#bank_id").blur(function(){
+                if(_card.luhmCheck($("#bank_id").val())==false&&$("#bank_id").val()!="")
+                {
+                    $("#bank_span").show().css('color','red').html("银行卡号填写不对");
+                }
+                else
+                {
+                    $("#bank_span").hide();
+                }
+            })
+
+            $('form').submit(function(){
+                if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
+                {
+                    alert('身份证号不对');
+                    return false;
+                }
+                if(_card.luhmCheck($("#bank_id").val())==false&&$("#bank_id").val()!="")
+                {
+                    alert('银行卡号不对');
+                    return false;
+                }
+            })
     }
 })

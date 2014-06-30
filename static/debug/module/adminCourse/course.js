@@ -14,7 +14,7 @@ define(function (require, exports) {
                 'status' : $(this).data('status')
             };
             $.post(url,data,function(response){
-                console.log(response);
+//                console.log(response);
                 if(response){
                     alert(response.msg);
                     if(response.status=='ok'){
@@ -30,7 +30,7 @@ define(function (require, exports) {
     //load ckeditor
     exports.load_ckeditor = function () {
         if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description');
+            CKEDITOR.replace('nahao_description',{ toolbar:'Basic', height:300 ,width:700});
         }
     };
 
@@ -188,8 +188,8 @@ define(function (require, exports) {
 //                'lessons' : arr_lessons,
                 'teachers' : teacher_ids
             };
-            console.log(encodeURI(description));
-            console.log(description);
+//            console.log(encodeURI(description));
+//            console.log(description);
 //            return false;
             $.post(action, data, function (response) {
                 alert(response.msg);

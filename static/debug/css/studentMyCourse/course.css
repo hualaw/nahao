@@ -152,6 +152,7 @@
 .studentMyCourse .inforTabBox{color:#333;}
 .studentMyCourse .inforTab .tabh .inforOn{background: #fff;border-top: 3px solid #f14211;line-height: 47px;font-weight: bold;color:#f14211;}
 .studentMyCourse .inforTabBox{padding:0 135px 30px 104px;font-size: 16px;min-height: 970px;}
+.studentMyCourse .inforTabBox .Validform_tip_info,.studentMyCourse .inforTabBox .Validform_checktip{font-size: 12px;}
 .studentMyCourse .inforTabBox .hasVer{color:#919191;font-weight: normal;font-size: 14px;}
 .studentMyCourse .inforTabBox .verWay{margin:0 4px 0 12px;}
 .studentMyCourse .inforTabBox li .formName{margin-left: -20px;}
@@ -228,7 +229,7 @@
 .studentMyCourse .buyBefore .introd{text-indent: 2em;padding-top:70px;border-top: none;background: url(../../images/studentMyCourse/introd.png) 12px 44px no-repeat;}
 .studentMyCourse .buyBefore .fitStu{background: url(../../images/studentMyCourse/fitStu.png) 12px 22px no-repeat;padding-top:54px;}
 .studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 26px 65px 140px;}
-.studentMyCourse .buyBefore .editorBox{width: 600px;height: 448px;margin:10px 0 0 -114px;background: #ccc;}
+.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -114px;text-align: center;}
 .studentMyCourse .buyBefore .editorBox img{max-width: 600px;}
 .studentMyCourse .buyBefore .creview li{padding: 26px 0 22px;border-bottom: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .creview{padding: 65px 20px 18px 18px;background: url(../../images/studentMyCourse/creview.png) 12px 25px no-repeat;}

@@ -236,7 +236,12 @@
         {
             return get_pnum_phone_server($int_uid);
         }
-
+        /**
+         *修改订单价格
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
     public function price_order_modify($modify_price,$order_id,$spend)
         {
             $admin_id=$this->userinfo['id'];
