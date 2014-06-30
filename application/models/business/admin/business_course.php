@@ -257,7 +257,7 @@ class Business_Course extends NH_Model
         $int_return = 0;
         if(is_array($arr_lessons) AND $arr_lessons){
             foreach($arr_lessons as $k => $v){
-                if(!$v['is_chapter']){
+                if($v['parent_id'] > 1){
                     $int_return++;
                 }
             }

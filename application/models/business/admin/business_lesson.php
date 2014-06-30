@@ -347,7 +347,7 @@ class Business_Lesson extends NH_Model
         if($int_course_id){
             $str_table_range = 'lesson';
             $str_result_type = 'list';
-            $str_fields = 'id,course_id,title,courseware_id,status,parent_id,sequence';
+            $str_fields = 'id,course_id,title,courseware_id,status,parent_id,sequence,school_hour';
             $arr_where = array(
                 'course_id' => $int_course_id
             );

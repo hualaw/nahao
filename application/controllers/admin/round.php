@@ -113,7 +113,7 @@ class Round extends NH_Admin_Controller
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
-            $arr_classes = $this->input->post('classes') ? $this->input->post('classes') : array();
+//            $arr_classes = $this->input->post('classes') ? $this->input->post('classes') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
             $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
@@ -126,7 +126,7 @@ class Round extends NH_Admin_Controller
 
 //            o($this->input->post(),true);
 
-            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND $arr_classes AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price AND $int_sell_begin_time AND $int_sell_end_time AND $int_start_time AND $int_end_time) {
+            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price AND $int_sell_begin_time AND $int_sell_end_time AND $int_start_time AND $int_end_time) {
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;
@@ -150,20 +150,24 @@ class Round extends NH_Admin_Controller
                 $arr_param['end_time'] = $int_end_time;
 
                 $this->load->model('business/admin/business_course', 'course');
-//                o($arr_classes);
-                $int_section_count = $this->course->get_section_count($arr_classes);
-                $arr_param['class_count'] = $int_section_count;
 
 //                o($int_section_count,true);
 
+                $str_action = 'create';
                 if ($int_round_id > 0) {
                     //update
+                    $str_action = 'update';
                     $arr_where = array(
                         'id' => $int_round_id
                     );
                     $bool_flag = $this->round->update_round($arr_param, $arr_where);
                 } else {
                     //create
+                    $this->load->model('business/admin/business_lesson', 'lesson');
+                    $arr_classes = $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+                    $arr_param['class_count'] = $this->course->get_section_count($arr_classes);
+//                    o($arr_classes);
+//                    o($arr_param,true);
                     $int_round_id = $this->round->create_round($arr_param);
                     $bool_flag = $int_round_id > 0 ? true : false;
                 }
@@ -174,13 +178,13 @@ class Round extends NH_Admin_Controller
                 if ($bool_flag == true) {
                     //create或update都要先清除teachers和classes再重新插入
                     $this->round->create_round_teacher_batch($int_round_id, $arr_teachers);
-                    $this->load->model('business/admin/business_class', 'class');
-                    $bool_class = $this->class->create_classes($int_course_id, $int_round_id, $arr_classes);
-                    if($bool_class){
-                        $this->arr_response['status'] = 'ok';
-                        $this->arr_response['msg'] = '创建成功';
-                        $this->arr_response['redirect'] = '/round';
+                    if($str_action=='create' AND $arr_classes){
+                        $this->load->model('business/admin/business_class', 'class');
+                        $bool_class = $this->class->create_classes($int_course_id, $int_round_id, $arr_classes);
                     }
+                    $this->arr_response['status'] = 'ok';
+                    $this->arr_response['msg'] = ($str_action=='create' ? '创建' : '修改').'成功';
+                    $this->arr_response['redirect'] = '/round';
                 }
             }
         }
@@ -208,7 +212,7 @@ class Round extends NH_Admin_Controller
             $arr_round = $this->round->get_round_by_id($int_round_id);
             $arr_teachers = $this->round->get_teachers_by_round_id($int_round_id);
             $this->load->model('business/admin/business_class', 'class');
-            $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
+//            $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
             $bool_round_flag = true;
         } else {
             //create round
@@ -223,9 +227,9 @@ class Round extends NH_Admin_Controller
                     $arr_teachers = $this->course->get_teachers_by_course_id($int_course_id);
                     if($arr_teachers){
                         //course lessons validate if has lessons, pdf and question exists
-                        $this->load->model('business/admin/business_lesson', 'lesson');
-                        $arr_lessons = $arr_classes = $this->lesson->get_lessons_by_course_id($int_course_id);
-                        if($arr_lessons){
+//                        $this->load->model('business/admin/business_lesson', 'lesson');
+//                        $arr_lessons = $arr_classes = $this->lesson->get_lessons_by_course_id($int_course_id);
+//                        if($arr_lessons){
 
                             $bool_round_flag = true;//can generate round
 //                            $bool_lesson_has_pdf_flag = true;
@@ -242,9 +246,9 @@ class Round extends NH_Admin_Controller
 //                            }else{
 //                                $str_error = 'id为'.$int_lesson_id.'的课节没有pdf';
 //                            }
-                        }else{
-                            $str_error = '没有课节';
-                        }
+//                        }else{
+//                            $str_error = '没有课节';
+//                        }
                     }else{
                         $str_error = '没有老师';
                     }
@@ -281,7 +285,7 @@ class Round extends NH_Admin_Controller
             $this->smarty->assign('action', $str_action);
             $this->smarty->assign('round', $arr_round);
             $this->smarty->assign('teachers', $arr_teachers);
-            $this->smarty->assign('classes', $arr_classes);
+//            $this->smarty->assign('classes', $arr_classes);
             $this->smarty->assign('upload_token', $str_upToken);
             $this->smarty->assign('upload_img_key', $str_new_img_file_name);
             $this->smarty->assign('upload_video_key', $str_new_video_file_name);
