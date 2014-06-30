@@ -10,6 +10,7 @@ define(function(require,exports){
             'multi'    : true,
             'buttonClass'     : 'choseFileBtn',
             'fileObjName' : 'file',
+            'fileTypeExts' : '*.png;*.jpg;',
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {

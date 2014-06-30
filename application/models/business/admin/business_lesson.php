@@ -88,23 +88,23 @@ class Business_Lesson extends NH_Model
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_lessons_list_tree($arr_lessons){
-        $arr_return = array();
-        if(is_array($arr_lessons) AND $arr_lessons){
-            foreach($arr_lessons as $k => $v){
-                if($v['parent_id']==0){
-                    $arr_return[$v['id']] = $v;
-                    $int_parent_id = $v['id'];
-                    $int_sequence = 0;
-                }else{
-                    $v['parent_id'] = $int_parent_id;
-                    $v['sequence'] = $int_sequence++;
-                    $arr_return[$int_parent_id]['sections'][] = $v;
-                }
-            }
-        }
-        return $arr_return;
-    }
+//    public function get_lessons_list_tree($arr_lessons){
+//        $arr_return = array();
+//        if(is_array($arr_lessons) AND $arr_lessons){
+//            foreach($arr_lessons as $k => $v){
+//                if($v['parent_id']==0){
+//                    $arr_return[$v['id']] = $v;
+//                    $int_parent_id = $v['id'];
+//                    $int_sequence = 0;
+//                }else{
+//                    $v['parent_id'] = $int_parent_id;
+//                    $v['sequence'] = $int_sequence++;
+//                    $arr_return[$int_parent_id]['sections'][] = $v;
+//                }
+//            }
+//        }
+//        return $arr_return;
+//    }
 
     /**
      * get_lessons_list after sort
@@ -112,29 +112,29 @@ class Business_Lesson extends NH_Model
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_lessons_list($arr_lessons){
-        $arr_return = array();
-        if(is_array($arr_lessons) AND $arr_lessons){
-            $arr_tree = array();
-            $arr_tree = self::get_lessons_list_tree($arr_lessons);
-            foreach($arr_tree as $k => $v){
-                if(isset($v['sections'])){
-                    $arr_sections = $v['sections'];
-                    unset($v['sections']);
-                    $arr_return[] = $v;
-                    if($arr_sections){
-//                        o($arr_sections,true);
-                        foreach($arr_sections as $kk => $vv){
-                            $arr_return[] = $vv;
-                        }
-                    }
-                }else{
-                    $arr_return[] = $v;
-                }
-            }
-        }
-        return $arr_return;
-    }
+//    public function get_lessons_list($arr_lessons){
+//        $arr_return = array();
+//        if(is_array($arr_lessons) AND $arr_lessons){
+//            $arr_tree = array();
+//            $arr_tree = self::get_lessons_list_tree($arr_lessons);
+//            foreach($arr_tree as $k => $v){
+//                if(isset($v['sections'])){
+//                    $arr_sections = $v['sections'];
+//                    unset($v['sections']);
+//                    $arr_return[] = $v;
+//                    if($arr_sections){
+////                        o($arr_sections,true);
+//                        foreach($arr_sections as $kk => $vv){
+//                            $arr_return[] = $vv;
+//                        }
+//                    }
+//                }else{
+//                    $arr_return[] = $v;
+//                }
+//            }
+//        }
+//        return $arr_return;
+//    }
 
 
     /**
@@ -143,28 +143,28 @@ class Business_Lesson extends NH_Model
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_lesson_tree($arr_lessons){
-        $arr_return = array();
-        if($arr_lessons){
-            $int_chapter_flag = $int_section_flag = $parent_id = 0 ;
-            foreach($arr_lessons as $k => $v){
-                $arr_tmp = array(
-                    'id' => $v['lesson_id'],
-                );
-                if($v['parent_id']==0){
-                    $arr_tmp['parent_id'] = 0;
-                    $arr_tmp['sequence'] = $int_chapter_flag++;
-                    $int_section_flag = 0 ;
-                    $parent_id = $v['lesson_id'];
-                }else{
-                    $arr_tmp['parent_id'] = $parent_id;
-                    $arr_tmp['sequence'] = $int_section_flag++;
-                }
-                $arr_return[] = $arr_tmp;
-            }
-        }
-        return $arr_return;
-    }
+//    public function get_lesson_tree($arr_lessons){
+//        $arr_return = array();
+//        if($arr_lessons){
+//            $int_chapter_flag = $int_section_flag = $parent_id = 0 ;
+//            foreach($arr_lessons as $k => $v){
+//                $arr_tmp = array(
+//                    'id' => $v['lesson_id'],
+//                );
+//                if($v['parent_id']==0){
+//                    $arr_tmp['parent_id'] = 0;
+//                    $arr_tmp['sequence'] = $int_chapter_flag++;
+//                    $int_section_flag = 0 ;
+//                    $parent_id = $v['lesson_id'];
+//                }else{
+//                    $arr_tmp['parent_id'] = $parent_id;
+//                    $arr_tmp['sequence'] = $int_section_flag++;
+//                }
+//                $arr_return[] = $arr_tmp;
+//            }
+//        }
+//        return $arr_return;
+//    }
 
     //=========================================================
     /**

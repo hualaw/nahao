@@ -23,6 +23,7 @@ define(function(require,exports){
                         'uploader' : 'http://classroom.oa.tizi.com/api/files/', //post to meeting system
                         'multi'    : true,
                         'fileObjName' : 'fileobj',
+                        'fileTypeExts' : '*.pdf',
                         onUploadSuccess: function(file, data, response) {
                             var data = jQuery.parseJSON(data);
 

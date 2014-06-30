@@ -125,7 +125,10 @@ define(function (require, exports) {
             }
             arr.push(value);
         });
-        var data = { 'lessons' : arr};
+        var data = {
+            'course_id' : $("#course_id").val(),
+            'lessons' : arr
+        };
 //        $.each(arr,function(){
 //            console.log(this.id+','+this.is_chapter);
 //        })

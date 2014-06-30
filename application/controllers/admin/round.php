@@ -226,20 +226,22 @@ class Round extends NH_Admin_Controller
                         $this->load->model('business/admin/business_lesson', 'lesson');
                         $arr_lessons = $arr_classes = $this->lesson->get_lessons_by_course_id($int_course_id);
                         if($arr_lessons){
-                            $bool_lesson_has_pdf_flag = true;
-                            $int_lesson_id = 0;
-                            foreach($arr_lessons as $k => $v){
-                                if($v['parent_id'] > 0 AND $v['courseware_id'] < 1){
-                                    $bool_lesson_has_pdf_flag = false;
-                                    $int_lesson_id = $v['id'];
-                                    break;
-                                }
-                            }
-                            if($bool_lesson_has_pdf_flag==true){
-                                $bool_round_flag = true;//can generate round
-                            }else{
-                                $str_error = 'id为'.$int_lesson_id.'的课节没有pdf';
-                            }
+
+                            $bool_round_flag = true;//can generate round
+//                            $bool_lesson_has_pdf_flag = true;
+//                            $int_lesson_id = 0;
+//                            foreach($arr_lessons as $k => $v){
+//                                if($v['parent_id'] > 0 AND $v['courseware_id'] < 1){
+//                                    $bool_lesson_has_pdf_flag = false;
+//                                    $int_lesson_id = $v['id'];
+//                                    break;
+//                                }
+//                            }
+//                            if($bool_lesson_has_pdf_flag==true){
+//                                $bool_round_flag = true;//can generate round
+//                            }else{
+//                                $str_error = 'id为'.$int_lesson_id.'的课节没有pdf';
+//                            }
                         }else{
                             $str_error = '没有课节';
                         }
