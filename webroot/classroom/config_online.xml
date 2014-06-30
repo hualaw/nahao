@@ -8,4 +8,5 @@
 	<phDome></phDome>
 	<version>5</version>
 	<apiurl>http://api.nahao.com/</apiurl>
+	<Software>http://static.nahao.com/download/NahaoSetup.exe</Software>
 </url>
