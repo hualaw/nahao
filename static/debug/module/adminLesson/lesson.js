@@ -10,7 +10,8 @@ define(function (require, exports) {
     exports.bind_everything = function () {
 
         //edit lesson modal
-        $("#btn_lesson_create,#btn_lesson_update").on('click',function(){
+        $("#btn_lesson_create,.btn_lesson_update").on('click',function(){
+            console.log(222);
             //clear all input and bind
             $("#lesson_name").val('');
             $("#lesson_is_chapter").attr('checked',false);
@@ -55,6 +56,9 @@ define(function (require, exports) {
                     'lesson_name' : $("#lesson_name").val(),
                     'lesson_is_chapter' : $("#lesson_is_chapter").attr("checked")=="checked" ? 1 : 0
                 };
+//                console.log($("#lesson_is_chapter").attr("checked"));
+//                console.log(data);
+//                return false;
                 if(action=='update'){
                     data['lesson_id'] = lesson_id;
                 }
@@ -125,11 +129,14 @@ define(function (require, exports) {
             }
             arr.push(value);
         });
-        var data = { 'lessons' : arr};
+        var data = {
+            'course_id' : $("#course_id").val(),
+            'lessons' : arr
+        };
 //        $.each(arr,function(){
 //            console.log(this.id+','+this.is_chapter);
 //        })
-
+//return false;
         $.post(url,data,function(response){
             window.location.reload();
         });
