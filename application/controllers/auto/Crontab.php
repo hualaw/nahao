@@ -11,7 +11,7 @@ class Crontab extends NH_Controller
     {
         parent::__construct();
         $this->load->database();
-        $this->load->model('business/auto/student_crontab');
+        $this->load->model('business/auto/business_crontab');
     }
 
     /**
@@ -19,6 +19,16 @@ class Crontab extends NH_Controller
      */
     private function Class_Change_SoonClass_To_ClassEnterable()
     {
-        
+
+    }
+
+    /**
+     *轮的销售状态 每15分钟一个周期
+     * @author shangshikai@tizi.com
+     */
+    public function change_round_status()
+    {
+        //echo "fs";die;
+        $this->business_crontab->round_change_status();
     }
 }

@@ -20,4 +20,14 @@
         	$this->model_crontab->get_class_id($time);
         }
 
+        /**
+         *轮的销售状态
+         * @author shangshikai@tizi.com
+         */
+        public function round_change_status()
+        {
+            $time=time();
+            echo date('i',$time);
+            //if($time)
+        }
     }
