@@ -26,25 +26,12 @@ class Crontab extends NH_Controller
     }
 
     /**
-     *轮的销售状态 每15分钟一个周期
+     *轮的状态 每15分钟一个周期
      * @author shangshikai@tizi.com
      */
     public function change_round_status()
     {
-        //echo "fs";die;
         $this->business_crontab->round_change_status();
-
-        $int_time = time()+30*60;
-        $type = 1;
-        $array_class = $this->student_crontab->get_class_data($int_time,$type);
-        if($array_class)
-        {
-        	foreach ($array_class as $k=>$v)
-        	{
-        		$this->student_crontab->update_class_status(array('status'=>2),array('id'=>$v['id']));
-        	}
-        }
-
     }
     
     /**

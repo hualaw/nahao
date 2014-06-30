@@ -107,13 +107,63 @@
         }
 
         /**
-         *轮的销售状态
+         *轮的状态
          * @author shangshikai@tizi.com
          */
         public function round_change_status()
         {
             $time=time();
-            echo date('i',$time);
-            //if($time)
+
+            $year=date('Y',$time);
+            $mon=date('m',$time);
+            $day=date('d',$time);
+            $hour=date('H',$time);
+            $min=date('i',$time);
+            $advance_time=mktime($hour,$min,0,$mon,$day,$year);
+            $advance_time=strtotime($advance_time);
+
+            $all_round_status=$this->model_crontab->all_round_status();
+            $all_run_status=$this->model_crontab->all_round_teach();
+
+            foreach($all_round_status as $v)
+            {
+                $round_begin_minutes=$v['sell_begin_time'];
+                $round_end_minutes=$v['sell_end_time'];
+
+                if($round_begin_minutes==$advance_time)
+                {
+                    return $this->model_crontab->status_begin_round($v['id']);
+                }
+                if($round_end_minutes==$advance_time)
+                {
+                    return $this->model_crontab->status_end_round($v['id']);
+                }
+            }
+
+            foreach($all_run_status as $v)
+            {
+                $round_start_minutes=$v['start_time'];
+                $round_end=$v['end_time'];
+                $mon_year=date('Y',$round_end);
+                $mon_mon=date('m',$round_end);
+                $mon_day=date('d',$round_end);
+                $mon_hour=date('H',$round_end);
+                $mon_min=date('i',$round_end);
+                $mon_second=date('s',$round_end);
+                $mon_time=mktime($mon_hour,$mon_min,$mon_second,$mon_mon+1,$mon_day,$mon_year);
+
+                if($round_start_minutes==$advance_time)
+                {
+                    return $this->model_crontab->status_start_round($v['id']);
+                }
+                if($round_end==$advance_time)
+                {
+                    return $this->model_crontab->end_round($v['id']);
+                }
+                if($mon_time<=$time)
+                {
+                    return $this->model_crontab->expire_round($v['id']);
+                }
+            }
         }
     }
