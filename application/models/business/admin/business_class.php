@@ -20,17 +20,18 @@ class Business_Class extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function create_classes($int_course_id, $int_round_id,$arr_classes)
+    public function create_classes_OLD($int_course_id, $int_round_id,$arr_classes)
     {
         $bool_return = false;
         if($int_round_id > 0 AND is_array($arr_classes) AND $arr_classes){
             //生成树形结构的章节数据，二维数组
+
             $arr_class_tree = self::get_class_tree($arr_classes);
 //            o($arr_classes);
 //            o($arr_class_tree,true);
             if($arr_class_tree){
                 //清除该班次以前的章和课节
-                self::delete_classes_by_round_id($int_round_id);
+//                self::delete_classes_by_round_id($int_round_id);
                 $arr_lesson_ids = array();
                 $int_chapter_sequence = 0;
                 //插入新的章和课节
@@ -181,41 +182,106 @@ class Business_Class extends NH_Model
         return $bool_return;
     }
 
+    public function create_classes($int_course_id, $int_round_id,$arr_lessons){
+        $bool_return = false;
+        if($int_course_id > 0 AND $int_round_id AND is_array($arr_lessons)){
+            $this->load->model("business/admin/business_lesson","lesson");
+            $arr_lessons_tree = $this->lesson->get_lessons_list_tree_show($arr_lessons);
+//            o($arr_lessons);
+//            o($arr_lessons_tree,true);
+            $arr_classes = array();
+            $int_chapter_sequence = 0;
+            foreach($arr_lessons_tree as $k => $v){
+                $int_parent_id = 1;
+                if($k > 1){
+                    //组织章数据
+                    $arr_chapter = array(
+                        'course_id' => $int_course_id,
+                        'round_id' => $int_round_id,
+                        'lesson_id' => $v['id'],
+                        'title' => $v['title'],
+                        'sequence' => $int_chapter_sequence
+                    );
+                    //插入章
+                    $int_parent_id = $this->model_class->create_class($arr_chapter);
+                }
+                $int_chapter_sequence += 1;
+                if($int_parent_id > 0){
+                    $bool_section_flag = true;//每节课数组组成功的标记
+                    $int_section_sequence = 0;//节的序列
+                    $arr_section = array();
+                    //为本章中每节课创建classroom，并且为该课堂添加courseware，组织一章中的多个课堂数据 一句sql插入多条class数据
+                    if(isset($v['sections']) AND $v['sections']){
+                        foreach($v['sections'] as $kk => $vv){
+                            //组织class数据并且塞入数组中，本次循环完成后通过insert_batch一起入库
+                            $arr_section[] = array(
+                                'course_id' => $int_course_id,
+                                'round_id' => $int_round_id,
+                                'lesson_id' => $vv['id'],
+                                'title' => $vv['title'],
+                                'courseware_id' => $vv['courseware_id'],
+                                'parent_id' => $int_parent_id,
+                                'sequence' => $int_section_sequence++,
+                                'status' => ($int_chapter_sequence==1 AND $int_section_sequence==1) ? CLASS_STATUS_SOON_CLASS : CLASS_STATUS_INIT
+                            );
+                            $arr_lesson_ids[] = $vv['id'];
+                        }//组织本章所有节数据循环结束
+                        //把本章中组织好的class数据插入class表
+                        $int_last_id = $this->model_class->create_class_batch($arr_section);
+                        if($int_last_id > 0){
+                            if($k == count($arr_lessons_tree)-1){
+                                //完成最后一章的全部节插入class后 标记为本轮创建成功
+                                $bool_return = true;
+                            }
+                        }else{
+                            //本章的节插入class失败，则终止插入章的循环
+                            break;
+                        }
+                    }
+                }else{
+                    //插入章失败，终止全部循环
+                    break;
+                }
+            }
+        }
+        return $bool_return;
+    }
+
     /**
      * 把提交过来的原始的class数据组合成章节树形结构
      * @param $arr_classes
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_class_tree($arr_classes){
-        $arr_return = array();
-        if($arr_classes){
-            $int_flag = 0 ;
-            foreach($arr_classes as $k => $v){
-//                o($v);
-                if($v['is_chapter']==1){
-                    if($k != 0){
-                        $int_flag ++ ;
-                    }
-                    $arr_return[$int_flag]['title'] = $v['name'];
-                    $arr_return[$int_flag]['lesson_id'] = $v['lesson_id'];
-                    $arr_return[$int_flag]['courseware_id'] = $v['courseware_id'];
-                    $arr_return[$int_flag]['begin_time'] = $v['start_time'];
-                    $arr_return[$int_flag]['end_time'] = $v['end_time'];
-                }else{
-                    $arr_return[$int_flag]['classes'][] = array(
-                        'title' => $v['name'],
-                        'lesson_id' => $v['lesson_id'],
-                        'courseware_id' => $v['courseware_id'],
-                        'begin_time' => $v['start_time'],
-                        'end_time' => $v['end_time'],
-                    );
-                }
-            }
-//            var_dump($arr_return[0]['classes']);
-        }
-        return $arr_return;
-    }
+//    public function get_class_tree($arr_classes){
+//        $arr_return = array();
+//        if($arr_classes){
+//            $int_flag = 0 ;
+//            foreach($arr_classes as $k => $v){
+////                o($v);
+//                if($v['is_chapter']==1){
+//                    if($k != 0){
+//                        $int_flag ++ ;
+//                    }
+//                    $arr_return[$int_flag]['title'] = $v['name'];
+//                    $arr_return[$int_flag]['lesson_id'] = $v['lesson_id'];
+//                    $arr_return[$int_flag]['courseware_id'] = $v['courseware_id'];
+//                    $arr_return[$int_flag]['begin_time'] = $v['start_time'];
+//                    $arr_return[$int_flag]['end_time'] = $v['end_time'];
+//                }else{
+//                    $arr_return[$int_flag]['classes'][] = array(
+//                        'title' => $v['name'],
+//                        'lesson_id' => $v['lesson_id'],
+//                        'courseware_id' => $v['courseware_id'],
+//                        'begin_time' => $v['start_time'],
+//                        'end_time' => $v['end_time'],
+//                    );
+//                }
+//            }
+////            var_dump($arr_return[0]['classes']);
+//        }
+//        return $arr_return;
+//    }
 
     /**
      * 根据round_id删除class
@@ -319,7 +385,7 @@ class Business_Class extends NH_Model
         if($int_round_id){
             $str_table_range = 'class';
             $str_result_type = 'list';
-            $str_fields = 'id,course_id,round_id,lesson_id,title,begin_time,end_time,courseware_id,status,parent_id,sequence,classroom_id,checkout_status';
+            $str_fields = 'id,course_id,round_id,lesson_id,title,begin_time,end_time,courseware_id,status,parent_id,sequence,classroom_id,checkout_status,score,attendance,correct_rate,school_hour';
             $arr_where = array(
                 'round_id' => $int_round_id
             );

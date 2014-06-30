@@ -83,32 +83,32 @@ define(function(require,exports){
         });
 
         //append lesson input area
-        $("#round_edit_lesson_add_div").on("click", '#round_edit_class_add_btn', function () {
-            var class_input_html =
-                '<div class="form-group">' +
-                    '<label class="col-md-2 control-label"></label>' +
-                    '<div class="col-md-6">' +
-                    '<input type="text" class="form-control class" placeholder="">' +
-                    '</div>' +
-                    '<div class="col-md-2">' +
-                    '<label class="checkbox-inline">' +
-                    '<input type="checkbox" class="class_chapter">是章' +
-                    '</label>'+
-                    '<label class="checkbox-inline">'+
-                    '<botton class="btn btn-danger btn-xs delete_class_btn">x</botton>'+
-                    '</label>'+
-                    '</div>' +
-                    '</div>';
-            $("#round_edit_lesson_list_div").append(class_input_html);
-        });
+//        $("#round_edit_lesson_add_div").on("click", '#round_edit_class_add_btn', function () {
+//            var class_input_html =
+//                '<div class="form-group">' +
+//                    '<label class="col-md-2 control-label"></label>' +
+//                    '<div class="col-md-6">' +
+//                    '<input type="text" class="form-control class" placeholder="">' +
+//                    '</div>' +
+//                    '<div class="col-md-2">' +
+//                    '<label class="checkbox-inline">' +
+//                    '<input type="checkbox" class="class_chapter">是章' +
+//                    '</label>'+
+//                    '<label class="checkbox-inline">'+
+//                    '<botton class="btn btn-danger btn-xs delete_class_btn">x</botton>'+
+//                    '</label>'+
+//                    '</div>' +
+//                    '</div>';
+//            $("#round_edit_lesson_list_div").append(class_input_html);
+//        });
 
         //delete lesson input area
-        $("#round_edit_class_list_div").on("click", '.delete_class_btn', function () {
-            var result = confirm("删除该章节？");
-            if(result==true){
-                $($(this).parent().parent().parent()).remove();
-            }
-        });
+//        $("#round_edit_class_list_div").on("click", '.delete_class_btn', function () {
+//            var result = confirm("删除该章节？");
+//            if(result==true){
+//                $($(this).parent().parent().parent()).remove();
+//            }
+//        });
     }
 
     //validate and post after click submit btn
@@ -125,9 +125,9 @@ define(function(require,exports){
             var course_type = $("#course_type").val();
             var reward = $("#reward").val();
             var price = $("#price").val();
-            var video = $("#video").val();
+//            var video = $("#video").val();
             var img = $("#img_url").attr('src');
-            var video = $("#video_url").text();
+//            var video = $("#video_url").text();
 
             var course_id = $("#course_id").val();
             var caps = $("#caps").val();
@@ -159,29 +159,29 @@ define(function(require,exports){
             }
 
             //validate classes
-            var arr_classes = new Array();
-            var classes = $(".class");
-            var chapters = $(".class_chapter");
-            var lesson_ids = $(".lesson_id");
-            var courseware_ids = $(".courseware_id");
-            var class_start_times = $(".class_start_time");
-            var class_end_times = $(".class_end_time");
+//            var arr_classes = new Array();
+//            var classes = $(".class");
+//            var chapters = $(".class_chapter");
+//            var lesson_ids = $(".lesson_id");
+//            var courseware_ids = $(".courseware_id");
+//            var class_start_times = $(".class_start_time");
+//            var class_end_times = $(".class_end_time");
 
-            if(classes.length > 0){
-                classes.each(function(k,v){
-                    arr_classes[k] = {
-                        'name' : $(v).val(),
-                        'is_chapter' : $(chapters[k]).attr("checked")=='checked' ? 1 : 0,
-                        'lesson_id' : $(lesson_ids[k]).val(),
-                        'courseware_id' : $(courseware_ids[k]).val(),
-                        'start_time' : $(class_start_times[k]).val(),
-                        'end_time' : $(class_end_times[k]).val()
-                    };
-                });
-            }else{
-                alert('请添加章节');
-                return false;
-            }
+//            if(classes.length > 0){
+//                classes.each(function(k,v){
+//                    arr_classes[k] = {
+//                        'name' : $(v).val(),
+//                        'is_chapter' : $(chapters[k]).attr("checked")=='checked' ? 1 : 0,
+//                        'lesson_id' : $(lesson_ids[k]).val(),
+//                        'courseware_id' : $(courseware_ids[k]).val(),
+//                        'start_time' : $(class_start_times[k]).val(),
+//                        'end_time' : $(class_end_times[k]).val()
+//                    };
+//                });
+//            }else{
+//                alert('请添加章节');
+//                return false;
+//            }
 
             var action = $('#round_edit_submit_round').data('action');
 
@@ -196,11 +196,11 @@ define(function(require,exports){
                 'course_type' : course_type,
                 'reward' : reward,
                 'price' : price,
-                'video' : video,
+//                'video' : video,
                 'img' : img,
                 'grade_from' : grade_from,
                 'grade_to' : grade_to,
-                'classes' : arr_classes,
+//                'classes' : arr_classes,
                 'teachers' : teacher_ids,
 
                 'course_id' : course_id,
