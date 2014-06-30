@@ -18,7 +18,7 @@ class Classes extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index () {
-        test_nahao_classroom('api/meetings/307/files/');
+//        test_nahao_classroom('api/meetings/307/files/');
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
         if($int_round_id > 0){
@@ -71,7 +71,7 @@ class Classes extends NH_Admin_Controller {
                 $int_classroom_id = general_classroom_id($arr_classroom_param);
             }
             $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
-            o($bool_add_courseware,true);
+//            o($bool_add_courseware,true);
 
             $arr_param = array(
                 'classroom_id' => $int_classroom_id,
