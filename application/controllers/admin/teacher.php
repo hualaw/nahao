@@ -331,9 +331,18 @@ class Teacher extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function teachers(){
+        $arr_teachers = $this->input->post("teacher_ids");
         $arr_return = array();
         if($this->is_ajax()){
-            $arr_return = $this->teacher->get_teacher_list(array(),0,20);
+            $arr_return = $this->teacher->get_teacher_list(array(),0,30);
+            if($arr_teachers){
+                foreach($arr_return as $k => $v){
+                    if(in_array($v['id'],$arr_teachers)){
+                        unset($arr_return[$k]);
+                    }
+                }
+            }
+            $arr_return = array_values($arr_return);
         }
         self::json_output($arr_return);
     }
