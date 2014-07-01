@@ -65,7 +65,7 @@ class Course extends NH_User_Controller {
 	    $bool_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
 	    if (!$bool_flag)
 	    {
-	        show_error("参数错误");
+	        show_error("您没有购买此轮课程！");
 	    }
 
 	    #课堂同学

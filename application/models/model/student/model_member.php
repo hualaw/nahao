@@ -48,7 +48,7 @@ class Model_Member extends NH_Model{
     public function get_student_class_done($int_user_id,$int_round_id)
     {
         $sql = "SELECT count(id) AS num FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." 
-                AND round_id = ".$int_round_id." AND status = 2";
+                AND round_id = ".$int_round_id." AND (status = ".STUDENT_CLASS_ENTER." OR status =".STUDENT_CLASS_LOST.")";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result['num'];
     }
@@ -239,7 +239,7 @@ class Model_Member extends NH_Model{
     {
     	$array_result = array();
     	$sql = "SELECT class_id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$array_data['student_id']." 
-    			AND round_id = ".$array_data['round_id'];
+    			AND round_id = ".$array_data['round_id']." AND (status = ".STUDENT_CLASS_INIT." OR status = ".STUDENT_CLASS_REFUND_FAIL.") ";
     	$array_result = $this->db->query($sql)->result_array();
     	return $array_result;
     }

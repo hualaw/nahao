@@ -10,7 +10,7 @@ define(function (require, exports) {
         $(".btn_class_edit").on("click",function(){
             var class_id = $(this).data("class_id");
             var tds = $(this).parent().parent().children();
-            console.log(tds);
+//            console.log(tds);
 //            $(tds[3]).text();
 //            $(tds[4]).text();
             $("#class_begin_time").val($(tds[3]).text());
@@ -20,6 +20,10 @@ define(function (require, exports) {
             $("#btn_class_submit").on("click",function(){
                 var begin_time = $("#class_begin_time").val();
                 var end_time = $("#class_end_time").val();
+                if(begin_time>=end_time){
+                    alert('开始时间不能大于结束时间');
+                    return false
+                }
                 var url = $(this).data("action");
                 var data = {
                     'class_id' : class_id,
