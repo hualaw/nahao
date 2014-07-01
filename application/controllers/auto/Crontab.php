@@ -14,11 +14,7 @@ class Crontab extends NH_Controller
         $this->load->model('business/auto/business_crontab');
         $this->load->model('model/auto/model_crontab');
     }
-
-    function test()
-    {
-    	echo 44;
-    }
+    
     /**
      * 到课开始时间前30分钟 将课的状态从“即将上课”改为“可进教室”
      * type=1 where条件为begin_time
