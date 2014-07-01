@@ -146,33 +146,33 @@
         	return $correctrate;
         }
 
-
         /**
          *轮的状态
          * @author shangshikai@tizi.com
          */
-        public function round_change_status()
+        public function round_change_status($begin_time,$end_time,$advance_time,$time)
         {
-            $time=time();
-
-            $year=date('Y',$time);
-            $mon=date('m',$time);
-            $day=date('d',$time);
-            $hour=date('H',$time);
-            $min=date('i',$time);
-            $advance_time=mktime($hour,$min,0,$mon,$day,$year);
-
-            $all_round_status=$this->model_crontab->all_round_status();
-            $all_round_status_end=$this->model_crontab->all_round_status_end();
-            $all_run_status=$this->model_crontab->all_round_teach();
-            $all_run_end=$this->model_crontab->all_round_teach_end();
+            if($begin_time==FALSE)
+            {
+                $all_round_status=$this->model_crontab->all_round_status($advance_time);
+                $all_round_status_end=$this->model_crontab->all_round_status_end($advance_time);
+                $all_run_status=$this->model_crontab->all_round_teach($advance_time);
+                $all_run_end=$this->model_crontab->all_round_teach_end($advance_time);
+            }
+            else
+            {
+                $all_round_status=$this->model_crontab->remedy_all_round_status($begin_time,$end_time);
+                $all_round_status_end=$this->model_crontab->remedy_all_round_status_end($begin_time,$end_time);
+                $all_run_status=$this->model_crontab->remedy_all_round_teach($begin_time,$end_time);
+                $all_run_end=$this->model_crontab->remedy_all_round_teach_end($begin_time,$end_time);
+            }
 
             foreach($all_round_status as $v)
             {
-                $round_begin_minutes=$v['sell_begin_time'];
-                if($round_begin_minutes==$advance_time)
+                $num=$this->model_crontab->status_begin_round($v['id']);
+                if($num==0)
                 {
-                    return $this->model_crontab->status_begin_round($v['id']);
+                    log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
                 }
             }
 
@@ -181,24 +181,29 @@
                 $round_end_minutes=$v['sell_end_time'];
                 if($round_end_minutes==$advance_time)
                 {
-                    return $this->model_crontab->status_end_round($v['id']);
+                    $num=$this->model_crontab->status_end_round($v['id']);
+                    if($num==0)
+                    {
+                        log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
+                    }
                 }
             }
-
 
             foreach($all_run_status as $v)
             {
                 $round_start_minutes=$v['start_time'];
                 if($round_start_minutes==$advance_time)
                 {
-                    return $this->model_crontab->status_start_round($v['id']);
+                    $num=$this->model_crontab->status_start_round($v['id']);
+                    if($num==0)
+                    {
+                        log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
+                    }
                 }
             }
-            var_dump($all_run_end);
+
             foreach($all_run_end as $v)
             {
-                //var_dump($v);
-
                 $round_end=$v['end_time'];
                 $mon_year=date('Y',$round_end);
                 $mon_mon=date('m',$round_end);
@@ -209,11 +214,19 @@
                 $mon_time=mktime($mon_hour,$mon_min,$mon_second,$mon_mon+1,$mon_day,$mon_year);
                 if($round_end==$advance_time)
                 {
-                    echo $this->model_crontab->end_round($v['id']);
+                    $num=$this->model_crontab->end_round($v['id']);
+                    if($num==0)
+                    {
+                        log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
+                    }
                 }
                 if($mon_time<=$time)
                 {
-                    return $this->model_crontab->expire_round($v['id']);
+                    $num=$this->model_crontab->expire_round($v['id']);
+                    if($num==0)
+                    {
+                        log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
+                    }
                 }
             }
         }

@@ -545,13 +545,13 @@ class NH_Session extends CI_Session {
             'session_id' => $new_sessid,
             'user_id' => isset($this->userdata['user_id']) ? $this->userdata['user_id'] : '',
             'nickname' => isset($this->userdata['nickname']) ? $this->userdata['nickname'] :'',
-            'ip' => $this->CI->input->ip_address(),
+            'ip' => ip2long($this->CI->input->ip_address()),
             'expire_time' => $expire + time(),
             'user_type' => isset($this->userdata['user_type']) ? $this->userdata['user_type'] : 0,
             'exit_time' => 0,
         );
 
-        $this->CI->msl->save_session_log($session_log);
+        $this->CI->msl->update_session_log($session_log);
         log_message('debug_nahao', "go out of sess_update() function");
     }
 
