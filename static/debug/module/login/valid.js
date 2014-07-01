@@ -568,9 +568,6 @@ define(function(require,exports){
                 errormsg:"两次密码不一致！"
             }          
         ]);
-        _Form.config({
-            url:'/login/reset_pwd'
-        });
     }
     
        /**

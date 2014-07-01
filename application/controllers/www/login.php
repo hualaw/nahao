@@ -163,7 +163,7 @@ class login extends NH_Controller
             exit($result);
         }
 
-        self::json_output(array('status' => 'error', 'msg' => 'Sorry! 没有找到您的用户信息'));
+        self::json_output(array('status' => 'error', 'msg' => '您的手机号尚未绑定，请核对后重新输入。'));
     }
         
     /**

@@ -74,7 +74,7 @@
 				{/if}
 				<img src="{$item.img}" alt="">
 				<div class="iniInfor">
-					<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
+					<p class="courseTitle">{$item.title}</p>
 					<div class="cf">
 						<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
 						<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
@@ -96,11 +96,11 @@
 							<span {if $item.teacher.titile_auth}class="TitleCard fl"{else}class=" fl"{/if}></span>
 							<span {if $item.teacher.teacher_auth}class="teaCard fl"{else}class=" fl"{/if}></span>
 						</h3>
-						<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
+						<p class="detailInfor">{$item.teacher.teacher_signature}</p>
 					</div>
 				</div>
 				<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-				<p class="courseTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</p>
+				<p class="courseTitle" title="{$item.title}">{$item.title}</p>
 			</div>
 		</li>
 		{/foreach}
