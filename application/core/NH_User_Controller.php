@@ -29,6 +29,7 @@ class NH_User_Controller extends NH_Controller
         $user_id = $this->session->userdata('user_id');
         if($user_id) {
             $this->_user_detail = $this->business_user->get_user_detail($user_id);
+            log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
             $this->_user_detail['phone'] = $this->session->userdata('phone');
         }
     }

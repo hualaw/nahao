@@ -107,14 +107,23 @@ class Classes extends NH_Admin_Controller {
     public function add_courseware(){
         $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
         $int_courseware_id = $this->input->post('courseware_id') ? intval($this->input->post('courseware_id')) : 0;
-//        o($int_class_id);
-//        o($int_courseware_id,true);
-        if($int_class_id > 0 AND $int_courseware_id > 0){
-            $bool_return = $this->class->add_courseware($int_class_id,$int_courseware_id);
+        $int_create_time = $this->input->post('create_time') ? strtotime($this->input->post('create_time')) : 0;
+        $str_filename = $this->input->post('filename') ? trim($this->input->post('filename')) : '';
+        $int_filesize = $this->input->post('filesize') ? intval($this->input->post('filesize')) : 0;
+        $int_filetype = $this->input->post('filetype') ? intval($this->input->post('filetype')) : 0;
+
+        if($int_class_id > 0 AND $int_courseware_id > 0 AND $int_create_time > 0 AND $str_filename){
+            $arr_courseware = array(
+                'id' => $int_courseware_id,
+                'create_time' => $int_create_time,
+                'name' => $str_filename,
+                'filesize' => $int_filesize,
+                'filetype' => $int_filetype,
+            );
+            $bool_return = $this->class->add_courseware($int_class_id,$arr_courseware);
             if($bool_return==true){
                 $this->arr_response['status'] = 'ok';
                 $this->arr_response['msg'] = '添加成功';
-                $this->arr_response['redirect'] = '/class/index/'.$int_class_id;
             }
         }
         self::json_output($this->arr_response);
@@ -152,6 +161,38 @@ class Classes extends NH_Admin_Controller {
             $this->smarty->assign('view', 'preview');
             $this->smarty->display('admin/layout.html');
         }
+    }
+
+    /**
+     * reload courseware
+     * @author yanrui@tizi.com
+     */
+    public function reload(){
+        $int_classroom_id = $this->input->post('classroom_id') ? intval($this->input->post('classroom_id')) : 0;
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '刷新失败'
+        );
+        if($int_classroom_id > 0){
+//            test_nahao_classroom('api/meetings/233/files/');
+            $arr_old_ids = get_coursewares_by_classroom_id($int_classroom_id);
+//            o($arr_old_ids,true);
+            if($arr_old_ids){
+                foreach($arr_old_ids as $id){
+                    delete_courseware_by_classroom_id($int_classroom_id,$id);
+                }
+            }
+            $arr_class = $this->class->get_class_by_classroom_id($int_classroom_id);
+            if($arr_class AND $arr_class['courseware_id']){
+                set_courseware_to_classroom($int_classroom_id,$arr_class['courseware_id']);
+            }
+            reload_courseware($int_classroom_id);
+            $arr_response = array(
+                'status' => 'ok',
+                'msg' => '刷新成功'
+            );
+        }
+        self::json_output($arr_response);
     }
 
 }

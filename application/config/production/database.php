@@ -48,10 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//$db['default']['hostname'] = '192.168.11.75';//host for mysqli
-$db['default']['hostname'] = 'mysql:host=127.0.0.1';//host for pdo
+$db['default']['hostname'] = 'mysql:host=42.159.80.253';//host for pdo
 $db['default']['username'] = 'nahao';
-$db['default']['password'] = 'nahao';
+$db['default']['password'] = 'jN63uMUj7Dm4Y';
 $db['default']['database'] = 'nahao';
 $db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';
