@@ -14,17 +14,13 @@ class Crontab extends NH_Controller
         $this->load->model('business/auto/business_crontab');
         $this->load->model('model/auto/model_crontab');
     }
-
-    function test()
-    {
-    	echo 44;
-    }
+    
     /**
      * 到课开始时间前30分钟 将课的状态从“即将上课”改为“可进教室”
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Change_SoonClass_To_ClassEnterable($time = 0)
+    public function Class_Change_SoonClass_To_ClassEnterable($time = 0)
     {
     	if($time > 0){
     		$int_time = $time;
@@ -92,7 +88,7 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Change_To_SoonClass_Or_OverClass($time = 0)
+    public function Class_Change_To_SoonClass_Or_OverClass($time = 0)
     {
     	if($time > 0){
     		$int_time = $time;
@@ -123,7 +119,7 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Change_Beginning_To_SoonClass($time = 0)
+    public function Class_Change_Beginning_To_SoonClass($time = 0)
     {
     	if($time > 0){
     		$int_time = $time;
@@ -152,7 +148,7 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Student_Class_Change_Beginning_To_Absent($time = 0)
+    public function Student_Class_Change_Beginning_To_Absent($time = 0)
     {
     	if($time > 0){
     		$int_time = $time;
@@ -198,7 +194,7 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Count_Attendance($time = 0)
+    public function Class_Count_Attendance($time = 0)
     {
     	if($time > 0){
     		$int_time = $time;
@@ -224,7 +220,7 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Count_CorrectRate($time = 0)
+    public function Class_Count_CorrectRate($time = 0)
     {
     	if($time > 0){
     		$int_time = $time;
@@ -248,7 +244,7 @@ class Crontab extends NH_Controller
     /**
      * 获取当前时间的正分
      */
-    public function get_time()
+    protected function get_time()
     {
     	$time = date('Y-m-d H:i',time()).":00";
     	$time = strtotime($time);
