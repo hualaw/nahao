@@ -165,19 +165,4 @@ class Model_Classroom extends NH_Model{
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
-    
-    /**
-     * 能进入教室之后，往entering_classroom表中写数据
-     * @param $array_insert['user_id']
-     * @param $array_insert['create_time']
-     * @param $array_insert['action']
-     * @param $array_insert['class_id']
-     * @param $array_insert['ip']
-     */
-    public function add_entering_classroom_data($array_insert)
-    {
-    	$this->db->insert(TABLE_ENTERING_CLASSROOM, $array_insert);
-    	$int_row = $this->db->affected_rows();
-    	return $int_row > 0 ? true : false;
-    }
 }

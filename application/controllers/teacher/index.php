@@ -101,4 +101,112 @@ class Index extends NH_User_Controller {
 //		$param['question'] = $this->input->post('question');
 //		
 //	}
+	public function score_counter()
+    {	
+    	#1. 初始条件
+        $start_time = strtotime("-1 day");
+        $end_time = time();
+        #2. 获取课id,轮id,课程id
+        $param = array(
+        	'create_time_from'	=> $start_time,
+       		'create_time_to'	=> $end_time,
+        );
+        $list = $this->teacher_m->student_comment($param);
+        $classArr = $roundArr = $courseArr = array();
+        #3. 求平均值，课，轮，课程三表联合更改
+        if($list) foreach ($list as $val){
+        	$param =array();
+        	#3.1 第一次出现课，不限时取课平均值
+        	if(!in_array($val['class_id'],$classArr)){
+        		$param['class_id'] = $val['class_id'];
+        		$param['counter'] = 2;
+        		$res = $this->teacher_m->student_comment($param);
+        		$class_avg = isset($res[0]['score']) ? $res[0]['score'] : 0;
+        		#修改平均分
+        		$param = array(
+	        		'class_id' 	=> $val['class_id'],
+	        		'score' 	=> $class_avg,
+	        		);
+        		$bool = $this->teacher_m->set_class_score();
+        		if($bool){
+        			echo '修改课'.$val['class_id'].'平均分('.$class_avg.')成功<br>';
+        		}else{
+        			echo '修改失败<br>';
+        		}
+        		$classArr[] = $val['class_id'];
+        	}
+        	#3.2 第一次出现轮，不限时取轮平均值
+        	if(!in_array($val['round_id'],$roundArr)){
+        		$param['round_id'] = $val['round_id'];
+        		$param['counter'] = 2;
+        		$res = $this->teacher_m->student_comment($param);
+        		$round_avg = isset($res[0]['score']) ? $res[0]['score'] : 0;
+        		#修改平均分
+        		$param = array(
+	        		'round_id' 	=> $val['round_id'],
+	        		'score' 	=> $round_avg,
+	        		);
+	        	$bool = $this->teacher_m->set_round_score($param);
+	        	if($bool){
+        			echo '修改轮'.$val['round_id'].'平均分('.$round_avg.')成功<br>';
+        		}else{
+        			echo '修改轮'.$val['round_id'].'平均分失败<br>';
+        		}
+        		$roundArr[] = $val['round_id'];
+        	}
+        	#3.3 第一次出现课程，不限时取课程平均值
+        	if(!in_array($val['course_id'],$courseArr)){
+        		$param['course_id'] = $val['course_id'];
+        		$param['counter'] = 2;
+        		$res = $this->teacher_m->student_comment($param);
+        		$course_avg = isset($res[0]['score']) ? $res[0]['score'] : 0;
+        		$bool = $this->teacher_m->set_course_score();
+	        	if($bool){
+        			echo '修改课程'.$val['course_id'].'平均分('.$course_avg.')成功<br>';
+        		}else{
+        			echo '修改课程'.$val['course_id'].'平均分失败<br>';
+        		}
+        		$courseArr = $val['course_id'];
+        	}
+        }
+        exit;
+    }
+    
+    public function order_status_setter()
+    {
+        #1. 初始条件
+        $start_time = strtotime("-7 day");
+        //测试七天前时间  var_dump(date('Y-m-d',$start_time));
+        $end_time = time();
+        #2.1 按订单状态过期更改订单状态
+        $param = array(
+        	'statusFrom' 		=> '0,1,4',
+        	'statusTo'	 		=> '5',
+        	'create_time_from'	=> $start_time,
+        	'create_time_to'	=> $end_time,
+        	);
+        $bool = $this->teacher_m->set_order_status($param);
+        if($bool){
+        	echo '修改过期（7天）订单状态成功<br />';
+        }
+        #2.2 按轮销售状态过期更改订单状态
+        $param = array(
+        	'sale_status' => '4,5,6',
+        	'statusTo'	 		=> '5',
+        	'create_time_from'	=> $start_time,
+        	'create_time_to'	=> $end_time,
+        	);
+        $bool = $this->teacher_m->set_order_status($param);
+        if($bool){
+        	echo '修改过期（七天）轮销售状态的订单状态成功<br />';
+        }
+    }
+    
+    public function teacher_checkout()
+    {
+        #1. 初始条件
+        $start_time = strtotime("-7 day");
+        //测试七天前时间  var_dump(date('Y-m-d',$start_time));
+        $end_time = time();
+    }
 }

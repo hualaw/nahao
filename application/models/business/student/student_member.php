@@ -170,6 +170,12 @@ class Student_Member extends NH_Model{
             'note'=>'申请退课'
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
+        #找到该学生没有上课的课id
+        $array_ndata = array(
+        		'round_id'=>$array_data['round_id'],
+        		'student_id'=>$array_data['student_id']
+        );
+        $this->model_member->get_student_class_undone($array_ndata);
         #更改学生与课的关系表，将该学生没有上过的课里面的状态更为申请退款
         $array_where = array(
             'round_id'=>$array_data['round_id'],

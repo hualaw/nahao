@@ -229,4 +229,18 @@ class Model_Member extends NH_Model{
     	$array_result = $this->db->query($sql)->row_array();
     	return $array_result;
     }
+    
+    /**
+     * 找到该学生没有上课的课id
+     * @param  $array_data['round_id']
+     * @param  $array_data['student_id']
+     */
+    public function get_student_class_undone($array_data)
+    {
+    	$array_result = array();
+    	$sql = "SELECT class_id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$array_data['student_id']." 
+    			AND round_id = ".$array_data['round_id'];
+    	$array_result = $this->db->query($sql)->result_array();
+    	return $array_result;
+    }
 }
