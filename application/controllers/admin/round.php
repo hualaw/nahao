@@ -313,22 +313,37 @@ class Round extends NH_Admin_Controller
 //        o($str_type);
 //        o($int_status,true);
         if($int_round_id > 0 AND $int_status >= 0 AND $str_type){
-            if($str_type=='sale_status'){
-                $arr_param = array(
-                    'sale_status' => $int_status
-                );
-            }else{
-                $arr_param = array(
-                    'teach_status' => $int_status
-                );
+            $bool_flag = true;
+            if($int_status==2){
+                $this->load->model('business/admin/business_class', 'class');
+                $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
+//                var_dump($arr_classes);exit;
+                foreach($arr_classes as $class){
+                    if($class['begin_time']==0 OR $class['end_time']==0){
+                        $bool_flag = false;
+                        $this->arr_response['msg'] = '《'.$class['title'].'》时间不正确，不能生成班次';
+                        break;
+                    }
+                }
             }
-            $arr_where = array(
-                'id' => $int_round_id
-            );
-            $bool_return = $this->round->update_round($arr_param,$arr_where);
-            if($bool_return==true){
-                $this->arr_response['status'] = 'ok';
-                $this->arr_response['msg'] = '操作成功';
+            if($bool_flag==true){
+                if($str_type=='sale_status'){
+                    $arr_param = array(
+                        'sale_status' => $int_status
+                    );
+                }else{
+                    $arr_param = array(
+                        'teach_status' => $int_status
+                    );
+                }
+                $arr_where = array(
+                    'id' => $int_round_id
+                );
+                $bool_return = $this->round->update_round($arr_param,$arr_where);
+                if($bool_return==true){
+                    $this->arr_response['status'] = 'ok';
+                    $this->arr_response['msg'] = '操作成功';
+                }
             }
         }
         self::json_output($this->arr_response);

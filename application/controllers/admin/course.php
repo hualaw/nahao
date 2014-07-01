@@ -301,4 +301,32 @@ class Course extends NH_Admin_Controller {
         self::json_output($this->arr_response);
     }
 
+    /**
+     * get token for reupload
+     * @author yanrui@tizi.com
+     */
+    public function get_token(){
+
+        //generate param for uploading to qiniu
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $this->load->helper('string');
+        $str_salt = random_string('alnum', 6);
+        //course img file name
+        $str_new_img_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
+//        $str_new_video_file_name = 'course_'.date('YmdHis',time()).'_v'.$str_salt.'.png';
+
+        $arr_response = array(
+            'status' => 'ok',
+            'data' => array(
+                'token' => $str_upToken,
+                'img_file_name' => $str_new_img_file_name
+            )
+        );
+        self::json_output($arr_response);
+    }
+
 }

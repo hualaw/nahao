@@ -43,6 +43,17 @@ define(function (require, exports) {
             });
         });
 
+        $(".reload_courseware").on("click",function(){
+            var url = '/classes/reload';
+            var data = {
+                'classroom_id' : $(this).data("classroom_id")
+            };
+            $.post(url,data,function(response){
+                alert(response.msg)
+                window.location.reload();
+            })
+        });
+
         //date picker in modal
         $("#class_begin_time,#class_end_time").datetimepicker({
             format: "yyyy-MM-dd hh:ii",

@@ -4,6 +4,7 @@
     <tr>
         <th>课堂ID</th>
         <th>课堂名称</th>
+        <th>章节</th>
         <th>教室ID</th>
         <th>上课时间</th>
         <th>下课时间</th>
@@ -20,6 +21,7 @@
     {foreach $classes as $v}
     <tr>
         <td class="list_class_id">{$v.id}</td>
+        <td>{if $v.parent_id gt 0}节{else}章{/if}</td>
         <td>{$v.title}</td>
         <td>{$v.classroom_id}</td>
         <td>{if ($v.begin_time gt 0) }{date("Y-m-d H:i",$v.begin_time)}{/if}</td>
@@ -31,10 +33,10 @@
         <td>
             {if $v.parent_id gt 0}
                 {if $v.courseware_id==0}
-                    <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
+                    <botton class="btn btn-primary btn-xs btn_upload_pdf" data-class_id="{$v.id}">上传</botton>
                 {else}
                     <a target="_blank" href="/classes/preview/{$v.courseware_id}">预览</a>
-                    <!--<botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>-->
+                    <botton class="btn btn-success btn-xs btn_upload_pdf" data-class_id="{$v.id}">修改</botton>
                 {/if}
                 {else}
                 --
@@ -44,6 +46,7 @@
         <td>
             {if ($v.parent_id gt 0) AND ($v.classroom_id gt 0)}
                 <a target="_blank" href="/classes/enter/{$v.classroom_id}">进入课堂</a>
+                <btn class="btn btn-primary btn-xs reload_courseware" data-classroom_id="{$v.classroom_id}">刷新教材</btn>
             {else}
                 --
             {/if}
