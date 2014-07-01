@@ -24,9 +24,14 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Change_SoonClass_To_ClassEnterable()
+    private function Class_Change_SoonClass_To_ClassEnterable($time = 0)
     {
-        $int_time = $this->get_time()+1800;
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time()+1800;
+    	}
+       
         $type = 1;
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
         if($array_class)
@@ -52,10 +57,14 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    public function Class_Change_ClassEnterable_To_InClass()
+    public function Class_Change_ClassEnterable_To_InClass($time = 0)
     {
     	$type = 1;
-    	$int_time = $this->get_time();
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time();
+    	}
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
     	{
@@ -72,9 +81,13 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Change_To_SoonClass_Or_OverClass()
+    private function Class_Change_To_SoonClass_Or_OverClass($time = 0)
     {
-    	$int_time = $this->get_time();
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time();
+    	}
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -99,9 +112,13 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Change_Beginning_To_SoonClass()
+    private function Class_Change_Beginning_To_SoonClass($time = 0)
     {
-    	$int_time = $this->get_time();
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time();
+    	}
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -124,9 +141,13 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Student_Class_Change_Beginning_To_Absent()
+    private function Student_Class_Change_Beginning_To_Absent($time = 0)
     {
-    	$int_time = $this->get_time();
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time();
+    	}
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -166,9 +187,13 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Count_Attendance()
+    private function Class_Count_Attendance($time = 0)
     {
-    	$int_time = $this->get_time();
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time();
+    	}
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -188,9 +213,13 @@ class Crontab extends NH_Controller
      * type=1 where条件为begin_time
      * type=2 where条件为end_time
      */
-    private function Class_Count_CorrectRate()
+    private function Class_Count_CorrectRate($time = 0)
     {
-    	$int_time = $this->get_time();
+    	if($time > 0){
+    		$int_time = $time;
+    	} else {
+    		$int_time = $this->get_time();
+    	}
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -210,8 +239,36 @@ class Crontab extends NH_Controller
      */
     public function get_time()
     {
-    	$time =date('Y-m-d H:i',time()).":00";
+    	$time = date('Y-m-d H:i',time()).":00";
     	$time = strtotime($time);
     	return $time;
+    }
+    
+    /**
+     * 如果出现服务器故障一段时间，当故障修好了马上就有课要上。需要算出当前时间的前一个整分时刻，循环跑一边计划任务
+     */
+    public function save_fault()
+    {
+    	$minute = date('i',time());
+    	if ($minute >= 0 && $minute<15) 
+    	{
+    		$minute = 0;
+    	} else if($minute >= 15 && $minute<30){
+    		$minute = 15;
+    	} else if($minute >= 30 && $minute<45){
+    		$minute = 30;
+    	} else if($minute >= 45 && $minute<=59){
+    		$minute = 45;
+    	}
+    	$time = date('Y-m-d H',time()).':'.$minute.":00";
+    	$time = strtotime($time);
+    	
+    	$this->Class_Change_SoonClass_To_ClassEnterable($time);
+    	$this->Class_Change_ClassEnterable_To_InClass($time);
+    	$this->Class_Change_To_SoonClass_Or_OverClass($time);
+    	$this->Class_Change_Beginning_To_SoonClass($time);
+    	$this->Student_Class_Change_Beginning_To_Absent($time);
+    	$this->Class_Count_Attendance($time);
+    	$this->Class_Count_CorrectRate($time);
     }
 }
