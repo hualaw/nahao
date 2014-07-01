@@ -73,8 +73,8 @@ class Model_User extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function update_user_info($arr_param,$arr_where){
-        $this->db->update(TABLE_USER_INFO, $arr_param, $arr_where);
+    public function update_user_info($arr_param,$arr_info_where){
+        $this->db->update(TABLE_USER_INFO, $arr_param, $arr_info_where);
         $int_affected_rows = $this->db->affected_rows();
         return $int_affected_rows > 0 ? true :false;
     }
