@@ -11,6 +11,7 @@ class Model_Teacher extends NH_Model{
 			3 => 'sequence',#权重
 			4 => 'create_time',#评论时间
 			5 => 'score',#评分
+			6 => 'status',
 	);
 	
 	static protected $_orderType = array(

@@ -351,7 +351,7 @@ define(function(require,exports){
                 nullmsg:"请输入昵称",
                 errormsg:"长度4-25个字符",
                 ajaxurl:"/member/validate_user_nickname",
-                ajaxUrlName:'nickname',
+                ajaxUrlName:'nickname'
             },
             {
                 ele: ".phone_number",
@@ -360,8 +360,7 @@ define(function(require,exports){
                 nullmsg:"请输入手机号",
                 errormsg:"请输入正确的手机号",
                 ajaxurl:'/register/check_phones',
-                ajaxUrlName:'phone',
-                
+                ajaxUrlName:'phone'
             },
             {    
                 ele:".subjectInput",

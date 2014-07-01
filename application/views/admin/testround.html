@@ -1,0 +1,28 @@
+<div class="col-md-2"><input type="text" class="form-control" id="round_id" placeholder="输入轮ID" /></div>
+<div class="col-md-25">&nbsp;</div><br />
+<div class="col-md-2">
+    <select id="sale_status" class="form-control">
+        <option value=0>未审核</option>
+        <option value=1>审核不通过</option>
+        <option value=2>审核通过（预售）</option>
+        <option value=3>销售中</option>
+        <option value=4>已售罄</option>
+        <option value=5>已停售（时间到了还没售罄）</option>
+        <option value=6>已下架（手动下架）</option>
+    </select>
+</div>
+<div class="col-md-2"><input type="text" name="create_time1" class="form-control sell_begin_time" id="lecture_datetimepicker1" readonly placeholder="请选择开售时间" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control sell_end_time" id="lecture_datetimepicker2" placeholder="请选择停售时间" readonly /></div>
+<div class="col-md-25">&nbsp;</div><br />
+<div class="col-md-2">
+    <select id="teach_status" class="form-control">
+        <option value=1>等待开课</option>
+        <option value=2>授课中</option>
+        <option value=3>停课（手动操作）</option>
+        <option value=4>结课</option>
+        <option value=5>过期(节课后一个月cron会把这个状态改为过期)</option>
+    </select>
+</div>
+<div class="col-md-2"><input type="text" name="create_time1" class="form-control start_time" id="lecture_datetimepicker3" readonly placeholder="请选择开课时间" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control end_time" id="lecture_datetimepicker4" placeholder="请选择结课时间" readonly /></div>
+<div class="col-md-2">
+<div class="col-md-25">&nbsp;</div><br />
+<button type="button" class="btn btn-success" id="success">确定</button>

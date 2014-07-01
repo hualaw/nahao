@@ -160,8 +160,8 @@ define(function(require,exports){
         ]);
         // ajaxurl提交成功处理
         _Form.config({
+            url:'/selfInfo/index',
             ajaxurl:{
-                url:'/selfInfo/index',
                 success:function(json,obj){
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
