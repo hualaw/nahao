@@ -192,5 +192,31 @@ class Crontab extends NH_Controller
     	}
     }
     
+    /**
+     * 外面传参数进来确定时间点,来补救的方法
+     */
+    public function bujiu($stime,$etime)
+    {
+    	$sminute = date('i',strtotime($stime));
+    	$sminute = date('i',strtotime($etime));
+    	
+    }
     
+//     /**
+//      * 获取时间的整分，并去0,15,30,45中的一个
+//      */
+//     public function get_time($time){
+//     	$minute = date('i',strtotime($time));
+// 		if ($minute>0 && $minute<=15)
+// 		{
+// 			$minute = '15';
+// 		}else if ($minute>15 && $minute<=30) {
+// 			$minute = '30';
+// 		}else if ($minute>30 && $minute<=45) {
+// 			$minute = '45';
+// 		}else if ($minute>45 && $minute<=0) {
+// 			$minute = '0';
+// 		}
+// 		return $minute;
+//     }
 }
