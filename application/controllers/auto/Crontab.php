@@ -12,6 +12,7 @@ class Crontab extends NH_Controller
         parent::__construct();
         $this->load->database();
         $this->load->model('business/auto/business_crontab');
+        $this->load->model('model/auto/model_crontab');
     }
 
     /**
@@ -21,8 +22,16 @@ class Crontab extends NH_Controller
      */
     private function Class_Change_SoonClass_To_ClassEnterable()
     {
-
-
+        $int_time = $this->get_time()+1800;
+        $type = 1;
+        $array_class = $this->student_crontab->get_class_data($int_time,$type);
+        if($array_class)
+        {
+        	foreach ($array_class as $k=>$v)
+        	{
+        		$this->student_crontab->update_class_status(array('status'=>CLASS_STATUS_ENTER_ROOM),array('id'=>$v['id']));
+        	}
+        }
     }
 
     /**
@@ -41,14 +50,14 @@ class Crontab extends NH_Controller
      */
     private function Class_Change_ClassEnterable_To_InClass()
     {
-    	$int_time = time();
     	$type = 1;
+    	$int_time = $this->get_time();
     	$array_class = $this->student_crontab->get_class_data($int_time,$type);
     	if($array_class)
     	{
     		foreach ($array_class as $k=>$v)
     		{
-    			$this->student_crontab->update_class_status(array('status'=>3),array('id'=>$v['id']));
+    			$this->student_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASSING),array('id'=>$v['id']));
     		}
     	}
     }
@@ -61,7 +70,7 @@ class Crontab extends NH_Controller
      */
     private function Class_Change_To_SoonClass_Or_OverClass()
     {
-    	$int_time = time();
+    	$int_time = $this->get_time();
     	$type = 2;
     	$array_class = $this->student_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -73,9 +82,9 @@ class Crontab extends NH_Controller
     			#如果老师按开始上课按钮的时间-这节课的开始时间 大于等于5分钟，这这节课老师缺席。否则这节课是“上完课”
     			if($array_return['create_time']-$v['begin_time'] >= 5*60)
     			{
-    				$this->student_crontab->update_class_status(array('status'=>5),array('id'=>$v['id']));
+    				$this->student_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
     			} else{
-    				$this->student_crontab->update_class_status(array('status'=>4),array('id'=>$v['id']));
+    				$this->student_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASS_OVER),array('id'=>$v['id']));
     			}
     		}
     	}
@@ -88,7 +97,7 @@ class Crontab extends NH_Controller
      */
     private function Class_Change_Beginning_To_SoonClass()
     {
-    	$int_time = time();
+    	$int_time = $this->get_time();
     	$type = 2;
     	$array_class = $this->student_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -100,7 +109,7 @@ class Crontab extends NH_Controller
     			{
     				break;
     			} else {
-    				$this->student_crontab->update_class_status(array('status'=>1),array('id'=>$int_class_id));
+    				$this->student_crontab->update_class_status(array('status'=>CLASS_STATUS_SOON_CLASS),array('id'=>$int_class_id));
     			}
     		}
     	}
@@ -113,7 +122,7 @@ class Crontab extends NH_Controller
      */
     private function Student_Class_Change_Beginning_To_Absent()
     {
-    	$int_time = time();
+    	$int_time = $this->get_time();
     	$type = 2;
     	$array_class = $this->student_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -155,7 +164,7 @@ class Crontab extends NH_Controller
      */
     private function Class_Count_Attendance()
     {
-    	$int_time = time();
+    	$int_time = $this->get_time();
     	$type = 2;
     	$array_class = $this->student_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -177,7 +186,7 @@ class Crontab extends NH_Controller
      */
     private function Class_Count_CorrectRate()
     {
-    	$int_time = time();
+    	$int_time = $this->get_time();
     	$type = 2;
     	$array_class = $this->student_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -193,30 +202,12 @@ class Crontab extends NH_Controller
     }
     
     /**
-     * 外面传参数进来确定时间点,来补救的方法
+     * 获取当前时间的正分
      */
-    public function bujiu($stime,$etime)
+    public function get_time()
     {
-    	$sminute = date('i',strtotime($stime));
-    	$sminute = date('i',strtotime($etime));
-    	
+    	$time =date('Y-m-d H:i',time()).":00";
+    	$time = strtotime($time);
+    	return $time;
     }
-    
-//     /**
-//      * 获取时间的整分，并去0,15,30,45中的一个
-//      */
-//     public function get_time($time){
-//     	$minute = date('i',strtotime($time));
-// 		if ($minute>0 && $minute<=15)
-// 		{
-// 			$minute = '15';
-// 		}else if ($minute>15 && $minute<=30) {
-// 			$minute = '30';
-// 		}else if ($minute>30 && $minute<=45) {
-// 			$minute = '45';
-// 		}else if ($minute>45 && $minute<=0) {
-// 			$minute = '0';
-// 		}
-// 		return $minute;
-//     }
 }
