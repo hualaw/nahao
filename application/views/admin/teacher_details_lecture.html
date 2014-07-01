@@ -69,7 +69,7 @@
     </tr>
     <tr height="35">
         <td width="200">老师基本课酬</td>
-        <td><input type="text" id="basic_reward" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_basic_reward"></span></td>
+        <td>{if $details.status!=4}<input type="text" id="basic_reward" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_basic_reward">{else}该用户已通过审核,课酬不在此显示{/if}</span></td>
     </tr>
 </table>
 
