@@ -82,14 +82,16 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .teaInfor{padding: 32px 18px 0;border-bottom: 1px solid #d54c27;height: 42px;}
 .teaInfor h3 span{display: inline-block;width: 18px;height: 15px;margin-left: 10px;}
 .teaInfor h3 em{line-height: 14px;width: 68px;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;}
-.teaInfor .teaInforR{padding-top: 3px;}
-.teaInfor .workCard{background: url(../../images/studenthomePage/workCard.gif) center center no-repeat;}
-.teaInfor .TitleCard{background: url(../../images/studenthomePage/TitleCard.png) center center no-repeat;_background-image: url(../../images/studenthomePage/TitleCard_8.png);}
-.teaInfor .teaCard{font-size:12px;font-weight:normal;text-align:center;line-height: 12px;color:#f3704d;background: url(../../images/studenthomePage/teaCard.png) center center no-repeat;_background-image: url(../../images/studenthomePage/teaCard_8.png);}
+.teaInfor .teaInforR{padding-top: 3px;width: 152px;}
+.teaInfor .workCard{background: url(../../images/studentHomePage/workCard.gif) center center no-repeat;}
+.teaInfor .TitleCard{background: url(../../images/studentHomePage/TitleCard.png) center center no-repeat;_background-image: url(../../images/studentHomePage/TitleCard_8.png);}
+.teaInfor .teaCard{font-size:12px;font-weight:normal;text-align:center;line-height: 12px;color:#f3704d;background: url(../../images/studentHomePage/teaCard.png) center center no-repeat;_background-image: url(../../images/studentHomePage/teaCard_8.png);}
 .teaInfor img{width: 35px;height: 35px;margin-right: 6px;}
 .rotateBox h3{font-size: 14px;}
-.rotateBox .detailInfor{font-size: 12px;margin-top:3px;}
-.rotateBox .courseTitle{position: absolute;bottom: 10px;left: 16px;width: 202px;height: 32px;line-height: 32px;background: url(../../images/common/hoverBg.png) right top no-repeat;}
+.rotateBox .detailInfor{font-size: 12px;margin-top:3px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.clBoxShaow .courseTitle{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.rotateBox .courseTitle{position: absolute;bottom: 10px;left: 16px;padding-right: 32px;width: 170px;height: 32px;line-height: 32px;background: url(../../images/common/hoverBg.png) right top no-repeat;}
+.iniBox .courseTitle{width: 210px;}
 .rotateBox .brief{line-height: 20px;padding: 25px 16px 0;font-size: 12px;}
 .studentHomePage .courseList li:hover .iniBox,
 .studentMyCourse .newList li:hover .iniBox{-webkit-transform:rotateY(90deg);-moz-transform:rotateY(90deg);-ms-transform:rotateY(90deg);}
