@@ -181,7 +181,7 @@
             return $this->db->get()->result_array();
         }
         /**
-         *所有需要结课的轮
+         *所有需要结课的轮（补救）
          * @author shangshikai@tizi.com
          */
         public function all_round_teach_end($begin_time,$end_time)
@@ -193,7 +193,7 @@
             return $this->db->get()->result_array();
         }
         /**
-         *所有需要结课的轮(补救)
+         *所有需要结课的轮
          * @author shangshikai@tizi.com
          */
         public function remedy_all_round_teach_end($advance_time)
