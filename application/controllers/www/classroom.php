@@ -255,7 +255,7 @@ class Classroom extends NH_User_Controller {
         {
         	show_error('您没有购买这堂课啊');
         }
-        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='4')
+        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='5')
         {
         	show_error('您在进行退款流程，现在不能进入教室');
         }
@@ -333,7 +333,6 @@ class Classroom extends NH_User_Controller {
 			
 			$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
 		}
-    	$this->model_classroom->add_entering_classroom_data($array_insert);
     	$this->smarty->assign('classroom_id',$int_classroom_id);
     	$this->smarty->assign('class_id',$array_class['id']);
     	$this->smarty->assign('iframe',$str_iframe);

@@ -293,6 +293,23 @@ define(function(require,exports){
 
             }           
         ]);
+        
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/member/my_infor',
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
         // 请求focus的时候出现提示文字的样式
         require("module/login/validFocus");
     };
@@ -380,6 +397,23 @@ define(function(require,exports){
 
             }           
         ]);
+        
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/member/my_infor',
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
         // 请求focus的时候出现提示文字的样式
         require("module/login/validFocus");
     };

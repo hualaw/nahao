@@ -158,6 +158,22 @@ define(function(require,exports){
                 errormsg: "请输入身份证号码"
             }
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                url:'/selfInfo/index',
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
         function cardReg(){
             if(_card.luhmCheck($(".bankId").val())==false&&$(".bankId").val()!=""){
                 $(".bankId").addClass("Validform_error");

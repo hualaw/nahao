@@ -45,7 +45,7 @@ class Business_Teacher extends NH_Model
      		$already_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
-     			'status' => "3",
+     			'status' => CLASS_STATUS_CLASS_OVER,
      			'round_id' => $val['id'],
      			'counter' => 1,
      		);
@@ -81,7 +81,7 @@ class Business_Teacher extends NH_Model
      	}else{
      		$input = array(
 	     		'round_id'=>$param['round_id'],
-	     		'status'=>'3',
+	     		'status'=>CLASS_STATUS_CLASSING,
 	     		'parent_id' => -2,//只获取节
 	     		'order' => 2,//按开始时间
 	     		'orderType' => 2,
@@ -233,7 +233,7 @@ class Business_Teacher extends NH_Model
         			$v['parent_name'] = $zjArr[$v['parent_id']]['title'];
         			$jArr[$v['id']] = $v;
         			$zjArr[$v['parent_id']]['son_class'][] = $v;
-        			$rateNum += ($v['status'] == 3) ? 1 : 0;
+        			$rateNum += ($v['status'] == CLASS_STATUS_CLASS_OVER) ? 1 : 0;
         		}else{#章，先遍历
         			$zjArr[$v['id']] = $v;
         		}
@@ -269,7 +269,7 @@ class Business_Teacher extends NH_Model
         			$v['parent_name'] = $zjArr[$v['parent_id']]['title'];
         			$jArr[$v['id']] = $v;
         			$zjArr[$v['parent_id']]['son_class'][] = $v;
-        			$rateNum += ($v['status'] == 3) ? 1 : 0;
+        			$rateNum += ($v['status'] == CLASS_STATUS_CLASS_OVER) ? 1 : 0;
         		}else{#章，先遍历
         			$zjArr[$v['id']] = $v;
         		}

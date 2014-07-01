@@ -1,0 +1,54 @@
+/**
+ * class logic
+ * @author yanrui@tizi.com
+ */
+define(function (require, exports) {
+
+    exports.bind_everything = function () {
+
+        //class edit modal
+        $(".btn_class_edit").on("click",function(){
+            var class_id = $(this).data("class_id");
+            var tds = $(this).parent().parent().children();
+            console.log(tds);
+//            $(tds[3]).text();
+//            $(tds[4]).text();
+            $("#class_begin_time").val($(tds[3]).text());
+            $("#class_end_time").val($(tds[4]).text());
+            $("#modal_class_edit").modal();
+            //class update
+            $("#btn_class_submit").on("click",function(){
+                var begin_time = $("#class_begin_time").val();
+                var end_time = $("#class_end_time").val();
+                var url = $(this).data("action");
+                var data = {
+                    'class_id' : class_id,
+                    'begin_time' : begin_time,
+                    'end_time' : end_time
+                };
+//                console.log(data);
+                $.post(url,data,function(response){
+                    if(response){
+                        alert(response.msg)
+                        if(response.status=="ok"){
+                            window.location.reload();
+                        }
+                    }
+                    console.log(response);
+                });
+            });
+        });
+
+        //date picker in modal
+        $("#class_begin_time,#class_end_time").datetimepicker({
+            format: "yyyy-MM-dd hh:ii",
+            language: 'cn',
+            autoclose : true,
+            hourStep: 1,
+            minuteStep: 15,
+            secondStep: 30,
+            inputMask: true
+        })
+    }
+
+});
