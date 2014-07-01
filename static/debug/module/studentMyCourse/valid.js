@@ -357,10 +357,7 @@ define(function(require,exports){
                 ele: ".phone_number",
                 datatype:"m",
                 ignore:"ignore",
-                nullmsg:"请输入手机号",
-                errormsg:"请输入正确的手机号",
-                ajaxurl:'/register/check_phones',
-                ajaxUrlName:'phone'
+                errormsg:"请输入正确的手机号"
             },
             {    
                 ele:".subjectInput",

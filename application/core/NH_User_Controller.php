@@ -29,7 +29,9 @@ class NH_User_Controller extends NH_Controller
         $user_id = $this->session->userdata('user_id');
         if($user_id) {
             $this->_user_detail = $this->business_user->get_user_detail($user_id);
+            //phone 和 phone_mask 从用户的session中来取, 保持session和user_detail统一
             $this->_user_detail['phone'] = $this->session->userdata('phone');
+            $this->_user_detail['phone_mask'] = $this->session->userdata('phone_mask');
         }
     }
    
