@@ -132,12 +132,12 @@ define(function (require, exports) {
             'course_id' : $("#course_id").val(),
             'lessons' : arr
         };
-        $.each(arr,function(){
-            console.log(this.id+','+this.is_chapter);
-        })
+//        $.each(arr,function(){
+//            console.log(this.id+','+this.is_chapter);
+//        })
 //return false;
         $.post(url,data,function(response){
-//            window.location.reload();
+            window.location.reload();
         });
     }
 
