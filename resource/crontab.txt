@@ -1,0 +1,21 @@
+###class crontab
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Class_Change_SoonClass_To_ClassEnterable >> /tmp/ccstc.log 2>&1
+
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Class_Change_ClassEnterable_To_InClass >> /tmp/ccccti.log 2>&1
+
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Class_Change_To_SoonClass_Or_OverClass >> /tmp/cctsoo.log 2>&1
+
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Class_Change_Beginning_To_SoonClass >> /tmp/ccbts.log 2>&1
+
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Student_Class_Change_Beginning_To_Absent >> /tmp/sccbta.log 2>&1
+
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Class_Count_Attendance >> /tmp/cca.log 2>&1
+
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab Class_Count_CorrectRate >> /tmp/ccc.log 2>&1
+
+#*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab save_fault >> /tmp/csf.log 2>&1
+
+###round crontab
+*/15 * * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php Crontab change_round_status >> /tmp/crs.log 2>&1
+
+
