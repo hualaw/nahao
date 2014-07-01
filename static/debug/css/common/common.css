@@ -153,4 +153,4 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 /*  免费  */
 .courseFree{background: url(../../images/common/free.png) top right no-repeat;position: absolute;right: -6px;top:-6px;width: 87px;height: 89px;z-index: 111;}
 
-.iebrowser{position: absolute;width: 100%;background: red;color: #fff;z-index: 111;}
+.iebrowser{position: absolute;width: 100%;background: red;color: #fff;z-index: 111;left:0px;}
