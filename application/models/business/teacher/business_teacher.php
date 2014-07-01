@@ -69,9 +69,10 @@ class Business_Teacher extends NH_Model
      	if(empty($param['round_id'])){exit('轮id不能为空');}
      	$input = array(
      		'round_id'=>$param['round_id'],
-     		'status'=>'0,1',
+     		'status'=>'0,1,2,3',
      		'parent_id' => -2,//只获取节
-     		'order' => 2,//按开始时间
+     		'order' => 6,//按开课状态
+     		'orderType' => 2,
      		'limit' => '1',
      	); 
      	#1. 查看是否有即将开课的课，显示最前一个
@@ -81,7 +82,7 @@ class Business_Teacher extends NH_Model
      	}else{
      		$input = array(
 	     		'round_id'=>$param['round_id'],
-	     		'status'=>CLASS_STATUS_CLASSING,
+	     		'status'=>CLASS_STATUS_CLASS_OVER,//4
 	     		'parent_id' => -2,//只获取节
 	     		'order' => 2,//按开始时间
 	     		'orderType' => 2,
@@ -184,6 +185,7 @@ class Business_Teacher extends NH_Model
 	     		if($val['parent_id']==0){
 	     			#如果已经出现了章,章节的排序值相同可能导致先出现节后出现章的问题
 	     			$zjArr[$val['id']] = isset($zjArr[$val['id']]) ? array_merge($val,$zjArr[$val['id']]) : $val;
+	     			$zjArr[$val['id']]['jArr'] = array();
 	     		}else{
 	     			#统计出勤率
 	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
