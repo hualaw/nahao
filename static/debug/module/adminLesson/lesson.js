@@ -11,7 +11,6 @@ define(function (require, exports) {
 
         //edit lesson modal
         $("#btn_lesson_create,.btn_lesson_update").on('click',function(){
-            console.log(222);
             //clear all input and bind
             $("#lesson_name").val('');
             $("#lesson_is_chapter").attr('checked',false);
@@ -133,12 +132,12 @@ define(function (require, exports) {
             'course_id' : $("#course_id").val(),
             'lessons' : arr
         };
-//        $.each(arr,function(){
-//            console.log(this.id+','+this.is_chapter);
-//        })
+        $.each(arr,function(){
+            console.log(this.id+','+this.is_chapter);
+        })
 //return false;
         $.post(url,data,function(response){
-            window.location.reload();
+//            window.location.reload();
         });
     }
 

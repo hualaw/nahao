@@ -18,8 +18,8 @@
                 <li class="seachLi">
                     <select name="id" id="" class="fl">
                         <option value="">班级名次</option>
-                        {if $data['listArr']}
-	                    	{foreach $data['listArr'] as $key=>$val}
+                        {if $data['ids']}
+                        	{foreach $data['ids'] as $val}
                         		<option value="{$val['id']}" {if $data['query_param']['id']==$val['id']}selected{/if}>{$val['id']}</option>
                         	{/foreach}
                         {/if}

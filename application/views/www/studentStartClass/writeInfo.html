@@ -51,7 +51,7 @@
 						<p class="fl">选择性别</p>
 						<div class="cf">
 							<div class="cf">
-								<input type="radio" name="gender" id="male" value="1" class="radioInput fl" validName="radio" /><label for="male" class="fl">男</label> 
+								<input checked type="radio" name="gender" id="male" value="1" class="radioInput fl" validName="radio" /><label for="male" class="fl">男</label> 
 								<input type="radio" name="gender" id="female" value="2" class="radioInput fl" validName="radio"/><label for="female" class="fl">女</label>  
 							</div>
 							<span class="Validform_checktip fl"></span>
@@ -70,7 +70,7 @@
 						<div class="cf">
 							{foreach $data['data']['stage'] as $key=>$val}
 							<div class="fl">
-				    			<input type="radio" value="{$key}" name="stage" id="high-{$key}" class="fl checkInput" validName="radio">
+				    			<input type="radio" {if $key==1}checked{/if} value="{$key}" name="stage" id="high-{$key}" class="fl checkInput" validName="radio">
 								<label for="high-{$key}" class="fl">{$val}</label>
 				    		</div>
 							{/foreach}

@@ -429,6 +429,7 @@ define(function(require,exports){
         ]);
         // ajaxurl提交成功处理
         _Form.config({
+            url:'/login/send_reset_email',
             ajaxurl:{
                 success:function(json,obj){
 //                    console.log(json);
@@ -567,6 +568,9 @@ define(function(require,exports){
                 errormsg:"两次密码不一致！"
             }          
         ]);
+        _Form.config({
+            url:'/login/reset_pwd'
+        });
     }
     
        /**

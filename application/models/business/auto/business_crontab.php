@@ -161,29 +161,44 @@
             $hour=date('H',$time);
             $min=date('i',$time);
             $advance_time=mktime($hour,$min,0,$mon,$day,$year);
-            $advance_time=strtotime($advance_time);
 
             $all_round_status=$this->model_crontab->all_round_status();
+            $all_round_status_end=$this->model_crontab->all_round_status_end();
             $all_run_status=$this->model_crontab->all_round_teach();
+            $all_run_end=$this->model_crontab->all_round_teach_end();
 
             foreach($all_round_status as $v)
             {
                 $round_begin_minutes=$v['sell_begin_time'];
-                $round_end_minutes=$v['sell_end_time'];
-
                 if($round_begin_minutes==$advance_time)
                 {
                     return $this->model_crontab->status_begin_round($v['id']);
                 }
+            }
+
+            foreach($all_round_status_end as $v)
+            {
+                $round_end_minutes=$v['sell_end_time'];
                 if($round_end_minutes==$advance_time)
                 {
                     return $this->model_crontab->status_end_round($v['id']);
                 }
             }
 
+
             foreach($all_run_status as $v)
             {
                 $round_start_minutes=$v['start_time'];
+                if($round_start_minutes==$advance_time)
+                {
+                    return $this->model_crontab->status_start_round($v['id']);
+                }
+            }
+            var_dump($all_run_end);
+            foreach($all_run_end as $v)
+            {
+                //var_dump($v);
+
                 $round_end=$v['end_time'];
                 $mon_year=date('Y',$round_end);
                 $mon_mon=date('m',$round_end);
@@ -192,14 +207,9 @@
                 $mon_min=date('i',$round_end);
                 $mon_second=date('s',$round_end);
                 $mon_time=mktime($mon_hour,$mon_min,$mon_second,$mon_mon+1,$mon_day,$mon_year);
-
-                if($round_start_minutes==$advance_time)
-                {
-                    return $this->model_crontab->status_start_round($v['id']);
-                }
                 if($round_end==$advance_time)
                 {
-                    return $this->model_crontab->end_round($v['id']);
+                    echo $this->model_crontab->end_round($v['id']);
                 }
                 if($mon_time<=$time)
                 {
