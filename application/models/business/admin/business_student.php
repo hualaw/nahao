@@ -48,7 +48,7 @@ class Business_Student extends NH_Model
             $str_table_range = 'student_info';
             $str_result_type = 'list';
             $str_fields = 'user.id';
-
+            $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_OFF;
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
                 unset($arr_where['stage']);
@@ -112,7 +112,7 @@ class Business_Student extends NH_Model
             $str_table_range = 'student_info';
             $str_result_type = 'list';
             $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area,register_time';
-
+            $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_OFF;
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
                 unset($arr_where['stage']);
