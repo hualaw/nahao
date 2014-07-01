@@ -319,7 +319,7 @@ class Round extends NH_Admin_Controller
                 $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
 //                var_dump($arr_classes);exit;
                 foreach($arr_classes as $class){
-                    if($class['begin_time']==0 OR $class['end_time']==0){
+                    if($class["parent_id"]>0 AND ($class['begin_time']==0 OR $class['end_time']==0)){
                         $bool_flag = false;
                         $this->arr_response['msg'] = '《'.$class['title'].'》时间不正确，不能生成班次';
                         break;
