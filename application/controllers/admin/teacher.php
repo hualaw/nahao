@@ -250,7 +250,7 @@ class Teacher extends NH_Admin_Controller {
     {
         $user_id=$this->input->get('user_id',TRUE);
         $teacher_details=$this->teacher->teacher_momdify($user_id);
-       // var_dump($teacher_details);die;
+        //var_dump($teacher_details);die;
         $city=$this->teacher->city1($teacher_details['user_info_data']['province']);
         $area=$this->teacher->area1($teacher_details['user_info_data']['city']);
         if($teacher_details['user_info_data']['area']!=0)
