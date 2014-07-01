@@ -7,18 +7,18 @@ $config['redis_db']['student_answer'] = 3; //学生答题记录与统计
 
 
 // Default connection group
-$config['redis_default']['host'] = '127.0.0.1';     // IP address or host
-$config['redis_default']['port'] = '6379';      // Default Redis port is 6379
+$config['redis_default']['host'] = '10.0.0.21';     // IP address or host
+$config['redis_default']['port'] = '9191';      // Default Redis port is 6379
 $config['redis_default']['password'] = '';      // Can be left empty when the server does not require AUTH
 $config['redis_default']['timeout'] = 0.25;
 
-$config['redis_slave']['host'] = '127.0.0.1';
-$config['redis_slave']['port'] = '6379';
+$config['redis_slave']['host'] = '10.0.0.21';
+$config['redis_slave']['port'] = '9191';
 $config['redis_slave']['password'] = '';       // Can be left empty when the server does not require AUTH
 $config['redis_slave']['timeout'] = 0.25;
 
-$config['redis_backup']['host'] = '127.0.0.1';
-$config['redis_backup']['port'] = '6379';
+$config['redis_backup']['host'] = '10.0.0.21';
+$config['redis_backup']['port'] = '9191';
 $config['redis_backup']['password'] = '';
 $config['redis_backup']['timeout'] = 0.25;
 
