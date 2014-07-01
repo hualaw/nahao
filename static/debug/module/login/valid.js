@@ -429,6 +429,7 @@ define(function(require,exports){
         ]);
         // ajaxurl提交成功处理
         _Form.config({
+            url:'/login/send_reset_email',
             ajaxurl:{
                 success:function(json,obj){
 //                    console.log(json);
@@ -567,6 +568,21 @@ define(function(require,exports){
                 errormsg:"两次密码不一致！"
             }          
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     }
     
        /**

@@ -72,24 +72,20 @@ class login extends NH_Controller
         }
     }
 
-
     /**
-         * 重设密码
+     * 重设密码时ajax请求的接口
      */
-    public function reset_pwd()
+    public function ajax_reset_pwd()
     {
-        //登录之后，要跳转到首页
-        if($this->is_login) redirect('/');
-
+        $arr_return = array('status' => ERROR, 'info' => '参数不正确', 'url' => student_url());
         $new_pwd = trim($this->input->post('setPassword'));
         $phone = $this->session->userdata('reset_pwd_phone');
-        $code = trim($this->input->get('code'));//邮箱找回密码的加密口令
+        $code = trim($this->input->post('code'));//邮箱找回密码的加密口令
         if(!$code && !$phone) {
             //上边两个都没有是非法请求,直接跳转首页
-            redirect(student_url());
+            self::json_output($arr_return);
         }
-        $this->smarty->assign('code', $code);
-        $this->smarty->assign('phone_number', $phone);
+        
         //手机找回密码部分
         if($new_pwd && $phone) {
             $user_id = get_uid_phone_server($phone);
@@ -98,10 +94,11 @@ class login extends NH_Controller
                 $this->session->set_userdata('reset_pwd_phone', 0);
                 self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=1'));
             } else {
-                self::json_output(array('status' => ERROR, 'info' => '无效的用户'));
+                $arr_return['info'] = '无效的用户';
+                self::json_output($arr_return);
             }
         }
-            
+                    
         //邮箱找回密码部分
         if($code) {
             $this->load->library('encrypt');
@@ -112,7 +109,8 @@ class login extends NH_Controller
             $email_record_str = $this->cache->redis->get(md5($user_email));
             $email_record_arr = json_decode($email_record_str, true);
             if(empty($email_record_arr)) {
-                redirect('/login/find_pwd');
+                $arr_return['info'] = '邮件已失效';
+                self::json_output($arr_return);
             }
 
             if($new_pwd) {
@@ -123,10 +121,43 @@ class login extends NH_Controller
                     $this->cache->redis->delete(md5($user_email));
                     self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=2'));
                 } else {
-                    self::json_output(array('status' => ERROR, 'info' => '无效的用户'));
+                    $arr_return['info'] = '无效的用户';
+                    self::json_output($arr_return);
                 }
             }
         }
+        
+        self::json_output($arr_return);
+    }
+
+    /**
+         * 重设密码
+     */
+    public function reset_pwd()
+    {
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
+
+        $phone = $this->session->userdata('reset_pwd_phone');
+        $code = trim($this->input->get('code'));//邮箱找回密码的加密口令
+        if(!$code && !$phone) {
+            //上边两个都没有是非法请求,直接跳转首页
+            redirect(student_url());
+        }
+        if($code) {
+            $this->load->library('encrypt');
+            $encrytion_key = $this->config->item('encryption_key');
+            $user_email = $this->encrypt->decode($code, $encrytion_key);
+            $this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
+            $email_record_str = $this->cache->redis->get(md5($user_email));
+            $email_record_arr = json_decode($email_record_str, true);
+            if(empty($email_record_arr)) {
+                redirect(student_url() . '/login/find_pwd?find_ways=2');
+            }
+        }
+        $this->smarty->assign('code', urlencode($code));
+        $this->smarty->assign('phone_number', $phone);
         $this->smarty->display('www/login/setNewPwd.html');
     }
     
@@ -163,7 +194,7 @@ class login extends NH_Controller
             exit($result);
         }
 
-        self::json_output(array('status' => 'error', 'msg' => 'Sorry! 没有找到您的用户信息'));
+        self::json_output(array('status' => 'error', 'msg' => '您的手机号尚未绑定，请核对后重新输入。'));
     }
         
     /**
