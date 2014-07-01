@@ -5,6 +5,9 @@ define(function(require,exports){
     require('lib/preview/preview_swf');
     var classes = require('module/adminClass/class');
     classes.bind_everything();
+
+    var class_upload = require('module/adminClass/upload');
+    class_upload.upload();
 //    require('lib/dragsort/dragsort.min');
 //    $("tbody").dragsort({ dragSelector: "tr", dragBetween: true, dragEnd: saveOrder});
 //

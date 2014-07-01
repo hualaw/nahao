@@ -13,8 +13,8 @@ define(function (require, exports) {
 //            console.log(tds);
 //            $(tds[3]).text();
 //            $(tds[4]).text();
-            $("#class_begin_time").val($(tds[3]).text());
-            $("#class_end_time").val($(tds[4]).text());
+            $("#class_begin_time").val($(tds[4]).text());
+            $("#class_end_time").val($(tds[5]).text());
             $("#modal_class_edit").modal();
             //class update
             $("#btn_class_submit").on("click",function(){
@@ -41,6 +41,17 @@ define(function (require, exports) {
                     console.log(response);
                 });
             });
+        });
+
+        $(".reload_courseware").on("click",function(){
+            var url = '/classes/reload';
+            var data = {
+                'classroom_id' : $(this).data("classroom_id")
+            };
+            $.post(url,data,function(response){
+                alert(response.msg)
+                window.location.reload();
+            })
         });
 
         //date picker in modal

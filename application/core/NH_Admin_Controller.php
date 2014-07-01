@@ -29,7 +29,7 @@ class NH_Admin_Controller extends NH_Controller
             if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='enter'){
                 $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_CLASSROOM);
             }
-            if(in_array($this->current['controller'],array('class')) AND $this->current['action']=='preview'){
+            if(in_array($this->current['controller'],array('class','lesson')) AND $this->current['action']=='preview'){
                 $this->arr_admin_init_css[] = STATIC_ADMIN_CSS_PREVIEW;
             }
 //            o($this->is_login,true);
