@@ -289,25 +289,12 @@ class Member extends NH_User_Controller {
             $this->load->model('business/common/business_user');
             $post_data = array();
             $phone = trim($this->input->post('phone'));
-            $code = intval($this->input->post('code'));
-            $verify_type = intval($this->input->post('verify_type'));
-            if($phone && $code && $verify_type == 2) {
-                #同时接收到手机、验证码并且验证类型是2,证明用户要绑定手机了
-                $this->load->model('business/common/business_register');
-                $check_ret = $this->business_register->_check_captcha($phone, $code, $verify_type);
-                if(!$check_ret) {
-                    $arr_return = array('status' => ERROR, 'msg' => '验证码无效,请重新发送');
-                    self::json_output($arr_return);
-                } else {
-                    #phone_server加一条记录, user更新phone_mask和phone_verified
-                    $add_phone_res = add_user_phone_server($user_id, $phone);
-                    if($add_phone_res) {
-                        $phone_data['phone_mask'] = phone_blur($phone);
-                        $phone_data['phone_verified'] = 1;
-                        $this->business_user->modify_user($phone_data, $user_id);
-                        $this->session->set_userdata('phone', $phone);
-                    }
-                }
+            if($phone != $this->_user_detail['phone']) {
+                $phone_mask = empty($phone) ? '' : phone_blur($phone);
+                $phone_data['phone_mask'] = $phone;//邮箱注册的用户,phone_mask在邮箱是明文在redis中是加了掩码的
+                $this->business_user->modify_user($phone_data, $user_id);
+                $this->session->set_userdata('phone', $phone);
+                $this->session->set_userdata('phone_mask', $phone_mask);
             }
             
             $post_data['nickname'] = trim($this->input->post('nickname'));
