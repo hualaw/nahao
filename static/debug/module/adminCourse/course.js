@@ -37,10 +37,16 @@ define(function (require, exports) {
     //get teacher list to select
     exports.teacher_select = function () {
         $(".form-horizontal").on("click", '#course_edit_teacher_select_btn', function () {
+            var arr_teacher_ids = new Array();
+            $(".selected_teacher").each(function(){
+                arr_teacher_ids.push($(this).data("teacher_id"));
+            });
             var modal = $("#course_edit_teacher_select_modal");
             var action = $(this).data('action');
             var data = {
+                'teacher_ids' : arr_teacher_ids
             };
+            console.log(data);
             $.post(action, data, function (response) {
                 var teachers_html = '<div class="form-group">';
                 $(response).each(function (k, v) {
