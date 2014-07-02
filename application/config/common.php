@@ -121,12 +121,6 @@ $config['lecture_factor'][1] = 'course';
 $config['lecture_factor'][2] = 'name';
 $config['lecture_factor'][3] = 'phone';
 
-//全站角色
-$config['role'][0] = '系统';
-$config['role'][1] = '管理员';
-$config['role'][2] = '学生';
-$config['role'][3] = '老师';
-
 
 //退款状态
 /*
@@ -282,9 +276,6 @@ $config['class_checkout_status'][2] = '已结算';
 $config['feedback'][0] = '屏蔽';
 $config['feedback'][1] = '显示';
 
-//公告发布者角色
-$config['author_role'][1] = '管理员';
-$config['author_role'][3] = '老师';
 
 //公告状态
 $config['affiche_status'][1] = '未审核';
