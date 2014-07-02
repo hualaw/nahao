@@ -226,7 +226,7 @@ class Course extends NH_Admin_Controller {
     public function upload(){
         //uploads是相对于index.php的 最后尝试页面直接ajax给七牛
         $config['upload_path'] = '../uploads/';
-        $config['allowed_types'] = 'gif|jpg|png|';//最后这个选项可能会有安全隐患问题
+        $config['allowed_types'] = 'gif|jpg|png';//最后这个选项可能会有安全隐患问题
         $config['max_size'] = '2000';
         $config['max_width']  = '1024';
         $config['max_height']  = '768';
