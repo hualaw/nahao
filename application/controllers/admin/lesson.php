@@ -221,4 +221,28 @@ class Lesson extends NH_Admin_Controller {
 //        }
 //        self::json_output($arr_return);
 //    }
+
+    /**
+     * 预览pdf
+     * @author yanrui@tizi.com
+     */
+    public function preview(){
+        $int_courseware_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        if($int_courseware_id){
+            $arr_courseware_status = get_courseware_status($int_courseware_id);
+            if($arr_courseware_status['status']==true){
+//                o($arr_courseware,true);
+                $arr_courseware = get_courseware_info($int_courseware_id);
+                $this->smarty->assign('coruseware_id', $arr_courseware['id']);
+                $this->smarty->assign('pagenum', $arr_courseware['pagenum']);
+                $this->smarty->assign('swfpath', $arr_courseware['swfpath']);
+                $this->smarty->assign('view', 'preview');
+                $this->smarty->display('admin/layout.html');
+            }else{
+                header("Content-type: text/html; charset=utf-8");
+                die("还没有转换完成，请稍后再试");
+            }
+        }
+    }
+
 }

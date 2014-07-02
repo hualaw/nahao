@@ -418,15 +418,17 @@ class Business_Class extends NH_Model
     /**
      * add courseware to class
      * @param $int_class_id
-     * @param $int_courseware_id
+     * @param $arr_courseware
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function add_courseware($int_class_id, $int_courseware_id){
+    public function add_courseware($int_class_id, $arr_courseware){
         $bool_return = false;
-        if($int_class_id > 0 AND $int_courseware_id > 0){
+        if($int_class_id > 0 AND is_array($arr_courseware)){
+            $this->load->model('business/common/business_courseware','courseware');
+            $this->courseware->create_courseware($arr_courseware);
             $arr_param = array(
-                'courseware_id' => $int_courseware_id,
+                'courseware_id' => $arr_courseware['id'],
             );
             $arr_where = array(
                 'id' => $int_class_id

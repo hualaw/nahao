@@ -191,6 +191,7 @@ class Business_Round extends NH_Model
             );
             $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by,$arr_limit);
         }
+//        o($arr_return,true);
         return $arr_return;
     }
     /**
