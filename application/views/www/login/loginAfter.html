@@ -106,7 +106,7 @@
 					<div class="cf">
 						<div class="fl changeSex">
                             {foreach $gender as $key => $val}
-							<input type="radio" name="gender" value="{$key}" class="radio" ignore="ignore" validName="radio" /> {$val}
+							<input type="radio" name="gender" value="{$key}" class="radio" ignore="ignore" validName="radio" {if $key==1}checked{/if}/> {$val}
                             {/foreach}
 						</div>
 						<span class="Validform_checktip fl"></span>
