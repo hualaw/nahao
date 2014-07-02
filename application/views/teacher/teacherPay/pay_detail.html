@@ -7,13 +7,13 @@
 <div class="nav_crumbs">
     <a href="/welcome/index/">首页 ></a>
     <a href="/pay/index/">课酬结算 ></a>
-    <a href="javascript:void(0)" class="nav_detail">{$data['pay_info']['create_time']|date_format:'%Y'}年{$data['pay_info']['create_time']|date_format:'%d'}月详情</a>
+    <a href="javascript:void(0)" class="nav_detail">{$data['pay_info']['create_time']|date_format:'%Y'}年{$data['pay_info']['create_time']|date_format:'%m'}月详情</a>
 </div>
 <!--小导航结束-->
 <!--付款模块开始-->
 <div class="md_payDetail">
     <div class="md_title cf">
-        <span>{$data['pay_info']['create_time']|date_format:'%Y'}年{$data['pay_info']['create_time']|date_format:'%d'}月课时费总额：<b class="fred">{$data['pay_info']['gross_income']}</b> 元</span>
+        <span>{$data['pay_info']['create_time']|date_format:'%Y'}年{$data['pay_info']['create_time']|date_format:'%m'}月课时费总额：<b class="fred">{$data['pay_info']['gross_income']}</b> 元</span>
         <span>授课次数：<b class="fred">{$data['pay_info']['teach_times']}</b>次</span>
         <span>授课课时：<b class="fred">{$data['pay_info']['class_times']}</b></span>
     </div>
@@ -40,7 +40,7 @@
 		                </td>
 		                <td class="class_cost">{$val['reward']*2}</td>
 		                <td class="class_state">{$val['checkout_status_name']}</td>
-		                <td class="pay_date"><b>2014-11-11</b>12：22：56</td>
+		                <td class="pay_date">{if $data['pay_info']['pay_time']}<b>{$data['pay_info']['pay_time']|date_format:'%Y-%m-%d'}</b>{$data['pay_info']['pay_time']|date_format:'%H:%M:%S'}{else}----{/if}</td>
 		            </tr>
             	{/foreach}
             {else}

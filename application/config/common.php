@@ -290,3 +290,56 @@ $config['author_role'][3] = '老师';
 $config['affiche_status'][1] = '未审核';
 $config['affiche_status'][2] = '审核不通过';
 $config['affiche_status'][3] = '审核通过';
+
+//生成标准轮时候的时间间隔配置
+$config['standard_round_time_config']['before_sell_begin_time_min'] = 86400;//销售时间最早在创建轮时间之后一天
+$config['standard_round_time_config']['before_sell_begin_time_max'] = 86400*30;////销售时间最晚在创建轮时间之后一个月
+
+$config['standard_round_time_config']['before_sell_end_time_min'] = 86400;
+$config['standard_round_time_config']['before_sell_end_time_max'] = 86400*30*2;
+
+$config['standard_round_time_config']['before_begin_time'] = 86400;
+
+/**
+ * 劳务报酬个人计算税率 之 含税级距参数表
+ * 计算说明：
+ * 1. 如果收入<=4000大于800 公式为 A：税费=（收入-800）*税率
+ * 
+ * 2. 如果收入>4000 公式为 B：税费 = 收入*（1-20%）*级距税率-速算扣除数
+ * 		2.1 再根据 收入*（1-20%）所在【含税级距】的级别的参数去使用 【公式B】 计算
+ * 
+ * 3. 小于 800不纳税
+ */
+
+$config['tax_rate_config'][1] = array(
+		'lever' 			=> 1, //级数
+		'range_explain'		=> '大于800小于等于4000',
+		'range_from' 		=> 800,//含税级距范围开始值
+		'range_to' 			=> 4000,//含税级距范围结束值(含)
+		'tax_rate' 			=> 0.2,//税率
+		'quick_deduction'	=> 0,//速算扣除数
+	);
+$config['tax_rate_config'][2] = array(
+		'lever' 			=> 2, //级数
+		'range_explain'		=> '大于4000不超过20000元的部分',
+		'range_from' 		=> 4000,//含税级距范围开始值
+		'range_to' 			=> 20000,//含税级距范围结束值(含)
+		'tax_rate' 			=> 0.2,//税率
+		'quick_deduction'	=> 0,//速算扣除数
+	);
+$config['tax_rate_config'][3] = array(
+		'lever' 			=> 3, //级数
+		'range_explain'		=> '超过20000元至50000元的部分',
+		'range_from' 		=> 20000,//含税级距范围开始值
+		'range_to' 			=> 50000,//含税级距范围结束值(含)
+		'tax_rate' 			=> 0.3,//税率
+		'quick_deduction'	=> 2000,//速算扣除数
+	);
+$config['tax_rate_config'][4] = array(
+		'lever' 			=> 4, //级数
+		'range_explain'		=> '超过50000元的部分',
+		'range_from' 		=> 50000,//含税级距范围开始值
+		'range_to' 			=> '',//【为空不判断极值】
+		'tax_rate' 			=> 0.4,//税率
+		'quick_deduction'	=> 7000,//速算扣除数
+	);
