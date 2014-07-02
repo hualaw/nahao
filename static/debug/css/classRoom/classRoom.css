@@ -130,3 +130,4 @@
 .classRoomPage .scoreBoxPar{max-height: 528px;/*min-height:300px;*//*overflow-y: scroll;*/}
 /*.classRoomPage .optionNav ul{position: absolute;left:0;top:0;width: 75px;}*/
 .classRoomPage .optionNav .sconl{height: 328px;overflow-y: scroll;}
+.classRoomPage .blackBack{background-color: #788595;}

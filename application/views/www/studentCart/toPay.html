@@ -334,13 +334,12 @@
 					</div>
 					<div class="box bank undis creditBox">
 						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
-							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList credit">
 									<li class="title fl">一步验证，无需网银！（网银限额时推荐使用）</li>
 
 									{foreach from=$bank_code['credit'] item=item key=key}
 									<li class="fl {$key}">
-										<input type="radio" id="credit|{$key}" class="fl" name="method" value="credit|{$key}" {if $key == 'guangda'}checked="true"{/if}>
+										<input type="radio" id="credit|{$key}" class="fl" name="method" value="credit|{$key}" {if $key == 'zhaoshang'}checked="true"{/if}>
 										<label for="credit|{$key}" class="fl"></label>
 										<!-- <span class="stagingIcon"></span> -->
 									</li>
@@ -355,7 +354,6 @@
 					</div>
 					<div class="box bank alipayBox undis">
 						<form action="/pay/request/{$array_order.id}" method="post" target="_blank">
-							<h4>网银支付，需开通网上银行</h4>
 								<ul class="cf bankList alipay">
 									<li class="fl alipayLi">
 										<input type="radio" id="alipayLi" class="fl" name="method" value="alipay" checked="true">

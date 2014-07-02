@@ -82,7 +82,7 @@ class Model_Member extends NH_Model{
             case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
             case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
             case 'cancel': $where.=' AND (status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE.')';break;
-            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND_SUCC.
+            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND.
             			' OR status = '.ORDER_STATUS_APPLYREFUND_FAIL.
             			' OR status = '.ORDER_STATUS_APPLYREFUND_AGREE.
             			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;
@@ -90,7 +90,7 @@ class Model_Member extends NH_Model{
         $array_result = array();
         $sql = "SELECT id,spend,create_time,status,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." 
                 WHERE student_id = ".$int_user_id." AND is_delete = 0 ".$where." ORDER BY id DESC LIMIT ".$int_start.",".$int_limit;
-        //echo $sql;die;
+//         echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -109,7 +109,7 @@ class Model_Member extends NH_Model{
             case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
             case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
             case 'cancel': $where.=' AND (status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE.')';break;
-            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND_SUCC.
+            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND.
             			' OR status = '.ORDER_STATUS_APPLYREFUND_FAIL.
             			' OR status = '.ORDER_STATUS_APPLYREFUND_AGREE.
             			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;

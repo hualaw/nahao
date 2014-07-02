@@ -3,10 +3,14 @@ define(function(require,exports){
     var uploadify_swf = siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf';
     var upload_url = 'http://up.qiniu.com';
     var image_host = 'http://n1a2h3a4o5.qiniudn.com/';
-    exports.addUpload = function(){
+    var oldImgKey = $("#new_work_auth_img").val();
+    var oldTimeStr = oldImgKey.substr(8, 13);
+    var date = new Date();
+    var newTimeStr = date.getTime();
+    exports.addUpload = function(auth_img, title_img, work_img){
         //upload teacher qualification img
         var qualificationImgFormData = {'key':$('#new_teacher_auth_img').val(),'token':$('#nahao_token').val()};
-        $('#up_teacher_auth_img').uploadify({
+        $('#' + auth_img).uploadify({
             'formData' : qualificationImgFormData,
             'swf'      : uploadify_swf,
             'uploader' : upload_url, //需要上传的url地址
@@ -31,13 +35,22 @@ define(function(require,exports){
                 /*添加教师资格证书图片*/
                 $("#teacher_auth_img").val(data.key);
                 $(".icon_upload1").hide();
-                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师资格证书</b>';
+                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师资格证书</b><input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan01").html(imgTag).show();
+                //用户可能更改上传的图片, 这里更新img_key
+                $(".new_img_key").each(function() {
+                    var currentImgKey = $(this).val();
+                    var newImgKey = currentImgKey.replace(oldTimeStr, newTimeStr);
+                    $(this).val(newImgKey);
+                });
+                seajs.use("module/teacherSelfInfo/upload", function (ex){
+                    ex.addUpload("up_teacher_auth_img", "up_title_auth_img", "up_work_auth_img");
+                });
             }
         });
         //upload teacher title authentication img
         var titleImgFormData = {'key':$('#new_title_auth_img').val(),'token':$('#nahao_token').val()};
-        $('#up_title_auth_img').uploadify({
+        $('#' + title_img).uploadify({
             'formData' : titleImgFormData,
             'swf'      : uploadify_swf,
             'uploader' : upload_url, //需要上传的url地址
@@ -59,14 +72,23 @@ define(function(require,exports){
                 /*添加教师职称证书图片*/
                 $("#title_auth_img").val(data.key);
                 $(".icon_upload2").hide();
-                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b>';
+                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan02").html(imgTag).show();
+                //用户可能更改上传的图片, 这里更新img_key
+                $(".new_img_key").each(function() {
+                    var currentImgKey = $(this).val();
+                    var newImgKey = currentImgKey.replace(oldTimeStr, newTimeStr);
+                    $(this).val(newImgKey);
+                });
+                seajs.use("module/teacherSelfInfo/upload", function (ex){
+                    ex.addUpload("up_teacher_auth_img", "up_title_auth_img", "up_work_auth_img");
+                });
             }
         });
 
         //upload teacher work authentication img
         var workImgFormData = {'key':$('#new_work_auth_img').val(),'token':$('#nahao_token').val()};
-        $('#up_work_auth_img').uploadify({
+        $('#' + work_img).uploadify({
             'formData' : workImgFormData,
             'swf'      : uploadify_swf,
             'uploader' : upload_url, //需要上传的url地址
@@ -87,8 +109,17 @@ define(function(require,exports){
 //               /*添加学校工作证图片*/
                 $("#work_auth_img").val(data.key);
                 $(".icon_upload3").hide();
-                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b>';
+                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan03").html(imgTag).show();
+                //用户可能更改上传的图片, 这里更新img_key
+                $(".new_img_key").each(function() {
+                    var currentImgKey = $(this).val();
+                    var newImgKey = currentImgKey.replace(oldTimeStr, newTimeStr);
+                    $(this).val(newImgKey);
+                });
+                seajs.use("module/teacherSelfInfo/upload", function (ex){
+                    ex.addUpload("up_teacher_auth_img", "up_title_auth_img", "up_work_auth_img");
+                });
             }
         });
         

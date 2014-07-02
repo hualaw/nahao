@@ -111,7 +111,7 @@
 /*  申请状态  */
 .studentMyCourse .applyState{font-size: 14px;color:#848484;}
 .studentMyCourse .applyState strong{font-size: 16px;color:#4b4b4b;}
-.studentMyCourse .applyState .reason{font-size: 12px;color:#4b4b4b;text-align: left;height: 40px;line-height: 20px;}
+.studentMyCourse .applyState .reason{font-size: 12px;color:#4b4b4b;height: 40px;line-height: 20px;width: 195px;}
 .studentMyCourse .applyState .imporInfor{line-height: 46px;background: #fde3d7;}
 .studentMyCourse .applyState .detailInfor{height: 90px;}
 .studentMyCourse .applyState .talignLeft{text-align: left;padding-left: 16px;width: 450px;}
@@ -120,7 +120,7 @@
 .studentMyCourse .applyState .talignLeft span{margin-right: 12px;}
 .studentMyCourse .applyState .reasonTd{width: 195px;}
 .studentMyCourse .applyState .detailInfor strong{height: 40px;line-height: 40px;}
-.studentMyCourse .applyState .stateTd{text-align: right;padding-right: 28px;}
+.studentMyCourse .applyState .stateTd{width: 159px;}
 .studentMyCourse .applyState .width_92{width: 92px;}
 .studentMyCourse .applyState .width_90{width: 90px;}
 .studentMyCourse .applyState .width_100{width: 100px;}

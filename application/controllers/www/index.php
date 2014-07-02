@@ -10,7 +10,13 @@ class Index extends NH_User_Controller {
         $this->load->model('business/common/business_area');
         $this->load->model('business/common/business_school');
     }
-
+    /**
+     * 浏览器 下载页
+     */
+    public function browser()
+	{
+		$this->smarty->display('www/studentHomePage/browser.html');
+	}
     /**
      * 首页获取轮的列表信息
      */
