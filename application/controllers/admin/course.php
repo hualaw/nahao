@@ -105,7 +105,7 @@ class Course extends NH_Admin_Controller {
 //            $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward AND $int_price /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND /*$arr_lessons and*/ $arr_teachers){
+            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >=0 AND $int_price >=0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND /*$arr_lessons and*/ $arr_teachers){
                 if($arr_teachers){
 //                    if($arr_lessons){
                         //has lessons

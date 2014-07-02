@@ -21,21 +21,24 @@ class Classes extends NH_Admin_Controller {
 //        test_nahao_classroom('api/meetings/307/files/');
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
+        $int_last_class_id = 0;
         if($int_round_id > 0){
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
             $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
             $int_chapter_count = $int_section_count = 0 ;
-            foreach($arr_classes as $class){
+            foreach($arr_classes as $k => $class){
                 if($class['parent_id'] == 0){
                     ++$int_chapter_count;
                 }else{
                     ++$int_section_count;
+                    $int_last_class_id = $class['id'];
                 }
             }
 //            o($arr_classes,true);
         }
         $this->smarty->assign('round',$arr_round);
+        $this->smarty->assign('last_class_id',$int_last_class_id);
         $this->smarty->assign('classes',$arr_classes);
         $this->smarty->assign('class_status',config_item('class_teach_status'));
         $this->smarty->assign('chapter_count',$int_chapter_count);
@@ -51,6 +54,7 @@ class Classes extends NH_Admin_Controller {
     public function update(){
         $int_round_id = $this->input->post('round_id') ? intval($this->input->post('round_id')) : 0;
         $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
+        $int_is_last = $this->input->post('is_last') ? intval($this->input->post('is_last')) : 0;
         $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : 0;
         $str_end_time = $this->input->post('end_time') ? trim($this->input->post('end_time')) : 0;
 
@@ -61,7 +65,7 @@ class Classes extends NH_Admin_Controller {
             'status' => 'error',
             'msg' => '时间不可用'
         );
-        if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0 AND $int_end_time > $int_begin_time){
+        if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0 AND ($int_end_time >= $int_begin_time + 30*60) AND ($int_end_time <= $int_begin_time + 3*3600)){
             $bool_flag = true;
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
@@ -100,6 +104,15 @@ class Classes extends NH_Admin_Controller {
                         'id' => $int_class_id
                     );
                     $this->class->update_class($arr_param,$arr_where);
+                    if($int_is_last==1){
+                        $arr_param_round = array(
+                            'end_time' => strtotime($str_end_time)+3600
+                        );
+                        $arr_where_round = array(
+                            'id' => $int_round_id
+                        );
+                        $arr_round = $this->round->update_round($arr_param_round,$arr_where_round);
+                    }
                     $arr_response = array(
                         'status' => 'ok',
                         'msg' => '修改成功'
