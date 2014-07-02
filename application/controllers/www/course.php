@@ -272,6 +272,7 @@ class Course extends NH_User_Controller {
 	 		show_error('抱歉!这节课没有上传课件');
 	 	}
 	 	$wordStr = $array_courseware['0']['download_url'];
+	 	echo $wordStr;die;
 	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
 	 	$this->forceDownload($wordStr);
 	 }
