@@ -28,8 +28,6 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time()+1800;
     	}
-        $succ = 0;
-        $fail = 0;
         $type = 1;
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
         if($array_class)
@@ -39,13 +37,12 @@ class Crontab extends NH_Controller
         		$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_ENTER_ROOM),array('id'=>$v['id']));
         		if ($bool_flag)
         		{
-        			$succ +=1;
+        			echo "Class_Change_SoonClass_To_ClassEnterable方法--课id为：".$v['id']."状态更新为“可进教室”成功".'\r\n';
         		} else {
-        			$fail +=1;
+        			echo "Class_Change_SoonClass_To_ClassEnterable方法--课id为：".$v['id']."状态更新为“可进教室”失败".'\r\n';
         		}
         	}
         }
-        log_message("ERROR_NAHAO","Class_Change_SoonClass_To_ClassEnterable方法:成功了".$succ."次，失败了".$fail."次\n-------\n");
     }
 
     /**
@@ -82,8 +79,6 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
-    	$succ = 0;
-    	$fail = 0;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
     	{
@@ -92,13 +87,12 @@ class Crontab extends NH_Controller
     			$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASSING),array('id'=>$v['id']));
     			if ($bool_flag)
     			{
-    				$succ +=1;
+    				echo "Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”成功".'\r\n';
     			} else {
-    				$fail +=1;
+    				echo "Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”失败".'\r\n';
     			}
     		}
     	}
-    	log_message("ERROR_NAHAO","Class_Change_ClassEnterable_To_InClass方法:成功了".$succ."次，失败了".$fail."次\n-------\n");
     }
     
     
@@ -115,10 +109,6 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
-    	$succ = 0;
-    	$fail = 0;
-    	$osucc = 0;
-    	$ofail = 0;
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -133,23 +123,21 @@ class Crontab extends NH_Controller
     				$bool_nflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
     				if ($bool_nflag)
     				{
-    					$succ +=1;
+    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”成功".'\r\n';
     				} else {
-    					$fail +=1;
+    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”失败".'\r\n';
     				}
     			} else{
     				$bool_mflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASS_OVER),array('id'=>$v['id']));
     				if ($bool_mflag)
     				{
-    					$osucc +=1;
+    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“上完课”成功".'\r\n';
     				} else {
-    					$ofail +=1;
+    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“上完课”失败".'\r\n';
     				}
     			}
     		}
     	}
-    	log_message("ERROR_NAHAO","Class_Change_To_SoonClass_Or_OverClass方法:改为“缺课”成功了".$succ."次，失败了".$fail."次.
-    	改为“上完课”成功了".$osucc."次，失败了".$ofail."次\n-------\n");
     }
     
     /**
@@ -165,8 +153,6 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
-    	$succ = 0;
-    	$fail = 0;
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -179,16 +165,15 @@ class Crontab extends NH_Controller
     				break;
     			} else {
     				$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_SOON_CLASS),array('id'=>$int_class_id));
-    				if ($bool_flag)
-    				{
-    					$succ +=1;
-    				} else {
-    					$fail +=1;
-    				}
+    			    if ($bool_flag)
+	    			{
+	    				echo "Class_Change_Beginning_To_SoonClass方法--课id为：".$v['id']."状态更新为“即将上课”成功".'\r\n';
+	    			} else {
+	    				echo "Class_Change_Beginning_To_SoonClass方法--课id为：".$v['id']."状态更新为“即将上课”失败".'\r\n';
+	    			}
     			}
     		}
     	}
-    	log_message("ERROR_NAHAO","Class_Change_Beginning_To_SoonClass方法:成功了".$succ."次，失败了".$fail."次\n-------\n");
     }
     
     /**
@@ -204,10 +189,6 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
-    	$succ = 0;
-    	$fail = 0;
-    	$osucc = 0;
-    	$ofail = 0;
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -227,22 +208,22 @@ class Crontab extends NH_Controller
     						#将学生课堂表的状态从“初始化”改为“进过教室”
     						$bool_nflag = $this->business_crontab->update_student_class_status(array('status'=>STUDENT_CLASS_ENTER),
     						array('student_id'=>$vv['student_id'],'class_id'=>$v['id']));
-    						if ($bool_nflag)
-    						{
-    							$succ +=1;
-    						} else {
-    							$fail +=1;
-    						}
+    					    if ($bool_nflag)
+		    				{
+		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“进过教室”成功".'\r\n';
+		    				} else {
+		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“进过教室”失败".'\r\n';
+		    				}
     					} else {
     						#将学生课堂表的状态从“初始化”改为“缺席”
     						$bool_mflag = $this->business_crontab->update_student_class_status(array('status'=>STUDENT_CLASS_LOST),
     						array('student_id'=>$vv['student_id'],'class_id'=>$v['id']));
-    						if ($bool_mflag)
-    						{
-    							$osucc +=1;
-    						} else {
-    							$ofail +=1;
-    						}
+    					   	if ($bool_mflag)
+		    				{
+		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“缺席”成功".'\r\n';
+		    				} else {
+		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“缺席”失败".'\r\n';
+		    				}
     					}
     				}
     			} else {
@@ -251,8 +232,6 @@ class Crontab extends NH_Controller
 
     		}
     	}
-    	log_message("ERROR_NAHAO","Student_Class_Change_Beginning_To_Absent方法:从“初始化”改为“进过教室”成功了".$succ."次，失败了".$fail."次.
-    	从“初始化”改为“缺席”成功了".$osucc."次，失败了".$ofail."次\n-------\n");
     }
     
     
@@ -269,8 +248,7 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
-    	$succ = 0;
-    	$fail = 0;
+
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -281,15 +259,14 @@ class Crontab extends NH_Controller
     			$array_count = $this->business_crontab->get_class_count_attendance($v['classroom_id']);
     			#更新每个课的出席人数
 				$bool_flag = $this->model_crontab->update_class_attendance(array('attendance'=>$array_count['num']),array('id'=>$v['id']));
-				if ($bool_flag)
-				{
-					$succ +=1;
-				} else {
-					$fail +=1;
-				}
+    		    if ($bool_flag)
+    			{
+    				echo "Class_Count_Attendance方法--课id为：".$v['id']."课的出席人数更新为:".$array_count['num']."成功".'\r\n';
+    			} else {
+    				echo "Class_Count_Attendance方法--课id为：".$v['id']."课的出席人数更新为:".$array_count['num']."失败".'\r\n';
+    			}
     		}
     	}
-    	log_message("ERROR_NAHAO","Class_Count_Attendance方法:成功了".$succ."次，失败了".$fail."次\n-------\n");
     }
     
     /**
@@ -305,8 +282,6 @@ class Crontab extends NH_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
-    	$succ = 0;
-    	$fail = 0;
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -317,15 +292,14 @@ class Crontab extends NH_Controller
     			$float_count = $this->business_crontab->get_class_count_correctrate($v['id']);
     			#更新每个课上做题的正确率
     			$bool_flag = $this->model_crontab->update_class_correct_rate(array('correct_rate'=>$float_count),array('id'=>$v['id']));
-    			if ($bool_flag)
+    		    if ($bool_flag)
     			{
-    				$succ +=1;
+    				echo "Class_Count_CorrectRate方法--课id为：".$v['id']."课上做题的正确率更新为:".$float_count."成功".'\r\n';
     			} else {
-    				$fail +=1;
+    				echo "Class_Count_CorrectRate方法--课id为：".$v['id']."课上做题的正确率更新为:".$float_count."失败".'\r\n';
     			}
     		}
     	}
-    	log_message("ERROR_NAHAO","Class_Count_Attendance方法:成功了".$succ."次，失败了".$fail."次\n-------\n");
     }
     
     /**
