@@ -203,6 +203,14 @@ class NH_Controller extends CI_Controller
     {
         $phone = trim($this->input->post('phone'));
         $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
+
+        $send_info = $this->_send_captcha($phone, $type);
+        //unset($send_info['data']);
+        self::json_output($send_info);
+    }
+
+    protected function _send_captcha($phone, $type)
+    {
         $this->load->library('sms');
         $this->sms->setPhoneNums($phone);
 
@@ -214,7 +222,8 @@ class NH_Controller extends CI_Controller
         $send_ret = $this->sms->send();
         //$send_ret['error'] = 'Ok';
 
-        $info = array(  'phone' => $phone,
+        $info = array(
+            'phone' => $phone,
             'verify_code'=>$verify_code,
             'msg'=>$msg,
             'create_time'=>$create_time,
@@ -242,8 +251,7 @@ class NH_Controller extends CI_Controller
             $send_info = $this->_log_reg_info(ERROR, 'reg_send_verify_code_failed', $tmp_array);
         }
 
-        //unset($send_info['data']);
-        self::json_output($send_info);
+        return $send_info;
     }
 
 
