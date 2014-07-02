@@ -150,7 +150,7 @@
          *轮的状态
          * @author shangshikai@tizi.com
          */
-        public function round_change_status($begin_time,$end_time,$advance_time,$time)
+        public function round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time)
         {
             //var_dump($begin_time);die;
             if($begin_time==FALSE || $end_time==FALSE)
@@ -159,6 +159,7 @@
                 $all_round_status_end=$this->model_crontab->all_round_status_end($advance_time);
                 $all_run_status=$this->model_crontab->all_round_teach($advance_time);
                 $all_run_end=$this->model_crontab->all_round_teach_end($advance_time);
+                $all_expire_end=$this->model_crontab->all_expire_end($ex_time);
             }
             else
             {
@@ -166,6 +167,7 @@
                 $all_round_status_end=$this->model_crontab->remedy_all_round_status_end($begin_time,$end_time);
                 $all_run_status=$this->model_crontab->remedy_all_round_teach($begin_time,$end_time);
                 $all_run_end=$this->model_crontab->remedy_all_round_teach_end($begin_time,$end_time);
+                $all_expire_end=$this->model_crontab->remedy_all_expire_end($begin_time,$end_time);
             }
 
             foreach($all_round_status as $v)
@@ -197,26 +199,19 @@
 
             foreach($all_run_end as $v)
             {
-                $round_end=$v['end_time'];
-                $mon_year=date('Y',$round_end);
-                $mon_mon=date('m',$round_end);
-                $mon_day=date('d',$round_end);
-                $mon_hour=date('H',$round_end);
-                $mon_min=date('i',$round_end);
-                $mon_second=date('s',$round_end);
-                $mon_time=mktime($mon_hour,$mon_min,$mon_second,$mon_mon+1,$mon_day,$mon_year);
                 $num=$this->model_crontab->end_round($v['id']);
                 if($num==0)
                 {
                     log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
                 }
-                if($mon_time<=$time)
+            }
+
+            foreach($all_expire_end as $v)
+            {
+                $num=$this->model_crontab->expire_round($v['id']);
+                if($num==0)
                 {
-                    $num=$this->model_crontab->expire_round($v['id']);
-                    if($num==0)
-                    {
-                        log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
-                    }
+                    log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
                 }
             }
         }
