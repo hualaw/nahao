@@ -27,6 +27,7 @@ define(function (require, exports) {
                 }
                 var url = $(this).data("action");
                 var data = {
+                    'round_id' : round_id,
                     'class_id' : class_id,
                     'begin_time' : begin_time,
                     'end_time' : end_time
