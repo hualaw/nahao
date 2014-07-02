@@ -94,27 +94,27 @@
             {
                 return FALSE;
             }
-            if($post['role']==1)//1是管理员发的 3是老师发的
+            if($post['role']==2)//2是管理员发的 1是老师发的
             {
                 //管理员发公告
                 $admin_id=$this->userinfo['id'];
                 $data=array(
                     'round_id'=>$post['round_id'],
                     'author'=>$admin_id,
-                    'author_role'=>1,
+                    'author_role'=>2,
                     'content'=>$post['content'],
                     'create_time'=>time(),
                     'status'=>1,
                     'top_time'=>0
                 );
             }
-            if($post['role']==3)
+            if($post['role']==1)
             {
                 //老师发公告,目前还没有此功能
                 $data=array(
                     'round_id'=>$post['round_id'],
                     'author'=>$post['teacher_id'],
-                    'author_role'=>3,
+                    'author_role'=>1,
                     'content'=>$post['content'],
                     'create_time'=>time(),
                     'status'=>1,
