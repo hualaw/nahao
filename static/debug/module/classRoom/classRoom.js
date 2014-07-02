@@ -153,7 +153,7 @@ define(function (require,exports){
 		            content:$('#ansCountHtml').html(),
 		        });
 		        $('.cbutton').click(function(){
-		        	$(this).attr('class','cbutton redBtn').siblings().attr('class','cbutton countBtn');
+		        	$(this).attr('class','cbutton redBtn').siblings().attr('class','cbutton countBtn blackBack');
 		        	cur_sequence = $(this).attr('rel');
 		        	$('.CitemList').fadeOut(500,function(){
 		        		$('.sequence-'+cur_sequence).fadeIn();
