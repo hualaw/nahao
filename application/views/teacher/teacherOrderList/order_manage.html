@@ -25,10 +25,10 @@
         </ul>
         <div class="tab_content" id="tab_content1" style="display:block;">
         {if $data['question']}
-        	{foreach $data['question'] as $val}
+        	{foreach $data['question'] as $key => $val}
         	   <!--单选答题卡模块开始-->
 	           <div class="md_ques">
-	                <h2><span class="cbutton lgrayBtn">1</span><span class="cbutton redBtn">{if $val['type']==1}单选{elseif $val['type']==2}多选{/if}</span></h2>
+	                <h2><span class="cbutton lgrayBtn">{$key+1}</span><span class="cbutton redBtn">{if $val['type']==1}单选{elseif $val['type']==2}多选{/if}</span></h2>
 	                <div class="md_tmp">
 	                    <h3>{$val['question']}</h3>
 	                    {foreach $val['options'] as $k=>$v}
