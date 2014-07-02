@@ -27,3 +27,4 @@
 
 #每月结算老师的课酬
 5 0 1 */1 * /usr/bin/php -c /etc/php5/fpm/php.ini -f /opt/nahaotest.com/nahao/webroot/index.php crontab teacher_checkout 2
+
