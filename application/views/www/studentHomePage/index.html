@@ -75,7 +75,7 @@
 									<span {if $item.teacher.titile_auth}class="TitleCard fl"{else}class="fl"{/if}></span>
 									<span {if $item.teacher.teacher_auth}class="teaCard fl"{else}class="fl"{/if}></span>
 									</h3>
-									<p class="detailInfor">{$item.teacher.teacher_signature}</p>
+									<p class="detailInfor">{$item.subtitle}</p>
 								</div>
 							</div>
 							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
