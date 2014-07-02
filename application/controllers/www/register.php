@@ -155,9 +155,6 @@ class register extends NH_Controller
     {
         $name = trim($this->input->post('name'));
         $param = trim($this->input->post('phone'));
-        if($param == $this->session->userdata('phone')) {
-            self::json_output(array('status' => 'ok'));//这块是为了让前台未更改手机号时验证通过
-        }
         $result = $this->business_register->check_phone($param);
         if($result['status']=='ok') {
             $arr_return = array('status' => 'ok', 'info' => $result['msg']);

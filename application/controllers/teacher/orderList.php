@@ -37,6 +37,7 @@ class OrderList extends NH_User_Controller {
         $param = array(
      			'teacher_id' 	=> $this->teacher_id,
      			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3,4",
+     			'sale_status'	=> '2,3,4,5,6',//排除过审核的
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
@@ -53,6 +54,7 @@ class OrderList extends NH_User_Controller {
 		$param = array(
      			'teacher_id' 	=> $this->teacher_id,
      			'teach_status' 	=> isset($_GET['teach_status']) ? $_GET['teach_status'] : "0,1,2,3,4",
+     			'sale_status'	=> '2,3,4,5,6',//排除过审核的
      			'course_type' 	=> isset($_GET['course_type']) ? $_GET['course_type'] : "",
      			'id' 			=> isset($_GET['id']) ? $_GET['id'] : '',
      			'title' 		=> isset($_GET['title']) ? $_GET['title'] : '',
