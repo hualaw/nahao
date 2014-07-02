@@ -126,7 +126,7 @@ class Round extends NH_Admin_Controller
 
 //            o($this->input->post(),true);
 
-            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward>=0 AND $int_price>=0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price AND $int_sell_begin_time AND $int_sell_end_time /*AND $int_start_time AND $int_end_time*/) {
+            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >= 0 AND $int_price >= 0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price >= 0 AND $int_sell_begin_time AND $int_sell_end_time /*AND $int_start_time AND $int_end_time*/) {
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;

@@ -15,7 +15,7 @@ define(function(require,exports){
 
         //load ckeditor
         if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description');
+            CKEDITOR.replace('nahao_description',{ toolbar:'Basic', height:300 ,width:700});
         }
 
     }
