@@ -115,7 +115,7 @@ class Course extends NH_User_Controller {
 	        self::json_output(array('status'=>'ok','data'=>array('content'=>$array_result['content'],
 	              'class_title'=>$array_result['class_title'])));
 	    } else {
-	        self::json_output(array('status'=>'error','msg'=>'获取云笔记数据出错'));
+	        self::json_output(array('status'=>'error','msg'=>'没获取到您的云笔记'));
 	    }
 	}
 	
@@ -272,7 +272,7 @@ class Course extends NH_User_Controller {
 	 		show_error('抱歉!这节课没有上传课件');
 	 	}
 	 	$wordStr = $array_courseware['0']['download_url'];
-	 	echo $wordStr;die;
+	 	//echo $wordStr;die;
 	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
 	 	$this->forceDownload($wordStr);
 	 }
