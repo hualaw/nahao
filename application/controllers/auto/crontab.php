@@ -3,7 +3,7 @@
  * 15分钟定时统计(0,15,30,45整分开始跑计划任务)
  */
 class Crontab extends CI_Controller
-{
+{ 
     /**
      * 加载数据库连接
      */
