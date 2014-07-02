@@ -109,7 +109,7 @@ class Crontab extends CI_Controller
     	{
     		$int_time = $time;
     	} else {
-    		$int_time = $this->get_time();
+    		$int_time = '1404294300';//$this->get_time();
     	}
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
@@ -122,8 +122,8 @@ class Crontab extends CI_Controller
     			#如果老师按开始上课按钮的时间-这节课的开始时间 大于等于5分钟，这这节课老师缺席。否则这节课是“上完课”
     			if(empty($array_return))
     			{
-    				$bool_nflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
-    				if ($bool_nflag)
+    				$bool_sflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
+    				if ($bool_sflag)
     				{
     					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”成功,老师没有按".'\r\n';
     				} else {
