@@ -243,4 +243,39 @@ class Model_Member extends NH_Model{
     	$array_result = $this->db->query($sql)->result_array();
     	return $array_result;
     }
+    
+    /**
+     * 课总共几节，开了几节
+     * @param  $type 1:开了的课 0 所有的课
+     * @param  $int_round_id
+     * @return $array_result['num']
+     */
+    public function get_class_count($type,$int_round_id)
+    {
+    	
+    	if($type == '1')
+    	{	
+    		#开了几节课
+    		$where =" AND (status = ".CLASS_STATUS_CLASS_OVER." OR status = ".CLASS_STATUS_MISS_CLASS.")";
+    	} else {
+    		#总共几节课
+    		$where = '';
+    	}
+    	$sql = "SELECT count(id) AS num FROM ".TABLE_CLASS." WHERE  round_id = ".$int_round_id." AND parent_id>0 ".$where;
+    	$array_result = $this->db->query($sql)->row_array();
+    	return $array_result['num'];
+    }
+    
+    /**
+     * 获取管理员的数据
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function get_manager_data($int_user_id)
+    {
+    	$array_result  = array();
+    	$sql = " SELECT username FROM ".TABLE_ADMIN." WHERE id = ".$int_user_id;
+    	$array_result = $this->db->query($sql)->row_array();
+    	return $array_result;
+    }
 }
