@@ -1,0 +1,40 @@
+<div class="header">
+	<div class="iebrowser">您正在使用的浏览器无法支持那好的正常使用。为更好的浏览本站，建议您将浏览器升级到IE8或以下浏览器：360极速 / Chrome / Safari<span>下载地址：<a href="">点击这里</a></span></div>
+	<div class="headLogin">
+		<div class="layout headInfor">
+			<div class="fr headLoginBox">
+				<!--登录之前 开始-->
+                {if !$is_login}
+                <div class="loginBefor ">
+					<a href="javascript:void(0)" class="blueText commonLoginBtn">登录</a>
+					<span>|</span>
+					<a href="{$student_url}register" class="blueText">注册</a>
+				</div>
+				<!--登录之前 结束-->
+                {else}
+				<!--登录之后 开始-->
+				<div class="loginAfter">
+					{if isset($user_detail['teach_priv']) && $user_detail['teach_priv']==1}
+					<a href='{$teacher_url}' class=" redText">教师后台</a>
+					<span>|</span>
+					{/if}
+					<a href="{$student_url}member/my_infor" class="blueText">{$nickname}</a>
+					<span>|</span>
+					<a href="/login/logout" class="grayText">退出</a>
+				</div>
+                {/if}
+				<!--登录之后 结束-->
+			</div>
+			{if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
+			<a href="{$student_url}index/apply_teach" class="fr studentStartClass redText">我要开课</a>
+			{/if}
+		</div>
+	</div>
+	<div class="headNav">
+		<div class="layout">
+			<!--那好 logo-->
+			<h1 class="fl"><a href="{$student_url}"></a></h1>
+			
+		</div>
+	</div>
+</div>
