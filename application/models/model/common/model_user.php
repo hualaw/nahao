@@ -73,8 +73,8 @@ class Model_User extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function update_user_info($arr_param,$arr_where){
-        $this->db->update(TABLE_USER_INFO, $arr_param, $arr_where);
+    public function update_user_info($arr_param,$arr_info_where){
+        $this->db->update(TABLE_USER_INFO, $arr_param, $arr_info_where);
         $int_affected_rows = $this->db->affected_rows();
         return $int_affected_rows > 0 ? true :false;
     }
@@ -88,6 +88,7 @@ class Model_User extends NH_Model
         {
            $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>0),array(TABLE_USER.'.id'=>$v));
            $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>0),array(TABLE_USER_INFO.'.user_id'=>$v));
+           log_message('debug_nahao', "account_close, sql:".$this->db->last_query());
         }
         return TRUE;
     }
@@ -113,7 +114,7 @@ class Model_User extends NH_Model
         $teacher_data=array();
         $phone=get_pnum_phone_server($user_id);
         $user_data=$this->db->select(TABLE_USER.'.nickname,email')->from(TABLE_USER)->where(TABLE_USER.'.id',$user_id)->get()->row_array();
-        $user_info_data=$this->db->select(TABLE_USER_INFO.'.realname,age,gender,hide_realname,hide_school,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,teacher_age,stage,teacher_intro,basic_reward')->from(TABLE_USER_INFO)->where(TABLE_USER_INFO.'.user_id',$user_id)->get()->row_array();
+        $user_info_data=$this->db->select(TABLE_USER_INFO.'.realname,age,gender,hide_realname,hide_school,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,teacher_age,stage,teacher_intro,basic_reward,work_auth_img,title_auth_img,teacher_auth_img')->from(TABLE_USER_INFO)->where(TABLE_USER_INFO.'.user_id',$user_id)->get()->row_array();
         $user_data['phone']=$phone;
         $teacher_data['user_data']=$user_data;
         $teacher_data['user_info_data']=$user_info_data;

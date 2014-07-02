@@ -48,7 +48,7 @@ class Model_Member extends NH_Model{
     public function get_student_class_done($int_user_id,$int_round_id)
     {
         $sql = "SELECT count(id) AS num FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." 
-                AND round_id = ".$int_round_id." AND status = 2";
+                AND round_id = ".$int_round_id." AND (status = ".STUDENT_CLASS_ENTER." OR status =".STUDENT_CLASS_LOST.")";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result['num'];
     }
@@ -82,12 +82,15 @@ class Model_Member extends NH_Model{
             case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
             case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
             case 'cancel': $where.=' AND (status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE.')';break;
-            case 'refund': $where.=' AND status = '.ORDER_STATUS_APPLYREFUND_SUCC;break;
+            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND.
+            			' OR status = '.ORDER_STATUS_APPLYREFUND_FAIL.
+            			' OR status = '.ORDER_STATUS_APPLYREFUND_AGREE.
+            			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;
         }
         $array_result = array();
         $sql = "SELECT id,spend,create_time,status,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." 
                 WHERE student_id = ".$int_user_id." AND is_delete = 0 ".$where." ORDER BY id DESC LIMIT ".$int_start.",".$int_limit;
-        //echo $sql;die;
+//         echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -106,7 +109,10 @@ class Model_Member extends NH_Model{
             case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
             case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
             case 'cancel': $where.=' AND (status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE.')';break;
-            case 'refund': $where.=' AND status = '.ORDER_STATUS_APPLYREFUND_SUCC;break;
+            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND.
+            			' OR status = '.ORDER_STATUS_APPLYREFUND_FAIL.
+            			' OR status = '.ORDER_STATUS_APPLYREFUND_AGREE.
+            			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;
         }
         $array_result = array();
         $sql = "SELECT COUNT(id) AS count FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id.$where." AND is_delete = 0";
@@ -221,6 +227,20 @@ class Model_Member extends NH_Model{
     {
     	$sql = "SELECT teach_priv,avatar FROM ".TABLE_USER." WHERE id = ".$int_user_id." AND status = 1";
     	$array_result = $this->db->query($sql)->row_array();
+    	return $array_result;
+    }
+    
+    /**
+     * 找到该学生没有上课的课id
+     * @param  $array_data['round_id']
+     * @param  $array_data['student_id']
+     */
+    public function get_student_class_undone($array_data)
+    {
+    	$array_result = array();
+    	$sql = "SELECT class_id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$array_data['student_id']." 
+    			AND round_id = ".$array_data['round_id']." AND (status = ".STUDENT_CLASS_INIT." OR status = ".STUDENT_CLASS_REFUND_FAIL.") ";
+    	$array_result = $this->db->query($sql)->result_array();
     	return $array_result;
     }
 }

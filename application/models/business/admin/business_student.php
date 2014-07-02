@@ -28,10 +28,11 @@ class Business_Student extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function update_student($arr_param,$arr_where){
+    public function update_student($arr_param,$arr_where,$arr_info_where){
         $bool_flag = false;
         if($arr_param AND $arr_where){
-            $bool_flag = $this->model_user->update_user($arr_param,$arr_where);
+            $this->model_user->update_user($arr_param,$arr_where);
+            $bool_flag = $this->model_user->update_user_info($arr_param,$arr_info_where);
         }
         return $bool_flag;
     }
@@ -48,7 +49,7 @@ class Business_Student extends NH_Model
             $str_table_range = 'student_info';
             $str_result_type = 'list';
             $str_fields = 'user.id';
-
+            $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_OFF;
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
                 unset($arr_where['stage']);
@@ -88,8 +89,11 @@ class Business_Student extends NH_Model
             $arr_group_by = array(
                 TABLE_USER.'.id'
             );
+            $arr_order_by = array(
+                TABLE_USER.'.register_time' => 'desc'
+            );
 //            o($arr_where);
-            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by);
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by);
             $int_return = count($arr_return);
         }
         return $int_return;
@@ -109,7 +113,7 @@ class Business_Student extends NH_Model
             $str_table_range = 'student_info';
             $str_result_type = 'list';
             $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area,register_time';
-
+            $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_OFF;
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
                 unset($arr_where['stage']);
@@ -153,7 +157,10 @@ class Business_Student extends NH_Model
             $arr_group_by = array(
                 TABLE_USER.'.id'
             );
-            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, array(),$arr_limit);
+            $arr_order_by = array(
+                TABLE_USER.'.register_time' => 'desc'
+            );
+            $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by,$arr_limit);
         }
         return $arr_return;
     }

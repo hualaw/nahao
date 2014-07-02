@@ -566,10 +566,13 @@ function nh_curl($str_url,$arr_param,$str_type='post') {
     if($str_type=='post'){
         curl_setopt($obj_curl, CURLOPT_POST, 1);
         curl_setopt($obj_curl, CURLOPT_POSTFIELDS, http_build_query($arr_param));
+    }elseif($str_type=='delete'){
+        curl_setopt($obj_curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        $str_url .= '?'.http_build_query($arr_param);
     }else{
         $str_url .= '?'.http_build_query($arr_param);
     }
-//    o($str_url,true);
+//    o($str_url);
     curl_setopt($obj_curl,CURLOPT_URL,$str_url);
 //    curl_setopt($obj_curl, CURLOPT_HEADER,array("Content-length: 99999") ); // 设置header 过滤HTTP头
     curl_setopt($obj_curl, CURLOPT_HEADER,0); // 设置header 过滤HTTP头
@@ -632,7 +635,7 @@ function general_classroom_id($arr_param){
         //log
         if($str_response){
             $arr_response = json_decode($str_response,true);
-//            o($str_response);
+//            o($str_response,true);
             $int_return = ($arr_response AND isset($arr_response['id'])) ? $arr_response['id'] : 0;
         }
     }
@@ -774,4 +777,59 @@ function get_courseware_info($int_courseware_id){
         $arr_response = isset($arr_response['id']) ? $arr_response : array();
     }
     return $arr_response;
+}
+
+function get_courseware_status($int_courseware_id){
+    $arr_response = array();
+    $str_url = NH_MEETING_URL.'api/files/'.$int_courseware_id.'/status/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'get');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+//        o($arr_response,true);
+        $arr_response = isset($arr_response['status']) ? $arr_response : array();
+    }
+    return $arr_response;
+}
+
+function reload_courseware($int_classroom_id){
+    $arr_response = array();
+    $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/reload/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'post');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+//        o($arr_response,true);
+        $arr_response = isset($arr_response['status']) ? $arr_response : array();
+    }
+    return $arr_response;
+}
+
+function get_coursewares_by_classroom_id($int_classroom_id){
+    $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/files/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'get');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+        $arr_ids = array();
+        if($arr_response['count'] > 0){
+            foreach($arr_response['results'] as $files){
+                $arr_ids[] = $files['id'];
+            }
+        }
+        $arr_response = $arr_ids;
+    }
+    return $arr_response;
+}
+
+function delete_courseware_by_classroom_id($int_classroom_id,$int_courseware_id){
+    $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/files/'.$int_courseware_id.'/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'delete');
+//    o($str_response,true);
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+//        o($arr_response,true);
+    }
+    $arr_response = isset($arr_response['status']) ? $arr_response : array();
 }

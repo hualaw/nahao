@@ -118,6 +118,33 @@ class NH_Model extends CI_Model
             'remb_me' => $remb_me,
         );
         $this->session->set_userdata($userdata);
+
+
+        $CI =& get_instance();
+
+        if($remb_me)
+        {
+            $expire = $CI->config->item('sess_autologin_expiration') + time();
+        }
+        else
+        {
+            $expire = $CI->config->item('sess_expiration') + time();
+        }
+
+        $CI->load->model('model/common/model_session_log', 'msl');
+        $cookie_name = $CI->config->item('sess_cookie_name');
+        $session_log = array(
+            'session_id' => $_COOKIE[$cookie_name],
+            'user_id' => $user_id,
+            'nickname' => $nickname,
+            'ip' => ip2long($CI->input->ip_address()),
+            'expire_time' => $expire,
+            'user_type' => $user_type,
+            'exit_time' => 0,
+        );
+
+        log_message('debug_nahao', 'NH_Model/set_session_data, '.print_r($session_log,1));
+        $CI->msl->update_session_log($session_log);
     }
 
     public function check_phone_format($phone)

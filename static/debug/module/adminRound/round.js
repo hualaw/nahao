@@ -46,9 +46,14 @@ define(function(require,exports){
 
         //get teacher list to select
         $("#round_edit_teacher_select_btn").on("click", function () {
+            var arr_teacher_ids = new Array();
+            $(".selected_teacher").each(function(){
+                arr_teacher_ids.push($(this).data("teacher_id"));
+            });
             var modal = $("#round_edit_teacher_select_modal");
             var action = $(this).data('action');
             var data = {
+                'teacher_ids' : arr_teacher_ids
             };
             $.post(action, data, function (response) {
                 var teachers_html = '<div class="form-group">';
@@ -117,25 +122,101 @@ define(function(require,exports){
         $('#round_edit_submit_round').on("click", function () {
             var id = $("#id").val();
             var title = $("#title").val();
+            if(!title && title!='undefined'){
+                alert("班次名称不能为空");
+                return false;
+            }
             var subtitle = $("#subtitle").val();
+            if(!subtitle && subtitle!='undefined'){
+                alert("一句话简介不能为空");
+                return false;
+            }
             var intro = $("#intro").val();
+            if(!intro && intro!='undefined'){
+                alert("课程简介不能为空");
+                return false;
+            }
             var description = CKEDITOR.instances.nahao_description.getData();
+            if(!description && description!='undefined'){
+                alert("课程描述不能为空");
+                return false;
+            }
             var students = $("#students").val();
+            if(!students && students!='undefined'){
+                alert("适合人群不能为空");
+                return false;
+            }
             var subject = $("#subject").val();
+            if(!subject && subject!='undefined'){
+                alert("科目不能为空");
+                return false;
+            }
             var course_type = $("#course_type").val();
+            if(!course_type && course_type!='undefined'){
+                alert("课程类型不能为空");
+                return false;
+            }
             var reward = $("#reward").val();
+            if(!reward && reward!='undefined'){
+                alert("课酬不能为空");
+                return false;
+            }
             var price = $("#price").val();
+            if(!price && price!='undefined'){
+                alert("价格不能为空");
+                return false;
+            }
 //            var video = $("#video").val();
             var img = $("#img_url").attr('src');
 //            var video = $("#video_url").text();
 
             var course_id = $("#course_id").val();
             var caps = $("#caps").val();
+            if(!caps && caps!='undefined'){
+                alert("上限人数不能为空");
+                return false;
+            }
             var sale_price = $("#sale_price").val();
+            if(!sale_price && sale_price!='undefined'){
+                alert("促销价格不能为空");
+                return false;
+            }
             var sell_begin_time = $("#sell_begin_time").val();
+            if(!sell_begin_time && sell_begin_time!='undefined'){
+                alert("销售开始时间不能为空");
+                return false;
+            }
             var sell_end_time = $("#sell_end_time").val();
+            if(!sell_end_time && sell_end_time!='undefined'){
+                alert("销售结束时间不能为空");
+                return false;
+            }
             var start_time = $("#start_time").val();
+            if(!start_time && start_time!='undefined'){
+                alert("开始时间不能为空");
+                return false;
+            }
             var end_time = $("#end_time").val();
+            if(!end_time && end_time!='undefined'){
+                alert("结束时间不能为空");
+                return false;
+            }
+            if(sale_price > price){
+                alert("促销价格不能大于价格");
+                return false;
+            }
+            if(sell_begin_time >= sell_end_time){
+                alert("销售开始时间不能晚于销售结束时间");
+                return false;
+            }
+            if(sell_end_time > start_time){
+                alert("销售结束时间不能晚于授课开始时间");
+                return false;
+            }
+            if(start_time >= end_time){
+                alert("开始时间不能晚于结束时间");
+                return false;
+            }
 
 
             //validate teachers

@@ -28,4 +28,9 @@ define(function(require,exports){
 
 	// 加载全站公共登陆脚本
 	require('module/nahaoCommon/commonLogin').loginForm();
+
+	if(window.navigator.userAgent.indexOf("MSIE 6")!=-1||window.navigator.userAgent.indexOf("MSIE 7")!=-1){
+		//$("body").prepend("<div class='iebrowser'>您使用的浏览器低版本太低，建议使用高级浏览器访问；</div>");
+		$(".iebrowser").show();
+	}
 })

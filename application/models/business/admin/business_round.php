@@ -101,7 +101,7 @@ class Business_Round extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'round_info';
             $str_result_type = 'list';
-            $str_fields = 'count(1) as count';
+            $str_fields = TABLE_ROUND.'.id';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_ROUND.'.status'] = $arr_where['status'];
                 unset($arr_where['status']);
@@ -129,7 +129,10 @@ class Business_Round extends NH_Model
             $arr_group_by = array(
                 TABLE_ROUND.'.id'
             );
-            $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by);
+            $arr_order_by = array(
+                TABLE_ROUND.'.create_time' => 'desc'
+            );
+            $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by, $arr_order_by);
             $int_return = count($arr_return);
 //            o($int_return,true);
         }
@@ -179,12 +182,16 @@ class Business_Round extends NH_Model
             $arr_group_by = array(
                 TABLE_ROUND.'.id'
             );
+            $arr_order_by = array(
+                TABLE_ROUND.'.create_time' => 'desc'
+            );
             $arr_limit = array(
                 'start'=>$int_start,
                 'limit' => $int_limit
             );
-            $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, array(),$arr_limit);
+            $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by,$arr_limit);
         }
+//        o($arr_return,true);
         return $arr_return;
     }
     /**

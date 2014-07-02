@@ -22,7 +22,7 @@ define(function(require,exports){
             $.ajax({
                 url : student_url + 'login/send_reset_captcha',
                 type : 'post',
-                data : 'phone='+ phone +'&type=3',
+                data : {'phone' : phone, 'type' : 3},
                 dataType : 'json',
                 success : function (result) {
                     if(result.status == 'error') {

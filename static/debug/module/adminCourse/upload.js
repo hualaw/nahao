@@ -11,6 +11,7 @@ define(function(require,exports){
             'buttonClass'     : 'choseFileBtn',
             'fileObjName' : 'file',
             'fileTypeExts' : '*.png;*.jpg;',
+//            'fileSizeLimit' : 2048000,
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {
@@ -38,6 +39,12 @@ define(function(require,exports){
                 $('#img_url_general').attr('src',img_url_general);
                 $('#img_url_small').attr('src',img_url_small);
                 $('#img_url').attr('src',img_url);
+
+                $.get('/course/get_token',function(response){
+                    $('#new_img_file_name').val(response.data.img_file_name);
+                    $('#nahao_token').val(response.data.token);
+                    exports.addUpload();
+                })
             }
         });
 

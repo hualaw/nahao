@@ -148,16 +148,21 @@
     <input type="hidden" name="teacher_auth_img" value="" id="teacher_authimg" />
     <div class="teacher">
         教师资格证:<input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
-        <img src="" id="img_url_general" />
+        <img src="" width="169" height="227" id="img_url_general" />
     </div>
     <div class="title">
         教师职称证:<input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
-        <img src="" id="img_title_general" />
+        <img src="" width="169" height="227" id="img_title_general" />
     </div>
     <div class="work">
         学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
-        <img src="" id="img_work_general" />
+        <img src="" width="169" height="227" id="img_work_general" />
     </div>
     <br /><br />
-    <button type="submit" class="btn btn-success">提交</button>
+
+    <input type="hidden" value="{$user_id}" name="user_id" />
+    <input type="hidden" value="{$teacher_details['user_info_data']['work_auth_img']}" id="work_img" />
+    <input type="hidden" value="{$teacher_details['user_info_data']['title_auth_img']}" id="title_img" />
+    <input type="hidden" value="{$teacher_details['user_info_data']['teacher_auth_img']}" id="teacher_img" />
+    <button type="submit" class="btn btn-success" id="sum">提交</button>
 </form>

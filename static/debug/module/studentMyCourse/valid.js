@@ -293,6 +293,23 @@ define(function(require,exports){
 
             }           
         ]);
+        
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/member/my_infor',
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
         // 请求focus的时候出现提示文字的样式
         require("module/login/validFocus");
     };
@@ -334,17 +351,13 @@ define(function(require,exports){
                 nullmsg:"请输入昵称",
                 errormsg:"长度4-25个字符",
                 ajaxurl:"/member/validate_user_nickname",
-                ajaxUrlName:'nickname',
+                ajaxUrlName:'nickname'
             },
             {
                 ele: ".phone_number",
                 datatype:"m",
                 ignore:"ignore",
-                nullmsg:"请输入手机号",
-                errormsg:"请输入正确的手机号",
-                ajaxurl:'/register/check_phones',
-                ajaxUrlName:'phone',
-                
+                errormsg:"请输入正确的手机号"
             },
             {    
                 ele:".subjectInput",
@@ -380,6 +393,23 @@ define(function(require,exports){
 
             }           
         ]);
+        
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/member/my_infor',
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
         // 请求focus的时候出现提示文字的样式
         require("module/login/validFocus");
     };

@@ -589,7 +589,7 @@ define(function(require,exports){
                 }
             })
 
-            $('form').submit(function(){
+            $('#sum').click(function(){
                 if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
                 {
                     alert('身份证号不对');
@@ -601,5 +601,21 @@ define(function(require,exports){
                     return false;
                 }
             })
+
+            if($('#teacher_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#teacher_img').val();
+                $('#img_url_general').attr('src',img_url_general);
+            }
+            if($('#title_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#title_img').val();
+                $('#img_title_general').attr('src',img_url_general);
+            }
+            if($('#work_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#work_img').val();
+                $('#img_work_general').attr('src',img_url_general);
+            }
     }
 })

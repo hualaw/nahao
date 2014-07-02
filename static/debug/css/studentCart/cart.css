@@ -1,4 +1,5 @@
 /*进度条样式开始*/
+.studentCart .Validform_right{width:0px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 .studentCart .progressBar{height:64px;padding-top:36px;}
 .studentCart .progressBar .line{height:6px;line-height: 6px;font-size:0;border-radius: 3px;background:#f14211;zoom:1;}
 .studentCart .progressBar ul{margin-top:-16px;}
@@ -131,5 +132,5 @@
 .studentCart .contactInfo .getVerCodeBtn .undis{display: none}
 .studentCart .contactInfo li .submitBtn{width:190px;border:none;}
 
-
+.studentCart .creditBox {padding-top: 20px;}
 

@@ -170,15 +170,29 @@ class Student_Member extends NH_Model{
             'note'=>'申请退课'
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
+        
+        $array_ndata = array(
+        		'round_id'=>$array_data['round_id'],
+        		'student_id'=>$array_data['student_id']
+        );
+        #找到该学生没有上课的课id
+        $array_class = $this->model_member->get_student_class_undone($array_ndata);
         #更改学生与课的关系表，将该学生没有上过的课里面的状态更为申请退款
-        $array_where = array(
-            'round_id'=>$array_data['round_id'],
-            'student_id'=>$array_data['student_id']
-        );
-        $array_update = array(
-             'status'=>ORDER_STATUS_APPLYREFUND
-        );
-        $nflag = $this->model_member->update_student_class($array_update,$array_where);
+        if ($array_class)
+        {
+        	foreach ($array_class as $k=>$v)
+        	{
+        		$array_where = array(
+        				'class_id'=>$v['class_id'],
+        				'student_id'=>$array_data['student_id']
+        		);
+        		$array_update = array(
+        				'status'=>STUDENT_CLASS_APPLY_REFUND
+        		);
+        		$this->model_member->update_student_class($array_update,$array_where);
+        	}
+        }
+
         #更改用户的银行卡信息
         $array_bank_where = array(
             'user_id'=>$array_data['student_id']
@@ -190,7 +204,7 @@ class Student_Member extends NH_Model{
             'id_code'=>$array_data['id_code'],
         );
         $kflag = $this->model_member->update_user_bank_infor($array_bank_update,$array_bank_where);
-        if ($aflag && $mflag && $nflag && $kflag)
+        if ($aflag && $mflag  && $kflag)
         {
             return true;
         } else {
