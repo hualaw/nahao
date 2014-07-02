@@ -9,6 +9,7 @@ define(function (require, exports) {
         //class edit modal
         $(".btn_class_edit").on("click",function(){
             var class_id = $(this).data("class_id");
+            var round_id = $("#class_list_round_id").data("round_id");
             var tds = $(this).parent().parent().children();
 //            console.log(tds);
 //            $(tds[3]).text();
