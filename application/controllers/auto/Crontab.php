@@ -61,8 +61,9 @@ class Crontab extends NH_Controller
         $hour=date('H',$time);
         $min=date('i',$time);
         $advance_time=mktime($hour,$min,0,$mon,$day,$year);
+        $ex_time=mktime($hour,$min,0,$mon-1,$day,$year);
 
-        $this->business_crontab->round_change_status($begin_time,$end_time,$advance_time,$time);
+        $this->business_crontab->round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time);
     }
     
     /**
