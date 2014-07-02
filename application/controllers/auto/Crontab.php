@@ -2,7 +2,7 @@
 /**
  * 15分钟定时统计(0,15,30,45整分开始跑计划任务)
  */
-class Crontab extends NH_Controller
+class Crontab extends CI_Controller
 {
     /**
      * 加载数据库连接
@@ -37,9 +37,9 @@ class Crontab extends NH_Controller
         		$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_ENTER_ROOM),array('id'=>$v['id']));
         		if ($bool_flag)
         		{
-        			echo "Class_Change_SoonClass_To_ClassEnterable方法--课id为：".$v['id']."状态更新为“可进教室”成功".'\r\n';
+        			echo "[".date('Y-m-d H:i:s')."]:Class_Change_SoonClass_To_ClassEnterable方法--课id为：".$v['id']."状态更新为“可进教室”成功".'\r\n';
         		} else {
-        			echo "Class_Change_SoonClass_To_ClassEnterable方法--课id为：".$v['id']."状态更新为“可进教室”失败".'\r\n';
+        			echo "[".date('Y-m-d H:i:s')."]:Class_Change_SoonClass_To_ClassEnterable方法--课id为：".$v['id']."状态更新为“可进教室”失败".'\r\n';
         		}
         	}
         }
@@ -78,7 +78,7 @@ class Crontab extends NH_Controller
     	{
     		$int_time = $time;
     	} else {
-    		$int_time = '1404287100';//$this->get_time();
+    		$int_time = $this->get_time();
     	}
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -88,9 +88,9 @@ class Crontab extends NH_Controller
     			$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASSING),array('id'=>$v['id']));
     			if ($bool_flag)
     			{
-    				echo "Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”成功".'\r\n';
+    				echo "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”成功".'\r\n';
     			} else {
-    				echo "Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”失败".'\r\n';
+    				echo "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”失败".'\r\n';
     			}
     		}
     	}
@@ -124,17 +124,17 @@ class Crontab extends NH_Controller
     				$bool_nflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
     				if ($bool_nflag)
     				{
-    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”成功".'\r\n';
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”成功".'\r\n';
     				} else {
-    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”失败".'\r\n';
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”失败".'\r\n';
     				}
     			} else{
     				$bool_mflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASS_OVER),array('id'=>$v['id']));
     				if ($bool_mflag)
     				{
-    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“上完课”成功".'\r\n';
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“上完课”成功".'\r\n';
     				} else {
-    					echo "Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“上完课”失败".'\r\n';
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“上完课”失败".'\r\n';
     				}
     			}
     		}
@@ -168,9 +168,9 @@ class Crontab extends NH_Controller
     				$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_SOON_CLASS),array('id'=>$int_class_id));
     			    if ($bool_flag)
 	    			{
-	    				echo "Class_Change_Beginning_To_SoonClass方法--课id为：".$v['id']."状态更新为“即将上课”成功".'\r\n';
+	    				echo "[".date('Y-m-d H:i:s')."]:Class_Change_Beginning_To_SoonClass方法--课id为：".$v['id']."状态更新为“即将上课”成功".'\r\n';
 	    			} else {
-	    				echo "Class_Change_Beginning_To_SoonClass方法--课id为：".$v['id']."状态更新为“即将上课”失败".'\r\n';
+	    				echo "[".date('Y-m-d H:i:s')."]:Class_Change_Beginning_To_SoonClass方法--课id为：".$v['id']."状态更新为“即将上课”失败".'\r\n';
 	    			}
     			}
     		}
@@ -211,9 +211,9 @@ class Crontab extends NH_Controller
     						array('student_id'=>$vv['student_id'],'class_id'=>$v['id']));
     					    if ($bool_nflag)
 		    				{
-		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“进过教室”成功".'\r\n';
+		    					echo "[".date('Y-m-d H:i:s')."]:Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“进过教室”成功".'\r\n';
 		    				} else {
-		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“进过教室”失败".'\r\n';
+		    					echo "[".date('Y-m-d H:i:s')."]:Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“进过教室”失败".'\r\n';
 		    				}
     					} else {
     						#将学生课堂表的状态从“初始化”改为“缺席”
@@ -221,9 +221,9 @@ class Crontab extends NH_Controller
     						array('student_id'=>$vv['student_id'],'class_id'=>$v['id']));
     					   	if ($bool_mflag)
 		    				{
-		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“缺席”成功".'\r\n';
+		    					echo "[".date('Y-m-d H:i:s')."]:Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“缺席”成功".'\r\n';
 		    				} else {
-		    					echo "Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“缺席”失败".'\r\n';
+		    					echo "[".date('Y-m-d H:i:s')."]:Student_Class_Change_Beginning_To_Absent方法--用户id为：".$vv['student_id'].",课id为：".$v['id']."状态更新为“缺席”失败".'\r\n';
 		    				}
     					}
     				}
@@ -262,9 +262,9 @@ class Crontab extends NH_Controller
 				$bool_flag = $this->model_crontab->update_class_attendance(array('attendance'=>$array_count['num']),array('id'=>$v['id']));
     		    if ($bool_flag)
     			{
-    				echo "Class_Count_Attendance方法--课id为：".$v['id']."课的出席人数更新为:".$array_count['num']."成功".'\r\n';
+    				echo "[".date('Y-m-d H:i:s')."]:Class_Count_Attendance方法--课id为：".$v['id']."课的出席人数更新为:".$array_count['num']."成功".'\r\n';
     			} else {
-    				echo "Class_Count_Attendance方法--课id为：".$v['id']."课的出席人数更新为:".$array_count['num']."失败".'\r\n';
+    				echo "[".date('Y-m-d H:i:s')."]:Class_Count_Attendance方法--课id为：".$v['id']."课的出席人数更新为:".$array_count['num']."失败".'\r\n';
     			}
     		}
     	}
@@ -295,9 +295,9 @@ class Crontab extends NH_Controller
     			$bool_flag = $this->model_crontab->update_class_correct_rate(array('correct_rate'=>$float_count),array('id'=>$v['id']));
     		    if ($bool_flag)
     			{
-    				echo "Class_Count_CorrectRate方法--课id为：".$v['id']."课上做题的正确率更新为:".$float_count."成功".'\r\n';
+    				echo "[".date('Y-m-d H:i:s')."]:Class_Count_CorrectRate方法--课id为：".$v['id']."课上做题的正确率更新为:".$float_count."成功".'\r\n';
     			} else {
-    				echo "Class_Count_CorrectRate方法--课id为：".$v['id']."课上做题的正确率更新为:".$float_count."失败".'\r\n';
+    				echo "[".date('Y-m-d H:i:s')."]:Class_Count_CorrectRate方法--课id为：".$v['id']."课上做题的正确率更新为:".$float_count."失败".'\r\n';
     			}
     		}
     	}
