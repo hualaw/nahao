@@ -19,7 +19,7 @@
     			case 1:$where.= ' begin_time = '.$int_time;break;
     			case 2:$where.= ' end_time = '.$int_time;break;
     		}
-    		$sql = "SELECT id,classroom_id,begin_time,round_id FROM ".TABLE_CLASS." WHERE ".$where;
+    		$sql = "SELECT id,classroom_id,begin_time,round_id FROM ".TABLE_CLASS." WHERE  ".$where;
     		$array_result = $this->db->query($sql)->result_array();
     		return $array_result;
     	}
