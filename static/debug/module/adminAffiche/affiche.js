@@ -104,7 +104,7 @@ define(function(require,exports){
                 type:'post',
                 url:'/affiche/insert_affiche',
                 data:'content='+CKEDITOR.instances.insert_content.getData()
-            +'&role=1'+'&round_id='+$('#round_id').val(),
+            +'&role=2'+'&round_id='+$('#round_id').val(),
                 success:function(msg)
                 {
                     if(msg==1)

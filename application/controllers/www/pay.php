@@ -380,8 +380,8 @@ class Pay extends NH_User_Controller {
 	        $payMethod = isset($bank_code_config[$pay_method][$bank_code]['type']) ? $bank_code_config[$pay_method][$bank_code]['type']:'';
 	    }
 	    $order_id = $array_order['id'];
-	    $name = $array_round['title'];
-	    $desc = $array_round['subtitle'];
+	    $name = mb_substr($array_round['title'],0,124,'utf-8');
+	    $desc = '';
 	    $amount = $array_order['spend'];
 	    $create_time = $array_order['create_time'];
 	    

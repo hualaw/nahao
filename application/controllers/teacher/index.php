@@ -185,7 +185,7 @@ class Index extends NH_User_Controller {
     public function order_status_setter()
     {
         #1. 初始条件
-        $start_time = strtotime("-7 day");
+        $start_time = strtotime("-7 day");//过期时间点，如果比它小，说明是过期的
         //测试七天前时间  var_dump(date('Y-m-d',$start_time));
         $end_time = time();
         #2.1 按订单状态过期更改订单状态
@@ -193,22 +193,26 @@ class Index extends NH_User_Controller {
         	'statusFrom' 		=> '0,1,4',
         	'statusTo'	 		=> '5',
         	'create_time_from'	=> $start_time,
-        	'create_time_to'	=> $end_time,
+//        	'create_time_to'	=> $end_time,
         	);
         $bool = $this->teacher_m->set_order_status($param);
         if($bool){
-        	echo '修改过期（7天）订单状态成功<br>\r\n';
+        	echo '修改过期（7天之外）订单状态成功<br>\r\n';
+        }else{
+        	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
         }
         #2.2 按轮销售状态过期更改订单状态
         $param = array(
         	'sale_status' => '4,5,6',
         	'statusTo'	 		=> '5',
         	'create_time_from'	=> $start_time,
-        	'create_time_to'	=> $end_time,
+//        	'create_time_to'	=> $end_time,
         	);
         $bool = $this->teacher_m->set_order_status($param);
         if($bool){
-        	echo '修改过期（七天）轮销售状态的订单状态成功<br>\r\n';
+        	echo '修改过期（七天之外）轮销售状态的订单状态成功<br>\r\n';
+        }else{
+        	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
         }
     }
     
