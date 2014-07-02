@@ -325,10 +325,11 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_return as $k=>$v)
             {
-                if ($v['author_role'] == '-1')
+                if ($v['author_role'] == NH_MEETING_TYPE_ADMIN)
                 {
                    #发布者是管理员
-                    $array_return[$k]['nickname'] = '管理员';
+                    $array_manager = $this->model_member->get_manager_data($v['author']);
+                    $array_return[$k]['nickname'] = $array_manager['username'];
                     $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
                 } else {
                     #获取发布者的信息
@@ -360,9 +361,9 @@ class Student_Course extends NH_Model{
         $array_team = $this->get_round_team($int_round_id);
 
         #已经上了几节课
-        $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
+        $int_num = $this->model_member->get_class_count(1,$int_round_id);
         #总共有几节课
-        $int_totle = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
+        $int_totle = $this->model_member->get_class_count(0,$int_round_id);
         #上课节数比例
         $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
         #即将开始的课的信息

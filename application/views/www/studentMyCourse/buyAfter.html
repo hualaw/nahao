@@ -110,9 +110,9 @@
                                 <span class="cMan">{$item.teacher_role}</span>
                                 <em>{$item.nickname}</em>
                                 <span class="identity fr">
-                                    <span {if $item.teacher_auth == '1'}class="teaCard fr"{/if}></span>
-                                    <span {if $item.titile_auth == '1'}class="TitleCard fr"{/if}></span>
-                                    <span {if $item.work_auth == '1'}class="workCard fr"{/if}></span>
+                                    <span {if $item.teacher_auth == '1'} title="教师资格证" class="teaCard fr"{/if}></span>
+                                    <span {if $item.titile_auth == '1'} title=教师职称证" class="TitleCard fr"{/if}></span>
+                                    <span {if $item.work_auth == '1'} title="教师工作证" class="workCard fr"{/if}></span>
                                 </span>
                             </div>
                             <p>{$item.teacher_signature}教龄{$item.teacher_age}年</p>
