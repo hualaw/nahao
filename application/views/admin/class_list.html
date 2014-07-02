@@ -1,4 +1,4 @@
-课程名称 : {$round.title}     共{$chapter_count}章  {$section_count}节课  等待上课         完成进度
+课程名称 : {$round.title}     共{$chapter_count}章  {$section_count}节课  开卖时间:{date("Y-m-d H:i",$round.sell_begin_time)}  停卖时间:{date("Y-m-d H:i",$round.sell_end_time)}  开课时间{date("Y-m-d H:i",$round.start_time)}
 <div style="display:none" id="class_list_round_id" data-round_id="{$round.id}"></div>
 <table class="table table-hover">
     <thead>
