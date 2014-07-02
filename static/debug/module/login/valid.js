@@ -253,6 +253,23 @@ define(function(require,exports){
             }
             
         ]);
+
+        _Form.config({
+            url : '/login/submit',
+            ajaxurl:{
+                success:function(json,obj){
+//                    console.log(json);
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     };
     // 登陆之后验证
     exports.loginAfterForm = function(){
