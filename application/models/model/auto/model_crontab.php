@@ -19,7 +19,7 @@
     			case 1:$where.= ' AND begin_time = '.$int_time;break;
     			case 2:$where.= ' AND end_time = '.$int_time;break;
     		}
-    		$sql = "SELECT id,classroom_id,begin_time,round_id FROM ".TABLE_CLASS." C
+    		$sql = "SELECT C.id,C.classroom_id,C.begin_time,C.round_id FROM ".TABLE_CLASS." C
     				LEFT JOIN ".TABLE_ROUND." R ON C.round_id = R.id
     				WHERE  R.teach_status = ".ROUND_TEACH_STATUS_TEACH.$where;
     		$array_result = $this->db->query($sql)->result_array();
