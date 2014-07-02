@@ -120,6 +120,16 @@ class Crontab extends CI_Controller
     			#寻找每一节课老师按开始上课按钮的时间
     			$array_return = $this->business_crontab->get_time_by_teacher_press_submit($v['classroom_id']);
     			#如果老师按开始上课按钮的时间-这节课的开始时间 大于等于5分钟，这这节课老师缺席。否则这节课是“上完课”
+    			if(empty($array_return))
+    			{
+    				$bool_sflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
+    				if ($bool_sflag)
+    				{
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”成功,老师没有按".'\r\n';
+    				} else {
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”失败".'\r\n';
+    				}
+    			}
     			if($array_return['create_time']-$v['begin_time'] >= 5*60)
     			{
     				$bool_nflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
@@ -444,7 +454,7 @@ class Crontab extends CI_Controller
     public function order_status_setter()
     {
         #1. 初始条件
-        $start_time = strtotime("-7 day");
+        $start_time = strtotime("-7 day");//过期时间点，如果比它小，说明是过期的
         //测试七天前时间  var_dump(date('Y-m-d',$start_time));
         $end_time = time();
         #2.1 按订单状态过期更改订单状态
@@ -452,22 +462,26 @@ class Crontab extends CI_Controller
         	'statusFrom' 		=> '0,1,4',
         	'statusTo'	 		=> '5',
         	'create_time_from'	=> $start_time,
-        	'create_time_to'	=> $end_time,
+//        	'create_time_to'	=> $end_time,
         	);
         $bool = $this->teacher_m->set_order_status($param);
         if($bool){
-        	echo '修改过期（7天）订单状态成功<br>\r\n';
+        	echo '修改过期（7天之外）订单状态成功<br>\r\n';
+        }else{
+        	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
         }
         #2.2 按轮销售状态过期更改订单状态
         $param = array(
         	'sale_status' => '4,5,6',
         	'statusTo'	 		=> '5',
         	'create_time_from'	=> $start_time,
-        	'create_time_to'	=> $end_time,
+//        	'create_time_to'	=> $end_time,
         	);
         $bool = $this->teacher_m->set_order_status($param);
         if($bool){
-        	echo '修改过期（七天）轮销售状态的订单状态成功<br>\r\n';
+        	echo '修改过期（七天之外）轮销售状态的订单状态成功<br>\r\n';
+        }else{
+        	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
         }
     }
     

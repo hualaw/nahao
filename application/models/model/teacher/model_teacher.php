@@ -52,7 +52,7 @@ class Model_Teacher extends NH_Model{
 		if($param['order']==5){
 			$order = " ORDER BY cl.parent_id ASC,cl.sequence ASC ";
 		}
-		$column = $param['counter']==1 ? 'count(cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
+		$column = $param['counter']==1 ? 'count(DISTINCT cl.id) total' :'DISTINCT cl.*,r.title round_title,r.course_type,r.teach_status,r.subject,r.reward,c.score course_score,cw.name courseware_name,ct.name course_type_name,sub.name subject_name';
 		$limit = !empty($param['limit']) ? ' LIMIT '.$param['limit'] : '';
 		#2. 生成sql
         $this->db->query("set names utf8");
@@ -602,8 +602,8 @@ class Model_Teacher extends NH_Model{
 	  **/
      public function set_order_status($param){
      	$where = ' WHERE 1 ';
-     	$where .= !empty($param['create_time_from']) ? ' AND so.create_time>'.$param['create_time_from'] : '';
-     	$where .= !empty($param['create_time_to']) ? ' AND so.create_time<'.$param['create_time_to'] : '';
+     	$where .= !empty($param['create_time_from']) ? ' AND so.create_time<'.$param['create_time_from'] : '';
+//     	$where .= !empty($param['create_time_to']) ? ' AND so.create_time<'.$param['create_time_to'] : '';
      	$where .= !empty($param['statusFrom']) ? ' AND so.status in('.$param['statusFrom'].')' : '';
      	$where .= !empty($param['sale_status']) ? ' AND r.sale_status in('.$param['sale_status'].')' : '';
      	$set = '';
