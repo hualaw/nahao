@@ -16,8 +16,8 @@
     		$where = '';
     		switch ($type)
     		{
-    			case 1:$where.= ' AND begin_time = '.$int_time;break;
-    			case 2:$where.= ' AND end_time = '.$int_time;break;
+    			case 1:$where.= ' AND C.begin_time = '.$int_time;break;
+    			case 2:$where.= ' AND C.end_time = '.$int_time;break;
     		}
     		$sql = "SELECT C.id,C.classroom_id,C.begin_time,C.round_id FROM ".TABLE_CLASS." C
     				LEFT JOIN ".TABLE_ROUND." R ON C.round_id = R.id
