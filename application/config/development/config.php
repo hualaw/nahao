@@ -249,7 +249,7 @@ $config['encryption_key'] = 'nahao';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'NHID';
+$config['sess_cookie_name']		= (DOMAIN=='admin') ? 'NHAID' : 'NHID';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= FALSE;
