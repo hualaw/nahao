@@ -229,6 +229,10 @@ class NH_Controller extends CI_Controller
             'create_time'=>$create_time,
             'type' => $type,
         );
+
+        /*正式环境屏蔽掉info数组*/
+        if(ENVIRONMENT == 'production') $info = array();
+
         //print_r($send_ret);
         if($send_ret['error'] == 'Ok')
         {
