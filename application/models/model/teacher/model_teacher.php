@@ -84,6 +84,7 @@ class Model_Teacher extends NH_Model{
 		$where .= !empty($param['start_time']) ? ' AND r.start_time>='.$param['start_time'] : '';
 		$where .= !empty($param['end_time']) ? ' AND r.end_time<='.$param['end_time'] : '';
 		$where .= !empty($param['teach_status']) ? ' AND r.teach_status in('.($param['teach_status']==-1 ? 0 : $param['teach_status']).')' : '';//轮授课状态（等待开课、授课中、停课（手动操作）、结课）
+		$where .= !empty($param['sale_status']) ? ' AND r.sale_status in('.$param['sale_status'].')' : '';//轮销售状态（销售状态0 未审核、1 审核不通过、2 审核通过（预售）、3 销售中、4 已售罄、5 已停售（时间到了还没售罄）、6 已下架（手动下架））
 		$where .= !empty($param['course_type']) ? ' AND r.course_type in('.$param['course_type'].')' : '';//轮课程状态
 		$where .= !empty($param['title']) ? ' AND r.title like "%'.$param['title'].'%"' : '';//轮名
 		$group = $param['counter'] ? '' : " GROUP BY r.id";
@@ -565,7 +566,7 @@ class Model_Teacher extends NH_Model{
       **/ 
      public function set_class_score($param){
      	$param['class_id'] = !empty($param['class_id']) ? $param['class_id'] : 0;
-     	$param['score'] = !empty($param['score']) ? $param['score'] : 0;
+     	$param['score'] = !empty($param['score']) ? round($param['score'],'2') : 0;
      	$sql = "UPDATE class cl SET cl.score='".$param['score']."' WHERE cl.id=".$param['class_id']." LIMIT 1";
      	$this->db->query($sql);
      	$int_row = $this->db->affected_rows();
@@ -577,7 +578,7 @@ class Model_Teacher extends NH_Model{
       **/ 
      public function set_round_score($param){
      	$param['round_id'] = !empty($param['round_id']) ? $param['round_id'] : 0;
-     	$param['score'] = !empty($param['score']) ? $param['score'] : 0;
+     	$param['score'] = !empty($param['score']) ? round($param['score'],'2') : 0;
      	$sql = "UPDATE round r SET r.score='".$param['score']."' WHERE r.id=".$param['round_id']." LIMIT 1";
      	$this->db->query($sql);
      	$int_row = $this->db->affected_rows();
@@ -589,7 +590,7 @@ class Model_Teacher extends NH_Model{
       **/ 
      public function set_course_score($param){
      	$param['course_id'] = !empty($param['course_id']) ? $param['course_id'] : 0;
-     	$param['score'] = !empty($param['score']) ? $param['score'] : 0;
+     	$param['score'] = !empty($param['score']) ? round($param['score'],'2') : 0;
      	$sql = "UPDATE course c SET c.score='".$param['score']."' WHERE c.id=".$param['course_id']." LIMIT 1";
      	$this->db->query($sql);
      	$int_row = $this->db->affected_rows();
@@ -606,10 +607,10 @@ class Model_Teacher extends NH_Model{
      	$where .= !empty($param['statusFrom']) ? ' AND so.status in('.$param['statusFrom'].')' : '';
      	$where .= !empty($param['sale_status']) ? ' AND r.sale_status in('.$param['sale_status'].')' : '';
      	$set = '';
-     	$set .= !empty($param['statusTo']) ? ' ,so.status='.$param['statusTo'] : '';
+     	$set .= !empty($param['statusTo']) ? ',so.status='.$param['statusTo'] : '';
      	$set = trim($set,',');
      	$sql = "UPDATE student_order so 
-     			LEFT JOIN round.r ON r.id=so.round_id 
+     			LEFT JOIN round r ON r.id=so.round_id 
      			SET ".$set.$where;
      	$this->db->query($sql);
      	$int_row = $this->db->affected_rows();
@@ -620,13 +621,15 @@ class Model_Teacher extends NH_Model{
 	  * 按整月取上课记录，属于上述方法class_seacher（27行）的简单版。
 	  **/ 
      public function month_class_seacher($param){
-     	$where = ' WHERE 1 ';
+     	$this->db->query("set names utf8");
+     	$where = ' WHERE 1 AND cal.user_id>0';
      	$where .= !empty($param['start_time']) ? ' AND cl.begin_time>'.$param['start_time'].' AND cl.end_time>'.$param['start_time'] : '';
      	$where .= !empty($param['end_time']) ? ' AND cl.begin_time<='.$param['end_time'].' AND cl.end_time<='.$param['end_time'] : '';
      	$where .= !empty($param['status']) ? ' AND cl.status in('.$param['status'].')' : '';
-     	$sql = "SELECT cl.id,cl.title,cl.round_id,cl.school_hour,rtr.teacher_id,r.reward FROM class cl 
+     	$sql = "SELECT DISTINCT cl.id,cl.title,cl.round_id,cl.school_hour,rtr.teacher_id,r.reward FROM class cl 
 				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=cl.round_id 
 				LEFT JOIN round r ON r.id=cl.round_id 
+				LEFT JOIN class_action_log cal ON cal.user_id=rtr.teacher_id AND cal.classroom_id=cl.classroom_id 
 				".$where;
      	return $this->db->query($sql)->result_array();
      }
