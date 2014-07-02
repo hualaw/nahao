@@ -58,7 +58,7 @@ $config['bank_code'] = array(
         'minsheng' => array('name' => '民生银行', 'type' => 'bankPay', 'code' => 'CMBC'),
     ),
     'credit' => array(
-//         'guangda' => array('name' => '光大银行', 'type' => 'creditPay', 'code' => 'CEBBANK'),
+/*         'guangda' => array('name' => '光大银行', 'type' => 'creditPay', 'code' => 'CEBBANK'), */
         'zhaoshang' => array('name' => '招商银行', 'type' => 'creditPay', 'code' => 'CMB'),
         'gongshang' => array('name' => '工商银行', 'type' => 'creditPay', 'code' => 'ICBC'),
         'zhongguo' => array('name' => '中国银行', 'type' => 'creditPay', 'code' => 'BOCBTB'),
