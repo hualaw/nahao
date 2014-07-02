@@ -28,10 +28,11 @@ class Business_Student extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function update_student($arr_param,$arr_where){
+    public function update_student($arr_param,$arr_where,$arr_info_where){
         $bool_flag = false;
         if($arr_param AND $arr_where){
-            $bool_flag = $this->model_user->update_user($arr_param,$arr_where);
+            $this->model_user->update_user($arr_param,$arr_where);
+            $bool_flag = $this->model_user->update_user_info($arr_param,$arr_info_where);
         }
         return $bool_flag;
     }

@@ -141,7 +141,10 @@ class Student extends NH_Admin_Controller {
                 $arr_where = array(
                     'id' => $int_user_id
                 );
-                $bool_return = $this->student->update_student($arr_param,$arr_where);
+                $arr_info_where = array(
+                    'user_id' => $int_user_id
+                );
+                $bool_return = $this->student->update_student($arr_param,$arr_where,$arr_info_where);
                 if($bool_return > 0){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '修改成功';
