@@ -188,7 +188,7 @@ class Business_Teacher extends NH_Model
 	     			$zjArr[$val['id']]['jArr'] = array();
 	     		}else{
 	     			#统计出勤率
-	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
+	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));
 	     			$val['attendance_persent'] = $persent;
 	     			$zjArr[$val['parent_id']]['jArr'][] = $val;
 	     		}
