@@ -25,7 +25,7 @@ class Student_Member extends NH_Model{
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-               	$class_img = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'general');
+               	$class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'general');
                 #这轮共M节
                	$totle_class = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
                 #这轮上了M节
