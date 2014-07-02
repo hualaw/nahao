@@ -13,6 +13,7 @@ class Crontab extends CI_Controller
         $this->load->database();
         $this->load->model('business/auto/business_crontab');
         $this->load->model('model/auto/model_crontab');
+        $this->load->model('model/teacher/model_teacher','teacher_m');
     }
     
     /**
@@ -370,6 +371,7 @@ class Crontab extends CI_Controller
         	$param =array();
         	#3.1 第一次出现课，不限时取课平均值
         	if(!in_array($val['class_id'],$classArr)){
+        		$param = array();
         		$param['class_id'] = $val['class_id'];
         		$param['counter'] = 2;
         		$res = $this->teacher_m->student_comment($param);
@@ -389,6 +391,7 @@ class Crontab extends CI_Controller
         	}
         	#3.2 第一次出现轮，不限时取轮平均值
         	if(!in_array($val['round_id'],$roundArr)){
+        		$param = array();
         		$param['round_id'] = $val['round_id'];
         		$param['counter'] = 2;
         		$res = $this->teacher_m->student_comment($param);
@@ -408,6 +411,7 @@ class Crontab extends CI_Controller
         	}
         	#3.3 第一次出现课程，不限时取课程平均值
         	if(!in_array($val['course_id'],$courseArr)){
+        		$param = array();
         		$param['course_id'] = $val['course_id'];
         		$param['counter'] = 2;
         		$res = $this->teacher_m->student_comment($param);
