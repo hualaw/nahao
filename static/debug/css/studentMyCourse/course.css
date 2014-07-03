@@ -228,8 +228,8 @@
 .studentMyCourse .buyBefore .cBox p{line-height: 24px;}
 .studentMyCourse .buyBefore .introd{text-indent: 2em;padding-top:70px;border-top: none;background: url(../../images/studentMyCourse/introd.png) 12px 44px no-repeat;}
 .studentMyCourse .buyBefore .fitStu{background: url(../../images/studentMyCourse/fitStu.png) 12px 22px no-repeat;padding-top:54px;}
-.studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 26px 65px 140px;}
-.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -114px;text-align: center;}
+.studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 22px 65px 140px;}
+.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -118px;}
 .studentMyCourse .buyBefore .editorBox img{max-width: 600px;}
 .studentMyCourse .buyBefore .creview li{padding: 26px 0 22px;border-bottom: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .creview{padding: 65px 20px 18px 18px;background: url(../../images/studentMyCourse/creview.png) 12px 25px no-repeat;}
@@ -315,7 +315,7 @@ overflow: hidden;}
 .studentMyCourse .buyAfter .buyHead{background: url(../../images/studentMyCourse/buyHeadBg.png) no-repeat;height: 284px;margin-bottom: 30px;}
 .studentMyCourse .buyAfter .buyHeadt{border-top:2px solid #f14211;padding-top: 23px;}
 .studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;height: 175px;}
-.studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;height: 179px;overflow-y: scroll;}
+.studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;}
 .studentMyCourse .buyAfter .courseInfor h2{font-size: 24px;height: 30px;line-height: 30px;margin-bottom: 28px;width: 569px;
 white-space: nowrap;
 text-overflow: ellipsis;

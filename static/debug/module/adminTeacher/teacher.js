@@ -618,4 +618,9 @@ define(function(require,exports){
                 $('#img_work_general').attr('src',img_url_general);
             }
     }
+
+    exports.load_ckeditor = function ()
+    {
+        CKEDITOR.replace('teacher_intro',{ toolbar:'Basic'});
+    }
 })

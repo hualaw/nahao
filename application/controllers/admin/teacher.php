@@ -149,6 +149,7 @@ class Teacher extends NH_Admin_Controller {
     public function check_techer_post()
     {
         $post=$this->input->post(NULL,TRUE);
+        //var_dump($post);die;
         if($this->teacher->check_post($post))
         {
             redirect('teacher');
