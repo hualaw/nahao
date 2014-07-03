@@ -43,7 +43,7 @@
     	public function get_section_data($int_round_id)
     	{
     		$array_result = array();
-    		$sql= "SELECT lt.id, FROM ".TABLE_CLASS." lo JOIN ".TABLE_CLASS." lt ON lo.round_id=lt.round_id 
+    		$sql= "SELECT lt.id FROM ".TABLE_CLASS." lo JOIN ".TABLE_CLASS." lt ON lo.round_id=lt.round_id 
     			   WHERE lo.round_id=".$int_round_id." 
     			   AND lt.parent_id=lo.id order by lo.sequence,lt.sequence";
     		$array_result = $this->db->query($sql)->result_array();
