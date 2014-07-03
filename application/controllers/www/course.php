@@ -281,10 +281,10 @@ class Course extends NH_User_Controller {
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 protected function forceDownload($filename) 
+	 protected function forceDownload($file) 
 	 {
 	 
-	 	// http headers
+/* 	 	// http headers
 	 	header('Content-Type: application-x/force-download');
 	 	header('Content-Disposition: attachment; filename="' . basename($filename) .'"');
 	 	header('Content-length: ' . filesize($filename));
@@ -296,7 +296,27 @@ class Course extends NH_User_Controller {
 	 	header('Pragma: no-cache');
 	 	 
 	 	// read file content and output
-	 	return readfile($filename);;
+	 	return readfile($filename);; */
+	 	
+	 	$filename = basename($file);
+	 	
+	 	header("Content-type: application/octet-stream");
+	 	
+	 	//处理中文文件名
+	 	$ua = $_SERVER["HTTP_USER_AGENT"];
+	 	$encoded_filename = urlencode($filename);
+	 	$encoded_filename = str_replace("+", "%20", $encoded_filename);
+	 	if (preg_match("/MSIE/", $ua)) {
+	 		header('Content-Disposition: attachment; filename="' . $encoded_filename . '"');
+	 	} else if (preg_match("/Firefox/", $ua)) {
+	 		header("Content-Disposition: attachment; filename*=\"utf8''" . $filename . '"');
+	 	} else {
+	 		header('Content-Disposition: attachment; filename="' . $filename . '"');
+	 	}
+	 	
+	 	header('Content-Disposition: attachment; filename="' . $filename . '"');
+	 	header("Content-Length: ". filesize($file));
+	 	readfile($file);
 	 }
 }
 

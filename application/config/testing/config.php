@@ -19,7 +19,7 @@ $config['static_url'] = 'http://static.nahaotest.com/';
 $config['teacher_url'] = 'http://teacher.nahaotest.com/';
 $config['admin_url'] = 'http://admin.nahaotest.com/';
 $config['student_url'] = 'http://www.nahaotest.com/';
-$config['course_url'] = 'http://course.nahaotest.com/';
+$config['course_url'] = 'http://ke.nahaotest.com/';
 
 /*
 |--------------------------------------------------------------------------
