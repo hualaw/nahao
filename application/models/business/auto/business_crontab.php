@@ -6,6 +6,7 @@
         {
             parent::__construct();
             $this->load->model('model/auto/model_crontab');
+            $this->load->model('model/student/model_course');
         }
 
         /**
@@ -69,8 +70,11 @@
         		} else {
         			$next_class_id = '';
         		}
-        		return $next_class_id;
+        		
+        	} else {
+        		$next_class_id = '';
         	}
+        	return $next_class_id;
         }
         
         /**

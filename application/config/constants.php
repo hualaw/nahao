@@ -382,6 +382,6 @@ define('CLASS_FASTER_ACTION', 3);//讲慢一点
 define('CLASS_BEGIN_ACTION', 4);//点上课
 define('CLASS_OVER_ACTION', 5);//点下课
 
-
+define('ROUND_GENERATE_MODE','testing');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

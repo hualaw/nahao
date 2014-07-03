@@ -36,6 +36,9 @@ define(function(require,exports){
 	}
 
 	if($(".buyAfter").length){
+		if($(".manInfor").height()>179){
+			$(".manInfor").css({"overflow-y":"scroll","height":"179px"});
+		}
 		//购买后 右侧 tab
 		_tab.tab($(".abuyTabh h3"),"curShow",$(".abuyTabBox"));
 		//云笔记 弹框
