@@ -102,7 +102,8 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
+	    //var_dump($array_order);die;
+	    if (empty($array_order) || $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
 	    {
 	        show_error("订单号不存在");
 	    }

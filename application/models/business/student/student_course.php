@@ -264,9 +264,11 @@ class Student_Course extends NH_Model{
 			foreach ($array_teacher as $k=>$v)
 			{
 				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-				//var_dump($array_return);die;
-				if(empty($array_return[0]))
+				
+				if(empty($array_return[$k]))
 				{
+					log_message('ERROR_NAHAO','['.date('Y-m-d H:i:s').'],老师id为：'.$v['teacher_id']."在user或者userinfo表里面的status =0");
+					unset($array_return[$k]);
 					break;
 				} else {
 					$array_return[$k]['teacher_role'] = $array_teacher_role[$v['role']];

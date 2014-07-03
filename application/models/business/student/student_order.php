@@ -53,7 +53,7 @@ class Student_Order extends NH_Model{
                 'round_id'=>$int_product_id,
                 'student_id'=>$int_user_id,                                    #TODO用户id
                 'create_time'=>time(),
-                'price'=>$sale_price,
+                'price'=>$price,
                 'status'=>ORDER_STATUS_INIT,
                 'spend'=>$sale_price,
                 'pay_type'=>$pay_type

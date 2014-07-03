@@ -138,7 +138,7 @@
          */
         public function details_order($int_order_id)
         {
-            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,student_order.price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get()->row_array();
+            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,student_order.price,student_refund.refund_price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->join('student_refund','student_refund.order_id=student_order.id','left')->where("student_order.id",$int_order_id)->get()->row_array();
         }
         /**
          * 订单备注
