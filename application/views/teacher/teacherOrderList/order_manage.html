@@ -32,7 +32,7 @@
 	                <div class="md_tmp">
 	                    <h3>{$val['question']}</h3>
 	                    {foreach $val['options'] as $k=>$v}
-	                    <div class="optiona">{$k}. {$v['value']}</div>
+	                    <div class="optiona"><em style="float:left">{$k}. &nbsp;&nbsp;</em> {$v['value']}</div>
 	                    {/foreach}
 	                    <div class="md_ft">
 	                        <div class="optionb"><span>答案：</span> {$val['answer']}</div>

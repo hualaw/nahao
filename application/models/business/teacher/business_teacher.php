@@ -207,7 +207,7 @@ class Business_Teacher extends NH_Model
 		$total = $this->model_teacher->class_attendance(array('class_id'=>$param['class_id'],'status'=>'2'));
 		$study_num = $total[0]['total'] ? $total[0]['total'] : 0;
 		if($study_num){
-			$total = $this->model_teacher->class_attendance(array('class_id'=>$val['class_id']));
+			$total = $this->model_teacher->class_attendance(array('class_id'=>$param['class_id']));
 			$num = $total[0]['total'];
 			$persent = (round($study_num/$num,3)*100).'%';
 		}else{
