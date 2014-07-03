@@ -66,7 +66,7 @@ class Classes extends NH_Admin_Controller {
             'msg' => '时间不可用'
         );
 
-        $str_config_name = ENVIRONMENT=='production' ? 'production_round_time_config' : 'testing_round_time_config';
+        $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
         $arr_time_config = config_item($str_config_name);
         if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0){
             $bool_flag = true;

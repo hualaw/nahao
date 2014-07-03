@@ -150,7 +150,7 @@ class Round extends NH_Admin_Controller
 //                $arr_param['end_time'] = $int_end_time;
                 $bool_flag = true;
 
-                $str_config_name = ENVIRONMENT=='production' ? 'production_round_time_config' : 'testing_round_time_config';
+                $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
                 $arr_time_config = config_item($str_config_name);
                 if($int_sell_begin_time < TIME_STAMP + $arr_time_config['before_sell_begin_time_min']){
                     $this->arr_response['msg'] = '销售时间要晚于一天后';
