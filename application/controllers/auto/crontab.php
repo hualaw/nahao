@@ -27,7 +27,8 @@ class Crontab extends CI_Controller
     	{
     		$int_time = $time;
     	} else {
-    		$int_time = $this->get_time();
+    		$a = $this->get_time();
+    		$int_time = $this->get_time()+'1800';
     	}
         $type = 1;
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
@@ -335,7 +336,7 @@ class Crontab extends CI_Controller
     /**
      * 获取当前时间的正分
      */
-    protected function get_time()
+    public function get_time()
     {
     	$time = date('Y-m-d H:i',time()).":00";
     	$time = strtotime($time);
