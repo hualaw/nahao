@@ -70,7 +70,7 @@
 .studentMyCourse .myOrderCon table{background: #fff;width: 100%;}
 .studentMyCourse .myOrderCon .detailBox{border-width:1px;border-style:solid;border-color:#ddd #c3c3c3;background: #fff;}
 .studentMyCourse .myOrderCon .tableCon{width: 730px;margin-left: 16px;}
-.studentMyCourse .myOrderCon table .textal{text-align: left;padding-left: 6px;}
+.studentMyCourse .myOrderCon table .textal{text-align: left;padding-left: 6px;width: 300px;}
 .studentMyCourse .myOrderCon table .tName .textal{padding-left: 72px;}
 .studentMyCourse .myOrderCon table td{text-align: center;}
 .studentMyCourse .myOrderCon .tabh{background: #f7f7f7;}
@@ -222,7 +222,7 @@
 .studentMyCourse .buyBefore .headR{position: absolute;width: 176px;left:110px;bottom: 0;}
 .studentMyCourse .buyBefore .cMan{font-size: 12px;}
 .studentMyCourse .buyBefore .teaDetail strong{font-size: 16px;margin-right: 14px;}
-.studentMyCourse .buyBefore .teaIntrod{line-height: 20px;text-indent: 2em;margin-top: 16px;}
+.studentMyCourse .buyBefore .teaIntrod{line-height: 24px;text-indent: 2em;margin-top: 16px;}
 .studentMyCourse .buyBefore .identity{width: 54px;height: 16px;margin:4px 16px 0 0;}
 .studentMyCourse .buyBefore .cBox{padding: 0 26px 24px 140px;border-top: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .cBox p{line-height: 24px;}
