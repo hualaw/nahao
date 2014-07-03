@@ -36,7 +36,8 @@ class NH_Admin_Controller extends NH_Controller
             if($this->is_login===true AND $this->session->userdata('user_type')==NH_MEETING_TYPE_ADMIN){
                 //验证登录通过后拿到userinfo
 		        $this->userinfo = $this->session->all_userdata();
-//                o($this->userinfo,true);
+
+//                o($this->userinfo);
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
                 $this->smarty->assign('current',$this->current);

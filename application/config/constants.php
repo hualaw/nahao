@@ -336,15 +336,20 @@ define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
 //七牛账号
-define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
-define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
-define('NH_QINIU_BUCKET','n1a2h3a4o5');
-define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
+//define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
+//define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
+//define('NH_QINIU_BUCKET','n1a2h3a4o5');
+//define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
+
+define('NH_QINIU_ACCESS_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
+define('NH_QINIU_SECRET_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
+define('NH_QINIU_BUCKET','nahaoweb');
+define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
 
 define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
-define('NH_MEETING_URL','http://classroom.oa.tizi.com/');
+define('NH_MEETING_URL',ENVIRONMENT=='production' ? 'http://classapi.tizi.com/' : 'http://classroom.oa.tizi.com/');
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 
@@ -357,7 +362,7 @@ define('NH_MEETING_TYPE_SYSTEM',3);//系统，记录日志时用到
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
-define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/nahao/enter?token=');
+define('NH_MEETING_ENTER_URL',ENVIRONMENT=='production' ? 'http://classapi.tizi.com/nahao/enter?token=' : 'http://classroom.oa.tizi.com/nahao/enter?token=');
 
 //课程封面图的三个尺寸 288*216  230*172   50*50
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
