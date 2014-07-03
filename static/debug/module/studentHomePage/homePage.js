@@ -16,10 +16,9 @@ define(function(require,exports){
 	    var ind=0,
 	    	timer=null,
 	    	timer2=null;
-	    	
-	    //var bgColor = ['#efb295','#f00','#ff0'];	
+
 	    var bgColor = ['rollBg1.gif','#f00','#ff0'];
-	    var comUrl =staticUrl+ "debug/images/studentHomePage/roll/";	
+	    var comUrl =staticPath+ "images/studentHomePage/roll/";	
 	    for(var i=0;i<$conLi.length;i++){
 	    	$conLi.eq(i).css("background","url("+comUrl+bgColor[i]+")");
 	    }
