@@ -54,6 +54,24 @@ class Crontab extends CI_Controller
     {
         $begin_time = $this->uri->rsegment(3);
         $end_time = $this->uri->rsegment(4);
+        $begin_time=str_replace('_',' ',$begin_time);
+        $end_time=str_replace('_',' ',$end_time);
+
+        $begin_time=strtotime($begin_time);
+        $end_time=strtotime($end_time);
+        $begin_year=date('Y',$begin_time);
+        $begin_mon=date('m',$begin_time);
+        $begin_day=date('d',$begin_time);
+        $begin_hour=date('H',$begin_time);
+        $begin_min=date('i',$begin_time);
+        $begin_ex_time=mktime($begin_hour,$begin_min,0,$begin_mon-1,$begin_day,$begin_year);
+
+        $end_year=date('Y',$end_time);
+        $end_mon=date('m',$end_time);
+        $end_day=date('d',$end_time);
+        $end_hour=date('H',$end_time);
+        $end_min=date('i',$end_time);
+        $end_ex_time=mktime($end_hour,$end_min,0,$end_mon-1,$end_day,$end_year);
 
         $time=time();
         $year=date('Y',$time);
@@ -64,7 +82,7 @@ class Crontab extends CI_Controller
         $advance_time=mktime($hour,$min,0,$mon,$day,$year);
         $ex_time=mktime($hour,$min,0,$mon-1,$day,$year);
 
-        $this->business_crontab->round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time);
+        $this->business_crontab->round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time,$begin_ex_time,$end_ex_time);
     }
     
     /**

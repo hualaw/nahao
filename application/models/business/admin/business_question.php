@@ -38,7 +38,7 @@ class Business_Question extends NH_Model
      * param = [do,question_id,lesson_id]
      */
     public function lesson_question_doWrite($param){
-    	$param['type'] = count($param['answer']>1) ? 2 : 1;
+    	$param['type'] = count($param['answer'])>1 ? 2 : 1;
     	$param['answer'] = join($param['answer'],',');
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';
@@ -115,7 +115,7 @@ class Business_Question extends NH_Model
      * param = [do,question_id,lesson_id]
      */
     public function class_question_doWrite($param){
-        $param['type'] = isset($param['type']) ? $param['type'] :(isset($param['answer']) ? (count($param['answer']>1) ? 2 : 1) : '');
+        $param['type'] = isset($param['type']) ? $param['type'] :(isset($param['answer']) ? (count($param['answer'])>1 ? 2 : 1) : '');
         $param['answer'] = isset($param['answer']) ? (join($param['answer'],',')) : '';
     	$param['question'] = !empty($param['question']) ? addslashes($param['question']) : '';
 		$param['analysis'] = !empty($param['analysis']) ? addslashes($param['analysis']) : '';

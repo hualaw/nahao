@@ -8,13 +8,15 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效：在销售中的轮
+     * 检查这个$int_round_id是否有效：在销售中、已售罄、已停售、已下架的轮
      * @param  $int_round_id
      * @return $bool_result
      */
     public function check_round_id($int_round_id)
     {
-        $sql = "SELECT id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id." AND sale_status =".ROUND_SALE_STATUS_SALE;
+        $sql = "SELECT id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id." 
+        AND (sale_status =".ROUND_SALE_STATUS_SALE." OR sale_status = ".ROUND_SALE_STATUS_OVER."
+        OR sale_status = ".ROUND_SALE_STATUS_FINISH." OR sale_status = ".ROUND_SALE_STATUS_OFF.")";
         $int_num = $this->db->query($sql)->num_rows();
         $bool_result = $int_num > 0 ? true : false;
         return $bool_result;

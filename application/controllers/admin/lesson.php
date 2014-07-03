@@ -150,7 +150,8 @@ class Lesson extends NH_Admin_Controller {
         );
         if($int_course_id AND is_array($arr_lessons) AND $arr_lessons){
             $arr_update = array();
-            $int_parent_id = $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
+            $int_parent_id = 1;
+            $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
 //            o($arr_lessons,true);
             foreach($arr_lessons as $k => $v){
                 if($v['is_chapter']==1){

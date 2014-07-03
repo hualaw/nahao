@@ -30,7 +30,9 @@ define(function(require,exports){
 
                 /*添加教师资格证书图片*/
                 $("#teacher_auth_img").val(data.key);
-                $(".icon_upload1").hide();
+                if($(".icon_upload1").length > 0){
+                    $(".icon_upload1").hide();
+                }
                 var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师资格证书</b><input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan01").html(imgTag).show();
                 var oldImgKey = $("#new_teacher_auth_img").val();
@@ -71,7 +73,9 @@ define(function(require,exports){
 
                 /*添加教师职称证书图片*/
                 $("#title_auth_img").val(data.key);
-                $(".icon_upload2").hide();
+                if($(".icon_upload1").length > 0){
+                    $(".icon_upload1").hide();
+                }
                 var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan02").html(imgTag).show();
                 //用户可能更改上传的图片, 这里更新img_key
@@ -111,7 +115,9 @@ define(function(require,exports){
                 var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
 //               /*添加学校工作证图片*/
                 $("#work_auth_img").val(data.key);
-                $(".icon_upload3").hide();
+                if($(".icon_upload1").length > 0){
+                    $(".icon_upload1").hide();
+                }
                 var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan03").html(imgTag).show();
                 //用户可能更改上传的图片, 这里更新img_key
