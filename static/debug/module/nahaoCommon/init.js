@@ -34,5 +34,9 @@ define(function(require,exports){
 		}else{
 			$(".header").prepend('<div class="iebrowser">您正在使用的浏览器无法支持那好的正常使用。为更好的浏览本站，建议您将浏览器升级到IE8或以下浏览器：360极速 / Chrome / Safari<span>下载地址：<a href="'+student_url+'index/browser">点击这里</a></span></div>');
 		}		
+	}else{
+		if($(".iebrowser").length){
+			$(".iebrowser").remove();
+		}
 	}
 })
