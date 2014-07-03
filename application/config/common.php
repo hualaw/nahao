@@ -283,7 +283,7 @@ $config['affiche_status'][2] = '审核不通过';
 $config['affiche_status'][3] = '审核通过';
 
 //生成测试轮时候的时间间隔配置
-$config['testing_round_time_config']['before_sell_begin_time_min'] = 300;//销售时间最早在创建轮时间之后一分钟
+$config['testing_round_time_config']['before_sell_begin_time_min'] = 300;//销售时间最早在创建轮时间之后五分钟
 $config['testing_round_time_config']['before_sell_begin_time_max'] = 86400*30;////销售时间最晚在创建轮时间之后一个月
 $config['testing_round_time_config']['before_sell_end_time_min'] = 300;//最短销售期
 $config['testing_round_time_config']['before_sell_end_time_max'] = 86400*30*2;//最长销售期
@@ -305,7 +305,7 @@ $config['production_round_time_config']['before_first_class'] = 3600;//轮开课
 $config['production_round_time_config']['class_min_long'] = 30*60;//最短上课时间
 $config['production_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
 $config['production_round_time_config']['class_between_long'] = 3600;//课间隔
-$config['production_round_time_config']['enter_before_class'] = 3600;//提前进教室时间
+$config['production_round_time_config']['enter_before_class'] = 1800;//提前进教室时间
 
 /**
  * 劳务报酬个人计算税率 之 含税级距参数表
