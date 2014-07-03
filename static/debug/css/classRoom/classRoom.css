@@ -75,7 +75,7 @@
 .classRoomPage .ansCount .CitemList{background: #f4f4f4;border: 1px solid #d5d5d5;margin-bottom: 9px;padding: 0 25px 10px;}
 .classRoomPage .ansCount .ansList{margin:10px 0;}
 .classRoomPage .ansCount .ansList span{display: block;}
-.classRoomPage .ansCount .ansList em{margin-right: 14px;}
+.classRoomPage .ansCount .ansList em{margin-right: 14px;float:left}
 .classRoomPage .ansCount .pName{color: #677381;}
 .classRoomPage .ansCount .ansTable{margin-top: 25px;}
 .classRoomPage .ansCount .ansTable li{width: 131px;}

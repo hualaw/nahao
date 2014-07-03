@@ -1,8 +1,8 @@
 define(function(require,exports){
+    require("flashUploader");
     var uploadify_swf = siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf';
     var upload_url = 'http://up.qiniu.com';
     var image_host = 'http://n1a2h3a4o5.qiniudn.com/';
-    require("flashUploader");
     exports.addUpload1 = function(div_id){
         //upload teacher qualification img
         var qualificationImgFormData = {'key':$('#new_teacher_auth_img').val(),'token':$('#nahao_token').val()};
