@@ -79,14 +79,14 @@
     	
     	/**
     	 * 根据课id在student_class表里面找到买过这节课的学生
-    	 * @param  $int_classroom_id
+    	 * @param  $int_class_id
     	 * @return $array_result
     	 */
     	public function get_buy_class($int_class_id)
     	{
     		$array_result = array();
     		$sql = "SELECT student_id,class_id FROM ".TABLE_STUDENT_CLASS." WHERE class_id = ".$int_class_id." 
-    				AND (status = STUDENT_CLASS_REFUND_FAIL OR status = STUDENT_CLASS_LOST)";
+    				AND (status = ".STUDENT_CLASS_REFUND_FAIL." OR status = ".STUDENT_CLASS_INIT.")";
     		$array_result = $this->db->query($sql)->result_array();
     		return $array_result;
     	}
