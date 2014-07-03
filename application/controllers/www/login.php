@@ -181,17 +181,8 @@ class login extends NH_Controller
         $type = trim($this->input->post('type'));
         $user_id = get_uid_phone_server($phone);
         if($user_id) {
-            $post_fiedls = array('phone' => $phone, 'type' => $type);
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, student_url() . 'register/send_captcha');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fiedls);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 25);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            exit($result);
+            $send_info = $this->_send_captcha($phone, $type);
+            self::json_output($send_info);
         }
 
         self::json_output(array('status' => 'error', 'msg' => '您的手机号尚未绑定，请核对后重新输入。'));

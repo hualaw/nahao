@@ -198,6 +198,87 @@ class NH_Controller extends CI_Controller
         return $arr_return;
     }
 
+    //ajax interface
+    public function send_captcha()
+    {
+        $phone = trim($this->input->post('phone'));
+        $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
+
+        $send_info = $this->_send_captcha($phone, $type);
+        //unset($send_info['data']);
+        self::json_output($send_info);
+    }
+
+    protected function _send_captcha($phone, $type)
+    {
+        $this->load->library('sms');
+        $this->sms->setPhoneNums($phone);
+
+        $this->load->helper('string');
+        $verify_code = random_string('nozero', 4);
+        $msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
+        $this->sms->setContent($msg);
+        $create_time = time();
+        $send_ret = $this->sms->send();
+        //$send_ret['error'] = 'Ok';
+
+        $info = array(
+            'phone' => $phone,
+            'verify_code'=>$verify_code,
+            'msg'=>$msg,
+            'create_time'=>$create_time,
+            'type' => $type,
+        );
+
+        /*正式环境屏蔽掉info数组*/
+        if(ENVIRONMENT == 'production') $info = array();
+
+        //print_r($send_ret);
+        if($send_ret['error'] == 'Ok')
+        {
+            //store the captcha into redis
+            $this->load->model('model/common/model_redis', 'redis');
+            $this->redis->connect('login');
+
+            //store the phone-verify code list to list
+            $this->cache->redis->lpush($phone, json_encode(array(
+                't'=>$type,
+                'vc'=>$verify_code,
+                'et'=>$create_time + REDIS_VERIFY_CODE_EXPIRE_TIME
+            )));
+
+            $send_info = $this->_log_reg_info(SUCCESS, 'reg_send_verify_code_success', $info);
+        }
+        else
+        {
+            $tmp_array = array_merge($info, $send_ret);
+            $send_info = $this->_log_reg_info(ERROR, 'reg_send_verify_code_failed', $tmp_array);
+        }
+
+        return $send_info;
+    }
+
+
+    function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
+    {
+        $arr_return['status'] = $status;
+        $arr_return['msg'] = $this->lang->line($msg_type);
+        $arr_return['data'] = $info_arr;
+        switch($info_type)
+        {
+            case 'error':
+                log_message('ERROR_NAHAO', json_encode($arr_return));
+                break;
+            case 'info':
+                log_message('INFO_NAHAO', json_encode($arr_return));
+                break;
+            case 'debug':
+                log_message('DEBUG_NAHAO', json_encode($arr_return));
+                break;
+        }
+        return $arr_return;
+    }
+
 }
 
 require(APPPATH . 'core/NH_Admin_Controller.php');

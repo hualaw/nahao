@@ -21,7 +21,15 @@ define(function(require,exports){
     }
     //判断当前页面时注册成功的关于我的页面
     if($('.personInfo').length > 0){
-        require("module/teacherSelfInfo/upload").addUpload();//调用上传图片
+        seajs.use("module/teacherSelfInfo/upload", function (ex){
+                ex.addUpload1("up_teacher_auth_img");
+        });
+        seajs.use("module/teacherSelfInfo/upload", function (ex){
+                ex.addUpload2("up_title_auth_img");
+        });
+        seajs.use("module/teacherSelfInfo/upload", function (ex){
+                ex.addUpload3("up_work_auth_img");
+        });
         infoValid.teaInfoValid();//个人资料表单验证
         infoValid.teaPassValid();//修改密码表单验证
     }

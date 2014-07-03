@@ -9,6 +9,8 @@ define(function (require, exports) {
         //class edit modal
         $(".btn_class_edit").on("click",function(){
             var class_id = $(this).data("class_id");
+            var is_last = $(this).data("is_last");
+            var round_id = $("#class_list_round_id").data("round_id");
             var tds = $(this).parent().parent().children();
 //            console.log(tds);
 //            $(tds[3]).text();
@@ -22,18 +24,20 @@ define(function (require, exports) {
                 var end_time = $("#class_end_time").val();
                 if(begin_time>=end_time){
                     alert('开始时间不能大于结束时间');
-                    return false
+                    return false;
                 }
                 var url = $(this).data("action");
                 var data = {
+                    'round_id' : round_id,
                     'class_id' : class_id,
+                    'is_last' : is_last,
                     'begin_time' : begin_time,
                     'end_time' : end_time
                 };
 //                console.log(data);
                 $.post(url,data,function(response){
                     if(response){
-                        alert(response.msg)
+                        alert(response.msg);
                         if(response.status=="ok"){
                             window.location.reload();
                         }

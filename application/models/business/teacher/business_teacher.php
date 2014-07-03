@@ -188,7 +188,7 @@ class Business_Teacher extends NH_Model
 	     			$zjArr[$val['id']]['jArr'] = array();
 	     		}else{
 	     			#统计出勤率
-	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
+	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));
 	     			$val['attendance_persent'] = $persent;
 	     			$zjArr[$val['parent_id']]['jArr'][] = $val;
 	     		}
@@ -463,9 +463,9 @@ class Business_Teacher extends NH_Model
     		'none' => 0,
     	);
     	if($list) foreach ($list as $val){
-    		if($val['status']==1){
+    		if($val['status']==3){
     			$count['already'] += $val['net_income'];
-    		}elseif($val['status']==0){
+    		}elseif($val['status']==1 || $val['status']==2){
     			$count['none'] += $val['net_income'];
     		}
     	}

@@ -39,7 +39,6 @@ class Pay extends NH_User_Controller {
 		#1.详情列表
 		$pay_id = $this->uri->segment(3,0);
 		$pay_info = $this->teacher_b->pay_list(array('teacher_id' => $this->teacher_id,'id'=>$pay_id));
-		
 		$param = array(
 				'teacher_id' => $this->teacher_id,
 				'pay_id' => $pay_id,

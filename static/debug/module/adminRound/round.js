@@ -15,7 +15,7 @@ define(function(require,exports){
 
         //load ckeditor
         if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description');
+            CKEDITOR.replace('nahao_description',{ toolbar:'Basic', height:300 ,width:700});
         }
 
     }
@@ -191,16 +191,16 @@ define(function(require,exports){
                 alert("销售结束时间不能为空");
                 return false;
             }
-            var start_time = $("#start_time").val();
-            if(!start_time && start_time!='undefined'){
-                alert("开始时间不能为空");
-                return false;
-            }
-            var end_time = $("#end_time").val();
-            if(!end_time && end_time!='undefined'){
-                alert("结束时间不能为空");
-                return false;
-            }
+//            var start_time = $("#start_time").val();
+//            if(!start_time && start_time!='undefined'){
+//                alert("开始时间不能为空");
+//                return false;
+//            }
+//            var end_time = $("#end_time").val();
+//            if(!end_time && end_time!='undefined'){
+//                alert("结束时间不能为空");
+//                return false;
+//            }
             if(sale_price > price){
                 alert("促销价格不能大于价格");
                 return false;
@@ -209,14 +209,14 @@ define(function(require,exports){
                 alert("销售开始时间不能晚于销售结束时间");
                 return false;
             }
-            if(sell_end_time > start_time){
-                alert("销售结束时间不能晚于授课开始时间");
-                return false;
-            }
-            if(start_time >= end_time){
-                alert("开始时间不能晚于结束时间");
-                return false;
-            }
+//            if(sell_end_time > start_time){
+//                alert("销售结束时间不能晚于授课开始时间");
+//                return false;
+//            }
+//            if(start_time >= end_time){
+//                alert("开始时间不能晚于结束时间");
+//                return false;
+//            }
 
 
             //validate teachers
@@ -289,8 +289,8 @@ define(function(require,exports){
                 'sale_price' : sale_price,
                 'sell_begin_time' : sell_begin_time,
                 'sell_end_time' : sell_end_time,
-                'start_time' : start_time,
-                'end_time' : end_time
+//                'start_time' : start_time,
+//                'end_time' : end_time
             };
 //            console.log(data);
 //            return false;
