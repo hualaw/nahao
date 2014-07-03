@@ -60,7 +60,7 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #根据$int_round_id获取该轮的部分信息
         $array_return = $this->model_course->get_round_info($int_round_id);
-       // var_dump($array_return);die;
+        //var_dump($array_return);die;
         if ($array_return)
         {
             #售罄人数
@@ -75,6 +75,8 @@ class Student_Course extends NH_Model{
             $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
             $array_return['score'] = round($array_return['score']);
+            #授课提要
+            $array_return['description'] = htmlspecialchars_decode($array_return['description']);
             
         }
         return $array_return;
