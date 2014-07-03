@@ -198,6 +198,7 @@ class Model_Course extends NH_Model{
         $sql = "SELECT round_id,author,author_role,content,create_time FROM ".TABLE_ROUND_NOTE." 
         		WHERE (round_id = ".$int_round_id." OR round_id = 0)
                 AND status = 3 ORDER BY top_time,create_time DESC LIMIT 5";
+        //echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
