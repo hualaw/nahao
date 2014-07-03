@@ -150,21 +150,22 @@ class Round extends NH_Admin_Controller
 //                $arr_param['end_time'] = $int_end_time;
                 $bool_flag = true;
 
-                $arr_round_time_config = config_item('standard_round_time_config');
-                if($int_sell_begin_time < TIME_STAMP + $arr_round_time_config['before_sell_begin_time_min']){
+                $str_config_name = ENVIRONMENT=='production' ? 'production_round_time_config' : 'testing_round_time_config';
+                $arr_time_config = config_item($str_config_name);
+                if($int_sell_begin_time < TIME_STAMP + $arr_time_config['before_sell_begin_time_min']){
                     $this->arr_response['msg'] = '销售时间要晚于一天后';
                     $bool_flag = false;
-                }elseif($int_sell_begin_time > TIME_STAMP + $arr_round_time_config['before_sell_begin_time_max']){
+                }elseif($int_sell_begin_time > TIME_STAMP + $arr_time_config['before_sell_begin_time_max']){
                     $this->arr_response['msg'] = '销售时间不能晚于一个月后';
                     $bool_flag = false;
-                }elseif($int_sell_end_time < $int_sell_begin_time + $arr_round_time_config['before_sell_end_time_min']){
+                }elseif($int_sell_end_time < $int_sell_begin_time + $arr_time_config['before_sell_end_time_min']){
                     $this->arr_response['msg'] = '销售结束时间不能早于销售开始时间一天后';
                     $bool_flag = false;
-                }elseif($int_sell_end_time > $int_sell_begin_time + $arr_round_time_config['before_sell_end_time_max']){
+                }elseif($int_sell_end_time > $int_sell_begin_time + $arr_time_config['before_sell_end_time_max']){
                     $this->arr_response['msg'] = '销售结束时间不能晚于销售开始时间60天后';
                     $bool_flag = false;
                 }
-                $arr_param['start_time'] = $int_sell_end_time + $arr_round_time_config['before_begin_time'];
+                $arr_param['start_time'] = $int_sell_end_time + $arr_time_config['before_begin_time'];
 
                 if($bool_flag==true){
                     $str_action = 'create';
