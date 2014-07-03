@@ -228,8 +228,8 @@
 .studentMyCourse .buyBefore .cBox p{line-height: 24px;}
 .studentMyCourse .buyBefore .introd{text-indent: 2em;padding-top:70px;border-top: none;background: url(../../images/studentMyCourse/introd.png) 12px 44px no-repeat;}
 .studentMyCourse .buyBefore .fitStu{background: url(../../images/studentMyCourse/fitStu.png) 12px 22px no-repeat;padding-top:54px;}
-.studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 26px 65px 140px;}
-.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -114px;text-align: center;}
+.studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 22px 65px 140px;}
+.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -118px;}
 .studentMyCourse .buyBefore .editorBox img{max-width: 600px;}
 .studentMyCourse .buyBefore .creview li{padding: 26px 0 22px;border-bottom: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .creview{padding: 65px 20px 18px 18px;background: url(../../images/studentMyCourse/creview.png) 12px 25px no-repeat;}
