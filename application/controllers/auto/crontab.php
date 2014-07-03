@@ -27,7 +27,7 @@ class Crontab extends CI_Controller
     	{
     		$int_time = $time;
     	} else {
-    		$int_time = $this->get_time()+1800;
+    		$int_time = $this->get_time();
     	}
         $type = 1;
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
@@ -97,7 +97,7 @@ class Crontab extends CI_Controller
     	{
     		$int_time = $time;
     	} else {
-    		$int_time = $this->get_time();
+    		$int_time = '1404358200';//$this->get_time();
     	}
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
