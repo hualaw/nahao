@@ -86,11 +86,12 @@ define('ORDER_TYPE_OFFLINE', 4);
 
 /*
  * 首页列表默认图片 HOME_IMG_DEFAULT
- * 默认头像 DEFAULT_AVATER
+ * 默认头像 DEFAULT_AVATER  
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
 define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
 define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_MANGER_AVATER', '/images/login/manger.png');
 /*
  * 老师角色
  * 主讲 1

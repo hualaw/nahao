@@ -147,7 +147,7 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 根据course_id获取该课程下的所有轮（在审核通过和销售中）
+     * 根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
      * @param  $int_course_id
      * @return $array_result
      */
@@ -155,7 +155,10 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,start_time,end_time,sell_begin_time,sell_end_time FROM ".TABLE_ROUND." 
-                WHERE course_id = ".$int_course_id." AND sale_status = 3 ORDER BY course_id";
+                WHERE course_id = ".$int_course_id." 
+        		AND (sale_status = ".ROUND_SALE_STATUS_SALE." OR sale_status =".ROUND_SALE_STATUS_OVER." 
+        		OR sale_status = ".ROUND_SALE_STATUS_FINISH." OR sale_status = ".ROUND_SALE_STATUS_OFF.") ORDER BY course_id";
+        //echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -212,8 +215,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT title,begin_time,end_time,classroom_id,status FROM ".TABLE_CLASS." WHERE round_id = ".$int_round_id." 
-                AND (status = ".CLASS_STATUS_SOON_CLASS." OR status = ".CLASS_STATUS_ENTER_ROOM." OR status = ".CLASS_STATUS_CLASSING
-        		." OR status =". CLASS_STATUS_CLASS_OVER." OR status = ".CLASS_STATUS_MISS_CLASS.") AND parent_id !=0 LIMIT 1";
+                AND (status = ".CLASS_STATUS_SOON_CLASS.") AND parent_id !=0 LIMIT 1";
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }

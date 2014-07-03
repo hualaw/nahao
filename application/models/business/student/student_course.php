@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在销售中）
+        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -274,6 +274,8 @@ class Student_Course extends NH_Model{
 					$array_return[$k]['teacher_role'] = $array_teacher_role[$v['role']];
 					#老师头像
 					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+					$array_return[$k]['teacher_intro'] = htmlspecialchars_decode($array_return[$k]['teacher_intro']);
+					
 				}
 			}
 		}
@@ -334,7 +336,7 @@ class Student_Course extends NH_Model{
                    #发布者是管理员
                     $array_manager = $this->model_member->get_manager_data($v['author']);
                     $array_return[$k]['nickname'] = $array_manager['username'];
-                    $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
+                    $array_return[$k]['avatar'] = static_url(DEFAULT_MANGER_AVATER);
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);

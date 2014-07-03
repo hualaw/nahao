@@ -99,6 +99,18 @@
 	        			<span class="fl"></span>
       		        
 	        		</div>
+	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
+	        		<div class="cstate coverdue"></div>
+	        	    <span></span>
+	        		<div class="cf h3Box1">
+		        		<h3 class="fl"></h3>
+		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+	        		</div>
+	        		
+	        		<div class="cf classCDList">
+	        			<span class="fl"></span>
+      		        
+	        		</div>
 	        		{/if}
 	        	</div>
 	        	<ul class="fr manInfor">
@@ -111,7 +123,7 @@
                                 <em>{$item.nickname}</em>
                                 <span class="identity fr">
                                     <span {if $item.teacher_auth == '1'} title="教师资格证" class="teaCard fr"{/if}></span>
-                                    <span {if $item.titile_auth == '1'} title=教师职称证" class="TitleCard fr"{/if}></span>
+                                    <span {if $item.titile_auth == '1'} title="教师职称证" class="TitleCard fr"{/if}></span>
                                     <span {if $item.work_auth == '1'} title="教师工作证" class="workCard fr"{/if}></span>
                                 </span>
                             </div>
@@ -157,7 +169,9 @@
 
 								{if $it.status== $smarty.const.CLASS_STATUS_SOON_CLASS}
 								    <a href="javascript:;" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
-								{elseif $it.status== $smarty.const.CLASS_STATUS_ENTER_ROOM || $it.status== $smarty.const.CLASS_STATUS_CLASSING}
+								{elseif $it.status== $smarty.const.CLASS_STATUS_ENTER_ROOM }
+									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">可进教室</a>
+								{elseif  $it.status== $smarty.const.CLASS_STATUS_CLASSING}
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">去上课</a>
 								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER}
 									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
@@ -229,24 +243,23 @@
 	        	<ul class="abuyTabBox ntBox">
 	        	{if $array_note}
 	        	{foreach from=$array_note item=item}
-	        		{if $item.round_id =='0'}
+	        		{if $item.author_role =='2'}
 	        		<li>
 						<div class="nhead cf posr">
 							<img src="{$item.avatar}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong>{$item.nickname}</strong>
+								<strong>系统公告：</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
 						<div class="nDetailCon">
-							<p>各位同学</p>
 							<p class="indent">{$item.content}</p>
 						</div>
 					</li>
 					{/if}
 	        	{/foreach}
 	        	{foreach from=$array_note item=item}
-	        		{if $item.round_id !=0}
+	        		{if $item.author_role !='2'}
 	        		<li>
 						<div class="nhead cf posr">
 							<img src="{$item.avatar}" alt="" class="fl">
@@ -256,7 +269,7 @@
 							</div>
 						</div>
 						<div class="nDetailCon">
-							<p>各位同学</p>
+							
 							<p class="indent">{$item.content}</p>
 						</div>
 					</li>

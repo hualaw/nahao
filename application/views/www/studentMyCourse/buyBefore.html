@@ -20,8 +20,10 @@
         <!-- 购买前 头部 -->
         <div class="buyHead">
             <div class="buyHeadt">
-                <h2 title="{$array_data.title}">{$array_data.title|truncate:20:"...":true}</h2>
-                <p title="{$array_data.subtitle}"> {$array_data.subtitle}</p>
+
+                <h2 title="{$array_data.title}">{$array_data.title|truncate:40:"...":true}</h2>
+                <p title="{$array_data.subtitle}"> {$array_data.subtitle|truncate:66:"...":true}</p>
+
             </div>
             <div class="buyHeadf cf">
       			<div class="posr fl">
@@ -61,7 +63,14 @@
                         <a href="#review">{$str_evaluate_count}条评价</a>
                     </div>
                     <p class="fromf cf">
-						{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
+						{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE 
+						|| 
+						$array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER
+						||
+						$array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH
+						||
+						$array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF
+						}
 						<input type="hidden" id="product_id" value="{$array_data.id}">
                         <span class="fl oldPrice">原价<span>￥{$array_data.price}</span></span>
 						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
@@ -211,7 +220,7 @@
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
                             <span class="fl">
                                 ¥
-                                <strong>{$array_data.sale_price|string_format:"%.0f"}</strong>
+                                <strong>{$array_data.sale_price}</strong>
                             </span>
                             <span class="fr">
                                 <span>已售罄</span>
@@ -222,7 +231,7 @@
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
                             <span class="fl">
                                 ¥
-                                <strong>{$array_data.sale_price|string_format:"%.0f"}</strong>
+                                <strong>{$array_data.sale_price}</strong>
                             </span>
                             <span class="fr">
                                 <span>已停售</span>
@@ -257,7 +266,7 @@
                                     <span class="redText cMan">{$item.teacher_role}</span>
                                     <strong>{$item.nickname}</strong>
                                 </div>
-                                <p>{$item.teacher_signature}{$item.teacher_age}年</p>
+                                <p>{$item.teacher_signature}教龄{$item.teacher_age}年</p>
                             </div>
                         </div>
                         <p class="teaIntrod">
