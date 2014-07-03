@@ -118,7 +118,7 @@ define(function(require,exports){
                 if($(".icon_upload3").length > 0){
                     $(".icon_upload3").hide();
                 }
-                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>';
+                var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">学校工作证</b><input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan03").html(imgTag).show();
                 //用户可能更改上传的图片, 这里更新img_key
                 var oldImgKey = $("#new_work_auth_img").val();
