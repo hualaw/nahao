@@ -65,61 +65,79 @@ class Classes extends NH_Admin_Controller {
             'status' => 'error',
             'msg' => '时间不可用'
         );
-        if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0 AND ($int_end_time >= $int_begin_time + 30*60) AND ($int_end_time <= $int_begin_time + 3*3600)){
+
+        $str_config_name = ENVIRONMENT=='production' ? 'production_round_time_config' : 'testing_round_time_config';
+        $arr_time_config = config_item($str_config_name);
+        if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0){
             $bool_flag = true;
+
+            if($int_end_time < $int_begin_time + $arr_time_config['class_min_long']){
+                $bool_flag = false;
+                $arr_response['msg'] = '课长太短';
+            }elseif($int_end_time > $int_begin_time + $arr_time_config['class_max_long']){
+                $bool_flag = false;
+                $arr_response['msg'] = '课长太长';
+            }
+
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
-            if($arr_round AND isset($arr_round['start_time']) AND $arr_round['start_time'] <= $int_begin_time-3600){
-                $arr_classes = $this->class->get_classes_by_round_id($int_class_id);
-                foreach($arr_classes as $k => $v){
-                    if($v['parent_id'] > 0){
-                        if(($v['begin_time']-3600 < $int_begin_time AND $int_begin_time < $v['end_time']+3600) OR ($v['begin_time']-3600 < $int_begin_time AND $int_end_time < $v['end_time']+3600)){
-                            $bool_flag = false;
-                            $arr_response['msg'] = '时间已占用';
-                        }
-                    }
+            if($arr_round AND isset($arr_round['start_time'])){
+                if(($arr_round['start_time']+$arr_time_config['before_first_class']) > $int_begin_time){
+                    $bool_flag = false;
+                    $arr_response['msg'] = '课开始时间要晚于轮开始时间后一定时间';
                 }
 
                 if($bool_flag == true){
-                    $arr_class = $this->class->get_class_by_id($int_class_id);
-                    $int_classroom_id = $arr_class['classroom_id'];
-                    $int_courseware_id = $arr_class['courseware_id'];
-                    if($arr_class['classroom_id']==0){
-                        $arr_classroom_param = array(
-                            'name' => $arr_class['title'],
-                            'start_at' => $str_begin_time,
-                            'end_at' => $str_end_time
-                        );
-                        $int_classroom_id = general_classroom_id($arr_classroom_param);
+                    $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
+                    foreach($arr_classes as $k => $v){
+                        if($v['parent_id'] > 0 AND $v['id'] != $int_class_id){
+                            if(($v['begin_time']-$arr_time_config['class_between_long'] < $int_begin_time AND $int_begin_time < $v['end_time']+$arr_time_config['class_between_long']) OR ($v['end_time']-$arr_time_config['class_between_long'] < $int_begin_time AND $int_end_time < $v['end_time']+$arr_time_config['class_between_long'])){
+                                $bool_flag = false;
+                                $arr_response['msg'] = '时间已占用';
+                                break;
+                            }
+                        }
                     }
-                    $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
+                    if($bool_flag == true){
+                        $arr_class = $this->class->get_class_by_id($int_class_id);
+                        $int_classroom_id = $arr_class['classroom_id'];
+                        $int_courseware_id = $arr_class['courseware_id'];
+                        if($arr_class['classroom_id']==0){
+                            $arr_classroom_param = array(
+                                'name' => $arr_class['title'],
+                                'start_at' => $str_begin_time,
+                                'end_at' => $str_end_time
+                            );
+                            $int_classroom_id = general_classroom_id($arr_classroom_param);
+                        }
+                        $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
 //            o($bool_add_courseware,true);
 
-                    $arr_param = array(
-                        'classroom_id' => $int_classroom_id,
-                        'begin_time' => strtotime($str_begin_time),
-                        'end_time' => strtotime($str_end_time)
-                    );
-                    $arr_where = array(
-                        'id' => $int_class_id
-                    );
-                    $this->class->update_class($arr_param,$arr_where);
-                    if($int_is_last==1){
-                        $arr_param_round = array(
-                            'end_time' => strtotime($str_end_time)+3600
+                        $arr_param = array(
+                            'classroom_id' => $int_classroom_id,
+                            'begin_time' => strtotime($str_begin_time),
+                            'end_time' => strtotime($str_end_time)
                         );
-                        $arr_where_round = array(
-                            'id' => $int_round_id
+                        $arr_where = array(
+                            'id' => $int_class_id
                         );
-                        $arr_round = $this->round->update_round($arr_param_round,$arr_where_round);
+                        $this->class->update_class($arr_param,$arr_where);
+                        if($int_is_last==1){
+                            $arr_param_round = array(
+                                'end_time' => strtotime($str_end_time)+3600
+                            );
+                            $arr_where_round = array(
+                                'id' => $int_round_id
+                            );
+                            $arr_round = $this->round->update_round($arr_param_round,$arr_where_round);
+                        }
+                        $arr_response = array(
+                            'status' => 'ok',
+                            'msg' => '修改成功'
+                        );
                     }
-                    $arr_response = array(
-                        'status' => 'ok',
-                        'msg' => '修改成功'
-                    );
                 }
             }
-
         }
         self::json_output($arr_response);
     }
