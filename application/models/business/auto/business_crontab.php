@@ -150,7 +150,7 @@
          *轮的状态
          * @author shangshikai@tizi.com
          */
-        public function round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time)
+        public function round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time,$begin_ex_time,$end_ex_time)
         {
             //var_dump($begin_time);die;
             if($begin_time==FALSE || $end_time==FALSE)
@@ -167,7 +167,7 @@
                 $all_round_status_end=$this->model_crontab->remedy_all_round_status_end($begin_time,$end_time);
                 $all_run_status=$this->model_crontab->remedy_all_round_teach($begin_time,$end_time);
                 $all_run_end=$this->model_crontab->remedy_all_round_teach_end($begin_time,$end_time);
-                $all_expire_end=$this->model_crontab->remedy_all_expire_end($begin_time,$end_time);
+                $all_expire_end=$this->model_crontab->remedy_all_expire_end($begin_ex_time,$end_ex_time);
             }
 
             foreach($all_round_status as $v)
