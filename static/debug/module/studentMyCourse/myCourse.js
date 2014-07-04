@@ -238,7 +238,8 @@ define(function(require,exports){
         $(".outlineList .listb").mouseout(function (){
             $(this).find(".cListHid").hide();
         });
-        $(".evaluBtn").click(function (){               
+        $(".evaluBtn").click(function (){
+            var index = $(".evaluBtn").index($(this));          
            // _popUp.popUp('.evaluHtml');
         	$.dialog({
         		id:"comment_close",
@@ -251,7 +252,7 @@ define(function(require,exports){
             class_id = $(this).attr("evaluBtns");
             $("#c_class_id").val(class_id);
             exports.starClick();
-            require("module/classRoom/valid").evaluForm();
+            require("module/classRoom/valid").evaluForm(index);
             
         })
     }
