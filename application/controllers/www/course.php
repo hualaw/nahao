@@ -274,6 +274,7 @@ class Course extends NH_User_Controller {
 	 	}
 	 	$wordStr = $array_courseware['0']['download_url'];
 	 	//echo $wordStr;die;
+// 	 	var_dump($array_courseware);die;
 	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
 	 	$this->forceDownload($wordStr);
 	 }
@@ -282,44 +283,25 @@ class Course extends NH_User_Controller {
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 protected function forceDownload($filename) 
+	 public function forceDownload($filename) 
 	 {
+	     
+	    // http headers 
+	    header('Content-Type: application-x/force-download'); 
+	    header('Content-Disposition: attachment; filename="' . basename($filename) .'"'); 
+	    header('Content-length: ' . filesize($filename)); 
 	 
-	 	// http headers
-	 	header('Content-Type: application-x/force-download');
-	 	header('Content-Disposition: attachment; filename="'.basename($filename).'"');
-	 	header('Content-length: ' . filesize($filename));
-	 
-	 	// for IE6
-	 	if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) {
-	 		header('Cache-Control: no-cache, must-revalidate');
-	 	}
-	 	header('Pragma: no-cache');
-	 	 
-	 	// read file content and output
-	 	return readfile($filename);
-	 	
-	 	
-/* 	 	$filename = basename($file);
-	 	
-	 	header("Content-type: application/octet-stream");
-	 	
-	 	//处理中文文件名
-	 	$ua = $_SERVER["HTTP_USER_AGENT"];
-	 	//$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
-	 	$filename = urlencode($filename);
-	 	$filename = str_replace("+", "%20", $filename);// 替换空格
-	 	if (preg_match("/MSIE/", $ua)) {
+	    // for IE6 
+	    if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) { 
+	        header('Cache-Control: no-cache, must-revalidate'); 
+	    } 
+	    header('Pragma: no-cache'); 
+	         
+	    // read file content and output 
+	    return readfile($filename);; 
 
-	 		header("Content-Disposition: attachment; filename='".$filename."'");
-	 	} else if (preg_match("/Firefox/", $ua)) {
-	 		header("Content-Disposition: attachment; filename*=\"utf8''" . $filename . '"');
-	 	} else {
-	 		header('Content-Disposition: attachment; filename="' . $filename . '"');
-	 	}
 	 	
-	 	header("Content-Length: ". filesize($file));
-	 	readfile($file); */
+
 	 }
 }
 
