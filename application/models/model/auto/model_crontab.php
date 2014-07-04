@@ -57,7 +57,7 @@
     	public function get_time_by_teacher_press_submit($int_classroom_id)
     	{
     		$array_result = array();
-    		$sql= "SELECT create_time FROM ".TABLE_CLASS_ACTION_LOG." WHERE classroom_id = ".$int_classroom_id." ORDER BY create_time ASC LIMIT 1";
+    		$sql= "SELECT create_time FROM ".TABLE_CLASS_ACTION_LOG." WHERE classroom_id = ".$int_classroom_id." AND user_type = ".NH_MEETING_TYPE_TEACHER." ORDER BY create_time ASC LIMIT 1";
     		$array_result = $this->db->query($sql)->row_array();
     		return $array_result;
     	}
