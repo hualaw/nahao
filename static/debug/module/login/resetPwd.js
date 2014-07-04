@@ -3,8 +3,9 @@ define(function(require,exports){
 
     //发送验证码
     exports.sendValidateCode = function (){
-        var oswitch = true;
+        //var oswitch = true;
         $('.code').click(function() {
+           // oswitch = true;
             var _this = $(this);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
@@ -20,7 +21,7 @@ define(function(require,exports){
 		        });
                 return fasle;
             }
-            if(oswitch){
+           // if(oswitch){
                 $.ajax({
                     url : student_url + 'login/send_reset_captcha',
                     type : 'post',
@@ -35,11 +36,11 @@ define(function(require,exports){
                         } else {
                             //手机验证倒计时
                             require("module/common/method/countDown").countDown(_this); 
+                           // oswitch = true;
                         }
                     }
                 });
-                oswitch = false;
-            }
+           // }
         });
     }
     
