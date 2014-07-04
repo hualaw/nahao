@@ -178,14 +178,16 @@ class Round extends NH_Admin_Controller
                         $bool_flag = $this->round->update_round($arr_param, $arr_where);
                     } else {
                         //create
+                        $bool_flag = false;
                         $this->load->model('business/admin/business_lesson', 'lesson');
                         $arr_classes = $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
                         $this->load->model('business/admin/business_course', 'course');
-                        $arr_param['class_count'] = $this->course->get_section_count($arr_classes);
-//                    o($arr_classes);
-//                    o($arr_param,true);
-                        $int_round_id = $this->round->create_round($arr_param);
-                        $bool_flag = $int_round_id > 0 ? true : false;
+                        $int_class_count = $this->course->get_section_count($arr_classes);
+                        if($int_class_count > 0){
+                            $arr_param['class_count'] = $int_class_count;
+                            $int_round_id = $this->round->create_round($arr_param);
+                            $bool_flag = $int_round_id > 0 ? true : false;
+                        }
                     }
 
 //                o($arr_param);
@@ -320,7 +322,7 @@ class Round extends NH_Admin_Controller
     }
 
     /**
-     * 修改slae_status和teach_status
+     * 修改sale_status和teach_status
      * @author yanrui@tizi.com
      */
     public function status(){
@@ -332,16 +334,25 @@ class Round extends NH_Admin_Controller
 //        o($int_status,true);
         if($int_round_id > 0 AND $int_status >= 0 AND $str_type){
             $bool_flag = true;
-            if($int_status==2){
-                $this->load->model('business/admin/business_class', 'class');
-                $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
+            if($str_type=='sale_status'){
+                if($int_status==ROUND_SALE_STATUS_PASS){
+                    //审核通过
+                    $this->load->model('business/admin/business_class', 'class');
+                    $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
 //                var_dump($arr_classes);exit;
-                foreach($arr_classes as $class){
-                    if($class["parent_id"]>0 AND ($class['begin_time']==0 OR $class['end_time']==0)){
-                        $bool_flag = false;
-                        $this->arr_response['msg'] = '《'.$class['title'].'》时间不正确，不能生成班次';
-                        break;
+                    foreach($arr_classes as $class){
+                        if($class["parent_id"]>0 AND ($class['begin_time']==0 OR $class['end_time']==0)){
+                            $bool_flag = false;
+                            $this->arr_response['msg'] = '《'.$class['title'].'》时间不正确，不能通过审核';
+                            break;
+                        }
                     }
+                }else{
+
+                }
+            }else{
+                if($int_status==ROUND_TEACH_STATUS_STOP){
+
                 }
             }
             if($bool_flag==true){
