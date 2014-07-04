@@ -231,6 +231,7 @@ class Lesson extends NH_Admin_Controller {
         $int_courseware_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
         if($int_courseware_id){
             $arr_courseware_status = get_courseware_status($int_courseware_id);
+//            o($arr_courseware_status);
             if($arr_courseware_status['status']==true){
 //                o($arr_courseware,true);
                 $arr_courseware = get_courseware_info($int_courseware_id);

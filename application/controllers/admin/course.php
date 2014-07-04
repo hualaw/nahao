@@ -227,9 +227,9 @@ class Course extends NH_Admin_Controller {
         //uploads是相对于index.php的 最后尝试页面直接ajax给七牛
         $config['upload_path'] = '../uploads/';
         $config['allowed_types'] = 'gif|jpg|png';//最后这个选项可能会有安全隐患问题
-        $config['max_size'] = '2000';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
+//        $config['max_size'] = '2000';
+//        $config['max_width']  = '1024';
+//        $config['max_height']  = '768';
 
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload', $config);
@@ -266,7 +266,7 @@ class Course extends NH_Admin_Controller {
         /***********七牛 end***********/
 
 //        $str_img_url = 'http://n1a2h3a4o5.qiniudn.com/course_20140611112154_iANZ8Sy.png?imageView/1/w/290/h/216';
-        $str_img_url = NH_QINIU_URL.$str_new_file_name.'?imageView/1/w/290/h/216';
+        $str_img_url = NH_QINIU_URL.$str_new_file_name.'?imageView/1/w/600';
         $str_html = '<html>
         <body>
         <script type="text/javascript">

@@ -59,7 +59,9 @@
 
 	        				</div>
 	        			</div>
-	        			{if $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_ENTER_ROOM ||  $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_CLASSING}
+	        			{if $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_ENTER_ROOM }
+	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn" title="在开课时间前30分钟，可提前进教室">可进教室</a>
+	        			{elseif $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_CLASSING}
 	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn" title="在开课时间前30分钟，可提前进教室">去上课</a>
 	        			{/if}
 	        		</div>

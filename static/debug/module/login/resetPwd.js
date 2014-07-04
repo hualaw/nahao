@@ -3,9 +3,9 @@ define(function(require,exports){
 
     //发送验证码
     exports.sendValidateCode = function (){
-        var oswitch = true;
         $('.code').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
                 $.tiziDialog({
@@ -20,26 +20,23 @@ define(function(require,exports){
 		        });
                 return fasle;
             }
-            if(oswitch){
-                $.ajax({
-                    url : student_url + 'login/send_reset_captcha',
-                    type : 'post',
-                    data : {'phone' : phone, 'type' : 3},
-                    dataType : 'json',
-                    success : function (result) {
-                        if(result.status == 'error') {
-                            $.tiziDialog({
-                                content:result.msg,
-                                icon:null
-                            });
-                        } else {
-                            //手机验证倒计时
-                            require("module/common/method/countDown").countDown(_this); 
-                        }
+            $.ajax({
+                url : student_url + 'login/send_reset_captcha',
+                type : 'post',
+                data : {'phone' : phone, 'type' : 3},
+                dataType : 'json',
+                success : function (result) {
+                    if(result.status == 'error') {
+                        $.tiziDialog({
+                            content:result.msg,
+                            icon:null
+                        });
+                    } else {
+                        //手机验证倒计时
+                        require("module/common/method/countDown").countDown(_this); 
                     }
-                });
-                oswitch = false;
-            }
+                }
+            });
         });
     }
     

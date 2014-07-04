@@ -92,7 +92,7 @@ class login extends NH_Controller
             if($user_id) {
                 $this->business_user->reset_password($user_id, $new_pwd);
                 $this->session->set_userdata('reset_pwd_phone', 0);
-                self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=1'));
+                self::json_output(array('status' => SUCCESS, 'url' => student_url() . 'login/reset_pwd_success?find_ways=1'));
             } else {
                 $arr_return['info'] = '无效的用户';
                 self::json_output($arr_return);
@@ -119,7 +119,7 @@ class login extends NH_Controller
                     $this->business_user->reset_password($user_info['id'], $new_pwd);
                     #clear redis cache after user reset password through email
                     $this->cache->redis->delete(md5($user_email));
-                    self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=2'));
+                    self::json_output(array('status' => SUCCESS, 'url' => student_url() . 'login/reset_pwd_success?find_ways=2'));
                 } else {
                     $arr_return['info'] = '无效的用户';
                     self::json_output($arr_return);
@@ -259,6 +259,11 @@ class login extends NH_Controller
         if(isset($ret['data']))
         {
             $ret['data']['redirect_url'] = $redirect_url == "" ? site_url() : $redirect_url;
+            //修改密码不跳回到原来的页面
+            if(strpos($redirect_url, "/login/reset_pwd_success") !== false)
+            {
+                $ret['data']['redirect_url'] = site_url();
+            }
         }
 
         //log_message('debug_nahao', print_r($this->session->all_userdata(),1)."\n");

@@ -132,6 +132,8 @@ class Crontab extends CI_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
+    	$str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+    	$arr_time_config = config_item($str_config_name);
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -150,8 +152,7 @@ class Crontab extends CI_Controller
     				} else {
     					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”失败".'\r\n';
     				}
-    			}
-    			if($array_return['create_time']-$v['begin_time'] >= 5*60)
+    			}else if($array_return['create_time']-$v['begin_time'] >= $arr_time_config['teacher_late_time'])
     			{
     				$bool_nflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
     				if ($bool_nflag)
