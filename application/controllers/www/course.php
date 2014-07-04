@@ -275,6 +275,7 @@ class Course extends NH_User_Controller {
 	 	$wordStr = $array_courseware['0']['download_url'];
 	 	$file_name = $array_courseware['0']['name'];
 	 	$file_name = urlencode($file_name);
+	 	$file_name = str_replace("+", "%20", $file_name);// 替换空格
 	 	//echo $wordStr;die;
 // 	 	var_dump($array_courseware);die;
 	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
