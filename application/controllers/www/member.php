@@ -286,11 +286,12 @@ class Member extends NH_User_Controller {
         $this->load->model('business/admin/business_teacher');
         $this->load->model('business/common/business_area');
 	    $user_id = $this->session->userdata('user_id');
+        $reg_type = $this->session->userdata('reg_type');
         if($this->is_post()) {
             $this->load->model('business/common/business_user');
             $post_data = array();
             $phone = trim($this->input->post('phone'));
-            if($phone != $this->_user_detail['phone']) {
+            if($reg_type == REG_LOGIN_TYPE_EMAIL && $phone != $this->_user_detail['phone']) {
                 $phone_mask = empty($phone) ? '' : phone_blur($phone);
                 $phone_data['phone_mask'] = $phone;//邮箱注册的用户,phone_mask在邮箱是明文在redis中是加了掩码的
                 $this->business_user->modify_user($phone_data, $user_id);
@@ -370,7 +371,7 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
         $this->smarty->assign('special_city', array(2, 25, 27, 32));
-        $this->smarty->assign('reg_type', $this->session->userdata('reg_type'));
+        $this->smarty->assign('reg_type', $reg_type);
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }

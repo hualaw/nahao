@@ -282,12 +282,12 @@ class Course extends NH_User_Controller {
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 protected function forceDownload($file) 
+	 protected function forceDownload($filename) 
 	 {
 	 
-/* 	 	// http headers
+	 	// http headers
 	 	header('Content-Type: application-x/force-download');
-	 	header('Content-Disposition: attachment; filename="' . basename($filename) .'"');
+	 	header('Content-Disposition: attachment; filename="'.basename($filename).'"');
 	 	header('Content-length: ' . filesize($filename));
 	 
 	 	// for IE6
@@ -297,19 +297,21 @@ class Course extends NH_User_Controller {
 	 	header('Pragma: no-cache');
 	 	 
 	 	// read file content and output
-	 	return readfile($filename);; */
+	 	return readfile($filename);
 	 	
 	 	
-	 	$filename = basename($file);
+/* 	 	$filename = basename($file);
 	 	
 	 	header("Content-type: application/octet-stream");
 	 	
 	 	//处理中文文件名
 	 	$ua = $_SERVER["HTTP_USER_AGENT"];
 	 	//$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
-	 	$encoded_filename = rawurlencode($filename);
+	 	$filename = urlencode($filename);
+	 	$filename = str_replace("+", "%20", $filename);// 替换空格
 	 	if (preg_match("/MSIE/", $ua)) {
-	 		header('Content-Disposition: attachment; filename="' . $encoded_filename . '"');
+
+	 		header("Content-Disposition: attachment; filename='".$filename."'");
 	 	} else if (preg_match("/Firefox/", $ua)) {
 	 		header("Content-Disposition: attachment; filename*=\"utf8''" . $filename . '"');
 	 	} else {
@@ -317,9 +319,7 @@ class Course extends NH_User_Controller {
 	 	}
 	 	
 	 	header("Content-Length: ". filesize($file));
-	 	readfile($file);
-
-
+	 	readfile($file); */
 	 }
 }
 
