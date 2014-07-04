@@ -86,11 +86,12 @@ define('ORDER_TYPE_OFFLINE', 4);
 
 /*
  * 首页列表默认图片 HOME_IMG_DEFAULT
- * 默认头像 DEFAULT_AVATER
+ * 默认头像 DEFAULT_AVATER  
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
 define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
 define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_MANGER_AVATER', '/images/login/manger.png');
 /*
  * 老师角色
  * 主讲 1
@@ -336,15 +337,15 @@ define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
 //七牛账号
-//define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
-//define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
-//define('NH_QINIU_BUCKET','n1a2h3a4o5');
-//define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
+define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
+define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
+define('NH_QINIU_BUCKET','n1a2h3a4o5');
+define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 
-define('NH_QINIU_ACCESS_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
-define('NH_QINIU_SECRET_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
-define('NH_QINIU_BUCKET','nahaoweb');
-define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
+#define('NH_QINIU_ACCESS_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
+#define('NH_QINIU_SECRET_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
+#define('NH_QINIU_BUCKET','nahaoweb');
+#define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
 
 define('MAX_NICKNAME_LEN', 25);
 

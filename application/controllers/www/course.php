@@ -34,7 +34,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-       //var_dump($array_team);die;
+       	//var_dump($array_data);die;
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);

@@ -44,7 +44,7 @@
                         <h3>{$val['question']}</h3>
                         {foreach $val['options'] as $k=>$v}
                         	{if $v['value']}
-	                    	<div class="optiona">{$k}. {$v['value']}</div>
+	                    	<div class="optiona"><em style="float:left">{$k}. </em>{$v['value']}</div>
 	                    	{/if}
 	                    {/foreach}
                         <div class="md_ft">

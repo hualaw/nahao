@@ -273,6 +273,7 @@ define(function(require,exports){
     
         //发送验证码
     exports.sendValidateCode = function (){
+        var oswitch = true;
         $('.sendPhoneCode').click(function() {
             var _this = $(this);
             var phone = $("input[name='phone']").val();
@@ -290,24 +291,26 @@ define(function(require,exports){
 				});
                 return fasle;
             }
-            $.ajax({
-                url : '/register/send_captcha',
-                type : 'post',
-                data : {'phone' : phone, 'type' : verify_type},
-                dataType : 'json',
-                success : function (result) {
-                    if(result.status == 'error') {
-        				$.dialog({
-        				    content:result.msg,
-        				    icon:null
-        				});
-                    } else {
-                        //手机验证倒计时
-                        require("module/common/method/countDown").countDown(_this);   
+            if(oswitch){
+                $.ajax({
+                    url : '/register/send_captcha',
+                    type : 'post',
+                    data : {'phone' : phone, 'type' : verify_type},
+                    dataType : 'json',
+                    success : function (result) {
+                        if(result.status == 'error') {
+            				$.dialog({
+            				    content:result.msg,
+            				    icon:null
+            				});
+                        } else {
+                            //手机验证倒计时
+                            require("module/common/method/countDown").countDown(_this);   
+                        }
                     }
-                }
+                });
+                oswitch = false;
             }
-            );
         });
     }
     
