@@ -113,7 +113,7 @@
          */
         public function detail($id)
         {
-            return $this->db->select('class.title as class_title,class.begin_time,class.end_time,round.title as round_title')->from(TABLE_CLASS)->join(TABLE_ROUND,'round.id=class.round_id','left')->where(TABLE_CLASS.'.id',$id)->get()->row_array();
+            return $this->db->select('class.title as class_title,class.begin_time,class.end_time,round.title as round_title,round.reward')->from(TABLE_CLASS)->join(TABLE_ROUND,'round.id=class.round_id','left')->where(TABLE_CLASS.'.id',$id)->get()->row_array();
            // return $this->db->last_query();
         }
         /**
