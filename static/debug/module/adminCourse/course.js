@@ -131,7 +131,9 @@ define(function (require, exports) {
             var title = $("#title").val();
             var subtitle = $("#subtitle").val();
             var intro = $("#intro").val();
-            var description = CKEDITOR.instances.nahao_description.getData();
+            $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
+            var description = $("#nahao_description_new").val();
+//            var description = CKEDITOR.instances.nahao_description.getData();
             var students = $("#students").val();
             var subject = $("#subject").val();
             var course_type = $("#course_type").val();
@@ -181,7 +183,8 @@ define(function (require, exports) {
                 'title' : title,
                 'subtitle' : subtitle,
                 'intro' : intro,
-                'description' : encodeURI(description),
+//                'description' : encodeURI(description),
+                'description' : description,
                 'students' : students,
                 'subject' : subject,
                 'course_type' : course_type,

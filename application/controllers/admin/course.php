@@ -92,7 +92,7 @@ class Course extends NH_Admin_Controller {
             $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
             $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
             $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
-            $str_description = $this->input->post('description') ? trim($this->input->post('description')) : '';
+            $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
             $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
             $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
