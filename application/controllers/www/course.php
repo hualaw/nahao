@@ -273,22 +273,24 @@ class Course extends NH_User_Controller {
 	 		show_error('抱歉!这节课没有上传课件');
 	 	}
 	 	$wordStr = $array_courseware['0']['download_url'];
+	 	$file_name = $array_courseware['0']['name'];
+	 	$file_name = urlencode($file_name);
 	 	//echo $wordStr;die;
 // 	 	var_dump($array_courseware);die;
 	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
-	 	$this->forceDownload($wordStr);
+	 	$this->forceDownload($wordStr,$file_name);
 	 }
 	 
 	 /**
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 public function forceDownload($filename) 
+	 public function forceDownload($filename,$file_name) 
 	 {
 	     
 	    // http headers 
 	    header('Content-Type: application-x/force-download'); 
-	    header('Content-Disposition: attachment; filename="' . basename($filename) .'"'); 
+	    header('Content-Disposition: attachment; filename="' . $file_name .'"'); 
 	    header('Content-length: ' . filesize($filename)); 
 	 
 	    // for IE6 
