@@ -7,6 +7,7 @@
         <th>班次名称</th>
         <th>班节名称</th>
         <th>授课课时</th>
+        <th>课酬（元/小时）</th>
     </tr>
     {foreach $details as $v}
     <tr>
@@ -16,6 +17,7 @@
         <td>{$v.round_title}</td>
         <td>{$v.class_title}</td>
         <td>2</td>
+        <td>{$v.reward}</td>
     </tr>
     {/foreach}
 </table>
