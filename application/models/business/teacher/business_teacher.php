@@ -556,7 +556,7 @@ class Business_Teacher extends NH_Model
     	$num = 0;//总题数
     	if(count($data) > 0) foreach ($data as $sequence => $list){
     		//1. 统计头
-			$head_class = $sequence==$cur_sequence ? 'redBtn' : 'countBtn';
+			$head_class = $sequence==$cur_sequence ? 'redBtn' : 'countBtn blackBack';
 			$html_head .= '<a href="#" class="cbutton '.$head_class.'" rel='.$sequence.'>第'.$sequence.' 次答题统计</a>';
 			//2.统计内容
 			$style =  $sequence==$cur_sequence ? 'style="display:block"' : 'style="display:none"';
@@ -601,7 +601,7 @@ class Business_Teacher extends NH_Model
 	    	}
 	    	
     	}
-    	$average = round($persent/$num,3).'%';
+    	$average = round($persent/$num,2).'%';
     	$total_html = '<span>本次练习共<em class="redText ">'.$answer_user_num.'</em>人作答</span>
 				<span>平均正确率<em class="redText">'.$average.'</em></span>';
     	return array('total_html' => $total_html, 'html_head' => $html_head, 'html' => $html);
