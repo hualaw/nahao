@@ -2,7 +2,7 @@ define(function(require,exports){
     require("flashUploader");
     var uploadify_swf = siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf';
     var upload_url = 'http://up.qiniu.com';
-    var image_host = 'http://n1a2h3a4o5.qiniudn.com/';
+    var image_host = nh_img_host;
     exports.addUpload1 = function(div_id){
         //upload teacher qualification img
         var qualificationImgFormData = {'key':$('#new_teacher_auth_img').val(),'token':$('#nahao_token').val()};
@@ -73,8 +73,8 @@ define(function(require,exports){
 
                 /*添加教师职称证书图片*/
                 $("#title_auth_img").val(data.key);
-                if($(".icon_upload1").length > 0){
-                    $(".icon_upload1").hide();
+                if($(".icon_upload2").length > 0){
+                    $(".icon_upload2").hide();
                 }
                 var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan02").html(imgTag).show();
@@ -115,8 +115,8 @@ define(function(require,exports){
                 var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
 //               /*添加学校工作证图片*/
                 $("#work_auth_img").val(data.key);
-                if($(".icon_upload1").length > 0){
-                    $(".icon_upload1").hide();
+                if($(".icon_upload3").length > 0){
+                    $(".icon_upload3").hide();
                 }
                 var imgTag = '<img src="'+img_url_small+'"/><b class="uploadTip">教师职称证书</b><input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>';
                 $(".md_upload .ImageSpan03").html(imgTag).show();
