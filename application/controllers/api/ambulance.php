@@ -44,6 +44,13 @@ class Ambulance extends NH_Controller {
                             if($v['courseware_id'] > 0){
                                 $bool_set = set_courseware_to_classroom($int_classroom_id,$v['courseware_id']);
                                 if($bool_set){
+                                    $arr_param = array(
+                                        'classroom_id' => $int_classroom_id,
+                                    );
+                                    $arr_where = array(
+                                        'id' => $v['id']
+                                    );
+                                    $bool_return = $this->class->update_class($arr_param, $arr_where);
                                     echo 'ID为'.$v['id'].'的课堂，教室由'.$v['classroom_id'].'调整为'.$int_classroom_id;
                                 }
                             }
