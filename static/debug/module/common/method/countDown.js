@@ -1,22 +1,16 @@
 define(function(require,exports){
-    var oswitch = true;
+    var ind=60;
 	exports.countDown = function (_this){
-        oswitch = true;
-        // if(oswitch){
-            
-        // }
+        ind=60;
 		//验证倒计时
-        var ind=60;
         var timer = setInterval(function(){
             ind--;
             if(ind<0){
                 clearInterval(timer);
-                _this.show(); 
-                _this.next('span.codeSpan').hide();
-               oswitch = false;
+                _this.removeAttr("disabled");
+                _this.val('重新获取验证码');
             }else{
-                _this.hide(); 
-                _this.next('span.codeSpan').show().html(ind + '秒后获取验证码');
+                _this.val(ind + '秒后获取验证码');
             }
         }, 1000);
 	}
