@@ -140,6 +140,7 @@ class Business_Teacher extends NH_Model
 //            $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,'.TABLE_USER.'.status,source,gender,grade,province,city,area';
             $str_fields = TABLE_USER.'.id,nickname,phone_mask,email,gender,realname,,source,gender,grade,province,city,area,teacher_age,title,stage,register_time,'.TABLE_NAHAO_AREAS.'.name,'.TABLE_USER.'.status,'.TABLE_SUBJECT.'.name as subject_name';
             $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_ON;
+//            $arr_where[TABLE_USER.'.status'] = TABLE_USER_DIC_STATUS_ON;
             if(array_key_exists('title',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title']-1;
                 unset($arr_where['title']);
