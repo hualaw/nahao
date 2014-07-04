@@ -29,7 +29,8 @@ class Crontab extends CI_Controller
     	} else {
     		$str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
     		$arr_time_config = config_item($str_config_name);
-    		$int_time = $this->get_time()+$arr_time_config['enter_before_class'];
+    		$a = $this->get_time();
+    		$int_time = $a+$arr_time_config['enter_before_class'];
     	}
         $type = 1;
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
