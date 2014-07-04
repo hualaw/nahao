@@ -22,7 +22,7 @@ class Index extends NH_User_Controller {
      */
 	public function index()
 	{  
-        //var_dump($this->session->all_userdata());
+//        o($this->session->all_userdata());exit;
         $array_data = $this->student_index->get_course_latest_round_list();
         //var_dump($array_data);
         #课程列表的地址
