@@ -220,8 +220,10 @@ class Index extends NH_User_Controller {
     {
         #1. 初始条件
         $start_time = strtotime(date('Y-m-01', strtotime('-1 month')));
+//        $start_time = strtotime(date('Y-m-01', time()));
         //测试上个月第一天时间  var_dump(date('Y-m-d',$start_time));
         $end_time = strtotime(date('Y-m-t 23:59:59', strtotime('-1 month')));
+//        $end_time = strtotime(date('Y-m-t 23:59:59', time()));
         $status = '4';//课状态为4
         #2. 上课记录
         $param = array(
