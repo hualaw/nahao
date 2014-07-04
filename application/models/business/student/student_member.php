@@ -127,13 +127,14 @@ class Student_Member extends NH_Model{
         $array_return['title'] = $array_round['title'];
         #课程总金额
         $array_return['totle_money'] = $array_order['spend'];
-        #课时费
-        $array_return['reward'] = $array_round['reward'];
-        #可退金额
-        $array_return['return_money'] = $array_return['totle_money'] - $array_return['class'] * $array_return['reward']*2;
-        $array_return['return_money'] = $array_return['return_money'] <=0 ? 0 :$array_return['return_money'];
+        #每节课的价格       
+        $per_price = $array_return['totle_money']/$array_return['totle_class'];
+        $per_price = explode('.', $per_price);
+        $array_return['per_price'] = $per_price['0'];
         #这个人买的这轮没上N节
-        $array_return['unclass'] = $array_return['totle_class'] - $array_return['class'];
+        $array_return['unclass'] = $this->model_course->get_uncalss_count($array_order['round_id']);
+        #可退金额
+        $array_return['return_money'] = $array_return['per_price']* $array_return['unclass'];
         #轮id
         $array_return['round_id'] = $array_round['id'];
         #轮的授课状态
