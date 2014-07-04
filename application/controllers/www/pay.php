@@ -294,10 +294,14 @@ class Pay extends NH_User_Controller {
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
 	    $int_user_id = $this->session->userdata('user_id'); 
 	    log_message('debug_nahao', "int_user_id:$int_user_id, order_id: $int_order_id, array_order:".print_r($array_order, 1));
-	    if ( empty($array_order ) || ($array_order['student_id']!= $int_user_id))#TODO用户id  $this->user['id']
+	    if (empty($array_order ))
 	    {
 	        #order不存在 或者不是本人订单
 	        show_error('订单不存在'); 
+	    }
+	    if($array_order['student_id']!= $int_user_id)
+	    {
+	    	show_error('不是本人的订单');
 	    }
 	    #订单状态 > 1 跳转到我的订单
 	    if($array_order['status'] > 1)
