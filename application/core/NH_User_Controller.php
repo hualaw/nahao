@@ -113,7 +113,7 @@ class NH_User_Controller extends NH_Controller
         //user photo name
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
-        $avatar_key = 'user_avartar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
+        $avatar_key = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
         $avatar_source_key = 'source_' . $avatar_key;//头像原图的key
         $result = array('success'=>false,'msg'=>'上传失败');
         $success_num = 0;        
