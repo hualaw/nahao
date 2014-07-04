@@ -293,6 +293,7 @@ $config['testing_round_time_config']['class_min_long'] = 300;//最短上课时�
 $config['testing_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
 $config['testing_round_time_config']['class_between_long'] = 300;//课间隔
 $config['testing_round_time_config']['enter_before_class'] = 120;//提前进教室时间
+$config['testing_round_time_config']['teacher_late_time'] = 120;//开课后多久老师点上课算迟到
 
 
 //生成标准轮时候的时间间隔配置
@@ -306,6 +307,7 @@ $config['production_round_time_config']['class_min_long'] = 30*60;//最短上课
 $config['production_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
 $config['production_round_time_config']['class_between_long'] = 3600;//课间隔
 $config['production_round_time_config']['enter_before_class'] = 1800;//提前进教室时间
+$config['production_round_time_config']['teacher_late_time'] = 300;//开课后多久老师点上课算迟到
 
 /**
  * 劳务报酬个人计算税率 之 含税级距参数表
