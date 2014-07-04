@@ -240,6 +240,7 @@ class Course extends NH_User_Controller {
 	  */
 	 public function courseware()
 	 {
+	 	header('content-type: text/html; charset=utf-8');
 	 	#判断是否登录
 	 	if(!$this->is_login)
 	 	{
@@ -298,14 +299,15 @@ class Course extends NH_User_Controller {
 	 	// read file content and output
 	 	return readfile($filename);; */
 	 	
+	 	
 	 	$filename = basename($file);
 	 	
 	 	header("Content-type: application/octet-stream");
 	 	
 	 	//处理中文文件名
 	 	$ua = $_SERVER["HTTP_USER_AGENT"];
-	 	$encoded_filename = urlencode($filename);
-	 	$encoded_filename = str_replace("+", "%20", $encoded_filename);
+	 	//$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
+	 	$encoded_filename = rawurlencode($filename);
 	 	if (preg_match("/MSIE/", $ua)) {
 	 		header('Content-Disposition: attachment; filename="' . $encoded_filename . '"');
 	 	} else if (preg_match("/Firefox/", $ua)) {
@@ -314,9 +316,10 @@ class Course extends NH_User_Controller {
 	 		header('Content-Disposition: attachment; filename="' . $filename . '"');
 	 	}
 	 	
-	 	header('Content-Disposition: attachment; filename="' . $filename . '"');
 	 	header("Content-Length: ". filesize($file));
 	 	readfile($file);
+
+
 	 }
 }
 
