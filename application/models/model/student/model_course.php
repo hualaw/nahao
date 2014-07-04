@@ -347,14 +347,16 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 一节课的课时数
-     * @param  $int_class_id
-     * @return $array_result['school_hour']
+     * 未开始课次
+     * @param  $int_round_id
+     * @return $array_result['num']
      */
-    public function get_calss_hour($int_class_id)
+    public function get_uncalss_count($int_round_id)
     {
-    	$sql = "SELECT school_hour FROM ".TABLE_CLASS." WHERE id = ".$int_class_id;
+    	$sql = "SELECT COUNT(id) AS num FROM ".TABLE_CLASS." WHERE round_id = ".$int_round_id." AND parent_id > 0 AND 
+    	(status = ".CLASS_STATUS_INIT." OR status=".CLASS_STATUS_SOON_CLASS." 
+    	OR status =".CLASS_STATUS_MISS_CLASS." OR status=".CLASS_STATUS_FORI_CLASS.")";
     	$array_result = $this->db->query($sql)->row_array();
-    	return  $array_result['school_hour'];
+    	return  $array_result['num'];
     }
 }
