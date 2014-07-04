@@ -12,7 +12,7 @@
 .studentHomePage .rollNav li.active{ background:#f14211;}
 /* ´óÍ¼¹ö¶¯ ½áÊø*/
 /*¿Î³ÌÕ¹Ê¾*/
-.studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 44px 86px 6px;}
+.studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 44px 0 6px;}
 .studentHomePage .courseList li{width: 230px;height: 270px;margin:0 20px 36px 0;position: relative;/*-webkit-perspective:800;*/}
 .studentHomePage .courseList{margin-right: -28px;}
 .studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}

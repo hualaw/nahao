@@ -70,6 +70,7 @@ class Student_Course extends NH_Model{
             #课次
             $array_return['class_nums'] = $class_nums;
             #课时
+            //$this->model_course->get_calss_hour();
             $array_return['class_hour'] = $class_nums*2;
             #图片地址
             $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');

@@ -215,8 +215,9 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT title,begin_time,end_time,classroom_id,status FROM ".TABLE_CLASS." WHERE round_id = ".$int_round_id." 
-                AND (status = ".CLASS_STATUS_SOON_CLASS.") AND parent_id !=0 LIMIT 1";
+                AND (status = ".CLASS_STATUS_SOON_CLASS." OR status = ".CLASS_STATUS_ENTER_ROOM." OR status = ".CLASS_STATUS_CLASSING.") AND parent_id !=0 LIMIT 1";
         $array_result = $this->db->query($sql)->row_array();
+        //echo $sql;die;
         return  $array_result;
     }
     
@@ -343,5 +344,19 @@ class Model_Course extends NH_Model{
     	$sql = "SELECT status  FROM  ".TABLE_STUDENT_CLASS." WHERE student_id =".$int_user_id." AND class_id = ".$int_class_id;
     	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result;
+    }
+    
+    /**
+     * 未开始课次
+     * @param  $int_round_id
+     * @return $array_result['num']
+     */
+    public function get_uncalss_count($int_round_id)
+    {
+    	$sql = "SELECT COUNT(id) AS num FROM ".TABLE_CLASS." WHERE round_id = ".$int_round_id." AND parent_id > 0 AND 
+    	(status = ".CLASS_STATUS_INIT." OR status=".CLASS_STATUS_SOON_CLASS." 
+    	OR status =".CLASS_STATUS_MISS_CLASS." OR status=".CLASS_STATUS_FORI_CLASS.")";
+    	$array_result = $this->db->query($sql)->row_array();
+    	return  $array_result['num'];
     }
 }
