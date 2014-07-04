@@ -1,6 +1,6 @@
 define(function(require,exports){
     require("flashUploader");
-    var uploadify_swf = siteUrl + 'static/debug/lib/uploadify/2.2/uploadify.swf';
+    var uploadify_swf = siteUrl + 'static/' + staticVersion + '/lib/uploadify/2.2/uploadify.swf';
     var upload_url = 'http://up.qiniu.com';
     var image_host = nh_img_host;
     exports.addUpload1 = function(div_id){
