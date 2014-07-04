@@ -192,7 +192,6 @@ class CI_Upload {
 			return FALSE;
 		}
 
-
 		// Set the uploaded data as class variables
 		$this->file_temp = $_FILES[$field]['tmp_name'];
 		$this->file_size = $_FILES[$field]['size'];
@@ -702,11 +701,11 @@ class CI_Upload {
 			$this->set_error('upload_no_filepath');
 			return FALSE;
 		}
-
 		if (function_exists('realpath') AND @realpath($this->upload_path) !== FALSE)
 		{
 			$this->upload_path = str_replace("\\", "/", realpath($this->upload_path));
 		}
+        var_dump(realpath($this->upload_path));exit;
 		if ( ! @is_dir($this->upload_path))
 		{
 			$this->set_error('upload_no_filepath');
