@@ -82,9 +82,9 @@ define(function(require,exports){
     
     //发送验证码
     exports.sendValidateCode = function (){
-        var oswitch = true;
         $('.getVerCodea').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("#phone").val();
             if(!(phone)) {
 				$.dialog({
@@ -99,25 +99,22 @@ define(function(require,exports){
 				});
                 return fasle;
             }
-            if(oswitch){
-                $.ajax({
-                    url : '/register/send_captcha/',
-                    type : 'post',
-                    data : 'phone='+ phone +'&type=2',
-                    dataType : 'json',
-                    success : function (result) {
-                        if(result.status == 'error') {
-            				$.dialog({
-            				    content:result.msg,
-            				    icon:null
-            				});
-                        }
-                        //手机验证倒计时
-                        require("module/common/method/countDown").countDown(_this);
+            $.ajax({
+                url : '/register/send_captcha/',
+                type : 'post',
+                data : 'phone='+ phone +'&type=2',
+                dataType : 'json',
+                success : function (result) {
+                    if(result.status == 'error') {
+        				$.dialog({
+        				    content:result.msg,
+        				    icon:null
+        				});
                     }
-                });
-                oswitch = false;
-            }
+                    //手机验证倒计时
+                    require("module/common/method/countDown").countDown(_this);
+                }
+            });
         });
     }
 

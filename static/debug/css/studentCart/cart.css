@@ -126,7 +126,7 @@
 .studentCart .contactInfo li p input{height:28px;padding:0 15px;width:228px;border:1px solid #a2a2a2;}
 .studentCart .contactInfo li .title{line-height:22px;font-size:16px;font-weight:bold}
 .studentCart .contactInfo li .tips{line-height:22px;font-size:14px;color:#848484;}
-.studentCart .contactInfo .getVerCodeBtn .getVerCodea{width:130px;height:32px;line-height:32px;margin:0 10px;font-size: 16px;}
+.studentCart .contactInfo .getVerCodeBtn .getVerCodea{height:32px;line-height:32px;margin:0 10px;font-size: 16px;padding: 0 10px;}
 .studentCart .contactInfo .getVerCodeBtn .getVerCodespan{width:130px;height:32px;line-height:32px;margin:0 10px;font-size: 14px;background: #dedede;text-align: center;border-radius: 2px;display: inline-block;color: #a5a5a5;}
 .studentCart .contactInfo .getVerCodeBtn .Validform_checktip{display: block;padding-left: 0;margin-top:4px;}
 .studentCart .contactInfo .getVerCodeBtn .undis{display: none}
