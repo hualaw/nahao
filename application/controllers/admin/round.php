@@ -334,10 +334,11 @@ class Round extends NH_Admin_Controller
 //        o($int_status,true);
         if($int_round_id > 0 AND $int_status >= 0 AND $str_type){
             $bool_flag = true;
+            //validate
+            $this->load->model('business/admin/business_class', 'class');
             if($str_type=='sale_status'){
                 if($int_status==ROUND_SALE_STATUS_PASS){
                     //审核通过
-                    $this->load->model('business/admin/business_class', 'class');
                     $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
 //                var_dump($arr_classes);exit;
                     foreach($arr_classes as $class){
@@ -348,10 +349,6 @@ class Round extends NH_Admin_Controller
                         }
                     }
                 }else{
-
-                }
-            }else{
-                if($int_status==ROUND_TEACH_STATUS_STOP){
 
                 }
             }
@@ -370,6 +367,23 @@ class Round extends NH_Admin_Controller
                 );
                 $bool_return = $this->round->update_round($arr_param,$arr_where);
                 if($bool_return==true){
+                    //update class
+                    $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+                    $arr_time_config = config_item($str_config_name);
+                    if($str_type=='sale_status'){
+
+                    }else{
+                        if($int_status==ROUND_TEACH_STATUS_STOP){
+                            $arr_param_class = array(
+                                'status' =>  CLASS_STATUS_FORI_CLASS
+                            );
+                            $arr_where_class = array(
+                                'begin_time >' => TIME_STAMP-$arr_time_config['enter_before_class'],
+                                'round_id' => $int_round_id
+                            );
+                            $this->class->update_class($arr_param_class,$arr_where_class);
+                        }
+                    }
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '操作成功';
                 }
