@@ -335,7 +335,7 @@ class Teacher extends NH_Admin_Controller {
         $arr_teachers = $this->input->post("teacher_ids");
         $arr_return = array();
         if($this->is_ajax()){
-            $arr_return = $this->teacher->get_teacher_list(array(),0,30);
+            $arr_return = $this->teacher->get_teacher_list(array(TABLE_USER.'.status'=>TABLE_USER_DIC_STATUS_ON),0,30);
             if($arr_teachers){
                 foreach($arr_return as $k => $v){
                     if(in_array($v['id'],$arr_teachers)){
