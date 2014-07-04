@@ -337,15 +337,15 @@ define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
 //七牛账号
-define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
-define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
-define('NH_QINIU_BUCKET','n1a2h3a4o5');
-define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
+//define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
+//define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
+//define('NH_QINIU_BUCKET','n1a2h3a4o5');
+//define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
 
-#define('NH_QINIU_ACCESS_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
-#define('NH_QINIU_SECRET_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
-#define('NH_QINIU_BUCKET','nahaoweb');
-#define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
+define('NH_QINIU_ACCESS_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
+define('NH_QINIU_SECRET_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
+define('NH_QINIU_BUCKET','nahaoweb');
+define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
 
 define('MAX_NICKNAME_LEN', 25);
 

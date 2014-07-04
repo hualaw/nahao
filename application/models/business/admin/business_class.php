@@ -355,19 +355,19 @@ class Business_Class extends NH_Model
 
     /**
      * 根据id取class
-     * @param $int_class_id
+     * @param $mix_class_id int|array
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_class_by_id($int_class_id)
+    public function get_class_by_id($mix_class_id)
     {
         $arr_return = array();
-        if($int_class_id){
+        if($mix_class_id){
             $str_table_range = 'class';
-            $str_result_type = 'one';
+            $str_result_type = is_array($mix_class_id) ? 'list' : 'one';
             $str_fields = '*';
             $arr_where = array(
-                'id' => $int_class_id
+                'id' => $mix_class_id
             );
             $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
@@ -407,6 +407,28 @@ class Business_Class extends NH_Model
             $str_table_range = 'class';
             $str_result_type = 'list';
             $str_fields = 'id,course_id,round_id,lesson_id,title,begin_time,end_time,courseware_id,status,parent_id,sequence,classroom_id,checkout_status,score,attendance,correct_rate,school_hour';
+            $arr_where = array(
+                'round_id' => $int_round_id
+            );
+            $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        }
+        return $arr_return;
+    }
+
+
+    /**
+     * 根据class_ids取class
+     * @param int $int_round_id
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_ids_by_round_id($int_round_id)
+    {
+        $arr_return = array();
+        if($int_round_id){
+            $str_table_range = 'class';
+            $str_result_type = 'list';
+            $str_fields = 'id';
             $arr_where = array(
                 'round_id' => $int_round_id
             );
