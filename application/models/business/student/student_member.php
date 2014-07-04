@@ -138,6 +138,7 @@ class Student_Member extends NH_Model{
         $array_return['round_id'] = $array_round['id'];
         #轮的授课状态
         $array_return['teach_status'] = $array_round['teach_status'];
+        //var_dump($array_return);die;
         return $array_return;
     }
     
