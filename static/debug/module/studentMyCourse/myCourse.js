@@ -181,6 +181,7 @@ define(function(require,exports){
     				$.dialog({
     				    content:response.msg,
     				    icon:null,
+                        cancel:false,
     				    ok:function(){
     				    	window.location.reload();
     				    }
@@ -207,6 +208,7 @@ define(function(require,exports){
     				$.dialog({
     				    content:response.msg,
     				    icon:null,
+                        cancel:false,
     				    ok:function()
     				    {
     				    	window.location.reload();
