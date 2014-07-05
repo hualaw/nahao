@@ -26,7 +26,7 @@ define(function(require,exports){
                     'small_height' : 225
                 };
                 var img_url = data.key;
-                var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_small = image_host+data.key+'?imageView/2/w/'+size.small_width+'/h/'+size.small_height;
 
                 /*添加教师资格证书图片*/
                 $("#teacher_auth_img").val(data.key);
@@ -69,7 +69,7 @@ define(function(require,exports){
                     'small_height' : 225
                 };
                 var img_url = data.key;
-                var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_small = image_host+data.key+'?imageView/2/w/'+size.small_width+'/h/'+size.small_height;
 
                 /*添加教师职称证书图片*/
                 $("#title_auth_img").val(data.key);
@@ -112,7 +112,7 @@ define(function(require,exports){
                     'small_height' : 225
                 };
                 var img_url = data.key;
-                var img_url_small = image_host+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_small = image_host+data.key+'?imageView/2/w/'+size.small_width+'/h/'+size.small_height;
 //               /*添加学校工作证图片*/
                 $("#work_auth_img").val(data.key);
                 if($(".icon_upload3").length > 0){
