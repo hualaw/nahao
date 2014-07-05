@@ -3,6 +3,10 @@
 <form action="/teacher/check_edittecher_post" method="post" enctype="multipart/form-data">
     <table>
         <tr height="35">
+            <td width="100"><font color="red">*</font>昵称:</td>
+            <td width="650"><div class="col-md-4"><input type="text" name="nickname" id="nickname" placeholder="昵称2-15位 匿名时显示" class="form-control" value="{$teacher_details['user_data']['nickname']}" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_nickname"></span></td>
+        </tr>
+        <tr height="35">
             <td width="100"><font color="red">*</font>真实姓名:</td>
             <td width="650"><div class="col-md-4"><input type="text" class="form-control" name="realname" id="realname" placeholder="请填写真实姓名 2-15位" value="{if $teacher_details['user_info_data']['realname']}{$teacher_details['user_info_data']['realname']}{/if}" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_realname" value=1 {if $teacher_details['user_info_data']['hide_realname']==1}checked{/if}>保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_realname"></span></td>
         </tr>
@@ -158,11 +162,20 @@
         学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
         <img src="" width="169" height="227" id="img_work_general" />
     </div>
+    <hr>
+    <h3>头像认证</h3>
+    <div class="avatar">
+        <input id="avatar_img" type="hidden" value="{$upload_avatar_img_key}">
+        <input type="hidden" name="teacher_avatar_img" value="" id="teacher_avatar_img" />
+        教师头像:<input type="file" name="up_avatar_img" id="up_avatar_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" width="130" height="130" id="img_avatar" />
+    </div>
     <br /><br />
 
-    <input type="hidden" value="{$user_id}" name="user_id" />
+    <input type="hidden" value="{$user_id}" name="user_id" id="user_teacher_id" />
     <input type="hidden" value="{$teacher_details['user_info_data']['work_auth_img']}" id="work_img" />
     <input type="hidden" value="{$teacher_details['user_info_data']['title_auth_img']}" id="title_img" />
     <input type="hidden" value="{$teacher_details['user_info_data']['teacher_auth_img']}" id="teacher_img" />
+    <input type="hidden" value="{$teacher_details['user_data']['avatar']}" id="avatar_teacher_img" />
     <button type="submit" class="btn btn-success" id="sum">提交</button>
 </form>
