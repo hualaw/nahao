@@ -169,7 +169,8 @@ class Student_Member extends NH_Model{
             'order_id'=>$array_data['order_id'],
             'status'=>6,
             'action'=>ORDER_STATUS_APPLYREFUND,
-            'note'=>'申请退课'
+            'note'=>'申请退课',
+            'user_type'=>NH_MEETING_TYPE_STUDENT
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
         
