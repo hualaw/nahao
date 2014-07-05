@@ -162,7 +162,8 @@ class Member extends NH_User_Controller {
                 'status'=>ORDER_STATUS_CANCEL,
                 'action'=>ORDER_ACTION_CANCEL,
                 'note'=>'取消订单',
-	        	'user_type'=>NH_MEETING_TYPE_STUDENT
+	        	'user_type'=>NH_MEETING_TYPE_STUDENT,
+	        	'pay_type'=>$array_order['pay_type']
 	        );
 	        $bool_flag = $this->student_order->update_order_status($array_mdata);
 	        if ($bool_flag)
@@ -265,7 +266,8 @@ class Member extends NH_User_Controller {
             'round_price'=>$str_totle_money,
 	        'refund_price'=>$str_return_money,
 	        'refund_count'=>$str_unclass,
-	        'study_count'=>$str_class
+	        'study_count'=>$str_class,
+	    	'pay_type'=>$array_order['pay_type']
 	    );
 	    $sflag = $this->student_member->save_refund($array_data);
 	    if ($sflag)
