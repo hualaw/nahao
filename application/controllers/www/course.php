@@ -213,20 +213,20 @@ class Course extends NH_User_Controller {
 	    {
     	    switch ($v['status'])
     	    {
-    	        case 0:
-    	        case 1:
+    	        case ORDER_STATUS_INIT:
+    	        case ORDER_STATUS_FAIL:
     	            self::json_output(array('status'=>'error','msg'=>'您的订单已经存在，请去订单中心付款',));
     	            break;
-    	        case 2:
-    	        case 3:
-    	        case 6:
-    	        case 7:
-    	        case 8:
-    	        case 9:
+    	        case ORDER_STATUS_SUCC:
+    	        case ORDER_STATUS_FINISH:
+    	        case ORDER_STATUS_APPLYREFUND:
+    	        case ORDER_STATUS_APPLYREFUND_FAIL:
+    	        case ORDER_STATUS_APPLYREFUND_AGREE:
+    	        case ORDER_STATUS_APPLYREFUND_SUCC:
     	            self::json_output(array('status'=>'error','msg'=>'您已经购买过这轮课程，请不要重复购买'));
     	            break;
-    	        case 4:
-    	        case 5:
+    	        case ORDER_STATUS_CANCEL:
+    	        case ORDER_STATUS_CLOSE:
     	            #根据$int_product_id获取订单里面该轮的部分信息
     	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
     	            break;
