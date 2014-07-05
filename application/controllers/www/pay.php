@@ -44,11 +44,11 @@ class Pay extends NH_User_Controller {
 	    	show_error("这轮已售罄了");
 	    }
 	    #购买前加入是否售罄、已停售、已下架
-	    if ($array_round['sale_status'] == '5')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_FINISH )
 	    {
 	    	show_error("这轮已停售了");
 	    }
-	    if ($array_round['sale_status'] == '6')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_OFF )
 	    {
 	    	show_error("这轮已下架了");
 	    }
@@ -61,20 +61,20 @@ class Pay extends NH_User_Controller {
 	        {
 	            switch ($v['status'])
 	            {
-	                case 0:
-	                case 1:
+	                case ORDER_STATUS_INIT:
+	                case ORDER_STATUS_FAIL:
 	                    show_error('您的订单已经存在，请去订单中心付款');
 	                    break;
-	                case 2:
-                    case 3:
-                    case 6:
-                    case 7:
-                    case 8:
-                    case 9:
+	                case ORDER_STATUS_SUCC:
+                    case ORDER_STATUS_FINISH:
+                    case ORDER_STATUS_APPLYREFUND:
+                    case ORDER_STATUS_APPLYREFUND_FAIL:
+                    case ORDER_STATUS_APPLYREFUND_AGREE:
+                    case ORDER_STATUS_APPLYREFUND_SUCC:
                         show_error('您已经购买过这轮课程，请不要重复购买');
                         break;
-                    case 4:
-                    case 5:
+                    case ORDER_STATUS_CANCEL:
+                    case ORDER_STATUS_CLOSE:
                         #根据$int_product_id获取订单里面该轮的部分信息
                         $array_data = $this->student_order->get_order_round_info($int_product_id);
                         break;
@@ -127,8 +127,7 @@ class Pay extends NH_User_Controller {
     	 
     	#检查用户是否已经买了该轮
     	$array_result = $this->model_order->check_product_in_order($int_product_id,$int_user_id);
-    	//echo $array_result[0]['status'];die;
-    	if ($array_result && (in_array($array_result[0]['status'], array(2,3,6,7,8,9))))
+    	if ($array_result && (in_array($array_result[0]['status'], array(ORDER_STATUS_SUCC,ORDER_STATUS_FINISH,ORDER_STATUS_APPLYREFUND,ORDER_STATUS_APPLYREFUND_FAIL,ORDER_STATUS_APPLYREFUND_AGREE,ORDER_STATUS_APPLYREFUND_SUCC))))
     	{
     		self::json_output(array('status'=>'been_buy','msg'=>'您已经买过该轮了,请不要重复下单'));
     	}
@@ -256,7 +255,7 @@ class Pay extends NH_User_Controller {
 	    if ($array_return)
 	    {
 	        $int_order_id = $array_return[0]['id'];
-	        if ($array_return[0]['pay_type'] == 4)
+	        if ($array_return[0]['pay_type'] == ORDER_TYPE_OFFLINE)
 	        {
 	            $payment_method = 'remittance';
 	        } else {
@@ -311,12 +310,16 @@ class Pay extends NH_User_Controller {
 	    {
 	    	show_error('不是本人的订单');
 	    }
-	    #订单状态 > 1 跳转到我的订单
-	    if($array_order['status'] > 1)
+/* 	    #订单状态 > 1 跳转到我的订单
+	    if($array_order['status'] > ORDER_STATUS_FAIL)
 	    {
 	        redirect('/member/my_order');
+	    } */
+	    #检查用户是否已经买了该轮
+	    if ((in_array($array_order['status'], array(ORDER_STATUS_SUCC,ORDER_STATUS_FINISH,ORDER_STATUS_APPLYREFUND,ORDER_STATUS_APPLYREFUND_FAIL,ORDER_STATUS_APPLYREFUND_AGREE,ORDER_STATUS_APPLYREFUND_SUCC))))
+	    {
+	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
-	    //var_dump($array_order);die;
 	    #查找该轮的信息(主要是轮的价格)
 	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
 	    #如果是0元免费课程，执行下面的操作
@@ -376,8 +379,7 @@ class Pay extends NH_User_Controller {
 
 	    #检查用户是否买过该订单里的这轮，防止重复购买
 	    $array_result = $this->model_order->check_product_in_order($array_order['round_id'],$int_user_id);
-	    //var_dump($array_result);die;
-	    if ($array_result && (in_array($array_result[0]['status'], array(2,3,6,7,8,9))))
+	    if ($array_result && (in_array($array_result[0]['status'],array(ORDER_STATUS_SUCC,ORDER_STATUS_FINISH,ORDER_STATUS_APPLYREFUND,ORDER_STATUS_APPLYREFUND_FAIL,ORDER_STATUS_APPLYREFUND_AGREE,ORDER_STATUS_APPLYREFUND_SUCC))))
 	    {
 	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
@@ -627,7 +629,7 @@ class Pay extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'订单不存在'));
 	    }
-	    if ($array_data['status'] == '2')
+	    if ($array_data['status'] == ORDER_STATUS_SUCC)
 	    {
 	        self::json_output(array('status'=>'ok','msg'=>'支付成功'));
 	    } else {
