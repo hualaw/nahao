@@ -103,14 +103,18 @@ class Member extends NH_User_Controller {
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
 	    //var_dump($array_order);die;
-	    if (empty($array_order) || $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
+	    if (empty($array_order)) #TODO用户id$this->user['id']
 	    {
-	        show_error("订单号不存在");
+	        show_error("订单不存在");
 	    }
-	    if ($array_order['pay_type'] == '0'|| $array_order['pay_type'] == '1' ||$array_order['pay_type'] == '2'||$array_order['pay_type'] == '3')
+	    if ($array_order['student_id']!=$int_user_id)
+	    {
+	    	show_error("不是本人的订单");
+	    }
+	    if ($array_order['pay_type'] == ORDER_TYPE_ONLINE || $array_order['pay_type'] == ORDER_TYPE_BANK || $array_order['pay_type'] == ORDER_TYPE_CREDITPAY || $array_order['pay_type'] == ORDER_TYPE_ALIPAY)
 	    {
 	        $array_order['payment_method'] = 'online';
-	    } elseif ($array_order['pay_type'] == '4') {
+	    } elseif ($array_order['pay_type'] == ORDER_TYPE_OFFLINE ) {
 	        $array_order['payment_method'] = 'remittance';
 	    }
 	   
@@ -249,9 +253,13 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
+		if (empty($array_order)) #TODO用户id$this->user['id']
 	    {
-	        show_error("订单号不存在");
+	        show_error("订单不存在");
+	    }
+	    if ($array_order['student_id']!=$int_user_id)
+	    {
+	    	show_error("不是本人的订单");
 	    }
 	    
 	    $array_data = array(
