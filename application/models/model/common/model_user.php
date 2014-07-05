@@ -173,9 +173,9 @@ class Model_User extends NH_Model
      * 昵称是否存在
      * @author shangshikai@tizi.com
      */
-    public function check_nick($nickname)
+    public function check_nick($nickname,$user_id)
     {
-         if($this->db->select('user.id')->from('user')->where(array("user.nickname"=>$nickname,"user.status"=>1))->get()->row_array())
+         if($this->db->select('user.id')->from('user')->where(array("user.nickname"=>$nickname,"user.status"=>1))->where("user.id!=",$user_id)->get()->row_array())
          {
              return 'yes';
          }

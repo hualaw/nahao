@@ -85,7 +85,7 @@ define(function(require,exports){
                     $.ajax({
                         type:"post",
                         url:"/teacher/nickname",
-                        data:"nickname="+$('#nickname').val(),
+                        data:"nickname="+$('#nickname').val()+"&user_id="+$("#user_teacher_id").val(),
                         success:function(msg){
                             if(msg=="yes")
                             {

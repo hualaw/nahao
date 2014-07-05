@@ -262,13 +262,13 @@ class Business_Teacher extends NH_Model
      * 昵称是否存在
      * @author shangshikai@tizi.com
      */
-    public function check_nick_name($nickname)
+    public function check_nick_name($nickname,$user_id)
     {
         if(!check_name_length($nickname))
         {
             return 2;
         }
-        return $this->model_user->check_nick($nickname);
+        return $this->model_user->check_nick($nickname,$user_id);
     }
     /**
      * 真实姓名长度
@@ -437,9 +437,12 @@ class Business_Teacher extends NH_Model
      */
     public function check_edit_post($post)
     {
+        $post_user=array();
         $post_user_info=array();
         $post_subject=array();
         $post_update=array();
+        $post_update_id=array();
+        $post['nickname']=trim($post['nickname']);
         $post['realname']=trim($post['realname']);
         $post['age']=trim($post['age']);
         $post['school']=trim($post['school']);
@@ -448,7 +451,7 @@ class Business_Teacher extends NH_Model
         $post['bank_id']=trim($post['bank_id']);
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
-
+        $nickname_count=mb_strlen($post['nickname'],'utf8');
         //var_dump($post);die;
         if(!isset($post['hide_school']))
         {
@@ -468,7 +471,13 @@ class Business_Teacher extends NH_Model
         }
         //var_dump($post);die;
         //var_dump($post);die;
-        if($post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['realname']))
+        if($post['nickname']=="" || $nickname_count < 2 || $nickname_count > 15 || $post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['realname']))
+        {
+            redirect("teacher/modify?user_id=$post[user_id]");
+        }
+
+        $nick=$this->model_user->check_nick($post['nickname'],$post['user_id']);
+        if($nick=="yes")
         {
             redirect("teacher/modify?user_id=$post[user_id]");
         }
@@ -529,8 +538,10 @@ class Business_Teacher extends NH_Model
             unset($post_user_info['area']);
         }
         $post_update['user_id']=$post['user_id'];
+        $post_update_id['id']=$post['user_id'];
         //var_dump($post['user_id']);die;
-        if($this->model_user->modify_subject($post_subject,$post['user_id']))
+        $post_user['nickname']=$post['nickname'];
+        if($this->model_user->modify_subject($post_subject,$post['user_id']) && $this->model_user->update_user($post_user,$post_update_id))
         {
             return $this->model_user->update_user_info($post_user_info,$post_update);
         }

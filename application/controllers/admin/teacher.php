@@ -211,7 +211,8 @@ class Teacher extends NH_Admin_Controller {
     public function nickname()
     {
         $nickname=$this->input->post('nickname',TRUE);
-        $nick=$this->teacher->check_nick_name($nickname);
+        $user_id=$this->input->post('user_id',TRUE);
+        $nick=$this->teacher->check_nick_name($nickname,$user_id);
         echo $nick;
         //echo $nick;
     }
@@ -325,6 +326,10 @@ class Teacher extends NH_Admin_Controller {
         if($this->teacher->check_edit_post($post_edit))
         {
             redirect('teacher');
+        }
+        else
+        {
+            redirect("teacher/modify?user_id=$post_edit[user_id]");
         }
     }
     /**
