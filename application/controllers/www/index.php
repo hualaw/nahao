@@ -191,7 +191,7 @@ class Index extends NH_User_Controller {
     			$seo_description = '教你如何正确使用那好，知道那好怎么用，并详细了解那好学习流程';
     			break;
     		case 'advise':
-    			$seo_title = '那好投诉与建议处理_那好网';
+    			$seo_title = '那好投诉与建议处理-那好网';
     			$seo_description = '那好在线教育平台投诉、建议及相关问题，请联系我们。我们会及时核查您有关那好投诉与建议的问题，解决您的投诉。您的参与将帮助我们改进产品与服务。那好网！（nahao.com）';
     			break;
     		case 'contactus':
