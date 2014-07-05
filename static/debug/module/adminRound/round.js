@@ -136,7 +136,9 @@ define(function(require,exports){
                 alert("课程简介不能为空");
                 return false;
             }
-            var description = CKEDITOR.instances.nahao_description.getData();
+            $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
+            var description = $("#nahao_description_new").val();
+//            var description = CKEDITOR.instances.nahao_description.getData();
             if(!description && description!='undefined'){
                 alert("课程描述不能为空");
                 return false;
