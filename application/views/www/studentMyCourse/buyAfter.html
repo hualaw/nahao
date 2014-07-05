@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>我的课程--购买后</title>
+<title>{$array_data.title}</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
@@ -30,7 +30,7 @@
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
-		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">

@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售）
+        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -40,7 +40,7 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效
+     * 检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
      * @param  $int_round_id
      * @return $bool_return
      */
@@ -69,9 +69,9 @@ class Student_Course extends NH_Model{
             $class_nums = $this->model_index->round_has_class_nums($int_round_id);
             #课次
             $array_return['class_nums'] = $class_nums;
-            #课时
-            //$this->model_course->get_calss_hour();
-            $array_return['class_hour'] = $class_nums*2;
+            #课时总数
+            $class_num = $this->model_course->get_calss_hour_totle($int_round_id);
+            $array_return['class_hour'] = $class_num['num'];
             #图片地址
             $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）

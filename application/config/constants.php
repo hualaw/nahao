@@ -81,6 +81,8 @@ define('ORDER_STATUS_APPLYREFUND_SUCC', 9);
  * 订单支付方式
  */
 define('ORDER_TYPE_ONLINE', 0);
+define('ORDER_TYPE_BANK', 1);
+define('ORDER_TYPE_CREDITPAY', 2);
 define('ORDER_TYPE_ALIPAY', 3);
 define('ORDER_TYPE_OFFLINE', 4);
 
