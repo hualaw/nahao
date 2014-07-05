@@ -58,6 +58,7 @@ class Model_Order extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." WHERE id = ".$int_order_id." AND is_delete = 0";
+        log_message('debug_nahao', "In ".__FUNCTION__.", sql is $sql");
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
