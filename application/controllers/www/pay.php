@@ -297,8 +297,9 @@ class Pay extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
-	    #根据order_id获取订单信息
-	    $array_order = $this->student_order->get_order_by_id($int_order_id);
+	    #根据order_id获取订单信息(从redis读取订单信息)
+	    $array_order = $this->read_order_to_redis($int_order_id);
+	    //$array_order = $this->student_order->get_order_by_id($int_order_id);
 	    $int_user_id = $this->session->userdata('user_id'); 
 	    log_message('debug_nahao', "int_user_id:$int_user_id, order_id: $int_order_id, array_order:".print_r($array_order, 1));
 	    if (empty($array_order))
@@ -333,6 +334,7 @@ class Pay extends NH_User_Controller {
 	    	);
 	    	$this->zero_order_action($array_data);
 	    }
+	    $array_order['id'] = $int_order_id;
 	    $bank_code = config_item('bank_code');
 	    $this->smarty->assign('bank_code', $bank_code);
 	    $this->smarty->assign('array_order', $array_order);
@@ -354,6 +356,7 @@ class Pay extends NH_User_Controller {
 	    }
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $str_nickname = $this->session->userdata('nickname');
+	    $int_user_id = $this->session->userdata('user_id');
 	    #根据order_id获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
 	    if (!$array_order) 
@@ -361,13 +364,16 @@ class Pay extends NH_User_Controller {
 	        #order不存在
 	        show_error('订单不存在'); 
 	    }
-	    
+	    if($array_order['student_id']!= $int_user_id)
+	    {
+	    	show_error('不是本人的订单');
+	    }
 /* 	    if($array_order['status'] > 1)
 	    {
 	        #我的订单
 	        redirect('/member/my_order');
 	    } */
-	    $int_user_id = $this->session->userdata('user_id');
+
 	    #检查用户是否买过该订单里的这轮，防止重复购买
 	    $array_result = $this->model_order->check_product_in_order($array_order['round_id'],$int_user_id);
 	    //var_dump($array_result);die;
@@ -657,6 +663,21 @@ class Pay extends NH_User_Controller {
 		$str_encode = json_encode($array_data);
 		$bool_flag = $this->cache->redis->set($int_order_id,$str_encode,REDIS_ORDER_EXPIRE);
 		return $bool_flag ? true : false;
+	}
+	
+	/**
+	 * 读取redis里面的order信息
+	 */
+	public function read_order_to_redis($int_order_id)
+	{
+		$this->load->model('model/common/model_redis', 'redis');
+		$this->redis->connect('order');
+		$array_order = $this->cache->redis->get($int_order_id);
+		if ($array_order)
+		{
+			$array_order = json_decode($array_order,true);
+		}
+		return $array_order;
 	}
 }
 

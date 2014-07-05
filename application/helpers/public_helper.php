@@ -663,6 +663,7 @@ function set_courseware_to_classroom($int_classroom_id,$int_courseware_id){
         //TODO log
         if($str_response){
             $arr_response = json_decode($str_response,true);
+//            o($arr_response,true);
             $bool_flag = ($arr_response AND isset($arr_response['status'])) ? $arr_response['status'] : false;
         }
     }

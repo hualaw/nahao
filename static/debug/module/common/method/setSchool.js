@@ -204,15 +204,16 @@ define(function(require, exports) {
     exports.showSchool = function(){
         //点击省份
         $('.resetSchoolPopCon .province li').live('click', function(){
+            // 屏蔽默认光标在输入框开始
+            $('.resetSchoolPopCon .schoolNames').focus(function(){
+                return false;
+            });
             $('.seacherResult').hide();
             $('span.reset').addClass('undis');
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
             $('.ValidformInfo').hide();
-            // 屏蔽默认光标在输入框开始
-            $('.schoolNames').focus(function(){
-                return false;
-            });
+            
             // 重置搜索学校表单结束
             var _this = $(this);
             $('.resetSchoolPopCon .sctype').hide();
@@ -346,16 +347,17 @@ define(function(require, exports) {
         });
         //点击城市
         $('.resetSchoolPopCon .city li').live('click', function(){
+            // 屏蔽默认光标在输入框开始
+            $('.resetSchoolPopCon .schoolNames').focus(function(){
+                return false;
+            });
             $('.seacherResult').hide();
             $('span.reset').addClass('undis');
             $('.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
             $('.ValidformInfo').hide();
-            // 屏蔽默认光标在输入框开始
-            $('.schoolNames').focus(function(){
-                return false;
-            });
+            
             // 重置搜索学校表单结束
             if($(this).attr('class') !== 'active'){
                 var id = $(this).attr('data-id');
@@ -409,6 +411,10 @@ define(function(require, exports) {
         });
         //点击城镇
         $('.resetSchoolPopCon .county li').live('click', function(){
+            // 屏蔽默认光标在输入框开始
+            $('.resetSchoolPopCon .schoolNames').focus(function(){
+                return false;
+            });
             _this = $(this);
             $('.seacherResult').hide();
             $('span.reset').addClass('undis');
@@ -416,10 +422,7 @@ define(function(require, exports) {
             // 重置搜索学校表单开始
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
             $('.ValidformInfo').hide();
-            // 屏蔽默认光标在输入框开始
-            $('.schoolNames').focus(function(){
-                return false;
-            });
+            
             // 重置搜索学校表单结束
             $.ajax({
                 'url' : siteUrl + 'school/type',
@@ -452,6 +455,10 @@ define(function(require, exports) {
         });
         //点击学校
         $('.resetSchoolPopCon .sctype li').live('click', function(){
+            // 屏蔽默认光标在输入框开始
+            $('.resetSchoolPopCon .schoolNames').focus(function(){
+                return false;
+            });
             $('.seacherResult').hide();
             $('span.reset').addClass('undis');
             // 获取选择的省市县开始
@@ -463,10 +470,7 @@ define(function(require, exports) {
             // $('span#sName').html(_thisPro+_thisCity+_thisCounty+"的"+_thisSctype);
             // 获取选择的省市县结束
             $(".resetSchoolPopCon .seacherSchoolForm").Validform().resetForm();
-            // 屏蔽默认光标在输入框开始
-            $('.schoolNames').focus(function(){
-                return false;
-            })
+            
             // 屏蔽默认光标在输入框结束
             $('.ValidformInfo').hide();
             $('.resetSchoolPopCon .schoolInfo,.resetSchoolPopCon .schoolInfo .hd').show();

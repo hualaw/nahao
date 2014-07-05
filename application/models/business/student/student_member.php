@@ -170,7 +170,8 @@ class Student_Member extends NH_Model{
             'status'=>6,
             'action'=>ORDER_STATUS_APPLYREFUND,
             'note'=>'申请退课',
-            'user_type'=>NH_MEETING_TYPE_STUDENT
+            'user_type'=>NH_MEETING_TYPE_STUDENT,
+            'pay_type'=>$array_data['pay_type']
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
         
