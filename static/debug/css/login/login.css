@@ -42,8 +42,6 @@
 .login .regWrap .box li p{height:22px;line-height:22px;margin-bottom:5px;}
 .login .regWrap .box li .regInput{width: 90%;border:1px solid #6dcde6;height:38px;line-height:38px;padding:0 5%;font-size:16px;}
 .login .regWrap .box li .pnoneCode{height:40px;line-height:40px;font-size:16px;width:165px;}
-.login .regWrap .box li span.pnoneCode{padding: 0px;}
-.login .regWrap li span.pnoneCode{display:inline-block;background: #dedede;text-align: center;}
 .login .regWrap .box li .codeInput{width:140px;border-color:#d5d5d5;}
 .login .reg_validate_code{width:156px;}
 .login .regWrap .box li .undis{display: none;}
