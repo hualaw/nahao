@@ -130,10 +130,12 @@ class Teacher extends NH_Admin_Controller {
         $str_work_img_file_name = 'teacher_'.time().'_work_auth_i'.$str_salt.'.png';
         $str_auth_img_file_name = 'teacher_'.time().'_teacher_auth_i'.$str_salt.'.png';
         $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_avatar_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+        $this->smarty->assign('upload_avatar_img_key', $str_avatar_img_file_name);
 
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
@@ -252,7 +254,7 @@ class Teacher extends NH_Admin_Controller {
     {
         $user_id=$this->input->get('user_id',TRUE);
         $teacher_details=$this->teacher->teacher_momdify($user_id);
-        //var_dump($teacher_details);die;
+//        var_dump($teacher_details);die;
         $city=$this->teacher->city1($teacher_details['user_info_data']['province']);
         $area=$this->teacher->area1($teacher_details['user_info_data']['city']);
         if($teacher_details['user_info_data']['area']!=0)
@@ -297,10 +299,12 @@ class Teacher extends NH_Admin_Controller {
         $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
         $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
         $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_avatar_img_file_name = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+        $this->smarty->assign('upload_avatar_img_key', $str_avatar_img_file_name);
 
         $this->smarty->assign('user_id',$user_id);
         $this->smarty->assign('phone',$phone);

@@ -622,6 +622,11 @@ define(function(require,exports){
                 var img_url_general = _qiniu_url+$('#work_img').val();
                 $('#img_work_general').attr('src',img_url_general);
             }
+            if($('#avatar_teacher_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#avatar_teacher_img').val();
+                $('#img_avatar').attr('src',img_url_general);
+            }
     }
 
     exports.load_ckeditor = function ()

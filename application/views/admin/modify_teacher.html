@@ -162,11 +162,20 @@
         学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
         <img src="" width="169" height="227" id="img_work_general" />
     </div>
+    <hr>
+    <h3>头像认证</h3>
+    <div class="avatar">
+        <input id="avatar_img" type="hidden" value="{$upload_avatar_img_key}">
+        <input type="hidden" name="teacher_avatar_img" value="" id="teacher_avatar_img" />
+        教师头像:<input type="file" name="up_avatar_img" id="up_avatar_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" width="130" height="130" id="img_avatar" />
+    </div>
     <br /><br />
 
     <input type="hidden" value="{$user_id}" name="user_id" id="user_teacher_id" />
     <input type="hidden" value="{$teacher_details['user_info_data']['work_auth_img']}" id="work_img" />
     <input type="hidden" value="{$teacher_details['user_info_data']['title_auth_img']}" id="title_img" />
     <input type="hidden" value="{$teacher_details['user_info_data']['teacher_auth_img']}" id="teacher_img" />
+    <input type="hidden" value="{$teacher_details['user_data']['avatar']}" id="avatar_teacher_img" />
     <button type="submit" class="btn btn-success" id="sum">提交</button>
 </form>
