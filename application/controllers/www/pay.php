@@ -322,6 +322,7 @@ class Pay extends NH_User_Controller {
 	    }
 	    #查找该轮的信息(主要是轮的价格)
 	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
+	    $array_order['id'] = $int_order_id;
 	    #如果是0元免费课程，执行下面的操作
 	    if ($array_round['sale_price'] == '0'){
 	    	#更新订单状态,写日志
@@ -337,7 +338,7 @@ class Pay extends NH_User_Controller {
 	    	);
 	    	$this->zero_order_action($array_data);
 	    }
-	    $array_order['id'] = $int_order_id;
+	    
 	    $bank_code = config_item('bank_code');
 	    $this->smarty->assign('bank_code', $bank_code);
 	    $this->smarty->assign('array_order', $array_order);
@@ -640,7 +641,7 @@ class Pay extends NH_User_Controller {
 	/**
 	 * 如果是0元免费课程,执行下面的操作
 	 */
-	function zero_order_action($array_data)
+	public function zero_order_action($array_data)
 	{
 		$this->student_order->update_order_status($array_data);
 		#根据order_id,查找轮以及轮里面的课，添加学生与课的关系
