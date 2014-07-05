@@ -161,7 +161,8 @@ class Member extends NH_User_Controller {
                 'order_id'=>$int_order_id,
                 'status'=>ORDER_STATUS_CANCEL,
                 'action'=>ORDER_ACTION_CANCEL,
-                'note'=>'取消订单'
+                'note'=>'取消订单',
+	        	'user_type'=>NH_MEETING_TYPE_STUDENT
 	        );
 	        $bool_flag = $this->student_order->update_order_status($array_mdata);
 	        if ($bool_flag)

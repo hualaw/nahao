@@ -270,11 +270,18 @@ class Pay extends NH_User_Controller {
 	        $payment_method = $payment_method == 'online' ? 'online':'remittance';
 	        #创建订单,向数据库里面写一条记录，写一条订单日志记录
 	        $array_result = $this->student_order->create_order($int_product_id,$payment_method,$int_user_id);
-	        $int_order_id = $array_result['order_id'];
 	        if (!$array_result['status'])
 	        {
 	            show_error("创建订单失败");
 	        }
+	        #向数据库生成订单成功之后，将订单信息写到redis里面
+	        $int_order_id = $array_result['order_id'];
+	        $bool_flag = $this->write_order_to_redis($int_order_id,$array_result['array_data']);
+	        if(!$bool_flag)
+	        {
+	        	show_error("创建订单失败啦");
+	        }
+	        
 	    }
 		redirect("/pay/order/{$int_order_id}/$payment_method", 'location', 302);
 	}
@@ -294,7 +301,7 @@ class Pay extends NH_User_Controller {
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
 	    $int_user_id = $this->session->userdata('user_id'); 
 	    log_message('debug_nahao', "int_user_id:$int_user_id, order_id: $int_order_id, array_order:".print_r($array_order, 1));
-	    if (empty($array_order ))
+	    if (empty($array_order))
 	    {
 	        #order不存在 或者不是本人订单
 	        show_error('订单不存在'); 
@@ -321,7 +328,8 @@ class Pay extends NH_User_Controller {
 	    	'status'=>ORDER_STATUS_SUCC,
 	    	'pay_type' =>$payment_method,                        #支付方式
 	    	'action'=>ORDER_STATUS_SUCC,            			 #日志动作
-	    	'note'=>'0元免费课程支付成功'                         #日志记录
+	    	'note'=>'0元免费课程支付成功',                        #日志记录
+	    	'user_type'=>NH_MEETING_TYPE_STUDENT
 	    	);
 	    	$this->zero_order_action($array_data);
 	    }
@@ -478,7 +486,8 @@ class Pay extends NH_User_Controller {
 	                    'status'=>$order_updata['status'],
 	                    'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
 	                    'action'=>ORDER_STATUS_FAIL,             #日志动作
-	                    'note'=>$response['message']             #日志记录
+	                    'note'=>$response['message'],             #日志记录
+	                    'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
 	                $this->student_order->update_order_status($array_data);
 	            }
@@ -509,7 +518,8 @@ class Pay extends NH_User_Controller {
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
     	                'action'=>ORDER_STATUS_FAIL,             #日志动作
-    	                'note'=>$response['message']             #日志记录
+    	                'note'=>$response['message'],             #日志记录
+    	                'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
 	                $this->student_order->update_order_status($array_data);
 	            }
@@ -530,7 +540,8 @@ class Pay extends NH_User_Controller {
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
     	                'action'=>ORDER_STATUS_SUCC,             #日志动作
-    	                'note'=>'支付成功'                        #日志记录
+    	                'note'=>'支付成功',                       #日志记录
+    	                'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
 	                $bool_result = $this->student_order->update_order_status($array_data);
 	                if (!$bool_result) 
@@ -634,6 +645,18 @@ class Pay extends NH_User_Controller {
 		{
 			$this->business_user->modify_user_info(array('has_bought'=>1),$array_data['user_id']);
 		}
+	}
+	
+	/**
+	 * 生成订单之后，往redis写订单信息
+	 */
+	public function write_order_to_redis($int_order_id,$array_data)
+	{
+		$this->load->model('model/common/model_redis', 'redis');
+		$this->redis->connect('order');
+		$str_encode = json_encode($array_data);
+		$bool_flag = $this->cache->redis->set($int_order_id,$str_encode,REDIS_ORDER_EXPIRE);
+		return $bool_flag ? true : false;
 	}
 }
 

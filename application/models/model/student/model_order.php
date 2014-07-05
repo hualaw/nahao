@@ -57,8 +57,8 @@ class Model_Order extends NH_Model{
     public function get_order_by_id($int_order_id)
     {
         $array_result = array();
-        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." 
-                WHERE id = ".$int_order_id." AND is_delete = 0";
+        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." WHERE id = ".$int_order_id." AND is_delete = 0";
+        log_message('debug_nahao', "In ".__FUNCTION__.", sql is $sql");
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -97,8 +97,7 @@ class Model_Order extends NH_Model{
     public function check_product_in_order($int_product_id,$int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT id,status FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id." 
-                AND round_id = ".$int_product_id." AND is_delete = 0 ORDER BY id DESC";
+        $sql = "SELECT id,status FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id." AND round_id = ".$int_product_id." AND is_delete = 0 ORDER BY id DESC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -125,8 +124,7 @@ class Model_Order extends NH_Model{
     public function check_have_order($int_product_id,$int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT id,pay_type FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id."
-                AND round_id = ".$int_product_id." AND status = 0 AND is_delete = 0";
+        $sql = "SELECT id,pay_type FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id." AND round_id = ".$int_product_id." AND status = 0 AND is_delete = 0";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
