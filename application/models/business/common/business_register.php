@@ -130,6 +130,8 @@ class Business_Register extends NH_Model {
                     if(($one_info_arr['t'] == $type) && ($captcha == $one_info_arr['vc']))
                     {
                         $compare_result = true;
+                        //clean used captcha record
+                        $this->cache->redis->lrem($phone, $one_info, 1);
                         break;
                     }
                 }

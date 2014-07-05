@@ -222,7 +222,7 @@ class Student_Order extends NH_Model{
     		#如果已经购买的人数是99，将销售状态改为已售罄
     		if($array_round['bought_count'] == ($array_round['caps']-1))
     		{
-    			$status = 4;
+    			$status = ROUND_SALE_STATUS_OVER;
     			$this->model_order->update_round_sale_status($int_round_id,$status);
     		}
     	}

@@ -16,7 +16,7 @@ class Course extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    $int_round_id = max(intval($int_round_id),1);
-	    #检查这个$int_round_id是否有效
+	    #检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
 	    $bool_flag = $this->student_course->check_round_id($int_round_id);
 	    if (!$bool_flag)
 	    {
@@ -178,7 +178,7 @@ class Course extends NH_User_Controller {
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：（在销售中、已售罄、已停售、已下架）
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -191,11 +191,11 @@ class Course extends NH_User_Controller {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已售罄了'));
 	    }
 	    #购买前加入是否售罄、已停售、已下架
-	    if ($array_round['sale_status'] == '5')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_FINISH)
 	    {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已停售了'));
 	    }
-	    if ($array_round['sale_status'] == '6')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_OFF)
 	    {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已下架了'));
 	    }
@@ -213,20 +213,20 @@ class Course extends NH_User_Controller {
 	    {
     	    switch ($v['status'])
     	    {
-    	        case 0:
-    	        case 1:
+    	        case ORDER_STATUS_INIT:
+    	        case ORDER_STATUS_FAIL:
     	            self::json_output(array('status'=>'error','msg'=>'您的订单已经存在，请去订单中心付款',));
     	            break;
-    	        case 2:
-    	        case 3:
-    	        case 6:
-    	        case 7:
-    	        case 8:
-    	        case 9:
+    	        case ORDER_STATUS_SUCC:
+    	        case ORDER_STATUS_FINISH:
+    	        case ORDER_STATUS_APPLYREFUND:
+    	        case ORDER_STATUS_APPLYREFUND_FAIL:
+    	        case ORDER_STATUS_APPLYREFUND_AGREE:
+    	        case ORDER_STATUS_APPLYREFUND_SUCC:
     	            self::json_output(array('status'=>'error','msg'=>'您已经购买过这轮课程，请不要重复购买'));
     	            break;
-    	        case 4:
-    	        case 5:
+    	        case ORDER_STATUS_CANCEL:
+    	        case ORDER_STATUS_CLOSE:
     	            #根据$int_product_id获取订单里面该轮的部分信息
     	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
     	            break;

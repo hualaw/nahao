@@ -255,7 +255,7 @@ class Classroom extends NH_User_Controller {
         {
         	show_error('您没有购买这堂课啊');
         }
-        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='5')
+        if($array['status'] ==STUDENT_CLASS_APPLY_REFUND || $array['status']==STUDENT_CLASS_REFUND_AGREE || $array['status']==STUDENT_CLASS_REFUND_FINISH)
         {
         	show_error('您在进行退款流程，现在不能进入教室');
         }
@@ -267,7 +267,7 @@ class Classroom extends NH_User_Controller {
        		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
         }
         
-        $str_iframe = self::enter_classroom($int_classroom_id,'0',array('class_title'=>$array_class['title']));
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT,array('class_title'=>$array_class['title']));
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);
@@ -311,11 +311,11 @@ class Classroom extends NH_User_Controller {
     	$array_user = $this->_user_detail;
     	$int_user_type = $array_user['teach_priv'];
     	#判断当前用户是学生还是老师。 0是学生，1是老师
-    	if($int_user_type == '0')
+    	if($int_user_type == NH_MEETING_TYPE_STUDENT)
     	{
     		show_error('您不是老师身份，不能进教室讲课');
     	}
-    	if($int_user_type == '1')
+    	if($int_user_type == NH_MEETING_TYPE_TEACHER)
     	{
     		#如果是老师判断是否是这节课的老师
     		$bool_flag = $this->student_course->check_is_teacher_in_class($int_user_id,$array_class['id']);
@@ -331,7 +331,7 @@ class Classroom extends NH_User_Controller {
 				   show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
 			}
 			
-			$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
+			$str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER,array('class_title'=>$array_class['title']));
 		}
     	$this->smarty->assign('classroom_id',$int_classroom_id);
     	$this->smarty->assign('class_id',$array_class['id']);
