@@ -335,4 +335,16 @@ class Model_Course extends NH_Model{
     	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result['num'];
     }
+    
+    /**
+     * 课时总数
+     * @param  $int_round_id
+     */
+    public function get_calss_hour_totle($int_round_id)
+    {
+    	$array_result = array();
+    	$sql = "SELECT SUM(school_hour) AS num FROM ".TABLE_CLASS." WHERE round_id =".$int_round_id." AND parent_id >0";
+    	$array_result = $this->db->query($sql)->row_array();
+    	return  $array_result;
+    }
 }
