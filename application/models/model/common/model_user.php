@@ -93,13 +93,19 @@ class Model_User extends NH_Model
         return TRUE;
     }
     /**
-     * teacher账户禁用
+     * teacher账户启用
      * @author shangshikai@tizi.com
      */
     public function account_open($arr)
     {
         foreach($arr as $v)
         {
+            $nickname=$this->db->select('user.nickname')->from('user')->where('user.id',$v)->get()->row_array();
+            $nick=self::check_nick($nickname['nickname']);
+            if($nick=="yes")
+            {
+                return 'no';
+            }
            $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>1),array(TABLE_USER.'.id'=>$v));
            $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>1),array(TABLE_USER_INFO.'.user_id'=>$v));
         }

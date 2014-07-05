@@ -7,10 +7,10 @@ define(function(require,exports){
             ind--;
             if(ind<0){
                 clearInterval(timer);
-                _this.removeAttr("disabled");
+                _this.removeAttr("disabled").css("background","#6dcde6");
                 _this.val('重新获取验证码');
             }else{
-                _this.val(ind + '秒后获取验证码');
+                _this.val(ind + '秒后获取验证码').css("background","#dedede");
             }
         }, 1000);
 	}

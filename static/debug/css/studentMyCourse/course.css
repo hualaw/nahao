@@ -261,6 +261,7 @@ overflow: hidden;}
 .studentMyCourse .buyBefore .revTimt,
 .studentMyCourse .buyBefore .allReview,
 .studentMyCourse .outlineList .listc{color:#6dcde6;}
+.studentMyCourse .buyAfter .outlineList{padding-bottom: 20px;}
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
 .studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}

@@ -15,8 +15,8 @@ class Model_Classroom extends NH_Model{
     public function get_max_sequence($int_class_id)
     {
         $array_result = array();
-        $sql = "SELECT MAX(sequence) AS sequence FROM ".TABLE_QUESTION_CLASS_RELATION."
-                WHERE class_id = ".$int_class_id;
+        $sql = "SELECT MAX(sequence) AS sequence FROM ".TABLE_QUESTION_CLASS_RELATION." 
+        WHERE class_id = ".$int_class_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -31,7 +31,7 @@ class Model_Classroom extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT question_id FROM ".TABLE_QUESTION_CLASS_RELATION." 
-                WHERE class_id = ".$int_class_id." AND status = 1 AND sequence = ".$int_max_sequence;
+        WHERE class_id = ".$int_class_id." AND status = 1 AND sequence = ".$int_max_sequence;
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -44,7 +44,8 @@ class Model_Classroom extends NH_Model{
     public function get_question_infor($int_qid)
     {
         $array_result = array();
-        $sql = "SELECT id,question,answer,options,type,analysis FROM ".TABLE_QUESTION." WHERE id = ".$int_qid;
+        $sql = "SELECT id,question,answer,options,type,analysis FROM ".TABLE_QUESTION." 
+        WHERE id = ".$int_qid;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -72,8 +73,8 @@ class Model_Classroom extends NH_Model{
     {
         $array_result = array();
         $sql ="SELECT question_id,answer AS selected,sequence,is_correct FROM ".TABLE_STUDENT_QUESTION." 
-               WHERE class_id = ".$array_data['class_id']." AND student_id = ".$array_data['student_id'].
-               " AND sequence = ".$array_data['sequence'];
+        WHERE class_id = ".$array_data['class_id']." AND student_id = ".$array_data['student_id'].
+        " AND sequence = ".$array_data['sequence'];
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -88,8 +89,8 @@ class Model_Classroom extends NH_Model{
     public function get_question_count_by_sequence($array_data)
     {
         $sql = "SELECT id FROM ".TABLE_QUESTION_CLASS_RELATION." 
-                WHERE class_id = ".$array_data['class_id']." AND status = 1 
-                AND sequence = ".$array_data['sequence'];
+        WHERE class_id = ".$array_data['class_id']." AND status = 1 
+        AND sequence = ".$array_data['sequence'];
         $int_result = $this->db->query($sql)->num_rows();
         return $int_result;
     }
@@ -105,8 +106,8 @@ class Model_Classroom extends NH_Model{
     public function get_student_statistics($array_data,$is_correct)
     {
         $sql ="SELECT id FROM ".TABLE_STUDENT_QUESTION." 
-               WHERE class_id = ".$array_data['class_id']." AND student_id = ".$array_data['student_id'].
-               " AND sequence = ".$array_data['sequence']." AND is_correct = ".$is_correct;
+        WHERE class_id = ".$array_data['class_id']." AND student_id = ".$array_data['student_id'].
+        " AND sequence = ".$array_data['sequence']." AND is_correct = ".$is_correct;
         $int_result = $this->db->query($sql)->num_rows();
         return $int_result;
     }
@@ -150,7 +151,7 @@ class Model_Classroom extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT distinct question_id FROM ".TABLE_STUDENT_QUESTION." WHERE class_id = ".$int_class_id." 
-                AND sequence = " .$int_max_sequence." AND student_id = ".$int_user_id;
+        AND sequence = " .$int_max_sequence." AND student_id = ".$int_user_id;
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
