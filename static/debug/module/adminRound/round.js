@@ -140,7 +140,7 @@ define(function(require,exports){
             var description = $("#nahao_description_new").val();
 //            var description = CKEDITOR.instances.nahao_description.getData();
             if(!description && description!='undefined'){
-                alert("课程描述不能为空");
+                alert("课程提要不能为空");
                 return false;
             }
             var students = $("#students").val();
