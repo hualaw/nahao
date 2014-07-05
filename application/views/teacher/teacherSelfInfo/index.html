@@ -234,7 +234,7 @@
                                 <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
                                 {if $user_detail.teacher_auth_img}
                                 <span class="ImageSpan1 ImageSpan01">
-                                    <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.teacher_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <img src='{$smarty.const.NH_QINIU_URL}{$user_detail.teacher_auth_img}?imageView/2/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
                                     <b class="uploadFt">教师资格证书</b>
                                     <input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
                                 </span>
