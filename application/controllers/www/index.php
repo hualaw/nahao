@@ -176,7 +176,37 @@ class Index extends NH_User_Controller {
 	public function about()
 	{
 	    $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
+	    switch ($str_pram)
+	    {
+	    	case 'aboutus':
+	    		$seo_title = '关于我们-那好网';
+	    		$seo_description = '';
+	    		break;
+    		case 'classmode':
+    			$seo_title = '那好招聘-那好网';
+    			$seo_description = '';
+    			break;
+    		case 'userhelp':
+    			$seo_title = '那好怎么用,那好学习流程-那好网';
+    			$seo_description = '教你如何正确使用那好，知道那好怎么用，并详细了解那好学习流程';
+    			break;
+    		case 'advise':
+    			$seo_title = '那好投诉与建议处理_那好旅游网';
+    			$seo_description = '那好在线教育平台投诉、建议及相关问题，请联系我们。我们会及时核查您有关那好投诉与建议的问题，解决您的投诉。您的参与将帮助我们改进产品与服务。那好网！（nahao.com）';
+    			break;
+    		case 'contactus':
+    			$seo_title = '联系我们-那好网';
+    			$seo_description = '';
+    			break;
+    		case 'service':
+    			$seo_title = '服务条款-那好网';
+    			$seo_description = '';
+    			break;
+	    }
+
 	    $this->smarty->assign('str_pram',$str_pram);
+	    $this->smarty->assign('seo_title',$seo_title);
+	    $this->smarty->assign('seo_description',$seo_description);
 	    $this->smarty->display('www/about/index.html');
 	}
 }
