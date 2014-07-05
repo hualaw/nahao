@@ -1,5 +1,6 @@
 define(function(require,exports){	
-	// 公共select模拟
+	$(function (){
+		// 公共select模拟
 	require('select');
 	if ($(".popBox").length>0) {
 		require("module/common/method/popUp").popUp(".popBox");
@@ -16,7 +17,7 @@ define(function(require,exports){
 		// 美化checkBo
 		$('input[type=checkbox]').jqTransCheckBox();
 
-		require("module/studentStartClass/edit").edit();
+		// require("module/studentStartClass/edit").edit();
 	    //时间插件
 	    require("module/studentStartClass/datePlugin").addDatePlugin();
    		//我要开课 试讲 信息 验证
@@ -26,4 +27,5 @@ define(function(require,exports){
     	//我要开课 老师注册验证
 		_valid.teaRegForm();
 	}
+	})
 })
