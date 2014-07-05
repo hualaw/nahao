@@ -56,6 +56,11 @@ define(function(require,exports){
                     {
                         location.reload();
                     }
+                    if(msg=="no")
+                    {
+                        alert("选择的账户里有昵称已被占用");
+                        return false;
+                    }
                 }
             })
         })
