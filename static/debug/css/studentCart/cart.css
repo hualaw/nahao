@@ -16,7 +16,7 @@
 /*订单提交成功样式开始*/
 .studentCart .toPay {margin-bottom:20px;}
 .studentCart .toPay .orderForm{background:#e1f2f4;padding:20px 30px;border:1px solid #d5d5d5;margin-bottom:20px;}
-.studentCart .toPay .orderForm h3{height:46px;line-height:46px;padding-left:62px;background: url(../../images/studentCart/orderFormIcon.png) no-repeat left center;font-size:24px;font-weight:normal;color:#0e455e;}
+.studentCart .toPay .orderForm h3{margin-bottom: 10px;height:46px;line-height:46px;padding-left:62px;background: url(../../images/studentCart/orderFormIcon.png) no-repeat left center;font-size:24px;font-weight:normal;color:#0e455e;}
 .studentCart .toPay .orderForm p{line-height:34px;font-size:18px;color:#717575;}
 .studentCart .toPay .orderForm p.last{font-size:16px;}
 .studentCart .toPay .orderForm p span{margin-right: 50px}
