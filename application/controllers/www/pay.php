@@ -324,7 +324,7 @@ class Pay extends NH_User_Controller {
 	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
 	    $array_order['id'] = $int_order_id;
 	    #如果是0元免费课程，执行下面的操作
-	    if ($array_round['sale_price'] == '0'){
+	    if (intval($array_round['sale_price']) == '0'){
 	    	#更新订单状态,写日志
 	    	$array_data = array(
 	    	'round_id'=>$array_order['round_id'],
