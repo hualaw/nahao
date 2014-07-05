@@ -102,62 +102,81 @@ class Course extends NH_Admin_Controller {
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
-//            $arr_lessons = $this->input->post('lessons') ? $this->input->post('lessons') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
 
-            if($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >=0 AND $int_price >=0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to AND /*$arr_lessons and*/ $arr_teachers){
-                if($arr_teachers){
-//                    if($arr_lessons){
-                        //has lessons
-//                        $int_section_count = $this->course->get_section_count($arr_lessons);
-//                        if($int_section_count){
-                            $arr_param['title'] = $str_title;
-                            $arr_param['subtitle'] = $str_subtitle;
-                            $arr_param['intro'] = $str_intro;
-                            $arr_param['description'] = $str_description;
-                            $arr_param['students'] = $str_students;
-                            $arr_param['subject'] = $int_subject;
-                            $arr_param['course_type'] = $int_course_type;
-                            $arr_param['reward'] = $int_reward;
-                            $arr_param['price'] = $int_price;
-                            $arr_param['video'] = $str_video;
-                            $arr_param['img'] = $str_img;
-                            $arr_param['grade_from'] = $int_grade_from;
-                            $arr_param['grade_to'] = $int_grade_to;
-//                            $arr_param['lesson_count'] = $int_section_count;
-                            if($int_course_id > 0){
-                                //update
-                                $str_action = '修改';
-                                $arr_where = array(
-                                    'id' => $int_course_id
-                                );
-                                $bool_flag = $this->course->update_course($arr_param,$arr_where);
-                            }else{
-                                //create
-                                $str_action = '创建';
-                                $int_course_id = $this->course->create_course($arr_param);
-                                $bool_flag = $int_course_id > 0 ? true : false;
-                            }
-                            if($bool_flag==true){
-                                //create或update都要先清除teachers和lessons再重新插入
-                                $this->course->create_course_teacher_batch($int_course_id,$arr_teachers);
-//                                $this->load->model('business/admin/business_lesson','lesson');
-//                                $bool_lesson = $this->lesson->create_lessons($int_course_id,$arr_lessons);
-                                $this->arr_response['status'] = 'ok';
-                                $this->arr_response['msg'] = $str_action.'成功';
-                                $this->arr_response['redirect'] = '/course';
-                            }
-//                        }else{
-//                            $this->arr_response['msg'] = '没有课节';
-//                        }
-//                    }else{
-//                        $this->arr_response['msg'] = '没有章节';
-//                    }
+            $bool_validate_flag = true;
+            if(empty($str_title)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有标题';
+            }elseif(empty($str_subtitle)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有一句话简介';
+            }elseif(empty($str_intro)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有简介';
+            }elseif(empty($str_description)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有课程提要';
+            }elseif(empty($str_students)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有使用人群';
+            }elseif(empty($int_subject)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有科目';
+            }elseif(empty($int_course_type)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有课程类型';
+            }elseif($int_reward < 0){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有课酬';
+            }elseif($int_price < 0){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有价格';
+            }elseif($int_grade_from < 0){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有开始年级';
+            }elseif($int_grade_to < 0){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有结束年级';
+            }elseif(empty($arr_teachers)){
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有老师';
+            }
+
+            if($bool_validate_flag==true){
+                $arr_param['title'] = $str_title;
+                $arr_param['subtitle'] = $str_subtitle;
+                $arr_param['intro'] = $str_intro;
+                $arr_param['description'] = $str_description;
+                $arr_param['students'] = $str_students;
+                $arr_param['subject'] = $int_subject;
+                $arr_param['course_type'] = $int_course_type;
+                $arr_param['reward'] = $int_reward;
+                $arr_param['price'] = $int_price;
+                $arr_param['video'] = $str_video;
+                $arr_param['img'] = $str_img;
+                $arr_param['grade_from'] = $int_grade_from;
+                $arr_param['grade_to'] = $int_grade_to;
+                if($int_course_id > 0){
+                    //update
+                    $str_action = '修改';
+                    $arr_where = array(
+                        'id' => $int_course_id
+                    );
+                    $bool_flag = $this->course->update_course($arr_param,$arr_where);
                 }else{
-                    $this->arr_response['msg'] = '没有老师';
+                    //create
+                    $str_action = '创建';
+                    $int_course_id = $this->course->create_course($arr_param);
+                    $bool_flag = $int_course_id > 0 ? true : false;
                 }
-            }else{
-                $this->arr_response['msg'] = '参数不正确';
+                if($bool_flag==true){
+                    //create或update都要先清除teachers再重新插入
+                    $this->course->create_course_teacher_batch($int_course_id,$arr_teachers);
+                    $this->arr_response['status'] = 'ok';
+                    $this->arr_response['msg'] = $str_action.'成功';
+                    $this->arr_response['redirect'] = '/course';
+                }
             }
         }
         self::json_output($this->arr_response);

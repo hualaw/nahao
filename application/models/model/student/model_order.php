@@ -57,8 +57,7 @@ class Model_Order extends NH_Model{
     public function get_order_by_id($int_order_id)
     {
         $array_result = array();
-        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." 
-		WHERE id = ".$int_order_id." AND is_delete = 0";
+        $sql = "SELECT id,student_id,status,price,spend,create_time,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." WHERE id = ".$int_order_id." AND is_delete = 0";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
