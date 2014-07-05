@@ -3,7 +3,9 @@
 .classRoomPage,html{height: 100%;}
 .classRoomPage .greenText{color: #3fa612;}
 /*  做题 --*/
+.classRoomPage img{max-width:645px;}
 .classRoomPage .doWorkBox{padding: 0 60px 45px 66px;width: 676px;margin-top:30px;}
+.classRoomPage .doWorkBox img{max-width:645px;}
 .classRoomPage .answerList li{min-height: 28px;/*height: 28px;line-height: 28px;*/border:1px solid #e1e1e1;color:#4b4b4b;font-size: 16px;font-weight: bold;padding-left: 12px;margin-bottom: 7px;cursor: pointer;}
 .classRoomPage .answerList li p{width: 541px;}
 .classRoomPage .scoreBoxList .answerList li{margin-left: 51px;}
@@ -29,7 +31,6 @@
 .classRoomPage .scoreBox{width: 850px;margin-top:30px;}
 .classRoomPage .optionNav{width: 75px;text-align: center;color:#fff;}
 .classRoomPage .scoreCon{width: 715px;padding: 0 30px 0 30px;}
-/*.classRoomPage .itemscore .scoreCon{width: 711px;}*/
 .classRoomPage .answerList{margin:50px 0 0;}
 .classRoomPage .optionNav .result{height: 74px;background: #6dcde6;font-weight: normal;font-size: 16px;line-height: 74px;}
 .classRoomPage .itemscore .result{cursor: pointer;}
@@ -92,6 +93,7 @@
 .classRoomPage .exercise .itemTabBox ul{/*width:1000%;*/position: absolute;}
 .classRoomPage .exercise .itemTabBox li{width: 645px;padding: 20px 25px 20px 20px;cursor: pointer;max-height: 300px;overflow-y: scroll;}
 .classRoomPage .exercise .itemTabBox li.itemOn{background: #fef2f2;}
+.classRoomPage .exercise .itemTabBox li img{max-width:645px;}
 .classRoomPage .exercise .clickBtn{width: 20px;height: 33px;position: absolute;top:45%;}
 .classRoomPage .exercise .clickL{background: url(../../images/classRoom/cleft.png) no-repeat;left:12px;}
 .classRoomPage .exercise .clickL:hover,
