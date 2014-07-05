@@ -107,7 +107,7 @@ class Student_Order extends NH_Model{
         {
             $array_order_log = array(
                 'order_id'=>$array_data['order_id'],
-                'user_type'=> NH_MEETING_TYPE_STUDENT,              #用户类型 ：学生
+                'user_type'=> $array_data['user_type'],              #用户类型 ：学生
                 'user_id'=>$array_data['user_id'],       #TODO用户id
                 'action'=>$array_data['action'],
                 'create_time'=>time(),
