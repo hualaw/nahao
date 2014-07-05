@@ -15,12 +15,7 @@ class Model_Member extends NH_Model{
     public function get_my_course_for_buy($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT r.sale_status,r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM ".TABLE_STUDENT_ORDER." so 
-        LEFT JOIN ".TABLE_ROUND." r ON so.round_id = r.id 
-        WHERE so.student_id = ".$int_user_id." AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH." 
-        OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." 
-        OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." ) 
-        ORDER BY so.id DESC";
+        $sql = "SELECT r.sale_status,r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM ".TABLE_STUDENT_ORDER." so LEFT JOIN ".TABLE_ROUND." r ON so.round_id = r.id WHERE so.student_id = ".$int_user_id." AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH." OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." ) ORDER BY so.id DESC";
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
@@ -33,8 +28,7 @@ class Model_Member extends NH_Model{
      */
     public function get_student_class_totle($int_user_id,$int_round_id)
     {
-        $sql = "SELECT count(id) AS num FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." 
-        AND round_id = ".$int_round_id;
+        $sql = "SELECT count(id) AS num FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." AND round_id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result['num'];
     }
@@ -47,8 +41,7 @@ class Model_Member extends NH_Model{
      */
     public function get_student_class_done($int_user_id,$int_round_id)
     {
-        $sql = "SELECT count(id) AS num FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." 
-        AND round_id = ".$int_round_id." AND (status = ".STUDENT_CLASS_ENTER." OR status =".STUDENT_CLASS_LOST.")";
+        $sql = "SELECT count(id) AS num FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$int_user_id." AND round_id = ".$int_round_id." AND (status = ".STUDENT_CLASS_ENTER." OR status =".STUDENT_CLASS_LOST.")";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result['num'];
     }
@@ -61,8 +54,7 @@ class Model_Member extends NH_Model{
     public function get_next_class_time($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT begin_time,end_time FROM ".TABLE_CLASS." WHERE round_id =".$int_round_id." 
-        AND `status` =".CLASS_STATUS_SOON_CLASS." AND parent_id > 0 ";
+        $sql = "SELECT begin_time,end_time FROM ".TABLE_CLASS." WHERE round_id =".$int_round_id." AND `status` =".CLASS_STATUS_SOON_CLASS." AND parent_id > 0 ";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -88,8 +80,7 @@ class Model_Member extends NH_Model{
             			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;
         }
         $array_result = array();
-        $sql = "SELECT id,spend,create_time,status,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." 
-        WHERE student_id = ".$int_user_id." AND is_delete = 0 ".$where." ORDER BY id DESC LIMIT ".$int_start.",".$int_limit;
+        $sql = "SELECT id,spend,create_time,status,round_id,pay_type FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id." AND is_delete = 0 ".$where." ORDER BY id DESC LIMIT ".$int_start.",".$int_limit;
 //         echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
@@ -170,8 +161,7 @@ class Model_Member extends NH_Model{
     public function get_student_refund_data($int_user_id,$int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT study_count,refund_count,round_price,refund_price,reason,status,create_time 
-        FROM ".TABLE_STUDENT_REFUND." WHERE student_id = ".$int_user_id." AND round_id = ".$int_round_id;
+        $sql = "SELECT study_count,refund_count,round_price,refund_price,reason,status,create_time FROM ".TABLE_STUDENT_REFUND." WHERE student_id = ".$int_user_id." AND round_id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -184,10 +174,7 @@ class Model_Member extends NH_Model{
     public function get_user_infor($int_user_id)
     {
         $array_result = array();
-        $sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,
-        ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM ".TABLE_USER." u 
-        LEFT JOIN ".TABLE_USER_INFO." ui ON u.id = ui.user_id 
-        WHERE ui.user_id = ".$int_user_id." AND u.status = 1 AND ui.status = 1";
+        $sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM ".TABLE_USER." u LEFT JOIN ".TABLE_USER_INFO." ui ON u.id = ui.user_id WHERE ui.user_id = ".$int_user_id." AND u.status = 1 AND ui.status = 1";
         //echo $sql.'-----';
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
@@ -239,8 +226,7 @@ class Model_Member extends NH_Model{
     public function get_student_class_undone($array_data)
     {
     	$array_result = array();
-    	$sql = "SELECT class_id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$array_data['student_id']." 
-    	AND round_id = ".$array_data['round_id']." AND (status = ".STUDENT_CLASS_INIT." OR status = ".STUDENT_CLASS_REFUND_FAIL.") ";
+    	$sql = "SELECT class_id FROM ".TABLE_STUDENT_CLASS." WHERE student_id = ".$array_data['student_id']." AND round_id = ".$array_data['round_id']." AND (status = ".STUDENT_CLASS_INIT." OR status = ".STUDENT_CLASS_REFUND_FAIL.") ";
     	$array_result = $this->db->query($sql)->result_array();
     	return $array_result;
     }
