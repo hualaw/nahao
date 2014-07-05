@@ -238,7 +238,8 @@ define(function(require,exports){
         $(".outlineList .listb").mouseout(function (){
             $(this).find(".cListHid").hide();
         });
-        $(".evaluBtn").click(function (){               
+        $(".evaluBtn").click(function (){
+            var index = $(".evaluBtn").index($(this));          
            // _popUp.popUp('.evaluHtml');
         	$.dialog({
         		id:"comment_close",
@@ -251,7 +252,7 @@ define(function(require,exports){
             class_id = $(this).attr("evaluBtns");
             $("#c_class_id").val(class_id);
             exports.starClick();
-            require("module/classRoom/valid").evaluForm();
+            require("module/classRoom/valid").evaluForm(index);
             
         })
     }
@@ -273,9 +274,9 @@ define(function(require,exports){
     
         //发送验证码
     exports.sendValidateCode = function (){
-        var oswitch = true;
         $('.sendPhoneCode').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("input[name='phone']").val();
             var verify_type = $("input[name='verify_type']").val();
             if(!(phone)) {
@@ -291,26 +292,23 @@ define(function(require,exports){
 				});
                 return fasle;
             }
-            if(oswitch){
-                $.ajax({
-                    url : '/register/send_captcha',
-                    type : 'post',
-                    data : {'phone' : phone, 'type' : verify_type},
-                    dataType : 'json',
-                    success : function (result) {
-                        if(result.status == 'error') {
-            				$.dialog({
-            				    content:result.msg,
-            				    icon:null
-            				});
-                        } else {
-                            //手机验证倒计时
-                            require("module/common/method/countDown").countDown(_this);   
-                        }
+            $.ajax({
+                url : '/register/send_captcha',
+                type : 'post',
+                data : {'phone' : phone, 'type' : verify_type},
+                dataType : 'json',
+                success : function (result) {
+                    if(result.status == 'error') {
+        				$.dialog({
+        				    content:result.msg,
+        				    icon:null
+        				});
+                    } else {
+                        //手机验证倒计时
+                        require("module/common/method/countDown").countDown(_this);   
                     }
-                });
-                oswitch = false;
-            }
+                }
+            });
         });
     }
     
