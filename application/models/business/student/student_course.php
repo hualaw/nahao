@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售）
+        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -40,7 +40,7 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效
+     * 检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
      * @param  $int_round_id
      * @return $bool_return
      */
