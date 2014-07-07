@@ -1,6 +1,6 @@
 /*```````````表单验证插件开始``````````````````*/
 .ValidformTips{border:1px solid #ffbd5b; padding:2px 5px; color:#666;display:none;line-height:32px;background:#ffe972;}
-.Validform_checktip{overflow:hidden;color:#333;}
+.Validform_checktip{overflow:hidden;color:#333;line-height: 30px;}
 .Validform_right{color:#71b83d;padding-left:20px;background:url(../../images/validform/right.png) no-repeat left center;}
 .Validform_wrong{color:#f60;padding-left:10px;white-space:nowrap;/*background:url(../../images/validform/error.png) no-repeat left center;*/}
 .Validform_loading{padding-left:20px;background:url(../../images/validform/onLoad.gif) no-repeat left center;}
