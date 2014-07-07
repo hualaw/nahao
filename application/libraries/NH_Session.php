@@ -197,14 +197,13 @@ class NH_Session extends CI_Session {
 		// Fetch the cookie
 		$session = $this->CI->input->cookie($this->sess_cookie_name);
 		
-		//tizi check post session_id
-        /*
-		$segment = $this->CI->uri->segment_array();
-		$session_post = false;
-		if(!empty($segment) && $segment[1] == 'download') $session_post = $this->CI->input->get('session_id',true);
-		else if(!empty($segment) && $segment[1] == 'upload') $session_post = $this->CI->input->post('session_id',true);
-		if ($session === FALSE) $session = $session_post;
-        */
+		//nahao check get session_id
+		//$segment = $this->CI->uri->segment_array();
+        //log_message('debug_nahao', "In sess_read(), segment: ".print_r($segment, 1));
+        $session_get = $this->CI->input->get('session_id');
+        //if session is empty, get GET parameter's session_id instead
+        if ($session === FALSE && $session_get) $session = $session_get;
+
 
 		// No cookie?  Goodbye cruel world!...
 		if ($session === FALSE)
@@ -217,8 +216,8 @@ class NH_Session extends CI_Session {
             log_message('debug_nahao', 'sess_read: A session cookie was found.'.print_r($_COOKIE,1));
         }
 
-		//tizi do not match useragent when post session id
-		//if ($session === $session_post) $this->sess_match_useragent = false;
+		//nahao do not match useragent when get session id
+		if ($session === $session_get) $this->sess_match_useragent = false;
 
 		// Decrypt the cookie data
 		if ($this->sess_encrypt_cookie == TRUE)
