@@ -150,7 +150,8 @@ class Lesson extends NH_Admin_Controller {
         );
         if($int_course_id AND is_array($arr_lessons) AND $arr_lessons){
             $arr_update = array();
-            $int_parent_id = $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
+            $int_parent_id = 1;
+            $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
 //            o($arr_lessons,true);
             foreach($arr_lessons as $k => $v){
                 if($v['is_chapter']==1){
@@ -230,6 +231,7 @@ class Lesson extends NH_Admin_Controller {
         $int_courseware_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
         if($int_courseware_id){
             $arr_courseware_status = get_courseware_status($int_courseware_id);
+//            o($arr_courseware_status);
             if($arr_courseware_status['status']==true){
 //                o($arr_courseware,true);
                 $arr_courseware = get_courseware_info($int_courseware_id);

@@ -25,7 +25,7 @@ class Student_Member extends NH_Model{
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-               	$class_img = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'general');
+               	$class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'general');
                 #这轮共M节
                	$totle_class = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
                 #这轮上了M节
@@ -127,17 +127,19 @@ class Student_Member extends NH_Model{
         $array_return['title'] = $array_round['title'];
         #课程总金额
         $array_return['totle_money'] = $array_order['spend'];
-        #课时费
-        $array_return['reward'] = $array_round['reward'];
-        #可退金额
-        $array_return['return_money'] = $array_return['totle_money'] - $array_return['class'] * $array_return['reward']*2;
-        $array_return['return_money'] = $array_return['return_money'] <=0 ? 0 :$array_return['return_money'];
+        #每节课的价格       
+        $per_price = $array_return['totle_money']/$array_return['totle_class'];
+        $per_price = explode('.', $per_price);
+        $array_return['per_price'] = $per_price['0'];
         #这个人买的这轮没上N节
-        $array_return['unclass'] = $array_return['totle_class'] - $array_return['class'];
+        $array_return['unclass'] = $this->model_course->get_uncalss_count($array_order['round_id']);
+        #可退金额
+        $array_return['return_money'] = $array_return['per_price']* $array_return['unclass'];
         #轮id
         $array_return['round_id'] = $array_round['id'];
         #轮的授课状态
         $array_return['teach_status'] = $array_round['teach_status'];
+        //var_dump($array_return);die;
         return $array_return;
     }
     
@@ -167,7 +169,9 @@ class Student_Member extends NH_Model{
             'order_id'=>$array_data['order_id'],
             'status'=>6,
             'action'=>ORDER_STATUS_APPLYREFUND,
-            'note'=>'申请退课'
+            'note'=>'申请退课',
+            'user_type'=>NH_MEETING_TYPE_STUDENT,
+            'pay_type'=>$array_data['pay_type']
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
         

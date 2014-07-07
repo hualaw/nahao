@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在销售中）
+        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -40,7 +40,7 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效
+     * 检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
      * @param  $int_round_id
      * @return $bool_return
      */
@@ -60,7 +60,7 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #根据$int_round_id获取该轮的部分信息
         $array_return = $this->model_course->get_round_info($int_round_id);
-       // var_dump($array_return);die;
+        //var_dump($array_return);die;
         if ($array_return)
         {
             #售罄人数
@@ -69,12 +69,15 @@ class Student_Course extends NH_Model{
             $class_nums = $this->model_index->round_has_class_nums($int_round_id);
             #课次
             $array_return['class_nums'] = $class_nums;
-            #课时
-            $array_return['class_hour'] = $class_nums*2;
+            #课时总数
+            $class_num = $this->model_course->get_calss_hour_totle($int_round_id);
+            $array_return['class_hour'] = $class_num['num'];
             #图片地址
             $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
             $array_return['score'] = round($array_return['score']);
+            #授课提要
+            $array_return['description'] = htmlspecialchars_decode($array_return['description']);
             
         }
         return $array_return;
@@ -262,14 +265,18 @@ class Student_Course extends NH_Model{
 			foreach ($array_teacher as $k=>$v)
 			{
 				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-				//var_dump($array_return);die;
-				if(empty($array_return[0]))
+				
+				if(empty($array_return[$k]))
 				{
+					log_message('ERROR_NAHAO','['.date('Y-m-d H:i:s').'],老师id为：'.$v['teacher_id']."在user或者userinfo表里面的status =0");
+					unset($array_return[$k]);
 					break;
 				} else {
 					$array_return[$k]['teacher_role'] = $array_teacher_role[$v['role']];
 					#老师头像
 					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+					$array_return[$k]['teacher_intro'] = htmlspecialchars_decode($array_return[$k]['teacher_intro']);
+					
 				}
 			}
 		}
@@ -325,11 +332,12 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_return as $k=>$v)
             {
-                if ($v['author_role'] == '-1')
+                if ($v['author_role'] == NH_MEETING_TYPE_ADMIN)
                 {
                    #发布者是管理员
-                    $array_return[$k]['nickname'] = '管理员';
-                    $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
+                    $array_manager = $this->model_member->get_manager_data($v['author']);
+                    $array_return[$k]['nickname'] = $array_manager['username'];
+                    $array_return[$k]['avatar'] = static_url(DEFAULT_MANGER_AVATER);
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
@@ -360,9 +368,9 @@ class Student_Course extends NH_Model{
         $array_team = $this->get_round_team($int_round_id);
 
         #已经上了几节课
-        $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
+        $int_num = $this->model_member->get_class_count(1,$int_round_id);
         #总共有几节课
-        $int_totle = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
+        $int_totle = $this->model_member->get_class_count(0,$int_round_id);
         #上课节数比例
         $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
         #即将开始的课的信息

@@ -81,16 +81,19 @@ define('ORDER_STATUS_APPLYREFUND_SUCC', 9);
  * 订单支付方式
  */
 define('ORDER_TYPE_ONLINE', 0);
+define('ORDER_TYPE_BANK', 1);
+define('ORDER_TYPE_CREDITPAY', 2);
 define('ORDER_TYPE_ALIPAY', 3);
 define('ORDER_TYPE_OFFLINE', 4);
 
 /*
  * 首页列表默认图片 HOME_IMG_DEFAULT
- * 默认头像 DEFAULT_AVATER
+ * 默认头像 DEFAULT_AVATER  
  */
 define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
 define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
 define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
+define('DEFAULT_MANGER_AVATER', '/images/login/manger.png');
 /*
  * 老师角色
  * 主讲 1
@@ -336,15 +339,16 @@ define('BIND_VERIFY_CODE', 2);
 define('GET_PASSWORD_VERIFY_CODE', 3);
 
 //七牛账号
-define('NH_QINIU_ACCESS_KEY','M_oyP-OlxZM8wY1JuaqU4MXrVjSEm4wCnABxVZOq');
-define('NH_QINIU_SECRET_KEY','RWYYV4CTc7TCjfFOPFzH0Id1LiuiQXE8chXHv8pi');
-define('NH_QINIU_BUCKET','n1a2h3a4o5');
-define('NH_QINIU_URL', 'http://n1a2h3a4o5.qiniudn.com/');
+define('NH_QINIU_ACCESS_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
+define('NH_QINIU_SECRET_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
+define('NH_QINIU_BUCKET','nahaoweb');
+//define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
+define('NH_QINIU_URL', 'http://img1.nahao.com/');
 
 define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
-define('NH_MEETING_URL','http://classroom.oa.tizi.com/');
+define('NH_MEETING_URL',ENVIRONMENT=='production' ? 'http://classapi.tizi.com/' : 'http://classroom.oa.tizi.com/');
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 
@@ -357,7 +361,7 @@ define('NH_MEETING_TYPE_SYSTEM',3);//系统，记录日志时用到
 define('NH_MEETING_TYPE_SUPER_ADMIN',110);//超级管理员
 //进教室的链接，后面拼token就能进了
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
-define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/nahao/enter?token=');
+define('NH_MEETING_ENTER_URL',ENVIRONMENT=='production' ? 'http://classapi.tizi.com/nahao/enter?token=' : 'http://classroom.oa.tizi.com/nahao/enter?token=');
 
 //课程封面图的三个尺寸 288*216  230*172   50*50
 define('NH_COURSE_IMG_LARGE_HEIGHT',216);
@@ -382,6 +386,8 @@ define('CLASS_FASTER_ACTION', 3);//讲慢一点
 define('CLASS_BEGIN_ACTION', 4);//点上课
 define('CLASS_OVER_ACTION', 5);//点下课
 
-
+//存在redis里面的订单过期时间
+define('REDIS_ORDER_EXPIRE', 3600);
+define('ROUND_GENERATE_MODE','testing');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

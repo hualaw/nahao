@@ -15,7 +15,7 @@ define(function(require,exports){
 
         //load ckeditor
         if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description');
+            CKEDITOR.replace('nahao_description',{ toolbar:'Basic', height:300 ,width:700});
         }
 
     }
@@ -136,9 +136,11 @@ define(function(require,exports){
                 alert("课程简介不能为空");
                 return false;
             }
-            var description = CKEDITOR.instances.nahao_description.getData();
+            $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
+            var description = $("#nahao_description_new").val();
+//            var description = CKEDITOR.instances.nahao_description.getData();
             if(!description && description!='undefined'){
-                alert("课程描述不能为空");
+                alert("课程提要不能为空");
                 return false;
             }
             var students = $("#students").val();

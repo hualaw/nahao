@@ -3,6 +3,7 @@ define(function(require,exports){
 	exports.sendPhoneNum = function(otype){
 		$('.sendPhoneCode').click(function(){
             var _this = $(this);
+            _this.attr("disabled",true);
 			var _phoneNumber = $(this).parent().siblings().find('.phoneNum').val();
 			// 判断手机号正则
 			var _regMobile = /^0?1[3|4|5|8][0-9]\d{8}$/;
@@ -27,7 +28,7 @@ define(function(require,exports){
 	                    //手机验证倒计时
 	                    require("module/common/method/countDown").countDown(_this);
 					}
-				})
+				});
 		    }else{
 		    	$.dialog({
 		    		content:"手机号码输入有误，请重新输入。"

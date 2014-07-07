@@ -19,7 +19,7 @@ $config['static_url'] = 'http://static.nahao.com/';
 $config['teacher_url'] = 'http://teacher.nahao.com/';
 $config['admin_url'] = 'http://admin.nahao.com/';
 $config['student_url'] = 'http://www.nahao.com/';
-$config['course_url'] = 'http://course.nahao.com/';
+$config['course_url'] = 'http://www.nahao.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -257,7 +257,7 @@ $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'nahao_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
-$config['sess_time_to_update']	= 300;
+$config['sess_time_to_update']	= 7200;
 $config['sess_autologin_expiration'] = 604800; //nahao define
 
 /*

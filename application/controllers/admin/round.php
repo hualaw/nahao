@@ -103,7 +103,7 @@ class Round extends NH_Admin_Controller
             $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
             $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
             $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
-            $str_description = $this->input->post('description') ? trim($this->input->post('description')) : '';
+            $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
             $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
             $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
@@ -126,7 +126,7 @@ class Round extends NH_Admin_Controller
 
 //            o($this->input->post(),true);
 
-            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward>=0 AND $int_price>=0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price AND $int_sell_begin_time AND $int_sell_end_time /*AND $int_start_time AND $int_end_time*/) {
+            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >= 0 AND $int_price >= 0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price >= 0 AND $int_sell_begin_time AND $int_sell_end_time /*AND $int_start_time AND $int_end_time*/) {
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;
@@ -150,21 +150,22 @@ class Round extends NH_Admin_Controller
 //                $arr_param['end_time'] = $int_end_time;
                 $bool_flag = true;
 
-                $arr_round_time_config = config_item('standard_round_time_config');
-                if($int_sell_begin_time < TIME_STAMP + $arr_round_time_config['before_sell_begin_time_min']){
+                $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+                $arr_time_config = config_item($str_config_name);
+                if($int_sell_begin_time < TIME_STAMP + $arr_time_config['before_sell_begin_time_min']){
                     $this->arr_response['msg'] = '销售时间要晚于一天后';
                     $bool_flag = false;
-                }elseif($int_sell_begin_time > TIME_STAMP + $arr_round_time_config['before_sell_begin_time_max']){
+                }elseif($int_sell_begin_time > TIME_STAMP + $arr_time_config['before_sell_begin_time_max']){
                     $this->arr_response['msg'] = '销售时间不能晚于一个月后';
                     $bool_flag = false;
-                }elseif($int_sell_end_time < $int_sell_begin_time + $arr_round_time_config['before_sell_end_time_min']){
+                }elseif($int_sell_end_time < $int_sell_begin_time + $arr_time_config['before_sell_end_time_min']){
                     $this->arr_response['msg'] = '销售结束时间不能早于销售开始时间一天后';
                     $bool_flag = false;
-                }elseif($int_sell_end_time > $int_sell_begin_time + $arr_round_time_config['before_sell_end_time_max']){
+                }elseif($int_sell_end_time > $int_sell_begin_time + $arr_time_config['before_sell_end_time_max']){
                     $this->arr_response['msg'] = '销售结束时间不能晚于销售开始时间60天后';
                     $bool_flag = false;
                 }
-                $arr_param['start_time'] = $int_sell_end_time + $arr_round_time_config['before_begin_time'];
+                $arr_param['start_time'] = $int_sell_end_time + $arr_time_config['before_begin_time'];
 
                 if($bool_flag==true){
                     $str_action = 'create';
@@ -177,14 +178,18 @@ class Round extends NH_Admin_Controller
                         $bool_flag = $this->round->update_round($arr_param, $arr_where);
                     } else {
                         //create
+                        $bool_flag = false;
                         $this->load->model('business/admin/business_lesson', 'lesson');
                         $arr_classes = $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
                         $this->load->model('business/admin/business_course', 'course');
-                        $arr_param['class_count'] = $this->course->get_section_count($arr_classes);
-//                    o($arr_classes);
-//                    o($arr_param,true);
-                        $int_round_id = $this->round->create_round($arr_param);
-                        $bool_flag = $int_round_id > 0 ? true : false;
+                        $int_class_count = $this->course->get_section_count($arr_classes);
+                        if($int_class_count > 0){
+                            $arr_param['class_count'] = $int_class_count;
+                            $int_round_id = $this->round->create_round($arr_param);
+                            $bool_flag = $int_round_id > 0 ? true : false;
+                        }else{
+                            $this->arr_response['msg'] = 'no lesson';
+                        }
                     }
 
 //                o($arr_param);
@@ -319,7 +324,7 @@ class Round extends NH_Admin_Controller
     }
 
     /**
-     * 修改slae_status和teach_status
+     * 修改sale_status和teach_status
      * @author yanrui@tizi.com
      */
     public function status(){
@@ -331,16 +336,22 @@ class Round extends NH_Admin_Controller
 //        o($int_status,true);
         if($int_round_id > 0 AND $int_status >= 0 AND $str_type){
             $bool_flag = true;
-            if($int_status==2){
-                $this->load->model('business/admin/business_class', 'class');
-                $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
+            //validate
+            $this->load->model('business/admin/business_class', 'class');
+            if($str_type=='sale_status'){
+                if($int_status==ROUND_SALE_STATUS_PASS){
+                    //审核通过
+                    $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
 //                var_dump($arr_classes);exit;
-                foreach($arr_classes as $class){
-                    if($class["parent_id"]>0 AND ($class['begin_time']==0 OR $class['end_time']==0)){
-                        $bool_flag = false;
-                        $this->arr_response['msg'] = '《'.$class['title'].'》时间不正确，不能生成班次';
-                        break;
+                    foreach($arr_classes as $class){
+                        if($class["parent_id"]>0 AND ($class['begin_time']==0 OR $class['end_time']==0)){
+                            $bool_flag = false;
+                            $this->arr_response['msg'] = '《'.$class['title'].'》时间不正确，不能通过审核';
+                            break;
+                        }
                     }
+                }else{
+
                 }
             }
             if($bool_flag==true){
@@ -358,6 +369,23 @@ class Round extends NH_Admin_Controller
                 );
                 $bool_return = $this->round->update_round($arr_param,$arr_where);
                 if($bool_return==true){
+                    //update class
+                    $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+                    $arr_time_config = config_item($str_config_name);
+                    if($str_type=='sale_status'){
+
+                    }else{
+                        if($int_status==ROUND_TEACH_STATUS_STOP){
+                            $arr_param_class = array(
+                                'status' =>  CLASS_STATUS_FORI_CLASS
+                            );
+                            $arr_where_class = array(
+                                'begin_time >' => TIME_STAMP-$arr_time_config['enter_before_class'],
+                                'round_id' => $int_round_id
+                            );
+                            $this->class->update_class($arr_param_class,$arr_where_class);
+                        }
+                    }
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '操作成功';
                 }

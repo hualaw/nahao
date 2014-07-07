@@ -33,6 +33,7 @@ class NH_User_Controller extends NH_Controller
             log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
             $this->_user_detail['phone'] = $this->session->userdata('phone');
             $this->_user_detail['phone_mask'] = $this->session->userdata('phone_mask');
+            $this->_user_detail['teacher_intro'] = strip_tags($this->_user_detail['teacher_intro']);
         }
     }
    
@@ -112,7 +113,7 @@ class NH_User_Controller extends NH_Controller
         //user photo name
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
-        $avatar_key = 'user_avartar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
+        $avatar_key = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
         $avatar_source_key = 'source_' . $avatar_key;//头像原图的key
         $result = array('success'=>false,'msg'=>'上传失败');
         $success_num = 0;        

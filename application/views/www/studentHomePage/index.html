@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
+<title>那好在线课堂官网_网络课堂_网络课程_家教在线-那好网</title>
+<meta name="keywords" content="那好网,网络课堂,网络课程,在线课堂"/>
+<meta name="description" content="那好网荟萃全国名师，为教师提供实现自己教育梦想的在线课堂平台。致力于搭建最好的在线课堂网站，打造那好网络课堂，提供精品网络课程，为学生提供方便、高效，愉悦的网络学习体验。"/>
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentHomePage/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
 {include file="www/include/var.htm"}
@@ -18,27 +20,27 @@
 		<!-- 首页轮播 -->
 		<div class="roll">
 			<ul class="cf">
-				<li class="fl rollshow">
-					<a target="_blank" href="">
-						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+				<li class="fl rollshow" style="background:url({$static_url}{$static_version}/images/studentHomePage/roll/rollBg1.gif);">
+					<a target="_blank" href="{$course_url}ke_1.html">
+						<img src="{static_url('/images/studentHomePage/roll/roll1.jpg')}">
 					</a>
 				</li>
-				<li class="fl">
-					<a target="_blank" href="">
-						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+				<li class="fl" style="background:#000000;">
+					<a target="_blank" href="{$course_url}ke_2.html">
+						<img src="{static_url('/images/studentHomePage/roll/roll2.jpg')}">
 					</a>
 				</li>
-				<li class="fl">
-					<a target="_blank" href="">
-						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
+				<li class="fl" style="background:#5f5d6a;">
+					<a target="_blank" href="{$course_url}ke_4.html">
+						<img src="{static_url('/images/studentHomePage/roll/roll3.jpg')}">
 					</a>
 				</li>
 			</ul>
-			<!-- <ol class="cf rollNav">
+			<ol class="cf rollNav">
 				<li class="fl active"></li>
 				<li class="fl"></li>
 				<li class="fl"></li>
-			</ol> -->
+			</ol>
 		</div>
 		<!-- course show -->
 		<div class="courseBox">
@@ -64,7 +66,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
+						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}ke_{$item.id}.html" title="{$item.title}">
 							<div class="teaInfor cf">
 								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">
@@ -78,7 +80,7 @@
 									<p class="detailInfor">{$item.teacher.teacher_signature}</p>
 								</div>
 							</div>
-							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
+							<p class="brief">{$item.subtitle|truncate:56:"...":true}</p>
 							<p class="courseTitle" title="{$item.title}">{$item.title}</p>
 						</div>
 					</li>
@@ -130,21 +132,21 @@
 		<div class="coopBox">
 			<div class="coopBoxh cf">
 				<h3 class="fl coopComW">课程、师资合作</h3>
-				<h3 class="fr coopComW">学校合作</h3>
+				<h3 class="fr coopComW">学校、机构合作</h3>
 			</div>
 			<div class="coopBoxCon">
 				<div class="cf">
 					<div class="fl coopComW">
-						<p class="dt">如果您是教学专家</p>
-						<p class="dl">您有一门很棒的课程，<br>并且您想让您的课程影响广大的中小学生；</p>
-						<p class="dt edudt">如果您是一家教育机构</p>
-						<p class="dl">您有自己独到的优秀教育资源，希望扩展影响力或市场；</p>
+						<p class="dt">如果您是某个领域的教学专家</p>
+						<p class="dl">如果您有一门精彩的课程，希望让更多中小学生从中受益，<br>那好欢迎您！</p>
+<!-- 						<p class="dt edudt">如果您是一家教育机构</p>
+						<p class="dl">您有自己独到的优秀教育资源，希望扩展影响力或市场；</p> -->
 					</div>
 					<div class="fr coopComW">
-						<p class="dt">如果您是学校</p>
+						<p class="dt">如果您是学校、机构</p>
 						<p class="dl">您希望我们专门为您的学校提供定制的课程，<br>或者希望与我们开展更深入的合作；</p>
-						<p class="dt edudt">如果您是一家教育机构</p>
-						<p class="dl">希望那好课堂为您提供个性化的服务；</p>
+<!-- 						<p class="dt edudt">如果您是一家教育机构</p>
+						<p class="dl">希望那好课堂为您提供个性化的服务；</p> -->
 					</div>
 				</div>
 				<p class="fp">
@@ -167,6 +169,7 @@
 <!-- 悬浮框开始 -->
 <div class="floatBox">
 	<a href="javascript:void(0);" class="ansQue">咨询答疑</a>
+	<a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a>
 	<a href="javascript:void(0);" class="feedback">意见反馈</a>
 	<a href="javascript:void(0);" class="returnTop">返回顶部</a>
 </div>

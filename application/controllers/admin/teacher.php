@@ -127,13 +127,15 @@ class Teacher extends NH_Admin_Controller {
         $str_upToken = $obj_putPolicy->Token ( null );
         $str_salt = random_string('alnum', 6);
 
-        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
-        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
+        $str_work_img_file_name = 'teacher_'.time().'_work_auth_i'.$str_salt.'.png';
+        $str_auth_img_file_name = 'teacher_'.time().'_teacher_auth_i'.$str_salt.'.png';
         $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_avatar_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+        $this->smarty->assign('upload_avatar_img_key', $str_avatar_img_file_name);
 
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
@@ -149,6 +151,7 @@ class Teacher extends NH_Admin_Controller {
     public function check_techer_post()
     {
         $post=$this->input->post(NULL,TRUE);
+        //var_dump($post);die;
         if($this->teacher->check_post($post))
         {
             redirect('teacher');
@@ -210,7 +213,8 @@ class Teacher extends NH_Admin_Controller {
     public function nickname()
     {
         $nickname=$this->input->post('nickname',TRUE);
-        $nick=$this->teacher->check_nick_name($nickname);
+        $user_id=$this->input->post('user_id',TRUE);
+        $nick=$this->teacher->check_nick_name($nickname,$user_id);
         echo $nick;
         //echo $nick;
     }
@@ -250,7 +254,7 @@ class Teacher extends NH_Admin_Controller {
     {
         $user_id=$this->input->get('user_id',TRUE);
         $teacher_details=$this->teacher->teacher_momdify($user_id);
-        //var_dump($teacher_details);die;
+//        var_dump($teacher_details);die;
         $city=$this->teacher->city1($teacher_details['user_info_data']['province']);
         $area=$this->teacher->area1($teacher_details['user_info_data']['city']);
         if($teacher_details['user_info_data']['area']!=0)
@@ -295,10 +299,12 @@ class Teacher extends NH_Admin_Controller {
         $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
         $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
         $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_avatar_img_file_name = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+        $this->smarty->assign('upload_avatar_img_key', $str_avatar_img_file_name);
 
         $this->smarty->assign('user_id',$user_id);
         $this->smarty->assign('phone',$phone);
@@ -325,6 +331,10 @@ class Teacher extends NH_Admin_Controller {
         {
             redirect('teacher');
         }
+        else
+        {
+            redirect("teacher/modify?user_id=$post_edit[user_id]");
+        }
     }
     /**
      * Ajax添加课程时选取教师列表
@@ -334,7 +344,7 @@ class Teacher extends NH_Admin_Controller {
         $arr_teachers = $this->input->post("teacher_ids");
         $arr_return = array();
         if($this->is_ajax()){
-            $arr_return = $this->teacher->get_teacher_list(array(),0,30);
+            $arr_return = $this->teacher->get_teacher_list(array(TABLE_USER.'.status'=>TABLE_USER_DIC_STATUS_ON),0,30);
             if($arr_teachers){
                 foreach($arr_return as $k => $v){
                     if(in_array($v['id'],$arr_teachers)){

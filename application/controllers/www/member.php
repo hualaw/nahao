@@ -102,14 +102,19 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
+	    //var_dump($array_order);die;
+	    if (empty($array_order)) #TODO用户id$this->user['id']
 	    {
-	        show_error("订单号不存在");
+	        show_error("订单不存在");
 	    }
-	    if ($array_order['pay_type'] == '0'|| $array_order['pay_type'] == '1' ||$array_order['pay_type'] == '2'||$array_order['pay_type'] == '3')
+	    if ($array_order['student_id']!=$int_user_id)
+	    {
+	    	show_error("不是本人的订单");
+	    }
+	    if ($array_order['pay_type'] == ORDER_TYPE_ONLINE || $array_order['pay_type'] == ORDER_TYPE_BANK || $array_order['pay_type'] == ORDER_TYPE_CREDITPAY || $array_order['pay_type'] == ORDER_TYPE_ALIPAY)
 	    {
 	        $array_order['payment_method'] = 'online';
-	    } elseif ($array_order['pay_type'] == '4') {
+	    } elseif ($array_order['pay_type'] == ORDER_TYPE_OFFLINE ) {
 	        $array_order['payment_method'] = 'remittance';
 	    }
 	   
@@ -160,7 +165,9 @@ class Member extends NH_User_Controller {
                 'order_id'=>$int_order_id,
                 'status'=>ORDER_STATUS_CANCEL,
                 'action'=>ORDER_ACTION_CANCEL,
-                'note'=>'取消订单'
+                'note'=>'取消订单',
+	        	'user_type'=>NH_MEETING_TYPE_STUDENT,
+	        	'pay_type'=>$array_order['pay_type']
 	        );
 	        $bool_flag = $this->student_order->update_order_status($array_mdata);
 	        if ($bool_flag)
@@ -246,9 +253,13 @@ class Member extends NH_User_Controller {
 	    }
 	    #获取订单信息
 	    $array_order = $this->student_order->get_order_by_id($int_order_id);
-	    if (empty($array_order) OR $array_order['student_id']!=$int_user_id) #TODO用户id$this->user['id']
+		if (empty($array_order)) #TODO用户id$this->user['id']
 	    {
-	        show_error("订单号不存在");
+	        show_error("订单不存在");
+	    }
+	    if ($array_order['student_id']!=$int_user_id)
+	    {
+	    	show_error("不是本人的订单");
 	    }
 	    
 	    $array_data = array(
@@ -263,7 +274,8 @@ class Member extends NH_User_Controller {
             'round_price'=>$str_totle_money,
 	        'refund_price'=>$str_return_money,
 	        'refund_count'=>$str_unclass,
-	        'study_count'=>$str_class
+	        'study_count'=>$str_class,
+	    	'pay_type'=>$array_order['pay_type']
 	    );
 	    $sflag = $this->student_member->save_refund($array_data);
 	    if ($sflag)
@@ -285,11 +297,12 @@ class Member extends NH_User_Controller {
         $this->load->model('business/admin/business_teacher');
         $this->load->model('business/common/business_area');
 	    $user_id = $this->session->userdata('user_id');
+        $reg_type = $this->session->userdata('reg_type');
         if($this->is_post()) {
             $this->load->model('business/common/business_user');
             $post_data = array();
             $phone = trim($this->input->post('phone'));
-            if($phone != $this->_user_detail['phone']) {
+            if($reg_type == REG_LOGIN_TYPE_EMAIL && $phone != $this->_user_detail['phone']) {
                 $phone_mask = empty($phone) ? '' : phone_blur($phone);
                 $phone_data['phone_mask'] = $phone;//邮箱注册的用户,phone_mask在邮箱是明文在redis中是加了掩码的
                 $this->business_user->modify_user($phone_data, $user_id);
@@ -369,7 +382,7 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
         $this->smarty->assign('special_city', array(2, 25, 27, 32));
-        $this->smarty->assign('reg_type', $this->session->userdata('reg_type'));
+        $this->smarty->assign('reg_type', $reg_type);
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }

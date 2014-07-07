@@ -84,6 +84,7 @@ define(function(require,exports){
     exports.sendValidateCode = function (){
         $('.getVerCodea').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("#phone").val();
             if(!(phone)) {
 				$.dialog({
@@ -113,8 +114,7 @@ define(function(require,exports){
                     //手机验证倒计时
                     require("module/common/method/countDown").countDown(_this);
                 }
-            }
-            );
+            });
         });
     }
 

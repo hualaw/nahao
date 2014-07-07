@@ -157,5 +157,18 @@ define(function(require,exports){
                 }
             })
         })
+        $("#pay_money").click(function(){
+            $.ajax({
+                type:"post",
+                url:"/order/pay_money",
+                data:"order_id="+$('#student_order_id').html()+"&user_id="+$('#student_id').val()+"&round_id="+$("#round_id").html(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        })
     }
 });

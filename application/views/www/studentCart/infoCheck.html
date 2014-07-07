@@ -42,7 +42,7 @@
 					<dt>
 						<!-- <span class="num">序号</span> -->
 						<span class="name">课程名称</span>
-						<span class="time">上课时间</span>
+						<span class="time">上课日期</span>
 						<span class="oldPrice">原价</span>
 						<span class="newPrice">优惠价</span>
 						<!-- <span class="operation">操作</span> -->
@@ -51,7 +51,7 @@
 					<dd>
 						<!-- span class="num">1</span> -->
 						<span class="name">{$array_data.title|truncate:21:"...":true}</span>
-						<span class="time">{$array_data.start_time|date_format:'%Y/%m/%d %H:%M'}--{$array_data.end_time|date_format:'%Y/%m/%d %H:%M'}</span>
+						<span class="time">{$array_data.start_time|date_format:'%Y/%m/%d'}--{$array_data.end_time|date_format:'%Y/%m/%d'}</span>
 						<span class="oldPrice">¥{$array_data.price}<em></em></span>
 						<span class="newPrice">¥{$array_data.sale_price}</span>
 						<!-- <span class="operation"><a href="javascript:void(0)">删除</a></span> -->
@@ -104,8 +104,7 @@
 									<span class="Validform_checktip"></span>
 
 								</div>
-								<a href="javascript:void(0)" class="noShowBtn blueBtn getVerCodea">免费获取验证码</a>
-								<span class="getVerCodespan codeSpan undis">60秒后获取验证码</span>
+								<input type="button" class="noShowBtn blueBtn getVerCodea" value="发送验证码">
 							</div>							
 						</li>
 						{else}
@@ -130,8 +129,7 @@
 										<span class="Validform_checktip"></span>
 	
 									</div>
-									<a href="javascript:void(0)" class="noShowBtn blueBtn getVerCodea">免费获取验证码</a>
-									<span class="getVerCodespan codeSpan undis">60秒后获取验证码</span>
+									<input type="button" class="noShowBtn blueBtn getVerCodea" value="发送验证码">
 								</div>							
 							</li>
 							{/if}

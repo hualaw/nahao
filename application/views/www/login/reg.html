@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
-<meta name="description" content="" />
+<title>那好在线课程注册界面-那好网</title>
+<meta name="description" content="那好在线课程注册界面" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/login/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
@@ -41,8 +41,7 @@
                           			<div class="Validform_checktip"></div>
 								</li>
 								<li class="cf liPhoneCode">
-									<a href="javascript:void(0)" class="btn blueBtn pnoneCode fl sendPhoneCode" >免费获取验证码</a>
-									<span class="bth pnoneCode codeSpan undis fl" >60秒后获取验证码</span>
+									<input type="button" class="btn blueBtn pnoneCode fl sendPhoneCode" value="免费获取验证码">
 									<div class="fr reg_validate_code">
 										<input type="text" name="captcha" class="codeInput regInput yh" placeholder="请输入手机验证码">
 										<div class="Validform_tip_info undis">请输入手机验证码</div>
@@ -83,7 +82,7 @@
 								<li class="agreementLi">
 									<input type="checkbox" checked id="agreementEmail">
 									<label for="agreementEmail">我已阅读并同意</label>
-									<a href="javascript:void(0)">那好网服务使用协议</a>
+									<a href="{$student_url}about/service" target="_blank">那好网服务使用协议</a>
 								</li>
 								<li>
 									<input type="submit" class="btn redBtn regInput submit yh" value="免费注册 ">

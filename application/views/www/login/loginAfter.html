@@ -106,7 +106,7 @@
 					<div class="cf">
 						<div class="fl changeSex">
                             {foreach $gender as $key => $val}
-							<input type="radio" name="gender" value="{$key}" class="radio" ignore="ignore" validName="radio" /> {$val}
+							<input type="radio" name="gender" value="{$key}" class="radio" ignore="ignore" validName="radio" {if $key==1}checked{/if}/> {$val}
                             {/foreach}
 						</div>
 						<span class="Validform_checktip fl"></span>
@@ -114,15 +114,9 @@
 				</li>
 				<li class="attent">
 					<p class="optional">关注学科</p>
-					<input type="button" name="focus_subjects" subject_id="1" value="奥数" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="2" value="数学" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="3" value="作文" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="4" value="英语" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="5" value="物理" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="6" value="化学" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="7" value="生物" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="8" value="地理" class="btn ">
-					<input type="button" name="focus_subjects" subject_id="9" value="政治" class="btn ">
+                    {foreach $subjects as $key => $val}
+					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn ">
+                    {/foreach}
                     <input type="hidden" name="selected_subjects" id="selected_subjects" value="">
 					<div class="cf">
 						<div class="attNote fl">注：最多可选择3项</div>

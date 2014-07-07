@@ -56,6 +56,11 @@ define(function(require,exports){
                     {
                         location.reload();
                     }
+                    if(msg=="no")
+                    {
+                        alert("选择的账户里有昵称已被占用");
+                        return false;
+                    }
                 }
             })
         })
@@ -80,7 +85,7 @@ define(function(require,exports){
                     $.ajax({
                         type:"post",
                         url:"/teacher/nickname",
-                        data:"nickname="+$('#nickname').val(),
+                        data:"nickname="+$('#nickname').val()+"&user_id="+$("#user_teacher_id").val(),
                         success:function(msg){
                             if(msg=="yes")
                             {
@@ -617,5 +622,15 @@ define(function(require,exports){
                 var img_url_general = _qiniu_url+$('#work_img').val();
                 $('#img_work_general').attr('src',img_url_general);
             }
+            if($('#avatar_teacher_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#avatar_teacher_img').val();
+                $('#img_avatar').attr('src',img_url_general);
+            }
+    }
+
+    exports.load_ckeditor = function ()
+    {
+        CKEDITOR.replace('teacher_intro',{ toolbar:'Basic'});
     }
 })

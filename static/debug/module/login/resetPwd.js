@@ -5,6 +5,7 @@ define(function(require,exports){
     exports.sendValidateCode = function (){
         $('.code').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
                 $.tiziDialog({

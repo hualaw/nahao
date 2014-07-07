@@ -12,7 +12,7 @@
 .studentHomePage .rollNav li.active{ background:#f14211;}
 /* ´óÍ¼¹ö¶¯ ½áÊø*/
 /*¿Î³ÌÕ¹Ê¾*/
-.studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 55px 86px;}
+.studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 44px 0 6px;}
 .studentHomePage .courseList li{width: 230px;height: 270px;margin:0 20px 36px 0;position: relative;/*-webkit-perspective:800;*/}
 .studentHomePage .courseList{margin-right: -28px;}
 .studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}
@@ -47,7 +47,7 @@
 /*   ²»Ö§³Ö transform  µÄµÍ°æ±¾ä¯ÀÀÆ÷*/
 
 /*首页 删减*/
-.studentHomePage .advantageBox{width: 974px;overflow: hidden;margin: 85px auto;}
+.studentHomePage .advantageBox{width: 974px;overflow: hidden;margin: 85px auto 80px;}
 .studentHomePage .advantage{margin-right: -1px;}
 .studentHomePage .advantage li{padding-top: 18px;background-position:center top;background-repeat:no-repeat;text-align: center;*width: 325px;}
 .studentHomePage .advantage li.ad1{background-image: url(../../images/studentHomePage/ad1.gif);}
@@ -59,7 +59,7 @@
 .studentHomePage .advantage .line{width: 60px;height: 2px;background: #f14211;display: block;margin: 5px auto 8px;}
 /*浏览器下载页*/
 .browserPage{background: #e5e5e5;}
-.studentHomePage .iebrowserBox{*padding-top: 160px;}
+.browserPage .iebrowserBox{*padding-top: 160px;}
 .studentHomePage .browserBox{background: #f4f4f4;border: 1px solid #e4e4e4;height: 404px;margin-top: 32px;color: #494949;font-size: 16px;text-align: center;}
 .studentHomePage .browserBox h2,
 .studentHomePage .browserBox h3{font-weight: normal;}

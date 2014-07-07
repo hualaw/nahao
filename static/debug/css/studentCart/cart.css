@@ -16,7 +16,7 @@
 /*订单提交成功样式开始*/
 .studentCart .toPay {margin-bottom:20px;}
 .studentCart .toPay .orderForm{background:#e1f2f4;padding:20px 30px;border:1px solid #d5d5d5;margin-bottom:20px;}
-.studentCart .toPay .orderForm h3{height:46px;line-height:46px;padding-left:62px;background: url(../../images/studentCart/orderFormIcon.png) no-repeat left center;font-size:24px;font-weight:normal;color:#0e455e;}
+.studentCart .toPay .orderForm h3{margin-bottom: 10px;height:46px;line-height:46px;padding-left:62px;background: url(../../images/studentCart/orderFormIcon.png) no-repeat left center;font-size:24px;font-weight:normal;color:#0e455e;}
 .studentCart .toPay .orderForm p{line-height:34px;font-size:18px;color:#717575;}
 .studentCart .toPay .orderForm p.last{font-size:16px;}
 .studentCart .toPay .orderForm p span{margin-right: 50px}
@@ -126,7 +126,7 @@
 .studentCart .contactInfo li p input{height:28px;padding:0 15px;width:228px;border:1px solid #a2a2a2;}
 .studentCart .contactInfo li .title{line-height:22px;font-size:16px;font-weight:bold}
 .studentCart .contactInfo li .tips{line-height:22px;font-size:14px;color:#848484;}
-.studentCart .contactInfo .getVerCodeBtn .getVerCodea{width:130px;height:32px;line-height:32px;margin:0 10px;font-size: 16px;}
+.studentCart .contactInfo .getVerCodeBtn .getVerCodea{height:32px;line-height:32px;margin:0 10px;font-size: 16px;padding: 0 10px;}
 .studentCart .contactInfo .getVerCodeBtn .getVerCodespan{width:130px;height:32px;line-height:32px;margin:0 10px;font-size: 14px;background: #dedede;text-align: center;border-radius: 2px;display: inline-block;color: #a5a5a5;}
 .studentCart .contactInfo .getVerCodeBtn .Validform_checktip{display: block;padding-left: 0;margin-top:4px;}
 .studentCart .contactInfo .getVerCodeBtn .undis{display: none}

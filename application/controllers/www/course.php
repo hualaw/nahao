@@ -16,7 +16,7 @@ class Course extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    $int_round_id = max(intval($int_round_id),1);
-	    #检查这个$int_round_id是否有效
+	    #检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
 	    $bool_flag = $this->student_course->check_round_id($int_round_id);
 	    if (!$bool_flag)
 	    {
@@ -34,7 +34,7 @@ class Course extends NH_User_Controller {
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-        //var_dump($array_team);
+       	//var_dump($array_data);die;
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
@@ -78,7 +78,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-		//var_dump($array_outline);
+		//var_dump($array_data);
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
@@ -178,7 +178,7 @@ class Course extends NH_User_Controller {
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：（在销售中、已售罄、已停售、已下架）
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -191,11 +191,11 @@ class Course extends NH_User_Controller {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已售罄了'));
 	    }
 	    #购买前加入是否售罄、已停售、已下架
-	    if ($array_round['sale_status'] == '5')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_FINISH)
 	    {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已停售了'));
 	    }
-	    if ($array_round['sale_status'] == '6')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_OFF)
 	    {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已下架了'));
 	    }
@@ -213,20 +213,20 @@ class Course extends NH_User_Controller {
 	    {
     	    switch ($v['status'])
     	    {
-    	        case 0:
-    	        case 1:
+    	        case ORDER_STATUS_INIT:
+    	        case ORDER_STATUS_FAIL:
     	            self::json_output(array('status'=>'error','msg'=>'您的订单已经存在，请去订单中心付款',));
     	            break;
-    	        case 2:
-    	        case 3:
-    	        case 6:
-    	        case 7:
-    	        case 8:
-    	        case 9:
+    	        case ORDER_STATUS_SUCC:
+    	        case ORDER_STATUS_FINISH:
+    	        case ORDER_STATUS_APPLYREFUND:
+    	        case ORDER_STATUS_APPLYREFUND_FAIL:
+    	        case ORDER_STATUS_APPLYREFUND_AGREE:
+    	        case ORDER_STATUS_APPLYREFUND_SUCC:
     	            self::json_output(array('status'=>'error','msg'=>'您已经购买过这轮课程，请不要重复购买'));
     	            break;
-    	        case 4:
-    	        case 5:
+    	        case ORDER_STATUS_CANCEL:
+    	        case ORDER_STATUS_CLOSE:
     	            #根据$int_product_id获取订单里面该轮的部分信息
     	            self::json_output(array('status'=>'ok','id'=>$int_product_id));
     	            break;
@@ -240,6 +240,7 @@ class Course extends NH_User_Controller {
 	  */
 	 public function courseware()
 	 {
+	 	header('content-type: text/html; charset=utf-8');
 	 	#判断是否登录
 	 	if(!$this->is_login)
 	 	{
@@ -272,31 +273,38 @@ class Course extends NH_User_Controller {
 	 		show_error('抱歉!这节课没有上传课件');
 	 	}
 	 	$wordStr = $array_courseware['0']['download_url'];
+	 	$file_name = $array_courseware['0']['name'];
+	 	$file_name = urlencode($file_name);
+	 	$file_name = str_replace("+", "%20", $file_name);// 替换空格
 	 	//echo $wordStr;die;
+// 	 	var_dump($array_courseware);die;
 	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
-	 	$this->forceDownload($wordStr);
+	 	$this->forceDownload($wordStr,$file_name);
 	 }
 	 
 	 /**
 	  * 下载课件PDF文件
 	  * @param unknown_type $filename
 	  */
-	 protected function forceDownload($filename) 
+	 public function forceDownload($filename,$file_name) 
 	 {
+	     
+	    // http headers 
+	    header('Content-Type: application-x/force-download'); 
+	    header('Content-Disposition: attachment; filename="' . $file_name .'"'); 
+	    header('Content-length: ' . filesize($filename)); 
 	 
-	 	// http headers
-	 	header('Content-Type: application-x/force-download');
-	 	header('Content-Disposition: attachment; filename="' . basename($filename) .'"');
-	 	header('Content-length: ' . filesize($filename));
-	 
-	 	// for IE6
-	 	if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) {
-	 		header('Cache-Control: no-cache, must-revalidate');
-	 	}
-	 	header('Pragma: no-cache');
-	 	 
-	 	// read file content and output
-	 	return readfile($filename);;
+	    // for IE6 
+	    if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) { 
+	        header('Cache-Control: no-cache, must-revalidate'); 
+	    } 
+	    header('Pragma: no-cache'); 
+	         
+	    // read file content and output 
+	    return readfile($filename);; 
+
+	 	
+
 	 }
 }
 

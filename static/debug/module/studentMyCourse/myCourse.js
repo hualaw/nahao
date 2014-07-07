@@ -13,7 +13,15 @@ define(function(require,exports){
             }
         }
     }
-
+    //修改头像 定位
+    exports.changedHead = function (){
+        $(".memberInfo .memberImg img").click(function (){
+            $(".inforTab .tabh li").removeClass("inforOn");
+            $(".inforTab .tabh li").eq(1).addClass("inforOn");
+            $(".inforTabBox").addClass("undis");
+            $(".atareditorBox").removeClass("undis");
+        });
+    }
     //云笔记
     exports.cNote = function (){
         $(".cListHid").on("click", '.cloudNotes', function () {
@@ -181,6 +189,7 @@ define(function(require,exports){
     				$.dialog({
     				    content:response.msg,
     				    icon:null,
+                        cancel:false,
     				    ok:function(){
     				    	window.location.reload();
     				    }
@@ -207,6 +216,7 @@ define(function(require,exports){
     				$.dialog({
     				    content:response.msg,
     				    icon:null,
+                        cancel:false,
     				    ok:function()
     				    {
     				    	window.location.reload();
@@ -238,7 +248,8 @@ define(function(require,exports){
         $(".outlineList .listb").mouseout(function (){
             $(this).find(".cListHid").hide();
         });
-        $(".evaluBtn").click(function (){               
+        $(".evaluBtn").click(function (){
+            var _this = $(this);          
            // _popUp.popUp('.evaluHtml');
         	$.dialog({
         		id:"comment_close",
@@ -251,7 +262,7 @@ define(function(require,exports){
             class_id = $(this).attr("evaluBtns");
             $("#c_class_id").val(class_id);
             exports.starClick();
-            require("module/classRoom/valid").evaluForm();
+            require("module/classRoom/valid").evaluForm(_this);
             
         })
     }
@@ -275,6 +286,7 @@ define(function(require,exports){
     exports.sendValidateCode = function (){
         $('.sendPhoneCode').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("input[name='phone']").val();
             var verify_type = $("input[name='verify_type']").val();
             if(!(phone)) {
@@ -306,8 +318,7 @@ define(function(require,exports){
                         require("module/common/method/countDown").countDown(_this);   
                     }
                 }
-            }
-            );
+            });
         });
     }
     

@@ -85,7 +85,7 @@
                 <botton class="round_operation btn-xs btn btn-success" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING}">过审</botton>
                 <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_DENY}">拒审</botton>
             {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_ON_SALE)}
-                <botton class="round_operation btn-xs btn btn-warning" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}">停售</botton>
+                <botton class="round_operation btn-xs btn btn-warning" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}">下架</botton>
             {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_STOP)}
                 {if ($v.teach_status eq $smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_INIT) or ($v.teach_status eq $smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_RUNNING)}
                     <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="teach_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_TEACH_STATUS_STOP}">停课</botton>

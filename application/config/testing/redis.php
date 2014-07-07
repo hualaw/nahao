@@ -3,7 +3,7 @@
 //default redis for auto login and verify with ci
 $config['redis_db']['session']		= 1;//SESSION
 $config['redis_db']['login']	 	= 2;//store phone captcha and email verify code
-$config['redis_db']['student_answer'] = 3; //学生答题记录与统计
+$config['redis_db']['order'] 		= 3; //订单
 
 
 // Default connection group

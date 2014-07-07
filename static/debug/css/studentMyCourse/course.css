@@ -18,7 +18,7 @@
 .studentMyCourse .wrapContent{width: 768px;}
 /* 左侧框架开始 */
 .studentMyCourse .memberInfo{text-align: center;position: absolute;top:-30px;width: 100%;}
-.studentMyCourse .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);}
+.studentMyCourse .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);cursor: pointer;}
 .studentMyCourse .memberInfo h2{height: 50px;line-height: 50px;font-size: 16px;color:#0e455e;}
 .studentMyCourse .memberInfo h2 .myGrade{margin-right: 15px;font-weight: normal;}
 .studentMyCourse .menu li{height: 50px;line-height: 50px;}
@@ -70,7 +70,7 @@
 .studentMyCourse .myOrderCon table{background: #fff;width: 100%;}
 .studentMyCourse .myOrderCon .detailBox{border-width:1px;border-style:solid;border-color:#ddd #c3c3c3;background: #fff;}
 .studentMyCourse .myOrderCon .tableCon{width: 730px;margin-left: 16px;}
-.studentMyCourse .myOrderCon table .textal{text-align: left;padding-left: 6px;}
+.studentMyCourse .myOrderCon table .textal{text-align: left;padding-left: 6px;width: 300px;}
 .studentMyCourse .myOrderCon table .tName .textal{padding-left: 72px;}
 .studentMyCourse .myOrderCon table td{text-align: center;}
 .studentMyCourse .myOrderCon .tabh{background: #f7f7f7;}
@@ -222,14 +222,14 @@
 .studentMyCourse .buyBefore .headR{position: absolute;width: 176px;left:110px;bottom: 0;}
 .studentMyCourse .buyBefore .cMan{font-size: 12px;}
 .studentMyCourse .buyBefore .teaDetail strong{font-size: 16px;margin-right: 14px;}
-.studentMyCourse .buyBefore .teaIntrod{line-height: 20px;text-indent: 2em;margin-top: 16px;}
+.studentMyCourse .buyBefore .teaIntrod{line-height: 24px;text-indent: 2em;margin-top: 16px;}
 .studentMyCourse .buyBefore .identity{width: 54px;height: 16px;margin:4px 16px 0 0;}
 .studentMyCourse .buyBefore .cBox{padding: 0 26px 24px 140px;border-top: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .cBox p{line-height: 24px;}
 .studentMyCourse .buyBefore .introd{text-indent: 2em;padding-top:70px;border-top: none;background: url(../../images/studentMyCourse/introd.png) 12px 44px no-repeat;}
 .studentMyCourse .buyBefore .fitStu{background: url(../../images/studentMyCourse/fitStu.png) 12px 22px no-repeat;padding-top:54px;}
-.studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 26px 65px 140px;}
-.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -114px;text-align: center;}
+.studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 22px 65px 140px;}
+.studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -118px;}
 .studentMyCourse .buyBefore .editorBox img{max-width: 600px;}
 .studentMyCourse .buyBefore .creview li{padding: 26px 0 22px;border-bottom: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .creview{padding: 65px 20px 18px 18px;background: url(../../images/studentMyCourse/creview.png) 12px 25px no-repeat;}
@@ -261,6 +261,7 @@ overflow: hidden;}
 .studentMyCourse .buyBefore .revTimt,
 .studentMyCourse .buyBefore .allReview,
 .studentMyCourse .outlineList .listc{color:#6dcde6;}
+.studentMyCourse .buyAfter .outlineList{padding-bottom: 20px;}
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
 .studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
@@ -315,7 +316,7 @@ overflow: hidden;}
 .studentMyCourse .buyAfter .buyHead{background: url(../../images/studentMyCourse/buyHeadBg.png) no-repeat;height: 284px;margin-bottom: 30px;}
 .studentMyCourse .buyAfter .buyHeadt{border-top:2px solid #f14211;padding-top: 23px;}
 .studentMyCourse .buyAfter .courseInfor{width: 569px;border-left: 1px solid #948e92;margin-left: 47px;padding-left: 16px;height: 175px;}
-.studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;height: 179px;overflow-y: scroll;}
+.studentMyCourse .buyAfter .manInfor{width: 255px;margin-right: 40px;}
 .studentMyCourse .buyAfter .courseInfor h2{font-size: 24px;height: 30px;line-height: 30px;margin-bottom: 28px;width: 569px;
 white-space: nowrap;
 text-overflow: ellipsis;

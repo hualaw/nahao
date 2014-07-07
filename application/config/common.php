@@ -121,12 +121,6 @@ $config['lecture_factor'][1] = 'course';
 $config['lecture_factor'][2] = 'name';
 $config['lecture_factor'][3] = 'phone';
 
-//全站角色
-$config['role'][0] = '系统';
-$config['role'][1] = '管理员';
-$config['role'][2] = '学生';
-$config['role'][3] = '老师';
-
 
 //退款状态
 /*
@@ -282,23 +276,38 @@ $config['class_checkout_status'][2] = '已结算';
 $config['feedback'][0] = '屏蔽';
 $config['feedback'][1] = '显示';
 
-//公告发布者角色
-$config['author_role'][1] = '管理员';
-$config['author_role'][3] = '老师';
 
 //公告状态
 $config['affiche_status'][1] = '未审核';
 $config['affiche_status'][2] = '审核不通过';
 $config['affiche_status'][3] = '审核通过';
 
+//生成测试轮时候的时间间隔配置
+$config['testing_round_time_config']['before_sell_begin_time_min'] = 300;//销售时间最早在创建轮时间之后五分钟
+$config['testing_round_time_config']['before_sell_begin_time_max'] = 86400*30;//销售时间最晚在创建轮时间之后一个月
+$config['testing_round_time_config']['before_sell_end_time_min'] = 300;//最短销售期
+$config['testing_round_time_config']['before_sell_end_time_max'] = 86400*30*2;//最长销售期
+$config['testing_round_time_config']['before_begin_time'] = 300;//停卖多久后开课
+$config['testing_round_time_config']['before_first_class'] = 300;//轮开课与第一节课间隔
+$config['testing_round_time_config']['class_min_long'] = 300;//最短上课时间
+$config['testing_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
+$config['testing_round_time_config']['class_between_long'] = 300;//课间隔
+$config['testing_round_time_config']['enter_before_class'] = 120;//提前进教室时间
+$config['testing_round_time_config']['teacher_late_time'] = 120;//开课后多久老师点上课算迟到
+
+
 //生成标准轮时候的时间间隔配置
-$config['standard_round_time_config']['before_sell_begin_time_min'] = 86400;//销售时间最早在创建轮时间之后一天
-$config['standard_round_time_config']['before_sell_begin_time_max'] = 86400*30;////销售时间最晚在创建轮时间之后一个月
-
-$config['standard_round_time_config']['before_sell_end_time_min'] = 86400;
-$config['standard_round_time_config']['before_sell_end_time_max'] = 86400*30*2;
-
-$config['standard_round_time_config']['before_begin_time'] = 86400;
+$config['production_round_time_config']['before_sell_begin_time_min'] = 86400;//销售时间最早在创建轮时间之后一天
+$config['production_round_time_config']['before_sell_begin_time_max'] = 86400*30;////销售时间最晚在创建轮时间之后一个月
+$config['production_round_time_config']['before_sell_end_time_min'] = 86400;//最短销售期
+$config['production_round_time_config']['before_sell_end_time_max'] = 86400*30*2;//最长销售期
+$config['production_round_time_config']['before_begin_time'] = 86400;//停卖多久后开课
+$config['production_round_time_config']['before_first_class'] = 3600;//轮开课与第一节课间隔
+$config['production_round_time_config']['class_min_long'] = 30*60;//最短上课时间
+$config['production_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
+$config['production_round_time_config']['class_between_long'] = 3600;//课间隔
+$config['production_round_time_config']['enter_before_class'] = 1800;//提前进教室时间
+$config['production_round_time_config']['teacher_late_time'] = 300;//开课后多久老师点上课算迟到
 
 /**
  * 劳务报酬个人计算税率 之 含税级距参数表

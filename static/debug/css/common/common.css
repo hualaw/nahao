@@ -42,7 +42,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 140px;right: 0;z-index: 1111;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
 .floatBox a.feedback{margin-top: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
@@ -52,6 +52,8 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
 .floatBox .feedback:hover{background-image: url(../../images/common/hfeedback.jpg);}
 .floatBox .returnTop:hover{background-image: url(../../images/common/hreturnTop.jpg);}
+.floatBox .courSurvey{background-image: url(../../images/common/courSurvey.jpg);}
+.floatBox .courSurvey:hover{background-image: url(../../images/common/hcourSurvey.jpg);}
             
 /*  css3 旋转块 */
 .clBoxShaow{font-size:14px;position:absolute;left:0;top:0;width: 230px;cursor: pointer;height: 270px;}
@@ -158,3 +160,4 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .iebrowser{width: 100%;color: #f14211;height: 22px;line-height: 22px;text-align: center;font-size: 12px;background: #fff;}
 .iebrowser span{margin-left:36px;}
 .iebrowser a{color: #11243b;}
+.disabledBg{background: #dedede;}

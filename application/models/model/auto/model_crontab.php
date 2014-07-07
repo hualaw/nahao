@@ -16,8 +16,8 @@
     		$where = '';
     		switch ($type)
     		{
-    			case 1:$where.= ' AND begin_time = '.$int_time;break;
-    			case 2:$where.= ' AND end_time = '.$int_time;break;
+    			case 1:$where.= ' AND C.begin_time = '.$int_time;break;
+    			case 2:$where.= ' AND C.end_time = '.$int_time;break;
     		}
     		$sql = "SELECT C.id,C.classroom_id,C.begin_time,C.round_id FROM ".TABLE_CLASS." C
     				LEFT JOIN ".TABLE_ROUND." R ON C.round_id = R.id
@@ -43,7 +43,7 @@
     	public function get_section_data($int_round_id)
     	{
     		$array_result = array();
-    		$sql= "SELECT lt.id, FROM ".TABLE_CLASS." lo JOIN ".TABLE_CLASS." lt ON lo.round_id=lt.round_id 
+    		$sql= "SELECT lt.id FROM ".TABLE_CLASS." lo JOIN ".TABLE_CLASS." lt ON lo.round_id=lt.round_id 
     			   WHERE lo.round_id=".$int_round_id." 
     			   AND lt.parent_id=lo.id order by lo.sequence,lt.sequence";
     		$array_result = $this->db->query($sql)->result_array();
@@ -57,7 +57,7 @@
     	public function get_time_by_teacher_press_submit($int_classroom_id)
     	{
     		$array_result = array();
-    		$sql= "SELECT create_time FROM ".TABLE_CLASS_ACTION_LOG." WHERE classroom_id = ".$int_classroom_id." ORDER BY create_time ASC LIMIT 1";
+    		$sql= "SELECT create_time FROM ".TABLE_CLASS_ACTION_LOG." WHERE classroom_id = ".$int_classroom_id." AND user_type = ".NH_MEETING_TYPE_TEACHER." ORDER BY create_time ASC LIMIT 1";
     		$array_result = $this->db->query($sql)->row_array();
     		return $array_result;
     	}
@@ -79,14 +79,14 @@
     	
     	/**
     	 * 根据课id在student_class表里面找到买过这节课的学生
-    	 * @param  $int_classroom_id
+    	 * @param  $int_class_id
     	 * @return $array_result
     	 */
     	public function get_buy_class($int_class_id)
     	{
     		$array_result = array();
     		$sql = "SELECT student_id,class_id FROM ".TABLE_STUDENT_CLASS." WHERE class_id = ".$int_class_id." 
-    				AND (status = STUDENT_CLASS_REFUND_FAIL OR status = STUDENT_CLASS_LOST)";
+    				AND (status = ".STUDENT_CLASS_REFUND_FAIL." OR status = ".STUDENT_CLASS_INIT.")";
     		$array_result = $this->db->query($sql)->result_array();
     		return $array_result;
     	}
@@ -152,12 +152,12 @@
          * 所有需要改为过期的轮(补救)
          * @author shangshikai@tizi.com
          */
-        public function remedy_all_expire_end($begin_time,$end_time)
+        public function remedy_all_expire_end($begin_ex_time,$end_ex_time)
         {
             $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
             $this->db->where(TABLE_ROUND.'.teach_status',4);
-            $this->db->where(TABLE_ROUND.'.end_time>=',$begin_time);
-            $this->db->where(TABLE_ROUND.'.end_time<',$end_time);
+            $this->db->where(TABLE_ROUND.'.end_time>=',$begin_ex_time);
+            $this->db->where(TABLE_ROUND.'.end_time<',$end_ex_time);
             return $this->db->get()->result_array();
         }
         /**

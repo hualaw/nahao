@@ -106,9 +106,9 @@ class SelfInfo extends NH_User_Controller {
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
         //teacher auth img file name
-        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt;
-        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt;
-        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
+        $str_work_img_file_name = 'teacher_'.time().'_work_auth_i'.$str_salt;
+        $str_auth_img_file_name = 'teacher_'.time().'_teacher_auth_i'.$str_salt;
+        $str_title_img_file_name = 'teacher_'.time().'_title_auth_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);

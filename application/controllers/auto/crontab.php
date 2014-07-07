@@ -27,7 +27,10 @@ class Crontab extends CI_Controller
     	{
     		$int_time = $time;
     	} else {
-    		$int_time = $this->get_time()+1800;
+    		$str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+    		$arr_time_config = config_item($str_config_name);
+    		$a = $this->get_time();
+    		$int_time = $a+$arr_time_config['enter_before_class'];
     	}
         $type = 1;
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
@@ -54,6 +57,24 @@ class Crontab extends CI_Controller
     {
         $begin_time = $this->uri->rsegment(3);
         $end_time = $this->uri->rsegment(4);
+        $begin_time=str_replace('_',' ',$begin_time);
+        $end_time=str_replace('_',' ',$end_time);
+
+        $begin_time=strtotime($begin_time);
+        $end_time=strtotime($end_time);
+        $begin_year=date('Y',$begin_time);
+        $begin_mon=date('m',$begin_time);
+        $begin_day=date('d',$begin_time);
+        $begin_hour=date('H',$begin_time);
+        $begin_min=date('i',$begin_time);
+        $begin_ex_time=mktime($begin_hour,$begin_min,0,$begin_mon-1,$begin_day,$begin_year);
+
+        $end_year=date('Y',$end_time);
+        $end_mon=date('m',$end_time);
+        $end_day=date('d',$end_time);
+        $end_hour=date('H',$end_time);
+        $end_min=date('i',$end_time);
+        $end_ex_time=mktime($end_hour,$end_min,0,$end_mon-1,$end_day,$end_year);
 
         $time=time();
         $year=date('Y',$time);
@@ -64,7 +85,7 @@ class Crontab extends CI_Controller
         $advance_time=mktime($hour,$min,0,$mon,$day,$year);
         $ex_time=mktime($hour,$min,0,$mon-1,$day,$year);
 
-        $this->business_crontab->round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time);
+        $this->business_crontab->round_change_status($begin_time,$end_time,$advance_time,$time,$ex_time,$begin_ex_time,$end_ex_time);
     }
     
     /**
@@ -111,6 +132,8 @@ class Crontab extends CI_Controller
     	} else {
     		$int_time = $this->get_time();
     	}
+    	$str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+    	$arr_time_config = config_item($str_config_name);
     	$type = 2;
     	$array_class = $this->business_crontab->get_class_data($int_time,$type);
     	if($array_class)
@@ -120,7 +143,16 @@ class Crontab extends CI_Controller
     			#寻找每一节课老师按开始上课按钮的时间
     			$array_return = $this->business_crontab->get_time_by_teacher_press_submit($v['classroom_id']);
     			#如果老师按开始上课按钮的时间-这节课的开始时间 大于等于5分钟，这这节课老师缺席。否则这节课是“上完课”
-    			if($array_return['create_time']-$v['begin_time'] >= 5*60)
+    			if(empty($array_return))
+    			{
+    				$bool_sflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
+    				if ($bool_sflag)
+    				{
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”成功,老师没有按".'\r\n';
+    				} else {
+    					echo "[".date('Y-m-d H:i:s')."]:Class_Change_To_SoonClass_Or_OverClass方法--课id为：".$v['id']."状态更新为“缺课”失败".'\r\n';
+    				}
+    			}else if($array_return['create_time']-$v['begin_time'] >= $arr_time_config['teacher_late_time'])
     			{
     				$bool_nflag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_MISS_CLASS),array('id'=>$v['id']));
     				if ($bool_nflag)
@@ -307,7 +339,7 @@ class Crontab extends CI_Controller
     /**
      * 获取当前时间的正分
      */
-    protected function get_time()
+    public function get_time()
     {
     	$time = date('Y-m-d H:i',time()).":00";
     	$time = strtotime($time);
