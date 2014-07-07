@@ -13,7 +13,15 @@ define(function(require,exports){
             }
         }
     }
-
+    //修改头像 定位
+    exports.changedHead = function (){
+        $(".memberInfo .memberImg img").click(function (){
+            $(".inforTab .tabh li").removeClass("inforOn");
+            $(".inforTab .tabh li").eq(1).addClass("inforOn");
+            $(".inforTabBox").addClass("undis");
+            $(".atareditorBox").removeClass("undis");
+        });
+    }
     //云笔记
     exports.cNote = function (){
         $(".cListHid").on("click", '.cloudNotes', function () {

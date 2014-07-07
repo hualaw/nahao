@@ -21,6 +21,7 @@ define(function(require,exports){
 	if($("#wrapContent").hasClass("myInforCon")){
 		//基本资料 tab
 		_tab.tab($(".inforTab .tabh li"),"inforOn",$(".inforTabBox"));
+		
 	    //基本资料 修改密码验证
 	    _valid.ichangePWForm();
 	    // 个人资料 （手机版） 验证
@@ -29,6 +30,8 @@ define(function(require,exports){
 	    _valid.emailForm();
 	    //发送手机验证码
 	    _myCourse.sendValidateCode();
+    	//修改头像 定位
+	    _myCourse.changedHead();
 	}
 	if($("#wrapContent").hasClass("myCourseCon")){
 	    //最新课程页面跳转
