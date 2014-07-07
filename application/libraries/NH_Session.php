@@ -197,8 +197,7 @@ class NH_Session extends CI_Session {
 		// Fetch the cookie
 		$session = $this->CI->input->cookie($this->sess_cookie_name);
 		
-		//nahao check get session_id
-		//$segment = $this->CI->uri->segment_array();
+		//nahao check get session_id, for xunlei download
         //log_message('debug_nahao', "In sess_read(), segment: ".print_r($segment, 1));
         $session_get = $this->CI->input->get('session_id');
         //if session is empty, get GET parameter's session_id instead
