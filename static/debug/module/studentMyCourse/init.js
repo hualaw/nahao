@@ -73,5 +73,25 @@ define(function(require,exports){
     //个人资料修改地区
     if($("#province").length > 0) {
         require("module/studentMyCourse/area").change_area();
+    };
+
+    if($('#playerContainer').length > 0){
+    	/*初始化视频播放开始*/
+	    var playlist = [{
+		    "domain": $('#playerContainer').attr('domain'),
+		    "file": $('#playerContainer').attr('videoUrl'),
+		    "image": $('#playerContainer').attr('imgUrl')
+		}];
+	    TiZiplayer("playerContainer").setup({
+			playlist:playlist,
+			primary:"flash",
+			height:405,
+			width:480
+			// ,
+			// adCover:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg",
+			// adEnd:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg"
+			// autostart:auto_start
+		});
+	    /*初始化视频播放结束*/
     }
 })
