@@ -107,7 +107,66 @@
             <textarea class="form-control" id="students" rows="5" required>{if isset($course.students)}{$course.students}{/if}</textarea>
         </div>
     </div>
-
+    <!--那好视频管理 start-->
+	<div class="form-group">
+        <label class="col-md-2 control-label">那好视频管理</label>
+        <div class="col-md-8">
+			<button class="btn btn-primary" data-toggle="modal" data-target=".video-add-modal">添加视频</button>
+        </div>
+        <div class="modal fade video-add-modal" id="play-area" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        	<div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			      	<div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			          <h4 class="modal-title" id="myLargeModalLabel">那好视频管理</h4>
+			        </div>
+			        <div class="modal-body">
+			        	<div class="video-maker">
+			        		<button class="btn btn-primary add-video">添加</button>
+			        		<button class="btn btn-primary remove-video">减少</button>
+			        		<button class="btn btn-success">复制代码</button>
+			        	</div>
+			        	<hr />
+			        	<div class="video-items">
+			        		<div class="item">
+			        			<input type="text" value="" placeholder="视频名称">
+			        			<input type="text" value="" placeholder="视频地址url">
+			        			<input type="text" value="" placeholder="视频封面图url">
+			        			<a class="btn btn-link"><i class="glyphicon glyphicon-minus"></i></a>
+			        		</div>
+			        	</div>
+			        	<div class="video-code">
+			        		<code>
+			        			<div class="videoPlay fl">
+									<div class="item">
+										<h3>视频1</h3>
+										<div class="container" id="playerContainer1" title="http://tizi.oss.aliyuncs.com/static/zhuangyuan/gonghaiyan.mp4"><img src="http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg" /></div>
+									</div>
+									<div class="item">
+										<h3>视频2</h3>
+										<div class="container" id="playerContainer2" title="http://nahaoweb.qiniudn.com/videonew-2014-07-1404530822.mp4"><img src="http://img1.nahao.com/course_20140705115408_imiLpML.png?imageView/2/w/288/h/216" /></div>
+									</div>
+								</div>
+			        		</code>
+			        	</div>
+			        </div>
+			     </div>
+			 </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://static.nahaodev.com/debug/lib/jquery/1.8.2/jquery.js"></script>
+    <script type="text/javascript">
+    	$('.video-maker').children('.add-video').click(function(){
+    		$('.video-items').append('<div class="item"><input type="text" value="" placeholder="视频名称"><input type="text" value="" placeholder="视频地址url"><input type="text" value="" placeholder="视频封面图url"><a class="btn btn-link remove-this"><i class="glyphicon glyphicon-minus"></i></a></div>');
+    		$('.remove-this').click(function(){
+	    		$(this).parent('item').remove();
+	    	});
+    	});
+    	$('.video-maker').children('.remove-video').click(function(){
+    		$('.video-items').children(".item:last").remove();
+    	});
+    </script>
+    <!--那好视频管理 end-->
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
         <div class="col-md-8">
