@@ -1,4 +1,4 @@
 <?php
 
 //首页课程不显示测试课程的id
-$config['home_course_show'] = array(167);
+$config['home_course_show'] = array();
