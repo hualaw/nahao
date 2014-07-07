@@ -29,8 +29,9 @@
             $page = $this->pagination->create_links();
             $list_affiche=$this->affiche->list_affiche($admin_name,$author_role,$content,$start_time,$end_time,$status,$round_id);
 
-            $config_role=config_item('author_role');
+            $config_role=config_item('nh_meeting_type');
             $affiche_status=config_item('affiche_status');
+
             $this->smarty->assign('affiche_status',$affiche_status);
             $this->smarty->assign('round_title',$round_title);
             $this->smarty->assign('round_id',$round_id);
