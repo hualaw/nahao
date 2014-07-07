@@ -163,6 +163,9 @@
                 <!-- 授课提要 -->
                 <div class="summary cBox">
                     <div class="editorBox">
+                        <!-- 播放器代码开始 -->
+                        <div id="playerContainer" class="container" domain="oss-tizi" videoUrl="static/zhuangyuan/gonghaiyan.mp4" imgUrl="http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg"></div>
+                        <!-- 播放器代码结束 -->
                         <p>{$array_data.description}</p>
                     </div>  
                 </div>
@@ -286,7 +289,11 @@
 <!-- 底部结束 -->
 <!-- js引入开始 -->
 {include file="www/include/js.htm"}
-<!--js引入结束--><!-- 悬浮框开始 -->
+<!--js引入结束-->
+<!-- player播放器js开始 -->
+<script type="text/javascript" src="{static_url('/lib/nahaoPlayer/6.7.0/TiZiplayer.js')}"></script>
+<!-- player播放器js结束 -->
+<!-- 悬浮框开始 -->
 <div class="floatBox">
     <a href="javascript:void(0);" class="ansQue">咨询答疑</a>
     <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a>
