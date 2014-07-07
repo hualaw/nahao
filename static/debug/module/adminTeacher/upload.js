@@ -18,7 +18,7 @@ define(function(require,exports){
                     'general_height' : 227
                 };
                 var img_url = data.key;
-                var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
+                var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
 
 //                console.log(img_url);
 //                console.log(img_url_general);
@@ -44,7 +44,7 @@ define(function(require,exports){
                     'general_height' : 227
                 };
                 var img_url = data.key;
-                var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
+                var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
 //                console.log(img_url);
 //                console.log(img_url_general);
                 $("#title_authimg").val(img_url);
@@ -70,12 +70,38 @@ define(function(require,exports){
                     'general_height' : 227
                 };
                 var img_url = data.key;
-                var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
+                var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
 //                console.log(img_url);
 //                console.log(img_url_general);
 //               /*添加学校工作证图片*/
                 $("#work_authimg").val(img_url);
                 $("#img_work_general").attr('src',img_url_general);
+            }
+        });
+
+
+        var titleImgFormData = {'key':$('#avatar_img').val(),'token':$('#nahao_token').val()};
+        $('#up_avatar_img').uploadify({
+            'formData' : titleImgFormData,
+            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
+            'uploader' : 'http://up.qiniu.com', //需要上传的url地址
+            'multi'    : true,
+            'buttonText' :"点击上传",
+            'buttonClass' : 'choseFileBtn',
+            'fileObjName' : 'file',
+            onUploadSuccess: function(file, data, response) {
+                var data = jQuery.parseJSON(data);
+                var size = {
+                    'general_width' : 130,
+                    'general_height' : 130
+                };
+                var img_url = data.key;
+                var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
+//                console.log(img_url);
+//                console.log(img_url_general);
+                $("#teacher_avatar_img").val(img_url);
+                $('#img_avatar').attr('src',img_url_general);
+                /*添加教师职称证书图片*/
             }
         });
     }

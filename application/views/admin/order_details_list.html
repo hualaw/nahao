@@ -17,17 +17,20 @@
         <td>原价</td>
         <td>促销价</td>
         <td>操作时间</td>
-        <td>退款状态</td>
+        <td>订单状态</td>
         <td>修改价格</td>
     </tr>
     <tr>
-        <td>{$details.round_id}</td>
+        <td id="round_id">{$details.round_id}</td>
         <td>{$details.title}</td>
         <td>{$details.start_time|date_format:'%Y-%m-%d %H:%M:%S'}到{$details.end_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
         <td>{$details.price}</td>
         <td>{$details.spend}</td>
         <td>{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
-        <td id="refund" width="135" height="39">{if $details.status==6}
+        <td id="refund" width="135" height="39">
+            {if $details.status==0 || $details.status==1}
+            <button type='button' class='btn btn-primary btn-xs' id="pay_money">已付款</button>
+            {elseif $details.status==6}
                 申请退款<br /><button type='button' class='btn btn-primary btn-xs' id='button'>拒绝</button>&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-xs' id='agr_button'>同意</button>
             {elseif $details.status==7}
                 退款不通过

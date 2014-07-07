@@ -161,6 +161,14 @@
         学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
         <img src="" id="img_work_general" />
     </div>
+    <hr>
+    <h3>头像认证</h3>
+    <div class="avatar">
+        <input id="avatar_img" type="hidden" value="{$upload_avatar_img_key}">
+        <input type="hidden" name="teacher_avatar_img" value="" id="teacher_avatar_img" />
+        教师头像:<input type="file" name="up_avatar_img" id="up_avatar_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="" id="img_avatar" />
+    </div>
 <br /><br />
 <button type="submit" class="btn btn-success" id="sum">提交</button>
 </form>

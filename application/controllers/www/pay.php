@@ -331,7 +331,7 @@ class Pay extends NH_User_Controller {
 	    	'user_id'=>$int_user_id,
 	    	'order_id' =>$array_order['id'],
 	    	'status'=>ORDER_STATUS_SUCC,
-	    	'pay_type' =>$payment_method,                        #支付方式
+	    	'pay_type' =>ORDER_TYPE_ONLINE,                      #支付方式
 	    	'action'=>ORDER_STATUS_SUCC,            			 #日志动作
 	    	'note'=>'0元免费课程支付成功',                        #日志记录
 	    	'user_type'=>NH_MEETING_TYPE_STUDENT
