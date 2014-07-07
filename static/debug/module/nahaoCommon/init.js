@@ -27,7 +27,11 @@ define(function(require,exports){
 	require('module/lib/select');
 
 	// 加载全站公共登陆脚本
-	require('module/nahaoCommon/commonLogin').loginForm();
+	if($("#nahaoModule").attr("data_page")=="studentPage"){
+		seajs.use("module/nahaoCommon/commonLogin",function (ex){
+			ex.loginForm();
+		});
+	}
 	
 	if(window.navigator.userAgent.indexOf("MSIE 6")!=-1||window.navigator.userAgent.indexOf("MSIE 7")!=-1){		
 		var ohref = student_url+'index/browser';
