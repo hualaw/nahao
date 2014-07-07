@@ -243,7 +243,11 @@ class Course extends NH_User_Controller {
 	 public function courseware()
 	 {
 	 	header('content-type: text/html; charset=utf-8');
-		
+	 	#判断是否登录
+	 	if(!$this->is_login)
+	 	{
+	 		redirect('/login');
+	 	}
 	 	$int_class_id = intval($this->uri->rsegment(3));
 	 	if (empty($int_class_id))
 	 	{
