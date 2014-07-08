@@ -75,23 +75,28 @@ define(function(require,exports){
         require("module/studentMyCourse/area").change_area();
     };
 
-    if($('#playerContainer').length > 0){
-    	/*初始化视频播放开始*/
-	    var playlist = [{
-		    "domain": $('#playerContainer').attr('domain'),
-		    "file": $('#playerContainer').attr('videoUrl'),
-		    "image": $('#playerContainer').attr('imgUrl')
-		}];
-	    TiZiplayer("playerContainer").setup({
-			playlist:playlist,
-			primary:"flash",
-			height:405,
-			width:480
-			// ,
-			// adCover:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg",
-			// adEnd:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg"
-			// autostart:auto_start
-		});
-	    /*初始化视频播放结束*/
+    if($('.videoPlay').length > 0){
+    	$('.videoPlay').children().children('.container').each(function(){
+			var noflash = '';
+			var curfile = $(this).attr('title');
+	    	/*初始化视频播放开始*/
+		    var playlist = [{
+			    "domain": '',
+			    "file": curfile,
+			    "image": $(this).children('img').attr('src')
+//			    "image": "http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg"
+			}];
+		    TiZiplayer($(this).attr('id')).setup({
+				playlist:playlist,
+				primary:"flash",
+				height:405,
+				width:480
+				// ,
+				// adCover:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg",
+				// adEnd:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg"
+				// autostart:auto_start
+			});
+		    /*初始化视频播放结束*/
+    	});
     }
 })

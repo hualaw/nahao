@@ -79,12 +79,14 @@ class Course extends NH_User_Controller {
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
 		//var_dump($array_data);
+		//var_dump();die;$_COOKIE['NHID']
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
 	    $this->smarty->assign('array_classmate', $array_classmate);
 	    $this->smarty->assign('int_classmates', $int_classmates);
 	    $this->smarty->assign('array_note', $array_note);
+	    $this->smarty->assign('sid', $_COOKIE['NHID']);
 	    $this->smarty->assign('array_outline', $array_outline);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentMyCourse/buyAfter.html');
@@ -253,6 +255,7 @@ class Course extends NH_User_Controller {
 	 	}
 	 	#检查用户是否买过这门课 
 	 	$int_user_id = $this->session->userdata('user_id');#TODOuser_id
+
 	 	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$int_class_id);
 	 	if(empty($bool_flag))
 	 	{
@@ -272,39 +275,60 @@ class Course extends NH_User_Controller {
 	 	{
 	 		show_error('抱歉!这节课没有上传课件');
 	 	}
+	 	//echo $_SERVER["HTTP_USER_AGENT"];
 	 	$wordStr = $array_courseware['0']['download_url'];
 	 	$file_name = $array_courseware['0']['name'];
 	 	$file_name = urlencode($file_name);
 	 	$file_name = str_replace("+", "%20", $file_name);// 替换空格
-	 	//echo $wordStr;die;
-// 	 	var_dump($array_courseware);die;
-	 	//$wordStr = "http://classroom.oa.tizi.com/media/113/%E7%99%BE%E5%BA%A6%EF%BC%9A2013%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf";
-	 	$this->forceDownload($wordStr,$file_name);
+	 	$this->download($wordStr,$file_name);
 	 }
 	 
 	 /**
 	  * 下载课件PDF文件
-	  * @param unknown_type $filename
+	  * @param  $url
+	  * @param  $file_name
 	  */
-	 public function forceDownload($filename,$file_name) 
+	 function download($url,$file_name)
 	 {
-	     
-	    // http headers 
-	    header('Content-Type: application-x/force-download'); 
-	    header('Content-Disposition: attachment; filename="' . $file_name .'"'); 
-	    header('Content-length: ' . filesize($filename)); 
-	 
-	    // for IE6 
-	    if (false === strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) { 
-	        header('Cache-Control: no-cache, must-revalidate'); 
-	    } 
-	    header('Pragma: no-cache'); 
-	         
-	    // read file content and output 
-	    return readfile($filename);; 
+	 	$ch=curl_init();
+	 	curl_setopt($ch,CURLOPT_URL, $url);
+	 	curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+	 	$content=curl_exec($ch);
+	 	if(curl_errno($ch))
+	 	{
+	 		echo curl_error($ch);
+	 		curl_close($ch);
+	 	} else {
+	 		curl_close($ch);
+	 		//提取文件名和文件类型
+	 		$array_type=explode('.',$url);
+	 		$last_index=count($array_type)-1;
+	 		$file_type=$array_type[$last_index];
+	 		//获得文件大小
+	 		$file_size=strlen($content);
 
-	 	
+	 		//通知浏览器下载文件
+	 		if (preg_match("/MSIE/", $_SERVER["HTTP_USER_AGENT"])) {
 
+	 			$attachmentHeader = 'Content-Disposition: attachment; filename="'.$file_name.'"';
+	 		} else if (preg_match("/Firefox/", $_SERVER["HTTP_USER_AGENT"])) {
+	 			$attachmentHeader = 'Content-Disposition: attachment; filename*="utf8\'\'' . $file_name. '"' ;
+	 		} else {
+	 			$attachmentHeader = 'Content-Disposition: attachment; filename="'.$file_name.'"';
+	 		}
+	 		header('Content-Encoding: none');
+	 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	 		header("Content-Type: application/".$file_type);
+
+	 		header("Content-Transfer-Encoding: binary");
+	 		header($attachmentHeader);
+	 		header('Pragma: cache');
+	 		header('Cache-Control: public, must-revalidate, max-age=0');
+	 		header("Content-Length: ".$file_size);
+	 		ob_clean();
+	 		flush();
+	 		exit($content); //输出数据流
+	 	}
 	 }
 }
 
