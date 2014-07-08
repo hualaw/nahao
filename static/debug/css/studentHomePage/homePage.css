@@ -8,7 +8,7 @@
 .studentHomePage .roll ul li{ position:absolute;opacity:0;width:100%;}
 .studentHomePage .roll ul li.rollshow{ opacity:1;z-index: 2;}
 .studentHomePage .roll ul li a{display: block;text-align: center;}
-.studentHomePage .rollNav li{ width:12px; height:12px;margin-right:14px;border: 1px solid #f14211;border-radius: 7px;background: #fff;}
+.studentHomePage .rollNav li{ width:12px; height:12px;margin-right:14px;border: 1px solid #f14211;border-radius: 7px;background: #fff;cursor: pointer;}
 .studentHomePage .rollNav li.active{ background:#f14211;}
 /* ´óÍ¼¹ö¶¯ ½áÊø*/
 /*¿Î³ÌÕ¹Ê¾*/
