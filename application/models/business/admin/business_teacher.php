@@ -550,8 +550,9 @@ class Business_Teacher extends NH_Model
         //var_dump($post['user_id']);die;
         $post_user['nickname']=$post['nickname'];
         $post_user['avatar']=$post['teacher_avatar_img'];
-        if($this->model_user->modify_subject($post_subject,$post['user_id']) && $this->model_user->update_user($post_user,$post_update_id))
+        if($this->model_user->modify_subject($post_subject,$post['user_id']))
         {
+            $this->model_user->update_user($post_user,$post_update_id);
             return $this->model_user->update_user_info($post_user_info,$post_update);
         }
     }
