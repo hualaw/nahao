@@ -22,7 +22,7 @@
          */
         public function sql()
         {
-            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->order_by('teacher_lecture.id','desc');
+            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,subject.name as sub_name')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->join('subject','subject.id=teacher_lecture.subject','left')->order_by('teacher_lecture.id','desc');
         }
 
         /**
@@ -65,17 +65,8 @@
          */
         public function seach_lecture_list($get)
         {
-            if($get['subject']!=0)
-            {
-                $this->load->model('business/common/business_subject');
-                $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
-            }
-            else
-            {
-                $lecture_subject['name']='';
-            }
             $this->load->model('model/admin/model_lecture');
-            $this->model_lecture->factor($get,$lecture_subject['name']);
+            $this->model_lecture->factor($get);
             return $this->db->get();
         }
         /**
@@ -84,7 +75,7 @@
          * @return int
          * @author shangshikai@nahao.com
          */
-        public function factor($get,$subject)
+        public function factor($get)
         {
             $config_lecture = config_item('lecture_factor');
             if($get['term']!=0)
@@ -107,7 +98,7 @@
             }
             if($get['subject']!=0)
             {
-                $this->db->where("teacher_lecture.subject='$subject'");
+                $this->db->where("teacher_lecture.subject=$get[subject]");
             }
             if($get['teach_type']!=0)
             {

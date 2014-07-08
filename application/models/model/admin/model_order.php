@@ -50,7 +50,7 @@
             {
                 $this->db->where("student_order.id = $post[order_id]");
             }
-            if($post['status']!="")
+            if($post['status']!=10)
             {
                 $this->db->where("student_order.status = $post[status]");
             }
@@ -66,7 +66,7 @@
                     $this->db->where("user.id=$int_uid");
                 }
             }
-            if($post['pay_type']!=0)
+            if($post['pay_type']!=5)
             {
                 $this->db->where("student_order.pay_type = $post[pay_type]");
             }

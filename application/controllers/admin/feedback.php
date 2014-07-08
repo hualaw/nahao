@@ -31,6 +31,9 @@
             $page = $this->pagination->create_links();
             $list=$this->feedback->feedback_list($course_id,$round_id,$student_id,$class_id,$content,$score_start,$score_end,$start_time,$end_time);
 
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+
+            $this->smarty->assign('search_term',$search_term);
             $this->smarty->assign('config_feedback',$config_feedback);
             $this->smarty->assign('page',$page);
             $this->smarty->assign('search_total',$search_total);

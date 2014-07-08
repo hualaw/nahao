@@ -73,6 +73,9 @@
             //var_dump($spendata);die;
             $page = $this->pagination->create_links();
 
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+            $this->smarty->assign('search_term',$search_term);
+
             $this->smarty->assign('config_pay',$config_pay);
             $this->smarty->assign('sea_total2',$sea_total2);
             $this->smarty->assign('config_status',$config_status);

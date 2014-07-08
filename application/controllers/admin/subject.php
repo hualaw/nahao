@@ -23,6 +23,9 @@
             $page = $this->pagination->create_links();
             $list=$this->subject->all_subject($status,$name);
 
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+
+            $this->smarty->assign('search_term',$search_term);
             $this->smarty->assign('page',$page);
             $this->smarty->assign('list',$list);
             $this->smarty->assign('search_total',$search_total);

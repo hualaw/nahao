@@ -3,45 +3,45 @@
     <div class="col-md-2">
        <select name="term" class="form-control">
            <option value=0>搜索条件</option>
-           <option value=1>试讲课程名称</option>
-           <option value=2>姓名</option>
-           <option value=3>手机号</option>
+           <option value=1 {if isset($search_term.term) && $search_term.term==1}selected{/if}>试讲课程名称</option>
+           <option value=2 {if isset($search_term.term) && $search_term.term==2}selected{/if}>姓名</option>
+           <option value=3 {if isset($search_term.term) && $search_term.term==3}selected{/if}>手机号</option>
        </select>
     </div>
-    <div class="col-md-2"><input type="text" name="basis" placeholder="请输入搜索内容" class="form-control" /></div>
+    <div class="col-md-2"><input type="text" name="basis" placeholder="请输入搜索内容" class="form-control" value="{if isset($search_term.basis)}{$search_term.basis}{/if}" /></div>
     <div class="col-md-2">
    <select name="subject" class="form-control">
        <option value=0>全部科目</option>
       {foreach $subject as $k=>$v}
-            <option value={$v.id}>{$v.name}</option>
+            <option value={$v.id} {if isset($search_term.subject) && $search_term.subject==$k+1}selected{/if}>{$v.name}</option>
       {/foreach}
    </select></div>
     <div class="col-md-2">
     <select name="teach_type" class="form-control">
         <option value=0>全部授课方式</option>
-        <option value=1>一对一</option>
-        <option value=2>小班</option>
-        <option value=3>大班</option>
+        <option value=1 {if isset($search_term.teach_type) && $search_term.teach_type==1}selected{/if}>一对一</option>
+        <option value=2 {if isset($search_term.teach_type) && $search_term.teach_type==2}selected{/if}>小班</option>
+        <option value=3 {if isset($search_term.teach_type) && $search_term.teach_type==3}selected{/if}>大班</option>
     </select></div>
     <div class="col-md-2">
     <select name="province" class="form-control">
         <option value=0>全部省份</option>
         {foreach $province as $k=>$v}
-        <option value={$v.id}>{$v.name}</option>
+        <option value={$v.id} {if isset($search_term.province) && $search_term.province==$k+2}selected{/if}>{$v.name}</option>
         {/foreach}
     </select></div>
     <div class="col-md-2">
     <select name="status" class="form-control">
         <option value=0>全部状态</option>
-        <option value=1>未审核</option>
-        <option value=2>待定</option>
-        <option value=3>审核未通过</option>
-        <option value=4>审核通过</option>
+        <option value=1 {if isset($search_term.status) && $search_term.status==1}selected{/if}>未审核</option>
+        <option value=2 {if isset($search_term.status) && $search_term.status==2}selected{/if}>待定</option>
+        <option value=3 {if isset($search_term.status) && $search_term.status==3}selected{/if}>审核未通过</option>
+        <option value=4 {if isset($search_term.status) && $search_term.status==4}selected{/if}>审核通过</option>
     </select></div>
     <div class="col-md-15">&nbsp;</div>
-    <div class="col-md-2"><input type="text" name="create_time1" class="form-control" id="lecture_datetimepicker1" readonly placeholder="请选择申请开始时间" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control" id="lecture_datetimepicker2" placeholder="请选择申请结束时间" readonly /></div>
-
-    <button type="submit" class="btn">搜索</button>
+    <div class="col-md-2"><input type="text" name="create_time1" class="form-control" id="lecture_datetimepicker1" readonly placeholder="请选择申请开始时间" value="{if isset($search_term.create_time1)}{$search_term.create_time1}{/if}" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control" id="lecture_datetimepicker2" placeholder="请选择申请结束时间" readonly value="{if isset($search_term.create_time2)}{$search_term.create_time2}{/if}" /></div>
+    <a href="/lecture" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-info">搜索</button>
  </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$sea_total}条数据</label>
 <table class="table table-hover">
@@ -72,7 +72,7 @@
         <td>{$v.phone}</td>
         <td>{$config_title[{$v.title}]}</td>
         <td>{$v.teach_years}</td>
-        <td>{$config_stage[{$v.stage}]}{$v.subject}</td>
+        <td>{$config_stage[{$v.stage}]}{$v.sub_name}</td>
         <td>{$config_tea_type[{$v.teach_type}]}</td>
         <td>{$v.schoolname}</td>
         <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
