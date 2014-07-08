@@ -48,6 +48,9 @@ define(function(require,exports){
             }
         });
 
+    }
+	exports.video_upload = function (){
+	console.log('video_upload');	
         //upload video
         var videoFormData = {'key':$('#new_video_file_name').val(),'token':$('#nahao_token').val()};
         $('#course_video').uploadify({
@@ -59,9 +62,10 @@ define(function(require,exports){
             'fileObjName' : 'file',
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
-//                console.log(data);
+                console.log(data);
+                $('#video_url').text(data.key);
             }
         });
-    }
+	}
 
 })
