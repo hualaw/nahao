@@ -8,40 +8,40 @@
         退款完成:{$order_count['refund_ok_round']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 退款失败:{$order_count['refund_fail_round']}&nbsp;&nbsp;&nbsp;&nbsp;</h4>
     <div class="col-md-2">
-        <input type="text" placeholder="请输入订单号" name="order_id" class="form-control" />
+        <input type="text" placeholder="请输入订单号" name="order_id" value="{if isset($search_term.order_id)}{$search_term.order_id}{/if}" class="form-control" />
     </div>
     <div class="col-md-2">
         <select name="name_phone_email" class="form-control">
             <option value=0>搜索条件</option>
-            <option value=1>姓名</option>
-            <option value=2>手机</option>
-            <option value=3>邮箱</option>
+            <option value=1 {if isset($search_term.name_phone_email) && $search_term.name_phone_email==1}selected{/if}>姓名</option>
+            <option value=2 {if isset($search_term.name_phone_email) && $search_term.name_phone_email==2}selected{/if}>手机</option>
+            <option value=3 {if isset($search_term.name_phone_email) && $search_term.name_phone_email==3}selected{/if}>邮箱</option>
         </select>
     </div>
     <div class="col-md-3">
-        <input type="text" placeholder="请输入搜索条件" class="form-control" name="phone_name_email"></div>
+        <input type="text" placeholder="请输入搜索条件" class="form-control" name="phone_name_email" value="{if isset($search_term.phone_name_email)}{$search_term.phone_name_email}{/if}"></div>
     <div class="col-md-2">
         <select name="pay_type" class="form-control">
-            <option value=''>全部支付方式</option>
-            <option value=0>线上</option>
-            <option value=1>网银</option>
-            <option value=2>信用卡</option>
-            <option value=3>支付宝</option>
-            <option value=4>线下</option>
+            <option value=5>全部支付方式</option>
+            <option value=0 {if isset($search_term.pay_type) && $search_term.pay_type==0}selected{/if}>线上</option>
+            <option value=1 {if isset($search_term.pay_type) && $search_term.pay_type==1}selected{/if}>网银</option>
+            <option value=2 {if isset($search_term.pay_type) && $search_term.pay_type==2}selected{/if}>信用卡</option>
+            <option value=3 {if isset($search_term.pay_type) && $search_term.pay_type==3}selected{/if}>支付宝</option>
+            <option value=4 {if isset($search_term.pay_type) && $search_term.pay_type==4}selected{/if}>线下</option>
         </select></div>
     <div class="col-md-2">
         <select name="status" class="form-control">
-            <option value=''>全部订单状态</option>
-            <option value=0>未付款</option>
-            <option value=1>支付失败</option>
-            <option value=2>已付款</option>
-            <option value=3>已完成</option>
-            <option value=4>已取消</option>
-            <option value=5>已关闭</option>
-            <option value=6>申请退款</option>
-            <option value=7>拒绝退款</option>
-            <option value=8>同意退款</option>
-            <option value=9>退款完成</option>
+            <option value=10>全部订单状态</option>
+            <option value=0 {if isset($search_term.status) && $search_term.status==0}selected{/if}>未付款</option>
+            <option value=1 {if isset($search_term.status) && $search_term.status==1}selected{/if}>支付失败</option>
+            <option value=2 {if isset($search_term.status) && $search_term.status==2}selected{/if}>已付款</option>
+            <option value=3 {if isset($search_term.status) && $search_term.status==3}selected{/if}>已完成</option>
+            <option value=4 {if isset($search_term.status) && $search_term.status==4}selected{/if}>已取消</option>
+            <option value=5 {if isset($search_term.status) && $search_term.status==5}selected{/if}>已关闭</option>
+            <option value=6 {if isset($search_term.status) && $search_term.status==6}selected{/if}>申请退款</option>
+            <option value=7 {if isset($search_term.status) && $search_term.status==7}selected{/if}>拒绝退款</option>
+            <option value=8 {if isset($search_term.status) && $search_term.status==8}selected{/if}>同意退款</option>
+            <option value=9 {if isset($search_term.status) && $search_term.status==9}selected{/if}>退款完成</option>
         </select></div>
     <div class="form-group">
         <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -52,13 +52,14 @@
         <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
     </div>
     <div class="col-md-2">
-        <input type="text" class="form-control" id="order_datetimepicker1" name="create_time1" readonly placeholder="请选择下单开始时间" /></div>
+        <input type="text" class="form-control" id="order_datetimepicker1" name="create_time1" readonly placeholder="请选择下单开始时间" value="{if isset($search_term.create_time1)}{$search_term.create_time1}{/if}" /></div>
     <div class="col-md-2">
-        <input type="text" class="form-control" id="order_datetimepicker2" name="create_time2" readonly placeholder="请选择下单结束时间" /></div>
-    <div class="col-md-2"><input type="text"  class="form-control" id="order_datetimepicker3" name="confirm_time1" readonly placeholder="请选择付款开始时间" /></div>
-    <div class="col-md-2"><input type="text" id="order_datetimepicker4" class="form-control" name="confirm_time2" readonly placeholder="请选择付款结束时间" /></div>
-
-    <div class="col-md-2"><button type="submit" class="btn">搜索</button></div>
+        <input type="text" class="form-control" id="order_datetimepicker2" name="create_time2" readonly placeholder="请选择下单结束时间" value="{if isset($search_term.create_time2)}{$search_term.create_time2}{/if}" /></div>
+    <div class="col-md-2">
+        <input type="text"  class="form-control" id="order_datetimepicker3" name="confirm_time1" readonly placeholder="请选择付款开始时间" value="{if isset($search_term.confirm_time1)}{$search_term.confirm_time1}{/if}" /></div>
+    <div class="col-md-2">
+        <input type="text" id="order_datetimepicker4" class="form-control" name="confirm_time2" readonly placeholder="请选择付款结束时间" value="{if isset($search_term.confirm_time2)}{$search_term.confirm_time2}{/if}" /></div>
+    <div class="col-md-2"><a href="/order" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-info">搜索</button></div>
 </form>
 <div class="form-group">
     <div class="col-md-2">&nbsp;&nbsp;&nbsp;&nbsp;</div>

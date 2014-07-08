@@ -32,6 +32,9 @@
             $config_role=config_item('nh_meeting_type');
             $affiche_status=config_item('affiche_status');
 
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+
+            $this->smarty->assign('search_term',$search_term);
             $this->smarty->assign('affiche_status',$affiche_status);
             $this->smarty->assign('round_title',$round_title);
             $this->smarty->assign('round_id',$round_id);
