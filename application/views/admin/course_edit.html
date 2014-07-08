@@ -108,13 +108,13 @@
         </div>
     </div>
     <!--那好视频管理 start-->
-	<div class="form-group">
+	<!--<div class="form-group">
         <label class="col-md-2 control-label">那好视频管理</label>
         <div class="col-md-8">
 			<button class="btn btn-primary" data-toggle="modal" data-target=".video-add-modal">添加视频</button>
         </div>
         <div class="modal fade video-add-modal" id="play-area" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        	<div class="modal-dialog modal-lg">
+        	<div class="modal-dialog modal-lg" style="width:70%">
 			    <div class="modal-content">
 			      	<div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -129,25 +129,30 @@
 			        	<hr />
 			        	<div class="video-items">
 			        		<div class="item">
-			        			<input type="text" value="" placeholder="视频名称">
-			        			<input type="text" value="" placeholder="视频地址url">
-			        			<input type="text" value="" placeholder="视频封面图url">
+			        			<input type="text" value="" class="col-md-3" placeholder="视频名称">
+			        			<input type="text" value="" class="col-md-3" placeholder="视频地址url">
+			        			<input type="text" value="" class="col-md-3" placeholder="视频封面图url">
 			        			<a class="btn btn-link"><i class="glyphicon glyphicon-minus"></i></a>
 			        		</div>
 			        	</div>
 			        	<div class="video-code">
-			        		<code>
-			        			<div class="videoPlay fl">
-									<div class="item">
-										<h3>视频1</h3>
-										<div class="container" id="playerContainer1" title="http://tizi.oss.aliyuncs.com/static/zhuangyuan/gonghaiyan.mp4"><img src="http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg" /></div>
-									</div>
-									<div class="item">
-										<h3>视频2</h3>
-										<div class="container" id="playerContainer2" title="http://nahaoweb.qiniudn.com/videonew-2014-07-1404530822.mp4"><img src="http://img1.nahao.com/course_20140705115408_imiLpML.png?imageView/2/w/288/h/216" /></div>
-									</div>
-								</div>
-			        		</code>
+			        		<div class="hide"></div>
+			        		<pre>
+				        		<code class="html">&lt;div class="videoPlay fl"&gt;
+										&lt;div class="item"&gt;
+											&lt;h3&gt;视频1&lt;/h3&gt;
+											&lt;div class="container" id="playerContainer1" title="http://tizi.oss.aliyuncs.com/static/zhuangyuan/gonghaiyan.mp4"&gt;
+												&lt;img src="http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg" /&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+										&lt;div class="item"&gt;
+											&lt;h3&gt;视频2&lt;/h3&gt;
+											&lt;div class="container" id="playerContainer2" title="http://nahaoweb.qiniudn.com/videonew-2014-07-1404530822.mp4"&gt;
+												&lt;img src="http://img1.nahao.com/course_20140705115408_imiLpML.png?imageView/2/w/288/h/216" /&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/div&gt;</code>
+				        	</pre>
 			        	</div>
 			        </div>
 			     </div>
@@ -165,7 +170,7 @@
     	$('.video-maker').children('.remove-video').click(function(){
     		$('.video-items').children(".item:last").remove();
     	});
-    </script>
+    </script>-->
     <!--那好视频管理 end-->
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
