@@ -52,6 +52,10 @@
             $search_list=$this->check_out->search_accounts_list($get);
             $statistics=$this->check_out->statistics_amount();
             $teacher_balance=config_item('teacher_balance');
+
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+            $this->smarty->assign('search_term',$search_term);
+
             $this->smarty->assign('statistics',$statistics);
             $this->smarty->assign('teacher_balance',$teacher_balance);
             $this->smarty->assign('list',$search_list);

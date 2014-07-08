@@ -92,6 +92,7 @@ class Teacher extends NH_Admin_Controller {
         $config_title = config_item('teacher_title');
         $config_stage = config_item('stage');
         $config_account = config_item('account');
+        $this->smarty->assign('arr_query_param',$arr_query_param);
         $this->smarty->assign('total_count',$total_count);
         $this->smarty->assign('day_count',$day_count);
         $this->smarty->assign('province',$province);
