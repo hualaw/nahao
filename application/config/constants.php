@@ -388,6 +388,6 @@ define('CLASS_OVER_ACTION', 5);//点下课
 
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
-define('ROUND_GENERATE_MODE','testing');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
+define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

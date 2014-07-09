@@ -15,5 +15,6 @@ define(function(require,exports){
 
     var upload = require("module/adminCourse/upload");
     upload.addUpload();//调用上传图片
+	upload.video_upload();//video_upload
 
 })

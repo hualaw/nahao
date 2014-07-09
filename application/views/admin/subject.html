@@ -2,13 +2,14 @@
         <div class="col-md-2">
             <select name="status" class="form-control">
                 <option value=0>请选择状态</option>
-                <option value=2>启用</option>
-                <option value=1>禁用</option>
+                <option value=2 {if isset($search_term.status) && $search_term.status==2}selected{/if}>启用</option>
+                <option value=1 {if isset($search_term.status) && $search_term.status==1}selected{/if}>禁用</option>
             </select>
         </div>
         <div class="col-md-2">
-            <input type="text" name="name" class="form-control" placeholder="请输入学科名字" />
+            <input type="text" name="name" class="form-control" placeholder="请输入学科名字" value="{if isset($search_term.name)}{$search_term.name}{/if}" />
         </div>
+    <a href="/subject" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type="submit" class="btn btn-info">搜索</button>
     <div class="col-md-15">&nbsp;</div>
 </form>
