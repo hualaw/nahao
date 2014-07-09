@@ -20,7 +20,7 @@
 			<h3 title="{$item.title}">{$item.title|truncate:15:"...":true}</h3>
 			
 
-			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
+			<a href="/course/buy_after/{$item.round_id}" ><img src="{$item.class_img}" alt="" title="{$item.title}" class="cover"></a>
 			<div class="progress">
 				<span class="bar" style="width:{$item.class_rate}%"></span>
 			</div>
