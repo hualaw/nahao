@@ -21,6 +21,7 @@ define(function(require,exports){
 	if($("#wrapContent").hasClass("myInforCon")){
 		//基本资料 tab
 		_tab.tab($(".inforTab .tabh li"),"inforOn",$(".inforTabBox"));
+		
 	    //基本资料 修改密码验证
 	    _valid.ichangePWForm();
 	    // 个人资料 （手机版） 验证
@@ -29,6 +30,8 @@ define(function(require,exports){
 	    _valid.emailForm();
 	    //发送手机验证码
 	    _myCourse.sendValidateCode();
+    	//修改头像 定位
+	    _myCourse.changedHead();
 	}
 	if($("#wrapContent").hasClass("myCourseCon")){
 	    //最新课程页面跳转
@@ -70,5 +73,30 @@ define(function(require,exports){
     //个人资料修改地区
     if($("#province").length > 0) {
         require("module/studentMyCourse/area").change_area();
+    };
+
+    if($('.videoPlay').length > 0){
+    	$('.videoPlay').children().children('.container').each(function(){
+			var noflash = '';
+			var curfile = $(this).attr('title');
+	    	/*初始化视频播放开始*/
+		    var playlist = [{
+			    "domain": '',
+			    "file": curfile,
+			    "image": $(this).children('img').attr('src')
+//			    "image": "http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg"
+			}];
+		    TiZiplayer($(this).attr('id')).setup({
+				playlist:playlist,
+				primary:"flash",
+				height:405,
+				width:480
+				// ,
+				// adCover:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg",
+				// adEnd:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg"
+				// autostart:auto_start
+			});
+		    /*初始化视频播放结束*/
+    	});
     }
 })

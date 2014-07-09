@@ -61,6 +61,7 @@
 .login .loginWrap .loginBox{border: none;box-shadow: none;}
 .login .loginBgIco{width: 322px;height: 231px;background:url(../../images/login/loginadIco.png) no-repeat;margin-top: 62px;}
 .login .regWrap .regTab{background: #fff;}
+.login .regWrap .regTab .Validform_checktip {line-height: 21px;}
 .loginPage .login .regWrap{margin-bottom: 0px;padding-left: 70px;}
 
 .loginPage .login .regRight{padding: 40px 0 0 98px;width: 347px;border: 1px solid #d5d5d5;border-left: none;background: #fff url(../../images/login/regBg.png) 10px 52px no-repeat;margin-top: 50px;height: 427px;}

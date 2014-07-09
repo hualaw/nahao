@@ -18,7 +18,7 @@
 .studentMyCourse .wrapContent{width: 768px;}
 /* 左侧框架开始 */
 .studentMyCourse .memberInfo{text-align: center;position: absolute;top:-30px;width: 100%;}
-.studentMyCourse .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);}
+.studentMyCourse .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);cursor: pointer;}
 .studentMyCourse .memberInfo h2{height: 50px;line-height: 50px;font-size: 16px;color:#0e455e;}
 .studentMyCourse .memberInfo h2 .myGrade{margin-right: 15px;font-weight: normal;}
 .studentMyCourse .menu li{height: 50px;line-height: 50px;}

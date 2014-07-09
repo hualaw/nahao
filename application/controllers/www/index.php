@@ -19,11 +19,24 @@ class Index extends NH_User_Controller {
 	}
     /**
      * 首页获取轮的列表信息
+     * $debug == 1 显示测试的课程列表，否则把测试的过滤掉
      */
 	public function index()
 	{  
-//        o($this->session->all_userdata());exit;
-        $array_data = $this->student_index->get_course_latest_round_list();
+		if(isset($_GET['nh_debug']) && ($_GET['nh_debug']== '1'))
+		{
+			$array_data = $this->student_index->get_course_latest_round_list();
+		} else {
+			$array_data = $this->student_index->get_course_latest_round_list();
+			$home_course_show = config_item('home_course_show');
+			foreach ($array_data as $k=>$v)
+			{
+				if(in_array($v['id'], $home_course_show))
+				{
+					unset($array_data[$k]);
+				}
+			}
+		}
         //var_dump($array_data);
         #课程列表的地址
         $course_url = config_item('course_url');
