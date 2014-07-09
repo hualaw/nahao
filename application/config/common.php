@@ -297,7 +297,7 @@ $config['testing_round_time_config']['teacher_late_time'] = 120;//开课后多�
 
 
 //生成标准轮时候的时间间隔配置
-$config['production_round_time_config']['before_sell_begin_time_min'] = 86400;//销售时间最早在创建轮时间之后一天
+$config['production_round_time_config']['before_sell_begin_time_min'] = 300;//销售时间最早在创建轮时间之后一天
 $config['production_round_time_config']['before_sell_begin_time_max'] = 86400*30;////销售时间最晚在创建轮时间之后一个月
 $config['production_round_time_config']['before_sell_end_time_min'] = 86400;//最短销售期
 $config['production_round_time_config']['before_sell_end_time_max'] = 86400*30*2;//最长销售期
