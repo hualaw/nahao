@@ -71,7 +71,7 @@
 				<div class="tabBox">
 					<div class="box bank onlineBank">
 						<h4>网银支付，需开通网上银行</h4>
-						<form action="/pay/request/{$array_order.id}" method="post" target="_blank" onsubmit="return false" >
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank"  >
 							
 							<ul class="cf bankList">
 								{foreach from=$bank_code['banks'] item=item key=key}
@@ -333,7 +333,7 @@
 						</form>
 					</div>
 					<div class="box bank undis creditBox">
-						<form action="/pay/request/{$array_order.id}" method="post" target="_blank" onsubmit="return false">
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank" >
 								<ul class="cf bankList credit">
 									<li class="title fl">一步验证，无需网银！（网银限额时推荐使用）</li>
 
@@ -353,7 +353,7 @@
 						</form>	
 					</div>
 					<div class="box bank alipayBox undis">
-						<form action="/pay/request/{$array_order.id}" method="post" target="_blank" onsubmit="return false">
+						<form action="/pay/request/{$array_order.id}" method="post" target="_blank" >
 								<ul class="cf bankList alipay">
 									<li class="fl alipayLi">
 										<input type="radio" id="alipayLi" class="fl" name="method" value="alipay" checked="true">
