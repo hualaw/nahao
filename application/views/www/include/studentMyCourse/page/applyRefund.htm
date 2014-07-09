@@ -2,7 +2,7 @@
 	<h3 class="pageName">申请退款
 		<span class="redText">温馨提示：您已经完成大半课次，建议学完，请慎重选择是否退课</span>
 	</h3>
-	<form action="javascript:;" method="post"  class="applyFrom">
+	<form action="javascript:;" method="post"  class="applyFrom" onsubmit="return false">
 		<input type="hidden" name="id" value="{$int_order_id}">
 		<input type="hidden" name="totle_money" value="{$array_data.totle_money}">
 		<input type="hidden" name="unclass" value="{$array_data.unclass}">
