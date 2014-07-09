@@ -115,6 +115,7 @@ class Round extends NH_Admin_Controller
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
 //            $arr_classes = $this->input->post('classes') ? $this->input->post('classes') : array();
             $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
+            $int_is_test = $this->input->post('is_test') ? intval($this->input->post('is_test')) : 0;
 
             $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
             $int_caps = $this->input->post('caps') ? intval($this->input->post('caps')) : '';
@@ -126,7 +127,7 @@ class Round extends NH_Admin_Controller
 
 //            o($this->input->post(),true);
 
-            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >= 0 AND $int_price >= 0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price >= 0 AND $int_sell_begin_time AND $int_sell_end_time /*AND $int_start_time AND $int_end_time*/) {
+            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >= 0 AND $int_price >= 0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price >= 0 AND $int_sell_begin_time AND $int_sell_end_time AND $int_is_test >=0 /*AND $int_start_time AND $int_end_time*/) {
                 $arr_param['title'] = $str_title;
                 $arr_param['subtitle'] = $str_subtitle;
                 $arr_param['intro'] = $str_intro;
@@ -146,11 +147,12 @@ class Round extends NH_Admin_Controller
                 $arr_param['sale_price'] = $float_sale_price;
                 $arr_param['sell_begin_time'] = $int_sell_begin_time;
                 $arr_param['sell_end_time'] = $int_sell_end_time;
+                $arr_param['is_test'] = $int_is_test;
 //                $arr_param['start_time'] = $int_start_time;
 //                $arr_param['end_time'] = $int_end_time;
                 $bool_flag = true;
 
-                $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+                $str_config_name = ($int_is_test==0 AND in_array(ENVIRONMENT,array('production'))) ?  'production_round_time_config' : 'testing_round_time_config' ;
                 $arr_time_config = config_item($str_config_name);
                 if($int_sell_begin_time < TIME_STAMP + $arr_time_config['before_sell_begin_time_min']){
                     $this->arr_response['msg'] = '销售时间要晚于一天后';
@@ -338,6 +340,8 @@ class Round extends NH_Admin_Controller
             $bool_flag = true;
             //validate
             $this->load->model('business/admin/business_class', 'class');
+            $this->load->model('business/admin/business_round', 'round');
+            $arr_round = $this->round->get_round_by_id($int_round_id);
             if($str_type=='sale_status'){
                 if($int_status==ROUND_SALE_STATUS_PASS){
                     //审核通过
@@ -370,7 +374,7 @@ class Round extends NH_Admin_Controller
                 $bool_return = $this->round->update_round($arr_param,$arr_where);
                 if($bool_return==true){
                     //update class
-                    $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
+                    $str_config_name = ($arr_round['is_test']==0 AND in_array(ENVIRONMENT,array('production'))) ?  'production_round_time_config' : 'testing_round_time_config' ;
                     $arr_time_config = config_item($str_config_name);
                     if($str_type=='sale_status'){
 

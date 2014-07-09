@@ -193,6 +193,8 @@ define(function(require,exports){
                 alert("销售结束时间不能为空");
                 return false;
             }
+
+            var is_test = $("#is_test").attr("checked")=='checked' ? 1 : 0;
 //            var start_time = $("#start_time").val();
 //            if(!start_time && start_time!='undefined'){
 //                alert("开始时间不能为空");
@@ -291,8 +293,7 @@ define(function(require,exports){
                 'sale_price' : sale_price,
                 'sell_begin_time' : sell_begin_time,
                 'sell_end_time' : sell_end_time,
-//                'start_time' : start_time,
-//                'end_time' : end_time
+                'is_test' : is_test
             };
 //            console.log(data);
 //            return false;

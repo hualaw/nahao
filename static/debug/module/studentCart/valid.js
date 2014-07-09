@@ -52,7 +52,18 @@ define(function(require,exports){
         _Form.config({
         	showAllError:true,
             url:"/pay/add_contact",
-
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";

@@ -48,6 +48,7 @@
     <tr>
         <!--<th>#</th>-->
         <th>班次ID</th>
+        <th>性质</th>
         <th>课程名称</th>
         <th>开课日期</th>
         <th>销售开始结束时间</th>
@@ -67,6 +68,7 @@
     <tr>
         <!--<td><input type="checkbox"></td>-->
         <td>{$v.id}</td>
+        <td>{if $v.is_test==1}测试{else}正式{/if}</td>
         <td>{$v.title}</td>
         <td>{if (isset($v.start_time) AND $v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
         <td>{if (isset($v.sell_begin_time) AND $v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}至{if (isset($v.sell_end_time) AND $v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
@@ -81,7 +83,6 @@
         <td>
             {if $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}
                 <a href="/round/edit/{$v.id}">修改</a>
-                <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
                 <botton class="round_operation btn-xs btn btn-success" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING}">过审</botton>
                 <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_DENY}">拒审</botton>
             {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_ON_SALE)}
@@ -95,9 +96,11 @@
             {elseif  $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}
                 <botton class="round_operation btn-xs btn btn-info" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}">重开</botton>
             {/if}
+            <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
             <a href="/affiche/index?round_id={$v.id}&round_title={$v.title}" class="btn-lg active btn-xs" role="button">公告管理</a>
             <a href="/feedback/index?round_id={$v.id}" class="btn-lg active btn-xs" role="button">评价管理</a>
         </td>
+
     </tr>
     {/foreach}
     </tbody>

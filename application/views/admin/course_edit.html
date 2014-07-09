@@ -108,7 +108,7 @@
         </div>
     </div>
     <!--那好视频管理 start-->
-	<!--<div class="form-group">
+	<div class="form-group">
         <label class="col-md-2 control-label">那好视频管理</label>
         <div class="col-md-8">
 			<button class="btn btn-primary" data-toggle="modal" data-target=".video-add-modal">生成视频代码</button>
@@ -118,56 +118,54 @@
 			    <div class="modal-content">
 			      	<div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-			          <h4 class="modal-title" id="myLargeModalLabel">那好视频管理</h4>
+			          <h4 class="modal-title" id="myLargeModalLabel">那好视频管理---让天下没有难写的代码</h4>
 			        </div>
 			        <div class="modal-body">
 			        	<div class="video-maker">
 			        		<button class="btn btn-primary add-video">添加</button>
 			        		<button class="btn btn-primary remove-video">减少</button>
-			        		<button class="btn btn-success">复制代码</button>
+			        		<button class="btn btn-success add-copy-code hide" style="float:right">添加到编辑器</button>
+			        		<button class="btn btn-success copy-code" style="float:right">复制代码</button>
 			        	</div>
 			        	<hr />
 			        	<div class="video-items">
-			        		<div class="item">
-			        			<div class="input-group col-md-2" style="float:left">
-			        				<input type="checkbox" value="">
+			        		<div class="copy-item hide">
+			        			<div class="input-group" style="float:left">
+			        				<input type="checkbox" value="" style="width:25px;height:25px;">
 			        			</div>
-						        <div class="input-group col-md-2" style="float:left">
+						        <div class="input-group col-md-2" style="float:left;margin:0px 5px">
 						          <div class="input-group-addon">名称</div>
-						          <input class="form-control" type="text" placeholder="视频名称">
+						          <input class="form-control video-input video-name" data-type="video-name" type="text" placeholder="视频名称">
 						        </div>
-						        <div class="input-group col-md-4" style="float:left">
+						        <div class="input-group col-md-4" style="float:left;margin:0px 5px">
 						          <div class="input-group-addon">视频地址</div>
-						          <input class="form-control" type="text" placeholder="视频地址url">
+						          <input class="form-control video-input video-url" data-type="video-url" type="text" placeholder="视频地址url">
 						        </div>
-						        <div class="input-group col-md-4" style="float:left">
+						        <div class="input-group col-md-4" style="float:left;margin:0px 5px">
 						          <div class="input-group-addon">图片地址</div>
-						          <input class="form-control" type="text" placeholder="视频封面图url">
+						          <input class="form-control video-input video-picture" data-type="video-picture" type="text" placeholder="视频封面图url">
 						        </div>
-						        <div class="input-group col-md-2">
-						        	<a class="btn btn-link"><i class="glyphicon glyphicon-minus"></i></a>
+						        <div class="input-group">
+						        	<button type="button" class="btn btn-danger remove-this"><i class="glyphicon glyphicon-minus"></i></button>
 						        </div>
 			        		</div>
 			        	</div>
 			        	<hr />
 			        	<div class="video-code">
-			        		<div class="hide"></div>
-			        		<pre>
-				        		<code class="html">&lt;div class="videoPlay fl"&gt;
-										&lt;div class="item"&gt;
-											&lt;h3&gt;视频1&lt;/h3&gt;
-											&lt;div class="container" id="playerContainer1" title="http://tizi.oss.aliyuncs.com/static/zhuangyuan/gonghaiyan.mp4"&gt;
-												&lt;img src="http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg" /&gt;
-											&lt;/div&gt;
-										&lt;/div&gt;
-										&lt;div class="item"&gt;
-											&lt;h3&gt;视频2&lt;/h3&gt;
-											&lt;div class="container" id="playerContainer2" title="http://nahaoweb.qiniudn.com/videonew-2014-07-1404530822.mp4"&gt;
-												&lt;img src="http://img1.nahao.com/course_20140705115408_imiLpML.png?imageView/2/w/288/h/216" /&gt;
-											&lt;/div&gt;
-										&lt;/div&gt;
-									&lt;/div&gt;</code>
-				        	</pre>
+			        		<div class="real-code hide"></div>
+			        		<div class="ck-code hide"></div>
+			        		<code>视频代码预览</code>
+<pre>
+	<code class="html">
+		<div class="previewcode hide">
+&lt;div class="videoPlay fl"&gt;
+<div class="codes">
+
+</div>
+&lt;/div&gt;
+		</div>
+	</code>
+</pre>
 			        	</div>
 			        </div>
 			     </div>
@@ -177,15 +175,70 @@
     <script type="text/javascript" src="http://static.nahaodev.com/debug/lib/jquery/1.8.2/jquery.js"></script>
     <script type="text/javascript">
     	$('.video-maker').children('.add-video').click(function(){
-    		$('.video-items').append('<div class="item"><input type="text" value="" placeholder="视频名称"><input type="text" value="" placeholder="视频地址url"><input type="text" value="" placeholder="视频封面图url"><a class="btn btn-link remove-this"><i class="glyphicon glyphicon-minus"></i></a></div>');
-    		$('.remove-this').click(function(){
-	    		$(this).parent('item').remove();
-	    	});
+    		$('.video-items').append('<div class="item" id="video-'+((new Date).valueOf())+'">'+($('.copy-item').html())+'</div>');
     	});
     	$('.video-maker').children('.remove-video').click(function(){
-    		$('.video-items').children(".item:last").remove();
+    		codeid = $('.video-items').children(".item:last:not(.copy-item)").attr('id');
+    		$('.video-items').children(".item:last:not(.copy-item)").remove();
+    		if($('.'+codeid).length>0){
+    			$('.'+codeid).remove();
+    			if(!($('.codes').children('div').length>0)){
+					$('.previewcode').addClass('hide');
+					$('.add-copy-code').addClass('hide');
+				}
+    		}
     	});
-    </script>-->
+    	$(".video-input").live('keyup',function(e){
+    		curvalue = $(this).val();
+    		curvalue_type = $(this).attr('data-type');
+    		curid = $(this).parent().parent('.item').attr('id');
+    		keyCode = e.keyCode;
+    		codeNum = $('.codes').children('.'+curid).length;
+    		//判断是增值类按键，显示预览代码
+    		if(($('#'+curid).children().children('.video-name').val().length>0) || ($('#'+curid).children().children('.video-url').val().length>0) || ($('#'+curid).children().children('.video-picture').val().length>0)){
+				$('.previewcode').removeClass('hide');
+				$('.add-copy-code').removeClass('hide');
+				if( codeNum > 0){
+    				$('.'+curid).children('code .'+curvalue_type).html(curvalue);
+    			}else{
+    				$('.codes').append('<div class="'+curid+'">&lt;div class="item"&gt;\n&lt;h3&gt;<code class="video-name" style="font-size:16px;color:blue"></code>&lt;/h3&gt;\n&lt;div class="container" id="playerContainer1" title="<code class="video-url" style="color:#d44950"></code>"&gt;\n&lt;img src="<code class="video-picture" style="color:#d44950"></code>" /&gt;\n&lt;/div&gt;\n&lt;/div&gt;</div>');
+    				$('.'+curid).children('code .'+curvalue_type).html(curvalue);
+    			}
+    			$('.'+curid).children('code .'+curvalue_type).html(curvalue);
+			}else{
+				$('.'+curid).remove();
+				if(!($('.codes').children('div').length>0)){
+					$('.previewcode').addClass('hide');
+					$('.add-copy-code').addClass('hide');
+				}
+			}
+		});
+		$('.remove-this').live('click',function(){
+				codeid = $(this).parent().parent('.item').attr('id');
+	    		$(this).parent().parent('.item').remove();
+	    		if($('.'+codeid).length>0){
+	    			$('.'+codeid).remove();
+	    			if(!($('.codes').children('div').length>0)){
+						$('.previewcode').addClass('hide');
+						$('.add-copy-code').addClass('hide');
+					}
+	    		}
+	    	});
+	    $('.copy-code').click(function(){
+	    	alert($('.previewcode').text());
+			
+	    });
+	    $('.add-copy-code').click(function(){
+	    	var ckdata = usedata = new_ckdata = '';
+    		ckdata = CKEDITOR.instances.nahao_description.getData();
+    		$('.ck-code').html(ckdata);
+    		if($('.ck-code').children('div.videoPlay').length>0){
+    			$('.ck-code').children('div.videoPlay').remove();
+    		}
+    		new_ckdata = ($('.ck-code').html())+($('.previewcode').text());
+    		CKEDITOR.instances.nahao_description.setData(new_ckdata);
+	    });
+    </script>
     <!--那好视频管理 end-->
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
@@ -232,6 +285,7 @@
             <div id="video_url" >{if isset($course.video)}{$course.video}{/if}</div>
         </div>
     </div>
+
 
     <!--<div id="course_edit_lesson_list_div">-->
         <!--<div class="form-group">-->
