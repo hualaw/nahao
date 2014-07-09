@@ -212,11 +212,15 @@
                  //以下为修改redis，还未测试
                  $now_time=time();
                  $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+                 log_message('error_nahao','session_id'.print_r($session_id,1));
                  $this->load->model('model/common/model_redis', 'redis');
                  $this->redis->connect('session');
                  $redis_data=$this->cache->redis->get($session_id['session_id']);
-                 $redis_data['user_type']=1;
-                 if($this->cache->redis->set($session_id['session_id'],$redis_data))
+                 $arr_data=json_decode($redis_data);
+                 $arr_data['user_data']['user_type']=1;
+
+                 log_message('error_nahao','redis_data'.print_r($arr_data,1));
+                 if($this->cache->redis->set($session_id['session_id'],json_encode($arr_data)))
                  {
                      return TRUE;
                  }
