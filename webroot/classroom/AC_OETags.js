@@ -87,7 +87,15 @@ function GetSwfVer(){
 			var swVer2 = navigator.plugins["Shockwave Flash 2.0"] ? " 2.0" : "";
 			var flashDescription = navigator.plugins["Shockwave Flash" + swVer2].description;
 			var descArray = flashDescription.split(" ");
-			var tempArrayMajor = descArray[2].split(".");			
+			var tempArrayMajor = "";
+			if (descArray[2] == "Debugger")
+			{
+			    tempArrayMajor = descArray[3].split(".");
+			}
+			else
+			{
+			    tempArrayMajor = descArray[2].split(".");
+			}			
 			var versionMajor = tempArrayMajor[0];
 			var versionMinor = tempArrayMajor[1];
 			var versionRevision = descArray[3];
