@@ -81,7 +81,6 @@
         <td>
             {if $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}
                 <a href="/round/edit/{$v.id}">修改</a>
-                <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
                 <botton class="round_operation btn-xs btn btn-success" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING}">过审</botton>
                 <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_DENY}">拒审</botton>
             {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_ON_SALE)}
@@ -95,6 +94,7 @@
             {elseif  $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_OFFLINE}
                 <botton class="round_operation btn-xs btn btn-info" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}">重开</botton>
             {/if}
+            <a target="_blank" href="/classes/index/{$v.id}">课堂管理</a>
             <a href="/affiche/index?round_id={$v.id}&round_title={$v.title}" class="btn-lg active btn-xs" role="button">公告管理</a>
             <a href="/feedback/index?round_id={$v.id}" class="btn-lg active btn-xs" role="button">评价管理</a>
         </td>
