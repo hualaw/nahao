@@ -623,4 +623,19 @@ class Business_Teacher extends NH_Model
 //        }
 //        return $str_table_range;
 //    }
+    /**
+     *根据昵称查询老师
+     * @author shangshikai@tizi.com
+     */
+    public function nick_teacher($nickname)
+    {
+        $str_table_range = 'user';
+        $str_result_type = 'list';
+        $str_fields = 'id,nickname';
+        $arr_where[TABLE_USER.'.teach_priv'] = 1;
+        $arr_where[TABLE_USER.'.status'] = 1;
+        $arr_where[TABLE_USER.'.nickname'] = $nickname;
+        $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        return $int_return;
+    }
 }

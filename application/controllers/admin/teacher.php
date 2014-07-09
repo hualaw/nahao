@@ -166,7 +166,8 @@ class Teacher extends NH_Admin_Controller {
     public function city()
     {
         $province=$this->input->post('province',TRUE);
-        echo json_encode($this->teacher->city1($province));
+        echo
+        json_encode($this->teacher->city1($province));
     }
     /**
      * 根据市城市查找学校
@@ -356,5 +357,16 @@ class Teacher extends NH_Admin_Controller {
             $arr_return = array_values($arr_return);
         }
         self::json_output($arr_return);
+    }
+
+    /**
+     *根据昵称查询老师
+     * @author shangshikai@tizi.com
+     */
+    public function select_nickname()
+    {
+        $nickname=$this->input->post('nickname',TRUE);
+        $nick=$this->teacher->nick_teacher($nickname);
+        echo json_encode($nick);
     }
 }
