@@ -68,15 +68,6 @@ function connect_phone_server(){
  * @return string
  */
 function get_uid_phone_server($phone, $appname = PHONE_SERVER_APPNAME){
-	if ($phone == 13693587853) {
-		return 12548;
-	}
-	if ($phone == 18801191582) {
-	    return 17265;
-	}
-    if ($phone == 13581711708) {
-        return 12345;
-    }
     try {
         $client = connect_phone_server();
         if(!$client){

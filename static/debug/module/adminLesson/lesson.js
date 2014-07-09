@@ -100,8 +100,23 @@ define(function (require, exports) {
         });
 
         //delete lesson
-        $("#btn_lesson_delete").on("click",function(){
-
+        $(".btn_lesson_delete").on("click",function(){
+            var result = confirm("确认删除该章节吗？");
+            if(confirm){
+                var tr = $(this);
+                var lesson_id = tr.data("lesson_id");
+                var url = '/lesson/delete';
+                var data = {
+                    'lesson_id' : lesson_id
+                };
+                $.post(url,data,function(response){
+                    alert(response.msg);    
+                    if(response.status=="ok"){
+                        tr.parent().parent().remove();
+                        exports.lessons_sort();
+                    }
+                });
+            }
         });
 
         //dragsort
