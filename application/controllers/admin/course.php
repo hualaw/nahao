@@ -221,8 +221,8 @@ class Course extends NH_Admin_Controller {
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
         //course img file name
-        $str_new_img_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
-        $str_new_video_file_name = 'course_'.date('YmdHis',time()).'_v'.$str_salt.'.png';
+        $str_new_img_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt;
+        $str_new_video_file_name = 'course_'.date('YmdHis',time()).'_v'.$str_salt;
 
         $this->smarty->assign('action',$str_action);
         $this->smarty->assign('course',$arr_course);

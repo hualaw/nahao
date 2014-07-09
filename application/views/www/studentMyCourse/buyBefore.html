@@ -63,16 +63,9 @@
                         <a href="#review">{$str_evaluate_count}条评价</a>
                     </div>
                     <p class="fromf cf">
-						{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE 
-						|| 
-						$array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER
-						||
-						$array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH
-						||
-						$array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF
-						}
-						<input type="hidden" id="product_id" value="{$array_data.id}">
                         <span class="fl oldPrice">原价<span>￥{$array_data.price}</span></span>
+                        {if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+						<input type="hidden" id="product_id" value="{$array_data.id}">
 						<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
                             <span class="fl">立即报名</span>
                             <span class="fr"></span>
