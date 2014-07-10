@@ -478,13 +478,7 @@ class Pay extends NH_User_Controller {
 	        #订单更新信息初始化
 	        $order_updata = array('status' => ORDER_STATUS_SUCC);
 	        #获取订单信息
-	        #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
-	        $array_orderInfo = $this->read_order_to_redis($payResult['order_id']);
-	        if(empty($array_orderInfo))
-	        {
-	        	$array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);
-	        }
-	        //$array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
+	        $array_orderInfo = $this->student_order->get_order_by_id($payResult['order_id']);#TODO
 	        $int_user_id = $array_orderInfo['student_id'];#TODO用户id
 	        //log_message("ERROR_NAHAO",'round_id:'.$array_orderInfo['round_id']);
 	        #未知的订单
@@ -640,12 +634,7 @@ class Pay extends NH_User_Controller {
 	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
 	    }
 	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
-	    $array_data = $this->read_order_to_redis($int_order_id);
-	    if(empty($array_data))
-	    {
-	    	$array_data = $this->student_order->get_order_by_id($int_order_id);
-	    }
-	    //$array_data = $this->model_order->get_order_by_id($int_order_id);
+	    $array_data = $this->model_order->get_order_by_id($int_order_id);
 	    if (empty($array_data))
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'订单不存在'));
