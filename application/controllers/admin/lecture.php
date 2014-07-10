@@ -74,7 +74,6 @@
             $int_start=$this->uri->segment(3);
             $this->db->limit(PER_PAGE_NO,$int_start);
             $page = $this->pagination->create_links();
-
             $config_status=config_item('lecture_status');
             $config_tea_type=config_item('teacher_type');
             $config_stage=config_item('stage');
@@ -82,6 +81,8 @@
             $lecture=$this->lecture->lecture_seach_list($get)->result_array();
             $time_day=$this->lecture->day_lecture();
             //var_dump($arr);die;
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+            $this->smarty->assign('search_term',$search_term);
             $this->smarty->assign('config_status',$config_status);
             $this->smarty->assign('config_tea_type',$config_tea_type);
             $this->smarty->assign('config_stage',$config_stage);

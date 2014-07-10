@@ -252,7 +252,7 @@ define(function (require,exports){
 				 $('.doWorkBox').html(html);
 				 $(".nextBtn").hide();
 				 $.dialog({
-		            title:false,
+		            title:"题目展示页面",
 		            ok:false,
 		            icon:false,
 		            padding:0,
