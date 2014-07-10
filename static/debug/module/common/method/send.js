@@ -6,7 +6,7 @@ define(function(require,exports){
             _this.attr("disabled",true);
 			var _phoneNumber = $(this).parent().siblings().find('.phoneNum').val();
 			// 判断手机号正则
-			var _regMobile = /^0?1[3|4|5|8][0-9]\d{8}$/;
+			var _regMobile = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
 		    var _testResult = _regMobile.test(_phoneNumber);
 		    // 如果输入的是手机号，发送验证码
 		    if (_testResult) {
