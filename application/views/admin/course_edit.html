@@ -172,7 +172,7 @@
 			 </div>
         </div>
     </div>
-    <script type="text/javascript" src="{$static_url}/debug/lib/jquery/1.8.2/jquery.js"></script>
+    <script type="text/javascript" src="{static_url('/lib/jquery/1.8.2/jquery.js')}"></script>
     <script type="text/javascript">
     	$('.video-maker').children('.add-video').click(function(){
     		$('.video-items').append('<div class="item" id="video-'+((new Date).valueOf())+'">'+($('.copy-item').html())+'</div>');
