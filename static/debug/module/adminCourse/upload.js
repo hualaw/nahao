@@ -52,7 +52,7 @@ define(function(require,exports){
 	exports.video_upload = function (){
 	console.log('video_upload');	
         //upload video
-        var videoFormData = {'key':$('#new_video_file_name').val(),'token':$('#nahao_token').val()};
+        var videoFormData = {'key':$('#new_video_file_name').val(),'token':$('#nahao_video_token').val()};
         $('#course_video').uploadify({
             'formData' : videoFormData,
             'swf'      :  _swf_url+'/lib/uploadify/2.2/uploadify.swf',
@@ -64,6 +64,7 @@ define(function(require,exports){
                 var data = jQuery.parseJSON(data);
                 console.log(data);
                 $('#video_url').text(data.key);
+                $('#video_url_show').text(_qiniu_video_url+data.key);
             }
         });
 	}
