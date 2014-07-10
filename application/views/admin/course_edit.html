@@ -277,12 +277,14 @@
         <label class="col-md-2 control-label">添加视频</label>
 
         <input name="new_video_file_name" id="new_video_file_name" type="hidden" value="{$upload_video_key}">
+        <input name="nahao_video_token" id="nahao_video_token" type="hidden" value="{$upload_video_token}">
 
         <div class="col-md-2">
             <input type="file" name="course_video" id="course_video" class="form-control" multiple="true" >
         </div>
         <div class="col-md-3">
-            <div id="video_url" >{if isset($course.video)}{$course.video}{/if}</div>
+            <div id="video_url" style="display:none">{if isset($course.video)}{$course.video}{/if}</div>
+            <div id="video_url_show" ></div>
         </div>
     </div>
 
