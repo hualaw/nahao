@@ -208,22 +208,22 @@
         public function lecture_teach_pass($post,$data,$data_user,$subject_data)
         {
             if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_info.user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
-             {
-                 $now_time=time();
-                 $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
-                 $this->load->model('model/common/model_redis', 'redis');
-                 $this->redis->connect('session');
-                 $redis_data=$this->cache->redis->get($session_id['session_id']);
-                 $arr_data=json_decode($redis_data,TRUE);
-                 $arr_data['user_data']=unserialize($arr_data['user_data']);
-                 $arr_data['user_data']['user_type']=1;
-                 $arr_data['user_data']=serialize($arr_data['user_data']);
-                 $arr_data=json_encode($arr_data);
-                 if($this->cache->redis->set($session_id['session_id'],$arr_data))
-                 {
-                     return TRUE;
-                 }
-             }
+            {
+                $now_time=time();
+                $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+                $this->load->model('model/common/model_redis', 'redis');
+                $this->redis->connect('session');
+                $redis_data=$this->cache->redis->get($session_id['session_id']);
+                $arr_data=json_decode($redis_data,TRUE);
+                $arr_data['user_data']=unserialize($arr_data['user_data']);
+                $arr_data['user_data']['user_type']=1;
+                $arr_data['user_data']=serialize($arr_data['user_data']);
+                $arr_data=json_encode($arr_data);
+                if($this->cache->redis->set($session_id['session_id'],$arr_data))
+                {
+                    return TRUE;
+                }
+            }
         }
         /**
          *待定试讲审核
