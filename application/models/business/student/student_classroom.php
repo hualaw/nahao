@@ -50,7 +50,8 @@ class Student_Classroom extends NH_Model{
                 	}
                 } else {
                 	$array_infor['options'] = array();
-                }               
+                } 
+                $array_infor['question'] = htmlspecialchars_decode($array_infor['question']);
                 $array_infor['sequence'] = $int_max_sequence;
                 $array_infor['class_id'] = $int_class_id;
                 $array_data[] = $array_infor;
@@ -127,6 +128,7 @@ class Student_Classroom extends NH_Model{
                 {
                 	$array_infor['options'][$kk] = urldecode($vv);
                 }
+                $array_infor['question'] = htmlspecialchars_decode($array_infor['question']);
                 $array_qids[$k] = array_merge($array_qids[$k], $array_infor);
                 
             }
