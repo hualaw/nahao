@@ -143,7 +143,7 @@ class Business_Teacher extends NH_Model
             $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_ON;
 //            $arr_where[TABLE_USER.'.status'] = TABLE_USER_DIC_STATUS_ON;
             if(array_key_exists('title',$arr_where)){
-                $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title']-1;
+                $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title'];
                 unset($arr_where['title']);
             }
             if(array_key_exists('province',$arr_where)){
