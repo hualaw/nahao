@@ -88,7 +88,6 @@ class Model_User extends NH_Model
         {
            $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>0),array(TABLE_USER.'.id'=>$v));
            $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>0),array(TABLE_USER_INFO.'.user_id'=>$v));
-           log_message('debug_nahao', "account_close, sql:".$this->db->last_query());
         }
         return TRUE;
     }

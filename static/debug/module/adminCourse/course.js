@@ -74,7 +74,6 @@ define(function (require, exports) {
             $("#course_edit_teacher_select_div").append(add_teacher_html);
             $("#course_edit_teacher_select_modal").modal('hide');
         });
-
     }
 
     //delete selected teacher
@@ -84,6 +83,23 @@ define(function (require, exports) {
             if(result==true){
                 $($(this).parent()).remove();
             }
+        });
+    }
+
+    exports.select_nickname=function(){
+        $("#select_nick").click(function() {
+            $('#teacher_list_area').html('');
+            $.ajax({
+                type:"post",
+                url:"/teacher/select_nickname",
+                data:"nickname="+$('#nickname').val(),
+                success:function(msg){
+                    var nick=eval(msg);
+                    $.each(nick,function(index,d){
+                        $('#teacher_list_area').html("<botton class='btn btn-primary submit_teacher' data-teacher_id="+d.id+">"+d.nickname+"</botton>");
+                    })
+                }
+            })
         });
     }
 
