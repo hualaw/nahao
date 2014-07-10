@@ -200,10 +200,18 @@ class Round extends NH_Admin_Controller
                     if ($bool_flag == true) {
                         //create或update都要先清除teachers和classes再重新插入
                         $this->round->create_round_teacher_batch($int_round_id, $arr_teachers);
+                        $this->load->model('business/admin/business_class', 'class');
                         if($str_action=='create' AND $arr_classes){
-                            $this->load->model('business/admin/business_class', 'class');
                             $bool_class = $this->class->create_classes($int_course_id, $int_round_id, $arr_classes);
                         }
+                        //update is_test
+                        $arr_param = array(
+                            'is_test' => $int_is_test
+                        );
+                        $arr_where = array(
+                            'round_id' => $int_round_id
+                        );
+                        $this->class->update_class($arr_param,$arr_where);
                         $this->arr_response['status'] = 'ok';
                         $this->arr_response['msg'] = ($str_action=='create' ? '创建' : '修改').'成功';
                         $this->arr_response['redirect'] = '/round';
@@ -243,36 +251,15 @@ class Round extends NH_Admin_Controller
             //course base info
             $this->load->model('business/admin/business_course', 'course');
             $arr_round = $arr_course = $this->course->get_course_by_id($int_course_id);
-
+//            o($arr_round,true);
             //course can generate round while status==NAHAO_STATUS_COURSE_RUNNING
             if($arr_course){
                 if($arr_course['status'] == NAHAO_STATUS_COURSE_RUNNING){
                     //course teachers
                     $arr_teachers = $this->course->get_teachers_by_course_id($int_course_id);
                     if($arr_teachers){
-                        //course lessons validate if has lessons, pdf and question exists
-//                        $this->load->model('business/admin/business_lesson', 'lesson');
-//                        $arr_lessons = $arr_classes = $this->lesson->get_lessons_by_course_id($int_course_id);
-//                        if($arr_lessons){
-
-                            $bool_round_flag = true;//can generate round
-//                            $bool_lesson_has_pdf_flag = true;
-//                            $int_lesson_id = 0;
-//                            foreach($arr_lessons as $k => $v){
-//                                if($v['parent_id'] > 0 AND $v['courseware_id'] < 1){
-//                                    $bool_lesson_has_pdf_flag = false;
-//                                    $int_lesson_id = $v['id'];
-//                                    break;
-//                                }
-//                            }
-//                            if($bool_lesson_has_pdf_flag==true){
-//                                $bool_round_flag = true;//can generate round
-//                            }else{
-//                                $str_error = 'id为'.$int_lesson_id.'的课节没有pdf';
-//                            }
-//                        }else{
-//                            $str_error = '没有课节';
-//                        }
+                        $bool_round_flag = true;//can generate round
+                        $arr_round['is_test'] = ENVIRONMENT=='production' ? 0 : 1;
                     }else{
                         $str_error = '没有老师';
                     }
