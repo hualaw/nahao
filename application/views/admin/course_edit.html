@@ -225,8 +225,7 @@
 	    		}
 	    	});
 	    $('.copy-code').click(function(){
-	    	alert($('.previewcode').text());
-			
+			 window.clipboardData.setData("text",$('.previewcode').text());
 	    });
 	    $('.add-copy-code').click(function(){
 	    	var ckdata = usedata = new_ckdata = '';
@@ -235,8 +234,9 @@
     		if($('.ck-code').children('div.videoPlay').length>0){
     			$('.ck-code').children('div.videoPlay').remove();
     		}
-    		new_ckdata = ($('.ck-code').html())+($('.previewcode').text());
+    		new_ckdata = ($('.previewcode').text())+($('.ck-code').html());
     		CKEDITOR.instances.nahao_description.setData(new_ckdata);
+    		$('#play-area').modal('hide');
 	    });
     </script>
     <!--那好视频管理 end-->
