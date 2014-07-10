@@ -79,18 +79,21 @@ define(function(require,exports){
     	$('.videoPlay').children().children('.container').each(function(){
 			var noflash = '';
 			var curfile = $(this).attr('title');
+			var curimg = $(this).children('img').attr('src');
+			if(!(curimg.length>0)){
+				curimg = "http://img1.nahao.com/course_description_20140710182330_iVnD5YB?imageView/2/w/600";
+			}
 	    	/*初始化视频播放开始*/
 		    var playlist = [{
 			    "domain": '',
 			    "file": curfile,
-			    "image": $(this).children('img').attr('src')
-//			    "image": "http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg"
+			    "image": curimg
 			}];
 		    TiZiplayer($(this).attr('id')).setup({
 				playlist:playlist,
 				primary:"flash",
 				height:405,
-				width:480
+				width:600
 				// ,
 				// adCover:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg",
 				// adEnd:"http://tizi.oss.aliyuncs.com/static/zhuangyuan/video.jpg"
