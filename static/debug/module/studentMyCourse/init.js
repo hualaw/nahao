@@ -81,7 +81,7 @@ define(function(require,exports){
 			var curfile = $(this).attr('title');
 			var curimg = $(this).children('img').attr('src');
 			if(!(curimg.length>0)){
-				curimg = "http://tizi.oss.aliyuncs.com/static/zhuangyuan/index_video.jpg";
+				curimg = "http://img1.nahao.com/course_description_20140710182330_iVnD5YB?imageView/2/w/600";
 			}
 	    	/*初始化视频播放开始*/
 		    var playlist = [{
