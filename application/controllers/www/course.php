@@ -148,6 +148,15 @@ class Course extends NH_User_Controller {
 	    
 	    $int_score  = $this->input->post("score");
 	    $str_content = $this->input->post("content",true);
+	    if(intval($int_score) == '0')
+	    {
+	    	self::json_output(array('status'=>'error','msg'=>'您还没有打分！'));
+	    }
+	    
+	    if(empty($str_content))
+	    {
+	    	self::json_output(array('status'=>'error','msg'=>'评价内容不能为空！'));
+	    }
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
 	            'round_id'=>$array_result['round_id'],
