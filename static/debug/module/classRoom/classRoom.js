@@ -230,7 +230,7 @@ define(function (require,exports){
 							 html+=	'<li class="cf ">';
 							 html+=	'<em class="fl ansIco"></em>';
 							 html+=	'<span class="options fl">'+k+'</span>';
-							 html+=	'<p class="fl">'+v+'</p>';
+							 html+=	'<div class="fl">'+v+'</div>';
 							 html+=	'</li>';
 						 }
 
@@ -373,7 +373,7 @@ define(function (require,exports){
 													rhtml+='				<li class="'+aclass+'">';
 													rhtml+='					<em class="fl ansIco"></em>';
 													rhtml+='					<span class="options fl">'+kkk+'</span>';
-													rhtml+='					<p class="fl">'+vvv+'</p>';
+													rhtml+='					<div class="fl">'+vvv+'</div>';
 													rhtml+='				</li>';
 												}
 											})
