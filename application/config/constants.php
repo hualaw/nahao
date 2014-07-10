@@ -307,7 +307,7 @@ define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
 //static css
 define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_CLASSROOM','/css/classRoom/style.css');
-define('STATIC_ADMIN_CSS_PREVIEW','/css/adminPublic/preview.css');
+define('STATIC_ADMIN_CSS_PREVIEW','/css/adminPreview/style.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
@@ -342,7 +342,9 @@ define('GET_PASSWORD_VERIFY_CODE', 3);
 define('NH_QINIU_ACCESS_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
 define('NH_QINIU_SECRET_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
 define('NH_QINIU_BUCKET','nahaoweb');
+define('NH_QINIU_VIDEO_BUCKET','nahaovideo');
 //define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
+define('NH_QINIU_VIDEO_URL', 'http://'.NH_QINIU_VIDEO_BUCKET.'.qiniudn.com/');
 define('NH_QINIU_URL', 'http://img1.nahao.com/');
 
 define('MAX_NICKNAME_LEN', 25);
@@ -388,6 +390,6 @@ define('CLASS_OVER_ACTION', 5);//点下课
 
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
-define('ROUND_GENERATE_MODE','testing');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
+define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

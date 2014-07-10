@@ -79,6 +79,7 @@
 .studentMyCourse .inforTab{border: 1px solid #dadada;background: #fff;}
 .studentMyCourse .myOrderCon .tabh li:last-child{border-right: none;width: 154px;}
 .studentMyCourse .myOrderCon .tabh li span{margin-left: 8px;}
+.studentMyCourse .myOrderCon .tabh li a{display:inline-block;width:100%;height:100%;}
 .studentMyCourse .myOrderCon .tabh li.tabhOn{height:49px;background: #fff;border-bottom: none;font-weight: bold;color: #f14211;}
 .studentMyCourse .myOrderCon .tabCon{background: #fff;}
 .studentMyCourse .myOrderCon .tabh li.norbor{width: 154px;border-right: none;}
@@ -234,12 +235,12 @@
 .studentMyCourse .buyBefore .creview li{padding: 26px 0 22px;border-bottom: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .creview{padding: 65px 20px 18px 18px;background: url(../../images/studentMyCourse/creview.png) 12px 25px no-repeat;}
 .studentMyCourse .buyBefore .applyBtn strong{font-size: 30px;}
-.studentMyCourse .buyBefore .applyBtn .fl{font-size: 24px;}
+.studentMyCourse .buyBefore .applyBtn .fl{font-size: 24px;margin-right: 20px;}
 .studentMyCourse .buyBefore .applyBtn .fr{font-size: 20px;width: 100px;line-height: 19px;}
 .studentMyCourse .buyBefore .applyBtn em{font-size: 12px;display: inline-block;height: 14px;}
-.studentMyCourse .buyBefore .applyBtn{padding: 6px 57px 6px 53px;width: 200px;height: 38px;display: block;margin:0 auto;}
+.studentMyCourse .buyBefore .applyBtn{padding: 6px 57px 6px 53px;width:auto;height: 38px;}
 .studentMyCourse .buyBefore .fclick{text-align: center;}
-.studentMyCourse .buyBefore .loadMore{display:inline-block;height: 16px;padding-right: 14px;background: url(../../images/studentMyCourse/arrow_y.png) right center no-repeat;margin:0 auto 16px;line-height: 16px;}
+.studentMyCourse .buyBefore .loadMore{display: block;width: 186px;height: 16px;padding-right: 14px;background: url(../../images/studentMyCourse/arrow_y.png) right center no-repeat;margin:0 auto 16px;line-height: 16px;}
 .studentMyCourse .buyBefore .allReview{margin:8px 0 4px;}
 .studentMyCourse .buyBefore .creview li img{width: 46px;height: 46px;}
 .studentMyCourse .buyBefore .revCon{width: 548px;}

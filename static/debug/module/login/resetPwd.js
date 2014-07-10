@@ -13,7 +13,7 @@ define(function(require,exports){
 				    icon:null
 		        });
                 return false;
-            } else if(!(/^1[3|5|8]\d{9}$/.test(phone))) {
+            } else if(!(/^1[3|5|7|8]\d{9}$/.test(phone))) {
                 $.tiziDialog({
 		            content:'请输入正确的手机号',
 				    icon:null

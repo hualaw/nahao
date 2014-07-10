@@ -296,9 +296,12 @@ class Pay extends NH_User_Controller {
 	    header('content-type: text/html; charset=utf-8');
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
-	    #根据order_id获取订单信息(从redis读取订单信息)
+	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
 	    $array_order = $this->read_order_to_redis($int_order_id);
-	    //$array_order = $this->student_order->get_order_by_id($int_order_id);
+	    if(empty($array_order))
+	    {
+	    	$array_order = $this->student_order->get_order_by_id($int_order_id);
+	    }
 	    $int_user_id = $this->session->userdata('user_id'); 
 	    log_message('debug_nahao', "int_user_id:$int_user_id, order_id: $int_order_id, array_order:".print_r($array_order, 1));
 	    if (empty($array_order))
@@ -322,7 +325,7 @@ class Pay extends NH_User_Controller {
 	    }
 	    #查找该轮的信息(主要是轮的价格)
 	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
-	    $array_order['id'] = $int_order_id;
+	    //$array_order['id'] = $int_order_id;
 	    #如果是0元免费课程，执行下面的操作
 	    if ($array_round['sale_price'] == '0'){
 	    	#更新订单状态,写日志
@@ -361,8 +364,13 @@ class Pay extends NH_User_Controller {
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $str_nickname = $this->session->userdata('nickname');
 	    $int_user_id = $this->session->userdata('user_id');
-	    #根据order_id获取订单信息
-	    $array_order = $this->student_order->get_order_by_id($int_order_id);
+	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
+	    $array_order = $this->read_order_to_redis($int_order_id);
+	    if(empty($array_order))
+	    {
+	    	$array_order = $this->student_order->get_order_by_id($int_order_id);
+	    }
+	    //$array_order = $this->student_order->get_order_by_id($int_order_id);
 	    if (!$array_order) 
 	    {
 	        #order不存在
@@ -625,6 +633,7 @@ class Pay extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
 	    }
+	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
 	    $array_data = $this->model_order->get_order_by_id($int_order_id);
 	    if (empty($array_data))
 	    {
@@ -661,11 +670,8 @@ class Pay extends NH_User_Controller {
 	 */
 	public function write_order_to_redis($int_order_id,$array_data)
 	{
-		$this->load->model('model/common/model_redis', 'redis');
-		$this->redis->connect('order');
-		$str_encode = json_encode($array_data);
-		$bool_flag = $this->cache->redis->set($int_order_id,$str_encode,REDIS_ORDER_EXPIRE);
-		return $bool_flag ? true : false;
+		$bool_result = $this->student_order->write_order_to_redis($int_order_id,$array_data);
+		return $bool_result;
 	}
 	
 	/**
@@ -673,14 +679,8 @@ class Pay extends NH_User_Controller {
 	 */
 	public function read_order_to_redis($int_order_id)
 	{
-		$this->load->model('model/common/model_redis', 'redis');
-		$this->redis->connect('order');
-		$array_order = $this->cache->redis->get($int_order_id);
-		if ($array_order)
-		{
-			$array_order = json_decode($array_order,true);
-		}
-		return $array_order;
+		$array_result = $this->student_order->read_order_to_redis($int_order_id);
+		return $array_result;
 	}
 }
 
