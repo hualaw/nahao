@@ -23,9 +23,9 @@ define(function(require,exports){
                     'small_height' : 66
                 };
                 var img_url = data.key;
-                var img_url_large = _qiniu_url+data.key+'?imageView/1/w/'+size.large_width+'/h/'+size.large_height;
-                var img_url_general = _qiniu_url+data.key+'?imageView/1/w/'+size.general_width+'/h/'+size.general_height;
-                var img_url_small = _qiniu_url+data.key+'?imageView/1/w/'+size.small_width+'/h/'+size.small_height;
+                var img_url_large = _qiniu_url+data.key+'?imageView/2/w/'+size.large_width+'/h/'+size.large_height;
+                var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
+                var img_url_small = _qiniu_url+data.key+'?imageView/2/w/'+size.small_width+'/h/'+size.small_height;
 
 //                var img_url_large = data.large;
 //                var img_url_general = data.general;
