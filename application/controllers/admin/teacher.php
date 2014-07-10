@@ -166,8 +166,7 @@ class Teacher extends NH_Admin_Controller {
     public function city()
     {
         $province=$this->input->post('province',TRUE);
-        echo
-        json_encode($this->teacher->city1($province));
+        echo json_encode($this->teacher->city1($province));
     }
     /**
      * 根据市城市查找学校
