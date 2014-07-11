@@ -247,4 +247,25 @@ class Lesson extends NH_Admin_Controller {
         }
     }
 
+    public function delete(){
+        $int_lesson_id = $this->input->post('lesson_id') ? $this->input->post('lesson_id') : 0;
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '删除失败',
+        );
+        if($int_lesson_id > 0){
+            $arr_where = array(
+                'id' => $int_lesson_id
+            );
+            $return = $this->lesson->delete_lesson($arr_where);
+            if($return){
+                $arr_response = array(
+                    'status' => 'ok',
+                    'msg' => '删除成功',
+                );
+            }
+        }
+        self::json_output($arr_response);
+    }
+
 }

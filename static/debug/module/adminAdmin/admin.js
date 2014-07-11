@@ -36,4 +36,26 @@ define(function(require,exports){
             }, "json");
         });
     }
+
+    //password_reset
+    exports.password=function(){
+        $("#btn_password").on("click", function () {
+            var btn = $(this);
+            var url = '/admin/password';
+            var data = {
+                'old_password' : $("#old_password").val(),
+                'new_password' : $("#new_password").val(),
+                'new_password_confirm' : $("#new_password_confirm").val()
+            };
+//            console.log(data);
+//            return false;
+            $.post(url, data, function (response) {
+                console.log(response);
+                alert(response.msg);
+                if (response && response.status == "ok") {
+                    window.location.reload();
+                }
+            });
+        });
+    }
 })

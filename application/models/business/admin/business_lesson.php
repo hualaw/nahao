@@ -406,4 +406,17 @@ class Business_Lesson extends NH_Model
          }
          return $arr_return;
      }
+
+     /**
+      * @param array $arr_where
+      * @return bool
+      * @author yanrui@tizi.com
+      */
+     public function delete_lesson($arr_where){
+         $bool_return = true;
+         if($arr_where){
+             $this->model_lesson->delete_lesson_by_param($arr_where);
+         }
+         return $bool_return ;
+     }
 }

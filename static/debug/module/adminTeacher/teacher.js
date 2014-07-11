@@ -150,6 +150,15 @@ define(function(require,exports){
 
             })
 
+            $("#sum").click(function(){
+                var teacher_intro=CKEDITOR.instances.teacher_intro.getData();
+                if(teacher_intro.length>=450)
+                {
+                    alert('个人简介过长，不建议超过450字');
+                    return false;
+                }
+            })
+
             $('#basic_reward').blur(function(){
                 if($.trim($('#basic_reward').val())=='')
                 {
