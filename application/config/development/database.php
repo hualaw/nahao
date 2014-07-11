@@ -81,5 +81,22 @@ $db['localhost']['dbcollat'] = 'utf8_general_ci';
 $db['localhost']['swap_pre'] = '';
 $db['localhost']['autoinit'] = TRUE;
 $db['localhost']['stricton'] = FALSE;
+
+
+// $db['default']['hostname'] = 'mysql:host=192.168.11.75';//host for pdo
+// $db['default']['username'] = 'nahao';
+// $db['default']['password'] = 'nahao';
+// $db['default']['database'] = 'nahao_develop';
+// $db['default']['dbdriver'] = 'pdo';
+// $db['default']['dbprefix'] = '';
+// $db['default']['pconnect'] = false;
+// $db['default']['db_debug'] = TRUE;
+// $db['default']['cache_on'] = FALSE;
+// $db['default']['cachedir'] = '';
+// $db['default']['char_set'] = 'utf8';
+// $db['default']['dbcollat'] = 'utf8_general_ci';
+// $db['default']['swap_pre'] = '';
+// $db['default']['autoinit'] = TRUE;
+// $db['default']['stricton'] = FALSE;
 /* End of file database.php */
 /* Location: ./application/config/database.php */
