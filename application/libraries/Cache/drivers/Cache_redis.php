@@ -578,6 +578,17 @@ class CI_Cache_redis extends CI_Driver
 			$this->_redis->lpush($key, $value);
 		}
 	 }
+
+    /**
+     * 封装redis rPush方式,左侧入队
+     * @param  string $key 	       队列键名
+     * @param  string $value   	   入队内容
+     */
+    public function rpush($key, $value){
+        if ($this->_redis){
+            $this->_redis->rpush($key, $value);
+        }
+    }
 	 
 	 
 	 /**

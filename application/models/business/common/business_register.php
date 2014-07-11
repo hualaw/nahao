@@ -119,7 +119,8 @@ class Business_Register extends NH_Model {
         //echo "captcha_count is $captcha_count";
         if($captcha_count >= 1)
         {
-            $captcha_info_arr = $this->cache->redis->lrange($phone, 0, $captcha_count-1);
+            $captcha_info_arr = $this->cache->redis->lrange($phone, 0, -1);
+            //log_message("debug_nahao", "check_captcha: ".print_r($captcha_info_arr,1));
             foreach($captcha_info_arr as $i => $one_info)
             {
                 $one_info_arr = json_decode($one_info, true);
