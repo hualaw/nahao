@@ -213,6 +213,10 @@ class Business_Teacher extends NH_Model
     public function close_ban($arr)
     {
         $arr=explode(',',$arr);
+        if($arr[0]=='on')
+        {
+            unset($arr[0]);
+        }
         return $this->model_user->account_close($arr);
     }
     /**
@@ -222,6 +226,10 @@ class Business_Teacher extends NH_Model
     public function open_ban($arr)
     {
         $arr=explode(',',$arr);
+        if($arr[0]=='on')
+        {
+            unset($arr[0]);
+        }
         return $this->model_user->account_open($arr);
     }
     /**
