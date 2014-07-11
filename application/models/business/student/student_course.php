@@ -295,6 +295,7 @@ class Student_Course extends NH_Model{
         $array_data = $this->session->all_userdata();
         #去学生与课的关系表寻找信息
         $array_return = $this->model_course->get_classmate_data($int_round_id);
+//         var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)
