@@ -125,7 +125,7 @@
 			        		<button class="btn btn-primary add-video">添加</button>
 			        		<button class="btn btn-primary remove-video">减少</button>
 			        		<button class="btn btn-success add-copy-code hide" style="float:right">添加到编辑器</button>
-			        		<button class="btn btn-success copy-code" style="float:right">复制代码</button>
+			        		<button class="btn btn-default copy-code copyButton greenText" id="inviteId" style="float:right">复制代码(IE)</button>
 			        	</div>
 			        	<hr />
 			        	<div class="video-items">
@@ -143,7 +143,7 @@
 						        </div>
 						        <div class="input-group col-md-4" style="float:left;margin:0px 5px">
 						          <div class="input-group-addon">图片地址</div>
-						          <input class="form-control video-input video-picture" data-type="video-picture" type="text" placeholder="视频封面图url">
+						          <input class="form-control video-input video-picture" data-type="video-picture" type="text" placeholder="视频封面图url" value="http://img1.nahao.com/course_description_20140710182330_iVnD5YB?imageView/2/w/600">
 						        </div>
 						        <div class="input-group">
 						        	<button type="button" class="btn btn-danger remove-this"><i class="glyphicon glyphicon-minus"></i></button>
@@ -201,7 +201,7 @@
 				if( codeNum > 0){
     				$('.'+curid).children('code .'+curvalue_type).html(curvalue);
     			}else{
-    				$('.codes').append('<div class="'+curid+'">&lt;div class="item"&gt;\n&lt;h3&gt;<code class="video-name" style="font-size:16px;color:blue"></code>&lt;/h3&gt;\n&lt;div class="container" id="playerContainer1" title="<code class="video-url" style="color:#d44950"></code>"&gt;\n&lt;img src="<code class="video-picture" style="color:#d44950"></code>" /&gt;\n&lt;/div&gt;\n&lt;/div&gt;</div>');
+    				$('.codes').append('<div class="'+curid+'">&lt;div class="item"&gt;\n&lt;h3&gt;<code class="video-name" style="font-size:16px;color:blue"></code>&lt;/h3&gt;\n&lt;div class="container" id="playerContainer1" title="<code class="video-url" style="color:#d44950"></code>"&gt;\n&lt;img src="<code class="video-picture" style="color:#d44950">http://img1.nahao.com/course_description_20140710182330_iVnD5YB?imageView/2/w/600</code>" /&gt;\n&lt;/div&gt;\n&lt;/div&gt;</div>');
     				$('.'+curid).children('code .'+curvalue_type).html(curvalue);
     			}
     			$('.'+curid).children('code .'+curvalue_type).html(curvalue);
@@ -225,7 +225,10 @@
 	    		}
 	    	});
 	    $('.copy-code').click(function(){
-			 window.clipboardData.setData("text",$('.previewcode').text());
+	    	alert(navigator.appName);
+	    	if( navigator.appName == "Microsoft Internet Explorer" ){
+	    		window.clipboardData.setData("text",$('.previewcode').text());
+	    	}
 	    });
 	    $('.add-copy-code').click(function(){
 	    	var ckdata = usedata = new_ckdata = '';
