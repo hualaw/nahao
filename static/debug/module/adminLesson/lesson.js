@@ -110,7 +110,7 @@ define(function (require, exports) {
                     'lesson_id' : lesson_id
                 };
                 $.post(url,data,function(response){
-                    alert(response.msg);    
+                    alert(response.msg);
                     if(response.status=="ok"){
                         tr.parent().parent().remove();
                         exports.lessons_sort();

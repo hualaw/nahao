@@ -11,11 +11,6 @@ class Pay extends NH_User_Controller {
         $this->load->model('model/student/model_member');
         $this->load->model('business/common/business_register');
         $this->load->model('business/common/business_user');
-        #判断是否登录
-/*         if(!$this->is_login)
-        {
-            redirect('/login');
-        } */
     }
 	
 	/**
@@ -241,7 +236,12 @@ class Pay extends NH_User_Controller {
 	public function neworder($product_id = 1)
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_product_id = max(intval($product_id),1);
+        #判断是否登录
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
+        $int_product_id = max(intval($product_id),1);
 	    #检查这个$int_product_id是否有效：在预售和销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
@@ -294,7 +294,12 @@ class Pay extends NH_User_Controller {
 	public function order($int_order_id=1, $payment_method='online')
 	{
 	    header('content-type: text/html; charset=utf-8');
-	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
+        #判断是否登录
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
+        $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
 	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
 	    $array_order = $this->read_order_to_redis($int_order_id);

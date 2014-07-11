@@ -84,11 +84,18 @@ class Model_User extends NH_Model
      */
     public function account_close($arr)
     {
+        $this->load->model('model/common/model_redis', 'redis');
+        $this->redis->connect('session');
+        $now_time=time();
         foreach($arr as $v)
         {
            $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>0),array(TABLE_USER.'.id'=>$v));
            $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>0),array(TABLE_USER_INFO.'.user_id'=>$v));
-           log_message('debug_nahao', "account_close, sql:".$this->db->last_query());
+            $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$v,'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+            if(isset($session_id) && !empty($session_id))
+            {
+                $this->cache->redis->del($session_id['session_id']);
+            }
         }
         return TRUE;
     }
@@ -101,7 +108,7 @@ class Model_User extends NH_Model
         foreach($arr as $v)
         {
             $nickname=$this->db->select('user.nickname')->from('user')->where('user.id',$v)->get()->row_array();
-            $nick=self::check_nick($nickname['nickname']);
+            $nick=self::check_nick($nickname['nickname'],$v);
             if($nick=="yes")
             {
                 return 'no';

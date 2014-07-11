@@ -27,7 +27,7 @@ define(function(require,exports){
             $("input[type='checkbox']:checked").each(function(){
                 arr_v.push($(this).val());
             });
-           // alert(arr_v);
+            //alert(arr_v);
             $.ajax({
                 type:"post",
                 url:"/teacher/close_account",
@@ -46,7 +46,7 @@ define(function(require,exports){
             $("input[type='checkbox']:checked").each(function(){
                 arr_v.push($(this).val());
             });
-            // alert(arr_v);
+            //alert(arr_v);
             $.ajax({
                 type:"post",
                 url:"/teacher/open_account",
@@ -59,6 +59,7 @@ define(function(require,exports){
                     if(msg=="no")
                     {
                         alert("选择的账户里有昵称已被占用");
+                        location.reload();
                         return false;
                     }
                 }
@@ -148,6 +149,15 @@ define(function(require,exports){
                     })
                 }
 
+            })
+
+            $("#sum").click(function(){
+                var teacher_intro=CKEDITOR.instances.teacher_intro.getData();
+                if(teacher_intro.length>=450)
+                {
+                    alert('个人简介过长，不建议超过450字');
+                    return false;
+                }
             })
 
             $('#basic_reward').blur(function(){

@@ -48,9 +48,9 @@ class NH_User_Controller extends NH_Controller
             $arr_return = array('status' => ERROR, info => '用户信息错误');
             self::json_output($arr_return);
         }
-        $old_password = $this->input->post('password');
-        $new_password = $this->input->post('set_password');
-        $password_repition = $this->input->post('reset_password');
+        $old_password = $this->input->post('encrypt_password');
+        $new_password = $this->input->post('encrypt_set_password');
+        $password_repition = $this->input->post('encrypt_reset_password');
         $check_ret = $this->business_user->check_user_password($user_id, $old_password);
         if(!$check_ret || ($new_password != $password_repition)) {
             $arr_return = array('status' => ERROR, 'info' => '输入的密码不正确!');

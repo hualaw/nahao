@@ -218,17 +218,21 @@ class Course extends NH_Admin_Controller {
         Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
         $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
         $str_upToken = $obj_putPolicy->Token ( null );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_VIDEO_BUCKET );
+        $str_video_upToken = $obj_putPolicy->Token ( null );
+
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
         //course img file name
-        $str_new_img_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt;
-        $str_new_video_file_name = 'course_'.date('YmdHis',time()).'_v'.$str_salt;
+        $str_new_img_file_name = 'course_'.date('YmdHis',time()).'_i'.$str_salt.'.png';
+        $str_new_video_file_name = 'course_'.date('YmdHis',time()).'_v'.$str_salt.'.mp4';
 
         $this->smarty->assign('action',$str_action);
         $this->smarty->assign('course',$arr_course);
         $this->smarty->assign('teachers',$arr_teachers);
 //        $this->smarty->assign('lessons',$arr_lessons);
         $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('upload_video_token',$str_video_upToken);
         $this->smarty->assign('upload_img_key', $str_new_img_file_name);
         $this->smarty->assign('upload_video_key', $str_new_video_file_name);
         $this->smarty->assign('view', 'course_edit');

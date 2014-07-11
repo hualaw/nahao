@@ -172,7 +172,7 @@
 			 </div>
         </div>
     </div>
-    <script type="text/javascript" src="http://static.nahaodev.com/debug/lib/jquery/1.8.2/jquery.js"></script>
+    <script type="text/javascript" src="{static_url('/lib/jquery/1.8.2/jquery.js')}"></script>
     <script type="text/javascript">
     	$('.video-maker').children('.add-video').click(function(){
     		$('.video-items').append('<div class="item" id="video-'+((new Date).valueOf())+'">'+($('.copy-item').html())+'</div>');
@@ -225,8 +225,7 @@
 	    		}
 	    	});
 	    $('.copy-code').click(function(){
-	    	alert($('.previewcode').text());
-			
+			 window.clipboardData.setData("text",$('.previewcode').text());
 	    });
 	    $('.add-copy-code').click(function(){
 	    	var ckdata = usedata = new_ckdata = '';
@@ -235,8 +234,9 @@
     		if($('.ck-code').children('div.videoPlay').length>0){
     			$('.ck-code').children('div.videoPlay').remove();
     		}
-    		new_ckdata = ($('.ck-code').html())+($('.previewcode').text());
+    		new_ckdata = ($('.previewcode').text())+($('.ck-code').html());
     		CKEDITOR.instances.nahao_description.setData(new_ckdata);
+    		$('#play-area').modal('hide');
 	    });
     </script>
     <!--那好视频管理 end-->
@@ -277,12 +277,14 @@
         <label class="col-md-2 control-label">添加视频</label>
 
         <input name="new_video_file_name" id="new_video_file_name" type="hidden" value="{$upload_video_key}">
+        <input name="nahao_video_token" id="nahao_video_token" type="hidden" value="{$upload_video_token}">
 
         <div class="col-md-2">
             <input type="file" name="course_video" id="course_video" class="form-control" multiple="true" >
         </div>
         <div class="col-md-3">
-            <div id="video_url" >{if isset($course.video)}{$course.video}{/if}</div>
+            <div id="video_url" style="display:none">{if isset($course.video)}{$course.video}{/if}</div>
+            <div id="video_url_show" ></div>
         </div>
     </div>
 

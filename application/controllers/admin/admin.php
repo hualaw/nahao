@@ -123,4 +123,54 @@ class Admin extends NH_Admin_Controller {
         }
         self::json_output($this->arr_response);
     }
+
+
+    /**
+     * password reset
+     */
+    public function password(){
+        if(self::is_ajax()){
+            $arr_response = array(
+                'status' => 'error',
+                'msg' => '操作失败'
+            );
+            $str_old_password = $this->input->post('old_password') ? trim($this->input->post('old_password')) : '';
+            $str_new_password = $this->input->post('new_password') ? trim($this->input->post('new_password')) : '';
+            $str_new_password_confirm = $this->input->post('new_password_confirm') ? trim($this->input->post('new_password_confirm')) : '';
+//            header("Content-type: text/html; charset=utf-8");
+            if($str_old_password AND $str_new_password AND $str_new_password_confirm){
+                $int_admin_id = $this->userinfo['id'];
+                $arr_admin = $this->admin->get_admin_by_id($int_admin_id);
+                $bool_result = check_password($arr_admin['salt'],$str_old_password,$arr_admin['password']);
+                if($bool_result===true){
+                    if($str_new_password==$str_new_password_confirm){
+                        //update
+                        $arr_param = array(
+                            'password' => create_password($arr_admin['salt'],$str_new_password)
+                        );
+                        $arr_where = array(
+                            'id' => $int_admin_id
+                        );
+                        $this->admin->update_admin($arr_param,$arr_where);
+                        $this->load->model('business/admin/business_passport','passport');
+                        $this->passport->logout();
+                        $arr_response = array(
+                            'status' => 'ok',
+                            'msg' => '操作成功,请重新登录'
+                        );
+                    }else{
+                        $arr_response['msg'] = '新密码不一致';
+                    }
+                }else{
+                    $arr_response['msg'] = '旧密码不正确';
+                }
+            }else{
+                $arr_response['msg'] = '参数不正确';
+            }
+            self::json_output($arr_response);
+        }else{
+            $this->smarty->assign('view', 'password_edit');
+            $this->smarty->display('admin/layout.html');
+        }
+    }
 }

@@ -357,4 +357,15 @@ class Teacher extends NH_Admin_Controller {
         }
         self::json_output($arr_return);
     }
+
+    /**
+     *根据昵称查询老师
+     * @author shangshikai@tizi.com
+     */
+    public function select_nickname()
+    {
+        $nickname=$this->input->post('nickname',TRUE);
+        $nick=$this->teacher->nick_teacher($nickname);
+        echo json_encode($nick);
+    }
 }

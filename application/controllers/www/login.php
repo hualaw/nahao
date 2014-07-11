@@ -78,7 +78,7 @@ class login extends NH_Controller
     public function ajax_reset_pwd()
     {
         $arr_return = array('status' => ERROR, 'info' => '参数不正确', 'url' => student_url());
-        $new_pwd = trim($this->input->post('setPassword'));
+        $new_pwd = trim($this->input->post('encrypt_set_password'));
         $phone = $this->session->userdata('reset_pwd_phone');
         $code = trim($this->input->post('code'));//邮箱找回密码的加密口令
         if(!$code && !$phone) {
