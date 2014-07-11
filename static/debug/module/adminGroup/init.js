@@ -3,4 +3,5 @@ define(function(require,exports){
     var group = require('module/adminGroup/group');
     group.create_group();
     group.active_group();
+    group.bind_everything
 })

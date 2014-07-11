@@ -90,4 +90,20 @@ class Group extends NH_Admin_Controller {
         self::json_output($this->arr_response);
     }
 
+    public function group(){
+        $int_group_id = $this->input->get('group_id') ? intval($this->input->get('group_id')) : 0;
+        $arr_response = array(
+            'status' => 'error',
+            'data' => array()
+        );
+        if($int_group_id > 0){
+            $arr_group = $this->group->get_group_by_id($int_group_id);
+            if($arr_group){
+                $arr_response['status'] = 'ok';
+                $arr_response['data'] = $arr_group;
+            }
+        }
+        self::json_output($arr_response);
+    }
+
 }
