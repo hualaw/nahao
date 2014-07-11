@@ -6,8 +6,8 @@
  * Time: 上午10:07
  */
 
-$g3b_obj = new Get_3tong_balance();
-$g3b_obj->send();
+//$g3b_obj = new Get_3tong_balance();
+//$g3b_obj->send();
 
 Class Get_3tong_balance
 {
