@@ -10,6 +10,7 @@ class Index extends NH_User_Controller {
         $this->load->model('business/common/business_area');
         $this->load->model('business/common/business_school');
     }
+    
     /**
      * 浏览器 下载页
      */
@@ -17,6 +18,7 @@ class Index extends NH_User_Controller {
 	{
 		$this->smarty->display('www/studentHomePage/browser.html');
 	}
+	
     /**
      * 首页获取轮的列表信息
      * $debug == 1 显示测试的课程列表，否则把测试的过滤掉
@@ -28,13 +30,10 @@ class Index extends NH_User_Controller {
 			$array_data = $this->student_index->get_course_latest_round_list();
 		} else {
 			$array_data = $this->student_index->get_course_latest_round_list();
-			$home_course_show = config_item('home_course_show');
-			foreach ($array_data as $k=>$v)
+			if($array_data)
 			{
-				if(in_array($v['id'], $home_course_show))
-				{
-					unset($array_data[$k]);
-				}
+				#没有加nh_dbug参数 过滤掉测试轮
+				$array_data =$this->student_index->filter_test_round($array_data);
 			}
 		}
         //var_dump($array_data);

@@ -104,4 +104,21 @@ class Student_Index extends NH_Model{
     	}
     	return $this->model_index->save_apply_teach($param);
     }
+    
+    /**
+     * 没有加nh_dbug参数 过滤掉测试轮
+     * @param  $array_data
+     * @return $array_data
+     */
+    public function filter_test_round($array_data)
+    {
+    	foreach ($array_data as $k=>$v)
+		{
+			if($v['is_test'] == '1')
+			{
+				unset($array_data[$k]);
+			}
+		}
+		return $array_data;
+    }
 }
