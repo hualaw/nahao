@@ -41,19 +41,18 @@ Class Get_3tong_balance
     }
 
     //大汉三通的结果处理
-    private function filter_output($output){
-        $output = simplexml_load_string($output);
+    private function filter_output($output_xml){
+        $output = simplexml_load_string($output_xml);
         //var_dump($output);
         $result = (int)($output->result);
-        $res['xml'] = $output;
         if($result === 0)
         {
         	$res = json_decode(json_encode($output),TRUE);
+        	$res['xml'] = $output_xml;
         	return $res;
-//         	$result = simplexml_load_string($output->sms->amount);
-//             return (int)($output->sms->amount);
         }
         else{
+        	$res['xml'] = $output_xml;
         	$res['result'] = $result;
         	$res['desc'] = $this->get_send3_error_code($result);
             return $res;
