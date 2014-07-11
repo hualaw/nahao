@@ -1,7 +1,7 @@
 define(function(require,exports){
     //create group
     exports.create_group=function(){
-        $("#group_create_modal").on("click", '#btn_group_submit', function () {
+        $("#btn_group_submit").on("click", function () {
             var modal = $("#group_create_modal");
             var btn = $('#btn_group_submit');
 
@@ -14,7 +14,7 @@ define(function(require,exports){
                 if (response && response.status == "ok") {
                     window.location.reload();
                 }
-            }, "json");
+            });
         });
     }
 
@@ -32,7 +32,7 @@ define(function(require,exports){
                 if (response && response.status == "ok") {
                     window.location.reload();
                 }
-            }, "json");
+            });
         });
     }
 });
