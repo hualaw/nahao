@@ -37,16 +37,17 @@ class Business_Teacher extends NH_Model
      */
     public function day_count()
     {
-        $day=date('Y-m-d',time());
-        $day_start=strtotime($day." 00:00:00");
-        $day_end=strtotime($day." 23:59:59");
+        $year=date('Y',time());
+        $mon=date('m',time());
+        $day=date('d',time());
+        $day_start=mktime(0,0,0,$mon,$day,$year);
+        $day_end=mktime(0,0,0,$mon,$day+1,$year);
 
-        $str_table_range = 'teacher_info_subject';
+        $str_table_range = 'user_info';
         $str_result_type = 'count';
         $str_fields = 'count(1) as count';
-        $arr_where[TABLE_USER.'.teach_priv'] = 1;
-        $arr_where[TABLE_USER.'.register_time<'] = $day_end;
-        $arr_where[TABLE_USER.'.register_time>'] = $day_start;
+        $arr_where[TABLE_USER_INFO.'.teacher_time<'] = $day_end;
+        $arr_where[TABLE_USER_INFO.'.teacher_time>='] = $day_start;
         $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         return $int_return;
     }
@@ -142,7 +143,7 @@ class Business_Teacher extends NH_Model
             $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_ON;
 //            $arr_where[TABLE_USER.'.status'] = TABLE_USER_DIC_STATUS_ON;
             if(array_key_exists('title',$arr_where)){
-                $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title']-1;
+                $arr_where[TABLE_USER_INFO.'.title'] = $arr_where['title'];
                 unset($arr_where['title']);
             }
             if(array_key_exists('province',$arr_where)){
@@ -431,6 +432,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['title_auth_img']=$post['title_auth_img'];
         $post_user_info['teacher_auth_img']=$post['teacher_auth_img'];
         $post_user_info['status']=1;
+        $post_user_info['teacher_time']=time();
         //var_dump($post_user_info);die;
        // var_dump($post_user_info);die;
         return $this->model_user->create_user_info($post_user_info);
@@ -623,4 +625,19 @@ class Business_Teacher extends NH_Model
 //        }
 //        return $str_table_range;
 //    }
+    /**
+     *根据昵称查询老师
+     * @author shangshikai@tizi.com
+     */
+    public function nick_teacher($nickname)
+    {
+        $str_table_range = 'user';
+        $str_result_type = 'list';
+        $str_fields = 'id,nickname';
+        $arr_where[TABLE_USER.'.teach_priv'] = 1;
+        $arr_where[TABLE_USER.'.status'] = 1;
+        $arr_where[TABLE_USER.'.nickname'] = $nickname;
+        $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        return $int_return;
+    }
 }

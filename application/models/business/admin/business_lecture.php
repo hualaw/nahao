@@ -156,7 +156,7 @@
                 'title'=>$post['title'],
                 'titile_auth'=>1,
                 'teacher_auth'=>1,
-                'update_time'=>time()
+                'teacher_time'=>time()
             );
 
             $subject_data['subject_id']=$post['subject'];

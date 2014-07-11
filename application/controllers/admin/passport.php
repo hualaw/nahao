@@ -48,6 +48,7 @@ class Passport extends NH_Admin_Controller
         $this->passport->logout();
         redirect('/');
     }
+
 }
 
 /* End of file welcome.php */

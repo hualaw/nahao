@@ -3,4 +3,5 @@ define(function(require,exports){
     var admin = require('module/adminAdmin/admin');
     admin.create_admin();
     admin.active_admin();
+    admin.password();
 })

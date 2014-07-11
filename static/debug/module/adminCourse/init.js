@@ -1,6 +1,7 @@
 define(function(require,exports){
     require('lib/bootstrap/bootstrap.min');
     require('lib/ckeditor/4.3/ckeditor');
+    require('lib/jquery/1.8.2/jquery.js');
 
     var course = require('module/adminCourse/course');
     course.load_ckeditor();
@@ -11,6 +12,7 @@ define(function(require,exports){
 //    course.delete_lesson();
     course.submit_course();
     course.course_operation();
+    course.select_nickname();
 
 
     var upload = require("module/adminCourse/upload");
