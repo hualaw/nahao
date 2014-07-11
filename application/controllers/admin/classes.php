@@ -66,22 +66,20 @@ class Classes extends NH_Admin_Controller {
             'msg' => '时间不可用'
         );
 
-        $str_config_name = (ROUND_GENERATE_MODE=='testing' AND in_array(ENVIRONMENT,array('testing','development'))) ? 'testing_round_time_config' : 'production_round_time_config';
-        $arr_time_config = config_item($str_config_name);
         if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0){
             $bool_flag = true;
-
-            if($int_end_time < $int_begin_time + $arr_time_config['class_min_long']){
-                $bool_flag = false;
-                $arr_response['msg'] = '课长太短';
-            }elseif($int_end_time > $int_begin_time + $arr_time_config['class_max_long']){
-                $bool_flag = false;
-                $arr_response['msg'] = '课长太长';
-            }
-
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
             if($arr_round AND isset($arr_round['start_time'])){
+                $str_config_name = ($arr_round['is_test']==0 AND in_array(ENVIRONMENT,array('production'))) ?  'production_round_time_config' : 'testing_round_time_config' ;
+                $arr_time_config = config_item($str_config_name);
+                if($int_end_time < $int_begin_time + $arr_time_config['class_min_long']){
+                    $bool_flag = false;
+                    $arr_response['msg'] = '课长太短';
+                }elseif($int_end_time > $int_begin_time + $arr_time_config['class_max_long']){
+                    $bool_flag = false;
+                    $arr_response['msg'] = '课长太长';
+                }
                 if(($arr_round['start_time']+$arr_time_config['before_first_class']) > $int_begin_time){
                     $bool_flag = false;
                     $arr_response['msg'] = '课开始时间要晚于轮开始时间后一定时间';

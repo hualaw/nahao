@@ -1,7 +1,7 @@
 <form class="form-horizontal" role="form">
     <div class="form-group">
         <div class="col-md-1">
-            <botton class="btn btn-success" data-toggle="modal" data-target="#group_create_modal">
+            <botton class="btn btn-success" id="btn_group_create">
                 新增组
             </botton>
         </div>
@@ -10,7 +10,7 @@
         <input type="text" class="form-control" id="group_name" name="group_name" size="16"
                value="{if isset($arr_query_param.group_name)}{$arr_query_param.group_name}{/if}">
         </div>
-        <button type="submit" class="btn btn-default">搜索</button>
+        <button type="submit" class="btn btn-primary">搜索</button>
     </div>
 </form>
 <table class="table table-hover">
@@ -31,14 +31,14 @@
         <td>
             <a href="javascript:;" class="group_active" data-action="/group/active" data-group_id="{$v.id}"
                data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
-            <a href="javascript:;">修改</a>
+            <a href="javascript:;" class="btn_group_edit">修改</a>
         </td>
     </tr>
     {/foreach}
     </tbody>
 </table>
 共{$count}条记录&nbsp;&nbsp;{$page}
-{include file="admin/group_modal_create.html"}
+{include file="admin/group_modal_operation.html"}
 
 
 
