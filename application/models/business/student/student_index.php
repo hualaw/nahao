@@ -96,10 +96,20 @@ class Student_Index extends NH_Model{
     public function save_apply_teach($param)
     {
 //    	var_dump($param);die;
+		$Chinese = array(
+			'course' => '课程名称','resume' => '个人简介','subject' => '试讲科目','province' => '省份',
+			'area' => '区','school_type' => '学校类型','teach_years' => '实际教龄',
+			'course_intro' => '课程介绍','teach_type' => '讲课方式','title' => '教师职称',
+			'age' => '年龄','phone' => '手机号码','email' => '常用邮箱','qq' => 'QQ号',
+			'start_time' => '试讲开始时间','end_time' => '试讲结束时间','name' => '真实姓名',
+		);
     	foreach ($param as $key => $val){
     		if(!$val && !in_array($key,array('schoolname','school','city'))){
-    			echo json_encode(array('status'=>'error','msg'=>$key.'不能为空，请重新填写'));die;
+    			echo json_encode(array('status'=>'error','msg'=>'【'.$Chinese[$key].'】不能为空，请重新填写'));die;
 //    			exit('<script>alert("'.$key.'不能为空，请重新填写");history.go(-1);</script>');
+    		}
+    		if($key=='name' && !check_name_length($val)){
+    			echo json_encode(array('status'=>'error','msg'=>'真实姓名要控制在4~25个字符,一个汉字按两个字符计算'));die;
     		}
     	}
     	return $this->model_index->save_apply_teach($param);
