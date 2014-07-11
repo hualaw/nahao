@@ -307,7 +307,7 @@ define('STATIC_ADMIN_JS_CONFIG','/public/config.js');
 //static css
 define('STATIC_ADMIN_CSS_PUBLIC','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_CLASSROOM','/css/classRoom/style.css');
-define('STATIC_ADMIN_CSS_PREVIEW','/css/adminPublic/preview.css');
+define('STATIC_ADMIN_CSS_PREVIEW','/css/adminPreview/style.css');
 define('STATIC_ADMIN_CSS_SIGNIN','/css/adminSignin/style.css');
 //define('STATIC_ADMIN_CSS_NAV','/css/adminPublic/style.css');
 define('STATIC_ADMIN_CSS_BOOTSTRAP','/admin/css/bootstrap.css');
@@ -342,7 +342,9 @@ define('GET_PASSWORD_VERIFY_CODE', 3);
 define('NH_QINIU_ACCESS_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
 define('NH_QINIU_SECRET_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
 define('NH_QINIU_BUCKET','nahaoweb');
+define('NH_QINIU_VIDEO_BUCKET','nahaovideo');
 //define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
+define('NH_QINIU_VIDEO_URL', 'http://'.NH_QINIU_VIDEO_BUCKET.'.qiniudn.com/');
 define('NH_QINIU_URL', 'http://img1.nahao.com/');
 
 define('MAX_NICKNAME_LEN', 25);

@@ -162,12 +162,12 @@ $config['teacher_type'][2] = '小班教育(15人以内)';
 $config['teacher_type'][3] = '大班教育不限人数';
 
 //职称
-$config['teacher_title'][0] = '无职称';
-$config['teacher_title'][1] = '正高级教师';
-$config['teacher_title'][2] = '高级教师';
-$config['teacher_title'][3] = '一级教师';
-$config['teacher_title'][4] = '二级教师';
-$config['teacher_title'][5] = '三级教师';
+$config['teacher_title'][1] = '无职称';
+$config['teacher_title'][2] = '正高级教师';
+$config['teacher_title'][3] = '高级教师';
+$config['teacher_title'][4] = '一级教师';
+$config['teacher_title'][5] = '二级教师';
+$config['teacher_title'][6] = '三级教师';
 
 
 
