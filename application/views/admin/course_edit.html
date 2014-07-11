@@ -125,7 +125,7 @@
 			        		<button class="btn btn-primary add-video">添加</button>
 			        		<button class="btn btn-primary remove-video">减少</button>
 			        		<button class="btn btn-success add-copy-code hide" style="float:right">添加到编辑器</button>
-			        		<button class="btn btn-success copy-code" style="float:right">复制代码</button>
+			        		<button class="btn btn-default copy-code copyButton greenText" id="inviteId" style="float:right">复制代码(IE)</button>
 			        	</div>
 			        	<hr />
 			        	<div class="video-items">
@@ -225,7 +225,10 @@
 	    		}
 	    	});
 	    $('.copy-code').click(function(){
-			 window.clipboardData.setData("text",$('.previewcode').text());
+	    	alert(navigator.appName);
+	    	if( navigator.appName == "Microsoft Internet Explorer" ){
+	    		window.clipboardData.setData("text",$('.previewcode').text());
+	    	}
 	    });
 	    $('.add-copy-code').click(function(){
 	    	var ckdata = usedata = new_ckdata = '';
