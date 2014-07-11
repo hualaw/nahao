@@ -25,9 +25,11 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
+
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".regPhoneBox .pwd").val());
-                $(".regPhoneBox .pwd").val(hash.toString());
+                $(".regPhoneBox .pwd").attr("disabled",true);
+                $(".regPhoneBox .epass").val(hash.toString());
 
             },
             callback:function(json){
@@ -36,7 +38,8 @@ define(function(require,exports){
                 }else{
                     $.dialog({
                         content:json.msg
-                    })
+                    });
+                    $(".regPhoneBox .pwd").removeAttr("disabled");
                 }
             }
         });
@@ -99,9 +102,9 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                //alert($(".regEmailBox .pwd").val());
                 var hash = CryptoJS.SHA1($(".regEmailBox .pwd").val());
-                $(".regEmailBox .pwd").val(hash.toString());
+                $(".regEmailBox .pwd").attr("disabled",true);
+                $(".regEmailBox .epass").val(hash.toString());
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -109,7 +112,8 @@ define(function(require,exports){
                 }else{
                      $.dialog({
                         content:json.msg
-                    })
+                    });
+                    $(".regEmailBox .pwd").removeAttr("disabled");
                 }
             }
         });
