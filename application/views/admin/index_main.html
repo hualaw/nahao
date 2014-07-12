@@ -6,23 +6,27 @@
 <button type="submit" class="btn btn-info">搜索</button><br /><br />
 </form>
 <label class="control-label" for="inputSuccess">当前日期:{$int_to_time}</label><br />
-<table class="table table-hover">
+<table class="table table-bordered table table-hover">
     <thead>
         <tr>
             <th>时段</th>
             <th>轮ID</th>
             <th>轮名称</th>
+            <th>课ID</th>
+            <th>课名称</th>
             <th>轮上限人数</th>
             <th>此时段总人数</th>
         </tr>
     </thead>
     {foreach $arr_list as $k=>$v}
     <tr>
-        <td>{$k+1}:00--{$k+2}:00</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.id} {/foreach}</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.title} {/foreach}</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.caps} {/foreach}</td>
-        <td>{if isset($v.total)}{$v.total}{/if}</td>
+        <td>{$k}:00--{$k+1}:00</td>
+        <td>{foreach $v as $kk=>$vv}{$vv.round_id}<br />{/foreach}</td>
+        <td>{foreach $v as $kk=>$vv}{$vv.round_title}<br />{/foreach}</td>
+        <td>{foreach $v as $kk=>$vv}{$vv.id}<br />{/foreach}</td>
+        <td>{foreach $v as $kk=>$vv}{$vv.title}<br />{/foreach}</td>
+        <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>
+        <td>{if isset($v.total)}{$v.total}<br />{/if}</td>
     </tr>
     {/foreach}
 </table>
