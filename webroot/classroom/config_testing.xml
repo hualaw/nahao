@@ -6,7 +6,7 @@
     </server>
     <sevport>4443</sevport>
     <phDome></phDome>
-    <version>5</version>
+    <version>8</version>
     <apiurl>http://api.nahaotest.com/</apiurl>
     <Software>http://video1.nahao.com/NahaoSetup.exe</Software>
     <AutoUpdate>http://video1.nahao.com/NahaoUpdate.zip</AutoUpdate>
