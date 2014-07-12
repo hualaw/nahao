@@ -8,5 +8,6 @@
 	<phDome></phDome>
 	<version>5</version>
 	<apiurl>http://api.nahaodev.com/</apiurl>
-	<Software>http://static.nahaodev.com/download/NahaoSetup.exe</Software>
+	<Software>http://video1.nahao.com/NahaoSetup.exe</Software>
+	<AutoUpdate>http://video1.nahao.com/NahaoUpdate.zip</AutoUpdate>
 </url>
