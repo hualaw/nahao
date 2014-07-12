@@ -5,10 +5,6 @@
  * Date: 14-7-11
  * Time: 上午10:07
  */
-
-//$g3b_obj = new Get_3tong_balance();
-//$g3b_obj->send();
-
 Class Get_3tong_balance
 {
     private $account = 'dh20994';
@@ -22,8 +18,9 @@ Class Get_3tong_balance
         $send_message .= '<password>' . md5($this->pwd) . '</password>'; //密码
         $send_message .= '</message>';
         //echo $send_message;
-        $ret =   $this->curl_link($send_message);
-        echo $ret;
+        $ret = $this->curl_link($send_message);
+        return $ret;
+        
     }
 
     //send_3 调用
@@ -37,23 +34,28 @@ Class Get_3tong_balance
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($ch);
-        echo $output;
+       // echo $output;
         $output = $this->filter_output($output);
         curl_close($ch);
         return $output;
     }
 
     //大汉三通的结果处理
-    private function filter_output($output){
-        $output = simplexml_load_string($output);
+    private function filter_output($output_xml){
+        $output = simplexml_load_string($output_xml);
         //var_dump($output);
         $result = (int)($output->result);
         if($result === 0)
         {
-            return (int)($output->sms->amount);
+        	$res = json_decode(json_encode($output),TRUE);
+        	$res['xml'] = $output_xml;
+        	return $res;
         }
         else{
-            return $this->get_send3_error_code($result);
+        	$res['xml'] = $output_xml;
+        	$res['result'] = $result;
+        	$res['desc'] = $this->get_send3_error_code($result);
+            return $res;
         }
     }
 
