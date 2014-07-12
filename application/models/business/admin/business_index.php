@@ -22,8 +22,7 @@ class Business_Index extends NH_Model{
         $str_start_day=date('d',$str_time);
         $str_start_mon=date('m',$str_time);
         $str_start_year=date('Y',$str_time);
-        $tomorrow=mktime(23,59,59,$str_start_mon,$str_start_day,$str_start_year);
-        for($i=1;$i<=24;$i++)
+        for($i=0;$i<=23;$i++)
         {
             array_push($arr_time,mktime($i,0,0,$str_start_mon,$str_start_day,$str_start_year));
         }
@@ -38,15 +37,19 @@ class Business_Index extends NH_Model{
             else
             {
                 $str_start_time=$arr_time[$k];
+                $tomorrow=mktime(23,59,59,$str_start_mon,$str_start_day,$str_start_year);
                 $arr_list[]=$this->model_index->num_goclass($str_start_time,$tomorrow);
             }
         }
+//        var_dump($arr_list);die;
         foreach($arr_list as $k=>$v)
         {
             $arr_list[$k]['total']=0;
+            $arr_list[$k]['count']=0;
             foreach($v as $vv)
             {
                 $arr_list[$k]['total']+=$vv['caps'];
+                $arr_list[$k]['count']+=$vv['con'];
             }
         }
         return $arr_list;
