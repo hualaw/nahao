@@ -1,5 +1,5 @@
 <?php
-    class Model_index extends NH_Model{
+    class Model_count_time_num extends NH_Model{
         /**
          * 预估某个时间段的总上课人数
          * @author shangshikai@tizi.com
