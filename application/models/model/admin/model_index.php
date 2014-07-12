@@ -6,11 +6,14 @@
          */
         public function num_goclass($str_start_time,$str_end_time)
         {
-            $this->db->select(TABLE_CLASS.'.id,'.TABLE_CLASS.'.title,'.TABLE_CLASS.'.round_id,'.TABLE_ROUND.'.caps,'.TABLE_ROUND.'.title as round_title')->from(TABLE_CLASS)->join(TABLE_ROUND,TABLE_ROUND.'.id='.TABLE_CLASS.'.round_id','left');
-            $this->db->where(TABLE_CLASS.'.begin_time<=',$str_start_time);
-            $this->db->where(TABLE_CLASS.'.end_time>=',$str_end_time);
-            $this->db->where(TABLE_CLASS.'.status!=',5);
-            $this->db->where(TABLE_CLASS.'.status!=',6);
-            return $this->db->get()->result_array();
+            $sql="SELECT count(student_class.class_id) as con, class.id, class.title, class.round_id, round.caps, round.title as round_title
+FROM class
+LEFT JOIN round ON round.id=class.round_id LEFT JOIN student_class ON student_class.class_id=class.id
+WHERE class.begin_time<= $str_start_time
+AND (class.end_time>= $str_end_time OR class.end_time>=$str_start_time)
+AND class.status!= 4
+AND class.status!= 5
+AND class.status!= 6";
+            return $this->db->query($sql)->result_array();
         }
     }

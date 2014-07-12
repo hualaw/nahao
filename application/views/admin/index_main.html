@@ -15,7 +15,8 @@
             <th>课ID</th>
             <th>课名称</th>
             <th>轮上限人数</th>
-            <th>此时段总人数</th>
+            <th>时段上限人数</th>
+            <th>已购买人数</th>
         </tr>
     </thead>
     {foreach $arr_list as $k=>$v}
@@ -26,7 +27,8 @@
         <td>{foreach $v as $kk=>$vv}{$vv.id}<br />{/foreach}</td>
         <td>{foreach $v as $kk=>$vv}{$vv.title}<br />{/foreach}</td>
         <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>
-        <td>{if isset($v.total)}{$v.total}<br />{/if}</td>
+        <td>{if isset($v.total)}{$v.total}{/if}</td>
+        <td>{$v.count}</td>
     </tr>
     {/foreach}
 </table>
