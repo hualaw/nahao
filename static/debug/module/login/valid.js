@@ -25,9 +25,11 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
+
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".regPhoneBox .pwd").val());
-                $(".regPhoneBox .pwd").val(hash.toString());
+                $(".regPhoneBox .pwd").attr("disabled",true);
+                $(".regPhoneBox .epass").val(hash.toString());
 
             },
             callback:function(json){
@@ -36,7 +38,8 @@ define(function(require,exports){
                 }else{
                     $.dialog({
                         content:json.msg
-                    })
+                    });
+                    $(".regPhoneBox .pwd").removeAttr("disabled");
                 }
             }
         });
@@ -99,9 +102,9 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                //alert($(".regEmailBox .pwd").val());
                 var hash = CryptoJS.SHA1($(".regEmailBox .pwd").val());
-                $(".regEmailBox .pwd").val(hash.toString());
+                $(".regEmailBox .pwd").attr("disabled",true);
+                $(".regEmailBox .epass").val(hash.toString());
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -109,7 +112,8 @@ define(function(require,exports){
                 }else{
                      $.dialog({
                         content:json.msg
-                    })
+                    });
+                    $(".regEmailBox .pwd").removeAttr("disabled");
                 }
             }
         });
@@ -551,9 +555,11 @@ define(function(require,exports){
             beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash_set = CryptoJS.SHA1($(".setPassword").val());
-                $(".setPassword").val(hash_set.toString());
+                $("input[name='encrypt_set_password']").val(hash_set.toString());
+                $(".setPassword").attr('disabled', true);
                 var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
-                $(".reSetPassword").val(hash_reset.toString());
+                $("input[name='encrypt_reset_password']").val(hash_reset.toString());
+                $(".reSetPassword").attr('disabled', true);
             },
             callback: function(data) {
                 if(data.status == 'ok') {
@@ -580,7 +586,7 @@ define(function(require,exports){
             {
                 ele:".reSetPassword",
                 datatype:"*6-20",
-                recheck:"setPassword",
+                recheck:"set_password",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
             }          

@@ -78,7 +78,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-		//var_dump($array_data);
+// 		var_dump($array_classmate);
 		//var_dump();die;$_COOKIE['NHID']
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
@@ -148,6 +148,15 @@ class Course extends NH_User_Controller {
 	    
 	    $int_score  = $this->input->post("score");
 	    $str_content = $this->input->post("content",true);
+	    if(intval($int_score) == '0')
+	    {
+	    	self::json_output(array('status'=>'error','msg'=>'您还没有打分！'));
+	    }
+	    
+	    if(empty($str_content))
+	    {
+	    	self::json_output(array('status'=>'error','msg'=>'评价内容不能为空！'));
+	    }
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
 	            'round_id'=>$array_result['round_id'],
