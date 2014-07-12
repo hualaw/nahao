@@ -7,7 +7,7 @@
 .studentHomePage .roll ul li{ position:absolute;opacity:0;width:100%;}
 .studentHomePage .roll ul li.rollshow{ opacity:1;z-index: 2;}
 .studentHomePage .roll ul li a{display: block;text-align: center;height: 420px;}
-.studentHomePage .roll ul li a.roll1{background: url(../../images/studentHomePage/roll/roll1.jpg) center top no-repeat;}
+.studentHomePage .roll ul li a.roll1{background: url(../../images/studentHomePage/roll/roll1.jpg) center top no-repeat #e5b49e;}
 .studentHomePage .roll ul li a.roll2{background: url(../../images/studentHomePage/roll/roll2.jpg) center top no-repeat #000;}
 .studentHomePage .roll ul li a.roll3{background: url(../../images/studentHomePage/roll/roll3.jpg) center top no-repeat #5f5d6a;}
 .studentHomePage .rollNav li{ width:12px; height:12px;margin-right:14px;border: 1px solid #f14211;border-radius: 7px;background: #fff;cursor: pointer;}
