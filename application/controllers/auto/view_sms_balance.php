@@ -18,15 +18,6 @@ class view_sms_balance extends NH_Controller
 	 */
     public function index()
     {
-    	$send_mobile = config_item('sms_send_mobile');
-    	if ($send_mobile){
-    		$send_mobile_name = '';
-	    	foreach ($send_mobile as $key=>$value){
-	    		$send_mobile_name .= $key.',';
-	    		$send_mobile_value[] = $value;
-	    	}
-    	}
-    	
     	$this->load->library('Get_3tong_balance');
     	
     	$g3b_obj = new Get_3tong_balance();
@@ -35,6 +26,15 @@ class view_sms_balance extends NH_Controller
     		if(!empty($result['sms'])){
     			log_message('error_nahao','短信账户剩余金额为：'.$result['sms']['amount'].',短信剩余条数为：'.$result['sms']['number'].'。');
     			if($result['sms']['amount'] < 1000){
+    				$send_mobile = config_item('sms_send_mobile');
+    				if ($send_mobile){
+    					$send_mobile_name = '';
+    					foreach ($send_mobile as $key=>$value){
+    						$send_mobile_name .= $key.',';
+    						$send_mobile_value[] = $value;
+    					}
+    				}
+    				
     				$this->load->library('sms');
     				$msg = '短信账户余额已不足1000，剩余为：'.$result['sms']['amount'].'。';
     				if (!empty($send_mobile_value)){
