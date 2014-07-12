@@ -16,19 +16,17 @@
             <th>课名称</th>
             <th>轮上限人数</th>
             <th>时段上限人数</th>
-            <th>已购买人数</th>
         </tr>
     </thead>
     {foreach $arr_list as $k=>$v}
     <tr>
         <td>{$k}:00--{$k+1}:00</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.round_id}<br />{/foreach}</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.round_title}<br />{/foreach}</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.id}<br />{/foreach}</td>
-        <td>{foreach $v as $kk=>$vv}{$vv.title}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.round_id}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.round_title}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.id}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.title}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.begin_time|date_format:'%H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.end_time|date_format:'%H:%M:%S'}<br />{/foreach}</td>
         <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>
-        <td>{if isset($v.total)}{$v.total}{/if}</td>
-        <td>{$v.count}</td>
+        <td>{$v.total}</td>
     </tr>
     {/foreach}
 </table>

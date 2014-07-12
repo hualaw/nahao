@@ -11,7 +11,6 @@ class Index extends NH_Admin_Controller
     {
         parent::__construct();
     }
-
     /**
      * 预估某个时间段的总上课人数
      * @author shangshikai@tizi.com
