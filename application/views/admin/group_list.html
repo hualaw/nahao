@@ -1,7 +1,7 @@
 <form class="form-horizontal" role="form">
     <div class="form-group">
         <div class="col-md-1">
-            <botton class="btn btn-success" class="btn_group_create"  data-action="create">
+            <botton class="btn btn-success btn_group_create"  data-action="create">
                 新增组
             </botton>
         </div>
@@ -32,6 +32,7 @@
             <a href="javascript:;" class="group_active" data-action="/group/active" data-group_id="{$v.id}"
                data-status="{if $v.status eq 1}0{else}1{/if}">{if $v.status eq 1}禁用{else}启用{/if}</a>
             <a href="javascript:;" class="btn_group_edit" data-action="update" data-group_id="{$v.id}">修改</a>
+            <a href="javascript:;" class="btn_group_permission" data-group_id="{$v.id}">权限</a>
         </td>
     </tr>
     {/foreach}

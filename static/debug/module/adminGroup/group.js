@@ -2,7 +2,7 @@ define(function(require,exports){
 
     exports.bind_everything = function (){
 
-        //active group
+        //group active
         $(".group_active").on("click", function () {
             var btn = $(this);
             var action = btn.data('action');
@@ -18,32 +18,35 @@ define(function(require,exports){
             });
         });
 
+        //group edit create/update
         $(".btn_group_create,.btn_group_edit").on("click",function(){
             var action = $(this).data("action");
             if(action=="update"){
                 var data = {
                     'group_id' : $(this).data("group_id")
                 }
-                $.get("/group/group",data,function(response){
-                    console.log(response);
+                $.get("/group/groups",data,function(response){
+                    $("#modal_group_edit #group_id").val(response.data.id);
+                    $("#modal_group_edit #group_name").val(response.data.name);
+                    $("#modal_group_edit #group_status").attr("checked",response.data.status==1 ? true : false);
                 })
             }
+            $("#modal_group_edit").modal();
         });
 
-
-        //submit group
+        //group submit
         $("#btn_group_submit").on("click", function () {
-            var modal = $("#group_create_modal");
-            var btn = $('#btn_group_submit');
-
-            var action = btn.data('action');
+            var url = $('#btn_group_submit').data('action');
             var data = {
-                name: modal.find('#name').val()
+                "id": $("#modal_group_edit #group_id").val(),
+                "name": $("#modal_group_edit #group_name").val(),
+                "status": $('#modal_group_edit #group_status').attr("checked")=="checked" ? 1 : 0
             };
-            $.post(action, data, function (response) {
+            $.post(url, data, function (response) {
+                console.log(response);
                 alert(response.msg);
                 if (response && response.status == "ok") {
-                    window.location.reload();
+//                    window.location.reload();
                 }
             });
         });

@@ -47,6 +47,9 @@ $config['sql_config'] = array(
     'lesson' => array(
         TABLE_LESSON => false
     ),
+    'permission' => array(
+        TABLE_PERMISSION => false
+    ),
     'round' => array(
         TABLE_ROUND => false
     ),

@@ -1,23 +1,28 @@
 <!-- Modal group edit -->
-<div class="modal fade" id="modal_group_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="modal_group_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">新增组</h4>
+                <h4 class="modal-title" id="myModalLabel">组编辑</h4>
             </div>
             <div class="modal-body">
                 <form role="form" method="post">
                     <div class="form-group">
-                        <label for="name">组名</label>
-                        <input type="text" size="10" class="form-control" id="name" name="name" placeholder="输入组名">
+                        <label for="group_name">组名</label>
+                        <input type="text" size="10" class="form-control" id="group_name" name="group_name" placeholder="输入组名">
                     </div>
+                    <div class="checkbox">
+                        <lable>
+                            <input type="checkbox" name="group_status" id="group_status" checked>启用
+                        </lable>
+                    </div>
+                    <input type="hidden" name="group_id" id="group_id" >
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn_group_submit" data-action="/group/create"> &nbsp;创建
-                    &nbsp;</button>
+                <button type="button" class="btn btn-primary" id="btn_group_submit" data-action="/group/submit"> &nbsp;提交&nbsp;</button>
             </div>
         </div>
         <!-- /.modal-content -->
