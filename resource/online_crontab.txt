@@ -27,3 +27,6 @@
 
 #每月结算老师的课酬
 5 0 1 */1 * /usr/bin/php -c /etc/php5/fpm/php.ini -f /space1/nahao/webroot/index.php crontab teacher_checkout 2 >> /tmp/crontab.log 2>&1
+
+#监控大汉三通的短信余额
+0 */6 * * * /usr/bin/php -c /etc/php5/fpm/php.ini -f /space1/nahao/webroot/index.php view_sms_balance index >> /tmp/crontab.log 2>&1
