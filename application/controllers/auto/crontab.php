@@ -470,9 +470,9 @@ class Crontab extends CI_Controller
 	        		);
         		$bool = $this->teacher_m->set_class_score($param);
         		if($bool){
-        			echo '修改课'.$val['class_id'].'平均分('.$class_avg.')成功<br>\r\n';
+        			echo "修改课".$val['class_id']."平均分(".$class_avg.")成功\r\n";
         		}else{
-        			echo '修改课'.$val['class_id'].'平均分失败<br>\r\n';
+        			echo "修改课".$val['class_id']."平均分失败\r\n";
         		}
         		$classArr[] = $val['class_id'];
         	}
@@ -490,9 +490,9 @@ class Crontab extends CI_Controller
 	        		);
 	        	$bool = $this->teacher_m->set_round_score($param);
 	        	if($bool){
-        			echo '修改轮'.$val['round_id'].'平均分('.$round_avg.')成功<br>\r\n';
+        			echo "修改轮".$val['round_id']."平均分(".$round_avg.")成功\r\n";
         		}else{
-        			echo '修改轮'.$val['round_id'].'平均分失败<br>\r\n';
+        			echo "修改轮".$val['round_id']."平均分失败\r\n";
         		}
         		$roundArr[] = $val['round_id'];
         	}
@@ -510,9 +510,9 @@ class Crontab extends CI_Controller
 	        		);
         		$bool = $this->teacher_m->set_course_score($param);
 	        	if($bool){
-        			echo '修改课程'.$val['course_id'].'平均分('.$course_avg.')成功<br>\r\n';
+        			echo "修改课程".$val['course_id']."平均分(".$course_avg.")成功\r\n";
         		}else{
-        			echo '修改课程'.$val['course_id'].'平均分失败<br>\r\n';
+        			echo "修改课程".$val['course_id']."平均分失败\r\n";
         		}
         		$courseArr[] = $val['course_id'];
         	}
@@ -542,9 +542,9 @@ class Crontab extends CI_Controller
         	);
         $bool = $this->teacher_m->set_order_status($param);
         if($bool){
-        	echo '修改过期（7天之外）订单状态成功<br>\r\n';
+        	echo "修改过期（7天之外）订单状态成功\r\n";
         }else{
-        	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
+        	echo "修改过期（7天之外）订单状态失败或者暂时不存在过期的订单\r\n";
         }
         exit;
     }
@@ -597,9 +597,9 @@ class Crontab extends CI_Controller
         		$teacher_Arr[$val['teacher_id']][] = $val;
         		$bool = $this->teacher_m->set_class_checkout_status(array('class_id' => $val['id']));
         		if($bool){
-        			echo '更改课id'.$val['id'].'的结算状态为可结算成功<br>\r\n';
+        			echo "更改课id".$val['id']."的结算状态为可结算成功\r\n";
         		}else{
-        			echo '更改课id'.$val['id'].'的结算状态为可结算失败<br>\r\n';
+        			echo "更改课id".$val['id']."的结算状态为可结算失败\r\n";
         		}
         	}
         	foreach ($teacher_Arr as $key => $classes){
@@ -644,13 +644,13 @@ class Crontab extends CI_Controller
         		);
         		$bool = $this->teacher_m->create_teacher_checkout_log($param);
         		if($bool){
-		        	echo '老师id：'.$key.'的'.date('Y-m',time()).'月课酬结算日志生成成功<br>\r\n';
+		        	echo "老师id：".$key."的".date('Y-m',time())."月课酬结算日志生成成功\r\n";
 		        }else{
-		        	echo '老师id：'.$key.'的'.date('Y-m',time()).'月课酬结算日志生成失败<br>\r\n';
+		        	echo "老师id：".$key."的".date('Y-m',time())."月课酬结算日志生成失败\r\n";
 		        }
         	}
         }else{
-        	exit("该月没有老师上课记录<br>\r\n");
+        	exit("该月没有老师上课记录\r\n");
         }
         
     }
