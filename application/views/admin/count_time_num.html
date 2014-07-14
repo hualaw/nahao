@@ -19,6 +19,7 @@
     </tr>
     </thead>
     {foreach $arr_list as $k=>$v}
+    {if $v.total!=0}
     <tr>
         <td>{$k}:00--{$k+1}:00</td>
         <td>{foreach $v as $vv}{$vv.round_id}<br />{/foreach}</td>
@@ -28,5 +29,6 @@
         <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>
         <td>{$v.total}</td>
     </tr>
+    {/if}
     {/foreach}
 </table>
