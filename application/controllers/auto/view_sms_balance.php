@@ -10,10 +10,11 @@ class view_sms_balance extends NH_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->amount = 2000;
         $this->load->database();
     }
 	/**
-	 * @desc 查看短信账户信息，短信账户不足1000时，给指定人发短信。
+	 * @desc 查看短信账户信息，短信账户不足2000时，给指定人发短信。
 	 * @author shuaiqi_zhang
 	 */
     public function index()
@@ -25,7 +26,7 @@ class view_sms_balance extends NH_Controller
     	if(empty($result['result'])){
     		if(!empty($result['sms'])){
     			log_message('error_nahao','短信账户剩余金额为：'.$result['sms']['amount'].',短信剩余条数为：'.$result['sms']['number'].'。');
-    			if($result['sms']['amount'] < 1000){
+    			if($result['sms']['amount'] < $this->amount){
     				$send_mobile = config_item('sms_send_mobile');
     				if ($send_mobile){
     					$send_mobile_name = '';
@@ -36,7 +37,7 @@ class view_sms_balance extends NH_Controller
     				}
     				
     				$this->load->library('sms');
-    				$msg = '短信账户余额已不足1000，剩余为：'.$result['sms']['amount'].'。';
+    				$msg = '短信账户余额已不足'.$this->amount.'，剩余为：'.$result['sms']['amount'].'。';
     				if (!empty($send_mobile_value)){
     					foreach ($send_mobile_value as $val){
     						$this->sms->setPhoneNums($val);
