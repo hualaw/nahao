@@ -37,7 +37,7 @@ class Round extends NH_Admin_Controller
             $arr_where['sale_status'] = $int_sale_status;
         }
         if($int_teach_status > 0){
-            $arr_where['status'] = $int_teach_status;
+            $arr_where['teach_status'] = $int_teach_status;
         }
         if($int_subject > 0){
             $arr_where['subject'] = $int_subject;

@@ -56,6 +56,7 @@ class Business_Passport extends NH_Model{
 //                    $this->passport->set_token_to_cookie($arr_user_info);
                     $this->session->set_userdata($arr_user_info);
                     $this->session->set_userdata('user_id',$arr_user_info['id']);
+                    $this->session->set_userdata('nickname','admin');
                     $this->session->set_userdata('user_type', NH_MEETING_TYPE_ADMIN);
                     $bool_return = true;
                 }

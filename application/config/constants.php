@@ -344,7 +344,7 @@ define('NH_QINIU_SECRET_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
 define('NH_QINIU_BUCKET','nahaoweb');
 define('NH_QINIU_VIDEO_BUCKET','nahaovideo');
 //define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
-define('NH_QINIU_VIDEO_URL', 'http://'.NH_QINIU_VIDEO_BUCKET.'.qiniudn.com/');
+define('NH_QINIU_VIDEO_URL', 'http://video1.nahao.com/');
 define('NH_QINIU_URL', 'http://img1.nahao.com/');
 
 define('MAX_NICKNAME_LEN', 25);

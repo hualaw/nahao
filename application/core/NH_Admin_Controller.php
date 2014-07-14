@@ -37,7 +37,7 @@ class NH_Admin_Controller extends NH_Controller
                 //验证登录通过后拿到userinfo
 		        $this->userinfo = $this->session->all_userdata();
 
-//                o($this->userinfo);
+//                o($this->session->all_userdata());
                 $this->load->vars('userinfo',$this->userinfo);
                 $this->smarty->assign('userinfo',$this->userinfo);
                 $this->smarty->assign('current',$this->current);
