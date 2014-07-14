@@ -334,4 +334,17 @@
     		$int_row = $this->db->affected_rows();
     		return $int_row > 0 ? true : false;
     	}
+    	
+    	/**
+    	 * 不包括测试轮、等于开课时间的课id
+    	 * @param  $int_time
+    	 * @return $array_result
+    	 */
+    	public function get_equal_class_time_datas($int_time)
+    	{
+    		$array_result = array();
+    		$sql = "SELECT c.id,r.title,c.begin_time FROM ".TABLE_CLASS." c LEFT JOIN ".TABLE_ROUND." r on c.round_id = r.id  WHERE c.begin_time = ".$int_time." AND c.is_test = 0 AND c.parent_id > 0";
+    		$array_result = $this->db->query($sql)->result_array();
+    		return $array_result;
+    	}
     }
