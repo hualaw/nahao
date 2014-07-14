@@ -27,13 +27,13 @@ class Student_Classroom extends NH_Model{
         $array_qid_done = $this->get_student_question_qid($int_class_id,$int_max_sequence,$int_user_id);
         if (empty($array_qid))
         {
-            $array_return = array('status'=>'error','msg'=>'获取练习题失败');
+            return array('status'=>'error','msg'=>'获取练习题失败');
         }
         #在当前批次中将已经做过的题去掉
         $array_diff = array_diff($array_qid, $array_qid_done);
         if (empty($array_diff))
         {
-            $array_return = array('status'=>'error','msg'=>'您已经做过题了');
+            return array('status'=>'error','msg'=>'您已经做过题了');
         }
         #根据练习题的题目id，获取练习题的具体数据
         if ($array_diff)
@@ -56,9 +56,9 @@ class Student_Classroom extends NH_Model{
                 $array_infor['class_id'] = $int_class_id;
                 $array_data[] = $array_infor;
             }
-            $array_return = array('status'=>'ok','data'=>$array_data);
+            return array('status'=>'ok','data'=>$array_data);
         }
-        return $array_return;
+        //return $array_return;
     }
     
     /**

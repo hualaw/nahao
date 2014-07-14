@@ -1,4 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+header('content-type: text/html; charset=utf-8');
 /**
  * 15分钟定时统计(0,15,30,45整分开始跑计划任务)
  */
@@ -14,6 +15,7 @@ class Crontab extends CI_Controller
         $this->load->model('business/auto/business_crontab');
         $this->load->model('model/auto/model_crontab');
         $this->load->model('model/teacher/model_teacher','teacher_m');
+        $this->load->library('sms');
     }
     
     /**
@@ -523,8 +525,7 @@ class Crontab extends CI_Controller
      * jason
      * 跑法：
      * update
-     * 1. 找到生成时间为大于当前时间减7天状态为0,1,4的订单,将状态改为5
-     * 2. 找到生成时间为大于当前时间减7天轮id销售状态为4,5,6,将状态改为5
+     * 1. 找到生成时间为大于当前时间减7天状态为0,1,4的订单,销售状态为4,5,6,将订单状态改为5
      */
     public function order_status_setter()
     {
@@ -532,12 +533,12 @@ class Crontab extends CI_Controller
         $start_time = strtotime("-7 day");//过期时间点，如果比它小，说明是过期的
         //测试七天前时间  var_dump(date('Y-m-d',$start_time));
         $end_time = time();
-        #2.1 按订单状态过期更改订单状态
+        #2 更改订单状态
         $param = array(
         	'statusFrom' 		=> '0,1,4',
+//        	'sale_status' 		=> '4,5,6',
         	'statusTo'	 		=> '5',
         	'create_time_from'	=> $start_time,
-//        	'create_time_to'	=> $end_time,
         	);
         $bool = $this->teacher_m->set_order_status($param);
         if($bool){
@@ -545,19 +546,7 @@ class Crontab extends CI_Controller
         }else{
         	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
         }
-        #2.2 按轮销售状态过期更改订单状态
-        $param = array(
-        	'sale_status' => '4,5,6',
-        	'statusTo'	 		=> '5',
-        	'create_time_from'	=> $start_time,
-//        	'create_time_to'	=> $end_time,
-        	);
-        $bool = $this->teacher_m->set_order_status($param);
-        if($bool){
-        	echo '修改过期（七天之外）轮销售状态的订单状态成功<br>\r\n';
-        }else{
-        	echo '修改过期（7天之外）订单状态失败或者暂时不存在过期的订单<br>\r\n';
-        }
+        exit;
     }
     
     /**
@@ -665,4 +654,121 @@ class Crontab extends CI_Controller
         }
         
     }
+    
+    /**
+     * 给到了开课时间前3小时的所有买过这门课的学生发短信
+     */
+    public function send_message_for_buy_class()
+    {
+    	$a = 3600*3;
+    	$int_time = $this->get_time() + $a;
+    	//$int_time = '1405339200';
+    	#不包括测试轮、等于开课时间的课id
+    	$array_class = $this->model_crontab->get_equal_class_time_datas($int_time);
+    	if ($array_class)
+    	{
+    		foreach($array_class as $k=>$v)
+    		{
+    			#获取买这节课的学生
+    			$array_student = $this->model_crontab->get_buy_class($v['id']);
+    			if (empty($array_student))
+    			{
+    				echo "[".date('Y-m-d H:i:s')."]:send_message_for_buy_class方法--课id:".$v['id']."没有学生买"."\r\n";
+    				continue;
+    			} else {
+    				#获取这些学生的手机号
+    				$array_return = $this->get_use_phone_in_phoneserver($array_student,$v['id']);
+    				//$array_return = array('15210674504');
+    				if (empty($array_return))
+    				{
+    					echo "[".date('Y-m-d H:i:s')."]:send_message_for_buy_class方法--课id:".$v['id']."没有找到学生的phone"."\r\n";
+    					continue;
+    				} else {
+    					$weeks = $this->week_zh($v['begin_time']);
+    					$times = date("n月d日 H:i",$v['begin_time']);
+    					$msg = '亲爱的同学,您报名参加的“'.$v['title'].'”直播课'.$times."(".$weeks.")就要开课啦，请记得提前20分钟进教室听课哦。";
+    					if($array_return)
+    					{
+    						$m= 0;
+    						$n= 0;
+	    					#给买这节课的学发短信
+	    					foreach ($array_return as $kk=>$vv)
+	    					{
+	    						$this->sms->setPhoneNums($vv);
+	    						$this->sms->setContent($msg);
+	    						$send_ret = $this->sms->send();
+		    					if($send_ret['error'] != 'Ok')
+		    					{
+		    						$m++;
+		    						echo "[".date('Y-m-d H:i:s')."]:send_message_for_buy_class方法--学生手机号为：".$vv."上课短信通知不成功"."\r\n";
+		    					} else {
+		    						$n++;
+		    						echo "[".date('Y-m-d H:i:s')."]:send_message_for_buy_class方法--学生手机号为：".$vv."上课短信通知成功"."\r\n";
+		    					}
+	    					}
+	    					echo "[".date('Y-m-d H:i:s')."]:send_message_for_buy_class方法--上课短信通知不成功：".$m."条，上课短信通知成功".$n."条,\r\n";
+    					}
+    				}
+
+    			}
+    		}
+    	}
+    	
+    }
+    
+    /**
+     * 获取这些学生的手机号
+     */
+    public function get_use_phone_in_phoneserver($array_student,$int_class_id)
+    {
+    	$array_list = array();
+    	foreach ($array_student as $k=>$v)
+    	{
+    		 $phone = get_pnum_phone_server($v['student_id']);
+    		 if(empty($phone))
+    		 {
+    		 	echo "[".date('Y-m-d H:i:s')."]:send_message_for_buy_class方法--课id:".$int_class_id."学生id:".$v['student_id']."在phoneserver没找到手机号"."\r\n";
+    		 	continue;
+    		 } else {
+    		 	$array_list[] = $phone;
+    		 }
+    	}
+    	return $array_list;
+    }
+    
+    //转换成中文的星期
+   public function week_zh($time)
+    {
+    
+    	$week   = date('w', $time);
+    
+    
+    	switch ($week) {
+    		case 1:
+    			$week   =   '周一';
+    			break;
+    		case 2:
+    			$week   =   '周二';
+    			break;
+    		case 3:
+    			$week   =   '周三';
+    			break;
+    		case 4:
+    			$week   =   '周四';
+    			break;
+    		case 5:
+    			$week   =   '周五';
+    			break;
+    		case 6:
+    			$week   =   '周六';
+    			break;
+    		case 0:
+    			$week   =   '周日';
+    			break;
+    		default:
+    			break;
+    	}
+    	return $week;
+    }
+   
 }
