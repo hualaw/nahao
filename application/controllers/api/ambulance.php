@@ -58,4 +58,8 @@ class Ambulance extends NH_Controller {
             }
         }
     }
+
+    public function get(){
+
+    }
 }

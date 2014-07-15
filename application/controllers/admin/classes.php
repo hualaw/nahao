@@ -106,6 +106,7 @@ class Classes extends NH_Admin_Controller {
                                 'start_at' => $str_begin_time,
                                 'end_at' => $str_end_time
                             );
+                            //o($arr_classroom_param,true);
                             $int_classroom_id = general_classroom_id($arr_classroom_param);
                         }
                         $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
