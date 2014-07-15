@@ -78,6 +78,10 @@ class Student_Member extends NH_Model{
             {
                 #获取轮的信息
                 $array_round = $this->model_course->get_round_info($v['round_id']);
+                if(empty($array_round)){
+                	unset($array_return[$k]);
+                	continue;
+                }
                 #处理时间
                 $array_return[$k]['create_time'] = date('Y/m/d H:i:s',$v['create_time']);
                 $array_return[$k]['class_img'] = empty( $array_round['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_round['img'],'small');
@@ -105,7 +109,20 @@ class Student_Member extends NH_Model{
     {
         $array_return = array();
         $array_return = $this->model_member->get_order_count($int_user_id,$str_type);
-        return $array_return;
+        if ($array_return)
+        {
+        	foreach ($array_return as $k=>$v)
+        	{
+        		$array_round = $this->model_course->get_round_info($v['round_id']);
+        		if (empty($array_round))
+        		{
+        			unset($array_return[$k]);
+        			continue;
+        		}
+        	}
+        }
+        $int_return = count($array_return);
+		return $int_return;
     }
     
     /**

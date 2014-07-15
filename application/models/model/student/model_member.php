@@ -93,22 +93,22 @@ class Model_Member extends NH_Model{
      */
     public function get_order_count($int_user_id,$str_type)
     {
-        $where = '';
-        switch ($str_type)
-        {
-            case 'all': $where.='';break;
-            case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
-            case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
-            case 'cancel': $where.=' AND (status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE.')';break;
-            case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND.
-            			' OR status = '.ORDER_STATUS_APPLYREFUND_FAIL.
-            			' OR status = '.ORDER_STATUS_APPLYREFUND_AGREE.
-            			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;
-        }
-        $array_result = array();
-        $sql = "SELECT COUNT(id) AS count FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id.$where." AND is_delete = 0";
-        $array_result = $this->db->query($sql)->row_array();
-        return $array_result['count'];
+		 $where = '';
+		switch ($str_type)
+		{
+			case 'all': $where.='';break;
+			case 'pay': $where.=' AND status = '.ORDER_STATUS_SUCC;break;
+			case 'nopay': $where.=' AND status = '.ORDER_STATUS_INIT;break;
+			case 'cancel': $where.=' AND (status = '.ORDER_STATUS_CANCEL.' OR status = '.ORDER_STATUS_CLOSE.')';break;
+			case 'refund': $where.=' AND (status = '.ORDER_STATUS_APPLYREFUND.
+			' OR status = '.ORDER_STATUS_APPLYREFUND_FAIL.
+			' OR status = '.ORDER_STATUS_APPLYREFUND_AGREE.
+			' OR status = '.ORDER_STATUS_APPLYREFUND_SUCC.')';break;
+		}
+		$array_result = array();
+		$sql = "SELECT id,round_id FROM ".TABLE_STUDENT_ORDER." WHERE student_id = ".$int_user_id.$where." AND is_delete = 0";
+		$array_result = $this->db->query($sql)->result_array();
+		return $array_result;
     }
     
     /**
