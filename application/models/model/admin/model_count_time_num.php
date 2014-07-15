@@ -13,7 +13,10 @@
     AND (class.end_time>= $str_end_time OR class.end_time>$str_start_time)
     AND class.status!= 4
     AND class.status!= 5
-    AND class.status!= 6";
+    AND class.status!= 6
+    AND (round.teach_status=1 OR round.teach_status=2)
+    AND round.sale_status!=0
+    AND round.sale_status!=1";
             return $this->db->query($sql)->result_array();
         }
     }
