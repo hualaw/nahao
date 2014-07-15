@@ -5,4 +5,6 @@
  * Class Business_Index
  * @author yanrui@tizi.com
  */
-class Business_Index extends NH_Model{}
+class Business_Index extends NH_Model{
+
+}

@@ -3,6 +3,9 @@ nbproject
 templates_c
 .DS_Store
 .htaccess
+/.buildpath
+/.settings
+/.project
 
 /.idea/
 /application/logs/*

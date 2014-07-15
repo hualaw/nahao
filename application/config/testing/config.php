@@ -363,6 +363,9 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+//短信余额不足，发送报警的手机号
+$config['sms_send_mobile'] = array('牟宗贵'=>'13581670176','刘华'=>'18600364806','宋传胜'=>'13501138023','闫睿'=>'18611859806','张帅奇'=>'18600294476');
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

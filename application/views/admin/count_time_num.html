@@ -1,0 +1,34 @@
+<form action="/count_time_num" method="get">
+    <div class="col-md-2">
+        <input type="text" name="start_time" id="start_time" class="form-control" placeholder="请选择时间" value="{$int_to_time}" />
+    </div>
+    <a href="/count_time_num" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-info">搜索</button><br /><br />
+</form>
+<label class="control-label" for="inputSuccess">当前日期:{$int_to_time}</label><br />
+<table class="table table-bordered table table-hover">
+    <thead>
+    <tr>
+        <th>时段</th>
+        <th>轮ID</th>
+        <th>轮名称</th>
+        <th>课ID</th>
+        <th>课名称</th>
+        <th>轮上限人数</th>
+        <th>时段上限人数</th>
+    </tr>
+    </thead>
+    {foreach $arr_list as $k=>$v}
+    {if $v.total!=0}
+    <tr>
+        <td>{$k}:00--{$k+1}:00</td>
+        <td>{foreach $v as $vv}{$vv.round_id}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.round_title}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.id}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{$vv.title}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.begin_time|date_format:'%H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.end_time|date_format:'%H:%M:%S'}<br />{/foreach}</td>
+        <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>
+        <td>{$v.total}</td>
+    </tr>
+    {/if}
+    {/foreach}
+</table>

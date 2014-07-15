@@ -234,7 +234,7 @@ class NH_Controller extends CI_Controller
         /*正式环境屏蔽掉info数组*/
         if(ENVIRONMENT == 'production') $info = array();
 
-        //print_r($send_ret);
+        //log_message('debug_nahao', "In send captcha, ".print_r($send_ret, 1));
         if($send_ret['error'] == 'Ok')
         {
             //store the captcha into redis
@@ -242,7 +242,7 @@ class NH_Controller extends CI_Controller
             $this->redis->connect('login');
 
             //store the phone-verify code list to list
-            $this->cache->redis->lpush($phone, json_encode(array(
+            $this->cache->redis->rpush($phone, json_encode(array(
                 't'=>$type,
                 'vc'=>$verify_code,
                 'et'=>$create_time + REDIS_VERIFY_CODE_EXPIRE_TIME
