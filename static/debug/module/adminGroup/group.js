@@ -1,26 +1,9 @@
 define(function(require,exports){
-    //create group
-    exports.create_group=function(){
-        $("#btn_group_submit").on("click", function () {
-            var modal = $("#group_create_modal");
-            var btn = $('#btn_group_submit');
 
-            var action = btn.data('action');
-            var data = {
-                name: modal.find('#name').val()
-            };
-            $.post(action, data, function (response) {
-                alert(response.msg);
-                if (response && response.status == "ok") {
-                    window.location.reload();
-                }
-            });
-        });
-    }
+    exports.bind_everything = function (){
 
-    //active group
-    exports.active_group=function(){
-        $(".table").on("click", '.group_active', function () {
+        //group active
+        $(".group_active").on("click", function () {
             var btn = $(this);
             var action = btn.data('action');
             var data = {
@@ -31,6 +14,39 @@ define(function(require,exports){
                 alert(response.msg);
                 if (response && response.status == "ok") {
                     window.location.reload();
+                }
+            });
+        });
+
+        //group edit create/update
+        $(".btn_group_create,.btn_group_edit").on("click",function(){
+            var action = $(this).data("action");
+            if(action=="update"){
+                var data = {
+                    'group_id' : $(this).data("group_id")
+                }
+                $.get("/group/groups",data,function(response){
+                    $("#modal_group_edit #group_id").val(response.data.id);
+                    $("#modal_group_edit #group_name").val(response.data.name);
+                    $("#modal_group_edit #group_status").attr("checked",response.data.status==1 ? true : false);
+                })
+            }
+            $("#modal_group_edit").modal();
+        });
+
+        //group submit
+        $("#btn_group_submit").on("click", function () {
+            var url = $('#btn_group_submit').data('action');
+            var data = {
+                "id": $("#modal_group_edit #group_id").val(),
+                "name": $("#modal_group_edit #group_name").val(),
+                "status": $('#modal_group_edit #group_status').attr("checked")=="checked" ? 1 : 0
+            };
+            $.post(url, data, function (response) {
+                console.log(response);
+                alert(response.msg);
+                if (response && response.status == "ok") {
+//                    window.location.reload();
                 }
             });
         });
