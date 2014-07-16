@@ -283,8 +283,8 @@
 	        	{if $array_classmate}
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{$item.avatar}" alt="">
-						<span title="{$item.nickname}">{$item.nickname|truncate:10:"...":true}</span>
+						<img src="{$item.avatar}" alt="" class="fl">
+						<span title="{$item.nickname}" class="fl">{$item.nickname}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}
