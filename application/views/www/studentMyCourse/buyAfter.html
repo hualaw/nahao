@@ -264,9 +264,9 @@
 	        		{if $item.author_role !='2'}
 	        		<li>
 						<div class="nhead cf posr">
-							<img src="{$item.avatar}" alt="" class="fl">
+							<img src="{isset($item.avatar)}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong title="{$item.nickname}">{$item.nickname|truncate:7:"...":true}</strong>
+								<strong title="{isset($item.nickname)}">{isset($item.nickname)}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
@@ -283,8 +283,8 @@
 	        	{if $array_classmate}
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{$item.avatar}" alt="" class="fl">
-						<span title="{$item.nickname}" class="fl">{$item.nickname}</span>
+						<img src="{isset($item.avatar)}" alt="" class="fl">
+						<span title="{isset($item.nickname)}" class="fl">{isset($item.nickname)}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}
