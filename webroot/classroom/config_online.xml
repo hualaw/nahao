@@ -9,4 +9,5 @@
 	<apiurl>http://api.nahao.com/</apiurl>
 	<Software>http://video1.nahao.com/NahaoSetup.exe</Software>
 	<AutoUpdate>http://video1.nahao.com/NahaoUpdate.zip</AutoUpdate>
+	<Multiple>3</Multiple>
 </url>
