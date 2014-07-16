@@ -11,12 +11,12 @@
 
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            {if !in_array($userinfo.id,array(7,10,11,12,13))}
+            {if !in_array($userinfo.id,array(7,10,11,12,13,22))}
             <li><a href="/count_time_num">今日课程</a></li>
             <li {if  in_array($current['controller'],array('course','lesson'))}class="active"{/if}><a href="/course">课程管理</a></li>
             <li {if  in_array($current['controller'],array('round','class'))}class="active"{/if}><a href="/round">轮管理</a></li>
             {/if}
-            {if in_array($userinfo.id,array(1,7,10,11,12,13))}
+            {if in_array($userinfo.id,array(1,7,10,11,12,13,22))}
             <li {if  in_array($current['controller'],array('student'))}class="active"{/if}><a href="/student">学生管理</a></li>
             <li {if  in_array($current['controller'],array('order'))}class="active"{/if}><a href="/order">订单管理</a></li>
             {/if}
@@ -43,7 +43,7 @@
             {/if}
             <li><a href="/feedback">评价管理</a></li>
             <li><a href="/affiche">公告管理</a></li>
-            {if !in_array($userinfo.id,array(7,10,11,12,13))}
+            {if !in_array($userinfo.id,array(7,10,11,12,13,22))}
             {/if}
             <li><a href="/admin/password">修改密码</a></li>
         </ul>
