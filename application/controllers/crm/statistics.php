@@ -21,9 +21,8 @@
         		$user_id = $this->statistics->get_user_id_by_where($nickname,$phone);
         	}
         	$post['user_id'] = !empty($user_id)?$user_id:'';
-       
             $result = $this->statistics->get_classroom_history($post,$int_start,PER_PAGE_NO);
-            
+         
             $list = $result['list'];
             
 			#分页
