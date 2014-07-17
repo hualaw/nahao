@@ -629,6 +629,7 @@ function general_classroom_id($arr_param){
     $int_return = 0;
     if($arr_param){
         $str_url = NH_MEETING_URL.'api/meetings/';
+//        echo $str_url;
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_response = nh_curl($str_url,$arr_param);
@@ -745,9 +746,9 @@ function test_nahao_classroom($str_uri,$arr_param=array()){
     $arr_meeting_param = get_meeting_param();
     $arr_param = $arr_param ? array_merge($arr_param,$arr_meeting_param) : $arr_meeting_param;
     $str_response = nh_curl($str_url,$arr_param,'get');
-//    o($str_url);
-//    o($arr_param);
-//    o(json_decode($str_response));
+    o($str_url);
+    o($arr_param);
+    o(json_decode($str_response));
     exit;
 }
 

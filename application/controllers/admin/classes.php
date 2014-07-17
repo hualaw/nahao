@@ -18,7 +18,6 @@ class Classes extends NH_Admin_Controller {
      * @author yanrui@tizi.com
      */
     public function index () {
-//        test_nahao_classroom('api/meetings/307/files/');
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
         $int_last_class_id = 0;
@@ -70,6 +69,7 @@ class Classes extends NH_Admin_Controller {
             $bool_flag = true;
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
+//            o($arr_round,true);
             if($arr_round AND isset($arr_round['start_time'])){
                 $str_config_name = ($arr_round['is_test']==0 AND in_array(ENVIRONMENT,array('production'))) ?  'production_round_time_config' : 'testing_round_time_config' ;
                 $arr_time_config = config_item($str_config_name);
@@ -100,12 +100,15 @@ class Classes extends NH_Admin_Controller {
                         $arr_class = $this->class->get_class_by_id($int_class_id);
                         $int_classroom_id = $arr_class['classroom_id'];
                         $int_courseware_id = $arr_class['courseware_id'];
+
+//                        o($arr_class,true);
                         if($arr_class['classroom_id']==0){
                             $arr_classroom_param = array(
                                 'name' => $arr_class['title'],
                                 'start_at' => $str_begin_time,
                                 'end_at' => $str_end_time
                             );
+                            //o($arr_classroom_param,true);
                             $int_classroom_id = general_classroom_id($arr_classroom_param);
                         }
                         $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);

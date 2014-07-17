@@ -244,7 +244,15 @@ class login extends NH_Controller
     public function submit()
     {
         //登录之后，要跳转到首页
-        if($this->is_login) redirect('/');
+        if($this->is_login)
+        {
+            $ret = array(
+                'status' => 'ok',
+                'data' => array('redirect_url'=>site_url()),
+                'msg' => '',
+            );
+            $this->json_output($ret);
+        }
 
         $username = trim($this->input->post('username'));
         $sha1_password = trim($this->input->post('password'));

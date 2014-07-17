@@ -266,7 +266,7 @@
 						<div class="nhead cf posr">
 							<img src="{$item.avatar}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong title="{$item.nickname}">{$item.nickname|truncate:7:"...":true}</strong>
+								<strong title="{$item.nickname}">{$item.nickname}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
@@ -283,8 +283,8 @@
 	        	{if $array_classmate}
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{$item.avatar}" alt="">
-						<span title="{$item.nickname}">{$item.nickname|truncate:10:"...":true}</span>
+						<img src="{$item.avatar}" alt="" class="fl">
+						<span title="{$item.nickname}" class="fl">{$item.nickname}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}

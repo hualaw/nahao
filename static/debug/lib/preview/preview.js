@@ -34,7 +34,7 @@ $(function() {
         location.hash = page;
 
         var base_url = $('input').data('base-url');
-        var url = base_url.replace('xxxx.swf', toFixString(page) + '.swf');
+        var url = base_url.replace('/xxxx', '/' + toFixString(page));
         $('.media-wrapper').fadeOut(function() {
             $('.media-wrapper').flash(url);
             setObjectPosition();

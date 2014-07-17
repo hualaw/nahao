@@ -58,4 +58,8 @@ class Ambulance extends NH_Controller {
             }
         }
     }
+
+    public function get(){
+//        test_nahao_classroom('api/meetings/503/files/');
+    }
 }

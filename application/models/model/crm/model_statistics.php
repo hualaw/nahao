@@ -86,7 +86,7 @@ class Model_statistics extends NH_Model{
 	public function get_user_id_by_where($nickname = '',$phone = '')
 	{
 		if ($phone){
-			$user_id = !empty(get_uid_phone_server($param))?get_uid_phone_server($param):'';
+			$user_id = !empty(get_uid_phone_server($phone))?get_uid_phone_server($phone):'';
 		}
 		$where = 'WHERE 1=1';
 		$where .= !empty($nickname)?' AND u.nickname like "%'.$nickname.'%"':'';
