@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'localhost';
 // $active_group = 'localhost';
 $active_record = TRUE;
 
@@ -53,7 +53,7 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'mysql:host=192.168.11.75';//host for pdo
 $db['default']['username'] = 'nahao';
 $db['default']['password'] = 'nahao';
-$db['default']['database'] = 'nahao_dev';
+$db['default']['database'] = 'nahao_new';
 $db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = false;
@@ -66,9 +66,9 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 #jason song localhost
-$db['localhost']['hostname'] = 'mysql:host=127.0.0.1';//host for pdo
-$db['localhost']['username'] = 'root';
-$db['localhost']['password'] = '123456';
+$db['localhost']['hostname'] = 'mysql:host=42.159.80.253;port=3307';//host for pdo
+$db['localhost']['username'] = 'nahao';
+$db['localhost']['password'] = 'jN63uMUj7Dm4Y';
 $db['localhost']['database'] = 'nahao';
 $db['localhost']['dbdriver'] = 'pdo';
 $db['localhost']['dbprefix'] = '';

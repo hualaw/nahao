@@ -19,4 +19,5 @@
     AND round.sale_status!=1";
             return $this->db->query($sql)->result_array();
         }
+        
     }

@@ -286,3 +286,4 @@ require(APPPATH . 'core/NH_Admin_Controller.php');
 require(APPPATH . 'core/NH_User_Controller.php');
 require(APPPATH . 'core/NH_Auto_Controller.php');
 require(APPPATH . 'core/NH_Api_Controller.php');
+require(APPPATH . 'core/NH_Crm_Controller.php');

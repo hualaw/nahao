@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    {include file="crm/header.html"}
+</head>
+<body>
+{include file="admin/var.html"}
+<div class="container" id="nahaoModule" module="crmStatistics">
+    {include file="crm/nav.html"}
+    <form action="/statistics" method="post">
+    <div class="col-md-2">
+        <input type="text" name="start_time" id="start_time" class="form-control" placeholder="请选择时间" {if !empty($time)} value="{$time}" {else}value=""{/if}/>
+    </div>
+    <div class="col-md-2" style="width: 18.667%">
+        <input type="text" name="nickname" id="nickname" class="form-control" style="width:169px;" placeholder="请输入学生昵称" value="{$nickname}" />
+    </div>
+    <div class="col-md-2" style="width: 18.667%">
+        <input type="text" name="phone" id="phone" class="form-control" style="width:169px;" placeholder="请输入学生手机号" value="{$phone}" />
+    </div>
+    <button type="submit" class="btn btn-info">搜索</button><br /><br />
+</form>
+<table class="table table-bordered table table-hover">
+    <thead>
+    <tr>
+        <th>用户姓名</th>
+        <th>昵称</th>
+        <th>手机号</th>
+        <th>教室</th>
+        <th>进入时间</th>
+        <th>进入次数</th>
+    </tr>
+    </thead>
+{if (!empty($list))}
+    {foreach $list as $v}
+    <tr>
+    	<td>{$v['realname']}</td>		
+    	<td>{$v['nickname']}</td>		
+    	<td>{$v['phone']}</td>		
+    	<td>{$v['class_title']}</td>		
+    	<td>{$v['enter_time']}</td>		
+    	<td>{$v['enter_num']}</td>		
+    </tr>
+    {/foreach}
+{/if}
+    
+</table>
+{$page}
+</div>
+    {include file="crm/footer.html"}
+</body>
+</html>
+
