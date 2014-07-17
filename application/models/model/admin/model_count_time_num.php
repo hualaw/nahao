@@ -6,7 +6,7 @@
          */
         public function num_goclass($str_start_time,$str_end_time)
         {
-            $sql="SELECT class.id, class.title, class.round_id, round.caps, round.title as round_title, class.begin_time, class.end_time
+            $sql="SELECT class.id, class.title, class.round_id, round.caps, round.title as round_title, class.begin_time, class.end_time, class.classroom_id
     FROM class
     LEFT JOIN round ON round.id=class.round_id
     WHERE (class.begin_time<= $str_start_time OR class.begin_time<$str_end_time)
