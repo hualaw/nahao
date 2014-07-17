@@ -27,14 +27,14 @@ class Student_Member extends NH_Model{
                 #图片地址
                	$class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'general');
                 #这轮共M节
-               	$totle_class = $this->model_member->get_student_class_totle($int_user_id,$v['round_id']);
+               	$totle_class = $this->model_member->get_class_count(0,$v['round_id']);
                 #这轮上了M节
-                $class  = $this->model_member->get_student_class_done($int_user_id,$v['round_id']);
+                $class  = $this->model_member->get_class_count('1',$v['round_id']);
                 #比例 = 上了M节/共M节
                 $class_rate = $totle_class == 0 ? 0 : round($class/$totle_class,2)*100;
                 #授课状态
-                if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
-                {
+//                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
+//                 {
                     #下节课上课时间
                     $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
                     if($next_class_time)
@@ -48,9 +48,9 @@ class Student_Member extends NH_Model{
 	                    $array_return[$k]['next_class_time'] = '';
                     }
 
-                } else{
-                	$array_return[$k]['next_class_time'] = '';
-                }
+//                 } else{
+//                 	$array_return[$k]['next_class_time'] = '';
+//                 }
                 #组合数据
                 $array_return[$k]['class_img'] = $class_img;
                 $array_return[$k]['totle_class'] = $totle_class;
@@ -58,6 +58,7 @@ class Student_Member extends NH_Model{
                 $array_return[$k]['class_rate'] = $class_rate;
             }
         }
+        //var_dump($array_return);die;
         return $array_return;
     }
     
