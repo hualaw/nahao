@@ -62,4 +62,13 @@ class Ambulance extends NH_Controller {
     public function get(){
 //        test_nahao_classroom('api/meetings/503/files/');
     }
+
+    public function get_phone(){
+        $str_phone = '';
+        $int_user_id = $this->uri->rsegment(3) ? intval($this->uri->rsegment(3)) : 0;
+        if($int_user_id){
+            $str_phone = get_pnum_phone_server($int_user_id);
+        }
+        echo json_encode(array('phone' =>$str_phone));
+    }
 }
