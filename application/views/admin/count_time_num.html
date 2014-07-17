@@ -25,7 +25,7 @@
         <td>{foreach $v as $vv}{$vv.round_id}<br />{/foreach}</td>
         <td>{foreach $v as $vv}{$vv.round_title}<br />{/foreach}</td>
         <td>{foreach $v as $vv}{$vv.id}<br />{/foreach}</td>
-        <td>{foreach $v as $vv}{$vv.title}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.begin_time|date_format:'%H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.end_time|date_format:'%H:%M:%S'}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}<a target="_blank" href="/classes/enter/{$vv.classroom_id}">{$vv.title}</a>&nbsp;&nbsp;&nbsp;&nbsp;{$vv.begin_time|date_format:'%H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.end_time|date_format:'%H:%M:%S'}<br />{/foreach}</td>
         <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>
         <td>{$v.total}</td>
     </tr>

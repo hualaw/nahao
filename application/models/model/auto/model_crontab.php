@@ -191,6 +191,11 @@
          */
         public function all_round_teach($advance_time)
         {
+            //含免费试听
+//            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND course_mode=3";
+//            return $this->db->query($sql)->result_array();
+
+            //不含免费试听
             $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time";
             return $this->db->query($sql)->result_array();
         }
@@ -200,13 +205,13 @@
          */
         public function remedy_all_round_teach($begin_time,$end_time)
         {
-            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
-            $this->db->where(TABLE_ROUND.'.teach_status',1);
-            $this->db->where(TABLE_ROUND.'.sale_status',4);
-            $this->db->or_where(TABLE_ROUND.'.sale_status',5);
-            $this->db->where(TABLE_ROUND.'.start_time>=',$begin_time);
-            $this->db->where(TABLE_ROUND.'.start_time<',$end_time);
-            return $this->db->get()->result_array();
+            //含免费试听
+//            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time>=$begin_time AND round.start_time<$end_time AND course_mode=3";
+//            return $this->db->query($sql)->result_array();
+
+            //不含免费试听
+            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time>=$begin_time AND round.start_time<$end_time";
+            return $this->db->query($sql)->result_array();
         }
         /**
          *所有需要结课的轮
