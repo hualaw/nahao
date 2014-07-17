@@ -39,12 +39,6 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 //********** NAHAO **********
 
-
-define('ROLE_SYS', 0);//系统
-define('ROLE_ADMIN', 1);//管理员
-define('ROLE_STUDENT', 2);//学生
-define('ROLE_TEACHER', 3);//教师
-
 //GENDER
 define('NH_GENDER_MALE', 1);//男
 define('NH_GENDER_FEMALE', 2);//女

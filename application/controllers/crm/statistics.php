@@ -10,7 +10,6 @@
          */
         public function index()
         {
-//         	$now = date("Y-m-d",time());
         	
         	$int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         	$time = trim($this->input->post('start_time'));
@@ -21,9 +20,8 @@
         		$user_id = $this->statistics->get_user_id_by_where($nickname,$phone);
         	}
         	$post['user_id'] = !empty($user_id)?$user_id:'';
-       
             $result = $this->statistics->get_classroom_history($post,$int_start,PER_PAGE_NO);
-            
+         
             $list = $result['list'];
             
 			#分页
@@ -41,12 +39,14 @@
 		    $this->pagination->initialize($config);
 		    $show_page = $this->pagination->create_links();
 	            
-	            $this->smarty->assign('page',$show_page);
-	            
-	            $this->smarty->assign('list', $list);
-	            $this->smarty->assign('time', $time);
-	            $this->smarty->assign('nickname', $nickname);
-	            $this->smarty->assign('phone', $phone);
-	            $this->smarty->display('crm/statistics_view.html');
-	        }
+            $this->smarty->assign('page',$show_page);
+            
+            $this->smarty->assign('list', $list);
+            $this->smarty->assign('time', $time);
+            $this->smarty->assign('nickname', $nickname);
+            $this->smarty->assign('phone', $phone);
+            $this->smarty->display('crm/statistics_view.html');
+        }
+
+	     
     }
