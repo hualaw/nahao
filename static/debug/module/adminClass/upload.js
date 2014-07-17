@@ -24,7 +24,7 @@ define(function(require,exports){
                         'multi'    : true,
                         'fileObjName' : 'fileobj',
                         'fileTypeExts' : '*.pdf',
-                        'fileSizeLimit' : '2MB',
+                        'fileSizeLimit' : '10MB',
                         onUploadSuccess: function(file, data, response) {
                             var data = jQuery.parseJSON(data);
 

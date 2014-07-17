@@ -660,7 +660,7 @@ class Crontab extends CI_Controller
      */
     public function send_message_for_buy_class()
     {
-    	$a = 3600*3;
+    	$a = 3600*2;
     	$int_time = $this->get_time() + $a;
     	//$int_time = '1405339200';
     	#不包括测试轮、等于开课时间的课id
@@ -685,8 +685,10 @@ class Crontab extends CI_Controller
     					continue;
     				} else {
     					$weeks = $this->week_zh($v['begin_time']);
-    					$times = date("n月d日 H:i",$v['begin_time']);
-    					$msg = '亲爱的同学,您报名参加的“'.$v['title'].'”直播课'.$times."(".$weeks.")就要开课啦，请记得提前20分钟进教室听课哦。";
+    					$times = date("n月j日 H:i",$v['begin_time']);
+    					$times = explode(' ', $times);
+    					$times = $times['0'].'('.$weeks.')'.$times['1'];
+    					$msg = '亲爱的同学,您报名参加的“'.$v['title'].'”直播课'.$times."就要开课啦，请记得提前20分钟进教室听课哦。";
     					if($array_return)
     					{
     						$m= 0;
