@@ -19,6 +19,7 @@ class NH_Admin_Controller extends NH_Controller
     function __construct()
     {
         parent::__construct();
+       
         $this->load->model('business/admin/business_admin','admin');
         if($this->current['controller']!='admin'){
             $this->current['controller'] = $this->current['controller']=='classes' ? 'class' : $this->current['controller'];
@@ -48,6 +49,12 @@ class NH_Admin_Controller extends NH_Controller
         }else{
             $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_SIGNIN);
         }
+        
+        $is_permission = pass($this->current['controller'],$this->current['action']);
+        if(!$is_permission){
+        	die('No Permission to Pass');
+        }
+        
         //根据controller加载css、js等
         $arr_static_config = config_item('static_admin');
 //        $arr_css = isset($arr_static_config[$this->current['controller']]['css']) ? array_merge($this->arr_admin_init_css,$arr_static_config[$this->current['controller']]['css']) : $this->arr_admin_init_css;
@@ -121,33 +128,7 @@ class NH_Admin_Controller extends NH_Controller
         return $bool_return;
     }
 
-
-    /**
-     * 判断是否有权限造作
-     * @param string $ctrl
-     * @param string $act
-     * @return bool
-     * @author yanrui@tizi.com
-     */
-//    function has_permission($ctrl='', $act='')
-//    {
-//        static $permissions = null;
-//        if ($permissions === null) {
-//            $CI =& get_instance();
-//            if ($CI->user['id'] == 1 OR $CI->user['id'] == 31) {
-//                $permissions = true;
-//            } elseif (isset($CI->user['permission']) && $CI->user['permission']) {
-//                $permissions = $CI->user['permission'];
-//            } else {
-//                $permissions = false;
-//            }
-//        }
-//        if (is_bool($permissions)) {
-//            return $permissions;
-//        }
-////    echo $ctrl.'--'.$act.'--'.isset($permissions[$ctrl][$act]);
-//        return isset($permissions[strtolower($ctrl)][strtolower($act)]);
-//    }
+    
 
 }
 
