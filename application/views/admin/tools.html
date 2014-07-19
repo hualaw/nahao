@@ -20,9 +20,7 @@ tbody tr td{
 text-align:left;
 }
 .order-hd{
-border-top-color: #afd9ff;
-border-right-color: #afd9ff;
-border-left-color: #afd9ff;
+border: 1px solid #daf3ff;
 background: #eaf8ff;
 border-bottom-color: #eaf8ff;
 }
@@ -31,6 +29,7 @@ height: 10px;
 }
 .order-intro span{
 padding:5px 10px;
+line-height: 27px;
 }
 .order-info td{
 border: 1px solid #daf3ff;
@@ -44,6 +43,104 @@ color: #ffffff;
 background-color: #5cb85c;
 border-color: #4cae4c;
 }
+.time{
+padding: 2px 0 2px 18px;
+text-align: left;
+color: #9c9c9c;
+}
+.round_pic{
+display: inline;
+float: left;
+margin: 5px 12px 0 0;
+border: 1px solid #e9e9e9;
+}
+.round_pic img{
+width: 80px;
+height: 80px;
+}
+tbody:hover .order-hd{
+border: 1px solid #afd9ff;
+}
+tbody .order-info .intro{
+padding: 10px 10px;
+}
+tbody .order-info .student{
+text-align:center;
+}
+tbody:hover .order-info .intro{
+border-left-color: #afd9ff;
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .price{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .pay{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .status{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .student{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .operation{
+border-right-color: #afd9ff;
+border-bottom-color: #afd9ff;
+}
+.desc {
+display: inline;
+float: left;
+width: 216px;
+overflow: hidden;
+word-wrap: break-word;
+}
+.desc .round_name{
+margin-bottom: 5px;
+overflow: hidden;
+line-height: 18px;
+}
+.desc .spec{
+max-height: 38px;
+overflow: hidden;
+margin-bottom: 5px;
+line-height: 18px;
+color: #9c9c9c;
+}
+.student .buyer_student{
+padding:30px;
+}
+.student .edit_buyer{
+display:none;
+position: absolute;
+top: 9px;
+right: 15px;
+background-color: #f60;
+color: #fff;
+cursor: pointer;
+}
+.student:hover .buyer_student{
+border:1px dashed #f60;
+}
+.student:hover .edit_buyer{
+display:block;
+}
+.add_order{
+float:right;
+}
+.add_info{
+float:left;
+}
+.search-btn{
+color: #666;
+background: #f5f5f5;
+border: 1px solid #d9d9d9;
+}
+.search_round{
+height:30px;
+}
+.search_student{
+height:30px;
+}
 </style>
 <ol class="breadcrumb">
   <li><font class="text-muted">GPS导航：</font></li>
@@ -52,72 +149,91 @@ border-color: #4cae4c;
 </ol>
 
 <div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-danger toolbar active" data="free_round_tool" data-toggle="collapse">
-    <input type="radio" name="options" id="option1" checked> 购买免费课程轮
-  </label>
-  <label class="btn btn-danger toolbar" data="audition_tool" data-toggle="collapse">
-    <input type="radio" name="options" id="option2"> 预约试听课
-  </label>
-  <label class="btn btn-danger toolbar" data="order_round_tool" data-toggle="collapse">
-    <input type="radio" name="options" id="option3"> 购买收费课程轮
-  </label>
-  <label class="btn btn-danger toolbar" data="phone_verify_tool" data-toggle="collapse">
-    <input type="radio" name="phone" id="phone_verify"> 手机找回验证码
-  </label>
+	<label class="btn btn-danger toolbar active" data="free_round_tool" data-toggle="collapse">
+		<input type="radio" name="options" id="option1" checked> 购买免费课程轮
+	</label>
+	<label class="btn btn-danger toolbar" data="audition_tool" data-toggle="collapse">
+		<input type="radio" name="options" id="option2"> 预约试听课
+	</label>
+	<label class="btn btn-danger toolbar" data="order_round_tool" data-toggle="collapse">
+		<input type="radio" name="options" id="option3"> 购买收费课程轮
+	</label>
+	<label class="btn btn-danger toolbar" data="phone_verify_tool" data-toggle="collapse">
+		<input type="radio" name="phone" id="phone_verify"> 手机找回验证码
+	</label>
 </div>
 <div class="tools-box">
+	<!--工具1：买免费课程轮 start-->
 	<div id="free_round_tool" class="panel-collapse collapse in">
 		<div class="tool_controllerer">
-			<div class="">
-				<span class="search round_search">课程班次</span>
-				<span class="btn btn-success">添加</span>
-			</div>
-			<div class="">
-				<span class="search round_search">学生</span>
-				<span class="btn btn-success">添加</span>
-			</div>
+			<span class="btn btn-success create_order">添加一条购买信息</span>
 		</div>
 		<div class="panel-body">
-			<table class="col-md-12">
+			<table class="orderTable col-md-12">
 				<thead>
 					<tr>
-						<th class="col-md-4">班次信息</th>
-						<th class="col-md-2">售价</th>
-						<th class="col-md-2">实付款</th>
-						<th class="col-md-2">交易状态</th>
-						<th class="col-md-2">学生</th>
+						<th class="col-md-5">班次信息</th>
+						<th class="col-md-1">售价</th>
+						<th class="col-md-1">实付款</th>
+						<th class="col-md-1">交易状态</th>
+						<th class="col-md-2">买家学生</th>
+						<th class="col-md-2">操作</th>
 					</tr>
 				</thead>
-				<tbody class="" data-round="" data-student="">
+				<tbody class="order-copy hide">
 					<tr class="sep-row">
-						<td colspan="5"></td>
+						<td colspan="5" class="order-input">
+							<input type="hidden" name="round_id" class="round_id" value="">
+							<input type="hidden" name="student_id" class="student_id" value="">
+						</td>
 					</tr>
 					<tr class="order-hd">
-						<td colspan="5" class="order-intro">
-							<span><input type="checkbox"></span>
-							<span>2014-07-16</span>
-							<span>订单号：735169934736221</span>
-							<span>授课老师:马云</span>
-							<span><a class="btn"><i class=""></i>给学生发邮件</a></span>
+						<td colspan="6" class="order-intro">
+							<span class="add_info"><input type="checkbox"></span>
+							<span class="add_info">2014-07-16</span>
+<!--							<span class="add_info">订单号：735169934736221</span>-->
+							<span class="add_info">授课老师:马云</span>
+							<span class="add_info"><a href=""><i class=""></i>给学生发邮件</a></span>
+							<span class="add_order">
+								<span><input class="search_round" x-webkit-speech placeholder="班次名称" ><span class="search-btn">搜班次</span></span>
+								<span><input class="search_student" x-webkit-speech placeholder="学生昵称"><span class="search-btn">搜学生</span></span>
+								<span>购买</span>
+							</span>
 						</td>
 					</tr>
 					<tr class="order-info">
 						<td class="intro col-md-4">	
-							<a href=""><img src="http://img03.taobaocdn.com/bao/uploaded/i3/T1uJteFNdaXXXXXXXX_!!0-item_pic.jpg_80x80.jpg"></a>
-							<span>足季足霜1号3盒 脚臭脚汗脚痒脚干水泡 净足护足霜 嫩脚足霜</span>
+							<a class="round_pic" href=""><img src="http://img01.taobaocdn.com/bao/uploaded/i1/T17VXnFwVbXXXXXXXX_!!0-item_pic.jpg_80x80.jpg"></a>
+							<div class="desc">
+								<div class="round_name">
+									<a href="">WD/西部数据 My Passport Slim 2TB 2.5寸移动硬盘2T超薄金属现货</a>
+								</div>
+								<div class="spec" title="">
+									<span>颜色分类: 国行标配+Nomad包</span>
+								</div>
+							</div>
 						</td>
-						<td class="price col-md-2"></td>
-						<td class="pay col-md-2">0</td>
-						<td class="status col-md-2">已购买</td>
-						<td class="operation col-md-2">删除/添加</td>
+						<td class="price col-md-1">0.00</td>
+						<td class="pay col-md-1">0.00</td>
+						<td class="status col-md-1">已购买</td>
+						<td class="student col-md-2">
+							<div class="buyer_student">
+								<p class="buyer_name">韩梅梅</p>
+								<p class="edit_buyer">修改</p>
+							</div>
+						</td>
+						<td class="operation col-md-2">
+							<div class="time">还剩8天7时开课</div>
+							<div><a class="btn btn-link">购买</a>/<a class="btn btn-link del-order">删除</a></div>
+						</td>
 					</tr>
 				</tbody>
+				<!--自动添加订单区域 start-->
 			</table>
 		</div>
-		<div class="panel-body">
-			。。。。
-		</div>
 	</div>
+	<!--工具1：买免费课程轮 end-->
+	<!--工具2：预约试听课 start-->
 	<div id="audition_tool" class="panel-collapse collapse">
 		<div class="panel-body">
 			
@@ -147,6 +263,8 @@ border-color: #4cae4c;
 			
 		</div>
 	</div>
+	<!--工具2：预约试听课 end-->
+	<!--工具3：买收费课程轮 start-->
 	<div id="order_round_tool" class="panel-collapse collapse">
 		<div class="panel-body">
 		
@@ -170,7 +288,8 @@ border-color: #4cae4c;
 			
 		</div>
 	</div>
-	
+	<!--工具3：买收费课程轮 end-->
+	<!--工具4：手机找回u验证码 start-->
 	<div id="phone_verify_tool" class="panel-collapse collapse">
 		<div class="panel-body">
 		
@@ -188,4 +307,5 @@ border-color: #4cae4c;
 			
 		</div>
 	</div>
+	<!--工具4：手机找回u验证码 end-->
 </div>
