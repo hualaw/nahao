@@ -12,10 +12,21 @@ define(function (require, exports) {
 	}
 	//操作方法
 	exports.autorun = function(){
-		$('.toolbar').click(function(){
-			target = $(this).attr('data');
-			$('#'+target).attr('class','panel-collapse in').siblings().attr('class','panel-collapse collapse');
+		//创建订单模板
+		$('.create_order').click(function(){
+			var copy = $('.order-copy').html();
+			var curId = (new Date).valueOf();
+			copyHtml = '<tbody class="order-item" id="order-'+curId+'">'+copy+'</tbody>';
+			$('.orderTable').append(copyHtml);
+			$("#order-"+curId).find('.del-order').attr('data-order',curId);
 		});
+		//删除订单模板
+		$('.del-order').live('click',function(){
+			delId = $(this).attr('data-order');
+			$("#order-"+delId).remove();
+		});
+		//生成订单内容
+		
 	}
     //验证表单
     exports.subCheck = function(){
