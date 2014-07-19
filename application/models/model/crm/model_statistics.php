@@ -1,7 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Model_statistics extends NH_Model{
+	function __construct()
+	{
+		parent::__construct();
 	
+	}
     public function get_classroom_history($param = array(),$offset = 0,$per_page = PER_PAGE_NO)
     {
     	$time = time();
@@ -102,4 +106,5 @@ class Model_statistics extends NH_Model{
 		
 		return !empty($res[0])?$res[0]['id']:'';
 	}
+
 }
