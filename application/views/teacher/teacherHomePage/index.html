@@ -51,7 +51,7 @@
 	                        </td>
 	                        <td><b class="fred">{$val['already_total']}</b> / {$val['total']}</td>
 	                        <td>{$val['course_type_name']}</td>
-	                        <td class="classWord"><em class="icon_note"></em><a href="http://classroom.oa.tizi.com/meeting/preview/{$val['courseware_id']}" target="_blank">{$val['courseware_name']}</a></td>
+	                        <td class="classWord"><em class="icon_note"></em><a href="{$smarty.const.NH_MEETING_URL}meeting/preview/{$val['courseware_id']}" target="_blank">{$val['courseware_name']}</a></td>
 	                        <td><a href="/orderList/question/{$val['id']}" title="查看练习题" target="_blank"><em class="icon_notem"></em></a></td>
 	                    </tr>
 	                    {/foreach}

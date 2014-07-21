@@ -38,7 +38,7 @@ class Model_statistics extends NH_Model{
                 $str_curl = nh_curl('http://api.nahao.com/ambulance/get_phone/'.$value['user_id'],array(),'get');
                 $arr_phones = json_decode($str_curl,true);
                 $value['phone'] = $arr_phones['phone'];//get_pnum_phone_server($value['user_id']);
-    			//$value['phone'] = get_pnum_phone_server($value['user_id']);
+//    			$value['phone'] = get_pnum_phone_server($value['user_id']);
     			$enter_time = $this->_get_enter_class_time($value['user_id'],$value['classroom_id']);
     			$value['enter_time'] = $enter_time['str'];
     			$value['enter_num'] = $enter_time['num'];

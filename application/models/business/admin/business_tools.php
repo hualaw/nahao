@@ -73,6 +73,7 @@ class Business_Tools extends NH_Model
    	 */
    	public function search_round($param)
    	{
-   		
+   		#图片地址
+        $array_return['class_img'] = empty($img) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($img,'large');
    	}
 }

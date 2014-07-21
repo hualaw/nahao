@@ -50,10 +50,10 @@ class NH_Admin_Controller extends NH_Controller
             $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_SIGNIN);
         }
         
-        $is_permission = pass($this->current['controller'],$this->current['action']);
-        if(!$is_permission){
-        	die('No Permission to Pass');
-        }
+//         $is_permission = pass($this->current['controller'],$this->current['action']);
+//         if(!$is_permission){
+//         	die('No Permission to Pass');
+//         }
         
         //根据controller加载css、js等
         $arr_static_config = config_item('static_admin');

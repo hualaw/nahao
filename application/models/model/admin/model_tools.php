@@ -76,12 +76,17 @@ class Model_Tools extends NH_Model
 	 */
 	public function round_info_getter($param)
 	{
-		$param['student_id'] 	= !empty($param['student_id']) ? $param['student_id'] : '';
-		$param['round_id'] 		= !empty($param['round_id']) ? $param['round_id'] : '';
-		if(!$param['student_id'] || !$param['round_id']){
-			exit('学生id与轮id都不能为空');
+		$param['round_id'] 	= !empty($param['round_id']) ? $param['round_id'] : '';
+		$param['title'] 	= !empty($param['title']) ? $param['title'] : '';
+		if(!$param['round_id'] || !$param['title']){
+			exit('轮名与轮id都不能为空');
 		}
-		$sql = "SELECT id, ";
+		$where = ' WHERE 1';
+		$where .= !empty($param['title']) ? ' AND title like "%'.$param['title'].'%"' : '';
+		$where .= !empty($param['round_id']) ? ' AND id='.$param['round_id'] : '';
+		$sql = 'SELECT id,title,students,subject,sale_price,sale_status,teach_status,bought_count,caps,start_time,img 
+				FROM round 
+				'.$where;
 	}
 	
 	/**
@@ -103,4 +108,5 @@ class Model_Tools extends NH_Model
 	{
 		
 	}
+	
 }
