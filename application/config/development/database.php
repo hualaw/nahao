@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'localhost';
+$active_group = 'default';
 // $active_group = 'localhost';
 $active_record = TRUE;
 
