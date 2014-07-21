@@ -195,6 +195,22 @@ class OrderList extends NH_User_Controller {
 		$this->smarty->display('teacher/teacherOrderList/order_manage.html');
 	}
 	
+	/**
+	 * 课件预览
+	 */
+	public function courseware_preview(){
+		$courseware_id = $this->uri->segment(3,0);
+        if($courseware_id){
+            $arr_coruseware = get_courseware_info($courseware_id);
+            $this->smarty->assign('coruseware_id', $arr_coruseware['id']);
+            $this->smarty->assign('pagenum', $arr_coruseware['pagenum']);
+            $this->smarty->assign('swfpath', $arr_coruseware['swfpath']);
+            $this->smarty->assign('view', 'preview');
+            $this->smarty->display('teacher/teacherOrderList/courseware_preview.html');
+        }else{
+        	exit('<script>alert("缺少课件参数");history.go(-1);</script>');
+        }
+	}
 }
 
 /* End of file welcome.php */
