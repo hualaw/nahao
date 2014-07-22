@@ -352,3 +352,7 @@ $config['tax_rate_config'][4] = array(
 		'tax_rate' 			=> 0.4,//税率
 		'quick_deduction'	=> 7000,//速算扣除数
 	);
+
+$config['round_class_map'] = array(
+		355 => 252
+);
