@@ -119,9 +119,6 @@ class Group extends NH_Admin_Controller {
     
     public function permission_group($gid = 0)
     {
-    	$this->pass();
-    	
-    	
     	$group = T(TABLE_ADMIN_GROUP)->getById($gid);
     	if($group) {
     		$data['group'] = $group;

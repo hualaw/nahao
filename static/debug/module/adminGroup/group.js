@@ -46,7 +46,7 @@ define(function(require,exports){
                 console.log(response);
                 alert(response.msg);
                 if (response && response.status == "ok") {
-//                    window.location.reload();
+                    window.location.reload();
                 }
             });
         });

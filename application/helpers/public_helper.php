@@ -853,9 +853,10 @@ function pass($ctrl = '', $act = '')
 			if ($user['id'] == 1 OR $user['id'] == 31) {
 				$permissions = true;
 			} else{
-				$data  = T(TABLE_ADMIN_PERMISSION_RELATION . ' AS apr')->find(array('apr.admin_id' => 1))
+				$data  = T(TABLE_ADMIN_PERMISSION_RELATION . ' AS apr')->find(array('apr.admin_id' => $user['id']))
 				->join(TABLE_GROUP_PERMISSION_RELATION . ' AS gpr','gpr.group_id = apr.group_id')
 				->join(TABLE_PERMISSION . ' AS p', 'gpr.permission_id = p.id')->select('p.controller, p.action')->get()->result_array();
+// 				print_r($data);
 				$res = array();
 				foreach($data as $item) {
 					$res[strtolower($item['controller'])][strtolower($item['action'])] = true;

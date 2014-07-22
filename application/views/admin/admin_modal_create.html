@@ -45,13 +45,17 @@
             <div class="modal-body">
                 <form role="form" method="post">
                     <div class="form-group">
-                        <label for="username">用户名(用于登录，建议姓名拼音，如张三的账号是zhangsan)</label>
-                        <input type="text" size="10" class="form-control" id="username" placeholder="输入用户名">
+                       	<select name="subject" class="form-control input-sm" style='width:150px' id='select_group'>
+                	   		<option value="">请选择组</option>
+                	   		{foreach $groups as $group}
+                			<option value="{$group.id}">{$group.name}</option>
+                			{/foreach}
+                		</select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn_admin_submit" data-action="/admin/create"> &nbsp;创建
+                <button type="button" class="btn btn-primary" id="btn_group_submit" data-action="/admin/create"> &nbsp;分配
                     &nbsp;</button>
             </div>
         </div>
