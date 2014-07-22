@@ -229,6 +229,7 @@
                     {if $str_evaluate_count >=5}
                         <a href="" class="loadMore">本页最多显示最近的5条评论</a>
                     {/if}  
+                    {if !$is_login}
                         	{if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
 							<input type="hidden" id="product_id_xia" value="{$array_data.id}">
                             <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
@@ -275,6 +276,67 @@
                             </span>
                         	</a>
 							{/if}
+					{else}
+						{if $buy_flag}
+						    <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已购买</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                        {else}
+                            {if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
+							<input type="hidden" id="product_id_xia" value="{$array_data.id}">
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>购买课程</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已售罄</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已停售</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已下架</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+							{/if}
+                        {/if}		
+					{/if}		
                     </div>
                 </div>
             </div>
