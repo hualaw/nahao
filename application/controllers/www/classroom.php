@@ -269,6 +269,8 @@ class Classroom extends NH_User_Controller {
         $arr_class_map = config_item('round_class_map');
         $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
         $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT,array('class_title'=>$array_class['title']));
+        $arr_class_id_map = config_item('round_class_id_map');
+        $array_class['id'] = isset($arr_class_id_map[$array_class['id']]) ? $arr_class_id_map[$array_class['id']] : $array_class['id'] ;
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);
@@ -336,6 +338,8 @@ class Classroom extends NH_User_Controller {
 			$int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
 			$str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER,array('class_title'=>$array_class['title']));
 		}
+		$arr_class_id_map = config_item('round_class_id_map');
+		$array_class['id'] = isset($arr_class_id_map[$array_class['id']]) ? $arr_class_id_map[$array_class['id']] : $array_class['id'] ;
     	$this->smarty->assign('classroom_id',$int_classroom_id);
     	$this->smarty->assign('class_id',$array_class['id']);
     	$this->smarty->assign('iframe',$str_iframe);
