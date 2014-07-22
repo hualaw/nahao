@@ -16,7 +16,7 @@
             $phone=trim($this->input->post('phone',TRUE));
             if(!is_mobile($phone))
             {
-                redirect('/Identifying');
+                redirect('/identifying');
             }
             $arr_captcha=$this->identifying->code_dentifying($phone);
             $this->smarty->assign('arr_captcha',$arr_captcha);
