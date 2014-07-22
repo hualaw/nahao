@@ -70,6 +70,7 @@ class Permission extends NH_Admin_Controller {
                 );
                 $bool_flag = $this->permission->update_permission($arr_param, $arr_where);
             }else{
+            	unset($arr_param['name']);
             	$is_exist = T(TABLE_PERMISSION)->find($arr_param)->count_all_results();
             	if(!$is_exist){
                 	$int_permission_id = $this->permission->create_permission($arr_param);

@@ -17,7 +17,7 @@
         	$nickname = trim($this->input->get('nickname'));
 //         	print_r($nickname);
         	$phone = trim($this->input->get('phone'));
-        	if ($nickname | $phone){
+        	if ($nickname || $phone){
         		$user_id = $this->statistics->get_user_id_by_where($nickname,$phone);
         	}
         	$post['user_id'] = !empty($user_id)?$user_id:'';
