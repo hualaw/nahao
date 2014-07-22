@@ -58,4 +58,11 @@ define(function(require,exports){
             });
         });
     }
+    
+    exports.admin_group=function(){
+    	$("#admin_group_modal").on("click",'.admin_group', function () {
+    		alert(1);
+//    		$("#admin_group_modal").modal();
+    	});
+    }
 })

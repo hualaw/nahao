@@ -32,3 +32,30 @@
     </div>
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="admin_group_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">分配组</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post">
+                    <div class="form-group">
+                        <label for="username">用户名(用于登录，建议姓名拼音，如张三的账号是zhangsan)</label>
+                        <input type="text" size="10" class="form-control" id="username" placeholder="输入用户名">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_admin_submit" data-action="/admin/create"> &nbsp;创建
+                    &nbsp;</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->

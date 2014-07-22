@@ -835,3 +835,37 @@ function delete_courseware_by_classroom_id($int_classroom_id,$int_courseware_id)
     }
     $arr_response = isset($arr_response['status']) ? $arr_response : array();
 }
+
+/**
+ * 判断是否有权限
+ * @param string $ctrl
+ * @param string $act
+ * @return bool
+ */
+function pass($ctrl = '', $act = '')
+{
+	static $permissions = null;
+	if ($permissions === null) {
+		$CI =& get_instance();
+		$permissions = false;
+		if ($CI->userinfo) {
+			$user = $CI->userinfo;
+			if ($user['id'] == 1 OR $user['id'] == 31) {
+				$permissions = true;
+			} else{
+				$data  = T(TABLE_ADMIN_PERMISSION_RELATION . ' AS apr')->find(array('apr.admin_id' => 1))
+				->join(TABLE_GROUP_PERMISSION_RELATION . ' AS gpr','gpr.group_id = apr.group_id')
+				->join(TABLE_PERMISSION . ' AS p', 'gpr.permission_id = p.id')->select('p.controller, p.action')->get()->result_array();
+				$res = array();
+				foreach($data as $item) {
+					$res[strtolower($item['controller'])][strtolower($item['action'])] = true;
+				}
+				$permissions = $res;
+			}
+		}
+	}
+	if (is_bool($permissions)) {
+		return $permissions;
+	}
+	return isset($permissions[strtolower($ctrl)][strtolower($act)]);
+}

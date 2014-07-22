@@ -116,5 +116,51 @@ class Group extends NH_Admin_Controller {
         }
         self::json_output($arr_response);
     }
+    
+    public function permission_group($gid = 0)
+    {
+    	$this->pass();
+    	
+    	
+    	$group = T(TABLE_ADMIN_GROUP)->getById($gid);
+    	if($group) {
+    		$data['group'] = $group;
+    		$data['list'] = T(TABLE_PERMISSION)->getAll('',0,0,'controller asc');
+    		$data['count'] = count($data['list']);
+    		$group_permissions = T(TABLE_GROUP_PERMISSION_RELATION)->getFields(array('permission_id'),'group_id='.$gid);
+    		$group_permission = !empty($group_permissions)?array_column($group_permissions, 'permission_id'):array();
+    		
+    		foreach($data['list'] as &$item) {
+    			if(in_array($item['id'], $group_permission)) {
+    				$item['permission'] = true;
+    			} else {
+    				$item['permission'] = false;
+    			}
+    		}
+    		
+    		$this->smarty->assign('gid', $gid);
+    		$this->smarty->assign('data', $data);
+    		$this->smarty->assign('view', 'permission_group');
+    		$this->smarty->display('admin/layout.html');
+    	} else {
+    		show_404();
+    	}
+    }
+    
+	//权限设置
+    public function permission_group_set()
+    {
+        $input['permission_id'] = (int) $this->input->post('pid');
+        $input['group_id'] = (int) $this->input->post('gid');
+
+        $status = (int) $this->input->post('status');
+        $http_response = array('status' => 0);
+        if($status) {
+            T(TABLE_GROUP_PERMISSION_RELATION)->add($input);
+        } else {
+            T(TABLE_GROUP_PERMISSION_RELATION)->deleteByWhere("permission_id = ".$input['permission_id']." and group_id=".$input['group_id']);
+        }
+        self::json_output($http_response);
+    }
 
 }
