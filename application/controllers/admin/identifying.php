@@ -18,7 +18,7 @@
             {
                 redirect('/Identifying');
             }
-            $arr_captcha=$this->Identifying->code_dentifying($phone);
+            $arr_captcha=$this->identifying->code_dentifying($phone);
             $this->smarty->assign('arr_captcha',$arr_captcha);
             $this->smarty->assign('phone',$phone);
             $this->smarty->assign('view','show_phone');
