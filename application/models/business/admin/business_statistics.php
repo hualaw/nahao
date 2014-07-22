@@ -41,10 +41,10 @@ class Business_Statistics extends NH_Model
     			 
     			$value['realname'] = !empty($user_info[0])?$user_info[0]['realname']:'';
     			$value['nickname'] = !empty($user_info[0])?$user_info[0]['nickname']:'';
-    			$str_curl = nh_curl('http://api.nahao.com/ambulance/get_phone/'.$value['user_id'],array(),'get');
-    			$arr_phones = json_decode($str_curl,true);
-    			$value['phone'] = $arr_phones['phone'];//get_pnum_phone_server($value['user_id']);
-    			//    			$value['phone'] = get_pnum_phone_server($value['user_id']);
+//     			$str_curl = nh_curl('http://api.nahao.com/ambulance/get_phone/'.$value['user_id'],array(),'get');
+//     			$arr_phones = json_decode($str_curl,true);
+//     			$value['phone'] = $arr_phones['phone'];//get_pnum_phone_server($value['user_id']);
+    			$value['phone'] = get_pnum_phone_server($value['user_id']);
     			$enter_time = $this->_get_enter_class_time($value['user_id'],$value['classroom_id']);
     			$value['enter_time'] = $enter_time['str'];
     			$value['enter_num'] = $enter_time['num'];
@@ -99,7 +99,7 @@ class Business_Statistics extends NH_Model
     public function get_user_id_by_where($nickname = '',$phone = '')
     {
     	if ($phone){
-    		$user_id = !get_uid_phone_server($phone) ?get_uid_phone_server($phone):'';
+    		$user_id = get_uid_phone_server($phone);
     	}
     	$where = 'WHERE 1=1';
     	$where .= !empty($nickname)?' AND u.nickname like "%'.$nickname.'%"':'';
@@ -107,7 +107,6 @@ class Business_Statistics extends NH_Model
     	$sql = "SELECT u.id
     			FROM user u
     			".$where.' ';
-//     	 		print_r($sql);
     	$res = $this->db->query($sql)->result_array();
     
     	return !empty($res[0])?$res[0]['id']:'';
