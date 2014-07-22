@@ -53,7 +53,7 @@ define(function(require,exports){
                 "status": $('#modal_permission_edit #permission_status').attr("checked")=="checked" ? 1 : 0
             };
             $.post(url, data, function (response) {
-//                console.log(response);
+                console.log(response);
                 alert(response.msg);
                 if (response && response.status == "ok") {
                     window.location.reload();

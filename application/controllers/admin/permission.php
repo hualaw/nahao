@@ -58,24 +58,30 @@ class Permission extends NH_Admin_Controller {
             $str_permission_action = $this->input->post('action') ? trim($this->input->post('action')) : '';
             $int_permission_status = $this->input->post('status') ? trim($this->input->post('status')) : '';
             $bool_flag = false;
-            $str_action = '创建';
+            $str_action = '创建成功';
             $arr_param['name'] = $str_permission_name;
             $arr_param['controller'] = $str_permission_controller;
             $arr_param['action'] = $str_permission_action;
             $arr_param['status'] = $int_permission_status;
             if($int_permission_id > 0){
-                $str_action = '修改';
+                $str_action = '修改成功';
                 $arr_where = array(
                     'id' => $int_permission_id
                 );
                 $bool_flag = $this->permission->update_permission($arr_param, $arr_where);
             }else{
-                $int_permission_id = $this->permission->create_permission($arr_param);
+            	$is_exist = T(TABLE_PERMISSION)->find($arr_param)->count_all_results();
+            	if(!$is_exist){
+                	$int_permission_id = $this->permission->create_permission($arr_param);
+            	}else{
+            		$str_action = '不能重复添加';
+            		$int_permission_id = true;
+            	}
                 $bool_flag = $int_permission_id ? true : false;
             }
             if($bool_flag){
                 $this->arr_response['status'] = 'ok';
-                $this->arr_response['msg'] = $str_action.'成功';
+                $this->arr_response['msg'] = $str_action;
             }
         }
         self::json_output($this->arr_response);
