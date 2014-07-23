@@ -46,7 +46,7 @@ class Course extends NH_User_Controller {
         }
         if($array_data && $array_data['sell_begin_time'])
         {
-        	$array_data['seo_time'] = date('n-j',$array_data['sell_begin_time']);
+        	$array_data['seo_time'] = date('n/j',$array_data['sell_begin_time']);
         }
         #课程列表的地址
         $course_url = config_item('course_url');
