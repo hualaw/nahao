@@ -175,10 +175,8 @@
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">可进教室</a>
 								{elseif  $it.status== $smarty.const.CLASS_STATUS_CLASSING}
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">去上课</a>
-								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER}
-									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
-								{elseif $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
-									<a href="javascript:;" class="replay cBtn fl">缺课</a>	
+								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER || $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
+									<a href="javascript:;" class="replay cBtn fl">已结课</a>	
 								{elseif $it.status==$smarty.const.CLASS_STATUS_FORI_CLASS}
 									<a href="javascript:;" class="replay cBtn fl">停课</a>								
 								{/if}
