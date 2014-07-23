@@ -9,7 +9,7 @@ define(function (require, exports) {
     //lesson_create
     exports.bind_everything = function () {
 
-        //edit lesson modal
+        //lesson edit modal
         $("#btn_lesson_create,.btn_lesson_update").on('click',function(){
             //clear all input and bind
             $("#lesson_name").val('');

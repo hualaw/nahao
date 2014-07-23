@@ -250,4 +250,25 @@ class Classes extends NH_Admin_Controller {
         self::json_output($arr_response);
     }
 
+    public function delete(){
+        $int_class_id = $this->input->post('class_id') ? $this->input->post('class_id') : 0;
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '删除失败',
+        );
+        if($int_class_id > 0){
+            $arr_where = array(
+                'id' => $int_class_id
+            );
+            o($arr_where,true);
+            $return = $this->class->delete_class($arr_where);
+            if($return){
+                $arr_response = array(
+                    'status' => 'ok',
+                    'msg' => '删除成功',
+                );
+            }
+        }
+        self::json_output($arr_response);
+    }
 }
