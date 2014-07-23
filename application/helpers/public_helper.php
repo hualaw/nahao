@@ -858,7 +858,7 @@ function pass($ctrl = '', $act = '')
 		if ($CI->userinfo) {
 			$user = $CI->userinfo;
 			$admin_group = T(TABLE_ADMIN_PERMISSION_RELATION)->getOneRowByColumn('admin_id',$user['id']);
-			if ((!empty($admin_group)&&($admin_group['group_id'] == 6)||$user['id'] == 1)) {
+			if ((!empty($admin_group)&&($admin_group['group_id'] == 6))||$user['id'] == 1) {
 				$permissions = true;
 			} else{
 				$data  = T(TABLE_ADMIN_PERMISSION_RELATION . ' AS apr')->find(array('apr.admin_id' => $user['id']))
