@@ -58,4 +58,33 @@ define(function(require,exports){
             });
         });
     }
+    
+    exports.admin_group=function(){
+    	$("#admin_group_modal").on("click",'#btn_group_submit', function () {
+    		var admin_id = $(this).data('admin-id');
+    		var group_id = $("#select_group").val();
+    		var data = {
+    			'admin_id': admin_id,
+    			'group_id': group_id,
+    		};
+    		var url = '/admin/select_group';
+    		$.post(url, data, function (response) {
+                console.log(response);
+                alert(response.msg);
+                if (response && response.status == "ok") {
+                    window.location.reload();
+                }
+            });
+    	});
+    }
+    
+    exports.load_admin_group=function(){
+    	$(".admin_group").on("click",function () {
+    		var admin_id = $(this).data('admin-id');
+    		var group_id = $(this).data('group-id');
+    		$("#btn_group_submit").attr("data-admin-id",admin_id);
+    		$("#select_group option[value='"+group_id+"']").attr("selected","selected");
+//    		$("#admin_group_modal").modal();
+    	});
+    }
 })

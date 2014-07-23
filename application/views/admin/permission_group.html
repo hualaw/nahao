@@ -1,0 +1,28 @@
+<h4>组名:{$data['group']['name']}</h4>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>名称</th>
+        <th>控制器</th>
+        <th>方法</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $data['list'] as $v}
+    <tr>
+        <td>{$v.id}</td>
+        <td>{$v.name}</td>
+        <td>{$v.controller}</td>
+        <td>{$v.action}</td>
+        <td><input {if $v.permission !=''}checked{/if} class="permission" data-pid="{$v.id}" data-gid="{$gid}" type="checkbox" value="{$v.id}" /></td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+共{$data['count']}条记录&nbsp;&nbsp;
+{include file="admin/group_modal_operation.html"}
+
+
+

@@ -4,4 +4,6 @@ define(function(require,exports){
     admin.create_admin();
     admin.active_admin();
     admin.password();
+    admin.admin_group();
+    admin.load_admin_group();
 })
