@@ -125,6 +125,8 @@ class NH_Controller extends CI_Controller
      */
     public function enter_classroom($int_classroom_id,$user_type,$array_data){
         $str_classroom_url = '/classroom/main.html?';
+        $arr_class_map = config_item('round_class_map');
+        $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
         $array_params = array(
             'UserDBID' => $this->session->userdata('user_id'),
             'ClassID'  => $int_classroom_id,

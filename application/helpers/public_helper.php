@@ -438,7 +438,14 @@ if (!function_exists('getHttpResponse')) {
  */
 function static_url($str_url){
 //    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
-    return STATIC_FILE_URL . '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    if(ENVIRONMENT=='production'){
+        $str_static_url = 'http://static.nahao.com'. '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    }elseif(ENVIRONMENT=='testing'){
+        $str_static_url = 'http://static.nahaotest.com'. '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    }elseif(ENVIRONMENT=='development'){
+        $str_static_url = 'http://static.nahaodev.com'. '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    }
+    return $str_static_url;
 }
 
 /**
