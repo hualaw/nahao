@@ -50,6 +50,8 @@ class Admin extends NH_Admin_Controller {
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
         $arr_list = $this->admin->get_admin_list($arr_where, $int_start,PER_PAGE_NO);
+        $groups = T(TABLE_ADMIN_GROUP)->getAll('status = 1');
+        $this->smarty->assign('groups',$groups);
 
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
@@ -97,6 +99,32 @@ class Admin extends NH_Admin_Controller {
             }
         }
         self::json_output($this->arr_response);
+    }
+    
+    public function select_group()
+    {
+    	if($this->is_ajax() AND $this->is_post()){
+    		$data['group_id'] = trim($this->input->post('group_id'));
+    		$data['admin_id'] = trim($this->input->post('admin_id'));
+    		
+    		if(empty($data['admin_id'])){
+    			$this->arr_response['status'] = 'error';
+    			$this->arr_response['msg'] = 'admin_id不能为空';
+    		}else{
+    			$is_exist = T(TABLE_ADMIN_PERMISSION_RELATION)->count('admin_id = '.$data['admin_id']);
+    			if($is_exist){
+    				T(TABLE_ADMIN_PERMISSION_RELATION)->updateByWhere('admin_id = '.$data['admin_id'],$data);
+    			}else{
+    				T(TABLE_ADMIN_PERMISSION_RELATION)->add($data);
+    			}
+    			$this->arr_response['status'] = 'ok';
+    			$this->arr_response['msg'] = '分配成功';
+    		}
+    		
+    		
+    		
+    	}
+    	self::json_output($this->arr_response);
     }
 
     /**

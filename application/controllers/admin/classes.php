@@ -190,6 +190,8 @@ class Classes extends NH_Admin_Controller {
         $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
         $arr_class = $this->class->get_class_by_classroom_id($int_classroom_id);
         if($arr_class){
+        	$arr_class_map = config_item('round_class_map');
+        	$int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
             $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_ADMIN,array('class_title'=>$arr_class['title']));
             $this->smarty->assign('js_module', 'classRoom');
             $this->smarty->assign('classroom_id', $int_classroom_id);
