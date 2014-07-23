@@ -176,7 +176,7 @@ class Course extends NH_User_Controller {
 	    $bool_result = $this->model_course->check_class_comment($int_class_id,$int_user_id);
 	    if ($bool_result)
 	    {
-	    	self::json_output(array('status'=>'error','msg'=>'这节课您已经评论过了，请不要重复评论'));
+	    	self::json_output(array('status'=>'error','msg'=>'这节课您已经评论过了!'));
 	    }
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
