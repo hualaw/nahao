@@ -10,6 +10,16 @@
             <input type="text" class="form-control" id="permission_name" name="permission_name" size="16"
                    value="{if isset($arr_query_param.permission_name)}{$arr_query_param.permission_name}{/if}">
         </div>
+        <label class="col-md-1 control-label" for="permission_controller">控制器</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control" id="permission_controller" name="permission_controller" size="16"
+                   value="{if isset($arr_query_param.permission_controller)}{$arr_query_param.permission_controller}{/if}">
+        </div>
+        <label class="col-md-1 control-label" for="permission_method">方法</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control" id="permission_method" name="permission_method" size="16"
+                   value="{if isset($arr_query_param.permission_method)}{$arr_query_param.permission_method}{/if}">
+        </div>
         <button type="submit" class="btn btn-primary">搜索</button>
     </div>
 </form>
@@ -18,9 +28,9 @@
     <tr>
         <th>#</th>
         <th>组名</th>
-        <th>状态</th>
         <th>控制器</th>
         <th>方法</th>
+        <th>状态</th>
         <th>操作</th>
     </tr>
     </thead>
