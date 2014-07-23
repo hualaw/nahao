@@ -135,11 +135,17 @@ class Course extends NH_User_Controller {
 	 */
 	public function class_comment()
 	{
-	    #判断是否登录
-	    if(!$this->is_login)
-	    {
-	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录',));
-	    }
+		#来自于教室的评论 不用判断登陆；来自于购买后评论，需要判断登陆
+		$from_type = $this->input->post("from_type");
+		if($from_type == '1')
+		{
+			#判断是否登录
+			if(!$this->is_login)
+			{
+				self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录',));
+			}
+		}
+
 	    
 	    $int_user_id = $this->session->userdata('user_id');#TODOuser_id
 	    $int_class_id = $this->input->post("class_id");
@@ -165,6 +171,12 @@ class Course extends NH_User_Controller {
 	    if(empty($str_content))
 	    {
 	    	self::json_output(array('status'=>'error','msg'=>'评价内容不能为空！'));
+	    }
+	    #判断是否有评论过
+	    $bool_result = $this->model_course->check_class_comment($int_class_id,$int_user_id);
+	    if ($bool_result)
+	    {
+	    	self::json_output(array('status'=>'error','msg'=>'这节课您已经评论过了!'));
 	    }
 	    $array_data = array(
 	            'course_id'=>$array_result['course_id'],
@@ -346,6 +358,23 @@ class Course extends NH_User_Controller {
 	 		ob_clean();
 	 		flush();
 	 		exit($content); //输出数据流
+	 	}
+	 }
+	 
+	 /**
+	  * Ajax检查是否有评论过
+	  */
+	 public function ajax_check_comment()
+	 {
+	 	$int_user_id = $this->session->userdata('user_id');#TODOuser_id
+	 	$int_class_id = $this->input->post("class_id");
+	 	#判断是否有评论过
+	 	$bool_result = $this->model_course->check_class_comment($int_class_id,$int_user_id);
+	 	if ($bool_result)
+	 	{
+	 		self::json_output(array('status'=>'error','msg'=>'这节课您已经评论过了!'));
+	 	} else {
+	 		self::json_output(array('status'=>'ok','msg'=>''));
 	 	}
 	 }
 }
