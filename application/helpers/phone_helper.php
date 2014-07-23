@@ -80,7 +80,7 @@ function get_uid_phone_server($phone, $appname = PHONE_SERVER_APPNAME){
     } catch (\yiduoyun\phone\NotFoundException $exc) {
         return 0;
     }catch (Exception $exc) {
-        log_message('error_nahao', 'phone server operation occur exception,' . $exc->getTraceAsString());
+        log_message('error_nahao', 'phone server operation occurs exception,' . $exc->getTraceAsString());
         return false;
     }
 }
