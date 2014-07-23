@@ -167,7 +167,11 @@ class NH_Model extends CI_Model
     {
         //check phone is unique
         $user_id = get_uid_phone_server($phone);
-        if($user_id)
+        if($user_id === false) //connect phone server failed
+        {
+            return $this->_log_reg_info(ERROR, 'reg_phone_server_error', array('phone'=>$phone));
+        }
+        else if($user_id) //the phone number is existed in phone server
         {
             return $this->_log_reg_info(ERROR, 'reg_dup_phone', array('phone'=>$phone));
         }
