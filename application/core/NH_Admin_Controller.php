@@ -52,9 +52,13 @@ class NH_Admin_Controller extends NH_Controller
         
         $is_permission = pass($this->current['controller'],$this->current['action']);
         if(!in_array($this->current['controller'], array('index','passport'))) {
-	        if(!$is_permission){
-	        	die('No Permission to Pass');
-	        }
+            if(!$is_permission){
+                if(self::is_ajax()){
+                    self::json_output(array('msg' => 'No Permission to Pass'));
+                }else{
+                        die('No Permission to Pass');
+                }
+            }
         }
         
         //根据controller加载css、js等
