@@ -257,11 +257,11 @@ class Classes extends NH_Admin_Controller {
             'msg' => '删除失败',
         );
         if($int_class_id > 0){
-            $arr_where = array(
-                'id' => $int_class_id
-            );
-            o($arr_where,true);
-            $return = $this->class->delete_class($arr_where);
+//            $arr_where = array(
+//                'id' => $int_class_id
+//            );
+//            o($arr_where,true);
+            $return = $this->class->delete_classes($int_class_id);
             if($return){
                 $arr_response = array(
                     'status' => 'ok',

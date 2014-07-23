@@ -9,4 +9,5 @@ define(function(require,exports){
 
     var lesson = require('module/adminLesson/lesson');
     lesson.bind_everything();
+    lesson.active_lesson();
 })

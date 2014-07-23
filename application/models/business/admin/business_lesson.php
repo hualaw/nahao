@@ -241,6 +241,8 @@ class Business_Lesson extends NH_Model
     public function update_lesson($arr_param,$arr_where){
         $bool_flag = false;
         if($arr_param AND $arr_where){
+//            o($arr_param);
+//            o($arr_where,true);
             $bool_flag = $this->model_lesson->update_lesson($arr_param,$arr_where);
         }
         return $bool_flag;
@@ -351,7 +353,7 @@ class Business_Lesson extends NH_Model
             $str_result_type = 'list';
             $str_fields = 'id,course_id,title,courseware_id,status,parent_id,sequence,school_hour';
             $arr_where = array(
-                'course_id' => $int_course_id
+                'course_id' => $int_course_id,
             );
             $arr_order = array(
                 'parent_id' => 'asc',

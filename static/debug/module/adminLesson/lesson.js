@@ -156,4 +156,22 @@ define(function (require, exports) {
         });
     }
 
+    //active lesson
+    exports.active_lesson=function(){
+        $(".lesson_active").on("click",function () {
+            var btn = $(this);
+            var action = btn.data('action');
+            var data = {
+                lesson_id: btn.data('lesson_id'),
+                status: btn.data('status')
+            };
+            $.post(action, data, function (response) {
+                alert(response.msg);
+                if (response && response.status == "ok") {
+                    window.location.reload();
+                }
+            });
+        });
+    }
+
 });
