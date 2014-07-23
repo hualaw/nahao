@@ -9,7 +9,7 @@ define(function (require, exports) {
     //lesson_create
     exports.bind_everything = function () {
 
-        //edit lesson modal
+        //lesson edit modal
         $("#btn_lesson_create,.btn_lesson_update").on('click',function(){
             //clear all input and bind
             $("#lesson_name").val('');
@@ -153,6 +153,24 @@ define(function (require, exports) {
 //return false;
         $.post(url,data,function(response){
             window.location.reload();
+        });
+    }
+
+    //active lesson
+    exports.active_lesson=function(){
+        $(".lesson_active").on("click",function () {
+            var btn = $(this);
+            var action = btn.data('action');
+            var data = {
+                lesson_id: btn.data('lesson_id'),
+                status: btn.data('status')
+            };
+            $.post(action, data, function (response) {
+                alert(response.msg);
+                if (response && response.status == "ok") {
+                    window.location.reload();
+                }
+            });
         });
     }
 

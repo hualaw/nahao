@@ -183,6 +183,12 @@ class Round extends NH_Admin_Controller
                         $bool_flag = false;
                         $this->load->model('business/admin/business_lesson', 'lesson');
                         $arr_classes = $arr_lessons = $this->lesson->get_lessons_by_course_id($int_course_id);
+//                        o($arr_classes,true);
+                        foreach($arr_classes as $k => $v){
+                            if($v['status']==0){
+                                unset($arr_classes[$k]);
+                            }
+                        }
                         $this->load->model('business/admin/business_course', 'course');
                         $int_class_count = $this->course->get_section_count($arr_classes);
                         if($int_class_count > 0){
