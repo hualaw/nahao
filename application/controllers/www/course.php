@@ -35,6 +35,15 @@ class Course extends NH_User_Controller {
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
        	//var_dump($array_data);die;
+       
+        #判断是否登录
+        if($this->is_login)
+        {
+        	#用户登录之后是否买过这轮
+        	$int_user_id = $this->session->userdata('user_id');
+        	$buy_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
+        	$this->smarty->assign('buy_flag', $buy_flag);
+        }
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
