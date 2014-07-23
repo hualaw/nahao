@@ -44,6 +44,10 @@ class Course extends NH_User_Controller {
         	$buy_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
         	$this->smarty->assign('buy_flag', $buy_flag);
         }
+        if($array_data && $array_data['sell_begin_time'])
+        {
+        	$array_data['seo_time'] = date('n-j',$array_data['sell_begin_time']);
+        }
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
