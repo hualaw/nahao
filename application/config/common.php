@@ -311,7 +311,7 @@ $config['production_round_time_config']['teacher_late_time'] = 300;//开课后�
 
 
 //代理服务器
-$config['McuAddr'][1] = '42.121.114.19:1940';
+$config['McuAddr'][1] = '42.121.114.19:21443';
 
 
 /**
