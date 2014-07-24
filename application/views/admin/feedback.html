@@ -39,8 +39,8 @@
     <div class="col-md-3">
         <input type="text" id="end_time" name="end_time" value="{if isset($search_term.end_time)}{$search_term.end_time}{/if}" class="form-control" placeholder="请输入结束时间进行搜索" readonly />
     </div>
-    <a href="/feedback" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-info">搜索</button>
+    <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/feedback" class="btn btn-warning" role="button">重置</a>
+
 </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
 <table class="table table-hover">
