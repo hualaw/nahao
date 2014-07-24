@@ -9,8 +9,8 @@
         <div class="col-md-2">
             <input type="text" name="name" class="form-control" placeholder="请输入学科名字" value="{if isset($search_term.name)}{$search_term.name}{/if}" />
         </div>
-    <a href="/subject" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-info">搜索</button>
+    <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/subject" class="btn btn-warning" role="button">重置</a>
+
     <div class="col-md-15">&nbsp;</div>
 </form>
     <label class="control-label" for="inputSuccess">符合条件的有{$search_total}条数据</label>

@@ -40,8 +40,8 @@
     </select></div>
     <div class="col-md-15">&nbsp;</div>
     <div class="col-md-2"><input type="text" name="create_time1" class="form-control" id="lecture_datetimepicker1" readonly placeholder="请选择申请开始时间" value="{if isset($search_term.create_time1)}{$search_term.create_time1}{/if}" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control" id="lecture_datetimepicker2" placeholder="请选择申请结束时间" readonly value="{if isset($search_term.create_time2)}{$search_term.create_time2}{/if}" /></div>
-    <a href="/lecture" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-info">搜索</button>
+    <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/lecture" class="btn btn-warning" role="button">重置</a>
+
  </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$sea_total}条数据</label>
 <table class="table table-hover">
