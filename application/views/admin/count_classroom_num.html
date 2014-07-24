@@ -1,0 +1,25 @@
+<table class="table table-bordered table table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>昵称</th>
+        <th>真实姓名</th>
+        <th>次数</th>
+        <th>电话</th>
+    </tr>
+    </thead>
+    {foreach $arr_classroom as $v}
+    <tr>
+        <td>{$v.user_id}</td>
+        <td>{$v.nickname}</td>
+        <td>{$v.realname}</td>
+        <td>{$v.c}</td>
+        <td><span class="show_phone" data-tel="{$v.tel}">{$v.phone_mask}</span></td>
+    </tr>
+    {/foreach}
+ </table>
+{if $type==2}
+    <a href="/count_classroom_num">收缩</a>
+{elseif $type==1}
+    <a href="/count_classroom_num/index?type=2">显示全部</a>
+{/if}
