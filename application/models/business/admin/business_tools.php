@@ -56,7 +56,7 @@ class Business_Tools extends NH_Model
 		if($round_info['sale_price']<=0){
 			#5.1 如果是<=0，免费课，现价为0元
 			$round_info['now_price'] == 0;
-		}elseif($round_info['sale_price']>0 && $round_info['sale_price']<1){
+		}elseif($round_info['sale_price']>0 && $round_info['sale_price']<=1){
 			#5.2 如果是=1，1元课，现价为1元
 			$round_info['now_price'] == 1;
 		}else{
