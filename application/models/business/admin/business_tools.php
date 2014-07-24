@@ -35,16 +35,16 @@ class Business_Tools extends NH_Model
     	$round_info = $this->model_tools->round_info_searcher($param);
     	$round_info = $round_info[0];
     	if($round_info['bought_count'] >= $round_info['caps']){
-    		$this->error_output('已购买人数已经达到上限（售罄）~');
+    		$this->error_output('购买失败：已购买人数已经达到上限（售罄）~');
     	}
     	#2. 查询此轮的授课状态，如果是 【等待开课/初始化，授课中】，是就终止提示不可购买，不是就继续
     	if(!in_array($round_info['teach_status'],array(ROUND_TEACH_STATUS_INIT,ROUND_TEACH_STATUS_TEACH))){
-    		$this->error_output('该班次允许购买的授课状态已过，不可购买');
+    		$this->error_output('购买失败：该班次允许购买的授课状态已过，不可购买');
     	}
     	#3. 查询学生与轮是否有状态为2（已支付）的订单记录，有则终止提示，没有就继续
     	$is_pay = $this->model_tools->search_student_order(array('round_id'=>$round_id,'user_id'=>$user_id));
     	if($is_pay>0){
-    		$this->error_output('该学生买过该课了~');
+    		$this->error_output('购买失败：该学生买过该课了~');
     	}
     	
     	#4. 查找用户信息，看看是否有phoneserver手机号，没有就终止，没有则继续

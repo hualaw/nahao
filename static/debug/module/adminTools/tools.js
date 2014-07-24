@@ -4,16 +4,14 @@ define(function (require, exports) {
 		tools_manage = this;
 		this.autorun();
 	}
-	//初始程序
-	exports.autorun = function(){
-		$('.toolbar').click(function(){
-			showBox = $(this).attr('data');
-			$('#'+showBox).attr('class','panel-collapse collapse in').siblings().removeClass('in');
-		});
-	}
 	//操作方法
 	exports.autorun = function(){
+//		$('.toolbar').click(function(){
+//			showBox = $(this).attr('data');
+//			$('#'+showBox).attr('class','panel-collapse collapse in').siblings().removeClass('in');
+//		});
 		//创建订单模板
+		var studentUrl = staticUrl.replace('static','www');
 		$('.create_order').click(function(){
 			ispass = tools_manage.subCheck();
 			if(ispass){
@@ -41,7 +39,7 @@ define(function (require, exports) {
 						$("#order-"+curId+" tr.order-hd").find('.teach_time').html(time);
 						$("#order-"+curId+" tr.order-hd").find('.teacherName').html('授课老师：'+res.data.roundInfo[0].teacherName);
 						$("#order-"+curId+" tr.order-info").find('.round_pic').html('<img src="'+res.data.roundInfo[0].round_img+'">');
-						$("#order-"+curId+" tr.order-info").find('.round_name').html(res.data.roundInfo[0].title);
+						$("#order-"+curId+" tr.order-info").find('.round_name').html('<a href="'+studentUrl+'ke_'+curRound_id+'.html" target="_blank" title="'+res.data.roundInfo[0].title+'">'+res.data.roundInfo[0].title+'</a>');
 						$("#order-"+curId+" tr.order-info").find('.spec').html('<span>所属学科：'+res.data.roundInfo[0].subjectName+'</span>');
 						$("#order-"+curId+" tr.order-info").find('.status').html('预览订单');
 						$("#order-"+curId+" tr.order-info").find('.operation').children('.time').html(sepertime);
