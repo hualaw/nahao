@@ -179,4 +179,41 @@ class Model_Tools extends NH_Model
 		$int_result = $this->db->affected_rows();
         return $int_result;
 	}
+	
+	/**
+	 * 设置过代理服务器老师列表
+	 */ 
+	public function get_proxy_teacher(){
+		$sql ="SELECT user_id,realname,proxy FROM user_info WHERE proxy>0";
+		$this->db->query('set names utf8');
+		$arr_result = $this->db->query($sql)->result_array();
+		
+        return $arr_result;
+	}
+	
+	/**
+	 * 设置老师代理服务器
+	 */ 
+	public function set_teacher_proxy($param){
+		if(empty($param['proxy_id']) || empty($param['teacher_id'])){
+    		exit('代理服务器和老师id都不能为空');
+    	}
+    	$sql = "UPDATE user_info SET proxy=".$param['proxy_id']." WHERE user_id=".$param['teacher_id'];
+    	$this->db->query($sql);
+		$int_result = $this->db->affected_rows();
+        return $int_result;
+	}
+	
+	/**
+	 * 取消老师代理服务器
+	 */ 
+	public function unset_teacher_proxy($param){
+		if(empty($param['teacher_id'])){
+			exit('老师id不能为空');
+		}
+		$sql = "UPDATE user_info SET proxy=0 WHERE user_id=".$param['teacher_id'];
+    	$this->db->query($sql);
+		$int_result = $this->db->affected_rows();
+        return $int_result;
+	}
 }

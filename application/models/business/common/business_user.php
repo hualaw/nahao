@@ -90,7 +90,7 @@ class Business_User extends NH_Model
             $str_result_type = 'one';
             $str_fields = 'id AS user_id,nickname,realname,phone_mask,email,avatar,phone_verified,email_verified,teach_priv,
                            gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,work_auth_img,custom_school,
-                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,has_bought,stage,grade';
+                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,has_bought,stage,grade,proxy';
             $arr_where = array(
                 'id' => $user_id,
                 TABLE_USER.'.status' => 1,

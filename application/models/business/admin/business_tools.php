@@ -35,16 +35,16 @@ class Business_Tools extends NH_Model
     	$round_info = $this->model_tools->round_info_searcher($param);
     	$round_info = $round_info[0];
     	if($round_info['bought_count'] >= $round_info['caps']){
-    		$this->error_output('已购买人数已经达到上限（售罄）~');
+    		$this->error_output('购买失败：已购买人数已经达到上限（售罄）~');
     	}
     	#2. 查询此轮的授课状态，如果是 【等待开课/初始化，授课中】，是就终止提示不可购买，不是就继续
     	if(!in_array($round_info['teach_status'],array(ROUND_TEACH_STATUS_INIT,ROUND_TEACH_STATUS_TEACH))){
-    		$this->error_output('该班次允许购买的授课状态已过，不可购买');
+    		$this->error_output('购买失败：该班次允许购买的授课状态已过，不可购买');
     	}
     	#3. 查询学生与轮是否有状态为2（已支付）的订单记录，有则终止提示，没有就继续
     	$is_pay = $this->model_tools->search_student_order(array('round_id'=>$round_id,'user_id'=>$user_id));
     	if($is_pay>0){
-    		$this->error_output('该学生买过该课了~');
+    		$this->error_output('购买失败：该学生买过该课了~');
     	}
     	
     	#4. 查找用户信息，看看是否有phoneserver手机号，没有就终止，没有则继续
@@ -52,6 +52,7 @@ class Business_Tools extends NH_Model
 //    	if(empty($phone)){
 //    		$this->error_output('该学生没有验证过手机号~');
 //    	}
+		$round_info['now_price'] = '';
     	#5. 【如果第1,2,3步成功】					生成学生与订单记录，计算当前可购买数比例，根据 原销售价sale_price
 		if($round_info['sale_price']<=0){
 			#5.1 如果是<=0，免费课，现价为0元
@@ -146,8 +147,9 @@ class Business_Tools extends NH_Model
    		if(!empty($param['round_id'])){
 	   		foreach($round_info as &$val){
 	   			#图片地址
-	       		$val['round_img'] = empty($round_info['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($round_info['img'],'small');	
-	   			#计算进度与现价
+	       		$val['round_img'] = empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($val['img'],'general');	
+	   			
+	       		#计算进度与现价
 	   			$input = array(
 	   				'round_id'=>$val['id'],
 	   				'class_count'=>$val['class_count'],
@@ -169,7 +171,9 @@ class Business_Tools extends NH_Model
 	 */ 
    	public function get_round_rate_price($param)
    	{
-   		if(empty($param['round_id']) || empty($param['class_count'])){exit('缺少轮进度统计参数');}
+   		if(empty($param['round_id']) || empty($param['class_count'])){
+   			$this->error_output('缺少轮进度统计参数~');
+   		}
    		$param['sale_price'] = !empty($param['sale_price']) ? $param['sale_price'] : 0;
    		$arrow = $this->model_tools->round_allow_num(array('round_id'=>$param['round_id']));
    		#允许购买课数量
@@ -185,4 +189,31 @@ class Business_Tools extends NH_Model
    		return $rate_price;
    	}
 
+   	/**
+	 * 为老师设置代理服务器
+	 */ 
+   	public function set_proxy($param){
+   		$res = $this->model_tools->set_teacher_proxy($param);
+   		return $res;
+   	}
+   	
+   	/**
+   	 * 取消老师代理服务器
+   	 */
+   	public function unset_proxy($param){
+   		$res = $this->model_tools->unset_teacher_proxy($param);
+   		return $res;
+   	} 
+   	
+   	/**
+	 * 查找已经设置过代理服务器的老师
+	 */ 
+   	public function get_proxy_teacher(){
+   		 $res = $this->model_tools->get_proxy_teacher();
+   		 $mcu = config_item('McuAddr');
+   		 if($res) foreach ($res as &$val){
+   		 	$val['proxy_addr'] = $mcu[$val['proxy']];
+   		 }
+   		 return $res;
+   	}
 }
