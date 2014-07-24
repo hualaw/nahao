@@ -46,9 +46,24 @@ define(function(require,exports){
                 console.log(response);
                 alert(response.msg);
                 if (response && response.status == "ok") {
-//                    window.location.reload();
+                    window.location.reload();
                 }
             });
+        });
+        
+        //group permission
+        $('.permission').click(function(){
+        	var status = this.checked ? 1 : 0;
+        	var data = {
+                    "pid": $(this).data("pid"),
+                    "gid": $(this).data("gid"),
+                    "status":status
+                };
+            $.post('/group/permission_group_set', data, function (res) {
+                if (res.status == 1) {
+                    alert(res.msg);
+                }
+            }, 'json');
         });
     }
 });

@@ -265,6 +265,7 @@ overflow: hidden;}
 .studentMyCourse .buyAfter .outlineList{padding-bottom: 20px;}
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
 .studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
+.studentMyCourse .buyAfter .cmBox li span{width: 120px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
 .studentMyCourse .outlineList .listh{font-size: 16px;width: 279px;
 white-space: nowrap;

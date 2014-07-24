@@ -299,6 +299,22 @@ class Business_Class extends NH_Model
     }
 
     /**
+     * 根据id删除class
+     * @param $int_class_id
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_classes($int_class_id){
+        if($int_class_id > 0){
+            $arr_where = array(
+                'id' => $int_class_id
+            );
+            $this->model_class->delete_class_by_param($arr_where);
+        }
+        return true;
+    }
+
+    /**
      * 修改class
      * @param array $arr_param
      * @param array $arr_where

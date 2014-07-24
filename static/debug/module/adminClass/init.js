@@ -1,6 +1,7 @@
 define(function(require,exports){
     require('lib/bootstrap/bootstrap.min');
     require('lib/bootstrap/bootstrap-datetimepicker.min');
+    require('lib/dragsort/dragsort.min');
     require('lib/preview/preview');
     require('lib/preview/preview_swf');
     var classes = require('module/adminClass/class');

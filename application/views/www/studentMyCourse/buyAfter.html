@@ -175,10 +175,8 @@
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">可进教室</a>
 								{elseif  $it.status== $smarty.const.CLASS_STATUS_CLASSING}
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">去上课</a>
-								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER}
-									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
-								{elseif $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
-									<a href="javascript:;" class="replay cBtn fl">缺课</a>	
+								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER || $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
+									<a href="javascript:;" class="replay cBtn fl">已结课</a>	
 								{elseif $it.status==$smarty.const.CLASS_STATUS_FORI_CLASS}
 									<a href="javascript:;" class="replay cBtn fl">停课</a>								
 								{/if}
@@ -266,7 +264,7 @@
 						<div class="nhead cf posr">
 							<img src="{$item.avatar}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong title="{$item.nickname}">{$item.nickname|truncate:7:"...":true}</strong>
+								<strong title="{$item.nickname}">{$item.nickname}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
@@ -283,8 +281,8 @@
 	        	{if $array_classmate}
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{$item.avatar}" alt="">
-						<span title="{$item.nickname}">{$item.nickname|truncate:10:"...":true}</span>
+						<img src="{$item.avatar}" alt="" class="fl">
+						<span title="{$item.nickname}" class="fl">{$item.nickname}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}
@@ -321,6 +319,7 @@
 		<form action="/course/class_comment" class="evaluForm" method="post" onsubmit="return false;">
 			<input type="hidden" name="score" id="c_score" value="">
 			<input type="hidden" name="class_id" id="c_class_id" value="">
+			<input type="hidden" name="from_type"  value="1">
 			<ul>
 				<li>
 					<div class="cf">

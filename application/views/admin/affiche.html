@@ -30,8 +30,7 @@
             <option value=1 {if isset($search_term.author_role) && $search_term.author_role==1}selected{/if}>老师</option>
         </select>
     </div>
-    <a href="/affiche" class="btn btn-info" role="button">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-info">搜索</button>
+    <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/affiche" class="btn btn-warning" role="button">重置</a>
 </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label>
 {for $i=1 to 220}&nbsp;{/for}

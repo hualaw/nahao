@@ -19,6 +19,7 @@ class NH_Admin_Controller extends NH_Controller
     function __construct()
     {
         parent::__construct();
+       
         $this->load->model('business/admin/business_admin','admin');
         if($this->current['controller']!='admin'){
             $this->current['controller'] = $this->current['controller']=='classes' ? 'class' : $this->current['controller'];
@@ -48,37 +49,35 @@ class NH_Admin_Controller extends NH_Controller
         }else{
             $this->arr_admin_init_css = array(STATIC_ADMIN_CSS_SIGNIN);
         }
-        //根据controller加载css、js等
-        $arr_static_config = config_item('static_admin');
-//        $arr_css = isset($arr_static_config[$this->current['controller']]['css']) ? array_merge($this->arr_admin_init_css,$arr_static_config[$this->current['controller']]['css']) : $this->arr_admin_init_css;
-        foreach($this->arr_admin_init_css as $k => $v){
-            $this->arr_static['css'][] = '<link href="'.static_url($v).'" rel="stylesheet">';
-        }
-        foreach($this->arr_admin_init_js as $k => $v){
-            $this->arr_static['js'][] = '<script type="text/javascript" src="'.static_url($v).'"></script>';
-        }
-        $this->smarty->assign('static',$this->arr_static);
-
+		
+        //判断是否登录
         if($bool_redirect==true){
             redirect('/passport');
         }
-        /*if($this->user){
-            $this->load->vars('user',$this->user);
-            $this->load->model('admin/model_permission','permission');
-            $controller = $this->router->fetch_class();//$this->uri->segment(1);
-            $action = $this->router->fetch_method();//$this->uri->segment(2)===false ? 'index' : $this->uri->segment(2);
-            //$permission_id = $this->permission->get_permission_by_controller_action($controller,$action);
-//            var_dump($this->user);
-            if(! has_permission($controller, $action)){
-//                redirect('/passport');
-//                exit('no permission');
-            }
-        }else{
-            if($this->router->fetch_class() != 'passport')
-            {
-                redirect('/passport');
-            }
-        }*/
+        
+        //判断是否有访问当前类和方法的权限
+        $is_permission = pass($this->current['controller'],$this->current['action']);
+        if(!in_array($this->current['controller'], array('index','passport'))) {
+        	if(!$is_permission){
+        		if(self::is_ajax()){
+        			self::json_output(array('msg' => 'No Permission to Pass'));
+        		}else{
+        			die('No Permission to Pass');
+        		}
+        	}
+        }
+        
+        //根据controller加载css、js等
+        $arr_static_config = config_item('static_admin');
+        //        $arr_css = isset($arr_static_config[$this->current['controller']]['css']) ? array_merge($this->arr_admin_init_css,$arr_static_config[$this->current['controller']]['css']) : $this->arr_admin_init_css;
+        foreach($this->arr_admin_init_css as $k => $v){
+        	$this->arr_static['css'][] = '<link href="'.static_url($v).'" rel="stylesheet">';
+        }
+        foreach($this->arr_admin_init_js as $k => $v){
+        	$this->arr_static['js'][] = '<script type="text/javascript" src="'.static_url($v).'"></script>';
+        }
+        $this->smarty->assign('static',$this->arr_static);
+      
     }
 
 
@@ -121,33 +120,7 @@ class NH_Admin_Controller extends NH_Controller
         return $bool_return;
     }
 
-
-    /**
-     * 判断是否有权限造作
-     * @param string $ctrl
-     * @param string $act
-     * @return bool
-     * @author yanrui@tizi.com
-     */
-//    function has_permission($ctrl='', $act='')
-//    {
-//        static $permissions = null;
-//        if ($permissions === null) {
-//            $CI =& get_instance();
-//            if ($CI->user['id'] == 1 OR $CI->user['id'] == 31) {
-//                $permissions = true;
-//            } elseif (isset($CI->user['permission']) && $CI->user['permission']) {
-//                $permissions = $CI->user['permission'];
-//            } else {
-//                $permissions = false;
-//            }
-//        }
-//        if (is_bool($permissions)) {
-//            return $permissions;
-//        }
-////    echo $ctrl.'--'.$act.'--'.isset($permissions[$ctrl][$act]);
-//        return isset($permissions[strtolower($ctrl)][strtolower($act)]);
-//    }
+    
 
 }
 

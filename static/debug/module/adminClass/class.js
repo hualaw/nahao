@@ -4,6 +4,8 @@
  */
 define(function (require, exports) {
 
+    var sort_url = '/classes/sort';
+
     exports.bind_everything = function () {
 
         //class edit modal
@@ -68,6 +70,65 @@ define(function (require, exports) {
             secondStep: 30,
             inputMask: true
         })
+
+        //sort classes
+        $("#btn_class_sort").on("click",function(){
+            exports.class_sort();
+            return false;
+        });
+
+        //delete      class
+        $(".btn_class_delete").on("click",function(){
+            var result = confirm("确认删除该章节吗？");
+            if(confirm){
+                var tr = $(this);
+                var class_id = tr.data("class_id");
+                var url = '/classes/delete';
+                var data = {
+                    'class_id' : class_id
+                };
+                $.post(url,data,function(response){
+                    alert(response.msg);
+                    if(response.status=="ok"){
+                        tr.parent().parent().remove();
+//                        exports.class_sort();
+                    }
+                });
+            }
+        });
+
+        //dragsort
+//        $("tbody").dragsort({ dragSelector: "tr", dragBetween: true, dragEnd: exports.save_order});
+
+    }
+
+    exports.save_order = function () {
+        var data = $("tbody tr").map(function() { return $(this).children().html(); }).get();
+        exports.class_sort();
+    }
+
+    exports.class_sort = function(){
+        var url = sort_url;
+        var arr = new Array();
+        $(".class_list").each(function(){
+            var tds = $(this).children();
+            var value = {
+                'id' : $(tds[0]).text(),
+                'is_chapter' : $(tds[0]).data("is_chapter")
+            }
+            arr.push(value);
+        });
+        var data = {
+            'course_id' : $("#course_id").val(),
+            'classes' : arr
+        };
+//        $.each(arr,function(){
+//            console.log(this.id+','+this.is_chapter);
+//        })
+//return false;
+        $.post(url,data,function(response){
+            window.location.reload();
+        });
     }
 
 });

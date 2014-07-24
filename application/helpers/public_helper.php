@@ -438,7 +438,14 @@ if (!function_exists('getHttpResponse')) {
  */
 function static_url($str_url){
 //    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
-    return STATIC_FILE_URL . '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    if(ENVIRONMENT=='production'){
+        $str_static_url = 'http://static.nahao.com'. '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    }elseif(ENVIRONMENT=='testing'){
+        $str_static_url = 'http://static.nahaotest.com'. '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    }elseif(ENVIRONMENT=='development'){
+        $str_static_url = 'http://static.nahaodev.com'. '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+    }
+    return $str_static_url;
 }
 
 /**
@@ -629,6 +636,7 @@ function general_classroom_id($arr_param){
     $int_return = 0;
     if($arr_param){
         $str_url = NH_MEETING_URL.'api/meetings/';
+//        echo $str_url;
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_response = nh_curl($str_url,$arr_param);
@@ -745,9 +753,9 @@ function test_nahao_classroom($str_uri,$arr_param=array()){
     $arr_meeting_param = get_meeting_param();
     $arr_param = $arr_param ? array_merge($arr_param,$arr_meeting_param) : $arr_meeting_param;
     $str_response = nh_curl($str_url,$arr_param,'get');
-//    o($str_url);
-//    o($arr_param);
-//    o(json_decode($str_response));
+    o($str_url);
+    o($arr_param);
+    o(json_decode($str_response));
     exit;
 }
 
@@ -833,4 +841,40 @@ function delete_courseware_by_classroom_id($int_classroom_id,$int_courseware_id)
 //        o($arr_response,true);
     }
     $arr_response = isset($arr_response['status']) ? $arr_response : array();
+}
+
+/**
+ * 判断是否有权限
+ * @param string $ctrl
+ * @param string $act
+ * @return bool
+ */
+function pass($ctrl = '', $act = '')
+{
+	static $permissions = null;
+	if ($permissions === null) {
+		$CI =& get_instance();
+		$permissions = false;
+		if ($CI->userinfo) {
+			$user = $CI->userinfo;
+			$admin_group = T(TABLE_ADMIN_PERMISSION_RELATION)->getOneRowByColumn('admin_id',$user['id']);
+			if ((!empty($admin_group)&&($admin_group['group_id'] == 6))||$user['id'] == 1) {
+				$permissions = true;
+			} else{
+				$data  = T(TABLE_ADMIN_PERMISSION_RELATION . ' AS apr')->find(array('apr.admin_id' => $user['id']))
+				->join(TABLE_GROUP_PERMISSION_RELATION . ' AS gpr','gpr.group_id = apr.group_id')
+				->join(TABLE_PERMISSION . ' AS p', 'gpr.permission_id = p.id')->select('p.controller, p.action')->get()->result_array();
+// 				print_r($data);
+				$res = array();
+				foreach($data as $item) {
+					$res[strtolower($item['controller'])][strtolower($item['action'])] = true;
+				}
+				$permissions = $res;
+			}
+		}
+	}
+	if (is_bool($permissions)) {
+		return $permissions;
+	}
+	return isset($permissions[strtolower($ctrl)][strtolower($act)]);
 }

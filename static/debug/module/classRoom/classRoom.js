@@ -189,15 +189,66 @@ define(function (require,exports){
 		});
 	}
 
+//	//评论 几颗星
+//	exports.starClick = function (){
+//		$(".evalu .starBg span").click(function (){
+//			var _index = $(".evalu .starBg span").index($(this));
+//			for(var i=0;i<_index+1;i++){
+//				$(".evalu .starBg span").eq(i).addClass("cStar");
+//			}
+//		});
+//	}
+	
 	//评论 几颗星
 	exports.starClick = function (){
 		$(".evalu .starBg span").click(function (){
+            for(var i=0;i<$(".evalu .starBg span").length;i++){
+                $(".evalu .starBg span").eq(i).removeClass("cStar");
+            }
+            
 			var _index = $(".evalu .starBg span").index($(this));
 			for(var i=0;i<_index+1;i++){
 				$(".evalu .starBg span").eq(i).addClass("cStar");
 			}
+			$("#c_score").val(_index+1);
 		});
 	}
+	
+    exports.class_comment = function (){
+        var class_id = $('#nahaoModule').attr('class-data');
+        $.ajax({
+            url : '/course/ajax_check_comment',
+            type : 'post',
+            data : {'class_id' : class_id},
+            dataType : 'json',
+            success : function (result) {
+                if(result.status == 'error') {
+    				$.dialog({
+    				    content:result.msg,
+    				    icon:null
+    				});
+                } else {
+                    var _this = $(this);          
+                    // _popUp.popUp('.evaluHtml');
+                 	$.dialog({
+                 		id:"comment_close",
+                         title:"为课点评",
+                         ok:false,
+                         icon:false,
+                         padding:0,
+                         content:$(".evaluHtml").html()
+                     });
+                 	//var class_id = $('#nahaoModule').attr('class-data');
+                 	$("#c_class_id").val(class_id);
+                     exports.starClick();
+                     require("module/classRoom/valid").evaluForm_classroom(_this);
+                }
+            }
+        });
+
+            
+ 
+    }
 
 	//题目展示
 	exports.show_question = function (){
