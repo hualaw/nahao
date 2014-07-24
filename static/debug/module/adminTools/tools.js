@@ -55,6 +55,7 @@ define(function (require, exports) {
 				$('.orderTable').append(copyHtml);
 				$("#order-"+curId).find('.pay-order').attr('data-order',curId);
 				$("#order-"+curId).find('.del-order').attr('data-order',curId);
+				$("#order-"+curId).find('.send_msg').attr('data-order',curId);
 			}
 		});
 		//删除订单模板
@@ -107,7 +108,8 @@ define(function (require, exports) {
 						result = res.data.roundInfo;
 						if(result.length>0){
 							for(i=0;i<result.length;i++){
-								searchList += '<li rel="'+result[i].id+'" data="'+result[i].title+'">'+result[i].title+'</li>';
+								round_time= new Date((result[i].start_time)*1000).toLocaleString();
+								searchList += '<li rel="'+result[i].id+'" data="'+result[i].title+'">'+result[i].title+'<font class="search_round_time">'+round_time+'</font></li>';
 							}
 						}
 					}
@@ -147,7 +149,9 @@ define(function (require, exports) {
 						if(result.length>0){
 							for(i=0;i<result.length;i++){
 								s=(result[i].title).replace(inputval,"<b>"+inputval+"</b>");
-								searchList += '<li rel="'+result[i].id+'" data="'+result[i].title+'">'+s+'</li>';
+								round_time= (new Date((result[i].start_time)*1000)).toLocaleString();
+								t ='<font class="search_round_time">'+round_time+'</font>';
+								searchList += '<li rel="'+result[i].id+'" data="'+result[i].title+'">'+s+t+'</li>';
 							}
 						}
 					}
@@ -182,14 +186,27 @@ define(function (require, exports) {
 				return false;
 			}
 			var payurl = "/tools/sub_student_order/?user_id="+buy_user_id+"&round_id="+buy_round_id+"&tmp="+((new Date).valueOf());
-			alert(payurl);
 			$.get(payurl,function(data){
 				res = eval('('+data+')');
 				if(res.status=='ok'){
 					$("#order-"+buyId).find('.status').html('<a class="btn ok data-toggle="tooltip" data-placement="top" title="'+res.msg+'" data-original-title="'+res.msg+'">支付成功</a>');
 					$("#order-"+buyId).find('.ok').tooltip('show');
 				}else{
-					$("#order-"+buyId).find('.status').html('<b class="error">'+res.status+'</b>');
+					$("#order-"+buyId).find('.status').html('<b class="error">'+res.msg+'</b>');
+				}
+			});
+		});
+		//给用户发短信
+		$('.send_msg').live('click',function(){
+			buyId = $(this).attr('data-order');
+			buy_round_id = $("#order-"+buyId).attr('data-round');
+			buy_user_id = $("#order-"+buyId).attr('data-user');
+			msgurl = "/tools/send_msg/?user_id="+buy_user_id+"&round_id="+buy_round_id+"&tmp="+((new Date).valueOf());
+			$.get(payurl,function(data){
+				if(data==1){
+					alert('发送成功');
+				}else{
+					alert('发送失败');
 				}
 			});
 		});

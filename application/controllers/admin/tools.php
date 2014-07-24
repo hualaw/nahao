@@ -113,4 +113,28 @@ class Tools extends NH_Admin_Controller {
     	echo json_encode($data);
     	exit;
     }
+    
+    /**
+     * 给用户id发短信
+     */
+    public function send_msg()
+    {
+    	$this->load->library('sms');
+    	$user_id = $this->input->get('user_id');
+    	$round_id = $this->input->get('round_id');
+    	$roundInfo = $this->tools->search_round(array('round_id' => $round_id));
+    	#手机号，内容
+    	$phone = get_pnum_phone_server($user_id);
+    	$content = "【那好网】您已经成功报名班次：".$roundInfo[0]['title']."的学习";
+    	$this->sms->setPhoneNums($phone);
+		$this->sms->setContent($content);
+		#发送
+		$send_ret = $this->sms->send();
+		if($send_ret['error'] != 'Ok'){
+			echo 1;
+		}else{
+			echo 0;
+		}
+		exit;
+    }
 }
