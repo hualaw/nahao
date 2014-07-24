@@ -139,7 +139,8 @@ define(function (require, exports) {
             var tds = $(this).children();
             var value = {
                 'id' : $(tds[0]).text(),
-                'is_chapter' : $(tds[0]).data("is_chapter")
+                'is_chapter' : $(tds[0]).data("is_chapter"),
+                'status' : $(tds[0]).data("status")
             }
             arr.push(value);
         });
@@ -150,7 +151,7 @@ define(function (require, exports) {
 //        $.each(arr,function(){
 //            console.log(this.id+','+this.is_chapter);
 //        })
-//return false;
+//        return false;
         $.post(url,data,function(response){
             window.location.reload();
         });
@@ -161,14 +162,19 @@ define(function (require, exports) {
         $(".lesson_active").on("click",function () {
             var btn = $(this);
             var action = btn.data('action');
+            var status = btn.data('status');
             var data = {
-                lesson_id: btn.data('lesson_id'),
-                status: btn.data('status')
+                'lesson_id' : btn.data('lesson_id'),
+                'status' :status
             };
             $.post(action, data, function (response) {
                 alert(response.msg);
                 if (response && response.status == "ok") {
-                    window.location.reload();
+                    var tds = btn.parent().parent().children();
+                    $(tds[0]).data('status',status);
+//                    console.log( $(tds[0]).data('status',status));
+                    exports.lessons_sort();
+//                    window.location.reload();
                 }
             });
         });

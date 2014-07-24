@@ -134,58 +134,55 @@ class Business_Class extends NH_Model
             $arr_classes = array();
             $int_chapter_sequence = 0;
             foreach($arr_lessons_tree as $k => $v){
-                if($v['status']==1){
-                    $int_parent_id = 1;
-                    if($k > 1){
-                        //组织章数据
-                        $arr_chapter = array(
-                            'course_id' => $int_course_id,
-                            'round_id' => $int_round_id,
-                            'lesson_id' => $v['id'],
-                            'title' => $v['title'],
-                            'sequence' => $int_chapter_sequence
-                        );
-                        //插入章
-                        $int_parent_id = $this->model_class->create_class($arr_chapter);
-                    }
-                    $int_chapter_sequence += 1;
-                    if($int_parent_id > 0){
-                        $bool_section_flag = true;//每节课数组组成功的标记
-                        $int_section_sequence = 0;//节的序列
-                        $arr_section = array();
-                        //为本章中每节课创建classroom，并且为该课堂添加courseware，组织一章中的多个课堂数据 一句sql插入多条class数据
-                        if(isset($v['sections']) AND $v['sections']){
-                            foreach($v['sections'] as $kk => $vv){
-                                //组织class数据并且塞入数组中，本次循环完成后通过insert_batch一起入库
-                                $arr_section[] = array(
-                                    'course_id' => $int_course_id,
-                                    'round_id' => $int_round_id,
-                                    'lesson_id' => $vv['id'],
-                                    'title' => $vv['title'],
-                                    'courseware_id' => $vv['courseware_id'],
-                                    'parent_id' => $int_parent_id,
-                                    'sequence' => $int_section_sequence++,
-                                    'status' => ($int_chapter_sequence==1 AND $int_section_sequence==1) ? CLASS_STATUS_SOON_CLASS : CLASS_STATUS_INIT
-                                );
-                                $arr_lesson_ids[] = $vv['id'];
-                            }//组织本章所有节数据循环结束
-                            //把本章中组织好的class数据插入class表
-                            $int_last_id = $this->model_class->create_class_batch($arr_section);
-                            if($int_last_id > 0){
-                                if($k == count($arr_lessons_tree)-1){
-                                    //完成最后一章的全部节插入class后 标记为本轮创建成功
-                                    $bool_return = true;
-                                }
-                            }else{
-                                //本章的节插入class失败，则终止插入章的循环
-                                break;
+                $int_parent_id = 1;
+                if($k > 1){
+                    //组织章数据
+                    $arr_chapter = array(
+                        'course_id' => $int_course_id,
+                        'round_id' => $int_round_id,
+                        'lesson_id' => $v['id'],
+                        'title' => $v['title'],
+                        'sequence' => $int_chapter_sequence
+                    );
+                    //插入章
+                    $int_parent_id = $this->model_class->create_class($arr_chapter);
+                }
+                $int_chapter_sequence += 1;
+                if($int_parent_id > 0){
+                    $bool_section_flag = true;//每节课数组组成功的标记
+                    $int_section_sequence = 0;//节的序列
+                    $arr_section = array();
+                    //为本章中每节课创建classroom，并且为该课堂添加courseware，组织一章中的多个课堂数据 一句sql插入多条class数据
+                    if(isset($v['sections']) AND $v['sections']){
+                        foreach($v['sections'] as $kk => $vv){
+                            //组织class数据并且塞入数组中，本次循环完成后通过insert_batch一起入库
+                            $arr_section[] = array(
+                                'course_id' => $int_course_id,
+                                'round_id' => $int_round_id,
+                                'lesson_id' => $vv['id'],
+                                'title' => $vv['title'],
+                                'courseware_id' => $vv['courseware_id'],
+                                'parent_id' => $int_parent_id,
+                                'sequence' => $int_section_sequence++,
+                                'status' => ($int_chapter_sequence==1 AND $int_section_sequence==1) ? CLASS_STATUS_SOON_CLASS : CLASS_STATUS_INIT
+                            );
+                            $arr_lesson_ids[] = $vv['id'];
+                        }//组织本章所有节数据循环结束
+                        //把本章中组织好的class数据插入class表
+                        $int_last_id = $this->model_class->create_class_batch($arr_section);
+                        if($int_last_id > 0){
+                            if($k == count($arr_lessons_tree)-1){
+                                //完成最后一章的全部节插入class后 标记为本轮创建成功
+                                $bool_return = true;
                             }
+                        }else{
+                            //本章的节插入class失败，则终止插入章的循环
+                            break;
                         }
-                    }else{
-                        //插入章失败，终止全部循环
-                        break;
                     }
-
+                }else{
+                    //插入章失败，终止全部循环
+                    break;
                 }
             }
             self::copy_questions_from_lesson_to_class($int_round_id,$arr_lesson_ids);
