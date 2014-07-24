@@ -54,7 +54,7 @@ background-color: #5cb85c;
 border-color: #4cae4c;
 }
 .time{
-padding: 2px 0 2px 18px;
+padding: 2px 0 2px 0px;
 text-align: left;
 color: #9c9c9c;
 }
@@ -63,10 +63,13 @@ display: inline;
 float: left;
 margin: 5px 12px 0 0;
 border: 1px solid #e9e9e9;
+border-radius: 40px;
+box-shadow: 7px 5px 5px #d7d7d7;
 }
 .round_pic img{
 width: 80px;
 height: 80px;
+border-radius: 40px;
 }
 tbody:hover .order-hd{
 border: 1px solid #afd9ff;
@@ -222,6 +225,15 @@ font-size:14px;
 .search_round_time{
 color: #9c9c9c;
 }
+.proxy_table td{
+text-align:center;
+}
+.proxy-radio{
+list-style:none;
+}
+.teacher_proxy_box{
+position:absolute;
+}
 </style>
 <ol class="breadcrumb">
   <li><font class="text-muted">GPS导航：</font></li>
@@ -232,6 +244,9 @@ color: #9c9c9c;
 <div class="btn-group" data-toggle="buttons">
 	<label class="btn btn-danger toolbar active" data="free_round_tool" data-toggle="collapse">
 		<input type="radio" name="options" id="option1" checked> 随到随买课程轮
+	</label>
+	<label class="btn btn-danger toolbar" data="teacher_proxy" data-toggle="collapse">
+		<input type="radio" name="proxy" id="proxy"> 设置老师代理服务器
 	</label>
 	<label class="btn btn-danger toolbar link" onclick="window.location.href='/identifying/'" data="phone_verify_tool" data-toggle="collapse" data-link="http://www.baidu.com">
 		<input type="radio" name="phone" id="phone_verify"> 手机找回验证码
@@ -282,7 +297,7 @@ color: #9c9c9c;
 							<span class="add_info"><input type="checkbox"></span>
 							<span class="add_info teach_time">2014-07-16</span>
 							<span class="add_info teacherName">授课老师:马云</span>
-							<span class="add_info send_mail"><a class="send_msg" href="javascript:void(0)">给学生发邮件</a></span>
+							<span class="add_info send_mail"><a class="send_msg" href="javascript:void(0)">给学生发短信</a></span>
 						</td>
 					</tr>
 					<tr class="order-info">
@@ -318,63 +333,69 @@ color: #9c9c9c;
 		</div>
 	</div>
 	<!--工具1：买免费课程轮 end-->
-	<!--工具2：预约试听课 start-->
-	<div id="audition_tool" class="panel-collapse collapse">
-		<div class="panel-body">
-			
+	<!--工具2：设置代理服务器-->
+	<div id="teacher_proxy" class="panel-collapse collapse">
+		<div class="tool_controllerer">
 			<blockquote class="quoteback">
-			  <p>为学生预约试听</p>
+			  <p>为老师设置教室代理服务器</p>
 			</blockquote>
-			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/sub_student_Audition">
+			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/set_proxy/">
 				<div class="form-group">
-			        <label class="col-md-2 control-label">学生ID：</label>
+					<input type="hidden" name="teacher_id" value="">
+			        <label class="col-md-2 control-label">老师id：</label>
+			        <span class="search_student_box teacher_proxy_box">
+						<input class="search_student search_input" name="nickname" x-webkit-speech placeholder="老师昵称"><span class="search-btn">搜老师</span>
+						<span class="is_selected hide" data-toggle="tooltip" data-placement="top" title=""></span>
+						<div class="popover bottom" rel="teacher_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
+					</span>
+			    </div>
+			    <div class="form-group">
+			        <label class="col-md-2 control-label">代理服务器：</label>
 			        <div class="col-md-6">
-			            <textarea class="form-control" name="" id="" rows="5"></textarea>
+			        	<ul class="proxy-radio">
+			        	{foreach $data['proxys'] as $key=>$val}
+			        		<li><input type="radio" name="proxy_id" value="{$key}">{$val}</li>
+			        	{/foreach}
+			        	</ul>
 			        </div>
 			    </div>
 			    <div class="form-group">
-			        <label class="col-md-2 control-label">试听课ID：</label>
+			    	<label class="col-md-2 control-label"></label>
 			        <div class="col-md-6">
-			            <textarea class="form-control" name="" id="" rows="5" placeholder="预约单节课，可批量操作"></textarea>
-			        </div>
-			    </div>
-			    <div class="form-group">
-			        <label class="col-md-2 control-label">试听轮ID：</label>
-			        <div class="col-md-6">
-			            <textarea class="form-control" name="" id="" rows="5" placeholder="预约轮下面所有还没有上完课的试听课"></textarea>
+			        	<input type="submit" class="btn btn-success" value="提交设置">
 			        </div>
 			    </div>
 			</form>
-			
 		</div>
-	</div>
-	<!--工具2：预约试听课 end-->
-	<!--工具3：买收费课程轮 start-->
-	<div id="order_round_tool" class="panel-collapse collapse">
-		<div class="panel-body">
 		
-			<blockquote class="quoteback">
-			  <p>临时为学生购买付费轮</p>
-			</blockquote>
-			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/sub_student_Audition">
-				<div class="form-group">
-			        <label class="col-md-2 control-label">学生ID：</label>
-			        <div class="col-md-6">
-			            <textarea class="form-control" name="" id="" rows="5"></textarea>
-			        </div>
-			    </div>
-			    <div class="form-group">
-			        <label class="col-md-2 control-label">轮ID：</label>
-			        <div class="col-md-6">
-			            <textarea class="form-control" name="" id="" rows="5"></textarea>
-			        </div>
-			    </div>
-			</form>
-			
+		<div class="panel-body">
+			<div class="alert alert-info" role="alert"><strong>代理服务器设置列表。</strong>以下为已设置过进教室代理服务器的老师列表</div>
+			<table class="proxy_table col-md-12 table">
+				<thead>
+					<tr>
+						<th class="col-md-2">老师id</th>
+						<th class="col-md-2">真实姓名</th>
+						<th class="col-md-2">服务器id</th>
+						<th class="col-md-4">服务器地址</th>
+						<th class="col-md-2">操作</th>
+					</tr>·
+				</thead>
+				<tbody>
+					{foreach $data['proxy_teacher'] as $key=>$val}
+					<tr>
+						<td class="col-md-2">{$val['user_id']}</td>
+						<td class="col-md-2">{$val['realname']}</td>
+						<td class="col-md-2">{$val['proxy']}</td>
+						<td class="col-md-4">{$val['proxy_addr']}</td>
+						<th class="col-md-2"><a href="/tools/unset_proxy/?teacher_id={$val['user_id']}">取消代理</a></th>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
 		</div>
 	</div>
-	<!--工具3：买收费课程轮 end-->
-	<!--工具4：手机找回u验证码 start-->
+	<!--工具2：设置代理服务器end-->
+	<!--工具3：手机找回u验证码 start-->
 	<div id="phone_verify_tool" class="panel-collapse collapse">
 		<div class="panel-body">
 		
@@ -392,5 +413,5 @@ color: #9c9c9c;
 			
 		</div>
 	</div>
-	<!--工具4：手机找回u验证码 end-->
+	<!--工具3：手机找回u验证码 end-->
 </div>

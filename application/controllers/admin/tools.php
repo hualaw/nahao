@@ -21,9 +21,12 @@ class Tools extends NH_Admin_Controller {
      * 课节题目列表
      */
     public function index(){
-    	
+    	#设置过代理服务器的老师
+    	$teacher_arr = $this->tools->get_proxy_teacher();
     	$data = array(
     			'active' => '',
+    			'proxys' => config_item('McuAddr'),
+    			'proxy_teacher' => !empty($teacher_arr) ? $teacher_arr : array()
     		);
     	$this->smarty->assign('view', 'tools');
     	$this->smarty->assign('data', $data);
@@ -85,6 +88,50 @@ class Tools extends NH_Admin_Controller {
 	    	);
     	}
     	echo json_encode($data);
+    	exit;
+    }
+    
+    /**
+     * 设置老师进教师代理服务器
+     */
+    public function set_proxy(){
+    	$proxy_id = $this->input->post('proxy_id');
+    	$teacher_id = $this->input->post('teacher_id');
+    	if(empty($proxy_id) || empty($teacher_id)){
+    		echo '<script>alert("代理服务器和老师id都不能为空");window.location.href="/tools/";</script>';
+    		exit;
+    	}
+    	$param = array(
+    		'proxy_id' => $proxy_id,
+    		'teacher_id' => $teacher_id
+    		);
+    	$res = $this->tools->set_proxy($param);
+    	if($res){
+    		echo '<script>alert("为老师'.$teacher_id.'设置代理服务器'.$proxy_id.'成功");window.location.href="/tools/";</script>';
+    	}else{
+    		echo '<script>alert("为老师'.$teacher_id.'设置代理服务器'.$proxy_id.'失败，【或者已经设置过了】");window.location.href="/tools/";</script>';
+    	}
+    	exit;
+    }
+    
+    /**
+     * 取消老师代理服务器
+     */
+    public function unset_proxy(){
+    	$teacher_id = $this->input->get('teacher_id');
+    	if(empty($teacher_id)){
+    		echo '<script>alert("老师id不能为空");window.location.href="/tools/";</script>';
+    		exit;
+    	}
+    	$param = array(
+    		'teacher_id' => $teacher_id
+    		);
+    	$res = $this->tools->unset_proxy($param);
+    	if($res){
+    		echo '<script>alert("为老师'.$teacher_id.'取消设置代理服务器成功");window.location.href="/tools/";</script>';
+    	}else{
+    		echo '<script>alert("为老师'.$teacher_id.'取消代理服务器失败，【或者已经取消过了】");window.location.href="/tools/";</script>';
+    	}
     	exit;
     }
     
