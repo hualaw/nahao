@@ -168,12 +168,14 @@ class Lesson extends NH_Admin_Controller {
                         'parent_id' => $int_parent_id,
                         'sequence' => $int_section_sequence++
                     );
-                    ++$int_section_count;
+                    if($v['status']==1){
+                        ++$int_section_count;
+                    }
                 }
                 $arr_update[] = $arr_tmp;
             }
 
-//            o($arr_update,true);
+//            o($int_section_count,true);
 //            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
 //            o($arr_lessons_tree,true);
             $bool_return = $this->lesson->sort($arr_update);
