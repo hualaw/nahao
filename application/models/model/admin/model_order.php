@@ -80,6 +80,15 @@
                 $this->db->where("student_order.confirm_time >",$post['confirm_time1']);
                 $this->db->where("student_order.confirm_time <",$post['confirm_time2']);
             }
+            if($post['spend1']!="" && $post['spend2']!="")
+            {
+                $this->db->where("student_order.spend >=",$post['spend1']);
+                $this->db->where("student_order.spend <",$post['spend2']);
+            }
+            if($post['spend1']!="" && $post['spend2']=="")
+            {
+                $this->db->where("student_order.spend",$post['spend1']);
+            }
         }
         /**
          * 符合搜索条件的订单数量
