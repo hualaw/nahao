@@ -49,7 +49,8 @@ class Model_Tools extends NH_Model
 	public function student_order_maker($param)
 	{
 		if(empty($param['round_id']) || empty($param['user_id'])){exit('轮id和学生id都不能为空');}
-		if(empty($param['sale_price']) || empty($param['now_price'])){exit('原价和现价都不能为空');}
+		$param['sale_price'] = !empty($param['sale_price']) ? $param['sale_price'] :0;
+		$param['now_price'] = !empty($param['now_price']) ? $param['now_price'] :0;
 		$sql = "INSERT INTO student_order(student_id,round_id,create_time,confirm_time,pay_type,price,spend,status,is_delete) 
 				VALUES(".$param['user_id'].",".$param['round_id'].",".time().",".time().",4,".$param['sale_price'].",".$param['now_price'].",2,0)";
 		$this->db->query($sql);
@@ -67,7 +68,7 @@ class Model_Tools extends NH_Model
 			exit('学生id与轮id与课程id与课id都不能为空');
 		}
 		$sql = "INSERT INTO student_class(student_id,course_id,round_id,class_id,status) 
-				VALUES(".$param['round_id'].",".$param['user_id'].",".$param['course_id'].",".$param['class_id'].",0)";
+				VALUES(".$param['user_id'].",".$param['course_id'].",".$param['round_id'].",".$param['class_id'].",0)";
 		$this->db->query($sql);
 		$int_result = $this->db->affected_rows();
         return $int_result;
@@ -89,18 +90,19 @@ class Model_Tools extends NH_Model
 		$where .= !empty($param['round_name']) ? ' AND r.title like "%'.$param['round_name'].'%"' : '';
 		$where .= !empty($param['round_id']) ? ' AND r.id='.$param['round_id'] : '';
 		$order = ' ORDER BY r.start_time DESC';
+		$group = ' GROUP BY r.id';
 		$limit = ' LIMIT 10';
 		$sql = 'SELECT r.course_id,r.id,r.title,r.students,r.subject,r.sale_price,r.sale_status,r.teach_status,r.bought_count,r.caps,r.start_time,r.img,r.class_count,u.nickname teacherName,s.name subjectName
 				FROM round r 
 				LEFT JOIN round_teacher_relation rtr ON r.id=rtr.round_id 
 				LEFT JOIN user u ON u.id=rtr.teacher_id 
 				LEFT JOIN subject s ON s.id=r.subject
-				'.$where.$order;
+				'.$where.$group.$order.$limit;
 		$this->db->query('set names utf8');
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
-	
+	 
 	/**
 	 * 查找一个轮可以买的具体的课id
 	 */
