@@ -205,7 +205,7 @@ define(function(require,exports){
 //                alert("结束时间不能为空");
 //                return false;
 //            }
-            if(sale_price > price){
+            if(parseInt(sale_price) > parseInt(price)){
                 alert("促销价格不能大于价格");
                 return false;
             }
