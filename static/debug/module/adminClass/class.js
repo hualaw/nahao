@@ -17,11 +17,13 @@ define(function (require, exports) {
 //            console.log(tds);
 //            $(tds[3]).text();
 //            $(tds[4]).text();
+            $("#class_title").val($(tds[2]).text());
             $("#class_begin_time").val($(tds[4]).text());
             $("#class_end_time").val($(tds[5]).text());
             $("#modal_class_edit").modal();
             //class update
             $("#btn_class_submit").on("click",function(){
+                var title = $("#class_title").val();
                 var begin_time = $("#class_begin_time").val();
                 var end_time = $("#class_end_time").val();
                 if(begin_time>=end_time){
@@ -33,6 +35,7 @@ define(function (require, exports) {
                     'round_id' : round_id,
                     'class_id' : class_id,
                     'is_last' : is_last,
+                    'title' : title,
                     'begin_time' : begin_time,
                     'end_time' : end_time
                 };
