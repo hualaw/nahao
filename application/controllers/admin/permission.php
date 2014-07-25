@@ -71,7 +71,7 @@ class Permission extends NH_Admin_Controller {
             $arr_param['controller'] = $str_permission_controller;
             $arr_param['action'] = $str_permission_action;
             $arr_param['status'] = $int_permission_status;
-            $is_exist = T(TABLE_PERMISSION)->count("controller='".$str_permission_controller."' and action='".$str_permission_action."'");
+            $is_exist = T(TABLE_PERMISSION)->count("controller='".$str_permission_controller."' and action='".$str_permission_action."' id !=".$int_permission_id);
             
             if (!empty($is_exist)){
             	$str_action = '不能重复添加';
