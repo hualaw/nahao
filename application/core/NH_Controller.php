@@ -125,7 +125,10 @@ class NH_Controller extends CI_Controller
      * @author yanrui@tizi.com
      */
     public function enter_classroom($int_classroom_id,$user_type,$array_data){
-        $str_classroom_url = '/classroom/main.html?';
+
+        if (ENVIRONMENT == "production") $str_classroom_url = 'http://classroom.nahao.com/main.html?';
+        else $str_classroom_url = '/classroom/main.html?';
+
         $arr_class_map = config_item('round_class_map');
         $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
         $array_params = array(
@@ -146,24 +149,6 @@ class NH_Controller extends CI_Controller
         }
         $str_classroom_url .= http_build_query($array_params);
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-
-//        $int_classroom_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
-//        if($int_classroom_id){
-//            $str_classroom_url = enter_classroom($int_classroom_id,$int_user_type);
-//        }
-//        $str_classroom_url = 'http://'.__HOST__.'/nahao_classroom/main.html';
-
-//        $str_classroom_url = 'http://admin.nahaotest.com/admin/test';
-//o($str_classroom_url,true);
-//        echo nh_curl($str_classroom_url,false);exit;
-//        $str_classroom_url = 'http://admin.nahaodev.com/nahao_classroom/main.html';
-//        $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
-//        $str_iframe .= '<script>function student_get_exercise_page(id){console.log("liubing!");}//student_get_exercise_page();</script>';
-//        echo $str_iframe;
-//        exit;
-//        $this->smarty->assign('iframe',$str_iframe);
-//        $this->smarty->assign('view', 'classroom');
-//        $this->smarty->display('admin/layout.html');
     }
     
     /**
