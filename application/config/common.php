@@ -309,6 +309,11 @@ $config['production_round_time_config']['class_between_long'] = 3600;//课间隔
 $config['production_round_time_config']['enter_before_class'] = 1800;//提前进教室时间
 $config['production_round_time_config']['teacher_late_time'] = 300;//开课后多久老师点上课算迟到
 
+
+//代理服务器
+$config['McuAddr'][1] = '42.121.114.19:21443';
+
+
 /**
  * 劳务报酬个人计算税率 之 含税级距参数表
  * 计算说明：

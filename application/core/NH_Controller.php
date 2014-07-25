@@ -24,6 +24,7 @@ class NH_Controller extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->model('business/common/business_user');
         $this->is_login = $this->check_login();
         $this->load_smarty();
         $this->current['controller'] = $this->uri->rsegment(1);
@@ -135,6 +136,14 @@ class NH_Controller extends CI_Controller
             'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
             'ClassName'=>$array_data['class_title']
         );
+        //新增：如果是老师，并且有代理服务器，传mcu服务器地址
+        $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
+        if($_user_detail['teach_priv']==NH_MEETING_TYPE_TEACHER && $_user_detail['proxy']>0){
+        	$mcu_arr = config_item('McuAddr');
+        	if(isset($mcu_arr[$_user_detail['proxy']])){
+        		$array_params['McuAddr'] = $mcu_arr[$_user_detail['proxy']];
+        	}
+        }
         $str_classroom_url .= http_build_query($array_params);
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 

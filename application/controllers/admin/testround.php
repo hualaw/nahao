@@ -1,18 +1,17 @@
 <?php
-    class Testround extends NH_Admin_Controller {
-
-        /**
-         * 测试轮 很危险 可以随意操作轮
-         */
+//    class Testround extends NH_Admin_Controller {
 //        public function index()
 //        {
-//            $this->smarty->assign('view', 'testround');
-//            $this->smarty->display('admin/layout.html');
+//            Header( "Content-type:application/octet-stream ");
+//            Header( "Accept-Ranges:bytes ");
+//            Header( "Content-type:application/vnd.ms-excel ");
+//            Header( "Content-Disposition:attachment;filename=test.xls ");
+//            $arr=$this->testround->test();
+//            echo "ID\tname\tphone";
+//            foreach($arr as $v)
+//            {
+//                echo "\n";
+//                echo iconv('utf-8','gbk',$v['user_id'])."\t".iconv('utf-8','gbk',$v['realname'])."\t".iconv('utf-8','gbk',$v['tel']);
+//            }
 //        }
-//
-//        public function edit()
-//        {
-//            $post=$this->input->post(NULL,TRUE);
-//            echo $this->testround->modify($post);
-//        }
-    }
+//    }
