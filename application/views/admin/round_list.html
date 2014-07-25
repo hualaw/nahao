@@ -81,8 +81,8 @@
         <td>{if ($v.sale_status ge $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT) AND ($v.sale_status le $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_STOP)}{$round_teach_status[$v.teach_status]}{else}--{/if}</td>
         <td>{if isset($v.scores)}{$v.scores}{/if}</td>
         <td>
+            <a href="/round/edit/{$v.id}">修改</a>
             {if $v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_INIT}
-                <a href="/round/edit/{$v.id}">修改</a>
                 <botton class="round_operation btn-xs btn btn-success" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING}">过审</botton>
                 <botton class="round_operation btn-xs btn btn-danger" data-action="/round/status" data-type="sale_status" data-round_id="{$v.id}" data-status="{$smarty.const.TABLE_ROUND_DIC_SALE_STATUS_DENY}">拒审</botton>
             {elseif ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_RUNNING) or ($v.sale_status eq $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_ON_SALE)}

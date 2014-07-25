@@ -54,8 +54,9 @@ class Classes extends NH_Admin_Controller {
         $int_round_id = $this->input->post('round_id') ? intval($this->input->post('round_id')) : 0;
         $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
         $int_is_last = $this->input->post('is_last') ? intval($this->input->post('is_last')) : 0;
-        $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : 0;
-        $str_end_time = $this->input->post('end_time') ? trim($this->input->post('end_time')) : 0;
+        $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
+        $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : '';
+        $str_end_time = $this->input->post('end_time') ? trim($this->input->post('end_time')) : '';
 
         $int_begin_time = strtotime($str_begin_time);
         $int_end_time = strtotime($str_end_time);
@@ -65,7 +66,7 @@ class Classes extends NH_Admin_Controller {
             'msg' => '时间不可用'
         );
 
-        if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0){
+        if($int_round_id > 0 AND $int_class_id > 0 AND $str_title AND $str_begin_time > 0 AND $str_end_time > 0){
             $bool_flag = true;
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
@@ -104,7 +105,7 @@ class Classes extends NH_Admin_Controller {
 //                        o($arr_class,true);
                         if($arr_class['classroom_id']==0){
                             $arr_classroom_param = array(
-                                'name' => $arr_class['title'],
+                                'name' => $str_title,
                                 'start_at' => $str_begin_time,
                                 'end_at' => $str_end_time
                             );
@@ -115,6 +116,7 @@ class Classes extends NH_Admin_Controller {
 //            o($bool_add_courseware,true);
 
                         $arr_param = array(
+                            'title' => $str_title,
                             'classroom_id' => $int_classroom_id,
                             'begin_time' => strtotime($str_begin_time),
                             'end_time' => strtotime($str_end_time)
