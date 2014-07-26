@@ -175,6 +175,18 @@ define(function (require, exports) {
 				$.post("/tools/login_without_pwd/"+((new Date).valueOf()), {user_id: id},function(res){
 					if(res){
 						$('.login_anybody').attr({'class':'btn btn-success login_anybody','href':res}).html('登陆【'+data+'】的账号');
+//						$('.counter').attr('class','btn btn-warning counter').css('background-color','#f0ad4e').html('加密链接还剩：<b></b> 秒过期').show();
+						$('.counter').removeClass('hide').addClass('counting').html('加密链接还剩：<b></b> 秒过期');
+						var timer = setInterval(function(){
+							curtime = new Date().getSeconds();
+							rest = 59-curtime;
+							$('.counter b').html(rest);
+							if(rest==0){
+								clearInterval(timer);
+//								$('.counter').attr('class','btn btn-default counter').css({'background-color':'gray','color':'#fff'}).html('链接已过期');
+								$('.counter').removeClass('counting').html('链接已过期');
+							}
+						},1000);
 					}else{
 						alert('查无此人');
 						return false;
