@@ -146,6 +146,7 @@ class Business_Login extends NH_Model {
 		$name =  '_HAHA_NAHAO_'.$user_info['nickname'].'^$@&!#'.$user_id.$sha1_time;
 		#生成加密
 		$sha1_code = sha1($name);
+		#验证
     	if($code==$sha1_code){
     		# 登陆信息
 	    	$remb_me = 1;
