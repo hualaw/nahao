@@ -176,11 +176,11 @@ define(function (require, exports) {
 					if(res){
 						$('.login_anybody').attr({'class':'btn btn-success login_anybody','href':res}).html('登陆【'+data+'】的账号');
 //						$('.counter').attr('class','btn btn-warning counter').css('background-color','#f0ad4e').html('加密链接还剩：<b></b> 秒过期').show();
-						$('.counter').removeClass('hide').addClass('counting').html('加密链接还剩：<b></b> 秒过期');
+						$('.counter').addClass('counting').removeClass('hide');
 						var timer = setInterval(function(){
 							curtime = new Date().getSeconds();
 							rest = 59-curtime;
-							$('.counter b').html(rest);
+							$('.counter').html('加密链接还剩：<b>'+rest+'</b> 秒过期');
 							if(rest==0){
 								clearInterval(timer);
 //								$('.counter').attr('class','btn btn-default counter').css({'background-color':'gray','color':'#fff'}).html('链接已过期');
