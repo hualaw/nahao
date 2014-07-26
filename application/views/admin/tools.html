@@ -237,6 +237,33 @@ position:absolute;
 .user_login_box{
 position:absolute;
 }
+.login_anybody{
+margin-left:-15px;
+}
+.counter_box{
+height:100px;
+}
+.counter{
+transition: all 1s ease-in-out 1s;
+position: relative;
+background-color:gray;
+border-color: #d7d7d7;
+z-index:1000;
+left: -35px;
+color:#fff;
+width:94px;
+height:34px;
+overflow:hidden;
+}
+.counting{
+background-color:#f0ad4e;
+top: -100px;
+left: 40px;
+width: 80%;
+height: 200px;
+line-height: 200px;
+font-size: 30px;
+}
 </style>
 <ol class="breadcrumb">
   <li><font class="text-muted">GPS导航：</font></li>
@@ -417,10 +444,13 @@ position:absolute;
 						<div class="popover bottom" rel="user_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
 					</span>
 			    </div>
-			    <div class="form-group">
+			    <div class="form-group counter_box">
 			    	<label class="col-md-2 control-label"></label>
-			        <div class="col-md-6">
-			        	<a class="btn btn-default login_anybody" href="javascript:void(0)" target="_blank">登陆</a>
+			        <div class="col-md-3">
+			        	<a class="btn btn-default login_anybody" href="javascript:void(0)" target="_blank">不可登陆</a>
+			        </div>
+			        <div class="col-md-7">
+			        	<a class="btn btn-warning counter hide">加密链接还剩：<b></b> 秒过期</a>
 			        </div>
 			    </div>
 			</form>
