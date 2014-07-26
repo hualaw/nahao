@@ -129,4 +129,38 @@ class Business_Login extends NH_Model {
         return $ret_info;
     }
 
+    /**
+     * 管理员按老师身份登陆那好学生端
+     * jason
+     */ 
+    public function login_without_pwd($user_id,$code){
+    	if(empty($user_id)){exit('用户id不能为空');}
+    	# 读取用户信息
+    	$this->load->model('model/common/model_user');
+    	$user_info = $this->business_user->get_user_detail($user_id);
+    	/**验证规则**/
+    	#时效参数
+		$time = date('d',time()).'-'.date('H',time()).'-'.date('i',time());
+		$sha1_time = sha1($time);
+		#加密规则
+		$name =  '_HAHA_NAHAO_'.$user_info['nickname'].'^$@&!#'.$user_id.$sha1_time;
+		#生成加密
+		$sha1_code = sha1($name);
+    	if($code==$sha1_code){
+    		# 登陆信息
+	    	$remb_me = 1;
+	    	$login_type = REG_LOGIN_TYPE_EMAIL;
+	    	$phone = $user_info['phone_mask'];
+	    	if($user_id && $user_info['phone_verified']) $phone = get_pnum_phone_server($user_id);
+//	    	$phone_mask = '';
+	    	$phone_mask = (strpos($user_info['phone_mask'], '*') !== false) ? $user_info['phone_mask'] : phone_blur($user_info['phone_mask']);
+	    	# 写入登陆信息
+	    	$this->set_session_data($user_info['user_id'], $user_info['nickname'], $user_info['avatar'],
+	        	$phone, $phone_mask, $user_info['email'], $login_type, $user_info['teach_priv'], $remb_me);
+	    	return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
+    	}else{
+    		exit('<script>alert("警告：加密通道已过期或者身份验证失败！！");window.location.href="'.student_url().'";</script>');
+    	}
+    	
+    }
 }

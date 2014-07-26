@@ -234,6 +234,9 @@ list-style:none;
 .teacher_proxy_box{
 position:absolute;
 }
+.user_login_box{
+position:absolute;
+}
 </style>
 <ol class="breadcrumb">
   <li><font class="text-muted">GPS导航：</font></li>
@@ -247,6 +250,9 @@ position:absolute;
 	</label>
 	<label class="btn btn-danger toolbar" data="teacher_proxy" data-toggle="collapse">
 		<input type="radio" name="proxy" id="proxy"> 设置老师代理服务器
+	</label>
+	<label class="btn btn-danger toolbar" data="teacher_login" data-toggle="collapse">
+		<input type="radio" name="login_area" id="login_area"> 登陆任何人的账号
 	</label>
 	<label class="btn btn-danger toolbar link" onclick="window.location.href='/identifying/'" data="phone_verify_tool" data-toggle="collapse" data-link="http://www.baidu.com">
 		<input type="radio" name="phone" id="phone_verify"> 手机找回验证码
@@ -395,6 +401,32 @@ position:absolute;
 		</div>
 	</div>
 	<!--工具2：设置代理服务器end-->
+	<!--工具3：模拟老师登陆start-->
+	<div id="teacher_login" class="panel-collapse collapse">
+		<div class="tool_controllerer">
+			<blockquote class="quoteback">
+			  <p>管理员模拟登陆任何学生和老师的账号功能</p>
+			</blockquote>
+			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/login_without_pwd/" onsubmit="return false;">
+				<div class="form-group">
+					<input type="hidden" name="user_id" class="login_user_id" value="">
+			        <label class="col-md-2 control-label">用户昵称：</label>
+			        <span class="search_student_box user_login_box">
+						<input class="search_student search_input" data-type="login_input" name="nickname" x-webkit-speech placeholder="学生或老师昵称"><span class="search-btn">搜用户</span>
+						<span class="is_selected hide" data-toggle="tooltip" data-placement="top" title=""></span>
+						<div class="popover bottom" rel="user_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
+					</span>
+			    </div>
+			    <div class="form-group">
+			    	<label class="col-md-2 control-label"></label>
+			        <div class="col-md-6">
+			        	<a class="btn btn-default login_anybody" href="javascript:void(0)" target="_blank">登陆</a>
+			        </div>
+			    </div>
+			</form>
+		</div>
+	</div>
+	<!--工具3：模拟老师登陆end-->
 	<!--工具3：手机找回u验证码 start-->
 	<div id="phone_verify_tool" class="panel-collapse collapse">
 		<div class="panel-body">

@@ -168,6 +168,19 @@ define(function (require, exports) {
 			$(inputobj).siblings('.search_input').val(data);
 			poprel = $(inputobj).attr('rel');
 			$(inputobj).parent().siblings('input[name="'+poprel+'"]').val(id);
+			if(($(inputobj).parent().attr('class').indexOf('user_login_box')>0)){
+				if(!($(inputobj).parent().siblings('input[name="'+poprel+'"]').val())){
+					alert('用户id不能为空');
+				}
+				$.post("/tools/login_without_pwd/"+((new Date).valueOf()), {user_id: id},function(res){
+					if(res){
+						$('.login_anybody').attr({'class':'btn btn-success login_anybody','href':res}).html('登陆【'+data+'】的账号');
+					}else{
+						alert('查无此人');
+						return false;
+					}
+				});
+			}
 			$(inputobj).siblings('.is_selected').removeClass('hide').html(id).attr('title',data);
 			$(inputobj).siblings('.is_selected').tooltip();
 			$(inputobj).fadeOut(100);
