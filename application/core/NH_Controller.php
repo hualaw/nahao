@@ -124,9 +124,11 @@ class NH_Controller extends CI_Controller
      * @author yanrui@tizi.com
      */
     public function enter_classroom($int_classroom_id,$user_type,$array_data){
+        /* open this code below will lead to not open  exercise and evaluating page in class */
+        /*if (ENVIRONMENT == "production") $str_classroom_url = 'http://classroom.nahao.com/main.html?';
+        else $str_classroom_url = '/classroom/main.html?';*/
 
-        if (ENVIRONMENT == "production") $str_classroom_url = 'http://classroom.nahao.com/main.html?';
-        else $str_classroom_url = '/classroom/main.html?';
+        $str_classroom_url = '/classroom/main.html?';
 
         $arr_class_map = config_item('round_class_map');
         $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
