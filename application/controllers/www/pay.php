@@ -398,6 +398,10 @@ class Pay extends NH_User_Controller {
 	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
 	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
+	    if($array_round['sale_status'] != ROUND_SALE_STATUS_SALE)
+	    {
+	    	show_error('此轮销售已结束，已不可支付！');
+	    }
 	    $method = $this->input->post('method');
 	    if($method == 'netpay')
 	    {

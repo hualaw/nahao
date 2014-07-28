@@ -184,4 +184,29 @@ class Tools extends NH_Admin_Controller {
 		}
 		exit;
     }
+    
+    /**
+	 * 管理员模拟老师登陆到学生端，理论上是所有用户
+	 */ 
+    public function login_without_pwd(){
+    	$user_id = $this->input->post('user_id');
+    	if(empty($user_id)){exit('<script>alert("用户id不能为空");window.location.href="/tools/";</script>');}
+    	$user_info = $this->tools->search_student(array('user_id' => $user_id));
+    	if($user_info[0]){
+    		#时效参数
+    		$time = date('d',time()).'-'.date('H',time()).'-'.date('i',time());
+    		$sha1_time = sha1($time);
+    		#加密规则
+    		$name =  '_HAHA_NAHAO_'.$user_info[0]['nickname'].'^$@&!#'.$user_id.$sha1_time;
+    		#生成加密
+    		$sha1_code = sha1($name);
+    		$url = teacher_url().'admin_login/login_without_pwd/'.$user_id.'/'.$sha1_code.'/';
+    		echo $url;
+//    		redirect(teacher_url().'admin_login/login_without_pwd/'.$user_id.'/'.$sha1_code.'/');
+    	}else{
+    		echo 0;
+//    		exit('<script>alert("用户信息不存在");window.location.href="/tools/";</script>');
+    	}
+    	exit;
+    }
 }

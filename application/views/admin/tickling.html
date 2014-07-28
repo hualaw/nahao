@@ -1,0 +1,38 @@
+<form method="get" action="/tickling">
+    <div class="col-md-2">
+        <input type="text" name="nickname" class="form-control" value="{if isset($search_term.nickname)}{$search_term.nickname}{/if}" placeholder="请输入昵称进行搜索" />
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="email" class="form-control" value="{if isset($search_term.email)}{$search_term.email}{/if}" placeholder="请输入email进行搜索" />
+    </div>
+    <div class="col-md-4">
+        <input type="text" name="content" class="form-control" value="{if isset($search_term.content)}{$search_term.content}{/if}" placeholder="请输入内容进行搜索" />
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="create_time" class="form-control" id="create_time" value="{if isset($search_term.create_time)}{$search_term.create_time}{/if}" placeholder="请选择时间进行搜索" readonly />
+    </div>
+    <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tickling" class="btn btn-warning" role="button">重置</a>
+</form><br />
+<label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>昵称</th>
+        <th>内容</th>
+        <th>email</th>
+        <th>时间</th>
+    </tr>
+    </thead>
+    {foreach $tick as $v}
+    <tr>
+        <td>{$v.id}</td>
+        <td>{$v.nickname}</td>
+        <td>{$v.content}</td>
+        <td>{$v.email}</td>
+        <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+    </tr>
+    {/foreach}
+</table>
+{$page}
