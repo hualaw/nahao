@@ -282,7 +282,7 @@
     	public function get_class_count_attendance($int_classroom_id)
     	{
     		$array_result = array();
-    		$sql = "SELECT count(DISTINCT user_id) AS num FROM ".TABLE_ENTERING_CLASSROOM." WHERE classroom_id = ".$int_classroom_id;
+    		$sql = "SELECT count(DISTINCT user_id) AS num FROM ".TABLE_ENTERING_CLASSROOM." WHERE classroom_id = ".$int_classroom_id." AND user_type = ".NH_MEETING_TYPE_STUDENT;
     		$array_result = $this->db->query($sql)->row_array();
     		return $array_result;
     		
