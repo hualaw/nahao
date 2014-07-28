@@ -143,7 +143,7 @@ class NH_Controller extends CI_Controller
         );
         //新增：如果是老师，并且有代理服务器，传mcu服务器地址
         $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
-        if($_user_detail['teach_priv']==NH_MEETING_TYPE_TEACHER && $_user_detail['proxy']>0){
+        if(isset($_user_detail['teach_priv'])&&$_user_detail['teach_priv']==NH_MEETING_TYPE_TEACHER && $_user_detail['proxy']>0){
         	$mcu_arr = config_item('McuAddr');
         	if(isset($mcu_arr[$_user_detail['proxy']])){
         		$array_params['McuAddr'] = $mcu_arr[$_user_detail['proxy']];
