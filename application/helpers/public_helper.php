@@ -779,6 +779,8 @@ function get_courseware_info($int_courseware_id){
 //    "display_updated_at": "2014-06-18 17:12"
     $arr_response = array();
     $str_url = NH_MEETING_URL.'api/files/'.$int_courseware_id.'/';
+//    $str_url = 'http://classapi.tizi.com/api/files/'.$int_courseware_id.'/';
+
     $arr_meeting_param = get_meeting_param();
     $str_response = nh_curl($str_url,$arr_meeting_param,'get');
     if($str_response){
