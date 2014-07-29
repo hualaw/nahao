@@ -75,9 +75,12 @@ class Student_Course extends NH_Model{
             #图片地址
             $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
-            $array_return['score'] = round($array_return['score']);
+            #$array_return['score'] = round($array_return['score']);
             #授课提要
             $array_return['description'] = htmlspecialchars_decode($array_return['description']);
+            #课程评分
+            $course_score = $this->model_course->get_course_score($array_return['course_id']);
+            $array_return['score'] = round($course_score['score']);
             
         }
         return $array_return;

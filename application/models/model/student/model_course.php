@@ -28,7 +28,7 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -344,6 +344,18 @@ class Model_Course extends NH_Model{
     {
     	$array_result = array();
     	$sql = "SELECT SUM(school_hour) AS num FROM ".TABLE_CLASS." WHERE round_id =".$int_round_id." AND parent_id >0";
+    	$array_result = $this->db->query($sql)->row_array();
+    	return  $array_result;
+    }
+    
+    /**
+     * 获取课程的评分
+     * @param  $int_course_id
+     */
+    public function get_course_score($int_course_id)
+    {
+    	$array_result = array();
+    	$sql = "SELECT score FROM ".TABLE_COURSE." WHERE id =".$int_course_id;
     	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result;
     }
