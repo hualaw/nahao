@@ -531,6 +531,7 @@ class Crontab extends CI_Controller
     {
         #1. 初始条件
         $start_time = strtotime("-7 day");//过期时间点，如果比它小，说明是过期的
+//		$start_time = time()-1800;//订单30分钟过期
         //测试七天前时间  var_dump(date('Y-m-d',$start_time));
         $end_time = time();
         #2 更改订单状态
