@@ -47,6 +47,8 @@ class Course extends NH_User_Controller {
         if($array_data && $array_data['start_time'])
         {
         	$array_data['seo_time'] = date('n/j',$array_data['start_time']);
+        	$array_data['sale_price'] = round($array_data['sale_price']);
+        	$array_data['price'] = round($array_data['price']);
         }
         #课程列表的地址
         $course_url = config_item('course_url');
@@ -420,6 +422,8 @@ class Course extends NH_User_Controller {
 	 		$array_data['seo_time'] = date('n/j',$array_data['start_time']);
 	 		$array_data['start_time'] = date('m月d日',$array_data['start_time']);
 	 		$array_data['end_time'] = date('m月d日',$array_data['end_time']);
+	 		$array_data['sale_price'] = round($array_data['sale_price']);
+	 		$array_data['price'] = round($array_data['price']);
 	 	}
 	 	#课程列表的地址
 	 	$course_url = config_item('course_url');
