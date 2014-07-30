@@ -33,6 +33,10 @@
         public function modify()
         {
             $data=$this->input->post(NULL,TRUE);
+            if(!$this->focus_photo->check_round($data['round_id']))
+            {
+                redirect('/focus_photo');
+            }
             $int_rows=$this->focus_photo->edit($data);
             echo $int_rows;
         }

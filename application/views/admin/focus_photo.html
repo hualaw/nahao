@@ -17,7 +17,6 @@
     <tr>
         <td>{$v.id}</td>
         <td>{$v.round_id}</td>
-        <td>{$v.img_src}</td>
         <td>{$v.color}</td>
         <td>{if $v.is_show==0}<button class="btn btn-success active show" role="button" data-id="{$v.id}" data-is_show="{$v.is_show}">启用</button>{elseif $v.is_show==1}<button class="btn btn-warning active noshow" role="button" data-id="{$v.id}" data-is_show="{$v.is_show}">屏蔽</button>{/if}</td>
         <td><a href="#" class="modify" data-photo_id="{$v.id}" data-round_id="{$v.round_id}" data-img_src="{$v.img_src}" data-color="{$v.color}">修改</a></td>
@@ -38,7 +37,7 @@
                 轮ID:<input type="text" value="" name="round_id" placeholder="请输入轮ID" class="form-control" id="round_id" />
                 </div>
                 <div class="col-md-2">
-                图片顺序:<input type="text" value="" class="form-control" name="color" placeholder="请输入颜色" id="color" />
+                填充色:<input type="text" value="" class="form-control" name="color" placeholder="请输入颜色" id="color" />
                 </div><br /><br /><br /><br />
                 <input type="hidden" id="photo_id" name="photo_id" />
                 <button type="button" class="btn btn-success" id="edit">修改</button>

@@ -47,7 +47,7 @@
          */
         public function round_check($round_id)
         {
-            if($this->db->select(TABLE_FOCUS_PHOTO.'.id')->from(TABLE_FOCUS_PHOTO)->where(TABLE_FOCUS_PHOTO.'.round_id',$round_id)->get()->row_array())
+            if($this->db->select(TABLE_FOCUS_PHOTO.'.id')->from(TABLE_FOCUS_PHOTO)->where(array(TABLE_FOCUS_PHOTO.'.round_id'=>$round_id,TABLE_FOCUS_PHOTO.'.is_show'=>1))->get()->row_array())
             {
                 return FALSE;
             }
