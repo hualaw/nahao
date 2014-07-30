@@ -39,13 +39,12 @@
                     </div>
                 	<input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
                     <ul class="cf">
-                    	{if $array_round}
-                    	{foreach from=$array_round item=item}
-                        <li class="fl ctime {if $item.id == $array_data.id}ctimeOn{/if}">
-                            <a href="{$course_url}ke_{$item.id}.html">{$item.start_time}-{$item.end_time}</a>
+
+
+                        <li class="fl ctime ctimeOn">
+                            <a href="#">{$array_data.start_time}-{$array_data.end_time}</a>
                         </li>
-                        {/foreach}
-                        {/if}
+
                         <li class="fl more">
                             <input type="hidden" name="">
                             更多班次敬请期待
