@@ -313,6 +313,9 @@ $config['production_round_time_config']['teacher_late_time'] = 300;//开课后�
 //代理服务器
 $config['McuAddr'][1] = '42.121.114.19:21443';
 
+//AES加密key
+$config['AES_key'] = 'NahaoVictory0704';
+
 
 /**
  * 劳务报酬个人计算税率 之 含税级距参数表
