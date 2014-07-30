@@ -250,25 +250,39 @@ class Index extends NH_User_Controller {
     }
     
     /**
+     * http://api.nahao.com/index/verify_enter_flash/?sid=xxx&uid=xxxx&crid=xxx
      * 验证sesson_id中的uid以及验证uid和crid的对应
      */
     public function verify_enter_flash(){
-    	$session_id = $this->input->get('sid');
-    	$user_id = $this->input->get('uid');
-    	$session_id = $this->input->get('sid');
-    	$echo = array(
-    		'status' => '',
-    		'msg' => '',
-    		);
-		$this->load->model('model/common/model_redis', 'redis');
-        $this->redis->connect('session');
-        $redis_data=$this->cache->redis->get($session_id['session_id']);
-        $arr_data=json_decode($redis_data,TRUE);
-        $arr_data['user_data']=unserialize($arr_data['user_data']);
-        $arr_data['user_data']['user_type']=1;
-        $arr_data['user_data']=serialize($arr_data['user_data']);
-        
-        
-        
+    	$session_id = $this->input->post('sid');
+    	$user_id = $this->input->post('uid');
+    	$classroom_id = $this->input->post('crid');
+    	if(empty($session_id) || empty($user_id) || empty($classroom_id)){
+    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏');
+    	}else{
+	    	$arr_data  = $this->session->all_userdata();
+	    	if(!empty($arr_data)){
+	    		if($user_id != $arr_data['user_id']){
+	    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配');
+	    		}else{
+		    		$this->load->model('model/student/model_classroom');
+		    		$this->load->model('model/student/model_course');
+		    		#根据classroom_id获取课id
+		    		$array_class = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
+		    		#判断用户是否买了这一堂课
+		    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
+		    		if(empty($bool_flag))
+		    		{
+		    			$res = array('status' => 'error','msg' => '用户没买过这堂课');
+		    		}else{
+		    			$res = array('status' => 'ok','msg' => '用户session以及用户与课信息验证通过');
+		    		}
+	    		}
+	    	}else{
+	    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录');
+	    	}
+    	}
+    	echo json_encode($res);
+		exit;
     }
 }
