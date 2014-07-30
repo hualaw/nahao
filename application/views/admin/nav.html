@@ -76,8 +76,18 @@
                 </ul>
             </li>
             {/if}
-            {if pass('feedback','index')}
-            <li><a href="/feedback">评价管理</a></li>
+            {if pass('admin','feedback')||pass('admin','tickling')}
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">评价与反馈<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {if pass('feedback','index')}
+                    <li><a href="/feedback">评价管理</a></li>
+                    {/if}
+                    {if pass('tickling','index')}
+                    <li><a href="/tickling">反馈管理</a></li>
+                    {/if}
+                </ul>
+             </li>
             {/if}
             {if pass('affiche','index')}
             <li><a href="/affiche">公告管理</a></li>

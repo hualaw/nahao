@@ -8,13 +8,13 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效：在销售中、已售罄、已停售、已下架的轮
+     * 检查这个$int_round_id是否有效：在销售中的轮
      * @param  $int_round_id
      * @return $bool_result
      */
     public function check_round_id($int_round_id)
     {
-        $sql = "SELECT id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id." AND (sale_status =".ROUND_SALE_STATUS_SALE." OR sale_status = ".ROUND_SALE_STATUS_OVER." OR sale_status = ".ROUND_SALE_STATUS_FINISH." OR sale_status = ".ROUND_SALE_STATUS_OFF.")";
+        $sql = "SELECT id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id." AND (sale_status =".ROUND_SALE_STATUS_SALE." )";
         $int_num = $this->db->query($sql)->num_rows();
         $bool_result = $int_num > 0 ? true : false;
         return $bool_result;
@@ -28,7 +28,7 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -137,14 +137,14 @@ class Model_Course extends NH_Model{
     }
     
     /**
-     * 根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
+     * 根据course_id获取该课程下的所有轮（在销售中）
      * @param  $int_course_id
      * @return $array_result
      */
     public function get_all_round($int_course_id)
     {
         $array_result = array();
-        $sql = "SELECT id,start_time,end_time,sell_begin_time,sell_end_time FROM ".TABLE_ROUND." WHERE course_id = ".$int_course_id." AND (sale_status = ".ROUND_SALE_STATUS_SALE." OR sale_status =".ROUND_SALE_STATUS_OVER." OR sale_status = ".ROUND_SALE_STATUS_FINISH." OR sale_status = ".ROUND_SALE_STATUS_OFF.") ORDER BY course_id";
+        $sql = "SELECT id,start_time,end_time,sell_begin_time,sell_end_time FROM ".TABLE_ROUND." WHERE course_id = ".$int_course_id." AND (sale_status = ".ROUND_SALE_STATUS_SALE." ) ORDER BY course_id";
         //echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
@@ -184,7 +184,7 @@ class Model_Course extends NH_Model{
     public function get_class_note_data($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT round_id,author,author_role,content,create_time FROM ".TABLE_ROUND_NOTE." WHERE (round_id = ".$int_round_id." OR round_id = 0) AND status = 3 ORDER BY top_time,create_time DESC LIMIT 5";
+        $sql = "SELECT round_id,author,author_role,content,create_time FROM ".TABLE_ROUND_NOTE." WHERE (round_id = ".$int_round_id." OR round_id = 0) AND status = 3 ORDER BY top_time DESC,create_time DESC LIMIT 5";
         //echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
@@ -346,5 +346,30 @@ class Model_Course extends NH_Model{
     	$sql = "SELECT SUM(school_hour) AS num FROM ".TABLE_CLASS." WHERE round_id =".$int_round_id." AND parent_id >0";
     	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result;
+    }
+    
+    /**
+     * 获取课程的评分
+     * @param  $int_course_id
+     */
+    public function get_course_score($int_course_id)
+    {
+    	$array_result = array();
+    	$sql = "SELECT score FROM ".TABLE_COURSE." WHERE id =".$int_course_id;
+    	$array_result = $this->db->query($sql)->row_array();
+    	return  $array_result;
+    }
+    
+    /**
+     * 检查这个$int_round_id是否有效：（轮id是否存在）
+     * @param  $int_round_id
+     * @return $bool_result
+     */
+    public function check_round_id_is_exist($int_round_id)
+    {
+    	$sql = "SELECT id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
+    	$int_num = $this->db->query($sql)->num_rows();
+    	$bool_result = $int_num > 0 ? true : false;
+    	return $bool_result;
     }
 }

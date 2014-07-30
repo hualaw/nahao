@@ -53,7 +53,7 @@
                     </ul>
                     <div class="review cf">
                         <span class="starBg cf">
-                        {if $array_data.score}
+                        {if $array_data.score > 0}
                         {section name=loop loop=$array_data.score}
                         	<span class="hreview"></span>
                         {/section}

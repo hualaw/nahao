@@ -23,7 +23,7 @@
     <tr>
         <td>{$k}:00--{$k+1}:00</td>
         <td>{foreach $v as $vv}{$vv.round_id}<br />{/foreach}</td>
-        <td>{foreach $v as $vv}{$vv.round_title}<br />{/foreach}</td>
+        <td>{foreach $v as $vv}{if $vv.status==4 || $vv.status==5}{$vv.round_title}{else}<a target="_blank" href="classes/index/{$vv.round_id}">{$vv.round_title}</a>{/if}<br />{/foreach}</td>
         <td>{foreach $v as $vv}{$vv.id}<br />{/foreach}</td>
         <td>{foreach $v as $vv}{if $vv.status==4 || $vv.status==5}{$vv.title}{else}<a target="_blank" href="/classes/enter/{$vv.classroom_id}">{$vv.title}</a>{/if}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.begin_time|date_format:'%H:%M:%S'}&nbsp;&nbsp;&nbsp;&nbsp;{$vv.end_time|date_format:'%H:%M:%S'}<br />{/foreach}</td>
         <td>{foreach $v as $kk=>$vv}{$vv.caps}<br />{/foreach}</td>

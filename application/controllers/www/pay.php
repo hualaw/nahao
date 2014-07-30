@@ -26,7 +26,7 @@ class Pay extends NH_User_Controller {
 	     redirect('/login');
 	     }
 	    $int_product_id = max(intval($int_product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -242,7 +242,7 @@ class Pay extends NH_User_Controller {
 	     	redirect('/login');
 	    }
 	    $int_product_id = max(intval($product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -398,6 +398,10 @@ class Pay extends NH_User_Controller {
 	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
 	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
+	    if($array_round['sale_status'] != ROUND_SALE_STATUS_SALE)
+	    {
+	    	show_error('此轮销售已结束，已不可支付！');
+	    }
 	    $method = $this->input->post('method');
 	    if($method == 'netpay')
 	    {

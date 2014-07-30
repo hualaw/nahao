@@ -79,7 +79,7 @@ class Business_Class extends NH_Model
                                 $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
 //                                o($arr_lesson_ids);
 //                                o($bool_add_courseware,true);
-                                if($bool_add_courseware == false){
+                                /*if($bool_add_courseware == false){
                                     //添加失败重试一次
                                     $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
                                     if($bool_add_courseware==false){
@@ -87,7 +87,7 @@ class Business_Class extends NH_Model
                                         $bool_section_flag = false;
                                         break;
                                     }
-                                }
+                                }*/
                             }else{
                                 //本节课没有begin_time或end_time则终止组织本章的课堂数据
                                 $bool_section_flag = false;
