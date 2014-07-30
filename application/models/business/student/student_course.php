@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
+        #根据course_id获取该课程下的所有轮（在销售中）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -40,7 +40,7 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
+     * 检查这个$int_round_id是否有效（在销售中）
      * @param  $int_round_id
      * @return $bool_return
      */
@@ -80,7 +80,7 @@ class Student_Course extends NH_Model{
             $array_return['description'] = htmlspecialchars_decode($array_return['description']);
             #课程评分
             $course_score = $this->model_course->get_course_score($array_return['course_id']);
-            $array_return['score'] = round($course_score['score']);
+            $array_return['score'] = empty($course_score) ? 0 : round($course_score['score']);
             
         }
         return $array_return;
@@ -481,5 +481,16 @@ class Student_Course extends NH_Model{
     		$bool_flag = $this->model_course->check_is_teacher_in_class($int_user_id,$array_class['round_id']);
     		return $bool_flag;
     	}
+    }
+    
+    /**
+     * 检查这个$int_round_id是否有效（轮id是否存在）
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_round_id_is_exist($int_round_id)
+    {
+    	$bool_return = $this->model_course->check_round_id_is_exist($int_round_id);
+    	return $bool_return;
     }
 }

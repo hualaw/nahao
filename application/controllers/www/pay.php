@@ -26,7 +26,7 @@ class Pay extends NH_User_Controller {
 	     redirect('/login');
 	     }
 	    $int_product_id = max(intval($int_product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -242,7 +242,7 @@ class Pay extends NH_User_Controller {
 	     	redirect('/login');
 	    }
 	    $int_product_id = max(intval($product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
