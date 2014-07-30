@@ -1,0 +1,16 @@
+<h2>添加轮播图. . .</h2>
+<hr>
+<form method="post" action="/focus_photo/check_add">
+<div class="col-md-2">
+    <input type="text" name="round_id" id="round_id" value="" class="form-control" placeholder="请输入轮ID" />
+</div><br /><br />
+<div class="col-md-2">
+    <input type="text" name="color" id="color" value="" class="form-control" placeholder="请输入颜色" />
+</div><br /><br />
+    <input type="hidden" value="{$token}" id="nahao_token" />
+    <input type="hidden" value="{$key}" id="key" />
+    <input type="hidden" value="" id="img_src" name="img_src" />
+    <input type="file" name="" id="focus" class="file fl" multiple="true" style="display:none"/>
+    <img src="" id="img_url_general" /><br /><br />
+    <button type="submit" class="btn-success btn" id="add">添加</button>
+</form>
