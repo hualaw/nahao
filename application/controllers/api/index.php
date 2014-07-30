@@ -248,4 +248,27 @@ class Index extends NH_User_Controller {
         $this->load->model('business/api/business_class_status');
         return $this->business_class_status->status_class($class_status);
     }
+    
+    /**
+     * 验证sesson_id中的uid以及验证uid和crid的对应
+     */
+    public function verify_enter_flash(){
+    	$session_id = $this->input->get('sid');
+    	$user_id = $this->input->get('uid');
+    	$session_id = $this->input->get('sid');
+    	$echo = array(
+    		'status' => '',
+    		'msg' => '',
+    		);
+		$this->load->model('model/common/model_redis', 'redis');
+        $this->redis->connect('session');
+        $redis_data=$this->cache->redis->get($session_id['session_id']);
+        $arr_data=json_decode($redis_data,TRUE);
+        $arr_data['user_data']=unserialize($arr_data['user_data']);
+        $arr_data['user_data']['user_type']=1;
+        $arr_data['user_data']=serialize($arr_data['user_data']);
+        
+        
+        
+    }
 }
