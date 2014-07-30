@@ -239,6 +239,7 @@ define('TABLE_PERMISSION','permission');
 define('TABLE_QUESTION','question');
 define('TABLE_QUESTION_CLASS_RELATION','question_class_relation');
 define('TABLE_QUESTION_LESSON_RELATION','question_lesson_relation');
+define('TABLE_RESOURCE','resource');
 define('TABLE_ROUND','round');
 define('TABLE_ROUND_NOTE','round_note');
 define('TABLE_ROUND_TEACHER_RELATION','round_teacher_relation');
@@ -337,7 +338,8 @@ define('NH_QINIU_ACCESS_KEY','Wng4lDFFmffmt5A8QUgMnF_Z603W-6d3v60dyzoW');
 define('NH_QINIU_SECRET_KEY','pnlEL16sISdWjJWRAKv5UaJqrfcK38lHee7B09b4');
 define('NH_QINIU_BUCKET','nahaoweb');
 define('NH_QINIU_VIDEO_BUCKET','nahaovideo');
-//define('NH_QINIU_URL', 'http://'.NH_QINIU_BUCKET.'.qiniudn.com/');
+define('NH_QINIU_RECORD_BUCKET','nahaorecord');
+define('NH_QINIU_RECORD_URL', 'http://'.NH_QINIU_RECORD_BUCKET.'.qiniudn.com/');
 define('NH_QINIU_VIDEO_URL', 'http://video1.nahao.com/');
 define('NH_QINIU_URL', 'http://img1.nahao.com/');
 

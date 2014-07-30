@@ -1,0 +1,33 @@
+<div class="form-group">
+    <botton class="btn btn-success" data-toggle="modal" id="btn_upload_record">
+             上传课堂实录
+    </botton>
+</div>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>上传者(ID)</th>
+        <th>文件名</th>
+        <th>上传时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="resource_list_tbody">
+    {foreach $resources as $v}
+    <tr class="resource_list">
+        <td class="list_resource_id">{$v.id}</td>
+        <td>{$v.username}({$v.admin_id})</td>
+        <td>{$v.uri}</td>
+        <td>{if ($v.create_time gt 0) }{date("Y-m-d H:i",$v.create_time)}{/if}</td>
+        <td>
+            {$smarty.const.NH_QINIU_RECORD_URL}{$v.uri}
+            <!--<a href="javascript:;" class="btn_resource_show" data-class_id="{$v.id}" >查看地址</a>-->
+            <!--<a href="javascript:;" class="btn_class_delete" data-class_id="{$v.id}">删除</a>-->
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+共{$count}条记录&nbsp;&nbsp;{$page}
+{include file="admin/resource_list_modal_operation.html"}

@@ -50,6 +50,9 @@ $config['sql_config'] = array(
     'permission' => array(
         TABLE_PERMISSION => false
     ),
+    'resource' => array(
+        TABLE_RESOURCE => false
+    ),
     'round' => array(
         TABLE_ROUND => false
     ),

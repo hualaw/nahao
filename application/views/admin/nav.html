@@ -89,8 +89,18 @@
                 </ul>
              </li>
             {/if}
-            {if pass('affiche','index')}
-            <li><a href="/affiche">公告管理</a></li>
+            {if pass('affiche','index')||pass('resource','index')}
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">资源管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {if pass('affiche','index')}
+                    <li><a href="/affiche">公告管理</a></li>
+                    {/if}
+                    {if pass('resource','index')}
+                    <li><a href="/resource">课堂实录</a></li>
+                    {/if}
+                </ul>
+            </li>
             {/if}
             {if pass('admin','password')}
             <li><a href="/admin/password">修改密码</a></li>
