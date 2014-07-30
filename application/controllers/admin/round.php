@@ -197,7 +197,7 @@ class Round extends NH_Admin_Controller
                             $int_round_id = $this->round->create_round($arr_param);
                             $bool_flag = $int_round_id > 0 ? true : false;
                         }else{
-                            $this->arr_response['msg'] = 'no lesson';
+                            $this->arr_response['msg'] = '没有启用的章节！';
                         }
                     }
 
