@@ -493,4 +493,15 @@ class Student_Course extends NH_Model{
     	$bool_return = $this->model_course->check_round_id_is_exist($int_round_id);
     	return $bool_return;
     }
+    
+    /**
+     * 检查这个$int_round_id是否在（销售中、已售罄、已停售、已下架）的状态中
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_round_status($int_round_id)
+    {
+    	$bool_return = $this->model_course->check_round_status($int_round_id);
+    	return $bool_return;
+    }
 }
