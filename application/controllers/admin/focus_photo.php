@@ -33,7 +33,8 @@
         public function modify()
         {
             $data=$this->input->post(NULL,TRUE);
-            if(!$this->focus_photo->check_round($data['round_id']))
+            $is_round=0;
+            if(!$this->focus_photo->check_round($data['round_id'],$is_round))
             {
                 redirect('/focus_photo');
             }
@@ -77,8 +78,8 @@
         public function check_add()
         {
             $arr_data=$this->input->post(NULL,TRUE);
-
-            if(!$this->focus_photo->check_round($arr_data['round_id']))
+            $is_round=0;
+            if(!$this->focus_photo->check_round($arr_data['round_id'],$is_round))
             {
                 redirect('/focus_photo/add');
             }
@@ -98,6 +99,7 @@
         public function check_round_id()
         {
             $round_id=$this->input->post('round_id',TRUE);
-            echo $this->focus_photo->check_round($round_id);
+            $is_round=$this->input->post('is_round',TRUE);
+            echo $this->focus_photo->check_round($round_id,$is_round);
         }
     }

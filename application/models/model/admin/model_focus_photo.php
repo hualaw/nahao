@@ -45,9 +45,14 @@
          * 验证轮ID是否存在
          * @author shangshikai@tizi.com
          */
-        public function round_check($round_id)
+        public function round_check($round_id,$is_round)
         {
-            if($this->db->select(TABLE_FOCUS_PHOTO.'.id')->from(TABLE_FOCUS_PHOTO)->where(array(TABLE_FOCUS_PHOTO.'.round_id'=>$round_id,TABLE_FOCUS_PHOTO.'.is_show'=>1))->get()->row_array())
+            $this->db->select(TABLE_FOCUS_PHOTO.'.id')->from(TABLE_FOCUS_PHOTO);
+            $this->db->where(array(TABLE_FOCUS_PHOTO.'.round_id'=>$round_id,TABLE_FOCUS_PHOTO.'.is_show'=>1));
+            $this->db->where(TABLE_FOCUS_PHOTO.'.round_id!=',$is_round);
+            $this->db->get()->row_array();
+            $affected_rows=$this->db->affected_rows();
+            if($affected_rows > 0)
             {
                 return FALSE;
             }

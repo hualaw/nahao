@@ -53,9 +53,9 @@
          * 验证轮ID是否存在
          * @author shangshikai@tizi.com
          */
-        public function check_round($round_id)
+        public function check_round($round_id,$is_round)
         {
-            return $this->model_focus_photo->round_check($round_id);
+            return $this->model_focus_photo->round_check($round_id,$is_round);
         }
         /**
          * 添加轮播图

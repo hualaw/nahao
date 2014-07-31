@@ -3,6 +3,7 @@ define(function(require,exports){
         $('.modify').click(function(){
             $('#myModal').modal();
             $('#round_id').val($(this).data('round_id'));
+            $('#is_round').val($(this).data('round_id'));
             $('#color').val($(this).data('color'));
             $('#img_src').val($(this).data('img_src'));
             $('#photo_id').val($(this).data('photo_id'));
@@ -22,16 +23,16 @@ define(function(require,exports){
             $.ajax({
                 type:'post',
                 url:'/focus_photo/modify',
-                data:'photo_id='+ $.trim($('#photo_id').val())+'&round_id='+ $.trim($('#round_id').val())+'&color='+ $.trim($('#color').val())+'&img_src='+ $.trim($('#img_src').val()),
+                data:'photo_id='+ $.trim($('#photo_id').val())+'&round_id='+$.trim($('#round_id').val())+'&color='+ $.trim($('#color').val()),
                 success:function(msg)
                 {
-                    if(msg==0)
+                    if(msg>0)
                     {
-                        alert('未作修改');
                         location.reload();
                     }
                     else
                     {
+                        alert('未作修改');
                         location.reload();
                     }
                 }
@@ -79,7 +80,7 @@ define(function(require,exports){
             $.ajax({
                 type:'post',
                 url:'/focus_photo/check_round_id',
-                data:'round_id='+$.trim($('#round_id').val()),
+                data:'round_id='+$.trim($('#round_id').val())+'&is_round='+$('#is_round').val(),
                 success:function(msg)
                 {
                     if(msg==1)
