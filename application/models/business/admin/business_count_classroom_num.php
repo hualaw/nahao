@@ -19,4 +19,12 @@
             }
             return $arr;
         }
+        /**
+         * 总数
+         * @author shangshikai@tizi.com
+         */
+        public function total()
+        {
+            return $this->model_count_classroom_num->count_num();
+        }
     }

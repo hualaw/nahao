@@ -34,10 +34,6 @@
         {
             $data=$this->input->post(NULL,TRUE);
             $is_round=0;
-            if(!$this->focus_photo->check_round($data['round_id'],$is_round))
-            {
-                redirect('/focus_photo');
-            }
             $int_rows=$this->focus_photo->edit($data);
             echo $int_rows;
         }

@@ -17,4 +17,13 @@
             }
             return $this->db->query($sql)->result_array();
         }
+        /**
+         * 总数
+         * @author shangshikai@tizi.com
+         */
+        public function count_num()
+        {
+            $sql="select t1.user_id, t2.nickname, t2.phone_mask, t3.realname, count(distinct(t1.classroom_id)) as c from entering_classroom  as t1 left join user as t2 on t1.user_id = t2.id left join user_info as t3 on t1.user_id = t3.user_id group by t1.user_id order by c desc";
+            return $this->db->query($sql)->num_rows();
+        }
     }
