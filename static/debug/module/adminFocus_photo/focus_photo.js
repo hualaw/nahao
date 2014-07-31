@@ -20,20 +20,37 @@ define(function(require,exports){
                 alert('颜色不能为空');
                 return false;
             }
+
             $.ajax({
                 type:'post',
-                url:'/focus_photo/modify',
-                data:'photo_id='+ $.trim($('#photo_id').val())+'&round_id='+$.trim($('#round_id').val())+'&color='+ $.trim($('#color').val()),
+                url:'/focus_photo/check_round_id',
+                data:'round_id='+$.trim($('#round_id').val())+'&is_round='+$('#is_round').val(),
                 success:function(msg)
                 {
-                    if(msg>0)
+                    if(msg==1)
                     {
-                        location.reload();
+                        $.ajax({
+                            type:'post',
+                            url:'/focus_photo/modify',
+                            data:'photo_id='+ $.trim($('#photo_id').val())+'&round_id='+$.trim($('#round_id').val())+'&color='+ $.trim($('#color').val()),
+                            success:function(msg)
+                            {
+                                if(msg>0)
+                                {
+                                    location.reload();
+                                }
+                                else
+                                {
+                                    alert('未作修改');
+                                    location.reload();
+                                }
+                            }
+                        })
                     }
                     else
                     {
-                        alert('未作修改');
-                        location.reload();
+                        alert('轮ID已经存在');
+                        return false;
                     }
                 }
             })
