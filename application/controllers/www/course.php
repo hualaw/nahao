@@ -16,12 +16,18 @@ class Course extends NH_User_Controller {
 	{
 	    header('content-type: text/html; charset=utf-8');
 	    $int_round_id = max(intval($int_round_id),1);
-	    #检查这个$int_round_id是否有效（在销售中）
-	    $bool_flag = $this->student_course->check_round_id($int_round_id);
+	    #检查这个$int_round_id是否存在
+	    $bool_flag = $this->student_course->check_round_id_is_exist($int_round_id);
 	    if (!$bool_flag)
 	    {
 	        show_error("参数错误");
 	    }
+	    #检查这个$int_round_id是否在（销售中、已售罄、已停售、已下架）的状态中
+		$bool_aflag = $this->student_course->check_round_status($int_round_id);
+		if (!$bool_aflag)
+		{
+			show_error("参数错误哦");
+		}
 	    #根据$int_round_id获取该轮的部分信息
 	    $array_data = $this->student_course->get_round_info($int_round_id);
 	    #根据$int_round_id获取该轮的课程大纲
@@ -32,9 +38,29 @@ class Course extends NH_User_Controller {
         $array_team = $this->student_course->get_round_team($int_round_id);
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
+        #从链接过来的这轮如果是销售中，则购买前只显示与之相关的销售中的轮，否则显示一个过期的和与之相关的销售中的轮
+        $array_all_round_ids = array();
+        if($array_round)
+        {
+        	foreach ($array_round as $key=>$val)
+        	{
+        		$array_all_round_ids[] = $val['id'];
+        	}
+        }
+        if(!in_array($array_data['id'], $array_all_round_ids))
+        {
+        	$array_add = array(
+        			'id'=>$array_data['id'],
+        			'start_time'=>date('m月d日',$array_data['start_time']),
+        			'end_time'=>date('m月d日',$array_data['end_time']),
+        			'sell_begin_time'=>$array_data['sell_begin_time'],
+        			'sell_end_time'=>$array_data['sell_end_time']
+        	);
+        	array_unshift($array_round,$array_add);
+        }
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-//        	var_dump($array_data);die;
+//        	var_dump($array_round);die;
        
         #判断是否登录
         if($this->is_login)
