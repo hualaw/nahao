@@ -60,7 +60,7 @@ define(function(require,exports){
 //                    }
                     if(msg==1)
                     {
-                        $('#curr_status').html('审核通过');                                                                 location.reload();
+                        $('.curr_status').html('审核通过');                                                                 location.reload();
                     }
                     if(msg==2)
                     {
@@ -78,7 +78,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        $('#curr_status').html('待定');
+                        $('.curr_status').html('待定');
                     }
                 }
             })
@@ -92,7 +92,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        $('#curr_status').html('审核不通过');
+                        $('.curr_status').html('审核不通过');
                     }
                 }
             })

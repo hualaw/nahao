@@ -69,16 +69,20 @@
     </tr>
     <tr height="35">
         <td width="200">老师基本课酬</td>
-        <td>{if $details.status!=4}<input type="text" id="basic_reward" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_basic_reward">{else}该用户已通过审核,课酬不在此显示{/if}</span></td>
+        <td>{if $details.status!=5}<input type="text" id="basic_reward" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_basic_reward">{else}该用户已通过审核,课酬不在此显示{/if}</span></td>
     </tr>
 </table>
 
 <hr>
     审核状态&nbsp;&nbsp;&nbsp;&nbsp;
-        {if $details.status!=5}
+        {if $details.status==1 || $details.status==3}
+        <button type="button" class="btn btn-danger" id="agree">允许试讲</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-success" id="disagree">不允许试讲</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            当前状态:<span class="curr_status">{$con_lecture_status[$details.status]}</span>
+        {elseif $details.status==2 || $details.status==4}
             <button type="button" class="btn btn-danger" id="nopass">不通过</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-success" id="pass">通过</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            当前状态:<span id="curr_status">{$con_lecture_status[$details.status]}</span>
+            当前状态:<span class="curr_status">{$con_lecture_status[$details.status]}</span>
         {else}
             <span id="pass_lecture">{$con_lecture_status[$details.status]}</span>
         {/if}
