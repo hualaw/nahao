@@ -257,13 +257,20 @@ class Index extends NH_User_Controller {
     	$session_id = $this->input->post('sid');
     	$user_id = $this->input->post('uid');
     	$classroom_id = $this->input->post('crid');
+    	$data = array(
+			'session_id' => !empty($session_id) ? $session_id : '',
+			'user_id' => !empty($user_id) ? $user_id : '',
+			'classroom_id' => !empty($classroom_id) ? $classroom_id : '',
+			);
     	if(empty($session_id) || empty($user_id) || empty($classroom_id)){
-    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏');
+    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏','data'=>$data);
+    		echo json_encode($res);
+    		die;
     	}else{
 	    	$arr_data  = $this->session->all_userdata();
 	    	if(!empty($arr_data)){
 	    		if($user_id != $arr_data['user_id']){
-	    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配');
+	    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配','data'=>$data);
 	    		}else{
 		    		$this->load->model('model/student/model_classroom');
 		    		$this->load->model('model/student/model_course');
@@ -273,13 +280,13 @@ class Index extends NH_User_Controller {
 		    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
 		    		if(empty($bool_flag))
 		    		{
-		    			$res = array('status' => 'error','msg' => '用户没买过这堂课');
+		    			$res = array('status' => 'error','msg' => '用户没买过这堂课','data'=>$data);
 		    		}else{
-		    			$res = array('status' => 'ok','msg' => '用户session以及用户与课信息验证通过');
+		    			$res = array('status' => 'ok','msg' => '用户session以及用户与课信息验证通过','data'=>$data);
 		    		}
 	    		}
 	    	}else{
-	    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录');
+	    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录','data'=>$data);
 	    	}
     	}
     	echo json_encode($res);
