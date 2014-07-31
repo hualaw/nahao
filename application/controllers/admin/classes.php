@@ -54,8 +54,9 @@ class Classes extends NH_Admin_Controller {
         $int_round_id = $this->input->post('round_id') ? intval($this->input->post('round_id')) : 0;
         $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
         $int_is_last = $this->input->post('is_last') ? intval($this->input->post('is_last')) : 0;
-        $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : 0;
-        $str_end_time = $this->input->post('end_time') ? trim($this->input->post('end_time')) : 0;
+        $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
+        $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : '';
+        $str_end_time = $this->input->post('end_time') ? trim($this->input->post('end_time')) : '';
 
         $int_begin_time = strtotime($str_begin_time);
         $int_end_time = strtotime($str_end_time);
@@ -65,7 +66,7 @@ class Classes extends NH_Admin_Controller {
             'msg' => '时间不可用'
         );
 
-        if($int_round_id > 0 AND $int_class_id > 0 AND $str_begin_time > 0 AND $str_end_time > 0){
+        if($int_round_id > 0 AND $int_class_id > 0 AND $str_title AND $str_begin_time > 0 AND $str_end_time > 0){
             $bool_flag = true;
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
@@ -104,7 +105,7 @@ class Classes extends NH_Admin_Controller {
 //                        o($arr_class,true);
                         if($arr_class['classroom_id']==0){
                             $arr_classroom_param = array(
-                                'name' => $arr_class['title'],
+                                'name' => $str_title,
                                 'start_at' => $str_begin_time,
                                 'end_at' => $str_end_time
                             );
@@ -115,6 +116,7 @@ class Classes extends NH_Admin_Controller {
 //            o($bool_add_courseware,true);
 
                         $arr_param = array(
+                            'title' => $str_title,
                             'classroom_id' => $int_classroom_id,
                             'begin_time' => strtotime($str_begin_time),
                             'end_time' => strtotime($str_end_time)
@@ -209,10 +211,10 @@ class Classes extends NH_Admin_Controller {
     public function preview(){
         $int_courseware_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
         if($int_courseware_id){
-            $arr_coruseware = get_courseware_info($int_courseware_id);
-            $this->smarty->assign('coruseware_id', $arr_coruseware['id']);
-            $this->smarty->assign('pagenum', $arr_coruseware['pagenum']);
-            $this->smarty->assign('swfpath', $arr_coruseware['swfpath']);
+            $arr_courseware = get_courseware_info($int_courseware_id);
+            $this->smarty->assign('coruseware_id', $arr_courseware['id']);
+            $this->smarty->assign('pagenum', $arr_courseware['pagenum']);
+            $this->smarty->assign('swfpath', $arr_courseware['swfpath']);
             $this->smarty->assign('view', 'preview');
             $this->smarty->display('admin/layout.html');
         }
@@ -250,4 +252,25 @@ class Classes extends NH_Admin_Controller {
         self::json_output($arr_response);
     }
 
+    public function delete(){
+        $int_class_id = $this->input->post('class_id') ? $this->input->post('class_id') : 0;
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '删除失败',
+        );
+        if($int_class_id > 0){
+//            $arr_where = array(
+//                'id' => $int_class_id
+//            );
+//            o($arr_where,true);
+            $return = $this->class->delete_classes($int_class_id);
+            if($return){
+                $arr_response = array(
+                    'status' => 'ok',
+                    'msg' => '删除成功',
+                );
+            }
+        }
+        self::json_output($arr_response);
+    }
 }

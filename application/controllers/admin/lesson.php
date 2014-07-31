@@ -168,12 +168,14 @@ class Lesson extends NH_Admin_Controller {
                         'parent_id' => $int_parent_id,
                         'sequence' => $int_section_sequence++
                     );
-                    ++$int_section_count;
+                    if($v['status']==1){
+                        ++$int_section_count;
+                    }
                 }
                 $arr_update[] = $arr_tmp;
             }
 
-//            o($arr_update,true);
+//            o($int_section_count,true);
 //            $arr_lessons_tree = $this->lesson->get_lessons_list($arr_lessons);
 //            o($arr_lessons_tree,true);
             $bool_return = $this->lesson->sort($arr_update);
@@ -268,4 +270,30 @@ class Lesson extends NH_Admin_Controller {
         self::json_output($arr_response);
     }
 
+    /**
+     * 章节禁用启用
+     * @author yanrui@tizi.com
+     */
+    public function active(){
+        if($this->is_ajax() AND $this->is_post()){
+            $int_lesson_id = intval($this->input->post('lesson_id'));
+            $int_status = intval($this->input->post('status'));
+//            o($int_lesson_id,true);
+//            o($int_status,true);
+            if($int_lesson_id > 1 AND in_array($int_status,array(0,1))){
+                $arr_param = array(
+                    'status' => $int_status
+                );
+                $arr_where = array(
+                    'id' => $int_lesson_id
+                );
+                $bool_return = $this->lesson->update_lesson($arr_param,$arr_where);
+                if($bool_return > 0){
+                    $this->arr_response['status'] = 'ok';
+                    $this->arr_response['msg'] = '修改成功';
+                }
+            }
+        }
+        self::json_output($this->arr_response);
+    }
 }

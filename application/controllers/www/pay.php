@@ -26,7 +26,7 @@ class Pay extends NH_User_Controller {
 	     redirect('/login');
 	     }
 	    $int_product_id = max(intval($int_product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -242,7 +242,7 @@ class Pay extends NH_User_Controller {
 	     	redirect('/login');
 	    }
 	    $int_product_id = max(intval($product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -340,7 +340,7 @@ class Pay extends NH_User_Controller {
 	    	'order_id' =>$array_order['id'],
 	    	'status'=>ORDER_STATUS_SUCC,
 	    	'pay_type' =>ORDER_TYPE_ONLINE,                      #支付方式
-	    	'action'=>ORDER_STATUS_SUCC,            			 #日志动作
+	    	'action'=>ORDER_ACTION_SUCC,            			 #日志动作
 	    	'note'=>'0元免费课程支付成功',                        #日志记录
 	    	'user_type'=>NH_MEETING_TYPE_STUDENT
 	    	);
@@ -398,6 +398,10 @@ class Pay extends NH_User_Controller {
 	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
 	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
+	    if($array_round['sale_status'] != ROUND_SALE_STATUS_SALE)
+	    {
+	    	show_error('此轮销售已结束，已不可支付！');
+	    }
 	    $method = $this->input->post('method');
 	    if($method == 'netpay')
 	    {
@@ -462,8 +466,8 @@ class Pay extends NH_User_Controller {
 	    //测试页面跳转回调连接
 /* 	   http://www.nahaodev.com/pay/payback?body=%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89&buyer_email=wsbnd9%40gmail.com&buyer_id=2088212220120365&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3InR8tGjRXYpexpaRGyeCWBjSZV1%252BqqtUD1W5T58ANYJw2sMq9G4&notify_time=2014-06-18+14%3A53%3A18&notify_type=trade_status_sync&out_trade_no=1&payment_type=1&seller_email=nahao%40tizi.com&seller_id=2088411963723035&subject=%E7%8E%8B%E8%80%81%E5%B8%88+2014%E5%B9%B4%E4%BA%94%E5%B9%B4%E7%BA%A7%E5%A5%A5%E6%95%B0%E6%9A%91%E5%81%87%E8%AE%AD%E7%BB%83%E8%90%A51&total_fee=0.01&trade_no=2014061831991336&trade_status=TRADE_SUCCESS&sign=d10440f551dd92b30ef83c40839a7d31&sign_type=MD5 */
 
-	    log_message("ERROR_NAHAO", 'payback_server:'.var_export($_SERVER,true)."\n".'payback_get:'.var_export($_GET,true)."\n"
-	    .'payback_post:'.var_export($_POST,true)."\n".'payback_request:'.var_export($_REQUEST,true)."\n---------------------------------\n");
+// 	    log_message("ERROR_NAHAO", 'payback_server:'.var_export($_SERVER,true)."\n".'payback_get:'.var_export($_GET,true)."\n"
+// 	    .'payback_post:'.var_export($_POST,true)."\n".'payback_request:'.var_export($_REQUEST,true)."\n---------------------------------\n");
 	   
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
@@ -507,7 +511,7 @@ class Pay extends NH_User_Controller {
 	                    'order_id' => $payResult['order_id'],
 	                    'status'=>$order_updata['status'],
 	                    'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-	                    'action'=>ORDER_STATUS_FAIL,             #日志动作
+	                    'action'=>ORDER_ACTION_FAIL,             #日志动作
 	                    'note'=>$response['message'],             #日志记录
 	                    'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
@@ -539,7 +543,7 @@ class Pay extends NH_User_Controller {
     	                'order_id' => $payResult['order_id'],
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-    	                'action'=>ORDER_STATUS_FAIL,             #日志动作
+    	                'action'=>ORDER_ACTION_FAIL,             #日志动作
     	                'note'=>$response['message'],             #日志记录
     	                'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
@@ -561,7 +565,7 @@ class Pay extends NH_User_Controller {
     	                'order_id' =>$payResult['order_id'],
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-    	                'action'=>ORDER_STATUS_SUCC,             #日志动作
+    	                'action'=>ORDER_ACTION_SUCC,             #日志动作
     	                'note'=>'支付成功',                       #日志记录
     	                'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );

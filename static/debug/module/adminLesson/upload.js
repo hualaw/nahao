@@ -20,7 +20,7 @@ define(function(require,exports){
                     $('#lesson_pdf_upload').uploadify({
                         'formData' : response,
                         'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
-                        'uploader' : _meeting_url+'/api/files/', //post to meeting system
+                        'uploader' : _meeting_url+'api/files/', //post to meeting system
                         'multi'    : true,
                         'fileObjName' : 'fileobj',
                         'fileTypeExts' : '*.pdf',

@@ -18,9 +18,9 @@
         <th>操作</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="class_list_tbody">
     {foreach $classes as $v}
-    <tr>
+    <tr class="class_list">
         <td class="list_class_id">{$v.id}</td>
         <td>{if $v.parent_id gt 0}节{else}章{/if}</td>
         <td>{$v.title}</td>
@@ -28,7 +28,7 @@
         <td>{if ($v.begin_time gt 0) }{date("Y-m-d H:i",$v.begin_time)}{/if}</td>
         <td>{if ($v.end_time gt 0) }{date("Y-m-d H:i",$v.end_time)}{/if}</td>
         <td>{if $v.parent_id gt 0}{$class_status[$v.status]}{/if}</td>
-        <td>{if ($v.parent_id gt 0) AND ($smarty.const.TIME_STAMP > $v.begin_time)}{$v.attendance}{/if}</td>
+        <td>{if ($v.parent_id gt 0) AND ($smarty.const.TIME_STAMP > $v.begin_time)}{$v.attendance}{/if}/{$round.bought_count}</td>
         <td></td>
         <td>{if $v.parent_id gt 0}<a href="/feedback/index?class_id={$v.id}">评价</a>{/if}</td>
         <td>
@@ -54,6 +54,7 @@
             {if $v.parent_id gt 0}
             <a href="javascript:;" class="btn_class_edit" data-class_id="{$v.id}" data-is_last="{if $last_class_id==$v.id}1{else}0{/if}">修改</a>
             {/if}
+            <!--<a href="javascript:;" class="btn_class_delete" data-class_id="{$v.id}">删除</a>-->
         </td>
     </tr>
     {/foreach}

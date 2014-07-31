@@ -30,7 +30,7 @@
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
-		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -48,7 +48,7 @@
 	        	    <span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
-		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -70,7 +70,7 @@
 	        	    <span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -82,7 +82,7 @@
 	        		<span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -94,7 +94,7 @@
 	        	    <span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -106,7 +106,7 @@
 	        	    <span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}ke_{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -319,6 +319,7 @@
 		<form action="/course/class_comment" class="evaluForm" method="post" onsubmit="return false;">
 			<input type="hidden" name="score" id="c_score" value="">
 			<input type="hidden" name="class_id" id="c_class_id" value="">
+			<input type="hidden" name="from_type"  value="1">
 			<ul>
 				<li>
 					<div class="cf">

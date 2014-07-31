@@ -9,6 +9,7 @@
 <!-- 加载头部公共变量定义开始 -->
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
+<base target="_blank" />
 </head>
 <body class="classRoomPage">
 <!-- 主要内容开始 -->
@@ -68,6 +69,35 @@
 		</div>
 	</div>
 	<!--教室-老师-选择练习题 结束-->
+</div>
+<!--评论 弹框-->
+<div class="evaluHtml undis">
+	<div class="evalu">
+		<h3>请您为本节课点评</h3>
+		<span class="starBg cf">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+		<form action="/course/class_comment" class="evaluForm" method="post" onsubmit="return false;">
+			<input type="hidden" name="score" id="c_score" value="">
+			<input type="hidden" name="class_id" id="c_class_id" value="">
+			<input type="hidden" name="from_type"  value="2">
+			<ul>
+				<li>
+					<div class="cf">
+						<textarea name="content" class="eTextarea ctextarea fl" validName="textarea" placeholder="请在此输入您点评的内容"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="cf">
+					<input type="submit" class="noShowBtn redBtn submit fr class_comment" value="提交">
+				</li>
+			</ul>
+		</form>
+	</div>
 </div>
 <!-- 主要内容结束 -->
 <!-- js引入开始 -->

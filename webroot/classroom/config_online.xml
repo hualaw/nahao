@@ -1,13 +1,16 @@
 ﻿<url>
-	<domain></domain>
-	<server>
+    <domain></domain>
+    <server>
         <ol>42.159.84.157</ol>
-	</server>
-	<sevport>21443</sevport>
-	<phDome></phDome>
-	<version>8</version>
-	<apiurl>http://api.nahao.com/</apiurl>
-	<Software>http://video1.nahao.com/NahaoSetup.exe</Software>
-	<AutoUpdate>http://video1.nahao.com/NahaoUpdate.zip</AutoUpdate>
-	<Multiple>3</Multiple>
+        <pys>
+            <py>42.121.114.19</py>
+        </pys>
+    </server>
+    <sevport>21443</sevport>
+    <phDome></phDome>
+    <version>8</version>
+    <apiurl>http://api.nahao.com/</apiurl>
+    <Software>http://video1.nahao.com/NahaoSetup.exe</Software>
+    <AutoUpdate>http://video1.nahao.com/NahaoUpdate.zip</AutoUpdate>
+    <Multiple>3</Multiple>
 </url>

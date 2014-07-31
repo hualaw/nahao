@@ -2,15 +2,18 @@ define(function(require,exports){
     require("flashUploader");
     exports.addUpload = function(){
         //upload img
-        var imgFormData = {'key':$('#new_img_file_name').val(),'token':$('#nahao_token').val()};
+//        var imgFormData = {'key':$('#new_img_file_name').val(),'token':$('#nahao_token').val()};
         $('#round_img').uploadify({
-            'formData' : imgFormData,
+//            'formData' : imgFormData,
             'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
-            'multi'    : true,
+            'multi'    : false,
             'buttonClass'     : 'choseFileBtn',
             'fileObjName' : 'file',
             'fileTypeExts' : '*.png;*.jpg;',
+            onSelect: function(file){
+                $('#round_img').uploadify('settings','formData',{'key':$('#new_img_file_name').val(),'token':$('#nahao_token').val()});
+            },
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {
@@ -26,10 +29,6 @@ define(function(require,exports){
                 var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
                 var img_url_small = _qiniu_url+data.key+'?imageView/2/w/'+size.small_width+'/h/'+size.small_height;
 
-//                var img_url_large = data.large;
-//                var img_url_general = data.general;
-//                var img_url_small = data.small;
-//                var img_url = data.src;
                 $('#img_url_large').attr('src',img_url_large);
                 $('#img_url_general').attr('src',img_url_general);
                 $('#img_url_small').attr('src',img_url_small);
@@ -38,19 +37,19 @@ define(function(require,exports){
         });
 
         //upload video
-        var videoFormData = {'key':$('#new_video_file_name').val(),'token':$('#nahao_token').val()};
-        $('#round_video').uploadify({
-            'formData' : videoFormData,
-            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
-            'uploader' : 'http://up.qiniu.com', //需要上传的url地址
-            'multi'    : true,
-            'buttonClass'     : 'choseFileBtn',
-            'fileObjName' : 'file',
-            onUploadSuccess: function(file, data, response) {
-                var data = jQuery.parseJSON(data);
-//                console.log(data);
-            }
-        });
+//        var videoFormData = {'key':$('#new_video_file_name').val(),'token':$('#nahao_token').val()};
+//        $('#round_video').uploadify({
+//            'formData' : videoFormData,
+//            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
+//            'uploader' : 'http://up.qiniu.com', //需要上传的url地址
+//            'multi'    : true,
+//            'buttonClass'     : 'choseFileBtn',
+//            'fileObjName' : 'file',
+//            onUploadSuccess: function(file, data, response) {
+//                var data = jQuery.parseJSON(data);
+////                console.log(data);
+//            }
+//        });
     }
 
 })

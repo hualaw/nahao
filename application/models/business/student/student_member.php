@@ -176,7 +176,7 @@ class Student_Member extends NH_Model{
             'round_price'=>$array_data['round_price'],
             'refund_price'=>$array_data['refund_price'],
             'create_time'=>time(),
-            'status'=>0,
+            'status'=>REFUND_STATUS_INIT,
             'order_id'=>$array_data['order_id'],
             'reason'=>$array_data['reason']
         );
@@ -185,8 +185,8 @@ class Student_Member extends NH_Model{
         $array_mdata = array(
             'user_id'=>$array_data['student_id'],
             'order_id'=>$array_data['order_id'],
-            'status'=>6,
-            'action'=>ORDER_STATUS_APPLYREFUND,
+            'status'=>ORDER_STATUS_APPLYREFUND,
+            'action'=>ORDER_ACTION_APPLY_REFUND,
             'note'=>'申请退课',
             'user_type'=>NH_MEETING_TYPE_STUDENT,
             'pay_type'=>$array_data['pay_type']

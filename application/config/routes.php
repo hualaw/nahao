@@ -42,7 +42,9 @@ $route['default_controller'] = "index";
 $route['404_override'] = '';
 
 $route['ke_(:num).html'] = 'course/buy_before/$1';
+$route['hke_(:num).html'] = 'course/buy_detail/$1';
 $route['about/(:any)'] = 'index/about/$1';
+
 //$route['course/index/(.*+)/(.*+)']  = 'course/index?round_id=$1&time=$2';
 //$route['pay/neworder/(.*+)']  = 'pay/neworder/$1';
 //$route['pay/adminOrder/(.*+)/(.*+)']  = 'pay/adminOrder?order_id=$1&payment_method=$2';

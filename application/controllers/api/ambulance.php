@@ -71,4 +71,30 @@ class Ambulance extends NH_Controller {
         }
         echo json_encode(array('phone' =>$str_phone));
     }
+
+    public function get_pdf(){
+        set_time_limit(0);
+        $arr_courseware = $this->db->query("select * from courseware")->result_array();
+//        var_dump($arr_courseware);exit;
+
+        $obj_curl = curl_init();
+//    curl_setopt($obj_curl, CURLOPT_HEADER,array("Content-length: 99999") ); // 设置header 过滤HTTP头
+        curl_setopt($obj_curl, CURLOPT_HEADER,0); // 设置header 过滤HTTP头
+        curl_setopt($obj_curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
+        curl_setopt($obj_curl, CURLOPT_TIMEOUT, 10);
+
+        foreach($arr_courseware as $k => $v){
+            $str_url = 'http://nahao-pdf.qiniudn.com/';
+            $str_url = $str_url.$v['id'].'/'.$v['name'];
+            curl_setopt($obj_curl,CURLOPT_URL,$str_url);
+            $str_response = curl_exec($obj_curl);
+            $arr_return = curl_getinfo($obj_curl);
+            if($arr_return['http_code']==404){
+                echo $str_url."\n\r";
+            }
+//            var_dump(curl_getinfo($obj_curl));exit;
+        }
+        curl_close($obj_curl);
+
+    }
 }

@@ -26,7 +26,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         $array_result = array();
-        #根据course_id获取该课程下的所有轮（在销售中、已售罄、已停售、已下架）
+        #根据course_id获取该课程下的所有轮（在销售中）
         $array_result = $this->model_course->get_all_round($int_course_id);
         if ($array_result)
         {
@@ -40,7 +40,7 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 检查这个$int_round_id是否有效（在销售中、已售罄、已停售、已下架）
+     * 检查这个$int_round_id是否有效（在销售中）
      * @param  $int_round_id
      * @return $bool_return
      */
@@ -75,9 +75,12 @@ class Student_Course extends NH_Model{
             #图片地址
             $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
-            $array_return['score'] = round($array_return['score']);
+            #$array_return['score'] = round($array_return['score']);
             #授课提要
             $array_return['description'] = htmlspecialchars_decode($array_return['description']);
+            #课程评分
+            $course_score = $this->model_course->get_course_score($array_return['course_id']);
+            $array_return['score'] = empty($course_score) ? 0 : round($course_score['score']);
             
         }
         return $array_return;
@@ -478,5 +481,27 @@ class Student_Course extends NH_Model{
     		$bool_flag = $this->model_course->check_is_teacher_in_class($int_user_id,$array_class['round_id']);
     		return $bool_flag;
     	}
+    }
+    
+    /**
+     * 检查这个$int_round_id是否有效（轮id是否存在）
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_round_id_is_exist($int_round_id)
+    {
+    	$bool_return = $this->model_course->check_round_id_is_exist($int_round_id);
+    	return $bool_return;
+    }
+    
+    /**
+     * 检查这个$int_round_id是否在（销售中、已售罄、已停售、已下架）的状态中
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_round_status($int_round_id)
+    {
+    	$bool_return = $this->model_course->check_round_status($int_round_id);
+    	return $bool_return;
     }
 }
