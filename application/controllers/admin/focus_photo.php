@@ -60,7 +60,7 @@
             $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
             $str_upToken = $obj_putPolicy->Token (null);
             $str_salt = random_string('alnum', 6);
-            $filename = 'focus_'.time().'focus_photo'.$str_salt.'.jpg';
+            $filename = 'focus_photo/'.time().$str_salt.'.jpg';
             $this->smarty->assign('key',$filename);
             $this->smarty->assign('token',$str_upToken);
             $this->smarty->assign('view','add_photo');

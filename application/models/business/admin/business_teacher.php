@@ -658,7 +658,7 @@ class Business_Teacher extends NH_Model
          $arr_where=array();
          $now_time=time();
          $data['salt']=random_string('alnum',6);
-         $data['password']=create_password($data['salt'],$arr_data['password']);
+         $data['password']=create_password($data['salt'],trim($arr_data['password']));
          $arr_where['id']=$arr_data['id'];
          $int_pwd=$this->model_user->update_user($data,$arr_where);
          if($int_pwd>0)
@@ -681,13 +681,13 @@ class Business_Teacher extends NH_Model
     {
         $data=array();
         $arr_where=array();
-        $phone_mask=substr_replace($phone,"****",3,4);
+        $phone_mask=substr_replace(trim($phone),"****",3,4);
         $data['phone_mask']=$phone_mask;
         $arr_where['id']=$id;
         $int_phone=$this->model_user->update_user($data,$arr_where);
         if($int_phone>0)
         {
-            change_pnum_phone_server($id,$phone);
+            change_pnum_phone_server($id,trim($phone));
         }
         return $int_phone;
     }
