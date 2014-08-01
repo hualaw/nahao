@@ -281,7 +281,7 @@ font-size: 30px;
 	<label class="btn btn-danger toolbar" data="teacher_login" data-toggle="collapse">
 		<input type="radio" name="login_area" id="login_area"> 登陆任何人的账号
 	</label>
-	<label class="btn btn-danger toolbar link" onclick="window.location.href='/identifying/'" data="phone_verify_tool" data-toggle="collapse" data-link="http://www.baidu.com">
+	<label class="btn btn-danger toolbar" data="phone_verify_tool" data-toggle="collapse">
 		<input type="radio" name="phone" id="phone_verify"> 手机找回验证码
 	</label>
 </div>
@@ -457,23 +457,29 @@ font-size: 30px;
 		</div>
 	</div>
 	<!--工具3：模拟老师登陆end-->
-	<!--工具3：手机找回u验证码 start-->
+	<!--工具4：手机找回u验证码 start-->
 	<div id="phone_verify_tool" class="panel-collapse collapse">
 		<div class="panel-body">
 		
 			<blockquote class="quoteback">
-			  <p>临时查找手机号验证码</p>
+			  <p>查找手机号验证码</p>
 			</blockquote>
-			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/">
+			<form class="form-horizontal" method="POST" role="form" action="/identifying/dentifying_code">
 				<div class="form-group">
 			        <label class="col-md-2 control-label">手机号：</label>
 			        <div class="col-md-6">
-			            <input type="text" name="phone" >
+			        	<input type="text" name="phone" id="phone" placeholder="请输入手机号码" class="form-control">
+			        </div>
+			    </div>
+			    <div class="form-group counter_box">
+			    	<label class="col-md-2 control-label"></label>
+			        <div class="col-md-3">
+			        	<button type="submit" class="btn btn-info" id="sub">查询</button>
 			        </div>
 			    </div>
 			</form>
 			
 		</div>
 	</div>
-	<!--工具3：手机找回u验证码 end-->
+	<!--工具4：手机找回u验证码 end-->
 </div>

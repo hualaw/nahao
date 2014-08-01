@@ -671,6 +671,156 @@ class NH_Session extends CI_Session {
 		}
 	}
 
+    function sess_admin_read()
+    {
+        log_message('debug_nahao', "enter into sess_read() function");
+
+        // Fetch the cookie
+        $session = $this->CI->input->cookie('NHAID');
+
+        //nahao check get session_id, for xunlei download
+        //log_message('debug_nahao', "In sess_read(), segment: ".print_r($segment, 1));
+        $session_get = $this->CI->input->get('session_id');
+        //if session is empty, get GET parameter's session_id instead
+        if ($session === FALSE && $session_get) $session = $session_get;
+
+
+        // No cookie?  Goodbye cruel world!...
+        if ($session === FALSE)
+        {
+            log_message('debug', 'A session cookie was not found.');
+            return FALSE;
+        }
+        else
+        {
+            log_message('debug_nahao', 'sess_read: A session cookie was found.'.print_r($_COOKIE,1));
+        }
+
+        //nahao do not match useragent when get session id
+        if ($session === $session_get) $this->sess_match_useragent = false;
+
+        // Decrypt the cookie data
+        if ($this->sess_encrypt_cookie == TRUE)
+        {
+            $session = $this->CI->encrypt->decode($session);
+        }
+        else if($this->_md5_encrypt)
+        {
+            // encryption was not used, so we need to check the md5 hash
+            $hash	 = substr($session, strlen($session)-32); // get last 32 chars
+            $session = substr($session, 0, strlen($session)-32);
+
+            // Does the md5 hash match?  This is to prevent manipulation of session data in userspace
+            if ($hash !==  md5($session.$this->encryption_key))
+            {
+                log_message('error', 'The session cookie data did not match what was expected. This could be a possible hacking attempt.');
+                $this->sess_destroy();
+                return FALSE;
+            }
+        }
+
+        //tizi
+        if ($this->sess_use_database === TRUE)
+        {
+            $session_id = $session;
+            $session = array();
+
+            //redis test
+            if($this->_redis)
+            {
+                log_message('debug_nahao', "In sess_read(), redis is available");
+                $userdata = $this->_redis_get($session_id);
+                if(!empty($userdata)) $session = json_decode($userdata,true);
+            }
+            if(empty($session)&&$this->_use_db)
+            {
+                $this->CI->load->database();
+                $this->CI->db->where('session_id',$session_id);
+                $query = $this->CI->db->get($this->sess_table_name);
+
+                // No result?  Kill it!
+                if ($query->num_rows() == 0)
+                {
+                    $session = array();
+                }
+                else
+                {
+                    // Is there custom data?  If so, add it to the main session array
+                    $session = $query->row_array();
+                    if($this->_redis)
+                    {
+                        $this->_redis_set($session['session_id'],json_encode($session),$this->sess_expiration);
+                    }
+                }
+            }
+
+            if(empty($session))
+            {
+                log_message('error','session_destroy_unload_session');
+                $this->sess_destroy();
+                return FALSE;
+            }
+
+            if (isset($session['user_data']) AND $session['user_data'] != '')
+            {
+                $custom_data = $this->_unserialize($session['user_data']);
+
+                if (is_array($custom_data))
+                {
+                    foreach ($custom_data as $key => $val)
+                    {
+                        $session[$key] = $val;
+                    }
+                }
+                unset($session['user_data']);
+            }
+        }
+        else
+        {
+            // Unserialize the session array
+            $session = $this->_unserialize($session);
+        }
+
+        // Is the session data we unserialized an array with the correct format?
+        if ( ! is_array($session) OR ! isset($session['session_id']) OR ! isset($session['ip_address']) OR ! isset($session['user_agent']) OR ! isset($session['last_activity']))
+        {
+            log_message('error','session_destroy_session_info');
+            $this->sess_destroy();
+            return FALSE;
+        }
+
+        // Is the session current?
+        if (($session['last_activity'] + $this->sess_expiration) < $this->now)
+        {
+            log_message('error','session_destroy_last_activity');
+            $this->sess_destroy();
+            return FALSE;
+        }
+
+        // Does the IP Match?
+        if ($this->sess_match_ip == TRUE AND $session['ip_address'] != $this->CI->input->ip_address())
+        {
+            log_message('error','session_destroy_ip_address');
+            $this->sess_destroy();
+            return FALSE;
+        }
+
+        // Does the User Agent Match?
+        if ($this->sess_match_useragent == TRUE AND trim($session['user_agent']) != trim(substr($this->CI->input->user_agent(), 0, 120)))
+        {
+            log_message('error','session_destroy_ip_address');
+            $this->sess_destroy();
+            return FALSE;
+        }
+
+        // Session is valid!
+        //$this->userdata = $session;
+        //unset($session);
+
+        //log_message('debug_nahao', "go out of into sess_read() function");
+        return $session;
+    }
+
 }
 // END Session Class
 
