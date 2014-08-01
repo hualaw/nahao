@@ -25,6 +25,7 @@ class Business_Student extends NH_Model
      * 修改student
      * @param array $arr_param
      * @param array $arr_where
+     * @param array $arr_info_where
      * @return bool
      * @author yanrui@tizi.com
      */
@@ -48,7 +49,7 @@ class Business_Student extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'student_info';
             $str_result_type = 'list';
-            $str_fields = 'user.id';
+            $str_fields = TABLE_USER.'.id';
             $arr_where[TABLE_USER.'.teach_priv'] = TABLE_USER_DIC_TEACH_PRIV_OFF;
             if(array_key_exists('stage',$arr_where)){
                 $arr_where[TABLE_USER_INFO.'.stage'] = $arr_where['stage'];
@@ -70,17 +71,37 @@ class Business_Student extends NH_Model
                 $arr_where[TABLE_USER_INFO.'.has_bought'] = $arr_where['has_bought'];
                 unset($arr_where['has_bought']);
             }
+            if(array_key_exists('register_type',$arr_where)){
+                if($arr_where['register_type']==1){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_PHONE;
+                }elseif($arr_where['register_type']==2){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_EMAIL;
+                    $arr_where[TABLE_USER.'.phone_mask'] = '';
+                }elseif($arr_where['register_type']==3){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_EMAIL;
+                    $arr_where[TABLE_USER.'.phone_verified'] = PHONE_UNVERIFIED;
+                }elseif($arr_where['register_type']==4){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_EMAIL;
+                    $arr_where[TABLE_USER.'.phone_verified'] = PHONE_VERIFIED;
+                }
+                unset($arr_where['register_type']);
+            }
+
             if(array_key_exists('subject',$arr_where)){
                 $arr_where[TABLE_STUDENT_SUBJECT.'.subject_id'] = $arr_where['subject'];
                 unset($arr_where['subject']);
             }
             if(array_key_exists('nickname',$arr_where)){
-                $arr_where['like'][TABLE_USER.'.nickname '] = $arr_where['nickname'];
+                $arr_where['like'][TABLE_USER.'.nickname'] = $arr_where['nickname'];
                 unset($arr_where['nickname']);
             }
             if(array_key_exists('email',$arr_where)){
-                $arr_where['like'][TABLE_USER.'.email '] = $arr_where['email'];
+                $arr_where['like'][TABLE_USER.'.email'] = $arr_where['email'];
                 unset($arr_where['email']);
+            }
+            if(array_key_exists('realname',$arr_where)){
+                $arr_where['like'][TABLE_USER_INFO.'.realname'] = $arr_where['realname'];
+                unset($arr_where['realname']);
             }
             if(array_key_exists('id',$arr_where)){
                 $arr_where[TABLE_USER.'.id'] = $arr_where['id'];
@@ -92,7 +113,7 @@ class Business_Student extends NH_Model
             $arr_order_by = array(
                 TABLE_USER.'.register_time' => 'desc'
             );
-//            o($arr_where);
+//            o($arr_where,true);
             $arr_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by);
             $int_return = count($arr_return);
         }
@@ -134,6 +155,21 @@ class Business_Student extends NH_Model
                 $arr_where[TABLE_USER_INFO.'.has_bought'] = $arr_where['has_bought'];
                 unset($arr_where['has_bought']);
             }
+            if(array_key_exists('register_type',$arr_where)){
+                if($arr_where['register_type']==1){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_PHONE;
+                }elseif($arr_where['register_type']==2){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_EMAIL;
+                    $arr_where[TABLE_USER.'.phone_mask'] = '';
+                }elseif($arr_where['register_type']==3){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_EMAIL;
+                    $arr_where[TABLE_USER.'.phone_verified'] = PHONE_UNVERIFIED;
+                }elseif($arr_where['register_type']==4){
+                    $arr_where[TABLE_USER.'.reg_type'] = REG_LOGIN_TYPE_EMAIL;
+                    $arr_where[TABLE_USER.'.phone_verified'] = PHONE_VERIFIED;
+                }
+                unset($arr_where['register_type']);
+            }
             if(array_key_exists('subject',$arr_where)){
                 $arr_where[TABLE_STUDENT_SUBJECT.'.subject_id'] = $arr_where['subject'];
                 unset($arr_where['subject']);
@@ -149,6 +185,10 @@ class Business_Student extends NH_Model
             if(array_key_exists('id',$arr_where)){
                 $arr_where[TABLE_USER.'.id'] = $arr_where['id'];
                 unset($arr_where['id']);
+            }
+            if(array_key_exists('realname',$arr_where)){
+                $arr_where['like'][TABLE_USER_INFO.'.realname'] = $arr_where['realname'];
+                unset($arr_where['realname']);
             }
             $arr_limit = array(
                 'start'=>$int_start,

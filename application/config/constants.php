@@ -313,6 +313,10 @@ define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN','/admin/css/bootstrap-dat
 define('REG_LOGIN_TYPE_PHONE', 1);
 define('REG_LOGIN_TYPE_EMAIL', 2);
 
+//phone_verified type
+define('PHONE_UNVERIFIED', 0);
+define('PHONE_VERIFIED', 1);
+
 define('PHONE_SERVER_APPNAME', 'nahao');
 
 //ok/error
