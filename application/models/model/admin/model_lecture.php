@@ -167,7 +167,7 @@
         }
 
         /**
-         * 添加试讲备注和修改审核状态
+         * 添加试讲备注
          * @param
          * @return
          * @author shangshikai@nahao.com
@@ -207,7 +207,7 @@
          */
         public function lecture_teach_pass($post,$data,$data_user,$subject_data)
         {
-            if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_info.user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
+            if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>5),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_info.user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
             {
                 $now_time=time();
                 $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
@@ -225,16 +225,16 @@
                 }
             }
         }
-        /**
-         *待定试讲审核
-         * @param
-         * @return
-         * @author shangshikai@nahao.com
-         */
-        public function lecture_teach_indeterminate($lecture_id)
-        {
-            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
-        }
+//        /**
+//         *待定试讲审核
+//         * @param
+//         * @return
+//         * @author shangshikai@nahao.com
+//         */
+//        public function lecture_teach_indeterminate($lecture_id)
+//        {
+//            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
+//        }
         /**
          *不通过试讲审核
          * @param
@@ -243,6 +243,6 @@
          */
         public function lecture_teach_nopass($lecture_id)
         {
-            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>3),array('teacher_lecture.id'=>$lecture_id));
+            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$lecture_id));
         }
     }

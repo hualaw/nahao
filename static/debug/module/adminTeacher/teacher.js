@@ -645,6 +645,49 @@ define(function(require,exports){
                 $('#teacher_avatar_img').val(modify_img);
                 $('#img_avatar').attr('src',img_url_general);
             }
+
+            $('.modify_password').click(function(){
+                $('#new_password').val('');
+                $('#two_password').val('');
+                $('#myModal').modal();
+                var id=$(this).attr('id');
+                $('#pwd_id').val(id);
+            })
+
+            $('#edit_password').click(function(){
+                if($('#new_password').val()=='')
+                {
+                    alert('新密码不能为空');
+                    return false;
+                }
+                if($('#new_password').val().length<6 || $('#new_password').val().length>16)
+                {
+                    alert('新密码长度输入不能小于6或者大于16');
+                    return false;
+                }
+                if($('#new_password').val()!=$('#two_password').val())
+                {
+                    alert('两次输入不一致');
+                    return false;
+                }
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/modify_password",
+                    data:"id="+$('#pwd_id').val()+"&password="+$('#new_password').val(),
+                    success:function(msg){
+                        if(msg>0)
+                        {
+                            alert('修改密码成功');
+                            location.reload();
+                        }
+                        else
+                        {
+                            alert('修改密码失败');
+                            location.reload();
+                        }
+                    }
+                })
+            })
     }
 
     exports.load_ckeditor = function ()

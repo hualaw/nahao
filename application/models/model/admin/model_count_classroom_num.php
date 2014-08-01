@@ -17,4 +17,13 @@
             }
             return $this->db->query($sql)->result_array();
         }
+        /**
+         * 总数
+         * @author shangshikai@tizi.com
+         */
+        public function count_num()
+        {
+            $sql="select distinct(t1.user_id) from entering_classroom  as t1 where t1.user_id>0 group by t1.user_id ";
+            return $this->db->query($sql)->num_rows();
+        }
     }

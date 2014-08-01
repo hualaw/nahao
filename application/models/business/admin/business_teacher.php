@@ -648,4 +648,29 @@ class Business_Teacher extends NH_Model
         $int_return = $this->model_user->get_user_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         return $int_return;
     }
+    /**
+     * 修改教师密码
+     * @author shangshikai@tizi.com
+     */
+     public function edit_password($arr_data)
+     {
+         $data=array();
+         $arr_where=array();
+         $now_time=time();
+         $data['salt']=random_string('alnum',6);
+         $data['password']=create_password($data['salt'],$arr_data['password']);
+         $arr_where['id']=$arr_data['id'];
+         $int_pwd=$this->model_user->update_user($data,$arr_where);
+         if($int_pwd>0)
+         {
+             $this->load->model('model/common/model_redis', 'redis');
+             $this->redis->connect('session');
+             $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$arr_data['id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+             if(isset($session_id) && !empty($session_id))
+             {
+                 $this->cache->redis->del($session_id['session_id']);
+             }
+         }
+         return $int_pwd;
+     }
 }

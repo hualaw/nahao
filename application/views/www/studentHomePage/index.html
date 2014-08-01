@@ -88,7 +88,15 @@
 				</ul>
 			</div>
 		</div>
-	</div> 
+	</div>
+
+
+    {foreach $focus_photo as $v}
+        <input type="hidden" value="{$v.img_src},{$v.link},{$v.color}" class="focus_photo_class" />
+    {/foreach}
+
+    <input type="hidden" value="{$smarty.const.NH_QINIU_URL}" class="qiniu" />
+
 	<div class="conft layout">
 		<div class="advantageBox">
 			<ul class="advantage cf">

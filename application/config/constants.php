@@ -260,6 +260,7 @@ define('TABLE_SESSION_LOG', 'session_log');
 define('TABLE_SUBJECT', 'subject');
 define('TABLE_CLASS_NOTE', 'class_note');
 define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
+define('TABLE_FOCUS_PHOTO', 'focus_photo');
 //各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
 
 //ROUND sale_status

@@ -38,7 +38,17 @@ class Index extends NH_User_Controller {
 		}
         //var_dump($array_data);
         #课程列表的地址
+
+        $this->load->model('business/admin/business_focus_photo');
+        $focus_photo=$this->business_focus_photo->list_photo(1);
+        foreach($focus_photo as $k=>$v)
+        {
+            $focus_photo[$k]['link']="http://www.nahao.com/ke_".$v['round_id'].".html";
+        }
         $course_url = config_item('course_url');
+
+        $this->smarty->assign('focus_photo', $focus_photo);
+
         $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
