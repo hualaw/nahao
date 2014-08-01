@@ -378,4 +378,25 @@ class Teacher extends NH_Admin_Controller {
         $pwd=$this->teacher->edit_password($pwd_data);
         echo $pwd;
     }
+    /**
+     * 获取手机号
+     * @author shangshikai@tizi.com
+     */
+    public function get_phone()
+    {
+        $id=$this->input->post('id',TRUE);
+        echo get_pnum_phone_server($id);
+
+    }
+    /**
+     * 修改手机号
+     * @author shangshikai@tizi.com
+     */
+    public function modify_phone()
+    {
+        $id=$this->input->post('id',TRUE);
+        $phone=$this->input->post('phone',TRUE);
+        $int_phone=$this->teacher->phone_edit($id,$phone);
+        echo $int_phone;
+    }
 }

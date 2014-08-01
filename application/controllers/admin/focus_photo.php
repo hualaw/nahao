@@ -69,7 +69,7 @@
 
         /**
          * 验证添加表单
-         * @author shangshikai@tizi.c om
+         * @author shangshikai@tizi.com
          */
         public function check_add()
         {

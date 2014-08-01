@@ -196,7 +196,7 @@ class Model_User extends NH_Model
     {
         if(!is_mobile($phone))
         {
-            return 1;
+            return 3;
         }
         else
         {
