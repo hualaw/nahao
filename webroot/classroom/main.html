@@ -164,7 +164,8 @@ function request(paras){
     var clsSwfVer = request("SwfVer");
     var nhcookie = getCookie('NHID');
     var nhacookie = getCookie('NHAID');
-    
+    nhacookie = nhacookie==null || nhacookie== 'undefined' ? '' : nhacookie;
+    nhcookie = nhcookie==null || nhcookie== 'undefined' ? '' : nhcookie;
 function downLoadOCX(){
 	window.open("http://www.flash.com/upload/package/setup.exe","_blank");
 }
