@@ -9,7 +9,9 @@
         {
             $type=$this->input->get('type',TRUE) ? $this->input->get('type',TRUE) : 1;
             $arr_classroom=$this->count_classroom_num->classroom_num($type);
+            $total=$this->count_classroom_num->total();
             $this->smarty->assign('type',$type);
+            $this->smarty->assign('total',$total);
             $this->smarty->assign('arr_classroom',$arr_classroom);
             $this->smarty->assign('view','count_classroom_num');
             $this->smarty->display('admin/layout.html');

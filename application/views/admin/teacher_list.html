@@ -89,11 +89,11 @@
         <tr>
             <th width="30"><input type="checkbox" id="all"></th>
             <th widyh="50">教师ID</th>
-            <th width="100">邮箱</th>
+            <th width="100">邮箱<br />手机号</th>
             <th width="80">教师姓名</th>
             <th width="80">教师昵称</th>
             <th>性别</th>
-            <th width="100">手机号</th>
+
             <th>教龄</th>
             <th width="80">教师职称</th>
             <th width="80">所在地区</th>
@@ -101,17 +101,18 @@
             <th width="95">添加时间</th>
             <th width="80">账户状态</th>
             <th width="50">操作</th>
+            <th width="100">修改密码</th>
         </tr>
         </thead>
             {foreach $list as $k=>$v}
         <tr>
             <td><input type="checkbox" value={$v.id} class="all"></td>
             <td>{$v.id}</td>
-            <td>{$v.email}</td>
+            <td>{$v.email}<br />{$v.phone_mask}</td>
             <td>{$v.realname}</td>
             <td>{$v.nickname}</td>
             <td>{$config_gender[$v.gender]}</td>
-            <td>{$v.phone_mask}</td>
+
             <td>{$v.teacher_age}</td>
             <td>{$config_title[$v.title]}</td>
             <td>{$v.name}</td>
@@ -122,7 +123,34 @@
                     {$config_account[$v.status]}
                 {/if}</td>
             <td><a href="/teacher/modify?user_id={$v.id}">修改</a></td>
+            <td><button class="btn btn-success modify_password" id="{$v.id}">修改密码</button></td>
         </tr>
             {/foreach}
     </table>
 {$page}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">请输入修改内容</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-5">
+                    请输新密码:<input type="password" value="" name="new_password" placeholder="请输新密码" class="form-control" id="new_password" />
+                </div>
+                <div class="col-md-5">
+                    请再次输新密码:<input type="password" value="" class="form-control" name="two_password" placeholder="请再次输新密码" id="two_password" />
+                </div><br /><br /><br /><br />
+                <input type="hidden" id="photo_id" name="photo_id" />
+                <button type="button" class="btn btn-success" id="edit_password">修改</button>
+            </div>
+            <input type="hidden" value="" id="pwd_id" />
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

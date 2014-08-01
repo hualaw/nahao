@@ -151,10 +151,12 @@ $config['class_teach_status'][6] = '禁用';
 
 
 //教师试讲状态
-$config['lecture_status'][1] = '未审核';
-$config['lecture_status'][2] = '待定';
-$config['lecture_status'][3] = '审核未通过';
-$config['lecture_status'][4] = '审核通过';
+$config['lecture_status'][1] = '等待试讲';
+$config['lecture_status'][2] = '允许试讲';
+$config['lecture_status'][3] = '拒绝试讲';
+$config['lecture_status'][4] = '审核未通过';
+$config['lecture_status'][5] = '审核通过';
+
 
 //授课方式
 $config['teacher_type'][1] = '一对一';

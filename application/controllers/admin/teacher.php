@@ -368,4 +368,14 @@ class Teacher extends NH_Admin_Controller {
         $nick=$this->teacher->nick_teacher($nickname);
         echo json_encode($nick);
     }
+    /**
+     * 修改教师密码
+     * @author shangshikai@tizi.com
+     */
+    public function modify_password()
+    {
+        $pwd_data=$this->input->post(NULL,TRUE);
+        $pwd=$this->teacher->edit_password($pwd_data);
+        echo $pwd;
+    }
 }
