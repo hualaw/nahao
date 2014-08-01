@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'mysql:host=42.159.80.253;port=3307';//host for pdo
+$db['default']['hostname'] = 'mysql:host=nahao.database.local;port=3306'; //host for pdo
 $db['default']['username'] = 'nahao';
 $db['default']['password'] = 'jN63uMUj7Dm4Y';
 $db['default']['database'] = 'nahao';
