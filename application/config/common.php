@@ -247,11 +247,18 @@ $config['admin_round_list_search_type'][1] = '班次名称';
 $config['admin_round_list_search_type'][2] = '授课老师';
 $config['admin_round_list_search_type'][3] = '班次ID';
 
+//admin_round_list_register_type
+$config['admin_round_list_register_type'][1] = '手机号注册';
+$config['admin_round_list_register_type'][2] = '邮箱注册无手机';
+$config['admin_round_list_register_type'][3] = '邮箱注册未验证手机';
+$config['admin_round_list_register_type'][4] = '邮箱注册已验证手机';
+
 //admin_student_list_search_type
 $config['admin_student_list_search_type'][1] = '昵称';
 $config['admin_student_list_search_type'][2] = '邮箱';
 $config['admin_student_list_search_type'][3] = '手机号';
 $config['admin_student_list_search_type'][4] = '用户ID';
+$config['admin_student_list_search_type'][5] = '用户真名';
 
 
 //老师课酬结算状态

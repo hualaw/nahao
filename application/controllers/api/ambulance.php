@@ -97,4 +97,8 @@ class Ambulance extends NH_Controller {
         curl_close($obj_curl);
 
     }
+
+    public function get_ss(){
+//        o($this->session->all_userdata());
+    }
 }

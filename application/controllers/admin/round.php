@@ -25,15 +25,16 @@ class Round extends NH_Admin_Controller
     public function index()
     {
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_sale_status = $this->input->get('sale_status') ? intval($this->input->get('sale_status')) : 0 ;
+        $str_sale_status = $this->input->get('sale_status')!='' ? trim($this->input->get('sale_status')) : '' ;
         $int_teach_status = $this->input->get('teach_status') ? intval($this->input->get('teach_status')) : 0 ;
         $int_subject = $this->input->get('subject') ? intval($this->input->get('subject')) : 0 ;
         $str_course_type = $this->input->get('course_type') ? intval($this->input->get('course_type')) : 0 ;
         $str_search_type = $this->input->get('search_type') ? intval($this->input->get('search_type')) : 0 ;
         $str_search_value = $this->input->get('search_value') ? trim($this->input->get('search_value')) : '' ;
-
+//o($this->input->get('sale_status'));
         $arr_where = array();
-        if($int_sale_status > 0){
+        if($str_sale_status!==''){
+            $int_sale_status = intval($str_sale_status);
             $arr_where['sale_status'] = $int_sale_status;
         }
         if($int_teach_status > 0){
@@ -75,7 +76,8 @@ class Round extends NH_Admin_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
 
-//        o($arr_list,true);
+//        o($arr_query_param);
+//        var_dump(config_item('round_sale_status'));
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->assign('count',$int_count);
         $this->smarty->assign('list',$arr_list);

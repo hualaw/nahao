@@ -227,7 +227,7 @@ class CI_Pagination {
 		// Render the "First" link
 		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
 		{
-			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
+			$first_url = ($this->first_url == '') ? $this->base_url.$this->suffix : $this->first_url;//yanrui  add .$this->suffix
 			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
@@ -286,7 +286,7 @@ class CI_Pagination {
 						}
 						else
 						{
-							$n = ($n == '') ? '' : $this->prefix.$n.$this->suffix;
+							$n = ($n == '') ? ''.$this->suffix : $this->prefix.$n.$this->suffix;//yanrui  add  .$this->suffix
 
 							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
 						}

@@ -140,6 +140,7 @@ class NH_Controller extends CI_Controller
             'UserName' => $this->session->userdata('nickname'),
             'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
             'ClassName'=>$array_data['class_title']
+//            'SessionID'=>$array_data['sid']
         );
         //新增：如果是老师，并且有代理服务器，传mcu服务器地址
         $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
