@@ -9,9 +9,21 @@ define(function(require,exports){
 	}
 	//大图轮播
 	exports.roll = function (){
+		var baseSrc = $(".qiniu").val();
+
+        for(var i=0;i<$(".focus_photo_class").length;i++){
+        	$(".rollList").append('<li class="fl">'+
+        			'<a href="'+$(".focus_photo_class").eq(i).val().split(",")[1]+'" target="_blank" style="background:url('+baseSrc+$(".focus_photo_class").eq(i).val().split(",")[0]+') center top no-repeat '+$(".focus_photo_class").eq(i).val().split(",")[2]+'"></a>'+
+        		'</li>');
+        	$(".rollNav").append('<li class="fl"></li>');
+        	if(i==0){
+        		$(".rollList li").eq(0).addClass("rollshow");
+        		$(".rollNav li").eq(0).addClass("active");
+        	}
+			var $navLi=$(".rollNav li"),
+				$conLi=$(".roll ul li");
+        }
 		//首页 大图滚动
-		var $navLi=$(".rollNav li"),
-			$conLi=$(".roll ul li");
 	    
 	    var ind=0,
 	    	timer=null,
@@ -26,6 +38,7 @@ define(function(require,exports){
 	    }
 
 	    function move(){
+	    	console.log(ind);
 	        ind++;
 	        if(ind>=$conLi.length){
 	            ind=0
@@ -35,6 +48,7 @@ define(function(require,exports){
 
 	    function otimer(){
 	    	timer=setInterval(move,5000);
+	    	console.log(ind);
 	    }	
 	    otimer();
 	    function mouseObj(obj){
@@ -51,7 +65,6 @@ define(function(require,exports){
 		        },2000);
 		    });
 	    }
-
 	    mouseObj($navLi);
 	    mouseObj($conLi);
 	}

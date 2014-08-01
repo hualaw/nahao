@@ -19,26 +19,9 @@
 	<div class="contop">
 		<!-- 首页轮播 -->
 		<div class="roll">
-			<ul class="cf">
-                <li class="fl rollshow">
-                    <a target="_blank" href="{$course_url}ke_194.html" class="roll6"></a>
-                </li>
-                <li class="fl">
-                    <a target="_blank" href="{$course_url}ke_168.html" class="roll4"></a>
-                </li>
-				<li class="fl">
-                    <a target="_blank" href="{$course_url}ke_31.html" class="roll1"></a>
-                </li>
-				<li class="fl">
-                    <a target="_blank" href="{$course_url}ke_43.html" class="roll2"></a>
-                </li>
+			<ul class="cf rollList">
             </ul>
 			<ol class="cf rollNav">
-				<li class="fl active"></li>
-				<li class="fl"></li>
-				<li class="fl"></li>
-				<li class="fl"></li>
-                <!--<li class="fl"></li>-->
             </ol>
 		</div>
 		<!-- course show -->
@@ -92,10 +75,10 @@
 
 
     {foreach $focus_photo as $v}
-        <input type="hidden" value="{$v.img_src},{$v.link},{$v.color}" class="focus_photo_class" />
+        <input type="text" value="{$v.img_src},{$v.link},{$v.color}" class="focus_photo_class" />
     {/foreach}
 
-    <input type="hidden" value="{$smarty.const.NH_QINIU_URL}" class="qiniu" />
+    <input type="text" value="{$smarty.const.NH_QINIU_URL}" class="qiniu" />
 
 	<div class="conft layout">
 		<div class="advantageBox">
