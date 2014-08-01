@@ -20,8 +20,8 @@ define(function(require,exports){
         		$(".rollList li").eq(0).addClass("rollshow");
         		$(".rollNav li").eq(0).addClass("active");
         	}
-		var $navLi=$(".rollNav li"),
-			$conLi=$(".roll ul li");
+			var $navLi=$(".rollNav li"),
+				$conLi=$(".roll ul li");
         }
 		//首页 大图滚动
 	    
