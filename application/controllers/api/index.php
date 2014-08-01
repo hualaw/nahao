@@ -259,65 +259,75 @@ class Index extends NH_User_Controller {
     	$user_id = $this->input->get('uid');
     	$user_type = $this->input->get('utype');
     	$user_type = !empty($user_type) ? $user_type : 0;
-    	if($user_type!=2){
-    		#不是管理员
-	    	$data = array(
-				'session_id' => !empty($session_id) ? $session_id : '',
-				'user_id' => !empty($user_id) ? $user_id : '',
-				'classroom_id' => !empty($classroom_id) ? $classroom_id : '',
-				);
-	    	if(empty($session_id) || empty($user_id) || empty($classroom_id)){
-	    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏','data'=>$data);
-	    		echo json_encode($res);
-	    		die;
-	    	}else{
-		    	$arr_data  = $this->session->all_userdata();
-		    	if(!empty($arr_data)){
-		    		if($user_id != $arr_data['user_id']){
-		    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配','data'=>$data);
-		    		}else{
-			    		$this->load->model('model/student/model_classroom');
-			    		$this->load->model('model/student/model_course');
-			    		#根据classroom_id获取课id
-			    		$array_class = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
-			    		#判断用户是否买了这一堂课
-			    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
-			    		if(empty($bool_flag))
-			    		{
-			    			$res = array('status' => 'error','msg' => '用户没买过这堂课','data'=>$data);
-			    		}else{
-			    			$res = array('status' => 'ok','msg' => '用户session以及用户与课信息验证通过','data'=>$data);
-			    		}
-		    		}
+    	#新增1：如果有映射，将crid还原到映射前
+    	$map = config_item('round_class_map');
+    	if(in_array($classroom_id,$map))
+    	{
+    		$classroom_id = array_search($classroom_id,$map); 
+    	}
+    	#新增2：如果是试讲轮的课，验证通过
+    	$this->load->model('model/teacher/model_info');
+    	$round_info = $this->model_info->get_round_info_by_classroom_id(array('classroom_id'=>$classroom_id));
+    	$round_info['is_test'] = !empty($round_info['is_test']) ? $round_info['is_test'] : 0;
+    	if($round_info['is_test'] == ROUND_USE_TYPE_APPLYTEACH)
+    	{
+    		$res = array('status' => 'ok','msg' => '试讲轮直接通过验证');
+    	}else{
+	    	if($user_type!=2){
+	    		#不是管理员
+		    	$data = array(
+					'session_id' => !empty($session_id) ? $session_id : '',
+					'user_id' => !empty($user_id) ? $user_id : '',
+					'classroom_id' => !empty($classroom_id) ? $classroom_id : '',
+					);
+		    	if(empty($session_id) || empty($user_id) || empty($classroom_id)){
+		    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏','data'=>$data);
 		    	}else{
-		    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录','data'=>$data);
+			    	$arr_data  = $this->session->all_userdata();
+			    	if(!empty($arr_data)){
+			    		if($user_id != $arr_data['user_id']){
+			    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配','data'=>$data);
+			    		}else{
+				    		$this->load->model('model/student/model_classroom');
+				    		$this->load->model('model/student/model_course');
+				    		#根据classroom_id获取课id
+				    		$array_class = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
+				    		#判断用户是否买了这一堂课
+				    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
+				    		if(empty($bool_flag))
+				    		{
+				    			$res = array('status' => 'error','msg' => '用户没买过这堂课','data'=>$data);
+				    		}else{
+				    			$res = array('status' => 'ok','msg' => '用户session以及用户与课信息验证通过','data'=>$data);
+				    		}
+			    		}
+			    	}else{
+			    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录','data'=>$data);
+			    	}
+		    	}
+	    	}else{
+	    		#是管理员
+	    		$data = array(
+					'session_id' => $session_id,
+					'user_id' => !empty($user_id) ? $user_id : '',
+					);
+				if(empty($user_id) || empty($session_id)){#参数不全
+		    		$res = array('status' => 'error','msg' => '管理员id或管理员session不能为空','data'=>$data);
+		    	}else{#参数齐全
+		    		$user_info = $this->session->sess_admin_read();
+		    		if(!$user_info){
+		    			$res = array('status' => 'error','msg' => '管理员登陆信息为空','data'=>$data);
+		    		}else{
+		    			if(($user_info['user_type']==2) && ($user_info['user_id']==$user_id) && ($user_info['session_id']==$session_id)){
+		    				$res = array('status' => 'ok','msg' => '管理员身份验证通过','data'=>$data);
+		    			}else{
+		    				$res = array('status' => 'error','msg' => '管理员身份验证失败','data'=>$data);
+		    			}
+		    		}
 		    	}
 	    	}
-	    	echo json_encode($res);
-			exit;
-    	}else{
-    		#是管理员
-    		$data = array(
-				'session_id' => $session_id,
-				'user_id' => !empty($user_id) ? $user_id : '',
-				);
-			if(empty($user_id) || empty($session_id)){#参数不全
-	    		$res = array('status' => 'error','msg' => '管理员id或管理员session不能为空','data'=>$data);
-	    	}else{#参数齐全
-	    		$user_info = $this->session->sess_admin_read();
-	    		if(!$user_info){
-	    			$res = array('status' => 'error','msg' => '管理员登陆信息为空','data'=>$data);
-	    		}else{
-	    			if(($user_info['user_type']==2) && ($user_info['user_id']==$user_id) && ($user_info['session_id']==$session_id)){
-	    				$res = array('status' => 'ok','msg' => '管理员身份验证通过','data'=>$data);
-	    			}else{
-	    				$res = array('status' => 'error','msg' => '管理员身份验证失败','data'=>$data);
-	    			}
-	    		}
-	    	}
-    		echo json_encode($res);
-			exit;
     	}
-    	
+    	echo json_encode($res);
+		exit;
     }
 }

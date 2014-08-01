@@ -384,6 +384,11 @@ define('CLASS_FASTER_ACTION', 3);//讲慢一点
 define('CLASS_BEGIN_ACTION', 4);//点上课
 define('CLASS_OVER_ACTION', 5);//点下课
 
+//轮用途类型
+define('ROUND_USE_TYPE_NOMARL', 0);//正常轮
+define('ROUND_USE_TYPE_TEST', 1);//测试轮
+define('ROUND_USE_TYPE_APPLYTEACH', 2);//试讲轮
+
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
 define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
