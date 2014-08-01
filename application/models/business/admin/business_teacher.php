@@ -673,4 +673,22 @@ class Business_Teacher extends NH_Model
          }
          return $int_pwd;
      }
+    /**
+     * 修改手机号
+     * @author shangshikai@tizi.com
+     */
+    public function phone_edit($id,$phone)
+    {
+        $data=array();
+        $arr_where=array();
+        $phone_mask=substr_replace($phone,"****",3,4);
+        $data['phone_mask']=$phone_mask;
+        $arr_where['id']=$id;
+        $int_phone=$this->model_user->update_user($data,$arr_where);
+        if($int_phone>0)
+        {
+            change_pnum_phone_server($id,$phone);
+        }
+        return $int_phone;
+    }
 }

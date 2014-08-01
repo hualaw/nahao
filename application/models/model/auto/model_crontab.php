@@ -196,7 +196,7 @@
 //            return $this->db->query($sql)->result_array();
 
             //不含免费试听
-            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time";
+            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND round.is_test!=2";
             return $this->db->query($sql)->result_array();
         }
         /**

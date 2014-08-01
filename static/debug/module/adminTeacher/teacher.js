@@ -534,7 +534,7 @@ define(function(require,exports){
                     url:"/teacher/check_phone",
                     data:"phone="+$('#phone').val(),
                     success:function(msg){
-                        if(msg==1)
+                        if(msg==3)
                         {
                             $('#span_phone').show().css('color','red').html("这不是一个合法的手机号");
                         }
@@ -684,6 +684,68 @@ define(function(require,exports){
                         {
                             alert('修改密码失败');
                             location.reload();
+                        }
+                    }
+                })
+            })
+
+            $('.modify_phone').click(function(){
+                $('#new_phone').val('');
+                var id=$(this).attr('user_id');
+                $('#phone_id').val(id);
+                $.ajax({
+                    type:'post',
+                    url:'teacher/get_phone',
+                    data:'id='+id,
+                    success:function(msg){
+                        $('#new_phone').val(msg);
+                        $('#old_phone').val(msg);
+                        $('#edit_phone').modal();
+                    }
+                })
+            })
+
+            $('#edit_tel').click(function(){
+                if($.trim($('#new_phone').val())== $.trim($('#old_phone').val()))
+                {
+                    alert('不能修改为原来的手机号');
+                    return false;
+                }
+                var id=$('#phone_id').val();
+                $.ajax({
+                    type:'post',
+                    url:'teacher/check_phone',
+                    data:'phone='+ $.trim($('#new_phone').val()),
+                    success:function(msg){
+                        if(msg==3)
+                        {
+                            alert('格式不对');
+                            return false;
+                        }
+                        else if(msg==2)
+                        {
+                            alert('手机号已经存在');
+                            return false;
+                        }
+                        else
+                        {
+                            $.ajax({
+                                type:'post',
+                                url:'teacher/modify_phone',
+                                data:'phone='+ $.trim($('#new_phone').val())+'&id='+id,
+                                success:function(msg){
+                                    if(msg>0)
+                                    {
+                                        alert('修改成功');
+                                        location.reload();
+                                    }
+                                    else
+                                    {
+                                        alert('修改失败');
+                                        location.relod();
+                                    }
+                                }
+                            })
                         }
                     }
                 })
