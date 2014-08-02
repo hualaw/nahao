@@ -132,5 +132,34 @@ define(function(require,exports){
                 $('#span_basic_reward').hide();
             }
         })
-        }
-    })
+
+        $('#agree').click(function(){
+            $.ajax({
+                type:"post",
+                url:"/lecture/agree_lecture",
+                data:"lecture_id="+$('#lecture_id').val(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        $('.curr_status').html('允许试讲');
+                        location.reload();
+                    }
+                }
+            })
+        })
+
+        $('#disagree').click(function(){
+            $.ajax({
+                type:"post",
+                url:"/lecture/disagree_lecture",
+                data:"lecture_id="+$('#lecture_id').val(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        $('.curr_status').html('拒绝试讲');
+                    }
+                }
+            })
+        })
+    }
+})

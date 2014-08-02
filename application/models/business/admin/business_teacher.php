@@ -457,6 +457,7 @@ class Business_Teacher extends NH_Model
         $post_update=array();
         $post_update_id=array();
         $post['nickname']=trim($post['nickname']);
+        $post['edit_email']=trim($post['edit_email']);
         $post['realname']=trim($post['realname']);
         $post['age']=trim($post['age']);
         $post['school']=trim($post['school']);
@@ -560,6 +561,18 @@ class Business_Teacher extends NH_Model
         //var_dump($post['user_id']);die;
         $post_user['nickname']=$post['nickname'];
         $post_user['avatar']=$post['teacher_avatar_img'];
+        if($post['edit_email']=='')
+        {
+            redirect("teacher/modify?user_id=$post[user_id]");
+        }
+        if($post['edit_email']!=$post['hide_email'])
+        {
+            $edit_email=$this->model_user->check_tec_email($post['edit_email']);
+            if($edit_email==NULL)
+            {
+                $post_user['email']=$post['edit_email'];
+            }
+        }
         if($this->model_user->modify_subject($post_subject,$post['user_id']))
         {
             $this->model_user->update_user($post_user,$post_update_id);

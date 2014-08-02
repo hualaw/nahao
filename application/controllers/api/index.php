@@ -273,7 +273,7 @@ class Index extends NH_User_Controller {
     	{
     		$res = array('status' => 'ok','msg' => '试讲轮直接通过验证');
     	}else{
-	    	if($user_type!=2){
+	    	if($user_type!=NH_MEETING_TYPE_ADMIN){
 	    		#不是管理员
 		    	$data = array(
 					'session_id' => !empty($session_id) ? $session_id : '',
@@ -281,28 +281,46 @@ class Index extends NH_User_Controller {
 					'classroom_id' => !empty($classroom_id) ? $classroom_id : '',
 					);
 		    	if(empty($session_id) || empty($user_id) || empty($classroom_id)){
-		    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏','data'=>$data);
+		    		$res = array('status' => 'error','msg' => '请求参数不能有遗漏');
 		    	}else{
 			    	$arr_data  = $this->session->all_userdata();
 			    	if(!empty($arr_data)){
 			    		if($user_id != $arr_data['user_id']){
-			    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配','data'=>$data);
+			    			$res = array('status' => 'error','msg' => 'sessioid与用户id不匹配');
 			    		}else{
 				    		$this->load->model('model/student/model_classroom');
 				    		$this->load->model('model/student/model_course');
 				    		#根据classroom_id获取课id
 				    		$array_class = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
-				    		#判断用户是否买了这一堂课
-				    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
-				    		if(empty($bool_flag))
-				    		{
-				    			$res = array('status' => 'error','msg' => '用户没买过这堂课','data'=>$data);
-				    		}else{
-				    			$res = array('status' => 'ok','msg' => '用户session以及用户与课信息验证通过','data'=>$data);
-				    		}
+				    		#判断这节课是不是在"可进教室 或者 正在上课"的状态 
+							if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+							{
+								$res = array('status' => 'error','msg' => '您不能进入教室了，课的状态不是“正在上课或者可进教室”');
+							}else{
+					    		if($user_type == NH_MEETING_TYPE_STUDENT){#学生
+					    			#如果是学生判断用户是否买了这一堂课
+						    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
+						    		if(empty($bool_flag))
+						    		{
+						    			$res = array('status' => 'error','msg' => '学生没买过这堂课');
+						    		}else{
+						    			$res = array('status' => 'ok','msg' => '学生session以及用户与课信息验证通过');
+						    		}
+					    		}elseif($user_type == NH_MEETING_TYPE_TEACHER){#老师
+					    			#如果是老师判断是否是这节课的老师
+					    			$this->load->model('business/student/student_course');
+						    		$bool_flag = $this->student_course->check_is_teacher_in_class($user_id,$array_class['id']);
+						    		if(empty($bool_flag))
+						    		{
+						    			$res = array('status' => 'error','msg' => '您不是这节课的老师');
+						    		}else{
+						    			$res = array('status' => 'ok','msg' => '老师session以及用户与课信息验证通过');
+						    		}
+					    		}
+							}
 			    		}
 			    	}else{
-			    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录','data'=>$data);
+			    		$res = array('status' => 'error','msg' => '没有用户登陆的session记录');
 			    	}
 		    	}
 	    	}else{
@@ -312,16 +330,16 @@ class Index extends NH_User_Controller {
 					'user_id' => !empty($user_id) ? $user_id : '',
 					);
 				if(empty($user_id) || empty($session_id)){#参数不全
-		    		$res = array('status' => 'error','msg' => '管理员id或管理员session不能为空','data'=>$data);
+		    		$res = array('status' => 'error','msg' => '管理员id或管理员session不能为空');
 		    	}else{#参数齐全
 		    		$user_info = $this->session->sess_admin_read();
 		    		if(!$user_info){
-		    			$res = array('status' => 'error','msg' => '管理员登陆信息为空','data'=>$data);
+		    			$res = array('status' => 'error','msg' => '管理员登陆信息为空');
 		    		}else{
-		    			if(($user_info['user_type']==2) && ($user_info['user_id']==$user_id) && ($user_info['session_id']==$session_id)){
-		    				$res = array('status' => 'ok','msg' => '管理员身份验证通过','data'=>$data);
+		    			if(($user_info['user_type']==NH_MEETING_TYPE_ADMIN) && ($user_info['user_id']==$user_id) && ($user_info['session_id']==$session_id)){
+		    				$res = array('status' => 'ok','msg' => '管理员身份验证通过');
 		    			}else{
-		    				$res = array('status' => 'error','msg' => '管理员身份验证失败','data'=>$data);
+		    				$res = array('status' => 'error','msg' => '管理员身份验证失败');
 		    			}
 		    		}
 		    	}

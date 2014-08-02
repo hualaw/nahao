@@ -177,4 +177,23 @@
             $lecture_id=$this->input->post('lecture_id',TRUE);
             echo $this->lecture->lecture_nopass($lecture_id);
         }
-    }
+        /**
+         * 不允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function disagree_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_disagree($lecture_id);
+        }
+        /**
+         * 允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function agree_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_agree($lecture_id);
+        }
+
+}
