@@ -294,15 +294,20 @@ class Index extends NH_User_Controller {
 				    		$this->load->model('model/student/model_course');
 				    		#根据classroom_id获取课id
 				    		$array_class = $this->model_classroom->get_class_id_by_classroom_id($classroom_id);
+				    		$class_status = $array_class['status'];
+				    		if($branch_classroom_id){
+				    			$array_branch_class = $this->model_classroom->get_class_id_by_classroom_id($branch_classroom_id);
+				    			$class_status = $branch_status['status'];
+				    		}
 				    		#判断这节课是不是在"可进教室 或者 正在上课"的状态 
-							if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+							if ($class_status != CLASS_STATUS_ENTER_ROOM && $class_status != CLASS_STATUS_CLASSING )
 							{
 								$res = array('status' => 'error','msg' => '您不能进入教室了，课的状态不是“正在上课或者可进教室”');
 							}else{
 					    		if($user_type == NH_MEETING_TYPE_STUDENT){#学生
 					    			#如果是学生判断用户是否买了这一堂课
 					    			if($branch_classroom_id){#分轮同时查询分轮教室和总轮教室2种
-							    		$array_branch_class = $this->model_classroom->get_class_id_by_classroom_id($branch_classroom_id);
+							    		$array_branch_class = empty($array_branch_class) ? $this->model_classroom->get_class_id_by_classroom_id($branch_classroom_id) : $array_branch_class;
 						    			$bool_flag_branch = $this->model_course->check_user_buy_class($user_id,$array_branch_class['id']);
 						    			$bool_flag_base = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
 						    			if(!$bool_flag_branch && !$bool_flag_base)
