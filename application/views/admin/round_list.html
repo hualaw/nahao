@@ -28,11 +28,11 @@
         </div>
         <div class="col-md-2">
             <select class="form-control input-sm" name="search_type">
-                {foreach $round_list_search_type as $k => $v}<option value="{$k}">{$v}</option>{/foreach}
+                {foreach $round_list_search_type as $k => $v}<option value="{$k}" {if isset($query_param.search_type) AND $query_param.search_type==$k }selected{/if}>{$v}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control input-sm col-md-2" id="search_value" name="search_value" size="16" value="{if isset($arr_query_param.search_value)}{$arr_query_param.search_value}{/if}">
+            <input type="text" class="form-control input-sm col-md-2" id="search_value" name="search_value" size="16" value="{if isset($query_param.search_value)}{$query_param.search_value}{/if}">
         </div>
     </div>
     <div class="form-group">
@@ -48,16 +48,13 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <!--<th>#</th>-->
-        <th>班次ID</th>
+        <th>ID</th>
         <th>性质</th>
         <th>课程名称</th>
-        <th>开课日期</th>
-        <th>销售开始结束时间</th>
+        <th>时间安排</th>
         <th>教师昵称</th>
         <th>班次进度</th>
-        <th>科目</th>
-        <th>课程类型</th>
+        <th>科目/课程类型</th>
         <th>已报名/限额</th>
         <th>销售状态</th>
         <th>授课状态</th>
@@ -72,12 +69,12 @@
         <td>{$v.id}</td>
         <td>{if $v.is_test==1}测试{else}正式{/if}</td>
         <td>{$v.title}</td>
-        <td>{if (isset($v.start_time) AND $v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}</td>
-        <td>{if (isset($v.sell_begin_time) AND $v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}至{if (isset($v.sell_end_time) AND $v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
+        <td>开课日期：{if (isset($v.start_time) AND $v.start_time)}{date("Y-m-d H:i",$v.start_time)}{/if}<br />
+            销售周期：{if (isset($v.sell_begin_time) AND $v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}至{if (isset($v.sell_end_time) AND $v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
         <td>{$v.nickname}</td>
         <td>{$v.class_count}</td>
-        <td>{$subjects[$v.subject]}</td>
-        <td>{$course_types[$v.course_type]}</td>
+        <td>科目：{if isset($subjects[$v.subject])}{$subjects[$v.subject]}{/if}<br />
+            类型：{if isset($course_types[$v.course_type])}{$course_types[$v.course_type]}{/if}</td>
         <td>{$v.bought_count}/{$v.caps}</td>
         <td>{$round_sale_status[$v.sale_status]}</td>
         <td>{if ($v.sale_status ge $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT) AND ($v.sale_status le $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_STOP)}{$round_teach_status[$v.teach_status]}{else}--{/if}</td>
