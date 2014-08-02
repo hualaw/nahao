@@ -751,7 +751,33 @@ define(function(require,exports){
                 })
             })
     }
-
+    $('#edit_email').blur(function(){
+        if($.trim($('#edit_email').val())=="")
+        {
+            alert('邮箱不能为空');
+            return false;
+        }
+        if($.trim($('#edit_email').val())!= $.trim($('#hide_email').val()))
+        {
+            $.ajax({
+                type:'post',
+                url:'/teacher/check_email',
+                data:'email='+ $.trim($('#edit_email').val()),
+                success:function(msg){
+                    if(msg=='no')
+                    {
+                        alert('这不是一个合法的邮箱');
+                        return false;
+                    }
+                    if(msg>0)
+                    {
+                        alert('邮箱已存在');
+                        return false;
+                    }
+                }
+            })
+        }
+    })
     exports.load_ckeditor = function ()
     {
         CKEDITOR.replace('teacher_intro',{ toolbar:'Basic'});

@@ -243,8 +243,8 @@ class Teacher extends NH_Admin_Controller {
      */
     public function check_email()
     {
-        $email=$this->input->post('email');
-        echo $this->teacher->check_email_tec($email);
+          $email=$this->input->post('email');
+          echo $this->teacher->check_email_tec($email);
     }
 
      /**

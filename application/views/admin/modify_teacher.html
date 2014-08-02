@@ -113,9 +113,10 @@
         </tr>
         <tr height="35">
             <td><font color="red">*</font>邮箱:</td>
-            <td><div class="col-md-4"><input type="text" name="email" class="form-control" placeholder="保密，不会对外公开" value="{$teacher_details['user_data']['email']}" disabled /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_email"></span></td>
+            <td><div class="col-md-4"><input type="text" name="edit_email" class="form-control" placeholder="保密，不会对外公开" value="{$teacher_details['user_data']['email']}" id="edit_email" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="edit_span_email"></span></td>
         </tr>
     </table>
+    <input type="hidden" value="{$teacher_details['user_data']['email']}" id="hide_email" name="hide_email" />
     <hr>
     <h4>教师简介</h4>
     <textarea class="form-control" rows="5" id="teacher_intro" placeholder="在此填写老师简介" name="teacher_intro">{$teacher_details['user_info_data']['teacher_intro']}</textarea>
