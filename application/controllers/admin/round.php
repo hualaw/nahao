@@ -50,8 +50,9 @@ class Round extends NH_Admin_Controller
             if($str_search_type==1){
                 $arr_where['title'] = $str_search_value;
             }elseif($str_search_type==2){
-                $int_teacher_id = intval($str_search_value);
-                $arr_where['teacher_id'] = $int_teacher_id;
+//                $int_teacher_id = intval($str_search_value);
+                $str_teacher_name = trim($str_search_value);
+                $arr_where['teacher_name'] = $str_teacher_name;
             }elseif($str_search_type==3){
                 $int_round_id = intval($str_search_value);
                 $arr_where['id'] = $int_round_id;

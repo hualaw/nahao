@@ -241,12 +241,12 @@ $config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如�
 
 //admin_course_list_search_type
 $config['admin_course_list_search_type'][1] = '课程名称';
-$config['admin_course_list_search_type'][2] = '授课老师';
+$config['admin_course_list_search_type'][2] = '教师昵称';
 $config['admin_course_list_search_type'][3] = '课程ID';
 
 //admin_round_list_search_type
 $config['admin_round_list_search_type'][1] = '班次名称';
-$config['admin_round_list_search_type'][2] = '授课老师';
+$config['admin_round_list_search_type'][2] = '教师昵称';
 $config['admin_round_list_search_type'][3] = '班次ID';
 
 //admin_round_list_register_type
