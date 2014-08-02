@@ -261,8 +261,10 @@ class Index extends NH_User_Controller {
     	$user_type = !empty($user_type) ? $user_type : 0;
     	#新增1：如果有映射，将crid还原到映射前
     	$map = config_item('round_class_map');
+    	$branch_classroom_id = '';//分轮教室id
     	if(in_array($classroom_id,$map))
     	{
+    		$branch_classroom_id = $classroom_id;
     		$classroom_id = array_search($classroom_id,$map); 
     	}
     	#新增2：如果是试讲轮的课，验证通过
@@ -299,18 +301,30 @@ class Index extends NH_User_Controller {
 							}else{
 					    		if($user_type == NH_MEETING_TYPE_STUDENT){#学生
 					    			#如果是学生判断用户是否买了这一堂课
-						    		$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
-						    		if(empty($bool_flag))
-						    		{
-						    			$res = array('status' => 'error','msg' => '学生没买过这堂课');
-						    		}else{
-						    			$res = array('status' => 'ok','msg' => '学生session以及用户与课信息验证通过');
+					    			if($branch_classroom_id){#分轮同时查询分轮教室和总轮教室2种
+							    		$array_branch_class = $this->model_classroom->get_class_id_by_classroom_id($branch_classroom_id);
+						    			$bool_flag_branch = $this->model_course->check_user_buy_class($user_id,$array_branch_class['id']);
+						    			$bool_flag_base = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
+						    			if(!$bool_flag_branch && !$bool_flag_base)
+							    		{
+							    			$res = array('status' => 'error','msg' => '学生没买过这堂分轮课');
+							    		}else{
+							    			$res = array('status' => 'ok','msg' => '学生session以及用户与分论课信息验证通过');
+							    		}
+						    		}else{#不是分轮的教室，查询一种
+						    			$bool_flag = $this->model_course->check_user_buy_class($user_id,$array_class['id']);
+						    			if(!$bool_flag)
+							    		{
+							    			$res = array('status' => 'error','msg' => '学生没买过这堂课');
+							    		}else{
+							    			$res = array('status' => 'ok','msg' => '学生session以及用户与课信息验证通过');
+							    		}
 						    		}
 					    		}elseif($user_type == NH_MEETING_TYPE_TEACHER){#老师
 					    			#如果是老师判断是否是这节课的老师
 					    			$this->load->model('business/student/student_course');
 						    		$bool_flag = $this->student_course->check_is_teacher_in_class($user_id,$array_class['id']);
-						    		if(empty($bool_flag))
+						    		if(!$bool_flag)
 						    		{
 						    			$res = array('status' => 'error','msg' => '您不是这节课的老师');
 						    		}else{

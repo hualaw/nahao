@@ -139,8 +139,6 @@ class NH_Controller extends CI_Controller
             'UserType' => $user_type,
             'UserName' => $this->session->userdata('nickname'),
             'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
-            'ClassName'=>$array_data['class_title']
-//            'SessionID'=>$array_data['sid']
         );
         //新增：如果是老师，并且有代理服务器，传mcu服务器地址
         $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
@@ -150,13 +148,12 @@ class NH_Controller extends CI_Controller
         		$array_params['McuAddr'] = $mcu_arr[$_user_detail['proxy']];
         	}
         }
-//        $str_classroom_url .= http_build_query($array_params);
         //新增：AES加密flash链接
         $uri = http_build_query($array_params);
+        $uri .= !empty($array_data['class_title']) ? '&ClassName='.$array_data['class_title'] : '&ClassName=';
         $aes_config = array(config_item('AES_key'));
         $this->load->library('AES', $aes_config, 'aes');
         $aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
-//        file_put_contents('/Users/hua/tmp/aes_crypted.txt', base64_encode($this->aes->encrypt($uri)));
         log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
         $str_classroom_url .= 'p='.$aes_encrypt_code.'&SwfVer='.config_item('classroom_swf_version');
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
