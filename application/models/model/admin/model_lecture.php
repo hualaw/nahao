@@ -245,4 +245,24 @@
         {
             return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$lecture_id));
         }
+        /**
+         * 不允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_teach_disagree($lecture_id)
+        {
+            $this->db->update('teacher_lecture',array('teacher_lecture.status'=>3),array('teacher_lecture.id'=>$lecture_id));
+            $int_rows=$this->db->affected_rows();
+            return $int_rows;
+        }
+        /**
+         * 不允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_teach_agree($lecture_id)
+        {
+            $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
+            $int_rows=$this->db->affected_rows();
+            return $int_rows;
+        }
     }

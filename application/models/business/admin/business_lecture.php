@@ -195,4 +195,23 @@
             $this->load->model('model/admin/model_lecture');
             return $this->model_lecture->lecture_teach_nopass($lecture_id);
         }
-    }
+
+        /**
+         * 不允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_disagree($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->lecture_teach_disagree($lecture_id);
+        }
+        /**
+         * 允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_agree($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->lecture_teach_agree($lecture_id);
+        }
+}
