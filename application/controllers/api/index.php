@@ -297,7 +297,7 @@ class Index extends NH_User_Controller {
 				    		$class_status = $array_class['status'];
 				    		if($branch_classroom_id){
 				    			$array_branch_class = $this->model_classroom->get_class_id_by_classroom_id($branch_classroom_id);
-				    			$class_status = $branch_status['status'];
+				    			$class_status = $array_branch_class['status'];
 				    		}
 				    		#判断这节课是不是在"可进教室 或者 正在上课"的状态 
 							if ($class_status != CLASS_STATUS_ENTER_ROOM && $class_status != CLASS_STATUS_CLASSING )
