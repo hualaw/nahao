@@ -137,26 +137,25 @@ class NH_Controller extends CI_Controller
             'UserDBID' => $this->session->userdata('user_id'),
             'ClassID'  => $int_classroom_id,
             'UserType' => $user_type,
-            'UserName' => $this->session->userdata('nickname'),
-            'SwfVer'   => config_item('classroom_swf_version'), //avoid browser cache
-//            'ClassName'=>$array_data['class_title']
         );
         //新增：如果是老师，并且有代理服务器，传mcu服务器地址
         $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
+        $McuAddr_query_param = '';
         if(isset($_user_detail['teach_priv'])&&$_user_detail['teach_priv']==NH_MEETING_TYPE_TEACHER && $_user_detail['proxy']>0){
         	$mcu_arr = config_item('McuAddr');
         	if(isset($mcu_arr[$_user_detail['proxy']])){
-        		$array_params['McuAddr'] = $mcu_arr[$_user_detail['proxy']];
+        		$McuAddr_query_param = '&McuAddr='.$mcu_arr[$_user_detail['proxy']];
         	}
         }
+        $className = !empty($array_data['class_title']) ? $array_data['class_title'] : '';
+        $UserName = $this->session->userdata('nickname');
         //新增：AES加密flash链接
         $uri = http_build_query($array_params);
-        $uri .= !empty($array_data['class_title']) ? '&ClassName='.$array_data['class_title'] : '&ClassName=';
         $aes_config = array(config_item('AES_key'));
         $this->load->library('AES', $aes_config, 'aes');
         $aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
         log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
-        $str_classroom_url .= 'p='.$aes_encrypt_code.'&SwfVer='.config_item('classroom_swf_version');
+        $str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&SwfVer='.(config_item('classroom_swf_version')).$McuAddr_query_param;
         return $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
     }
     
