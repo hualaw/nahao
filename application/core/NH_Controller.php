@@ -147,8 +147,8 @@ class NH_Controller extends CI_Controller
         		$McuAddr_query_param = '&McuAddr='.$mcu_arr[$_user_detail['proxy']];
         	}
         }
-        $className = !empty($array_data['class_title']) ? $array_data['class_title'] : '';
-        $UserName = $this->session->userdata('nickname');
+        $className = !empty($array_data['class_title']) ? urlencode($array_data['class_title']) : '';
+        $UserName = urlencode($this->session->userdata('nickname'));
         //新增：AES加密flash链接
         $uri = http_build_query($array_params);
         $aes_config = array(config_item('AES_key'));
