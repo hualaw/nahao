@@ -158,8 +158,10 @@ function request(paras){
 	var teacher_Type = request("teacher_Type");
 	var countryID = request("countryID");
 	var timelong = request("timelong");
-    var clsSwfVer = request("SwfVer");
-    var ClassName = request("ClassName");*/
+	var ClassName = request("ClassName");*/
+	var ClassName = request("ClassName");
+	var McuAddr = request("McuAddr");
+	var nameValue =request("UserName");
     var nhp = request("p") ;
     var clsSwfVer = request("SwfVer");
     var nhcookie = getCookie('NHID');
@@ -198,7 +200,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	// embed the Flash Content SWF when all tests are passed
 	
 	//var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName="+ClassName+"&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
-	var str = "p="+nhp+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie ;
+	var str = "p="+nhp+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie+"&ClassName="+ClassName+"&UserName="+nameValue+"&McuAddr="+ McuAddr;
 	AC_FL_RunContent(
 			"src", "MeetRoomClient?v="+clsSwfVer,
 			"FlashVars", str,

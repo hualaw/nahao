@@ -245,7 +245,7 @@ class Classroom extends NH_User_Controller {
 
         #判断用户是否买了这一堂课
         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
-        if(empty($bool_flag))
+        if(!$bool_flag)
         {
         	show_error('您没有购买这堂课');
         }
@@ -322,7 +322,7 @@ class Classroom extends NH_User_Controller {
     	{
     		#如果是老师判断是否是这节课的老师
     		$bool_flag = $this->student_course->check_is_teacher_in_class($int_user_id,$array_class['id']);
-    		if(empty($bool_flag))
+    		if(!$bool_flag)
     		{
     			show_error('您不是这节课的老师');
     		}

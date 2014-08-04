@@ -242,12 +242,12 @@ define(function(require,exports){
         }
 
         //鼠标上去 显示 讲义，运笔记，评论星
-        $(".outlineList .listb").mouseover(function (){
-            $(this).find(".cListHid").show();     
-        });
-        $(".outlineList .listb").mouseout(function (){
-            $(this).find(".cListHid").hide();
-        });
+//        $(".outlineList .listb").mouseover(function (){
+//            $(this).find(".cListHid").show();     
+//        });
+//        $(".outlineList .listb").mouseout(function (){
+//            $(this).find(".cListHid").hide();
+//        });
         $(".evaluBtn").click(function (){
             var _this = $(this);          
            // _popUp.popUp('.evaluHtml');

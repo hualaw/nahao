@@ -118,6 +118,10 @@ class Business_Round extends NH_Model
                 $arr_where[TABLE_ROUND.'.teacher_id'] = $arr_where['teacher_id'];
                 unset($arr_where['teacher_id']);
             }
+            if(array_key_exists('teacher_name',$arr_where)){
+                $arr_where['like'][TABLE_USER.'.nickname'] = $arr_where['teacher_name'];
+                unset($arr_where['teacher_name']);
+            }
             if(array_key_exists('id',$arr_where)){
                 $arr_where[TABLE_ROUND.'.id'] = $arr_where['id'];
                 unset($arr_where['id']);
@@ -170,6 +174,10 @@ class Business_Round extends NH_Model
             if(array_key_exists('teacher_id',$arr_where)){
                 $arr_where[TABLE_ROUND.'.teacher_id'] = $arr_where['teacher_id'];
                 unset($arr_where['teacher_id']);
+            }
+            if(array_key_exists('teacher_name',$arr_where)){
+                $arr_where['like'][TABLE_USER.'.nickname'] = $arr_where['teacher_name'];
+                unset($arr_where['teacher_name']);
             }
             if(array_key_exists('id',$arr_where)){
                 $arr_where[TABLE_ROUND.'.id'] = $arr_where['id'];

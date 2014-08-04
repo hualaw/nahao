@@ -13,4 +13,5 @@
     <Software>http://video1.nahao.com/NahaoSetup.exe</Software>
     <AutoUpdate>http://video1.nahao.com/NahaoUpdate.zip</AutoUpdate>
     <Multiple>3</Multiple>
+    <isCheck>1</isCheck>
 </url>
