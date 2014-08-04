@@ -323,6 +323,6 @@
          */
         public function get_lecture_class($arr_where)
         {
-            return $this->db->select(TABLE_LECTURE_CLASS.'.id,title,begin_time,end_time,subject,courseware_id,classroom_id,round_id,status')->from(TABLE_LECTURE_CLASS)->where($arr_where)->get()->result_array();
+            return $this->db->select(TABLE_LECTURE_CLASS.'.id,title,begin_time,end_time,subject,courseware_id,classroom_id,round_id,status')->from(TABLE_LECTURE_CLASS)->where($arr_where)->get()->row_array();
         }
 }
