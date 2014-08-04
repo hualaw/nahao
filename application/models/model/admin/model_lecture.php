@@ -151,7 +151,7 @@
          */
         public function detail_lecture($lecture_id)
         {
-            return $this->db->select('teacher_lecture.province,teacher_lecture.city,teacher_lecture.area,teacher_lecture.course,teacher_lecture.user_id,teacher_lecture.status,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.qq,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,teacher_lecture.resume,teacher_lecture.age,teacher_lecture.course_intro,teacher_lecture.gender,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
+            return $this->db->select('teacher_lecture.province,teacher_lecture.city,teacher_lecture.area,teacher_lecture.course,teacher_lecture.user_id,teacher_lecture.status,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.end_time,teacher_lecture.phone,teacher_lecture.qq,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,teacher_lecture.resume,teacher_lecture.age,teacher_lecture.course_intro,teacher_lecture.gender,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
         }
 
         /**
@@ -256,13 +256,73 @@
             return $int_rows;
         }
         /**
-         * 不允许试讲
+         * 允许试讲
          * @author shangshikai@tizi.com
          */
-        public function lecture_teach_agree($lecture_id)
+        public function lecture_teach_agree($lecture_id,$data)
         {
             $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
             $int_rows=$this->db->affected_rows();
-            return $int_rows;
+            if($int_rows>0)
+            {
+                $this->db->insert(TABLE_LECTURE_CLASS,$data);
+                $int_lecture_class_id=$this->db->insert_id();
+            }
+            else
+            {
+                $int_lecture_class_id=0;
+            }
+            return $int_lecture_class_id;
         }
-    }
+
+        /**
+         * 试讲课列表
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_class($title)
+        {
+            self::lecture_class_sql($title);
+            return $this->db->order_by(TABLE_LECTURE_CLASS.'.id','desc')->get()->result_array();
+//            return $this->db->last_query();
+        }
+        /**
+         * 试讲课列表数
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_class_total($title)
+        {
+            self::lecture_class_sql($title);
+            return $this->db->get()->num_rows();
+        }
+        /**
+         * 试讲课sql
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_class_sql($title)
+        {
+            $this->db->select(TABLE_LECTURE_CLASS.'.id,title,begin_time,end_time,subject,courseware_id,classroom_id,
+'.TABLE_SUBJECT.'.name')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left');
+            if($title!='')
+            {
+                $this->db->like(TABLE_LECTURE_CLASS.'.title',$title);
+            }
+        }
+        /**
+         * 添加课件
+         * @author shangshikai@tizi.com
+         */
+        public function update_lecture_class($arr_param,$arr_where){
+            $this->db->update(TABLE_LECTURE_CLASS, $arr_param, $arr_where);
+            $int_affected_rows = $this->db->affected_rows();
+    //        o($int_affected_rows);
+            return $int_affected_rows > 0 ? true :false;
+        }
+        /**
+         * 管理员进教室
+         * @author shangshikai@tizi.com
+         */
+        public function get_lecture_class($arr_where)
+        {
+            return $this->db->select(TABLE_LECTURE_CLASS.'.id,title,begin_time,end_time,subject,courseware_id,classroom_id,round_id,status')->from(TABLE_LECTURE_CLASS)->where($arr_where)->get()->result_array();
+        }
+}
