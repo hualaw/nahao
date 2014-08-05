@@ -200,7 +200,9 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	// embed the Flash Content SWF when all tests are passed
 	
 	//var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName="+ClassName+"&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
-	var str = "p="+nhp+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie+"&ClassName="+ClassName+"&UserName="+nameValue+"&McuAddr="+ McuAddr;
+//	var str = "p="+nhp+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie+"&ClassName="+ClassName+"&UserName="+nameValue+"&McuAddr="+ McuAddr;
+	var localurl = location.href;
+	var str = (localurl.substring(localurl.indexOf("?")+1,localurl.length))+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie;
 	AC_FL_RunContent(
 			"src", "MeetRoomClient?v="+clsSwfVer,
 			"FlashVars", str,
