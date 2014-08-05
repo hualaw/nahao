@@ -118,6 +118,27 @@ define(function (require, exports) {
 				}
 			});
 		});
+		$('.search_input').live('keydown',function(e){
+			var suggestion = $(this).siblings('.popover');
+			if(e.keyCode==38 || e.keyCode==40){
+				if($(suggestion).find('ul li').length>0){
+					if($(suggestion).find('ul li.hover').length>0){
+						if(e.keyCode==38){
+							$(suggestion).find('li.hover').prev('li').addClass('hover').siblings('li').removeClass('hover');
+						}else if(e.keyCode==40){
+							$(suggestion).find('li.hover').next('li').addClass('hover').siblings('li').removeClass('hover');
+						}
+					}else{
+						if(e.keyCode==38){
+							$(suggestion).find('ul').children('li:last').addClass('hover').siblings('li').removeClass('hover');
+						}else if(e.keyCode==40){
+							$(suggestion).find('ul').children('li:first').addClass('hover').siblings('li').removeClass('hover');
+						}
+					}
+				}
+				return false;
+			}
+		});
 		//智能提醒
 		$('.search_input').live('keyup',function(e){
 			var inputname = $(this).attr('name');
