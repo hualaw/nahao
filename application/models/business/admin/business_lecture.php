@@ -209,7 +209,7 @@
          * 允许试讲
          * @author shangshikai@tizi.com
          */
-        public function lecture_agree($lecture_id,$start_time,$end_time,$subject,$course,$int_classroom_id)
+        public function lecture_agree($lecture_id,$start_time,$end_time,$subject,$course,$int_classroom_id,$user_id)
         {
             $this->load->model('model/admin/model_lecture');
             $data=array(
@@ -219,9 +219,19 @@
                 TABLE_LECTURE_CLASS.'.status'=>2,
                 TABLE_LECTURE_CLASS.'.subject'=>$subject,
                 TABLE_LECTURE_CLASS.'.round_id'=>1000,
-                TABLE_LECTURE_CLASS.'.classroom_id'=>$int_classroom_id
+                TABLE_LECTURE_CLASS.'.classroom_id'=>$int_classroom_id,
+                TABLE_LECTURE_CLASS.'.user_id'=>$user_id
             );
-            return $this->model_lecture->lecture_teach_agree($lecture_id,$data);
+            $data_calss=array(
+                TABLE_CLASS.'.begin_time'=>$start_time,
+                TABLE_CLASS.'.end_time'=>$end_time,
+                TABLE_CLASS.'.title'=>$course,
+                TABLE_CLASS.'.status'=>2,
+                TABLE_CLASS.'.round_id'=>1000,
+                TABLE_CLASS.'.classroom_id'=>$int_classroom_id,
+                TABLE_CLASS.'.is_test'=>2
+            );
+            return $this->model_lecture->lecture_teach_agree($lecture_id,$data,$data_calss);
         }
         /**
          * 试讲课列表
@@ -245,7 +255,7 @@
         * 添加试讲课件
         * @author shangshikai@tizi.com
         */
-        public function create_courseware($int_class_id, $arr_courseware){
+        public function create_courseware($int_class_id, $arr_courseware,$int_classroom_id){
             $bool_return = false;
             if($int_class_id > 0 AND is_array($arr_courseware)){
                 $this->load->model('business/common/business_courseware','courseware');
@@ -256,8 +266,9 @@
                 $arr_where = array(
                     'id' => $int_class_id
                 );
+                $arr_class_where=array('classroom_id'=>$int_classroom_id);
                 $this->load->model('model/admin/model_lecture');
-                $bool_return = $this->model_lecture->update_lecture_class($arr_param, $arr_where);
+                $bool_return = $this->model_lecture->update_lecture_class($arr_param, $arr_where,$arr_class_where);
             }
             return $bool_return;
         }
@@ -280,4 +291,5 @@
             }
             return $arr_return;
         }
+
 }

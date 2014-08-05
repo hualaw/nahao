@@ -204,13 +204,14 @@
             $end_time=date('Y-m-d H:i:s',$this->input->post('end_time',TRUE));
             $subject=$this->input->post('subject',TRUE);
             $course=$this->input->post('course',TRUE);
+            $user_id=$this->input->post('user_id',TRUE);
             $arr_classroom_param=array(
                 'name'=>$course,
                 'start_at' => $start_time,
                 'end_at' => $end_time
             );
             $int_classroom_id = general_classroom_id($arr_classroom_param);
-            echo $this->lecture->lecture_agree($lecture_id,$start_time,$end_time,$subject,$course,$int_classroom_id);
+            echo $this->lecture->lecture_agree($lecture_id,$start_time,$end_time,$subject,$course,$int_classroom_id,$user_id);
         }
 
         /**
@@ -248,6 +249,7 @@
          */
         public function add_courseware(){
             $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
+            $int_classroom_id = $this->input->post('classroom_id') ? intval($this->input->post('classroom_id')) : 0;
             $int_courseware_id = $this->input->post('courseware_id') ? intval($this->input->post('courseware_id')) : 0;
             $int_create_time = $this->input->post('create_time') ? strtotime($this->input->post('create_time')) : 0;
             $str_filename = $this->input->post('filename') ? trim($this->input->post('filename')) : '';
@@ -262,7 +264,7 @@
                     'filesize' => $int_filesize,
                     'filetype' => $int_filetype,
                 );
-                $bool_return = $this->lecture->create_courseware($int_class_id,$arr_courseware);
+                $bool_return = $this->lecture->create_courseware($int_class_id,$arr_courseware,$int_classroom_id);
                 if($bool_return==true){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '添加成功';

@@ -259,7 +259,7 @@
          * 允许试讲
          * @author shangshikai@tizi.com
          */
-        public function lecture_teach_agree($lecture_id,$data)
+        public function lecture_teach_agree($lecture_id,$data,$data_calss)
         {
             $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
             $int_rows=$this->db->affected_rows();
@@ -267,12 +267,17 @@
             {
                 $this->db->insert(TABLE_LECTURE_CLASS,$data);
                 $int_lecture_class_id=$this->db->insert_id();
+                if($int_lecture_class_id>0)
+                {
+                    $this->db->insert(TABLE_CLASS,$data_calss);
+                    $int_class_id=$this->db->insert_id();
+                }
             }
             else
             {
-                $int_lecture_class_id=0;
+                $int_class_id=0;
             }
-            return $int_lecture_class_id;
+            return $int_class_id;
         }
 
         /**
@@ -283,7 +288,6 @@
         {
             self::lecture_class_sql($title);
             return $this->db->order_by(TABLE_LECTURE_CLASS.'.id','desc')->get()->result_array();
-//            return $this->db->last_query();
         }
         /**
          * 试讲课列表数
@@ -300,8 +304,7 @@
          */
         public function lecture_class_sql($title)
         {
-            $this->db->select(TABLE_LECTURE_CLASS.'.id,title,begin_time,end_time,subject,courseware_id,classroom_id,
-'.TABLE_SUBJECT.'.name')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left');
+            $this->db->select('lecture_class.id, lecture_class.title, begin_time, end_time, subject, courseware_id, classroom_id, lecture_class.user_id, subject.name, user_info.realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_USER_INFO,TABLE_USER_INFO.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
             if($title!='')
             {
                 $this->db->like(TABLE_LECTURE_CLASS.'.title',$title);
@@ -311,14 +314,15 @@
          * 添加课件
          * @author shangshikai@tizi.com
          */
-        public function update_lecture_class($arr_param,$arr_where){
+        public function update_lecture_class($arr_param,$arr_where,$arr_class_where){
             $this->db->update(TABLE_LECTURE_CLASS, $arr_param, $arr_where);
+            $this->db->update(TABLE_CLASS, $arr_param, $arr_class_where);
             $int_affected_rows = $this->db->affected_rows();
     //        o($int_affected_rows);
             return $int_affected_rows > 0 ? true :false;
         }
         /**
-         * 管理员进教室
+         * 进教室
          * @author shangshikai@tizi.com
          */
         public function get_lecture_class($arr_where)
