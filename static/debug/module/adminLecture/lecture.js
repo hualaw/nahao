@@ -52,15 +52,9 @@ define(function(require,exports){
                 url:"/lecture/pass_lecture",
                 data:"lecture_id="+$('#lecture_id').val()+"&user_id="+$('#user_id').val()+"&gender="+$('#gender').val()+"&realname="+$('#tea_name').html()+"&age="+$('#age').val()+"&school="+$('#school').val()+"&province="+$('#province').val()+"&city="+$('#city').val()+"&area="+$('#area').val()+"&stage="+$('#stage').val()+"&teacher_age="+$('#teach_years').val()+"&teacher_intro="+$('#resume').val()+"&title="+$('#title').val()+"&subject="+$('#subject').val()+"&basic_reward="+$('#basic_reward').val(),
                 success:function(msg){
-//                    alert(msg);
-//                    var gg=eval(msg);
-//                    for(var index in gg)
-//                    {
-//                        alert(gg[index]);
-//                    }
                     if(msg==1)
                     {
-                        $('.curr_status').html('审核通过');                                                                 location.reload();
+                        $('.curr_status').html('审核通过');                                                                location.reload();
                     }
                     if(msg==2)
                     {
@@ -132,17 +126,16 @@ define(function(require,exports){
                 $('#span_basic_reward').hide();
             }
         })
-
         $('#agree').click(function(){
             $.ajax({
                 type:"post",
                 url:"/lecture/agree_lecture",
-                data:"lecture_id="+$('#lecture_id').val(),
+                data:"lecture_id="+$('#lecture_id').val()+'&start_time='+$('#start_time').val()+'&end_time='+$('#end_time').val()+'&subject='+$('#subject').val()+'&course='+$('#course').val()+'&user_id='+$('#user_id').val(),
                 success:function(msg){
-                    if(msg==1)
+                    if(msg>0)
                     {
                         $('.curr_status').html('允许试讲');
-                        location.reload();
+                        location.href='/lecture/lecture_class_list';
                     }
                 }
             })
@@ -157,9 +150,21 @@ define(function(require,exports){
                     if(msg==1)
                     {
                         $('.curr_status').html('拒绝试讲');
+                        $('#courseware').hide();
                     }
                 }
             })
         })
+
+        $(".reload_courseware").on("click",function(){
+            var url = '/classes/reload';
+            var data = {
+                'classroom_id' : $(this).data("classroom_id")
+            };
+            $.post(url,data,function(response){
+                alert(response.msg)
+                window.location.reload();
+            })
+        });
     }
 })

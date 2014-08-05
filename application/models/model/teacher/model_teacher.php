@@ -659,4 +659,13 @@ class Model_Teacher extends NH_Model{
      	$int_row = $this->db->affected_rows();
      	return $bool_result = $int_row > 0  ? true : false;
      }
+
+    /**
+     * 根据user_id查教室id
+     * @author shangshikai@tizi.com
+     */
+    public function get_by_lecture_class_classroom_id($user_id)
+    {
+        return $this->db->select(TABLE_LECTURE_CLASS.'.classroom_id')->from(TABLE_LECTURE_CLASS)->order_by(TABLE_LECTURE_CLASS.'.id','desc')->where(TABLE_LECTURE_CLASS.'.user_id',$user_id)->get()->row_array();
+    }
 }
