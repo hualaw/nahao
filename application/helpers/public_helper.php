@@ -873,3 +873,52 @@ function pass($ctrl = '', $act = '')
 	}
 	return isset($permissions[strtolower($ctrl)][strtolower($act)]);
 }
+
+
+/**
+ * 下载课件PDF文件
+ * @param  $url
+ * @param  $file_name
+ */
+function download($url,$file_name)
+{
+    $ch=curl_init();
+    curl_setopt($ch,CURLOPT_URL, $url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    $content=curl_exec($ch);
+    if(curl_errno($ch))
+    {
+        echo curl_error($ch);
+        curl_close($ch);
+    } else {
+        curl_close($ch);
+        //提取文件名和文件类型
+        $array_type=explode('.',$url);
+        $last_index=count($array_type)-1;
+        $file_type=$array_type[$last_index];
+        //获得文件大小
+        $file_size=strlen($content);
+
+        //通知浏览器下载文件
+        if (preg_match("/MSIE/", $_SERVER["HTTP_USER_AGENT"])) {
+
+            $attachmentHeader = 'Content-Disposition: attachment; filename="'.$file_name.'"';
+        } else if (preg_match("/Firefox/", $_SERVER["HTTP_USER_AGENT"])) {
+            $attachmentHeader = 'Content-Disposition: attachment; filename*="utf8\'\'' . $file_name. '"' ;
+        } else {
+            $attachmentHeader = 'Content-Disposition: attachment; filename="'.$file_name.'"';
+        }
+        header('Content-Encoding: none');
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/".$file_type);
+
+        header("Content-Transfer-Encoding: binary");
+        header($attachmentHeader);
+        header('Pragma: cache');
+        header('Cache-Control: public, must-revalidate, max-age=0');
+        header("Content-Length: ".$file_size);
+        ob_clean();
+        flush();
+        exit($content); //输出数据流
+    }
+}

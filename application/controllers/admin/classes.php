@@ -273,4 +273,26 @@ class Classes extends NH_Admin_Controller {
         }
         self::json_output($arr_response);
     }
+
+    public function download(){
+        header('content-type: text/html; charset=utf-8');
+        #判断是否登录
+        if(!$this->is_login)
+        {
+            redirect('/login');
+        }
+        $int_courseware_id = intval($this->uri->rsegment(3));
+        $this->load->model('business/common/business_courseware','courseware');
+        $array_courseware = $this->courseware->get_courseware_by_id(array($int_courseware_id));
+        if (empty($array_courseware))
+        {
+            show_error('抱歉!这节课没有上传课件');
+        }
+        //echo $_SERVER["HTTP_USER_AGENT"];
+        $wordStr = $array_courseware['0']['download_url'];
+        $file_name = $array_courseware['0']['name'];
+        $file_name = urlencode($file_name);
+        $file_name = str_replace("+", "%20", $file_name);// 替换空格
+        download($wordStr,$file_name);
+    }
 }
