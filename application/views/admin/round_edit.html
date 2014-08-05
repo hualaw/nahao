@@ -54,7 +54,7 @@
 
         <div class="col-md-2">
             <select class="form-control"  id="grade_from">
-                <option value="0">开始年级</option>
+                <!--<option value="0">开始年级</option>-->
                 {foreach $grades as $k => $v}
                 <option value="{$k}" {if isset($round) AND $round.grade_from==$k }selected{/if}>{$v}</option>
                 {/foreach}
@@ -62,7 +62,7 @@
         </div>
         <div class="col-md-2">
             <select class="form-control" id="grade_to">
-                <option value="0">结束年级</option>
+                <!--<option value="0">结束年级</option>-->
                 {foreach $grades as $k => $v}
                 <option value="{$k}" {if isset($round) AND $round.grade_to==$k }selected{/if}>{$v}</option>
                 {/foreach}
