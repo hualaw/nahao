@@ -10,25 +10,42 @@ define(function(require,exports){
 		    var _testResult = _regMobile.test(_phoneNumber);
 		    // 如果输入的是手机号，发送验证码
 		    if (_testResult) {
-		        $.ajax({
-					url:'register/send_captcha',
-					'type' : 'POST',
-					'dataType' : 'json',
-					'data' : {
-	                    'phone' : _phoneNumber,
-	                    'type' : otype
+	    	 $.ajax({
+                    url : '/register/check_phones/',
+                    type : 'post',
+                    data : {
+	                    'phone' : _phoneNumber
 	                },
-					success : function(json, status){
-						if(json.status =="ok"){
-							$.dialog({
-								content:json.msg,
-								icon:"succeed"
-							})							
-						}
-	                    //手机验证倒计时
-	                    require("module/common/method/countDown").countDown(_this);
-					}
-				});
+                    dataType : 'json',
+                    success : function (result) {
+                        if(result.status == 'error') {
+            				$.dialog({
+            				    content:result.info,
+            				    icon:null
+            				});
+                        }else {
+					        $.ajax({
+								url:'register/send_captcha',
+								'type' : 'POST',
+								'dataType' : 'json',
+								'data' : {
+				                    'phone' : _phoneNumber,
+				                    'type' : otype
+				                },
+								success : function(json, status){
+									if(json.status =="ok"){
+										$.dialog({
+											content:json.msg,
+											icon:"succeed"
+										})							
+									}
+				                    //手机验证倒计时
+				                    require("module/common/method/countDown").countDown(_this);
+								}
+							});
+                        }
+                    }
+	    		});	       
 		    }else{
 		    	$.dialog({
 		    		content:"手机号码输入有误，请重新输入。"
