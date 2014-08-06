@@ -44,6 +44,9 @@
                 	{if pass('lecture','index')}
                     <li><a href="/lecture">教师试讲</a></li>
                     {/if}
+                    {if pass('lecture','lecture_class_list')}
+                    <li><a href="/lecture/lecture_class_list">试讲课列表</a></li>
+                    {/if}
                     {if pass('teacher','index')}
                     <li><a href="/teacher">教师管理</a></li>
                     {/if}

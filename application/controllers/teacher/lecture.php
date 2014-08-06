@@ -46,5 +46,5 @@ class Lecture extends CI_Controller {
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/lecture_success.html');
 	}
-	
+
 }

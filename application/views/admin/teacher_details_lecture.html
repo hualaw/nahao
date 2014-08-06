@@ -84,9 +84,8 @@
             <button type="button" class="btn btn-success" id="pass">通过</button>&nbsp;&nbsp;&nbsp;&nbsp;
             当前状态:<span class="curr_status">{$con_lecture_status[$details.status]}</span>
         {else}
-            <span id="pass_lecture">{$con_lecture_status[$details.status]}</span>
+            <span id="pass_lecture">{$con_lecture_status[$details.status]}</span>&nbsp;&nbsp;&nbsp;&nbsp;
         {/if}
-
 <hr>
 <h4>备注信息</h4>
 {foreach $notes as $k=>$v}
@@ -110,4 +109,7 @@
 <input type="hidden" value="{$details.province}" id="province" />
 <input type="hidden" value="{$details.city}" id="city" />
 <input type="hidden" value="{$details.area}" id="area" />
+<input type="hidden" value="{$details.start_time}" id="start_time" />
+<input type="hidden" value="{$details.end_time}" id="end_time" />
 <input type="hidden" value="{$details.subject}" id="subject" />
+<input type="hidden" value="{$details.course}" id="course" />

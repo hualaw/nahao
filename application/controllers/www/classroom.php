@@ -10,6 +10,7 @@ class Classroom extends NH_User_Controller {
         $this->load->model('model/student/model_classroom');
         $this->load->model('model/student/model_course');
         $this->load->model('business/teacher/business_teacher','teacher_b');
+        $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
             redirect('/login');
@@ -346,7 +347,33 @@ class Classroom extends NH_User_Controller {
     	$this->smarty->display('www/classRoom/index.html');
     }
 
-
+    /**
+     * 试讲老师进教室
+     * @author shangshikai@tizi.com
+     */
+    public function lecture_teacher_enter(){
+        $user_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $arr_classroom_id=$this->teacher_m->get_by_lecture_class_classroom_id($user_id);
+        if(empty($arr_classroom_id))
+        {
+            redirect(student_url());
+        }
+        $int_classroom_id=$arr_classroom_id['classroom_id'];
+        $this->load->model('business/admin/business_lecture');
+        $arr_class = $this->business_lecture->get_class_by_classroom_id($int_classroom_id);
+        if($arr_class){
+            $arr_class_map = config_item('round_class_map');
+            $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
+            $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER,array('class_title'=>$arr_class['title']));
+            $this->smarty->assign('js_module', 'classRoom');
+            $this->smarty->assign('classroom_id', $int_classroom_id);
+            $this->smarty->assign('class_id',$arr_class['id']);
+            $this->smarty->assign('iframe', $str_iframe);
+            $this->smarty->display('www/classRoom/index.html');
+        }else{
+            die('');
+        }
+    }
 }
 
 /* End of file welcome.php */
