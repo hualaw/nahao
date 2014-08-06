@@ -124,9 +124,17 @@ define(function (require, exports) {
 				if($(suggestion).find('ul li').length>0){
 					if($(suggestion).find('ul li.hover').length>0){
 						if(e.keyCode==38){
-							$(suggestion).find('li.hover').prev('li').addClass('hover').siblings('li').removeClass('hover');
+							if($(suggestion).find('li:first').attr('class')=='hover'){
+								$(suggestion).find('li:last').addClass('hover').siblings('li').removeClass('hover');
+							}else{
+								$(suggestion).find('li.hover').prev('li').addClass('hover').siblings('li').removeClass('hover');
+							}
 						}else if(e.keyCode==40){
-							$(suggestion).find('li.hover').next('li').addClass('hover').siblings('li').removeClass('hover');
+							if($(suggestion).find('li:last').attr('class')=='hover'){
+								$(suggestion).find('li:first').addClass('hover').siblings('li').removeClass('hover');
+							}else{
+								$(suggestion).find('li.hover').next('li').addClass('hover').siblings('li').removeClass('hover');
+							}
 						}
 					}else{
 						if(e.keyCode==38){
@@ -136,7 +144,6 @@ define(function (require, exports) {
 						}
 					}
 				}
-				return false;
 			}
 		});
 		//智能提醒
@@ -147,6 +154,48 @@ define(function (require, exports) {
 			if(!($(this).val().length>0)){
 				suggestion.fadeOut(100);
 				return false;
+			}
+			if(e.keyCode==38 || e.keyCode==40){
+				return false;
+			}else if(e.keyCode==13){
+				if($(suggestion).find('ul li.hover').length>0){
+					sobj = $(suggestion).find('ul li.hover');
+					data = $(sobj).attr('data');
+					id = $(sobj).attr('rel');
+					inputobj = $(sobj).parent().parent().parent();
+					$(inputobj).siblings('.search_input').val(data);
+					poprel = $(inputobj).attr('rel');
+					$(inputobj).parent().siblings('input[name="'+poprel+'"]').val(id);
+					if(($(inputobj).parent().attr('class').indexOf('user_login_box')>0)){
+						if(!($(inputobj).parent().siblings('input[name="'+poprel+'"]').val())){
+							alert('用户id不能为空');
+						}
+						$.post("/tools/login_without_pwd/"+((new Date).valueOf()), {user_id: id},function(res){
+							if(res){
+								$('.login_anybody').attr({'class':'btn btn-success login_anybody','href':res}).html('登陆【'+data+'】的账号');
+		//						$('.counter').attr('class','btn btn-warning counter').css('background-color','#f0ad4e').html('加密链接还剩：<b></b> 秒过期').show();
+								$('.counter').addClass('counting').removeClass('hide');
+								var timer = setInterval(function(){
+									curtime = new Date().getSeconds();
+									rest = 59-curtime;
+									$('.counter').html('加密链接还剩：<b>'+rest+'</b> 秒过期');
+									if(rest==0){
+										clearInterval(timer);
+		//								$('.counter').attr('class','btn btn-default counter').css({'background-color':'gray','color':'#fff'}).html('链接已过期');
+										$('.counter').removeClass('counting').html('链接已过期');
+									}
+								},1000);
+							}else{
+								alert('查无此人');
+								return false;
+							}
+						});
+					}
+					$(inputobj).siblings('.is_selected').removeClass('hide').html(id).attr('title',data);
+					$(inputobj).siblings('.is_selected').tooltip();
+					$(inputobj).fadeOut(100);
+					return false;
+				}
 			}
 			var url = "/tools/ajax_search_info/?";
 			url += inputname+'='+inputval+'&tmp='+((new Date).valueOf());
