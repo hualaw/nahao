@@ -352,6 +352,7 @@ define('MAX_NICKNAME_LEN', 25);
 
 //meeting account
 define('NH_MEETING_URL',ENVIRONMENT=='production' ? 'http://classapi.tizi.com/' : 'http://classroom.oa.tizi.com/');
+//define('NH_MEETING_URL', 'http://classapi.tizi.com/' );
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 
