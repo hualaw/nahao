@@ -292,4 +292,12 @@
             return $arr_return;
         }
 
+        /**
+         * 查询试讲用户是否存在
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_user_id($user_id)
+        {
+            return $this->db->select(TABLE_TEACHER_LECTURE.'.id,status')->from(TABLE_TEACHER_LECTURE)->where(TABLE_TEACHER_LECTURE.'.user_id',$user_id)->order_by(TABLE_TEACHER_LECTURE.'.id','desc')->get()->row_array();
+        }
 }
