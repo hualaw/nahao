@@ -54,6 +54,13 @@ class NH_Controller extends CI_Controller
         $log_msg = 'In NH_Controller, all_userdata: '.print_r($this->session->all_userdata(), 1);
 
         log_message('debug_nahao', $log_msg);
+        $arr_user_id=$this->session->all_userdata();
+        if(isset($arr_user_id['user_id']) && $arr_user_id['user_type']!=2)
+        {
+            $this->load->model('business/admin/business_lecture');
+            $arr_user_lecture=$this->business_lecture->lecture_user_id($arr_user_id['user_id']);
+            $this->smarty->assign('arr_user_lecture',$arr_user_lecture);
+        }
     }
 
 

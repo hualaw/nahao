@@ -17,8 +17,8 @@
 					<a href='{$teacher_url}' class=" redText">教师后台</a>
 					{/if}
                     {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
-                    {if isset($user_detail['user_id'])}
-                    <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="redText">我要试讲</a>
+                    {if isset($arr_user_lecture['status']) && $arr_user_lecture['status']==2}
+                        <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="redText">试讲教室入口</a>
                     {/if}
                     {/if}
                     <span>|</span>
@@ -30,8 +30,10 @@
 				<!--登录之后 结束-->
 			</div>
 			{if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
+            {if !isset($arr_user_lecture['status'])}
 			<a href="{$student_url}index/apply_teach" class="fr studentStartClass redText">我要开课</a>
 			{/if}
+            {/if}
 		</div>
 	</div>
 	<div class="headNav">
@@ -51,3 +53,4 @@
 		</div>
 	</div>
 </div>
+
