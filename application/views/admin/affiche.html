@@ -34,7 +34,7 @@
 </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label>
 {for $i=1 to 220}&nbsp;{/for}
-<button type="button" class="btn btn-info" id="insert_affiche">添加公告</button>
+<a href="/affiche/create_affiche?round_id={$round_id}&role=2" type="button" class="btn btn-info" id="insert_affiche">添加公告</a>
 <br />
 <table class="table table-hover">
     <thead>
@@ -60,7 +60,7 @@
             <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
             <td>{if $v.top_time==0}------{else}{$v.top_time|date_format:'%Y-%m-%d %H:%M:%S'}{/if}</td>
             <td>{$affiche_status[$v.status]}</td>
-            <td><button type="button" class="btn btn-info btn-xs edit" data-affiche_id="{$v.id}" data-content="{$v.content}">编辑</button>
+            <td><a href="/affiche/modify_affiche?affiche_id={$v.id}&content={$v.content}" type="button" class="btn btn-info btn-xs">编辑</a>
                 {if $v.status==1}
                 <button type="button" class="btn btn-success btn-xs pass" data-affiche_id="{$v.id}">通过</button>
                 <button type="button" class="btn btn-warning btn-xs nopass" data-affiche_id="{$v.id}">不通过</button>
@@ -80,38 +80,3 @@
 {$page}
 <input type="hidden" value="" id="affiche_id" />
 <input type="hidden" value="{$round_id}" id="round_id" />
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">请输入修改内容</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="edit_content" class="form-control" rows="3" placeholder="在此填写修改内容"></textarea><br />
-                <button type="button" class="btn btn-success" id="edit">修改</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="insert_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">{$round_title}</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="insert_content" class="form-control" rows="3" placeholder="在此填写公告内容"></textarea><br />
-                <button type="button" class="btn btn-success" id="insert">添加</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

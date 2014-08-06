@@ -161,17 +161,17 @@
               echo $this->lecture->lecture_pass($post);
         }
 
-//        /**
-//         *待定试讲审核
-//         * @param
-//         * @return
-//         * @author shangshikai@nahao.com
-//        */
-//        public function indeterminate_lecture()
-//        {
-//            $lecture_id=$this->input->post('lecture_id',TRUE);
-//            echo $this->lecture->lecture_indeterminate($lecture_id);
-//        }
+        /**
+         *已试讲
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+        */
+        public function indeterminate_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_indeterminate($lecture_id);
+        }
 
         /**
          *不通过试讲审核

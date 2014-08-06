@@ -156,6 +156,7 @@ $config['lecture_status'][2] = '允许试讲';
 $config['lecture_status'][3] = '拒绝试讲';
 $config['lecture_status'][4] = '审核未通过';
 $config['lecture_status'][5] = '审核通过';
+$config['lecture_status'][6] = '已试讲';
 
 
 //授课方式

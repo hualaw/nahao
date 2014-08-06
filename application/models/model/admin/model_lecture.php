@@ -225,16 +225,16 @@
                 }
             }
         }
-//        /**
-//         *待定试讲审核
-//         * @param
-//         * @return
-//         * @author shangshikai@nahao.com
-//         */
-//        public function lecture_teach_indeterminate($lecture_id)
-//        {
-//            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
-//        }
+        /**
+         *已试讲
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function lecture_teach_indeterminate($lecture_id)
+        {
+            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>6),array('teacher_lecture.id'=>$lecture_id));
+        }
         /**
          *不通过试讲审核
          * @param
