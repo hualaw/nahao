@@ -250,6 +250,7 @@ $config['admin_round_list_search_type'][2] = '教师昵称';
 $config['admin_round_list_search_type'][3] = '班次ID';
 
 //admin_round_list_register_type
+$config['admin_round_list_register_type'][0] = '全部注册类型';
 $config['admin_round_list_register_type'][1] = '手机号注册';
 $config['admin_round_list_register_type'][2] = '邮箱注册无手机';
 $config['admin_round_list_register_type'][3] = '邮箱注册未验证手机';

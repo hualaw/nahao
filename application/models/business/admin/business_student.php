@@ -91,6 +91,14 @@ class Business_Student extends NH_Model
                 $arr_where[TABLE_STUDENT_SUBJECT.'.subject_id'] = $arr_where['subject'];
                 unset($arr_where['subject']);
             }
+            if(array_key_exists('register_from',$arr_where)){
+                $arr_where[TABLE_USER.'.register_time >='] = $arr_where['register_from'];
+                unset($arr_where['register_from']);
+            }
+            if(array_key_exists('register_to',$arr_where)){
+                $arr_where[TABLE_USER.'.register_time <='] = $arr_where['register_to'];
+                unset($arr_where['register_to']);
+            }
             if(array_key_exists('nickname',$arr_where)){
                 $arr_where['like'][TABLE_USER.'.nickname'] = $arr_where['nickname'];
                 unset($arr_where['nickname']);
@@ -177,6 +185,14 @@ class Business_Student extends NH_Model
             if(array_key_exists('nickname',$arr_where)){
                 $arr_where['like'][TABLE_USER.'.nickname '] = $arr_where['nickname'];
                 unset($arr_where['nickname']);
+            }
+            if(array_key_exists('register_from',$arr_where)){
+                $arr_where[TABLE_USER.'.register_time >='] = $arr_where['register_from'];
+                unset($arr_where['register_from']);
+            }
+            if(array_key_exists('register_to',$arr_where)){
+                $arr_where[TABLE_USER.'.register_time <='] = $arr_where['register_to'];
+                unset($arr_where['register_to']);
             }
             if(array_key_exists('email',$arr_where)){
                 $arr_where['like'][TABLE_USER.'.email '] = $arr_where['email'];
