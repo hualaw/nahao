@@ -64,7 +64,7 @@ define(function(require,exports){
             })
         })
 
-        $('#indeterminate').click(function(){
+        $('#have_lecture').click(function(){
             $.ajax({
                 type:"post",
                 url:"/lecture/indeterminate_lecture",
@@ -72,7 +72,7 @@ define(function(require,exports){
                 success:function(msg){
                     if(msg==1)
                     {
-                        $('.curr_status').html('待定');
+                        $('.curr_status').html('已试讲');
                     }
                 }
             })

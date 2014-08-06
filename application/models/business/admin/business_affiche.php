@@ -44,10 +44,10 @@
          */
         public function content_edit($post)
         {
-            $post['content']=trim(htmlspecialchars($post['content']));
+            $post['content']=trim(htmlspecialchars($post['insert_content']));
             if($post['content']=="")
             {
-                return FALSE;
+                redirect("/affiche/create_affiche?content=$post[content]&affiche_id=$post[id]");
             }
             return $this->model_affiche->modify_content($post);
         }
@@ -89,10 +89,10 @@
          */
         public function affiche_insert($post)
         {
-            $post['content']=trim(htmlspecialchars($post['content']));
+            $post['content']=trim(htmlspecialchars($post['insert_content']));
             if($post['content']=="")
             {
-                return FALSE;
+                redirect("/affiche/create_affiche?round_id=$post[round_id]&role=$post[role]");
             }
             if($post['role']==2)//2是管理员发的 1是老师发的
             {
@@ -107,6 +107,7 @@
                     'status'=>1,
                     'top_time'=>0
                 );
+
             }
             if($post['role']==1)
             {

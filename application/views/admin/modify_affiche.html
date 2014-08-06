@@ -1,0 +1,5 @@
+<form action="/affiche/edit_content" method="post">
+    <textarea id="insert_content" name="insert_content" class="form-control" rows="3" placeholder="在此填写公告内容">{$content}</textarea><br />
+    <input type="hidden" value={$id} name="id" />
+    <button type="submit" class="btn btn-success">修改</button>
+</form>

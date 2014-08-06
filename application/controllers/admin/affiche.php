@@ -46,13 +46,33 @@
             $this->smarty->display('admin/layout.html');
         }
         /**
+         * 编辑公告页面
+         * @author shangshikai@tizi.com
+         */
+        public function modify_affiche()
+        {
+            $id=$this->input->get('affiche_id',TRUE);
+            $content=$this->input->get('content',TRUE);
+            $this->smarty->assign('id',$id);
+            $this->smarty->assign('content',$content);
+            $this->smarty->assign('view','modify_affiche');
+            $this->smarty->display('admin/layout.html');
+        }
+        /**
          * 编辑公告内容
          * @author shangshikai@tizi.com
          */
         public function edit_content()
         {
             $post=$this->input->post(NULL,TRUE);
-            echo $this->affiche->content_edit($post);
+            if($this->affiche->content_edit($post))
+            {
+                redirect('/affiche');
+            }
+            else
+            {
+                redirect("/affiche/modify_affiche?affiche_id=$post[id]&content=$post[content]");
+            }
         }
         /**
          * 公告通过审核
@@ -91,12 +111,32 @@
             echo $this->affiche->affiche_notop($id);
         }
         /**
+         * 添加公告页面
+         * @author shangshikai@tizi.com
+         */
+        public function create_affiche()
+        {
+            $round_id=$this->input->get('round_id',TRUE);
+            $role=$this->input->get('role',TRUE);
+            $this->smarty->assign('role',$role);
+            $this->smarty->assign('round_id',$round_id);
+            $this->smarty->assign('view','create_affiche');
+            $this->smarty->display('admin/layout.html');
+        }
+        /**
          * 添加公告
          * @author shangshikai@tizi.com
          */
         public function insert_affiche()
         {
             $post=$this->input->post(NULL,TRUE);
-            echo $this->affiche->affiche_insert($post);
+            if($this->affiche->affiche_insert($post))
+            {
+                redirect('/affiche');
+            }
+            else
+            {
+                redirect("/affiche/index?round=$post[round_id]&role=$post[role]");
+            }
         }
     }
