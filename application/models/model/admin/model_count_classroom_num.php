@@ -23,7 +23,7 @@
          */
         public function count_num()
         {
-            $sql="select distinct(t1.user_id) from entering_classroom  as t1 where t1.user_id>0 group by t1.user_id ";
+            $sql="select distinct(t1.user_id) from entering_classroom  as t1 where t1.user_id>0 AND t1.user_type=0 ";
             return $this->db->query($sql)->num_rows();
         }
     }
