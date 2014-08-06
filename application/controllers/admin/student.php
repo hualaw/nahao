@@ -32,6 +32,8 @@ class Student extends NH_Admin_Controller {
         $int_gender = $this->input->get('gender') ? intval($this->input->get('gender')) : 0 ;
         $int_has_bought = $this->input->get('has_bought') ? intval($this->input->get('has_bought')) : 0 ;
         $int_register_type = $this->input->get('register_type') ? intval($this->input->get('register_type')) : 0 ;
+        $str_register_from = $this->input->get('register_from') ? trim($this->input->get('register_from')) : '' ;;
+        $str_register_to = $this->input->get('register_to') ? trim($this->input->get('register_to')) : '' ;
         $int_search_type = $this->input->get('search_type') ? intval($this->input->get('search_type')) : 0 ;
         $str_search_value = $this->input->get('search_value') ? trim($this->input->get('search_value')) : '' ;
 
@@ -59,6 +61,12 @@ class Student extends NH_Admin_Controller {
         }
         if($int_register_type > 0){
             $arr_where['register_type'] = $int_register_type;
+        }
+        if($str_register_from AND strtotime($str_register_from)){
+            $arr_where['register_from'] = strtotime($str_register_from) ;
+        }
+        if($str_register_to AND strtotime($str_register_to)){
+            $arr_where['register_to'] = strtotime($str_register_to) ;
         }
         if($int_search_type > 0 AND $str_search_value != ''){
             if($int_search_type == 1){//昵称
