@@ -304,7 +304,7 @@
          */
         public function lecture_class_sql($title)
         {
-            $this->db->select('lecture_class.id, lecture_class.title, begin_time, end_time, subject, courseware_id, classroom_id, lecture_class.user_id, subject.name, user_info.realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_USER_INFO,TABLE_USER_INFO.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
+            $this->db->select('lecture_class.id, lecture_class.title, lecture_class.begin_time, lecture_class.end_time, lecture_class.subject, lecture_class.courseware_id, lecture_class.classroom_id, lecture_class.user_id, subject.name, teacher_lecture.name as realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_TEACHER_LECTURE,TABLE_TEACHER_LECTURE.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
             if($title!='')
             {
                 $this->db->like(TABLE_LECTURE_CLASS.'.title',$title);
