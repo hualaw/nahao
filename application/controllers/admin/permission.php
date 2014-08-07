@@ -73,6 +73,21 @@ class Permission extends NH_Admin_Controller {
             $arr_param['status'] = $int_permission_status;
             $is_exist = T(TABLE_PERMISSION)->count("controller='".$str_permission_controller."' and action='".$str_permission_action."' id !=".$int_permission_id);
             
+            if (empty($str_permission_name)){
+            	$this->arr_response['status'] = 'error';
+                $this->arr_response['msg'] = '权限名称不能为空';
+                self::json_output($this->arr_response);
+            } 
+            if (empty($str_permission_controller)){
+            	$this->arr_response['status'] = 'error';
+            	$this->arr_response['msg'] = '控制器不能为空';
+            	self::json_output($this->arr_response);
+            }
+            if (empty($str_permission_action)){
+            	$this->arr_response['status'] = 'error';
+            	$this->arr_response['msg'] = '方法名称不能为空';
+            	self::json_output($this->arr_response);
+            }
             if (!empty($is_exist)){
             	$str_action = '不能重复添加';
             	$bool_flag = true;

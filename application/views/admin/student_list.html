@@ -51,6 +51,12 @@
             </select>
         </div>
         <div class="col-md-2">
+            <input type="text" name="register_from" id="register_from" placeholder="请选择添加开始时间" class="form-control register_time_select" readonly="" value="{if isset($query_param.register_from)}{$query_param.register_from}{/if}">
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="register_to" id="register_to" placeholder="请选择添加开始时间" class="form-control register_time_select" readonly="" value="{if isset($query_param.register_to)}{$query_param.register_to}{/if}">
+        </div>
+        <div class="col-md-2">
             <select class="form-control" name="search_type">
                 {foreach $search_type as $k => $v}<option value="{$k}" {if isset($query_param.search_type) AND $query_param.search_type==$k}selected{/if}>{$v}</option>{/foreach}
             </select>

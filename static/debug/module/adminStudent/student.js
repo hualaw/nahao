@@ -18,4 +18,16 @@ define(function(require,exports){
         });
     }
 
+    exports.bind_everything = function(){
+        $('.register_time_select').datetimepicker({
+            format: "yyyy-MM-dd hh:ii",
+            language: 'cn',
+            autoclose : true,
+            hourStep: 1,
+            minuteStep: 15,
+            secondStep: 30,
+            inputMask: true
+        });
+    }
+
 })
