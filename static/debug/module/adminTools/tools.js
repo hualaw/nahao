@@ -143,6 +143,9 @@ define(function (require, exports) {
 							$(suggestion).find('ul').children('li:first').addClass('hover').siblings('li').removeClass('hover');
 						}
 					}
+					if($(suggestion).css('display') == 'block'){
+						$(this).val($(suggestion).find('ul li.hover').attr('data'));
+					}
 				}
 			}
 		});
