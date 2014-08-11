@@ -816,7 +816,7 @@ function get_coursewares_by_classroom_id($int_classroom_id){
     if($str_response){
         $arr_response = json_decode($str_response,true);
         $arr_ids = array();
-        if($arr_response['count'] > 0){
+        if(isset($arr_response['count']) AND $arr_response['count'] > 0){
             foreach($arr_response['results'] as $files){
                 $arr_ids[] = $files['id'];
             }
