@@ -231,10 +231,13 @@ class Index extends NH_User_Controller {
     public function classroom_status()
     {
         $classroom_status=$this->input->post(NULL,TRUE);
-        $classroom_status['time']=time();
-        log_message('info_nahao','The original request:'.print_r($classroom_status,1));
-        $this->load->model('business/api/business_class_status');
-        return $this->business_class_status->status_classroom($classroom_status);
+        if($classroom_status['action']==1)
+        {
+            $classroom_status['time']=time();
+            log_message('info_nahao','The original request:'.print_r($classroom_status,1));
+            $this->load->model('business/api/business_class_status');
+            return $this->business_class_status->status_classroom($classroom_status);
+        }
     }
     /**
      * 用户上课下课调用接口
