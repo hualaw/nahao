@@ -173,17 +173,17 @@
             return $this->model_lecture->lecture_teach_pass($post,$data,$data_user,$subject_data);
         }
 
-//        /**
-//         *待定试讲审核
-//         * @param
-//         * @return
-//         * @author shangshikai@nahao.com
-//         */
-//        public function lecture_indeterminate($lecture_id)
-//        {
-//            $this->load->model('model/admin/model_lecture');
-//            return $this->model_lecture->lecture_teach_indeterminate($lecture_id);
-//        }
+        /**
+         *已试讲
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function lecture_indeterminate($lecture_id)
+        {
+            $this->load->model('model/admin/model_lecture');
+            return $this->model_lecture->lecture_teach_indeterminate($lecture_id);
+        }
         /**
          *不通过试讲审核
          * @param

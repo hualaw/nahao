@@ -79,7 +79,8 @@
         <button type="button" class="btn btn-danger" id="agree">允许试讲</button>&nbsp;&nbsp;&nbsp;&nbsp;
         <button type="button" class="btn btn-success" id="disagree">拒绝试讲</button>&nbsp;&nbsp;&nbsp;&nbsp;
             当前状态:<span class="curr_status">{$con_lecture_status[$details.status]}</span>
-        {elseif $details.status==2 || $details.status==4}
+        {elseif $details.status==2 || $details.status==4 || $details.status==6}
+            <button type="button" class="btn btn-info" id="have_lecture">已试讲</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-danger" id="nopass">不通过</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-success" id="pass">通过</button>&nbsp;&nbsp;&nbsp;&nbsp;
             当前状态:<span class="curr_status">{$con_lecture_status[$details.status]}</span>

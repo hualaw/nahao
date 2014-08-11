@@ -38,6 +38,7 @@
         <option value=3 {if isset($search_term.status) && $search_term.status==3}selected{/if}>拒绝试讲</option>
         <option value=4 {if isset($search_term.status) && $search_term.status==4}selected{/if}>审核未通过</option>
         <option value=5 {if isset($search_term.status) && $search_term.status==5}selected{/if}>审核通过</option>
+        <option value=6 {if isset($search_term.status) && $search_term.status==6}selected{/if}>已试讲</option>
     </select></div>
     <div class="col-md-15">&nbsp;</div>
     <div class="col-md-2"><input type="text" name="create_time1" class="form-control" id="lecture_datetimepicker1" readonly placeholder="请选择申请开始时间" value="{if isset($search_term.create_time1)}{$search_term.create_time1}{/if}" /></div><div class="col-md-2"><input type="text" name="create_time2" class="form-control" id="lecture_datetimepicker2" placeholder="请选择申请结束时间" readonly value="{if isset($search_term.create_time2)}{$search_term.create_time2}{/if}" /></div>
@@ -50,7 +51,7 @@
     <tr>
         <th width="50">序号</th>
         <th width="110">试讲课程名称</th>
-        <th width="110">预约上课时间</th>
+        <th width="110">qq<br />邮箱</th>
         <th width="80">教师姓名</th>
         <th width="100">手机号</th>
         <th width="90">职称</th>
@@ -68,7 +69,7 @@
     <tr>
         <td>{$v.id}</td>
         <td>{$v.course}</td>
-        <td>{$v.start_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$v.qq}<br />{$v.email}</td>
         <td>{$v.tea_name}</td>
         <td>{$v.phone}</td>
         <td>{$config_title[{$v.title}]}</td>

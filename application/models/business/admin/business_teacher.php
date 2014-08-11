@@ -696,6 +696,7 @@ class Business_Teacher extends NH_Model
         $arr_where=array();
         $phone_mask=substr_replace(trim($phone),"****",3,4);
         $data['phone_mask']=$phone_mask;
+        $data['phone_verified']=1;
         $arr_where['id']=$id;
         $int_phone=$this->model_user->update_user($data,$arr_where);
         if($int_phone>0)

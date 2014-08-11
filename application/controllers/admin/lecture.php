@@ -161,17 +161,17 @@
               echo $this->lecture->lecture_pass($post);
         }
 
-//        /**
-//         *待定试讲审核
-//         * @param
-//         * @return
-//         * @author shangshikai@nahao.com
-//        */
-//        public function indeterminate_lecture()
-//        {
-//            $lecture_id=$this->input->post('lecture_id',TRUE);
-//            echo $this->lecture->lecture_indeterminate($lecture_id);
-//        }
+        /**
+         *已试讲
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+        */
+        public function indeterminate_lecture()
+        {
+            $lecture_id=$this->input->post('lecture_id',TRUE);
+            echo $this->lecture->lecture_indeterminate($lecture_id);
+        }
 
         /**
          *不通过试讲审核
@@ -211,7 +211,7 @@
                 'end_at' => $end_time
             );
             $int_classroom_id = general_classroom_id($arr_classroom_param);
-            echo $this->lecture->lecture_agree($lecture_id,$start_time,$end_time,$subject,$course,$int_classroom_id,$user_id);
+            echo $this->lecture->lecture_agree($lecture_id,$this->input->post('start_time',TRUE),$this->input->post('end_time',TRUE),$subject,$course,$int_classroom_id,$user_id);
         }
 
         /**

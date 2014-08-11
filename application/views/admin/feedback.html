@@ -46,32 +46,32 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>#</th>
-            <th>课程ID</th>
-            <th>轮ID</th>
-            <th>课ID</th>
-            <th>学生ID</th>
-            <th>昵称</th>
-            <th>评价内容</th>
-            <th>评价时间</th>
-            <th>评价分数</th>
-            <th>是否显示</th>
-            <th>操作</th>
+            <th width="10">#</th>
+            <th width="80">课程ID</th>
+            <th width="50">轮ID</th>
+            <th width="50">课ID</th>
+            <th width="60">学生ID</th>
+            <th width="80">昵称</th>
+            <th width="350">评价内容</th>
+            <th width="90">评价时间</th>
+            <th width="80">评价分数</th>
+            <th width="80">是否显示</th>
+            <th width="40">操作</th>
         </tr>
     </thead>
         {foreach $list as $v}
     <tr>
-        <td width="10">{$v.id}</td>
-        <td width="80">{$v.course_id}</td>
-        <td width="50">{$v.round_id}</td>
-        <td width="50">{$v.class_id}</td>
-        <td width="60">{$v.student_id}</td>
-        <td width="80">{$v.nickname}</td>
+        <td>{$v.id}</td>
+        <td>{$v.course_id}</td>
+        <td>{$v.round_id}</td>
+        <td>{$v.class_id}</td>
+        <td>{$v.student_id}</td>
+        <td>{$v.nickname}</td>
         <td>{$v.content}</td>
-        <td width="90">{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
-        <td width="80">{$v.score}</td>
-        <td width="80">{$config_feedback[$v.is_show]}</td>
-        <td width="40">
+        <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+        <td>{$v.score}</td>
+        <td>{$config_feedback[$v.is_show]}</td>
+        <td>
             {if $v.is_show==0}
             <button class="btn btn-success show_feedback" role="button" data-feedback_id="{$v.id}" data-a="1">显示</button>
             {elseif $v.is_show==1}

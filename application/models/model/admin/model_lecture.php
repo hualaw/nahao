@@ -22,7 +22,7 @@
          */
         public function sql()
         {
-            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,subject.name as sub_name')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->join('subject','subject.id=teacher_lecture.subject','left')->order_by('teacher_lecture.id','desc');
+            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,subject.name as sub_name,teacher_lecture.qq,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->join('subject','subject.id=teacher_lecture.subject','left')->order_by('teacher_lecture.id','desc');
         }
 
         /**
@@ -225,16 +225,16 @@
                 }
             }
         }
-//        /**
-//         *待定试讲审核
-//         * @param
-//         * @return
-//         * @author shangshikai@nahao.com
-//         */
-//        public function lecture_teach_indeterminate($lecture_id)
-//        {
-//            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
-//        }
+        /**
+         *已试讲
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
+        public function lecture_teach_indeterminate($lecture_id)
+        {
+            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>6),array('teacher_lecture.id'=>$lecture_id));
+        }
         /**
          *不通过试讲审核
          * @param
@@ -304,7 +304,7 @@
          */
         public function lecture_class_sql($title)
         {
-            $this->db->select('lecture_class.id, lecture_class.title, begin_time, end_time, subject, courseware_id, classroom_id, lecture_class.user_id, subject.name, user_info.realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_USER_INFO,TABLE_USER_INFO.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
+            $this->db->select('lecture_class.id, lecture_class.title, lecture_class.begin_time, lecture_class.end_time, lecture_class.subject, lecture_class.courseware_id, lecture_class.classroom_id, lecture_class.user_id, subject.name, teacher_lecture.name as realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_TEACHER_LECTURE,TABLE_TEACHER_LECTURE.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
             if($title!='')
             {
                 $this->db->like(TABLE_LECTURE_CLASS.'.title',$title);
