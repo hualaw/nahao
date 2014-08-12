@@ -17,6 +17,8 @@ class NH_User_Controller extends NH_Controller
         parent::__construct();
         $this->load->model('business/common/business_user');
         $this->_load_user_detail();
+//         print_r($this->_user_detail);
+//         exit();
         $this->smarty->assign('user_detail', $this->_user_detail);
     }
     

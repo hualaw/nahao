@@ -22,7 +22,7 @@
          */
         public function sql()
         {
-            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,subject.name as sub_name')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->join('subject','subject.id=teacher_lecture.subject','left')->order_by('teacher_lecture.id','desc');
+            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,subject.name as sub_name,teacher_lecture.qq,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->join('subject','subject.id=teacher_lecture.subject','left')->order_by('teacher_lecture.id','desc');
         }
 
         /**

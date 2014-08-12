@@ -3,7 +3,9 @@
 	<ul class="tabh cf">
 		<li class="inforOn">个人资料</li>
 		<li>修改头像</li>
+		{if $reg_type != 3}
 		<li>修改密码</li>
+		{/if}
 	</ul>
 	<div class="inforTabBox">
         {if $reg_type == 2}
@@ -278,10 +280,18 @@
         <!--梯子版-->
         {elseif $reg_type == 3}
 		<form action="" method="post" class="phoneForm">
-			<p class="formName">手机号
-				<span class="verWay">{$user_detail.phone}</span>
-			</p>
+			
+			
 			<ul>
+				<li>
+					<p class="optional noFillin formName"><span>*</span>手机号</p>
+            		<div class="cf">
+						<div class="fl">
+	                		<input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text"{if $user_detail.phone_verified}disabled{/if}>
+	                    	<span class="Validform_checktip"></span>
+						</div>
+					</div>
+				</li>
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
@@ -467,7 +477,7 @@
 			</ul>
 		</form>
 	</div>
-	{ /if }
+	{/if }
 </div>
 <!--选择学校-->
 {include file='common/setSchool.html'}

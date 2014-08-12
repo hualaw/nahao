@@ -377,6 +377,8 @@ class Member extends NH_User_Controller {
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
+//         print_r($this->_userdata);
+//         exit();
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);
@@ -387,7 +389,7 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
         $this->smarty->assign('special_city', array(2, 25, 27, 32));
-        $this->smarty->assign('reg_type', $reg_type);
+        $this->smarty->assign('reg_type', 3);
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }

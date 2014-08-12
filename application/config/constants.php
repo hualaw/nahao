@@ -357,7 +357,8 @@ define('NH_MEETING_URL',ENVIRONMENT=='production' ? 'http://classapi.tizi.com/' 
 define('NH_MEETING_ACCESS_KEY','525510');
 define('NH_MEETING_SECRET_KEY','311ba4ffe6c74dd9af480d8411edc44e');
 
-define('NH_PDF_DOWNLOAD_URL',ENVIRONMENT=='production' ? 'http://nahao-pdf.qiniudn.com/' : NH_MEETING_URL.'media/');
+//define('NH_PDF_DOWNLOAD_URL',ENVIRONMENT=='production' ? 'http://nahao-pdf.qiniudn.com/' : NH_MEETING_URL.'media/');
+define('NH_PDF_DOWNLOAD_URL',ENVIRONMENT=='production' ? 'http://pdf.nahao.com/' : NH_MEETING_URL.'media/');
 //define('NH_PDF_DOWNLOAD_URL','http://nahao-pdf.qiniudn.com/');
 
 //访问教室的用户类型
