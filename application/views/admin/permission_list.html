@@ -7,12 +7,12 @@
         </div>
         <label class="col-md-1 control-label" for="permission_name">权限名</label>
         <div class="col-md-2">
-            <input required type="text" class="form-control" id="permission_name" name="permission_name" size="16"
+            <input type="text" class="form-control" id="permission_name" name="permission_name" size="16"
                    value="{if isset($arr_query_param.permission_name)}{$arr_query_param.permission_name}{/if}"  >
         </div>
         <label class="col-md-1 control-label" for="permission_controller">控制器</label>
         <div class="col-md-2">
-            <input required type="text" class="form-control" id="permission_controller" name="permission_controller" size="16"
+            <input type="text" class="form-control" id="permission_controller" name="permission_controller" size="16"
                    value="{if isset($arr_query_param.permission_controller)}{$arr_query_param.permission_controller}{/if}">
         </div>
         <label class="col-md-1 control-label" for="permission_method">方法</label>

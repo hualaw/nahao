@@ -211,7 +211,7 @@
                 'end_at' => $end_time
             );
             $int_classroom_id = general_classroom_id($arr_classroom_param);
-            echo $this->lecture->lecture_agree($lecture_id,$start_time,$end_time,$subject,$course,$int_classroom_id,$user_id);
+            echo $this->lecture->lecture_agree($lecture_id,$this->input->post('start_time',TRUE),$this->input->post('end_time',TRUE),$subject,$course,$int_classroom_id,$user_id);
         }
 
         /**
