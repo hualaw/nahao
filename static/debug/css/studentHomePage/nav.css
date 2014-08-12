@@ -1,0 +1,17 @@
+.topNav{background:#ce0000;}
+.topNav .categorys{width:168px;background:#fff;margin-top:2px;height:38px;}
+.topNav .categorys .title{font-size:14px;text-align: center;line-height: 38px;}
+.topNav .categorys dl{position: absolute;top:38px;left:0px;border:2px solid #e0e0e0;border-top: 0px;width: 166px;line-height: 18px;height:303px;}
+.topNav .categorys dl dt{border-top:1px solid #f5f5f5;padding:8px 10px;}
+.topNav .categorys dl dt h2{font-size:14px;}
+.topNav .categorys dl dt p{margin-top:5px;}
+.topNav .categorys dl dt p a{display: inline-block;margin-right:8px;color:#666;}
+.topNav .categorys dl dt p a:hover{color:#c60301;}
+.topNav .nav{line-height: 40px;font-size:14px;margin-left:2px;}
+.topNav .nav ul li a{padding:0px 20px;color:#fff;display: inline-block;}
+
+.navHomepage .nav ul li a.navHomepage,
+.navTutor .nav ul li a.navTutor,
+.navQualityEdu .nav ul li a.navQualityEdu,
+.navOnlineLive .nav ul li a.navOnlineLive,
+.topNav .nav ul li a:hover{background:#b31700;}

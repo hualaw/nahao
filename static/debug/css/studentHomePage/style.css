@@ -6,10 +6,10 @@
 @import url('../common/button.css');
 /*加载布局样式*/
 @import url('../common/layout.css');
-/*加载顶部样式*/
-@import url('../common/header.css');
+/*加载顶部mini导航样式*/
+@import url('../common/topMiniNav.css');
 /*加载底部样式*/
-@import url('../common/footer.css');
+/*@import url('../common/footer.css');*/
 /*加载公共弹出框样式*/
 @import url('../common/dialog.css');
 /*加载公共验证样式*/
@@ -19,6 +19,12 @@
 /*加载公共登陆样式*/
 @import url('../common/comLogin.css');
 /*----------------------------网站具体样式开始----------------------------*/
+/*加载首页头部样式*/
+@import url('header.css');
+/*加载首页底部样式*/
+@import url('footer.css');
+/*加载首页导航样式*/
+@import url('nav.css');
 /*加载首页样式*/
 @import url('homePage.css');
 /*----------------------------网站具体样式结束----------------------------*/
