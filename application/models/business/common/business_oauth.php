@@ -1,9 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * User相关逻辑
- * Class Business_User
- * @author yanhengjia@tizi.com
+ * Oauth相关逻辑
+ * Class Business_Oauth
+ * @author changlinjie@tizi.com
  */
 class Business_Oauth extends NH_Model
 {
