@@ -5,14 +5,24 @@
 /*首页导航上的全部课程分类默认展开的样式结束*/
 .tabContent .item{display: none;}
 .tabContent .item.active{display: block;}
+.studentHomePage .learnBtn{color: #fff;height: 35px;line-height: 35px;width: 94px;display: inline-block;border-radius: 15px;text-align: center;font-size: 16px;position: absolute;right: 0px;bottom: 0px;}
+.studentHomePage .learnBtn:hover{color: #fff;}
 /*左边内容区开始*/
 .studentHomePage .content{width: 750px;}
 .studentHomePage .moreLink{padding-right: 10px;}
+/*标签开始*/
+.studentHomePage .markList{position: absolute;right: 8px;top:-3px;}
+.studentHomePage .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
+.studentHomePage .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
+.studentHomePage .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
+/*标签结束*/
 /*轮换公共部分开始*/
 .studentHomePage .bannerScroll{position: relative;}
-.studentHomePage .bannerSlide{position: absolute;top:50%;margin-top: -25px;cursor: pointer;}
-.studentHomePage .bannerSlide.next{background: url(../../images/studentHomePage/sleft.gif) no-repeat;width: 36px;height: 50px;display: inline-block;left: 0px;}
-.studentHomePage .bannerSlide.prev{background: url(../../images/studentHomePage/sright.gif) no-repeat;width: 36px;height: 50px;display: inline-block;right: 0px;}
+.studentHomePage .bannerSlide{position: absolute;top:50%;margin-top: -25px;cursor: pointer;display: none;opacity: 0.5;filter:alpha(50);}
+.studentHomePage .bannerSlide.next{background: url(../../images/studentHomePage/sleft.gif) no-repeat;width: 36px;height: 50px;left: 0px;}
+.studentHomePage .bannerSlide.prev{background: url(../../images/studentHomePage/sright.gif) no-repeat;width: 36px;height: 50px;right: 0px;}
+.studentHomePage .bannerScroll:hover .bannerSlide{display: block;}
+.studentHomePage .bannerSlide:hover{opacity: 1;filter:alpha(100);}
 /*轮换公共部分结束*/
 .studentHomePage .banner{width: 570px;height: 293px;margin-top: 10px;}
 /*正在直播客开始*/
@@ -22,26 +32,25 @@
 .studentHomePage .bannerOrder li{background: url(../../images/studentHomePage/index.png) no-repeat;_background: url(../../images/studentHomePage/index8.png) no-repeat;width: 10px; height: 10px;float: left;display: inline-block;margin: 0px 4px;vertical-align: middle;cursor: pointer;}
 .studentHomePage .bannerOrder li.active{background: url(../../images/studentHomePage/active.png) no-repeat;_background: url(../../images/studentHomePage/active8.png) no-repeat;}
 .studentHomePage .liveLessonWrap .liveTitle{font-size: 14px;padding-left: 40px; font-weight: normal;background: url(../../images/studentHomePage/live-icon.gif) no-repeat scroll 13px center;}
-.studentHomePage .liveViewWrap{width: 723px;margin: 14px auto 0px;overflow:hidden; }
-.studentHomePage .innerWrap{width: 100000px;}
+.studentHomePage .liveViewWrap{width: 723px;margin: 7px auto 0px;overflow:hidden; }
+.studentHomePage .innerWrap{width: 100000px;margin-top: 7px;}
 .studentHomePage .liveList li{float: left;width: 246px;}
+.studentHomePage .liveList .liveLess{position: relative;}
+.studentHomePage .liveLess .markList{right: 25px;}
 .studentHomePage .liveLess .cTitle{display: block;font-size: 12px;line-height: 12px;height: 12px;margin-top: 14px;margin-bottom: 5px;}
 .studentHomePage .liveLess .time{color:#ce0000;padding-left: 3px;}
 /*正在直播客结束*/
 /*课程列表开始*/
 .studentHomePage .cListWrap{margin-top: 10px;}
 .studentHomePage .cListWrap .cTitle{height: 35px;line-height: 35px;font-size: 14px;border:1px solid #e0e0e0;background-color: #fff;}
-.studentHomePage .tabList{line-height: 18px;height: 18px;}
-.studentHomePage .tabList .tabItem{float: left;padding: 10px 0px 8px;}
-.studentHomePage .tabList .tabItem a{text-align: center;display: block;padding: 0px 18px;border-left: 1px solid #e0e0e0;position: relative;}
-
-.studentHomePage .tabList .tabItem.firstTab a{border-left: none;}
-.studentHomePage .tabList .tabItem.active{}
-.studentHomePage .tabList .tabItem.active a{color: #e0e0e0;margin-bottom: -8px;}
-.studentHomePage .tabList .tabItem.active a{}
+.studentHomePage .tabList{line-height: 18px;height: 18px;margin: 10px 0px 8px;}
+.studentHomePage .tabList .tabItem{float: left;height: 18px;border-left: 1px solid #e0e0e0;}
+.studentHomePage .tabList .tabItem a{text-align: center;display: block;margin: 0px 13px;padding: 0px 5px; position: relative;}
+.studentHomePage .tabList .tabItem.firstTab {border-left: none;}
+.studentHomePage .tabList .tabItem.active .bBr{border-bottom: 2px solid #cb0000; position: absolute; bottom: -8px;left: 0px;display: block;height: 0px;width: 100%;}
 .studentHomePage .listCont{margin: 0px -6px 17px;}
 .studentHomePage .listCont .pager{margin: 0px 6px ;}
-.studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;}
+.studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
 .studentHomePage .listCont .courseDesc{display: block;width: 367px;height: 235px;}
 .studentHomePage .listCont .hoverDesc{display: none;width: 367px;height: 235px;background-color: #2879a7;color:#fff;overflow: hidden;}
 .studentHomePage .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
@@ -54,16 +63,18 @@
 .studentHomePage .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
 .studentHomePage .cItem .cTitleName{display: block;}
 .studentHomePage .cItem .cTitleDesc{color:#989898;}
-.studentHomePage .cItem .cDetail{padding: 0px 15px;margin-bottom: 10px;}
+.studentHomePage .cItem .cDetail{margin: 0px 15px;margin-bottom: 10px;position: relative;}
 .studentHomePage .cItem .cBottom{padding: 0px 15px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentHomePage .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
+.studentHomePage .cItem .cBottom strong{color: #ce0000;padding-right: 5px;display: inline-block;font-size: 16px;}
 .studentHomePage .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
 .studentHomePage .cItem .price strong{font-size: 22px;}
 .studentHomePage .cItem .cVal{font-size: 12px;color:#989898;}
 .studentHomePage .cItem .cVal span{text-decoration:line-through;}
 .studentHomePage .listCont .cItem:hover .courseDesc{display: none;}
 .studentHomePage .listCont .cItem:hover .hoverDesc{display: block;cursor: pointer;}
+.studentHomePage .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
 .studentHomePage .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
-.studentHomePage .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0;border-bottom-color: #ce0000;margin: 0px -1px;}
 /*课程列表结束*/
 
 /*学员风采开始*/
@@ -95,7 +106,7 @@
 .studentHomePage .inputWrap{margin-bottom: 16px;}
 .studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 182px;padding: 0px 5px;}
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
-.studentHomePage .loginWrap input.loginBtn{background-color: #ce0000;border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 4px;cursor: pointer;}
+.studentHomePage .loginWrap input.loginBtn{background-color: #ce0000;border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 19px;cursor: pointer;}
 /*登录结束*/
 /*服务保障开始*/
 .studentHomePage .assuranceWrap{border:1px solid #e0e0e0;height: 263px;background-color: #fff;margin-top: 10px;}
@@ -128,5 +139,20 @@
 /*广告开始*/
 .studentHomePage .adListWrap{margin-top: 10px;}
 /*广告结束*/
+
+/*浏览记录开始*/
+.historyWrap{border:1px solid #e0e0e0;margin-top: 10px;}
+.historyWrap .hHeader{padding-left: 12px;height: 35px;line-height: 35px;font-size: 14px;}
+.deletHistory{color: #cb0000;padding-right: 15px;font-size: 12px;}
+.noHistory{margin: 50px 0px;text-align: center;}
+
+.historyList{padding: 0px 12px;overflow: hidden;}
+.hItem{padding: 20px 0px;display: block;border-top: 1px dashed #e0e0e0;margin-top: -1px;}
+.hPic{width: 80px;height: 51px;}
+.hDesc{width: 100px;}
+.hSmallTitle{display: block;font-size: 12px;line-height: 15px;height: 30px;margin-bottom: 5px;}
+.valList .price{color:#cb0000;}
+.valList .val{text-decoration: line-through;padding-left: 12px;}
+/*浏览记录结束*/
 
 /*右侧边栏结束
