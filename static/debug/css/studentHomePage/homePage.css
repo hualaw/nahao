@@ -1,84 +1,132 @@
-body{background-color: #f8f8f8;}
+/*首页导航上的全部课程分类默认展开的样式开始*/
+.navHomepage .topNav .categorys dl{display: block;}
+.navHomepage .topNav .categorys .title span{color: #333}
+.navHomepage .topNav .categorys .title i.narrow{display: none}
+/*首页导航上的全部课程分类默认展开的样式结束*/
+.tabContent .item{display: none;}
+.tabContent .item.active{display: block;}
 /*左边内容区开始*/
 .studentHomePage .content{width: 750px;}
+.studentHomePage .moreLink{padding-right: 10px;}
 /*轮换公共部分开始*/
 .studentHomePage .bannerScroll{position: relative;}
-.bannerSlide{position: absolute;top:50%;margin-top: -25px;cursor: pointer;}
-.bannerSlide.next{background: url(../../images/studentHomePage/sleft.gif) no-repeat;width: 36px;height: 50px;display: inline-block;left: 0px;}
-.bannerSlide.prev{background: url(../../images/studentHomePage/sright.gif) no-repeat;width: 36px;height: 50px;display: inline-block;right: 0px;}
+.studentHomePage .bannerSlide{position: absolute;top:50%;margin-top: -25px;cursor: pointer;}
+.studentHomePage .bannerSlide.next{background: url(../../images/studentHomePage/sleft.gif) no-repeat;width: 36px;height: 50px;display: inline-block;left: 0px;}
+.studentHomePage .bannerSlide.prev{background: url(../../images/studentHomePage/sright.gif) no-repeat;width: 36px;height: 50px;display: inline-block;right: 0px;}
 /*轮换公共部分结束*/
-.banner{width: 570px;height: 293px;margin-top: 10px;}
+.studentHomePage .banner{width: 570px;height: 293px;margin-top: 10px;}
 /*正在直播客开始*/
-.liveLessonWrap{border:1px solid #e0e0e0;height: 263px;margin-top: 10px;}
-.liveLessonWrap .liveLessHead{line-height: 37px;height: 37px;background-color: #f3f3f3;}
-.bannerOrder{margin-top: 14px;margin-right: 10px;}
-.bannerOrder li{background: url(../../images/studentHomePage/index.png) no-repeat;_background: url(../../images/studentHomePage/index8.png) no-repeat;width: 10px; height: 10px;float: left;display: inline-block;margin: 0px 4px;vertical-align: middle;cursor: pointer;}
-.bannerOrder li.active{background: url(../../images/studentHomePage/active.png) no-repeat;_background: url(../../images/studentHomePage/active8.png) no-repeat;}
-.liveLessonWrap .liveTitle{font-size: 14px;padding-left: 40px; font-weight: normal;background: url(../../images/studentHomePage/live-icon.gif) no-repeat scroll 13px center;}
-.liveViewWrap{width: 723px;margin: 14px auto 0px;overflow:hidden; }
-.innerWrap{width: 100000px;}
-.liveList li{float: left;width: 246px;}
-.liveLess .cTitle{display: block;}
+.studentHomePage .liveLessonWrap{border:1px solid #e0e0e0;height: 263px;margin-top: 10px;}
+.studentHomePage .liveLessonWrap .liveLessHead{line-height: 37px;height: 37px;background-color: #f3f3f3;}
+.studentHomePage .bannerOrder{margin-top: 14px;margin-right: 10px;}
+.studentHomePage .bannerOrder li{background: url(../../images/studentHomePage/index.png) no-repeat;_background: url(../../images/studentHomePage/index8.png) no-repeat;width: 10px; height: 10px;float: left;display: inline-block;margin: 0px 4px;vertical-align: middle;cursor: pointer;}
+.studentHomePage .bannerOrder li.active{background: url(../../images/studentHomePage/active.png) no-repeat;_background: url(../../images/studentHomePage/active8.png) no-repeat;}
+.studentHomePage .liveLessonWrap .liveTitle{font-size: 14px;padding-left: 40px; font-weight: normal;background: url(../../images/studentHomePage/live-icon.gif) no-repeat scroll 13px center;}
+.studentHomePage .liveViewWrap{width: 723px;margin: 14px auto 0px;overflow:hidden; }
+.studentHomePage .innerWrap{width: 100000px;}
+.studentHomePage .liveList li{float: left;width: 246px;}
+.studentHomePage .liveLess .cTitle{display: block;font-size: 12px;line-height: 12px;height: 12px;margin-top: 14px;margin-bottom: 5px;}
+.studentHomePage .liveLess .time{color:#ce0000;padding-left: 3px;}
 /*正在直播客结束*/
 /*课程列表开始*/
-.cListWrap{margin-top: 10px;}
-.cListWrap .cTitle{height: 35px;line-height: 35px;font-size: 14px;border:1px solid #e0e0e0;background-color: #fff;}
-.tabList{line-height: 18px;height: 18px;}
-.tabList .tabItem{float: left;padding: 10px 13px 8px;border-left: 1px solid #e0e0e0;}
-.tabList .tabItem a{text-align: center;display: block;padding: 0px 5px;}
-.tabList .tabItem.firstTab {border-left: none;}
-.tabList .tabItem.active{}
-.tabList .tabItem.active a{border-bottom:2px solid #cb0000;color: #e0e0e0;margin-bottom: -8px;}
-.tabList .tabItem.active a{}
-.listCont{margin: 17px -6px;}
-.listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 0px 6px;background-color: #fff;}
-.cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
-.cItem .cTitleName{display: block;}
-.cItem .cTitleDesc{color:#989898;}
-.cItem .cDetail{padding: 0px 15px;margin-bottom: 10px;}
-.cItem .cBottom{padding: 0px 15px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;}
-.cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
-.cItem .price strong{font-size: 22px;}
-.cItem .cVal{font-size: 12px;color:#989898;}
-.cItem .cVal span{text-decoration:line-through;}
+.studentHomePage .cListWrap{margin-top: 10px;}
+.studentHomePage .cListWrap .cTitle{height: 35px;line-height: 35px;font-size: 14px;border:1px solid #e0e0e0;background-color: #fff;}
+.studentHomePage .tabList{line-height: 18px;height: 18px;}
+.studentHomePage .tabList .tabItem{float: left;padding: 10px 0px 8px;}
+.studentHomePage .tabList .tabItem a{text-align: center;display: block;padding: 0px 18px;border-left: 1px solid #e0e0e0;position: relative;}
 
+.studentHomePage .tabList .tabItem.firstTab a{border-left: none;}
+.studentHomePage .tabList .tabItem.active{}
+.studentHomePage .tabList .tabItem.active a{color: #e0e0e0;margin-bottom: -8px;}
+.studentHomePage .tabList .tabItem.active a{}
+.studentHomePage .listCont{margin: 0px -6px 17px;}
+.studentHomePage .listCont .pager{margin: 0px 6px ;}
+.studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;}
+.studentHomePage .listCont .courseDesc{display: block;width: 367px;height: 235px;}
+.studentHomePage .listCont .hoverDesc{display: none;width: 367px;height: 235px;background-color: #2879a7;color:#fff;overflow: hidden;}
+.studentHomePage .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
+.studentHomePage .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;}
+.studentHomePage .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
+.studentHomePage .listCont .teacherWrap .teacherName:hover{color: #fff;}
+.studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
+.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;}
+.studentHomePage .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
+.studentHomePage .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
+.studentHomePage .cItem .cTitleName{display: block;}
+.studentHomePage .cItem .cTitleDesc{color:#989898;}
+.studentHomePage .cItem .cDetail{padding: 0px 15px;margin-bottom: 10px;}
+.studentHomePage .cItem .cBottom{padding: 0px 15px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentHomePage .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
+.studentHomePage .cItem .price strong{font-size: 22px;}
+.studentHomePage .cItem .cVal{font-size: 12px;color:#989898;}
+.studentHomePage .cItem .cVal span{text-decoration:line-through;}
+.studentHomePage .listCont .cItem:hover .courseDesc{display: none;}
+.studentHomePage .listCont .cItem:hover .hoverDesc{display: block;cursor: pointer;}
+.studentHomePage .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
+.studentHomePage .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0;border-bottom-color: #ce0000;margin: 0px -1px;}
 /*课程列表结束*/
 
 /*学员风采开始*/
-.stuListWrap{margin-top: 10px;height: 199px;border:1px solid #e0e0e0;background-color: #fff;} 
-.stuListWrap .tHeader{height: 40px;line-height: 40px;background-color:#f3f3f3; }
-.stusTitle{font-weight: normal; font-size: 14px;}
-
-.stuListView{width: 700px;overflow: hidden;margin: 20px auto 0px;}
-.stuListInner{width: 10000px;}
-.stuList{}
-.stuList li{float: left;width: 122px;}
-.stuList li .stuName{display: block;text-align: center;width: 90px;}
+.studentHomePage .stuListWrap{margin-top: 10px;height: 199px;border:1px solid #e0e0e0;background-color: #fff;} 
+.studentHomePage .stuListWrap .tHeader{height: 40px;line-height: 40px;background-color:#f3f3f3; }
+.studentHomePage .stusTitle{font-weight: normal; font-size: 14px;padding-left: 12px;}
+.studentHomePage .stuListView{width: 700px;overflow: hidden;margin: 20px auto 0px;}
+.studentHomePage .stuListInner{width: 10000px;}
+.studentHomePage .stuList{}
+.studentHomePage .stuList li{float: left;width: 122px;}
+.studentHomePage .stuList li .stuName{display: block;text-align: center;width: 90px;}
 /*学院风采结束*/
 /*媒体报道开始*/
-.mediaListWrap{margin-top: 10px;height: 148px;border:1px solid #e0e0e0;margin-bottom: 35px;background-color: #fff;}
-.mediaListWrap .tHeader{height: 40px;line-height: 40px;background-color: #f3f3f3;font-size: 14px;}
-.mediaTitle{font-weight: normal;font-size: 14px;}
-.stusTitle{}
-.mediaList{}
-.mediaList li{float: left;width: 144px;}
-.mediaListView{width: 707px;margin: 25px auto 0px;overflow: hidden;}
-.mediaListInner{width: 10000px;}
+.studentHomePage .mediaListWrap{margin-top: 10px;height: 148px;border:1px solid #e0e0e0;margin-bottom: 35px;background-color: #fff;}
+.studentHomePage .mediaListWrap .tHeader{height: 40px;line-height: 40px;background-color: #f3f3f3;font-size: 14px;}
+.studentHomePage .mediaTitle{font-weight: normal;font-size: 14px;padding-left: 12px;}
+.studentHomePage .mediaList{}
+.studentHomePage .mediaList li{float: left;width: 144px;}
+.studentHomePage .mediaListView{width: 707px;margin: 25px auto 0px;overflow: hidden;}
+.studentHomePage .mediaListInner{width: 10000px;}
 /*媒体报道结束*/
 
 /*左侧内容区结束*/
 /*右侧边栏开始*/
 .studentHomePage .rSlide{width: 220px;}
 /*登录开始*/
-.loginWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;padding: 0px 11px;background-color: #fff;}
-.loginTitle{font-size: 14px; text-align: center;font-weight: normal;line-height: 14px;height: 14px;margin: 20px 0px;}
-.inputWrap{margin-bottom: 16px;}
-.loginWrap input{line-height: 32px;height: 32px;width: 182px;padding: 0px 5px;}
-.hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
-.loginWrap input.loginBtn{background-color: #ce0000;border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 4px;cursor: pointer;}
+.studentHomePage .loginWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;padding: 0px 11px;background-color: #fff;}
+.studentHomePage .loginTitle{font-size: 14px; text-align: center;font-weight: normal;line-height: 14px;height: 14px;margin: 20px 0px;}
+.studentHomePage .inputWrap{margin-bottom: 16px;}
+.studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 182px;padding: 0px 5px;}
+.studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
+.studentHomePage .loginWrap input.loginBtn{background-color: #ce0000;border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 4px;cursor: pointer;}
 /*登录结束*/
 /*服务保障开始*/
-.assuranceWrap{border:1px solid #e0e0e0;height: 263px;background-color: #fff;margin-top: 10px;}
-.assuranceWrap .tHeader{background-color: #f3f3f3;line-height: 37px;height: 37px;padding-left: 18px;font-size: 14px;}
+.studentHomePage .assuranceWrap{border:1px solid #e0e0e0;height: 263px;background-color: #fff;margin-top: 10px;}
+.studentHomePage .assuranceWrap .tHeader{background-color: #f3f3f3;line-height: 37px;height: 37px;padding-left: 12px;font-size: 14px;}
+.studentHomePage .assuranceWrap .contList{padding: 15px;}
+.studentHomePage .assuranceWrap .contList li{width: 50%;text-align: center;float: left;margin: 10px 0px 15px;}
+.studentHomePage .assuranceWrap .contList li .serverName{display: block;margin-top: 8px;}
 /*服务保障结束*/
+
+/*关于我们开始*/
+.studentHomePage .aboutUsWrap{border:1px solid #e0e0e0; background-color: #fff; margin-top: 10px;height: 252px;}
+.studentHomePage .aboutUsWrap .tHeader{background-color: #f3f3f3;line-height: 37px;height: 37px;padding-left: 12px;font-size: 14px;}
+.studentHomePage .ourList{padding: 12px;}
+.studentHomePage .ourList li{margin-bottom: 19px;}
+.studentHomePage .ourList .aboutImg{width: 50px;height: 50px;}
+.studentHomePage .ourList .text{width: 135px;position: relative;height:50px;}
+.studentHomePage .ourList .text h3{font-weight: normal;}
+.studentHomePage .ourList .text .sv{background: url(../../images/studentHomePage/weibo-v.gif) no-repeat right 2px;padding-right: 25px;}
+.studentHomePage .ourList .attention{border:1px solid #ff9b01;border-radius:2px;cursor: pointer;display: inline-block;height: 20px;vertical-align: middle;}
+.studentHomePage .ourList .attention span{background-color: #fca200;border:1px solid #ffce82;color: #fff;display: inline-block;line-height: 18px;height: 18px;padding: 0 7px 0 8px;}
+.studentHomePage .ourList .attention .addicon{color: #fff;font:bold 16px Arial;height: 16px;vertical-align: middle;}
+.studentHomePage .ourList .attention{border:1px solid #ff9b01;border-radius:2px;vertical-align:middle;display: inline-block; cursor: pointer;height: 20px;}
+.studentHomePage .ourList .attention span{height:18px;line-height: 18px;padding:0 7px 0 8px; display: inline-block; border:1px solid #ffce82;color: #fff;background-color: #fca200; }
+.studentHomePage .ourList .attention .addicon{color: #fff;font:bold 16px Arial;height:16px;vertical-align:middle;}
+.studentHomePage .ourList .dream{border:1px solid #0bd3a2;border-radius: 2px; vertical-align: middle;display: inline-block;;cursor: pointer;height: 20px;}
+.studentHomePage .ourList .dream span{height: 18px;line-height: 18px;display: inline-block;border:1px solid #00e0a9;background:url(../../images/studentHomePage/video.gif) no-repeat 4px center #0bd3a2;padding-left: 18px;padding-right:4px;color: #fff;*padding-right:0px; }
+.studentHomePage .ourList .text .bottom{position: absolute;left: 0px;bottom: 0px;width: 135px;}
+/*关于我们结束*/
+
+/*广告开始*/
+.studentHomePage .adListWrap{margin-top: 10px;}
+/*广告结束*/
+
 /*右侧边栏结束
