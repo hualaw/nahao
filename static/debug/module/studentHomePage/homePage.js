@@ -38,7 +38,6 @@ define(function(require,exports){
 	    }
 
 	    function move(){
-	    	console.log(ind);
 	        ind++;
 	        if(ind>=$conLi.length){
 	            ind=0
@@ -48,7 +47,6 @@ define(function(require,exports){
 
 	    function otimer(){
 	    	timer=setInterval(move,5000);
-	    	console.log(ind);
 	    }	
 	    otimer();
 	    function mouseObj(obj){

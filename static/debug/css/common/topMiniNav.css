@@ -23,7 +23,7 @@
 .topMiniNav .quickLink .myNahaoHover{background: #fff;border-left-color:#e1e1e1;border-right-color:#e1e1e1;}
 .topMiniNav .quickLink .myNahao p span.ico{background:url(../../images/common/header/ico_my.gif) no-repeat left;padding-left:18px;padding-right:5px;}
 .topMiniNav .quickLink .myNahao p .narrow{background: url(../../images/common/header/ico_narrow.gif) no-repeat 0px -4px;display: block;width:6px;height:4px;margin-top:13px;}
-.topMiniNav .quickLink .myNahao p .up{background-position: 0 0;}
+.topMiniNav .quickLink .myNahaoHover p .narrow{background-position: 0 0;}
 /*我的那好结束*/
 /*关注样式开始*/
 .topMiniNav .quickLink .attention{border-left:1px solid #f8f8f8;border-right:1px solid #f8f8f8;padding:0px 8px;margin-right:10px;width: 40px;}
