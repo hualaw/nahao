@@ -43,5 +43,5 @@ define(function(require,exports){
 		if($(".iebrowser").length){
 			$(".iebrowser").remove();
 		}
-	}
+	};
 })

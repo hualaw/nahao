@@ -1,5 +1,5 @@
 /* 那好 开始 2014-5-16-17：00 */
-.header{border: 1px solid #fff;border-top: none;box-shadow: 0 1px 3px #c7c7c7;position: absolute;width: 100%;box-sizing:border-box;left:0px;top:0;}
+/*.header{border: 1px solid #fff;border-top: none;box-shadow: 0 1px 3px #c7c7c7;position: absolute;width: 100%;box-sizing:border-box;left:0px;top:0;}
 .header .headLogin{height:26px;line-height:26px;background: #11243b;}
 .header .headLoginBox{font-size: 12px;}
 .header .headLoginBox span{color:#f14211;display: inline-block;margin: 0 6px;}
@@ -19,6 +19,9 @@
 .header .headNav li:hover a{color: #f14211;}
 .header .headNav .curNav,
 .header .headNav li:hover{background: url(../../images/common/header/arrow.png) center top no-repeat;_background-image: url(../../images/common/header/arrow_8.png);}
-.header .headNav .headR{height: 80px;line-height: 80px;}
-
+.header .headNav .headR{height: 80px;line-height: 80px;}*/
+.header{padding:20px 0px;}
+.header a.logo{background:url(../../images/common/header/logo.gif) no-repeat;display: block;width: 121px;height:54px;display:block;text-indent: -999em;overflow:hidden;}
+.header .tel{background:url(../../images/common/header/tel_bg.gif) no-repeat;width:163px;height:34px;margin-top:15px;}
+.header .tel p{font-size:14px;margin-left:45px;color:#666;margin-top:-2px;}
 
