@@ -26,6 +26,8 @@ class oauth extends NH_Controller
             $openid = $tizi->get_openid();
             if($openid){
                 $user_info = $tizi->get_user_info();
+                //var_dump($user_info);
+                //die();
                 if(!empty($user_info)){
                     $user = $this->business_oauth->get_user_by_openid($openid);
                     if($user){
@@ -33,7 +35,11 @@ class oauth extends NH_Controller
                     }else{
                         $user['openid'] = $user_info['openId'];
                         $user['nickname'] = $user_info['nick'];
-                        $user_id = $this->business_oauth->create_user($user);
+                        $user['email'] = $user_info['email'];
+                        $user['phone_mask'] = $user_info['phone'];
+                        $user['avatar'] = $user_info['avatar'];
+                        $userinfo['realname'] = $user_info['nick'];
+                        $user_id = $this->business_oauth->create_user($user,$userinfo);
                         if($user_id){
                             $user['id'] = $user_id;                           
                             $this->business_oauth->do_login($user);

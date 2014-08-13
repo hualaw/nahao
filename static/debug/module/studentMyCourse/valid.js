@@ -101,6 +101,14 @@ define(function(require,exports){
 
             },
             {   
+                ele:".tcontact",
+                datatype: "m",
+                ignore:"ignore",
+                nullmsg: "请输入联系方式",
+                errormsg: "请输入正确的手机号码"
+
+           },
+            {   
                  ele:".reason",
                  datatype: "*",
                  nullmsg: "退课理由不能为空",
@@ -356,9 +364,25 @@ define(function(require,exports){
             {
                 ele: ".phone_number",
                 datatype:"m",
+                errormsg:"请输入正确的手机号"
+            },
+            {
+                ele: ".pthone_number",
+                datatype:"m",
                 ignore:"ignore",
                 errormsg:"请输入正确的手机号"
             },
+            {    
+                ele:".ptEmail",
+                datatype: "e",
+                ignore:"ignore",
+                nullmsg: "请输入邮箱地址",
+                errormsg: "请输入正确的邮箱地址",
+                ajaxurl:'/member/check_email_availability/',
+                ajaxUrlName:'email'
+
+            },
+            
             {    
                 ele:".subjectInput",
                 datatype: "*",

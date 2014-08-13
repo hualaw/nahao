@@ -35,7 +35,7 @@ class Business_Oauth extends NH_Model
         return $arr_return;
     }
 
-    public function create_user($user){
+    public function create_user($user,$userinfo){
         $user_table_data = array(
             'register_time' => time(),
             'register_ip' => ip2long($this->input->ip_address()),
@@ -55,7 +55,8 @@ class Business_Oauth extends NH_Model
         }
 
         //insert a record into user_info table
-        $insert_affected_rows = $this->model_user->create_user_info(array('user_id'=>$user_id));
+        $userinfo['user_id'] = $user_id;
+        $insert_affected_rows = $this->model_user->create_user_info($userinfo);
         if($insert_affected_rows < 1)
         {
             //标记user表里的记录为无效状态
@@ -68,8 +69,8 @@ class Business_Oauth extends NH_Model
     }
 
     public function do_login($user_info){
-        $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],$user_info['phone'],
-             $user_info['phone_mask'], $user_info['email'], $user_info['login_type'], $user_info['teach_priv'], 1);
-        //remember me
+        $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],$user_info['phone_mask'],
+             $user_info['phone_mask'], $user_info['email'], 3, $user_info['teach_priv'], 1);
+        //id,nickname,avatar,phone,phone_mask,email,login_type,teach_priv,remb_me
     }
 }

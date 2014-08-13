@@ -3,12 +3,12 @@
 	<ul class="tabh cf">
 		<li class="inforOn">个人资料</li>
 		<li>修改头像</li>
-		{if $reg_type != 3}
+		{if $reg_type != $smarty.const.REG_LOGIN_TYPE_THIRD_PART}
 		<li>修改密码</li>
 		{/if}
 	</ul>
 	<div class="inforTabBox">
-        {if $reg_type == 2}
+        {if $reg_type == $smarty.const.REG_LOGIN_TYPE_EMAIL}
 		<!--邮箱版-->
 		<form action="" method="post"  class="emailForm" onsubmit="return false;">
 			<p class="formName">邮箱
@@ -146,7 +146,7 @@
 			</ul>
 		</form> 
 		<!--手机版-->
-        {elseif $reg_type == 1}
+        {elseif $reg_type == $smarty.const.REG_LOGIN_TYPE_PHONE}
 		<form action="" method="post" class="phoneForm">
 			<p class="formName">手机号
 				<span class="verWay">{$user_detail.phone}</span>
@@ -278,20 +278,13 @@
 		</form>
         
         <!--梯子版-->
-        {elseif $reg_type == 3}
-		<form action="" method="post" class="phoneForm">
-			
-			
+        {elseif $reg_type == $smarty.const.REG_LOGIN_TYPE_THIRD_PART}
+		<form action="" method="post" class="emailForm">
+			<p class="formName">登录方式:
+				<span class="verWay">梯子网账号</span>
+				<span class="hasVer"></span>
+			</p>
 			<ul>
-				<li>
-					<p class="optional noFillin formName"><span>*</span>手机号</p>
-            		<div class="cf">
-						<div class="fl">
-	                		<input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text"{if $user_detail.phone_verified}disabled{/if}>
-	                    	<span class="Validform_checktip"></span>
-						</div>
-					</div>
-				</li>
 				<li>
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
@@ -347,10 +340,19 @@
 					</div>
 				</li>
 				<li>
-					<p class="formName"><span>*</span>邮箱</p>
+					<p class="formName">邮箱</p>
 					<div class="cf">
-                        <input type="text" name="email" class="pEmail fl cInput yh" validName="text" value="{$user_detail.email}" {if $user_detail.email}disabled{/if}>
+                        <input type="text" name="email" class="ptEmail fl cInput yh" validName="text" value="{$user_detail.email}">
 						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li>
+					<p class="optional noFillin">手机号</p>
+                    <div class="cf">
+						<div class="fl">
+                            <input type="text" class="cInput pthone_number" value="{$user_detail.phone}" name="phone" validName="text"{if $user_detail.phone_verified}disabled{/if}>
+                            <span class="Validform_checktip"></span>
+						</div>
 					</div>
 				</li>
 				<li>
