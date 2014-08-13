@@ -69,8 +69,8 @@ class Business_Oauth extends NH_Model
     }
 
     public function do_login($user_info){
-        $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],$user_info['phone'],
+        $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],$user_info['phone_mask'],
              $user_info['phone_mask'], $user_info['email'], 3, $user_info['teach_priv'], 1);
-        //login_type = 3,rem_me = 1
+        //id,nickname,avatar,phone,phone_mask,email,login_type,teach_priv,remb_me
     }
 }
