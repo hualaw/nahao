@@ -21,7 +21,6 @@ class oauth extends NH_Controller
         $config = $this->config->item('tizi');
         $tizi = new TiziOauth($config);
         $result = $tizi->get_accesstoken();
-
         if (!isset($result['error'])) {
             $openid = $tizi->get_openid();
             if($openid){
@@ -37,11 +36,18 @@ class oauth extends NH_Controller
                         $user['nickname'] = $user_info['nick'];
                         $user['email'] = $user_info['email'];
                         $user['phone_mask'] = $user_info['phone'];
-                        $user['avatar'] = $user_info['avatar'];
                         $userinfo['realname'] = $user_info['nick'];
-                        $user_id = $this->business_oauth->create_user($user,$userinfo);
+                        //create user
+                        $user_id = $this->business_oauth->create_user($user);
                         if($user_id){
-                            $user['id'] = $user_id;                           
+                            $userinfo['user_id'] = $user_id;
+                            //create user_info
+                            $this->business_oauth->create_user_info($userinfo);
+                            //update avatar
+                            $result = $this->business_oauth->update_avatar($user_id,$user_info['avatar']);
+                            //do login
+                            $user['id'] = $user_id;   
+                            $user['avatar'] = $result['avatar_key'];                       
                             $this->business_oauth->do_login($user);
                         }
                     }
@@ -52,4 +58,6 @@ class oauth extends NH_Controller
         }
         redirect('/');
     }
+
+
 }
