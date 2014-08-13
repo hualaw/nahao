@@ -1,3 +1,6 @@
 define(function(require,exports){
-	alert('到module/studentClassList的init来删除我')
+	//筛选
+	require("module/studentClassList/courseList").filter();
+	//清空浏览记录
+	require("module/studentClassList/courseList").clearHis();
 })
