@@ -1,3 +1,3 @@
 define(function(require,exports){
-	alert(111)
+	alert('到module/studentClassList的init来删除我')
 })
