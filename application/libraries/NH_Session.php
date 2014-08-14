@@ -470,7 +470,7 @@ class NH_Session extends CI_Session {
 
     function sess_update()
     {
-        //log_message('debug_nahao', 'session sess_update() is called');
+        log_message('debug_nahao', 'session sess_update() is called');
         // We only update the session every five minutes by default
         if (($this->userdata['last_activity'] + $this->sess_time_to_update) >= $this->now)
         {
@@ -518,9 +518,8 @@ class NH_Session extends CI_Session {
                 $userdata['last_activity'] = $this->now;
                 $userdata['session_id'] = $new_sessid;
 
-
-                if(isset($userdata['remb_me']) && $userdata['remb_me'] )
-                {
+                //log_message("debug_nahao", "sess_update, userdata:".print_r($userdata,1)."this->userdata:".print_r($this->userdata, 1));
+                if (isset($this->userdata['remb_me']) && $this->userdata['remb_me']) {
                     $this->_redis_set($new_sessid,json_encode($userdata),$this->sess_autologin_expiration);
                     $expire = $this->sess_autologin_expiration;
                 }
