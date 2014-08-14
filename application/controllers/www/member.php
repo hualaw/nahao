@@ -20,12 +20,12 @@ class Member extends NH_User_Controller {
     /**
      * 我的课程
      */
-	public function my_course()
+	public function my_course($status = '')
 	{  
         header('content-type: text/html; charset=utf-8');
         $int_user_id = $this->session->userdata('user_id');#TODO用户id
         #我购买的课程
-        $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
+        $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id,$status);
         //var_dump($array_buy_course);
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
@@ -34,11 +34,20 @@ class Member extends NH_User_Controller {
 			#没有加nh_dbug参数 过滤掉测试轮
 			$array_new =$this->student_index->filter_test_round($array_new);
 		}
+        #热报课程
+        $course_hot = $this->student_index->get_course_hot();
+        if($course_hot)
+        {
+            #没有加nh_dbug参数 过滤掉测试轮
+            $array_hot =$this->student_index->filter_test_round($course_hot);
+        }
+
         $array_new = array_slice($array_new,0,3,true);
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_buy_course', $array_buy_course);
         $this->smarty->assign('array_new', $array_new);
+        $this->smarty->assign('array_hot', $array_hot);
         $this->smarty->assign('page_type', 'myCourse');
         $this->smarty->display('www/studentMyCourse/index.html');
 	}

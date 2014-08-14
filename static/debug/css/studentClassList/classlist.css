@@ -52,3 +52,58 @@
 .regTeacher ul li .vfCode{width:150px;border: 1px solid #d5d5d5;height:38px;}
 .regTeacher ul li .submit{width:100%;border:0;padding:0;cursor:pointer;}
 /*老师弹窗注册样式结束*/
+/* 课程列表页 开始 */
+.studentClassList{}
+.studentClassList .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding: 15px 0px 5px 15px; }
+.studentClassList .filterBox .filterList{margin-bottom: 10px;}
+.studentClassList .filterBox .filterList .tit{float: left;}
+.studentClassList .filterBox .filterList ul{float: left;}
+.studentClassList .filterBox .filterList ul li{float: left;line-height: 20px;margin-left: 5px;}
+.studentClassList .filterBox .filterList ul li a{padding: 0px 7px;height: 20px;line-height: 20px;font-size: 12px;display: block;float: left;}
+.studentClassList .filterBox .filterList ul li a:hover,
+.studentClassList .filterBox .filterList ul li a.active{background: #ce0000;border-radius: 3px;color: #fff;}
+.studentClassList .sortBox{width: 978px;border: 1px solid #e0e0e0;border-top: none;background: #f8f8f8;}
+.studentClassList .sortBox li{float: left;}
+.studentClassList .sortBox li a{width: 80px;height: 27px;line-height: 27px;text-align: center;display: block;border-right: 1px solid #e0e0e0;}
+.studentClassList .sortBox li a:hover,
+.studentClassList .sortBox li a.active{background: #f0f0f0;color: #333;}
+.studentClassList .courseLeft{width: 760px;}
+.studentClassList .courseLeft ul li.courseList{width:240px;border: 1px solid #e0e0e0;float: left;margin-top: 15px;margin-right: 11px;position: relative;}
+.studentClassList .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;}
+.studentClassList .courseLeft ul li.courseList .listMain{padding: 10px;}
+.studentClassList .courseLeft ul li.courseList .listMain h3{font-weight: normal;font-size: 14px;line-height: 14px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.studentClassList .courseLeft ul li.courseList .listMain p.intro{font-size: 12px;color: #989898;line-height: 12px;margin: 10px 0 15px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.studentClassList .courseLeft ul li.courseList .listMain h4{font-size: 20px;font-weight: normal;color: #ce0000;line-height: 20px;}
+.studentClassList .courseLeft ul li.courseList .listMain h4 span{font-size: 12px;font-weight: normal;}
+.studentClassList .courseLeft ul li.courseList .listMain p.price{font-size: 12px;color: #989898;line-height: 12px;margin-top: 5px;}
+.studentClassList .courseLeft ul li.courseList .listMain p.price span{text-decoration: line-through;margin-left: 5px;}
+.studentClassList .courseLeft ul li.courseList .listMain .studyNow{width: 76px;height: 28px;line-height: 28px;color: #fff;border-radius: 15px;background: #cb0000;display: block;text-align: center;font-size: 14px;position: absolute;right: 10px;bottom: 50px;}
+.studentClassList .courseLeft ul li.courseList .listBot{border-top: 1px solid #e0e0e0;padding: 10px;}
+.studentClassList .courseLeft ul li.courseList .listBot i{color: #ce0000;}
+.studentClassList .courseLeft ul li.courseList .statusBar{position: absolute;right: 6px;top: -2px;}
+.studentClassList .courseLeft ul li.courseList .statusBar li{float: left;}
+.studentClassList .courseLeft ul li.courseList .statusBar li.newBar{width: 38px;height: 38px;background: url(../../images/studentClassList/statusBar.png) left top no-repeat;}
+.studentClassList .courseLeft ul li.courseList .statusBar li.saleBar{width: 38px;height: 38px;background: url(../../images/studentClassList/statusBar.png) -38px top no-repeat;}
+.studentClassList .courseLeft ul li.courseList .statusBar li.liveBar{width: 41px;height: 38px;background: url(../../images/studentClassList/statusBar.png) right top no-repeat;}
+.studentClassList .courseRight{width: 220px;margin-top: 10px;}
+.studentClassList .courseRight .buyCourseBox{border: 1px solid #e0e0e0;}
+.studentClassList .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
+.studentClassList .courseRight .buyCourseList{padding: 10px;}
+.studentClassList .courseRight .buyCourseList li{margin-bottom: 10px;}
+.studentClassList .courseRight .buyCourseList li img{width: 198px;height: 127px;}
+.studentClassList .courseRight .buyCourseList li p{line-height: 18px;margin-top: 10px;margin-bottom: 3px;}
+.studentClassList .courseRight .buyCourseList li .studyNum .price{color: #cb0000;}
+.studentClassList .courseRight .buyCourseList li .studyNum i{color: #cb0000;}
+.studentClassList .courseRight .history{padding: 10px;border: 1px solid #e0e0e0;margin-top: 10px;}
+.studentClassList .courseRight .history h3{font-weight: normal;}
+.studentClassList .courseRight .history h3 a.clearCount{color: #cb0000;}
+.studentClassList .courseRight .history .historyList{margin-top: 10px;}
+.studentClassList .courseRight .history li{padding: 20px 0;border-top: 1px dashed #ddd;}
+.studentClassList .courseRight .history li.b_t_0{border-top: none;}
+.studentClassList .courseRight .history li img{width: 80px;height: 51px;margin-right: 10px;}
+.studentClassList .courseRight .history li .listRight{width: 100px;}
+.studentClassList .courseRight .history li p{line-height: 16px;margin-bottom: 5px;}
+.studentClassList .courseRight .history li .price{color: #cb0000;margin-right: 10px;}
+.studentClassList .courseRight .history li .priceHis{text-decoration: line-through;color: #989898;}
+.studentClassList .courseRight .historyNone{text-align: center;padding: 50px 0px 30px;display: none;}
+/* 课程列表页 结束 */

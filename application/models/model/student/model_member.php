@@ -12,10 +12,20 @@ class Model_Member extends NH_Model{
      * @param  $int_user_id
      * @return $array_result
      */
-    public function get_my_course_for_buy($int_user_id)
+    public function get_my_course_for_buy($int_user_id,$status = '')
     {
         $array_result = array();
-        $sql = "SELECT r.sale_status,r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title FROM ".TABLE_STUDENT_ORDER." so LEFT JOIN ".TABLE_ROUND." r ON so.round_id = r.id WHERE so.student_id = ".$int_user_id." AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH." OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." ) ORDER BY so.id DESC";
+        $sql = "SELECT r.sale_status,r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title 
+        		FROM ".TABLE_STUDENT_ORDER." so 
+        		LEFT JOIN ".TABLE_ROUND." r ON so.round_id = r.id 
+        		LEFT JOIN ".TABLE_CLASS." c ON c.round_id = r.id 
+        		WHERE so.student_id = ".$int_user_id." 
+        		AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH." OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." ) 
+        		";
+        $sql .= !empty($status)?(" AND c.status=".$status):'';			
+        $sql .=	" GROUP BY so.id ORDER BY so.id DESC";
+//         print_r($sql);
+//         exit();
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }

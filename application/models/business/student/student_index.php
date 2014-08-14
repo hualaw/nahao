@@ -38,6 +38,36 @@ class Student_Index extends NH_Model{
         
         return $array_return;
     }
+
+    /*
+     *
+     *
+     */
+    public function get_course_hot()
+    {
+        #首页获取一门课程里面最新的一轮（在销售中）
+        $array_round = $this->model_index->get_course_hot_round();
+        $array_return = array();
+        if ($array_round)
+        {
+            #年级
+            $array_grade = config_item('grade');
+            #首页获取轮的信息列表
+            foreach ($array_round as $key=>$value)
+            {
+                $array_list = $this->get_one_round_info($value['id'],$array_grade);
+                #如果这一轮里面老师信息为空，则这个轮不显示在首页上面
+                if (empty($array_list['teacher']))
+                {
+                    continue;
+                } else {
+                    $array_return[] = $array_list;
+                }
+            }
+        }
+
+        return $array_return;
+    }
     
     /**
      * 根据round_id获取最新一轮的信息

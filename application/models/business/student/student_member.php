@@ -15,10 +15,10 @@ class Student_Member extends NH_Model{
      * @param  $int_user_id
      * @return $array_return
      */
-    public function get_my_course_for_buy($int_user_id)
+    public function get_my_course_for_buy($int_user_id,$status = '')
     {
         $array_return = array();
-        $array_return = $this->model_member->get_my_course_for_buy($int_user_id);
+        $array_return = $this->model_member->get_my_course_for_buy($int_user_id,$status);
         //var_dump($array_return);die;
         if ($array_return)
         {
@@ -160,7 +160,7 @@ class Student_Member extends NH_Model{
         //var_dump($array_return);die;
         return $array_return;
     }
-    
+
     /**
      * 添加退课申请
      * @param  $array_data
@@ -192,7 +192,7 @@ class Student_Member extends NH_Model{
             'pay_type'=>$array_data['pay_type']
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
-        
+
         $array_ndata = array(
         		'round_id'=>$array_data['round_id'],
         		'student_id'=>$array_data['student_id']
@@ -234,7 +234,7 @@ class Student_Member extends NH_Model{
         }
 
     }
-    
+
     /**
      * 获取一轮的退款详情
      * @param  $int_user_id
@@ -250,5 +250,5 @@ class Student_Member extends NH_Model{
         $array_data['title'] = $array_round['title'];
         return $array_data;
     }
-    
+
 }
