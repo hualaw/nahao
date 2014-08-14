@@ -69,7 +69,7 @@
 .studentClassList .sortBox li a.active{background: #f0f0f0;color: #333;}
 .studentClassList .courseLeft{width: 760px;}
 .studentClassList .courseLeft ul li.courseList{width:240px;border: 1px solid #e0e0e0;float: left;margin-top: 15px;margin-right: 11px;position: relative;}
-.studentClassList .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;}
+.studentClassList .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;display: block;}
 .studentClassList .courseLeft ul li.courseList .listMain{padding: 10px;}
 .studentClassList .courseLeft ul li.courseList .listMain h3{font-weight: normal;font-size: 14px;line-height: 14px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentClassList .courseLeft ul li.courseList .listMain p.intro{font-size: 12px;color: #989898;line-height: 12px;margin: 10px 0 15px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
@@ -90,7 +90,7 @@
 .studentClassList .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
 .studentClassList .courseRight .buyCourseList{padding: 10px;}
 .studentClassList .courseRight .buyCourseList li{margin-bottom: 10px;}
-.studentClassList .courseRight .buyCourseList li img{width: 198px;height: 127px;}
+.studentClassList .courseRight .buyCourseList li img{width: 198px;height: 127px;display: block;}
 .studentClassList .courseRight .buyCourseList li p{line-height: 18px;margin-top: 10px;margin-bottom: 3px;}
 .studentClassList .courseRight .buyCourseList li .studyNum .price{color: #cb0000;}
 .studentClassList .courseRight .buyCourseList li .studyNum i{color: #cb0000;}
@@ -100,7 +100,7 @@
 .studentClassList .courseRight .history .historyList{margin-top: 10px;}
 .studentClassList .courseRight .history li{padding: 20px 0;border-top: 1px dashed #ddd;}
 .studentClassList .courseRight .history li.b_t_0{border-top: none;}
-.studentClassList .courseRight .history li img{width: 80px;height: 51px;margin-right: 10px;}
+.studentClassList .courseRight .history li img{width: 80px;height: 51px;margin-right: 10px;display: block;}
 .studentClassList .courseRight .history li .listRight{width: 100px;}
 .studentClassList .courseRight .history li p{line-height: 16px;margin-bottom: 5px;}
 .studentClassList .courseRight .history li .price{color: #cb0000;margin-right: 10px;}
