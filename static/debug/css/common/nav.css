@@ -1,6 +1,6 @@
 .topNav{background:#ce0000;}
-.topNav .categorys{width:168px;background:#fff;margin-top:2px;height:38px;}
-.topNav .categorys .title{font-size:14px;text-align: center;line-height: 38px;}
+.topNav .categorys{width:168px;margin-top:2px;height:38px;}
+.topNav .categorys .title{font-size:14px;text-align: center;line-height: 38px;background:#fff;margin-left:2px;}
 .topNav .categorys .title span{margin-left:38px;color: #d11010}
 .topNav .categorys .shutting span{color: #333}
 .topNav .categorys .title i.narrow{background: url(../../images/common/nav/ico_red_narrow.gif) no-repeat right;width:6px;height:4px;display:inline-block;margin-top:18px;margin-left:5px;}
