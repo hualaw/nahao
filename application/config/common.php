@@ -320,13 +320,225 @@ $config['production_round_time_config']['class_between_long'] = 3600;//课间隔
 $config['production_round_time_config']['enter_before_class'] = 1800;//提前进教室时间
 $config['production_round_time_config']['teacher_late_time'] = 300;//开课后多久老师点上课算迟到
 
-
 //代理服务器
 $config['McuAddr'][1] = '42.121.114.19:21443';
 
 //AES加密key
 $config['AES_key'] = 'NahaoVictory0704';
 
+//小图标
+$config['round_icon'][1] = '限时抢购';
+$config['round_icon'][2] = '免费试听';
+$config['round_icon'][3] = '正在直播';
+$config['round_icon'][4] = '即将开始';
+$config['round_icon'][5] = '今日新课';
+$config['round_icon'][6] = '疯狂热卖';
+
+//课程类型
+$config['course_type'][1] = '同步精讲';
+$config['course_type'][2] = '精品培优';
+$config['course_type'][3] = '一轮复习';
+$config['course_type'][4] = '期中冲刺';
+$config['course_type'][5] = '期末冲刺';
+$config['course_type'][6] = '重难点突破';
+$config['course_type'][7] = '数学精编';
+$config['course_type'][8] = '高中会考';
+$config['course_type'][9] = '素质教育';
+
+//教材版本
+$config['material_version'][1] = '不分版本';
+$config['material_version'][2] = '人教版';
+$config['material_version'][3] = '北师大版';
+$config['material_version'][4] = '苏教版';
+$config['material_version'][5] = '人教新版';
+$config['material_version'][6] = '人教PEP';
+$config['material_version'][7] = '外研新标准';
+$config['material_version'][8] = '新课标版';
+$config['material_version'][9] = '沪教版';
+$config['material_version'][10] = '鲁教版';
+$config['material_version'][11] = '人教A';
+$config['material_version'][11] = '人教B';
+$config['material_version'][11] = '语文版';
+$config['material_version'][11] = '外研版';
+
+/**
+ * 那好2.0类别 数据字典
+ */
+//类型和关系 [ key = cateId ] [chirdren = stageId/qualityId]
+$config['cate'] = array(
+	1 => array(
+		'name' => '学科教育',
+		'parentId' => 0,
+		'chirdren' => array(1,2,3),
+	),
+	2 => array(
+		'name' 	=> '素质教育',
+		'parentId' => 0,
+		'chirdren' => array(1,2,3,4,5,6,7,8),
+	),
+);
+//学段数组 [ key = stageId ] [parentId = cateId]
+$config['cate_stage'] = array(
+	1 => array(
+		'name' 	=> '小学',
+		'parentId' => 1,
+		'chirdren' => array(3,4,5,6,7),
+	),
+	2 => array(
+		'name' 	=> '初中',
+		'parentId' => 1,
+		'chirdren' => array(7,8,9),
+	),
+	3 => array(
+		'name' 	=> '高中',
+		'parentId' => 1,
+		'chirdren' => array(10,11,12),
+	),
+);
+//年级数组 [ key = gradeId ] [parentId = stageId]
+$config['cate_grade'] = array(
+	3 => array(
+		'name' 	=> '三年级',
+		'parentId' => 1,
+		'chirdren' => array(1,2,3,4),
+	),
+	4 => array(
+		'name' 	=> '四年级',
+		'parentId' => 1,
+		'chirdren' => array(1,2,3,4),
+	),
+	5 => array(
+		'name' 	=> '五年级',
+		'parentId' => 1,
+		'chirdren' => array(1,2,3,4),
+	),
+	6 => array(
+		'name' 	=> '六年级',
+		'parentId' => 1,
+		'chirdren' => array(1,2,3,4),
+	),
+	7 => array(
+		'name' 	=> '七年级',
+		'parentId' => 2,
+		'chirdren' => array(2,3,4),
+	),
+	8 => array(
+		'name' 	=> '八年级',
+		'parentId' => 2,
+		'chirdren' => array(2,3,4,5),
+	),
+	9 => array(
+		'name' 	=> '九年级',
+		'parentId' => 2,
+		'chirdren' => array(2,3,4,5,6),
+	),
+	10 => array(
+		'name' 	=> '高一',
+		'parentId' => 3,
+		'chirdren' => array(2,3,4,5,6),
+	),
+	11 => array(
+		'name' 	=> '高二',
+		'parentId' => 3,
+		'chirdren' => array(2,3,4,5,6,7,8,9),
+	),
+	12 => array(
+		'name' 	=> '高三',
+		'parentId' => 3,
+		'chirdren' => array(2,3,4,5,6,7,8,9),
+	),
+);
+//科目数组 [ key = subjectId ] [parentId = gradeId]
+$config['cate_subject'] = array(
+	1 => array(
+		'name' 	=> '数学精编',
+		'parentId' => array(3,4,5,6),
+//		'chirdren' => array(),
+	),
+	2 => array(
+		'name' 	=> '数学',
+		'parentId' => array(3,4,5,6,7,8,9,10,11,12),
+//		'chirdren' => array(),
+	),
+	3 => array(
+		'name' 	=> '语文',
+		'parentId' => array(3,4,5,6,7,8,9,10,11,12),
+		//'chirdren' => array(),
+	),
+	4 => array(
+		'name' 	=> '英语',
+		'parentId' => array(3,4,5,6,7,8,9,10,11,12),
+		//'chirdren' => array(),
+	),
+	5 => array(
+		'name' 	=> '物理',
+		'parentId' => array(8,9,10,11,12),
+		//'chirdren' => array(),
+	),
+	6 => array(
+		'name' 	=> '化学',
+		'parentId' => array(9,10,11,12),
+		//'chirdren' => array(),
+	),
+	7 => array(
+		'name' 	=> '生物',
+		'parentId' => array(11,12),
+		//'chirdren' => array(),
+	),
+	8 => array(
+		'name' 	=> '地理',
+		'parentId' => array(11,12),
+		//'chirdren' => array(),
+	),
+	9 => array(
+		'name' 	=> '政治',
+		'parentId' => array(11,12),
+		//'chirdren' => array(),
+	),
+);
+//素质教育数组 [ key = qualityId ] [parentId = cateId =4]
+$config['cate_quality'] = array(
+	1 => array(
+		'name' 	=> '魔方',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	2 => array(
+		'name' 	=> '学习方法',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	3 => array(
+		'name' 	=> '外教口语',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	4 => array(
+		'name' 	=> '电影鉴赏',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	5 => array(
+		'name' 	=> '新概念',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	6 => array(
+		'name' 	=> '国际音标',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	7 => array(
+		'name' 	=> '自然拼读',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+	8 => array(
+		'name' 	=> '剑桥少儿英语',
+		'parentId' => 2,
+		//'chirdren' => array(),
+	),
+);
 
 /**
  * 劳务报酬个人计算税率 之 含税级距参数表

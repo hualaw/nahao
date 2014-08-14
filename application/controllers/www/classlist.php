@@ -7,10 +7,22 @@ class Classlist extends NH_User_Controller {
         parent::__construct();
         $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_order');
+        
     }
-
-    // 课程列表
-    function index(){
+    
+    /**
+     * 课程列表
+     * typeId 		=> 		t
+	 * qualityId	=>		q
+	 * stageId		=> 		st
+	 * gradeId		=> 		g
+	 * subjectId	=> 		su
+	 * order		=>		o
+	 * page			=>		p
+     */
+    function index($type){
+    	var_dump($type);
+    	$param['typeId'] = $this->input->get('typeId');
     	$this->smarty->display('www/studentClassList/index.html');
     }
 }
