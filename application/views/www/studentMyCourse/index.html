@@ -17,42 +17,319 @@
 <!-- 主要内容开始 -->
 <div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
 	<!-- 右侧框架开始 -->
-
-   	{if $page_type == 'myCourse'}
-	   	<div class="wrapContent fr myCourseCon" id="wrapContent" name="myCourseCon">
-		   	<!--我的课程-->
-		    {include file="www/include/studentMyCourse/page/myCourse.htm"}
-	    </div> 
-    {elseif $page_type == 'myOrder'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--我的订单-->
-		    {include file="www/include/studentMyCourse/page/myOrder.htm"}
-	    </div> 
-    {elseif $page_type == 'myInfor'}
-	    <div class="wrapContent fr myInforCon" id="wrapContent" name="myInforCon">
-		    <!--基本资料-->
-		    {include file="www/include/studentMyCourse/page/myInfor.htm"}
-    	</div> 
-    {elseif $page_type == 'order_detail'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--订单信息页-->
-		    {include file="www/include/studentMyCourse/page/myOrderDetail.htm"}
-	    </div> 
-    {elseif $page_type == 'apply_refund'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--申请退款页-->
-		    {include file="www/include/studentMyCourse/page/applyRefund.htm"}
-	    </div>    
-	 {elseif $page_type == 'refund_detail'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--申请退款页-->
-		    {include file="www/include/studentMyCourse/page/refundDetail.htm"}
-	    </div>    
-   	{/if}
+   	<div class="wrapContent fr myCourseCon" id="wrapContent" name="myCourseCon">
+	   <h4 class="pageName">我的课程</h4>
+	   <!-- 我的课程头部tab切换开始 -->
+	   <div class="list_tabs pageListWrap">
+		   <div class="cf cListWrap">
+			   	<ul class="cf nav_tabs courseTabList">
+			   		<li class="tabItem active firstTab" link="all_clist">
+			   			<a href="#">全部课程</a>
+			   		</li>
+			   		<li class="tabItem"  link="leaning_clist">
+			   			<a href="#">正在进行</a>
+			   		</li>
+			   		<li class="tabItem" link="soon_clist">
+			   			<a href="#">即将开始</a>
+			   		</li>
+			   		<li class="tabItem" link="finished_clist">
+			   			<a href="#">已结束</a>
+			   		</li>
+			   	</ul>
+		   </div>
+		   <!-- 我的课程tab切换结束 -->
+		   <!-- 我的课程tab切换内容开始 -->
+		   <div class="cf tabContent">
+		   		<!-- 全部课程列表开始 -->
+		   		<div class="cf item active" itemname="all_clist">
+		   			<ul class="cf cListContWrap">
+		   				{for $i=0 to 9}
+		   				<li class="cf cItem">
+		   					<a href="#" class="fl">
+		   						<img src="{$static_url}{$static_version}/images/studentMyCourse/list1.gif" alt="高考试题中的古典诗词真题解题要旨" class="cImg">
+		   					</a>
+		   					<div class="fl cDesc">
+		   						<h4 >
+		   							<a href="#" class="cTitle">高考试题中的古典诗词真题解题要旨</a>
+		   						</h4>
+		   						<span class="time">
+		   							下节课<strong>08月16日 星期一 09:00-11:00</strong>	
+		   						</span>
+		   						<!-- 进度条开始 -->
+		   						<div class="scheduleWrap">
+		   							<!-- 此处的进度条需要算出百分比 如75%-->
+		   							<div class="scheduleInner" style="width:75%"></div>
+		   						</div>
+		   						<!-- 进度条结束 -->
+		   						<span>
+		   							<strong>已上9节</strong>/共12节
+		   						</span>
+		   					</div>
+		   					<a href="#" class="cRedBtn enterBtn">进入课程</a>
+		   				</li>
+		   				{/for}
+		   			</ul>
+		   			<div>
+		   				全部课程列表分页
+		   			</div>
+		   		</div>
+		   		<!-- 全部课程列表结束 -->
+		   		<!-- 正在进行列表开始 -->
+		   		<div class="cf item"  itemname="leaning_clist">
+		   			<ul class="cf cListContWrap">
+		   				{for $i=0 to 9}
+		   				<li class="cf cItem">
+		   					<a href="#" class="fl">
+		   						<img src="{$static_url}{$static_version}/images/studentMyCourse/list1.gif" alt="高考试题中的古典诗词真题解题要旨" class="cImg">
+		   					</a>
+		   					<div class="fl cDesc">
+		   						<h4 >
+		   							<a href="#" class="cTitle">高考试题中的古典诗词真题解题要旨</a>
+		   						</h4>
+		   						<span class="time">
+		   							下节课<strong>08月16日 星期一 09:00-11:00</strong>	
+		   						</span>
+		   						<!-- 进度条开始 -->
+		   						<div class="scheduleWrap">
+		   							<!-- 此处的进度条需要算出百分比 如75%-->
+		   							<div class="scheduleInner" style="width:75%"></div>
+		   						</div>
+		   						<!-- 进度条结束 -->
+		   						<span>
+		   							<strong>已上9节</strong>/共12节
+		   						</span>
+		   					</div>
+		   					<a href="#" class="cRedBtn enterBtn">进入课程</a>
+		   				</li>
+		   				{/for}
+		   			</ul>
+		   			<div>
+		   				正在进行课程列表分页
+		   			</div>
+		   		</div>
+		   		<!-- 正在进行列表结束 -->
+		   		<!-- 即将开始列表开始 -->
+		   		<div class="cf item" itemname="soon_clist">
+		   			<ul class="cf cListContWrap">
+		   				{for $i=0 to 9}
+		   				<li class="cf cItem">
+		   					<a href="#" class="fl">
+		   						<img src="{$static_url}{$static_version}/images/studentMyCourse/list1.gif" alt="高考试题中的古典诗词真题解题要旨" class="cImg">
+		   					</a>
+		   					<div class="fl cDesc">
+		   						<h4 >
+		   							<a href="#" class="cTitle">高考试题中的古典诗词真题解题要旨</a>
+		   						</h4>
+		   						<span class="time">
+		   							下节课<strong>08月16日 星期一 09:00-11:00</strong>	
+		   						</span>
+		   						<!-- 进度条开始 -->
+		   						<div class="scheduleWrap">
+		   							<!-- 此处的进度条需要算出百分比 如75%-->
+		   							<div class="scheduleInner" style="width:75%"></div>
+		   						</div>
+		   						<!-- 进度条结束 -->
+		   						<span>
+		   							<strong>已上9节</strong>/共12节
+		   						</span>
+		   					</div>
+		   					<a href="#" class="cRedBtn enterBtn">进入课程</a>
+		   				</li>
+		   				{/for}
+		   			</ul>
+		   			<div>
+		   				即将开始课程列表分页
+		   			</div>
+		   		</div>
+		   		<!-- 即将结束列表结束 -->
+		   		<!-- 已结束列表开始 -->
+		   		<div class="cf item" itemname="finished_clist">
+		   			<ul class="cf cListContWrap">
+		   				{for $i=0 to 9}
+		   				<li class="cf cItem">
+		   					<a href="#" class="fl">
+		   						<img src="{$static_url}{$static_version}/images/studentMyCourse/list1.gif" alt="高考试题中的古典诗词真题解题要旨" class="cImg">
+		   					</a>
+		   					<div class="fl cDesc">
+		   						<h4 >
+		   							<a href="#" class="cTitle">高考试题中的古典诗词真题解题要旨</a>
+		   						</h4>
+		   						<span class="time">
+		   							下节课<strong>08月16日 星期一 09:00-11:00</strong>	
+		   						</span>
+		   						<!-- 进度条开始 -->
+		   						<div class="scheduleWrap">
+		   							<!-- 此处的进度条需要算出百分比 如75%-->
+		   							<div class="scheduleInner" style="width:75%"></div>
+		   						</div>
+		   						<!-- 进度条结束 -->
+		   						<span>
+		   							<strong>已上9节</strong>/共12节
+		   						</span>
+		   					</div>
+		   					<a href="#" class="cRedBtn enterBtn">进入课程</a>
+		   				</li>
+		   				{/for}
+		   			</ul>
+		   			<div>
+		   				已结束课程列表分页
+		   			</div>
+		   		</div>
+		   		<!-- 已结束列表结束 -->
+		   </div>
+		</div>
+		<!-- 我的课程tab切换内容结束 -->
+		<!-- 最新课程开始 -->
+		<h4 class="pageName">最新课程</h4>
+		<div class="cf nearlyWrap list_tabs">
+			<!-- 最新课程tab切换头部开始 -->
+			<div class="cf neatrlyHeader">
+				<ul class="nav_tabs nearlyTabs">
+					<li class="tabItem firstTab active" link="nearly_clist">
+						<a href="#">近期课程</a>
+					</li>
+					<li class="tabItem " link="hot_clist">
+						<a href="#">热报课程</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 最新课程tab切换头部结束 -->
+			<!-- 最新课程tab切换内容开始 -->
+			<div class="cf tabContent">
+				<!-- 近期课程列表开始 -->
+				<div class="cf item active" itemname="nearly_clist">
+					<ul class="cf nearlyContList">
+						{for $i=0 to 2}
+						<li class="fl nItem">
+							<a href="#" class="cnImgWrap">
+								<img src="{$static_url}{$static_version}/images/studentMyCourse/nearly1.gif" alt="" class="nItemImg">
+							</a>
+							<div class="teacherWrap">
+								<div class="cf teacherTop">
+									<a href="#" class="fl">
+										<img class="teacherImg" src="{$static_url}{$static_version}/images/studentMyCourse/teacher-pic.gif" alt="">
+									</a>
+									<span class="fl teacherInfo">
+										<span class="tName">贺加贝</span>
+										<span class="tAge">
+											10年教龄
+										</span>
+									</span>
+								</div>
+								<p class="teacherDesc">
+									80后，麻辣女教师
+									10年教龄，曾在学而思等知名机构任教
+									她认真负责、教学严谨，曾获...
+								</p>
+							</div>
+							<div class="ncDesc" >
+								<h4 class="ncTitle">
+									针对高考，重新建立语文的学习，重
+									新建立语文的学习
+								</h4>
+								<span class="cf valueList">
+									<span class="fl price">
+										￥128
+									</span>
+									<span class="fr classmate">1799人已学习</span>
+								</span>
+							</div>
+							
+							
+						</li>
+						{/for}
+					</ul>
+				</div>
+				<!-- 近期课程列表结束 -->
+				<!-- 热报课程列表开始 -->
+				<div class="cf item" itemname="hot_clist">
+					<ul class="cf nearlyContList">
+						{for $i=0 to 2}
+						<li class="fl nItem">
+							<a href="#" class="cnImgWrap">
+								<img src="{$static_url}{$static_version}/images/studentMyCourse/nearly2.gif" alt="" class="nItemImg">
+							</a>
+							<div class="teacherWrap">
+								<div class="cf teacherTop">
+									<a href="#" class="fl">
+										<img src="{$static_url}{$static_version}/images/studentMyCourse/teacher-pic.gif" alt="">
+									</a>
+									<span class="fl teacherInfo">
+										<span class="tName">贺加贝</span>
+										<span class="tAge">
+											10年教龄
+										</span>
+									</span>
+								</div>
+								<p class="teacherDesc">
+									80后，麻辣女教师
+									10年教龄，曾在学而思等知名机构任教
+									她认真负责、教学严谨，曾获...
+								</p>
+							</div>
+							<div class="ncDesc" >
+								<h4 class="ncTitle">
+									针对高考，重新建立语文的学习，重
+									新建立语文的学习
+								</h4>
+								<span class="cf valueList">
+									<span class="fl price">
+										￥128
+									</span>
+									<span class="fr classmate">1799人已学习</span>
+								</span>
+							</div>
+							
+							
+						</li>
+						{/for}
+					</ul>
+				</div>
+				<!-- 热报课程列表结束 -->
+			</div>
+			<!-- 最新课程tab切换内容结束 -->
+		</div>
+		<!-- 最新课程结束 -->
+    </div> 
     <!-- 右侧框架结束 -->
     <!-- 左侧框架开始 -->
     <div class="slide fl" id="slide">
-		{include file="www/include/studentMyCourse/myCourseLeft.htm"}
+		<div class="cf userInfo">
+			<a href="#" class="fl imgWrap">
+				<img src="{$static_url}{$static_version}/images/studentMyCourse/user-img.gif" alt="">
+			</a>
+			<h3 class="fr userName">
+				<a href="#" class="name">李天一</a>
+				<span class="grade">
+					三年级
+				</span>
+			</h3>
+			<div class="cf fr infoDesc">
+				<div class="icon tel">
+					<div class="tipWrap">
+						绑定手机134****3967
+						<span class="arrow"></span>
+					</div>
+				</div>
+				<div class="icon edit">
+					<div class="tipWrap">
+						编辑资料
+						<span class="arrow"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="cf leftNavLinks">
+			<li class="lItem active">
+				<a href="#">我的课程</a>
+			</li>
+			<li class="lItem">
+				<a href="#">我的订单</a>
+			</li>
+			<li class="lItem">
+				<a href="#">基本资料</a>
+			</li>
+		</ul>
     </div>
     <!-- 左侧框架结束 -->
 </div>
