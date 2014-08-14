@@ -470,7 +470,7 @@ class NH_Session extends CI_Session {
 
     function sess_update()
     {
-        log_message('debug_nahao', 'session sess_update() is called');
+        //log_message('debug_nahao', 'session sess_update() is called');
         // We only update the session every five minutes by default
         if (($this->userdata['last_activity'] + $this->sess_time_to_update) >= $this->now)
         {
