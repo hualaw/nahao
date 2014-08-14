@@ -3,11 +3,11 @@
 $config['template_dir'] = array('default'=>APPPATH.'views','lib'=>APPPATH.'views');
 $config['compile_dir'] = APPPATH.'templates_c';
 $config['cache_dir'] = APPPATH.'cache';
-$config['caching'] = true;
+$config['caching'] = false;
 $config['lifetime'] = 14400;
 $config['debugging'] = false;
 $config['compile_check'] = true;
-$config['force_compile'] = false;
+$config['force_compile'] = true;
 $config['left_delimiter'] = '{';
 $config['right_delimiter'] = '}';
 
