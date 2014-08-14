@@ -131,4 +131,27 @@ class Student_Index extends NH_Model{
 		}
 		return $array_data;
     }
+
+    /**
+     * 根据条件获取round count
+     * @param $arr_where
+     * @param $int_start
+     * @param $int_limit
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_round_list($arr_where,$int_start,$int_limit){
+        $arr_return = array();
+
+        return $arr_return;
+    }
+
+    /**
+     * 返回直播课列表
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_live_classes(){
+
+    }
 }

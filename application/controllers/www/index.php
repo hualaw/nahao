@@ -5,7 +5,7 @@ class Index extends NH_User_Controller {
 
     function __construct(){
         parent::__construct();
-        $this->load->model('business/student/student_index');
+        $this->load->model('business/student/student_index','student');
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('business/common/business_area');
         $this->load->model('business/common/business_school');
@@ -23,17 +23,17 @@ class Index extends NH_User_Controller {
      * 首页获取轮的列表信息
      * $debug == 1 显示测试的课程列表，否则把测试的过滤掉
      */
-	public function index()
+	public function index_OLD()
 	{  
 		if(isset($_GET['nh_debug']) && ($_GET['nh_debug']== '1'))
 		{
-			$array_data = $this->student_index->get_course_latest_round_list();
+			$array_data = $this->student->get_course_latest_round_list();
 		} else {
-			$array_data = $this->student_index->get_course_latest_round_list();
+			$array_data = $this->student->get_course_latest_round_list();
 			if($array_data)
 			{
 				#没有加nh_dbug参数 过滤掉测试轮
-				$array_data =$this->student_index->filter_test_round($array_data);
+				$array_data =$this->student->filter_test_round($array_data);
 			}
 		}
         //var_dump($array_data);
@@ -53,6 +53,35 @@ class Index extends NH_User_Controller {
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
 	}
+
+    public function index(){
+        //param init
+        $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $int_stage_id = $this->input->get('stage_id') ? intval($this->input->get('stage_id')) : 0 ;
+        $arr_where = $int_stage_id > 0 ? array('stage_id' => $int_stage_id) : array();
+
+        //直播课
+        $arr_live_classes = $this->student->get_live_classes();
+
+        //课列表
+
+        $int_round_count = $this->student->get_round_count($arr_where);
+        $arr_round_list = $this->student->get_round_list($arr_where, $int_start,PER_PAGE_NO);
+
+        //pagination
+        $this->load->library('pagination');
+        $config = config_item('page_www');
+        $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
+        $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
+        $config['total_rows'] = $int_round_count;
+        $config['per_page'] = PER_PAGE_NO;
+        $this->pagination->initialize($config);
+        parse_str($this->input->server('QUERY_STRING'),$arr_query_param);
+
+        $this->smarty->assign('live_list', $arr_live_classes);
+        $this->smarty->assign('round_list', $arr_round_list);
+        $this->smarty->display('www/studentHomePage/index.html');
+    }
 	
 	/**
 	 * 我要开课
@@ -157,7 +186,7 @@ class Index extends NH_User_Controller {
             "name"=>$name,
 	        "user_id"=>$user_id
 	    );
-	    $bool_flag = $this->student_index->save_apply_teach($array_data);
+	    $bool_flag = $this->student->save_apply_teach($array_data);
 	    header('Content-Type:text/html;CHARSET=utf-8');
 	    if ($bool_flag)
 	    {
