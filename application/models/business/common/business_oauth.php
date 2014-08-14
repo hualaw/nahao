@@ -101,8 +101,6 @@ class Business_Oauth extends NH_Model
         //update db
         $update_data = array('avatar' => $result['avatar_key']);
         $this->business_user->modify_user($update_data, $user_id);
-        //session
-        $this->session->set_userdata('avatar', $result['avatar_key']);
         $result['success'] = true;
         $result['msg'] = '上传成功';
         return $result;
@@ -110,16 +108,15 @@ class Business_Oauth extends NH_Model
 
     public function do_login($user_info){
         $user_id = $user_info['id']; //获取email注册用户的user_id
+        $phone_mask = $user_info['phone_mask'];
+        $phone_mask = (strpos($phone_mask, '*') !== false) ? $phone_mask : phone_blur($phone_mask);
+        $phone = $user_info['phone_mask'];
         if($user_id && $user_info['phone_verified']) {
             $phone = get_pnum_phone_server($user_id);
-        }else{
-            $phone = '';
         }
         log_message('debug_nahao', "In business_oauth, user_id is $user_id , phone is $phone");
         $reg_type = 3;
         $remb_me = 1;
-        $phone_mask = $user_info['phone_mask'];
-        $phone_mask = (strpos($phone_mask, '*') !== false) ? $phone_mask : phone_blur($phone_mask);
         //set session data
         $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],
             $phone, $phone_mask, $user_info['email'], $reg_type, $user_info['teach_priv'], $remb_me);

@@ -12,6 +12,9 @@ class oauth extends NH_Controller
     }
 
     public function tizi_oauth_login(){
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
+        
         $config = $this->config->item('tizi');
         $tizi = new TiziOauth($config);
         $tizi->tizi_login();

@@ -20,4 +20,9 @@ class MyTest extends CI_Controller{
         $this->smarty->assign('time_nocache', $time);
         $this->smarty->display($template,$cache_id);
     }
+    /*
+    public function oauth(){
+        var_dump($this->session->userdata('phone'));
+    }
+    */
 } 
