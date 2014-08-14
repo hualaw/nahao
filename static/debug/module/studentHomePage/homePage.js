@@ -23,6 +23,7 @@ define(function(require,exports){
 				var _targetOrder=this.bannerList.eq(index),_targetBanner=this.bannerList.eq(index);
 				console.log(_targetOrder);
 				console.log(_targetBanner);
+				
 			},
 			next:function(){
 
