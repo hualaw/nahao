@@ -90,7 +90,8 @@
 .studentHomePage .stuListInner{width: 10000px;}
 .studentHomePage .stuList{}
 .studentHomePage .stuList li{float: left;width: 122px;}
-.studentHomePage .stuList li .stuName{display: block;text-align: center;width: 90px;}
+.studentHomePage .stuList li img{width: 90px;height: 90px; border-radius: 50%;}
+.studentHomePage .stuList li .stuName{display: block;text-align: center;width: 90px;margin-top: 13px;}
 /*学院风采结束*/
 /*媒体报道开始*/
 .studentHomePage .mediaListWrap{margin-top: 10px;height: 148px;border:1px solid #e0e0e0;margin-bottom: 35px;background-color: #fff;}
