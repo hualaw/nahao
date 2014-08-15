@@ -32,6 +32,7 @@
                     {if $array_data}
                     {foreach from=$array_data item=item}
                     <li class="fl">
+                        <a target="_blank" href="{$course_url}ke_{$item.id}.html">
                         <div class="clBoxShaow iniBox">
                             {if $item.sale_price == '0'}
                             <div class="courseFree"></div>
@@ -75,6 +76,7 @@
 
                             <p class="courseTitle" title="{$item.title}">{$item.title}</p>
                         </div>
+                        </a>
                     </li>
                     {/foreach}
                     {/if}
