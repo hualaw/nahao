@@ -48,7 +48,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .floatBox a.feedback{margin-top: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
 .floatBox .feedback{background-image: url(../../images/common/feedback.jpg);}
-.floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;}
+.floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;display: none;}
 .floatBox a:hover{background-color: #f7f7f7; }
 .floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
 .floatBox .feedback:hover{background-image: url(../../images/common/hfeedback.jpg);}
