@@ -68,7 +68,7 @@
             <td>{$v.lesson_count}</td>
             <td>{$v.nickname}</td>
             <td>{if isset($v.status)}{$course_status[$v.status]}{/if}</td>
-            <td>{if $v.education_type gt 0}{$education_subjects[$v.education_type][$v.subject]}{else}0{/if}</td>
+            <td>{if $v.education_type gt 0}{$education_subjects[$v.education_type][$v.subject]}{else}{/if}</td>
             <td>{$course_types[$v.course_type]}</td>
             <td>{date('Y-m-d H:i',$v.create_time)}</td>
             <td>
