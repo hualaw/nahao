@@ -12,6 +12,7 @@ define(function(require,exports){
 	// 选择学校组件
 	require('module/common/method/setSchool');
 
+
 	if($("#wrapContent").hasClass("myOrderCon")){
 		// 退课 申请状态 验证
 		_valid.applyFrom();
@@ -33,7 +34,12 @@ define(function(require,exports){
     	//修改头像 定位
 	    _myCourse.changedHead();
 	}
+
 	if($("#wrapContent").hasClass("myCourseCon")){
+		//tab切换初始化
+		require.async("module/studentHomePage/tab_nav",function(ex){
+            ex.init();
+        });
 	    //最新课程页面跳转
 	    _myCourse.new_class_skip();
 	}

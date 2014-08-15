@@ -11,164 +11,778 @@
     {include file="www/include/var.htm"}
     <!-- 加载头部公共变量定义结束 -->
 </head>
-<body>
+<body class="navHomepage">
 <!-- 头部开始 -->
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap studentHomePage" id="nahaoModule" module="studentHomePage" data_page="studentPage">
-    <div class="contop">
-        <!-- 首页轮播 -->
-        <div class="roll">
-            <ul class="cf rollList">
-            </ul>
-            <ol class="cf rollNav">
-            </ol>
-        </div>
-        <!-- course show -->
-        <div class="courseBox">
-            <div class="layout">
-                <ul class="cf courseList">
-                    {if $array_data}
-                    {foreach from=$array_data item=item}
-                    <li class="fl">
-                        <a target="_blank" href="{$course_url}ke_{$item.id}.html">
-                        <div class="clBoxShaow iniBox">
-                            {if $item.sale_price == '0'}
-                            <div class="courseFree"></div>
-                            {/if}
-                            <img src="{$item.img}" alt="">
+<div class="cf wrap layout studentHomePage" id="nahaoModule" module="studentHomePage" data_page="studentPage">
+	<!-- 左侧内容区开始 -->
+	<div class="fl content cf">
+		<!-- banner轮播开始 -->
+		<div class="cf">
+			<div class="fr banner bannerScroll" id="indexBanner">
+				<ul class="cf rollList">
+		            <li class="fl rollshow" >
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+		            <li class="fl">
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+		             <li class="fl">
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+		             <li class="fl">
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+	        	</ul>
+				<!-- banner焦点开始 -->
+				<ol class="cf rollNav indexlist">
+	            	<li class="fl active">1</li>
+	            	<li class="fl">2</li>
+	            	<li class="fl">3</li>
+	            	<li class="fl">4</li>
+	        	</ol>
+				<!-- banner焦点结束 -->
+				<!-- 左右切换开始 -->
+				<a class="bannerSlide next" href="javascript:void(0)"></a>
+				<a class="bannerSlide prev" href="javascript:void(0)"></a>
+				<!-- 左右切换结束 -->
+			</div>
+		</div>
+		<!-- banner轮播结束 -->
+		<!-- 进行中的直播课开始 -->
+		<div class="cf liveLessonWrap bannerScroll">
+			<!-- 直播课的header开始 -->
+			<div class="hd cf liveLessHead">
+				<h2 class="fl liveTitle">
+					进行中的直播课
+				</h2>
+				<ol class="cf fr bannerOrder">
+					<li class="fr active"></li>
+					<li class="fr"></li>
+					<li class="fr"></li>
+					<li class="fr"></li>
+				</ol>
+			</div>
+			<!-- 直播课的header开始 -->
+			<!-- 直播课的切换开始 -->
+			<div class="liveViewWrap bannerView">
+				<div class="bd innerWrap">
+					<ul class="cf liveList">
+						<li>
+							<div class="liveLess">
+								<a href="#">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic1.gif" alt="">
+									<!-- 标签列表开始 -->
+									<span class="markList">
+										<span class="mark blueMark">正在直播</span>
+									</span>
+									<!-- 标签列表结束 -->
+								</a>
+								<!-- 直播课的简介开始 -->
+								<p>
+									<span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
+									<!-- 直播课时间开始 -->
+									<span>08月16日<span class="time">16:00-16:45</span></span>
+									<!-- 直播客时间结束 -->
+								</p>
+								<!-- 直播课的简介结束 -->
+							</div>
+						</li>
+						<li>
+							<div class="liveLess">
+								<a href="#">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic2.gif" alt="">
+									<!-- 标签列表开始 -->
+									<span class="markList">
+										<span class="mark greenMark">即将开始</span>
+									</span>
+									<!-- 标签列表结束 -->
+								</a>
+								<!-- 直播课的简介开始 -->
+								<p>
+									<span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
+									<!-- 直播课时间开始 -->
+									<span>08月16日<span class="time">16:00-16:45</span></span>
+									<!-- 直播客时间结束 -->
+								</p>
+								<!-- 直播课的简介结束 -->
+							</div>
+						</li>
+						<li>
+							<div class="liveLess">
+								<a href="#">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic3.gif" alt="">
+									<!-- 标签列表开始 -->
+									<span class="markList">
+										<!-- 单个标签开始 -->
+										<span></span>
+										<!-- 单个标签结束 -->
+									</span>
+									<!-- 标签列表结束 -->
+								</a>
+								<!-- 直播课的简介开始 -->
+								<p>
+									<span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
+									<!-- 直播课时间开始 -->
+									<span>08月16日<span class="time">16:00-16:45</span></span>
+									<!-- 直播客时间结束 -->
+								</p>
+								<!-- 直播课的简介结束 -->
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 直播课的切换结束 -->
+			<!-- 左右切换开始 -->
+			<a class="bannerSlide next" href="javascript:void(0)"></a>
+			<a class="bannerSlide prev" href="javascript:void(0)"></a>
+			<!-- 左右切换结束 -->
+		</div>
+		<!-- 进行中的直播课结束 -->
 
-                            <div class="iniInfor">
-                                <p class="courseTitle">{$item.title}</p>
+		<!-- 课程列表开始 -->
+		<div class="cListWrap list_tabs">
+			<!-- 课程列表的头部tab开始 -->
+			<div class="cf cTitle">
+				<ul class="cf fl tabList ">
+					<li class="tabItem firstTab active" link="cl_all_list">
+						<a href="#">
+							全部课程
+							<span class="bBr"></span>
+						</a>
+					</li>
+					<li class="tabItem" link="cl_primary_list">
+						<a href="#">
+							小学
+							<span class="bBr"></span>
+						</a>
+					</li>
+					<li class="tabItem" link="cl_middle_list">
+						<a href="#">
+							初中
+							<span class="bBr"></span>
+						</a>
+					</li>
+					<li class="tabItem" link="cl_high_list">
+						<a href="#">
+							高中
+							<span class="bBr"></span>
+						</a>
+						<span class="bottomBr"></span>
+					</li>
+				</ul>
+				<a href="#" class="fr moreLink">更多</a>
+			</div>
+			<!-- 课程列表的头部tab结束 -->
+			<!-- 课程列表开始 -->
+			<div class="cf listCont">
+				<!-- 的tab内容区开始 -->
+				<div class="cf tabContent">
+					<!-- 全部课程开始 -->
+					<div class="cf item active" itemname="cl_all_list">
+						<div class="cf">
+							{for $i=0 to 5}
+							<!-- 单个课程信息开始 -->
+							<div class="cItem">
+								<!-- 标签列表开始 -->
+								<span class="markList">
+									<span class="mark greenMark">限时抢购</span>
+									<span class="mark blueMark">正在直播</span>
+								</span>
+								<!-- 标签列表结束 -->
+								<a href="#" class="courseDesc">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
+								</a>
+								<!-- hover时候显示的教师信息开始 -->
+								<div class="hoverDesc">
+									<div class="innerDesc">
+										<!-- 教师图像和简介开始 -->
+										<div class="cf teacherWrap">
+											<a href="#" class="fl">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+											</a>
+											<!-- 教师姓名和教龄开始 -->
+											<a class="fl teacherName" href="#">
+												<strong>
+													贺加贝1
+												</strong>
+												<span>
+													10年教龄
+												</span>
+											</a>
+											<!-- 教师姓名和教龄结束 -->
+										</div>
+										<!-- 教师图像和简介结束 -->
+										<!-- 教师介绍开始 -->
+										<a class="teacherDesc" href="#">
+											80后，麻辣女教师<br/>
+											8年教龄，曾在学而思等知名机构任教<br/>
+											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
+											她重点大学英语专业，拥有多年一线教学经验<br/>
+											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
+											有人大附清华附也有四中八中
+										</a>
+										<!-- 教师介绍结束 -->
+									</div>
+								</div>
+								<!-- hover时候显示的教师信息结束 -->
+								<!-- 课程标题和简介开始 -->
+								<h3 class="ctitle">
+									<a href="#">
+										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
+										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
+			之美。</span>
+									</a>
+								</h3>
+								<!-- 课程标题和简介结束 -->
+								<!-- 课程价格开始 -->
+								<p class="cDetail">
+									<span class="price">￥<strong>258</strong></span>
+									<span class="cVal">价值<span>￥500</span>
+									</span>
+									<a href="#" class="cRedBtn learnBtn">马上学习</a>
+								</p>
+								<!-- 课程价格结束 -->
+								<div class="cf cBottom">
+									<span class="fl">09月18日<span class="time">10:00</span></span>
+									<span class="fr">
+										<strong>438</strong>人已学习
+									</span>
+								</div>
+							</div>
+							<!-- 单个课程信息结束 -->
+							{/for}
+						</div>
+						<!-- 全部课程分页开始 -->
+						<div class="pager">
+							全部课程分页
+						</div>
+						<!-- 全部课程分页结束 -->
+					</div>
+					<!-- 全部课程结束 -->
+					<!-- 小学课程开始 -->
+					<div class="cf item" itemname="cl_primary_list">
+						<div class="cf">
+							{for $i=0 to 5}
+							<!-- 单个课程信息开始 -->
+							<div class="cItem">
+								<!-- 标签列表开始 -->
+								<span class="markList">
+									<span class="mark greenMark">限时抢购</span>
+									<span class="mark blueMark">正在直播</span>
+								</span>
+								<!-- 标签列表结束 -->
+								<a href="#" class="courseDesc">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
+								</a>
+								<!-- hover时候显示的教师信息开始 -->
+								<div class="hoverDesc">
+									<div class="innerDesc">
+										<!-- 教师图像和简介开始 -->
+										<div class="cf teacherWrap">
+											<a href="#" class="fl">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+											</a>
+											<!-- 教师姓名和教龄开始 -->
+											<a class="fl teacherName" href="#">
+												<strong>
+													贺加贝2
+												</strong>
+												<span>
+													10年教龄
+												</span>
+											</a>
+											<!-- 教师姓名和教龄结束 -->
+										</div>
+										<!-- 教师图像和简介结束 -->
+										<!-- 教师介绍开始 -->
+										<a class="teacherDesc" href="#">
+											80后，麻辣女教师<br/>
+											8年教龄，曾在学而思等知名机构任教<br/>
+											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
+											她重点大学英语专业，拥有多年一线教学经验<br/>
+											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
+											有人大附清华附也有四中八中
+										</a>
+										<!-- 教师介绍结束 -->
+									</div>
+								</div>
+								<!-- hover时候显示的教师信息结束 -->
+								<!-- 课程标题和简介开始 -->
+								<h3 class="ctitle">
+									<a href="#">
+										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
+										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
+			之美。</span>
+									</a>
+								</h3>
+								<!-- 课程标题和简介结束 -->
+								<!-- 课程价格开始 -->
+								<p class="cDetail">
+									<span class="price">￥<strong>258</strong></span>
+									<span class="cVal">价值<span>￥500</span>
+									</span>
+									<a href="#" class="cRedBtn learnBtn">马上学习</a>
+								</p>
+								<!-- 课程价格结束 -->
+								<div class="cf cBottom">
+									<span class="fl">09月18日<span class="time">10:00</span></span>
+									<span class="fr">
+										<strong>438</strong>人已学习
+									</span>
+								</div>
+							</div>
+							<!-- 单个课程信息结束 -->
+							{/for}
+						</div>
+						<!-- 小学课程分页开始 -->
+						<div class="pager">
+							小学课程分页
+						</div>
+						<!-- 小学课程分页结束 -->
+					</div>
+					<!-- 小学课程结束 -->
+					<!-- 初中课程开始 -->
+					<div class="cf item" itemname="cl_middle_list">
+						<div class="cf">
+							{for $i=0 to 5  }
+							<!-- 单个课程信息开始 -->
+							<div class="cItem">
+								<!-- 标签列表开始 -->
+								<span class="markList">
+									<span class="mark greenMark">限时抢购</span>
+									<span class="mark blueMark">正在直播</span>
+								</span>
+								<!-- 标签列表结束 -->
+								<a href="#" class="courseDesc">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
+								</a>
+								<!-- hover时候显示的教师信息开始 -->
+								<div class="hoverDesc">
+									<div class="innerDesc">
+										<!-- 教师图像和简介开始 -->
+										<div class="cf teacherWrap">
+											<a href="#" class="fl">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+											</a>
+											<!-- 教师姓名和教龄开始 -->
+											<a class="fl teacherName" href="#">
+												<strong>
+													贺加贝3
+												</strong>
+												<span>
+													10年教龄
+												</span>
+											</a>
+											<!-- 教师姓名和教龄结束 -->
+										</div>
+										<!-- 教师图像和简介结束 -->
+										<!-- 教师介绍开始 -->
+										<a class="teacherDesc" href="#">
+											80后，麻辣女教师<br/>
+											8年教龄，曾在学而思等知名机构任教<br/>
+											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
+											她重点大学英语专业，拥有多年一线教学经验<br/>
+											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
+											有人大附清华附也有四中八中
+										</a>
+										<!-- 教师介绍结束 -->
+									</div>
+								</div>
+								<!-- hover时候显示的教师信息结束 -->
+								<!-- 课程标题和简介开始 -->
+								<h3 class="ctitle">
+									<a href="#">
+										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
+										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
+			之美。</span>
+									</a>
+								</h3>
+								<!-- 课程标题和简介结束 -->
+								<!-- 课程价格开始 -->
+								<p class="cDetail">
+									<span class="price">￥<strong>258</strong></span>
+									<span class="cVal">价值<span>￥500</span>
+									</span>
+									<a href="#" class="cRedBtn learnBtn">马上学习</a>
+								</p>
+								<!-- 课程价格结束 -->
+								<div class="cf cBottom">
+									<span class="fl">09月18日<span class="time">10:00</span></span>
+									<span class="fr">
+										<strong>438</strong>人已学习
+									</span>
+								</div>
+							</div>
+							<!-- 单个课程信息结束 -->
+							{/for}
+						</div>
+						<!-- 初中课程分页开始 -->
+						<div class="pager">
+							初中课程分页
+						</div>
+						<!-- 初中课程分页结束 -->
+					</div>
+					<!-- 初中课程结束 -->
+					<!-- 高中课程开始 -->
+					<div class="cf item" itemname="cl_high_list">
+						<div class="cf">
+							{for $i=0 to 5  }
+							<!-- 单个课程信息开始 -->
+							<div class="cItem">
+								<!-- 标签列表开始 -->
+								<span class="markList">
+									<span class="mark greenMark">限时抢购</span>
+									<span class="mark blueMark">正在直播</span>
+								</span>
+								<!-- 标签列表结束 -->
+								<a href="#" class="courseDesc">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
+								</a>
+								<!-- hover时候显示的教师信息开始 -->
+								<div class="hoverDesc">
+									<div class="innerDesc">
+										<!-- 教师图像和简介开始 -->
+										<div class="cf teacherWrap">
+											<a href="#" class="fl">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+											</a>
+											<!-- 教师姓名和教龄开始 -->
+											<a class="fl teacherName" href="#">
+												<strong>
+													贺加贝4
+												</strong>
+												<span>
+													10年教龄
+												</span>
+											</a>
+											<!-- 教师姓名和教龄结束 -->
+										</div>
+										<!-- 教师图像和简介结束 -->
+										<!-- 教师介绍开始 -->
+										<a class="teacherDesc" href="#">
+											80后，麻辣女教师<br/>
+											8年教龄，曾在学而思等知名机构任教<br/>
+											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
+											她重点大学英语专业，拥有多年一线教学经验<br/>
+											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
+											有人大附清华附也有四中八中
+										</a>
+										<!-- 教师介绍结束 -->
+									</div>
+								</div>
+								<!-- hover时候显示的教师信息结束 -->
+								<!-- 课程标题和简介开始 -->
+								<h3 class="ctitle">
+									<a href="#">
+										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
+										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
+			之美。</span>
+									</a>
+								</h3>
+								<!-- 课程标题和简介结束 -->
+								<!-- 课程价格开始 -->
+								<p class="cDetail">
+									<span class="price">￥<strong>258</strong></span>
+									<span class="cVal">价值<span>￥500</span>
+									</span>
+									<a href="#" class="cRedBtn learnBtn">马上学习</a>
+								</p>
+								<!-- 课程价格结束 -->
+								<div class="cf cBottom">
+									<span class="fl">09月18日<span class="time">10:00</span></span>
+									<span class="fr">
+										<strong>438</strong>人已学习
+									</span>
+								</div>
+							</div>
+							<!-- 单个课程信息结束 -->
+							{/for}
+						</div>
+						<!-- 高中课程分页开始 -->
+						<div class="pager">
+							高中课程分页
+						</div>
+						<!-- 高中课程分页结束 -->
+					</div>
+					<!-- 高中课程结束 -->
+				</div>
+				
+			</div>
+		</div>
+			<!-- 课程列表结束 -->
+			<!-- 学员风采开始 -->
+			<div class="stuListWrap">
+				<!-- 学员风采header开始 -->
+				<div class="cf tHeader">
+					<h2 class="fl stusTitle">学员风采</h2>
+				</div>
+				<!-- 学员风采header结束 -->
+				<!-- 学员风采内容开始 -->
+				<div class="stuListCont bannerScroll">
+					<div class="stuListView bannerView">
+						<div class="stuListInner">
+							<ul class="cf stuList">
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/1.png" alt="杨同学">
+									<span class="stuName">
+										杨同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/2.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/3.png" alt="杨同学">
+									<span class="stuName">
+										杨同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/4.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/5.png" alt="杨同学">
+									<span class="stuName">
+										杨同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/6.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- 左右切换开始 -->
+					<a class="bannerSlide next" href="javascript:void(0)"></a>
+					<a class="bannerSlide prev" href="javascript:void(0)"></a>
+					<!-- 左右切换结束 -->
+				</div>
+				<!-- 学员风采内容结束 -->
+			</div>
+			<!-- 学员风采结束 -->
+			<!-- 媒体报道开始 -->
+			<div class="mediaListWrap">
+				<!-- 媒体报道头部开始 -->
+				<div class="cf tHeader">
+					<h2 class="fl mediaTitle">媒体报道</h2>
+				</div>
+				<!-- 媒体报道头部结束 -->
+				<div class="mediaCont bannerScroll">
+					<div class="mediaListView bannerView">
+						<div class="mediaListInner">
+							<ul class="mediaList">
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md1.gif" alt="">
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md2.gif" alt="">
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md3.gif" alt="">
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md4.gif" alt="">
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md5.gif" alt="">
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<!-- 左右切换开始 -->
+					<a class="bannerSlide next" href="javascript:void(0)"></a>
+					<a class="bannerSlide prev" href="javascript:void(0)"></a>
+					<!-- 左右切换结束 -->
+				</div>
+			</div>
+			<!-- 媒体报道结束 -->
+	</div>
+	<!-- 左侧内容区结束 -->
+	<!-- 右侧边栏开始 -->
+	<div class="cf fr rSlide">
+		<!-- 登录框开始 -->
+		<div class="loginWrap">
+			<h4 class="loginTitle">快速注册,免费送学习诊断</h4>
+			<div class="inputWrap">
+				<input type="text" placeholder="手机号,可用手机号码直接登录">
+			</div>
+			<div class="inputWrap">
+				<input type="password" placeholder="密码">
+			</div>
+			<div class="inputWrap">
+				<input type="text" placeholder="qq号(方便对您个性化诊断)">
+			</div>
+			<div class="hasNophone">
+				<a href="#">没有手机，请点击这里！</a>
+			</div>
+			<div>
+				<input type="submit" value="免费注册，立即获得诊断" class="loginBtn">
+			</div>
+		</div>
+		<!-- 登录框结束 -->
+		<!-- 服务保障开始 -->
+		<div class="assuranceWrap">
+			<div class="tHeader">
+				服务保障
+			</div>
+			<ul class="cf bd contList">
+				<li>
+					<a href="#">
+						<img src="{$static_url}{$static_version}/images/studentHomePage/server1.gif" alt="">
+						<span class="serverName">专业师资</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{$static_url}{$static_version}/images/studentHomePage/server2.gif" alt="">
+						<span class="serverName">互动直播</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{$static_url}{$static_version}/images/studentHomePage/server3.gif" alt="">
+						<span class="serverName">免费试听</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{$static_url}{$static_version}/images/studentHomePage/server4.gif" alt="">
+						<span class="serverName">随时退款</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 服务保障结束 -->
+		<!-- 关于我们开始 -->
+		<div class="aboutUsWrap">
+			<div class="tHeader">
+				关于我们
+			</div>
+			<ul class="ourList">
+				<li class="cf">
+					<a href="http://weibo.com/gonghaiyan" target="_blank" class="fl picWrap">
+						<img class="aboutImg" src="{$static_url}{$static_version}/images/studentHomePage/ghy.gif" alt="小龙女龚海燕">
+					</a>
+					<div class="text fr">
+						<h3>
+							<a href="http://weibo.com/gonghaiyan" target="_blank" class="sv">
+								小龙女龚海燕
+							</a>
+						</h3>
+						<p class="cf bottom">
+							<a href="http://weibo.com/gonghaiyan" target="_blank" class="attention fl">
+								<span>
+									<em class="addicon">+</em>
+									关注
+								</span>
+							</a>
+							<a href="http://v.youku.com/v_show/id_XNjQxMzcyMTE2.html" class="dream fr" target="_blank">
+								<span>
+									追梦人
+								</span>
+							</a>
+						</p>
+					</div>
+				</li>
+				<li class="cf">
+					<a href="http://weibo.com/xuxiaoping" target="_blank" class="fl picWrap">
+						<img class="aboutImg" src="{$static_url}{$static_version}/images/studentHomePage/xxp.gif" alt="徐小平老师">
+					</a>
+					<div class="text fr">
+						<h3>
+							<a href="http://weibo.com/xuxiaoping" target="_blank">
+								徐小平老师
+							</a>
+						</h3>
+						<p class="cf">
+							天使投资
+						</p>
+					</div>
+				</li>
+				<li class="cf">
+					<span class="fl picWrap">
+						<img class="aboutImg" src="{$static_url}{$static_version}/images/studentHomePage/bdjy.gif" alt="北京大学教育学院战略合作">
+					</span>
+					<div class="text fr">
+						<h3>
+							<span>
+								北京大学教育学院<br>战略合作
+							</span>
+						</h3>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 关于我们结束 -->
+		<!-- 广告列表开始 -->
+		<div class="adListWrap">
+			<div class="adItem">
+				<img src="{$static_url}{$static_version}/images/studentHomePage/ad/advertise1.gif" alt="">
+			</div>
+		</div>
+		<!-- 广告列表结束 -->
+		<!-- 浏览记录开始 -->
+		<div class="historyWrap">
+			<div class="hd hHeader">
+				最近浏览
+				<a href="#" class="fr deletHistory">清空</a>
+			</div>
+			<!-- 无浏览记录开始 -->
+			<div class="noHistory">
+				暂无浏览记录
+			</div>
+			<!-- 无浏览记录结束 -->
+			<!-- 有浏览记录开始 -->
+			<div class="bd historyList">
+				<!-- 单条浏览记录开始 -->
+				<a class="cf hItem" href="#">
+					<img class="hPic" src="{$static_url}{$static_version}/images/studentHomePage/history/history1.png" alt="" class="fl">
+					<span class="fr hDesc">
+						<span class="hSmallTitle">针对高考，重新建
+立语文的学习...</span>
+						<span class="valList">
 
-                                <div class="cf">
-                                    <span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
-                                    <span class="fr"><em class="redText">{$item.bought_count+111}</em>人</span>
-                                </div>
-                                <div class="cf fitGrade">
-                                    <span class="fl">适合{$item.for_people}</span>
-                                    <span class="fr">{$item.class_nums}课次</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clBoxShaow rotateBox posr" data-action="{$course_url}ke_{$item.id}.html"
-                             title="{$item.title}">
-                            <div class="teaInfor cf">
-                                <img src="{$item.teacher.avatar}" alt="头像" class="fl">
+							<strong class="price">￥128</strong>
+							<span class="val">2000</span>
+						</span>
+					</span>
+				</a>
+				<!-- 单条浏览记录结束 -->
+				<!-- 单条浏览记录开始 -->
+				<a class="cf hItem" href="#">
+					<img class="hPic" src="{$static_url}{$static_version}/images/studentHomePage/history/history1.png" alt="" class="fl">
 
-                                <div class="fl teaInforR">
-                                    <!--工作证，称职证，教师证（1-5）-->
-                                    <h3 class="cf">
-                                        <em class="fl">{$item.teacher.nickname}</em>
-                                        <span {if $item.teacher.work_auth}class="workCard
-                                        fl"{else}class="fl"{/if}></span>
-                                        <span {if $item.teacher.titile_auth}class="TitleCard
-                                        fl"{else}class="fl"{/if}></span>
-                                        <span {if $item.teacher.teacher_auth}class="teaCard
-                                        fl"{else}class="fl"{/if}></span>
-                                    </h3>
+					<span class="fr hDesc">
+						<span class="hSmallTitle">针对高考，重新建
+立语文的学习...</span>
+						<span class="valList">
 
-                                    <p class="detailInfor">{$item.teacher.teacher_signature}</p>
-                                </div>
-                            </div>
-                            <p class="brief">{$item.subtitle|truncate:56:"...":true}</p>
-
-                            <p class="courseTitle" title="{$item.title}">{$item.title}</p>
-                        </div>
-                        </a>
-                    </li>
-                    {/foreach}
-                    {/if}
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-    {foreach $focus_photo as $v}
-    <input type="hidden" value="{$v.img_src},{$v.link},{$v.color}" class="focus_photo_class"/>
-    {/foreach}
-
-    <input type="hidden" value="{$smarty.const.NH_QINIU_URL}" class="qiniu"/>
-
-    <div class="conft layout">
-        <div class="advantageBox">
-            <ul class="advantage cf">
-                <li class="fl ad1">
-                    <div class="adline"></div>
-                    <h2>专业师资</h2>
-                    <span class="line"></span>
-
-                    <p>全部教师经过严苛选拔、学术扎实、经验丰富</p>
-                </li>
-                <li class="fl ad2">
-                    <div class="adline"></div>
-                    <h2>互动直播</h2>
-                    <span class="line"></span>
-
-                    <p>师生仿佛面对面，拉近沟通距离</p>
-                </li>
-                <li class="fl ad3">
-                    <div class="adline"></div>
-                    <h2>贴心服务</h2>
-                    <span class="line"></span>
-
-                    <p>免费试听、随时退款、省时省力</p>
-                </li>
-            </ul>
-        </div>
-
-        <!-- 师资 课程 学校 合作 开始 -->
-        <div class="cooph cf posr">
-            <div class="headBg investor fl"></div>
-            <a href="{$student_url}about/wish"><div class="headBg founder fl"></div></a>
-            <div class="headBg coopSchool fl"></div>
-            <div class="coopft cf">
-                <span class="fl"></span>
-                <span class="fr"></span>
-
-                <div class="coopere cf">
-                    <h3 class="fl">徐小平天使投资</h3>
-
-                    <h3 class="fl">龚海燕倾心创办</h3>
-
-                    <h3 class="fl">北京大学教育学院战略合作</h3>
-                </div>
-            </div>
-        </div>
-        <div class="coopBox">
-            <div class="coopBoxh cf">
-                <h3 class="fl coopComW">课程、师资合作</h3>
-
-                <h3 class="fr coopComW">学校、机构合作</h3>
-            </div>
-            <div class="coopBoxCon">
-                <div class="cf">
-                    <div class="fl coopComW">
-                        <p class="dt">如果您是某个领域的教学专家</p>
-
-                        <p class="dl">如果您有一门精彩的课程，希望让更多中小学生从中受益，<br>那好欢迎您！</p>
-                        <!-- 						<p class="dt edudt">如果您是一家教育机构</p>
-                                                <p class="dl">您有自己独到的优秀教育资源，希望扩展影响力或市场；</p> -->
-                    </div>
-                    <div class="fr coopComW">
-                        <p class="dt">如果您是学校、机构</p>
-
-                        <p class="dl">您希望我们专门为您的学校提供定制的课程，<br>或者希望与我们开展更深入的合作！</p>
-                        <!-- 						<p class="dt edudt">如果您是一家教育机构</p>
-                                                <p class="dl">希望那好课堂为您提供个性化的服务；</p> -->
-                    </div>
-                </div>
-                <p class="fp">
-                    <a href="">那好期待与您的合作</a>
-                    <a href="javascript:vold(0);" class="phoneHref">400-864-8686</a>
-                    <a href="" class="mess">hezuo@nahao.com</a>
-                </p>
-            </div>
-        </div>
-        <!-- 师资 课程 学校 合作 结束 -->
-    </div>
+							<strong class="price">￥128</strong>
+							<span class="val">2000</span>
+						</span>
+					</span>
+				</a>
+				<!-- 单条浏览记录结束 -->
+			</div>
+			<!-- 无浏览记录开始 -->
+		</div>
+		<!-- 浏览记录结束 -->
+	</div>
+	<!-- 右侧边栏结束 -->
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->

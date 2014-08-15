@@ -1,73 +1,46 @@
-define(function (require, exports) {
+define(function(require,exports){
+	//首页初始化函数
+	exports.init=function(){
+		//初始化幻灯切换
+		//require("module/studentHomePage/slide").init();
+		//初始化首页的标签页
+		require("module/studentHomePage/tab_nav").init();
+		exports.bannerInit();
+	}
+	//初始化首页的banner
+	exports.bannerInit=function(){
+		var _banner=function(item,bannerList,orederList,time){
+			this.item=item;
+			this.time=time;
+			this.bannerList=bannerList;
+			this.orederList=orederList;
+		}
+		_banner.prototype={
+			index:function(index){
+				var _index=orederList.filter(".active").index();
+				console(_index);
+				if((!index&&index!==0)||_index==index){return;}
+				var _targetOrder=this.bannerList.eq(index),_targetBanner=this.bannerList.eq(index);
+				console.log(_targetOrder);
+				console.log(_targetBanner);
+				
+			},
+			next:function(){
 
-    //首页页面我的课程跳转
-    exports.skip = function () {
-        $(".courseBox").on("click", '.rotateBox', function () {
-            var url = $(this).data('action');
-            window.open(url);
-        });
-    }
-    //大图轮播
-    exports.roll = function () {
-        var baseSrc = $(".qiniu").val();
+			},
+			prev:function(){
 
-        for (var i = 0; i < $(".focus_photo_class").length; i++) {
-            $(".rollList").append('<li class="fl">' +
-                '<a href="' + $(".focus_photo_class").eq(i).val().split(",")[1] + '" target="_blank" style="background:url(' + baseSrc + $(".focus_photo_class").eq(i).val().split(",")[0] + ') center top no-repeat ' + $(".focus_photo_class").eq(i).val().split(",")[2] + '"></a>' +
-                '</li>');
-            $(".rollNav").append('<li class="fl"></li>');
-            if (i == 0) {
-                $(".rollList li").eq(0).addClass("rollshow");
-                $(".rollNav li").eq(0).addClass("active");
-            }
-            var $navLi = $(".rollNav li"),
-                $conLi = $(".roll ul li");
-        }
-        //首页 大图滚动
+			},
+			pause:function(){
 
-        var ind = 0,
-            timer = null,
-            timer2 = null;
-
-        function oAnimate() {
-            $navLi.removeClass("active");
-            $navLi.eq(ind).addClass("active");
-
-            $conLi.removeClass("rollshow").stop().animate({opacity: 0});
-            $conLi.eq(ind).addClass("rollshow").stop().animate({opacity: 1});
-        }
-
-        function move() {
-            //console.log(ind);
-            ind++;
-            if (ind >= $conLi.length) {
-                ind = 0
-            }
-            oAnimate();
-        }
-
-        function otimer() {
-            timer = setInterval(move, 5000);
-            //console.log(ind);
-        }
-
-        otimer();
-        function mouseObj(obj) {
-            obj.mouseover(function () {
-                clearInterval(timer);
-                clearTimeout(timer2);
-                ind = $(this).index();
-
-                oAnimate();
-            });
-            obj.mouseout(function () {
-                timer2 = setTimeout(function () {
-                    otimer();
-                }, 2000);
-            });
-        }
-
-        mouseObj($navLi);
-        mouseObj($conLi);
-    }
+			},
+			start:function(){
+				var _this=this;
+				this.orederList.mouseover(function(){
+					_this.index($(this).index());
+				});
+			}
+		}
+		new _banner($("#indexBanner"),$("#indexBanner .rollList li"),$("#indexBanner .rollNav li"),5000).start();
+	}
 })

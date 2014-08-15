@@ -1,5 +1,6 @@
+body{background:#f8f8f8;}
 a {text-decoration:none;color:#333;}
-a:hover {text-decoration:none;}
+a:hover {text-decoration:none;color:#c60301;}
 .layout:after,
 .hd:after,
 .bd:after,
@@ -20,7 +21,7 @@ a:hover {text-decoration:none;}
 .blueText:hover{text-decoration: underline;color:#6dcde6;}
 .grayText{color: #a3adb7;}
 .yh{font-family: "微软雅黑";font-weight: normal;}
-.cInput{border: 1px solid #a2a2a2;padding: 0 10px;font-size: 14px;height: 30px;line-height: 30px;}
+.cInput{border: 1px solid #e5e5e5;padding: 0 10px;font-size: 14px;height: 30px;line-height: 30px;}
 .undis{display: none;}
 .dis{display: block;}
 .undisIm{display:none!important;}
