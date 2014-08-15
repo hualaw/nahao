@@ -15,11 +15,14 @@ class Student_Member extends NH_Model{
      * @param  $int_user_id
      * @return $array_return
      */
-    public function get_my_course_for_buy($int_user_id,$status = '')
+    public function get_my_course_for_buy($int_user_id,$status = '',$offset = 0)
     {
         $array_return = array();
-        $array_return = $this->model_member->get_my_course_for_buy($int_user_id,$status);
-        //var_dump($array_return);die;
+//        echo $int_user_id;
+//        echo $status;
+//        exit;
+        $array_return = $this->model_member->get_my_course_for_buy($int_user_id,$status,$offset);
+//        var_dump($array_return);die;
         if ($array_return)
         {
             foreach ($array_return as $k=>$v)

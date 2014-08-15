@@ -20,15 +20,26 @@ class Member extends NH_User_Controller {
     /**
      * 我的课程
      */
-	public function my_course($status = '')
+	public function my_course($offset=0)
 	{  
         header('content-type: text/html; charset=utf-8');
         $int_user_id = $this->session->userdata('user_id');#TODO用户id
         #我购买的课程
-        $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id,$status);
+        #全部课程
+        $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
+        #正在进行的课程
+        $course_living = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASSING);
+//        print_r($course_living);
+//        exit;
+        #即将开始
+        $course_soon_class = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_SOON_CLASS);
+        #已结束
+        $course_over = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASS_OVER);
         //var_dump($array_buy_course);
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
+//        print_r($array_new);
+//        exit;
 		if($array_new)
 		{
 			#没有加nh_dbug参数 过滤掉测试轮
@@ -43,16 +54,34 @@ class Member extends NH_User_Controller {
         }
 
         $array_new = array_slice($array_new,0,3,true);
+        $array_hot = array_slice($array_hot,0,3,true);
         $course_url = config_item('course_url');
+
+        $this->smarty->assign('action','my_course');
         $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_buy_course', $array_buy_course);
+        $this->smarty->assign('course_living', $course_living);
+        $this->smarty->assign('course_soon_class', $course_soon_class);
+        $this->smarty->assign('course_over', $course_over);
         $this->smarty->assign('array_new', $array_new);
         $this->smarty->assign('array_hot', $array_hot);
         $this->smarty->assign('page_type', 'myCourse');
         $this->smarty->display('www/studentMyCourse/index.html');
 	}
-	
-	/**
+
+    /**
+     * ajax得到对应的我的课程
+     */
+    public function ajax_get_my_course($status = '',$offset = 0)
+    {
+        $data = array();
+        $int_user_id = $this->session->userdata('user_id');#TODO用户id
+        $my_course = $this->student_member->get_my_course_for_buy($int_user_id,$status,$offset);
+        $data['my_course'] = $my_course;
+        $this->load->view('www/studentMyCourse/my_course.inc',$data);
+    }
+
+    /**
 	 * 我的订单
 	 */
 	public function my_order($str_type = 'all')
@@ -88,6 +117,7 @@ class Member extends NH_User_Controller {
         $cancel_count  = $this->student_member->get_order_count($int_user_id,'cancel');
         $refund_count  = $this->student_member->get_order_count($int_user_id,'refund');
 
+        $this->smarty->assign('action','my_order');
         $this->smarty->assign('str_type', $str_type);
 	    $this->smarty->assign('array_order_list', $array_order_list);
 	    $this->smarty->assign('all_count', $all_count);
@@ -388,6 +418,7 @@ class Member extends NH_User_Controller {
         }
 //         print_r($this->_userdata);
 //         exit();
+        $this->smarty->assign('action', 'my_infor');
         $this->smarty->assign('gender', $gender);
         $this->smarty->assign('subjects', $subjects);
         $this->smarty->assign('subject_str', $subject_str);

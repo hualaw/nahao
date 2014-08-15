@@ -10,7 +10,7 @@
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
 </head>
-<body>
+<body class="navHomepage">
 <!-- 头部开始 -->
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
@@ -20,17 +20,27 @@
 	<div class="fl content cf">
 		<!-- banner轮播开始 -->
 		<div class="cf">
-			<div class="fr banner bannerScroll">
+			<div class="fr banner bannerScroll" id="indexBanner">
 				<ul class="cf rollList">
-		            <li class="fl rollshow" style="opacity: 1;">
+		            <li class="fl rollshow" >
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+		            <li class="fl">
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+		             <li class="fl">
+		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            </li>
+		             <li class="fl">
 		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
 		            </li>
 	        	</ul>
 				<!-- banner焦点开始 -->
-				<ol class="cf rollNav">
-	            	<li class="fl active"></li>
-	            	<li class="fl"></li>
-	            	<li class="fl"></li>
+				<ol class="cf rollNav indexlist">
+	            	<li class="fl active">1</li>
+	            	<li class="fl">2</li>
+	            	<li class="fl">3</li>
+	            	<li class="fl">4</li>
 	        	</ol>
 				<!-- banner焦点结束 -->
 				<!-- 左右切换开始 -->
@@ -56,7 +66,7 @@
 			</div>
 			<!-- 直播课的header开始 -->
 			<!-- 直播课的切换开始 -->
-			<div class="liveViewWrap">
+			<div class="liveViewWrap bannerView">
 				<div class="bd innerWrap">
 					<ul class="cf liveList">
 						<li>
@@ -173,6 +183,7 @@
 					<!-- 全部课程开始 -->
 					<div class="cf item active" itemname="cl_all_list">
 						<div class="cf">
+							{for $i=0 to 5}
 							<!-- 单个课程信息开始 -->
 							<div class="cItem">
 								<!-- 标签列表开始 -->
@@ -242,144 +253,7 @@
 								</div>
 							</div>
 							<!-- 单个课程信息结束 -->
-							<!-- 单个课程信息开始 -->
-							<div class="cItem">
-								<!-- 标签列表开始 -->
-								<span class="markList">
-									<span class="mark greenMark">限时抢购</span>
-									<span class="mark blueMark">正在直播</span>
-								</span>
-								<!-- 标签列表结束 -->
-								<a href="#" class="courseDesc">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
-								</a>
-								<!-- hover时候显示的教师信息开始 -->
-								<div class="hoverDesc">
-									<div class="innerDesc">
-										<!-- 教师图像和简介开始 -->
-										<div class="cf teacherWrap">
-											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
-											</a>
-											<!-- 教师姓名和教龄开始 -->
-											<a class="fl teacherName" href="#">
-												<strong>
-													贺加贝1
-												</strong>
-												<span>
-													10年教龄
-												</span>
-											</a>
-											<!-- 教师姓名和教龄结束 -->
-										</div>
-										<!-- 教师图像和简介结束 -->
-										<!-- 教师介绍开始 -->
-										<a class="teacherDesc" href="#">
-											80后，麻辣女教师<br/>
-											8年教龄，曾在学而思等知名机构任教<br/>
-											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
-											她重点大学英语专业，拥有多年一线教学经验<br/>
-											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
-											有人大附清华附也有四中八中
-										</a>
-										<!-- 教师介绍结束 -->
-									</div>
-								</div>
-								<!-- hover时候显示的教师信息结束 -->
-								<!-- 课程标题和简介开始 -->
-								<h3 class="ctitle">
-									<a href="#">
-										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
-										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
-			之美。</span>
-									</a>
-								</h3>
-								<!-- 课程标题和简介结束 -->
-								<!-- 课程价格开始 -->
-								<p class="cDetail">
-									<span class="price">￥<strong>258</strong></span>
-									<span class="cVal">价值<span>￥500</span>
-									</span>
-									<a href="#" class="cRedBtn learnBtn">马上学习</a>
-								</p>
-								<!-- 课程价格结束 -->
-								<div class="cf cBottom">
-									<span class="fl">09月18日<span class="time">10:00</span></span>
-									<span class="fr">
-										<strong>438</strong>人已学习
-									</span>
-								</div>
-							</div>
-							<!-- 单个课程信息结束 -->
-							<!-- 单个课程信息开始 -->
-							<div class="cItem">
-								<!-- 标签列表开始 -->
-								<span class="markList">
-									<span class="mark greenMark">限时抢购</span>
-									<span class="mark blueMark">正在直播</span>
-								</span>
-								<!-- 标签列表结束 -->
-								<a href="#" class="courseDesc">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
-								</a>
-								<!-- hover时候显示的教师信息开始 -->
-								<div class="hoverDesc">
-									<div class="innerDesc">
-										<!-- 教师图像和简介开始 -->
-										<div class="cf teacherWrap">
-											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
-											</a>
-											<!-- 教师姓名和教龄开始 -->
-											<a class="fl teacherName" href="#">
-												<strong>
-													贺加贝1
-												</strong>
-												<span>
-													10年教龄
-												</span>
-											</a>
-											<!-- 教师姓名和教龄结束 -->
-										</div>
-										<!-- 教师图像和简介结束 -->
-										<!-- 教师介绍开始 -->
-										<a class="teacherDesc" href="#">
-											80后，麻辣女教师<br/>
-											8年教龄，曾在学而思等知名机构任教<br/>
-											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
-											她重点大学英语专业，拥有多年一线教学经验<br/>
-											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
-											有人大附清华附也有四中八中
-										</a>
-										<!-- 教师介绍结束 -->
-									</div>
-								</div>
-								<!-- hover时候显示的教师信息结束 -->
-								<!-- 课程标题和简介开始 -->
-								<h3 class="ctitle">
-									<a href="#">
-										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
-										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
-			之美。</span>
-									</a>
-								</h3>
-								<!-- 课程标题和简介结束 -->
-								<!-- 课程价格开始 -->
-								<p class="cDetail">
-									<span class="price">￥<strong>258</strong></span>
-									<span class="cVal">价值<span>￥500</span>
-									</span>
-									<a href="#" class="cRedBtn learnBtn">马上学习</a>
-								</p>
-								<!-- 课程价格结束 -->
-								<div class="cf cBottom">
-									<span class="fl">09月18日<span class="time">10:00</span></span>
-									<span class="fr">
-										<strong>438</strong>人已学习
-									</span>
-								</div>
-							</div>
-							<!-- 单个课程信息结束 -->
+							{/for}
 						</div>
 						<!-- 全部课程分页开始 -->
 						<div class="pager">
@@ -391,6 +265,7 @@
 					<!-- 小学课程开始 -->
 					<div class="cf item" itemname="cl_primary_list">
 						<div class="cf">
+							{for $i=0 to 5}
 							<!-- 单个课程信息开始 -->
 							<div class="cItem">
 								<!-- 标签列表开始 -->
@@ -413,7 +288,7 @@
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
 												<strong>
-													贺加贝1
+													贺加贝2
 												</strong>
 												<span>
 													10年教龄
@@ -460,75 +335,7 @@
 								</div>
 							</div>
 							<!-- 单个课程信息结束 -->
-							<!-- 单个课程信息开始 -->
-							<div class="cItem">
-								<!-- 标签列表开始 -->
-								<span class="markList">
-									<span class="mark greenMark">限时抢购</span>
-									<span class="mark blueMark">正在直播</span>
-								</span>
-								<!-- 标签列表结束 -->
-								<a href="#" class="courseDesc">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
-								</a>
-								<!-- hover时候显示的教师信息开始 -->
-								<div class="hoverDesc">
-									<div class="innerDesc">
-										<!-- 教师图像和简介开始 -->
-										<div class="cf teacherWrap">
-											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
-											</a>
-											<!-- 教师姓名和教龄开始 -->
-											<a class="fl teacherName" href="#">
-												<strong>
-													贺加贝1
-												</strong>
-												<span>
-													10年教龄
-												</span>
-											</a>
-											<!-- 教师姓名和教龄结束 -->
-										</div>
-										<!-- 教师图像和简介结束 -->
-										<!-- 教师介绍开始 -->
-										<a class="teacherDesc" href="#">
-											80后，麻辣女教师<br/>
-											8年教龄，曾在学而思等知名机构任教<br/>
-											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
-											她重点大学英语专业，拥有多年一线教学经验<br/>
-											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
-											有人大附清华附也有四中八中
-										</a>
-										<!-- 教师介绍结束 -->
-									</div>
-								</div>
-								<!-- hover时候显示的教师信息结束 -->
-								<!-- 课程标题和简介开始 -->
-								<h3 class="ctitle">
-									<a href="#">
-										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
-										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
-			之美。</span>
-									</a>
-								</h3>
-								<!-- 课程标题和简介结束 -->
-								<!-- 课程价格开始 -->
-								<p class="cDetail">
-									<span class="price">￥<strong>258</strong></span>
-									<span class="cVal">价值<span>￥500</span>
-									</span>
-									<a href="#" class="cRedBtn learnBtn">马上学习</a>
-								</p>
-								<!-- 课程价格结束 -->
-								<div class="cf cBottom">
-									<span class="fl">09月18日<span class="time">10:00</span></span>
-									<span class="fr">
-										<strong>438</strong>人已学习
-									</span>
-								</div>
-							</div>
-							<!-- 单个课程信息结束 -->
+							{/for}
 						</div>
 						<!-- 小学课程分页开始 -->
 						<div class="pager">
@@ -540,6 +347,7 @@
 					<!-- 初中课程开始 -->
 					<div class="cf item" itemname="cl_middle_list">
 						<div class="cf">
+							{for $i=0 to 5  }
 							<!-- 单个课程信息开始 -->
 							<div class="cItem">
 								<!-- 标签列表开始 -->
@@ -562,7 +370,7 @@
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
 												<strong>
-													贺加贝1
+													贺加贝3
 												</strong>
 												<span>
 													10年教龄
@@ -609,75 +417,7 @@
 								</div>
 							</div>
 							<!-- 单个课程信息结束 -->
-							<!-- 单个课程信息开始 -->
-							<div class="cItem">
-								<!-- 标签列表开始 -->
-								<span class="markList">
-									<span class="mark greenMark">限时抢购</span>
-									<span class="mark blueMark">正在直播</span>
-								</span>
-								<!-- 标签列表结束 -->
-								<a href="#" class="courseDesc">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
-								</a>
-								<!-- hover时候显示的教师信息开始 -->
-								<div class="hoverDesc">
-									<div class="innerDesc">
-										<!-- 教师图像和简介开始 -->
-										<div class="cf teacherWrap">
-											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
-											</a>
-											<!-- 教师姓名和教龄开始 -->
-											<a class="fl teacherName" href="#">
-												<strong>
-													贺加贝1
-												</strong>
-												<span>
-													10年教龄
-												</span>
-											</a>
-											<!-- 教师姓名和教龄结束 -->
-										</div>
-										<!-- 教师图像和简介结束 -->
-										<!-- 教师介绍开始 -->
-										<a class="teacherDesc" href="#">
-											80后，麻辣女教师<br/>
-											8年教龄，曾在学而思等知名机构任教<br/>
-											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
-											她重点大学英语专业，拥有多年一线教学经验<br/>
-											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
-											有人大附清华附也有四中八中
-										</a>
-										<!-- 教师介绍结束 -->
-									</div>
-								</div>
-								<!-- hover时候显示的教师信息结束 -->
-								<!-- 课程标题和简介开始 -->
-								<h3 class="ctitle">
-									<a href="#">
-										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
-										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
-			之美。</span>
-									</a>
-								</h3>
-								<!-- 课程标题和简介结束 -->
-								<!-- 课程价格开始 -->
-								<p class="cDetail">
-									<span class="price">￥<strong>258</strong></span>
-									<span class="cVal">价值<span>￥500</span>
-									</span>
-									<a href="#" class="cRedBtn learnBtn">马上学习</a>
-								</p>
-								<!-- 课程价格结束 -->
-								<div class="cf cBottom">
-									<span class="fl">09月18日<span class="time">10:00</span></span>
-									<span class="fr">
-										<strong>438</strong>人已学习
-									</span>
-								</div>
-							</div>
-							<!-- 单个课程信息结束 -->
+							{/for}
 						</div>
 						<!-- 初中课程分页开始 -->
 						<div class="pager">
@@ -689,6 +429,7 @@
 					<!-- 高中课程开始 -->
 					<div class="cf item" itemname="cl_high_list">
 						<div class="cf">
+							{for $i=0 to 5  }
 							<!-- 单个课程信息开始 -->
 							<div class="cItem">
 								<!-- 标签列表开始 -->
@@ -711,7 +452,7 @@
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
 												<strong>
-													贺加贝1
+													贺加贝4
 												</strong>
 												<span>
 													10年教龄
@@ -758,75 +499,7 @@
 								</div>
 							</div>
 							<!-- 单个课程信息结束 -->
-							<!-- 单个课程信息开始 -->
-							<div class="cItem">
-								<!-- 标签列表开始 -->
-								<span class="markList">
-									<span class="mark greenMark">限时抢购</span>
-									<span class="mark blueMark">正在直播</span>
-								</span>
-								<!-- 标签列表结束 -->
-								<a href="#" class="courseDesc">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/cpic1.gif" alt="">
-								</a>
-								<!-- hover时候显示的教师信息开始 -->
-								<div class="hoverDesc">
-									<div class="innerDesc">
-										<!-- 教师图像和简介开始 -->
-										<div class="cf teacherWrap">
-											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
-											</a>
-											<!-- 教师姓名和教龄开始 -->
-											<a class="fl teacherName" href="#">
-												<strong>
-													贺加贝1
-												</strong>
-												<span>
-													10年教龄
-												</span>
-											</a>
-											<!-- 教师姓名和教龄结束 -->
-										</div>
-										<!-- 教师图像和简介结束 -->
-										<!-- 教师介绍开始 -->
-										<a class="teacherDesc" href="#">
-											80后，麻辣女教师<br/>
-											8年教龄，曾在学而思等知名机构任教<br/>
-											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
-											她重点大学英语专业，拥有多年一线教学经验<br/>
-											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
-											有人大附清华附也有四中八中
-										</a>
-										<!-- 教师介绍结束 -->
-									</div>
-								</div>
-								<!-- hover时候显示的教师信息结束 -->
-								<!-- 课程标题和简介开始 -->
-								<h3 class="ctitle">
-									<a href="#">
-										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
-										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
-			之美。</span>
-									</a>
-								</h3>
-								<!-- 课程标题和简介结束 -->
-								<!-- 课程价格开始 -->
-								<p class="cDetail">
-									<span class="price">￥<strong>258</strong></span>
-									<span class="cVal">价值<span>￥500</span>
-									</span>
-									<a href="#" class="cRedBtn learnBtn">马上学习</a>
-								</p>
-								<!-- 课程价格结束 -->
-								<div class="cf cBottom">
-									<span class="fl">09月18日<span class="time">10:00</span></span>
-									<span class="fr">
-										<strong>438</strong>人已学习
-									</span>
-								</div>
-							</div>
-							<!-- 单个课程信息结束 -->
+							{/for}
 						</div>
 						<!-- 高中课程分页开始 -->
 						<div class="pager">
@@ -849,43 +522,43 @@
 				<!-- 学员风采header结束 -->
 				<!-- 学员风采内容开始 -->
 				<div class="stuListCont bannerScroll">
-					<div class="stuListView">
+					<div class="stuListView bannerView">
 						<div class="stuListInner">
 							<ul class="cf stuList">
 								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/media1.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/1.png" alt="杨同学">
 									<span class="stuName">
 										杨同学
 									</span>
 								</li>
 								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/media2.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/2.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/3.png" alt="杨同学">
 									<span class="stuName">
 										杨同学
 									</span>
 								</li>
 								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/media3.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/4.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li>
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/5.png" alt="杨同学">
 									<span class="stuName">
 										杨同学
 									</span>
 								</li>
 								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/media4.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/6.png" alt="张同学">
 									<span class="stuName">
-										杨同学
-									</span>
-								</li>
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/media1.gif" alt="">
-									<span class="stuName">
-										杨同学
-									</span>
-								</li>
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/media2.gif" alt="">
-									<span class="stuName">
-										杨同学
+										张同学
 									</span>
 								</li>
 							</ul>
@@ -907,7 +580,7 @@
 				</div>
 				<!-- 媒体报道头部结束 -->
 				<div class="mediaCont bannerScroll">
-					<div class="mediaListView">
+					<div class="mediaListView bannerView">
 						<div class="mediaListInner">
 							<ul class="mediaList">
 								<li>
