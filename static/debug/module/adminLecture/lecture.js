@@ -130,7 +130,7 @@ define(function(require,exports){
             $.ajax({
                 type:"post",
                 url:"/lecture/agree_lecture",
-                data:"lecture_id="+$('#lecture_id').val()+'&start_time='+$('#start_time').val()+'&end_time='+$('#end_time').val()+'&subject='+$('#subject').val()+'&course='+$('#course').val()+'&user_id='+$('#user_id').val(),
+                data:"lecture_id="+$('#lecture_id').val()+'&start_time='+$('#start_time').val()+'&end_time='+$('#end_time').val()+'&subject='+$('#subject').val()+'&course='+$('#course').val()+'&user_id='+$('#user_id').val()+'&qq='+ $.trim($('#qq').html()),
                 success:function(msg){
                     if(msg>0)
                     {
