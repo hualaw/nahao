@@ -52,9 +52,9 @@
         public function modify_affiche()
         {
             $id=$this->input->get('affiche_id',TRUE);
-            $content=$this->input->get('content',TRUE);
+            $content=$this->affiche->affiche_edit_content($id);
             $this->smarty->assign('id',$id);
-            $this->smarty->assign('content',$content);
+            $this->smarty->assign('content',$content['content']);
             $this->smarty->assign('view','modify_affiche');
             $this->smarty->display('admin/layout.html');
         }
