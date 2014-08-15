@@ -31,8 +31,9 @@
 					{if $array_data}
 					{foreach from=$array_data item=item}
 					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							{if $item.sale_price == '0'}
+                        <a target="_blank" href="{$course_url}ke_{$item.id}.html">
+                            <div class="clBoxShaow iniBox">
+                            {if $item.sale_price == '0'}
 							<div class="courseFree"></div>
 							{/if}
 							<img src="{$item.img}" alt="">
@@ -48,8 +49,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}ke_{$item.id}.html" title="{$item.title}">
-							<div class="teaInfor cf">
+                            <div class="clBoxShaow rotateBox posr" data-action="" title="{$item.title}">
+                            <div class="teaInfor cf">
 								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
 								<div class="fl teaInforR">
 									<!--工作证，称职证，教师证（1-5）-->
@@ -65,7 +66,8 @@
 							<p class="brief">{$item.subtitle|truncate:56:"...":true}</p>
 							<p class="courseTitle" title="{$item.title}">{$item.title}</p>
 						</div>
-					</li>
+                        </a>
+                    </li>
 					{/foreach}
 					{/if}
 				</ul>
