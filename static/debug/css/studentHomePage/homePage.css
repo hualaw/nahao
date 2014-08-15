@@ -4,7 +4,7 @@
 .navHomepage .topNav .categorys .title i.narrow{display: none}
 /*首页导航上的全部课程分类默认展开的样式结束*/
 .tabContent .item{display: none;}
-.tabContent .item.active{display: block;}
+.studentHomePage .tabContent .item.active{display: block;}
 .studentHomePage .learnBtn{color: #fff;height: 35px;line-height: 35px;width: 94px;display: inline-block;border-radius: 15px;text-align: center;font-size: 16px;position: absolute;right: 0px;bottom: 0px;}
 .studentHomePage .learnBtn:hover{color: #fff;}
 /*左边内容区开始*/
@@ -23,6 +23,11 @@
 .studentHomePage .bannerSlide.prev{background: url(../../images/studentHomePage/sright.gif) no-repeat;width: 36px;height: 50px;right: 0px;}
 .studentHomePage .bannerScroll:hover .bannerSlide{display: block;}
 .studentHomePage .bannerSlide:hover{opacity: 1;filter:alpha(100);}
+.studentHomePage .rollList li{opacity: 0; position: absolute;top:0px; left: 0px;}
+.studentHomePage .rollList li.rollshow{opacity: 1;}
+.studentHomePage .rollNav{position: absolute; bottom: 8px;right: 10px;}
+.studentHomePage .rollNav li{background: url(../../images/studentHomePage/banner/banner-li.png) no-repeat;width: 16px;height: 15px;color: #fff;text-align: center;line-height: 15px;font-size: 12px;margin: 0px 3px;cursor: pointer;}
+.studentHomePage .rollNav li.active{background: url(../../images/studentHomePage/banner/banner-active.png) no-repeat;}
 /*轮换公共部分结束*/
 .studentHomePage .banner{width: 570px;height: 293px;margin-top: 10px;}
 /*正在直播客开始*/
@@ -42,7 +47,7 @@
 /*正在直播客结束*/
 /*课程列表开始*/
 .studentHomePage .cListWrap{margin-top: 10px;}
-.studentHomePage .cListWrap .cTitle{height: 35px;line-height: 35px;font-size: 14px;border:1px solid #e0e0e0;background-color: #fff;}
+.studentHomePage .cListWrap .chTitle{height: 35px;line-height: 35px;font-size: 14px;border:1px solid #e0e0e0;background-color: #fff;}
 .studentHomePage .tabList{line-height: 18px;height: 18px;margin: 10px 0px 8px;}
 .studentHomePage .tabList .tabItem{float: left;height: 18px;border-left: 1px solid #e0e0e0;}
 .studentHomePage .tabList .tabItem a{text-align: center;display: block;margin: 0px 13px;padding: 0px 5px; position: relative;}
@@ -85,7 +90,8 @@
 .studentHomePage .stuListInner{width: 10000px;}
 .studentHomePage .stuList{}
 .studentHomePage .stuList li{float: left;width: 122px;}
-.studentHomePage .stuList li .stuName{display: block;text-align: center;width: 90px;}
+.studentHomePage .stuList li img{width: 90px;height: 90px; border-radius: 50%;}
+.studentHomePage .stuList li .stuName{display: block;text-align: center;width: 90px;margin-top: 13px;}
 /*学院风采结束*/
 /*媒体报道开始*/
 .studentHomePage .mediaListWrap{margin-top: 10px;height: 148px;border:1px solid #e0e0e0;margin-bottom: 35px;background-color: #fff;}

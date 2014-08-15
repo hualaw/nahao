@@ -12,10 +12,10 @@
 .studentMyCourse .identity .teaCard3{background-position: -82px 0;width: 14px;}
 .studentMyCourse .identity .teaCard4{background-position: -98px 0;width: 14px;}
 .studentMyCourse .identity .teaCard5{background-position: -114px 0;width: 14px;}
+.studentMyCourse{padding:30px 0 44px;}
+.studentMyCourse .slide{width: 180px;   height: 630px;    background:#fff;border: 1px solid #e0e0e0;}
+.studentMyCourse .wrapContent{width: 781px;}
 
-.studentMyCourse{padding:144px 0 44px;}
-.studentMyCourse .slide{margin-top: 30px;width: 190px;   height: 630px;    background:#fff;box-shadow: 1px 1px 3px rgba(6,7,7,.25),-1px -1px 3px rgba(6,7,7,.25);border: 1px solid #dbdbdb\9;}
-.studentMyCourse .wrapContent{width: 768px;}
 /* 左侧框架开始 */
 .studentMyCourse .memberInfo{text-align: center;position: absolute;top:-30px;width: 100%;}
 .studentMyCourse .memberInfo img{width: 130px;height: 130px;box-shadow: 0 0 5px rgba(6,7,7,.56);cursor: pointer;}
@@ -37,8 +37,73 @@
 .studentMyCourse .menu .mInfor:hover{background:#f7f7f7 url(../../images/studentMyCourse/hmenu3.png) 24px center no-repeat;}
 /*  左侧框架结束 */
 
+/*左侧框架开始*/
+.studentMyCourse .userInfo{margin: 20px;}
+.studentMyCourse .userInfo .imgWrap{width: 50px;height: 50px;box-shadow: 1px 1px 3px rgba(6,7,7,.25),-1px -1px 3px rgba(6,7,7,.25);overflow: hidden;}
+.studentMyCourse .userName{font-weight: normal;font-size: 12px;width: 75px;line-height: 18px;}
+.studentMyCourse .userName .name{display: block;}
+.studentMyCourse .infoDesc{width: 75px;margin-top: 8px;}
+.studentMyCourse .infoDesc .icon{width: 18px;height: 18px;border:1px solid #e0e0e0;display: block;float: left;margin-right: 5px;cursor: pointer;}
+.studentMyCourse .infoDesc .tel{background: url(../../images/studentMyCourse/tel.gif) no-repeat center #f7f7f7;}
+.studentMyCourse .infoDesc .edit{background: url(../../images/studentMyCourse/pen.gif) no-repeat center #f7f7f7;}
+.studentMyCourse .infoDesc .icon .tipWrap{display: none;position: absolute;}
+.studentMyCourse .infoDesc .icon .tipWrap.active{display: block;}
+.studentMyCourse .leftNavLinks{}
+.studentMyCourse .leftNavLinks .lItem{width: 100%;float: left;text-align: center;height: 30px;line-height: 30px;font-size: 14px;margin-bottom: 12px;}
+.studentMyCourse .leftNavLinks .lItem.active{background-color: #ce0000;color: #fff;}
+.studentMyCourse .leftNavLinks .lItem.active a{color: #fff;}
+/*左侧框架结束*/
+
 /* 右侧框架开始 */
-.studentMyCourse .pageName{font-size: 18px;color:#0e455e;border-left: 3px solid #f14211;padding-left: 6px;height: 20px;line-height: 20px;margin-bottom: 10px;}
+.studentMyCourse .nav_tabs .tabItem{cursor: pointer;}
+.studentMyCourse .nav_tabs .tabItem.active{background-color: #fff;margin-bottom: -1px;border-bottom: 1px solid #fff;}
+.studentMyCourse .nav_tabs .tabItem.active a{color:#ce0000;}
+.studentMyCourse .nav_tabs .tabItem.active a:hover{color: #ce0000;}
+.studentMyCourse .courseTabList .tabItem{float: left;width: 194px;border-left: 1px solid #e0e0e0;text-align: center;background-color: #f7f7f7;font-size: 14px;}
+.studentMyCourse .courseTabList .tabItem.firstTab{border-left: none;}
+.studentMyCourse .list_tabs .tabContent .item{display: none;}
+.studentMyCourse .list_tabs .tabContent .item.active{display: block;}
+.studentMyCourse .pageName{line-height: 20px;height: 20px;border-left: 3px solid #ce0000;padding-left: 6px;font-size: 16px;font-weight: normal;margin-bottom: 10px;}
+.studentMyCourse .pageListWrap{border:1px solid #e0e0e0;background-color: #fff;margin-bottom: 73px;}
+/*我的课程开始*/
+.studentMyCourse .cListWrap{height: 39px;line-height: 39px;border-bottom: 1px solid #e0e0e0;}
+.studentMyCourse .cListContWrap{padding: 20px;}
+.studentMyCourse .cListContWrap .cItem{margin-top: 20px;padding-bottom: 20px;border-bottom: 1px solid #e0e0e0;position: relative;}
+.studentMyCourse .cListContWrap .cItem .cImg{width: 130px; height: 82px;}
+.studentMyCourse .cListContWrap .cItem .cDesc{margin-left: 15px;height: 82px;}
+.studentMyCourse .cListContWrap .cItem .cDesc .time{display: block;height: 12px;line-height: 12px; margin-top: 6px;}
+.studentMyCourse .cListContWrap .cItem .cDesc strong{color: #ce0000;padding-right: 3px;}
+.studentMyCourse .cListContWrap .cItem .cDesc .cTitle{font-size: 14px;line-height: 14px;height: 14px;font-weight: normal;}
+.studentMyCourse .cListContWrap .cItem .cDesc .time strong{padding-right: 0px;padding-left: 3px;}
+.studentMyCourse .cListContWrap .cItem .scheduleWrap{width: 230px;height: 2px;background-color: #ccc;position: relative;margin: 20px 0px 10px;}
+.studentMyCourse .cListContWrap .cItem .scheduleWrap .scheduleInner{width: 100%;height: 2px; background-color: #ce0000;position: absolute;left: 0px;top: 0px;}
+.studentMyCourse .cListContWrap .cItem .enterBtn{position: absolute; color: #fff;width: 94px;height: 35px;line-height: 35px;text-align: center;font-size: 16px;border-radius: 18px;bottom: 20px; right: 0px;}
+/*我的课程结束*/
+/*最近课程开始*/
+.studentMyCourse .courseTabList{}
+.studentMyCourse .nearlyWrap{background-color: #fff;border:1px solid #e0e0e0;}
+.studentMyCourse .neatrlyHeader{border-bottom: 1px solid #e0e0e0;background-color: #f7f7f7;font-size: 14px;}
+.studentMyCourse .nearlyTabs{}
+.studentMyCourse .nearlyTabs .tabItem{width:389px;border-left: 1px solid #e0e0e0; float: left;line-height: 39px;height: 39px;text-align: center;}
+.studentMyCourse .nearlyTabs .tabItem.firstTab{border-left: none;}
+.studentMyCourse .nearlyContList{width: 750px;margin: 20px auto;}
+.studentMyCourse .nearlyContList .nItem{width: 238px;height: 228px;border:1px solid #e0e0e0;margin: 0px 5px;}
+.studentMyCourse .nItemImg{width: 238px;height: 152px;}
+.studentMyCourse .nearlyContList .nItem .teacherWrap{display: none;background-color: #2879a7;color: #fff;width: 238px;height: 152px;}
+.studentMyCourse .nearlyContList .nItem:hover .teacherWrap{display: block;}
+.studentMyCourse .nearlyContList .nItem:hover .cnImgWrap{display: none;}
+.studentMyCourse .nearlyContList .teacherTop{padding: 15px 15px 0px 15px;}
+.studentMyCourse .nearlyContList .teacherTop .teacherImg{width: 45px;height: 45px;}
+.studentMyCourse .nearlyContList .teacherTop .teacherInfo{height: 45px;padding-left: 12px;}
+.studentMyCourse .nearlyContList .teacherTop .tName{display: block;font-size: 14px;}
+.studentMyCourse .nearlyContList .teacherDesc{padding: 15px;line-height: 18px;}
+.studentMyCourse .nearlyContList .nItem .ncTitle{font-weight: normal;margin-bottom: 10px;}
+.studentMyCourse .nearlyContList .nItem .ncDesc{padding: 10px;}
+.studentMyCourse .nearlyContList .nItem .price{color: #ce0000;}
+.studentMyCourse .nearlyContList .nItem .classmate{color: #666666}
+/*最近课程结束*/
+
+/*右侧框架结束*/
 /*  我的课程  */
 .studentMyCourse .courseConList li{width: 230px;margin:0 35px 20px 0;box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);cursor: pointer;}
 .studentMyCourse .courseConList{margin-right: -35px;}
@@ -64,6 +129,8 @@
 .studentMyCourse .courseOver .bar{width: 100%;}
 .studentMyCourse .newList{margin-top: 20px;}
 .studentMyCourse .newList li{height: 270px;margin-top: 4px;position: relative;}
+
+
 /*  我的订单  开始*/
 .studentMyCourse .myOrderCon{font-size: 16px;}
 .studentMyCourse .tabBox{padding: 0 22px 0 15px;color:#4b4b4b;}

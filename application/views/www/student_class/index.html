@@ -5,7 +5,7 @@
 <title>我的课程</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
-<link rel="stylesheet" type="text/css" href="{static_url('/css/studentClassList/style.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentClass/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap layout studentClassList" id="nahaoModule" module="studentClassList">
+<div class="wrap layout studentClass" id="nahaoModule" module="studentClass">
 	<!-- 筛选分类开始 -->
 	<div class="filterBox">
 		<div class="filterList cf">
@@ -71,68 +71,86 @@
 	<!-- 课程列表开始 -->
 	<div class="courseBox layout cf">
 		<div class="courseLeft fl">
-			<ul class="cf">
-				<li class="courseList">
-					<img src="" alt="">
-					<div class="listMain">
-						<h3>谁不宜故乡——唐诗中思念故乡人</h3>
-						<p class="intro">本课程围绕忆故乡这一主题本课程围绕忆故乡这一主题</p>
-						<h4><span>￥</span>258</h4>
-						<p class="price">价值<span>￥2000</span></p>
-						<a class="studyNow" href="javascript:;" title="">马上学习</a>
+			<div class="cf listCont">
+				<div class="cf tabContent">
+					<div class="cf item" itemname="cl_high_list">
+						<div class="cf">
+							{for $i=0 to 3  }
+							<!-- 单个课程信息开始 -->
+							<div class="cItem">
+								<!-- 标签列表开始 -->
+								<span class="markList">
+									<span class="mark greenMark">限时抢购</span>
+									<span class="mark blueMark">正在直播</span>
+								</span>
+								<!-- 标签列表结束 -->
+								<a href="#" class="courseDesc">
+									<img src="{$static_url}{$static_version}/images/studentClass/courseImg01.jpg" alt="">
+								</a>
+								<!-- hover时候显示的教师信息开始 -->
+								<div class="hoverDesc">
+									<div class="innerDesc">
+										<!-- 教师图像和简介开始 -->
+										<div class="cf teacherWrap">
+											<a href="#" class="fl">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+											</a>
+											<!-- 教师姓名和教龄开始 -->
+											<a class="fl teacherName" href="#">
+												<strong>
+													贺加贝4
+												</strong>
+												<span>
+													10年教龄
+												</span>
+											</a>
+											<!-- 教师姓名和教龄结束 -->
+										</div>
+										<!-- 教师图像和简介结束 -->
+										<!-- 教师介绍开始 -->
+										<a class="teacherDesc" href="#">
+											80后，麻辣女教师<br/>
+											8年教龄，曾在学而思等知名机构任教<br/>
+											她认真负责、教学严谨，曾获“魅力教师”称号<br/>
+											她重点大学英语专业，拥有多年一线教学经验<br/>
+											她所教学生多混迹北京，有人大附清华附也有四中八中<br/>
+											有人大附清华附也有四中八中
+										</a>
+										<!-- 教师介绍结束 -->
+									</div>
+								</div>
+								<!-- hover时候显示的教师信息结束 -->
+								<!-- 课程标题和简介开始 -->
+								<h3 class="ctitle">
+									<a href="#">
+										<span class="cTitleName">谁不忆故人——唐诗中思念故人的诗歌鉴赏</span>
+										<span class="cTitleDesc">本课程拟围绕“忆故人”这一主题，带领学生领略唐诗
+			之美。</span>
+									</a>
+								</h3>
+								<!-- 课程标题和简介结束 -->
+								<!-- 课程价格开始 -->
+								<p class="cDetail">
+									<span class="price">￥<strong>258</strong></span><br>
+									<span class="cVal">价值<span>￥500</span>
+									</span>
+									<a href="#" class="cRedBtn learnBtn">马上学习</a>
+								</p>
+								<!-- 课程价格结束 -->
+								<div class="cf cBottom">
+									<span class="fl">开课时间  8月20号 10:00</span>
+									<span class="fr">
+										<strong>438</strong>人已学习
+									</span>
+								</div>
+							</div>
+							<!-- 单个课程信息结束 -->
+							{/for}
+						</div>
 					</div>
-					<div class="listBot cf">
-						<span class="fl">开课时间&nbsp;&nbsp;8月20号 10:00</span>
-						<span class="fr"><i>483</i>人已学习</span>
-					</div>
-					<ul class="statusBar cf"><li class="newBar"></li><li class="saleBar"></li><li class="liveBar"></li></ul>
-				</li>
-				<li class="courseList">
-					<img src="" alt="">
-					<div class="listMain">
-						<h3>谁不宜故乡——唐诗中思念故乡人</h3>
-						<p class="intro">本课程围绕忆故乡这一主题本课程围绕忆故乡这一主题</p>
-						<h4><span>￥</span>258</h4>
-						<p class="price">价值<span>￥2000</span></p>
-						<a class="studyNow" href="javascript:;" title="">马上学习</a>
-					</div>
-					<div class="listBot cf">
-						<span class="fl">开课时间&nbsp;&nbsp;8月20号 10:00</span>
-						<span class="fr"><i>483</i>人已学习</span>
-					</div>
-					<ul class="statusBar cf"><li class="liveBar"></li></ul>
-				</li>
-				<li class="courseList">
-					<img src="" alt="">
-					<div class="listMain">
-						<h3>谁不宜故乡——唐诗中思念故乡人</h3>
-						<p class="intro">本课程围绕忆故乡这一主题本课程围绕忆故乡这一主题</p>
-						<h4><span>￥</span>258</h4>
-						<p class="price">价值<span>￥2000</span></p>
-						<a class="studyNow" href="javascript:;" title="">马上学习</a>
-					</div>
-					<div class="listBot cf">
-						<span class="fl">开课时间&nbsp;&nbsp;8月20号 10:00</span>
-						<span class="fr"><i>483</i>人已学习</span>
-					</div>
-					<ul class="statusBar cf"><li class="liveBar"></li></ul>
-				</li>
-				<li class="courseList">
-					<img src="" alt="">
-					<div class="listMain">
-						<h3>谁不宜故乡——唐诗中思念故乡人</h3>
-						<p class="intro">本课程围绕忆故乡这一主题本课程围绕忆故乡这一主题</p>
-						<h4><span>￥</span>258</h4>
-						<p class="price">价值<span>￥2000</span></p>
-						<a class="studyNow" href="javascript:;" title="">马上学习</a>
-					</div>
-					<div class="listBot cf">
-						<span class="fl">开课时间&nbsp;&nbsp;8月20号 10:00</span>
-						<span class="fr"><i>483</i>人已学习</span>
-					</div>
-					<ul class="statusBar cf"><li class="newBar"></li><li class="saleBar"></li><li class="liveBar"></li></ul>
-				</li>
-			</ul>
+				</div>
+				
+			</div>
 			<div>
 				分页分页分页分页分页分页分页分页分页分页分页分页分页
 			</div>
@@ -142,17 +160,17 @@
 				<h3>猜你喜欢</h3>
 				<ul class="buyCourseList">
 					<li>
-						<img src="" alt="">
+						<img src="{$static_url}{$static_version}/images/studentClass/courseImg02.jpg" alt="">
 						<p>针对高考，重新建立语文的学习，重新建立语文的学习</p>
 						<div class="studyNum cf"><span class="fl price">￥128</span><span class="fr"><i>483</i>人已学习</span></div>
 					</li>
 					<li>
-						<img src="" alt="">
+						<img src="{$static_url}{$static_version}/images/studentClass/courseImg02.jpg" alt="">
 						<p>针对高考，重新建立语文的学习，重新建立语文的学习</p>
 						<div class="studyNum cf"><span class="fl price">￥128</span><span class="fr"><i>483</i>人已学习</span></div>
 					</li>
 					<li>
-						<img src="" alt="">
+						<img src="{$static_url}{$static_version}/images/studentClass/courseImg02.jpg" alt="">
 						<p>针对高考，重新建立语文的学习，重新建立语文的学习</p>
 						<div class="studyNum cf"><span class="fl price">￥128</span><span class="fr"><i>483</i>人已学习</span></div>
 					</li>
@@ -162,21 +180,21 @@
 				<h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
 				<ul class="historyList">
 					<li class="cf b_t_0">
-						<img class="fl" src="" alt="">
+						<img class="fl" src="{$static_url}{$static_version}/images/studentClass/courseImg03.jpg" alt="">
 						<div class="fl listRight">
 							<p>针对高考，重新建立语文的学习</p>
 							<div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
 						</div>
 					</li>
 					<li class="cf">
-						<img class="fl" src="" alt="">
+						<img class="fl" src="{$static_url}{$static_version}/images/studentClass/courseImg03.jpg" alt="">
 						<div class="fl listRight">
 							<p>针对高考，重新建立语文的学习</p>
 							<div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
 						</div>
 					</li>
 					<li class="cf">
-						<img class="fl" src="" alt="">
+						<img class="fl" src="{$static_url}{$static_version}/images/studentClass/courseImg03.jpg" alt="">
 						<div class="fl listRight">
 							<p>针对高考，重新建立语文的学习</p>
 							<div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
