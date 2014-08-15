@@ -32,7 +32,7 @@
 .topMiniNav .quickLink .attentionHover i.narrow{background-position: 0 0;}
 .topMiniNav .quickLink .attention ul{position: absolute;top: 30px;right:-1px;border-left:1px solid #e1e1e1;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;background: #fff;z-index: 2;line-height: 24px;}
 .topMiniNav .quickLink .attention ul li{width:132px;padding:10px 15px;}
-.topMiniNav .quickLink .attention .text{width:70px;margin-left:10px;}
+.topMiniNav .quickLink .attention .text{width:60px;margin-left:10px;}
 .topMiniNav .quickLink .attention img.fl{margin-top:8px;}
 .topMiniNav .quickLink .attention .text i.v{background:url(../../images/common/header/ico_v.gif) no-repeat;width:17px;height:14px;display:block;margin-top:6px;margin-left:5px;}
 .topMiniNav .quickLink .attention .text .add{background:url(../../images/common/header/attention_btn.gif) no-repeat;width:50px;height:18px;text-indent: -999em;overflow:hidden;display:block;margin-top:5px;}

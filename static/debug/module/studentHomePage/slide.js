@@ -39,13 +39,7 @@ define(function(require,exports){
 				var _this=this;
 				var _list=this.view.find("ul");
 				_list.parent().append(_list.clone());
-				this.bannerSlide.hover(function(){
-					clearInterval(_this.autoTimer);
-				},function(){
-					_this.autoTimer=setInterval(function(){
-	                 	_this.next();
-	            	},_this.ms);
-				});
+				
 				this.bannerSlide.click(function(){
 					if($(this).hasClass("next")){
 						_this.next();
@@ -77,14 +71,23 @@ define(function(require,exports){
 						}
 					});
 				}
-				this.view.hover(function(){
-					clearInterval(_this.autoTimer);
-				},function(){
-					_this.autoTimer=setInterval(function(){
-	                 	_this.next();
-	            	},_this.ms);
-				});
+
 				if(this.ms){
+					this.bannerSlide.hover(function(){
+						clearInterval(_this.autoTimer);
+					},function(){
+						clearInterval(_this.autoTimer);
+						_this.autoTimer=setInterval(function(){
+		                 	_this.next();
+		            	},_this.ms);
+					});
+					this.view.hover(function(){clearInterval(_this.autoTimer);},function(){
+						clearInterval(_this.autoTimer);
+						_this.autoTimer=setInterval(function(){
+		                 	_this.next();
+		            	},_this.ms);
+					});
+					clearInterval(_this.autoTimer);
 					_this.autoTimer=setInterval(function(){
 	                 	_this.next();
 	            	},_this.ms);
