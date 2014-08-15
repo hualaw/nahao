@@ -504,4 +504,65 @@ class Student_Course extends NH_Model{
     	$bool_return = $this->model_course->check_round_status($int_round_id);
     	return $bool_return;
     }
+    
+    /**
+     * 该课程系列的其他课程
+     * 学科辅导展示相同年级、相同科目的其他课程，最多展示5条.按照学习人数由高到低排列.
+     * 素质教育展示相同科目的其他课程，最多展示5条.按照学习人数由高到低排列
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_other_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_data = array(
+    		'type'=>$array_round['type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>5
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_other_round_data($array_data);
+    	if ($array_result){
+    		foreach ($array_result as $k=>$v){
+    			#图片地址
+    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
+    		}
+    	}
+    	return $array_result;
+    }
+    
+    /**
+     * 看过本课程的用户还看了
+     * 学科辅导展示相同年级、不同科目的其他课程，固定展示10条.按照学习人数由高到低排列.
+     * 素质教育展示不同科目的其他课程，固定展示10条.按照学习人数由高到低排列)
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_recommend_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_data = array(
+    		'type'=>$array_round['type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>10
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_recommend_round_data($array_data);
+    	if ($array_result){
+    		foreach ($array_result as $k=>$v){
+    			#图片地址
+    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
+    		}
+    	}
+    	return $array_result;
+    
+    }
 }

@@ -28,7 +28,7 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id,stage,is_live,type,edition,extra_bought_count FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -384,5 +384,45 @@ class Model_Course extends NH_Model{
     	$int_num = $this->db->query($sql)->num_rows();
     	$bool_result = $int_num > 0 ? true : false;
     	return $bool_result;
+    }
+    
+    /**
+     * 该课程系列的其他课程
+     * @param  $array_data
+     * @return $array_result
+     */
+    public function get_other_round_data($array_data)
+    {
+    	switch ($array_data['type']){
+    		case ROUND_TYPE_SUBJECT :
+    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS buy_num FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['$array_data']." AND grade_to = ".$array_data['grade_to']." AND subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			break;
+    		case ROUND_TYPE_EDUCATION :
+    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS buy_num FROM ".TABLE_ROUND." WHERE subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			break;
+    	}
+    	$array_result = array();
+    	$array_result = $this->db->query($sql)->result_array();
+    	return  $array_result;
+    }
+    
+    /**
+     * 看过本课程的用户还看了
+     * @param  $array_data
+     * @return $array_result
+     */
+    public function get_recommend_round_data($array_data)
+    {
+    	switch ($array_data['type']){
+    		case ROUND_TYPE_SUBJECT :
+    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS buy_num FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['$array_data']." AND grade_to = ".$array_data['grade_to']." AND subject != ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			break;
+    		case ROUND_TYPE_EDUCATION :
+    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS buy_num FROM ".TABLE_ROUND." WHERE subject != ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			break;
+    	}
+    	$array_result = array();
+    	$array_result = $this->db->query($sql)->result_array();
+    	return  $array_result;
     }
 }

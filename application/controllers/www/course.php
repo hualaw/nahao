@@ -36,6 +36,12 @@ class Course extends NH_User_Controller {
         $array_evaluate = $this->student_course->get_round_evaluate($int_round_id);
         #根据$int_round_id获取该轮的课程团队
         $array_team = $this->student_course->get_round_team($int_round_id);
+        
+        #该课程系列的其他课程
+        $array_other = $this->student_course->get_other_round_data($int_round_id);
+        #看过本课程的用户还看了
+        $array_recommend = $this->student_course->get_recommend_round_data($int_round_id);
+        
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
         #从链接过来的这轮如果是销售中，则购买前只显示与之相关的销售中的轮，否则显示一个过期的和与之相关的销售中的轮
