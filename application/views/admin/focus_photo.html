@@ -9,6 +9,7 @@
         <th>ID</th>
         <th>轮ID</th>
         <th>填充色</th>
+        <th>展示顺序</th>
         <th>是否显示</th>
         <th>操作</th>
     </tr>
@@ -18,8 +19,11 @@
         <td>{$v.id}</td>
         <td>{$v.round_id}</td>
         <td>{$v.color}</td>
+        <td>{$v.sort}</td>
         <td>{if $v.is_show==0}<button class="btn btn-success active show" role="button" data-id="{$v.id}" data-is_show="{$v.is_show}">启用</button>{elseif $v.is_show==1}<button class="btn btn-warning active noshow" role="button" data-id="{$v.id}" data-is_show="{$v.is_show}">屏蔽</button>{/if}</td>
-        <td><a href="#" class="modify" data-photo_id="{$v.id}" data-round_id="{$v.round_id}" data-img_src="{$v.img_src}" data-color="{$v.color}">修改</a></td>
+        <td><a href="#" class="modify" data-photo_id="{$v.id}" data-round_id="{$v.round_id}" data-img_src="{$v.img_src}" data-color="{$v.color}">修改</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="edit_sort" data-edit_id="{$v.id}"     data-sort="{$v.sort}">修改顺序</a>
+        </td>
     </tr>
     {/foreach}
 </table>
@@ -50,3 +54,30 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="modal fade" id="edit_sort" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">请输入修改顺序</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-6">
+                    顺序:<input type="text" value="" name="sort" placeholder="请输入顺序" class="form-control" id="sort" />
+                </div>
+                <br /><br /><br /><br />
+                <input type="hidden" id="edit_id" name="edit_id" />
+                <input type="hidden" id="hidden_sort" name="" />
+                <button type="button" class="btn btn-success" id="modify">修改</button>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
