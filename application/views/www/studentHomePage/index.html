@@ -23,16 +23,24 @@
 			<div class="fr banner bannerScroll" id="indexBanner">
 				<ul class="cf rollList">
 		            <li class="fl rollshow" >
-		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            	<a href="#">
+		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            	</a>
 		            </li>
 		            <li class="fl">
-		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            	<a href="#">
+		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner2.gif" alt="">
+		            	</a>
 		            </li>
 		             <li class="fl">
-		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            	<a href="#">
+		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner3.gif" alt="">
+		            	</a>
 		            </li>
 		             <li class="fl">
-		            	<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+		            	<a href="#">
+		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner4.gif" alt="">
+		            	</a>
 		            </li>
 	        	</ul>
 				<!-- banner焦点开始 -->
@@ -57,22 +65,21 @@
 				<h2 class="fl liveTitle">
 					进行中的直播课
 				</h2>
+				<!-- 直播课的slide序列号开始 -->
 				<ol class="cf fr bannerOrder">
-					<li class="fr active"></li>
-					<li class="fr"></li>
-					<li class="fr"></li>
-					<li class="fr"></li>
 				</ol>
+				<!-- 直播课的slide序列号结束 -->
 			</div>
 			<!-- 直播课的header开始 -->
 			<!-- 直播课的切换开始 -->
 			<div class="liveViewWrap bannerView">
 				<div class="bd innerWrap">
 					<ul class="cf liveList">
-						<li>
+						{for $i=0 to 3}
+						<li class="bItem">
 							<div class="liveLess">
 								<a href="#">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic1.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic1.gif" alt="" class="liveClassImg">
 									<!-- 标签列表开始 -->
 									<span class="markList">
 										<span class="mark blueMark">正在直播</span>
@@ -80,19 +87,19 @@
 									<!-- 标签列表结束 -->
 								</a>
 								<!-- 直播课的简介开始 -->
-								<p>
+								<a href="#">
 									<span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
 									<!-- 直播课时间开始 -->
 									<span>08月16日<span class="time">16:00-16:45</span></span>
 									<!-- 直播客时间结束 -->
-								</p>
+								</a>
 								<!-- 直播课的简介结束 -->
 							</div>
 						</li>
-						<li>
+						<li class="bItem">
 							<div class="liveLess">
 								<a href="#">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic2.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic2.gif" alt="" class="liveClassImg">
 									<!-- 标签列表开始 -->
 									<span class="markList">
 										<span class="mark greenMark">即将开始</span>
@@ -100,19 +107,19 @@
 									<!-- 标签列表结束 -->
 								</a>
 								<!-- 直播课的简介开始 -->
-								<p>
+								<a href="#">
 									<span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
 									<!-- 直播课时间开始 -->
 									<span>08月16日<span class="time">16:00-16:45</span></span>
 									<!-- 直播客时间结束 -->
-								</p>
+								</a>
 								<!-- 直播课的简介结束 -->
 							</div>
 						</li>
-						<li>
+						<li class="bItem">
 							<div class="liveLess">
 								<a href="#">
-									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic3.gif" alt="">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic3.gif" alt="" class="liveClassImg">
 									<!-- 标签列表开始 -->
 									<span class="markList">
 										<!-- 单个标签开始 -->
@@ -122,15 +129,16 @@
 									<!-- 标签列表结束 -->
 								</a>
 								<!-- 直播课的简介开始 -->
-								<p>
+								<a href="#">
 									<span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
 									<!-- 直播课时间开始 -->
 									<span>08月16日<span class="time">16:00-16:45</span></span>
 									<!-- 直播客时间结束 -->
-								</p>
+								</a>
 								<!-- 直播课的简介结束 -->
 							</div>
 						</li>
+						{/for}
 					</ul>
 				</div>
 			</div>
@@ -145,7 +153,7 @@
 		<!-- 课程列表开始 -->
 		<div class="cListWrap list_tabs">
 			<!-- 课程列表的头部tab开始 -->
-			<div class="cf cTitle">
+			<div class="cf chTitle">
 				<ul class="cf fl tabList ">
 					<li class="tabItem firstTab active" link="cl_all_list">
 						<a href="#">
@@ -201,7 +209,7 @@
 										<!-- 教师图像和简介开始 -->
 										<div class="cf teacherWrap">
 											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="贺加贝">
 											</a>
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
@@ -283,7 +291,7 @@
 										<!-- 教师图像和简介开始 -->
 										<div class="cf teacherWrap">
 											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="贺加贝">
 											</a>
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
@@ -365,7 +373,7 @@
 										<!-- 教师图像和简介开始 -->
 										<div class="cf teacherWrap">
 											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="贺加贝">
 											</a>
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
@@ -447,7 +455,7 @@
 										<!-- 教师图像和简介开始 -->
 										<div class="cf teacherWrap">
 											<a href="#" class="fl">
-												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="">
+												<img src="{$static_url}{$static_version}/images/studentHomePage/course/teacher-pic.gif" alt="贺加贝">
 											</a>
 											<!-- 教师姓名和教龄开始 -->
 											<a class="fl teacherName" href="#">
@@ -523,40 +531,112 @@
 				<!-- 学员风采内容开始 -->
 				<div class="stuListCont bannerScroll">
 					<div class="stuListView bannerView">
-						<div class="stuListInner">
+						<div class="innerWrap stuListInner">
 							<ul class="cf stuList">
-								<li>
+								<li class="bItem">
 									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/1.png" alt="杨同学">
 									<span class="stuName">
 										杨同学
 									</span>
 								</li>
-								<li>
+								<li class="bItem">
 									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/2.png" alt="张同学">
 									<span class="stuName">
 										张同学
 									</span>
 								</li>
-								<li>
+								<li class="bItem">
 									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/3.png" alt="杨同学">
 									<span class="stuName">
 										杨同学
 									</span>
 								</li>
-								<li>
+								<li class="bItem">
 									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/4.png" alt="张同学">
 									<span class="stuName">
 										张同学
 									</span>
 								</li>
-								<li>
+								<li class="bItem">
 									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/5.png" alt="杨同学">
 									<span class="stuName">
 										杨同学
 									</span>
 								</li>
-								<li>
+								<li class="bItem">
 									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/6.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/7.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/8.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/9.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/10.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/11.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/12.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/13.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/14.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/15.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/16.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/17.png" alt="张同学">
+									<span class="stuName">
+										张同学
+									</span>
+								</li>
+								<li class="bItem">
+									<img src="{$static_url}{$static_version}/images/studentHomePage/stus/18.png" alt="张同学">
 									<span class="stuName">
 										张同学
 									</span>
@@ -581,23 +661,35 @@
 				<!-- 媒体报道头部结束 -->
 				<div class="mediaCont bannerScroll">
 					<div class="mediaListView bannerView">
-						<div class="mediaListInner">
+						<div class="innerWrap mediaListInner">
 							<ul class="mediaList">
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md1.gif" alt="">
+								{for $i=0 to 0}
+								<li class="bItem">
+									<a href="#" title="cctv">
+										<img src="{$static_url}{$static_version}/images/studentHomePage/media/md1.gif" alt="cctv">
+									</a>
 								</li>
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md2.gif" alt="">
+								<li class="bItem">
+									<a href="#" title="创业邦">
+										<img src="{$static_url}{$static_version}/images/studentHomePage/media/md2.gif" alt="创业邦">
+									</a>
 								</li>
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md3.gif" alt="">
+								<li class="bItem">
+									<a href="#" title="搜狐">
+										<img src="{$static_url}{$static_version}/images/studentHomePage/media/md3.gif" alt="搜狐">
+									</a>
 								</li>
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md4.gif" alt="">
+								<li class="bItem">
+									<a href="#" title="腾讯网">
+										<img src="{$static_url}{$static_version}/images/studentHomePage/media/md4.gif" alt="腾讯网">
+									</a>
 								</li>
-								<li>
-									<img src="{$static_url}{$static_version}/images/studentHomePage/media/md5.gif" alt="">
+								<li class="bItem">
+									<a href="#" title="凤凰网">
+										<img src="{$static_url}{$static_version}/images/studentHomePage/media/md5.gif" alt="凤凰网">
+									</a>
 								</li>
+								{/for}
 							</ul>
 						</div>
 					</div>
@@ -689,7 +781,7 @@
 									关注
 								</span>
 							</a>
-							<a href="http://v.youku.com/v_show/id_XNjQxMzcyMTE2.html" class="dream fr" target="_blank">
+							<a href="http://v.youku.com/v_show/id_XNjQxMzcyMTE2.html" class="dream fl" target="_blank">
 								<span>
 									追梦人
 								</span>
