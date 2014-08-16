@@ -22,33 +22,19 @@
 		<div class="cf">
 			<div class="fr banner bannerScroll" id="indexBanner">
 				<ul class="cf rollList">
-		            <li class="fl rollshow" >
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+                    {foreach $focus_photo as $k=>$v}
+		            <li class="fl {if $k==0}rollshow{/if}" >
+		            	<a href="{$v.link}">
+		            		<img src="{$smarty.const.NH_QINIU_URL}{$v.img_src}" alt="" width="570" height="293">
 		            	</a>
 		            </li>
-		            <li class="fl">
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner2.gif" alt="">
-		            	</a>
-		            </li>
-		             <li class="fl">
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner3.gif" alt="">
-		            	</a>
-		            </li>
-		             <li class="fl">
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner4.gif" alt="">
-		            	</a>
-		            </li>
+                    {/foreach}
 	        	</ul>
 				<!-- banner焦点开始 -->
 				<ol class="cf rollNav indexlist">
-	            	<li class="fl active">1</li>
-	            	<li class="fl">2</li>
-	            	<li class="fl">3</li>
-	            	<li class="fl">4</li>
+                    {foreach $focus_photo as $k=>$v}
+	            	<li class="fl {if $k==0}active{/if}">{$k+1}</li>
+                    {/foreach}
 	        	</ol>
 				<!-- banner焦点结束 -->
 				<!-- 左右切换开始 -->
