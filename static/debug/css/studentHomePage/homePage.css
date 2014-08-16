@@ -11,7 +11,7 @@
 .studentHomePage .content{width: 750px;}
 .studentHomePage .moreLink{padding-right: 10px;}
 /*标签开始*/
-.studentHomePage .markList{position: absolute;right: 8px;top:-3px;}
+.studentHomePage .markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
 .studentHomePage .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
 .studentHomePage .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
 .studentHomePage .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
@@ -58,14 +58,18 @@
 .studentHomePage .listCont{margin: 0px -6px 17px;}
 .studentHomePage .listCont .pager{margin: 0px 6px ;}
 .studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
-.studentHomePage .listCont .courseDesc{display: block;width: 367px;height: 235px;}
-.studentHomePage .listCont .hoverDesc{display: none;width: 367px;height: 235px;background-color: #2879a7;color:#fff;overflow: hidden;}
+.studentHomePage .listCont .courseDesc{display: block;width: 367px;height: 235px;position: relative;}
+.studentHomePage .listCont .courseDesc .cDescImg{vertical-align: bottom;}
+.studentHomePage .listCont .hoverDesc{width: 367px;height: 235px;background-color: #2879a7;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
-.studentHomePage .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;}
+.studentHomePage .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;position: absolute; top:0px;left:20px;opacity: 0;
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
 .studentHomePage .listCont .teacherWrap .teacherName:hover{color: #fff;}
 .studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
-.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;}
+.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;position: absolute;left:20px;bottom: 0px;opacity: 0;
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
 .studentHomePage .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
 .studentHomePage .cItem .cTitleName{display: block;}
@@ -78,8 +82,12 @@
 .studentHomePage .cItem .price strong{font-size: 22px;}
 .studentHomePage .cItem .cVal{font-size: 12px;color:#989898;}
 .studentHomePage .cItem .cVal span{text-decoration:line-through;}
-.studentHomePage .listCont .cItem:hover .courseDesc{display: none;}
-.studentHomePage .listCont .cItem:hover .hoverDesc{display: block;cursor: pointer;}
+.studentHomePage .listCont .cItem:hover .hoverDesc{opacity: 1;filter:alpha(opacity=100);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentHomePage .listCont .cItem:hover .teacherWrap{top:20px; opacity: 1;filter:alpha(opacity=100);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentHomePage .listCont .cItem:hover .teacherDesc{opacity: 1;bottom: 25px;filter:alpha(opacity=100);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
 .studentHomePage .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
 /*课程列表结束*/
