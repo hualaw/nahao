@@ -313,8 +313,8 @@
 .studentMyCourse .buyBefore .creview li img{width: 50px;height: 50px;display: block;}
 .studentMyCourse .buyBefore .revCon{width: 620px;margin-left: 10px;}
 .studentMyCourse .buyBefore .revCon p{line-height: 20px;font-size: 12px;}
-.studentMyCourse .buyBefore .revCon h2{font-size: 12px;font-weight: normal;}
-.studentMyCourse .buyBefore .revCon h2 strong{color: #ce0000;}
+.studentMyCourse .buyBefore .revCon h2{font-size: 12px;font-weight: normal;color: #ce0000;}
+.studentMyCourse .buyBefore .revCon h2 strong{}
 .studentMyCourse .buyBefore .revCon h2 span{font-size: 12px;font-weight: normal;margin-right: 5px;}
 .studentMyCourse .buyBefore .revTimt{margin-left: 8px;}
 
