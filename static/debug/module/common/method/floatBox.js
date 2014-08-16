@@ -22,7 +22,7 @@ define(function(require,exports){
 			if(scrollTop == 0){
 				returnBtn.hide();
 			}else{
-				returnBtn.show();
+				returnBtn.css({"display":"inline-block"});
 			}
 		}
 		//点击返回首部		

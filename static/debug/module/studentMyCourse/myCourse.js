@@ -97,7 +97,11 @@ define(function(require,exports){
                 s<10?s = "0"+s:s = s;
 
                 if(type==1){
-                    obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
+                    obj.html('<i>'+days+'</i>天'+
+                            '<i>'+hours+'</i>小时'+
+                            '<i>'+mins+'</i>分'+
+                            '<i>'+s+'</i>秒');
+                    //obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
                 }else{
                     obj.html('<strong>'+days+'</strong>天'+
                             '<strong>'+hours+'</strong>小时'+
