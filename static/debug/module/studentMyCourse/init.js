@@ -66,7 +66,13 @@ define(function(require,exports){
 		//购买前下面--点击购买课程
 		_myCourse.soon_buy_xia();
 		//购买前分享
-		require('module/common/method/share').shareInsertBg();
+		//require('module/common/method/share').shareInsertBg();
+		//随滚导航
+		require("module/studentMyCourse/detial").fellowNav();
+		//清空浏览记录
+		require("module/studentClass/courseList").clearHis();
+		//模拟日期下拉
+		require("module/studentMyCourse/detial").timeSelect();
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();
@@ -108,4 +114,5 @@ define(function(require,exports){
 		    /*初始化视频播放结束*/
     	});
     }
+
 })
