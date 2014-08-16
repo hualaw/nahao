@@ -37,7 +37,7 @@ define(function(require,exports){
 
 	if($("#wrapContent").hasClass("myCourseCon")){
 		//tab切换初始化
-		require.async("module/studentHomePage/tab_nav",function(ex){
+		require.async("module/common/method/tab_nav",function(ex){
             ex.init();
         });
 	    //最新课程页面跳转
