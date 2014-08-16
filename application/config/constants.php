@@ -184,7 +184,7 @@ define('REFUND_STATUS_AGREE', 2);
 define('REFUND_STATUS_FINISH', 3);
 
 /**
- * 
+ *
  * 学生与课的关系表里面的状态 student_class
  * 初始化（未到上课时间）0
  * 缺席（进入教师按钮可用时间段内，学生没点过此按钮算缺席）1
@@ -398,6 +398,10 @@ define('CLASS_OVER_ACTION', 5);//点下课
 define('ROUND_USE_TYPE_NOMARL', 0);//正常轮
 define('ROUND_USE_TYPE_TEST', 1);//测试轮
 define('ROUND_USE_TYPE_APPLYTEACH', 2);//试讲轮
+
+//教育类型
+define('SUBJECT_STUDY', 1);//学科辅导
+define('QUALITY_STUDY', 2);//素质教育
 
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
