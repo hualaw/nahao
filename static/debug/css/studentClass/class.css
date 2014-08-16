@@ -1,6 +1,6 @@
 /* 课程列表页 开始 */
 .studentClass{}
-.studentClass .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding: 15px 0px 5px 15px; }
+.studentClass .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding: 15px 0px 5px 15px;margin-top: 10px;}
 .studentClass .filterBox .filterList{margin-bottom: 10px;}
 .studentClass .filterBox .filterList .tit{float: left;}
 .studentClass .filterBox .filterList ul{float: left;}
@@ -31,7 +31,7 @@
 .studentClass .courseLeft ul li.courseList .statusBar li.newBar{width: 38px;height: 38px;background: url(../../images/studentClass/statusBar.png) left top no-repeat;}
 .studentClass .courseLeft ul li.courseList .statusBar li.saleBar{width: 38px;height: 38px;background: url(../../images/studentClass/statusBar.png) -38px top no-repeat;}
 .studentClass .courseLeft ul li.courseList .statusBar li.liveBar{width: 41px;height: 38px;background: url(../../images/studentClass/statusBar.png) right top no-repeat;}
-.studentClass .courseRight{width: 220px;margin-top: 10px;}
+.studentClass .courseRight{width: 220px;margin-top: 10px;background: #fff;}
 .studentClass .courseRight .buyCourseBox{border: 1px solid #e0e0e0;}
 .studentClass .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
 .studentClass .courseRight .buyCourseList{padding: 10px;}
@@ -53,7 +53,66 @@
 .studentClass .courseRight .history li .priceHis{text-decoration: line-through;color: #989898;}
 .studentClass .courseRight .historyNone{text-align: center;padding: 50px 0px 30px;display: none;}
 
+
+/*课程列表开始*/
+.studentClass .cListWrap{margin-top: 10px;}
+.studentClass .cListWrap .chTitle{height: 35px;line-height: 35px;font-size: 14px;border:1px solid #e0e0e0;background-color: #fff;}
+.studentClass .tabList{line-height: 18px;height: 18px;margin: 10px 0px 8px;}
+.studentClass .tabList .tabItem{float: left;height: 18px;border-left: 1px solid #e0e0e0;}
+.studentClass .tabList .tabItem a{text-align: center;display: block;margin: 0px 13px;padding: 0px 5px; position: relative;}
+.studentClass .tabList .tabItem.firstTab {border-left: none;}
+.studentClass .tabList .tabItem.active .bBr{border-bottom: 2px solid #cb0000; position: absolute; bottom: -8px;left: 0px;display: block;height: 0px;width: 100%;}
 .studentClass .listCont{margin: 0px -6px 17px;}
+.studentClass .listCont .pager{margin: 0px 6px ;}
+.studentClass .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
+.studentClass .listCont .courseDesc{display: block;width: 240px;height: 154px;position: relative;}
+.studentClass .listCont .courseDesc .cDescImg{vertical-align: bottom;width: 240px;height: 154px;}
+.studentClass .listCont .hoverDesc{width: 240px;height: 154px;background-color: #2879a7;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentClass .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
+.studentClass .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;position: absolute; top:0px;left:10px;opacity: 0;filter:alpha(opacity=0);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentClass .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
+.studentClass .listCont .teacherWrap .teacherName:hover{color: #fff;}
+.studentClass .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
+.studentClass .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 24px;position: absolute;left:10px;bottom: 0px;opacity: 0;filter:alpha(opacity=0);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentClass .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
+.studentClass .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
+.studentClass .cItem .cTitleName{display: block;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.studentClass .cItem .cTitleDesc{color:#989898;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;}
+.studentClass .cItem .cDetail{margin: 0px 15px;margin-bottom: 10px;position: relative;}
+.studentClass .cItem .cBottom{padding: 0px 10px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentClass .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
+.studentClass .cItem .cBottom strong{color: #ce0000;display: inline-block;font-weight: normal;}
+.studentClass .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
+.studentClass .cItem .price strong{font-size: 22px;}
+.studentClass .cItem .cVal{font-size: 12px;color:#989898;}
+.studentClass .cItem .cVal span{text-decoration:line-through;}
+.studentClass .listCont .cItem:hover .hoverDesc{opacity: 1;filter:alpha(opacity=100);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentClass .listCont .cItem:hover .teacherWrap{top:10px; opacity: 1;filter:alpha(opacity=100);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentClass .listCont .cItem:hover .teacherDesc{opacity: 1;bottom: 15px;filter:alpha(opacity=100);
+	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentClass .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
+.studentClass .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
+/*课程列表结束*/
+
+
+/*标签开始*/
+.studentClass .markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
+.studentClass .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
+.studentClass .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
+.studentClass .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
+/*首页导航上的全部课程分类默认展开的样式结束*/
+.studentClass .learnBtn{color: #fff;height: 28px;line-height: 28px;width: 76px;display: inline-block;border-radius: 15px;text-align: center;font-size: 16px;position: absolute;right: 0px;bottom: 0px;}
+.studentClass .learnBtn:hover{color: #fff;}
+/* 课程列表页 结束 */
+
+
+
+/*.studentClass .listCont{margin: 0px -6px 17px;}
 .studentClass .listCont .pager{margin: 0px 6px ;}
 .studentClass .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
 .studentClass .listCont .courseDesc{display: block;width: 240px;height: 154px;}
@@ -79,13 +138,4 @@
 .studentClass .listCont .cItem:hover .courseDesc{display: none;}
 .studentClass .listCont .cItem:hover .hoverDesc{display: block;cursor: pointer;}
 .studentClass .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
-.studentClass .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
-/*标签开始*/
-.studentClass .markList{position: absolute;right: 8px;top:-3px;}
-.studentClass .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
-.studentClass .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
-.studentClass .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
-/*首页导航上的全部课程分类默认展开的样式结束*/
-.studentClass .learnBtn{color: #fff;height: 35px;line-height: 35px;width: 94px;display: inline-block;border-radius: 15px;text-align: center;font-size: 16px;position: absolute;right: 0px;bottom: 0px;}
-.studentClass .learnBtn:hover{color: #fff;}
-/* 课程列表页 结束 */
+.studentClass .listCont .cItem:hover{border-bottom: 1px solid #ce0000}*/
