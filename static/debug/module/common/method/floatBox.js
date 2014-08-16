@@ -22,8 +22,6 @@ define(function(require,exports){
 			if(scrollTop == 0){
 				returnBtn.hide();
 			}else{
-				//returnBtn.show();
-				console.log("show");
 				returnBtn.css({"display":"inline-block"});
 			}
 		}
