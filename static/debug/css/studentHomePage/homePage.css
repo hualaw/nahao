@@ -63,12 +63,12 @@
 .studentHomePage .listCont .hoverDesc{width: 367px;height: 235px;background-color: #2879a7;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
-.studentHomePage .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;position: absolute; top:0px;left:20px;opacity: 0;
+.studentHomePage .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;position: absolute; top:0px;left:20px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
 .studentHomePage .listCont .teacherWrap .teacherName:hover{color: #fff;}
 .studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
-.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;position: absolute;left:20px;bottom: 0px;opacity: 0;
+.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;position: absolute;left:20px;bottom: 0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
 .studentHomePage .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
