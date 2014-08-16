@@ -32,10 +32,15 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_result as $k=>$v)
             {
+            	
                 $array_result[$k]['start_time'] = date("m月d日",$v['start_time']);
                 $array_result[$k]['end_time'] = date("m月d日",$v['end_time']);
+                if ($v['id'] == $int_round_id){
+                	unset($array_result[$k]);
+                }
             }
         }
+//         var_dump($array_result);die;
         return $array_result;
     }
     
@@ -81,6 +86,11 @@ class Student_Course extends NH_Model{
             #课程评分
             $course_score = $this->model_course->get_course_score($array_return['course_id']);
             $array_return['score'] = empty($course_score) ? 0 : round($course_score['score']);
+            #多少人学习
+            $array_return['study_count'] = $array_return['bought_count'] +$array_return['extra_bought_count'];
+            #轮里面的开课时间-结束时间
+            $array_return['class_stime'] = date('m月d日',$array_return['start_time']);
+            $array_return['class_etime'] =date('m月d日',$array_return['end_time']);
             
         }
         return $array_return;
@@ -207,7 +217,7 @@ class Student_Course extends NH_Model{
      * @param  $int_course_id
      * @return $array_return
      */
-    public function get_round_evaluate($int_round_id)
+    public function get_round_evaluate($int_round_id,$limit)
     {
         $array_return = array();
         #根据$int_round_id 找course_id
@@ -217,7 +227,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         #获取该课程所有评价（取审核通过的5条）
-        $array_return = $this->model_course->get_round_evaluate($int_course_id);
+        $array_return = $this->model_course->get_round_evaluate($int_course_id,$limit);
         if ($array_return)
         {
             foreach ($array_return as $kk=>$vv)
@@ -516,8 +526,8 @@ class Student_Course extends NH_Model{
     {
     	#获取轮的信息
     	$array_round = $this->model_course->get_round_info($int_round_id);
-    	$array_data = array(
-    		'type'=>$array_round['type'],
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
    			'grade_from' =>$array_round['grade_from'],
     		'grade_to' =>$array_round['grade_to'],
     		'subject'=>$array_round['subject'],
@@ -525,7 +535,7 @@ class Student_Course extends NH_Model{
     		'limit'=>5
     	);
     	$array_result = array();
-    	$array_result = $this->model_course->get_other_round_data($array_data);
+    	$array_result = $this->model_course->get_other_round_data($array_where);
     	if ($array_result){
     		foreach ($array_result as $k=>$v){
     			#图片地址
@@ -546,8 +556,8 @@ class Student_Course extends NH_Model{
     {
     	#获取轮的信息
     	$array_round = $this->model_course->get_round_info($int_round_id);
-    	$array_data = array(
-    		'type'=>$array_round['type'],
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
    			'grade_from' =>$array_round['grade_from'],
     		'grade_to' =>$array_round['grade_to'],
     		'subject'=>$array_round['subject'],
@@ -555,7 +565,7 @@ class Student_Course extends NH_Model{
     		'limit'=>10
     	);
     	$array_result = array();
-    	$array_result = $this->model_course->get_recommend_round_data($array_data);
+    	$array_result = $this->model_course->get_recommend_round_data($array_where);
     	if ($array_result){
     		foreach ($array_result as $k=>$v){
     			#图片地址
@@ -564,5 +574,26 @@ class Student_Course extends NH_Model{
     	}
     	return $array_result;
     
+    }
+    
+    /**
+     * 最近浏览
+     */
+    public function get_recent_view_data($int_round_id)
+    { 
+//     	setcookie("recent_view");
+    	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
+//     		var_dump($_COOKIE['recent_view']);die;
+    		$str_value = explode(',',$_COOKIE['recent_view']);
+    		if (!in_array($int_round_id, $str_value))
+    		{
+    			$str_value = $int_round_id.','.$_COOKIE['recent_view'];
+    			setcookie("recent_view", $str_value);
+//     			array_unshift($_COOKIE['recent_view'],$int_round_id);
+    		}
+    	} else {
+    		setcookie("recent_view", $int_round_id, time()+3600);
+    	}
+    	return empty($_COOKIE['recent_view']) ? '' : $_COOKIE['recent_view'];
     }
 }

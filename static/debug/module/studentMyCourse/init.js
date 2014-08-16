@@ -114,5 +114,17 @@ define(function(require,exports){
 		    /*初始化视频播放结束*/
     	});
     }
-
+    setPage = function(pageNum){
+    	var round_id = $('#product_id').val();
+    	$.ajax({
+			 type:'GET',
+			 url:'/course/ajax_evaluate',
+			 data:{page:pageNum,round_id:round_id},
+			 dataType:'html',
+			 success:function(data){
+			    $("#fpage").html(data);
+			 }
+		});
+    }
+	setPage(1);
 })
