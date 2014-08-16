@@ -396,6 +396,9 @@ $config['education_subject'][2][100] = '其他';
 
 
 //科目
+$config['material_version'][11] = '人教B';
+$config['material_version'][11] = '语文版';
+$config['material_version'][11] = '外研版';
 
 /**
  * 那好2.0类别 数据字典
