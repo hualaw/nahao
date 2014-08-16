@@ -91,7 +91,6 @@
 .studentHomePage .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
 .studentHomePage .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
 /*课程列表结束*/
-
 /*学员风采开始*/
 .studentHomePage .stuListWrap{margin-top: 10px;height: 199px;border:1px solid #e0e0e0;background-color: #fff;} 
 .studentHomePage .stuListWrap .tHeader{height: 40px;line-height: 40px;background-color:#f3f3f3; }
@@ -123,6 +122,23 @@
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
 .studentHomePage .loginWrap input.loginBtn{background-color: #ce0000;border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 19px;cursor: pointer;}
 /*登录结束*/
+/*登录之后的状态开始*/
+.studentHomePage .loginedWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;background-color: #fff;padding: 0px 16px;}
+.studentHomePage .loginedWrap .userInfo{margin-top:16px;}
+.studentHomePage .loginedWrap .userInfo .userDesc{margin-left: 14px;}
+.studentHomePage .loginedWrap .userImg{width: 50px;height: 50px;}
+.studentHomePage .loginedWrap .name{display: block;font-size: 14px;}
+.studentHomePage .loginedWrap .grade{}
+.studentHomePage .loginedWrap .myCtrlList{margin-bottom: 35px;margin-top: 28px;}
+.studentHomePage .loginedWrap .myCtrlList li{border-left: 1px dashed #e0e0e0;width: 61px;text-align: center;height: 58px;}
+.studentHomePage .loginedWrap .myCtrlList .myCourses{border-left: 0px;}
+.studentHomePage .loginedWrap .icon{display: block;height: 44px;}
+.studentHomePage .loginedWrap .myCourses .icon{background: url(../../images/studentHomePage/my-couser.gif) no-repeat center;}
+.studentHomePage .loginedWrap .myOrder .icon{background: url(../../images/studentHomePage/my-order.gif) no-repeat center;}
+.studentHomePage .loginedWrap .myInfo .icon{background: url(../../images/studentHomePage/my-info.gif) no-repeat center;}
+.studentHomePage .loginedWrap .enterMyCenter{color: #fff;width: 100%;display: block;padding: 0px;line-height: 37px;height: 37px;text-align: center;font-size: 14px;border-radius: 19px;}
+.studentHomePage .loginedWrap .loginOut{display: block;margin-top: 30px;}
+/*登录之后的状态结束*/
 /*服务保障开始*/
 .studentHomePage .assuranceWrap{border:1px solid #e0e0e0;height: 263px;background-color: #fff;margin-top: 10px;}
 .studentHomePage .assuranceWrap .tHeader{background-color: #f3f3f3;line-height: 37px;height: 37px;padding-left: 12px;font-size: 14px;}
@@ -130,7 +146,6 @@
 .studentHomePage .assuranceWrap .contList li{width: 50%;text-align: center;float: left;margin: 10px 0px 15px;}
 .studentHomePage .assuranceWrap .contList li .serverName{display: block;margin-top: 8px;}
 /*服务保障结束*/
-
 /*关于我们开始*/
 .studentHomePage .aboutUsWrap{border:1px solid #e0e0e0; background-color: #fff; margin-top: 10px;height: 252px;}
 .studentHomePage .aboutUsWrap .tHeader{background-color: #f3f3f3;line-height: 37px;height: 37px;padding-left: 12px;font-size: 14px;}
@@ -150,24 +165,21 @@
 .studentHomePage .ourList .dream span{height: 18px;line-height: 18px;display: inline-block;border:1px solid #00e0a9;background:url(../../images/studentHomePage/video.gif) no-repeat 4px center #0bd3a2;padding-left: 18px;padding-right:4px;color: #fff;*padding-right:0px; }
 .studentHomePage .ourList .text .bottom{position: absolute;left: 0px;bottom: 0px;width: 135px;}
 /*关于我们结束*/
-
 /*广告开始*/
 .studentHomePage .adListWrap{margin-top: 10px;}
 /*广告结束*/
-
 /*浏览记录开始*/
-.historyWrap{border:1px solid #e0e0e0;margin-top: 10px;}
-.historyWrap .hHeader{padding-left: 12px;height: 35px;line-height: 35px;font-size: 14px;}
-.deletHistory{color: #cb0000;padding-right: 15px;font-size: 12px;}
-.noHistory{margin: 50px 0px;text-align: center;}
-
-.historyList{padding: 0px 12px;overflow: hidden;}
-.hItem{padding: 20px 0px;display: block;border-top: 1px dashed #e0e0e0;margin-top: -1px;}
-.hPic{width: 80px;height: 51px;}
-.hDesc{width: 100px;}
-.hSmallTitle{display: block;font-size: 12px;line-height: 15px;height: 30px;margin-bottom: 5px;}
-.valList .price{color:#cb0000;}
-.valList .val{text-decoration: line-through;padding-left: 12px;}
+.studentHomePage .historyWrap{border:1px solid #e0e0e0;margin-top: 10px;}
+.studentHomePage .historyWrap .hHeader{padding-left: 12px;height: 35px;line-height: 35px;font-size: 14px;}
+.studentHomePage .deletHistory{color: #cb0000;padding-right: 15px;font-size: 12px;}
+.studentHomePage .noHistory{margin: 50px 0px;text-align: center;}
+.studentHomePage .historyList{padding: 0px 12px;overflow: hidden;}
+.studentHomePage .hItem{padding: 20px 0px;display: block;border-top: 1px dashed #e0e0e0;margin-top: -1px;}
+.studentHomePage .hPic{width: 80px;height: 51px;}
+.studentHomePage .hDesc{width: 100px;}
+.studentHomePage .hSmallTitle{display: block;font-size: 12px;line-height: 15px;height: 30px;margin-bottom: 5px;}
+.studentHomePage .valList .price{color:#cb0000;}
+.studentHomePage .valList .val{text-decoration: line-through;padding-left: 12px;}
 /*浏览记录结束*/
 
 /*右侧边栏结束

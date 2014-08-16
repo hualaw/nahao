@@ -708,23 +708,69 @@
 		<!-- 登录框开始 -->
 		<div class="loginWrap">
 			<h4 class="loginTitle">快速注册,免费送学习诊断</h4>
+			<!--错误提示开始-->
+			<div class="msgTip" id="span_warning">
+				
+			</div>
+			<!-- 错误提示结束 -->
 			<div class="inputWrap">
-				<input type="text" placeholder="手机号,可用手机号码直接登录">
+				<input type="text" placeholder="邮箱，可用邮箱直接登录">
 			</div>
 			<div class="inputWrap">
 				<input type="password" placeholder="密码">
 			</div>
 			<div class="inputWrap">
-				<input type="text" placeholder="qq号(方便对您个性化诊断)">
+				<input type="text" placeholder="手机号(方便对您个性化诊断)">
 			</div>
 			<div class="hasNophone">
 				<a href="#">没有手机，请点击这里！</a>
 			</div>
 			<div>
-				<input type="submit" value="免费注册，立即获得诊断" class="loginBtn">
+				<input type="submit" value="免费注册，立即获得诊断" class="cRedBtn loginBtn">
 			</div>
 		</div>
 		<!-- 登录框结束 -->
+		<!-- 登录之后的状态开始 -->
+		<div class="cf loginedWrap">
+			<div class="cf userInfo">
+				<!-- 用户图像开始 -->
+				<a href="#" title="李天一" class="fl">
+					<img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="李天一" class="UserImg">
+				</a>
+				<!-- 用户图像结束 -->
+				<span class="fl userDesc">
+					<!-- 姓名开始 -->
+					<a class="name" href="#" title="李天一">李天一</a>
+					<!-- 姓名结束 -->
+					<!-- 年级开始 -->
+					<a class="grade" href="#">初三</a>
+					<!-- 年级结束 -->
+				</span>
+			</div>
+			<ul class="cf myCtrlList">
+				<li class="fl myCourses">
+					<a href="#" title="我的课程">
+						<span class="icon"></span>
+						我的课程
+					</a>
+				</li>
+				<li class="fl myOrder">
+					<a href="#" title="我的订单">
+						<span class="icon"></span>
+						我的订单
+					</a>
+				</li>
+				<li class="fl myInfo">
+					<a href="#" title="我的资料">
+						<span class="icon"></span>
+						我的资料
+					</a>
+				</li>
+			</ul>
+			<a href="#" class="cRedBtn enterMyCenter">进入个人中心</a>
+			<a href="#" class="fr loginOut">退出</a>
+		</div>
+		<!-- 登录之后的状态结束 -->
 		<!-- 服务保障开始 -->
 		<div class="assuranceWrap">
 			<div class="tHeader">
