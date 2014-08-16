@@ -59,94 +59,94 @@ $route['about/(:any)'] = 'index/about/$1';
  * page			=>		p
  */
 #1. 列表首页
-$route['list.html'] = 'classlist/index/';
+$route['list.html'] = 'roundlist/index/';
 	//1.1 列表首页 排序
-	$route['list_o(:num).html'] = 'classlist/index/?order=$1';
+	$route['list_o(:num).html'] = 'roundlist/index/?order=$1';
 	//1.2 列表首页 分页
-	$route['list_p(:num).html'] = 'classlist/index/?page=$1';
+	$route['list_p(:num).html'] = 'roundlist/index/?page=$1';
 	//1.3 列表首页 排序+分页
-	$route['list_o(:num)_p(:num).html'] = 'classlist/index/?order=$1&page=$2';
+	$route['list_o(:num)_p(:num).html'] = 'roundlist/index/?order=$1&page=$2';
 
 #2. 教育类型 【类型】
-$route['list_t(:num).html'] = 'classlist/index/?typeId=$1';
+$route['list_t(:num).html'] = 'roundlist/index/?typeId=$1';
 	//2.1 教育类型 排序
-	$route['list_t(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&order=$2';
+	$route['list_t(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&order=$2';
 	//2.2 教育类型 分页
-	$route['list_t(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&page=$2';
+	$route['list_t(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&page=$2';
 	//2.3 教育类型 排序+分页
-	$route['list_t(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&order=$2&page=$3';
+	$route['list_t(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&order=$2&page=$3';
 
 #3. 素质教育 【类型+素质】
-$route['list_t(:num)_q(:num).html'] = 'classlist/index/?typeId=$1&qualityId=$2';
+$route['list_t(:num)_q(:num).html'] = 'roundlist/index/?typeId=$1&qualityId=$2';
 	//3.1 素质教育 类型+素质+排序
-	$route['list_t(:num)_q(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&qualityId=$2&order=$3';
+	$route['list_t(:num)_q(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&qualityId=$2&order=$3';
 	//3.2 素质教育 类型+素质+分页
-	$route['list_t(:num)_q(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&qualityId=$2&page=$3';
+	$route['list_t(:num)_q(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&qualityId=$2&page=$3';
 	//3.3 素质教育 类型+素质+排序+分页
-	$route['list_t(:num)_q(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&qualityId=$2&order=$3&page=$4';
+	$route['list_t(:num)_q(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&qualityId=$2&order=$3&page=$4';
 
 #4. 学科辅导 【类型+学段】
-$route['list_t(:num)_st(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2';
+$route['list_t(:num)_st(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2';
 	//4.1 学科辅导 类型+学段+排序
-	$route['list_t(:num)_st(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&order=$3';
+	$route['list_t(:num)_st(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&order=$3';
 	//4.2 学科辅导 类型+学段+分页
-	$route['list_t(:num)_st(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&page=$3';
+	$route['list_t(:num)_st(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&page=$3';
 	//4.3 学科辅导 类型+学段+排序+分页
-	$route['list_t(:num)_st(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&order=$3&page=$4';
+	$route['list_t(:num)_st(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&order=$3&page=$4';
 
 #5. 学科辅导 【类型+年级】
-$route['list_t(:num)_g(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2';
+$route['list_t(:num)_g(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2';
 	//5.1 学科辅导 类型+年级+排序
-	$route['list_t(:num)_g(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&order=$3';
+	$route['list_t(:num)_g(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&order=$3';
 	//5.2 学科辅导 类型+年级+分页
-	$route['list_t(:num)_g(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&page=$3';
+	$route['list_t(:num)_g(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&page=$3';
 	//5.3 学科辅导 类型+年级+排序+分页
-	$route['list_t(:num)_g(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&order=$3&page=$4';
+	$route['list_t(:num)_g(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&order=$3&page=$4';
 
 #6. 学科辅导 【类型+科目】
-$route['list_t(:num)_su(:num).html'] = 'classlist/index/?typeId=$1&subjectId=$2';
+$route['list_t(:num)_su(:num).html'] = 'roundlist/index/?typeId=$1&subjectId=$2';
 	//6.1 学科辅导 类型+科目+排序
-	$route['list_t(:num)_su(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&subjectId=$2&order=$3';
+	$route['list_t(:num)_su(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&subjectId=$2&order=$3';
 	//6.2 学科辅导 类型+科目+分页
-	$route['list_t(:num)_su(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&subjectId=$2&page=$3';
+	$route['list_t(:num)_su(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&subjectId=$2&page=$3';
 	//6.3 学科辅导 类型+科目+排序+分页
-	$route['list_t(:num)_su(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&subjectId=$2&order=$3&page=$4';
+	$route['list_t(:num)_su(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&subjectId=$2&order=$3&page=$4';
 
 #7. 学科辅导 【类型+学段+年级】
-$route['list_t(:num)_st(:num)_g(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&gradeId=$3';
+$route['list_t(:num)_st(:num)_g(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3';
 	//7.1 学科辅导 类型+学段+年级+排序
-	$route['list_t(:num)_st(:num)_g(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&gradeId=$3&order=$4';
+	$route['list_t(:num)_st(:num)_g(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&order=$4';
 	//7.2 学科辅导 类型+学段+年级+排序
-	$route['list_t(:num)_st(:num)_g(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&gradeId=$3&page=$4';
+	$route['list_t(:num)_st(:num)_g(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&page=$4';
 	//7.3 学科辅导 类型+学段+年级+排序
-	$route['list_t(:num)_st(:num)_g(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&gradeId=$3&order=$4&page=$5';
+	$route['list_t(:num)_st(:num)_g(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&order=$4&page=$5';
 
 #8. 学科辅导 【类型+学段+科目】
-$route['list_t(:num)_st(:num)_su(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&subjectId=$3';
+$route['list_t(:num)_st(:num)_su(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&subjectId=$3';
 	//8.1 学科辅导 类型+学段+科目+排序
-	$route['list_t(:num)_st(:num)_su(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&subjectId=$3&order=$4';
+	$route['list_t(:num)_st(:num)_su(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&subjectId=$3&order=$4';
 	//8.2 学科辅导 类型+学段+科目+分页
-	$route['list_t(:num)_st(:num)_su(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&subjectId=$3&page=$4';
+	$route['list_t(:num)_st(:num)_su(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&subjectId=$3&page=$4';
 	//8.3 学科辅导 类型+学段+科目+排序+分页
-	$route['list_t(:num)_st(:num)_su(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&stageId=$2&subjectId=$3&order=$4&page=$5';
+	$route['list_t(:num)_st(:num)_su(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&subjectId=$3&order=$4&page=$5';
 
 #9. 学科辅导 【类型+年级+科目】
-$route['list_t(:num)_g(:num)_su(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3';
+$route['list_t(:num)_g(:num)_su(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&subjectId=$3';
 	//9.1 学科辅导 类型+年级+科目+排序
-	$route['list_t(:num)_g(:num)_su(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3&order=$4';
+	$route['list_t(:num)_g(:num)_su(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&subjectId=$3&order=$4';
 	//9.2 学科辅导 类型+年级+科目+分页
-	$route['list_t(:num)_g(:num)_su(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3&page=$4';
+	$route['list_t(:num)_g(:num)_su(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&subjectId=$3&page=$4';
 	//9.3 学科辅导 类型+年级+科目+排序+分页
-	$route['list_t(:num)_g(:num)_su(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3&order=$4&page=$5';
+	$route['list_t(:num)_g(:num)_su(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&gradeId=$2&subjectId=$3&order=$4&page=$5';
 
 #10. 学科辅导 【类型+学段+年级+科目】
-$route['list_t(:num)_g(:num)_su(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3';
+$route['list_t(:num)_st(:num)_g(:num)_su(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&subjectId=$4';
 	//10.1 学科辅导 类型+学段+年级+科目+排序
-	$route['list_t(:num)_g(:num)_su(:num)_o(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3&order=$4';
+	$route['list_t(:num)_st(:num)_g(:num)_su(:num)_o(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&subjectId=$4&order=$5';
 	//10.2 学科辅导 类型+学段+年级+科目+分页
-	$route['list_t(:num)_g(:num)_su(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3&page=$4';
+	$route['list_t(:num)_st(:num)_g(:num)_su(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&subjectId=$4&page=$5';
 	//10.3 学科辅导 类型+学段+年级+科目+排序+分页
-	$route['list_t(:num)_g(:num)_su(:num)_o(:num)_p(:num).html'] = 'classlist/index/?typeId=$1&gradeId=$2&subjectId=$3&order=$4&page=$5';
+	$route['list_t(:num)_st(:num)_g(:num)_su(:num)_o(:num)_p(:num).html'] = 'roundlist/index/?typeId=$1&stageId=$2&gradeId=$3&subjectId=$4&order=$5&page=$6';
 
 
 //$route['course/index/(.*+)/(.*+)']  = 'course/index?round_id=$1&time=$2';
