@@ -84,7 +84,7 @@ class Course extends NH_User_Controller {
         }
 //         var_dump($array_other);die;
 
-        $array_recent_view = $this->student_course->get_recent_view_data($array_data);
+//         $array_recent_view = $this->student_course->get_recent_view_data($array_data);
 //        var_dump($array_recent_view);die;
         //recent_view
         #课程列表的地址
