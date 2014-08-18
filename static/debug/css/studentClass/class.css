@@ -31,8 +31,8 @@
 .studentClass .courseLeft ul li.courseList .statusBar li.newBar{width: 38px;height: 38px;background: url(../../images/studentClass/statusBar.png) left top no-repeat;}
 .studentClass .courseLeft ul li.courseList .statusBar li.saleBar{width: 38px;height: 38px;background: url(../../images/studentClass/statusBar.png) -38px top no-repeat;}
 .studentClass .courseLeft ul li.courseList .statusBar li.liveBar{width: 41px;height: 38px;background: url(../../images/studentClass/statusBar.png) right top no-repeat;}
-.studentClass .courseRight{width: 220px;margin-top: 10px;background: #fff;}
-.studentClass .courseRight .buyCourseBox{border: 1px solid #e0e0e0;}
+.studentClass .courseRight{width: 220px;margin-top: 10px;}
+.studentClass .courseRight .buyCourseBox{border: 1px solid #e0e0e0;background: #fff;}
 .studentClass .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
 .studentClass .courseRight .buyCourseList{padding: 10px;}
 .studentClass .courseRight .buyCourseList li{margin-bottom: 10px;}
@@ -40,7 +40,7 @@
 .studentClass .courseRight .buyCourseList li p{line-height: 18px;margin-top: 10px;margin-bottom: 3px;}
 .studentClass .courseRight .buyCourseList li .studyNum .price{color: #cb0000;}
 .studentClass .courseRight .buyCourseList li .studyNum i{color: #cb0000;}
-.studentClass .courseRight .history{padding: 10px;border: 1px solid #e0e0e0;margin-top: 10px;}
+.studentClass .courseRight .history{padding: 10px;border: 1px solid #e0e0e0;margin-top: 10px;background: #fff;}
 .studentClass .courseRight .history h3{font-weight: normal;}
 .studentClass .courseRight .history h3 a.clearCount{color: #cb0000;}
 .studentClass .courseRight .history .historyList{margin-top: 10px;}
