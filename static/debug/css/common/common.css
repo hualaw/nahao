@@ -163,3 +163,15 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .iebrowser span{margin-left:36px;}
 .iebrowser a{color: #11243b;}
 .disabledBg{background: #dedede;}
+/*小彩旗开始*/
+.markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
+.markList .mark{color: #fff;display: block;float: left;height: 32px;line-height: 14px;margin-right: -3px;padding: 3px 6px;width: 28px;}
+.markList .mark1{background: url("../../images/common/flags/mark1.png") no-repeat center transparent;_background: url("../../images/common/flags/mark1_8.png") no-repeat center transparent;}
+.markList .mark2{background: url("../../images/common/flags/mark2.png") no-repeat center transparent;_background: url("../../images/common/flags/mark2_8.png") no-repeat center transparent;}
+.markList .mark3{background: url("../../images/common/flags/mark3.png") no-repeat center transparent;_background: url("../../images/common/flags/mark3_8.png") no-repeat center transparent;}
+.markList .mark4{background: url("../../images/common/flags/mark4.png") no-repeat center transparent;_background: url("../../images/common/flags/mark4_8.png") no-repeat center transparent;}
+.markList .mark5{background: url("../../images/common/flags/mark5.png") no-repeat center transparent;_background: url("../../images/common/flags/mark5_8.png") no-repeat center transparent;}
+.markList .mark6{background: url("../../images/common/flags/mark6.png") no-repeat center transparent;_background: url("../../images/common/flags/mark6_8.png") no-repeat center transparent;}
+.markList .mark7{background: url("../../images/common/flags/mark7.png") no-repeat center transparent;_background: url("../../images/common/flags/mark7_8.png") no-repeat center transparent;}
+.markList .mark8{background: url("../../images/common/flags/mark8.png") no-repeat center transparent;_background: url("../../images/common/flags/mark8_8.png") no-repeat center transparent;}
+/*小彩旗结束*/

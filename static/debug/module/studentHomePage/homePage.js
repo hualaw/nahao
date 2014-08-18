@@ -95,8 +95,18 @@ define(function(require,exports){
         if(!top){
             top=parseInt($(item).parent().prop("offsetTop"));
         }
-        var _left=parseInt($(item).parent().prop("offsetLeft"));
+        
         $(window).scroll(function(){
+           scrollFixed();
+        });
+        $(window).load(function(){
+            scrollFixed();
+        });
+        $(window).resize(function(){
+            scrollFixed();
+        });
+        function scrollFixed(){
+            var _left=parseInt($(item).parent().prop("offsetLeft"));
             var _windowTop=$(window).scrollTop();
             if(_windowTop>=top){
                 $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"1111"});
@@ -104,12 +114,24 @@ define(function(require,exports){
                 $(item).css({"position":"absolute","top":"0px;","left":"0px","z-index":"1"});
             }
             var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
-        });
+        }
     }
     //验证注册   shangshikai@tizi.com
     exports.register_check=function(){
-            $('#email').blur(function(){
+        $('#span_warning').hide().html('');
+        $('#email').focus(function(){
+            $('#span_warning').hide().html('');
+        })
+        $('#password').focus(function(){
+            $('#span_warning').hide().html('');
+        })
+        $('#phone').focus(function(){
+            if($.trim($('#phone').val())!='')
+            {
                 $('#span_warning').hide().html('');
+            }
+        })
+            $('#email').blur(function(){
                 if($.trim($('#email').val())=='')
                 {
                     $('#span_warning').css('color','red').show().html('邮箱不能为空');
