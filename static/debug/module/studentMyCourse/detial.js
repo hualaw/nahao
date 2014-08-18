@@ -108,8 +108,10 @@ define(function(require,exports){
 		});
 		$('.selectUl').find('li').live('click',function(){
 			var _txt = $(this).text();
+			var round_id = $(this).attr('data');
 			$('.firmTime').text(_txt);
 			$('.selectUl').hide();
+			window.location.href="/ke_"+round_id+".html"
 		});
 	};
 });
