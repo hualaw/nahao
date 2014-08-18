@@ -103,7 +103,6 @@ define(function(require,exports){
             scrollFixed();
         });
         $(window).resize(function(){
-            //console.log("resize");
             scrollFixed();
         });
         function scrollFixed(){
