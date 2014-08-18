@@ -48,4 +48,8 @@ define(function(require,exports){
 
 	//加载头部下拉菜单
 	require('module/common/method/slidown').init();
+
+    var _topLogin = require("module/login/topLogin");
+    _topLogin.topLogin();
+
 })

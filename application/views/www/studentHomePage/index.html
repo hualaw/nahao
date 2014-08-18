@@ -692,6 +692,7 @@
 	<!-- 右侧边栏开始 -->
 	<div class="cf fr rSlide">
 		<!-- 登录框开始 -->
+        {if $is_login==0}
 		<div class="loginWrap">
 			<h4 class="loginTitle">快速注册,免费送学习诊断</h4>
 			<!--错误提示开始-->
@@ -717,45 +718,52 @@
 		</div>
 		<!-- 登录框结束 -->
 		<!-- 登录之后的状态开始 -->
+        {else}
 		<div class="cf loginedWrap">
 			<div class="cf userInfo">
 				<!-- 用户图像开始 -->
-				<a href="#" title="李天一" class="fl">
-					<img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="李天一" class="UserImg">
+				<a href="#" title="{$user_detail.nickname}" class="fl">
+                    {if !empty($user_detail.avatar)}
+                    <img src="{$smarty.const.NH_QINIU_URL}{$user_detail.avatar}" alt="{$user_detail.nickname}" class="UserImg">
+                    {else}
+                    <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$user_detail.nickname}" class="UserImg">
+                    {/if}
+
 				</a>
 				<!-- 用户图像结束 -->
 				<span class="fl userDesc">
 					<!-- 姓名开始 -->
-					<a class="name" href="#" title="李天一">李天一</a>
+					<a class="name" href="#" title="{$user_detail.nickname}">{$user_detail.nickname}</a>
 					<!-- 姓名结束 -->
 					<!-- 年级开始 -->
-					<a class="grade" href="#">初三</a>
+					<a class="grade" href="#">{$stage[$user_detail.stage]}</a>
 					<!-- 年级结束 -->
 				</span>
 			</div>
 			<ul class="cf myCtrlList">
 				<li class="fl myCourses">
-					<a href="#" title="我的课程">
+					<a href="/member/my_course" title="我的课程">
 						<span class="icon"></span>
 						我的课程
 					</a>
 				</li>
 				<li class="fl myOrder">
-					<a href="#" title="我的订单">
+					<a href="/member/my_order" title="我的订单">
 						<span class="icon"></span>
 						我的订单
 					</a>
 				</li>
 				<li class="fl myInfo">
-					<a href="#" title="我的资料">
+					<a href="/member/my_infor" title="我的资料">
 						<span class="icon"></span>
 						我的资料
 					</a>
 				</li>
 			</ul>
-			<a href="#" class="cRedBtn enterMyCenter">进入个人中心</a>
-			<a href="#" class="fr loginOut">退出</a>
+			<a href="/member/my_course" class="cRedBtn enterMyCenter">进入个人中心</a>
+			<a href="/login/logout" class="fr loginOut">退出</a>
 		</div>
+        {/if}
 		<!-- 登录之后的状态结束 -->
 		<!-- 服务保障开始 -->
 		<div class="assuranceWrap">
