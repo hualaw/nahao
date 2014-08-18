@@ -66,6 +66,7 @@ define(function(require,exports){
         function countDown(){
             var oDate=new Date();
             if($("#"+id).val()){
+            	//alert($("#"+id).val()); return false;
                 array = $("#"+id).val().split(" ");
     	        FullYear = array['0'].split("-");
     	        Hours = array['1'].split(":");
@@ -154,7 +155,7 @@ define(function(require,exports){
         $("#soon_buy_xia").click(function (){
             var url = '/course/before_check_order/';
             var data = {
-            	product_id: $('#product_id_xia').val()
+            		product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "error") {
@@ -333,4 +334,17 @@ define(function(require,exports){
 			window.open(url);
 		});		
 	}
+
+    //我的课程分页,offset是分页起始,status是状态
+    exports.refreshCourse = function(offset,status) {
+        var url = '/member/ajax_get_products/' + status + "/" + offset;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $("#product_form").serialize(),
+            success: function(data) {
+
+            }
+        });
+    }
 });
