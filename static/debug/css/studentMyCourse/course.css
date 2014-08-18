@@ -43,10 +43,11 @@
 .studentMyCourse .userName{font-weight: normal;font-size: 12px;width: 75px;line-height: 18px;}
 .studentMyCourse .userName .name{display: block;}
 .studentMyCourse .infoDesc{width: 75px;margin-top: 8px;}
-.studentMyCourse .infoDesc .icon{width: 18px;height: 18px;border:1px solid #e0e0e0;display: block;float: left;margin-right: 5px;cursor: pointer;}
+.studentMyCourse .infoDesc .icon{width: 18px;height: 18px;border:1px solid #e0e0e0;display: block;float: left;margin-right: 5px;cursor: pointer;position: relative;}
 .studentMyCourse .infoDesc .tel{background: url(../../images/studentMyCourse/tel.gif) no-repeat center #f7f7f7;}
 .studentMyCourse .infoDesc .edit{background: url(../../images/studentMyCourse/pen.gif) no-repeat center #f7f7f7;}
-.studentMyCourse .infoDesc .icon .tipWrap{display: none;position: absolute;}
+.studentMyCourse .infoDesc .icon .tipWrap{display: none;position: absolute;border:1px solid #e0e0e0;background-color: #fff;padding: 15px;bottom:30px;left: 50%;white-space:nowrap;}
+.studentMyCourse .infoDesc .icon .tipWrap .arrow{position: absolute;bottom: -13px;height: 16px;width: 16px;background: url(../../images/studentMyCourse/arrow.gif) no-repeat center;left: 50%;margin-left: -8px;}
 .studentMyCourse .infoDesc .icon .tipWrap.active{display: block;}
 .studentMyCourse .leftNavLinks{}
 .studentMyCourse .leftNavLinks .lItem{width: 100%;float: left;text-align: center;height: 30px;line-height: 30px;font-size: 14px;margin-bottom: 12px;}

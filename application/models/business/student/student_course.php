@@ -577,40 +577,78 @@ class Student_Course extends NH_Model{
     }
     
     /**
-     * 最近浏览
+     * 最近浏览(写cookie)
      */
-    public function get_recent_view_data($array_data)
-    { 
-//     	setcookie("recent_view");
+    public function write_recent_view_data($array_data)
+    {
     	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
-//     		var_dump($_COOKIE['recent_view']);die;
-			$json_decode_value = json_decode($_COOKIE['recent_view']);
+    		
+			$json_decode_value = json_decode($_COOKIE['recent_view'],true);
+			$array_list = array();
 			foreach ($json_decode_value as  $k=>$v)
 			{
-				if($array_data['id'] != $k){
-					
-				}
+				$array_list[$v['id']] = $v['id'];
 			}
-    		$str_value = explode(',',$_COOKIE['recent_view']);
-    		if (!in_array($int_round_id, $str_value))
-    		{
-    			$str_value = $int_round_id.','.$_COOKIE['recent_view'];
-    			setcookie("recent_view", $str_value);
-//     			array_unshift($_COOKIE['recent_view'],$int_round_id);
-    		}
+			if (!in_array($array_data['id'], $array_list))
+			{
+				
+			$array_add = array(
+	    				'id'=>$array_data['id'],
+	    				'img'=>$array_data['class_img'],
+	    				'title'=>$array_data['title'],
+	    				'price'=>$array_data['price'],
+	    				'sale_price'=>$array_data['sale_price']
+	    				);
+
+				array_push($json_decode_value,$array_add);
+			}
+			setcookie("recent_view", json_encode($json_decode_value),time()+24*60*60,'/');
+
     	} else {
-    		$value = array(
-	    			$array_data['id']=>array(
+    		$cookie_value = array(
+	    			array(
 	    				'id'=>$array_data['id'],
 	    				'img'=>$array_data['class_img'],
 	    				'title'=>$array_data['title'],
 	    				'price'=>$array_data['price'],
 	    				'sale_price'=>$array_data['sale_price']
 	    				));
-//     		var_dump($value);die;
-    		$json_encode_value = json_encode($value);
-    		setcookie("recent_view", $json_encode_value, time()+3600);
+
+    		$json_cookie_value = json_encode($cookie_value);
+    		setcookie("recent_view", $json_cookie_value, time()+24*60*60,'/');
     	}
-    	return empty($_COOKIE['recent_view']) ? '' : $_COOKIE['recent_view'];
+    }
+    
+    /**
+     * 最近浏览（读cookie）
+     */
+    public function read_recent_view_data()
+    {
+    	if (empty($_COOKIE['recent_view']))
+    	{
+    		return array();
+    	}
+    	$cookies = json_decode($_COOKIE['recent_view'],true);
+    	$cookies = array_reverse($cookies);
+    	$count = count($cookies);
+    	#浏览记录去5条;
+    	$nums = 5;
+    	if ($count<=$nums){
+    		return $cookies;
+    	} else {
+    		return array_slice($cookies,0,$nums);
+    	}
+    }
+    
+    /**
+     * 重要提醒
+     */
+    public function get_important_notice_data(){
+    	$array_return = array();
+    	$array_return = $this->model_course->get_important_notice_data();
+    	if ($array_return) {
+    		$array_return['content'] = htmlspecialchars_decode($array_return['content']);
+    	}
+    	return $array_return;
     }
 }
