@@ -7,7 +7,14 @@ define(function(require,exports){
                 data:'username='+ $.trim($('#top_username').val())+'&password=' + $.trim($('#top_password').val()),
                 success:function(msg)
                 {
-                    location.reload();
+                    if(msg.status=='ok')
+                    {
+                        location.reload();
+                    }
+                    else
+                    {
+                        alert('帐号或者密码错误');
+                    }
                 }
             })
         })
