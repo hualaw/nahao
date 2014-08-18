@@ -19,6 +19,10 @@ define(function(require,exports){
 		_valid.applyFrom();
 		//我的订单 tab
 		_tab.tab($(".tabh li"),"tabhOn",$(".tabCon .tabBox"));
+        //tip提示的初始化
+        require.async("module/studentMyCourse/tip",function(ex){
+            ex.init($(".infoDesc .icon"));
+        });
 	}
 	if($("#wrapContent").hasClass("myInforCon")){
 		//基本资料 tab
@@ -34,6 +38,11 @@ define(function(require,exports){
 	    _myCourse.sendValidateCode();
     	//修改头像 定位
 	    _myCourse.changedHead();
+
+        //tip提示的初始化
+        require.async("module/studentMyCourse/tip",function(ex){
+            ex.init($(".infoDesc .icon"));
+        });
 	}
 
 	if($("#wrapContent").hasClass("myCourseCon")){
