@@ -83,6 +83,17 @@ class Index extends NH_User_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
+
+
+        $this->load->model('business/admin/business_focus_photo');
+        $focus_photo = $this->business_focus_photo->list_photo(1);
+        foreach ($focus_photo as $k => $v) {
+            $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
+        }
+        $course_url = config_item('course_url');
+
+        $this->smarty->assign('focus_photo', $focus_photo);
+
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
         $this->smarty->display('www/studentHomePage/index.html');
