@@ -333,4 +333,17 @@ define(function(require,exports){
 			window.open(url);
 		});		
 	}
+
+    //我的课程分页,offset是分页起始,status是状态
+    exports.refreshCourse = function(offset,status) {
+        var url = '/member/ajax_get_products/' + status + "/" + offset;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $("#product_form").serialize(),
+            success: function(data) {
+
+            }
+        });
+    }
 });
