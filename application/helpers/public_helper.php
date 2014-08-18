@@ -59,7 +59,7 @@ function return_your_values($array,$field='id'){
  * @param bool $suffix
  * @return string
  */
-function csubstr($str, $start=0, $length, $charset="utf-8", $suffix=true)
+function csubstr($str, $start=0, $length, $charset="utf-8", $suffix='')
 {
 
    if(function_exists("mb_substr"))
@@ -89,7 +89,7 @@ function csubstr($str, $start=0, $length, $charset="utf-8", $suffix=true)
 
    }
 
-   if($suffix) return $slice."…";
+   if(!empty($suffix)) return $slice.$suffix;
 
    return $slice;
 

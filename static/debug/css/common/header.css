@@ -20,7 +20,7 @@
 .header .headNav .curNav,
 .header .headNav li:hover{background: url(../../images/common/header/arrow.png) center top no-repeat;_background-image: url(../../images/common/header/arrow_8.png);}
 .header .headNav .headR{height: 80px;line-height: 80px;}*/
-.header{padding:20px 0px;}
+.header{padding:16px 0px 16px 0px;background:#fff;}
 .header a.logo{background:url(../../images/common/header/logo.gif) no-repeat;display: block;width: 121px;height:54px;display:block;text-indent: -999em;overflow:hidden;}
 .header .tel{background:url(../../images/common/header/tel_bg.gif) no-repeat;width:163px;height:34px;margin-top:15px;}
 .header .tel p{font-size:14px;margin-left:45px;color:#666;margin-top:-2px;}

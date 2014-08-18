@@ -44,4 +44,7 @@ define(function(require,exports){
 			$(".iebrowser").remove();
 		}
 	};
+
+	//加载头部下拉菜单
+	require('module/common/method/slidown').init();
 })

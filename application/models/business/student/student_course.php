@@ -32,10 +32,15 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_result as $k=>$v)
             {
+            	
                 $array_result[$k]['start_time'] = date("m月d日",$v['start_time']);
                 $array_result[$k]['end_time'] = date("m月d日",$v['end_time']);
+                if ($v['id'] == $int_round_id){
+                	unset($array_result[$k]);
+                }
             }
         }
+//         var_dump($array_result);die;
         return $array_result;
     }
     
@@ -81,6 +86,11 @@ class Student_Course extends NH_Model{
             #课程评分
             $course_score = $this->model_course->get_course_score($array_return['course_id']);
             $array_return['score'] = empty($course_score) ? 0 : round($course_score['score']);
+            #多少人学习
+            $array_return['study_count'] = $array_return['bought_count'] +$array_return['extra_bought_count'];
+            #轮里面的开课时间-结束时间
+            $array_return['class_stime'] = date('m月d日',$array_return['start_time']);
+            $array_return['class_etime'] =date('m月d日',$array_return['end_time']);
             
         }
         return $array_return;
@@ -207,7 +217,7 @@ class Student_Course extends NH_Model{
      * @param  $int_course_id
      * @return $array_return
      */
-    public function get_round_evaluate($int_round_id)
+    public function get_round_evaluate($int_round_id,$limit)
     {
         $array_return = array();
         #根据$int_round_id 找course_id
@@ -217,7 +227,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         #获取该课程所有评价（取审核通过的5条）
-        $array_return = $this->model_course->get_round_evaluate($int_course_id);
+        $array_return = $this->model_course->get_round_evaluate($int_course_id,$limit);
         if ($array_return)
         {
             foreach ($array_return as $kk=>$vv)
@@ -503,5 +513,104 @@ class Student_Course extends NH_Model{
     {
     	$bool_return = $this->model_course->check_round_status($int_round_id);
     	return $bool_return;
+    }
+    
+    /**
+     * 该课程系列的其他课程
+     * 学科辅导展示相同年级、相同科目的其他课程，最多展示5条.按照学习人数由高到低排列.
+     * 素质教育展示相同科目的其他课程，最多展示5条.按照学习人数由高到低排列
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_other_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>5
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_other_round_data($array_where);
+    	if ($array_result){
+    		foreach ($array_result as $k=>$v){
+    			#图片地址
+    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
+    		}
+    	}
+    	return $array_result;
+    }
+    
+    /**
+     * 看过本课程的用户还看了
+     * 学科辅导展示相同年级、不同科目的其他课程，固定展示10条.按照学习人数由高到低排列.
+     * 素质教育展示不同科目的其他课程，固定展示10条.按照学习人数由高到低排列)
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_recommend_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>10
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_recommend_round_data($array_where);
+    	if ($array_result){
+    		foreach ($array_result as $k=>$v){
+    			#图片地址
+    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
+    		}
+    	}
+    	return $array_result;
+    
+    }
+    
+    /**
+     * 最近浏览
+     */
+    public function get_recent_view_data($array_data)
+    { 
+//     	setcookie("recent_view");
+    	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
+//     		var_dump($_COOKIE['recent_view']);die;
+			$json_decode_value = json_decode($_COOKIE['recent_view']);
+			foreach ($json_decode_value as  $k=>$v)
+			{
+				if($array_data['id'] != $k){
+					
+				}
+			}
+    		$str_value = explode(',',$_COOKIE['recent_view']);
+    		if (!in_array($int_round_id, $str_value))
+    		{
+    			$str_value = $int_round_id.','.$_COOKIE['recent_view'];
+    			setcookie("recent_view", $str_value);
+//     			array_unshift($_COOKIE['recent_view'],$int_round_id);
+    		}
+    	} else {
+    		$value = array(
+	    			$array_data['id']=>array(
+	    				'id'=>$array_data['id'],
+	    				'img'=>$array_data['class_img'],
+	    				'title'=>$array_data['title'],
+	    				'price'=>$array_data['price'],
+	    				'sale_price'=>$array_data['sale_price']
+	    				));
+//     		var_dump($value);die;
+    		$json_encode_value = json_encode($value);
+    		setcookie("recent_view", $json_encode_value, time()+3600);
+    	}
+    	return empty($_COOKIE['recent_view']) ? '' : $_COOKIE['recent_view'];
     }
 }

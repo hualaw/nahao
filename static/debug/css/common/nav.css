@@ -1,13 +1,18 @@
 .topNav{background:#ce0000;}
-.topNav .categorys{width:168px;background:#fff;margin-top:2px;height:38px;}
-.topNav .categorys .title{font-size:14px;text-align: center;line-height: 38px;}
-.topNav .categorys dl{position: absolute;top:38px;left:0px;border:2px solid #e0e0e0;border-top: 0px;width: 166px;line-height: 18px;height:303px;}
+.topNav .categorys{width:168px;margin-top:2px;height:38px;}
+.topNav .categorys .title{font-size:14px;text-align: center;line-height: 38px;background:#fff;margin:0 2px;width:166px;}
+.topNav .categorys .title span{margin-left:38px;color: #d11010}
+.topNav .categorys .shutting span{color: #333}
+.topNav .categorys .title i.narrow{background: url(../../images/common/nav/ico_red_narrow.gif) no-repeat right;width:6px;height:4px;display:inline-block;margin-top:18px;margin-left:5px;}
+.topNav .categorys .shutting i.narrow{display: none}
+.topNav .categorys dl{position: absolute;top:38px;left:0px;border:2px solid #e0e0e0;border-top: 0px;width: 166px;line-height: 18px;height:303px;background: #fff;z-index:1000;}
 .topNav .categorys dl dt{border-top:1px solid #f5f5f5;padding:8px 10px;}
 .topNav .categorys dl dt h2{font-size:14px;}
 .topNav .categorys dl dt p{margin-top:5px;}
 .topNav .categorys dl dt p a{display: inline-block;margin-right:8px;color:#666;}
 .topNav .categorys dl dt p a:hover{color:#c60301;}
 .topNav .nav{line-height: 40px;font-size:14px;margin-left:2px;}
+.topNav .nav ul li{float: left;}
 .topNav .nav ul li a{padding:0px 20px;color:#fff;display: inline-block;}
 
 .navHomepage .nav ul li a.navHomepage,

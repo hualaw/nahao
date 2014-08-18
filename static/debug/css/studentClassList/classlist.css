@@ -69,7 +69,7 @@
 .studentClassList .sortBox li a.active{background: #f0f0f0;color: #333;}
 .studentClassList .courseLeft{width: 760px;}
 .studentClassList .courseLeft ul li.courseList{width:240px;border: 1px solid #e0e0e0;float: left;margin-top: 15px;margin-right: 11px;position: relative;}
-.studentClassList .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;}
+.studentClassList .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;display: block;}
 .studentClassList .courseLeft ul li.courseList .listMain{padding: 10px;}
 .studentClassList .courseLeft ul li.courseList .listMain h3{font-weight: normal;font-size: 14px;line-height: 14px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentClassList .courseLeft ul li.courseList .listMain p.intro{font-size: 12px;color: #989898;line-height: 12px;margin: 10px 0 15px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
@@ -90,7 +90,7 @@
 .studentClassList .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
 .studentClassList .courseRight .buyCourseList{padding: 10px;}
 .studentClassList .courseRight .buyCourseList li{margin-bottom: 10px;}
-.studentClassList .courseRight .buyCourseList li img{width: 198px;height: 127px;}
+.studentClassList .courseRight .buyCourseList li img{width: 198px;height: 127px;display: block;}
 .studentClassList .courseRight .buyCourseList li p{line-height: 18px;margin-top: 10px;margin-bottom: 3px;}
 .studentClassList .courseRight .buyCourseList li .studyNum .price{color: #cb0000;}
 .studentClassList .courseRight .buyCourseList li .studyNum i{color: #cb0000;}
@@ -100,10 +100,46 @@
 .studentClassList .courseRight .history .historyList{margin-top: 10px;}
 .studentClassList .courseRight .history li{padding: 20px 0;border-top: 1px dashed #ddd;}
 .studentClassList .courseRight .history li.b_t_0{border-top: none;}
-.studentClassList .courseRight .history li img{width: 80px;height: 51px;margin-right: 10px;}
+.studentClassList .courseRight .history li img{width: 80px;height: 51px;margin-right: 10px;display: block;}
 .studentClassList .courseRight .history li .listRight{width: 100px;}
 .studentClassList .courseRight .history li p{line-height: 16px;margin-bottom: 5px;}
 .studentClassList .courseRight .history li .price{color: #cb0000;margin-right: 10px;}
 .studentClassList .courseRight .history li .priceHis{text-decoration: line-through;color: #989898;}
 .studentClassList .courseRight .historyNone{text-align: center;padding: 50px 0px 30px;display: none;}
+
+.studentClassList .listCont{margin: 0px -6px 17px;}
+.studentClassList .listCont .pager{margin: 0px 6px ;}
+.studentClassList .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
+.studentClassList .listCont .courseDesc{display: block;width: 240px;height: 154px;}
+.studentClassList .listCont .hoverDesc{display: none;width: 240px;height: 154px;background-color: #2879a7;color:#fff;overflow: hidden;}
+.studentClassList .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
+.studentClassList .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;}
+.studentClassList .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
+.studentClassList .listCont .teacherWrap .teacherName:hover{color: #fff;}
+.studentClassList .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
+.studentClassList .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;}
+.studentClassList .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
+.studentClassList .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
+.studentClassList .cItem .cTitleName{display: block;}
+.studentClassList .cItem .cTitleDesc{color:#989898;}
+.studentClassList .cItem .cDetail{margin: 0px 15px;margin-bottom: 10px;position: relative;}
+.studentClassList .cItem .cBottom{padding: 0px 10px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentClassList .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
+.studentClassList .cItem .cBottom strong{color: #ce0000;display: inline-block;font-weight: normal;width:40px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: left;text-align: right;}
+.studentClassList .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
+.studentClassList .cItem .price strong{font-size: 22px;}
+.studentClassList .cItem .cVal{font-size: 12px;color:#989898;}
+.studentClassList .cItem .cVal span{text-decoration:line-through;}
+.studentClassList .listCont .cItem:hover .courseDesc{display: none;}
+.studentClassList .listCont .cItem:hover .hoverDesc{display: block;cursor: pointer;}
+.studentClassList .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
+.studentClassList .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
+/*标签开始*/
+.studentClassList .markList{position: absolute;right: 8px;top:-3px;}
+.studentClassList .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
+.studentClassList .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
+.studentClassList .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
+/*首页导航上的全部课程分类默认展开的样式结束*/
+.studentClassList .learnBtn{color: #fff;height: 35px;line-height: 35px;width: 94px;display: inline-block;border-radius: 15px;text-align: center;font-size: 16px;position: absolute;right: 0px;bottom: 0px;}
+.studentClassList .learnBtn:hover{color: #fff;}
 /* 课程列表页 结束 */

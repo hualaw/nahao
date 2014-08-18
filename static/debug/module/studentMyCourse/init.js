@@ -12,6 +12,7 @@ define(function(require,exports){
 	// 选择学校组件
 	require('module/common/method/setSchool');
 
+
 	if($("#wrapContent").hasClass("myOrderCon")){
 		// 退课 申请状态 验证
 		_valid.applyFrom();
@@ -33,7 +34,12 @@ define(function(require,exports){
     	//修改头像 定位
 	    _myCourse.changedHead();
 	}
+
 	if($("#wrapContent").hasClass("myCourseCon")){
+		//tab切换初始化
+		require.async("module/common/method/tab_nav",function(ex){
+            ex.init();
+        });
 	    //最新课程页面跳转
 	    _myCourse.new_class_skip();
 	}
@@ -60,7 +66,13 @@ define(function(require,exports){
 		//购买前下面--点击购买课程
 		_myCourse.soon_buy_xia();
 		//购买前分享
-		require('module/common/method/share').shareInsertBg();
+		//require('module/common/method/share').shareInsertBg();
+		//随滚导航
+		require("module/studentMyCourse/detial").fellowNav();
+		//清空浏览记录
+		require("module/studentClass/courseList").clearHis();
+		//模拟日期下拉
+		require("module/studentMyCourse/detial").timeSelect();
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();
@@ -102,4 +114,17 @@ define(function(require,exports){
 		    /*初始化视频播放结束*/
     	});
     }
+    setPage = function(pageNum){
+    	var round_id = $('#product_id').val();
+    	$.ajax({
+			 type:'GET',
+			 url:'/course/ajax_evaluate',
+			 data:{page:pageNum,round_id:round_id},
+			 dataType:'html',
+			 success:function(data){
+			    $("#fpage").html(data);
+			 }
+		});
+    }
+	setPage(1);
 })

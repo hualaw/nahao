@@ -1,3 +1,4 @@
+body{background:#f8f8f8;}
 a {text-decoration:none;color:#333;}
 a:hover {text-decoration:none;color:#c60301;}
 .layout:after,
@@ -42,16 +43,17 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
-.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
-.floatBox a.feedback{margin-top: 0px;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
+.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
+.floatBox a.feedback{margin-top: 0px;padding: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
-.floatBox .feedback{background-image: url(../../images/common/feedback.jpg);}
-.floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;}
+.floatBox .feedback{background: url(../../images/common/feedback.gif) no-repeat center; }
+.floatBox .returnTop{background: url(../../images/common/return_top.png) no-repeat center;display: none;text-indent: -10000px;background-color: #e0e0e0;}
 .floatBox a:hover{background-color: #f7f7f7; }
+.floatBox .weixinCode{background: url(../../images/common/weixin_code.gif) no-repeat center;}
 .floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
-.floatBox .feedback:hover{background-image: url(../../images/common/hfeedback.jpg);}
-.floatBox .returnTop:hover{background-image: url(../../images/common/hreturnTop.jpg);}
+.floatBox .feedback:hover{background: url(../../images/common/feedback.gif) no-repeat center;}
+.floatBox .returnTop:hover{background-color: #ce0000;}
 .floatBox .courSurvey{background-image: url(../../images/common/courSurvey.jpg);}
 .floatBox .courSurvey:hover{background-image: url(../../images/common/hcourSurvey.jpg);}
             
@@ -161,3 +163,15 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .iebrowser span{margin-left:36px;}
 .iebrowser a{color: #11243b;}
 .disabledBg{background: #dedede;}
+/*小彩旗开始*/
+.markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
+.markList .mark{color: #fff;display: block;float: left;height: 32px;line-height: 14px;margin-right: -3px;padding: 3px 6px;width: 28px;}
+.markList .mark1{background: url("../../images/common/flags/mark1.png") no-repeat center transparent;_background: url("../../images/common/flags/mark1_8.png") no-repeat center transparent;}
+.markList .mark2{background: url("../../images/common/flags/mark2.png") no-repeat center transparent;_background: url("../../images/common/flags/mark2_8.png") no-repeat center transparent;}
+.markList .mark3{background: url("../../images/common/flags/mark3.png") no-repeat center transparent;_background: url("../../images/common/flags/mark3_8.png") no-repeat center transparent;}
+.markList .mark4{background: url("../../images/common/flags/mark4.png") no-repeat center transparent;_background: url("../../images/common/flags/mark4_8.png") no-repeat center transparent;}
+.markList .mark5{background: url("../../images/common/flags/mark5.png") no-repeat center transparent;_background: url("../../images/common/flags/mark5_8.png") no-repeat center transparent;}
+.markList .mark6{background: url("../../images/common/flags/mark6.png") no-repeat center transparent;_background: url("../../images/common/flags/mark6_8.png") no-repeat center transparent;}
+.markList .mark7{background: url("../../images/common/flags/mark7.png") no-repeat center transparent;_background: url("../../images/common/flags/mark7_8.png") no-repeat center transparent;}
+.markList .mark8{background: url("../../images/common/flags/mark8.png") no-repeat center transparent;_background: url("../../images/common/flags/mark8_8.png") no-repeat center transparent;}
+/*小彩旗结束*/
