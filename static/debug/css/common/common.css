@@ -43,16 +43,17 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
-.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
-.floatBox a.feedback{margin-top: 0px;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
+.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
+.floatBox a.feedback{margin-top: 0px;padding: 0px;}
 .floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
-.floatBox .feedback{background-image: url(../../images/common/feedback.jpg);}
-.floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;display: none;}
+.floatBox .feedback{background: url(../../images/common/feedback.gif) no-repeat center; }
+.floatBox .returnTop{background: url(../../images/common/return_top.png) no-repeat center;display: none;text-indent: -10000px;background-color: #e0e0e0;}
 .floatBox a:hover{background-color: #f7f7f7; }
+.floatBox .weixinCode{background: url(../../images/common/weixin_code.gif) no-repeat center;}
 .floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
-.floatBox .feedback:hover{background-image: url(../../images/common/hfeedback.jpg);}
-.floatBox .returnTop:hover{background-image: url(../../images/common/hreturnTop.jpg);}
+.floatBox .feedback:hover{background: url(../../images/common/feedback.gif) no-repeat center;}
+.floatBox .returnTop:hover{background-color: #ce0000;}
 .floatBox .courSurvey{background-image: url(../../images/common/courSurvey.jpg);}
 .floatBox .courSurvey:hover{background-image: url(../../images/common/hcourSurvey.jpg);}
             
