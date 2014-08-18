@@ -40,6 +40,10 @@ define(function(require,exports){
 		require.async("module/common/method/tab_nav",function(ex){
             ex.init();
         });
+        //tip提示的初始化
+        require.async("module/studentMyCourse/tip",function(ex){
+        	ex.init($(".infoDesc .icon"));
+        });
 	    //最新课程页面跳转
 	    _myCourse.new_class_skip();
 	}
