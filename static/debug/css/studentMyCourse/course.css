@@ -245,15 +245,15 @@
 
 /*   我的课程购买前  */
 .studentMyCourse .buyCourse{font-size: 14px;color: #333;}
-.studentMyCourse .buyBefore .buyHead{border: 1px solid #d2d2d2;margin-bottom: 10px;}
-.studentMyCourse .buyCourse .buyLeft{border: 1px solid #e7e7e7;width: 644px;}
+.studentMyCourse .buyBefore .buyHead{border: 1px solid #d2d2d2;margin-bottom: 10px;background: #fff;}
+.studentMyCourse .buyCourse .buyLeft{border: 1px solid #e7e7e7;width: 644px;background: #fff;}
 .studentMyCourse .buyCourse .buyRight{width: 308px;}
 .studentMyCourse .buyBefore .buyRight{background: url(../../images/studentMyCourse/cteam.png) no-repeat;margin-top: -5px;padding-top: 30px;}
 .studentMyCourse .buyBefore .slash{background: url(../../images/studentMyCourse/slash.png) no-repeat;position: absolute;right: -1px;top:-1px;width: 35px;height: 30px;}
 
 .studentMyCourse .buyBefore .buyHeadt{background: #fff;padding:15px;}
 .studentMyCourse .buyHeadt h2{font-size: 20px;line-height: 35px;font-weight:normal;}
-.studentMyCourse .buyCourse .buyHeadf{padding: 15px;background: #fff;}
+.studentMyCourse .buyCourse .buyHeadf{padding: 15px;background: none;}
 .studentMyCourse .buyCourse .buyHeadf img{width: 440px;height: 280px;}
 .studentMyCourse .buyCourse .endTime{padding: 13px 0px;border-bottom: 1px solid #efefef;font-size: 12px;}
 .studentMyCourse .buyCourse .startTime{width: 486px;margin-left: 22px;}
@@ -511,7 +511,7 @@ overflow: hidden;}
 .studentMyCourse .course_info_item .course_team_list{padding:20px 0 15px;border-top: 1px solid #e0e0e0; }
 .studentMyCourse .course_info_item .course_team_list img{width: 100px;height: 100px;display: block;margin-right: 15px;}
 .studentMyCourse .course_info_item .teacherInfo h4{font-weight: normal;margin-top: 5px;}
-.studentMyCourse .course_info_item .teacherInfo h4 i{color: #ce0000;margin-right: 90px;}
+.studentMyCourse .course_info_item .teacherInfo h4 i{color: #ce0000;width: 120px;display: inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentMyCourse .course_info_item .teacherText{color: #666;text-indent: 2em;margin-top: 10px;width: 600px;font-size: 12px;line-height: 24px;}
 .studentMyCourse .course_info_item .course_info_img{width: 718px;height: 328px;display: block;margin-top: 20px;}
 .studentMyCourse .courseRight{width: 220px;font-size: 12px;}
