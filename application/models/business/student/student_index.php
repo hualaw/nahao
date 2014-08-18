@@ -135,6 +135,18 @@ class Student_Index extends NH_Model{
     /**
      * 根据条件获取round count
      * @param $arr_where
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_round_count($arr_where){
+        $arr_return = array();
+
+        return $arr_return;
+    }
+
+    /**
+     * 根据条件获取round list
+     * @param $arr_where
      * @param $int_start
      * @param $int_limit
      * @return array
