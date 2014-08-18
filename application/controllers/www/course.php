@@ -14,7 +14,6 @@ class Course extends NH_User_Controller {
      */
 	public function buy_before($int_round_id = 1)
 	{
-	    header('content-type: text/html; charset=utf-8');
 	    $int_round_id = max(intval($int_round_id),1);
 	    #检查这个$int_round_id是否存在
 	    $bool_flag = $this->student_course->check_round_id_is_exist($int_round_id);
@@ -33,12 +32,18 @@ class Course extends NH_User_Controller {
 	    #根据$int_round_id获取该轮的课程大纲
         $array_outline = $this->student_course->get_round_outline($int_round_id);
         #根据$int_round_id获取该轮的课程评价
-        $array_evaluate = $this->student_course->get_round_evaluate($int_round_id);
+        //$array_evaluate = $this->student_course->get_round_evaluate($int_round_id);
         #根据$int_round_id获取该轮的课程团队
         $array_team = $this->student_course->get_round_team($int_round_id);
+        
+        #该课程系列的其他课程
+        $array_other = $this->student_course->get_other_round_data($int_round_id);
+        #看过本课程的用户还看了
+        $array_recommend = $this->student_course->get_recommend_round_data($int_round_id);
+        
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
-        #从链接过来的这轮如果是销售中，则购买前只显示与之相关的销售中的轮，否则显示一个过期的和与之相关的销售中的轮
+/*         #从链接过来的这轮如果是销售中，则购买前只显示与之相关的销售中的轮，否则显示一个过期的和与之相关的销售中的轮
         $array_all_round_ids = array();
         if($array_round)
         {
@@ -57,7 +62,7 @@ class Course extends NH_User_Controller {
         			'sell_end_time'=>$array_data['sell_end_time']
         	);
         	array_unshift($array_round,$array_add);
-        }
+        } */
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
 //        	var_dump($array_round);die;
@@ -70,22 +75,53 @@ class Course extends NH_User_Controller {
         	$buy_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
         	$this->smarty->assign('buy_flag', $buy_flag);
         }
+        #seo标题
         if($array_data && $array_data['start_time'])
         {
         	$array_data['seo_time'] = date('n/j',$array_data['start_time']);
         	$array_data['sale_price'] = round($array_data['sale_price']);
         	$array_data['price'] = round($array_data['price']);
         }
+//         var_dump($array_other);die;
+
+//         $array_recent_view = $this->student_course->get_recent_view_data($array_data);
+//        var_dump($array_recent_view);die;
+        //recent_view
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->assign('array_outline', $array_outline);
-        $this->smarty->assign('array_evaluate', $array_evaluate);
+        //$this->smarty->assign('array_evaluate', $array_evaluate);
         $this->smarty->assign('array_team', $array_team);
         $this->smarty->assign('array_round', $array_round);
-        $this->smarty->assign('str_evaluate_count', $str_evaluate_count);
+        $this->smarty->assign('array_other', $array_other);
+        $this->smarty->assign('array_recommend', $array_recommend);
+        $this->smarty->assign('evaluate_count', $str_evaluate_count);
         $this->smarty->display('www/studentMyCourse/buyBefore.html');
+	}
+	
+	/**
+	 * 我的评论ajax分页
+	 */
+	public function ajax_evaluate()
+	{
+// 		echo 1;die;
+		$pagenum = $this->input->get('pagenum');
+		$int_round_id = $this->input->get('round_id');
+		$int_round_id = 1;
+		//echo $int_round_id;die;
+		$int_total = $this->student_course->get_evaluate_count($int_round_id);
+		$params = array('total' => $int_total, 'listRows' => '1','pa'=>'');
+	
+		$this->load->library('ajaxpage',$params);
+		$limit = $this->ajaxpage->limit;
+		$array_evaluate = $this->student_course->get_round_evaluate($int_round_id,$limit);
+// 		var_dump($array_evaluate);die;
+		$str_page = $this->ajaxpage->fpage();
+		$this->smarty->assign('array_evaluate', $array_evaluate);
+		$this->smarty->assign('page', $str_page);
+		$this->smarty->display('www/studentMyCourse/ajax_evaluate.html');
 	}
 	
 	/**

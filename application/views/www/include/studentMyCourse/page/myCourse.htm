@@ -71,8 +71,8 @@
         {/foreach}
         {/if}
     </ul>
-    <div>
-        全部课程列表分页
+    <div id="my_course_page">
+        {$all_page}
     </div>
 </div>
 <!-- 全部课程列表结束 -->
@@ -128,7 +128,7 @@
         {/if}
     </ul>
     <div>
-        正在进行课程列表分页
+        {$course_living_page}
     </div>
 </div>
 <!-- 正在进行列表结束 -->
@@ -180,7 +180,7 @@
         {/if}
     </ul>
     <div>
-        即将开始课程列表分页
+        {$course_soon_page}
     </div>
 </div>
 <!-- 即将结束列表结束 -->
@@ -232,7 +232,7 @@
         {/if}
     </ul>
     <div>
-        已结束课程列表分页
+        {$course_over_page}
     </div>
 </div>
 <!-- 已结束列表结束 -->

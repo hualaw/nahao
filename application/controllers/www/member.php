@@ -26,15 +26,35 @@ class Member extends NH_User_Controller {
         $int_user_id = $this->session->userdata('user_id');#TODO用户id
         #我购买的课程
         #全部课程
+
         $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
+//        print_r($array_buy_course);
+//        exit;
+        $total = $array_buy_course['total'];
+        $params = array('total' => $total, 'listRows' => '1');
+        $this->load->library('ajaxpage',$params);
+
+        $page_obj = new Ajaxpage($params);
+        $all_page = $page_obj->fpage();
+
+
         #正在进行的课程
         $course_living = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASSING);
-//        print_r($course_living);
-//        exit;
+        $params = array('total' => $course_living['total'], 'listRows' => '1');
+        $page_obj = new Ajaxpage($params);
+        $course_living_page = $page_obj->fpage();
+
         #即将开始
         $course_soon_class = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_SOON_CLASS);
+        $params = array('total' => $course_soon_class['total'], 'listRows' => '1');
+        $page_obj = new Ajaxpage($params);
+        $course_soon_page = $page_obj->fpage();
+
         #已结束
         $course_over = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASS_OVER);
+        $params = array('total' => $course_over['total'], 'listRows' => '1');
+        $page_obj = new Ajaxpage($params);
+        $course_over_page = $page_obj->fpage();
         //var_dump($array_buy_course);
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
@@ -59,10 +79,18 @@ class Member extends NH_User_Controller {
 
         $this->smarty->assign('action','my_course');
         $this->smarty->assign('course_url', $course_url);
-        $this->smarty->assign('array_buy_course', $array_buy_course);
-        $this->smarty->assign('course_living', $course_living);
-        $this->smarty->assign('course_soon_class', $course_soon_class);
-        $this->smarty->assign('course_over', $course_over);
+        $this->smarty->assign('array_buy_course', $array_buy_course['list']);
+        $this->smarty->assign('all_page', $all_page);
+
+        $this->smarty->assign('course_living', $course_living['list']);
+        $this->smarty->assign('course_living_page', $course_living_page);
+
+        $this->smarty->assign('course_soon_class', $course_soon_class['list']);
+        $this->smarty->assign('course_soon_page', $course_soon_page);
+
+        $this->smarty->assign('course_over', $course_over['list']);
+        $this->smarty->assign('course_over_page', $course_over_page);
+
         $this->smarty->assign('array_new', $array_new);
         $this->smarty->assign('array_hot', $array_hot);
         $this->smarty->assign('page_type', 'myCourse');
@@ -72,13 +100,49 @@ class Member extends NH_User_Controller {
     /**
      * ajax得到对应的我的课程
      */
-    public function ajax_get_my_course($status = '',$offset = 0)
+    public function ajax_get_my_course()
     {
         $data = array();
-        $int_user_id = $this->session->userdata('user_id');#TODO用户id
+
+        $int_user_id = $this->session->userdata('user_id');
+        $page = $_REQUEST['page'];
+//        $status = $_REQUEST['status'];
+        $status = 0;
+
+        $offset = ($page-1)*10;
+
         $my_course = $this->student_member->get_my_course_for_buy($int_user_id,$status,$offset);
-        $data['my_course'] = $my_course;
+//        print_r($my_course);
+//        exit;
+        $params = array('total' => $my_course['total'], 'listRows' => '1');
+        $this->load->library('ajaxpage',$params);
+        $page = $this->ajaxpage->fpage();
+        $data['page'] = $page;
+
+        $data['my_course'] = $my_course['list'];
+//        print_r($page);
+//        exit();
         $this->load->view('www/studentMyCourse/my_course.inc',$data);
+    }
+
+    public function ajax_evaluate()
+    {
+// 		echo 1;die;
+        $pagenum = $this->input->get('pagenum');
+        $int_round_id = $this->input->get('round_id');
+        $int_round_id = 1;
+        //echo $int_round_id;die;
+        $int_total = $this->student_course->get_evaluate_count($int_round_id);
+        $params = array('total' => $int_total, 'listRows' => '1','pa'=>'');
+
+        $this->load->library('ajaxpage',$params);
+        $limit = $this->ajaxpage->limit;
+        $array_evaluate = $this->student_course->get_round_evaluate($int_round_id,$limit);
+// 		var_dump($array_evaluate);die;
+        $str_page = $this->ajaxpage->fpage();
+        $this->smarty->assign('array_evaluate', $array_evaluate);
+        $this->smarty->assign('page', $str_page);
+        $this->smarty->display('www/studentMyCourse/ajax_evaluate.html');
     }
 
     /**
