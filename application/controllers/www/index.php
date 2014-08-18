@@ -65,6 +65,13 @@ class Index extends NH_User_Controller
         $int_stage_id = $this->input->get('stage_id') ? intval($this->input->get('stage_id')) : 0;
         $arr_where = $int_stage_id > 0 ? array('stage_id' => $int_stage_id) : array();
 
+        //focus
+        $this->load->model('business/admin/business_focus_photo');
+        $focus_photo = $this->business_focus_photo->list_photo(1);
+        foreach ($focus_photo as $k => $v) {
+            $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
+        }
+
         //直播课
         $arr_live_classes = $this->index->get_live_classes();
 
@@ -72,6 +79,7 @@ class Index extends NH_User_Controller
 
         $int_round_count = $this->index->get_round_count($arr_where);
         $arr_round_list = $this->index->get_round_list($arr_where, $int_start, PER_PAGE_NO);
+//        o($arr_round_list,true);
 
         //pagination
         $this->load->library('pagination');
@@ -84,18 +92,11 @@ class Index extends NH_User_Controller
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
 
-
-        $this->load->model('business/admin/business_focus_photo');
-        $focus_photo = $this->business_focus_photo->list_photo(1);
-        foreach ($focus_photo as $k => $v) {
-            $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
-        }
-        $course_url = config_item('course_url');
-
+//o($arr_round_list,true);
         $this->smarty->assign('focus_photo', $focus_photo);
-
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
+        $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
     }
 
