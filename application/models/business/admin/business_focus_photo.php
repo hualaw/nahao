@@ -67,6 +67,15 @@
             $arr_data['round_id']=trim($data['round_id']);
             $arr_data['color']=trim($data['color']);
             $arr_data['img_src']=trim($data['img_src']);
+            $arr_data['sort']=trim($data['sort']);
             return $this->model_focus_photo->success_add($arr_data);
+        }
+        /**
+         * 验证轮播图数序是否存在
+         * @author shangshikai@tizi.com
+         */
+        public function check_sort($sort)
+        {
+            return $this->model_focus_photo->sort_check($sort);
         }
     }
