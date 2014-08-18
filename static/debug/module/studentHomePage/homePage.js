@@ -108,8 +108,20 @@ define(function(require,exports){
     }
     //验证注册   shangshikai@tizi.com
     exports.register_check=function(){
-            $('#email').blur(function(){
+        $('#span_warning').hide().html('');
+        $('#email').focus(function(){
+            $('#span_warning').hide().html('');
+        })
+        $('#password').focus(function(){
+            $('#span_warning').hide().html('');
+        })
+        $('#phone').focus(function(){
+            if($.trim($('#phone').val())!='')
+            {
                 $('#span_warning').hide().html('');
+            }
+        })
+            $('#email').blur(function(){
                 if($.trim($('#email').val())=='')
                 {
                     $('#span_warning').css('color','red').show().html('邮箱不能为空');
