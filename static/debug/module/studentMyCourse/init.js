@@ -70,9 +70,22 @@ define(function(require,exports){
 		//随滚导航
 		require("module/studentMyCourse/detial").fellowNav();
 		//清空浏览记录
-		require("module/studentClass/courseList").clearHis();
+//		require("module/studentClass/courseList").clearHis();
 		//模拟日期下拉
 		require("module/studentMyCourse/detial").timeSelect();
+	    setPage = function(pageNum){
+	    	var round_id = $('#product_id').val();
+	    	$.ajax({
+				 type:'GET',
+				 url:'/course/ajax_evaluate',
+				 data:{page:pageNum,round_id:round_id},
+				 dataType:'html',
+				 success:function(data){
+				    $("#fpage").html(data);
+				 }
+			});
+	    }
+		setPage(1);
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();
@@ -114,17 +127,6 @@ define(function(require,exports){
 		    /*初始化视频播放结束*/
     	});
     }
-    setPage = function(pageNum){
-    	var round_id = $('#product_id').val();
-    	$.ajax({
-			 type:'GET',
-			 url:'/course/ajax_evaluate',
-			 data:{page:pageNum,round_id:round_id},
-			 dataType:'html',
-			 success:function(data){
-			    $("#fpage").html(data);
-			 }
-		});
-    }
-	setPage(1);
+	//清空浏览记录
+	require("module/studentClass/courseList").clearHis();
 })
