@@ -54,6 +54,11 @@
     <div class="aboutContent fr" id="aboutContent" module="service">
 	    {include file="www/include/about/page/service.htm"}
     </div>
+    {else if $str_pram == 'wish'}
+	<!--总裁寄语-->
+    <div class="aboutContent fr" id="aboutContent" module="wish">
+	    {include file="www/include/about/page/wish.htm"}
+    </div>
     <!--关于我们 右侧 结束-->
     {/if}
 </div>

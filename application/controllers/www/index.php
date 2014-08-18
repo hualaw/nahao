@@ -199,69 +199,75 @@ class Index extends NH_User_Controller
         } else {
             self::json_output(array('status' => 'error', 'msg' => '申请试讲操作失败'));
 //			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
-        }
-    }
+	    }
+	}
+	
+	/**
+	 * 意见反馈
+	 */
+	public function feedback()
+	{
+	    $str_content = $this->input->post("content");
+	    $str_nickname = $this->input->post("nickname");
+	    $str_email = $this->input->post("email");
+	    $array_data = array(
+	            'content'=>$str_content,
+	            'nickname'=>  $str_nickname,
+	            'email'=>$str_email,
+	            'create_time'=>time()
+	    );
+	    $bool_flag = $this->model_index->save_feedback($array_data);
+	    if ($bool_flag)
+	    {
+	        self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
+	    } else {
+	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
+	    }
+	}
+	
+	/**
+	 * 底部的页面
+	 */
+	public function about()
+	{
+	    $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
+	    switch ($str_pram)
+	    {
+	    	case 'aboutus':
+	    		$seo_title = '关于我们-那好网';
+	    		$seo_description = '';
+	    		break;
+    		case 'classmode':
+    			$seo_title = '那好招聘-那好网';
+    			$seo_description = '';
+    			break;
+    		case 'userhelp':
+    			$seo_title = '那好怎么用,那好学习流程-那好网';
+    			$seo_description = '教你如何正确使用那好，知道那好怎么用，并详细了解那好学习流程';
+    			break;
+    		case 'advise':
+    			$seo_title = '那好投诉与建议处理-那好网';
+    			$seo_description = '那好在线教育平台投诉、建议及相关问题，请联系我们。我们会及时核查您有关那好投诉与建议的问题，解决您的投诉。您的参与将帮助我们改进产品与服务。那好网！（nahao.com）';
+    			break;
+    		case 'contactus':
+    			$seo_title = '联系我们-那好网';
+    			$seo_description = '';
+    			break;
+    		case 'service':
+    			$seo_title = '服务条款-那好网';
+    			$seo_description = '';
+    			break;
+    		case 'wish':
+    			$seo_title = '总裁寄语-那好网';
+    			$seo_description = '';
+    			break;
+	    }
 
-    /**
-     * 意见反馈
-     */
-    public function feedback()
-    {
-        $str_content = $this->input->post("content");
-        $str_nickname = $this->input->post("nickname");
-        $str_email = $this->input->post("email");
-        $array_data = array(
-            'content' => $str_content,
-            'nickname' => $str_nickname,
-            'email' => $str_email,
-            'create_time' => time()
-        );
-        $bool_flag = $this->model_index->save_feedback($array_data);
-        if ($bool_flag) {
-            self::json_output(array('status' => 'ok', 'msg' => '提交意见反馈成功'));
-        } else {
-            self::json_output(array('status' => 'error', 'msg' => '提交意见反馈失败'));
-        }
-    }
-
-    /**
-     * 底部的页面
-     */
-    public function about()
-    {
-        $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
-        switch ($str_pram) {
-            case 'aboutus':
-                $seo_title = '关于我们-那好网';
-                $seo_description = '';
-                break;
-            case 'classmode':
-                $seo_title = '那好招聘-那好网';
-                $seo_description = '';
-                break;
-            case 'userhelp':
-                $seo_title = '那好怎么用,那好学习流程-那好网';
-                $seo_description = '教你如何正确使用那好，知道那好怎么用，并详细了解那好学习流程';
-                break;
-            case 'advise':
-                $seo_title = '那好投诉与建议处理-那好网';
-                $seo_description = '那好在线教育平台投诉、建议及相关问题，请联系我们。我们会及时核查您有关那好投诉与建议的问题，解决您的投诉。您的参与将帮助我们改进产品与服务。那好网！（nahao.com）';
-                break;
-            case 'contactus':
-                $seo_title = '联系我们-那好网';
-                $seo_description = '';
-                break;
-            case 'service':
-                $seo_title = '服务条款-那好网';
-                $seo_description = '';
-                break;
-        }
-
-        $this->smarty->assign('str_pram', $str_pram);
-        $this->smarty->assign('seo_title', $seo_title);
-        $this->smarty->assign('seo_description', $seo_description);
-        $this->smarty->display('www/about/index.html');
-    }
+	    $this->smarty->assign('str_pram',$str_pram);
+	    $this->smarty->assign('seo_title',$seo_title);
+	    $this->smarty->assign('seo_description',$seo_description);
+	    $this->smarty->display('www/about/index.html');
+	}
 }
 
 /* End of file welcome.php */

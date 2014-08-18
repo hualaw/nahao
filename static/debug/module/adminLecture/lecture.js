@@ -50,7 +50,7 @@ define(function(require,exports){
             $.ajax({
                 type:"post",
                 url:"/lecture/pass_lecture",
-                data:"lecture_id="+$('#lecture_id').val()+"&user_id="+$('#user_id').val()+"&gender="+$('#gender').val()+"&realname="+$('#tea_name').html()+"&age="+$('#age').val()+"&school="+$('#school').val()+"&province="+$('#province').val()+"&city="+$('#city').val()+"&area="+$('#area').val()+"&stage="+$('#stage').val()+"&teacher_age="+$('#teach_years').val()+"&teacher_intro="+$('#resume').val()+"&title="+$('#title').val()+"&subject="+$('#subject').val()+"&basic_reward="+$('#basic_reward').val(),
+                data:"lecture_id="+$('#lecture_id').val()+"&user_id="+$('#user_id').val()+"&gender="+$('#gender').val()+"&realname="+$('#tea_name').html()+"&age="+$('#age').val()+"&school="+$('#school').val()+"&province="+$('#province').val()+"&city="+$('#city').val()+"&area="+$('#area').val()+"&stage="+$('#stage').val()+"&teacher_age="+$('#teach_years').val()+"&teacher_intro="+$('#resume').val()+"&title="+$('#title').val()+"&subject="+$('#subject').val()+"&basic_reward="+$('#basic_reward').val()+'&qq='+$('#qq').html(),
                 success:function(msg){
                     if(msg==1)
                     {
