@@ -158,6 +158,24 @@
                 'teacher_auth'=>1,
                 'teacher_time'=>time()
             );
+//            $data=array(
+//                'basic_reward'=>$post['basic_reward'],
+//                'gender'=>$post['gender'],
+//                'realname'=>$post['realname'],
+//                'age'=>$post['age'],
+//                'school'=>$post['school'],
+//                'province'=>$post['province'],
+//                'city'=>$post['city'],
+//                'area'=>$post['area'],
+//                'stage'=>$post['stage'],
+//                'teacher_age'=>$post['teacher_age'],
+//                'teacher_intro'=>$post['teacher_intro'],
+//                'title'=>$post['title'],
+//                'titile_auth'=>1,
+//                'teacher_auth'=>1,
+//                'teacher_time'=>time(),
+//                'qq'=>$post['qq']
+//            );
 
             $subject_data['subject_id']=$post['subject'];
             $subject_data['teacher_id']=$post['user_id'];

@@ -579,11 +579,18 @@ class Student_Course extends NH_Model{
     /**
      * 最近浏览
      */
-    public function get_recent_view_data($int_round_id)
+    public function get_recent_view_data($array_data)
     { 
 //     	setcookie("recent_view");
     	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
 //     		var_dump($_COOKIE['recent_view']);die;
+			$json_decode_value = json_decode($_COOKIE['recent_view']);
+			foreach ($json_decode_value as  $k=>$v)
+			{
+				if($array_data['id'] != $k){
+					
+				}
+			}
     		$str_value = explode(',',$_COOKIE['recent_view']);
     		if (!in_array($int_round_id, $str_value))
     		{
@@ -592,7 +599,17 @@ class Student_Course extends NH_Model{
 //     			array_unshift($_COOKIE['recent_view'],$int_round_id);
     		}
     	} else {
-    		setcookie("recent_view", $int_round_id, time()+3600);
+    		$value = array(
+	    			$array_data['id']=>array(
+	    				'id'=>$array_data['id'],
+	    				'img'=>$array_data['class_img'],
+	    				'title'=>$array_data['title'],
+	    				'price'=>$array_data['price'],
+	    				'sale_price'=>$array_data['sale_price']
+	    				));
+//     		var_dump($value);die;
+    		$json_encode_value = json_encode($value);
+    		setcookie("recent_view", $json_encode_value, time()+3600);
     	}
     	return empty($_COOKIE['recent_view']) ? '' : $_COOKIE['recent_view'];
     }

@@ -22,33 +22,19 @@
 		<div class="cf">
 			<div class="fr banner bannerScroll" id="indexBanner">
 				<ul class="cf rollList">
-		            <li class="fl rollshow" >
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner1.gif" alt="">
+                    {foreach $focus_photo as $k=>$v}
+		            <li class="fl {if $k==0}rollshow{/if}" >
+		            	<a href="{$v.link}">
+		            		<img src="{$smarty.const.NH_QINIU_URL}{$v.img_src}" alt="" width="570" height="293">
 		            	</a>
 		            </li>
-		            <li class="fl">
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner2.gif" alt="">
-		            	</a>
-		            </li>
-		             <li class="fl">
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner3.gif" alt="">
-		            	</a>
-		            </li>
-		             <li class="fl">
-		            	<a href="#">
-		            		<img src="{$static_url}{$static_version}/images/studentHomePage/banner/banner4.gif" alt="">
-		            	</a>
-		            </li>
+                    {/foreach}
 	        	</ul>
 				<!-- banner焦点开始 -->
 				<ol class="cf rollNav indexlist">
-	            	<li class="fl active">1</li>
-	            	<li class="fl">2</li>
-	            	<li class="fl">3</li>
-	            	<li class="fl">4</li>
+                    {foreach $focus_photo as $k=>$v}
+	            	<li class="fl {if $k==0}active{/if}">{$k+1}</li>
+                    {/foreach}
 	        	</ol>
 				<!-- banner焦点结束 -->
 				<!-- 左右切换开始 -->
@@ -191,7 +177,7 @@
 					<!-- 全部课程开始 -->
 					<div class="cf item active" itemname="cl_all_list">
 						<div class="cf">
-							{for $i=0 to 5}
+							{for $i=0 to 59}
 							<!-- 单个课程信息开始 -->
 							<div class="cItem">
 								<!-- 标签列表开始 -->
@@ -708,23 +694,69 @@
 		<!-- 登录框开始 -->
 		<div class="loginWrap">
 			<h4 class="loginTitle">快速注册,免费送学习诊断</h4>
+			<!--错误提示开始-->
+			<div class="msgTip" id="span_warning">
+				
+			</div>
+			<!-- 错误提示结束 -->
 			<div class="inputWrap">
-				<input type="text" placeholder="手机号,可用手机号码直接登录">
+				<input type="text" placeholder="邮箱，可用邮箱直接登录" id="email">
 			</div>
 			<div class="inputWrap">
-				<input type="password" placeholder="密码">
+				<input type="password" placeholder="密码" id="password">
 			</div>
 			<div class="inputWrap">
-				<input type="text" placeholder="qq号(方便对您个性化诊断)">
+				<input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone">
 			</div>
 			<div class="hasNophone">
 				<a href="#">没有手机，请点击这里！</a>
 			</div>
 			<div>
-				<input type="submit" value="免费注册，立即获得诊断" class="loginBtn">
+				<input type="button" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
 			</div>
 		</div>
 		<!-- 登录框结束 -->
+		<!-- 登录之后的状态开始 -->
+		<div class="cf loginedWrap">
+			<div class="cf userInfo">
+				<!-- 用户图像开始 -->
+				<a href="#" title="李天一" class="fl">
+					<img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="李天一" class="UserImg">
+				</a>
+				<!-- 用户图像结束 -->
+				<span class="fl userDesc">
+					<!-- 姓名开始 -->
+					<a class="name" href="#" title="李天一">李天一</a>
+					<!-- 姓名结束 -->
+					<!-- 年级开始 -->
+					<a class="grade" href="#">初三</a>
+					<!-- 年级结束 -->
+				</span>
+			</div>
+			<ul class="cf myCtrlList">
+				<li class="fl myCourses">
+					<a href="#" title="我的课程">
+						<span class="icon"></span>
+						我的课程
+					</a>
+				</li>
+				<li class="fl myOrder">
+					<a href="#" title="我的订单">
+						<span class="icon"></span>
+						我的订单
+					</a>
+				</li>
+				<li class="fl myInfo">
+					<a href="#" title="我的资料">
+						<span class="icon"></span>
+						我的资料
+					</a>
+				</li>
+			</ul>
+			<a href="#" class="cRedBtn enterMyCenter">进入个人中心</a>
+			<a href="#" class="fr loginOut">退出</a>
+		</div>
+		<!-- 登录之后的状态结束 -->
 		<!-- 服务保障开始 -->
 		<div class="assuranceWrap">
 			<div class="tHeader">
@@ -828,48 +860,49 @@
 		<!-- 广告列表结束 -->
 		<!-- 浏览记录开始 -->
 		<div class="historyWrap">
-			<div class="hd hHeader">
-				最近浏览
-				<a href="#" class="fr deletHistory">清空</a>
-			</div>
-			<!-- 无浏览记录开始 -->
-			<div class="noHistory">
-				暂无浏览记录
-			</div>
-			<!-- 无浏览记录结束 -->
-			<!-- 有浏览记录开始 -->
-			<div class="bd historyList">
-				<!-- 单条浏览记录开始 -->
-				<a class="cf hItem" href="#">
-					<img class="hPic" src="{$static_url}{$static_version}/images/studentHomePage/history/history1.png" alt="" class="fl">
-					<span class="fr hDesc">
-						<span class="hSmallTitle">针对高考，重新建
-立语文的学习...</span>
-						<span class="valList">
-
-							<strong class="price">￥128</strong>
-							<span class="val">2000</span>
+			<div class="historyListWrap">
+				<!-- 浏览记录的头部开始 -->
+				<div class="hd hHeader">
+					最近浏览
+					<a href="#" class="fr deletHistory">清空</a>
+				</div>
+				<!-- 浏览记录的头部结束 -->
+				<!-- 无浏览记录开始 -->
+				<div class="noHistory">
+					暂无浏览记录
+				</div>
+				<!-- 无浏览记录结束 -->
+				<!-- 有浏览记录开始 -->
+				<div class="bd historyList">
+					<!-- 单条浏览记录开始 -->
+					<a class="cf hItem" href="#">
+						<img class="hPic" src="{$static_url}{$static_version}/images/studentHomePage/history/history1.png" alt="" class="fl">
+						<span class="fr hDesc">
+							<span class="hSmallTitle">针对高考，重新建
+	立语文的学习...</span>
+							<span class="valList">
+								<strong class="price">￥128</strong>
+								<span class="val">2000</span>
+							</span>
 						</span>
-					</span>
-				</a>
-				<!-- 单条浏览记录结束 -->
-				<!-- 单条浏览记录开始 -->
-				<a class="cf hItem" href="#">
-					<img class="hPic" src="{$static_url}{$static_version}/images/studentHomePage/history/history1.png" alt="" class="fl">
+					</a>
+					<!-- 单条浏览记录结束 -->
+					<!-- 单条浏览记录开始 -->
+					<a class="cf hItem" href="#">
+						<img class="hPic" src="{$static_url}{$static_version}/images/studentHomePage/history/history1.png" alt="" class="fl">
 
-					<span class="fr hDesc">
-						<span class="hSmallTitle">针对高考，重新建
-立语文的学习...</span>
-						<span class="valList">
-
-							<strong class="price">￥128</strong>
-							<span class="val">2000</span>
+						<span class="fr hDesc">
+							<span class="hSmallTitle">针对高考，重新建
+	立语文的学习...</span>
+							<span class="valList">
+								<strong class="price">￥128</strong>
+								<span class="val">2000</span>
+							</span>
 						</span>
-					</span>
-				</a>
-				<!-- 单条浏览记录结束 -->
+					</a>
+					<!-- 单条浏览记录结束 -->
+				</div>
 			</div>
-			<!-- 无浏览记录开始 -->
 		</div>
 		<!-- 浏览记录结束 -->
 	</div>

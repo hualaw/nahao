@@ -14,8 +14,10 @@ define(function(require,exports){
 		require("module/studentHomePage/slide").init($(".stuListCont"));
 		//媒体报道slide
 		require("module/studentHomePage/slide").init($(".mediaCont"));
-		//屏幕滚动fixed效果
-		require("module/common/method/scrollFixed").init();
+		//首页课程列表的fixed
+        exports.fiexed($(".cListWrap .chTitle"));
+        //首页广告区域的fixed
+        exports.fiexed($(".historyWrap .historyListWrap"));
 
 	}
 	//初始化首页的banner
@@ -88,4 +90,190 @@ define(function(require,exports){
 		}
 		new _banner($("#indexBanner"),$("#indexBanner .rollList li"),$("#indexBanner .rollNav li"),$("#indexBanner .bannerSlide"),5000).start();
 	}
-})
+    //页面的fixed效果
+    exports.fiexed=function(item,top){
+        if(!top){
+            top=parseInt($(item).parent().prop("offsetTop"));
+        }
+        var _left=parseInt($(item).parent().prop("offsetLeft"));
+        $(window).scroll(function(){
+            var _windowTop=$(window).scrollTop();
+            if(_windowTop>=top){
+                $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"1111"});
+            }else{
+                $(item).css({"position":"absolute","top":"0px;","left":"0px","z-index":"1"});
+            }
+            var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+        });
+    }
+    //验证注册   shangshikai@tizi.com
+    exports.register_check=function(){
+            $('#email').blur(function(){
+                $('#span_warning').hide().html('');
+                if($.trim($('#email').val())=='')
+                {
+                    $('#span_warning').css('color','red').show().html('邮箱不能为空');
+                    return false;
+                }
+                else
+                {
+                    $('#span_warning').hide().html('');
+                }
+
+                $.ajax({
+                    url:'/register/check_email',
+                    type:'post',
+                    data:'email='+$.trim($('#email').val()),
+                    success:function(msg)
+                    {
+                        if(msg.status=='error')
+                        {
+                            $('#span_warning').css('color','red').show().html(msg.msg);
+                            return false;
+                        }
+                        else
+                        {
+                            $('#span_warning').hide().html('');
+                        }
+                    }
+                })
+            })
+
+
+            $('#password').blur(function(){
+                if($.trim($('#password').val())=='')
+                {
+                    $('#span_warning').css('color','red').show().html('密码不能为空');
+                    return false;
+                }
+                else
+                {
+                    $('#span_warning').hide().html('');
+                }
+
+                if($.trim($('#password').val()).length<6 || $.trim($('#password').val()).length>20)
+                {
+                    $('#span_warning').css('color','red').show().html('密码不能少于6位或大于20位');
+                    return false;
+                }
+                else
+                {
+                    $('#span_warning').hide().html('');
+                }
+            })
+
+
+            $('#phone').blur(function(){
+                if($.trim($('#phone').val())!='')
+                {
+                    $.ajax({
+                        url:'/register/check_phone',
+                        type:'post',
+                        data:'phone='+$.trim($('#phone').val()),
+                        success:function(msg)
+                        {
+                            if(msg.status=='error')
+                            {
+                                $('#span_warning').css('color','red').show().html(msg.msg);
+                                return false;
+                            }
+                            else
+                            {
+                                $('#span_warning').hide().html('');
+                            }
+                        }
+                    })
+                }
+            })
+
+            $('#register_button').click(function(){
+                if($.trim($('#email').val())=='')
+                {
+                    $('#span_warning').css('color','red').show().html('邮箱不能为空');
+                    return false;
+                }
+                else
+                {
+                    $('#span_warning').hide().html('');
+                }
+
+                $.ajax({
+                    url:'/register/check_email',
+                    type:'post',
+                    data:'email='+$.trim($('#email').val()),
+                    success:function(msg)
+                    {
+                        if(msg.status=='error')
+                        {
+                            $('#span_warning').css('color','red').show().html(msg.msg);
+                            return false;
+                        }
+                        if(msg.status=='ok')
+                        {
+                            $('#span_warning').hide().html('');
+                        }
+                    }
+                })
+
+                if($.trim($('#password').val())=='')
+                {
+                    $('#span_warning').css('color','red').show().html('密码不能为空');
+                    return false;
+                }
+                else
+                {
+                    $('#span_warning').hide().html('');
+                }
+
+                if($.trim($('#password').val()).length<6 || $.trim($('#password').val()).length>20)
+                {
+                    $('#span_warning').css('color','red').show().html('密码不能少于6位或大于20位');
+                    return false;
+                }
+                else
+                {
+                    $('#span_warning').hide().html('');
+                }
+
+                if($.trim($('#phone').val())!='')
+                {
+                    $.ajax({
+                        url:'/register/check_phone',
+                        type:'post',
+                        data:'phone='+$.trim($('#phone').val()),
+                        success:function(msg)
+                        {
+                            if(msg.status=='error')
+                            {
+                                $('#span_warning').css('color','red').show().html(msg.msg);
+                                return false;
+                            }
+                            else
+                            {
+                                $('#span_warning').hide().html('');
+                            }
+                        }
+                    });
+                }
+
+                $.ajax({
+                    url:'/register/submit',
+                    data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val(),
+                    type:'post',
+                    success:function(msg)
+                    {
+                        if(msg.status=='error')
+                        {
+                            $('#span_warning').css('color','red').show().html(msg.msg);
+                            return false;
+                        }
+                        if(msg.status=='ok')
+                        {
+                            $('#span_warning').hide().html('');
+                            location.reload();
+                        }
+                    }
+                })
+        });
+    }
+});

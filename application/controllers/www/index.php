@@ -224,6 +224,10 @@ class Index extends NH_User_Controller {
     			$seo_title = '服务条款-那好网';
     			$seo_description = '';
     			break;
+    		case 'wish':
+    			$seo_title = '总裁寄语-那好网';
+    			$seo_description = '';
+    			break;
 	    }
 
 	    $this->smarty->assign('str_pram',$str_pram);
