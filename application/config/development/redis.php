@@ -4,7 +4,7 @@
 $config['redis_db']['session']		= 1;//SESSION
 $config['redis_db']['login']	 	= 2;//store phone captcha and email verify code
 $config['redis_db']['order'] 		= 3; //订单
-
+$config['redis_db']['live_class_token'] 		= 4; //进入直播课的token
 
 // Default connection group
 $config['redis_default']['host'] = '192.168.11.75';     // IP address or host

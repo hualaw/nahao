@@ -463,9 +463,8 @@ class Course extends NH_User_Controller {
 	 /**
 	  * 直播课进教室入口
 	  */
-	 public function enter_live_class(){
-	 	$int_class_id = $this->input->post('cid');
-	 	$str_nickname = $this->input->post('nickname');
+	 public function enter_live_class($int_class_id,$str_nickname){
+
 	 	$array_class = $this->model_course->get_class_infor($int_class_id);
 	 	if (empty($array_class)){
 	 		show_error('参数错误！');
@@ -475,8 +474,7 @@ class Course extends NH_User_Controller {
         {
        		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
         }
-	 	$str_classroom_url = '/classroom/main.html?';
-	 	
+	 	$str_classroom_url = '/classroom/main.html?';	 	
 	 	
 	 	$array_params = array(
 	 			'UserDBID' => 0,
@@ -484,7 +482,7 @@ class Course extends NH_User_Controller {
 	 			'UserType' => NH_MEETING_TYPE_STUDENT,
 	 	);
 
-	 	$className = !empty($array_class['class_title']) ? urlencode($array_class['class_title']) : '';
+	 	$className = !empty($array_class['title']) ? urlencode($array_class['title']) : '';
 	 	$UserName = urlencode($str_nickname);
 	 	//新增：AES加密flash链接
 	 	$uri = http_build_query($array_params);
@@ -503,10 +501,72 @@ class Course extends NH_User_Controller {
 	 /**
 	  * 添加直播课的昵称
 	  */
-	 public function add_live_class_nicknane($int_class_id)
+	 public function go()
 	 {
-	 	$this->smarty->assign('cid',$int_class_id);
-	 	$this->smarty->display('www/student_live_class/add_nickname.html');
+	 	$int_class_id = $this->input->get('cid');
+	 	if(!isset($_GET['token']) || empty($_GET['token'])){
+	 		$token = $this->genToken();
+	 		$this->load->model('model/common/model_redis', 'redis');
+	 		$this->redis->connect('live_class_token');
+	 		#token可以用 存在redis里面的value为1；不可以用value为2
+	 		$this->cache->redis->set($token,1);
+	 		$this->smarty->assign('token',$token);
+	 		$this->smarty->assign('cid',$int_class_id);
+	 		$this->smarty->display('www/student_live_class/add_nickname.html');
+	 	} else {
+	 		$token = $this->input->get("token");
+	 		$nickname = $this->input->get("nickname");
+	 		$this->load->model('model/common/model_redis', 'redis');
+	 		$this->redis->connect('live_class_token');
+	 		$value = $this->cache->redis->get($token);
+	 		if (empty($value) || $value == '2'){
+	 			$token_ag = $this->genToken();
+	 			$this->load->model('model/common/model_redis', 'redis');
+	 			$this->redis->connect('live_class_token');
+	 			#token可以用 存在redis里面的value为1；不可以用value为2
+	 			$this->cache->redis->set($token_ag,1);
+	 			$this->smarty->assign('token',$token_ag);
+	 			$this->smarty->assign('cid',$int_class_id);
+	 			$this->smarty->display('www/student_live_class/add_nickname.html');
+	 		} elseif($value == '1') {
+	 			$this->load->model('model/common/model_redis', 'redis');
+	 			$this->redis->connect('live_class_token');
+	 			#token可以用 存在redis里面的value为1；不可以用value为2
+	 			$this->cache->redis->set($token,2);
+	 			$this->enter_live_class($int_class_id,$nickname);
+	 		}
+	 	}
+	 }
+	 
+	public function genToken( $len = 32, $md5 = true ) {
+	 	# Seed random number generator
+	 	# Only needed for PHP versions prior to 4.2
+	 	mt_srand( (double)microtime()*1000000 );
+	 	# Array of characters, adjust as desired
+	 	$chars = array(
+	 	'Q', '@', '8', 'y', '%', '^', '5', 'Z', '(', 'G', '_', 'O', '`',
+	 	'S', '-', 'N', '<', 'D', '{', '}', '[', ']', 'h', ';', 'W', '.',
+	 	'/', '|', ':', '1', 'E', 'L', '4', '&', '6', '7', '#', '9', 'a',
+	 	'A', 'b', 'B', '~', 'C', 'd', '>', 'e', '2', 'f', 'P', 'g', ')',
+	 	'?', 'H', 'i', 'X', 'U', 'J', 'k', 'r', 'l', '3', 't', 'M', 'n',
+	 	'=', 'o', '+', 'p', 'F', 'q', '!', 'K', 'R', 's', 'c', 'm', 'T',
+	 	'v', 'j', 'u', 'V', 'w', ',', 'x', 'I', '$', 'Y', 'z', '*'
+	 	);
+	 	# Array indice friendly number of chars;
+	 	$numChars = count($chars) - 1; $token = '';
+	 	# Create random token at the specified length
+	 	for ( $i=0; $i<$len; $i++ )
+	 	$token .= $chars[ mt_rand(0, $numChars) ];
+	 	# Should token be run through md5?
+	 	if ( $md5 ) {
+	 	# Number of 32 char chunks
+	 	$chunks = ceil( strlen($token) / 32 ); $md5token = '';
+	 	# Run each chunk through md5
+	 	for ( $i=1; $i<=$chunks; $i++ )
+	 		$md5token .= md5( substr($token, $i * 32 - 32, 32) );
+	 	# Trim the token
+	 	$token = substr($md5token, 0, $len);
+	 } return $token;
 	 }
 }
 
