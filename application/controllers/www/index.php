@@ -87,7 +87,7 @@ class Index extends NH_User_Controller
 
         //直播课
         $arr_live_classes = $this->index->get_live_classes();
-//        o($arr_live_classes,true);
+//        o($arr_live_classes);
 
         //课列表
         $int_round_count = $this->index->get_round_count($arr_where);
@@ -96,7 +96,7 @@ class Index extends NH_User_Controller
 
         //pagination
         $this->load->library('pagination');
-        $config = config_item('page_www');
+        $config = config_item('page_user');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
         $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
         $config['total_rows'] = $int_round_count;
@@ -104,11 +104,11 @@ class Index extends NH_User_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
-
 //o($arr_round_list,true);
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
+        $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
     }

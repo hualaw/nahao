@@ -241,10 +241,12 @@ class Student_Index extends NH_Model{
         $str_fields = TABLE_CLASS.'.id,'.TABLE_CLASS.'.title as class_name,'.TABLE_CLASS.'.begin_time,'.TABLE_CLASS.'.end_time,classroom_id,status,start_time,'.TABLE_ROUND.'.img,'.TABLE_ROUND.'.id as round_id,'.TABLE_ROUND.'.title as round_name';
 //            $str_fields = '*';
         $arr_where = array(
-            TABLE_ROUND.'.sale_status' => ROUND_SALE_STATUS_SALE,
-            'is_live' => 1,
+            TABLE_ROUND.'.teach_status' => ROUND_TEACH_STATUS_TEACH,
+            TABLE_ROUND.'.is_live' => 1,
             TABLE_ROUND.'.is_test' => 0,
+            TABLE_CLASS.'.status <' => CLASS_STATUS_CLASS_OVER,
             TABLE_CLASS.'.is_test' => 0,
+            TABLE_CLASS.'.begin_time >' => TIME_STAMP,
         );
         $arr_group_by = array(
             TABLE_CLASS.'.id'

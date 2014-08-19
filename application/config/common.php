@@ -406,7 +406,7 @@ $config['cate'] = array(
     QUALITY_STUDY => array(
         'name' => '素质教育',
         'parentId' => 0,
-        'chirdren' => array(0,1, 2, 3, 4, 5, 6, 7, 8,9,10,100),
+        'chirdren' => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100),
     ),
 );
 //学段数组 [ key = stageId ] [parentId = cateId]
@@ -414,7 +414,7 @@ $config['cate_stage'] = array(
     0 => array(
         'name' => '全部学段',
         'parentId' => 1,
-        'chirdren' => array(3, 4, 5, 6, 7,8,9,10,11,12),
+        'chirdren' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
     ),
     1 => array(
         'name' => '小学',
@@ -437,52 +437,52 @@ $config['cate_grade'] = array(
     3 => array(
         'name' => '三年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4, 14, 100),
     ),
     4 => array(
         'name' => '四年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4, 14, 100),
     ),
     5 => array(
         'name' => '五年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4, 14, 100),
     ),
     6 => array(
         'name' => '六年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4, 14, 100),
     ),
     7 => array(
         'name' => '七年级',
         'parentId' => 2,
-        'chirdren' => array(0, 2, 3, 4,100),
+        'chirdren' => array(0, 2, 3, 4, 100),
     ),
     8 => array(
         'name' => '八年级',
         'parentId' => 2,
-        'chirdren' => array(0, 2, 3, 4,5,100),
+        'chirdren' => array(0, 2, 3, 4, 5, 100),
     ),
     9 => array(
         'name' => '九年级',
         'parentId' => 2,
-        'chirdren' => array(0, 2, 3, 4,5,9,100),
+        'chirdren' => array(0, 2, 3, 4, 5, 9, 100),
     ),
     10 => array(
         'name' => '高一',
         'parentId' => 3,
-        'chirdren' => array(0,2, 3, 4, 5, 9,100),
+        'chirdren' => array(0, 2, 3, 4, 5, 9, 100),
     ),
     11 => array(
         'name' => '高二',
         'parentId' => 3,
-        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
+        'chirdren' => array(0, 2, 3, 4, 5, 9, 10, 12, 13, 100),
     ),
     12 => array(
         'name' => '高三',
         'parentId' => 3,
-        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
+        'chirdren' => array(0, 2, 3, 4, 5, 9, 10, 12, 13, 100),
     ),
 );
 //科目数组 [ key = subjectId ] [parentId = gradeId]
@@ -539,7 +539,7 @@ $config['cate_subject'] = array(
     ),
     14 => array(
         'name' => '数学精编',
-        'parentId' => array(3,4,5,6),
+        'parentId' => array(3, 4, 5, 6),
         //'chirdren' => array(),
     ),
     100 => array(

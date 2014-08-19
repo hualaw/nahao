@@ -416,5 +416,10 @@ define('ROUND_GENERATE_MODE','production');//testing,production测试环境下�
 //学科辅导和素质教育
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
+
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
