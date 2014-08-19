@@ -230,11 +230,34 @@ class Student_Index extends NH_Model{
     }
 
     /**
-     * 返回直播课列表
+     * 获取直播课列表
      * @return array
      * @author yanrui@tizi.com
      */
     public function get_live_classes(){
-
+        $arr_return = array();
+        $str_table_range = 'class_index';
+        $str_result_type = 'list';
+        $str_fields = TABLE_CLASS.'.id,'.TABLE_CLASS.'.title as class_name,'.TABLE_CLASS.'.begin_time,'.TABLE_CLASS.'.end_time,classroom_id,status,start_time,'.TABLE_ROUND.'.img,'.TABLE_ROUND.'.id as round_id,'.TABLE_ROUND.'.title as round_name';
+//            $str_fields = '*';
+        $arr_where = array(
+            TABLE_ROUND.'.sale_status' => ROUND_SALE_STATUS_SALE,
+            'is_live' => 1,
+            TABLE_ROUND.'.is_test' => 0,
+            TABLE_CLASS.'.is_test' => 0,
+        );
+        $arr_group_by = array(
+//            TABLE_CLASS.'.id'
+        );
+        $arr_order_by = array(
+            TABLE_CLASS. '.begin_time' => 'asc'
+        );
+        $arr_limit = array(
+            'start'=> 0,
+            'limit' => 5
+        );
+        $this->load->model('model/admin/model_class');
+        $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by, $arr_limit);
+        return $arr_return;
     }
 }

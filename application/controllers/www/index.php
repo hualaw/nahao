@@ -62,12 +62,12 @@ class Index extends NH_User_Controller
      */
     public function index()
     {
-        //param init
+        //param format
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $int_stage_id = $this->input->get('stage_id') ? intval($this->input->get('stage_id')) : 0;
         $arr_where = $int_stage_id > 0 ? array('stage_id' => $int_stage_id) : array();
 
-        //focus
+        //focus photo
         $this->load->model('business/admin/business_focus_photo');
         $focus_photo = $this->business_focus_photo->list_photo(1);
         foreach ($focus_photo as $k => $v) {
@@ -76,6 +76,7 @@ class Index extends NH_User_Controller
 
         //直播课
         $arr_live_classes = $this->index->get_live_classes();
+        o($arr_live_classes,true);
 
         //课列表
 

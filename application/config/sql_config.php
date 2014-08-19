@@ -21,6 +21,10 @@ $config['sql_config'] = array(
     'class' => array(
         TABLE_CLASS => false
     ),
+    'class_index' => array(
+        TABLE_CLASS => false,
+        TABLE_ROUND => array(TABLE_CLASS.'.round_id='.TABLE_ROUND.'.id','left')
+    ),
     'course' => array(
         TABLE_COURSE => false
     ),
