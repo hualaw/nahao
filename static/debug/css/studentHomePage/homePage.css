@@ -125,7 +125,7 @@
 .studentHomePage .loginWrap .msgTip{height: 20px;line-height: 20px;margin: 0px;padding: 0px;position: absolute;width: 196px;top:34px;left:11px;text-align: center;}
 .studentHomePage .inputWrap{margin-bottom: 12px;}
 .studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 172px;padding: 0px 5px;}
-.studentHomePage .loginWrap input.authCode{width: 55px;}
+.studentHomePage .loginWrap input.authCode{width: 50px;}
 .studentHomePage .loginWrap .authCodeImg{width: 66px;height: 30px;vertical-align: top;border:1px solid #e0e0e0;margin:0px 5px;display: inline-block;}
 .studentHomePage .loginWrap .required{display: inline-block;height: 34px;line-height: 34px;padding-left: 3px;color: #CE0000;}
 .studentHomePage .loginWrap .changeOne{display: inline-block;height: 34px;line-height: 34px;}
