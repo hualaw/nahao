@@ -56,6 +56,12 @@ $config['sql_config'] = array(
     'round' => array(
         TABLE_ROUND => false
     ),
+    'round_index' => array(
+        TABLE_ROUND => false,
+        TABLE_ROUND_TEACHER_RELATION => array(TABLE_ROUND . '.id=' . TABLE_ROUND_TEACHER_RELATION . '.round_id', 'left'),
+        TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.id', 'left'),
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
+    ),
     'round_info' => array(
         TABLE_ROUND => false,
         TABLE_SUBJECT => array(TABLE_ROUND . '.subject=' . TABLE_SUBJECT . '.id', 'left'),

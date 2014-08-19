@@ -8,7 +8,7 @@
         public function photo_list($is_show)
         {
             self::sql($is_show);
-            $this->db->order_by(TABLE_FOCUS_PHOTO.'.sort','asc');
+            $this->db->order_by(TABLE_FOCUS_PHOTO.'.sort','desc');
             return $this->db->get()->result_array();
         }
         /**
