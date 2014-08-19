@@ -60,12 +60,13 @@
 .studentHomePage .listCont .item.active ul{width: 762px;}
 .studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;height: 410px;overflow: hidden;}
 .studentHomePage .listCont .courseDesc{display: block;width: 367px;height: 235px;position: relative;}
-.studentHomePage .listCont .courseDesc .cDescImg{vertical-align: bottom;padding: 0px;margin: 0px;font-size: 0px;border:0px;}
-.studentHomePage .listCont .hoverDesc{width: 367px;height: 235px;background-color: #2879a7;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
+.studentHomePage .listCont .courseDesc .cDescImg{vertical-align: bottom;padding: 0px;margin: 0px;font-size: 0px;border:0px;width: 367px;height: 235px;}
+.studentHomePage .listCont .hoverDesc{width: 367px;height: 235px;background-color: #5a6378;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
 .studentHomePage .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;position: absolute; top:0px;left:20px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
+.studentHomePage .listCont .hoverDesc .teacherWrap img{width: 45px;height: 45px;}
 .studentHomePage .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
 .studentHomePage .listCont .teacherWrap .teacherName:hover{color: #fff;}
 .studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
@@ -111,6 +112,7 @@
 .studentHomePage .mediaTitle{font-weight: normal;font-size: 14px;padding-left: 12px;}
 .studentHomePage .mediaList{float: left;}
 .studentHomePage .mediaList li{float: left;width: 144px;}
+.studentHomePage .mediaList .bItem img{width: 130px;height: 60px;}
 .studentHomePage .mediaListView{width: 707px;margin: 25px auto 0px;overflow: hidden;}
 .studentHomePage .mediaListInner{width: 10000px;}
 /*媒体报道结束*/
@@ -121,8 +123,12 @@
 .studentHomePage .loginWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;padding: 0px 11px;background-color: #fff;position: relative;}
 .studentHomePage .loginTitle{font-size: 14px; text-align: center;font-weight: normal;line-height: 14px;height: 14px;margin: 20px 0px;}
 .studentHomePage .loginWrap .msgTip{height: 20px;line-height: 20px;margin: 0px;padding: 0px;position: absolute;width: 196px;top:34px;left:11px;text-align: center;}
-.studentHomePage .inputWrap{margin-bottom: 16px;}
-.studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 182px;padding: 0px 5px;}
+.studentHomePage .inputWrap{margin-bottom: 12px;}
+.studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 172px;padding: 0px 5px;}
+.studentHomePage .loginWrap input.authCode{width: 50px;}
+.studentHomePage .loginWrap .authCodeImg{width: 66px;height: 30px;vertical-align: top;border:1px solid #e0e0e0;margin:0px 5px;display: inline-block;}
+.studentHomePage .loginWrap .required{display: inline-block;height: 34px;line-height: 34px;padding-left: 3px;color: #CE0000;}
+.studentHomePage .loginWrap .changeOne{display: inline-block;height: 34px;line-height: 34px;}
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
 .studentHomePage .loginWrap input.loginBtn{border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 19px;cursor: pointer;font-family: 'Microsoft Yahei',Tahoma,Arial,sans-serif;}
 /*登录结束*/

@@ -161,4 +161,80 @@ class Student_Index extends NH_Model{
 		}
 		return $array_data;
     }
+
+    /**
+     * 根据条件获取round count
+     * @param $arr_where
+     * @return int
+     * @author yanrui@tizi.com
+     */
+    public function get_round_count($arr_where){
+        $int_return = array();
+        if(is_array($arr_where)){
+            $str_table_range = 'round_index';
+            $str_result_type = 'list';
+            $str_fields = TABLE_ROUND.'.id';
+            $arr_final_where = array(
+                'sale_status' => ROUND_SALE_STATUS_SALE,
+                'start_time <' => TIME_STAMP+7*86400,
+                'is_live' => 0,
+                'is_test' => 0,
+            );
+            $arr_where = empty($arr_where) ? $arr_final_where : array_merge($arr_final_where,$arr_where);
+            $arr_group_by = array(
+                TABLE_ROUND.'.id'
+            );
+            $this->load->model('model/admin/model_round');
+            $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by = array(), $arr_limit = array());
+            $int_return = count($arr_return);
+        }
+        return $int_return;
+    }
+
+    /**
+     * 根据条件获取round list
+     * @param $arr_where
+     * @param $int_start
+     * @param $int_limit
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_round_list($arr_where,$int_start,$int_limit){
+        $arr_return = array();
+        if(is_array($arr_where)){
+            $str_table_range = 'round_index';
+            $str_result_type = 'list';
+            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
+//            $str_fields = '*';
+            $arr_final_where = array(
+                'sale_status' => ROUND_SALE_STATUS_SALE,
+                'start_time <' => TIME_STAMP+7*86400,
+                'is_live' => 0,
+                'is_test' => 0,
+            );
+            $arr_where = empty($arr_where) ? $arr_final_where : array_merge($arr_final_where,$arr_where);
+            $arr_group_by = array(
+                TABLE_ROUND.'.id'
+            );
+            $arr_order_by = array(
+                'start_time' => 'asc'
+            );
+            $arr_limit = array(
+                'start'=>$int_start,
+                'limit' => $int_limit
+            );
+            $this->load->model('model/admin/model_round');
+            $arr_return = $this->model_round->get_round_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by, $arr_limit);
+        }
+        return $arr_return;
+    }
+
+    /**
+     * 返回直播课列表
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_live_classes(){
+
+    }
 }

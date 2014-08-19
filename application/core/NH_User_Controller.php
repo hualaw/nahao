@@ -19,6 +19,8 @@ class NH_User_Controller extends NH_Controller
         $this->_load_user_detail();
 //         print_r($this->_user_detail);
 //         exit();
+        $stage = config_item('stage');
+        $this->smarty->assign('stage', $stage);
         $this->smarty->assign('user_detail', $this->_user_detail);
     }
     
