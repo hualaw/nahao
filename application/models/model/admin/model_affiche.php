@@ -111,4 +111,9 @@
         {
             return $this->db->insert(TABLE_ROUND_NOTE,$data);
         }
+
+        public function edit_affiche_content($id)
+        {
+            return $this->db->select(TABLE_ROUND_NOTE.'.content')->from(TABLE_ROUND_NOTE)->where(TABLE_ROUND_NOTE.'.id',$id)->get()->row_array();
+        }
     }

@@ -216,9 +216,65 @@ class NH_Controller extends CI_Controller
         $phone = trim($this->input->post('phone'));
         $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
 
-        $send_info = $this->_send_captcha($phone, $type);
+        //检查验证码发送频率
+        $send_info = array();
+        $result = $this->_check_captcha_times($phone);
+        if ($result['errno'] == 1) {
+            $send_info['status'] = ERROR;
+            $send_info['data'] = array('phone' => $phone);
+            $send_info['msg'] = '手机号格式不对';
+        } else if ($result['errno'] == 2) {
+            $send_info['status'] = ERROR;
+            $send_info['data'] = array();
+            $send_info['msg'] = '验证码发送太频繁，请稍后再试！';
+        } else {
+            $send_info = $this->_send_captcha($phone, $type);
+        }
         //unset($send_info['data']);
         self::json_output($send_info);
+    }
+
+    protected function _check_captcha_times($phone)
+    {
+        /*
+         * 1,同一个session_id，60s内只能发送一次验证码
+         * 2，同一个手机号，60s内只能发送一次验证码
+         * 3，TODO：同一个IP，60s内只能发送3次验证码
+         */
+
+        $result = array(
+            'errno' => 0,
+            'errmsg' => 'success',
+        );
+
+        $sid = trim($this->input->cookie('NHID'));
+        if (!is_mobile($phone)) {
+            $result['errno'] = 1;
+            $result['errmsg'] = 'bad_phone_format';
+            return $result;
+        }
+
+        $this->load->model('model/common/model_redis', 'redis');
+        $this->redis->connect('captcha');
+
+        if ($this->cache->redis->exists($phone))
+            $this->cache->redis->incr($phone);
+        else
+            $this->cache->redis->set($phone, 1, REDIS_CAPTCHA_TIMES_EXPIRE_TIME);
+
+        if ($this->cache->redis->exists($sid))
+            $this->cache->redis->incr($sid);
+        else
+            $this->cache->redis->set($sid, 1, REDIS_CAPTCHA_TIMES_EXPIRE_TIME);
+
+        $phone_times = $this->cache->redis->get($phone);
+        $sid_times = $this->cache->redis->get($sid);
+        if ($phone_times > 1 || $sid_times > 1) {
+            $result['errno'] = 2;
+            $result['errmsg'] = 'too_busy_captcha_send';
+        }
+
+        return $result;
     }
 
     protected function _send_captcha($phone, $type)
