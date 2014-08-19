@@ -71,8 +71,9 @@
         {/foreach}
         {/if}
     </ul>
+ <div status = '0' class="page-status">
 {$all_page}
-
+</div>
 </div>
 <!-- 全部课程列表结束 -->
 <!-- 正在进行列表开始 -->
@@ -126,7 +127,7 @@
         {/foreach}
         {/if}
     </ul>
-    <div>
+    <div status = '3' class="page-status">
         {$course_living_page}
     </div>
 </div>
@@ -178,7 +179,7 @@
         {/foreach}
         {/if}
     </ul>
-    <div>
+    <div status = '1' class="page-status">
         {$course_soon_page}
     </div>
 </div>
@@ -230,7 +231,7 @@
         {/foreach}
         {/if}
     </ul>
-    <div>
+    <div status = '4' class="page-status">
         {$course_over_page}
     </div>
 </div>
@@ -264,22 +265,23 @@
                     <a href="#" class="cnImgWrap">
                         <img src="{$item.img}" alt="" class="nItemImg">
                     </a>
-                    <div class="teacherWrap">
-                        <div class="cf teacherTop">
-                            <a href="#" class="fl">
-                                <img class="teacherImg" src="{$item.teacher.avatar}" alt="头像">
-                            </a>
-									<span class="fl teacherInfo">
-										<span class="tName">{$item.teacher.nickname}</span>
-										<span class="tAge">
-											{$item.teacher.teacher_age}年教龄
-										</span>
-									</span>
+                    <a href="http://www.baidu.com">
+                        <div class="teacherWrap">
+                            <div class="cf teacherTop">
+                                <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
+                                <span class="fl teacherInfo">
+                                    <span class="tName">{$item.teacher.nickname}</span>
+                                    <span class="tAge">
+                                        {$item.teacher.teacher_age}年教龄
+                                    </span>
+                                </span>
+                            </div>
+                            <p class="teacherDesc">
+                                {$item.teacher.teacher_intro}
+                            </p>
                         </div>
-                        <p class="teacherDesc">
-                            {$item.teacher.teacher_intro}
-                        </p>
-                    </div>
+                    </a>
+
                     <div class="ncDesc" >
                         <h4 class="ncTitle">
                             {$item.title}
@@ -308,22 +310,22 @@
                     <a href="#" class="cnImgWrap">
                         <img src="{$item.img}" alt="" class="nItemImg">
                     </a>
-                    <div class="teacherWrap">
-                        <div class="cf teacherTop">
-                            <a href="#" class="fl">
-                                <img class="teacherImg" src="{$item.teacher.avatar}" alt="头像">
-                            </a>
+                    <a href="http://www.baidu.com">
+                        <div class="teacherWrap">
+                            <div class="cf teacherTop">
+                                <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
 									<span class="fl teacherInfo">
 										<span class="tName">{$item.teacher.nickname}</span>
 										<span class="tAge">
 											{$item.teacher.teacher_age}年教龄
 										</span>
 									</span>
+                            </div>
+                            <p class="teacherDesc">
+                                {$item.teacher.teacher_intro}
+                            </p>
                         </div>
-                        <p class="teacherDesc">
-                            {$item.teacher.teacher_intro}
-                        </p>
-                    </div>
+                    </a>
                     <div class="ncDesc" >
                         <h4 class="ncTitle">
                             {$item.title}

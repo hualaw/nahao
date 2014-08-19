@@ -458,6 +458,116 @@ class Course extends NH_User_Controller {
 	 	$this->smarty->assign('array_notice', $array_notice);
 	 	$this->smarty->display('www/studentMyCourse/buyDetail.html');
 	 }
+	 
+
+	 /**
+	  * 直播课进教室入口
+	  */
+	 public function enter_live_class($int_class_id,$str_nickname){
+
+	 	$array_class = $this->model_course->get_class_infor($int_class_id);
+	 	if (empty($array_class)){
+	 		show_error('参数错误！');
+	 	}
+	    #判断这节课是不是在"可进教室 或者 正在上课"的状态 
+        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+        {
+       		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+        }
+	 	$str_classroom_url = '/classroom/main.html?';	 	
+	 	
+	 	$array_params = array(
+	 			'UserDBID' => 0,
+	 			'ClassID'  => $array_class['classroom_id'],
+	 			'UserType' => NH_MEETING_TYPE_STUDENT,
+	 	);
+
+	 	$className = !empty($array_class['title']) ? urlencode($array_class['title']) : '';
+	 	$UserName = urlencode($str_nickname);
+	 	//新增：AES加密flash链接
+	 	$uri = http_build_query($array_params);
+	 	$aes_config = array(config_item('AES_key'));
+	 	$this->load->library('AES', $aes_config, 'aes');
+	 	$aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
+	 	log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
+	 	$str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&SwfVer='.(config_item('classroom_swf_version')).'&t=1';
+	 	$str_iframe =  $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+	 	$this->smarty->assign('classroom_id', $array_class['classroom_id']);
+	 	$this->smarty->assign('class_id',$array_class['id']);
+	 	$this->smarty->assign('iframe', $str_iframe);
+	 	$this->smarty->display('www/classRoom/index.html');
+	 }
+	 
+	 /**
+	  * 添加直播课的昵称
+	  */
+	 public function go()
+	 {
+	 	$int_class_id = $this->input->get('cid');
+	 	if(!isset($_GET['token']) || empty($_GET['token'])){
+	 		$token = $this->genToken();
+	 		$this->load->model('model/common/model_redis', 'redis');
+	 		$this->redis->connect('live_class_token');
+	 		#token可以用 存在redis里面的value为1；不可以用value为2
+	 		$this->cache->redis->set($token,1);
+	 		$this->smarty->assign('token',$token);
+	 		$this->smarty->assign('cid',$int_class_id);
+	 		$this->smarty->display('www/student_live_class/add_nickname.html');
+	 	} else {
+	 		$token = $this->input->get("token");
+	 		$nickname = $this->input->get("nickname");
+	 		$this->load->model('model/common/model_redis', 'redis');
+	 		$this->redis->connect('live_class_token');
+	 		$value = $this->cache->redis->get($token);
+	 		if (empty($value) || $value == '2'){
+	 			$token_ag = $this->genToken();
+	 			$this->load->model('model/common/model_redis', 'redis');
+	 			$this->redis->connect('live_class_token');
+	 			#token可以用 存在redis里面的value为1；不可以用value为2
+	 			$this->cache->redis->set($token_ag,1);
+	 			$this->smarty->assign('token',$token_ag);
+	 			$this->smarty->assign('cid',$int_class_id);
+	 			$this->smarty->display('www/student_live_class/add_nickname.html');
+	 		} elseif($value == '1') {
+	 			$this->load->model('model/common/model_redis', 'redis');
+	 			$this->redis->connect('live_class_token');
+	 			#token可以用 存在redis里面的value为1；不可以用value为2
+	 			$this->cache->redis->set($token,2);
+	 			$this->enter_live_class($int_class_id,$nickname);
+	 		}
+	 	}
+	 }
+	 
+	public function genToken( $len = 32, $md5 = true ) {
+	 	# Seed random number generator
+	 	# Only needed for PHP versions prior to 4.2
+	 	mt_srand( (double)microtime()*1000000 );
+	 	# Array of characters, adjust as desired
+	 	$chars = array(
+	 	'Q', '@', '8', 'y', '%', '^', '5', 'Z', '(', 'G', '_', 'O', '`',
+	 	'S', '-', 'N', '<', 'D', '{', '}', '[', ']', 'h', ';', 'W', '.',
+	 	'/', '|', ':', '1', 'E', 'L', '4', '&', '6', '7', '#', '9', 'a',
+	 	'A', 'b', 'B', '~', 'C', 'd', '>', 'e', '2', 'f', 'P', 'g', ')',
+	 	'?', 'H', 'i', 'X', 'U', 'J', 'k', 'r', 'l', '3', 't', 'M', 'n',
+	 	'=', 'o', '+', 'p', 'F', 'q', '!', 'K', 'R', 's', 'c', 'm', 'T',
+	 	'v', 'j', 'u', 'V', 'w', ',', 'x', 'I', '$', 'Y', 'z', '*'
+	 	);
+	 	# Array indice friendly number of chars;
+	 	$numChars = count($chars) - 1; $token = '';
+	 	# Create random token at the specified length
+	 	for ( $i=0; $i<$len; $i++ )
+	 	$token .= $chars[ mt_rand(0, $numChars) ];
+	 	# Should token be run through md5?
+	 	if ( $md5 ) {
+	 	# Number of 32 char chunks
+	 	$chunks = ceil( strlen($token) / 32 ); $md5token = '';
+	 	# Run each chunk through md5
+	 	for ( $i=1; $i<=$chunks; $i++ )
+	 		$md5token .= md5( substr($token, $i * 32 - 32, 32) );
+	 	# Trim the token
+	 	$token = substr($md5token, 0, $len);
+	 } return $token;
+	 }
 }
 
 /* End of file welcome.php */

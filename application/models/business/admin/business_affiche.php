@@ -124,4 +124,11 @@
             }
             return $this->model_affiche->add_affiche($data);
         }
+
+
+        public function affiche_edit_content($id)
+        {
+            return $this->model_affiche->edit_affiche_content($id);
+        }
+
     }
