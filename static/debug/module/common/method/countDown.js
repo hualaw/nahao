@@ -1,8 +1,8 @@
 define(function(require,exports){
-    var ind=60;
-	exports.countDown = function (_this){
-        ind=60;
-		//验证倒计时
+    var ind = 90;
+    exports.countDown = function (_this){
+        ind = 90;
+        //验证倒计时
         var timer = setInterval(function(){
             ind--;
             if(ind<0){
