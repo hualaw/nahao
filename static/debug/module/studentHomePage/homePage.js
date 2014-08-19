@@ -109,7 +109,7 @@ define(function(require,exports){
             var _left=parseInt($(item).parent().prop("offsetLeft"));
             var _windowTop=$(window).scrollTop();
             if(_windowTop>=top){
-                $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"1111"});
+                $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"100"});
             }else{
                 $(item).css({"position":"absolute","top":"0px;","left":"0px","z-index":"1"});
             }
@@ -118,47 +118,8 @@ define(function(require,exports){
     }
     //验证注册   shangshikai@tizi.com
     exports.register_check=function(){
-        //异步请求验证邮箱
-//                $.ajax({
-//                    url:'/registereck_email',
-//                    type:'post',
-//                    data:'email='+$.trim($('#email').val()),
-//                    success:function(msg)
-//                    {
-//                        if(msg.status=='error')
-//                        {
-//                            $('#span_warning').css('color','red').show().html(msg.msg);
-//                            return false;
-//                        }
-//                        else
-//                        {
-//                            $('#span_warning').hide().html('');
-//                        }
-//                    }
-//                })
-
-        //异步验证电话
-//                if($.trim($('#phone').val())!='')
-//                {
-//                    $.ajax({
-//                        url:'/registereck_phone',
-//                        type:'post',
-//                        data:'phone='+$.trim($('#phone').val()),
-//                        success:function(msg)
-//                        {
-//                            if(msg.status=='error')
-//                            {
-//                                $('#span_warning').css('color','red').show().html(msg.msg);
-//                                return false;
-//                            }
-//                            else
-//                            {
-//                                $('#span_warning').hide().html('');
-//                            }
-//                        }
-//                    })
-//                }
-
+        
+        
         $('#register_button').click(function(){
             $.ajax({
                 url:'/register/submit',

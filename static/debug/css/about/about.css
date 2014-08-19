@@ -8,13 +8,13 @@
 .aboutPage .sideLeftNav ul li{margin-bottom: 5px;}
 .aboutPage .sideLeftNav ul a{display: block;font-size: 16px;color: #0e455e;height: 45px;line-height: 45px;text-align: center;background-color: #fff;border: 1px solid #dbe3ec;border-top: 0;box-shadow: 0 -1px 1px #b9c7d7 inset;}
 .aboutPage .sideLeftNav ul a:hover,
-.aboutPage .sideLeftNav ul .curNav a{background: #f14211;color: #fff;}
+.aboutPage .sideLeftNav ul .curNav a{background: #ce0000;color: #fff;}
 /*   关于我们  */
 .aboutPage .aboutusBox{padding: 18px 34px 38px 14px;font-size: 12px;}
 .aboutPage .aboutusBox h2,.aboutPage .aboutusBox h3{font-size: 12px;}
 .aboutPage .aboutusBox p{line-height: 24px;}
 .aboutPage .aboutusBox div{margin-bottom: 28px;}
-.aboutPage .adviseBox{padding:14px 7650px 44px 60px;width: 652px;margin-top:30px;}
+.aboutPage .adviseBox{padding:14px 60px 44px;width: 652px;margin-top:30px;}
 .aboutPage .adviseBox h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
 .aboutPage .adviseBox form .fbText{height: 28px;line-height: 28px;}
 .aboutPage .adviseBox form textarea{width: 610px;height: 100px;}
