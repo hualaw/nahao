@@ -46,12 +46,25 @@ class Index extends NH_User_Controller
             $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
         }
         $course_url = config_item('course_url');
-        $stage = config_item('stage');
+
+         $this->load->helper('captcha');
+         $vals = array(
+            'img_path' => './captcha/',
+            'img_url' => "/captcha/",
+            'img_width' => 66,
+            'img_height' => 30,
+            'expiration' => 7200
+         );
+        $cap = create_captcha($vals);
+
+        $this->smarty->assign('cap_word', $cap["word"]);
+        $this->smarty->assign('cap_image', $cap['image']);
+
+
 
         $this->smarty->assign('focus_photo', $focus_photo);
 
         $this->smarty->assign('course_url', $course_url);
-        $this->smarty->assign('stage', $stage);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
     }
