@@ -20,7 +20,7 @@ class Member extends NH_User_Controller {
     /**
      * 我的课程
      */
-	public function my_course($offset=0)
+	public function my_course($status=0)
 	{  
         header('content-type: text/html; charset=utf-8');
         $int_user_id = $this->session->userdata('user_id');#TODO用户id
@@ -28,38 +28,41 @@ class Member extends NH_User_Controller {
         #全部课程
 
         $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
-//        print_r($array_buy_course);
-//        exit;
-        $total = $array_buy_course['total'];
-        $params = array('total' => $total, 'listRows' => '1');
-        $this->load->library('ajaxpage',$params);
+        #分页
+        $this->load->library('pagination');
 
-        $page_obj = new Ajaxpage($params);
-        $all_page = $page_obj->fpage();
-
+        $config = config_item('page_user');
+        $config['total_rows'] = 100;
+        $config['per_page'] = PER_PAGE_NO;
+        $this->pagination->initialize($config);
+        $show_page = $this->pagination->createJSlinks('setPage');
 
         #正在进行的课程
         $course_living = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASSING);
-        $params = array('total' => $course_living['total'], 'listRows' => '1');
-        $page_obj = new Ajaxpage($params);
-        $course_living_page = $page_obj->fpage();
+        $config['total_rows'] = $course_living['total'];
+        $this->pagination->initialize($config);
+        $course_living_page = $this->pagination->createJSlinks('setPage');
+
+//        $params = array('total' => $course_living['total'], 'listRows' => '1');
+//        $page_obj = new Ajaxpage($params);
+//        $config['total_rows'] = $array_buy_course['total'];
+//        $course_living_page = $page_obj->fpage();
 
         #即将开始
         $course_soon_class = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_SOON_CLASS);
-        $params = array('total' => $course_soon_class['total'], 'listRows' => '1');
-        $page_obj = new Ajaxpage($params);
-        $course_soon_page = $page_obj->fpage();
+        $config['total_rows'] = $course_soon_class['total'];
+        $this->pagination->initialize($config);
+        $course_soon_page = $this->pagination->createJSlinks('setPage');
 
         #已结束
         $course_over = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASS_OVER);
-        $params = array('total' => $course_over['total'], 'listRows' => '1');
-        $page_obj = new Ajaxpage($params);
-        $course_over_page = $page_obj->fpage();
-        //var_dump($array_buy_course);
+        $config['total_rows'] = $course_over['total'];
+        $this->pagination->initialize($config);
+        $course_over_page = $this->pagination->createJSlinks('setPage');
+
         #最新课程
         $array_new = $this->student_index->get_course_latest_round_list();
-//        print_r($array_new);
-//        exit;
+
 		if($array_new)
 		{
 			#没有加nh_dbug参数 过滤掉测试轮
@@ -80,7 +83,7 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('action','my_course');
         $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('array_buy_course', $array_buy_course['list']);
-        $this->smarty->assign('all_page', $all_page);
+        $this->smarty->assign('all_page', $show_page);
 
         $this->smarty->assign('course_living', $course_living['list']);
         $this->smarty->assign('course_living_page', $course_living_page);
@@ -104,24 +107,25 @@ class Member extends NH_User_Controller {
     {
         $data = array();
 
+        $offset = (int) $this->input->post('offset');
+        $status = (int) $this->input->post('status');
+
         $int_user_id = $this->session->userdata('user_id');
-        $page = $_REQUEST['page'];
-//        $status = $_REQUEST['status'];
-        $status = 0;
-
-        $offset = ($page-1)*10;
-
         $my_course = $this->student_member->get_my_course_for_buy($int_user_id,$status,$offset);
+
 //        print_r($my_course);
 //        exit;
-        $params = array('total' => $my_course['total'], 'listRows' => '1');
-        $this->load->library('ajaxpage',$params);
-        $page = $this->ajaxpage->fpage();
-        $data['page'] = $page;
+        $this->load->library('pagination');
+        $config = config_item('page_user');
+        $config['total_rows'] = 100;
+        $config['per_page'] = PER_PAGE_NO;
+//        $config['total_rows'] = $my_course['total'];
+        $this->pagination->initialize($config);
+        $page = $this->pagination->createJSlinks('setPage',$offset);
 
+        $data['page'] = $page;
         $data['my_course'] = $my_course['list'];
-//        print_r($page);
-//        exit();
+
         $this->load->view('www/studentMyCourse/my_course.inc',$data);
     }
 

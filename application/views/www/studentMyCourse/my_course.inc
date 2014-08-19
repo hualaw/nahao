@@ -1,7 +1,7 @@
 <ul class="cf cListContWrap">
     <?php
-        if(!empty($my_course['list'])){
-            foreach($my_course['list'] as $course){
+        if(!empty($my_course)){
+            foreach($my_course as $course){
     ?>
     <li class="cf cItem">
         <a href="#" class="fl">
@@ -47,6 +47,5 @@
         }
     ?>
 </ul>
-<div>
-    <?=$page?>
-</div>
+
+<?=$page?>

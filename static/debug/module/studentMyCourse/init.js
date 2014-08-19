@@ -59,13 +59,13 @@ define(function(require,exports){
 //        _myCourse.setPage(0,0);
         //我的课程分页,offset是分页起始,status是状态
 
-        setPage = function(page) {
+        setPage = function(offset) {
             var url = '/member/ajax_get_my_course';
-            var status = 1;
+            var status = 0;
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: {status:status,page:page},
+                data: {status:status,offset:offset},
                 success: function(data) {
                     $('#my_course_page').html(data);
                 }

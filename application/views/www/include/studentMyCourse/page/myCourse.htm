@@ -25,7 +25,7 @@
 <!-- 我的课程tab切换内容开始 -->
 <div class="cf tabContent">
 <!-- 全部课程列表开始 -->
-<div class="cf item active" itemname="all_clist">
+<div class="cf item active" itemname="all_clist" id="my_course_page">
     <ul class="cf cListContWrap">
         {if $array_buy_course}
         {foreach from=$array_buy_course item=item}
@@ -71,9 +71,8 @@
         {/foreach}
         {/if}
     </ul>
-    <div id="my_course_page">
-        {$all_page}
-    </div>
+{$all_page}
+
 </div>
 <!-- 全部课程列表结束 -->
 <!-- 正在进行列表开始 -->
