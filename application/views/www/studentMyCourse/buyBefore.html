@@ -43,14 +43,14 @@
                     <div class="price"><span class="priceAfter"><i>￥</i>{$array_data.sale_price}</span><span class="priceBefore">价值<i>￥{$array_data.price}</i></span></div>
                     <div class="review cf">
                         <span class="studyCount fl"><i>{$array_data.study_count}</i>人已学习</span>
+                         {if $array_data.score >=4}
                         <span class="starBg cf fl">
-                        {if $array_data.score > 0}
                         {section name=loop loop=$array_data.score}
                             <span class="hreview"></span>
                         {/section}
-                        {/if}
                         </span>
                         <span class="fl starCount"><i>{$array_data.score}</i>分</span>
+                         {/if}
                         <a class="fl" href="#review"><i>{$evaluate_count}</i>条评价</a>
                     </div>
                     <div class="endTime cf">
@@ -204,7 +204,7 @@
                     <div id="course_info" class="course_info_item height">
                         <h3>课程提要</h3>
 
-                       	{$array_data.description}
+                       	<div class="course_info_img">{$array_data.description}</div>
                     </div>
                     <!-- 课程提要 结束 -->
                     <!-- 学员评价 开始 -->
@@ -229,13 +229,11 @@
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
                     {/foreach}
-                  
                     </ul>
-                      
-                </div>
+                 </div>
                 {/if}
+                {if $array_recommend}
                 <div class="buyCourseBox">
-                  {if $array_recommend}
                     <h3>看过本课程的用户还看了</h3>
                     <ul class="buyCourseList">
                     {foreach from=$array_recommend item=item}
@@ -246,8 +244,8 @@
                         </li>
                     {/foreach}                 
                     </ul>
-                    {/if}
                 </div>
+                  {/if}
                 <div class="history">
                     <h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
                      {if $array_recent_view}

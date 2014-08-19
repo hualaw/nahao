@@ -5,10 +5,6 @@
 <title></title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
-<link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
-<!-- 加载头部公共变量定义开始 -->
-{include file="www/include/var.htm"}
-<!-- 加载头部公共变量定义结束 -->
 </head>
 <body>
 <!-- 头部开始 -->
@@ -21,15 +17,12 @@
 
         <div class="cf">
             <div class=" fl">
-                                                                                   
-                
-
                     <!-- 学员评价 开始 -->
                     <div id="course_content" class="course_info_item creview height">
-                        <h3>学员评价</h3>
+                        <h3 id="review">学员评价</h3>
                         <ul>
-                    {if $array_evaluate}
-                    {foreach from=$array_evaluate item=item}
+                    		{if $array_evaluate}
+                    		{foreach from=$array_evaluate item=item}
                             <li class="cf b_t_0">
                                 <img src="{$item.avatar}" alt="" class="fl">
                                 <div class="fl revCon">
@@ -52,38 +45,16 @@
                                     <p>{$item.content}</p>
                                 </div>
                             </li>
-                                                {/foreach}
-                    {/if}
+                            {/foreach}
+                    		{/if}
                         </ul>
                         {$page}
                     </div>
                     <!-- 学员评价 结束 -->
-                
             </div>
-
         </div>
     </div>
 </div>
 <!-- 主要内容结束 -->
-<!-- 底部开始 -->
-
-<!-- 底部结束 -->
-<!-- js引入开始 -->
-{include file="www/include/js.htm"}
-<!--js引入结束-->
-<!-- player播放器js开始 -->
-<script type="text/javascript" src="{static_url('/lib/nahaoPlayer/6.7.0/TiZiplayer.js')}"></script>
-<!-- player播放器js结束 -->
-<!-- 悬浮框开始 -->
-<div class="floatBox">
-    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue">咨询答疑</a>
-    <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a>
-    <a href="javascript:void(0);" class="feedback">意见反馈</a>
-    <a href="javascript:void(0);" class="returnTop">返回顶部</a>
-</div>
-<!-- 悬浮框结束 -->
-<!--意见反馈 开始-->
-
-<!--意见反馈 结束-->
 </body>
 </html>
