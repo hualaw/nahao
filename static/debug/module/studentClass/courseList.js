@@ -15,6 +15,11 @@ define(function(require,exports){
         $('.clearCount').live('click',function(){
             $('.historyList').remove();
             $('.historyNone').show();
+            exports.delCookies();
         });
-    }   
+    }
+    
+    exports.delCookies = function(){
+    	  document.cookie = 'recent_view' + "=; expires=Fri, 31 Dec 1999 23:59:59 GMT;";
+    }
 })

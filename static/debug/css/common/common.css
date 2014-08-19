@@ -43,16 +43,25 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 100;display: none;}
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
 .floatBox a.feedback{margin-top: 0px;padding: 0px;}
-.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
+/*.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}*/
+.floatBox .ansQue{background: url(../../images/common/feedback.gif) no-repeat center;display: none;}
 .floatBox .feedback{background: url(../../images/common/feedback.gif) no-repeat center; }
 .floatBox .returnTop{background: url(../../images/common/return_top.png) no-repeat center;display: none;text-indent: -10000px;background-color: #e0e0e0;}
 .floatBox a:hover{background-color: #f7f7f7; }
-.floatBox .weixinCode{background: url(../../images/common/weixin_code.gif) no-repeat center;}
-.floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
-.floatBox .feedback:hover{background: url(../../images/common/feedback.gif) no-repeat center;}
+.floatBox .weixinCode{background: url(../../images/common/weixin_code.gif) no-repeat center;position: relative;}
+.floatBox .weixinCode .wxWrap{height: 160px;width: 136px;left: -136px;top:50%;margin-top: -80px;position: absolute;display: none;}
+.floatBox .weixinCode .wxBg{display: block; width: 100%;height: 100%;background-color: #e0e0e0;opacity: 0.8;position: absolute;left:0px;top:0px;z-index: 5;}
+.floatBox .weixinCode .wxDesc{border:1px solid #e0e0e0;background-color: #fff;width: 104px;height: 136px;top:50%;left: 50%;margin-top: -68px;margin-left: -52px;position: absolute;z-index: 6;}
+.floatBox .weixinCode .wxWrap.active{display: block;}
+.floatBox .weixinCode .wxWrap img{width: 84px;height: 84px;display: block;margin: 10px auto 5px;}
+.floatBox .weixinCode .wxWrap .arrow{position: absolute;right: -10px;width: 10px;height: 13px;top:50%;margin-top: -6.5px;background: url(../../images/common/codeArrow.gif) no-repeat center;display: block;}
+.floatBox .weixinCode .wxWrap .codeText{line-height: 15px;color: #333;}
+/*.floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}*/
+/*.floatBox .ansQue{background: url(../../images/common/feedback.gif) no-repeat center;}*/
+/*.floatBox .feedback:hover{background: url(../../images/common/feedback.gif) no-repeat center;}*/
 .floatBox .returnTop:hover{background-color: #ce0000;}
 .floatBox .courSurvey{background-image: url(../../images/common/courSurvey.jpg);}
 .floatBox .courSurvey:hover{background-image: url(../../images/common/hcourSurvey.jpg);}

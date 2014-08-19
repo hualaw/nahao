@@ -33,7 +33,7 @@
     				{/if}
                     <!-- 标签列表开始 -->
                     <div class="markList">
-                        <span class="mark greenMark">限时抢购</span>
+                        <span class="mark green">限时抢购</span>
                         <span class="mark blueMark">正在直播</span>
                     </div>
                     <!-- 标签列表结束 -->
@@ -127,13 +127,14 @@
         </div>
         <div class="cf">
             <div class="detialLeft fl">
+            {if $array_notice}
                 <dl class="importInfo cf">
                     <dt>重要提醒</dt>
                     <dd>
-                        <p>1. 请同学们上课前配置好耳机和麦克，以及摄像头，方便和老师进行互动。</p>
-                        <p>2. 请购买课程的同学提前下载课件讲义复习。</p>
+						{$array_notice.content}
                     </dd>
                 </dl>
+             {/if}
                 <ul id="course_info_nav" class="">
                     <li class="detail current" id="tab_course_detial" con="course_detial">课程简介</li>
                     <li class="detail" id="tab_course_team" con="course_team">授课团队</li>
@@ -249,30 +250,23 @@
                 </div>
                 <div class="history">
                     <h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
+                     {if $array_recent_view}
                     <ul class="historyList">
+                   
+                    {foreach from=$array_recent_view item=item}
                         <li class="cf b_t_0">
-                            <a href="#" title=""><img class="fl" src="http://static.nahaodev.com/debug/images/studentClass/courseImg03.jpg" alt=""></a>
+                            <a href="{$course_url}ke_{$item.id}.html" title=""><img class="fl" src="{$item.img}" alt=""></a>
                             <div class="fl listRight">
-                                <p><a href="#" title="">针对高考，重新建立语文的学习</a></p>
-                                <div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
+                                <p><a href="#" title="">{$item.title}</a></p>
+                                <div><span class="fl price">￥{$item.sale_price}</span><span class="priceHis fl">{$item.price}</span></div>
                             </div>
                         </li>
-                        <li class="cf">
-                            <a href="#" title=""><img class="fl" src="http://static.nahaodev.com/debug/images/studentClass/courseImg03.jpg" alt=""></a>
-                            <div class="fl listRight">
-                                <p><a href="#" title="">针对高考，重新建立语文的学习</a></p>
-                                <div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
-                            </div>
-                        </li>
-                        <li class="cf">
-                            <a href="#" title=""><img class="fl" src="http://static.nahaodev.com/debug/images/studentClass/courseImg03.jpg" alt=""></a>
-                            <div class="fl listRight">
-                                <p><a href="#" title="">针对高考，重新建立语文的学习</a></p>
-                                <div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
-                            </div>
-                        </li>
+                    {/foreach}
+                   
                     </ul>
+                    {else}
                     <div class="historyNone">暂无浏览记录</div>
+                     {/if}
                 </div>
             </div>
         </div>
