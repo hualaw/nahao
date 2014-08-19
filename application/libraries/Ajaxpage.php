@@ -24,7 +24,7 @@ class Ajaxpage {
 		$this->total=$params['total'];
 		$this->listRows=empty($params['listRows']) ? 10 : $params['listRows'];
 		$this->uri=$this->getUri(empty($params['pa']) ? '' : $params['pa']);
-		$this->page=!empty($_GET["page"]) ? $_GET["page"] : 1;
+		$this->page=!empty($_REQUEST["page"]) ? $_REQUEST["page"] : 1;
 		$this->pageNum=ceil($this->total/$this->listRows);
 		$this->limit=$this->setLimit();
 	}

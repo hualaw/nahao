@@ -35,15 +35,17 @@
 				</span>
         </h3>
         <div class="cf fr infoDesc">
+            {if !empty($user_detail.phone_mask)&&($user_detail.phone_verified == 1)}
             <div class="icon tel">
                 <div class="tipWrap">
-                    绑定手机134****3967
+                    绑定手机{$user_detail.phone_mask}
                     <span class="arrow"></span>
                 </div>
             </div>
+            {/if}
             <div class="icon edit">
                 <div class="tipWrap">
-                    编辑资料
+                    <a href="/member/my_infor">编辑资料</a>
                     <span class="arrow"></span>
                 </div>
             </div>

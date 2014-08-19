@@ -1,10 +1,12 @@
 <div class="alert alert-info">{if action eq 'create'}添加{else}修改{/if}班次</div>
+
 <form class="form-horizontal" role="form" action="javascript:;">
     {if $action=='update'}
         <input type="hidden" class="col-md-1 form-control" id="id" value="{$round.id}">
     {/if}
     <input type="hidden" class="col-md-1 form-control" id="course_id" value="{if $action=='create'}{$round.id}{else}{$round.course_id}{/if}">
 
+    <!--title-->
     <div class="form-group">
         <label class="col-md-2 control-label">班次名称</label>
         <div class="col-md-4">
@@ -12,29 +14,77 @@
         </div>
     </div>
 
+    <!--sequence-->
     <div class="form-group">
-        <label class="col-md-2 control-label">教授科目</label>
+        <label class="col-md-2 control-label">排序</label>
         <div class="col-md-2">
-            <select class="form-control" id="subject">
-                <option value="">全部学科</option>
-                {foreach $subjects as $k => $v}
-                <option value="{$k}" {if isset($round) AND $round.subject==$k }selected{/if}>{$v}</option>
+            <div class="input-group">
+                <input type="text" class="form-control" id="sequence" value="{if isset($round.sequence) AND $round.sequence}{$round.sequence}{else}0{/if}">
+            </div>
+        </div>
+        <label class="col-md-2 control-label">(倒序，数字越大越靠前)</label>
+    </div>
+
+    <!--education_type-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">教育类型</label>
+        <div class="col-md-2">
+            <select class="form-control" id="education_type">
+                {foreach $education_types as $k => $v}
+                <option value="{$k}" {if isset($round.education_type) AND $round.education_type==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
     </div>
 
+    <!--material_version-->
     <div class="form-group">
-        <label class="col-md-2 control-label">课程类型</label>
+        <label class="col-md-2 control-label">教材版本</label>
         <div class="col-md-2">
-            <select class="form-control" id="course_type">
-                <option value="">全部课程类型</option>
-                {foreach $course_types as $k => $v}
-                <option value="{$k}" {if isset($round) AND $round.course_type==$k }selected{/if}>{$v}</option>
+            <select class="form-control" id="material_version">
+                {foreach $material_versions as $k => $v}
+                <option value="{$k}" {if isset($round.material_version) AND $round.material_version==$k }selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
     </div>
+
+    <!--subject-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">学科辅导科目</label>
+        <div class="col-md-2">
+            <select class="form-control" id="subject">
+                {foreach $subjects as $k => $v}
+                <option value="{$k}" {if isset($round.subject) AND $round.subject==$k }selected{/if}>{$v['name']}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <!--quality-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">素质教育科目</label>
+        <div class="col-md-2">
+            <select class="form-control" id="quality">
+                {foreach $qualities as $k => $v}
+                <option value="{$k}" {if isset($round.quality) AND $round.quality==$k }selected{/if}>{$v['name']}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <!--course_type-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">课程类型</label>
+        <div class="col-md-2">
+            <select class="form-control" id="course_type">
+                {foreach $course_types as $k => $v}
+                <option value="{$k}" {if isset($round.course_type) AND $round.course_type==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <!--teachers-->
     <div class="form-group">
         <label class="col-md-2 control-label">添加教师</label>
         <div class="col-md-10" id="round_edit_teacher_select_div">
@@ -43,15 +93,25 @@
             <botton class="btn btn-primary selected_teacher" data-teacher_id="{$v.id}">{$v.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<botton class="btn-primary delete_teacher_btn">x</botton></botton>
             {/foreach}
             {/if}
-            <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="5">张三</botton>-->
-            <!--<botton class="btn btn-primary selected_teacher" data-teacher_id="6">李四</botton>-->
             <botton class="btn btn-success" data-action="/teacher/teachers" id="round_edit_teacher_select_btn">添加&nbsp;&nbsp;+</botton>
         </div>
     </div>
 
+    <!--stage-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">适用学段</label>
+        <div class="col-md-2">
+            <select class="form-control"  id="stage">
+                {foreach $stages as $k => $v}
+                <option value="{$k}" {if isset($round.stage) AND $round.stage==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <!--grade_from grade_to-->
     <div class="form-group">
         <label class="col-md-2 control-label">适用年级</label>
-
         <div class="col-md-2">
             <select class="form-control"  id="grade_from">
                 <!--<option value="0">开始年级</option>-->
@@ -70,7 +130,7 @@
         </div>
     </div>
 
-
+    <!--reward-->
     <div class="form-group">
         <label class="col-md-2 control-label">讲课课酬</label>
         <div class="col-md-2">
@@ -81,6 +141,8 @@
             </div>
         </div>
     </div>
+
+    <!--price-->
     <div class="form-group">
         <label class="col-md-2 control-label">课程价格</label>
         <div class="col-md-2">
@@ -92,6 +154,7 @@
         </div>
     </div>
 
+    <!--sale_price-->
     <div class="form-group">
         <label class="col-md-2 control-label">促销价格</label>
         <div class="col-md-2">
@@ -103,6 +166,7 @@
         </div>
     </div>
 
+    <!--caps-->
     <div class="form-group">
         <label class="col-md-2 control-label">上限人数</label>
         <div class="col-md-2">
@@ -112,6 +176,17 @@
         </div>
     </div>
 
+    <!--extra_bought_count-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">额外人数</label>
+        <div class="col-md-2">
+            <div class="input-group">
+                <input type="text" class="form-control" id="extra_bought_count" value="{if isset($round.extra_bought_count) AND $round.extra_bought_count}{$round.extra_bought_count}{else}{$smarty.const.NH_CLASS_PEOPLE_CAPS}{/if}">
+            </div>
+        </div>
+    </div>
+
+    <!--subtitle-->
     <div class="form-group">
         <label class="col-md-2 control-label">一句话简介</label>
         <div class="col-md-6">
@@ -119,6 +194,7 @@
         </div>
     </div>
 
+    <!--intro-->
     <div class="form-group">
         <label class="col-md-2 control-label">课程简介</label>
         <div class="col-md-6">
@@ -126,6 +202,7 @@
         </div>
     </div>
 
+    <!--students-->
     <div class="form-group">
         <label class="col-md-2 control-label">适合人群</label>
         <div class="col-md-6">
@@ -133,6 +210,7 @@
         </div>
     </div>
 
+    <!--nahao_description-->
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
         <div class="col-md-8">
@@ -141,6 +219,7 @@
         </div>
     </div>
 
+    <!--round_img-->
     <div class="form-group">
         <label class="col-md-2 control-label">添加图片</label>
         <input name="new_img_file_name" id="new_img_file_name" type="hidden" value="{$upload_img_key}">
@@ -151,6 +230,7 @@
         </div>
     </div>
 
+    <!--round_img_preview-->
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
@@ -175,6 +255,7 @@
         </div>
     </div>-->
 
+    <!--sell_begin_time sell_end_time-->
     <div class="form-group">
         <label class="col-md-2 control-label">销售开始时间</label>
         <div class="col-md-2">
@@ -186,13 +267,25 @@
         </div>
     </div>
 
-
+    <!--is_test-->
     <div class="form-group">
         <label class="col-md-2 control-label">是否测试轮</label>
         <div class="col-md-2">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" id="is_test" name="is_test" {if $round.is_test==1}checked{/if}>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!--is_live-->
+    <div class="form-group">
+        <label class="col-md-2 control-label">是否直播轮</label>
+        <div class="col-md-2">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="is_live" name="is_live" {if $round.is_live==1}checked{/if}>
                 </label>
             </div>
         </div>
@@ -255,4 +348,5 @@
         <button type="submit" class="btn btn-primary col-md-2" id="round_edit_submit_round" data-action="/round/submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
     </div>
 </form>
+
 {include file="admin/round_edit_teacher_select.html"}

@@ -1,4 +1,4 @@
-define(function(require,exports){
+define(function (require, exports) {
 
     exports.load_everything = function () {
 
@@ -6,7 +6,7 @@ define(function(require,exports){
         $(".pick_date").datetimepicker({
             format: "yyyy-MM-dd hh:ii",
             language: 'cn',
-            autoclose : true,
+            autoclose: true,
             hourStep: 1,
             minuteStep: 15,
             secondStep: 30,
@@ -14,8 +14,8 @@ define(function(require,exports){
         })
 
         //load ckeditor
-        if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description',{ toolbar:'Basic', height:300 ,width:700});
+        if ($("#nahao_description").length > 0) {
+            CKEDITOR.replace('nahao_description', { toolbar: 'Basic', height: 300, width: 700});
         }
 
     }
@@ -24,21 +24,21 @@ define(function(require,exports){
     exports.bind_everything = function () {
 
         //round_list update status
-        $('.round_operation').on("click",function(){
+        $('.round_operation').on("click", function () {
             var url = $(this).data('action');
             var data = {
-                'round_id' : $(this).data('round_id'),
-                'type' : $(this).data('type'),
-                'status' : $(this).data('status')
+                'round_id': $(this).data('round_id'),
+                'type': $(this).data('type'),
+                'status': $(this).data('status')
             };
-            $.post(url,data,function(response){
+            $.post(url, data, function (response) {
 //                console.log(response);
-                if(response){
+                if (response) {
                     alert(response.msg);
-                    if(response.status=='ok'){
+                    if (response.status == 'ok') {
                         window.location.reload();
                     }
-                }else{
+                } else {
                     alert('系统错误');
                 }
             });
@@ -47,13 +47,13 @@ define(function(require,exports){
         //get teacher list to select
         $("#round_edit_teacher_select_btn").on("click", function () {
             var arr_teacher_ids = new Array();
-            $(".selected_teacher").each(function(){
+            $(".selected_teacher").each(function () {
                 arr_teacher_ids.push($(this).data("teacher_id"));
             });
             var modal = $("#round_edit_teacher_select_modal");
             var action = $(this).data('action');
             var data = {
-                'teacher_ids' : arr_teacher_ids
+                'teacher_ids': arr_teacher_ids
             };
             $.post(action, data, function (response) {
                 var teachers_html = '<div class="form-group">';
@@ -82,7 +82,7 @@ define(function(require,exports){
         //delete selected teacher
         $("#round_edit_teacher_select_div").on("click", '.delete_teacher_btn', function () {
             var result = confirm("删除该老师？");
-            if(result==true){
+            if (result == true) {
                 $($(this).parent()).remove();
             }
         });
@@ -121,80 +121,138 @@ define(function(require,exports){
 
         $('#round_edit_submit_round').on("click", function () {
             var id = $("#id").val();
+            var course_id = $("#course_id").val();
+
             var title = $("#title").val();
-            if(!title && title!='undefined'){
+            if (!title || title == 'undefined') {
                 alert("班次名称不能为空");
                 return false;
             }
+            var sequence = parseInt($("#sequence").val());
+            if (sequence < 0 || sequence == 'undefined' || isNaN(sequence)) {
+                alert("序列不能为空");
+                return false;
+            }
+            var education_type = parseInt($("#education_type").val());
+            if (education_type < 0 || education_type == 'undefined' || isNaN(sequence)) {
+                alert("教育类型不能为空");
+                return false;
+            }
+            var material_version = parseInt($("#material_version").val());
+            if (material_version < 0 || material_version == 'undefined' || isNaN(material_version)) {
+                alert("教材版本不能为空");
+                return false;
+            }
+            var subject = parseInt($("#subject").val());
+            if (subject < 0 || subject == 'undefined' || isNaN(subject)) {
+                alert("学科辅导科目不能为空");
+                return false;
+            }
+            var quality = parseInt($("#quality").val());
+//            console.log(quality);return false;
+            if (quality < 0 || quality == 'undefined' || isNaN(quality)) {
+                alert("素质教育科目不能为空");
+                return false;
+            }
+            var course_type = parseInt($("#course_type").val());
+            if (course_type < 0 || course_type == 'undefined' || isNaN(course_type)) {
+                alert("课程类型不能为空");
+                return false;
+            }
+
+            //validate teachers
+            var teachers = $("#round_edit_teacher_select_div .selected_teacher");
+            var teacher_ids = new Array();
+            if (teachers.length > 0) {
+                teachers.each(function (k, v) {
+                    teacher_ids.push($(v).data('teacher_id'));
+                });
+            } else {
+                alert('请选择老师');
+                return false;
+            }
+            var stage = parseInt($("#stage").val());
+            if (stage < 0 || stage == 'undefined' || isNaN(stage)) {
+                alert("学段不能为空");
+                return false;
+            }
+            //validate grade
+            var grade_from = parseInt($("#grade_from").val());
+            var grade_to = parseInt($("#grade_to").val());
+            if (grade_from < 0 || grade_from == 'undefined' || isNaN(grade_from) || grade_to < 0 || grade_to == 'undefined' || isNaN(grade_to) || grade_to < grade_from) {
+                alert('年级错误');
+                return false;
+            }
+            var reward = parseFloat($("#reward").val());
+            if (reward < 0 || reward == 'undefined' || isNaN(reward)) {
+                alert("课酬不能为空");
+                return false;
+            }
+            var price = parseFloat($("#price").val());
+            if (price < 0 || price == 'undefined' || isNaN(price)) {
+                alert("价格不能为空");
+                return false;
+            }
+            var sale_price = parseFloat($("#sale_price").val());
+            if (sale_price < 0 || sale_price == 'undefined' || isNaN(sale_price)) {
+                alert("促销价格不能为空");
+                return false;
+            }
+            //validate price
+            if (sale_price > price) {
+                alert("促销价格不能大于价格");
+                return false;
+            }
+            var caps = parseInt($("#caps").val());
+            if (caps < 0 || caps == 'undefined' || isNaN(caps)) {
+                alert("上限人数不能为空");
+                return false;
+            }
+            var extra_bought_count = parseInt($("#extra_bought_count").val());
+            if (extra_bought_count < 0 || extra_bought_count == 'undefined' || isNaN(extra_bought_count)) {
+                alert("额外人数不能为空");
+                return false;
+            }
             var subtitle = $("#subtitle").val();
-            if(!subtitle && subtitle!='undefined'){
+            if (!subtitle || subtitle == 'undefined') {
                 alert("一句话简介不能为空");
                 return false;
             }
             var intro = $("#intro").val();
-            if(!intro && intro!='undefined'){
+            if (!intro || intro == 'undefined') {
                 alert("课程简介不能为空");
+                return false;
+            }
+            var students = $("#students").val();
+            if (!students || students == 'undefined') {
+                alert("适合人群不能为空");
                 return false;
             }
             $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
             var description = $("#nahao_description_new").val();
 //            var description = CKEDITOR.instances.nahao_description.getData();
-            if(!description && description!='undefined'){
+            if (!description || description == 'undefined') {
                 alert("课程提要不能为空");
                 return false;
             }
-            var students = $("#students").val();
-            if(!students && students!='undefined'){
-                alert("适合人群不能为空");
-                return false;
-            }
-            var subject = $("#subject").val();
-            if(!subject && subject!='undefined'){
-                alert("科目不能为空");
-                return false;
-            }
-            var course_type = $("#course_type").val();
-            if(!course_type && course_type!='undefined'){
-                alert("课程类型不能为空");
-                return false;
-            }
-            var reward = $("#reward").val();
-            if(!reward && reward!='undefined'){
-                alert("课酬不能为空");
-                return false;
-            }
-            var price = $("#price").val();
-            if(!price && price!='undefined'){
-                alert("价格不能为空");
-                return false;
-            }
-//            var video = $("#video").val();
             var img = $("#img_url").attr('src');
-//            var video = $("#video_url").text();
-
-            var course_id = $("#course_id").val();
-            var caps = $("#caps").val();
-            if(!caps && caps!='undefined'){
-                alert("上限人数不能为空");
-                return false;
-            }
-            var sale_price = $("#sale_price").val();
-            if(!sale_price && sale_price!='undefined'){
-                alert("促销价格不能为空");
-                return false;
-            }
             var sell_begin_time = $("#sell_begin_time").val();
-            if(!sell_begin_time && sell_begin_time!='undefined'){
+            if (!sell_begin_time || sell_begin_time == 'undefined') {
                 alert("销售开始时间不能为空");
                 return false;
             }
             var sell_end_time = $("#sell_end_time").val();
-            if(!sell_end_time && sell_end_time!='undefined'){
+            if (!sell_end_time || sell_end_time == 'undefined') {
                 alert("销售结束时间不能为空");
                 return false;
             }
-
-            var is_test = $("#is_test").attr("checked")=='checked' ? 1 : 0;
+            //validate sell time
+            if (sell_begin_time >= sell_end_time) {
+                alert("销售开始时间不能晚于销售结束时间");
+                return false;
+            }
+            var is_test = $("#is_test").attr("checked") == 'checked' ? 1 : 0;
+            var is_live = $("#is_live").attr("checked") == 'checked' ? 1 : 0;
 //            var start_time = $("#start_time").val();
 //            if(!start_time && start_time!='undefined'){
 //                alert("开始时间不能为空");
@@ -205,14 +263,6 @@ define(function(require,exports){
 //                alert("结束时间不能为空");
 //                return false;
 //            }
-            if(parseInt(sale_price) > parseInt(price)){
-                alert("促销价格不能大于价格");
-                return false;
-            }
-            if(sell_begin_time >= sell_end_time){
-                alert("销售开始时间不能晚于销售结束时间");
-                return false;
-            }
 //            if(sell_end_time > start_time){
 //                alert("销售结束时间不能晚于授课开始时间");
 //                return false;
@@ -222,26 +272,6 @@ define(function(require,exports){
 //                return false;
 //            }
 
-
-            //validate teachers
-            var teachers = $("#round_edit_teacher_select_div .selected_teacher");
-            var teacher_ids = new Array();
-            if(teachers.length > 0){
-                teachers.each(function(k,v){
-                    teacher_ids.push($(v).data('teacher_id'));
-                });
-            }else{
-                alert('请选择老师');
-                return false;
-            }
-
-            //validate grade
-            var grade_from = parseInt($("#grade_from").val());
-            var grade_to = parseInt($("#grade_to").val());
-            if(grade_to<grade_from){
-                alert('年级错误');
-                return false;
-            }
 
             //validate classes
 //            var arr_classes = new Array();
@@ -271,44 +301,49 @@ define(function(require,exports){
             var action = $('#round_edit_submit_round').data('action');
 
             var data = {
-                'id' : id,
-                'title' : title,
-                'subtitle' : subtitle,
-                'intro' : intro,
-                'description' : description,
-                'students' : students,
-                'subject' : subject,
-                'course_type' : course_type,
-                'reward' : reward,
-                'price' : price,
+                'id': id,
+                'course_id': course_id,
+                'title': title,
+                'sequence': sequence,
+                'education_type': education_type,
+                'material_version': material_version,
+                'subject': subject,
+                'quality': quality,
+                'course_type': course_type,
+                'teachers': teacher_ids,
+                'stage': stage,
+                'grade_from': grade_from,
+                'grade_to': grade_to,
+                'reward': reward,
+                'price': price,
+                'sale_price': sale_price,
+                'caps': caps,
+                'extra_bought_count': extra_bought_count,
+                'subtitle': subtitle,
+                'intro': intro,
+                'students': students,
+                'description': description,
+                'img': img,
+                'sell_begin_time': sell_begin_time,
+                'sell_end_time': sell_end_time,
+                'is_test': is_test,
+                'is_live': is_live
 //                'video' : video,
-                'img' : img,
-                'grade_from' : grade_from,
-                'grade_to' : grade_to,
 //                'classes' : arr_classes,
-                'teachers' : teacher_ids,
-
-                'course_id' : course_id,
-                'caps' : caps,
-                'sale_price' : sale_price,
-                'sell_begin_time' : sell_begin_time,
-                'sell_end_time' : sell_end_time,
-                'is_test' : is_test
             };
 //            console.log(data);
 //            return false;
             $.post(action, data, function (response) {
                 alert(response.msg);
-                if(response.status=='ok'){
+                if (response.status == 'ok') {
                     window.location.href = response.redirect;
-                }else{
+                } else {
                     return false;
                 }
             });
         });
 
     }
-
 
 
 });
