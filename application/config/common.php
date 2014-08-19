@@ -368,30 +368,31 @@ $config['education_type'][2] = '素质教育';
 
 //学科辅导科目
 $config['education_subject'][1][0] = '全部科目';
-$config['education_subject'][1][1] = '数学精编';
 $config['education_subject'][1][2] = '数学';
 $config['education_subject'][1][3] = '语文';
 $config['education_subject'][1][4] = '英语';
 $config['education_subject'][1][5] = '物理';
-$config['education_subject'][1][6] = '化学';
-$config['education_subject'][1][7] = '生物';
-$config['education_subject'][1][8] = '地理';
-$config['education_subject'][1][9] = '政治';
+$config['education_subject'][1][9] = '化学';
 $config['education_subject'][1][10] = '生物';
+$config['education_subject'][1][11] = '历史';
+$config['education_subject'][1][12] = '地理';
+$config['education_subject'][1][13] = '政治';
+$config['education_subject'][1][14] = '数学精编';
+$config['education_subject'][1][100] = '其他';
 
 //素质教育科目
 $config['education_subject'][2][0] = '全部科目';
-$config['education_subject'][2][1] = '魔方';
+$config['education_subject'][2][1] = '家庭教育';
 $config['education_subject'][2][2] = '学习方法';
 $config['education_subject'][2][3] = '外教口语';
 $config['education_subject'][2][4] = '电影鉴赏';
 $config['education_subject'][2][5] = '新概念';
 $config['education_subject'][2][6] = '国际音标';
-$config['education_subject'][2][7] = '自然拼读';
+$config['education_subject'][2][7] = '心理学';
 $config['education_subject'][2][8] = '剑桥少儿英语';
-
-
-//科目
+$config['education_subject'][2][9] = '自然拼读';
+$config['education_subject'][2][10] = '魔方';
+$config['education_subject'][2][100] = '其他';
 
 /**
  * 那好2.0类别 数据字典
@@ -399,22 +400,27 @@ $config['education_subject'][2][8] = '剑桥少儿英语';
 //类型和关系 [ key = cateId ] [chirdren = stageId/qualityId]
 $config['cate'] = array(
     1 => array(
-        'name' => '学科教育',
+        'name' => '学科辅导',
         'parentId' => 0,
         'chirdren' => array(1, 2, 3),
     ),
     2 => array(
         'name' => '素质教育',
         'parentId' => 0,
-        'chirdren' => array(1, 2, 3, 4, 5, 6, 7, 8),
+        'chirdren' => array(0,1, 2, 3, 4, 5, 6, 7, 8,9,10,100),
     ),
 );
 //学段数组 [ key = stageId ] [parentId = cateId]
 $config['cate_stage'] = array(
+    0 => array(
+        'name' => '全部学段',
+        'parentId' => 1,
+        'chirdren' => array(3, 4, 5, 6, 7,8,9,10,11,12),
+    ),
     1 => array(
         'name' => '小学',
         'parentId' => 1,
-        'chirdren' => array(3, 4, 5, 6, 7),
+        'chirdren' => array(3, 4, 5, 6),
     ),
     2 => array(
         'name' => '初中',
@@ -432,59 +438,59 @@ $config['cate_grade'] = array(
     3 => array(
         'name' => '三年级',
         'parentId' => 1,
-        'chirdren' => array(1, 2, 3, 4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     4 => array(
         'name' => '四年级',
         'parentId' => 1,
-        'chirdren' => array(1, 2, 3, 4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     5 => array(
         'name' => '五年级',
         'parentId' => 1,
-        'chirdren' => array(1, 2, 3, 4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     6 => array(
         'name' => '六年级',
         'parentId' => 1,
-        'chirdren' => array(1, 2, 3, 4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     7 => array(
         'name' => '七年级',
         'parentId' => 2,
-        'chirdren' => array(2, 3, 4),
+        'chirdren' => array(0, 2, 3, 4,100),
     ),
     8 => array(
         'name' => '八年级',
         'parentId' => 2,
-        'chirdren' => array(2, 3, 4, 5),
+        'chirdren' => array(0, 2, 3, 4,5,100),
     ),
     9 => array(
         'name' => '九年级',
         'parentId' => 2,
-        'chirdren' => array(2, 3, 4, 5, 6),
+        'chirdren' => array(0, 2, 3, 4,5,9,100),
     ),
     10 => array(
         'name' => '高一',
         'parentId' => 3,
-        'chirdren' => array(2, 3, 4, 5, 6),
+        'chirdren' => array(0,2, 3, 4, 5, 9,100),
     ),
     11 => array(
         'name' => '高二',
         'parentId' => 3,
-        'chirdren' => array(2, 3, 4, 5, 6, 7, 8, 9),
+        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
     ),
     12 => array(
         'name' => '高三',
         'parentId' => 3,
-        'chirdren' => array(2, 3, 4, 5, 6, 7, 8, 9),
+        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
     ),
 );
 //科目数组 [ key = subjectId ] [parentId = gradeId]
 $config['cate_subject'] = array(
-    1 => array(
-        'name' => '数学精编',
-        'parentId' => array(3, 4, 5, 6),
+    0 => array(
+        'name' => '全部科目',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
     2 => array(
@@ -507,31 +513,51 @@ $config['cate_subject'] = array(
         'parentId' => array(8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
-    6 => array(
+    9 => array(
         'name' => '化学',
         'parentId' => array(9, 10, 11, 12),
         //'chirdren' => array(),
     ),
-    7 => array(
+    10 => array(
         'name' => '生物',
         'parentId' => array(11, 12),
         //'chirdren' => array(),
     ),
-    8 => array(
+//    11 => array(
+//        'name' => '历史',
+//        'parentId' => array(),
+//        //'chirdren' => array(),
+//    ),
+    12 => array(
         'name' => '地理',
         'parentId' => array(11, 12),
         //'chirdren' => array(),
     ),
-    9 => array(
+    13 => array(
         'name' => '政治',
         'parentId' => array(11, 12),
+        //'chirdren' => array(),
+    ),
+    14 => array(
+        'name' => '数学精编',
+        'parentId' => array(3,4,5,6),
+        //'chirdren' => array(),
+    ),
+    100 => array(
+        'name' => '其他',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
 );
 //素质教育数组 [ key = qualityId ] [parentId = cateId =4]
 $config['cate_quality'] = array(
+    0 => array(
+        'name' => '全部素质教育学科',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
     1 => array(
-        'name' => '魔方',
+        'name' => '家庭教育',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
@@ -561,12 +587,27 @@ $config['cate_quality'] = array(
         //'chirdren' => array(),
     ),
     7 => array(
-        'name' => '自然拼读',
+        'name' => '心理学',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     8 => array(
         'name' => '剑桥少儿英语',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
+    9 => array(
+        'name' => '自然拼读',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
+    10 => array(
+        'name' => '魔方',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
+    100 => array(
+        'name' => '其他',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
