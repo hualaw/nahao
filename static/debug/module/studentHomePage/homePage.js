@@ -118,9 +118,69 @@ define(function(require,exports){
     }
     //验证注册   shangshikai@tizi.com
     exports.register_check=function(){
-        
-        
+        //异步请求验证邮箱
+//                $.ajax({
+//                    url:'/registereck_email',
+//                    type:'post',
+//                    data:'email='+$.trim($('#email').val()),
+//                    success:function(msg)
+//                    {
+//                        if(msg.status=='error')
+//                        {
+//                            $('#span_warning').css('color','red').show().html(msg.msg);
+//                            return false;
+//                        }
+//                        else
+//                        {
+//                            $('#span_warning').hide().html('');
+//                        }
+//                    }
+//                })
+
+        //异步验证电话
+//                if($.trim($('#phone').val())!='')
+//                {
+//                    $.ajax({
+//                        url:'/registereck_phone',
+//                        type:'post',
+//                        data:'phone='+$.trim($('#phone').val()),
+//                        success:function(msg)
+//                        {
+//                            if(msg.status=='error')
+//                            {
+//                                $('#span_warning').css('color','red').show().html(msg.msg);
+//                                return false;
+//                            }
+//                            else
+//                            {
+//                                $('#span_warning').hide().html('');
+//                            }
+//                        }
+//                    })
+//                }
+
+
+        $(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
+
+        $('.changeOne').click(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
         $('#register_button').click(function(){
+            var user_cap= $.trim($('#code').val());
+            user_cap=user_cap.toLocaleLowerCase();
+            $.ajax({
+                url:'/index/get_captcha',
+                success:function(msg)
+                {
+                    if(user_cap != $.trim(msg))
+                    {
+                        alert('验证码不对');
+                        return false;
+                    }
+                }
+            })
             $.ajax({
                 url:'/register/submit',
                 data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val(),
