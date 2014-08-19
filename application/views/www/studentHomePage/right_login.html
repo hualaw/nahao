@@ -1,28 +1,35 @@
 <!-- 登录框开始 -->
 {if $is_login==0}
 <div class="loginWrap">
-    <h4 class="loginTitle">快速注册,免费送学习诊断</h4>
-    <!--错误提示开始-->
-    <div class="msgTip" id="span_warning">
-
-    </div>
-    <!-- 错误提示结束 -->
-    <div class="inputWrap">
-        <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email">
-    </div>
-    <div class="inputWrap">
-        <input type="password" placeholder="密码" id="password">
-    </div>
-    <div class="inputWrap">
-        <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone">
-    </div>
-    <div class="hasNophone">
-<img src="/captcha/cap.jpg" id="cap_img">&nbsp;&nbsp;<input type="text" id="user_cap" style="width:50px"><a href="#" id="update_cap">换一个</a>
-        <input type="hidden" value="{$cap_word}" id="cap_word">
-    </div>
-    <div><br />
-        <input type="button" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
-    </div>
+    <form class="cf loginForm" method="post" action="/register/submit" method="POST" onsubmit="return false">
+        <h4 class="loginTitle">快速注册,免费送学习诊断</h4>
+        <!--错误提示开始-->
+        <div class="msgTip" id="span_warning">
+            
+        </div>
+        <!-- 错误提示结束 -->
+        <div class="cf inputWrap">
+            <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email" name="email" class="fl"><span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap">
+            <input type="password" placeholder="密码" id="password" name="password" class="fl"><span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap">
+            <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone" name="ephone" class="fl"><span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap">
+            <input type="text" id="code" name="code" placeholder="验证码" class="fl authCode">
+            &nbsp;&nbsp;<span id="cap_img"></span>
+            <a href="#" class="changeOne">换一张</a>
+            <span class="fr required">*</span>
+        </div>
+    <!--    <div class="hasNophone">
+            <a href="#">没有手机，请点击这里！</a>
+        </div> -->
+        <div>
+            <input type="submit" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
+        </div>
+    </form>
 </div>
 {else}
 <!-- 登录框结束 -->

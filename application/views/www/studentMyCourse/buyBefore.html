@@ -159,7 +159,7 @@
                			<div class="course_team_list b_t_0 cf">
                             <img class="fl" src="{$item.avatar}" alt="">
                             <div class="teacherInfo fl">
-                                <h4>{$item.teacher_role}老师：<i>{$item.nickname}</i>{$item.teacher_age}年教龄</h4>
+                                <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
                                 <p class="teacherText">{$item.teacher_intro}</p>
                             </div>
                         </div>
@@ -284,10 +284,23 @@
 <!-- player播放器js结束 -->
 <!-- 悬浮框开始 -->
 <div class="floatBox">
-    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue">咨询答疑</a>
-    <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a>
+    <a href="javascript:void(0);" class="returnTop" title="返回顶部">返回顶部</a>
+    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue" title="咨询答疑">咨询答疑</a>
+    <!-- <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a> -->
+    <a href="javascript:void(0);" class="weixinCode">
+        <span class="wxWrap">
+            <span class="wxBg"></span>
+            <span class="wxDesc">
+                <img src="{$static_url}{$static_version}/images/common/wxCode.gif" alt="那好二维码">
+                <span class="codeText">
+                    扫描二维码关注<br>
+                    那好网官方微信
+                </span>
+                <span class="arrow"></span>
+            </span>
+        </span>
+    </a>
     <a href="javascript:void(0);" class="feedback">意见反馈</a>
-    <a href="javascript:void(0);" class="returnTop">返回顶部</a>
 </div>
 <!-- 悬浮框结束 -->
 <!--意见反馈 开始-->

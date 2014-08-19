@@ -109,7 +109,7 @@ define(function(require,exports){
             var _left=parseInt($(item).parent().prop("offsetLeft"));
             var _windowTop=$(window).scrollTop();
             if(_windowTop>=top){
-                $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"1111"});
+                $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"100"});
             }else{
                 $(item).css({"position":"absolute","top":"0px;","left":"0px","z-index":"1"});
             }
@@ -160,27 +160,27 @@ define(function(require,exports){
 //                }
 
 
-        $('#update_cap').click(function(){
-            $.ajax({
-                url:'/index/captcha',
-                success:function(msg)
-                {
-                    $('#cap_img').attr('src','/captcha/cap.jpg');
-                    alert(msg);
-                }
-            })
+        $(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
         })
 
+        $('.changeOne').click(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
         $('#register_button').click(function(){
-            var user_cap=$('#user_cap').val();
-            var cap_word=$('#cap_word').val();
+            var user_cap= $.trim($('#code').val());
             user_cap=user_cap.toLocaleLowerCase();
-            cap_word=cap_word.toLocaleLowerCase();
-            if(user_cap!=cap_word)
-            {
-                alert('验证码不对');
-                return false;
-            }
+            $.ajax({
+                url:'/index/get_captcha',
+                success:function(msg)
+                {
+                    if(user_cap != $.trim(msg))
+                    {
+                        alert('验证码不对');
+                        return false;
+                    }
+                }
+            })
             $.ajax({
                 url:'/register/submit',
                 data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val(),
