@@ -46,10 +46,12 @@ class Index extends NH_User_Controller
             $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
         }
         $course_url = config_item('course_url');
+        $stage = config_item('stage');
 
         $this->smarty->assign('focus_photo', $focus_photo);
 
         $this->smarty->assign('course_url', $course_url);
+        $this->smarty->assign('stage', $stage);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
     }
@@ -279,6 +281,14 @@ class Index extends NH_User_Controller
 	    $this->smarty->assign('seo_title',$seo_title);
 	    $this->smarty->assign('seo_description',$seo_description);
 	    $this->smarty->display('www/about/index.html');
+	}
+	
+	/**
+	 * 添加直播课的昵称
+	 */
+	public function add_live_class_nicknane()
+	{
+		$this->smarty->display('www/add_nicknane.html');
 	}
 }
 

@@ -37,7 +37,8 @@ define(function(require,exports){
 		var ohref = student_url+'index/browser';
 		if($(".iebrowser").length){
 		}else{
-			$(".header").prepend('<div class="iebrowser">您正在使用的浏览器无法支持那好的正常使用。为更好的浏览本站，建议您将浏览器升级到IE8或以下浏览器：360极速 / Chrome / Safari<span>下载地址：<a href="'+ohref+'">点击这里</a></span></div>');
+			$('<div class="iebrowser">您正在使用的浏览器无法支持那好的正常使用。为更好的浏览本站，建议您将浏览器升级到IE8或以下浏览器：360极速 / Chrome / Safari<span>下载地址：<a href="'+ohref+'">点击这里</a></span></div>').insertBefore($(".topMiniNav"));
+			//$(".header").prepend('<div class="iebrowser">您正在使用的浏览器无法支持那好的正常使用。为更好的浏览本站，建议您将浏览器升级到IE8或以下浏览器：360极速 / Chrome / Safari<span>下载地址：<a href="'+ohref+'">点击这里</a></span></div>');
 		}		
 	}else{
 		if($(".iebrowser").length){
@@ -47,4 +48,8 @@ define(function(require,exports){
 
 	//加载头部下拉菜单
 	require('module/common/method/slidown').init();
+
+    var _topLogin = require("module/login/topLogin");
+    _topLogin.topLogin();
+
 })

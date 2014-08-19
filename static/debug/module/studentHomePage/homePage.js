@@ -95,8 +95,18 @@ define(function(require,exports){
         if(!top){
             top=parseInt($(item).parent().prop("offsetTop"));
         }
-        var _left=parseInt($(item).parent().prop("offsetLeft"));
+        
         $(window).scroll(function(){
+           scrollFixed();
+        });
+        $(window).load(function(){
+            scrollFixed();
+        });
+        $(window).resize(function(){
+            scrollFixed();
+        });
+        function scrollFixed(){
+            var _left=parseInt($(item).parent().prop("offsetLeft"));
             var _windowTop=$(window).scrollTop();
             if(_windowTop>=top){
                 $(item).css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"1111"});
@@ -104,170 +114,52 @@ define(function(require,exports){
                 $(item).css({"position":"absolute","top":"0px;","left":"0px","z-index":"1"});
             }
             var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
-        });
+        }
     }
     //验证注册   shangshikai@tizi.com
     exports.register_check=function(){
-        $('#span_warning').hide().html('');
-        $('#email').focus(function(){
-            $('#span_warning').hide().html('');
-        })
-        $('#password').focus(function(){
-            $('#span_warning').hide().html('');
-        })
-        $('#phone').focus(function(){
-            if($.trim($('#phone').val())!='')
-            {
-                $('#span_warning').hide().html('');
-            }
-        })
-        $('#email').blur(function(){
-            if($.trim($('#email').val())=='')
-            {
-                $('#span_warning').css('color','red').show().html('邮箱不能为空');
-                return false;
-            }
-            else
-            {
-                $('#span_warning').hide().html('');
-            }
+        //异步请求验证邮箱
+//                $.ajax({
+//                    url:'/registereck_email',
+//                    type:'post',
+//                    data:'email='+$.trim($('#email').val()),
+//                    success:function(msg)
+//                    {
+//                        if(msg.status=='error')
+//                        {
+//                            $('#span_warning').css('color','red').show().html(msg.msg);
+//                            return false;
+//                        }
+//                        else
+//                        {
+//                            $('#span_warning').hide().html('');
+//                        }
+//                    }
+//                })
 
-            $.ajax({
-                url:'/register/check_email',
-                type:'post',
-                data:'email='+$.trim($('#email').val()),
-                success:function(msg)
-                {
-                    if(msg.status=='error')
-                    {
-                        $('#span_warning').css('color','red').show().html(msg.msg);
-                        return false;
-                    }
-                    else
-                    {
-                        $('#span_warning').hide().html('');
-                    }
-                }
-            })
-        })
-
-
-        $('#password').blur(function(){
-            if($.trim($('#password').val())=='')
-            {
-                $('#span_warning').css('color','red').show().html('密码不能为空');
-                return false;
-            }
-            else
-            {
-                $('#span_warning').hide().html('');
-            }
-
-            if($.trim($('#password').val()).length<6 || $.trim($('#password').val()).length>20)
-            {
-                $('#span_warning').css('color','red').show().html('密码不能少于6位或大于20位');
-                return false;
-            }
-            else
-            {
-                $('#span_warning').hide().html('');
-            }
-        })
-
-
-        $('#phone').blur(function(){
-            if($.trim($('#phone').val())!='')
-            {
-                $.ajax({
-                    url:'/register/check_phone',
-                    type:'post',
-                    data:'phone='+$.trim($('#phone').val()),
-                    success:function(msg)
-                    {
-                        if(msg.status=='error')
-                        {
-                            $('#span_warning').css('color','red').show().html(msg.msg);
-                            return false;
-                        }
-                        else
-                        {
-                            $('#span_warning').hide().html('');
-                        }
-                    }
-                })
-            }
-        })
+        //异步验证电话
+//                if($.trim($('#phone').val())!='')
+//                {
+//                    $.ajax({
+//                        url:'/registereck_phone',
+//                        type:'post',
+//                        data:'phone='+$.trim($('#phone').val()),
+//                        success:function(msg)
+//                        {
+//                            if(msg.status=='error')
+//                            {
+//                                $('#span_warning').css('color','red').show().html(msg.msg);
+//                                return false;
+//                            }
+//                            else
+//                            {
+//                                $('#span_warning').hide().html('');
+//                            }
+//                        }
+//                    })
+//                }
 
         $('#register_button').click(function(){
-            if($.trim($('#email').val())=='')
-            {
-                $('#span_warning').css('color','red').show().html('邮箱不能为空');
-                return false;
-            }
-            else
-            {
-                $('#span_warning').hide().html('');
-            }
-
-            $.ajax({
-                url:'/register/check_email',
-                type:'post',
-                data:'email='+$.trim($('#email').val()),
-                success:function(msg)
-                {
-                    if(msg.status=='error')
-                    {
-                        $('#span_warning').css('color','red').show().html(msg.msg);
-                        return false;
-                    }
-                    if(msg.status=='ok')
-                    {
-                        $('#span_warning').hide().html('');
-                    }
-                }
-            })
-
-            if($.trim($('#password').val())=='')
-            {
-                $('#span_warning').css('color','red').show().html('密码不能为空');
-                return false;
-            }
-            else
-            {
-                $('#span_warning').hide().html('');
-            }
-
-            if($.trim($('#password').val()).length<6 || $.trim($('#password').val()).length>20)
-            {
-                $('#span_warning').css('color','red').show().html('密码不能少于6位或大于20位');
-                return false;
-            }
-            else
-            {
-                $('#span_warning').hide().html('');
-            }
-
-            if($.trim($('#phone').val())!='')
-            {
-                $.ajax({
-                    url:'/register/check_phone',
-                    type:'post',
-                    data:'phone='+$.trim($('#phone').val()),
-                    success:function(msg)
-                    {
-                        if(msg.status=='error')
-                        {
-                            $('#span_warning').css('color','red').show().html(msg.msg);
-                            return false;
-                        }
-                        else
-                        {
-                            $('#span_warning').hide().html('');
-                        }
-                    }
-                });
-            }
-
             $.ajax({
                 url:'/register/submit',
                 data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val(),

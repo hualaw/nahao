@@ -10,13 +10,21 @@
 				</p>
 				<ul class="undis">
 					<li>
-						<a href="/member/my_course">我的课程</a>
+                        {if $is_login==0}
+						<a href="/login">我的课程</a>
+                        {else}
+                        <a href="/member/my_course">我的课程</a>
+                        {/if}
 					</li>
 					<li>
-						<a href="#">我的调查</a>
+                        {if $is_login==0}
+						<a href="/login">我的订单</a>
+                        {else}
+						<a href="/member/my_order">我的订单</a>
+                        {/if}
 					</li>
 					<li>
-						<a href="#">开课调查</a>
+						<a href="http://diaocha.tizi.com/survey/41">开课调查</a>
 					</li>
 				</ul>
 			</div>
@@ -37,7 +45,7 @@
 								<span class="fl">那好网</span>
 								<i class="v fl"></i>
 							</a>
-							<a href="#" target="_blank" class="add">
+							<a href="http://weibo.com/u/5038855592" target="_blank" class="add">
 								关注
 							</a>
 						</div>
@@ -47,7 +55,7 @@
 			<!-- 关注结束 -->
 			<!-- 帮助开始 -->
 			<div class="help fl">
-				<a href="#">帮助</a>
+				<a href="/about/userhelp">帮助</a>
 			</div>
 			<!-- 帮助结束 -->
 		</div>
@@ -55,36 +63,39 @@
 		<!-- 左侧登录区域开始 -->
 		<div class="loginArea fl">
 			<!-- 登录前开始 -->
+            {if $is_login==0}
 			<div class="loginBefore ">
 				<form action="" class="topLoginForm" onsubmit="return false;" method="post">
 					<ul class="cf">
 						<li class="posr fl">
-							<input type="text" class="username cInput" placeholder="账号" />
+							<input type="text" class="username cInput" placeholder="账号" id="top_username" />
 							<i class="ico_usename"></i>
 						</li>
 						<li class="posr fl">
-							<input type="password" class="password cInput" placeholder="密码" />
+							<input type="password" class="password cInput" placeholder="密码" id="top_password" />
 							<i class="ico_password"></i>
 						</li>
 						<li class="fl">
-							<input type="submit" class="loginSubmit yh cRedBtn" value="登陆" />
+							<input type="button" class="loginSubmit yh cRedBtn" value="登录" id="top_login" />
 						</li>
 						<li class="fl">
-							<input type="submit" class="loginReg yh cOrgBtn" value="注册" />
+							<a href="/register"><input type="button" class="loginReg yh cOrgBtn" value="注册" /></a>
 						</li>
 						<li class="fl">
-							<a href="#" target="_blank">忘记密码?</a>
+							<a href="/login/find_pwd" target="_blank">忘记密码?</a>
 						</li>
 					</ul>
 				</form>
 			</div>
 			<!-- 登录前结束 -->
 			<!-- 登录后开始 -->
-			<div class="loginOver undis">
+            {else}
+			<div class="loginOver">
 				<span class="red">您好,</span>
-				<a href="#" target="_blank" class="red">李天一</a>
-				<a href="#" target="_blank" class="loginOut">退出</a>
+				<a href="#" target="_blank" class="red">{$user_detail.nickname}</a>
+				<a href="/login/logout" target="" class="loginOut">退出</a>
 			</div>
+            {/if}
 			<!-- 登陆后结束 -->
 		</div>
 		<!-- 左侧登录区域结束 -->
