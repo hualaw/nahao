@@ -70,16 +70,12 @@ class Index extends NH_User_Controller
         //focus photo
         $this->load->model('business/admin/business_focus_photo');
         $focus_photo = $this->business_focus_photo->list_photo(1);
-        foreach ($focus_photo as $k => $v) {
-            $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
-        }
 
         //直播课
         $arr_live_classes = $this->index->get_live_classes();
-        o($arr_live_classes,true);
+//        o($arr_live_classes,true);
 
         //课列表
-
         $int_round_count = $this->index->get_round_count($arr_where);
         $arr_round_list = $this->index->get_round_list($arr_where, $int_start, PER_PAGE_NO);
 //        o($arr_round_list,true);

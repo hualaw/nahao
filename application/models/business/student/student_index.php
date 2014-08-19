@@ -247,7 +247,7 @@ class Student_Index extends NH_Model{
             TABLE_CLASS.'.is_test' => 0,
         );
         $arr_group_by = array(
-//            TABLE_CLASS.'.id'
+            TABLE_CLASS.'.id'
         );
         $arr_order_by = array(
             TABLE_CLASS. '.begin_time' => 'asc'
