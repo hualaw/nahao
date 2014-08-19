@@ -434,6 +434,11 @@ $config['cate_stage'] = array(
 );
 //年级数组 [ key = gradeId ] [parentId = stageId]
 $config['cate_grade'] = array(
+    0 => array(
+        'name' => '全部年级',
+        'parentId' => array(0, 1, 2, 3),
+        'chirdren' => array(0, 2, 3, 4, 5, 9, 10, 12, 13, 14, 100),
+    ),
     3 => array(
         'name' => '三年级',
         'parentId' => 1,

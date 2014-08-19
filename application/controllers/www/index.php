@@ -47,6 +47,7 @@ class Index extends NH_User_Controller
             $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
         }
         $course_url = config_item('course_url');
+        $stage = config_item('stage');
 
          $this->load->helper('captcha');
          $vals = array(
@@ -66,6 +67,7 @@ class Index extends NH_User_Controller
         $this->smarty->assign('focus_photo', $focus_photo);
 
         $this->smarty->assign('course_url', $course_url);
+        $this->smarty->assign('stage', $stage);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
     }
@@ -78,8 +80,8 @@ class Index extends NH_User_Controller
     {
         //param format
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_stage_id = $this->input->get('stage_id') ? intval($this->input->get('stage_id')) : 0;
-        $arr_where = $int_stage_id > 0 ? array('stage_id' => $int_stage_id) : array();
+        $int_stage_id = $this->input->get('stage') ? intval($this->input->get('stage')) : 0;
+        $arr_where = $int_stage_id > 0 ? array('stage' => $int_stage_id) : array();
 
         //focus photo
         $this->load->model('business/admin/business_focus_photo');
@@ -104,7 +106,13 @@ class Index extends NH_User_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
+
+
 //o($arr_round_list,true);
+        $stage = config_item('stage');
+        $this->smarty->assign('stage', $stage);
+        $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d',time())));
+        $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59',time())));
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
@@ -113,6 +121,34 @@ class Index extends NH_User_Controller
         $this->smarty->display('www/studentHomePage/index.html');
     }
 
+    /**
+     * 验证码
+     * @author shangshikai@tizi.com
+     */
+    public function captcha()
+    {
+        $this->load->helper('captcha');
+        $vals = array(
+            'img_path' => './captcha/',
+            'img_url' => "/captcha/",
+            'img_width' => 66,
+            'img_height' => 30,
+            'expiration' => 7200
+        );
+        $cap = create_captcha($vals);
+        $this->session->set_userdata('captcha',strtolower($cap['word']));
+        echo $cap['image'];
+    }
+
+    /**
+     * 获取session里的验证码
+     * @author shangshikai@tizi.com
+     */
+    public function get_captcha()
+    {
+        $arr_userdata=$this->session->all_userdata();
+        echo $arr_userdata['captcha'];
+    }
     /**
      * 我要开课
      */

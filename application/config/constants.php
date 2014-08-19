@@ -387,6 +387,14 @@ define('NH_COURSE_IMG_LIVE_WIDTH',147);
 define('NH_TEACHER_IMG_HEIGHT', 225);
 define('NH_TEACHER_IMG_WIDTH', 300);
 
+//课程详细页
+define('NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT', 280);
+define('NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH', 440);
+define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT', 127);
+define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH', 200);
+define('NH_RECENT_VIEW_IMG_HEIGHT', 51);
+define('NH_RECENT_VIEW_IMG_WIDTH', 80);
+
 //单轮，单节最大人数
 define('NH_CLASS_PEOPLE_CAPS', 100);
 
@@ -420,6 +428,8 @@ define('ROUND_TYPE_EDUCATION',2);
 //switch
 define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
 define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+//课程详情页推荐开关 (1是显示0是不显示)
+define('BUY_BEFORE_RECOMMEND_SWITCH',1);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

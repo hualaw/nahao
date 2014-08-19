@@ -180,7 +180,11 @@ class Student_Index extends NH_Model{
                 'is_live' => 0,
                 'is_test' => 0,
             );
-            $arr_where = empty($arr_where) ? $arr_final_where : array_merge($arr_final_where,$arr_where);
+            if($arr_where){
+                $arr_final_where[TABLE_ROUND.'.stage'] = $arr_where['stage'];
+//                unset($arr_where['stage']);
+            }
+            $arr_where = $arr_final_where;
             $arr_group_by = array(
                 TABLE_ROUND.'.id'
             );
@@ -204,7 +208,7 @@ class Student_Index extends NH_Model{
         if(is_array($arr_where)){
             $str_table_range = 'round_index';
             $str_result_type = 'list';
-            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
+            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,course_type,material_version,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
 //            $str_fields = '*';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
@@ -212,7 +216,11 @@ class Student_Index extends NH_Model{
                 'is_live' => 0,
                 'is_test' => 0,
             );
-            $arr_where = empty($arr_where) ? $arr_final_where : array_merge($arr_final_where,$arr_where);
+            if($arr_where){
+                $arr_final_where[TABLE_ROUND.'.stage'] = $arr_where['stage'];
+//                unset($arr_where['stage']);
+            }
+            $arr_where = $arr_final_where;
             $arr_group_by = array(
                 TABLE_ROUND.'.id'
             );
