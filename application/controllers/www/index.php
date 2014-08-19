@@ -108,25 +108,8 @@ class Index extends NH_User_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
-
-
-
         $stage = config_item('stage');
-        $this->load->helper('captcha');
-        $vals = array(
-            'img_path' => './captcha/',
-            'img_url' => "/captcha/",
-            'img_width' => 66,
-            'img_height' => 30,
-            'expiration' => 7200
-        );
-        $cap = create_captcha($vals);
-
-        $this->smarty->assign('cap_word', $cap["word"]);
-
-
         $this->smarty->assign('stage', $stage);
-//o($arr_round_list,true);
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
@@ -134,7 +117,10 @@ class Index extends NH_User_Controller
         $this->smarty->display('www/studentHomePage/index.html');
     }
 
-
+    /**
+     * 验证码
+     * @author shangshikai@tizi.com
+     */
     public function captcha()
     {
         $this->load->helper('captcha');
@@ -146,10 +132,19 @@ class Index extends NH_User_Controller
             'expiration' => 7200
         );
         $cap = create_captcha($vals);
-
-        echo $cap['word'];
+        $this->session->set_userdata('captcha',strtolower($cap['word']));
+        echo $cap['image'];
     }
 
+    /**
+     * 获取session里的验证码
+     * @author shangshikai@tizi.com
+     */
+    public function get_captcha()
+    {
+        $arr_userdata=$this->session->all_userdata();
+        echo $arr_userdata['captcha'];
+    }
     /**
      * 我要开课
      */

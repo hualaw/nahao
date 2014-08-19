@@ -212,7 +212,7 @@ if ( ! function_exists('create_captcha'))
 			else
 			{
 				$y = rand($img_height/2, $img_height-3);
-				imagettftext($im, $font_size, $angle, 0, 0, $text_color, $font_path, substr($word, $i, 1));
+				imagettftext($im, $font_size, $angle, $x, $y, $text_color, $font_path, substr($word, $i, 1));
 				$x += $font_size;
 			}
 		}
@@ -228,7 +228,7 @@ if ( ! function_exists('create_captcha'))
 		//  Generate the image
 		// -----------------------------------
 
-		$img_name = 'cap'.'.jpg';
+		$img_name = $now.'.jpg';
 
 		ImageJPEG($im, $img_path.$img_name);
 
