@@ -17,42 +17,33 @@ class Course extends NH_User_Controller {
 	    $int_round_id = max(intval($int_round_id),1);
 	    #检查这个$int_round_id是否存在
 	    $bool_flag = $this->student_course->check_round_id_is_exist($int_round_id);
-	    if (!$bool_flag)
-	    {
+	    if (!$bool_flag){
 	        show_error("参数错误");
 	    }
 	    #检查这个$int_round_id是否在（销售中、已售罄、已停售、已下架）的状态中
 		$bool_aflag = $this->student_course->check_round_status($int_round_id);
-		if (!$bool_aflag)
-		{
+		if (!$bool_aflag){
 			show_error("参数错误哦");
 		}
 	    #根据$int_round_id获取该轮的部分信息
 	    $array_data = $this->student_course->get_round_info($int_round_id);
-	    
 	    #根据$int_round_id获取该轮的课程大纲
         $array_outline = $this->student_course->get_round_outline($int_round_id);
-
         #根据$int_round_id获取该轮的课程团队
         $array_team = $this->student_course->get_round_team($int_round_id);
-        
         #根据$int_round_id获取对应课程下的所有轮
         $array_round = $this->student_course->get_all_round_under_course($int_round_id);
-
         #获取评价总数
         $str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-       
         #判断是否登录以及登陆之后是否买过
-        if($this->is_login)
-        {
+        if($this->is_login){
         	#用户登录之后是否买过这轮
         	$int_user_id = $this->session->userdata('user_id');
         	$buy_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
         	$this->smarty->assign('buy_flag', $buy_flag);
         }
         #seo标题
-        if($array_data && $array_data['start_time'])
-        {
+        if($array_data && $array_data['start_time']){
         	$array_data['seo_time'] = date('n/j',$array_data['start_time']);
         	$array_data['sale_price'] = round($array_data['sale_price']);
         	$array_data['price'] = round($array_data['price']);
@@ -63,12 +54,16 @@ class Course extends NH_User_Controller {
         $array_recent_view = $this->student_course->read_recent_view_data();
         #重要提醒
         $array_notice = $this->student_course->get_important_notice_data();
+        #课程详情页右侧推荐(加上开关)
+        $array_other = array();
+        $array_recommend = array();
+       	if (BUY_BEFORE_RECOMMEND_SWITCH == 1){
+       		#该课程系列的其他课程
+       		$array_other = $this->student_course->get_other_round_data($int_round_id);
+       		#看过本课程的用户还看了
+       		$array_recommend = $this->student_course->get_recommend_round_data($int_round_id);
+       	}
 
-        #该课程系列的其他课程
-        $array_other = $this->student_course->get_other_round_data($int_round_id);
-        #看过本课程的用户还看了
-        $array_recommend = $this->student_course->get_recommend_round_data($int_round_id);
-        
         #课程列表的地址
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
@@ -89,18 +84,13 @@ class Course extends NH_User_Controller {
 	 */
 	public function ajax_evaluate()
 	{
-// 		echo 1;die;
 		$pagenum = $this->input->get('pagenum');
 		$int_round_id = $this->input->get('round_id');
-		$int_round_id = 1;
-		//echo $int_round_id;die;
 		$int_total = $this->student_course->get_evaluate_count($int_round_id);
 		$params = array('total' => $int_total, 'listRows' => '1','pa'=>'');
-	
 		$this->load->library('ajaxpage',$params);
 		$limit = $this->ajaxpage->limit;
 		$array_evaluate = $this->student_course->get_round_evaluate($int_round_id,$limit);
-// 		var_dump($array_evaluate);die;
 		$str_page = $this->ajaxpage->fpage();
 		$this->smarty->assign('array_evaluate', $array_evaluate);
 		$this->smarty->assign('page', $str_page);
@@ -113,8 +103,7 @@ class Course extends NH_User_Controller {
 	public function buy_after($int_round_id)
 	{
 	    #判断是否登录
-	    if(!$this->is_login)
-	    {
+	    if(!$this->is_login){
 	        redirect('/login');
 	    }
 	    #用户id
@@ -123,8 +112,7 @@ class Course extends NH_User_Controller {
 	    $int_round_id = intval($int_round_id);
 	    #检查$round_id以及学生是否购买此轮
 	    $bool_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
-	    if (!$bool_flag)
-	    {
+	    if (!$bool_flag){
 	        show_error("您没有购买此轮课程！");
 	    }
 
@@ -138,8 +126,6 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
-// 		var_dump($array_classmate);
-		//var_dump();die;$_COOKIE['NHID']
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
@@ -158,22 +144,19 @@ class Course extends NH_User_Controller {
 	public function get_user_cloud_notes()
 	{
 	    #判断是否登录
-	    if(!$this->is_login)
-	    {
+	    if(!$this->is_login){
 	        redirect('/login');
 	    }
 	    #用户id
 	    $int_user_id = $this->session->userdata('user_id');                #TODO用户id
 	    #教室id
 	    $int_classroom_id = intval($this->input->post('cid'));
-	    if (empty($int_classroom_id))
-	    {
+	    if (empty($int_classroom_id)){
 	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
 	    }
 	    #根据教室id查找云笔记
 	    $array_result = $this->student_course->get_user_cloud_notes($int_classroom_id,$int_user_id);
-	    if ($array_result)
-	    {
+	    if ($array_result){
 	        self::json_output(array('status'=>'ok','data'=>array('content'=>$array_result['content'],
 	              'class_title'=>$array_result['class_title'])));
 	    } else {
@@ -188,45 +171,34 @@ class Course extends NH_User_Controller {
 	{
 		#来自于教室的评论 不用判断登陆；来自于购买后评论，需要判断登陆
 		$from_type = $this->input->post("from_type");
-		if($from_type == '1')
-		{
+		if($from_type == '1'){
 			#判断是否登录
-			if(!$this->is_login)
-			{
+			if(!$this->is_login){
 				self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录',));
 			}
 		}
 
-	    
 	    $int_user_id = $this->session->userdata('user_id');#TODOuser_id
 	    $int_class_id = $this->input->post("class_id");
-	    
-	    if (empty($int_class_id))
-	    {
+	    if (empty($int_class_id)){
 	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
 	    }
 	    #根据class_id获取课的信息
 	    $array_result = $this->student_course->get_class_infor($int_class_id);
-	    if (empty($array_result))
-	    {
+	    if (empty($array_result)){
 	        self::json_output(array('status'=>'error','msg'=>'根据课id获取课信息出错'));
 	    }
-	    
 	    $int_score  = $this->input->post("score");
 	    $str_content = $this->input->post("content",true);
-	    if(intval($int_score) == '0')
-	    {
+	    if(intval($int_score) == '0'){
 	    	self::json_output(array('status'=>'error','msg'=>'您还没有打分！'));
 	    }
-	    
-	    if(empty($str_content))
-	    {
+	    if(empty($str_content)){
 	    	self::json_output(array('status'=>'error','msg'=>'评价内容不能为空！'));
 	    }
 	    #判断是否有评论过
 	    $bool_result = $this->model_course->check_class_comment($int_class_id,$int_user_id);
-	    if ($bool_result)
-	    {
+	    if ($bool_result){
 	    	self::json_output(array('status'=>'error','msg'=>'这节课您已经评论过了!'));
 	    }
 	    $array_data = array(
@@ -239,10 +211,9 @@ class Course extends NH_User_Controller {
 	            'score'=>  $int_score,
 	            'create_time'=>time(),
 	            'is_show'=>1
-	            );
+	    );
 	    $bool_flag = $this->model_course->save_class_feedback($array_data);
-	    if ($bool_flag)
-	    {
+	    if ($bool_flag){
 	        self::json_output(array('status'=>'ok','msg'=>'提交评论成功'));
 	    } else {
 	        self::json_output(array('status'=>'error','msg'=>'提交评论失败'));
@@ -263,39 +234,30 @@ class Course extends NH_User_Controller {
 	    $int_product_id = max(intval($int_product_id),1);
 	    #检查这个$int_product_id是否有效：（在销售中）
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
-	    if (!$bool_flag)
-	    {
+	    if (!$bool_flag){
 	        show_error("参数错误");
 	    }
 	    #购买前加入没有名额的判断
 	    $array_round = $this->model_course->get_round_info($int_product_id);
-	    if ($array_round['bought_count'] == $array_round['caps'])
-	    {
+	    if ($array_round['bought_count'] == $array_round['caps']){
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已售罄了'));
 	    }
 	    #购买前加入是否售罄、已停售、已下架
-	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_FINISH)
-	    {
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_FINISH){
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已停售了'));
 	    }
-	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_OFF)
-	    {
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_OFF){
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已下架了'));
 	    }
 	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
 	    $int_user_id = $this->session->userdata('user_id');                 #TODO
 	    $array_result = $this->student_order->check_product_in_order($int_product_id,$int_user_id);
-
-	    if(empty($array_result))
-	    {
+	    if(empty($array_result)){
 	        #根据$int_product_id获取订单里面该轮的部分信息
 	        self::json_output(array('status'=>'ok','id'=>$int_product_id));
 	    }
-
-	    foreach ($array_result as $k=>$v)
-	    {
-    	    switch ($v['status'])
-    	    {
+	    foreach ($array_result as $k=>$v){
+    	    switch ($v['status']){
     	        case ORDER_STATUS_INIT:
     	        case ORDER_STATUS_FAIL:
     	            self::json_output(array('status'=>'error','msg'=>'您的订单已经存在，请去订单中心付款',));
@@ -315,7 +277,6 @@ class Course extends NH_User_Controller {
     	            break;
 	       }
         }
-
 	 }
 	 
 	 /**
@@ -325,38 +286,30 @@ class Course extends NH_User_Controller {
 	 {
 	 	header('content-type: text/html; charset=utf-8');
 	 	#判断是否登录
-	 	if(!$this->is_login)
-	 	{
+	 	if(!$this->is_login){
 	 		redirect('/login');
 	 	}
 	 	$int_class_id = intval($this->uri->rsegment(3));
-	 	if (empty($int_class_id))
-	 	{
+	 	if (empty($int_class_id)){
 	 		show_error('参数错误');
 	 	}
 	 	#检查用户是否买过这门课 
 	 	$int_user_id = $this->session->userdata('user_id');#TODOuser_id
-
 	 	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$int_class_id);
-	 	if(empty($bool_flag))
-	 	{
+	 	if(empty($bool_flag)){
 	 		show_error('您没有买过这门课，没有下载这门课的权限');
 	 	}
 	 	#根据课id找课件id
 	 	$array_class = $this->model_course->get_class_infor($int_class_id);
-	 	if(empty($array_class))
-	 	{
+	 	if(empty($array_class)){
 	 		show_error('抱歉!这节课没有上传课件啊');
 	 	}
-	 	
 	 	#课里面有课件，拼接课件地址
 	 	$this->load->model('business/common/business_courseware','courseware');
 	 	$array_courseware = $this->courseware->get_courseware_by_id(array($array_class['courseware_id']));
-	 	if (empty($array_courseware))
-	 	{
+	 	if (empty($array_courseware)){
 	 		show_error('抱歉!这节课没有上传课件');
 	 	}
-	 	//echo $_SERVER["HTTP_USER_AGENT"];
 	 	$wordStr = $array_courseware['0']['download_url'];
 	 	$file_name = $array_courseware['0']['name'];
 	 	$file_name = urlencode($file_name);
@@ -375,8 +328,7 @@ class Course extends NH_User_Controller {
 	 	$int_class_id = $this->input->post("class_id");
 	 	#判断是否有评论过
 	 	$bool_result = $this->model_course->check_class_comment($int_class_id,$int_user_id);
-	 	if ($bool_result)
-	 	{
+	 	if ($bool_result){
 	 		self::json_output(array('status'=>'error','msg'=>'这节课您已经评论过了!'));
 	 	} else {
 	 		self::json_output(array('status'=>'ok','msg'=>''));
@@ -391,41 +343,34 @@ class Course extends NH_User_Controller {
 	 	$int_round_id = max(intval($int_round_id),1);
 	 	#检查这个$int_round_id是否存在
 	 	$bool_flag = $this->student_course->check_round_id_is_exist($int_round_id);
-	 	if (!$bool_flag)
-	 	{
+	 	if (!$bool_flag){
 	 		show_error("参数错误");
 	 	}
 	 	#检查这个$int_round_id是否在（销售中、已售罄、已停售、已下架）的状态中
 	 	$bool_aflag = $this->student_course->check_round_status($int_round_id);
-	 	if (!$bool_aflag)
-	 	{
-	 	show_error("参数错误哦");
+	 	if (!$bool_aflag){
+	 		show_error("参数错误哦");
 	 	}
 	 	#根据$int_round_id获取该轮的部分信息
 	 	$array_data = $this->student_course->get_round_info($int_round_id);
-	 	 
 	 	#根据$int_round_id获取该轮的课程大纲
 	 	$array_outline = $this->student_course->get_round_outline($int_round_id);
-	 	
 	 	#根据$int_round_id获取该轮的课程团队
 	 	$array_team = $this->student_course->get_round_team($int_round_id);
-	 	
 	 	#根据$int_round_id获取对应课程下的所有轮
 	 	$array_round = $this->student_course->get_all_round_under_course($int_round_id);
-	 	
 	 	#获取评价总数
 	 	$str_evaluate_count = $this->student_course->get_evaluate_count($int_round_id);
-	 	 
 	 	#判断是否登录以及登陆之后是否买过
 	 	if($this->is_login)
 	 	{
-	 	#用户登录之后是否买过这轮
-	 	$int_user_id = $this->session->userdata('user_id');
-	 	$buy_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
+	 		#用户登录之后是否买过这轮
+	 		$int_user_id = $this->session->userdata('user_id');
+	 		$buy_flag = $this->student_course->check_student_buy_round($int_user_id,$int_round_id);
 	 		$this->smarty->assign('buy_flag', $buy_flag);
 	 	}
 	 	#seo标题
-	 	 	if($array_data && $array_data['start_time'])
+	 	if($array_data && $array_data['start_time'])
 	 	{
 	 		$array_data['seo_time'] = date('n/j',$array_data['start_time']);
 	 		$array_data['start_time'] = date('m月d日',$array_data['start_time']);
@@ -438,12 +383,15 @@ class Course extends NH_User_Controller {
 	 	$array_recent_view = $this->student_course->read_recent_view_data();
 	 	#重要提醒
 	 	$array_notice = $this->student_course->get_important_notice_data();
-	 	
-	 	#该课程系列的其他课程
-	 	$array_other = $this->student_course->get_other_round_data($int_round_id);
-	 	#看过本课程的用户还看了
-	 	$array_recommend = $this->student_course->get_recommend_round_data($int_round_id);
-	 	
+	    #课程详情页右侧推荐(加上开关)
+        $array_other = array();
+        $array_recommend = array();
+       	if (BUY_BEFORE_RECOMMEND_SWITCH == 1){
+       		#该课程系列的其他课程
+       		$array_other = $this->student_course->get_other_round_data($int_round_id);
+       		#看过本课程的用户还看了
+       		$array_recommend = $this->student_course->get_recommend_round_data($int_round_id);
+       	}
 	 	#课程列表的地址
 	 	$course_url = config_item('course_url');
 	 	$this->smarty->assign('course_url', $course_url);
@@ -463,25 +411,18 @@ class Course extends NH_User_Controller {
 	 /**
 	  * 直播课进教室入口
 	  */
-	 public function enter_live_class($int_class_id,$str_nickname){
+	 public function enter_live_class($int_class_id,$str_nickname,$int_user_id){
 
 	 	$array_class = $this->model_course->get_class_infor($int_class_id);
 	 	if (empty($array_class)){
 	 		show_error('参数错误！');
 	 	}
-	    #判断这节课是不是在"可进教室 或者 正在上课"的状态 
-        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
-        {
-       		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
-        }
-	 	$str_classroom_url = '/classroom/main.html?';	 	
-	 	
+	 	$str_classroom_url = '/classroom/main.html?';	 		 	
 	 	$array_params = array(
-	 			'UserDBID' => 0,
+	 			'UserDBID' => $int_user_id,
 	 			'ClassID'  => $array_class['classroom_id'],
 	 			'UserType' => NH_MEETING_TYPE_STUDENT,
 	 	);
-
 	 	$className = !empty($array_class['title']) ? urlencode($array_class['title']) : '';
 	 	$UserName = urlencode($str_nickname);
 	 	//新增：AES加密flash链接
@@ -504,41 +445,55 @@ class Course extends NH_User_Controller {
 	 public function go()
 	 {
 	 	$int_class_id = $this->input->get('cid');
-	 	if(!isset($_GET['token']) || empty($_GET['token'])){
-	 		$token = $this->genToken();
-	 		$this->load->model('model/common/model_redis', 'redis');
-	 		$this->redis->connect('live_class_token');
-	 		#token可以用 存在redis里面的value为1；不可以用value为2
-	 		$this->cache->redis->set($token,1);
-	 		$this->smarty->assign('token',$token);
-	 		$this->smarty->assign('cid',$int_class_id);
-	 		$this->smarty->display('www/student_live_class/add_nickname.html');
-	 	} else {
-	 		$token = $this->input->get("token");
-	 		$nickname = $this->input->get("nickname");
-	 		$this->load->model('model/common/model_redis', 'redis');
-	 		$this->redis->connect('live_class_token');
-	 		$value = $this->cache->redis->get($token);
-	 		if (empty($value) || $value == '2'){
-	 			$token_ag = $this->genToken();
+	 	if ($this->is_login){
+	 		$array_infor = $this->_user_detail;
+	 		$this->enter_live_class($int_class_id,$array_infor['nickname'],$array_infor['user_id']);
+	 	} else{
+	 		#没有登录	 		
+	 		if(!isset($_GET['token']) || empty($_GET['token'])){
+	 			$token = $this->genToken();
 	 			$this->load->model('model/common/model_redis', 'redis');
 	 			$this->redis->connect('live_class_token');
 	 			#token可以用 存在redis里面的value为1；不可以用value为2
-	 			$this->cache->redis->set($token_ag,1);
-	 			$this->smarty->assign('token',$token_ag);
+	 			$this->cache->redis->set($token,1,'86400');
+	 			$this->smarty->assign('token',$token);
 	 			$this->smarty->assign('cid',$int_class_id);
 	 			$this->smarty->display('www/student_live_class/add_nickname.html');
-	 		} elseif($value == '1') {
+	 		} else {
+	 			$token = $this->input->get("token");
+	 			$nickname = $this->input->get("nickname");
 	 			$this->load->model('model/common/model_redis', 'redis');
 	 			$this->redis->connect('live_class_token');
-	 			#token可以用 存在redis里面的value为1；不可以用value为2
-	 			$this->cache->redis->set($token,2);
-	 			$this->enter_live_class($int_class_id,$nickname);
+	 			$value = $this->cache->redis->get($token);
+	 			if (empty($value) || $value == '2'){
+	 				$token_ag = $this->genToken();
+	 				$this->load->model('model/common/model_redis', 'redis');
+	 				$this->redis->connect('live_class_token');
+	 				#token可以用 存在redis里面的value为1；不可以用value为2
+	 				$this->cache->redis->set($token_ag,1,'86400');
+	 				$this->smarty->assign('token',$token_ag);
+	 				$this->smarty->assign('cid',$int_class_id);
+	 				$this->smarty->display('www/student_live_class/add_nickname.html');
+	 			} elseif($value == '1') {
+	 				$this->load->model('model/common/model_redis', 'redis');
+	 				$this->redis->connect('live_class_token');
+	 				#token可以用 存在redis里面的value为1；不可以用value为2
+	 				$this->cache->redis->set($token,2,'86400');
+	 				$int_user_id = 0;
+	 				$this->enter_live_class($int_class_id,$nickname,$int_user_id);
+	 			}
 	 		}
 	 	}
+
 	 }
 	 
-	public function genToken( $len = 32, $md5 = true ) {
+	/**
+	 * 生成进入直播课的token
+	 * @param int $len
+	 * @param boolean $md5
+	 */ 
+	public function genToken( $len = 32, $md5 = true ) 
+	{
 	 	# Seed random number generator
 	 	# Only needed for PHP versions prior to 4.2
 	 	mt_srand( (double)microtime()*1000000 );
@@ -567,7 +522,7 @@ class Course extends NH_User_Controller {
 	 	# Trim the token
 	 	$token = substr($md5token, 0, $len);
 	 } return $token;
-	 }
+   }
 }
 
 /* End of file welcome.php */
