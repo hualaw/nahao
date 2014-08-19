@@ -84,14 +84,18 @@ class Course extends NH_User_Controller {
 	 */
 	public function ajax_evaluate()
 	{
-		$pagenum = $this->input->get('pagenum');
-		$int_round_id = $this->input->get('round_id');
+		$data = array();
+		$offset = (int) $this->input->post('offset');
+		$int_round_id = (int) $this->input->post('round_id');
 		$int_total = $this->student_course->get_evaluate_count($int_round_id);
-		$params = array('total' => $int_total, 'listRows' => '1','pa'=>'');
-		$this->load->library('ajaxpage',$params);
-		$limit = $this->ajaxpage->limit;
+		$this->load->library('pagination');
+		$config = config_item('page_user');
+		$config['total_rows'] = $int_total;
+		$config['per_page'] = PER_PAGE_NO;
+		$limit = $offset.",".$config['per_page'];
 		$array_evaluate = $this->student_course->get_round_evaluate($int_round_id,$limit);
-		$str_page = $this->ajaxpage->fpage();
+		$this->pagination->initialize($config);
+		$str_page = $this->pagination->createJSlinks('setPage',$offset);
 		$this->smarty->assign('array_evaluate', $array_evaluate);
 		$this->smarty->assign('page', $str_page);
 		$this->smarty->display('www/studentMyCourse/ajax_evaluate.html');
