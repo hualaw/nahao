@@ -405,6 +405,10 @@ define('ROUND_USE_TYPE_NOMARL', 0); //正常轮
 define('ROUND_USE_TYPE_TEST', 1); //测试轮
 define('ROUND_USE_TYPE_APPLYTEACH', 2); //试讲轮
 
+//教育类型
+define('SUBJECT_STUDY', 1);//学科辅导
+define('QUALITY_STUDY', 2);//素质教育
+
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
 define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
