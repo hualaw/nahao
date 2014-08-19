@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>那好在线课堂官网_网络课堂_网络课程_家教在线-那好网</title>
+<meta name="keywords" content="那好网,网络课堂,网络课程,在线课堂"/>
+<meta name="description" content="那好网荟萃全国名师，为教师提供实现自己教育梦想的在线课堂平台。致力于搭建最好的在线课堂网站，打造那好网络课堂，提供精品网络课程，为学生提供方便、高效，愉悦的网络学习体验。"/>
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentHomePage/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+{include file="www/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body class="navHomepage">
+<!-- 头部开始 -->
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="cf wrap layout studentHomePage" id="nahaoModule" module="studentLiveClass" data_page="studentPage">
+
+<form method="post" action="/course/enter_live_class" >
+<input type="hidden" name="cid" id="cid" value="{$cid}" >
+昵称：<input type="text" name="nickname" id="nickname" value="" />
+<input type="submit" name="submit" value="提交">
+</form>
+
+
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+{include file="www/include/js.htm"}
+<!--js引入结束-->
+<!-- 悬浮框开始 -->
+<div class="floatBox">
+	<a href="javascript:void(0);" class="returnTop">返回顶部</a>
+	<!-- <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue">咨询答疑</a>
+	<a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a> -->
+	<a href="javascript:void(0);" class="weixinCode"></a>
+	<a href="javascript:void(0);" class="feedback">意见反馈</a>
+	
+</div>
+<!-- 悬浮框结束 -->
+<!--意见反馈 开始-->
+
+<!--意见反馈 结束-->
+</body>
+</html>

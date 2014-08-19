@@ -36,7 +36,7 @@ class Index extends NH_User_Controller {
 				$array_data =$this->student_index->filter_test_round($array_data);
 			}
 		}
-        var_dump($array_data);
+//         var_dump($array_data);
         #课程列表的地址
 
         $this->load->model('business/admin/business_focus_photo');
@@ -234,14 +234,6 @@ class Index extends NH_User_Controller {
 	    $this->smarty->assign('seo_title',$seo_title);
 	    $this->smarty->assign('seo_description',$seo_description);
 	    $this->smarty->display('www/about/index.html');
-	}
-	
-	/**
-	 * 添加直播课的昵称
-	 */
-	public function add_live_class_nicknane()
-	{
-		$this->smarty->display('www/add_nicknane.html');
 	}
 }
 

@@ -458,6 +458,56 @@ class Course extends NH_User_Controller {
 	 	$this->smarty->assign('array_notice', $array_notice);
 	 	$this->smarty->display('www/studentMyCourse/buyDetail.html');
 	 }
+	 
+
+	 /**
+	  * 直播课进教室入口
+	  */
+	 public function enter_live_class(){
+	 	$int_class_id = $this->input->post('cid');
+	 	$str_nickname = $this->input->post('nickname');
+	 	$array_class = $this->model_course->get_class_infor($int_class_id);
+	 	if (empty($array_class)){
+	 		show_error('参数错误！');
+	 	}
+	    #判断这节课是不是在"可进教室 或者 正在上课"的状态 
+        if ($array_class['status'] != CLASS_STATUS_ENTER_ROOM && $array_class['status'] != CLASS_STATUS_CLASSING )
+        {
+       		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
+        }
+	 	$str_classroom_url = '/classroom/main.html?';
+	 	
+	 	
+	 	$array_params = array(
+	 			'UserDBID' => 0,
+	 			'ClassID'  => $array_class['classroom_id'],
+	 			'UserType' => NH_MEETING_TYPE_STUDENT,
+	 	);
+
+	 	$className = !empty($array_class['class_title']) ? urlencode($array_class['class_title']) : '';
+	 	$UserName = urlencode($str_nickname);
+	 	//新增：AES加密flash链接
+	 	$uri = http_build_query($array_params);
+	 	$aes_config = array(config_item('AES_key'));
+	 	$this->load->library('AES', $aes_config, 'aes');
+	 	$aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
+	 	log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
+	 	$str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&SwfVer='.(config_item('classroom_swf_version')).'&t=1';
+	 	$str_iframe =  $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+	 	$this->smarty->assign('classroom_id', $array_class['classroom_id']);
+	 	$this->smarty->assign('class_id',$array_class['id']);
+	 	$this->smarty->assign('iframe', $str_iframe);
+	 	$this->smarty->display('www/classRoom/index.html');
+	 }
+	 
+	 /**
+	  * 添加直播课的昵称
+	  */
+	 public function add_live_class_nicknane($int_class_id)
+	 {
+	 	$this->smarty->assign('cid',$int_class_id);
+	 	$this->smarty->display('www/student_live_class/add_nickname.html');
+	 }
 }
 
 /* End of file welcome.php */
