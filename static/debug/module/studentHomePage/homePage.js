@@ -159,7 +159,28 @@ define(function(require,exports){
 //                    })
 //                }
 
+
+        $('#update_cap').click(function(){
+            $.ajax({
+                url:'/index/captcha',
+                success:function(msg)
+                {
+                    $('#cap_img').attr('src','/captcha/cap.jpg');
+                    alert(msg);
+                }
+            })
+        })
+
         $('#register_button').click(function(){
+            var user_cap=$('#user_cap').val();
+            var cap_word=$('#cap_word').val();
+            user_cap=user_cap.toLocaleLowerCase();
+            cap_word=cap_word.toLocaleLowerCase();
+            if(user_cap!=cap_word)
+            {
+                alert('验证码不对');
+                return false;
+            }
             $.ajax({
                 url:'/register/submit',
                 data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val(),

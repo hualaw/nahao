@@ -147,8 +147,8 @@ if ( ! function_exists('create_captcha'))
 		// -----------------------------------
 
 		$bg_color		= imagecolorallocate ($im, 255, 255, 255);
-		$border_color	= imagecolorallocate ($im, 153, 102, 102);
-		$text_color		= imagecolorallocate ($im, 204, 153, 153);
+		$border_color	= imagecolorallocate ($im, 224, 224, 224);
+		$text_color		= imagecolorallocate ($im, 51, 51, 51);
 		$grid_color		= imagecolorallocate($im, 255, 182, 182);
 		$shadow_color	= imagecolorallocate($im, 255, 240, 240);
 
@@ -162,25 +162,25 @@ if ( ! function_exists('create_captcha'))
 		//  Create the spiral pattern
 		// -----------------------------------
 
-		$theta		= 1;
-		$thetac		= 7;
-		$radius		= 16;
-		$circles	= 20;
-		$points		= 32;
-
-		for ($i = 0; $i < ($circles * $points) - 1; $i++)
-		{
-			$theta = $theta + $thetac;
-			$rad = $radius * ($i / $points );
-			$x = ($rad * cos($theta)) + $x_axis;
-			$y = ($rad * sin($theta)) + $y_axis;
-			$theta = $theta + $thetac;
-			$rad1 = $radius * (($i + 1) / $points);
-			$x1 = ($rad1 * cos($theta)) + $x_axis;
-			$y1 = ($rad1 * sin($theta )) + $y_axis;
-			imageline($im, $x, $y, $x1, $y1, $grid_color);
-			$theta = $theta - $thetac;
-		}
+//		$theta		= 1;
+//		$thetac		= 7;
+//		$radius		= 16;
+//		$circles	= 20;
+//		$points		= 32;
+//
+//		for ($i = 0; $i < ($circles * $points) - 1; $i++)
+//		{
+//			$theta = $theta + $thetac;
+//			$rad = $radius * ($i / $points );
+//			$x = ($rad * cos($theta)) + $x_axis;
+//			$y = ($rad * sin($theta)) + $y_axis;
+//			$theta = $theta + $thetac;
+//			$rad1 = $radius * (($i + 1) / $points);
+//			$x1 = ($rad1 * cos($theta)) + $x_axis;
+//			$y1 = ($rad1 * sin($theta )) + $y_axis;
+//			imageline($im, $x, $y, $x1, $y1, $grid_color);
+//			$theta = $theta - $thetac;
+//		}
 
 		// -----------------------------------
 		//  Write the text
@@ -212,7 +212,7 @@ if ( ! function_exists('create_captcha'))
 			else
 			{
 				$y = rand($img_height/2, $img_height-3);
-				imagettftext($im, $font_size, $angle, $x, $y, $text_color, $font_path, substr($word, $i, 1));
+				imagettftext($im, $font_size, $angle, 0, 0, $text_color, $font_path, substr($word, $i, 1));
 				$x += $font_size;
 			}
 		}
@@ -228,7 +228,7 @@ if ( ! function_exists('create_captcha'))
 		//  Generate the image
 		// -----------------------------------
 
-		$img_name = $now.'.jpg';
+		$img_name = 'cap'.'.jpg';
 
 		ImageJPEG($im, $img_path.$img_name);
 

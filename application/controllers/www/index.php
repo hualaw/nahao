@@ -46,6 +46,7 @@ class Index extends NH_User_Controller
             $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
         }
         $course_url = config_item('course_url');
+        $stage = config_item('stage');
 
          $this->load->helper('captcha');
          $vals = array(
@@ -65,6 +66,7 @@ class Index extends NH_User_Controller
         $this->smarty->assign('focus_photo', $focus_photo);
 
         $this->smarty->assign('course_url', $course_url);
+        $this->smarty->assign('stage', $stage);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
     }
@@ -107,12 +109,45 @@ class Index extends NH_User_Controller
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
 
+
+
+        $stage = config_item('stage');
+        $this->load->helper('captcha');
+        $vals = array(
+            'img_path' => './captcha/',
+            'img_url' => "/captcha/",
+            'img_width' => 66,
+            'img_height' => 30,
+            'expiration' => 7200
+        );
+        $cap = create_captcha($vals);
+
+        $this->smarty->assign('cap_word', $cap["word"]);
+
+
+        $this->smarty->assign('stage', $stage);
 //o($arr_round_list,true);
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
         $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
+    }
+
+
+    public function captcha()
+    {
+        $this->load->helper('captcha');
+        $vals = array(
+            'img_path' => './captcha/',
+            'img_url' => "/captcha/",
+            'img_width' => 66,
+            'img_height' => 30,
+            'expiration' => 7200
+        );
+        $cap = create_captcha($vals);
+
+        echo $cap['word'];
     }
 
     /**

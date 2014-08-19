@@ -17,9 +17,10 @@
         <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone">
     </div>
     <div class="hasNophone">
-        <a href="#">没有手机，请点击这里！</a>
+<img src="/captcha/cap.jpg" id="cap_img">&nbsp;&nbsp;<input type="text" id="user_cap" style="width:50px"><a href="#" id="update_cap">换一个</a>
+        <input type="hidden" value="{$cap_word}" id="cap_word">
     </div>
-    <div>
+    <div><br />
         <input type="button" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
     </div>
 </div>
