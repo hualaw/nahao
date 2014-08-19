@@ -594,7 +594,7 @@ class Student_Course extends NH_Model{
 				
 			$array_add = array(
 	    				'id'=>$array_data['id'],
-	    				'img'=>$array_data['class_img'],
+	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
 	    				'title'=>$array_data['title'],
 	    				'price'=>$array_data['price'],
 	    				'sale_price'=>$array_data['sale_price']
@@ -607,7 +607,7 @@ class Student_Course extends NH_Model{
     		$cookie_value = array(
 	    			array(
 	    				'id'=>$array_data['id'],
-	    				'img'=>$array_data['class_img'],
+	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
 	    				'title'=>$array_data['title'],
 	    				'price'=>$array_data['price'],
 	    				'sale_price'=>$array_data['sale_price']
