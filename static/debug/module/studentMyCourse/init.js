@@ -104,19 +104,32 @@ define(function(require,exports){
 		require("module/studentMyCourse/detial").timeSelect();
 
       
-	    setPage = function(pageNum){
-	    	var round_id = $('#product_id').val();
-	    	$.ajax({
-				 type:'GET',
-				 url:'/course/ajax_evaluate',
-				 data:{page:pageNum,round_id:round_id},
-				 dataType:'html',
-				 success:function(data){
-				    $("#fpage").html(data);
-				 }
-			});
-	    }
-		
+//	    setPage = function(pageNum){
+//	    	var round_id = $('#product_id').val();
+//	    	$.ajax({
+//				 type:'GET',
+//				 url:'/course/ajax_evaluate',
+//				 data:{page:pageNum,round_id:round_id},
+//				 dataType:'html',
+//				 success:function(data){
+//				    $("#fpage").html(data);
+//				 }
+//			});
+//	    }
+	    
+        setPage = function(offset) {
+            var url = '/course/ajax_evaluate';
+            var round_id = $('#product_id').val();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {round_id:round_id,offset:offset},
+                success: function(data) {
+                    $('#fpage').html(data);
+                }
+            });
+        }
+        setPage(0);
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();

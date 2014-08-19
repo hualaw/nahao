@@ -7,21 +7,16 @@
 <meta name="keywords" content="">
 </head>
 <body>
-<!-- 头部开始 -->
-
-<!-- 头部结束 -->
 <!-- 主要内容开始 -->
 <div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
-
     <div class="buyCourse buyBefore">
-
         <div class="cf">
             <div class=" fl">
                     <!-- 学员评价 开始 -->
                     <div id="course_content" class="course_info_item creview height">
+                    {if $array_evaluate}
                         <h3 id="review">学员评价</h3>
-                        <ul>
-                    		{if $array_evaluate}
+                        <ul>                   		
                     		{foreach from=$array_evaluate item=item}
                             <li class="cf b_t_0">
                                 <img src="{$item.avatar}" alt="" class="fl">
@@ -45,10 +40,10 @@
                                     <p>{$item.content}</p>
                                 </div>
                             </li>
-                            {/foreach}
-                    		{/if}
-                        </ul>
+                            {/foreach}                    		
+                        </ul>                     
                         {$page}
+                        {/if}
                     </div>
                     <!-- 学员评价 结束 -->
             </div>
