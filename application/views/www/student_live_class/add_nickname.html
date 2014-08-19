@@ -5,56 +5,68 @@
 <title>那好在线课堂官网_网络课堂_网络课程_家教在线-那好网</title>
 <meta name="keywords" content="那好网,网络课堂,网络课程,在线课堂"/>
 <meta name="description" content="那好网荟萃全国名师，为教师提供实现自己教育梦想的在线课堂平台。致力于搭建最好的在线课堂网站，打造那好网络课堂，提供精品网络课程，为学生提供方便、高效，愉悦的网络学习体验。"/>
-<link rel="stylesheet" type="text/css" href="{static_url('/css/studentHomePage/style.css')}" />
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentLiveClass/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
 {include file="www/include/var.htm"}
 <!-- 加载头部公共变量定义结束 -->
 </head>
 <body class="navHomepage">
-<!-- 头部开始 -->
-<!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="cf wrap layout studentHomePage" id="nahaoModule" module="student_live_class" data_page="studentPage">
+<div class="cf studentLiveClass" id="nahaoModule" module="student_live_class" data_page="studentPage">
+    <!-- <div class="enterRoomWrap">
 
-<!-- <form method="post" action="/course/enter_live_class/{$cid}" >
-	<input type="hidden" name="cid" id="cid" value="{$cid}" >
-	昵称：<input type="text" name="nickname" id="nickname" value="" />
-	<input type="submit" name="submit" value="提交">
-</form> -->
+        <a class="myLogo" href="/"></a>
 
+        <div class="myTipImg"></div>
 
-        <div class="live_nc clearfloat">
-            <label>请为自己取个名字：</label>
-            <div>
-            	<input type="hidden" id="cid" value="{$cid}">
-           		<input type="hidden" id="token" value="{$token}">
-                <input type="text" id="username" maxlength="12" style="font-size:15px"/>
-                <p class="live_mis_ts" style="display:none;"><i></i>亲爱的同学，进教室之前给自己起个名字哟！</p>
-                <a href="javascript:void(0)" class="live_an">进入直播间</a>
+        <div class="cf inputWrap">
+            <div class="">
+                请为自己取个昵称：
+                <input type="hidden" id="cid" value="{$cid}">
+                <input type="hidden" id="token" value="{$token}">
+                <input type="text" class="myNameInp" id="username" name="" maxlength="12"/>
             </div>
+            <p class="live_mis_ts tip_wrong cf">
+                <span class="fr">
+                    亲爱的同学，进教室之前给自己起个名字哟！sss
+                </span>
+            </p>
+            <span class="tipText">
+                还没有注册？赶快来注册那好帐号吧，登录后进教室更快捷
+                <a href="#" class="linkReg">点击这里</a>
+            </span>
         </div>
-
-
+        <div class="btnWrap">
+            <input type="submit" value="进入教室" class="live_an yh cOrgBtn enterClassRoom" />
+        </div>
+    </div> -->
+    <div class="enterRoomWrap">
+         <!-- logo开始 -->
+        <a class="myLogo" href="/"></a>
+        <!-- logo结束 -->
+        <!-- 图形提示开始 -->
+        <div class="myTipImg"></div>
+        <!-- 图形提示结束 -->
+        <div class="inputWrap">
+            <div class="nameText">请为自己取个昵称：</div>
+            <input type="hidden" id="cid" value="{$cid}">
+            <input type="hidden" id="token" value="{$token}">
+            <input type="text" class="myNameInp" id="username" name="" maxlength="12"/>
+            <div class="live_mis_ts tip_wrong cf"></div>
+        </div>
+        <div class="tipText">
+            还没有注册？赶快来注册那好帐号吧，登录后进教室更快捷
+                <a href="#" class="linkReg">点击这里</a>
+        </div>
+        <div class="btnWrap">
+            <input type="submit" value="进入教室" class="live_an yh cOrgBtn enterClassRoom" />
+        </div>
+    </div>
 </div>
 <!-- 主要内容结束 -->
-<!-- 底部开始 -->
-{include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
-<!-- 悬浮框开始 -->
-<div class="floatBox">
-	<a href="javascript:void(0);" class="returnTop">返回顶部</a>
-	<!-- <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue">咨询答疑</a>
-	<a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a> -->
-	<a href="javascript:void(0);" class="weixinCode"></a>
-	<a href="javascript:void(0);" class="feedback">意见反馈</a>
-	
-</div>
-<!-- 悬浮框结束 -->
-<!--意见反馈 开始-->
-
-<!--意见反馈 结束-->
 </body>
 </html>
