@@ -183,7 +183,7 @@ define(function(require,exports){
             })
             $.ajax({
                 url:'/register/submit',
-                data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val(),
+                data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val()+'&code='+ $.trim($('#code').val()),
                 type:'post',
                 success:function(msg)
                 {
