@@ -321,7 +321,7 @@
 
 .studentMyCourse .buyBefore .outline,
 .studentMyCourse .buyAfter .outline{background: url(../../images/studentMyCourse/outline.png) 12px 22px no-repeat;padding-top:74px;}
-.studentMyCourse .outlineList ul{margin-left: 30px;}
+.studentMyCourse .buyBefore .outlineList ul{margin-left: 30px;}
 .studentMyCourse .outlineList h4{font-weight: normal;background: url(../../images/studentMyCourse/order_bg1.jpg) 10px 7px no-repeat;padding-left: 10px;font-size: 14px;margin-bottom: 15px;margin-top: 15px;}
 .studentMyCourse .outlineList h4 p{padding-left: 30px;width: 423px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 
@@ -330,16 +330,16 @@
 .studentMyCourse .buyBefore .outlineList li.height30{height: 30px;}
 .studentMyCourse .buyBefore .revTimt,
 .studentMyCourse .buyBefore .allReview,
-.studentMyCourse .outlineList .listc{padding-left: 20px;font-size: 12px;}
+.studentMyCourse .outlineList .listc{font-size: 12px;}
+.studentMyCourse .buyBefore .outlineList .listc{padding-left: 20px;}
 .studentMyCourse .buyAfter .outlineList{padding-bottom: 20px;}
 .studentMyCourse .buyAfter .outlineList li{cursor: pointer;}
-.studentMyCourse .buyAfter .outlineList .rConOver .listc{color: #bcbbb8;}
+.studentMyCourse .buyAfter .outlineList .listc{color: #bcbbb8;font-size: 14px;}
 .studentMyCourse .buyAfter .cmBox li span{width: 120px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-.studentMyCourse .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 7px 0 0 13px;}
-.studentMyCourse .outlineList .listh{font-size: 12px;width: 279px;padding-left: 20px;margin-top: -3px;
-white-space: nowrap;
-text-overflow: ellipsis;
-overflow: hidden;}
+.studentMyCourse .buyBefore .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 7px 0 0 13px;}
+.studentMyCourse .buyAfter .outlineList .line{width: 1px;height: 45px;background: #d4d4d4;margin: 14px 0 0 9px;}
+.studentMyCourse .buyBefore .outlineList .listh{padding-left: 20px;font-size: 12px;width: 279px;margin-top: -3px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.studentMyCourse .buyAfter .outlineList .listh{font-size: 16px;width: 279px;margin-top: -3px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .studentMyCourse .buyAfter .outlineList .listh{width:279px;}
 .studentMyCourse .buyBefore .outlineList .listh{width: 423px;}
 .studentMyCourse .outlineList .listb{width: 420px;}
@@ -357,6 +357,9 @@ overflow: hidden;}
 .studentMyCourse .buyAfter .goClass{border: 1px solid #f14211;color:#f14211;}
 .studentMyCourse .buyAfter .goClass:hover{background:#f14211;color:#fff;}
 .studentMyCourse .buyAfter .outlineList h3{margin:0 0 0 110px;}
+.studentMyCourse .buyAfter .outlineList h3{font-weight: normal;font-size: 20px;background: url(../../images/studentMyCourse/graya.png) left 3px no-repeat;}
+.studentMyCourse .buyAfter .outlineList h3 p {padding-left: 30px;width: 423px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.studentMyCourse .buyAfter .outlineList h3 span {width: 1px;height: 20px;background: #d4d4d4;margin-left: 10px;}
 .studentMyCourse .buyAfter .outlineList .rCon{width: 458px;background: url(../../images/studentMyCourse/reda.png) 5px 3px no-repeat;}
 .studentMyCourse .buyAfter .outlineList .rConOver{background-image: url(../../images/studentMyCourse/greda.png);}
 .studentMyCourse .buyAfter .listb{padding-left: 52px;}
