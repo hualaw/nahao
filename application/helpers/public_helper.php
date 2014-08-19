@@ -517,7 +517,7 @@ function is_email($str_email)
  */
 function get_course_img_by_size($str_img_url, $str_size){
     $str_return = NH_QINIU_URL.$str_img_url;
-    if(in_array($str_size,array('large','general','small'))){
+    if(in_array($str_size,array('large','general','small','index'))){
         $str_img_url .= '?imageView/2/w/';
         if($str_size=='large'){
             $str_img_url .= NH_COURSE_IMG_LARGE_WIDTH.'/h/'.NH_COURSE_IMG_LARGE_HEIGHT;
@@ -525,6 +525,8 @@ function get_course_img_by_size($str_img_url, $str_size){
             $str_img_url .= NH_COURSE_IMG_GENERAL_WIDTH.'/h/'.NH_COURSE_IMG_GENERAL_HEIGHT;
         }else if($str_size=='small'){
             $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
+        }else if($str_size=='index'){
+            $str_img_url .= NH_COURSE_IMG_INDEX_WIDTH.'/h/'.NH_COURSE_IMG_INDEX_HEIGHT;
         }
         $str_return = NH_QINIU_URL.$str_img_url;
     }
