@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * 全站数据字典
@@ -18,24 +18,25 @@ $config['course_status'][4] = '关闭';
 //round_sell_status
 $config['round_sale_status'][0] = '未审';
 $config['round_sale_status'][1] = '拒审';
-$config['round_sale_status'][2] = '过审';//（预售）
+$config['round_sale_status'][2] = '过审'; //（预售）
 $config['round_sale_status'][3] = '在售';
 $config['round_sale_status'][4] = '售罄';
-$config['round_sale_status'][5] = '停售';//（销售结束时间到，但没售罄，cron改）
-$config['round_sale_status'][6] = '下架';//（手动下架，恢复时回到未审核）
+$config['round_sale_status'][5] = '停售'; //（销售结束时间到，但没售罄，cron改）
+$config['round_sale_status'][6] = '下架'; //（手动下架，恢复时回到未审核）
 
 //round_teach_status
 $config['round_teach_status'][1] = '未开课';
 $config['round_teach_status'][2] = '授课中';
-$config['round_teach_status'][3] = '停课';//手动操作,恢复时回到1或2，需判断
-$config['round_teach_status'][4] = '结课';//上完课cron修改为此状态
-$config['round_teach_status'][5] = '过期';//(结课后一个月cron会把这个状态改为过期)
+$config['round_teach_status'][3] = '停课'; //手动操作,恢复时回到1或2，需判断
+$config['round_teach_status'][4] = '结课'; //上完课cron修改为此状态
+$config['round_teach_status'][5] = '过期'; //(结课后一个月cron会把这个状态改为过期)
 
 //性别
 $config['gender'][1] = '男';
 $config['gender'][2] = '女';
 
 //教育阶段
+$config['stage'][0] = '全部学段';
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
 $config['stage'][3] = '高中';
@@ -149,7 +150,6 @@ $config['class_teach_status'][5] = '缺课';
 $config['class_teach_status'][6] = '禁用';
 
 
-
 //教师试讲状态
 $config['lecture_status'][1] = '等待试讲';
 $config['lecture_status'][2] = '允许试讲';
@@ -171,7 +171,6 @@ $config['teacher_title'][3] = '高级教师';
 $config['teacher_title'][4] = '一级教师';
 $config['teacher_title'][5] = '二级教师';
 $config['teacher_title'][6] = '三级教师';
-
 
 
 //退款状态
@@ -238,7 +237,7 @@ $config['account'][1] = '启用';
 $config['nh_meeting_type'][0] = '学生';
 $config['nh_meeting_type'][1] = '老师';
 $config['nh_meeting_type'][2] = '管理员';
-$config['nh_meeting_type'][110] = '超级管理员';//上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id
+$config['nh_meeting_type'][110] = '超级管理员'; //上传pdf时候用。如果user_type为110 那么就不会校验meeting_id 其他的会校验meeting_id
 
 //admin_course_list_search_type
 $config['admin_course_list_search_type'][1] = '课程名称';
@@ -266,12 +265,12 @@ $config['admin_student_list_search_type'][5] = '用户真名';
 
 
 //老师课酬结算状态
-$config['teacher_balance'][1]='未结算';
-$config['teacher_balance'][2]='已结算';
-$config['teacher_balance'][3]='已付款';
+$config['teacher_balance'][1] = '未结算';
+$config['teacher_balance'][2] = '已结算';
+$config['teacher_balance'][3] = '已付款';
 
 //limit of avatar's size
-$config['avatar_size_limit'] = 1024 * 1024 * 2;//2M
+$config['avatar_size_limit'] = 1024 * 1024 * 2; //2M
 
 //image type  这个数组的键值根据php getimagesize 返回的类型来定
 $config['image_type'][1] = 'GIF';
@@ -294,31 +293,31 @@ $config['affiche_status'][2] = '审核不通过';
 $config['affiche_status'][3] = '审核通过';
 
 //生成测试轮时候的时间间隔配置
-$config['testing_round_time_config']['before_sell_begin_time_min'] = 300;//销售时间最早在创建轮时间之后五分钟
-$config['testing_round_time_config']['before_sell_begin_time_max'] = 86400*30;//销售时间最晚在创建轮时间之后一个月
-$config['testing_round_time_config']['before_sell_end_time_min'] = 300;//最短销售期
-$config['testing_round_time_config']['before_sell_end_time_max'] = 86400*30*2;//最长销售期
-$config['testing_round_time_config']['before_begin_time'] = 300;//停卖多久后开课
-$config['testing_round_time_config']['before_first_class'] = 300;//轮开课与第一节课间隔
-$config['testing_round_time_config']['class_min_long'] = 300;//最短上课时间
-$config['testing_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
-$config['testing_round_time_config']['class_between_long'] = 300;//课间隔
-$config['testing_round_time_config']['enter_before_class'] = 120;//提前进教室时间
-$config['testing_round_time_config']['teacher_late_time'] = 120;//开课后多久老师点上课算迟到
+$config['testing_round_time_config']['before_sell_begin_time_min'] = 300; //销售时间最早在创建轮时间之后五分钟
+$config['testing_round_time_config']['before_sell_begin_time_max'] = 86400 * 30; //销售时间最晚在创建轮时间之后一个月
+$config['testing_round_time_config']['before_sell_end_time_min'] = 300; //最短销售期
+$config['testing_round_time_config']['before_sell_end_time_max'] = 86400 * 30 * 2; //最长销售期
+$config['testing_round_time_config']['before_begin_time'] = 300; //停卖多久后开课
+$config['testing_round_time_config']['before_first_class'] = 300; //轮开课与第一节课间隔
+$config['testing_round_time_config']['class_min_long'] = 300; //最短上课时间
+$config['testing_round_time_config']['class_max_long'] = 3 * 3600; //最长上课时间
+$config['testing_round_time_config']['class_between_long'] = 300; //课间隔
+$config['testing_round_time_config']['enter_before_class'] = 120; //提前进教室时间
+$config['testing_round_time_config']['teacher_late_time'] = 120; //开课后多久老师点上课算迟到
 
 
 //生成标准轮时候的时间间隔配置
-$config['production_round_time_config']['before_sell_begin_time_min'] = 300;//销售时间最早在创建轮时间之后5分钟
-$config['production_round_time_config']['before_sell_begin_time_max'] = 86400*30;////销售时间最晚在创建轮时间之后一个月
-$config['production_round_time_config']['before_sell_end_time_min'] = 300;//最短销售期
-$config['production_round_time_config']['before_sell_end_time_max'] = 86400*30*2;//最长销售期
-$config['production_round_time_config']['before_begin_time'] = 300;//停卖多久后开课
-$config['production_round_time_config']['before_first_class'] = 3600;//轮开课与第一节课间隔
-$config['production_round_time_config']['class_min_long'] = 300;//最短上课时间
-$config['production_round_time_config']['class_max_long'] = 3*3600;//最长上课时间
-$config['production_round_time_config']['class_between_long'] = 3600;//课间隔
-$config['production_round_time_config']['enter_before_class'] = 1800;//提前进教室时间
-$config['production_round_time_config']['teacher_late_time'] = 300;//开课后多久老师点上课算迟到
+$config['production_round_time_config']['before_sell_begin_time_min'] = 300; //销售时间最早在创建轮时间之后5分钟
+$config['production_round_time_config']['before_sell_begin_time_max'] = 86400 * 30; ////销售时间最晚在创建轮时间之后一个月
+$config['production_round_time_config']['before_sell_end_time_min'] = 300; //最短销售期
+$config['production_round_time_config']['before_sell_end_time_max'] = 86400 * 30 * 2; //最长销售期
+$config['production_round_time_config']['before_begin_time'] = 300; //停卖多久后开课
+$config['production_round_time_config']['before_first_class'] = 3600; //轮开课与第一节课间隔
+$config['production_round_time_config']['class_min_long'] = 300; //最短上课时间
+$config['production_round_time_config']['class_max_long'] = 3 * 3600; //最长上课时间
+$config['production_round_time_config']['class_between_long'] = 3600; //课间隔
+$config['production_round_time_config']['enter_before_class'] = 1800; //提前进教室时间
+$config['production_round_time_config']['teacher_late_time'] = 300; //开课后多久老师点上课算迟到
 
 //代理服务器
 $config['McuAddr'][1] = '42.121.114.19:21443';
@@ -335,6 +334,7 @@ $config['round_icon'][5] = '今日新课';
 $config['round_icon'][6] = '疯狂热卖';
 
 //课程类型
+$config['course_type'][0] = '全部课程类型';
 $config['course_type'][1] = '同步精讲';
 $config['course_type'][2] = '精品培优';
 $config['course_type'][3] = '一轮复习';
@@ -357,9 +357,42 @@ $config['material_version'][8] = '新课标版';
 $config['material_version'][9] = '沪教版';
 $config['material_version'][10] = '鲁教版';
 $config['material_version'][11] = '人教A';
-$config['material_version'][11] = '人教B';
-$config['material_version'][11] = '语文版';
-$config['material_version'][11] = '外研版';
+$config['material_version'][12] = '人教B';
+$config['material_version'][13] = '语文版';
+$config['material_version'][14] = '外研版';
+
+//教育类型
+$config['education_type'][0] = '全部教育类型';
+$config['education_type'][1] = '学科教育';
+$config['education_type'][2] = '素质教育';
+
+//学科辅导科目
+$config['education_subject'][1][0] = '全部科目';
+$config['education_subject'][1][2] = '数学';
+$config['education_subject'][1][3] = '语文';
+$config['education_subject'][1][4] = '英语';
+$config['education_subject'][1][5] = '物理';
+$config['education_subject'][1][9] = '化学';
+$config['education_subject'][1][10] = '生物';
+$config['education_subject'][1][11] = '历史';
+$config['education_subject'][1][12] = '地理';
+$config['education_subject'][1][13] = '政治';
+$config['education_subject'][1][14] = '数学精编';
+$config['education_subject'][1][100] = '其他';
+
+//素质教育科目
+$config['education_subject'][2][0] = '全部科目';
+$config['education_subject'][2][1] = '家庭教育';
+$config['education_subject'][2][2] = '学习方法';
+$config['education_subject'][2][3] = '外教口语';
+$config['education_subject'][2][4] = '电影鉴赏';
+$config['education_subject'][2][5] = '新概念';
+$config['education_subject'][2][6] = '国际音标';
+$config['education_subject'][2][7] = '心理学';
+$config['education_subject'][2][8] = '剑桥少儿英语';
+$config['education_subject'][2][9] = '自然拼读';
+$config['education_subject'][2][10] = '魔方';
+$config['education_subject'][2][100] = '其他';
 
 /**
  * 那好2.0类别 数据字典
@@ -367,174 +400,214 @@ $config['material_version'][11] = '外研版';
 //类型和关系 [ key = cateId ] [chirdren = stageId/qualityId]
 $config['cate'] = array(
     1 => array(
-        'name' => '学科教育',
+        'name' => '学科辅导',
         'parentId' => 0,
-        'chirdren' => array(1,2,3),
+        'chirdren' => array(1, 2, 3),
     ),
     2 => array(
-        'name' 	=> '素质教育',
+        'name' => '素质教育',
         'parentId' => 0,
-        'chirdren' => array(1,2,3,4,5,6,7,8),
+        'chirdren' => array(0,1, 2, 3, 4, 5, 6, 7, 8,9,10,100),
     ),
 );
 //学段数组 [ key = stageId ] [parentId = cateId]
 $config['cate_stage'] = array(
-    1 => array(
-        'name' 	=> '小学',
+    0 => array(
+        'name' => '全部学段',
         'parentId' => 1,
-        'chirdren' => array(3,4,5,6,7),
+        'chirdren' => array(3, 4, 5, 6, 7,8,9,10,11,12),
+    ),
+    1 => array(
+        'name' => '小学',
+        'parentId' => 1,
+        'chirdren' => array(3, 4, 5, 6),
     ),
     2 => array(
-        'name' 	=> '初中',
+        'name' => '初中',
         'parentId' => 1,
-        'chirdren' => array(7,8,9),
+        'chirdren' => array(7, 8, 9),
     ),
     3 => array(
-        'name' 	=> '高中',
+        'name' => '高中',
         'parentId' => 1,
-        'chirdren' => array(10,11,12),
+        'chirdren' => array(10, 11, 12),
     ),
 );
 //年级数组 [ key = gradeId ] [parentId = stageId]
 $config['cate_grade'] = array(
     3 => array(
-        'name' 	=> '三年级',
+        'name' => '三年级',
         'parentId' => 1,
-        'chirdren' => array(1,2,3,4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     4 => array(
-        'name' 	=> '四年级',
+        'name' => '四年级',
         'parentId' => 1,
-        'chirdren' => array(1,2,3,4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     5 => array(
-        'name' 	=> '五年级',
+        'name' => '五年级',
         'parentId' => 1,
-        'chirdren' => array(1,2,3,4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     6 => array(
-        'name' 	=> '六年级',
+        'name' => '六年级',
         'parentId' => 1,
-        'chirdren' => array(1,2,3,4),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     7 => array(
-        'name' 	=> '七年级',
+        'name' => '七年级',
         'parentId' => 2,
-        'chirdren' => array(2,3,4),
+        'chirdren' => array(0, 2, 3, 4,100),
     ),
     8 => array(
-        'name' 	=> '八年级',
+        'name' => '八年级',
         'parentId' => 2,
-        'chirdren' => array(2,3,4,5),
+        'chirdren' => array(0, 2, 3, 4,5,100),
     ),
     9 => array(
-        'name' 	=> '九年级',
+        'name' => '九年级',
         'parentId' => 2,
-        'chirdren' => array(2,3,4,5,6),
+        'chirdren' => array(0, 2, 3, 4,5,9,100),
     ),
     10 => array(
-        'name' 	=> '高一',
+        'name' => '高一',
         'parentId' => 3,
-        'chirdren' => array(2,3,4,5,6),
+        'chirdren' => array(0,2, 3, 4, 5, 9,100),
     ),
     11 => array(
-        'name' 	=> '高二',
+        'name' => '高二',
         'parentId' => 3,
-        'chirdren' => array(2,3,4,5,6,7,8,9),
+        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
     ),
     12 => array(
-        'name' 	=> '高三',
+        'name' => '高三',
         'parentId' => 3,
-        'chirdren' => array(2,3,4,5,6,7,8,9),
+        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
     ),
 );
 //科目数组 [ key = subjectId ] [parentId = gradeId]
 $config['cate_subject'] = array(
-    1 => array(
-        'name' 	=> '数学精编',
-        'parentId' => array(3,4,5,6),
+    0 => array(
+        'name' => '全部科目',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
     2 => array(
-        'name' 	=> '数学',
-        'parentId' => array(3,4,5,6,7,8,9,10,11,12),
+        'name' => '数学',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
     3 => array(
-        'name' 	=> '语文',
-        'parentId' => array(3,4,5,6,7,8,9,10,11,12),
+        'name' => '语文',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
     4 => array(
-        'name' 	=> '英语',
-        'parentId' => array(3,4,5,6,7,8,9,10,11,12),
+        'name' => '英语',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
     5 => array(
-        'name' 	=> '物理',
-        'parentId' => array(8,9,10,11,12),
-        //'chirdren' => array(),
-    ),
-    6 => array(
-        'name' 	=> '化学',
-        'parentId' => array(9,10,11,12),
-        //'chirdren' => array(),
-    ),
-    7 => array(
-        'name' 	=> '生物',
-        'parentId' => array(11,12),
-        //'chirdren' => array(),
-    ),
-    8 => array(
-        'name' 	=> '地理',
-        'parentId' => array(11,12),
+        'name' => '物理',
+        'parentId' => array(8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
     9 => array(
-        'name' 	=> '政治',
-        'parentId' => array(11,12),
+        'name' => '化学',
+        'parentId' => array(9, 10, 11, 12),
+        //'chirdren' => array(),
+    ),
+    10 => array(
+        'name' => '生物',
+        'parentId' => array(11, 12),
+        //'chirdren' => array(),
+    ),
+//    11 => array(
+//        'name' => '历史',
+//        'parentId' => array(),
+//        //'chirdren' => array(),
+//    ),
+    12 => array(
+        'name' => '地理',
+        'parentId' => array(11, 12),
+        //'chirdren' => array(),
+    ),
+    13 => array(
+        'name' => '政治',
+        'parentId' => array(11, 12),
+        //'chirdren' => array(),
+    ),
+    14 => array(
+        'name' => '数学精编',
+        'parentId' => array(3,4,5,6),
+        //'chirdren' => array(),
+    ),
+    100 => array(
+        'name' => '其他',
+        'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
 );
 //素质教育数组 [ key = qualityId ] [parentId = cateId =4]
 $config['cate_quality'] = array(
+    0 => array(
+        'name' => '全部素质教育学科',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
     1 => array(
-        'name' 	=> '魔方',
+        'name' => '家庭教育',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     2 => array(
-        'name' 	=> '学习方法',
+        'name' => '学习方法',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     3 => array(
-        'name' 	=> '外教口语',
+        'name' => '外教口语',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     4 => array(
-        'name' 	=> '电影鉴赏',
+        'name' => '电影鉴赏',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     5 => array(
-        'name' 	=> '新概念',
+        'name' => '新概念',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     6 => array(
-        'name' 	=> '国际音标',
+        'name' => '国际音标',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     7 => array(
-        'name' 	=> '自然拼读',
+        'name' => '心理学',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
     8 => array(
-        'name' 	=> '剑桥少儿英语',
+        'name' => '剑桥少儿英语',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
+    9 => array(
+        'name' => '自然拼读',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
+    10 => array(
+        'name' => '魔方',
+        'parentId' => 2,
+        //'chirdren' => array(),
+    ),
+    100 => array(
+        'name' => '其他',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
@@ -546,42 +619,42 @@ $config['cate_quality'] = array(
  * 1. 如果收入<=4000大于800 公式为 A：税费=（收入-800）*税率
  *
  * 2. 如果收入>4000 公式为 B：税费 = 收入*（1-20%）*级距税率-速算扣除数
- * 		2.1 再根据 收入*（1-20%）所在【含税级距】的级别的参数去使用 【公式B】 计算
+ *        2.1 再根据 收入*（1-20%）所在【含税级距】的级别的参数去使用 【公式B】 计算
  *
  * 3. 小于 800不纳税
  */
 
 $config['tax_rate_config'][1] = array(
-    'lever' 			=> 1, //级数
-    'range_explain'		=> '大于800小于等于4000',
-    'range_from' 		=> 800,//含税级距范围开始值
-    'range_to' 			=> 4000,//含税级距范围结束值(含)
-    'tax_rate' 			=> 0.2,//税率
-    'quick_deduction'	=> 0,//速算扣除数
+    'lever' => 1, //级数
+    'range_explain' => '大于800小于等于4000',
+    'range_from' => 800, //含税级距范围开始值
+    'range_to' => 4000, //含税级距范围结束值(含)
+    'tax_rate' => 0.2, //税率
+    'quick_deduction' => 0, //速算扣除数
 );
 $config['tax_rate_config'][2] = array(
-    'lever' 			=> 2, //级数
-    'range_explain'		=> '大于4000不超过20000元的部分',
-    'range_from' 		=> 4000,//含税级距范围开始值
-    'range_to' 			=> 20000,//含税级距范围结束值(含)
-    'tax_rate' 			=> 0.2,//税率
-    'quick_deduction'	=> 0,//速算扣除数
+    'lever' => 2, //级数
+    'range_explain' => '大于4000不超过20000元的部分',
+    'range_from' => 4000, //含税级距范围开始值
+    'range_to' => 20000, //含税级距范围结束值(含)
+    'tax_rate' => 0.2, //税率
+    'quick_deduction' => 0, //速算扣除数
 );
 $config['tax_rate_config'][3] = array(
-    'lever' 			=> 3, //级数
-    'range_explain'		=> '超过20000元至50000元的部分',
-    'range_from' 		=> 20000,//含税级距范围开始值
-    'range_to' 			=> 50000,//含税级距范围结束值(含)
-    'tax_rate' 			=> 0.3,//税率
-    'quick_deduction'	=> 2000,//速算扣除数
+    'lever' => 3, //级数
+    'range_explain' => '超过20000元至50000元的部分',
+    'range_from' => 20000, //含税级距范围开始值
+    'range_to' => 50000, //含税级距范围结束值(含)
+    'tax_rate' => 0.3, //税率
+    'quick_deduction' => 2000, //速算扣除数
 );
 $config['tax_rate_config'][4] = array(
-    'lever' 			=> 4, //级数
-    'range_explain'		=> '超过50000元的部分',
-    'range_from' 		=> 50000,//含税级距范围开始值
-    'range_to' 			=> '',//【为空不判断极值】
-    'tax_rate' 			=> 0.4,//税率
-    'quick_deduction'	=> 7000,//速算扣除数
+    'lever' => 4, //级数
+    'range_explain' => '超过50000元的部分',
+    'range_from' => 50000, //含税级距范围开始值
+    'range_to' => '', //【为空不判断极值】
+    'tax_rate' => 0.4, //税率
+    'quick_deduction' => 7000, //速算扣除数
 );
 //总轮与分轮同时卖出 做出的classroom_id和class_id映射
 $config['round_class_map'] = array(
@@ -607,58 +680,58 @@ $config['round_class_map'] = array(
     129 => 703,
 
 
-    434 =>621,
-    435 =>623,
-    436 =>625,
-    438 =>627,
-    440 =>628,
-    442 =>629,
-    444 =>630,
-    446 =>631,
-    447 =>633,
-    449 =>639,
+    434 => 621,
+    435 => 623,
+    436 => 625,
+    438 => 627,
+    440 => 628,
+    442 => 629,
+    444 => 630,
+    446 => 631,
+    447 => 633,
+    449 => 639,
 
-    456 =>599,
-    457 =>601,
-    459 =>603,
-    461 =>605,
-    464 =>607,
-    467 =>609,
-    469 =>611,
-    475 =>615,
-    477 =>617,
-    479 =>619,
+    456 => 599,
+    457 => 601,
+    459 => 603,
+    461 => 605,
+    464 => 607,
+    467 => 609,
+    469 => 611,
+    475 => 615,
+    477 => 617,
+    479 => 619,
 
-    282 =>725,
-    283 =>727,
-    285 =>728,
-    286 =>730,
-    290 =>732,
-    292 =>734,
-    293 =>736,
-    295 =>738,
-    297 =>740,
-    298 =>742,
-    299 =>744,
-    301 =>746,
-    302 =>748,
+    282 => 725,
+    283 => 727,
+    285 => 728,
+    286 => 730,
+    290 => 732,
+    292 => 734,
+    293 => 736,
+    295 => 738,
+    297 => 740,
+    298 => 742,
+    299 => 744,
+    301 => 746,
+    302 => 748,
 
 
-    258 =>750,
-    259 =>751,
-    260 =>753,
-    261 =>755,
-    263 =>757,
-    265 =>758,
-    266 =>760,
-    267 =>762,
-    268 =>763,
-    269 =>765,
-    270 =>767,
-    272 =>769,
-    273 =>771,
-    274 =>773,
-    275 =>774
+    258 => 750,
+    259 => 751,
+    260 => 753,
+    261 => 755,
+    263 => 757,
+    265 => 758,
+    266 => 760,
+    267 => 762,
+    268 => 763,
+    269 => 765,
+    270 => 767,
+    272 => 769,
+    273 => 771,
+    274 => 773,
+    275 => 774
 );
 
 $config['round_class_id_map'] = array(
@@ -671,70 +744,70 @@ $config['round_class_id_map'] = array(
     228 => 413,
     230 => 431,
 
-    140 =>982,
-    141 =>983,
-    142 =>984,
-    143 =>985,
-    144 =>986,
+    140 => 982,
+    141 => 983,
+    142 => 984,
+    143 => 985,
+    144 => 986,
 
 
-    40=>1018,
-    41=>1019,
-    42=>1020,
-    43=>1021,
-    44=>1032,
+    40 => 1018,
+    41 => 1019,
+    42 => 1020,
+    43 => 1021,
+    44 => 1032,
 
-    266=>677,
-    267=>688,
-    268=>699,
-    269=>710,
-    270=>721,
-    271=>732,
-    272=>743,
-    273=>754,
-    274=>766,
-    275=>813,
+    266 => 677,
+    267 => 688,
+    268 => 699,
+    269 => 710,
+    270 => 721,
+    271 => 732,
+    272 => 743,
+    273 => 754,
+    274 => 766,
+    275 => 813,
 
 
-    277=>577,
-    278=>588,
-    279=>599,
-    280=>610,
-    281=>621,
-    282=>632,
-    283=>643,
-    284=>654,
-    285=>665,
-    286=>676,
+    277 => 577,
+    278 => 588,
+    279 => 599,
+    280 => 610,
+    281 => 621,
+    282 => 632,
+    283 => 643,
+    284 => 654,
+    285 => 665,
+    286 => 676,
 
-    155=>1036,
-    156=>1037,
-    157=>1038,
-    158=>1039,
-    159=>1040,
-    160=>1041,
-    161=>1042,
-    162=>1043,
-    163=>1044,
-    164=>1045,
-    165=>1046,
-    166=>1047,
-    167=>1048,
+    155 => 1036,
+    156 => 1037,
+    157 => 1038,
+    158 => 1039,
+    159 => 1040,
+    160 => 1041,
+    161 => 1042,
+    162 => 1043,
+    163 => 1044,
+    164 => 1045,
+    165 => 1046,
+    166 => 1047,
+    167 => 1048,
 
-    173=>1049,
-    174=>1050,
-    175=>1051,
-    176=>1052,
-    177=>1053,
-    178=>1054,
-    179=>1055,
-    180=>1056,
-    181=>1057,
-    182=>1058,
-    183=>1059,
-    184=>1060,
-    185=>1061,
-    186=>1062,
-    187=>1063
+    173 => 1049,
+    174 => 1050,
+    175 => 1051,
+    176 => 1052,
+    177 => 1053,
+    178 => 1054,
+    179 => 1055,
+    180 => 1056,
+    181 => 1057,
+    182 => 1058,
+    183 => 1059,
+    184 => 1060,
+    185 => 1061,
+    186 => 1062,
+    187 => 1063
 
 );
