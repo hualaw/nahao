@@ -307,4 +307,25 @@ class Business_List extends NH_Model
     	$pageBar .= '</ul>';
     	return $pageBar;
    	}
+   	
+   	/**
+     * 最近浏览（读cookie）
+     */
+    public function read_recent_view_data()
+    {
+    	if (empty($_COOKIE['recent_view']))
+    	{
+    		return array();
+    	}
+    	$cookies = json_decode($_COOKIE['recent_view'],true);
+    	$cookies = array_reverse($cookies);
+    	$count = count($cookies);
+    	#浏览记录去5条;
+    	$nums = 5;
+    	if ($count<=$nums){
+    		return $cookies;
+    	} else {
+    		return array_slice($cookies,0,$nums);
+    	}
+    }
 }

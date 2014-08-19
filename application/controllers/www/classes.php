@@ -39,11 +39,14 @@ class Classes extends NH_User_Controller {
     	#5. 搜索推荐-猜您喜欢
     	$result = $this->business_list->search_suggest(array('typeId' => $param['typeId']));
     	#6. 浏览记录
+    	$view_list = $this->business_list->read_recent_view_data();
+    	
     	$this->smarty->assign('seo' 			, $seo);
     	$this->smarty->assign('cateList' 		, $cateList);
     	$this->smarty->assign('list' 			, $data['data']);
     	$this->smarty->assign('suggest_list' 	, $result['data']);
     	$this->smarty->assign('pageBar' 		, $pageBar);
+    	$this->smarty->assign('view_list' 		, $view_list);
     	$this->smarty->display('www/student_class/index.html');
     }
     // 课程列表----学科辅导
