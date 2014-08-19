@@ -394,12 +394,6 @@ $config['education_subject'][2][9] = '自然拼读';
 $config['education_subject'][2][10] = '魔方';
 $config['education_subject'][2][100] = '其他';
 
-
-//科目
-$config['material_version'][11] = '人教B';
-$config['material_version'][11] = '语文版';
-$config['material_version'][11] = '外研版';
-
 /**
  * 那好2.0类别 数据字典
  */
@@ -441,6 +435,11 @@ $config['cate_stage'] = array(
 );
 //年级数组 [ key = gradeId ] [parentId = stageId]
 $config['cate_grade'] = array(
+	0 => array(
+		'name' => '全部年级',
+        'parentId' => array(1,2,3),
+        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
+	),
     3 => array(
         'name' => '三年级',
         'parentId' => 1,
