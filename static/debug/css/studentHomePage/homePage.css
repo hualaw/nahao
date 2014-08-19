@@ -124,7 +124,7 @@
 .studentHomePage .loginTitle{font-size: 14px; text-align: center;font-weight: normal;line-height: 14px;height: 14px;margin: 20px 0px;}
 .studentHomePage .loginWrap .msgTip{height: 20px;line-height: 20px;margin: 0px;padding: 0px;position: absolute;width: 196px;top:34px;left:11px;text-align: center;}
 .studentHomePage .inputWrap{margin-bottom: 16px;}
-.studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 182px;padding: 0px 5px;}
+.studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 195px;padding: 0px 5px;}
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
 .studentHomePage .loginWrap input.loginBtn{border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 19px;cursor: pointer;font-family: 'Microsoft Yahei',Tahoma,Arial,sans-serif;}
 /*登录结束*/
