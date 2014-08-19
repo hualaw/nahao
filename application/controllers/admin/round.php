@@ -63,10 +63,18 @@ class Round extends NH_Admin_Controller
         $arr_list = $this->round->get_round_list($arr_where, $int_start,PER_PAGE_NO);
 //        o($arr_list,true);
 
-        $this->load->model('business/common/business_subject','subject');
-        $arr_subjects = $this->subject->get_subjects_like_kv();
-        $this->load->model('business/common/business_course_type','course_type');
-        $arr_course_types = $this->course_type->get_course_types_like_kv();
+//        $this->load->model('business/common/business_subject','subject');
+//        $arr_subjects = $this->subject->get_subjects_like_kv();
+//        $this->load->model('business/common/business_course_type','course_type');
+//        $arr_course_types = $this->course_type->get_course_types_like_kv();
+
+        $arr_education_types = config_item('education_type');
+        $arr_subjects = config_item('cate_subject');
+        $arr_qualities = config_item('cate_quality');
+        $arr_material_versions = config_item('material_version');
+        $arr_course_types = config_item('course_type');
+        $arr_stages = config_item('stage');
+        $arr_education_subjects = config_item('education_subject');
 
         $this->load->library('pagination');
         $config = config_item('page_admin');
@@ -86,8 +94,14 @@ class Round extends NH_Admin_Controller
         $this->smarty->assign('round_sale_status',config_item('round_sale_status'));
         $this->smarty->assign('round_teach_status',config_item('round_teach_status'));
         $this->smarty->assign('round_list_search_type',config_item('admin_round_list_search_type'));
-        $this->smarty->assign('subjects',$arr_subjects);
-        $this->smarty->assign('course_types',$arr_course_types);
+        $this->smarty->assign('subjects', $arr_subjects);
+        $this->smarty->assign('stages', $arr_stages);
+        $this->smarty->assign('qualities', $arr_qualities);
+        $this->smarty->assign('education_types', $arr_education_types);
+        $this->smarty->assign('material_versions', $arr_material_versions);
+        $this->smarty->assign('course_types', $arr_course_types);
+        $this->smarty->assign('grades', config_item('grade'));
+        $this->smarty->assign('education_subjects', $arr_education_subjects);
         $this->smarty->assign('query_param', $arr_query_param);
         $this->smarty->assign('view', 'round_list');
         $this->smarty->display('admin/layout.html');
@@ -103,54 +117,90 @@ class Round extends NH_Admin_Controller
         if ($this->is_ajax() AND $this->is_post()) {
             header("Content-type: text/html; charset=utf-8");
             $int_round_id = $this->input->post('id') ? intval($this->input->post('id')) : 0;
+            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
             $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
-            $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
-            $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
-            $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
-            $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
-            $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
+            $int_sequence = $this->input->post('sequence') ? intval($this->input->post('sequence')) : 0;
+            $int_education_type = $this->input->post('education_type') ? intval($this->input->post('education_type')) : 0;
+            $int_material_version = $this->input->post('material_version') ? intval($this->input->post('material_version')) : 0;
+            $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : 0;
+            $int_quality = $this->input->post('quality') ? intval($this->input->post('quality')) : 0;
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
-            $int_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
-            $int_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
-            $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
-            $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
+            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
+            $int_stage = $this->input->post('stage') ? intval($this->input->post('stage')) : 0;
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
-//            $arr_classes = $this->input->post('classes') ? $this->input->post('classes') : array();
-            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
-            $int_is_test = $this->input->post('is_test') ? intval($this->input->post('is_test')) : 0;
-
-            $int_course_id = $this->input->post('course_id') ? intval($this->input->post('course_id')) : 0;
-            $int_caps = $this->input->post('caps') ? intval($this->input->post('caps')) : '';
+            $float_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
+            $float_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
             $float_sale_price = $this->input->post('sale_price') ? (filter_var($this->input->post('sale_price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('sale_price') : 0) : 0;
+            $int_caps = $this->input->post('caps') ? intval($this->input->post('caps')) : 0;
+            $int_extra_bought_count = $this->input->post('extra_bought_count') ? intval($this->input->post('extra_bought_count')) : 0;
+            $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
+            $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
+            $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
+            $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
+            $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_sell_begin_time = $this->input->post('sell_begin_time') ? strtotime(trim($this->input->post('sell_begin_time'))) : 0;
             $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : 0;
-//            $int_start_time = $this->input->post('start_time') ? strtotime(trim($this->input->post('start_time'))) : 0;
-//            $int_end_time = $this->input->post('end_time') ? strtotime(trim($this->input->post('end_time'))) : 0;
+            $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
+            $int_is_test = $this->input->post('is_test') ? intval($this->input->post('is_test')) : 0;
+            $int_is_live = $this->input->post('is_live') ? intval($this->input->post('is_live')) : 0;
 
 //            o($this->input->post(),true);
 
-            if ($str_title AND $str_subtitle AND $str_intro AND $str_description AND $str_students AND $int_subject AND $int_course_type AND $int_reward >= 0 AND $int_price >= 0 /*AND $str_video AND $str_img*/ AND $int_grade_from AND $int_grade_to /*AND $arr_classes*/ AND $arr_teachers AND $int_course_id AND $int_caps AND $float_sale_price >= 0 AND $int_sell_begin_time AND $int_sell_end_time AND $int_is_test >=0 /*AND $int_start_time AND $int_end_time*/) {
-                $arr_param['title'] = $str_title;
-                $arr_param['subtitle'] = $str_subtitle;
-                $arr_param['intro'] = $str_intro;
-                $arr_param['description'] = $str_description;
-                $arr_param['students'] = $str_students;
-                $arr_param['subject'] = $int_subject;
-                $arr_param['course_type'] = $int_course_type;
-                $arr_param['reward'] = $int_reward;
-                $arr_param['price'] = $int_price;
-                $arr_param['video'] = $str_video;
-                $arr_param['img'] = $str_img;
-                $arr_param['grade_from'] = $int_grade_from;
-                $arr_param['grade_to'] = $int_grade_to;
+            if ($int_round_id >= 0
+                AND $int_course_id >= 0
+                AND $str_title
+                AND $int_sequence >= 0
+                AND $int_education_type >= 0
+                AND $int_material_version >= 0
+                AND $int_subject >= 0
+                AND $int_quality >= 0
+                AND $int_course_type >= 0
+                AND $arr_teachers
+                AND $int_stage >= 0
+                AND $int_grade_from
+                AND $int_grade_to /*AND $arr_classes*/
+                AND $float_reward >= 0
+                AND $float_price >= 0 /*AND $str_video AND $str_img*/
+                AND $float_sale_price >= 0
+                AND $int_caps
+                AND $int_extra_bought_count >= 0
+                AND $str_subtitle
+                AND $str_intro
+                AND $str_students
+                AND $str_description
+                AND $int_sell_begin_time
+                AND $int_sell_end_time
+                AND $int_is_test >=0
+                AND $int_is_live >=0 /*AND $int_start_time AND $int_end_time*/) {
 
                 $arr_param['course_id'] = $int_course_id;
-                $arr_param['caps'] = $int_caps;
+                $arr_param['title'] = $str_title;
+                $arr_param['sequence'] = $int_sequence;
+                $arr_param['education_type'] = $int_education_type;
+                $arr_param['material_version'] = $int_material_version;
+                $arr_param['subject'] = $int_subject;
+                $arr_param['quality'] = $int_quality;
+                $arr_param['course_type'] = $int_course_type;
+                $arr_param['stage'] = $int_stage;
+                $arr_param['grade_from'] = $int_grade_from;
+                $arr_param['grade_to'] = $int_grade_to;
+                $arr_param['reward'] = $float_reward;
+                $arr_param['price'] = $float_price;
                 $arr_param['sale_price'] = $float_sale_price;
+                $arr_param['caps'] = $int_caps;
+                $arr_param['extra_bought_count'] = $int_extra_bought_count;
+                $arr_param['subtitle'] = $str_subtitle;
+                $arr_param['intro'] = $str_intro;
+                $arr_param['students'] = $str_students;
+                $arr_param['description'] = $str_description;
+                $arr_param['img'] = $str_img;
+                $arr_param['video'] = $str_video;
+;
                 $arr_param['sell_begin_time'] = $int_sell_begin_time;
                 $arr_param['sell_end_time'] = $int_sell_end_time;
                 $arr_param['is_test'] = $int_is_test;
+                $arr_param['is_live'] = $int_is_live;
 //                $arr_param['start_time'] = $int_start_time;
 //                $arr_param['end_time'] = $int_end_time;
                 $bool_flag = true;
@@ -172,6 +222,9 @@ class Round extends NH_Admin_Controller
                     }
                 }
                 $arr_param['start_time'] = $int_sell_end_time + $arr_time_config['before_begin_time'];
+
+//                o($arr_param);
+//                o($bool_flag,true);
 
                 if($bool_flag==true){
                     $str_action = 'create';
@@ -270,6 +323,7 @@ class Round extends NH_Admin_Controller
                     if($arr_teachers){
                         $bool_round_flag = true;//can generate round
                         $arr_round['is_test'] = ENVIRONMENT=='production' ? 0 : 1;
+                        $arr_round['is_live'] = 0;
                     }else{
                         $str_error = '没有老师';
                     }
@@ -285,11 +339,18 @@ class Round extends NH_Admin_Controller
         //can generate or edit round
         if($bool_round_flag==true){
             //subjects to display
-            $this->load->model('business/common/business_subject', 'subject');
-            $arr_subjects = $this->subject->get_subjects_like_kv();
+//            $this->load->model('business/common/business_subject', 'subject');
+//            $arr_subjects = $this->subject->get_subjects_like_kv();
             //course_types to display
-            $this->load->model('business/common/business_course_type', 'course_type');
-            $arr_course_types = $this->course_type->get_course_types_like_kv();
+//            $this->load->model('business/common/business_course_type', 'course_type');
+//            $arr_course_types = $this->course_type->get_course_types_like_kv();
+
+            $arr_subjects = config_item('cate_subject');
+            $arr_qualities = config_item('cate_quality');
+            $arr_course_types = config_item('course_type');
+            $arr_stages = config_item('stage');
+            $arr_education_types = config_item('education_type');
+            $arr_material_versions = config_item('material_version');
 
             //generate param for uploading to qiniu
             require_once APPPATH . 'libraries/qiniu/rs.php';
@@ -312,6 +373,10 @@ class Round extends NH_Admin_Controller
             $this->smarty->assign('upload_video_key', $str_new_video_file_name);
             $this->smarty->assign('view', 'round_edit');
             $this->smarty->assign('subjects', $arr_subjects);
+            $this->smarty->assign('stages', $arr_stages);
+            $this->smarty->assign('qualities', $arr_qualities);
+            $this->smarty->assign('education_types', $arr_education_types);
+            $this->smarty->assign('material_versions', $arr_material_versions);
             $this->smarty->assign('course_types', $arr_course_types);
             $this->smarty->assign('grades', config_item('grade'));
             $this->smarty->display('admin/layout.html');
