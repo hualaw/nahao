@@ -246,7 +246,7 @@
 /*   我的课程购买前  */
 .studentMyCourse .buyCourse{font-size: 14px;color: #333;}
 .studentMyCourse .buyBefore .buyHead{border: 1px solid #d2d2d2;margin-bottom: 10px;background: #fff;}
-.studentMyCourse .buyCourse .buyLeft{border: 1px solid #e7e7e7;width: 644px;background: #fff;}
+.studentMyCourse .buyCourse .buyLeft{border: 1px solid #e7e7e7;width: 644px;}
 .studentMyCourse .buyCourse .buyRight{width: 308px;}
 .studentMyCourse .buyBefore .buyRight{background: url(../../images/studentMyCourse/cteam.png) no-repeat;margin-top: -5px;padding-top: 30px;}
 .studentMyCourse .buyBefore .slash{background: url(../../images/studentMyCourse/slash.png) no-repeat;position: absolute;right: -1px;top:-1px;width: 35px;height: 30px;}
@@ -361,8 +361,8 @@ overflow: hidden;}
 .studentMyCourse .buyAfter .listb{padding-left: 52px;}
 .studentMyCourse .buyAfter .outlineList .listb{width: 382px;margin-right: 14px;}
 
-.studentMyCourse .buyAfter .buyLeft{margin-top: 37px;width: 598px;}
-.studentMyCourse .buyAfter .buyRight{width: 352px;}
+.studentMyCourse .buyAfter .buyLeft{width: 598px;background: #fff;}
+.studentMyCourse .buyAfter .buyRight{width: 352px;background: #fff;}
 .studentMyCourse .abuyTab .abuyTabBox{font-size: 14px;color: #333;}
 .studentMyCourse .abuyTabh h3{font-size: 18px;color:#333;font-weight: normal;border-bottom: 1px solid #ddd;height: 38px;line-height: 38px;cursor: pointer;}
 .studentMyCourse .abuyTabh h3 span{color:#b5b5b5;font-weight: normal;margin-left: 5px;}
@@ -376,7 +376,7 @@ overflow: hidden;}
 .studentMyCourse .abuyTab .cmBox li img{width: 35px;height: 35px;margin:0 6px;}
 .studentMyCourse .abuyTab .cmBox{padding: 32px 0 35px;}
 .studentMyCourse .abuyTab .ntBox{border-bottom: 1px solid #ddd;}
-.studentMyCourse .abuyTab .ntBox li{padding: 13px 0 18px;}
+.studentMyCourse .abuyTab .ntBox li{padding: 13px 10px 18px;}
 .studentMyCourse .abuyTab .nhead img{width: 45px;height: 45px;}
 .studentMyCourse .abuyTab .nhead strong{font-size: 16px;font-weight: normal;}
 .studentMyCourse .abuyTab .nhead span{margin-left: 10px;}
