@@ -154,25 +154,25 @@ class Lesson extends NH_Admin_Controller {
             $int_parent_id = 1;
             $int_chapter_sequence = $int_section_sequence = $int_section_count = 0;
             foreach($arr_lessons as $k => $v){
-                if($v['is_chapter']==1){
-                    $int_parent_id = $int_section_sequence = 0;
-                    $arr_tmp = array(
-                        'id' => $v['id'],
-                        'parent_id' => $int_parent_id,
-                        'sequence' => $int_chapter_sequence++
-                    );
-                    $int_parent_id = $v['id'];
-                }else{
-                    $arr_tmp = array(
-                        'id' => $v['id'],
-                        'parent_id' => $int_parent_id,
-                        'sequence' => $int_section_sequence++
-                    );
-                    if($v['status']==1){
-                        ++$int_section_count;
+                if($v['status']==1){
+                    if($v['is_chapter']==1){
+                        $int_parent_id = $int_section_sequence = 0;
+                        $arr_tmp = array(
+                            'id' => $v['id'],
+                            'parent_id' => $int_parent_id,
+                            'sequence' => $int_chapter_sequence++
+                        );
+                        $int_parent_id = $v['id'];
+                    }else{
+                        $arr_tmp = array(
+                            'id' => $v['id'],
+                            'parent_id' => $int_parent_id,
+                            'sequence' => $int_section_sequence++
+                        );
+                            ++$int_section_count;
                     }
+                    $arr_update[] = $arr_tmp;
                 }
-                $arr_update[] = $arr_tmp;
             }
 
 //            o($int_section_count,true);

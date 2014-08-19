@@ -393,9 +393,6 @@ $config['education_subject'][2][9] = '自然拼读';
 $config['education_subject'][2][10] = '魔方';
 $config['education_subject'][2][100] = '其他';
 
-
-//科目
-
 /**
  * 那好2.0类别 数据字典
  */
