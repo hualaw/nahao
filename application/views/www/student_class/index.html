@@ -89,7 +89,7 @@
 								{/if}
 								</span>
 								<!-- 标签列表结束 -->
-								<a href="/ke_{$val['id']}.html" class="courseDesc">
+								<a href="/ke_{$val['id']}.html" target="_blank" class="courseDesc">
 									<img src="{$val['img_url']}" alt="{$val['title']}" class="cDescImg">
 									<!-- hover时候显示的教师信息开始 -->
 									<div class="hoverDesc">
@@ -117,7 +117,7 @@
 								
 								<!-- 课程标题和简介开始 -->
 								<h3 class="ctitle">
-									<a href="/ke_{$val['id']}.html">
+									<a href="/ke_{$val['id']}.html" target="_blank">
 										<span class="cTitleName">{$val['title']}</span>
 										<span class="cTitleDesc">{$val['subtitle']}</span>
 									</a>
@@ -128,7 +128,7 @@
 									<span class="price">￥<strong>{$val['sale_price']}</strong></span><br>
 									<span class="cVal">价值<span>￥{$val['price']}</span>
 									</span>
-									<a href="/ke_{$val['id']}.html" class="cRedBtn learnBtn">马上学习</a>
+									<a href="/ke_{$val['id']}.html" target="_blank" class="cRedBtn learnBtn">马上学习</a>
 								</p>
 								<!-- 课程价格结束 -->
 								<div class="cf cBottom">
@@ -157,8 +157,8 @@
 					{if $suggest_list}
 						{foreach $suggest_list as $val}
 						<li>
-							<a href="/ke_{$val['id']}.html" title="{$val['title']}"><img src="{$val['img_url']}" alt="{$val['title']}"></a>
-							<p><a href="/ke_{$val['id']}.html" title="{$val['title']}">{$val['title']}</a></p>
+							<a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}"><img src="{$val['img_url']}" alt="{$val['title']}"></a>
+							<p><a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}">{$val['title']}</a></p>
 							<div class="studyNum cf"><span class="fl price">￥{$val['sale_price']}</span><span class="fr"><i>{$val['study_count']}</i>人已学习</span></div>
 						</li>
 						{/foreach}
@@ -167,30 +167,21 @@
 			</div>
 			<div class="history">
 				<h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
+				{if $view_list}
 				<ul class="historyList">
+					{foreach $view_list as $val}
 					<li class="cf b_t_0">
-						<a href="#" title=""><img class="fl" src="{$static_url}{$static_version}/images/studentClass/courseImg03.jpg" alt=""></a>
+						<a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}"><img class="fl" src="{$val['img']}" alt="{$val['title']}"></a>
 						<div class="fl listRight">
-							<p><a href="#" title="">针对高考，重新建立语文的学习</a></p>
-							<div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
+							<p><a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}">{$val['title']}</a></p>
+							<div><span class="fl price">￥{$val['sale_price']}</span><span class="priceHis fl">{$val['price']}</span></div>
 						</div>
 					</li>
-					<li class="cf">
-						<a href="#" title=""><img class="fl" src="{$static_url}{$static_version}/images/studentClass/courseImg03.jpg" alt=""></a>
-						<div class="fl listRight">
-							<p><a href="#" title="">针对高考，重新建立语文的学习</a></p>
-							<div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
-						</div>
-					</li>
-					<li class="cf">
-						<a href="#" title=""><img class="fl" src="{$static_url}{$static_version}/images/studentClass/courseImg03.jpg" alt=""></a>
-						<div class="fl listRight">
-							<p><a href="#" title="">针对高考，重新建立语文的学习</a></p>
-							<div><span class="fl price">￥128</span><span class="priceHis fl">2000</span></div>
-						</div>
-					</li>
+					{/foreach}
 				</ul>
+				{else}
 				<div class="historyNone">暂无浏览记录</div>
+				{/if}
 			</div>
 		</div>
 	</div>
