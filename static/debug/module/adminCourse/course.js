@@ -27,6 +27,33 @@ define(function (require, exports) {
         });
     }
 
+    exports.bind_everything = function(){
+
+        var education_type = $('#education_type').val();
+        if(education_type==1){
+            $("#quality").attr("disabled",true);
+        }else if(education_type==2){
+            $("#subject").attr("disabled",true);
+        }else{
+            $("#quality,#subject").val(0);
+        }
+
+        //change education_type
+        $('#education_type').on("change",function(){
+            var education_type = $(this).val();
+            $("#quality,#subject").removeAttr("disabled");
+            $("#quality,#subject").val(0);
+            if(education_type==1){
+                $("#quality").attr("disabled",true);
+            }else if(education_type==2){
+                $("#subject").attr("disabled",true);
+            }else{
+                $("#quality,#subject").val(0);
+            }
+
+        });
+    }
+
     //load ckeditor
     exports.load_ckeditor = function () {
         if($("#nahao_description").length >0){
@@ -46,7 +73,6 @@ define(function (require, exports) {
             var data = {
                 'teacher_ids' : arr_teacher_ids
             };
-            console.log(data);
             $.post(action, data, function (response) {
                 var teachers_html = '<div class="form-group">';
                 $(response).each(function (k, v) {
@@ -145,6 +171,9 @@ define(function (require, exports) {
         $(".form-group").on("click", '#course_edit_submit_course', function () {
             var id = $("#id").val();
             var title = $("#title").val();
+            var education_type = $("#education_type").val();
+            var material_version = $("#material_version").val();
+            var quality = $("#quality").val();
             var subtitle = $("#subtitle").val();
             var intro = $("#intro").val();
             $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
@@ -197,6 +226,9 @@ define(function (require, exports) {
             var data = {
                 'id' : id,
                 'title' : title,
+                'education_type' : education_type,
+                'material_version' : material_version,
+                'quality' : quality,
                 'subtitle' : subtitle,
                 'intro' : intro,
 //                'description' : encodeURI(description),
@@ -214,7 +246,7 @@ define(function (require, exports) {
                 'teachers' : teacher_ids
             };
 //            console.log(encodeURI(description));
-//            console.log(description);
+//            console.log(data);
 //            return false;
             $.post(action, data, function (response) {
                 alert(response.msg);

@@ -120,7 +120,7 @@
 .studentCart .checkForm .total span.save{font-size:14px;}
 .studentCart .checkForm .total span em{color:#f14211;margin:0 10px;font-weight:bold;}
 .studentCart .checkForm .total span.price em{font-size:24px;}
-.studentCart .contactInfo .innerBox{padding:45px 45px 30px 45px;}
+.studentCart .contactInfo .innerBox{padding:45px 45px 30px 45px;background: #fff;}
 .studentCart .contactInfo li{margin-bottom:15px;}
 .studentCart .contactInfo li p{margin-bottom:3px;}
 .studentCart .contactInfo li p input{height:28px;padding:0 15px;width:228px;border:1px solid #a2a2a2;}

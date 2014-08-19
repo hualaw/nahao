@@ -13,10 +13,13 @@ define(function(require,exports){
     course.submit_course();
     course.course_operation();
     course.select_nickname();
+    course.bind_everything();
 
 
     var upload = require("module/adminCourse/upload");
     upload.addUpload();//调用上传图片
 	upload.video_upload();//video_upload
+
+
 
 })

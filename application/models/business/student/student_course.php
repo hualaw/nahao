@@ -603,7 +603,6 @@ class Student_Course extends NH_Model{
 				array_push($json_decode_value,$array_add);
 			}
 			setcookie("recent_view", json_encode($json_decode_value),time()+24*60*60,'/');
-
     	} else {
     		$cookie_value = array(
 	    			array(

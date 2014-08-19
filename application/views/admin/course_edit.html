@@ -10,12 +10,43 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">教授科目</label>
+        <label class="col-md-2 control-label">教育类型</label>
+        <div class="col-md-2">
+            <select class="form-control" id="education_type">
+                {foreach $education_types as $k => $v}
+                <option value="{$k}" {if isset($course.education_type) AND $course.education_type==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">教材版本</label>
+        <div class="col-md-2">
+            <select class="form-control" id="material_version">
+                {foreach $material_versions as $k => $v}
+                <option value="{$k}" {if isset($course.material_version) AND $course.material_version==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">学科辅导科目</label>
         <div class="col-md-2">
             <select class="form-control" id="subject">
                 <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}
-                <option value="{$k}" {if isset($course.subject) AND $course.subject==$k }selected{/if}>{$v}</option>
+                <option value="{$k}" {if isset($course.subject) AND $course.subject==$k }selected{/if}>{$v['name']}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">素质教育科目</label>
+        <div class="col-md-2">
+            <select class="form-control" id="quality">
+                <option value="">全部学科</option>
+                {foreach $qualities as $k => $v}
+                <option value="{$k}" {if isset($course.quality) AND $course.quality==$k }selected{/if}>{$v['name']}</option>
                 {/foreach}
             </select>
         </div>
@@ -24,7 +55,6 @@
         <label class="col-md-2 control-label">课程类型</label>
         <div class="col-md-2">
             <select class="form-control" id="course_type">
-                <option value="">全部课程类型</option>
                 {foreach $course_types as $k => $v}
                 <option value="{$k}" {if isset($course.course_type) AND $course.course_type==$k }selected{/if}>{$v}</option>
                 {/foreach}
@@ -45,8 +75,17 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-md-2 control-label">适用学段</label>
+        <div class="col-md-2">
+            <select class="form-control"  id="stage">
+                {foreach $stages as $k => $v}
+                <option value="{$k}" {if isset($course.stage) AND $course.stage==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-md-2 control-label">适用年级</label>
-
         <div class="col-md-2">
             <select class="form-control"  id="grade_from">
                 <option value="0">开始年级</option>
@@ -290,7 +329,6 @@
             <div id="video_url_show" ></div>
         </div>
     </div>
-
 
     <!--<div id="course_edit_lesson_list_div">-->
         <!--<div class="form-group">-->
