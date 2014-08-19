@@ -43,14 +43,14 @@
                     <div class="price"><span class="priceAfter"><i>￥</i>{$array_data.sale_price}</span><span class="priceBefore">价值<i>￥{$array_data.price}</i></span></div>
                     <div class="review cf">
                         <span class="studyCount fl"><i>{$array_data.study_count}</i>人已学习</span>
+                         {if $array_data.score >=4}
                         <span class="starBg cf fl">
-                        {if $array_data.score > 0}
                         {section name=loop loop=$array_data.score}
                             <span class="hreview"></span>
                         {/section}
-                        {/if}
                         </span>
                         <span class="fl starCount"><i>{$array_data.score}</i>分</span>
+                         {/if}
                         <a class="fl" href="#review"><i>{$evaluate_count}</i>条评价</a>
                     </div>
                     <div class="endTime cf">
@@ -159,7 +159,7 @@
                			<div class="course_team_list b_t_0 cf">
                             <img class="fl" src="{$item.avatar}" alt="">
                             <div class="teacherInfo fl">
-                                <h4>{$item.teacher_role}老师：<i>{$item.nickname}</i>{$item.teacher_age}年教龄</h4>
+                                <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
                                 <p class="teacherText">{$item.teacher_intro}</p>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                     <div id="course_info" class="course_info_item height">
                         <h3>课程提要</h3>
 
-                       	{$array_data.description}
+                       	<div class="course_info_img">{$array_data.description}</div>
                     </div>
                     <!-- 课程提要 结束 -->
                     <!-- 学员评价 开始 -->
@@ -229,13 +229,11 @@
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
                     {/foreach}
-                  
                     </ul>
-                      
-                </div>
+                 </div>
                 {/if}
+                {if $array_recommend}
                 <div class="buyCourseBox">
-                  {if $array_recommend}
                     <h3>看过本课程的用户还看了</h3>
                     <ul class="buyCourseList">
                     {foreach from=$array_recommend item=item}
@@ -246,8 +244,8 @@
                         </li>
                     {/foreach}                 
                     </ul>
-                    {/if}
                 </div>
+                  {/if}
                 <div class="history">
                     <h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
                      {if $array_recent_view}
@@ -284,10 +282,23 @@
 <!-- player播放器js结束 -->
 <!-- 悬浮框开始 -->
 <div class="floatBox">
-    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue">咨询答疑</a>
-    <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a>
+    <a href="javascript:void(0);" class="returnTop" title="返回顶部">返回顶部</a>
+    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue" title="咨询答疑">咨询答疑</a>
+    <!-- <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a> -->
+    <a href="javascript:void(0);" class="weixinCode">
+        <span class="wxWrap">
+            <span class="wxBg"></span>
+            <span class="wxDesc">
+                <img src="{$static_url}{$static_version}/images/common/wxCode.gif" alt="那好二维码">
+                <span class="codeText">
+                    扫描二维码关注<br>
+                    那好网官方微信
+                </span>
+                <span class="arrow"></span>
+            </span>
+        </span>
+    </a>
     <a href="javascript:void(0);" class="feedback">意见反馈</a>
-    <a href="javascript:void(0);" class="returnTop">返回顶部</a>
 </div>
 <!-- 悬浮框结束 -->
 <!--意见反馈 开始-->

@@ -26,6 +26,7 @@ class Index extends NH_User_Controller
      * 首页获取轮的列表信息
      * $debug == 1 显示测试的课程列表，否则把测试的过滤掉
      */
+
     public function index_OLD()
     {
         if (isset($_GET['nh_debug']) && ($_GET['nh_debug'] == '1')) {
@@ -46,12 +47,25 @@ class Index extends NH_User_Controller
             $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
         }
         $course_url = config_item('course_url');
-        $stage = config_item('stage');
+
+         $this->load->helper('captcha');
+         $vals = array(
+            'img_path' => './captcha/',
+            'img_url' => "/captcha/",
+            'img_width' => 66,
+            'img_height' => 30,
+            'expiration' => 7200
+         );
+        $cap = create_captcha($vals);
+
+        $this->smarty->assign('cap_word', $cap["word"]);
+        $this->smarty->assign('cap_image', $cap['image']);
+
+
 
         $this->smarty->assign('focus_photo', $focus_photo);
 
         $this->smarty->assign('course_url', $course_url);
-        $this->smarty->assign('stage', $stage);
         $this->smarty->assign('array_data', $array_data);
         $this->smarty->display('www/studentHomePage/index.html');
     }
@@ -278,14 +292,6 @@ class Index extends NH_User_Controller
 	    $this->smarty->assign('seo_title',$seo_title);
 	    $this->smarty->assign('seo_description',$seo_description);
 	    $this->smarty->display('www/about/index.html');
-	}
-	
-	/**
-	 * 添加直播课的昵称
-	 */
-	public function add_live_class_nicknane()
-	{
-		$this->smarty->display('www/add_nicknane.html');
 	}
 }
 

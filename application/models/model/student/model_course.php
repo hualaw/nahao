@@ -280,7 +280,7 @@ class Model_Course extends NH_Model{
     public function get_class_infor($int_class_id)
     {
         $array_result = array();
-        $sql = "SELECT course_id,round_id,lesson_id,title,begin_time,end_time,sequence,status,classroom_id,courseware_id FROM ".TABLE_CLASS." WHERE id = ".$int_class_id;
+        $sql = "SELECT id,course_id,round_id,lesson_id,title,begin_time,end_time,sequence,status,classroom_id,courseware_id FROM ".TABLE_CLASS." WHERE id = ".$int_class_id;
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }

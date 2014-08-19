@@ -1,39 +1,55 @@
 <!-- 登录框开始 -->
+{if $is_login==0}
 <div class="loginWrap">
-    <h4 class="loginTitle">快速注册,免费送学习诊断</h4>
-    <!--错误提示开始-->
-    <div class="msgTip" id="span_warning">
-
-    </div>
-    <!-- 错误提示结束 -->
-    <div class="inputWrap">
-        <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email">
-    </div>
-    <div class="inputWrap">
-        <input type="password" placeholder="密码" id="password">
-    </div>
-    <div class="inputWrap">
-        <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone">
-    </div>
-    <div class="hasNophone">
-        <a href="#">没有手机，请点击这里！</a>
-    </div>
-    <div>
-        <input type="button" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
-    </div>
+    <form class="cf loginForm" method="post" action="/register/submit" method="POST" onsubmit="return false">
+        <h4 class="loginTitle">快速注册,免费送学习诊断</h4>
+        <!--错误提示开始-->
+        <div class="msgTip" id="span_warning">
+            
+        </div>
+        <!-- 错误提示结束 -->
+        <div class="cf inputWrap">
+            <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email" name="email" class="fl"><span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap">
+            <input type="password" placeholder="密码" id="password" name="password" class="fl"><span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap">
+            <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone" name="ephone" class="fl"><span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap">
+            <input type="text" id="code" name="code" placeholder="验证码" class="fl authCode">
+            <img src="{$static_url}{$static_version}/images/studentHomePage/code.png" alt="" class="authCodeImg">
+            <a href="#" class="changeOne">换一张</a>
+            <span class="fr required">*</span>
+        </div>
+    <!--    <div class="hasNophone">
+            <a href="#">没有手机，请点击这里！</a>
+        </div> -->
+        <div>
+            <input type="submit" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
+        </div>
+    </form>
 </div>
+{else}
 <!-- 登录框结束 -->
 <!-- 登录之后的状态开始 -->
 <div class="cf loginedWrap">
     <div class="cf userInfo">
         <!-- 用户图像开始 -->
-        <a href="#" title="李天一" class="fl">
-            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="李天一" class="UserImg">
+        {if $user_detail.avatar==""}
+        <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
+            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$user_detail.nickname}" class="UserImg">
         </a>
+        {else}
+        <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
+            <img src="{$smarty.const.NH_QINIU_URL}{$user_detail.avatar}" alt="{$user_detail.nickname}" class="UserImg">
+        </a>
+        {/if}
         <!-- 用户图像结束 -->
 				<span class="fl userDesc">
 					<!-- 姓名开始 -->
-					<a class="name" href="#" title="{$user_detail.nickname}">{$user_detail.nickname}</a>
+					<a class="name" href="/member/my_course" title="{$user_detail.nickname}">{$user_detail.nickname}</a>
 					<!-- 姓名结束 -->
 					<!-- 年级开始 -->
 					<a class="grade" href="#">{$stage[$user_detail.stage]}</a>
@@ -42,25 +58,26 @@
     </div>
     <ul class="cf myCtrlList">
         <li class="fl myCourses">
-            <a href="#" title="我的课程">
+            <a href="/member/my_course" title="我的课程">
                 <span class="icon"></span>
                 我的课程
             </a>
         </li>
         <li class="fl myOrder">
-            <a href="#" title="我的订单">
+            <a href="/member/my_order" title="我的订单">
                 <span class="icon"></span>
                 我的订单
             </a>
         </li>
         <li class="fl myInfo">
-            <a href="#" title="我的资料">
+            <a href="/member/my_infor" title="我的资料">
                 <span class="icon"></span>
                 我的资料
             </a>
         </li>
     </ul>
-    <a href="#" class="cRedBtn enterMyCenter">进入个人中心</a>
-    <a href="#" class="fr loginOut">退出</a>
+    <a href="/member/my_course" class="cRedBtn enterMyCenter">进入个人中心</a>
+    <a href="/login/logout" class="fr loginOut">退出</a>
 </div>
 <!-- 登录之后的状态结束 -->
+{/if}

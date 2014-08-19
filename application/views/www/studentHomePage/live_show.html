@@ -17,7 +17,7 @@
                 {foreach $live_list as $v}
                 <li class="bItem">
                     <div class="liveLess">
-                        <a href="#">
+                        <a href="/course/go?cid={$v.id}">
                             <img src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($v.img,'live')}{/if}" alt=""
                                  class="liveClassImg">
                             <!-- 标签列表开始 -->
