@@ -110,11 +110,11 @@ class CI_Pagination {
     {
         $this->cur_page = $offset;
         $pagination_link = $this->create_links();
-
         $pattern = '/(<a href=")(\S+)[=](\S*)(")/';
         $replacement = '${1}javascript:' . $js_func_name . '(\'${3}\')${4}';
         $link = preg_replace($pattern, $replacement, $pagination_link);
         $pagination_link = $link;
+
         return $pagination_link;
     }
 
