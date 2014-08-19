@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+</head>
+<body>
+<!-- 头部开始 -->
+
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
+
+    <div class="buyCourse buyBefore">
+
+        <div class="cf">
+            <div class=" fl">
+                    <!-- 学员评价 开始 -->
+                    <div id="course_content" class="course_info_item creview height">
+                        <h3 id="review">学员评价</h3>
+                        <ul>
+                    		{if $array_evaluate}
+                    		{foreach from=$array_evaluate item=item}
+                            <li class="cf b_t_0">
+                                <img src="{$item.avatar}" alt="" class="fl">
+                                <div class="fl revCon">
+                                    <div class="cf">
+                                        <h2 class="fl">
+                                            <strong>{$item.nickname}</strong>
+                                        </h2>
+                                        <div class="fr">
+                                            <span class="fl">综合评分：</span>
+                                            <span class="starBg fl">
+			                                    {if $item.score}
+						                        {section name=loops loop=$item.score}
+						                        	<span class="hreview"></span>
+						                        {/section}
+						                        {/if}
+                                            </span>
+                                            <span class="revTimt">{$item.create_time|date_format:'%Y-%m-%d %H:%M'}</span>
+                                        </div>
+                                    </div>
+                                    <p>{$item.content}</p>
+                                </div>
+                            </li>
+                            {/foreach}
+                    		{/if}
+                        </ul>
+                        {$page}
+                    </div>
+                    <!-- 学员评价 结束 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 主要内容结束 -->
+</body>
+</html>

@@ -9,6 +9,7 @@ define(function(require,exports){
 
 	var _myCourse = require("module/studentMyCourse/myCourse");
 
+
 	// 选择学校组件
 	require('module/common/method/setSchool');
 
@@ -18,6 +19,10 @@ define(function(require,exports){
 		_valid.applyFrom();
 		//我的订单 tab
 		_tab.tab($(".tabh li"),"tabhOn",$(".tabCon .tabBox"));
+        //tip提示的初始化
+        require.async("module/studentMyCourse/tip",function(ex){
+            ex.init($(".infoDesc .icon"));
+        });
 	}
 	if($("#wrapContent").hasClass("myInforCon")){
 		//基本资料 tab
@@ -33,6 +38,11 @@ define(function(require,exports){
 	    _myCourse.sendValidateCode();
     	//修改头像 定位
 	    _myCourse.changedHead();
+
+        //tip提示的初始化
+        require.async("module/studentMyCourse/tip",function(ex){
+            ex.init($(".infoDesc .icon"));
+        });
 	}
 
 	if($("#wrapContent").hasClass("myCourseCon")){
@@ -40,8 +50,27 @@ define(function(require,exports){
 		require.async("module/common/method/tab_nav",function(ex){
             ex.init();
         });
+        //tip提示的初始化
+        require.async("module/studentMyCourse/tip",function(ex){
+        	ex.init($(".infoDesc .icon"));
+        });
 	    //最新课程页面跳转
 	    _myCourse.new_class_skip();
+//        _myCourse.setPage(0,0);
+        //我的课程分页,offset是分页起始,status是状态
+
+        setPage = function(offset) {
+            var url = '/member/ajax_get_my_course';
+            var status = 0;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {status:status,offset:offset},
+                success: function(data) {
+                    $('#my_course_page').html(data);
+                }
+            });
+        }
 	}
 
 	if($(".buyAfter").length){
@@ -70,9 +99,24 @@ define(function(require,exports){
 		//随滚导航
 		require("module/studentMyCourse/detial").fellowNav();
 		//清空浏览记录
-		require("module/studentClass/courseList").clearHis();
+//		require("module/studentClass/courseList").clearHis();
 		//模拟日期下拉
 		require("module/studentMyCourse/detial").timeSelect();
+
+      
+	    setPage = function(pageNum){
+	    	var round_id = $('#product_id').val();
+	    	$.ajax({
+				 type:'GET',
+				 url:'/course/ajax_evaluate',
+				 data:{page:pageNum,round_id:round_id},
+				 dataType:'html',
+				 success:function(data){
+				    $("#fpage").html(data);
+				 }
+			});
+	    }
+		
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();
@@ -115,4 +159,6 @@ define(function(require,exports){
     	});
     }
 
+	//清空浏览记录
+	require("module/studentClass/courseList").clearHis();
 })
