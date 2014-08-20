@@ -40,6 +40,7 @@ $config['stage'][0] = '全部学段';
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
 $config['stage'][3] = '高中';
+$config['stage'][4] = '其他';
 
 $config['has_bought'][1] = '注册用户';
 $config['has_bought'][2] = '付费用户';
@@ -334,13 +335,13 @@ $config['round_icon'][5] = '今日新课';
 $config['round_icon'][6] = '疯狂热卖';
 
 //课程类型
-$config['course_type'][0] = '全部课程类型';
+$config['course_type'][0] = '全部课程';
 $config['course_type'][1] = '同步精讲';
 $config['course_type'][2] = '精品培优';
 $config['course_type'][3] = '一轮复习';
 $config['course_type'][4] = '期中冲刺';
 $config['course_type'][5] = '期末冲刺';
-$config['course_type'][6] = '重难点突破';
+$config['course_type'][6] = '难点突破';
 $config['course_type'][7] = '数学精编';
 $config['course_type'][8] = '高中会考';
 $config['course_type'][9] = '素质教育';
@@ -352,7 +353,7 @@ $config['material_version'][3] = '北师大版';
 $config['material_version'][4] = '苏教版';
 $config['material_version'][5] = '人教新版';
 $config['material_version'][6] = '人教PEP';
-$config['material_version'][7] = '外研新标准';
+$config['material_version'][7] = '外研新版';
 $config['material_version'][8] = '新课标版';
 $config['material_version'][9] = '沪教版';
 $config['material_version'][10] = '鲁教版';
@@ -362,49 +363,49 @@ $config['material_version'][13] = '语文版';
 $config['material_version'][14] = '外研版';
 
 //教育类型
-$config['education_type'][0] = '全部教育类型';
-$config['education_type'][1] = '学科教育';
-$config['education_type'][2] = '素质教育';
+$config['education_type'][ROUND_TYPE_ALL] = '全部教育类型';
+$config['education_type'][ROUND_TYPE_SUBJECT] = '学科教育';
+$config['education_type'][ROUND_TYPE_EDUCATION] = '素质教育';
 
 //学科辅导科目
-$config['education_subject'][1][0] = '全部科目';
-$config['education_subject'][1][2] = '数学';
-$config['education_subject'][1][3] = '语文';
-$config['education_subject'][1][4] = '英语';
-$config['education_subject'][1][5] = '物理';
-$config['education_subject'][1][9] = '化学';
-$config['education_subject'][1][10] = '生物';
-$config['education_subject'][1][11] = '历史';
-$config['education_subject'][1][12] = '地理';
-$config['education_subject'][1][13] = '政治';
-$config['education_subject'][1][14] = '数学精编';
-$config['education_subject'][1][100] = '其他';
+$config['education_subject'][ROUND_TYPE_SUBJECT][0] = '全部科目';
+$config['education_subject'][ROUND_TYPE_SUBJECT][2] = '数学';
+$config['education_subject'][ROUND_TYPE_SUBJECT][3] = '语文';
+$config['education_subject'][ROUND_TYPE_SUBJECT][4] = '英语';
+$config['education_subject'][ROUND_TYPE_SUBJECT][5] = '物理';
+$config['education_subject'][ROUND_TYPE_SUBJECT][9] = '化学';
+$config['education_subject'][ROUND_TYPE_SUBJECT][10] = '生物';
+$config['education_subject'][ROUND_TYPE_SUBJECT][11] = '历史';
+$config['education_subject'][ROUND_TYPE_SUBJECT][12] = '地理';
+$config['education_subject'][ROUND_TYPE_SUBJECT][13] = '政治';
+$config['education_subject'][ROUND_TYPE_SUBJECT][14] = '数学精编';
+$config['education_subject'][ROUND_TYPE_SUBJECT][100] = '其他';
 
 //素质教育科目
-$config['education_subject'][2][0] = '全部科目';
-$config['education_subject'][2][1] = '家庭教育';
-$config['education_subject'][2][2] = '学习方法';
-$config['education_subject'][2][3] = '外教口语';
-$config['education_subject'][2][4] = '电影鉴赏';
-$config['education_subject'][2][5] = '新概念';
-$config['education_subject'][2][6] = '国际音标';
-$config['education_subject'][2][7] = '心理学';
-$config['education_subject'][2][8] = '剑桥少儿英语';
-$config['education_subject'][2][9] = '自然拼读';
-$config['education_subject'][2][10] = '魔方';
-$config['education_subject'][2][100] = '其他';
+$config['education_subject'][ROUND_TYPE_EDUCATION][0] = '全部科目';
+$config['education_subject'][ROUND_TYPE_EDUCATION][1] = '家庭教育';
+$config['education_subject'][ROUND_TYPE_EDUCATION][2] = '学习方法';
+$config['education_subject'][ROUND_TYPE_EDUCATION][3] = '外教口语';
+$config['education_subject'][ROUND_TYPE_EDUCATION][4] = '电影鉴赏';
+$config['education_subject'][ROUND_TYPE_EDUCATION][5] = '新概念';
+$config['education_subject'][ROUND_TYPE_EDUCATION][6] = '国际音标';
+$config['education_subject'][ROUND_TYPE_EDUCATION][7] = '心理学';
+$config['education_subject'][ROUND_TYPE_EDUCATION][8] = '剑桥少儿英语';
+$config['education_subject'][ROUND_TYPE_EDUCATION][9] = '自然拼读';
+$config['education_subject'][ROUND_TYPE_EDUCATION][10] = '魔方';
+$config['education_subject'][ROUND_TYPE_EDUCATION][100] = '其他';
 
 /**
  * 那好2.0类别 数据字典
  */
 //类型和关系 [ key = cateId ] [chirdren = stageId/qualityId]
 $config['cate'] = array(
-    1 => array(
+    ROUND_TYPE_SUBJECT => array(
         'name' => '学科辅导',
         'parentId' => 0,
         'chirdren' => array(1, 2, 3),
     ),
-    2 => array(
+    ROUND_TYPE_EDUCATION => array(
         'name' => '素质教育',
         'parentId' => 0,
         'chirdren' => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100),
@@ -412,22 +413,22 @@ $config['cate'] = array(
 );
 //学段数组 [ key = stageId ] [parentId = cateId]
 $config['cate_stage'] = array(
-    0 => array(
+    CATE_STAGE_ALL => array(
         'name' => '全部学段',
         'parentId' => 1,
         'chirdren' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
     ),
-    1 => array(
+    CATE_STAGE_PRIMARY => array(
         'name' => '小学',
         'parentId' => 1,
         'chirdren' => array(3, 4, 5, 6),
     ),
-    2 => array(
+    CATE_STAGE_JUNIOR => array(
         'name' => '初中',
         'parentId' => 1,
         'chirdren' => array(7, 8, 9),
     ),
-    3 => array(
+    CATE_STAGE_SENIOR => array(
         'name' => '高中',
         'parentId' => 1,
         'chirdren' => array(10, 11, 12),
@@ -493,37 +494,37 @@ $config['cate_grade'] = array(
 );
 //科目数组 [ key = subjectId ] [parentId = gradeId]
 $config['cate_subject'] = array(
-    0 => array(
+    CATE_SUBJECT_ALL => array(
         'name' => '全部科目',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
-    2 => array(
+    CATE_SUBJECT_SHUXUE => array(
         'name' => '数学',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
-    3 => array(
+    CATE_SUBJECT_YUWEN => array(
         'name' => '语文',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
-    4 => array(
+    CATE_SUBJECT_YINGYU => array(
         'name' => '英语',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
-    5 => array(
+    CATE_SUBJECT_WULI => array(
         'name' => '物理',
         'parentId' => array(8, 9, 10, 11, 12),
         //'chirdren' => array(),
     ),
-    9 => array(
+    CATE_SUBJECT_HUAXUE => array(
         'name' => '化学',
         'parentId' => array(9, 10, 11, 12),
         //'chirdren' => array(),
     ),
-    10 => array(
+    CATE_SUBJECT_SHENGWU => array(
         'name' => '生物',
         'parentId' => array(11, 12),
         //'chirdren' => array(),
@@ -533,22 +534,22 @@ $config['cate_subject'] = array(
 //        'parentId' => array(),
 //        //'chirdren' => array(),
 //    ),
-    12 => array(
+    CATE_SUBJECT_DILI => array(
         'name' => '地理',
         'parentId' => array(11, 12),
         //'chirdren' => array(),
     ),
-    13 => array(
+    CATE_SUBJECT_ZHENGZHI => array(
         'name' => '政治',
         'parentId' => array(11, 12),
         //'chirdren' => array(),
     ),
-    14 => array(
+    CATE_SUBJECT_SHUXUEJINGBIAN => array(
         'name' => '数学精编',
         'parentId' => array(3, 4, 5, 6),
         //'chirdren' => array(),
     ),
-    100 => array(
+    CATE_SUBJECT_OTHER => array(
         'name' => '其他',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         //'chirdren' => array(),
@@ -556,62 +557,62 @@ $config['cate_subject'] = array(
 );
 //素质教育数组 [ key = qualityId ] [parentId = cateId =4]
 $config['cate_quality'] = array(
-    0 => array(
+    CATE_QUALITY_ALL => array(
         'name' => '全部素质教育学科',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    1 => array(
+    CATE_QUALITY_JIATINGJIAOYU => array(
         'name' => '家庭教育',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    2 => array(
+    CATE_QUALITY_XUEXIFANGFA => array(
         'name' => '学习方法',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    3 => array(
+    CATE_QUALITY_WAIJIAOKOUYU => array(
         'name' => '外教口语',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    4 => array(
+    CATE_QUALITY_DIANYINGJIANSHANG => array(
         'name' => '电影鉴赏',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    5 => array(
+    CATE_QUALITY_XINGAINIAN => array(
         'name' => '新概念',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    6 => array(
+    CATE_QUALITY_GUOJIYINBIAO => array(
         'name' => '国际音标',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    7 => array(
+    CATE_QUALITY_XINLIXUE => array(
         'name' => '心理学',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    8 => array(
+    CATE_QUALITY_JIANQIAOSHAOERYINGYU => array(
         'name' => '剑桥少儿英语',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    9 => array(
+    CATE_QUALITY_ZIRANPINDU => array(
         'name' => '自然拼读',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    10 => array(
+    CATE_QUALITY_MOFANG => array(
         'name' => '魔方',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
-    100 => array(
+    CATE_QUALITY_OTHER => array(
         'name' => '其他',
         'parentId' => 2,
         //'chirdren' => array(),

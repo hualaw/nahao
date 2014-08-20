@@ -517,8 +517,9 @@ function is_email($str_email)
  */
 function get_course_img_by_size($str_img_url, $str_size){
     $str_return = NH_QINIU_URL.$str_img_url;
-    if(in_array($str_size,array('large','general','small','index','buy_before_top_big','buy_before_right_recommend','recent_view'))){
-        $str_img_url .= '?imageView/2/w/';
+    if(in_array($str_size,array('large','general','small','index','live','buy_before_top_big','buy_before_right_recommend','recent_view'))){
+//        $str_img_url .= '?imageView/2/w/';
+        $str_img_url .= '?imageView/1/w/';
         if($str_size=='large'){
             $str_img_url .= NH_COURSE_IMG_LARGE_WIDTH.'/h/'.NH_COURSE_IMG_LARGE_HEIGHT;
         }else if($str_size=='general'){
@@ -527,6 +528,8 @@ function get_course_img_by_size($str_img_url, $str_size){
             $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
         }else if($str_size=='index'){
             $str_img_url .= NH_COURSE_IMG_INDEX_WIDTH.'/h/'.NH_COURSE_IMG_INDEX_HEIGHT;
+        }else if($str_size=='live'){
+            $str_img_url .= NH_COURSE_IMG_LIVE_WIDTH.'/h/'.NH_COURSE_IMG_LIVE_HEIGHT;
         }else if($str_size=='buy_before_top_big'){
         	$str_img_url .= NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH.'/h/'.NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT;
         }else if($str_size=='buy_before_right_recommend'){

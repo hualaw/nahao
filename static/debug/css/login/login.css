@@ -14,6 +14,7 @@
 .login .loginWrap{padding:70px 60px 00;margin-bottom:20px;}
 .login .loginWrap .loginBox{border:1px solid #dbdbdb;border-top:3px solid #f14211;width:345px;padding: 46px 28px 12px 25px;box-shadow: 1px 1px 10px #e7e7e7}
 .login .loginWrap li {line-height:50px;}
+.login .loginWrap li.tiziLoginLInk{line-height: 30px;height: 30px;}
 .login .loginWrap li .userName,
 .login .loginWrap li .pwd{font-size:16px;height:50px;line-height:50px;padding:0 15px 0 55px;display: block;border: 0;width:275px;background: url(../../images/login/loginInputBg.png) no-repeat #f1f1f1;_background: url(../../images/login/loginInputBg-ie.png) no-repeat #f1f1f1;}
 .login .loginWrap li .userName{background-position: 15px 0px;border-bottom:1px solid #dfdede;}
