@@ -93,7 +93,14 @@ define(function(require,exports){
         seajs.use("module/login/validFocus");
     };
     // 邮箱注册验证
-    exports.regEmailBoxForm = function(){    
+    exports.regEmailBoxForm = function(){
+        $(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
+
+        $('.changeOne').click(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
         $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
             // 自定义tips在输入框上面显示

@@ -73,8 +73,14 @@
                     <div class="cItem">
                         <!-- 标签列表开始 -->
 								<span class="markList">
-									<span class="mark mark3">限时抢购</span>
-									<span class="mark mark2">正在直播</span>
+                                    {if $v.start_time gt $today_begin_time && $v.start_time lt $today_end_time}
+									    <span class="mark mark3">今日新课</span>
+                                    {elseif $v.start_time lt $today_begin_time+5*86400}
+									    <span class="mark mark3">限时抢购</span>
+                                    {/if}
+
+									<span class="mark mark7">{$v.course_type}</span>
+									<span class="mark mark8">{$v.material_version}</span>
 								</span>
                         <!-- 标签列表结束 -->
                         <a href="/ke_{$v.id}.html" class="courseDesc">
@@ -132,7 +138,7 @@
                 </div>
                 <!-- 全部课程分页开始 -->
                 <div class="pager">
-                    全部课程分页
+                    {$page}
                 </div>
                 <!-- 全部课程分页结束 -->
             </div>
