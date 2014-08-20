@@ -81,6 +81,8 @@
 .studentHomePage .cItem .cTitleDesc{color:#989898;font-size: 14px;height: 38px;display: block;overflow: hidden;}
 .studentHomePage .cItem .cDetail{margin: 2px 15px;margin-bottom: 10px;position: relative;height: 30px;}
 .studentHomePage .cItem .cBottom{padding: 0px 15px;line-height: 36px;height: 36px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentHomePage .cItem .cBottom .startTitle{padding-right: 5px;}
+.studentHomePage .cItem .cBottom .countDown strong{padding-right: 0px;padding-left: 4px;} 
 .studentHomePage .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
 .studentHomePage .cItem .cBottom strong{color: #ce0000;padding-right: 5px;display: inline-block;font-size: 16px;}
 .studentHomePage .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
