@@ -76,11 +76,11 @@
                                     {if $v.start_time gt $today_begin_time && $v.start_time lt $today_end_time}
 									    <span class="mark mark3">今日新课</span>
                                     {elseif $v.start_time lt $today_begin_time+5*86400}
-									    <span class="mark mark3">限时抢购</span>
+									    <span class="mark mark4">限时抢购</span>
                                     {/if}
 
-									<span class="mark mark7">{$v.course_type}</span>
-									<span class="mark mark8">{$v.material_version}</span>
+									<span class="mark mark7">{$course_types[$v.course_type]}</span>
+									<span class="mark mark8">{$material_versions[$v.material_version]}</span>
 								</span>
                         <!-- 标签列表结束 -->
                         <a href="/ke_{$v.id}.html" class="courseDesc">

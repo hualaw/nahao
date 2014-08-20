@@ -109,8 +109,10 @@ class Index extends NH_User_Controller
 
 
 //o($arr_round_list,true);
-        $stage = config_item('stage');
-        $this->smarty->assign('stage', $stage);
+        $this->smarty->assign('stage', config_item('stage'));
+        $this->smarty->assign('material_versions', config_item('material_version'));
+        $this->smarty->assign('course_types', $stage = config_item('course_type'));
+
         $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d',time())));
         $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59',time())));
         $this->smarty->assign('focus_photo', $focus_photo);
