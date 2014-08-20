@@ -262,6 +262,7 @@ define('TABLE_CLASS_NOTE', 'class_note');
 define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
 define('TABLE_FOCUS_PHOTO', 'focus_photo');
 define('TABLE_LECTURE_CLASS', 'lecture_class');
+define('TABLE_EMPLOYMENT', 'employment');
 //各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
 
 //ROUND sale_status
@@ -428,8 +429,11 @@ define('ROUND_GENERATE_MODE','production');//testing,production测试环境下�
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
 
-
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
 //课程详情页推荐开关 (1是显示0是不显示)
 define('BUY_BEFORE_RECOMMEND_SWITCH',1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -78,30 +78,27 @@ class Index extends NH_User_Controller
      */
     public function index()
     {
-        //param init
+        //param format
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_stage_id = $this->input->get('stage_id') ? intval($this->input->get('stage_id')) : 0;
-        $arr_where = $int_stage_id > 0 ? array('stage_id' => $int_stage_id) : array();
+        $int_stage_id = $this->input->get('stage') ? intval($this->input->get('stage')) : 0;
+        $arr_where = $int_stage_id > 0 ? array('stage' => $int_stage_id) : array();
 
-        //focus
+        //focus photo
         $this->load->model('business/admin/business_focus_photo');
         $focus_photo = $this->business_focus_photo->list_photo(1);
-        foreach ($focus_photo as $k => $v) {
-            $focus_photo[$k]['link'] = "http://www.nahao.com/ke_" . $v['round_id'] . ".html";
-        }
 
         //直播课
         $arr_live_classes = $this->index->get_live_classes();
+//        o($arr_live_classes);
 
         //课列表
-
         $int_round_count = $this->index->get_round_count($arr_where);
         $arr_round_list = $this->index->get_round_list($arr_where, $int_start, PER_PAGE_NO);
 //        o($arr_round_list,true);
 
         //pagination
         $this->load->library('pagination');
-        $config = config_item('page_www');
+        $config = config_item('page_user');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
         $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
         $config['total_rows'] = $int_round_count;
@@ -109,11 +106,17 @@ class Index extends NH_User_Controller
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
 
+
+
+//o($arr_round_list,true);
         $stage = config_item('stage');
         $this->smarty->assign('stage', $stage);
+        $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d',time())));
+        $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59',time())));
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
+        $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
     }
@@ -298,6 +301,9 @@ class Index extends NH_User_Controller
     		case 'classmode':
     			$seo_title = '那好招聘-那好网';
     			$seo_description = '';
+                $this->load->model('model/student/model_employment', 'employment');
+                $employ_info = $this->employment->getAll();
+                $this->smarty->assign('employ_info', $employ_info);
     			break;
     		case 'userhelp':
     			$seo_title = '那好怎么用,那好学习流程-那好网';
