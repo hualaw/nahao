@@ -14,12 +14,12 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://'.__HOST__.':81/';
-$config['static_url'] = 'http://static.nahaolop.com:81/';
-$config['teacher_url'] = 'http://teacher.nahaolop.com:81/';
-$config['admin_url'] = 'http://admin.nahaolop.com:81/';
-$config['student_url'] = 'http://www.nahaolop.com:81/';
-$config['course_url'] = 'http://www.nahaolop.com:81/';
+$config['base_url']	= 'http://'.__HOST__.'/';
+$config['static_url'] = 'http://static.nahaolop.com/';
+$config['teacher_url'] = 'http://teacher.nahaolop.com/';
+$config['admin_url'] = 'http://admin.nahaolop.com/';
+$config['student_url'] = 'http://www.nahaolop.com/';
+$config['course_url'] = 'http://www.nahaolop.com/';
 
 /*
 |--------------------------------------------------------------------------
