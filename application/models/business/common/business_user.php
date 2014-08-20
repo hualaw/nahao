@@ -99,7 +99,12 @@ class Business_User extends NH_Model
             #加载用户教学科目数据(可以为空主要针对老师用户)
             $arr_return['teacher_subject'] = $this->business_subject->get_teacher_subject($user_id);
             #加载用户感兴趣的科目(可以为空主要是针对学生用户)
-            $arr_return['student_subject'] = $this->business_subject->get_student_subject($user_id);
+            $arr_return['student_subject'] = $this->business_subject->get_student_subject_by_where($user_id,1);
+//            print_r($arr_return['student_subject']);
+//            echo $this->db->last_query();
+//            exit;
+            //素质教育
+            $arr_return['student_suzhi_subject'] = $this->business_subject->get_student_subject_by_where($user_id,2);
         }
         
         return $arr_return;
@@ -160,10 +165,15 @@ class Business_User extends NH_Model
         if(isset($update_data['teacher_subject'])) {
             $this->update_user_subject($update_data['teacher_subject'], $user_id, 'teacher');
         }
-        if(isset($update_data['student_subject'])) {
-            $this->update_user_subject($update_data['student_subject'], $user_id, 'student');
+        if(!empty($update_data['student_subject'])) {
+            $this->update_student_subject($update_data['student_subject'], $user_id, 1);
         }
-        
+//        print_r($update_data['student_suzhi_subject']);
+        if(!empty($update_data['student_suzhi_subject'])) {
+            $this->update_student_subject($update_data['student_suzhi_subject'], $user_id, 2);
+        }
+//        echo $this->db->last_query();
+//        exit;
         return true;
     }
     
@@ -188,6 +198,24 @@ class Business_User extends NH_Model
             $this->db->insert($table_name, array($user_field => $user_id, 'subject_id' => $val));
         }
         
+        return true;
+    }
+
+    public function update_student_subject($subject, $user_id, $education_type)
+    {
+        if(!is_array($subject)) {
+            $subject = explode('-', $subject);
+        }
+        T(TABLE_STUDENT_SUBJECT)->deleteByWhere("student_id = ".$user_id." AND education_type = ".$education_type);
+//        echo $this->db->last_query();
+//        exit;
+        $data['student_id'] = $user_id;
+        $data['education_type'] = $education_type;
+
+        foreach($subject as $val) {
+            $data['subject_id'] = $val;
+            T(TABLE_STUDENT_SUBJECT)->add($data);
+        }
         return true;
     }
     
