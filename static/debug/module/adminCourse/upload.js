@@ -5,7 +5,7 @@ define(function(require,exports){
         var imgFormData = {'key':$('#new_img_file_name').val(),'token':$('#nahao_token').val()};
         $('#course_img').uploadify({
             'formData' : imgFormData,
-            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
+            'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf?'+Math.random(),
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
             'multi'    : true,
             'buttonClass'     : 'choseFileBtn',
@@ -54,7 +54,7 @@ define(function(require,exports){
         var videoFormData = {'key':$('#new_video_file_name').val(),'token':$('#nahao_video_token').val()};
         $('#course_video').uploadify({
             'formData' : videoFormData,
-            'swf'      :  _swf_url+'/lib/uploadify/2.2/uploadify.swf',
+            'swf'      :  _swf_url+'/lib/uploadify/2.2/uploadify.swf?'+Math.random(),
             'uploader' : 'http://up.qiniu.com', //需要上传的url地址
             'multi'    : true,
             'buttonClass'     : 'choseFileBtn',

@@ -262,6 +262,7 @@ define('TABLE_CLASS_NOTE', 'class_note');
 define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
 define('TABLE_FOCUS_PHOTO', 'focus_photo');
 define('TABLE_LECTURE_CLASS', 'lecture_class');
+define('TABLE_EMPLOYMENT', 'employment');
 //各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
 
 //ROUND sale_status
@@ -387,6 +388,14 @@ define('NH_COURSE_IMG_LIVE_WIDTH',147);
 define('NH_TEACHER_IMG_HEIGHT', 225);
 define('NH_TEACHER_IMG_WIDTH', 300);
 
+//课程详细页
+define('NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT', 280);
+define('NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH', 440);
+define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT', 127);
+define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH', 200);
+define('NH_RECENT_VIEW_IMG_HEIGHT', 51);
+define('NH_RECENT_VIEW_IMG_WIDTH', 80);
+
 //单轮，单节最大人数
 define('NH_CLASS_PEOPLE_CAPS', 100);
 
@@ -405,6 +414,13 @@ define('ROUND_USE_TYPE_NOMARL', 0); //正常轮
 define('ROUND_USE_TYPE_TEST', 1); //测试轮
 define('ROUND_USE_TYPE_APPLYTEACH', 2); //试讲轮
 
+//教育类型
+define('SUBJECT_STUDY', 1);//学科辅导
+define('QUALITY_STUDY', 2);//素质教育
+
+//列表页每页数量
+define('LIST_NUM', 30);
+
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
 define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
@@ -412,5 +428,12 @@ define('ROUND_GENERATE_MODE','production');//testing,production测试环境下�
 //学科辅导和素质教育
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
+
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+//课程详情页推荐开关 (1是显示0是不显示)
+define('BUY_BEFORE_RECOMMEND_SWITCH',1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

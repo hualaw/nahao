@@ -14,73 +14,33 @@
     <div class="liveViewWrap bannerView">
         <div class="bd innerWrap">
             <ul class="cf liveList">
-                {for $i=0 to 3}
+                {foreach $live_list as $v}
                 <li class="bItem">
                     <div class="liveLess">
-                        <a href="/course/go?cid=2">
-                            <img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic1.gif" alt=""
-                                 class="liveClassImg">
+                        <a href="/course/go?cid={$v.id}">
+                            <img src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($v.img,'live')}{/if}"
+                                 alt="" class="liveClassImg">
                             <!-- 标签列表开始 -->
 									<span class="markList">
-										<span class="mark blueMark">正在直播</span>
+										{if $v.status==$smarty.const.CLASS_STATUS_INIT}
+                                            <span class="mark mark1">即将开始</span>
+                                        {else}
+                                            <span class="mark mark2">正在直播</span>
+                                        {/if}
 									</span>
                             <!-- 标签列表结束 -->
                         </a>
                         <!-- 直播课的简介开始 -->
-                        <a href="#">
-                            <span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
+                        <a href="/course/go?cid={$v.id}">
+                            <span class="cTitle">{$v.class_name}</span>
                             <!-- 直播课时间开始 -->
-                            <span>08月16日<span class="time">16:00-16:45</span></span>
+                            <span>{date('m月d日',$v.begin_time)}<span class="time">{date('H:i',$v.begin_time)}-{date('H:i',$v.end_time)}</span></span>
                             <!-- 直播客时间结束 -->
                         </a>
                         <!-- 直播课的简介结束 -->
                     </div>
                 </li>
-                <li class="bItem">
-                    <div class="liveLess">
-                        <a href="#">
-                            <img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic2.gif" alt=""
-                                 class="liveClassImg">
-                            <!-- 标签列表开始 -->
-									<span class="markList">
-										<span class="mark greenMark">即将开始</span>
-									</span>
-                            <!-- 标签列表结束 -->
-                        </a>
-                        <!-- 直播课的简介开始 -->
-                        <a href="#">
-                            <span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
-                            <!-- 直播课时间开始 -->
-                            <span>08月16日<span class="time">16:00-16:45</span></span>
-                            <!-- 直播客时间结束 -->
-                        </a>
-                        <!-- 直播课的简介结束 -->
-                    </div>
-                </li>
-                <li class="bItem">
-                    <div class="liveLess">
-                        <a href="#">
-                            <img src="{$static_url}{$static_version}/images/studentHomePage/course/live-pic3.gif" alt=""
-                                 class="liveClassImg">
-                            <!-- 标签列表开始 -->
-									<span class="markList">
-										<!-- 单个标签开始 -->
-										<span></span>
-										<!-- 单个标签结束 -->
-									</span>
-                            <!-- 标签列表结束 -->
-                        </a>
-                        <!-- 直播课的简介开始 -->
-                        <a href="#">
-                            <span class="cTitle">辋川闲居赠裴秀才迪（王维）</span>
-                            <!-- 直播课时间开始 -->
-                            <span>08月16日<span class="time">16:00-16:45</span></span>
-                            <!-- 直播客时间结束 -->
-                        </a>
-                        <!-- 直播课的简介结束 -->
-                    </div>
-                </li>
-                {/for}
+                {/foreach}
             </ul>
         </div>
     </div>

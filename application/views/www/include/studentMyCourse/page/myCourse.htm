@@ -5,18 +5,19 @@
 <h4 class="pageName">我的课程</h4>
 <!-- 我的课程头部tab切换开始 -->
 <div class="list_tabs pageListWrap">
+<input id="page_statu" type="hidden" status = '0'>
 <div class="cf cListWrap">
     <ul class="cf nav_tabs courseTabList">
-        <li class="tabItem active firstTab" link="all_clist">
+        <li class="tabItem active firstTab" link="all_clist" status = '0'>
             <a href="#">全部课程</a>
         </li>
-        <li class="tabItem"  link="leaning_clist">
-            <a href="http://www.baidu.com">正在进行</a>
+        <li class="tabItem"  link="leaning_clist" status = '3'>
+            <a href="#">正在进行</a>
         </li>
-        <li class="tabItem" link="soon_clist">
+        <li class="tabItem" link="soon_clist" status = '1'>
             <a href="#">即将开始</a>
         </li>
-        <li class="tabItem" link="finished_clist">
+        <li class="tabItem" link="finished_clist" status = '4'>
             <a href="#">已结束</a>
         </li>
     </ul>
@@ -25,7 +26,7 @@
 <!-- 我的课程tab切换内容开始 -->
 <div class="cf tabContent">
 <!-- 全部课程列表开始 -->
-<div class="cf item active" itemname="all_clist" id="my_course_page">
+<div class="cf item active" itemname="all_clist" id="my_course_page_0">
     <ul class="cf cListContWrap">
         {if $array_buy_course}
         {foreach from=$array_buy_course item=item}
@@ -77,7 +78,7 @@
 </div>
 <!-- 全部课程列表结束 -->
 <!-- 正在进行列表开始 -->
-<div class="cf item"  itemname="leaning_clist">
+<div class="cf item"  itemname="leaning_clist" id="my_course_page_3">
     <ul class="cf cListContWrap">
         {if $course_living}
         {foreach from=$course_living item=item}
@@ -133,7 +134,7 @@
 </div>
 <!-- 正在进行列表结束 -->
 <!-- 即将开始列表开始 -->
-<div class="cf item" itemname="soon_clist">
+<div class="cf item" itemname="soon_clist" id="my_course_page_1">
     <ul class="cf cListContWrap">
         {if $course_soon_class}
         {foreach from=$course_soon_class item=item}
@@ -185,7 +186,7 @@
 </div>
 <!-- 即将结束列表结束 -->
 <!-- 已结束列表开始 -->
-<div class="cf item" itemname="finished_clist">
+<div class="cf item" itemname="finished_clist" id="my_course_page_4">
     <ul class="cf cListContWrap">
         {if $course_over}
         {foreach from=$course_over item=item}

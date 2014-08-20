@@ -62,7 +62,7 @@ class Student_Member extends NH_Model{
         $result = array();
         $my_course_total = $this->model_member->get_my_course_total($int_user_id,$status);
 
-        $array_return = $this->model_member->get_my_course_for_buy($int_user_id,$status,$offset);
+        $array_return = $this->model_member->get_my_course_for_buy_by_where($int_user_id,$status,$offset);
 
 //        var_dump($array_return);die;
         if ($array_return)

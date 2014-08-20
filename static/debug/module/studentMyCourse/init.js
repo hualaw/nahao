@@ -48,7 +48,11 @@ define(function(require,exports){
 	if($("#wrapContent").hasClass("myCourseCon")){
 		//tab切换初始化
 		require.async("module/common/method/tab_nav",function(ex){
-            ex.init();
+            ex.init(function(item){
+            	if($("#page_statu").length){
+            		$("#page_statu").attr('status',item.attr("status"));
+            	}
+            });
         });
         //tip提示的初始化
         require.async("module/studentMyCourse/tip",function(ex){
@@ -61,13 +65,13 @@ define(function(require,exports){
 
         setPage = function(offset) {
             var url = '/member/ajax_get_my_course';
-            var status = 0;
+            var status = $('#page_statu').attr('status');
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: {status:status,offset:offset},
                 success: function(data) {
-                    $('#my_course_page').html(data);
+                    $('#my_course_page_'+status).html(data);
                 }
             });
         }
@@ -104,19 +108,32 @@ define(function(require,exports){
 		require("module/studentMyCourse/detial").timeSelect();
 
       
-	    setPage = function(pageNum){
-	    	var round_id = $('#product_id').val();
-	    	$.ajax({
-				 type:'GET',
-				 url:'/course/ajax_evaluate',
-				 data:{page:pageNum,round_id:round_id},
-				 dataType:'html',
-				 success:function(data){
-				    $("#fpage").html(data);
-				 }
-			});
-	    }
-		
+//	    setPage = function(pageNum){
+//	    	var round_id = $('#product_id').val();
+//	    	$.ajax({
+//				 type:'GET',
+//				 url:'/course/ajax_evaluate',
+//				 data:{page:pageNum,round_id:round_id},
+//				 dataType:'html',
+//				 success:function(data){
+//				    $("#fpage").html(data);
+//				 }
+//			});
+//	    }
+	    
+        setPage = function(offset) {
+            var url = '/course/ajax_evaluate';
+            var round_id = $('#product_id').val();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {round_id:round_id,offset:offset},
+                success: function(data) {
+                    $('#fpage').html(data);
+                }
+            });
+        }
+        setPage(0);
 	}else{
 		// 左侧栏 高亮
 		_myCourse.leftNav();

@@ -32,8 +32,8 @@ class Member extends NH_User_Controller {
         $this->load->library('pagination');
 
         $config = config_item('page_user');
-//        $config['total_rows'] = $array_buy_course['total'];
-        $config['total_rows'] = 100;
+        $config['total_rows'] = $array_buy_course['total'];
+//        $config['total_rows'] = 100;
         $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         $show_page = $this->pagination->createJSlinks('setPage');
