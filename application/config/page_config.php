@@ -77,7 +77,7 @@ $config['page_teacher']['prev_tag_close'] = '</div>';
 
 $config['page_user']['uri_segment']      =   4;
 $config['page_user']['num_links']        =   3;
-$config['page_user']['full_tag_open']    =   '<div class="page cf"><ul>';
+$config['page_user']['full_tag_open']    =   '<div class="cf page "><ul class="cf">';
 $config['page_user']['full_tag_close']   =   '</ul></div>';
 $config['page_user']['first_link']       =   '首页';
 $config['page_user']['last_link']        =   '尾页';
@@ -85,9 +85,9 @@ $config['page_user']['cur_tag_open']     =   '<li class="active"><a href="javasc
 $config['page_user']['cur_tag_close']    =   '</a></li>';
 $config['page_user']['prev_link']        =   '上一页';
 $config['page_user']['next_link']        =   '下一页';
-$config['page_user']['next_tag_open'] = '<li>';
+$config['page_user']['next_tag_open'] = '<li class="next">';
 $config['page_user']['next_tag_close'] = '</li>';
-$config['page_user']['prev_tag_open'] = '<li>';
+$config['page_user']['prev_tag_open'] = '<li class="prev">';
 $config['page_user']['prev_tag_close'] = '</li>';
 $config['page_user']['num_tag_open'] = '<li>';
 $config['page_user']['num_tag_close'] = '</li>';

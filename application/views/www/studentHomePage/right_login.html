@@ -36,10 +36,10 @@
         <!-- 用户图像开始 -->
         {if $user_detail.avatar==""}
         <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
-            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$user_detail.nickname}" class="UserImg">
+            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$nickname}" class="UserImg">
         </a>
         {else}
-        <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
+        <a href="/member/my_course" title="{$nickname}" class="fl">
             <img src="{$smarty.const.NH_QINIU_URL}{$user_detail.avatar}" alt="{$user_detail.nickname}" class="UserImg">
         </a>
         {/if}

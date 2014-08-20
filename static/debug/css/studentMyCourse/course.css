@@ -131,7 +131,7 @@
 .studentMyCourse .courseOver .bar{width: 100%;}
 .studentMyCourse .newList{margin-top: 20px;}
 .studentMyCourse .newList li{height: 270px;margin-top: 4px;position: relative;}
-
+.page-status{}
 
 /*  我的订单  开始*/
 .studentMyCourse .myOrderCon{font-size: 16px;}
