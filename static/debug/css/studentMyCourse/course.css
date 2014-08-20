@@ -2,8 +2,9 @@
 .studentMyCourse .noFillin{font-weight: bold;}
 .studentMyCourse .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
 .studentMyCourse .locaSele select{padding: 6px;margin-right:10px;}
-.studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
-.studentMyCourse .attent .Validform_right{margin:-8px 0 0 10px;}
+.studentMyCourse .attent .Validform_checktip,.studentMyCourse .attent .Validform_checktip{margin:-12px 0 0 0px;}
+.studentMyCourse .suzhi_attent .Validform_right,.studentMyCourse .suzhi_attent .Validform_right{margin:-8px 0 0 10px;}
+
 .studentMyCourse .Validform_right{width:0px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 .studentMyCourse .identity span{background: url(../../images/studentMyCourse/identity.png) no-repeat;width: 20px;height: 16px;}
 .studentMyCourse .identity .TitleCard{background-position: -24px 0;}
@@ -231,12 +232,15 @@
 .studentMyCourse .inforTabBox form input.radio{width: auto;}
 .studentMyCourse .inforTabBox .phoneVer input{width: 116px;margin-right: 20px;}
 .studentMyCourse .inforTabBox .phoneVer .getVerCode{width:140px;color:#fff;background: #88ddf3;font-weight: normal;}
-.studentMyCourse form .attent .btn{width: 90px;}
-.studentMyCourse form .attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;}
+.studentMyCourse form .attent .btn,.studentMyCourse form .suzhi_attent .btn{width: 90px;}
+.studentMyCourse form .attent .btn,.studentMyCourse form .suzhi_attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;}
 .studentMyCourse form .attent .attentd,
-.studentMyCourse form .attent .btn:hover{background: #6dcde6;color:#fff;}
+.studentMyCourse form .suzhi_attent .attentd,
+.studentMyCourse form .attent .btn:hover,
+.studentMyCourse form .suzhi_attent .btn:hover{background: #6dcde6;color:#fff;}
 .studentMyCourse .inforTabBox .phoneVer .btn,
-.studentMyCourse form .attent .btn{box-shadow: none;height: 32px;line-height: 32px;font-size: 16px;margin:0 10px 14px 0;}
+.studentMyCourse form .attent .btn,
+.studentMyCourse form .suzhi_attent .btn{box-shadow: none;height: 32px;line-height: 32px;font-size: 16px;margin:0 10px 14px 0;}
 .studentMyCourse .inforTabBox .attNote{font-size: 14px;margin: -10px 0 -6px;}
 .studentMyCourse .inforTabBox form .redBtn{margin-top: 15px;}
 /*   修改密码 */
