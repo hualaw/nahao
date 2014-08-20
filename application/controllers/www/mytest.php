@@ -25,4 +25,16 @@ class MyTest extends CI_Controller{
         var_dump($this->session->userdata('phone'));
     }
     */
+
+    public function test()
+    {
+	$pattern = '/(<a href=")\/([^\/]+)\/([^\/]+)\/([^\/]+)(">)/';
+	$replacement = '${1}javascript:test(${4})';
+	//$replacement = '${1}';
+
+	$string = '<a href="/abc/bcd/10">';
+
+	$aa = preg_replace($pattern, $replacement, $string);
+	var_dump($aa);
+    }
 } 
