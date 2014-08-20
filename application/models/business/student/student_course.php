@@ -78,7 +78,7 @@ class Student_Course extends NH_Model{
             $class_num = $this->model_course->get_calss_hour_totle($int_round_id);
             $array_return['class_hour'] = $class_num['num'];
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
+            #$array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
             #$array_return['score'] = round($array_return['score']);
             #授课提要
@@ -594,7 +594,7 @@ class Student_Course extends NH_Model{
 				
 			$array_add = array(
 	    				'id'=>$array_data['id'],
-	    				'img'=>$array_data['class_img'],
+	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
 	    				'title'=>$array_data['title'],
 	    				'price'=>$array_data['price'],
 	    				'sale_price'=>$array_data['sale_price']
@@ -603,12 +603,11 @@ class Student_Course extends NH_Model{
 				array_push($json_decode_value,$array_add);
 			}
 			setcookie("recent_view", json_encode($json_decode_value),time()+24*60*60,'/');
-
     	} else {
     		$cookie_value = array(
 	    			array(
 	    				'id'=>$array_data['id'],
-	    				'img'=>$array_data['class_img'],
+	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
 	    				'title'=>$array_data['title'],
 	    				'price'=>$array_data['price'],
 	    				'sale_price'=>$array_data['sale_price']

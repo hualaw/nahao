@@ -26,6 +26,7 @@ class Index extends NH_User_Controller
      * 首页获取轮的列表信息
      * $debug == 1 显示测试的课程列表，否则把测试的过滤掉
      */
+
     public function index_OLD()
     {
         if (isset($_GET['nh_debug']) && ($_GET['nh_debug'] == '1')) {
@@ -324,14 +325,6 @@ class Index extends NH_User_Controller
 	    $this->smarty->assign('seo_title',$seo_title);
 	    $this->smarty->assign('seo_description',$seo_description);
 	    $this->smarty->display('www/about/index.html');
-	}
-	
-	/**
-	 * 添加直播课的昵称
-	 */
-	public function add_live_class_nicknane()
-	{
-		$this->smarty->display('www/add_nicknane.html');
 	}
 }
 

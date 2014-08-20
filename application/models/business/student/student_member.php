@@ -17,11 +17,11 @@ class Student_Member extends NH_Model{
      */
     public function get_my_course_for_buy($int_user_id,$status = '',$offset = 0)
     {
-        $array_return = array();
-//        echo $int_user_id;
-//        echo $status;
-//        exit;
+        $result = array();
+        $my_course_total = $this->model_member->get_my_course_total($int_user_id,$status);
+
         $array_return = $this->model_member->get_my_course_for_buy($int_user_id,$status,$offset);
+
 //        var_dump($array_return);die;
         if ($array_return)
         {
@@ -62,7 +62,9 @@ class Student_Member extends NH_Model{
             }
         }
         //var_dump($array_return);die;
-        return $array_return;
+        $result['total'] = $my_course_total;
+        $result['list'] = $array_return;
+        return $result;
     }
     
     /**
