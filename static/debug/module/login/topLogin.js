@@ -47,25 +47,5 @@ define(function(require,exports){
                  errormsg: "密码长度只能在6-20位字符之间"
             }
         ]);
-        
-
-        // $('#top_login').click(function(){
-        //     $.ajax({
-        //         type:'post',
-        //         url:'/login/submit',
-        //         data:'username='+ $.trim($('#top_username').val())+'&password=' + $.trim($('#top_password').val()),
-        //         success:function(msg)
-        //         {
-        //             if(msg.status=='ok')
-        //             {
-        //                 location.reload();
-        //             }
-        //             else
-        //             {
-        //                 alert('帐号或者密码错误');
-        //             }
-        //         }
-        //     })
-        // })
     }
 })
