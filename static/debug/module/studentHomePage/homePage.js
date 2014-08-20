@@ -238,5 +238,76 @@ define(function(require,exports){
                 errormsg:"验证码长度是4位"
             }
         ]);
+    };
+    // 首页右侧快速注册验证
+    exports.register_check_new = function(){
+        // 光标进入或者离开输入框验证
+        $('.loginForm input').focusin(function(){
+            $(this).removeClass('Validform_error');
+            if($(this).val() == ''){
+                $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+            };
+        }).focusout(function(){
+            if($(this).val() !== ''){
+                $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg');
+            }else{
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+            };
+        });
+        // 验证规则
+        var _Form=$(".loginForm").Validform({
+            tiptype: function (msg, o, cssctl) {
+                if (!o.obj.is("form")) {
+                    var objtip = o.obj.siblings().find(".Validform_checktip");
+                    objtip.text(msg);
+                    o.obj.siblings().find(".Validform_checktip").show();
+                    var objtip = o.obj.siblings().find(".Validform_checktip");
+                    objtip.text(msg);
+                    var infoObj = o.obj.siblings(".ValidformInfo");
+                    // 判断验证成功
+                    if (o.type == 2) {
+                        infoObj.removeClass('ValidformInfoBg').hide();
+                    };
+                    // 如果输入错误
+                    if (o.type == 3) {
+                        infoObj.addClass('ValidformInfoBg').show();
+                        o.obj.siblings().find(".Validform_checktip").show();
+                    }
+                }
+            },
+            ajaxPost: true,
+            showAllError: false,
+            beforeSubmit:function(curform){
+                if(curform.find('.email').val() == ''){
+                    curform.find('.email').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    curform.find('.password').next('.ValidformInfo').hide();
+                    return false;
+                };
+                if(curform.find('.password').val() == ''){
+                    curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    curform.find('.email').next('.ValidformInfo').hide();
+                    return false;
+                };
+            },
+            callback:function(data){
+                alert(data);
+                return false;
+            }
+        });
+        _Form.addRule([{
+                ele: ".email",
+                ignore:'ignore',
+                datatype: "e",
+                nullmsg: "请输入邮箱",
+                errormsg: "请输入正确的邮箱地址"
+            },
+            {
+                ele:".password",
+                ignore:"ignore",
+                datatype: "*6-20",
+                nullmsg: "请输入密码",
+                errormsg: "密码长度只能在6-15位字符之间"
+            }
+        ]);
     }
 });
