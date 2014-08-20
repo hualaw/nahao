@@ -759,7 +759,7 @@
 			
 			//值没变化不做检测，这时要考虑recheck情况;
 			//不是在提交表单时触发的ajax验证;
-			if(inputval==this.validform_lastval && !$(this).attr("recheck") && subpost==""){
+			if(inputval==this.validform_lastval && !$(this).attr("recheck") && subpost==""&&!$(this).attr("forceRecheck")){
 				return flag.passed ? true : false;
 			}
 
@@ -929,7 +929,9 @@
 					_this.addClass("Validform_error");
 					
 					if(!settings.showAllError){
-						_this.focus();
+						if(!_this.attr("noFocus")){
+							_this.focus();
+						}
 						flag=false;
 						return false;
 					}

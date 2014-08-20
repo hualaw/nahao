@@ -180,7 +180,11 @@ class Student_Index extends NH_Model{
                 'is_live' => 0,
                 'is_test' => 0,
             );
-            $arr_where = empty($arr_where) ? $arr_final_where : array_merge($arr_final_where,$arr_where);
+            if($arr_where){
+                $arr_final_where[TABLE_ROUND.'.stage'] = $arr_where['stage'];
+//                unset($arr_where['stage']);
+            }
+            $arr_where = $arr_final_where;
             $arr_group_by = array(
                 TABLE_ROUND.'.id'
             );
@@ -204,7 +208,7 @@ class Student_Index extends NH_Model{
         if(is_array($arr_where)){
             $str_table_range = 'round_index';
             $str_result_type = 'list';
-            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
+            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,course_type,material_version,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
 //            $str_fields = '*';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
@@ -212,7 +216,11 @@ class Student_Index extends NH_Model{
                 'is_live' => 0,
                 'is_test' => 0,
             );
-            $arr_where = empty($arr_where) ? $arr_final_where : array_merge($arr_final_where,$arr_where);
+            if($arr_where){
+                $arr_final_where[TABLE_ROUND.'.stage'] = $arr_where['stage'];
+//                unset($arr_where['stage']);
+            }
+            $arr_where = $arr_final_where;
             $arr_group_by = array(
                 TABLE_ROUND.'.id'
             );
@@ -230,11 +238,36 @@ class Student_Index extends NH_Model{
     }
 
     /**
-     * 返回直播课列表
+     * 获取直播课列表
      * @return array
      * @author yanrui@tizi.com
      */
     public function get_live_classes(){
-
+        $arr_return = array();
+        $str_table_range = 'class_index';
+        $str_result_type = 'list';
+        $str_fields = TABLE_CLASS.'.id,'.TABLE_CLASS.'.title as class_name,'.TABLE_CLASS.'.begin_time,'.TABLE_CLASS.'.end_time,classroom_id,status,start_time,'.TABLE_ROUND.'.img,'.TABLE_ROUND.'.id as round_id,'.TABLE_ROUND.'.title as round_name';
+//            $str_fields = '*';
+        $arr_where = array(
+            TABLE_ROUND.'.teach_status' => ROUND_TEACH_STATUS_TEACH,
+            TABLE_ROUND.'.is_live' => 1,
+            TABLE_ROUND.'.is_test' => 0,
+            TABLE_CLASS.'.status <' => CLASS_STATUS_CLASS_OVER,
+            TABLE_CLASS.'.is_test' => 0,
+            TABLE_CLASS.'.begin_time >' => strtotime(date('Y-m-d',TIME_STAMP)),
+        );
+        $arr_group_by = array(
+            TABLE_CLASS.'.id'
+        );
+        $arr_order_by = array(
+            TABLE_CLASS. '.begin_time' => 'asc'
+        );
+        $arr_limit = array(
+            'start'=> 0,
+            'limit' => 5
+        );
+        $this->load->model('model/admin/model_class');
+        $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by, $arr_limit);
+        return $arr_return;
     }
 }

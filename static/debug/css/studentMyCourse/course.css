@@ -539,4 +539,5 @@ overflow: hidden;}
 .studentMyCourse .courseRight .history li .price{color: #cb0000;margin-right: 10px;}
 .studentMyCourse .courseRight .history li .priceHis{text-decoration: line-through;color: #989898;}
 .studentMyCourse .courseRight .historyNone{text-align: center;padding: 50px 0px 30px;display: none;}
+.floatBox .ansQue{display: inline-block;}
 /* 新的详情页样式 结束 */
