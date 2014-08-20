@@ -280,12 +280,18 @@ define(function(require,exports){
             beforeSubmit:function(curform){
                 if(curform.find('.email').val() == ''){
                     curform.find('.email').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                    curform.find('.password').next('.ValidformInfo').hide();
                     return false;
                 };
                 if(curform.find('.password').val() == ''){
                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                    curform.find('.email').next('.ValidformInfo').hide();
+                    return false;
+                };
+                if(curform.find('.phone').val() == ''){
+                    curform.find('.phone').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    return false;
+                };
+                if(curform.find('.authCode').val() == ''){
+                    curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
             },
@@ -307,6 +313,20 @@ define(function(require,exports){
                 datatype: "*6-20",
                 nullmsg: "请输入密码",
                 errormsg: "密码长度只能在6-15位字符之间"
+            },
+            {
+                ele:".phone",
+                ignore:"ignore",
+                datatype: "*6-20",
+                nullmsg: "请输入手机号",
+                errormsg: "手机号输入错误"
+            },
+            {
+                ele:".authCode",
+                ignore:"ignore",
+                datatype: "/^\\w{4}$/",
+                nullmsg: "请输入验证码",
+                errormsg: "验证码长度是4位"
             }
         ]);
     }
