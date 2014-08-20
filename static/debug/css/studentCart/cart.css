@@ -25,7 +25,7 @@
 /*支付类型样式开始*/
 .studentCart .toPay .payType h2 {height:37px;padding: 17px 0 0 2px;}
 .studentCart .toPay .payType h2 span{padding-left:6px;border-left:3px solid #f14211;height:20px;line-height:20px;font-size:18px;font-weight:normal;color:#0e455e;}
-.studentCart .toPay .payBox{border:1px solid #d5d5d5;}
+.studentCart .toPay .payBox{border:1px solid #d5d5d5;background: #fff;}
 .studentCart .toPay .payBox h3{border-bottom:1px solid #d5d5d5;height:49px;background: #f7f7f7;position: relative;font-weight:normal}
 .studentCart .toPay .payBox h3 p{_position: absolute;_bottom:-2px;height:50px;}
 .studentCart .toPay .payBox h3 a{height:49px;line-height:49px;font-size:18px;width: 160px;border-right:1px solid #d5d5d5;border-bottom:1px solid #d5d5d5;text-align:center;height:49px;display: inline-block;}
