@@ -47,7 +47,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
 .floatBox a.feedback{margin-top: 0px;padding: 0px;}
 /*.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}*/
-.floatBox .ansQue{background: url(../../images/common/feedback.gif) no-repeat center;display: none;}
+.floatBox .ansQue{background: url(../../images/common/kefu.gif) no-repeat center;display: none;}
 .floatBox .feedback{background: url(../../images/common/feedback.gif) no-repeat center; }
 .floatBox .returnTop{background: url(../../images/common/return_top.png) no-repeat center;display: none;text-indent: -10000px;background-color: #e0e0e0;}
 .floatBox a:hover{background-color: #f7f7f7; }
@@ -184,41 +184,4 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .markList .mark7{background: url("../../images/common/flags/mark7.png") no-repeat center transparent;_background: url("../../images/common/flags/mark7_8.png") no-repeat center transparent;}
 .markList .mark8{background: url("../../images/common/flags/mark8.png") no-repeat center transparent;_background: url("../../images/common/flags/mark8_8.png") no-repeat center transparent;}
 /*小彩旗结束*/
-/*分类选择状态开始*/
-.selecte-attr {
-padding: 5px 0 0 0;
-border: 1px solid #e6e6e6;
-background-color: #f7f7f7;
-border-bottom: 0 none;
-}
-.selecte-attr dt {
-float: left;
-padding: 0 5px 0 0;
-width: 85px;
-height: 22px;
-line-height: 22px;
-color: #666;
-text-align: right;
-}
-.selecte-attr dd {
-float: left;
-}
-.selecte-attr dd a {
-display: inline-block;
-position: relative;
-padding: 2px 23px 2px 8px;
-margin: 0 5px 5px 0;
-height: 16px;
-border: 1px solid #ccc;
-background-color: #fff;
-background-position: 100% -372px;
-color: #666;
-line-height: 16px;
-cursor: pointer;
-white-space: nowrap;
-}
-.selecte-attr dd span {
-font-weight: bold;
-color: #f60;
-}
-/*分类选择状态结束*/
+
