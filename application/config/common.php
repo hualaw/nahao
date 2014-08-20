@@ -362,6 +362,7 @@ $config['material_version'][13] = '语文版';
 $config['material_version'][14] = '外研版';
 
 //教育类型
+$config['education_type'][0] = '全部教育类型';
 $config['education_type'][1] = '学科教育';
 $config['education_type'][2] = '素质教育';
 
@@ -398,12 +399,12 @@ $config['education_subject'][2][100] = '其他';
  */
 //类型和关系 [ key = cateId ] [chirdren = stageId/qualityId]
 $config['cate'] = array(
-    SUBJECT_STUDY => array(
+    1 => array(
         'name' => '学科辅导',
         'parentId' => 0,
         'chirdren' => array(1, 2, 3),
     ),
-    QUALITY_STUDY => array(
+    2 => array(
         'name' => '素质教育',
         'parentId' => 0,
         'chirdren' => array(0,1, 2, 3, 4, 5, 6, 7, 8,9,10,100),
@@ -434,11 +435,11 @@ $config['cate_stage'] = array(
 );
 //年级数组 [ key = gradeId ] [parentId = stageId]
 $config['cate_grade'] = array(
-    0 => array(
-        'name' => '全部年级',
-        'parentId' => array(0, 1, 2, 3),
-        'chirdren' => array(0, 2, 3, 4, 5, 9, 10, 12, 13, 14, 100),
-    ),
+	0 => array(
+		'name' => '全部年级',
+        'parentId' => array(1,2,3),
+        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
+	),
     3 => array(
         'name' => '三年级',
         'parentId' => 1,
@@ -493,7 +494,7 @@ $config['cate_grade'] = array(
 //科目数组 [ key = subjectId ] [parentId = gradeId]
 $config['cate_subject'] = array(
     0 => array(
-        'name' => '全部学科辅导科目',
+        'name' => '全部科目',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
