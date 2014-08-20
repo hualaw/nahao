@@ -25,6 +25,8 @@ define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
 define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
 define('SWITCH_WWW_INDEX_COURSE_LIST',1);
 
+define('HOT_NEW_COURSE',1);      //我的课程页   > 近期课程和热报课程
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
