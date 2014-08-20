@@ -1,0 +1,38 @@
+<div class="historyWrap">
+    <div class="historyListWrap">
+        <!-- 浏览记录的头部开始 -->
+        <div class="hd hHeader">
+            最近浏览
+            <a href="#" class="fr deletHistory">清空</a>
+        </div>
+        <!-- 浏览记录的头部结束 -->
+        {if empty($record_list)}
+        <!-- 无浏览记录开始 -->
+        <div class="noHistory">
+            暂无浏览记录
+        </div>
+        <!-- 无浏览记录结束 -->
+        {else}
+        <!-- 有浏览记录开始 -->
+        <div class="bd historyList">
+            <!-- 单条浏览记录开始 -->
+            {foreach $record_list as $v}
+            <a class="cf hItem" href="/ke_{$v.id}.html">
+                <img class="hPic"
+                     src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{$v.img}{/if}"
+                     alt="" class="fl">
+						<span class="fr hDesc">
+							<span class="hSmallTitle">{$v.title}</span>
+							<span class="valList">
+								<strong class="price">￥{$v.price}</strong>
+								<span class="val">{$v.sale_price}</span>
+							</span>
+						</span>
+            </a>
+            {/foreach}
+            <!-- 单条浏览记录结束 -->
+        </div>
+        <!-- 有浏览记录结束 -->
+        {/if}
+    </div>
+</div>

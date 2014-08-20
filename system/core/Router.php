@@ -107,6 +107,7 @@ class CI_Router {
 		// since URI segments are more search-engine friendly, but they can optionally be used.
 		// If this feature is enabled, we will gather the directory/class/method a little differently
 		$segments = array();
+//        var_dump($this->config->item('enable_query_strings') === TRUE AND isset($_GET[$this->config->item('controller_trigger')]));
 		if ($this->config->item('enable_query_strings') === TRUE AND isset($_GET[$this->config->item('controller_trigger')]))
 		{
 			if (isset($_GET[$this->config->item('directory_trigger')]))
@@ -154,6 +155,7 @@ class CI_Router {
 		// Fetch the complete URI string
 		$this->uri->_fetch_uri_string();
 
+//        echo $this->uri->uri_string;exit;
 		// Is there a URI string? If not, the default controller specified in the "routes" file will be shown.
 		if ($this->uri->uri_string == '')
 		{
