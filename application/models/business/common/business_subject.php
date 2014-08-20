@@ -124,4 +124,17 @@ class Business_Subject extends NH_Model {
         }
         return $arr_return;
     }
+
+    public function get_student_subject_by_where($student_id,$education_type)
+    {
+        $arr_return = array();
+        $result = T(TABLE_STUDENT_SUBJECT)->getAll('student_id ='.$student_id.' AND education_type ='.$education_type);
+        if(is_array($result)) {
+            foreach($result as $val) {
+                $arr_return[] = $val['subject_id'];
+            }
+        }
+
+        return $arr_return;
+    }
 }

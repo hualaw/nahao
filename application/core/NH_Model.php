@@ -100,7 +100,9 @@ class NH_Model extends CI_Model
                 o($this->db->last_query());
             }
             header("Content-type: text/html; charset=utf-8");
+
 //             o($this->db->last_query());
+
         }
         return $mix_return;
     }
