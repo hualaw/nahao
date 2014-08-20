@@ -428,8 +428,11 @@ define('ROUND_GENERATE_MODE','production');//testing,production测试环境下�
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
 
-
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
 //课程详情页推荐开关 (1是显示0是不显示)
 define('BUY_BEFORE_RECOMMEND_SWITCH',1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
