@@ -40,6 +40,7 @@ $config['stage'][0] = '全部学段';
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
 $config['stage'][3] = '高中';
+$config['stage'][4] = '其他';
 
 $config['has_bought'][1] = '注册用户';
 $config['has_bought'][2] = '付费用户';
