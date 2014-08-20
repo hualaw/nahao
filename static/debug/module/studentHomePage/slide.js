@@ -37,9 +37,13 @@ define(function(require,exports){
 					this.bannerSlide.hide();
 				}
 				var _this=this;
-				var _list=this.view.find("ul");
-				_list.parent().append(_list.clone());
-				
+				if(this.totalNum>1){
+					var _list=this.view.find("ul");
+					_list.parent().append(_list.clone());
+					if(this.totalNum==2&&_len<this.totalNum*this.itemLen){
+						_list.parent().append(_list.clone());
+					}
+				}
 				this.bannerSlide.click(function(){
 					if($(this).hasClass("next")){
 						_this.next();
@@ -47,7 +51,7 @@ define(function(require,exports){
 						_this.prev();
 					}
 				});
-				if(this.bannerOrder.length){
+				if(this.bannerOrder.length&&this.totalNum>1){
 					var _htmlArray=[];
 					for(var i=0;i<this.totalNum;i++){
 						if(i==0){
@@ -64,7 +68,7 @@ define(function(require,exports){
 						$(this).addClass("active");
 						_this.index(_index);
 					},function(){
-						if(_this.ms){
+						if(_this.ms&&_this.totalNum>1){
 							_this.autoTimer=setInterval(function(){
 			                 	_this.next();
 			            	},_this.ms);
@@ -72,7 +76,7 @@ define(function(require,exports){
 					});
 				}
 
-				if(this.ms){
+				if(this.ms&&this.totalNum>1){
 					this.bannerSlide.hover(function(){
 						clearInterval(_this.autoTimer);
 					},function(){

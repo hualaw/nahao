@@ -157,7 +157,7 @@ class Business_Round extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'round_info';
             $str_result_type = 'list';
-            $str_fields = TABLE_ROUND.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_SUBJECT.'.status,create_time,'.TABLE_ROUND.'.role,user_id,score,bought_count,caps,video,img,grade_from,grade_to,sale_status,teach_status,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname,class_count,sell_begin_time,sell_end_time,start_time,is_test';
+            $str_fields = TABLE_ROUND.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_SUBJECT.'.status,create_time,'.TABLE_ROUND.'.role,user_id,score,bought_count,caps,video,img,grade_from,grade_to,sale_status,teach_status,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname,class_count,sell_begin_time,sell_end_time,start_time,is_test,stage,is_live,education_type,material_version,extra_bought_count,quality,'.TABLE_ROUND.'.sequence';
 //            $str_fields = '*';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_ROUND.'.status'] = $arr_where['status'];
