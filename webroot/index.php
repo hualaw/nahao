@@ -26,7 +26,7 @@ define('DOMAIN', $str_domain);
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'develop');
+	define('ENVIRONMENT', 'development');
 
 //-----yanrui@91waijiao.com
 date_default_timezone_set('Asia/Shanghai');
