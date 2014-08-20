@@ -48,7 +48,11 @@ define(function(require,exports){
 	if($("#wrapContent").hasClass("myCourseCon")){
 		//tab切换初始化
 		require.async("module/common/method/tab_nav",function(ex){
-            ex.init();
+            ex.init(function(item){
+            	if($("#page_statu").length){
+            		$("#page_statu").val(item.attr("status"));
+            	}
+            });
         });
         //tip提示的初始化
         require.async("module/studentMyCourse/tip",function(ex){

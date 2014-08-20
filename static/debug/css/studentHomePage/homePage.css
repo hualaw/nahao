@@ -131,6 +131,7 @@
 .studentHomePage .loginWrap .changeOne{display: inline-block;height: 34px;line-height: 34px;}
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
 .studentHomePage .loginWrap input.loginBtn{border:0px; color: #fff;height: 37px;line-height: 37px;width: 194px;font-size: 14px;border-radius: 19px;cursor: pointer;font-family: 'Microsoft Yahei',Tahoma,Arial,sans-serif;}
+.studentHomePage .loginWrap .Validform_error{background-color: #fff7cb; border:1px solid #e0e0e0 !important;}
 /*登录结束*/
 /*登录之后的状态开始*/
 .studentHomePage .loginedWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;background-color: #fff;padding: 0px 16px;}
