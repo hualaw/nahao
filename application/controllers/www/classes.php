@@ -18,7 +18,7 @@ class Classes extends NH_User_Controller {
     	$cateList = $this->business_list->getCateList($param);
     	#2. 设置参数初始值
     	$num = LIST_NUM;
-    	$num = 3;
+    	$num = 1;
     	$param['order'] 	= !empty($param['order']) ? $param['order'] : 1;
     	$param['page'] 		= !empty($param['page']) ? $param['page'] : 1;
     	$param['num'] 		= !empty($param['num']) ? $param['num'] : $num;

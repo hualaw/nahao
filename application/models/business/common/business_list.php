@@ -292,20 +292,22 @@ class Business_List extends NH_Model
     	$config['pages'] = ceil($config['total']/$config['num']);
     	$config['base_link'] = $config['base_link'];
     	$pageBar = '<ul>';
-    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'" class="pageButton">首页</a></li>' : '';
-    	$pageBar .= $config['page']>2  ? '<li><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'" class="pageButton">< 上一页</a></li>' : '';
+    	$pageBar .= $config['page']>2  ? '<li><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'" class="pageButton">上一页</a></li>' : '';
+    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'" class="pageButton">1</a></li>' : '';
+    	$pageBar .= $config['page']>4 ? '<li class="more"><a>...</a></li>' : '';
     	
     	for ($i=1;$i<=$config['pages'];$i++){
     		$li = '';
     		if($i==($config['page']-2) || $i==($config['page']-1) || $i==($config['page']+2) || $i==($config['page']+1)){
-    			$li = '<li><a href="'.str_replace('.html','_p'.$i.'.html',$config['base_link']).'">'.$i.'</a></li>';
+    			$li = ($i!=1 && $i!=$config['pages']) ? '<li><a href="'.str_replace('.html','_p'.$i.'.html',$config['base_link']).'">'.$i.'</a></li>' : '';
     		}elseif($i==$config['page']){
     			$li = '<li class="active"><a>'.$i.'</a></li>';
     		}
     		$pageBar .=$li;
     	}
-    	$pageBar .= $config['page']>1 && $config['page']<($config['pages']-1) ? '<li><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'" class="pageButton">下一页 ></a></li>' : '';
-    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'" class="pageButton">尾页['.$config['pages'].']</a></li>' : '';
+    	$pageBar .= ($config['page']<$config['pages']-3) && $config['page']>0 ? '<li class="more"><a>...</a></li>' : '';
+    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'" class="pageButton">'.$config['pages'].'</a></li>' : '';
+    	$pageBar .= $config['page']>0 && $config['page']<($config['pages']-1) ? '<li><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'" class="pageButton">下一页</a></li>' : '';
     	$pageBar .= '</ul>';
     	return $pageBar;
    	}
