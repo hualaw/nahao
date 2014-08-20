@@ -254,7 +254,7 @@ class Student_Index extends NH_Model{
             TABLE_ROUND.'.is_test' => 0,
             TABLE_CLASS.'.status <' => CLASS_STATUS_CLASS_OVER,
             TABLE_CLASS.'.is_test' => 0,
-            TABLE_CLASS.'.begin_time >' => TIME_STAMP,
+            TABLE_CLASS.'.begin_time >' => strtotime(date('Y-m-d',TIME_STAMP)),
         );
         $arr_group_by = array(
             TABLE_CLASS.'.id'
