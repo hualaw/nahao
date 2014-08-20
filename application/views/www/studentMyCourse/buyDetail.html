@@ -221,7 +221,7 @@
                     {foreach from=$array_other item=item}
                          <li>
                             <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'buy_before_right_recommend')}{/if}" alt="">
-                            <p>{$item.title}</p>
+                            <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p>
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
                     {/foreach}
@@ -237,7 +237,7 @@
                     {foreach from=$array_recommend item=item}
                          <li>
                             <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'buy_before_right_recommend')}{/if}" alt="">
-                            <p>{$item.title}</p>
+                            <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p>
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
                     {/foreach}                 
@@ -253,7 +253,7 @@
                         <li class="cf b_t_0">
                             <a href="{$course_url}ke_{$item.id}.html" title=""><img class="fl" src="{$item.img}" alt=""></a>
                             <div class="fl listRight">
-                                <p><a href="#" title="">{$item.title}</a></p>
+                                <p><a href="#" title="{$item.title}">{$item.title|truncate:16:"...":true}</a></p>
                                 <div><span class="fl price">￥{$item.sale_price}</span><span class="priceHis fl">{$item.price}</span></div>
                             </div>
                         </li>
