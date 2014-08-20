@@ -159,16 +159,16 @@ define(function(require,exports){
                     return false;
                 }
             })
-            $('#teacher_signature').blur(function(){
-                if($.trim($('#teacher_signature').val())=='')
-                {
-                    $('#span_teacher_signature').show().css('color','red').html('不能为空');
-                }
-                else
-                {
-                    $('#span_teacher_signature').hide();
-                }
-            })
+//            $('#teacher_signature').blur(function(){
+//                if($.trim($('#teacher_signature').val())=='')
+//                {
+//                    $('#span_teacher_signature').show().css('color','red').html('不能为空');
+//                }
+//                else
+//                {
+//                    $('#span_teacher_signature').hide();
+//                }
+//            })
             $('#basic_reward').blur(function(){
                 if($.trim($('#basic_reward').val())=='')
                 {
