@@ -2,6 +2,8 @@
 //author shanghongliang
 //date 2014-08-15 10:39
 define(function(require,exports){
+    // 请求验证库
+    require("validForm");
     //首页初始化函数
     exports.init=function(){
         //初始化幻灯切换
@@ -118,87 +120,115 @@ define(function(require,exports){
     }
     //验证注册   shangshikai@tizi.com
     exports.register_check=function(){
-        //异步请求验证邮箱
-//                $.ajax({
-//                    url:'/registereck_email',
-//                    type:'post',
-//                    data:'email='+$.trim($('#email').val()),
-//                    success:function(msg)
-//                    {
-//                        if(msg.status=='error')
-//                        {
-//                            $('#span_warning').css('color','red').show().html(msg.msg);
-//                            return false;
-//                        }
-//                        else
-//                        {
-//                            $('#span_warning').hide().html('');
-//                        }
-//                    }
-//                })
-
-        //异步验证电话
-//                if($.trim($('#phone').val())!='')
-//                {
-//                    $.ajax({
-//                        url:'/registereck_phone',
-//                        type:'post',
-//                        data:'phone='+$.trim($('#phone').val()),
-//                        success:function(msg)
-//                        {
-//                            if(msg.status=='error')
-//                            {
-//                                $('#span_warning').css('color','red').show().html(msg.msg);
-//                                return false;
-//                            }
-//                            else
-//                            {
-//                                $('#span_warning').hide().html('');
-//                            }
-//                        }
-//                    })
-//                }
-
-
+        //加载验证码
         $(function(){
             $('#cap_img').load('/index/captcha?s='+Math.random());
-        })
-
-        $('.changeOne').click(function(){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
-        })
-        $('#register_button').click(function(){
-            var user_cap= $.trim($('#code').val());
-            user_cap=user_cap.toLocaleLowerCase();
-            $.ajax({
-                url:'/index/get_captcha',
-                success:function(msg)
-                {
-                    if(user_cap != $.trim(msg))
-                    {
-                        alert('验证码不对');
-                        return false;
-                    }
-                }
-            })
-            $.ajax({
-                url:'/register/submit',
-                data:'email='+$('#email').val()+'&ephone='+$('#phone').val()+'&password='+$('#password').val()+'&code='+ $.trim($('#code').val()),
-                type:'post',
-                success:function(msg)
-                {
-                    if(msg.status=='error')
-                    {
-                        $('#span_warning').css('color','red').show().html(msg.msg);
-                        return false;
-                    }
-                    if(msg.status=='ok')
-                    {
-                        $('#span_warning').hide().html('');
-                        location.reload();
-                    }
-                }
-            })
         });
+        //重新加载验证码
+        $('.changeOne,#cap_img').click(function(e){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+            e.preventDefault();
+        });
+
+        var _lastError="",_msgObj={};
+        //input表单获取焦点
+        $(".loginForm input").focus(function(){
+            $(this).removeClass("Validform_error");
+            $("#span_warning").text("").removeClass("Validform_checktip Validform_wrong");
+            for(var val in _msgObj){
+                if(val!=$(this).attr("id")&&_msgObj[val]!="通过信息验证！"){
+                    $("#span_warning").text(_msgObj[val]).addClass("Validform_checktip Validform_wrong");
+                    return;
+                }
+            }
+
+        });
+        var _Form=$(".loginForm").Validform({
+            // 自定义tips在输入框上面显示
+            tiptype:function(msg,o,cssctl){
+                _msgObj[o.obj.attr("id")]=msg;
+                if(msg!="通过信息验证！"){
+                    var objtip=$("#span_warning");
+                    cssctl(objtip,o.type);
+                    objtip.text(msg);
+                }
+            },
+            showAllError:false,
+            ajaxPost:true,
+            beforeSubmit:function(curform){
+                var _email=curform.find("#email"),_pwd=curform.find("#password"),
+                _phone=curform.find("#phone"),_code=curform.find("#code"),
+                _msg="";
+                //邮箱为空
+                if(_email.val()==""){
+                    _msg=_email.attr("nullmsg");
+                    _msgObj[_email.attr("id")]=_msg;
+                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
+                    _email.addClass("Validform_error");
+                    return false;
+                }
+                //密码为空
+                if(_pwd.val()==""){
+                    _msg=_pwd.attr("nullmsg");
+                    _msgObj[_pwd.attr("id")]=_msg;
+                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
+                    _pwd.addClass("Validform_error");
+                    return false;
+                }
+                //验证码为空
+                if(_code.val()==""){
+                    _msg=_code.attr("nullmsg");
+                    _msgObj[_code.attr("id")]=_msg;
+                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
+                    _code.addClass("Validform_error");
+                    return false;
+                }
+            },
+            callback:function(msg){
+                if(msg.status.toLowerCase()=='error'){
+                    $('#span_warning').css('color','red').show().text(msg.msg);
+                    return false;
+                }
+                if(msg.status=='ok'){
+                    location.reload();
+                }
+            }
+        });
+        _Form.addRule([{
+                 ele:"#email",
+                 ignore:"ignore",
+                 datatype: "e",
+                 forceRecheck:"true",
+                 noFocus:"noFocus",
+                 nullmsg: "请输入邮箱",
+                 errormsg: "请输入正确的邮箱地址"
+            },
+            {   
+                 ele:"#password",
+                 ignore:"ignore",
+                 datatype: "*6-20",
+                 forceRecheck:"true",
+                 noFocus:"noFocus",
+                 nullmsg: "请输入密码",
+                 errormsg: "密码长度只能在6-20位字符之间"
+            },
+            {   
+                ele: "#phone",
+                datatype:"m",
+                ignore:"ignore",
+                forceRecheck:"true",
+                noFocus:"noFocus",
+                errormsg:"请输入正确的手机号码"
+            },
+            {   
+                ele: "#code",
+                datatype:"/^\\w{4}$/",
+                ignore:"ignore",
+                forceRecheck:"true",
+                noFocus:"noFocus",
+                nullmsg:"请输入验证码",
+                errormsg:"验证码长度是4位"
+            }
+        ]);
     }
 });
