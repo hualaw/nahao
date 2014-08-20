@@ -14,12 +14,12 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://'.__HOST__.'/';
-$config['static_url'] = 'http://static.nahaolop.com/';
-$config['teacher_url'] = 'http://teacher.nahaolop.com/';
-$config['admin_url'] = 'http://admin.nahaolop.com/';
-$config['student_url'] = 'http://www.nahaolop.com/';
-$config['course_url'] = 'http://www.nahaolop.com/';
+$config['base_url']	= 'http://'.__HOST__.':81/';
+$config['static_url'] = 'http://static.nahaolop.com:81/';
+$config['teacher_url'] = 'http://teacher.nahaolop.com:81/';
+$config['admin_url'] = 'http://admin.nahaolop.com:81/';
+$config['student_url'] = 'http://www.nahaolop.com:81/';
+$config['course_url'] = 'http://www.nahaolop.com:81/';
 
 /*
 |--------------------------------------------------------------------------
@@ -257,7 +257,7 @@ $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'nahao_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
-$config['sess_time_to_update']	= 300;
+$config['sess_time_to_update'] = 604800;
 $config['sess_autologin_expiration'] = 604800; //nahao define
 
 /*
