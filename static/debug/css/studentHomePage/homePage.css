@@ -44,7 +44,8 @@
 .studentHomePage .liveList .liveLess{position: relative;}
 .studentHomePage .liveList .liveClassImg{width: 230px;height: 147px;}
 .studentHomePage .liveLess .markList{right: 25px;}
-.studentHomePage .liveLess .cTitle{display: block;font-size: 12px;line-height: 12px;height: 12px;margin-top: 14px;margin-bottom: 5px;color: #333;}
+.studentHomePage .liveLess .cTitle{display: block;font-size: 12px;line-height: 12px;height: 12px;margin-top: 14px;margin-bottom: 5px;color: #333;width:230px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
+-o-text-overflow: ellipsis;}
 .studentHomePage .liveLess .time{color:#ce0000;padding-left: 3px;}
 /*正在直播客结束*/
 /*课程列表开始*/
@@ -58,7 +59,7 @@
 .studentHomePage .listCont{margin: 37px -6px 17px;*padding-top: 37px;}
 .studentHomePage .listCont .pager{margin: 0px 6px ;}
 .studentHomePage .listCont .item.active ul{width: 762px;}
-.studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;height: 410px;overflow: hidden;}
+.studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;height: 410px;}
 .studentHomePage .listCont .courseDesc{display: block;width: 367px;height: 235px;position: relative;}
 .studentHomePage .listCont .courseDesc .cDescImg{vertical-align: bottom;padding: 0px;margin: 0px;font-size: 0px;border:0px;width: 367px;height: 235px;}
 .studentHomePage .listCont .hoverDesc{width: 367px;height: 235px;background-color: #5a6378;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
@@ -70,15 +71,18 @@
 .studentHomePage .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
 .studentHomePage .listCont .teacherWrap .teacherName:hover{color: #fff;}
 .studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
-.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;position: absolute;left:20px;bottom: 0px;opacity: 0;filter:alpha(opacity=0);
+.studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;position: absolute;left:20px;bottom: 0px;opacity: 0;height: 132px;width: 327px;overflow: hidden; filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
 .studentHomePage .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;height: 65px;}
 .studentHomePage .cItem .ctitle a:hover .cTitleName{color: #333;}
-.studentHomePage .cItem .cTitleName{display: block;font-size: 16px;margin-bottom: 6px;}
-.studentHomePage .cItem .cTitleDesc{color:#989898;font-size: 14px;}
+.studentHomePage .cItem .cTitleName{display: block;font-size: 16px;margin-bottom: 6px;height:22px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
+-o-text-overflow: ellipsis;}
+.studentHomePage .cItem .cTitleDesc{color:#989898;font-size: 14px;height: 38px;display: block;overflow: hidden;}
 .studentHomePage .cItem .cDetail{margin: 2px 15px;margin-bottom: 10px;position: relative;height: 30px;}
 .studentHomePage .cItem .cBottom{padding: 0px 15px;line-height: 36px;height: 36px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentHomePage .cItem .cBottom .startTitle{padding-right: 5px;}
+.studentHomePage .cItem .cBottom .countDown strong{padding-right: 0px;padding-left: 4px;} 
 .studentHomePage .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
 .studentHomePage .cItem .cBottom strong{color: #ce0000;padding-right: 5px;display: inline-block;font-size: 16px;}
 .studentHomePage .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}

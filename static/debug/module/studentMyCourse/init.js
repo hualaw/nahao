@@ -50,7 +50,7 @@ define(function(require,exports){
 		require.async("module/common/method/tab_nav",function(ex){
             ex.init(function(item){
             	if($("#page_statu").length){
-            		$("#page_statu").val(item.attr("status"));
+            		$("#page_statu").attr('status',item.attr("status"));
             	}
             });
         });
@@ -65,13 +65,13 @@ define(function(require,exports){
 
         setPage = function(offset) {
             var url = '/member/ajax_get_my_course';
-            var status = 0;
+            var status = $('#page_statu').attr('status');
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: {status:status,offset:offset},
                 success: function(data) {
-                    $('#my_course_page').html(data);
+                    $('#my_course_page_'+status).html(data);
                 }
             });
         }
