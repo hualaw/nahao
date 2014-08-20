@@ -76,8 +76,9 @@
 .studentHomePage .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
 .studentHomePage .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;height: 65px;}
 .studentHomePage .cItem .ctitle a:hover .cTitleName{color: #333;}
-.studentHomePage .cItem .cTitleName{display: block;font-size: 16px;margin-bottom: 6px;}
-.studentHomePage .cItem .cTitleDesc{color:#989898;font-size: 14px;}
+.studentHomePage .cItem .cTitleName{display: block;font-size: 16px;margin-bottom: 6px;height:22px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
+-o-text-overflow: ellipsis;}
+.studentHomePage .cItem .cTitleDesc{color:#989898;font-size: 14px;height: 38px;display: block;overflow: hidden;}
 .studentHomePage .cItem .cDetail{margin: 2px 15px;margin-bottom: 10px;position: relative;height: 30px;}
 .studentHomePage .cItem .cBottom{padding: 0px 15px;line-height: 36px;height: 36px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
 .studentHomePage .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}

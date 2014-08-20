@@ -147,7 +147,7 @@ define(function(require,exports){
             },
             {   
                  ele:".authCode",
-                 datatype: "*4-4",
+                 datatype: "/^\\w{4}$/",
                  nullmsg: "请输入验证码",
                  errormsg: "验证码长度是4位"
             },
