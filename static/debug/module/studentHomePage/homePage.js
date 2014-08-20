@@ -130,18 +130,24 @@ define(function(require,exports){
             e.preventDefault();
         });
 
-        var _lastError="",_msgObj={};
+        var _lastError="",_lastBlur="",_msgObj={};
+        $(".loginForm input").blur(function(){
+            _lastBlur=$(this).attr("id");
+        });
         //input表单获取焦点
         $(".loginForm input").focus(function(){
             $(this).removeClass("Validform_error");
             $("#span_warning").text("").removeClass("Validform_checktip Validform_wrong");
             for(var val in _msgObj){
                 if(val!=$(this).attr("id")&&_msgObj[val]!="通过信息验证！"){
+                    if(_msgObj[_lastBlur]&&_msgObj[_lastBlur]!="通过信息验证！"){
+                        $("#span_warning").text(_msgObj[_lastBlur]).addClass("Validform_checktip Validform_wrong");
+                        return;
+                    }
                     $("#span_warning").text(_msgObj[val]).addClass("Validform_checktip Validform_wrong");
                     return;
                 }
             }
-
         });
         var _Form=$(".loginForm").Validform({
             // 自定义tips在输入框上面显示
@@ -151,6 +157,8 @@ define(function(require,exports){
                     var objtip=$("#span_warning");
                     cssctl(objtip,o.type);
                     objtip.text(msg);
+                    //console.log(msg);
+                    console.log( objtip.text());
                 }
             },
             showAllError:false,
@@ -162,7 +170,7 @@ define(function(require,exports){
                 //邮箱为空
                 if(_email.val()==""){
                     _msg=_email.attr("nullmsg");
-                    _msgObj[_email.attr("id")]=_msg;
+                    //_msgObj[_email.attr("id")]=_msg;
                     $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
                     _email.addClass("Validform_error");
                     return false;
@@ -170,7 +178,7 @@ define(function(require,exports){
                 //密码为空
                 if(_pwd.val()==""){
                     _msg=_pwd.attr("nullmsg");
-                    _msgObj[_pwd.attr("id")]=_msg;
+                    //_msgObj[_pwd.attr("id")]=_msg;
                     $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
                     _pwd.addClass("Validform_error");
                     return false;
@@ -178,7 +186,7 @@ define(function(require,exports){
                 //验证码为空
                 if(_code.val()==""){
                     _msg=_code.attr("nullmsg");
-                    _msgObj[_code.attr("id")]=_msg;
+                    //_msgObj[_code.attr("id")]=_msg;
                     $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
                     _code.addClass("Validform_error");
                     return false;
