@@ -40,6 +40,7 @@ $config['stage'][0] = '全部学段';
 $config['stage'][1] = '小学';
 $config['stage'][2] = '初中';
 $config['stage'][3] = '高中';
+$config['stage'][4] = '其他';
 
 $config['has_bought'][1] = '注册用户';
 $config['has_bought'][2] = '付费用户';
@@ -438,57 +439,57 @@ $config['cate_grade'] = array(
 	0 => array(
 		'name' => '全部年级',
         'parentId' => array(1,2,3),
-        'chirdren' => array(0,2, 3, 4, 5,9,10,12,13,100),
+        'chirdren' => array(2, 3, 4, 5,9,10,12,13,100),
 	),
     3 => array(
         'name' => '三年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4, 14, 100),
+        'chirdren' => array(2, 3, 4,14,100),
     ),
     4 => array(
         'name' => '四年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4, 14, 100),
+        'chirdren' => array(2, 3, 4,14,100),
     ),
     5 => array(
         'name' => '五年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4, 14, 100),
+        'chirdren' => array(2, 3, 4,14,100),
     ),
     6 => array(
         'name' => '六年级',
         'parentId' => 1,
-        'chirdren' => array(0, 2, 3, 4, 14, 100),
+        'chirdren' => array(2, 3, 4,14,100),
     ),
     7 => array(
         'name' => '七年级',
         'parentId' => 2,
-        'chirdren' => array(0, 2, 3, 4, 100),
+        'chirdren' => array(2, 3, 4,100),
     ),
     8 => array(
         'name' => '八年级',
         'parentId' => 2,
-        'chirdren' => array(0, 2, 3, 4, 5, 100),
+        'chirdren' => array(2, 3, 4,5,100),
     ),
     9 => array(
         'name' => '九年级',
         'parentId' => 2,
-        'chirdren' => array(0, 2, 3, 4, 5, 9, 100),
+        'chirdren' => array(2, 3, 4,5,9,100),
     ),
     10 => array(
         'name' => '高一',
         'parentId' => 3,
-        'chirdren' => array(0, 2, 3, 4, 5, 9, 100),
+        'chirdren' => array(2, 3, 4, 5, 9,100),
     ),
     11 => array(
         'name' => '高二',
         'parentId' => 3,
-        'chirdren' => array(0, 2, 3, 4, 5, 9, 10, 12, 13, 100),
+        'chirdren' => array(2, 3, 4, 5,9,10,12,13,100),
     ),
     12 => array(
         'name' => '高三',
         'parentId' => 3,
-        'chirdren' => array(0, 2, 3, 4, 5, 9, 10, 12, 13, 100),
+        'chirdren' => array(2, 3, 4, 5,9,10,12,13,100),
     ),
 );
 //科目数组 [ key = subjectId ] [parentId = gradeId]

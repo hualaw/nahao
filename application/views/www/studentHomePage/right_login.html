@@ -9,23 +9,20 @@
         </div>
         <!-- 错误提示结束 -->
         <div class="cf inputWrap">
-            <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email" name="email" class="fl"><span class="fr required">*</span>
+            <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email" name="email" class="fl" ><span class="fr required">*</span>
         </div>
         <div class="cf inputWrap">
             <input type="password" placeholder="密码" id="password" name="password" class="fl"><span class="fr required">*</span>
         </div>
         <div class="cf inputWrap">
-            <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone" name="ephone" class="fl"><span class="fr required">*</span>
+            <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone" name="ephone" class="fl" ><span class="fr required">*</span>
         </div>
         <div class="cf inputWrap">
-            <input type="text" id="code" name="code" placeholder="验证码" class="fl authCode">
+            <input type="text" id="code" name="code" placeholder="验证码" class="fl authCode " >
             &nbsp;&nbsp;<span id="cap_img"></span>
             <a href="#" class="changeOne">换一张</a>
             <span class="fr required">*</span>
         </div>
-    <!--    <div class="hasNophone">
-            <a href="#">没有手机，请点击这里！</a>
-        </div> -->
         <div>
             <input type="submit" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
         </div>
@@ -39,10 +36,10 @@
         <!-- 用户图像开始 -->
         {if $user_detail.avatar==""}
         <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
-            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$user_detail.nickname}" class="UserImg">
+            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$nickname}" class="UserImg">
         </a>
         {else}
-        <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
+        <a href="/member/my_course" title="{$nickname}" class="fl">
             <img src="{$smarty.const.NH_QINIU_URL}{$user_detail.avatar}" alt="{$user_detail.nickname}" class="UserImg">
         </a>
         {/if}

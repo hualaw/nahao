@@ -29,6 +29,7 @@ class Model_List extends NH_Model
 		$where .= !empty($param['gradeId']) ? ' AND r.grade_from<='.$param['gradeId'].' AND r.grade_to>='.$param['gradeId'] : '';
 		$where .= !empty($param['subjectId']) ? ' AND r.subject='.$param['subjectId'] : '';
 		$where .= !empty($param['qualityId']) ? ' AND r.quality='.$param['qualityId'] : '';
+		$group = ' GROUP BY r.id ';
 		$order = !empty($param['order']) ? self::$_orderConfig[$param['order']] : '';
 		$limit = !empty($param['page']) && $param['page']>0 ? ' LIMIT '.(($param['page']-1)*$param['num']).','.$param['num'] : ' LIMIT '.$param['num']; 
 		#2. 生成sql
@@ -42,7 +43,7 @@ class Model_List extends NH_Model
 				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id 
 				LEFT JOIN user u ON u.id=rtr.teacher_id 
 				LEFT JOIN user_info ui ON u.id=ui.user_id 
-				".$where.$order.$limit;
+				".$where.$group.$order.$limit;
         }
 		$arr_result = $this->db->query($sql)->result_array();
     	return $arr_result;

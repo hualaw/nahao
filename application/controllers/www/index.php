@@ -307,6 +307,9 @@ class Index extends NH_User_Controller
     		case 'classmode':
     			$seo_title = '那好招聘-那好网';
     			$seo_description = '';
+                $this->load->model('model/student/model_employment', 'employment');
+                $employ_info = $this->employment->getAll();
+                $this->smarty->assign('employ_info', $employ_info);
     			break;
     		case 'userhelp':
     			$seo_title = '那好怎么用,那好学习流程-那好网';
