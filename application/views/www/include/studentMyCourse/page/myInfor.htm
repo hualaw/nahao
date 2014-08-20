@@ -116,17 +116,28 @@
 						</div>
 					</div>
 				</li>
-				<li class="attent">
-					<p class="optional noFillin">关注学科</p>
-                    {foreach $subjects as $key => $val}
-					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
+                <li class="attent">
+                    <p class="optional noFillin">学科辅导科目</p>
+                    {foreach $xueke_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
                     <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
-					<div class="cf">
-						<p class="attNote fl">注：最多可选择3项</p>
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
+                <li class="suzhi_attent">
+                    <p class="optional noFillin">素质教育科目</p>
+                    {foreach $suzhi_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_suzhi_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_suzhi_subjects" id="selected_suzhi_subjects" value="{$subject_suzhi_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
 				<li>
 					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
@@ -249,17 +260,28 @@
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
-				<li class="attent">
-					<p class="optional noFillin">关注学科</p>
-                    {foreach $subjects as $key => $val}
-					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
+                <li class="attent">
+                    <p class="optional noFillin">学科辅导科目</p>
+                    {foreach $xueke_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
                     <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
-					<div class="cf">
-						<p class="attNote fl">注：最多可选择3项</p>
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
+                <li class="suzhi_attent">
+                    <p class="optional noFillin">素质教育科目</p>
+                    {foreach $suzhi_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_suzhi_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_suzhi_subjects" id="selected_suzhi_subjects" value="{$subject_suzhi_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
 				<li>					
 					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
@@ -391,9 +413,9 @@
 					</div>
 				</li>
 				<li class="attent">
-					<p class="optional noFillin">关注学科</p>
-                    {foreach $subjects as $key => $val}
-					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
+					<p class="optional noFillin">学科辅导科目</p>
+                    {foreach $xueke_subjects as $key => $val}
+					<input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
                     <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
 					<div class="cf">
@@ -401,6 +423,17 @@
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
+                <li class="suzhi_attent">
+                    <p class="optional noFillin">素质教育科目</p>
+                    {foreach $suzhi_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_suzhi_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_suzhi_subjects" id="selected_suzhi_subjects" value="{$subject_suzhi_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
 				<li>					
 					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">

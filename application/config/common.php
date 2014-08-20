@@ -300,7 +300,7 @@ $config['testing_round_time_config']['before_sell_end_time_max'] = 86400 * 30 * 
 $config['testing_round_time_config']['before_begin_time'] = 300; //停卖多久后开课
 $config['testing_round_time_config']['before_first_class'] = 300; //轮开课与第一节课间隔
 $config['testing_round_time_config']['class_min_long'] = 300; //最短上课时间
-$config['testing_round_time_config']['class_max_long'] = 3 * 3600; //最长上课时间
+$config['testing_round_time_config']['class_max_long'] = 30 * 86400; //最长上课时间
 $config['testing_round_time_config']['class_between_long'] = 300; //课间隔
 $config['testing_round_time_config']['enter_before_class'] = 120; //提前进教室时间
 $config['testing_round_time_config']['teacher_late_time'] = 120; //开课后多久老师点上课算迟到
@@ -314,7 +314,7 @@ $config['production_round_time_config']['before_sell_end_time_max'] = 86400 * 30
 $config['production_round_time_config']['before_begin_time'] = 300; //停卖多久后开课
 $config['production_round_time_config']['before_first_class'] = 3600; //轮开课与第一节课间隔
 $config['production_round_time_config']['class_min_long'] = 300; //最短上课时间
-$config['production_round_time_config']['class_max_long'] = 3 * 3600; //最长上课时间
+$config['production_round_time_config']['class_max_long'] = 30 * 86400; //最长上课时间
 $config['production_round_time_config']['class_between_long'] = 3600; //课间隔
 $config['production_round_time_config']['enter_before_class'] = 1800; //提前进教室时间
 $config['production_round_time_config']['teacher_late_time'] = 300; //开课后多久老师点上课算迟到
@@ -407,7 +407,7 @@ $config['cate'] = array(
     2 => array(
         'name' => '素质教育',
         'parentId' => 0,
-        'chirdren' => array(0,1, 2, 3, 4, 5, 6, 7, 8,9,10,100),
+        'chirdren' => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100),
     ),
 );
 //学段数组 [ key = stageId ] [parentId = cateId]
@@ -415,7 +415,7 @@ $config['cate_stage'] = array(
     0 => array(
         'name' => '全部学段',
         'parentId' => 1,
-        'chirdren' => array(3, 4, 5, 6, 7,8,9,10,11,12),
+        'chirdren' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
     ),
     1 => array(
         'name' => '小学',
@@ -545,7 +545,7 @@ $config['cate_subject'] = array(
     ),
     14 => array(
         'name' => '数学精编',
-        'parentId' => array(3,4,5,6),
+        'parentId' => array(3, 4, 5, 6),
         //'chirdren' => array(),
     ),
     100 => array(

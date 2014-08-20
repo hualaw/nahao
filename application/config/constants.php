@@ -21,7 +21,9 @@
 define('CLASSES_INDEX_SUGGEST_SWITCH',1);			// 列表页 		> 猜您喜欢
 define('CLASSES_INDEX_BROWSING_HISTORY_SWITCH',1);	// 列表页 		> 浏览记录
 define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
-
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
 
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
@@ -272,6 +274,7 @@ define('TABLE_CLASS_NOTE', 'class_note');
 define('TABLE_ORDER_ACTION_LOG', 'order_action_log');
 define('TABLE_FOCUS_PHOTO', 'focus_photo');
 define('TABLE_LECTURE_CLASS', 'lecture_class');
+define('TABLE_EMPLOYMENT', 'employment');
 //各表中字段数据字典  规则: 1按表名字母排序 2表名大写 3字段名小写
 
 //ROUND sale_status
@@ -438,5 +441,6 @@ define('ROUND_GENERATE_MODE','production');//testing,production测试环境下�
 //学科辅导和素质教育
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

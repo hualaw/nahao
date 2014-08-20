@@ -27,18 +27,19 @@ class Member extends NH_User_Controller {
         #我购买的课程
         #全部课程
 
-        $array_buy_course = $this->student_member->get_my_course_for_buy($int_user_id);
+        $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
         #分页
         $this->load->library('pagination');
 
         $config = config_item('page_user');
-        $config['total_rows'] = 100;
+        $config['total_rows'] = $array_buy_course['total'];
+//        $config['total_rows'] = 100;
         $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         $show_page = $this->pagination->createJSlinks('setPage');
 
         #正在进行的课程
-        $course_living = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASSING);
+        $course_living = $this->student_member->get_my_course_by_where($int_user_id,CLASS_STATUS_CLASSING);
         $config['total_rows'] = $course_living['total'];
         $this->pagination->initialize($config);
         $course_living_page = $this->pagination->createJSlinks('setPage');
@@ -49,13 +50,13 @@ class Member extends NH_User_Controller {
 //        $course_living_page = $page_obj->fpage();
 
         #即将开始
-        $course_soon_class = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_SOON_CLASS);
+        $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id,CLASS_STATUS_SOON_CLASS);
         $config['total_rows'] = $course_soon_class['total'];
         $this->pagination->initialize($config);
         $course_soon_page = $this->pagination->createJSlinks('setPage');
 
         #已结束
-        $course_over = $this->student_member->get_my_course_for_buy($int_user_id,CLASS_STATUS_CLASS_OVER);
+        $course_over = $this->student_member->get_my_course_by_where($int_user_id,CLASS_STATUS_CLASS_OVER);
         $config['total_rows'] = $course_over['total'];
         $this->pagination->initialize($config);
         $course_over_page = $this->pagination->createJSlinks('setPage');
@@ -111,13 +112,13 @@ class Member extends NH_User_Controller {
         $status = (int) $this->input->post('status');
 
         $int_user_id = $this->session->userdata('user_id');
-        $my_course = $this->student_member->get_my_course_for_buy($int_user_id,$status,$offset);
+        $my_course = $this->student_member->get_my_course_by_where($int_user_id,$status,$offset);
 
 //        print_r($my_course);
 //        exit;
         $this->load->library('pagination');
         $config = config_item('page_user');
-        $config['total_rows'] = 100;
+        $config['total_rows'] = $my_course['total'];
         $config['per_page'] = PER_PAGE_NO;
 //        $config['total_rows'] = $my_course['total'];
         $this->pagination->initialize($config);
@@ -441,6 +442,7 @@ class Member extends NH_User_Controller {
             $post_data['city'] = intval($this->input->post('city'));
             $post_data['area'] = intval($this->input->post('area'));
             $post_data['student_subject'] = $this->input->post('selected_subjects');
+            $post_data['student_suzhi_subject'] = $this->input->post('selected_suzhi_subjects');
             $post_data['school_id'] = intval($this->input->post('school_id'));
             $post_data['schoolname'] = trim($this->input->post('schoolname'));
             if($post_data['schoolname'] && empty($post_data['school_id'])) {
@@ -466,8 +468,18 @@ class Member extends NH_User_Controller {
         }
         #性别
         $gender = $this->config->item('gender');
-        #学科
-        $subjects = $this->subject->get_subjects();
+        #全部科目
+        $subjects = $this->config->item('education_subject');
+        unset($subjects[1][0]);
+        unset($subjects[2][0]);
+        #学科辅导科目
+        $xueke_subjects = $subjects[1];
+//        print_r($xueke_subjects);
+//        exit;
+        #素质教育科目
+        $suzhi_subjects = $subjects[2];
+//        print_r($xueke_subject);
+//        exit;
         #学校
         $my_school = $this->business_school->school_info($this->_user_detail['school'], 'schoolname,province_id,city_id,county_id', $this->_user_detail['custom_school']);
         $school_name = isset($my_school['schoolname']) ? $my_school['schoolname'] : '';
@@ -475,6 +487,7 @@ class Member extends NH_User_Controller {
         $school_area = $this->business_area->get_areas_by_ids($my_school);  
         #我已选择的学科组成的字符串
         $subject_str = implode('-', $this->_user_detail['student_subject']);
+        $subject_suzhi_str = implode('-', $this->_user_detail['student_suzhi_subject']);
         #地区数据
         $province=$this->business_lecture->all_province();
         $city = $area = array();
@@ -484,12 +497,14 @@ class Member extends NH_User_Controller {
         if($this->_user_detail['city']) {
             $area = $this->business_teacher->area1($this->_user_detail['city']);
         }
-//         print_r($this->_userdata);
+//         print_r($subject_suzhi_str);
 //         exit();
         $this->smarty->assign('action', 'my_infor');
         $this->smarty->assign('gender', $gender);
-        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('xueke_subjects', $xueke_subjects);
+        $this->smarty->assign('suzhi_subjects', $suzhi_subjects);
         $this->smarty->assign('subject_str', $subject_str);
+        $this->smarty->assign('subject_suzhi_str', $subject_suzhi_str);
         $this->smarty->assign('school_name', $school_name);
         $this->smarty->assign('school_area', $school_area);
 	    $this->smarty->assign('page_type', 'myInfor');
@@ -497,7 +512,7 @@ class Member extends NH_User_Controller {
         $this->smarty->assign('area', $area);
         $this->smarty->assign('city', $city);
         $this->smarty->assign('special_city', array(2, 25, 27, 32));
-        $this->smarty->assign('reg_type', 3);
+        $this->smarty->assign('reg_type', $reg_type);
 	    $this->smarty->display('www/studentMyCourse/index.html');
 	}
 }
