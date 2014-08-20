@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li class="tabItem" link="cl_middle_list">
-                <a href="/?stage=2#index_course_list">
+                <a href="/?stage={$smarty.const.CATE_STAGE_JUNIOR}#index_course_list">
                     初中
                     <span class="bBr"></span>
                 </a>
@@ -96,7 +96,12 @@
                         </p>
                         <!-- 课程价格结束 -->
                         <div class="cf cBottom">
-                            <span class="fl">{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>
+                            {if $smarty.const.TIME_STAMP lt $v.sell_end_time-5*86400}
+                                <span class="fl countDown" time="{$v.sell_end_time}"></span>
+                            {else}
+                                <span class="fl">{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>
+                            {/if}
+
 									<span class="fr">
 										<strong>{$v.bought_count+$v.extra_bought_count}</strong>人已学习
 									</span>
