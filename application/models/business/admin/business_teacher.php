@@ -336,6 +336,7 @@ class Business_Teacher extends NH_Model
         $post['bank_id']=trim($post['bank_id']);
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
+        $post['teacher_signature']=trim($post['teacher_signature']);
 
         if($post['teacher_avatar_img']=='')
         {
@@ -359,7 +360,7 @@ class Business_Teacher extends NH_Model
         }
        // var_dump($post);die;
        // var_dump($post['nickname']);die;
-        if($post['nickname']=="" || $post['password']=="" || $post['realname']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['nickname']) || !check_name_length($post['realname']))
+        if($post['nickname']=="" || $post['teacher_signature']=="" || $post['password']=="" || $post['realname']=="" || $post['basic_reward']=="" || $post['phone_mask']=="" || $post['email']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['nickname']) || !check_name_length($post['realname']))
         {
             redirect("teacher/create");
         }
@@ -435,6 +436,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['teacher_age']=$post['teacher_age'];
         $post_user_info['stage']=$post['stage'];
         $post_user_info['teacher_intro']=$post['teacher_intro'];
+        $post_user_info['teacher_signature']=$post['teacher_signature'];
         $post_user_info['basic_reward']=$post['basic_reward'];
         $post_user_info['work_auth_img']=$post['work_auth_img'];
         $post_user_info['title_auth_img']=$post['title_auth_img'];
@@ -466,6 +468,7 @@ class Business_Teacher extends NH_Model
         $post['bank_id']=trim($post['bank_id']);
         $post['id_card']=trim($post['id_card']);
         $post['bank_Branch']=trim($post['bank_Branch']);
+        $post['teacher_signature']=trim($post['teacher_signature']);
         $nickname_count=mb_strlen($post['nickname'],'utf8');
         //var_dump($post);die;
         if($post['teacher_avatar_img']=='')
@@ -490,7 +493,7 @@ class Business_Teacher extends NH_Model
         }
         //var_dump($post);die;
         //var_dump($post);die;
-        if($post['nickname']=="" || $nickname_count < 2 || $nickname_count > 15 || $post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['realname']))
+        if($post['nickname']=="" || $post['teacher_signature']=="" || $nickname_count < 2 || $nickname_count > 15 || $post['realname']=="" || $post['basic_reward']=="" || $post['age']=="" || !is_numeric($post['basic_reward']) || !is_numeric($post['age']) || $post['basic_reward']<0 || $post['age']<20  || $post['age']>100 || !check_name_length($post['realname']))
         {
             redirect("teacher/modify?user_id=$post[user_id]");
         }
@@ -521,6 +524,7 @@ class Business_Teacher extends NH_Model
         $post_user_info['school']=$post['school'];
         $post_user_info['teacher_age']=$post['teacher_age'];
         $post_user_info['stage']=$post['stage'];
+        $post_user_info['teacher_signature']=$post['teacher_signature'];
         $post_user_info['teacher_intro']=$post['teacher_intro'];
         $post_user_info['basic_reward']=$post['basic_reward'];
         $post_user_info['work_auth_img']=$post['work_auth_img'];
