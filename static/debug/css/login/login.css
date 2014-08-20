@@ -34,8 +34,9 @@
 .login .regWrap .regTab{border:1px solid #d5d5d5;width: 490px}
 .login .regWrap .tabBox a{display: inline-block;width:245px;border-top:3px solid #f7f7f7;height:47px;background: #f7f7f7;font-size:18px;text-align: center;line-height:47px;}
 .login .regWrap .tabBox a.active{border-top-color:#f14211;background: #fff;color:#f14211;font-weight:bold;}
-.login .regWrap .contentBox .box{padding:20px 55px;height: 377px;}
+.login .regWrap .contentBox .box{padding:20px 55px;height: 387px;}
 .login .regWrap .box li {font-size:16px;margin-bottom:20px; position: relative;*zoom:1;}
+.login .regWrap .emailBox li{margin-bottom: 10px;}
 .login .regWrap .box li .Validform_checktip{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li .Validform_tip_info{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li.liPhoneCode{padding-top:25px;}
@@ -43,11 +44,16 @@
 .login .regWrap .box li .regInput{width: 90%;border:1px solid #6dcde6;height:38px;line-height:38px;padding:0 5%;font-size:16px;}
 .login .regWrap .box li .pnoneCode{height:40px;line-height:40px;font-size:16px;width:165px;}
 .login .regWrap .box li .codeInput{width:140px;border-color:#d5d5d5;}
+.login .regWrap .box li .authCode{width: 100px;}
+.login .regWrap .box li .codeImg{height: 40px;}
+.login .regWrap .box li .codeImg img{cursor: pointer; height: 40px;display: inline-block;margin-left: 10px;margin-right: 10px;}
 .login .reg_validate_code{width:156px;}
 .login .regWrap .box li .undis{display: none;}
 .login .regWrap .box li.agreementLi {font-size: 14px;;margin-top: 40px;text-align: center;}
 .login .regWrap .box li.agreementLi a{color: #f14211}
 .login .regWrap .box li.agreementLi a:hover{color: #f90}
+.login .regWrap .box li.emailRegAgreen{margin-top: 20px;}
+.login .regWrap .box li.authCodeLi{margin-bottom: 0px;padding-top: 20px;}
 .login .regWrap .box li .submit{border:none;width:100%;padding:0;font-size:20px;cursor:pointer;}
 .login .regWrap .goLogin {width:410px;text-align: center;padding-top: 390px;}
 .login .regWrap .goLogin p{line-height: 22px;font-size:14px;margin-bottom:15px;}
@@ -64,7 +70,7 @@
 .login .regWrap .regTab .Validform_checktip {line-height: 21px;}
 .loginPage .login .regWrap{margin-bottom: 0px;padding-left: 0px;}
 
-.loginPage .login .regRight{padding: 40px 0 0 98px;width: 388px;border: 1px solid #d5d5d5;border-left: none;background: #fff url(../../images/login/regBg.png) 10px 52px no-repeat;margin-top: 50px;height: 427px;}
+.loginPage .login .regRight{padding: 40px 0 0 98px;width: 388px;border: 1px solid #d5d5d5;border-left: none;background: #fff url(../../images/login/regBg.png) 10px 62px no-repeat;margin-top: 50px;height: 437px;}
 .loginPage .login .regRight .redText{font-size: 16px;margin-bottom: 21px;}
 .loginPage .login .regRight li{font-size: 12px;margin-bottom: 22px;}
 .loginPage .login .regRight li span{margin-right: 9px;color: #777;}

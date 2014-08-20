@@ -80,11 +80,14 @@
 									<p>手机号（选填）</p>
 									<input type="text" name="ephone" class="ephone regInput yh" placeholder="填写手机号码，第一时间获知名师公开课">
 								</li>
-                                <input type="text" id="code" name="code" placeholder="验证码" class="fl authCode">
-                                &nbsp;&nbsp;<span id="cap_img"></span>
-                                <a href="#" class="changeOne">换一张</a>
-                                <span class="fr required">*</span>
-								<li class="agreementLi">
+								<li class="authCodeLi">
+									<input type="text" id="code" name="code" placeholder="请输入验证码" class="fl regInput authCode ecode" maxlength="4">
+                               		<span id="cap_img" class="codeImg"></span>
+                                	<a href="javascript:void(0)" class="changeOne">换一张</a>
+                                	<div class="Validform_tip_info undis">请输入验证码</div>
+                          			<div class="Validform_checktip"></div>
+								</li>
+								<li class="agreementLi emailRegAgreen">
 									<input type="checkbox" checked id="agreementEmail">
 									<label for="agreementEmail">我已阅读并同意</label>
 									<a href="{$student_url}about/service" target="_blank">那好网服务使用协议</a>
