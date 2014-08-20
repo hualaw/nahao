@@ -77,7 +77,9 @@ $config['page_teacher']['prev_tag_close'] = '</div>';
 
 $config['page_user']['uri_segment']      =   4;
 $config['page_user']['num_links']        =   3;
-$config['page_user']['full_tag_open']    =   '<div class="cf page "><ul class="cf">';
+
+
+$config['page_user']['full_tag_open']    =   '<div class="page cf"><ul class="cf">';
 $config['page_user']['full_tag_close']   =   '</ul></div>';
 $config['page_user']['first_link']       =   '首页';
 $config['page_user']['last_link']        =   '尾页';
