@@ -13,6 +13,16 @@
 | always be used to set the mode correctly.
 |
 */
+/**
+ * 那好2.0芝麻开门
+ * @命名规则: 	
+ * 列表页猜您喜欢：	控制器_方法_块名_SWITCH =》 CLASSES_INDEX_SUGGEST_SWITCH
+ */ 
+define('CLASSES_INDEX_SUGGEST_SWITCH',1);			// 列表页 		> 猜您喜欢
+define('CLASSES_INDEX_BROWSING_HISTORY_SWITCH',1);	// 列表页 		> 浏览记录
+define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
+
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -418,7 +428,8 @@ define('SUBJECT_STUDY', 1);//学科辅导
 define('QUALITY_STUDY', 2);//素质教育
 
 //列表页每页数量
-define('LIST_NUM', 30);
+define('LIST_NUM', 30);//每页搜索结果数
+define('LIST_SUGGEST_NUM', 10);//每页推荐结果数
 
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
@@ -427,9 +438,5 @@ define('ROUND_GENERATE_MODE','production');//testing,production测试环境下�
 //学科辅导和素质教育
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
-
-
-//课程详情页推荐开关 (1是显示0是不显示)
-define('BUY_BEFORE_RECOMMEND_SWITCH',1);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

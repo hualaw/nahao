@@ -137,11 +137,11 @@ class Business_List extends NH_Model
     	$cate_subject 	= config_item('cate_subject');
     	$cate_quality 	= config_item('cate_quality');
     	$orderArr = array(
-    			1	=> 	'按综合推荐排列的',
-    			2	=>	'按销量从高到低排列的',
-    			3	=>	'按价格从高到低排列的',
-    			4	=>	'按价格从低到高排列的',
-    			5	=>	'按最新排列的',
+    			1	=> 	'综合推荐的',
+    			2	=>	'销量从高到低的',
+    			3	=>	'价格从高到低的',
+    			4	=>	'价格从低到高的',
+    			5	=>	'最新的',
     		);
     	#2. 按参数组合 【标题】+【面包屑】
     	$cateName = $cate[$param['typeId']]['name'];
@@ -170,19 +170,19 @@ class Business_List extends NH_Model
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$subjectName.'">'.$subjectName.'</a>';
     		}
-    		$title 			= $stageName.$gradeName.$orderName.$subjectName.$cateName.'搜索列表';
+    		$title 			= $stageName.$gradeName.$orderName.$subjectName.$cateName.'课程列表_如何提升应试能力-';
     	}elseif($param['typeId'] == QUALITY_STUDY){
     		$orderName = $qualityName = '';
     		if(!empty($param['order'])){
     			$orderName	= $orderArr[$param['order']];
     		}
-    		if(!empty($param['subjectId'])){
-    			$qualityName= $cate_quality[$param['qualityId']];
+    		if(!empty($param['qualityId'])){
+    			$qualityName= $cate_quality[$param['qualityId']]['name'];
     			$posParam 	= array('typeId' => $param['typeId'],'qualityId' => $param['qualityId']);
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$qualityName.'">'.$qualityName.'</a>';
     		}
-    		$title 			= $orderName.$qualityName.$cateName.'搜索列表';
+    		$title 			= $orderName.$qualityName.$cateName.'课程列表_如何提高自身素质修养-';
     	}
     	$title 				.= !empty($param['page']) ? '第'.$param['page'].'页' : '';
     	return array('title'=>$title,'pos'=>$pos);
@@ -229,7 +229,9 @@ class Business_List extends NH_Model
     		//用户头像
     		$val['avater_url'] 	= $this->get_user_avater($val['teacher_id']);
     		//subtitle
-    		$val['subtitle']	= (mb_substr($val['subtitle'],0,100,'UTF-8')).(strlen($val['subtitle'])>100 ? '...' : '');
+    		$val['subtitle']	= (mb_substr($val['subtitle'],0,50,'UTF-8')).(strlen($val['subtitle'])>50 ? '...' : '');
+    		//teacher_intro
+    		$val['teacher_intro']= (mb_substr($val['teacher_intro'],0,50,'UTF-8')).(strlen($val['teacher_intro'])>50 ? '...' : '');
     	}
     	return array('data' => $list , 'total' =>$counter[0]['total']);
     }
@@ -243,7 +245,7 @@ class Business_List extends NH_Model
     		'typeId' 	=> ($param['typeId'] == SUBJECT_STUDY ? QUALITY_STUDY : SUBJECT_STUDY),
     		'order'		=> 5,
     		'page'		=> 1,
-    		'num'		=> 10,
+    		'num'		=> LIST_SUGGEST_NUM,
     	);
     	$suggest_list = $this->model_list->search_suggest($param);
     	#组合参数：学习人数，课程图片
