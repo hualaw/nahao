@@ -63,13 +63,13 @@
             <td>{$v.id}</td>
             <td>
                 {$v.title}<br />
-                教育类型：{$education_types[$v.education_type]}
+                {if isset($education_types[$v.education_type])}教育类型：{$education_types[$v.education_type]}{/if}
             </td>
             <td>{$v.lesson_count}</td>
             <td>{$v.nickname}</td>
             <td>{if isset($v.status)}{$course_status[$v.status]}{/if}</td>
-            <td>{if $v.education_type gt 0}{$education_subjects[$v.education_type][$v.subject]}{else}0{/if}</td>
-            <td>{$course_types[$v.course_type]}</td>
+            <td>{if $v.education_type gt 0 && isset($education_subjects[$v.education_type][$v.subject])}{$education_subjects[$v.education_type][$v.subject]}{else}{/if}</td>
+            <td>{if isset($course_types[$v.course_type])}{$course_types[$v.course_type]}{/if}</td>
             <td>{date('Y-m-d H:i',$v.create_time)}</td>
             <td>
                 <a href="/course/edit/{$v.id}">修改</a>
