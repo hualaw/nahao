@@ -17,7 +17,7 @@
 <!-- 主要内容开始 -->
 <div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
     <div class="breadNav">
-        <a href="#" title="">首页</a> » <a href="#" title="">{if $array_data.education_type == $smarty.const.ROUND_TYPE_SUBJECT}学科辅导{elseif $array_data.education_type == $smarty.const.ROUND_TYPE_EDUCATION}素质教育{/if}</a> »{$array_data.title}
+        <a href="#" title="">首页</a> » {if $array_data.education_type == $smarty.const.ROUND_TYPE_SUBJECT}<a href="/list_t1.html">学科辅导</a>{elseif $array_data.education_type == $smarty.const.ROUND_TYPE_EDUCATION}<a href="/list_t2.html">素质教育</a>{/if} »{$array_data.title}
     </div>
     <div class="buyCourse buyBefore">
         <!-- 购买前 头部 -->
@@ -147,7 +147,32 @@
                     <li class="detail" id="tab_course_info" con="course_info">课程提要</li>
                     <li class="detail" id="tab_course_content" con="course_content">学员评价（{$evaluate_count}）</li>
                     <li class="detail_price detail_price1">￥{$array_data.sale_price}</li>
-                    <li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" id="soon_buy_xia">抢购</a></li>
+                    {if !$is_login}
+                    		{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" id="soon_buy_xia">抢购</a></li>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已售罄</a></li>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已停售</a></li>
+	                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已下架</a></li>
+	                        {/if}
+                    {else}
+                    		{if $buy_flag}
+							 	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已购买</a></li>
+							{else}
+	                    		{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" id="soon_buy_xia">抢购</a></li>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已售罄</a></li>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已停售</a></li>
+		                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已下架</a></li>
+		                        {/if}
+							{/if}
+                    {/if}
+                    
                 </ul>                                                                                       
                 <div id="course_info_box">
                     <!-- 课程简介 开始 -->
