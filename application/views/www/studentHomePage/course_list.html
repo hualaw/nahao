@@ -1,4 +1,4 @@
-<div class="cListWrap list_tabs">
+<div class="cListWrap list_tabs" name="index_course_list">
     <!-- 课程列表的头部tab开始 -->
     <div class="cf chTitle">
         <ul class="cf fl tabList ">
@@ -9,19 +9,19 @@
                 </a>
             </li>
             <li class="tabItem" link="cl_primary_list">
-                <a href="/?stage=1">
+                <a href="/?stage=1#index_course_list">
                     小学
                     <span class="bBr"></span>
                 </a>
             </li>
             <li class="tabItem" link="cl_middle_list">
-                <a href="/?stage=2">
+                <a href="/?stage=2#index_course_list">
                     初中
                     <span class="bBr"></span>
                 </a>
             </li>
             <li class="tabItem" link="cl_high_list">
-                <a href="/?stage=3">
+                <a href="/?stage=3#index_course_list">
                     高中
                     <span class="bBr"></span>
                 </a>
@@ -59,7 +59,7 @@
                                 <div class="innerDesc">
                                     <!-- 教师图像和简介开始 -->
                                     <div class="cf teacherWrap">
-                                        <img src="{$v.avatar}"
+                                        <img src="{if empty($v.avatar)}{static_url($smarty.const.DEFAULT_TEACHER_AVATER)}{else}{get_course_img_by_size($v.avatar,'index_avatar')}{/if}"
                                              alt="{$v.nickname}" class="fl">
                                         <!-- 教师姓名和教龄开始 -->
 												<span class="fl teacherName">
@@ -72,7 +72,7 @@
                                     </div>
                                     <!-- 教师图像和简介结束 -->
                                     <!-- 教师介绍开始 -->
-                                    <p class="teacherDesc" href="#">{$v.teacher_intro}</p>
+                                    <p class="teacherDesc" href="#">{$v.teacher_intro|truncate:150}</p>
                                     <!-- 教师介绍结束 -->
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
                         <!-- 课程标题和简介开始 -->
                         <h3 class="ctitle">
                             <a href="/ke_{$v.id}.html">
-                                <span class="cTitleName">{$v.title}</span>
-                                <span class="cTitleDesc">{$v.subtitle}</span>
+                                <span class="cTitleName">{$v.title|truncate:25}</span>
+                                <span class="cTitleDesc">{$v.subtitle|truncate:50}</span>
                             </a>
                         </h3>
                         <!-- 课程标题和简介结束 -->

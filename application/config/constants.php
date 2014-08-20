@@ -425,8 +425,43 @@ define('REDIS_ORDER_EXPIRE', 3600);
 define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
 
 //学科辅导和素质教育
+define('ROUND_TYPE_ALL',0);
 define('ROUND_TYPE_SUBJECT',1);
 define('ROUND_TYPE_EDUCATION',2);
+
+//所有学段
+define('CATE_STAGE_ALL',0);//全部学段
+define('CATE_STAGE_PRIMARY',1);//小学
+define('CATE_STAGE_JUNIOR',2);//初中
+define('CATE_STAGE_SENIOR',3);//高中
+
+//学科辅导全部科目
+define('CATE_SUBJECT_ALL',0);//全部科目
+define('CATE_SUBJECT_SHUXUE',2);//数学
+define('CATE_SUBJECT_YUWEN',3);//语文
+define('CATE_SUBJECT_YINGYU',4);//英语
+define('CATE_SUBJECT_WULI',5);//物理
+define('CATE_SUBJECT_HUAXUE',9);//化学
+define('CATE_SUBJECT_SHENGWU',10);//生物
+define('CATE_SUBJECT_DILI',12);//地理
+define('CATE_SUBJECT_ZHENGZHI',13);//政治
+define('CATE_SUBJECT_SHUXUEJINGBIAN',14);//数学精编
+define('CATE_SUBJECT_OTHER',100);//其他
+
+//素质教育全部科目
+define('CATE_QUALITY_ALL',0);//全部素质教育学科
+define('CATE_QUALITY_JIATINGJIAOYU',1);//家庭教育
+define('CATE_QUALITY_XUEXIFANGFA',2);//学习方法
+define('CATE_QUALITY_WAIJIAOKOUYU',3);//外教口语
+define('CATE_QUALITY_DIANYINGJIANSHANG',4);//电影鉴赏
+define('CATE_QUALITY_XINGAINIAN',5);//新概念
+define('CATE_QUALITY_GUOJIYINBIAO',6);//国际音标
+define('CATE_QUALITY_XINLIXUE',7);//心理学
+define('CATE_QUALITY_JIANQIAOSHAOERYINGYU',8);//剑桥少儿英语
+define('CATE_QUALITY_ZIRANPINDU',9);//自然拼读
+define('CATE_QUALITY_MOFANG',10);//魔方
+define('CATE_QUALITY_OTHER',100);//其他
+
 
 //switch
 define('SWITCH_WWW_INDEX_LIVE_SHOW',1);

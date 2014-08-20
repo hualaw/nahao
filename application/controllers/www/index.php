@@ -87,37 +87,41 @@ class Index extends NH_User_Controller
         $this->load->model('business/admin/business_focus_photo');
         $focus_photo = $this->business_focus_photo->list_photo(1);
 
-        //直播课
+        //live show list
         $arr_live_classes = $this->index->get_live_classes();
 //        o($arr_live_classes);
 
-        //课列表
+        //course_list
+        $int_per_page = 4;//PER_PAGE_NO;
         $int_round_count = $this->index->get_round_count($arr_where);
-        $arr_round_list = $this->index->get_round_list($arr_where, $int_start, PER_PAGE_NO);
+        $arr_round_list = $this->index->get_round_list($arr_where, $int_start, $int_per_page);
 //        o($arr_round_list,true);
-
         //pagination
         $this->load->library('pagination');
         $config = config_item('page_user');
         $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
         $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
         $config['total_rows'] = $int_round_count;
-        $config['per_page'] = PER_PAGE_NO;
+        $config['per_page'] = $int_per_page;
+        $config['page_query_string'] = false;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
+//        o($arr_round_list,true);
 
+        //record
+        $this->load->model('business/student/student_course');
+        $arr_record_list = $this->student_course->read_recent_view_data();
+//        o($arr_record_list,true);
 
-
-//o($arr_round_list,true);
         $this->smarty->assign('stage', config_item('stage'));
         $this->smarty->assign('material_versions', config_item('material_version'));
         $this->smarty->assign('course_types', $stage = config_item('course_type'));
-
         $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d',time())));
         $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59',time())));
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
+        $this->smarty->assign('record_list', $arr_record_list);
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
