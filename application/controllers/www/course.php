@@ -91,7 +91,7 @@ class Course extends NH_User_Controller {
 		$this->load->library('pagination');
 		$config = config_item('page_user');
 		$config['total_rows'] = $int_total;
-		$config['per_page'] = 1;
+		$config['per_page'] = PER_PAGE_NO;
 		$limit = $offset.",".$config['per_page'];
 		$array_evaluate = $this->student_course->get_round_evaluate($int_round_id,$limit);
 		$this->pagination->initialize($config);
