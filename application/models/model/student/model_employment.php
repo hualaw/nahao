@@ -13,7 +13,7 @@ class Model_employment extends NH_Model{
 
     public function getAll()
     {
-        $sql = "select `title`, `desc`, `requirement` from ".TABLE_EMPLOYMENT." order by `seq` desc";
+        $sql = "select `title`, `desc`, `requirement` from " . TABLE_EMPLOYMENT . " where `is_open` = 1 order by `seq` desc";
         return $this->db->query($sql)->result_array();
     }
 
