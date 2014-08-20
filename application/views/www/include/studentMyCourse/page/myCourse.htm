@@ -265,7 +265,7 @@
                     <a href="#" class="cnImgWrap">
                         <img src="{$item.img}" alt="" class="nItemImg">
                     </a>
-                    <a href="http://www.baidu.com">
+                    <a href="{$course_url}ke_{$item.id}.html">
                         <div class="teacherWrap">
                             <div class="cf teacherTop">
                                 <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
@@ -277,14 +277,14 @@
                                 </span>
                             </div>
                             <p class="teacherDesc">
-                                {$item.teacher.teacher_intro}
+                                {$item.teacher.teacher_intro|truncate:56:"...":true}
                             </p>
                         </div>
                     </a>
 
                     <div class="ncDesc" >
                         <h4 class="ncTitle">
-                            {$item.title}
+                            {$item.title|truncate:36:"...":true}
                         </h4>
 								<span class="cf valueList">
 									<span class="fl price">
@@ -310,7 +310,7 @@
                     <a href="#" class="cnImgWrap">
                         <img src="{$item.img}" alt="" class="nItemImg">
                     </a>
-                    <a href="http://www.baidu.com">
+                    <a href="{$course_url}ke_{$item.id}.html">
                         <div class="teacherWrap">
                             <div class="cf teacherTop">
                                 <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
@@ -322,13 +322,13 @@
 									</span>
                             </div>
                             <p class="teacherDesc">
-                                {$item.teacher.teacher_intro}
+                                {$item.teacher.teacher_intro|truncate:56:"...":true}
                             </p>
                         </div>
                     </a>
                     <div class="ncDesc" >
                         <h4 class="ncTitle">
-                            {$item.title}
+                            {$item.title|truncate:36:"...":true}
                         </h4>
 								<span class="cf valueList">
 									<span class="fl price">
