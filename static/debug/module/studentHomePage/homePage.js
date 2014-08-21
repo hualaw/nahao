@@ -4,6 +4,10 @@
 define(function(require,exports){
     // 请求验证库
     require("validForm");
+    //dialog
+    require("naHaoDialog");
+    //加密
+    require("cryptoJs");
     //首页初始化函数
     exports.init=function(){
         //初始化幻灯切换
@@ -183,10 +187,19 @@ define(function(require,exports){
                     curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
+                var hash = CryptoJS.SHA1(curform.find('.password').val());
+                curform.find(".epass").val(hash.toString());
             },
             callback:function(data){
-                alert(data);
-                return false;
+                if(data.status=='error'){
+                    $.dialog({
+                        content:data.msg
+                    });
+                    return false;
+                }
+                if(data.status=='ok'){
+                    location.reload();
+                }
             }
         });
         _Form.addRule([{
