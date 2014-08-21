@@ -51,7 +51,7 @@
 .studentClass .tabList .tabItem.firstTab {border-left: none;}
 .studentClass .tabList .tabItem.active .bBr{border-bottom: 2px solid #cb0000; position: absolute; bottom: -8px;left: 0px;display: block;height: 0px;width: 100%;}
 .studentClass .listCont{margin: 0px -6px 17px;}
-.studentClass .courseLeft .pager{margin: 0px 8px ;}
+.studentClass .courseLeft .pager{margin: 0px 11px ;}
 .studentClass .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
 .studentClass .listCont .courseDesc{display: block;width: 240px;height: 154px;position: relative;}
 .studentClass .listCont .courseDesc .cDescImg{vertical-align: bottom;width: 240px;height: 154px;}
