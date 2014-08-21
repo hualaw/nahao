@@ -186,18 +186,7 @@
 .studentHomePage .adListWrap{margin-top: 10px;}
 /*广告结束*/
 /*浏览记录开始*/
-.studentHomePage .historyWrap{margin-top: 10px;position: relative;}
-.studentHomePage .historyListWrap{position: absolute; top:0px;left: 0px;border:1px solid #e0e0e0;background-color: #fff;width: 218px;}
-.studentHomePage .historyWrap .hHeader{padding-left: 12px;height: 35px;line-height: 35px;font-size: 14px;}
-.studentHomePage .deletHistory{color: #cb0000;padding-right: 15px;font-size: 12px;}
-.studentHomePage .noHistory{margin: 50px 0px;text-align: center;}
-.studentHomePage .historyList{padding: 0px 12px;overflow: hidden;}
-.studentHomePage .hItem{padding: 20px 0px;display: block;border-top: 1px dashed #e0e0e0;margin-top: -1px;}
-.studentHomePage .hPic{width: 80px;height: 51px;}
-.studentHomePage .hDesc{width: 100px;}
-.studentHomePage .hSmallTitle{display: block;font-size: 12px;line-height: 15px;height: 30px;margin-bottom: 5px;}
-.studentHomePage .valList .price{color:#cb0000;}
-.studentHomePage .valList .val{text-decoration: line-through;padding-left: 12px;}
+.studentHomePage .historyWrap{margin-top: 10px;}
 /*浏览记录结束*/
 
 /*右侧边栏结束
