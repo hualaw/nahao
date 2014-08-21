@@ -59,13 +59,13 @@ $route['about/(:any)'] = 'index/about/$1';
  * page			=>		p
  */
 #1. 列表首页
-//$route['list.html'] = 'classes/index/';
-//	//1.1 列表首页 排序
-//	$route['list_o(:num).html'] = 'classes/index/?order=$1';
-//	//1.2 列表首页 分页
-//	$route['list_p(:num).html'] = 'classes/index/?page=$1';
-//	//1.3 列表首页 排序+分页
-//	$route['list_o(:num)_p(:num).html'] = 'classes/index/?order=$1&page=$2';
+$route['list.html'] = 'classes/index/';
+	//1.1 列表首页 排序
+	$route['list_o(:num).html'] = 'classes/index/?order=$1';
+	//1.2 列表首页 分页
+	$route['list_p(:num).html'] = 'classes/index/?page=$1';
+	//1.3 列表首页 排序+分页
+	$route['list_o(:num)_p(:num).html'] = 'classes/index/?order=$1&page=$2';
 
 #2. 教育类型 【类型】
 $route['list_t(:num).html'] = 'classes/index/?typeId=$1';

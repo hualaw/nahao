@@ -170,7 +170,7 @@ class Business_List extends NH_Model
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$subjectName.'">'.$subjectName.'</a>';
     		}
-    		$title 			= $stageName.$gradeName.$orderName.$subjectName.$cateName.'课程列表_如何提升应试能力-';
+    		$title 			= $stageName.$gradeName.$orderName.$subjectName.$cateName.'课程列表_如何快速提升'.$stageName.$gradeName.$subjectName.'应试能力-';
     	}elseif($param['typeId'] == QUALITY_STUDY){
     		$orderName = $qualityName = '';
     		if(!empty($param['order'])){
@@ -182,7 +182,8 @@ class Business_List extends NH_Model
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$qualityName.'">'.$qualityName.'</a>';
     		}
-    		$title 			= $orderName.$qualityName.$cateName.'课程列表_如何提高自身素质修养-';
+   			$subtitle 		= $qualityName ? '教你如何成为'.$qualityName.'高手' : '教你如何提高自身素质与修养';
+    		$title 			= $orderName.$qualityName.$cateName.'课程列表_'.$subtitle.'-';
     	}
     	$title 				.= !empty($param['page']) ? '第'.$param['page'].'页' : '';
     	return array('title'=>$title,'pos'=>$pos);
@@ -220,6 +221,16 @@ class Business_List extends NH_Model
 			if($val['bought_count']>150){
 				$val['icon'][] 	= array('name'=>'疯狂热卖','class'=>'mark5');
 			}
+			//课程类型
+			if($val['course_type']){
+				$course_type_Arr = config_item('course_type');
+				$val['icon'][] 	= array('name'=>$course_type_Arr[$val['course_type']],'class'=>'mark7');
+			}
+			//教材版本
+			if($val['material_version']){
+				$material_version_Arr = config_item('material_version');
+				$val['icon'][] 	= array('name'=>$material_version_Arr[$val['material_version']],'class'=>'mark8');
+			}
     		//日期
     		$val['start_date'] 	= date('m年d月 H:i',$val['start_time']);
     		//学习人数
@@ -231,7 +242,7 @@ class Business_List extends NH_Model
     		//subtitle
     		$val['subtitle']	= (mb_substr($val['subtitle'],0,50,'UTF-8')).(strlen($val['subtitle'])>50 ? '...' : '');
     		//teacher_intro
-    		$val['teacher_intro']= (mb_substr($val['teacher_intro'],0,50,'UTF-8')).(strlen($val['teacher_intro'])>50 ? '...' : '');
+//    		$val['teacher_intro']= (mb_substr($val['teacher_intro'],0,50,'UTF-8')).(strlen($val['teacher_intro'])>50 ? '...' : '');
     	}
     	return array('data' => $list , 'total' =>$counter[0]['total']);
     }
@@ -292,8 +303,8 @@ class Business_List extends NH_Model
     	$config['pages'] = ceil($config['total']/$config['num']);
     	$config['base_link'] = $config['base_link'];
     	$pageBar = '<ul>';
-    	$pageBar .= $config['page']>2  ? '<li><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'" class="pageButton">上一页</a></li>' : '';
-    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'" class="pageButton">1</a></li>' : '';
+    	$pageBar .= $config['page']>2  ? '<li class="prev"><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'">上一页</a></li>' : '';
+    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'">1</a></li>' : '';
     	$pageBar .= $config['page']>4 ? '<li class="more"><a>...</a></li>' : '';
     	
     	for ($i=1;$i<=$config['pages'];$i++){
@@ -306,8 +317,8 @@ class Business_List extends NH_Model
     		$pageBar .=$li;
     	}
     	$pageBar .= ($config['page']<$config['pages']-3) && $config['page']>0 ? '<li class="more"><a>...</a></li>' : '';
-    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'" class="pageButton">'.$config['pages'].'</a></li>' : '';
-    	$pageBar .= $config['page']>0 && $config['page']<($config['pages']-1) ? '<li><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'" class="pageButton">下一页</a></li>' : '';
+    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'">'.$config['pages'].'</a></li>' : '';
+    	$pageBar .= $config['page']>0 && $config['page']<($config['pages']-1) ? '<li class="next"><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'">下一页</a></li>' : '';
     	$pageBar .= '</ul>';
     	return $pageBar;
    	}
