@@ -53,10 +53,13 @@ define(function(require,exports){
     _topLogin.topLogin();
     //浏览记录悬浮
     if($(".historyWrap").length){
-    	require('module/common/method/floatBox').historyFloat();
+    	var _floatBox=require('module/common/method/floatBox');
+    	_floatBox.historyFloat();
+    	_floatBox.clearHis();
     	$(window).scroll(function(){
     		require('module/common/method/floatBox').historyFloat();
     	});
     }
+
 
 })

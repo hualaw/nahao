@@ -139,11 +139,14 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .login .codeSpan{padding:0 8px;margin-left: 10px;}
 /*全站分页代码样式开始*/
 .page {margin:10px 0px; line-height:30px;}
+.page>ul{float: right;width: auto!important;}
+.page .pageUl{float: right;width: auto!important;}
+.page ul li{float: left;}
 .page a{float:left;height: 22px;line-height: 22px;padding: 0 10px;font-size: 12px;color: #0e78e1;margin-right: 3px;background: #fff;text-align: center;border:1px solid #e0e0e0;}
 .page .prev{background: #fff url(../../images/common/prev.gif) center no-repeat;}
-.page .next{text-align:right;padding: 0 36px 0 0;background: url(../../images/common/next.gif) center no-repeat;margin-left: 9px;}
+.page .next{text-align:right;padding: 0;background: url(../../images/common/next.gif) center no-repeat;margin-left: 9px;}
 .page .prev a{background: #fff url(../../images/common/prev.gif) 5px center no-repeat;color: #333;}
-.page .next a{background: #fff url(../../images/common/next.gif) 48px center no-repeat;color: #333;}
+.page .next a{background: #fff url(../../images/common/next.gif) 48px center no-repeat;color: #333;margin-right: 0px;}
 .page span{margin:0 4px;}
 .page .more{}
 .page li.active a,
@@ -186,7 +189,7 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 /*小彩旗结束*/
 /*最近浏览记录开始*/
 .historyWrap{position: relative; }
-.historyWrap .historyListWrap{background-color: #fff;border:1px solid #e0e0e0;left:0px;top:0px;width: 218px;} 
+.historyWrap .historyListWrap{background-color: #fff;border:1px solid #e0e0e0;width: 218px;} 
 .historyWrap .hHeader{font-size:14px;height: 35px;line-height: 35px;padding-left: 12px;}
 .historyWrap .deletHistory{color: #cb0000;font-size:12px;padding-right:15px;}
 .historyWrap .historyList{overflow: hidden;padding: 0 12px;}
