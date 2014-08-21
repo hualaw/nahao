@@ -53,19 +53,13 @@ define(function(require,exports){
     _topLogin.topLogin();
     //浏览记录悬浮
     if($(".historyWrap").length){
-    	require('module/common/method/floatBox').historyFloat();
+    	var _floatBox=require('module/common/method/floatBox');
+    	_floatBox.historyFloat();
+    	_floatBox.clearHis();
     	$(window).scroll(function(){
     		require('module/common/method/floatBox').historyFloat();
     	});
     }
-    //清空浏览记录
-    if($(".historyWrap .deletHistory").length){
-    	$(".historyWrap .deletHistory").click(function(e){
-    		$('.historyList').remove().append("<div class=\"noHistory\">暂无浏览记录</div>");
-    		//清除cookie
-    		document.cookie = 'recent_view' + "=; expires=Fri, 31 Dec 1999 23:59:59 GMT;";
-    		e.preventDefault();
-    	});
-    }
+
 
 })
