@@ -72,9 +72,9 @@
         {/foreach}
         {/if}
     </ul>
- <div status = '0' class="page-status">
+ <div status = '0' class="page-status pageWrap">
 {$all_page}
-</div>
+ </div>
 </div>
 <!-- 全部课程列表结束 -->
 <!-- 正在进行列表开始 -->
@@ -240,6 +240,7 @@
 </div>
 </div>
 <!-- 我的课程tab切换内容结束 -->
+{if $smarty.const.HOT_NEW_COURSE}
 <!-- 最新课程开始 -->
 <h4 class="pageName">最新课程</h4>
 <div class="cf nearlyWrap list_tabs">
@@ -350,6 +351,7 @@
     <!-- 最新课程tab切换内容结束 -->
 </div>
 <!-- 最新课程结束 -->
+{/if}
 </div>
 <!-- 右侧框架结束 -->
 

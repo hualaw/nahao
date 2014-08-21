@@ -13,6 +13,20 @@
 | always be used to set the mode correctly.
 |
 */
+/**
+ * 那好2.0芝麻开门
+ * @命名规则: 	
+ * 列表页猜您喜欢：	控制器_方法_块名_SWITCH =》 CLASSES_INDEX_SUGGEST_SWITCH
+ */ 
+define('CLASSES_INDEX_SUGGEST_SWITCH',1);			// 列表页 		> 猜您喜欢
+define('CLASSES_INDEX_BROWSING_HISTORY_SWITCH',1);	// 列表页 		> 浏览记录
+define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+
+define('HOT_NEW_COURSE',1);      //我的课程页   > 近期课程和热报课程
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -463,17 +477,6 @@ define('CATE_QUALITY_JIANQIAOSHAOERYINGYU',8);//剑桥少儿英语
 define('CATE_QUALITY_ZIRANPINDU',9);//自然拼读
 define('CATE_QUALITY_MOFANG',10);//魔方
 define('CATE_QUALITY_OTHER',100);//其他
-
-/**
- * 那好2.0芝麻开门
- * @命名规则: 	
- * 列表页猜您喜欢：	控制器_方法_块名_SWITCH =》 CLASSES_INDEX_SUGGEST_SWITCH
- */ 
-define('CLASSES_INDEX_SUGGEST_SWITCH',1);			// 列表页 		> 猜您喜欢
-define('CLASSES_INDEX_BROWSING_HISTORY_SWITCH',1);	// 列表页 		> 浏览记录
-define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
-define('SWITCH_WWW_INDEX_LIVE_SHOW',1);				// 首页			> 直播课
-define('SWITCH_WWW_INDEX_COURSE_LIST',1);			// 首页			> 课程列表
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
