@@ -136,6 +136,10 @@ define(function(require,exports){
             if($(this).val() == ''){
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
             };
+            // 新增判断
+            if($(this).siblings('.normalText').html() == ''){
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+            }
         }).focusout(function(){
             if($(this).val() !== ''){
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg');
@@ -173,10 +177,6 @@ define(function(require,exports){
                 };
                 if(curform.find('.password').val() == ''){
                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                    return false;
-                };
-                if(curform.find('.phone').val() == ''){
-                    curform.find('.phone').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
                 if(curform.find('.authCode').val() == ''){
