@@ -76,6 +76,8 @@ class Course extends NH_User_Controller {
         $this->smarty->assign('evaluate_count', $str_evaluate_count);
         $this->smarty->assign('array_recent_view', $array_recent_view);
         $this->smarty->assign('array_notice', $array_notice);
+        $this->smarty->assign('material_versions', config_item('material_version'));
+        $this->smarty->assign('course_types', config_item('course_type'));
         $this->smarty->display('www/studentMyCourse/buyBefore.html');
 	}
 	
@@ -408,6 +410,8 @@ class Course extends NH_User_Controller {
 	 	$this->smarty->assign('evaluate_count', $str_evaluate_count);
 	 	$this->smarty->assign('array_recent_view', $array_recent_view);
 	 	$this->smarty->assign('array_notice', $array_notice);
+	 	$this->smarty->assign('material_versions', config_item('material_version'));
+	 	$this->smarty->assign('course_types', config_item('course_type'));
 	 	$this->smarty->display('www/studentMyCourse/buyDetail.html');
 	 }
 	 
