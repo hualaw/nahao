@@ -32,7 +32,7 @@
                     <div class="markList">
                         <span class="mark mark3">限时抢购</span>
                         {if $array_data.sale_price == '0'}
-                        <span class="mark mark4">免费课程</span>
+                        <span class="mark mark4">免费试听</span>
                         {/if}
                         {if $array_data.study_count >='150'}
                         <span class="mark mark5">疯狂热卖</span>
@@ -40,6 +40,8 @@
                         {if $smarty.now|date_format:'%Y-%m-%d' == $array_data.sell_begin_time|date_format:'%Y-%m-%d'}
                         <span class="mark mark6">今日新课</span>
                         {/if}
+                        {if isset($course_types[$array_data.course_type])}<span class="mark mark7">{$course_types[$array_data.course_type]}</span>{/if}
+                        {if isset($material_versions[$array_data.material_version])}<span class="mark mark8">{$material_versions[$array_data.material_version]}</span>{/if}
                     </div>
                     <!-- 标签列表结束 -->
                     <img src="{if empty($array_data.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($array_data.img,'buy_before_top_big')}{/if}" alt="" class="fl">
