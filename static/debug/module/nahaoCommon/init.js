@@ -51,5 +51,12 @@ define(function(require,exports){
 
     var _topLogin = require("module/login/topLogin");
     _topLogin.topLogin();
+    //浏览记录悬浮
+    if($(".historyWrap").length){
+    	require('module/common/method/floatBox').historyFloat();
+    	$(window).scroll(function(){
+    		require('module/common/method/floatBox').historyFloat();
+    	});
+    }
 
 })
