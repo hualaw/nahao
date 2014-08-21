@@ -4,5 +4,4 @@ define(function(require,exports){
     require("module/studentHomePage/homePage").register_check();
     //首页课程倒计时
    	require("module/studentHomePage/homePage").countDown();
-    
 })
