@@ -277,27 +277,8 @@
                     {/foreach}                 
                     </ul>
                 </div>
-                  {/if}
-                <div class="history">
-                    <h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
-                     {if $array_recent_view}
-                    <ul class="historyList">
-                   
-                    {foreach from=$array_recent_view item=item}
-                        <li class="cf b_t_0">
-                            <a href="{$course_url}ke_{$item.id}.html" title=""><img class="fl" src="{$item.img}" alt=""></a>
-                            <div class="fl listRight">
-                                <p><a href="#" title="{$item.title}">{$item.title|truncate:16:"...":true}</a></p>
-                                <div><span class="fl price">￥{$item.sale_price}</span><span class="priceHis fl">{$item.price}</span></div>
-                            </div>
-                        </li>
-                    {/foreach}
-                   
-                    </ul>
-                    {else}
-                    <div class="historyNone">暂无浏览记录</div>
-                     {/if}
-                </div>
+                {/if}
+				{include file="www/studentMyCourse/history.html"}
             </div>
         </div>
     </div>

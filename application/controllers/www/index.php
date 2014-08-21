@@ -113,6 +113,8 @@ class Index extends NH_User_Controller
         $arr_record_list = $this->student_course->read_recent_view_data();
 //        o($arr_record_list,true);
 
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('stage', config_item('stage'));
         $this->smarty->assign('material_versions', config_item('material_version'));
         $this->smarty->assign('course_types', $stage = config_item('course_type'));
@@ -121,7 +123,7 @@ class Index extends NH_User_Controller
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
-        $this->smarty->assign('record_list', $arr_record_list);
+        $this->smarty->assign('array_recent_view', $arr_record_list);
         $this->smarty->assign('page',$this->pagination->create_links());
         $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
