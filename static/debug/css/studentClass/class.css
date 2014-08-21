@@ -67,7 +67,7 @@
 .studentClass .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
 .studentClass .listCont .courseDesc{display: block;width: 240px;height: 154px;position: relative;}
 .studentClass .listCont .courseDesc .cDescImg{vertical-align: bottom;width: 240px;height: 154px;}
-.studentClass .listCont .hoverDesc{width: 240px;height: 154px;background-color: #2879a7;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
+.studentClass .listCont .hoverDesc{width: 240px;height: 154px;background-color: #5a6378;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentClass .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
 .studentClass .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;position: absolute; top:0px;left:10px;opacity: 0;filter:alpha(opacity=0);

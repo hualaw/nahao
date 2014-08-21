@@ -103,12 +103,13 @@
 .studentHomePage .stuListWrap{margin-top: 10px;height: 199px;border:1px solid #e0e0e0;background-color: #fff;} 
 .studentHomePage .stuListWrap .tHeader{height: 40px;line-height: 40px;background-color:#f3f3f3; }
 .studentHomePage .stusTitle{font-weight: normal; font-size: 14px;padding-left: 12px;}
-.studentHomePage .stuListView{width: 700px;overflow: hidden;margin: 20px auto 0px;}
+.studentHomePage .stuListView{width: 700px;overflow: hidden;margin: 20px auto 0px;position: relative;}
 .studentHomePage .stuListInner{width: 10000px;}
 .studentHomePage .stuList{float: left;}
-.studentHomePage .stuList li{float: left;width: 122px;}
+.studentHomePage .stuList li{float: left;width: 122px;position: relative;}
 .studentHomePage .stuList li img{width: 90px;height: 90px; border-radius: 50%;}
 .studentHomePage .stuList li .stuName{display: block;text-align: center;width: 90px;margin-top: 13px;}
+.studentHomePage .stuList li .imgFilter{position: absolute;top:0px;left: 0px;display: block;width: 90px;height: 90px;background: url(../../images/studentHomePage/stus/90x90.png) center;}
 /*学院风采结束*/
 /*媒体报道开始*/
 .studentHomePage .mediaListWrap{margin-top: 10px;height: 148px;border:1px solid #e0e0e0;margin-bottom: 35px;background-color: #fff;}
