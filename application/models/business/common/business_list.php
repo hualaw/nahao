@@ -75,11 +75,11 @@ class Business_List extends NH_Model
     	}
     	//2.6 排序
     	$cateArr['orderArr'] = array(
-    		1 => array('name'=>'综合排序','title'=>'按默认推荐'),
-    		2 => array('name'=>'销量 ↓','title'=>'按销量从高到低'),
-    		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低'),
-    		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高'),
-    		5 => array('name'=>'时间 ↓','title'=>'按最新开课时间'),
+    		1 => array('name'=>'综合排序','title'=>'按默认推荐' ,'active_name' => '综合排序'),
+    		2 => array('name'=>'销量','title'=>'按销量从高到低' ,'active_name' => '销量从高到低'),
+    		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低' ,'active_name' => '价格从高到低'),
+    		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高' ,'active_name' => '价格从低到高'),
+    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '时间'),
     	);
     	$order_param = array(
     		'typeId'	=> $param['typeId'],
@@ -170,7 +170,7 @@ class Business_List extends NH_Model
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$subjectName.'">'.$subjectName.'</a>';
     		}
-    		$title 			= $stageName.$gradeName.$orderName.$subjectName.$cateName.'课程列表_如何提升应试能力-';
+    		$title 			= $stageName.$gradeName.$orderName.$subjectName.$cateName.'课程列表_如何快速提升'.$stageName.$gradeName.$subjectName.'应试能力-';
     	}elseif($param['typeId'] == QUALITY_STUDY){
     		$orderName = $qualityName = '';
     		if(!empty($param['order'])){
@@ -182,7 +182,8 @@ class Business_List extends NH_Model
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$qualityName.'">'.$qualityName.'</a>';
     		}
-    		$title 			= $orderName.$qualityName.$cateName.'课程列表_如何提高自身素质修养-';
+   			$subtitle 		= $qualityName ? '教你如何成为'.$qualityName.'高手' : '教你如何提高自身素质与修养';
+    		$title 			= $orderName.$qualityName.$cateName.'课程列表_'.$subtitle.'-';
     	}
     	$title 				.= !empty($param['page']) ? '第'.$param['page'].'页' : '';
     	return array('title'=>$title,'pos'=>$pos);
@@ -217,8 +218,18 @@ class Business_List extends NH_Model
 				$val['icon'][] 	= array('name'=>'免费试听','class'=>'mark4');
 			}
 			//疯狂热卖： 购买人数超过150
-			if($val['bought_count']>150){
+			if(($val['bought_count'] + $val['extra_bought_count']) >150){
 				$val['icon'][] 	= array('name'=>'疯狂热卖','class'=>'mark5');
+			}
+			//课程类型
+			if($val['course_type']){
+				$course_type_Arr = config_item('course_type');
+				$val['icon'][] 	= array('name'=>$course_type_Arr[$val['course_type']],'class'=>'mark7');
+			}
+			//教材版本
+			if($val['material_version']){
+				$material_version_Arr = config_item('material_version');
+				$val['icon'][] 	= array('name'=>$material_version_Arr[$val['material_version']],'class'=>'mark8');
 			}
     		//日期
     		$val['start_date'] 	= date('m年d月 H:i',$val['start_time']);
@@ -231,7 +242,10 @@ class Business_List extends NH_Model
     		//subtitle
     		$val['subtitle']	= (mb_substr($val['subtitle'],0,50,'UTF-8')).(strlen($val['subtitle'])>50 ? '...' : '');
     		//teacher_intro
-    		$val['teacher_intro']= (mb_substr($val['teacher_intro'],0,50,'UTF-8')).(strlen($val['teacher_intro'])>50 ? '...' : '');
+    		$val['teacher_intro']= htmlspecialchars_decode($val['teacher_intro']);
+    		//价格整形
+    		$val['price']		= intval($val['price']);
+    		$val['sale_price']	= intval($val['sale_price']);
     	}
     	return array('data' => $list , 'total' =>$counter[0]['total']);
     }
@@ -292,20 +306,22 @@ class Business_List extends NH_Model
     	$config['pages'] = ceil($config['total']/$config['num']);
     	$config['base_link'] = $config['base_link'];
     	$pageBar = '<ul>';
-    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'" class="pageButton">首页</a></li>' : '';
-    	$pageBar .= $config['page']>2  ? '<li><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'" class="pageButton">< 上一页</a></li>' : '';
+    	$pageBar .= $config['page']>2  ? '<li class="prev"><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'">上一页</a></li>' : '';
+    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'">1</a></li>' : '';
+    	$pageBar .= $config['page']>4 ? '<li class="more"><a>...</a></li>' : '';
     	
     	for ($i=1;$i<=$config['pages'];$i++){
     		$li = '';
     		if($i==($config['page']-2) || $i==($config['page']-1) || $i==($config['page']+2) || $i==($config['page']+1)){
-    			$li = '<li><a href="'.str_replace('.html','_p'.$i.'.html',$config['base_link']).'">'.$i.'</a></li>';
+    			$li = ($i!=1 && $i!=$config['pages']) ? '<li><a href="'.str_replace('.html','_p'.$i.'.html',$config['base_link']).'">'.$i.'</a></li>' : '';
     		}elseif($i==$config['page']){
     			$li = '<li class="active"><a>'.$i.'</a></li>';
     		}
     		$pageBar .=$li;
     	}
-    	$pageBar .= $config['page']>1 && $config['page']<($config['pages']-1) ? '<li><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'" class="pageButton">下一页 ></a></li>' : '';
-    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'" class="pageButton">尾页['.$config['pages'].']</a></li>' : '';
+    	$pageBar .= ($config['page']<$config['pages']-3) && $config['page']>0 ? '<li class="more"><a>...</a></li>' : '';
+    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'">'.$config['pages'].'</a></li>' : '';
+    	$pageBar .= $config['page']>0 && $config['page']<($config['pages']-1) ? '<li class="next"><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'">下一页</a></li>' : '';
     	$pageBar .= '</ul>';
     	return $pageBar;
    	}
