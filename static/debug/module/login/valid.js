@@ -65,7 +65,7 @@ define(function(require,exports){
                  errormsg: "长度是四位数字"
             },
             {   
-                 ele:".phone_checkbox",
+                 ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
@@ -107,7 +107,6 @@ define(function(require,exports){
                 $(".regEmailBox .epass").val(hash.toString());
             },
             callback:function(json){
-                alert('ok');
                 if(json.status =="ok"){
                     window.location=perfectUrl;
                 }else{
@@ -140,7 +139,7 @@ define(function(require,exports){
                 ignore:"ignore"
             },
             {   
-                 ele:".email_checkbox",
+                 ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
