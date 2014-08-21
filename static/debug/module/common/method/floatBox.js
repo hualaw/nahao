@@ -46,9 +46,9 @@ define(function(require,exports){
     	var _left=_item.prop("offsetLeft"),_top=_item.prop("offsetTop"),
     	_windowTop=$(window).scrollTop();
     	if(_windowTop>=_top){
-    		_target.css({"position":"fixed","top":"0px;","left":_left+"px","z-index":"100"});
+    		_target.css({"position":"fixed","top":"0px","left":_left+"px","z-index":"99"});
     	}else{
-    		_target.css({"position":"absolute","top":"0px;","left":"0px","z-index":"1"});
+    		_target.css({"position":"static","z-index":"1"});
     	}
     	_item.children(".historyListWrap")
     }
