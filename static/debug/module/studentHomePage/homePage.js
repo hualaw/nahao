@@ -329,5 +329,24 @@ define(function(require,exports){
                 errormsg: "验证码长度是4位"
             }
         ]);
+    },
+    //倒计时
+    exports.countDown=function(){
+        var _timeObj={},_timeInterval=[];
+        $(".countDown").each(function(){
+            var _this=$(this),_id=_this.attr("time_id")
+            _time=_this.attr("time");
+            _timeInterval[_id]=setInterval(function(){
+                var _tDay=new Date().getTime(),_dv=_time-_tDay;
+                if(_dv<=0){
+                    clearInterval(_timeInterval[_id]);
+                    return;
+                }
+                var _dd=Math.floor(_dv/86400000),_dh=Math.floor((_dv%86400000)/(60*60*1000)),
+                _dm=Math.floor((_dv%84600000)%3600000/60000),_ds=Math.floor((((_dv%84600000)%3600000)%6000)/1000);
+                _dd="0"+_dd,_dh=(_dh<9)?("0"+_dh):_dh,_dm=(_dm<9)?("0"+_dm):_dm,_ds=(_ds<9)?("0"+_ds):_ds;
+                $(".countDown[time_id="+_id+"]").html("距开课还剩<strong>"+_dd+"</strong>天<strong>"+_dh+"</strong>小时<strong>"+_dm+"</strong>分<strong>"+_ds+"</strong>秒");
+            },1000);
+        });
     }
 });
