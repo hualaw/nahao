@@ -200,6 +200,6 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .historyWrap .hDesc .valList{}
 .historyWrap .hDesc .price{color: #ce0000;font-weight: normal;}
 .historyWrap .hDesc .val{padding-left: 12px;text-decoration: line-through;color: #989898;}
-.historyWrap .noHistory{margin: 50px 0px;text-align: center;}
+.historyWrap .noHistory{margin: 40px 0px;text-align: center;}
 /*最近浏览记录结束*/
 
