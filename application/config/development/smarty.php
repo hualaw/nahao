@@ -7,7 +7,7 @@ $config['caching'] = false;
 $config['lifetime'] = 14400;
 $config['debugging'] = false;
 $config['compile_check'] = false;
-$config['force_compile'] = false;
+$config['force_compile'] = true;
 $config['left_delimiter'] = '{';
 $config['right_delimiter'] = '}';
 

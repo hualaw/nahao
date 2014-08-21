@@ -60,7 +60,7 @@
 									    <span class="mark mark{$smarty.const.ROUND_ICON_FENGKUANGREMAI}">{$round_icons[$smarty.const.ROUND_ICON_FENGKUANGREMAI]}</span>
                                     {/if}
 									{if isset($course_types[$v.course_type])}<span class="mark mark7">{$course_types[$v.course_type]}</span>{/if}
-									{if isset($material_versions[$v.material_version]) && $material_versions[$v.material_version] gt 1}<span class="mark mark8">{$material_versions[$v.material_version]}</span>{/if}
+									{if isset($material_versions[$v.material_version]) && ($v.material_version gt 1)}<span class="mark mark8">{$material_versions[$v.material_version]}</span>{/if}
 								</span>
                         <!-- 标签列表结束 -->
                         <a href="/ke_{$v.id}.html" class="courseDesc">
