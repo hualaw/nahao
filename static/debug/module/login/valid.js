@@ -65,7 +65,7 @@ define(function(require,exports){
                  errormsg: "长度是四位数字"
             },
             {   
-                 ele:"checkbox:first",
+                 ele:".phone_checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
@@ -107,6 +107,7 @@ define(function(require,exports){
                 $(".regEmailBox .epass").val(hash.toString());
             },
             callback:function(json){
+                alert('ok');
                 if(json.status =="ok"){
                     window.location=perfectUrl;
                 }else{
@@ -120,7 +121,7 @@ define(function(require,exports){
         _Form.addRule([{
                 ele: ".email",
                 datatype:"e",
-                ajaxurl:siteUrl + "register/check_email",
+                // ajaxurl:siteUrl + "register/check_email",
                 ajaxUrlName:'email',
                 nullmsg:"请输入邮箱地址",
                 errormsg:"长度6-30个字符的邮箱地址"
@@ -139,7 +140,7 @@ define(function(require,exports){
                 ignore:"ignore"
             },
             {   
-                 ele:"radio:first",
+                 ele:".email_checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
