@@ -43,9 +43,10 @@
                     <div class="cItem">
                         <!-- 标签列表开始 -->
 								<span class="markList">
-                                    {if $v.start_time gt $today_begin_time && $v.start_time lt $today_end_time}
+                                    {if $v.sell_begin_time gt $today_begin_time && $v.start_time lt $today_end_time}
 									    <span class="mark mark3">今日新课</span>
-                                    {elseif $v.start_time lt $today_begin_time+5*86400}
+                                    {/if}
+                                    {if $v.start_time lt $today_begin_time+5*86400}
 									    <span class="mark mark4">限时抢购</span>
                                     {/if}
 									{if isset($course_types[$v.course_type])}<span class="mark mark7">{$course_types[$v.course_type]}</span>{/if}
@@ -96,7 +97,7 @@
                         </p>
                         <!-- 课程价格结束 -->
                         <div class="cf cBottom">
-                            {if $smarty.const.TIME_STAMP lt $v.sell_end_time-5*86400}
+                            {if $smarty.const.TIME_STAMP gt $v.sell_end_time-5*86400 && $smarty.const.TIME_STAMP lt $v.sell_end_time}
                                 <span class="fl countDown" time="{$v.sell_end_time}" time_id="{$v.id}"></span>
                             {else}
                                 <span class="fl">{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>
