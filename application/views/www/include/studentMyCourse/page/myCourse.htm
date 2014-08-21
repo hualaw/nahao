@@ -70,6 +70,8 @@
             <a href="/course/buy_after/{$item.round_id}" class="cRedBtn enterBtn">进入课程</a>
         </li>
         {/foreach}
+        {else}
+        <div class='noCourseWrap'>暂无课程 </div>
         {/if}
     </ul>
  <div status = '0' class="page-status pageWrap">
@@ -126,6 +128,8 @@
             {/if}
         </li>
         {/foreach}
+        {else}
+        <div class='noCourseWrap'>暂无正在进行的课程 </div>
         {/if}
     </ul>
     <div status = '3' class="page-status">
@@ -178,6 +182,8 @@
             <a href="/course/buy_after/{$item.round_id}" class="cRedBtn enterBtn">进入课程</a>
         </li>
         {/foreach}
+        {else}
+        <div class='noCourseWrap'>暂无即将开始的课程 </div>
         {/if}
     </ul>
     <div status = '1' class="page-status">
@@ -230,6 +236,8 @@
             <a href="/course/buy_after/{$item.round_id}" class="cRedBtn enterBtn">进入课程</a>
         </li>
         {/foreach}
+        {else}
+        <div class='noCourseWrap'>暂无结束的课程 </div>
         {/if}
     </ul>
     <div status = '4' class="page-status">
@@ -278,9 +286,9 @@
                                     </span>
                                 </span>
                             </div>
-                            <p class="teacherDesc">
-                                {$item.teacher.teacher_intro|truncate:56:"...":true}
-                            </p>
+                            <div class="teacherDesc">
+                                {$item.teacher.teacher_intro|truncate:46:"...":true}
+                            </div>
                         </div>
                     </a>
 
@@ -323,9 +331,9 @@
 										</span>
 									</span>
                             </div>
-                            <p class="teacherDesc">
-                                {$item.teacher.teacher_intro|truncate:56:"...":true}
-                            </p>
+                            <div class="teacherDesc">
+                                {$item.teacher.teacher_intro|truncate:46:"...":true}
+                            </div>
                         </div>
                     </a>
                     <div class="ncDesc" >
