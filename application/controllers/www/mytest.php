@@ -11,7 +11,7 @@ class MyTest extends CI_Controller{
         $template='www/mytest/smarty.html';
 
         $page = 1;
-        $cache_id = $page; 
+        $cache_id = $page;
         //cache_id是用来区分由于参数不同而生成的不同页面,例如有两个参数page和type，可用 $cache_id = $page.'_'.$type; 
         if(!$this->smarty->isCached($template, $cache_id))
         {
