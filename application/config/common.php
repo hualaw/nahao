@@ -327,12 +327,12 @@ $config['McuAddr'][1] = '42.121.114.19:21443';
 $config['AES_key'] = 'NahaoVictory0704';
 
 //小图标
-$config['round_icon'][1] = '限时抢购';
-$config['round_icon'][2] = '免费试听';
-$config['round_icon'][3] = '正在直播';
-$config['round_icon'][4] = '即将开始';
-$config['round_icon'][5] = '今日新课';
-$config['round_icon'][6] = '疯狂热卖';
+$config['round_icon'][ROUND_ICON_XIANSHIQIANGGOU] = '限时抢购';
+$config['round_icon'][ROUND_ICON_MIANFEISHITING] = '免费试听';
+$config['round_icon'][ROUND_ICON_ZHENGZAIZHIBO] = '正在直播';
+$config['round_icon'][ROUND_ICON_JIJIANGKAISHI] = '即将开始';
+$config['round_icon'][ROUND_ICON_JINRIXINKE] = '今日新课';
+$config['round_icon'][ROUND_ICON_FENGKUANGREMAI] = '疯狂热卖';
 
 //课程类型
 $config['course_type'][0] = '全部课程';
