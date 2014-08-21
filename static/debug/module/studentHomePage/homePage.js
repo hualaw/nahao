@@ -223,8 +223,7 @@ define(function(require,exports){
     exports.countDown=function(){
         var _timeObj={},_timeInterval=[];
         $(".countDown").each(function(){
-            var _this=$(this),_id=_this.attr("time_id")
-            _time=parseInt(_this.attr("time"))*1000;
+            var _this=$(this),_id=_this.attr("time_id"),_time=parseInt(_this.attr("time"))*1000;
             _timeInterval[_id]=setInterval(function(){
                 var _tDay=new Date().getTime(),_dv=_time-_tDay;
                 if(_dv<=0){
