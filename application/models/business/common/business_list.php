@@ -242,7 +242,7 @@ class Business_List extends NH_Model
     		//subtitle
     		$val['subtitle']	= (mb_substr($val['subtitle'],0,50,'UTF-8')).(strlen($val['subtitle'])>50 ? '...' : '');
     		//teacher_intro
-//    		$val['teacher_intro']= (mb_substr($val['teacher_intro'],0,50,'UTF-8')).(strlen($val['teacher_intro'])>50 ? '...' : '');
+    		$val['teacher_intro']= htmlspecialchars_decode($val['teacher_intro']);
     	}
     	return array('data' => $list , 'total' =>$counter[0]['total']);
     }
