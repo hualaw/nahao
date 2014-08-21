@@ -243,6 +243,9 @@ class Business_List extends NH_Model
     		$val['subtitle']	= (mb_substr($val['subtitle'],0,50,'UTF-8')).(strlen($val['subtitle'])>50 ? '...' : '');
     		//teacher_intro
     		$val['teacher_intro']= htmlspecialchars_decode($val['teacher_intro']);
+    		//价格整形
+    		$val['price']		= intval($val['price']);
+    		$val['sale_price']	= intval($val['sale_price']);
     	}
     	return array('data' => $list , 'total' =>$counter[0]['total']);
     }
