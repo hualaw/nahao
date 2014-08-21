@@ -23,9 +23,9 @@ class Business_employment extends NH_Model
      * 获取招聘信息
      * @author shanghsikai@tizi.com
      */
-    public function get_employment()
+    public function get_employment($id)
     {
-        return $this->model_employment->getAll_employment();
+        return $this->model_employment->getAll_employment($id);
     }
 
     /**
@@ -51,6 +51,17 @@ class Business_employment extends NH_Model
 
             return $arr_return;
         }
+
+        if(!is_numeric($arr_insert['seq']))
+        {
+            $arr_return=array(
+                'status'=>'error',
+                'msg'=>'顺序不是一个数字',
+            );
+
+            return $arr_return;
+        }
+
         if($this->model_employment->unique_seq($arr_insert['seq']))
         {
             $arr_return=array(
@@ -67,6 +78,7 @@ class Business_employment extends NH_Model
             $arr_return=array(
                 'status'=>'ok',
                 'msg'=>'添加成功',
+                'redirect'=>'/employment'
             );
 
             return $arr_return;
@@ -89,12 +101,12 @@ class Business_employment extends NH_Model
      * 修改招聘信息
      * @author shangshikai@tizi.com
      */
-    public function modify_employment($arr_edit,$innate)//$innate  该招聘信息本身的顺序
+    public function modify_employment($arr_edit)
     {
-        $arr_edit['title']=trim($arr_edit['title']);
-        $arr_edit['desc']=trim($arr_edit['desc']);
-        $arr_edit['requirement']=trim($arr_edit['requirement']);
-        $arr_edit['seq']=trim($arr_edit['seq']);
+        $arr_modify['title']=trim($arr_edit['title']);
+        $arr_modify['desc']=trim($arr_edit['desc']);
+        $arr_modify['requirement']=trim($arr_edit['requirement']);
+        $arr_modify['seq']=trim($arr_edit['seq']);
         if($arr_edit['title']=='' || $arr_edit['desc']=='' || $arr_edit['requirement']=='' || $arr_edit['seq']=='')
         {
             $arr_return=array(
@@ -104,7 +116,16 @@ class Business_employment extends NH_Model
 
             return $arr_return;
         }
-        if($this->model_employment->unique_seq($arr_edit['seq'],$innate))
+        if(!is_numeric($arr_edit['seq']))
+        {
+            $arr_return=array(
+                'status'=>'error',
+                'msg'=>'顺序不是一个数字',
+            );
+
+            return $arr_return;
+        }
+        if($this->model_employment->unique_seq($arr_modify['seq'],trim($arr_edit['innate'])))
         {
             $arr_return=array(
                 'status'=>'error',
@@ -113,13 +134,14 @@ class Business_employment extends NH_Model
 
             return $arr_return;
         }
-        $arr_where=array(TABLE_EMPLOYMENT.'.id'=>$arr_edit['employment_id']);
-        $int_id=$this->model_employment->update_employment($arr_edit,$arr_where);
+        $arr_where=array(TABLE_EMPLOYMENT.'.id'=>trim($arr_edit['id']));
+        $int_id=$this->model_employment->update_employment($arr_modify,$arr_where);
         if($int_id>0)
         {
             $arr_return=array(
                 'status'=>'ok',
                 'msg'=>'修改成功',
+                'redirect'=>'/employment',
             );
 
             return $arr_return;
@@ -154,7 +176,7 @@ class Business_employment extends NH_Model
             $arr_edit=array(TABLE_EMPLOYMENT.'.is_open'=>1);
         }
         $arr_where=array(TABLE_EMPLOYMENT.'.id'=>$id);
-        $int_id=$this->model_employment->update_employment($arr_edit,$arr_where);
+        $int_id=$this->model_employment->go_employment($arr_edit,$arr_where);
         if($int_id>0)
         {
             $arr_return=array(
