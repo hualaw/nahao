@@ -1,4 +1,5 @@
 define(function(require,exports){
+    require("naHaoDialog");
     exports.topLogin=function(){
         var _Form=$(".topLoginForm").Validform({
             // 自定义tips在输入框上面显示
@@ -9,10 +10,8 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit:function(curform){
                 require("cryptoJs");
-                
                 var _email=curform.find("#top_username"),_pwd=curform.find("#top_password");
-                var hash = CryptoJS.SHA1(_pwd.val());
-                _pwd.val(hash.toString());
+                
                 if(_email.val()==""){
                     _email.addClass("Validform_error");
                     return false;
@@ -21,21 +20,23 @@ define(function(require,exports){
                      _pwd.addClass("Validform_error");
                     return false;
                 }
-
+                var hash = CryptoJS.SHA1(_pwd.val());
+                curform.find(".epass").val(hash.toString());
             },
-            callback:function(msg){
-                if(msg.status=='ok'){
+            callback:function(data){
+                if(data.status=='ok'){
                     location.reload();
                 }else{
-                    alert('帐号或者密码错误');
+                    $.dialog({
+                        content:data.msg
+                    });
                 }
             }
         });
-
         _Form.addRule([{
                  ele:"#top_username",
                  ignore:"ignore",
-                 datatype: "e",
+                 datatype: "m|e",
                  nullmsg: "请输入邮箱",
                  errormsg: "请输入正确的邮箱地址"
             },
