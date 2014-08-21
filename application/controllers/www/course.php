@@ -48,8 +48,7 @@ class Course extends NH_User_Controller {
         	$array_data['sale_price'] = round($array_data['sale_price']);
         	$array_data['price'] = round($array_data['price']);
         }
-
-		#最近浏览
+        #浏览记录
         $this->student_course->write_recent_view_data($array_data);
         $array_recent_view = $this->student_course->read_recent_view_data();
         #重要提醒
