@@ -48,18 +48,11 @@ class Classes extends NH_User_Controller {
     	$this->smarty->assign('view_list' 		, $view_list);
     	$this->smarty->display('www/student_class/index.html');
     }
-    // 课程列表----学科辅导
-//    function xueke(){
-//    	$this->smarty->display('www/student_class/index.html');
-//    }
-//    // 课程列表----素质教育
-//    function suzhi(){
-//    	$this->smarty->display('www/student_class/index.html');
-//    }
+    
     // 课程详情页面
-    function article(){
-    	$this->smarty->display('www/student_class/article.html');
-    }
+//    function article(){
+//    	$this->smarty->display('www/student_class/article.html');
+//    }
 
 }
 
