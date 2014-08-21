@@ -91,7 +91,7 @@
 .studentMyCourse .nearlyContList{width: 750px;margin: 20px auto;}
 .studentMyCourse .nearlyContList .nItem{width: 238px;height: 228px;border:1px solid #e0e0e0;margin: 0px 5px;}
 .studentMyCourse .nItemImg{width: 238px;height: 152px;}
-.studentMyCourse .nearlyContList .nItem .teacherWrap{display: none;background-color: #2879a7;color: #fff;width: 238px;height: 152px;}
+.studentMyCourse .nearlyContList .nItem .teacherWrap{display: none;background-color: #5a6378;color: #fff;width: 238px;height: 152px;}
 .studentMyCourse .nearlyContList .nItem:hover .teacherWrap{display: block;}
 .studentMyCourse .nearlyContList .nItem:hover .cnImgWrap{display: none;}
 .studentMyCourse .nearlyContList .teacherTop{padding: 15px 15px 0px 15px;}
@@ -465,9 +465,6 @@ overflow: hidden;}
 /* 新的详情页样式 开始 */
 .studentMyCourse .breadNav{margin-bottom: 10px;}
 .studentMyCourse .markList{position: absolute;right: 12px;top:-3px;}
-.studentMyCourse .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
-.studentMyCourse .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
-.studentMyCourse .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
 .studentMyCourse .buyCourse .startTime .price{padding: 0px 0px 15px;border-bottom: 1px solid #efefef;}
 .studentMyCourse .buyCourse .startTime .price .priceAfter{font-size: 20px;color: #ce0000;margin-right: 15px;}
 .studentMyCourse .buyCourse .startTime .price .priceAfter i{font-size: 12px;}

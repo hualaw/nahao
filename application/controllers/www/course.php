@@ -48,8 +48,7 @@ class Course extends NH_User_Controller {
         	$array_data['sale_price'] = round($array_data['sale_price']);
         	$array_data['price'] = round($array_data['price']);
         }
-
-		#最近浏览
+        #浏览记录
         $this->student_course->write_recent_view_data($array_data);
         $array_recent_view = $this->student_course->read_recent_view_data();
         #重要提醒
@@ -76,6 +75,8 @@ class Course extends NH_User_Controller {
         $this->smarty->assign('evaluate_count', $str_evaluate_count);
         $this->smarty->assign('array_recent_view', $array_recent_view);
         $this->smarty->assign('array_notice', $array_notice);
+        $this->smarty->assign('material_versions', config_item('material_version'));
+        $this->smarty->assign('course_types', config_item('course_type'));
         $this->smarty->display('www/studentMyCourse/buyBefore.html');
 	}
 	
@@ -408,6 +409,8 @@ class Course extends NH_User_Controller {
 	 	$this->smarty->assign('evaluate_count', $str_evaluate_count);
 	 	$this->smarty->assign('array_recent_view', $array_recent_view);
 	 	$this->smarty->assign('array_notice', $array_notice);
+	 	$this->smarty->assign('material_versions', config_item('material_version'));
+	 	$this->smarty->assign('course_types', config_item('course_type'));
 	 	$this->smarty->display('www/studentMyCourse/buyDetail.html');
 	 }
 	 

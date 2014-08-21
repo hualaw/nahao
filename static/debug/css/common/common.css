@@ -139,11 +139,14 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .login .codeSpan{padding:0 8px;margin-left: 10px;}
 /*全站分页代码样式开始*/
 .page {margin:10px 0px; line-height:30px;}
+.page>ul{float: right;width: auto!important;}
+.page .pageUl{float: right;width: auto!important;}
+.page ul li{float: left;}
 .page a{float:left;height: 22px;line-height: 22px;padding: 0 10px;font-size: 12px;color: #0e78e1;margin-right: 3px;background: #fff;text-align: center;border:1px solid #e0e0e0;}
 .page .prev{background: #fff url(../../images/common/prev.gif) center no-repeat;}
-.page .next{text-align:right;padding: 0 36px 0 0;background: url(../../images/common/next.gif) center no-repeat;margin-left: 9px;}
+.page .next{text-align:right;padding: 0;background: url(../../images/common/next.gif) center no-repeat;margin-left: 9px;}
 .page .prev a{background: #fff url(../../images/common/prev.gif) 5px center no-repeat;color: #333;}
-.page .next a{background: #fff url(../../images/common/next.gif) 48px center no-repeat;color: #333;}
+.page .next a{background: #fff url(../../images/common/next.gif) 48px center no-repeat;color: #333;margin-right: 0px;}
 .page span{margin:0 4px;}
 .page .more{}
 .page li.active a,
@@ -184,4 +187,19 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .markList .mark7{background: url("../../images/common/flags/mark7.png") no-repeat center transparent;_background: url("../../images/common/flags/mark7_8.png") no-repeat center transparent;}
 .markList .mark8{background: url("../../images/common/flags/mark8.png") no-repeat center transparent;_background: url("../../images/common/flags/mark8_8.png") no-repeat center transparent;}
 /*小彩旗结束*/
+/*最近浏览记录开始*/
+.historyWrap{position: relative; }
+.historyWrap .historyListWrap{background-color: #fff;border:1px solid #e0e0e0;width: 218px;} 
+.historyWrap .hHeader{font-size:14px;height: 35px;line-height: 35px;padding-left: 12px;}
+.historyWrap .deletHistory{color: #cb0000;font-size:12px;padding-right:15px;}
+.historyWrap .historyList{overflow: hidden;padding: 0 12px;}
+.historyWrap .hItem{border-top: 1px dashed #e0e0e0;display: block;margin-top: -1px;padding: 20px 0;}
+.historyWrap .hPic{height: 51px;width: 80px;}
+.historyWrap .hDesc{width: 100px;}
+.historyWrap .hDesc .hSmallTitle{display: block;font-size:12px;height: 30px;line-height: 15px;margin-bottom:5px;overflow: hidden;}
+.historyWrap .hDesc .valList{}
+.historyWrap .hDesc .price{color: #ce0000;font-weight: normal;}
+.historyWrap .hDesc .val{padding-left: 12px;text-decoration: line-through;color: #989898;}
+.historyWrap .noHistory{margin: 40px 0px;text-align: center;}
+/*最近浏览记录结束*/
 

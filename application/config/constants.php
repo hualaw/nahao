@@ -25,6 +25,8 @@ define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
 define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
 define('SWITCH_WWW_INDEX_COURSE_LIST',1);
 
+define('HOT_NEW_COURSE',1);      //我的课程页   > 近期课程和热报课程
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -476,6 +478,15 @@ define('CATE_QUALITY_ZIRANPINDU',9);//自然拼读
 define('CATE_QUALITY_MOFANG',10);//魔方
 define('CATE_QUALITY_OTHER',100);//其他
 
+//round icon
+define('ROUND_ICON_XIANSHIQIANGGOU',1);//限时抢购
+define('ROUND_ICON_MIANFEISHITING',2);//免费试听
+define('ROUND_ICON_ZHENGZAIZHIBO',3);//正在直播
+define('ROUND_ICON_JIJIANGKAISHI',4);//即将开始
+define('ROUND_ICON_JINRIXINKE',5);//今日新课
+define('ROUND_ICON_FENGKUANGREMAI',6);//疯狂热卖
+
+define('ROUND_ICON_FENGKUANGREMAI_EDGE',150);//疯狂热卖阈值
 
 //switch
 //define('SWITCH_WWW_INDEX_LIVE_SHOW',1);

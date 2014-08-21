@@ -327,12 +327,12 @@ $config['McuAddr'][1] = '42.121.114.19:21443';
 $config['AES_key'] = 'NahaoVictory0704';
 
 //小图标
-$config['round_icon'][1] = '限时抢购';
-$config['round_icon'][2] = '免费试听';
-$config['round_icon'][3] = '正在直播';
-$config['round_icon'][4] = '即将开始';
-$config['round_icon'][5] = '今日新课';
-$config['round_icon'][6] = '疯狂热卖';
+$config['round_icon'][ROUND_ICON_XIANSHIQIANGGOU] = '限时抢购';
+$config['round_icon'][ROUND_ICON_MIANFEISHITING] = '免费试听';
+$config['round_icon'][ROUND_ICON_ZHENGZAIZHIBO] = '正在直播';
+$config['round_icon'][ROUND_ICON_JIJIANGKAISHI] = '即将开始';
+$config['round_icon'][ROUND_ICON_JINRIXINKE] = '今日新课';
+$config['round_icon'][ROUND_ICON_FENGKUANGREMAI] = '疯狂热卖';
 
 //课程类型
 $config['course_type'][0] = '全部课程';
@@ -416,22 +416,22 @@ $config['cate_stage'] = array(
     CATE_STAGE_ALL => array(
         'name' => '全部学段',
         'parentId' => 1,
-        'chirdren' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+        'chirdren' => array(0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
     ),
     CATE_STAGE_PRIMARY => array(
         'name' => '小学',
         'parentId' => 1,
-        'chirdren' => array(3, 4, 5, 6),
+        'chirdren' => array(0, 3, 4, 5, 6),
     ),
     CATE_STAGE_JUNIOR => array(
         'name' => '初中',
         'parentId' => 1,
-        'chirdren' => array(7, 8, 9),
+        'chirdren' => array(0, 7, 8, 9),
     ),
     CATE_STAGE_SENIOR => array(
         'name' => '高中',
         'parentId' => 1,
-        'chirdren' => array(10, 11, 12),
+        'chirdren' => array(0, 10, 11, 12),
     ),
 );
 //年级数组 [ key = gradeId ] [parentId = stageId]
@@ -439,57 +439,57 @@ $config['cate_grade'] = array(
 	0 => array(
 		'name' => '全部年级',
         'parentId' => array(1,2,3),
-        'chirdren' => array(2, 3, 4, 5,9,10,12,13,100),
+        'chirdren' => array(0, 2, 3, 4, 5,9,10,12,13,100),
 	),
     3 => array(
         'name' => '三年级',
         'parentId' => 1,
-        'chirdren' => array(2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     4 => array(
         'name' => '四年级',
         'parentId' => 1,
-        'chirdren' => array(2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     5 => array(
         'name' => '五年级',
         'parentId' => 1,
-        'chirdren' => array(2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     6 => array(
         'name' => '六年级',
         'parentId' => 1,
-        'chirdren' => array(2, 3, 4,14,100),
+        'chirdren' => array(0, 2, 3, 4,14,100),
     ),
     7 => array(
         'name' => '七年级',
         'parentId' => 2,
-        'chirdren' => array(2, 3, 4,100),
+        'chirdren' => array(0, 2, 3, 4,100),
     ),
     8 => array(
         'name' => '八年级',
         'parentId' => 2,
-        'chirdren' => array(2, 3, 4,5,100),
+        'chirdren' => array(0, 2, 3, 4,5,100),
     ),
     9 => array(
         'name' => '九年级',
         'parentId' => 2,
-        'chirdren' => array(2, 3, 4,5,9,100),
+        'chirdren' => array(0, 2, 3, 4,5,9,100),
     ),
     10 => array(
         'name' => '高一',
         'parentId' => 3,
-        'chirdren' => array(2, 3, 4, 5, 9,100),
+        'chirdren' => array(0, 2, 3, 4, 5, 9,100),
     ),
     11 => array(
         'name' => '高二',
         'parentId' => 3,
-        'chirdren' => array(2, 3, 4, 5,9,10,12,13,100),
+        'chirdren' => array(0, 2, 3, 4, 5,9,10,12,13,100),
     ),
     12 => array(
         'name' => '高三',
         'parentId' => 3,
-        'chirdren' => array(2, 3, 4, 5,9,10,12,13,100),
+        'chirdren' => array(0, 2, 3, 4, 5,9,10,12,13,100),
     ),
 );
 //科目数组 [ key = subjectId ] [parentId = gradeId]
