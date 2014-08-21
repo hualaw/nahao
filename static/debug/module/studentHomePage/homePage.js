@@ -118,7 +118,7 @@ define(function(require,exports){
             var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
         }
     }
-    //验证注册   shangshikai@tizi.com
+    //首页右侧快速注册验证
     exports.register_check=function(){
         //加载验证码
         $(function(){
@@ -130,118 +130,7 @@ define(function(require,exports){
             e.preventDefault();
         });
 
-        var _lastError="",_lastBlur="",_msgObj={};
-        $(".loginForm input").blur(function(){
-            _lastBlur=$(this).attr("id");
-        });
-        //input表单获取焦点
-        $(".loginForm input").focus(function(){
-            $(this).removeClass("Validform_error");
-            $("#span_warning").text("").removeClass("Validform_checktip Validform_wrong");
-            for(var val in _msgObj){
-                if(val!=$(this).attr("id")&&_msgObj[val]!="通过信息验证！"){
-                    if(_msgObj[_lastBlur]&&_msgObj[_lastBlur]!="通过信息验证！"){
-                        $("#span_warning").text(_msgObj[_lastBlur]).addClass("Validform_checktip Validform_wrong");
-                        return;
-                    }
-                    $("#span_warning").text(_msgObj[val]).addClass("Validform_checktip Validform_wrong");
-                    return;
-                }
-            }
-        });
-        var _Form=$(".loginForm").Validform({
-            // 自定义tips在输入框上面显示
-            tiptype:function(msg,o,cssctl){
-                _msgObj[o.obj.attr("id")]=msg;
-                if(msg!="通过信息验证！"){
-                    var objtip=$("#span_warning");
-                    cssctl(objtip,o.type);
-                    objtip.text(msg);
-                    //console.log(msg);
-                    console.log( objtip.text());
-                }
-            },
-            showAllError:false,
-            ajaxPost:true,
-            beforeSubmit:function(curform){
-                var _email=curform.find("#email"),_pwd=curform.find("#password"),
-                _phone=curform.find("#phone"),_code=curform.find("#code"),
-                _msg="";
-                //邮箱为空
-                if(_email.val()==""){
-                    _msg=_email.attr("nullmsg");
-                    //_msgObj[_email.attr("id")]=_msg;
-                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
-                    _email.addClass("Validform_error");
-                    return false;
-                }
-                //密码为空
-                if(_pwd.val()==""){
-                    _msg=_pwd.attr("nullmsg");
-                    //_msgObj[_pwd.attr("id")]=_msg;
-                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
-                    _pwd.addClass("Validform_error");
-                    return false;
-                }
-                //验证码为空
-                if(_code.val()==""){
-                    _msg=_code.attr("nullmsg");
-                    //_msgObj[_code.attr("id")]=_msg;
-                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
-                    _code.addClass("Validform_error");
-                    return false;
-                }
-            },
-            callback:function(msg){
-                if(msg.status.toLowerCase()=='error'){
-                    $('#span_warning').css('color','red').show().text(msg.msg);
-                    return false;
-                }
-                if(msg.status=='ok'){
-                    location.reload();
-                }
-            }
-        });
-        _Form.addRule([{
-                 ele:"#email",
-                 ignore:"ignore",
-                 datatype: "e",
-                 forceRecheck:"true",
-                 noFocus:"noFocus",
-                 nullmsg: "请输入邮箱",
-                 errormsg: "请输入正确的邮箱地址"
-            },
-            {   
-                 ele:"#password",
-                 ignore:"ignore",
-                 datatype: "*6-20",
-                 forceRecheck:"true",
-                 noFocus:"noFocus",
-                 nullmsg: "请输入密码",
-                 errormsg: "密码长度只能在6-20位字符之间"
-            },
-            {   
-                ele: "#phone",
-                datatype:"m",
-                ignore:"ignore",
-                forceRecheck:"true",
-                noFocus:"noFocus",
-                errormsg:"请输入正确的手机号码"
-            },
-            {   
-                ele: "#code",
-                datatype:"/^\\w{4}$/",
-                ignore:"ignore",
-                forceRecheck:"true",
-                noFocus:"noFocus",
-                nullmsg:"请输入验证码",
-                errormsg:"验证码长度是4位"
-            }
-        ]);
-    };
-    // 首页右侧快速注册验证
-    exports.register_check_new = function(){
-        // 光标进入或者离开输入框验证
+         // 光标进入或者离开输入框验证
         $('.loginForm input').focusin(function(){
             $(this).removeClass('Validform_error');
             if($(this).val() == ''){
@@ -329,7 +218,7 @@ define(function(require,exports){
                 errormsg: "验证码长度是4位"
             }
         ]);
-    },
+    };
     //倒计时
     exports.countDown=function(){
         var _timeObj={},_timeInterval=[];
