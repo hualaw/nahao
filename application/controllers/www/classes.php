@@ -42,26 +42,19 @@ class Classes extends NH_User_Controller {
     	$view_list = $this->business_list->read_recent_view_data();
     	$course_url = config_item('course_url');
     	$this->smarty->assign('course_url', $course_url);
-    	$this->smarty->assign('seo' 			, $seo);
-    	$this->smarty->assign('cateList' 		, $cateList);
-    	$this->smarty->assign('list' 			, $data['data']);
-    	$this->smarty->assign('suggest_list' 	, $result['data']);
-    	$this->smarty->assign('pageBar' 		, $pageBar);
-    	$this->smarty->assign('array_recent_view' 		, $view_list);
+    	$this->smarty->assign('seo' 				, $seo);
+    	$this->smarty->assign('cateList' 			, $cateList);
+    	$this->smarty->assign('list' 				, $data['data']);
+    	$this->smarty->assign('suggest_list' 		, $result['data']);
+    	$this->smarty->assign('pageBar' 			, $pageBar);
+    	$this->smarty->assign('array_recent_view' 	, $view_list);
     	$this->smarty->display('www/student_class/index.html');
     }
-    // 课程列表----学科辅导
-//    function xueke(){
-//    	$this->smarty->display('www/student_class/index.html');
-//    }
-//    // 课程列表----素质教育
-//    function suzhi(){
-//    	$this->smarty->display('www/student_class/index.html');
-//    }
+    
     // 课程详情页面
-    function article(){
-    	$this->smarty->display('www/student_class/article.html');
-    }
+//    function article(){
+//    	$this->smarty->display('www/student_class/article.html');
+//    }
 
 }
 
