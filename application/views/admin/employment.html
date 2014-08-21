@@ -1,0 +1,24 @@
+<label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>标题</td>
+            <td>招聘信息</td>
+            <td>招聘要求</td>
+            <td>是否显示</td>
+            <td>顺序</td>
+        </tr>
+    </thead>
+    {foreach $list_employment as $v}
+    <tr>
+        <td>{$v.id}</td>
+        <td>{$v.title}</td>
+        <td>{$v.desc}</td>
+        <td>{$v.requirement}</td>
+        <td>{if $v.is_open==0}<button class="btn btn-success active show" data-is_open="{$v.is_open}">启用</button>{/if}</td>
+        <td>{$v.seq}</td>
+    </tr>
+    {/foreach}
+</table>
+{$page}

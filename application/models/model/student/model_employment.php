@@ -12,6 +12,17 @@ class Model_employment extends NH_Model{
     }
 
     /**
+     * @return mixed
+     * 查询所有招聘信息
+     * @author shangshikai@tizi.com
+     */
+    public function getAll_employment()
+    {
+        self::sql();
+        $arr_list=$this->db->get()->result_array();
+        return $arr_list;
+    }
+    /**
      * @return array
      * 查询启用的招聘信息
      * @author shangshikai@tizi.com
@@ -25,12 +36,23 @@ class Model_employment extends NH_Model{
     }
 
     /**
+     * @return mixed
+     * 统计招聘信息总数
+     * @author shangshikai@tizi.com
+     */
+    public function count_employment()
+    {
+        self::sql();
+        $int_num=$this->db->get()->num_rows();
+        return $int_num;
+    }
+    /**
      * 拼装sql查询语句
      * @author shangshikai@tizi.com
      */
     public function sql()
     {
-        $this->db->select(TABLE_EMPLOYMENT.'.`title`,`desc`,`requirement`,`is_open`,`seq`')->from(TABLE_EMPLOYMENT);
+        $this->db->select(TABLE_EMPLOYMENT.'.`id`,`title`,`desc`,`requirement`,`is_open`,`seq`')->from(TABLE_EMPLOYMENT);
     }
 
     /**
