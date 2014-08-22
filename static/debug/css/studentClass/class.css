@@ -1,6 +1,6 @@
 /* 课程列表页 开始 */
 .studentClass{}
-.studentClass .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding: 15px 0px 5px 15px;margin-top: 10px;}
+.studentClass .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding-left: 15px;margin-top: 10px;}
 .studentClass .filterBox .filterList{margin-bottom: 10px;}
 .studentClass .filterBox .filterList .tit{float: left;}
 .studentClass .filterBox .filterList ul{float: left;}
@@ -34,8 +34,8 @@
 .studentClass .courseRight{width: 220px;margin-top: 10px;}
 .studentClass .courseRight .buyCourseBox{border: 1px solid #e0e0e0;background: #fff;}
 .studentClass .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
-.studentClass .courseRight .buyCourseList{padding: 10px;}
-.studentClass .courseRight .buyCourseList li{margin-bottom: 10px;}
+.studentClass .courseRight .buyCourseList{padding: 10px;padding-bottom: 0px;}
+.studentClass .courseRight .buyCourseList li{margin-bottom: 20px;}
 .studentClass .courseRight .buyCourseList li img{width: 198px;height: 127px;display: block;}
 .studentClass .courseRight .buyCourseList li p{line-height: 18px;margin-top: 10px;margin-bottom: 3px;}
 .studentClass .courseRight .buyCourseList li .studyNum .price{color: #cb0000;}
@@ -67,10 +67,10 @@
 .studentClass .listCont .hoverDesc .teacherDesc{word-break: break-all;padding-right: 10px;color: #fff;line-height: 24px;position: absolute;left:10px;bottom: 0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentClass .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
-.studentClass .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px 15px 0px;font-weight: normal;}
+.studentClass .cItem .ctitle{font-size: 14px;margin: 0px;padding: 8px 10px 0px;font-weight: normal;}
 .studentClass .cItem .cTitleName{display: block;overflow: hidden;height: 38px;line-height: 19px;overflow: hidden;}
 .studentClass .cItem .cTitleDesc{color:#989898;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;}
-.studentClass .cItem .cDetail{margin: 0px 15px;margin-bottom: 10px;position: relative;}
+.studentClass .cItem .cDetail{margin: 5px 10px;margin-bottom: 10px;position: relative;}
 .studentClass .cItem .cBottom{padding: 0px 10px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
 .studentClass .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
 .studentClass .cItem .cBottom strong{color: #ce0000;display: inline-block;font-weight: normal;}
