@@ -3,14 +3,23 @@
 session_start();
 class TiziOauth {
 
+	// /*授权地址*/
+	// Const AUTORIZE_URL = "http://192.168.11.12:8787/oauth/show";
+	// /*获取accessToken Api*/
+	// Const ACCESSTOKEN_URL = "http://192.168.11.12:8787/oauth/access_token";
+	// /*获取用户资料  Api*/
+	// Const USER_INFO_URL = "http://192.168.11.12:8787/oauth/user/get_user_info";
+	// /*获取openid Api*/
+	// Const GET_OPENID_URL = "http://192.168.11.12:8787/oauth/me";
+
 	/*授权地址*/
-	Const AUTORIZE_URL = "http://192.168.11.12:8787/oauth/show";
+	Const AUTORIZE_URL = "http://www.nahao.com/oauth/show";
 	/*获取accessToken Api*/
-	Const ACCESSTOKEN_URL = "http://192.168.11.12:8787/oauth/access_token";
+	Const ACCESSTOKEN_URL = "http://www.nahao.com/oauth/access_token";
 	/*获取用户资料  Api*/
-	Const USER_INFO_URL = "http://192.168.11.12:8787/oauth/user/get_user_info";
+	Const USER_INFO_URL = "http://www.nahao.com/oauth/user/get_user_info";
 	/*获取openid Api*/
-	Const GET_OPENID_URL = "http://192.168.11.12:8787/oauth/me";
+	Const GET_OPENID_URL = "http://www.nahao.com/oauth/me";
 
 	public $client_id;
 
