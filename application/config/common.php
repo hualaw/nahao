@@ -334,13 +334,13 @@ $config['round_icon'][5] = '今日新课';
 $config['round_icon'][6] = '疯狂热卖';
 
 //课程类型
-$config['course_type'][0] = '全部课程类型';
+$config['course_type'][0] = '全部课程';
 $config['course_type'][1] = '同步精讲';
 $config['course_type'][2] = '精品培优';
 $config['course_type'][3] = '一轮复习';
 $config['course_type'][4] = '期中冲刺';
 $config['course_type'][5] = '期末冲刺';
-$config['course_type'][6] = '重难点突破';
+$config['course_type'][6] = '难点突破';
 $config['course_type'][7] = '数学精编';
 $config['course_type'][8] = '高中会考';
 $config['course_type'][9] = '素质教育';
@@ -352,7 +352,7 @@ $config['material_version'][3] = '北师大版';
 $config['material_version'][4] = '苏教版';
 $config['material_version'][5] = '人教新版';
 $config['material_version'][6] = '人教PEP';
-$config['material_version'][7] = '外研新标准';
+$config['material_version'][7] = '外研新版';
 $config['material_version'][8] = '新课标版';
 $config['material_version'][9] = '沪教版';
 $config['material_version'][10] = '鲁教版';
@@ -360,6 +360,7 @@ $config['material_version'][11] = '人教A';
 $config['material_version'][12] = '人教B';
 $config['material_version'][13] = '语文版';
 $config['material_version'][14] = '外研版';
+$config['material_version'][15] = '鲁科版';
 
 //教育类型
 $config['education_type'][1] = '学科教育';
