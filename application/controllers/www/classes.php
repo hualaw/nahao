@@ -48,6 +48,7 @@ class Classes extends NH_User_Controller {
     	$this->smarty->assign('suggest_list' 		, $result['data']);
     	$this->smarty->assign('pageBar' 			, $pageBar);
     	$this->smarty->assign('array_recent_view' 	, $view_list);
+    	$this->smarty->assign('body_class'		 	, $param['typeId']==1 ? 'navTutor' : 'navQualityEdu');
     	$this->smarty->display('www/student_class/index.html');
     }
     
