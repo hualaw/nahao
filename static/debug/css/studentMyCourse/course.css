@@ -276,7 +276,7 @@ transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-t
 .studentMyCourse .buyCourse .timeTitle .fl{}
 .studentMyCourse .buyCourse .startTime .more{color:#a2a2a2;cursor: inherit;}
 .studentMyCourse .buyCourse .startTime .ctimeOn{background: #fcd9cf url(../../images/studentMyCourse/activetime.png) right bottom no-repeat;border-color:#f14211;}
-.studentMyCourse .buyCourse .review{font-size: 14px;padding:15px 0px;border-bottom: 1px solid #efefef;}
+.studentMyCourse .buyCourse .review{font-size: 14px;padding:15px 40px 15px 0px;border-bottom: 1px solid #efefef;}
 .studentMyCourse .buyCourse .review strong{font-size: 16px;margin:0 30px 0 10px;}
 .studentMyCourse .buyCourse .review a{color:#a2a2a2;width: 150px;display: block;text-align: right;}
 .studentMyCourse .buyCourse .review a i{color: #ce0000;}
