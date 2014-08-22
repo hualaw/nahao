@@ -20,6 +20,13 @@
 .ValidformInfoBg .dec .dec1 {color: #ffbd5b;}
 .ValidformInfoBg .dec .dec2 {color: #ffe972;top: -10px;}
 /*信息框在input上面的样式结束*/
+
+.ValidformTipBg{background-color: #f8f8f8;border:1px solid #e0e0e0;}
+.ValidformTipBg .dec .dec1{color: #e0e0e0;}
+.ValidformTipBg .dec .dec2{color: #f8f8f8; top: -10px;}
+.ValidformTipBg.ValidformInfoBg{border:1px solid #ffbd5b;background-color:#ffe972;}
+.ValidformTipBg.ValidformInfoBg .dec .dec1{color: #ffbd5b;}
+.ValidformTipBg.ValidformInfoBg .dec .dec2{color: #ffe972;}
 /*全站头部登录的input上面的样式开始*/
 .topLoginForm .ValidformInfo{top: 34px;left: 0px;}
 .topLoginForm .ValidformInfo .dec{top:-8px;}
@@ -27,9 +34,3 @@
 .topLoginForm .ValidformInfo .dec .dec2 {top: 0px;}
 .topLoginForm .ValidformInfo.passTip .Validform_checktip {line-height: 20px;}
 /*全站头部登录的input上面的样式结束*/
-.ValidformTipBg{background-color: #f8f8f8;border:1px solid #e0e0e0;}
-.ValidformTipBg .dec .dec1{color: #e0e0e0;}
-.ValidformTipBg .dec .dec2{color: #f8f8f8;}
-.ValidformTipBg.ValidformInfoBg{border:1px solid #ffbd5b;background-color:#ffe972;}
-.ValidformTipBg.ValidformInfoBg .dec .dec1{color: #ffbd5b;}
-.ValidformTipBg.ValidformInfoBg .dec .dec2{color: #ffe972;}
