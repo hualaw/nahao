@@ -23,6 +23,28 @@ define(function (require, exports) {
 
     exports.bind_everything = function () {
 
+        var education_type = $('#education_type').val();
+        if(education_type==1){
+            $("#quality").attr("disabled",true);
+        }else if(education_type==2){
+            $("#subject").attr("disabled",true);
+        }else{
+            $("#quality,#subject").val(0);
+        }
+        //change education_type
+        $('#education_type').on("change",function(){
+            var education_type = $(this).val();
+            $("#quality,#subject").removeAttr("disabled");
+            $("#quality,#subject").val(0);
+            if(education_type==1){
+                $("#quality").attr("disabled",true);
+            }else if(education_type==2){
+                $("#subject").attr("disabled",true);
+            }else{
+                $("#quality,#subject").val(0);
+            }
+        });
+
         //round_list update status
         $('.round_operation').on("click", function () {
             var url = $(this).data('action');

@@ -30,7 +30,10 @@
 .topMiniNav .quickLink .attention i.narrow{background: url(../../images/common/header/ico_narrow.gif) no-repeat 0px -4px;display: block;width:6px;height:4px;margin-top:13px;margin-left:5px;}
 .topMiniNav .quickLink .attentionHover{background: #fff;border-left-color:#e1e1e1;border-right-color:#e1e1e1;}
 .topMiniNav .quickLink .attentionHover i.narrow{background-position: 0 0;}
-.topMiniNav .quickLink .attention ul{position: absolute;top: 30px;right:-1px;border-left:1px solid #e1e1e1;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;background: #fff;z-index: 2;line-height: 24px;}
+.topMiniNav .quickLink .attenHander{cursor: pointer;}
+.topMiniNav .quickLink .attenHanderBg{display: none;}
+.topMiniNav .quickLink .attentionHover .attenHanderBg{z-index: 5; background-color: #fff; width: 56px;height: 3px;position: absolute;top:29px;left:0px;display: block;}
+.topMiniNav .quickLink .attention ul{border-top:1px solid #e1e1e1; position: absolute;top: 30px;right:-1px;border-left:1px solid #e1e1e1;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;background: #fff;z-index: 2;line-height: 24px;}
 .topMiniNav .quickLink .attention ul li{width:132px;padding:10px 15px;}
 .topMiniNav .quickLink .attention .text{width:60px;margin-left:10px;}
 .topMiniNav .quickLink .attention img.fl{margin-top:8px;}

@@ -4,6 +4,10 @@
 define(function(require,exports){
     // 请求验证库
     require("validForm");
+    //dialog
+    require("naHaoDialog");
+    //加密
+    require("cryptoJs");
     //首页初始化函数
     exports.init=function(){
         //初始化幻灯切换
@@ -136,6 +140,10 @@ define(function(require,exports){
             if($(this).val() == ''){
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
             };
+            // 新增判断
+            if($(this).siblings('.normalText').html() == ''){
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+            }
         }).focusout(function(){
             if($(this).val() !== ''){
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg');
@@ -175,18 +183,23 @@ define(function(require,exports){
                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
-                if(curform.find('.phone').val() == ''){
-                    curform.find('.phone').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                    return false;
-                };
                 if(curform.find('.authCode').val() == ''){
                     curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
+                var hash = CryptoJS.SHA1(curform.find('.password').val());
+                curform.find(".epass").val(hash.toString());
             },
             callback:function(data){
-                alert(data);
-                return false;
+                if(data.status.toLowerCase()=='error'){
+                    $.dialog({
+                        content:data.msg
+                    });
+                    return false;
+                }
+                if(data.status=='ok'){
+                    location.reload();
+                }
             }
         });
         _Form.addRule([{
@@ -223,8 +236,7 @@ define(function(require,exports){
     exports.countDown=function(){
         var _timeObj={},_timeInterval=[];
         $(".countDown").each(function(){
-            var _this=$(this),_id=_this.attr("time_id")
-            _time=parseInt(_this.attr("time"))*1000;
+            var _this=$(this),_id=_this.attr("time_id"),_time=parseInt(_this.attr("time"))*1000;
             _timeInterval[_id]=setInterval(function(){
                 var _tDay=new Date().getTime(),_dv=_time-_tDay;
                 if(_dv<=0){

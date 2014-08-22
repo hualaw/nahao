@@ -44,7 +44,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
 .floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 100;display: none;}
-.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
+.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
 .floatBox a.feedback{margin-top: 0px;padding: 0px;}
 /*.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}*/
 .floatBox .ansQue{background: url(../../images/common/kefu.gif) no-repeat center;display: none;}
@@ -191,10 +191,10 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .historyWrap{position: relative; }
 .historyWrap .historyListWrap{background-color: #fff;border:1px solid #e0e0e0;width: 218px;} 
 .historyWrap .hHeader{font-size:14px;height: 35px;line-height: 35px;padding-left: 12px;}
-.historyWrap .deletHistory{color: #cb0000;font-size:12px;padding-right:15px;}
+.historyWrap .deletHistory{color: #cb0000;font-size:12px;padding-right:15px;line-height: 35px;height: 35px;position: absolute;top:0px;right: 0px;}
 .historyWrap .historyList{overflow: hidden;padding: 0 12px;}
 .historyWrap .hItem{border-top: 1px dashed #e0e0e0;display: block;margin-top: -1px;padding: 20px 0;}
-.historyWrap .hPic{height: 51px;width: 80px;}
+.historyWrap .hPic{height: 51px;width: 80px;float: left;}
 .historyWrap .hDesc{width: 100px;}
 .historyWrap .hDesc .hSmallTitle{display: block;font-size:12px;height: 30px;line-height: 15px;margin-bottom:5px;overflow: hidden;}
 .historyWrap .hDesc .valList{}

@@ -212,7 +212,7 @@ class Student_Index extends NH_Model{
 //            $str_fields = '*';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
-                'start_time <' => TIME_STAMP+7*86400,
+//                'start_time <' => TIME_STAMP+7*86400,
                 'is_live' => 0,
                 'is_test' => 0,
             );
