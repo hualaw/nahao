@@ -70,13 +70,6 @@ class register extends NH_Controller
 		echo parent::json_output($reg_ret);
 	}
 
-
-
-	public function verify_email()
-	{
-
-	}
-
     public function submit_personal_info()
     {
         $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'school_id',
