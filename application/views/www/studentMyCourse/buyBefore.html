@@ -68,16 +68,18 @@
                             <span class="fl timeBar">上课日期</span>
                             <input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
                             <a class="fl firmTime ctimeOn" href="#" title="">{$array_data.class_stime}－{$array_data.class_etime}</a>
+                             {if $array_round}
                             <div class="selectBox fl">
                                 <div class="selectInfo">更多日期选择</div>
                                 <ul class="selectUl undis">
-                                {if $array_round}
+                               
                     				{foreach from=$array_round item=item}
                                     <li data='{$item.id}'><a href="javascript:;" title="" >{$item.start_time}－{$item.end_time}</a></li>
                                     {/foreach}
-                        		{/if}
+                        		
                                 </ul>
                             </div>
+                            {/if}
                         </div>
                         <input type="hidden" id="product_id" value="{$array_data.id}">
                         {if !$is_login}
