@@ -135,12 +135,14 @@
         <div class="cf">
             <div class="detialLeft fl">
             {if $array_notice}
-                <dl class="importInfo cf">
-                    <dt>重要提醒</dt>
-                    <dd>
-						{$array_notice.content}
-                    </dd>
-                </dl>
+                <table class="importTable">
+                    <tbody>
+                        <tr>
+                            <td align="center"><div class="importInfo">重要提醒</div></td>
+                            <td>{$array_notice.content}</td>
+                        </tr>
+                    </tbody>
+                </table>
              {/if}
                 <ul id="course_info_nav" class="">
                     <li class="detail current" id="tab_course_detial" con="course_detial">课程简介</li>
@@ -240,13 +242,10 @@
                     </div>
                     <!-- 课程提要 结束 -->
                     <!-- 学员评价 开始 -->
-                    
                     <div id="course_content" class="course_info_item creview height">
-                            <h3 id="review">学员评价</h3>   
-                            <div>暂无评价</div>
-                     </div>  
+                        <div id="fpage">数据加载中...</div>
+                    </div>
                     <!-- 学员评价 结束 -->
-                    <div id="fpage">数据加载中...</div>
                 </div>
             </div>
             <div class="courseRight fr">

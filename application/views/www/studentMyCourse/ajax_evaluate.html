@@ -1,8 +1,6 @@
 
             		 {if $array_evaluate}
                     <!-- 学员评价 开始 -->
-                    <div id="course_content" class="course_info_item creview height">
-                   
                         <h3 id="review">学员评价</h3>
                         <ul>                   		
                     		{foreach from=$array_evaluate item=item}
@@ -30,12 +28,9 @@
                             </li>
                             {/foreach}                    		
                         </ul>
-                    </div>
                     {$page}
                     {else}
-                     <div id="course_content" class="course_info_item creview height">
-                            <h3 id="review">学员评价</h3>   
-                            <div>暂无评价</div>
-                     </div>                                      
+                    <h3 id="review">学员评价</h3>   
+                    <div class="hasNoContent">暂无评价</div>
                     {/if}
                     <!-- 学员评价 结束 -->
