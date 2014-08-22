@@ -15,7 +15,7 @@
         <div class="col-md-2">
             <select  class="form-control input-sm" name="subject">
                 <option value="">全部学科</option>
-                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
+                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v.name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -61,12 +61,15 @@
         <tr>
             <!--<td><input type="checkbox"></td>-->
             <td>{$v.id}</td>
-            <td>{$v.title}</td>
+            <td>
+                {$v.title}<br />
+                {if isset($education_types[$v.education_type])}教育类型：{$education_types[$v.education_type]}{/if}
+            </td>
             <td>{$v.lesson_count}</td>
             <td>{$v.nickname}</td>
             <td>{if isset($v.status)}{$course_status[$v.status]}{/if}</td>
-            <td>{$subjects[$v.subject]}</td>
-            <td>{$course_types[$v.course_type]}</td>
+            <td>{if $v.education_type gt 0 && isset($education_subjects[$v.education_type][$v.subject])}{$education_subjects[$v.education_type][$v.subject]}{else}{/if}</td>
+            <td>{if isset($course_types[$v.course_type])}{$course_types[$v.course_type]}{/if}</td>
             <td>{date('Y-m-d H:i',$v.create_time)}</td>
             <td>
                 <a href="/course/edit/{$v.id}">修改</a>
