@@ -5,7 +5,6 @@ define(function(require,exports){
         $('.topLoginForm input').focusin(function(){
             $(this).removeClass('Validform_error');
             if($(this).val() == ''){
-                //console.log($(this).siblings('.ValidformInfo'));
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
             };
             // 新增判断
@@ -23,7 +22,6 @@ define(function(require,exports){
         var _Form=$(".topLoginForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:function(msg,o,cssctl){
-                //o.obj.addClass("Validform_error");
                 if (!o.obj.is("form")) {
                     var objtip = o.obj.siblings().find(".Validform_checktip");
                     objtip.text(msg);
@@ -48,11 +46,11 @@ define(function(require,exports){
                 require("cryptoJs");
                 var _email=curform.find("#top_username"),_pwd=curform.find("#top_password");
                 if(_email.val()==""){
-                    //_email.addClass("Validform_error");
+                    curform.find('.username').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 }
                 if(_pwd.val()==""){
-                     //_pwd.addClass("Validform_error");
+                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 }
                 var hash = CryptoJS.SHA1(_pwd.val());
