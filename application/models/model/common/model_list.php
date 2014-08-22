@@ -38,7 +38,7 @@ class Model_List extends NH_Model
         	$column = 'count(DISTINCT r.id) total';
         	$sql = 'SELECT '.$column.' FROM round r'.$where;
         }else{#分页记录
-        	$column = 'DISTINCT r.id,r.title,r.subtitle,u.id teacher_id,u.nickname,u.avatar,ui.teacher_age,ui.teacher_intro,r.img,r.price,r.sale_price,r.sell_begin_time,r.sell_end_time,r.start_time,r.bought_count,r.extra_bought_count,r.teach_status';
+        	$column = 'DISTINCT r.id,r.title,r.subtitle,u.id teacher_id,u.nickname,u.avatar,ui.teacher_age,ui.teacher_intro,r.img,r.price,r.sale_price,r.sell_begin_time,r.sell_end_time,r.start_time,r.bought_count,r.extra_bought_count,r.teach_status,r.material_version,r.course_type';
 			$sql = "SELECT ".$column." FROM round r 
 				LEFT JOIN round_teacher_relation rtr ON rtr.round_id=r.id 
 				LEFT JOIN user u ON u.id=rtr.teacher_id 

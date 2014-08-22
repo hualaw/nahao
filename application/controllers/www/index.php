@@ -92,7 +92,7 @@ class Index extends NH_User_Controller
 //        o($arr_live_classes);
 
         //course_list
-        $int_per_page = 4;//PER_PAGE_NO;
+        $int_per_page = PER_PAGE_NO;
         $int_round_count = $this->index->get_round_count($arr_where);
         $arr_round_list = $this->index->get_round_list($arr_where, $int_start, $int_per_page);
 //        o($arr_round_list,true);
@@ -106,6 +106,7 @@ class Index extends NH_User_Controller
         $config['page_query_string'] = false;
         $this->pagination->initialize($config);
         parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
+//        o($this->pagination->create_links());
 //        o($arr_round_list,true);
 
         //record
@@ -113,16 +114,20 @@ class Index extends NH_User_Controller
         $arr_record_list = $this->student_course->read_recent_view_data();
 //        o($arr_record_list,true);
 
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('stage', config_item('stage'));
         $this->smarty->assign('material_versions', config_item('material_version'));
         $this->smarty->assign('course_types', $stage = config_item('course_type'));
+        $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
         $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d',time())));
         $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59',time())));
         $this->smarty->assign('focus_photo', $focus_photo);
         $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('round_list', $arr_round_list);
-        $this->smarty->assign('record_list', $arr_record_list);
+        $this->smarty->assign('array_recent_view', $arr_record_list);
         $this->smarty->assign('page',$this->pagination->create_links());
+        $this->smarty->assign('query_params', $arr_query_param);
         $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
         $this->smarty->display('www/studentHomePage/index.html');
     }

@@ -60,7 +60,7 @@
                 <!-- 进度条开始 -->
                 <div class="scheduleWrap">
                     <!-- 此处的进度条需要算出百分比 如75%-->
-                    <div class="scheduleInner" style="width:{($item.class/$item.totle_class)*100}%"></div>
+                    <div class="scheduleInner" {if $item.totle_class == 0}style="width:0%" {else}style="width:{($item.class/$item.totle_class)*100}%"{/if}></div>
                 </div>
                 <!-- 进度条结束 -->
 		   						<span>
@@ -115,7 +115,7 @@
                 <!-- 进度条开始 -->
                 <div class="scheduleWrap">
                     <!-- 此处的进度条需要算出百分比 如75%-->
-                    <div class="scheduleInner" style="width:{($item.class/$item.totle_class)*100}%"></div>
+                    <div class="scheduleInner" {if $item.totle_class == 0}style="width:0%" {else}style="width:{($item.class/$item.totle_class)*100}%"{/if}></div>
                 </div>
                 <!-- 进度条结束 -->
 		   						<span>
@@ -175,7 +175,7 @@
                 <!-- 进度条开始 -->
                 <div class="scheduleWrap">
                     <!-- 此处的进度条需要算出百分比 如75%-->
-                    <div class="scheduleInner" style="width:{($item.class/$item.totle_class)*100}%"></div>
+                    <div class="scheduleInner" {if $item.totle_class == 0}style="width:0%" {else}style="width:{($item.class/$item.totle_class)*100}%"{/if}></div>
                 </div>
                 <!-- 进度条结束 -->
 		   						<span>
@@ -230,7 +230,7 @@
                 <!-- 进度条开始 -->
                 <div class="scheduleWrap">
                     <!-- 此处的进度条需要算出百分比 如75%-->
-                    <div class="scheduleInner" style="width:{($item.class/$item.totle_class)*100}%"></div>
+                    <div class="scheduleInner" {if $item.totle_class == 0}style="width:0%" {else}style="width:{($item.class/$item.totle_class)*100}%"{/if}></div>
                 </div>
                 <!-- 进度条结束 -->
 		   						<span>

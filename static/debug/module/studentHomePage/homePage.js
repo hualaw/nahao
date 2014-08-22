@@ -4,6 +4,10 @@
 define(function(require,exports){
     // 请求验证库
     require("validForm");
+    //dialog
+    require("naHaoDialog");
+    //加密
+    require("cryptoJs");
     //首页初始化函数
     exports.init=function(){
         //初始化幻灯切换
@@ -118,7 +122,7 @@ define(function(require,exports){
             var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
         }
     }
-    //验证注册   shangshikai@tizi.com
+    //首页右侧快速注册验证
     exports.register_check=function(){
         //加载验证码
         $(function(){
@@ -130,123 +134,16 @@ define(function(require,exports){
             e.preventDefault();
         });
 
-        var _lastError="",_lastBlur="",_msgObj={};
-        $(".loginForm input").blur(function(){
-            _lastBlur=$(this).attr("id");
-        });
-        //input表单获取焦点
-        $(".loginForm input").focus(function(){
-            $(this).removeClass("Validform_error");
-            $("#span_warning").text("").removeClass("Validform_checktip Validform_wrong");
-            for(var val in _msgObj){
-                if(val!=$(this).attr("id")&&_msgObj[val]!="通过信息验证！"){
-                    if(_msgObj[_lastBlur]&&_msgObj[_lastBlur]!="通过信息验证！"){
-                        $("#span_warning").text(_msgObj[_lastBlur]).addClass("Validform_checktip Validform_wrong");
-                        return;
-                    }
-                    $("#span_warning").text(_msgObj[val]).addClass("Validform_checktip Validform_wrong");
-                    return;
-                }
-            }
-        });
-        var _Form=$(".loginForm").Validform({
-            // 自定义tips在输入框上面显示
-            tiptype:function(msg,o,cssctl){
-                _msgObj[o.obj.attr("id")]=msg;
-                if(msg!="通过信息验证！"){
-                    var objtip=$("#span_warning");
-                    cssctl(objtip,o.type);
-                    objtip.text(msg);
-                    //console.log(msg);
-                    console.log( objtip.text());
-                }
-            },
-            showAllError:false,
-            ajaxPost:true,
-            beforeSubmit:function(curform){
-                var _email=curform.find("#email"),_pwd=curform.find("#password"),
-                _phone=curform.find("#phone"),_code=curform.find("#code"),
-                _msg="";
-                //邮箱为空
-                if(_email.val()==""){
-                    _msg=_email.attr("nullmsg");
-                    //_msgObj[_email.attr("id")]=_msg;
-                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
-                    _email.addClass("Validform_error");
-                    return false;
-                }
-                //密码为空
-                if(_pwd.val()==""){
-                    _msg=_pwd.attr("nullmsg");
-                    //_msgObj[_pwd.attr("id")]=_msg;
-                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
-                    _pwd.addClass("Validform_error");
-                    return false;
-                }
-                //验证码为空
-                if(_code.val()==""){
-                    _msg=_code.attr("nullmsg");
-                    //_msgObj[_code.attr("id")]=_msg;
-                    $("#span_warning").text(_msg).addClass("Validform_checktip Validform_wrong");
-                    _code.addClass("Validform_error");
-                    return false;
-                }
-            },
-            callback:function(msg){
-                if(msg.status.toLowerCase()=='error'){
-                    $('#span_warning').css('color','red').show().text(msg.msg);
-                    return false;
-                }
-                if(msg.status=='ok'){
-                    location.reload();
-                }
-            }
-        });
-        _Form.addRule([{
-                 ele:"#email",
-                 ignore:"ignore",
-                 datatype: "e",
-                 forceRecheck:"true",
-                 noFocus:"noFocus",
-                 nullmsg: "请输入邮箱",
-                 errormsg: "请输入正确的邮箱地址"
-            },
-            {   
-                 ele:"#password",
-                 ignore:"ignore",
-                 datatype: "*6-20",
-                 forceRecheck:"true",
-                 noFocus:"noFocus",
-                 nullmsg: "请输入密码",
-                 errormsg: "密码长度只能在6-20位字符之间"
-            },
-            {   
-                ele: "#phone",
-                datatype:"m",
-                ignore:"ignore",
-                forceRecheck:"true",
-                noFocus:"noFocus",
-                errormsg:"请输入正确的手机号码"
-            },
-            {   
-                ele: "#code",
-                datatype:"/^\\w{4}$/",
-                ignore:"ignore",
-                forceRecheck:"true",
-                noFocus:"noFocus",
-                nullmsg:"请输入验证码",
-                errormsg:"验证码长度是4位"
-            }
-        ]);
-    };
-    // 首页右侧快速注册验证
-    exports.register_check_new = function(){
-        // 光标进入或者离开输入框验证
+         // 光标进入或者离开输入框验证
         $('.loginForm input').focusin(function(){
             $(this).removeClass('Validform_error');
             if($(this).val() == ''){
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
             };
+            // 新增判断
+            if($(this).siblings('.normalText').html() == ''){
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+            }
         }).focusout(function(){
             if($(this).val() !== ''){
                 $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg');
@@ -280,18 +177,29 @@ define(function(require,exports){
             beforeSubmit:function(curform){
                 if(curform.find('.email').val() == ''){
                     curform.find('.email').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                    curform.find('.password').next('.ValidformInfo').hide();
                     return false;
                 };
                 if(curform.find('.password').val() == ''){
                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                    curform.find('.email').next('.ValidformInfo').hide();
                     return false;
                 };
+                if(curform.find('.authCode').val() == ''){
+                    curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    return false;
+                };
+                var hash = CryptoJS.SHA1(curform.find('.password').val());
+                curform.find(".epass").val(hash.toString());
             },
             callback:function(data){
-                alert(data);
-                return false;
+                if(data.status.toLowerCase()=='error'){
+                    $.dialog({
+                        content:data.msg
+                    });
+                    return false;
+                }
+                if(data.status=='ok'){
+                    location.reload();
+                }
             }
         });
         _Form.addRule([{
@@ -307,7 +215,39 @@ define(function(require,exports){
                 datatype: "*6-20",
                 nullmsg: "请输入密码",
                 errormsg: "密码长度只能在6-15位字符之间"
+            },
+            {
+                ele:".phone",
+                ignore:"ignore",
+                datatype: "*6-20",
+                nullmsg: "请输入手机号",
+                errormsg: "手机号输入错误"
+            },
+            {
+                ele:".authCode",
+                ignore:"ignore",
+                datatype: "/^\\w{4}$/",
+                nullmsg: "请输入验证码",
+                errormsg: "验证码长度是4位"
             }
         ]);
+    };
+    //倒计时
+    exports.countDown=function(){
+        var _timeObj={},_timeInterval=[];
+        $(".countDown").each(function(){
+            var _this=$(this),_id=_this.attr("time_id"),_time=parseInt(_this.attr("time"))*1000;
+            _timeInterval[_id]=setInterval(function(){
+                var _tDay=new Date().getTime(),_dv=_time-_tDay;
+                if(_dv<=0){
+                    clearInterval(_timeInterval[_id]);
+                    return;
+                }
+                var _dd=Math.floor(_dv/86400000),_dh=Math.floor((_dv%86400000)/(60*60*1000)),
+                _dm=Math.floor((_dv%84600000)%3600000/60000),_ds=Math.floor((((_dv%84600000)%3600000)%6000)/1000);
+                _dd="0"+_dd,_dh=(_dh<9)?("0"+_dh):_dh,_dm=(_dm<9)?("0"+_dm):_dm,_ds=(_ds<9)?("0"+_ds):_ds;
+                $(".countDown[time_id="+_id+"]").html("距开课还剩<strong>"+_dd+"</strong>天<strong>"+_dh+"</strong>小时<strong>"+_dm+"</strong>分<strong>"+_ds+"</strong>秒");
+            },1000);
+        });
     }
 });
