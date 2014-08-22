@@ -44,7 +44,8 @@
 
                                 <div class="cf">
                                     <span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
-                                    <span class="fr"><em class="redText">{$item.bought_count+111}</em>人</span>
+                                    <span class="fr"><em class="redText">{$item.bought_count+$item.extra_bought_count}</em>人</span>
+
                                 </div>
                                 <div class="cf fitGrade">
                                     <span class="fl">适合{$item.for_people}</span>
