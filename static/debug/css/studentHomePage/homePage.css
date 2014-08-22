@@ -190,4 +190,19 @@
 .studentHomePage .historyWrap{margin-top: 10px;}
 /*浏览记录结束*/
 
-/*右侧边栏结束
+/*右侧边栏结束*/
+/*浏览器下载页*/
+.browserPage{background: #e5e5e5;}
+.browserPage .iebrowserBox{*padding-top: 160px;}
+.studentHomePage .browserBox{background: #f4f4f4;border: 1px solid #e4e4e4;height: 404px;margin-top: 32px;color: #494949;font-size: 16px;text-align: center;}
+.studentHomePage .browserBox h2,
+.studentHomePage .browserBox h3{font-weight: normal;}
+.studentHomePage .browserBox h2{margin:50px 0 38px;}
+.studentHomePage .browserBox ul{width: 840px;margin:0 auto;}
+.studentHomePage .browserBox li{padding-top: 150px;width: 210px;background-position: center top;background-repeat: no-repeat; }
+.studentHomePage .browserBox li.iniBrow{background-image: url(../../images/studentHomePage/browser1.png);_background-image: url(../../images/studentHomePage/browser1_8.png);}
+.studentHomePage .browserBox li.ieBrow{background-image: url(../../images/studentHomePage/browser2.png);_background-image: url(../../images/studentHomePage/browser2_8.png);}
+.studentHomePage .browserBox li.chromBrow{background-image: url(../../images/studentHomePage/browser3.png);_background-image: url(../../images/studentHomePage/browser3_8.png);}
+.studentHomePage .browserBox li.safaBrow{background-image: url(../../images/studentHomePage/browser4.png);_background-image: url(../../images/studentHomePage/browser4_8.png);}
+.studentHomePage .browserBox a{font-size: 14px;color: #f14211;border: 1px solid #f14211;display: inline-block;width: 100px;height: 30px;line-height: 30px;margin-top: 30px;}
+.studentHomePage .browserBox a:hover{width: 102px;height: 32px;line-height: 32px;background: #f14211;color: #fff;}
