@@ -206,28 +206,28 @@ class Business_List extends NH_Model
     	if($list) foreach ($list as &$val){
     		$val['icon'] = array();
     		//今日新课： 今天开卖
-    		if(date('Y-m-d',$val['sell_begin_time']) == date('Y-m-d',time())){
-    			$val['icon'][] 	= array('name'=>'今日新课','class'=>'mark6');
-    		}
-			//限时抢购： 距离销售结束时间小于5天
-			if((time() > $val['sell_end_time']) && ((time() - $val['sell_end_time']) < 86400*5)){
-				$val['icon'][] 	= array('name'=>'限时抢购','class'=>'mark3');
-			}
-			//免费试听： 0元
-			if($val['sale_price'] == 0){
-				$val['icon'][] 	= array('name'=>'免费试听','class'=>'mark4');
-			}
-			//疯狂热卖： 购买人数超过150
-			if(($val['bought_count'] + $val['extra_bought_count']) >150){
-				$val['icon'][] 	= array('name'=>'疯狂热卖','class'=>'mark5');
-			}
+//    		if(date('Y-m-d',$val['sell_begin_time']) == date('Y-m-d',time())){
+//    			$val['icon'][] 	= array('name'=>'今日新课','class'=>'mark6');
+//    		}
+//			//限时抢购： 距离销售结束时间小于5天
+//			if((time() > $val['sell_end_time']) && ((time() - $val['sell_end_time']) < 86400*5)){
+//				$val['icon'][] 	= array('name'=>'限时抢购','class'=>'mark3');
+//			}
+//			//免费试听： 0元
+//			if($val['sale_price'] == 0){
+//				$val['icon'][] 	= array('name'=>'免费试听','class'=>'mark4');
+//			}
+//			//疯狂热卖： 购买人数超过150
+//			if(($val['bought_count'] + $val['extra_bought_count']) >150){
+//				$val['icon'][] 	= array('name'=>'疯狂热卖','class'=>'mark5');
+//			}
 			//课程类型
 			if($val['course_type']){
 				$course_type_Arr = config_item('course_type');
 				$val['icon'][] 	= array('name'=>$course_type_Arr[$val['course_type']],'class'=>'mark7');
 			}
 			//教材版本
-			if($val['material_version']){
+			if($val['material_version'] && $val['material_version']!=1){
 				$material_version_Arr = config_item('material_version');
 				$val['icon'][] 	= array('name'=>$material_version_Arr[$val['material_version']],'class'=>'mark8');
 			}
@@ -305,6 +305,9 @@ class Business_List extends NH_Model
    		$config['page'] = $config['page']>0 ? $config['page'] : 1;
     	$config['pages'] = ceil($config['total']/$config['num']);
     	$config['base_link'] = $config['base_link'];
+    	if($config['pages']<=1){
+    		return '';
+    	}
     	$pageBar = '<ul>';
     	$pageBar .= $config['page']>2  ? '<li class="prev"><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'">上一页</a></li>' : '';
     	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'">1</a></li>' : '';
