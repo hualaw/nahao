@@ -67,7 +67,7 @@
 	</div>
 	<ul class="sortBox cf">
 		{foreach $cateList['orderArr'] as $key => $val}
-		<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['title']}">{$val['name']}</a></li>
+		<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['title']}">{if $val['is_active']}{$val['active_name']}{else}{$val['name']}{/if}</a></li>
 		{/foreach}
 	</ul>
 	<!--<div class="selectedBox">
@@ -117,9 +117,9 @@
 											</div>
 											<!-- 教师图像和简介结束 -->
 											<!-- 教师介绍开始 -->
-											<p class="teacherDesc">
+											<div class="teacherDesc">
 												{$val['teacher_intro']}
-											</p>
+											</div>
 											<!-- 教师介绍结束 -->
 										</div>
 									</div>
@@ -129,8 +129,7 @@
 								<!-- 课程标题和简介开始 -->
 								<h3 class="ctitle">
 									<a href="/ke_{$val['id']}.html" target="_blank">
-										<span class="cTitleName">{$val['title']}</span>
-										<span class="cTitleDesc">{$val['subtitle']}</span>
+										<span class="cTitleName" title="{$val['title']}">{$val['title']}</span>
 									</a>
 								</h3>
 								<!-- 课程标题和简介结束 -->
@@ -143,7 +142,7 @@
 								</p>
 								<!-- 课程价格结束 -->
 								<div class="cf cBottom">
-									<span class="fl">开课时间  {$val['start_date']}</span>
+									<span class="fl">{$val['start_date']}</span>
 									<span class="fr">
 										<strong>{$val['study_count']}</strong>人已学习
 									</span>
@@ -151,15 +150,18 @@
 							</div>
 						{/foreach}
 						{else}
-							<center><h4>该类别暂时没有课程~</h4></center>
+							<h4 class="noItemList">该类别暂时没有课程~</h4>
 						{/if}
 					</div>
 				</div>
-				
 			</div>
-			<div class="page cf">
-			{$pageBar}
+			<!-- 分页开始 -->
+			<div class="pager">
+				<div class="page cf">
+				{$pageBar}
+				</div>
 			</div>
+			<!-- 分页结束 -->
 		</div>
 		<div class="courseRight fr">
 			<div class="buyCourseBox">
@@ -176,24 +178,9 @@
 					{/if}
 				</ul>
 			</div>
-			<div class="history">
-				<h3 class="cf"><span class="fl">最近浏览</span><a class="clearCount fr" href="javascript:;">清空</a></h3>
-				{if $view_list}
-				<ul class="historyList">
-					{foreach $view_list as $val}
-					<li class="cf b_t_0">
-						<a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}"><img class="fl" src="{$val['img']}" alt="{$val['title']}"></a>
-						<div class="fl listRight">
-							<p><a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}">{$val['title']}</a></p>
-							<div><span class="fl price">￥{$val['sale_price']}</span><span class="priceHis fl">{$val['price']}</span></div>
-						</div>
-					</li>
-					{/foreach}
-				</ul>
-				{else}
-				<div class="historyNone">暂无浏览记录</div>
-				{/if}
-			</div>
+			<!-- 浏览记录开始 -->
+			{include file="www/studentMyCourse/history.html"}
+			<!-- 浏览记录结束 -->
 		</div>
 	</div>
 	<!-- 课程列表结束 -->

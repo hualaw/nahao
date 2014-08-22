@@ -2,33 +2,33 @@
     <!-- 课程列表的头部tab开始 -->
     <div class="cf chTitle">
         <ul class="cf fl tabList ">
-            <li class="tabItem firstTab active" link="cl_all_list">
-                <a href="/">
+            <li class="tabItem firstTab {if (isset($query_params['stage']) && $query_params['stage'] eq 0) || !isset($query_params['stage'])}active{/if}" link="cl_all_list">
+                <a href="/#list" name="list">
                     全部课程
                     <span class="bBr"></span>
                 </a>
             </li>
-            <li class="tabItem" link="cl_primary_list">
-                <a href="/?stage=1#index_course_list">
+            <li class="tabItem {if isset($query_params['stage']) && $query_params['stage'] eq $smarty.const.CATE_STAGE_PRIMARY}active{/if}" link="cl_primary_list">
+                <a href="/?stage={$smarty.const.CATE_STAGE_PRIMARY}#list">
                     小学
                     <span class="bBr"></span>
                 </a>
             </li>
-            <li class="tabItem" link="cl_middle_list">
-                <a href="/?stage={$smarty.const.CATE_STAGE_JUNIOR}#index_course_list">
+            <li class="tabItem {if isset($query_params['stage']) && $query_params['stage'] eq $smarty.const.CATE_STAGE_JUNIOR}active{/if}" link="cl_middle_list">
+                <a href="/?stage={$smarty.const.CATE_STAGE_JUNIOR}#list">
                     初中
                     <span class="bBr"></span>
                 </a>
             </li>
-            <li class="tabItem" link="cl_high_list">
-                <a href="/?stage=3#index_course_list">
+            <li class="tabItem {if isset($query_params['stage']) && $query_params['stage'] eq $smarty.const.CATE_STAGE_SENIOR}active{/if}" link="cl_high_list">
+                <a href="/?stage={$smarty.const.CATE_STAGE_SENIOR}#list">
                     高中
                     <span class="bBr"></span>
                 </a>
                 <span class="bottomBr"></span>
             </li>
         </ul>
-        <a href="#" class="fr moreLink">更多</a>
+        <a href="/list_t1.html" class="fr moreLink">更多</a>
     </div>
     <!-- 课程列表的头部tab结束 -->
     <!-- 课程列表开始 -->
@@ -43,13 +43,24 @@
                     <div class="cItem">
                         <!-- 标签列表开始 -->
 								<span class="markList">
-                                    {if $v.start_time gt $today_begin_time && $v.start_time lt $today_end_time}
-									    <span class="mark mark3">今日新课</span>
-                                    {elseif $v.start_time lt $today_begin_time+5*86400}
-									    <span class="mark mark4">限时抢购</span>
+                                    <!--限时抢购-->
+                                    {if $v.start_time lt $today_begin_time+5*86400}
+									    <span class="mark mark{$smarty.const.ROUND_ICON_XIANSHIQIANGGOU}">{$round_icons[$smarty.const.ROUND_ICON_XIANSHIQIANGGOU]}</span>
+                                    {/if}
+                                    <!--免费试听-->
+                                    {if $v.sale_price eq 0}
+									    <span class="mark mark{$smarty.const.ROUND_ICON_MIANFEISHITING}">{$round_icons[$smarty.const.ROUND_ICON_MIANFEISHITING]}</span>
+                                    {/if}
+                                    <!--今日新课-->
+                                    {if $v.sell_begin_time gt $today_begin_time && $v.start_time lt $today_end_time}
+									    <span class="mark mark{$smarty.const.ROUND_ICON_JINRIXINKE}">{$round_icons[$smarty.const.ROUND_ICON_JINRIXINKE]}</span>
+                                    {/if}
+                                    <!--疯狂热卖-->
+                                    {if $v.bought_count+$v.extra_bought_count gt $smarty.const.ROUND_ICON_FENGKUANGREMAI_EDGE}
+									    <span class="mark mark{$smarty.const.ROUND_ICON_FENGKUANGREMAI}">{$round_icons[$smarty.const.ROUND_ICON_FENGKUANGREMAI]}</span>
                                     {/if}
 									{if isset($course_types[$v.course_type])}<span class="mark mark7">{$course_types[$v.course_type]}</span>{/if}
-									{if isset($material_versions[$v.material_version])}<span class="mark mark8">{$material_versions[$v.material_version]}</span>{/if}
+									{if isset($material_versions[$v.material_version]) && ($v.material_version gt 1)}<span class="mark mark8">{$material_versions[$v.material_version]}</span>{/if}
 								</span>
                         <!-- 标签列表结束 -->
                         <a href="/ke_{$v.id}.html" class="courseDesc">
@@ -72,7 +83,7 @@
                                     </div>
                                     <!-- 教师图像和简介结束 -->
                                     <!-- 教师介绍开始 -->
-                                    <p class="teacherDesc" href="#">{$v.teacher_intro|truncate:150}</p>
+                                    <div class="teacherDesc" href="#">{$v.teacher_intro|htmlspecialchars_decode|truncate:150}</div>
                                     <!-- 教师介绍结束 -->
                                 </div>
                             </div>
@@ -89,14 +100,14 @@
                         <!-- 课程标题和简介结束 -->
                         <!-- 课程价格开始 -->
                         <p class="cDetail">
-                            <span class="price">￥<strong>{$v.sale_price}</strong></span>
-									<span class="cVal">价值<span>￥{$v.price}</span>
+                            <span class="price">￥<strong>{$v.sale_price|intval}</strong></span>
+									<span class="cVal">价值<span>￥{$v.price|intval}</span>
 									</span>
                             <a href="/ke_{$v.id}.html" class="cRedBtn learnBtn">马上学习</a>
                         </p>
                         <!-- 课程价格结束 -->
                         <div class="cf cBottom">
-                            {if $smarty.const.TIME_STAMP lt $v.sell_end_time-5*86400}
+                            {if $smarty.const.TIME_STAMP gt $v.sell_end_time-5*86400 && $smarty.const.TIME_STAMP lt $v.sell_end_time}
                                 <span class="fl countDown" time="{$v.sell_end_time}" time_id="{$v.id}"></span>
                             {else}
                                 <span class="fl">{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>

@@ -131,10 +131,8 @@ class CI_Pagination {
 		{
 			return '';
 		}
-
 		// Calculate the total number of pages
 		$num_pages = ceil($this->total_rows / $this->per_page);
-
 		// Is there only one page? Hm... nothing more to do here then.
 		if ($num_pages == 1)
 		{
