@@ -15,7 +15,7 @@ define(function(require,exports){
         //初始化首页的标签页
 //        require("module/common/method/tab_nav").init();
         //直播客silde
-        require("module/studentHomePage/slide").init($(".liveLessonWrap"),5000);
+        require("module/studentHomePage/slide").init($(".liveLessonWrap"),8000);
         //学员风采slide
         require("module/studentHomePage/slide").init($(".stuListCont"));
         //媒体报道slide
