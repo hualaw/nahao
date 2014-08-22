@@ -94,6 +94,7 @@ class Model_Course extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT student_id,nickname,content,create_time,score FROM ".TABLE_CLASS_FEEDBACK." WHERE course_id = ".$int_course_id." AND is_show = 1 AND score >=4 ORDER BY create_time DESC LIMIT ".$limit;
+// echo $sql;die;
         $array_result = $this->db->query($sql)->result_array();
         return  $array_result;
     }
@@ -106,7 +107,7 @@ class Model_Course extends NH_Model{
     public function get_evaluate_count($int_course_id)
     {
         $array_result = array();
-        $sql = "SELECT COUNT(id) AS num FROM ".TABLE_CLASS_FEEDBACK." WHERE course_id = ".$int_course_id." AND is_show =1";
+        $sql = "SELECT COUNT(id) AS num FROM ".TABLE_CLASS_FEEDBACK." WHERE course_id = ".$int_course_id." AND is_show =1 AND score >=4";
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -433,7 +434,7 @@ class Model_Course extends NH_Model{
     public function get_important_notice_data()
     {
     	$array_result = array();
-    	$sql = "SELECT content FROM ".TABLE_ROUND_NOTE." WHERE round_id = 0 ORDER BY top_time DESC LIMIT 1";
+    	$sql = "SELECT content FROM ".TABLE_ROUND_NOTE." WHERE round_id = 0 ORDER BY top_time DESC,create_time DESC LIMIT 1";
     	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result;
     }
