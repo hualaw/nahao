@@ -24,7 +24,7 @@ define(function(require,exports){
 			if(scrollTop == 0){
 				returnBtn.hide();
 			}else{
-				returnBtn.css({"display":"inline-block"});
+				returnBtn.css({"display":"block"});
 			}
 		}
 		//威信code hover绑定

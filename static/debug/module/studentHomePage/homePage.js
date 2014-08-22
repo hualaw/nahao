@@ -191,7 +191,7 @@ define(function(require,exports){
                 curform.find(".epass").val(hash.toString());
             },
             callback:function(data){
-                if(data.status=='error'){
+                if(data.status.toLowerCase()=='error'){
                     $.dialog({
                         content:data.msg
                     });
