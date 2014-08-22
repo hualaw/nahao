@@ -179,7 +179,7 @@ class Index extends NH_User_Controller {
             'user_type'=> $user_type,
             'action_type' => $action_type,
         );
-        if($classroom_id <= 0 OR $user_id <= 0 OR $action_type <= 0)
+        if($classroom_id <= 0 OR $user_id < 0 OR $action_type <= 0)
         {
             log_message('error_nahao', "save student class action failed,".print_r($info,1));
             die(ERROR);

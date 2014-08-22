@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$array_data.title}-{$array_data.seo_time}-那好网</title>
+<meta name="description" content="{$array_data.subtitle}" />
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+{include file="www/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body>
+<!-- 头部开始 -->
+{include file="www/include/header.htm"}
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
+    <div class="buyCourse buyBefore">
+        <!-- 购买前 头部 -->
+        <div class="buyHead">
+            <div class="buyHeadt">
+
+                <h2 title="{$array_data.title}">{$array_data.title}</h2>
+                <p title="{$array_data.subtitle}">{$array_data.subtitle}</p>
+
+            </div>
+            <div class="buyHeadf cf">
+      			<div class="posr fl">
+      			{if $array_data.sale_price == '0'}
+				<div class="courseFree"></div>
+				{/if}
+                <img src="{$array_data.class_img}" alt="" class="fl">
+                </div>
+                <div class="fl startTime">
+                    <div class="cf timeTitle">
+                        <span class="fl">开课时间</span>
+                        <span class="fr">{$array_data.class_nums}次／{$array_data.class_hour}课时</span>
+                    </div>
+                	<input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+                    <ul class="cf">
+                    	{if $array_round}
+                    	{foreach from=$array_round item=item}
+                        <li class="fl ctime {if $item.id == $array_data.id}ctimeOn{/if}">
+                            <a href="{$course_url}ke_{$item.id}.html">{$item.start_time}-{$item.end_time}</a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                        <li class="fl more">
+                            <input type="hidden" name="">
+                            更多班次敬请期待
+                        </li>
+                    </ul>
+                    <div class="review cf">
+                        <span class="starBg cf">
+                        {if $array_data.score > 0}
+                        {section name=loop loop=$array_data.score}
+                        	<span class="hreview"></span>
+                        {/section}
+						{/if}
+                        </span>
+                        <strong class="redText"></strong>
+                        <a href="#review">{$str_evaluate_count}条评价</a>
+                    </div>
+                    <p class="fromf cf">
+                        <span class="fl oldPrice">原价<span>￥{$array_data.price}</span></span>
+                        {if !$is_login}
+	                        {if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+							<input type="hidden" id="product_id" value="{$array_data.id}">
+							<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
+	                            <span class="fl">立即报名</span>
+	                            <span class="fr"></span>
+	                        </a>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+	                        <a href="javascript:void(0);" class="fr btn btn3">
+	                            <span class="fl">已售罄</span>
+	                            <span class="fr"></span>
+	                        </a>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+	                        <a href="javascript:void(0);" class="fr btn btn3">
+	                            <span class="fl">已停售</span>
+	                            <span class="fr"></span>
+	                        </a>
+	                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+	                        <a href="javascript:void(0);" class="fr btn btn3">
+	                            <span class="fl">已下架</span>
+	                            <span class="fr"></span>
+	                        </a>
+							{/if}
+						{else}
+							{if $buy_flag}
+							<a href="javascript:void(0);" class="fr btn btn3">
+	                            <span class="fl">已购买</span>
+	                            <span class="fr"></span>
+	                        </a>
+	                        {else}
+		                        {if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+								<input type="hidden" id="product_id" value="{$array_data.id}">
+								<a href="javascript:void(0);" class="fr btn btn3" id="soon_buy">
+		                            <span class="fl">立即报名</span>
+		                            <span class="fr"></span>
+		                        </a>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+		                        <a href="javascript:void(0);" class="fr btn btn3">
+		                            <span class="fl">已售罄</span>
+		                            <span class="fr"></span>
+		                        </a>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+		                        <a href="javascript:void(0);" class="fr btn btn3">
+		                            <span class="fl">已停售</span>
+		                            <span class="fr"></span>
+		                        </a>
+		                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+		                        <a href="javascript:void(0);" class="fr btn btn3">
+		                            <span class="fl">已下架</span>
+		                            <span class="fr"></span>
+		                        </a>
+								{/if}
+							{/if}
+						{/if}	
+                        <strong class="fr">¥
+                            <span class="redText">{$array_data.sale_price}</span>
+                        </strong>
+                    </p>
+                </div>
+                <div class="fr endTime">
+                    <div class="timeTitle">报名截止剩余时间</div>
+                    <div class="countdown"></div>
+                    <p class="cdp">仅剩 <span class="redText">  {$array_data.sold_out_count} 名额 </span>即售罄</p>
+                    <p class="prompt ensure">第二节课前可退全部学费</p>
+                    <p class="prompt retreat">未上课次可随时退款</p>
+                    <div class="bdsharebuttonbox share">
+                        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                        <a href="#" class="bds_more" data-cmd="more"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cf">
+            <!-- 购买前 左侧 -->
+            <div class="buyLeft fl posr">
+                <div class="slash"></div>
+                <!-- 课程简介 -->
+                <div class="introd cBox">
+                    <p>{$array_data.intro|truncate:250:"...":true}</p>
+                </div>
+                <!-- 适合学生 -->
+                <div class="fitStu cBox">
+					{$array_data.students|truncate:250:"...":true}
+                </div>
+                <!-- 课程大纲 -->
+                <div class="outline cBox">
+                {if $array_outline}
+                {foreach from=$array_outline item=item name="parent"}
+                
+                	<div class="outlineList">
+                		{if $item.id > 1}
+                        <h3 class="cf">
+                            <p title="第{$item.sequence+1}章&nbsp;&nbsp;{$item.title}">第{$item.sequence+1}章&nbsp;&nbsp;{$item.title}</p>
+                            <span class="fl"></span>
+                        </h3>
+                        {/if}
+                        <ul>
+                        	{if $item.son}
+	                        {foreach from=$item.son item=it name="son"}
+		                       <li class="cf">
+		                       		{if $smarty.foreach.son.last && $smarty.foreach.parent.last}
+	                                <div class="fl"></div>
+	                                {else}
+	                                <div class="fl line"></div>
+	                                {/if}
+	                                <div class="fr listb">
+	                                    <p class="listh" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}</p>
+	                                    <p class="listc">{$it.time}</p>
+	                                </div>
+	                            </li>
+	                        {/foreach}
+	                        {/if}
+                        </ul>
+                    </div>
+                {/foreach}
+                {/if}
+                </div>
+                <!-- 授课提要 -->
+                <div class="summary cBox">
+                    <div class="editorBox">
+                        <p>{$array_data.description}</p>
+                    </div>  
+                </div>
+                <!-- 课程评价 -->
+                <div class="creview cBox">                    
+                    <a name="review"></a>
+                    <ul>
+                    {if $array_evaluate}
+                    {foreach from=$array_evaluate item=item}
+                        <li class="cf">
+                            <img src="{$item.avatar}" alt="" class="fl">
+                            <div class="fr revCon">
+                                <h2 class="fl">
+                                    <strong>{$item.nickname}</strong>
+                                    <span></span>
+                                </h2>
+                                <div class="fr">
+                                    <span class="starBg">
+                                    {if $item.score}
+			                        {section name=loops loop=$item.score}
+			                        	<span class="hreview"></span>
+			                        {/section}
+			                        {/if}
+                                    </span>
+                                    <span class="revTimt">{$item.create_time|date_format:'%Y-%m-%d %H:%M'}</span>
+                                </div>
+                                <p>{$item.content}</p>
+                            </div>
+                        </li>
+                    {/foreach}
+                    {/if}
+                    </ul>
+                    <div class="fclick">
+                    {if $str_evaluate_count}
+                        <div class="cf">
+                            <span class="fr allReview">所有评论（共{$str_evaluate_count}条）</span>
+                        </div>
+                    {/if}
+                    {if $str_evaluate_count >=5}
+                        <a href="" class="loadMore">本页最多显示最近的5条评论</a>
+                    {/if}  
+                    {if !$is_login}
+                        	{if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
+							<input type="hidden" id="product_id_xia" value="{$array_data.id}">
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>购买课程</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已售罄</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已停售</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已下架</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+							{/if}
+					{else}
+						{if $buy_flag}
+						    <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已购买</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                        {else}
+                            {if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE}
+							<input type="hidden" id="product_id_xia" value="{$array_data.id}">
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf" id="soon_buy_xia">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>购买课程</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已售罄</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已停售</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+                            {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+                            <a href="javascript:void(0);" class="btn redBtn applyBtn cf">
+                            <span class="fl">
+                                ¥
+                                <strong>{$array_data.sale_price}</strong>
+                            </span>
+                            <span class="fr">
+                                <span>已下架</span>
+                                <em>未上课次随时退款</em>
+                            </span>
+                        	</a>
+							{/if}
+                        {/if}		
+					{/if}		
+                    </div>
+                </div>
+            </div>
+            <!-- 购买前 右侧 -->
+            <div class="buyRight fr">
+                <ul>
+                {if $array_team}
+                {foreach from=$array_team item=item}
+                    <li>
+                        <div class="headBox posr">
+                            <img src="{$item.avatar}" alt="" class="head">
+                            <div class="headR">
+                                <div class="teaDetail">
+                                    <span class="redText cMan">{$item.teacher_role}</span>
+                                    <strong>{$item.nickname}</strong>
+                                </div>
+                                <p>{$item.teacher_signature}教龄{$item.teacher_age}年</p>
+                            </div>
+                        </div>
+                        <p class="teaIntrod">
+							{$item.teacher_intro}
+                        </p>
+                    </li>
+				{/foreach}
+				{/if}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+{include file="www/include/js.htm"}
+<!--js引入结束-->
+<!-- player播放器js开始 -->
+<script type="text/javascript" src="{static_url('/lib/nahaoPlayer/6.7.0/TiZiplayer.js')}"></script>
+<!-- player播放器js结束 -->
+<!-- 悬浮框开始 -->
+<div class="floatBox">
+    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwOTkzNF8xNjEzODlfNDAwODY0ODY4Nl8yXw" target="_blank" class="ansQue">咨询答疑</a>
+    <a href="http://diaocha.tizi.com/survey/41" class="courSurvey" target="_blank">开课调查</a>
+    <a href="javascript:void(0);" class="feedback">意见反馈</a>
+    <a href="javascript:void(0);" class="returnTop">返回顶部</a>
+</div>
+<!-- 悬浮框结束 -->
+<!--意见反馈 开始-->
+<div class="feedbackHtml undis">
+	<div class="feedback">
+		<h2>意见反馈</h2>
+		<form action="/index/feedback/" class="feedbackForm" method="post">
+			<ul>
+				<li class="cf posr">
+					<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>
+					<div class="cf">
+						<textarea name="content" class="fTextarea fl ctextarea" validName="textarea"></textarea>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="posr">
+					<p class="formName">您的称呼</p>
+					<div class="cf">
+						<input type="text" placeholder="请输入您的称呼，以便我们和您联系" name="nickname" class="fname fl cInput" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li class="cf posr">
+					<p class="formName">您的邮箱</p>
+					<div class="cf">
+						<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题" name="email" class="fEmail fl cInput" validName="text">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li>
+					<input type="submit" class="noShowBtn redBtn submit" value="提交">
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+<!--意见反馈 结束-->
+</body>
+</html>

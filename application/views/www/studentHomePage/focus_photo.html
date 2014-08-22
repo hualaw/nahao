@@ -1,0 +1,24 @@
+<div class="cf">
+    <div class="fr banner bannerScroll" id="indexBanner">
+        <ul class="cf rollList">
+            {foreach $focus_photo as $k=>$v}
+            <li class="fl {if $k==0}rollshow{/if}">
+                <a href="http://www.nahao.com/ke_{$v.round_id}.html">
+                    <img src="{$smarty.const.NH_QINIU_URL}{$v.img_src}" alt="" width="570" height="293">
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+        <!-- banner焦点开始 -->
+        <ol class="cf rollNav indexlist">
+            {foreach $focus_photo as $k=>$v}
+            <li class="fl {if $k==0}active{/if}">{$k+1}</li>
+            {/foreach}
+        </ol>
+        <!-- banner焦点结束 -->
+        <!-- 左右切换开始 -->
+        <a class="bannerSlide next" href="javascript:void(0)"></a>
+        <a class="bannerSlide prev" href="javascript:void(0)"></a>
+        <!-- 左右切换结束 -->
+    </div>
+</div>

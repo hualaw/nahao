@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$seo['title']} - 大那好网</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentClass/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+{include file="www/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body class="myCoursePage">
+<!-- 头部开始 -->
+{include file="www/include/header.htm"}
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap layout studentClass" id="nahaoModule" module="studentClass">
+	<!--面包屑start-->
+	<div class="filterBox"><b>您的位置</b> : {$seo['pos']}</div>
+	<!--面包屑end-->
+	<!-- 筛选分类开始 -->
+	<div class="filterBox">
+		<div class="filterList cf">
+			<span class="tit">类型：</span>
+			<ul>
+				{foreach $cateList['typeArr'] as $key => $val}
+				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+		{if $param['typeId']==1}
+		<div class="filterList studySection cf">
+			<span class="tit">学段：</span>
+			<ul>
+				{foreach $cateList['stageArr'] as $key => $val}
+				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+		<div class="filterList studyGrade cf">
+			<span class="tit">年级：</span>
+			<ul>
+				{foreach $cateList['gradeArr'] as $key => $val}
+				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+		<div class="filterList cf">
+			<span class="tit">科目：</span>
+			<ul>
+				{foreach $cateList['subjectArr'] as $key => $val}
+				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+		{elseif $param['typeId']==2}
+		<div class="filterList cf">
+			<span class="tit">素质科目：</span>
+			<ul>
+				{foreach $cateList['qualityArr'] as $key => $val}
+				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+		{/if}
+	</div>
+	<ul class="sortBox cf">
+		{foreach $cateList['orderArr'] as $key => $val}
+		<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['title']}">{if $val['is_active']}{$val['active_name']}{else}{$val['name']}{/if}</a></li>
+		{/foreach}
+	</ul>
+	<!--<div class="selectedBox">
+		<dl class="selecte-attr clearfix">
+            <dt>您已经选择：</dt>
+            <dd>
+            	<a href="javascript:;">类型：<span style="color:#f60">学科辅导</span></a>
+                <a href="">学段：<span style="color:#f60">小学 ×</span></a>
+                <a href="">年级：<span style="color:#f60">三年级 ×</span></a>
+                <a href="">学科：<span style="color:#f60">数学 ×</span></a>
+            </dd>
+        </dl>
+	</div>-->
+	<!-- 筛选分类结束 -->
+	<!-- 课程列表开始 -->
+	<div class="courseBox layout cf">
+		<div class="courseLeft fl">
+			<div class="cf listCont">
+				<div class="cf tabContent">
+					<div class="cf item" itemname="cl_high_list">
+						{if $list}
+						{foreach $list as $val}
+						<div class="cItem">
+								<!-- 标签列表开始 -->
+								<span class="markList">
+								{if $val['icon']}
+									{foreach $val['icon'] as $icon}
+										<span class="mark {$icon['class']}">{$icon['name']}</span>
+									{/foreach}
+								{/if}
+								</span>
+								<!-- 标签列表结束 -->
+								<a href="/ke_{$val['id']}.html" target="_blank" class="courseDesc">
+									<img src="{$val['img_url']}" alt="{$val['title']}" class="cDescImg">
+									<!-- hover时候显示的教师信息开始 -->
+									<div class="hoverDesc">
+										<div class="innerDesc">
+											<!-- 教师图像和简介开始 -->
+											<div class="cf teacherWrap">
+												<img src="{$val['avater_url']}" alt="{$val['nickname']}" width="45" height="45" class="fl">
+												<!-- 教师姓名和教龄开始 -->
+												<span class="fl teacherName">
+													<strong>{$val['nickname']}</strong>
+													<span>{$val['teacher_age']}年教龄</span>
+												</span>
+												<!-- 教师姓名和教龄结束 -->
+											</div>
+											<!-- 教师图像和简介结束 -->
+											<!-- 教师介绍开始 -->
+											<div class="teacherDesc">
+												{$val['teacher_intro']}
+											</div>
+											<!-- 教师介绍结束 -->
+										</div>
+									</div>
+									<!-- hover时候显示的教师信息结束 -->
+								</a>
+								
+								<!-- 课程标题和简介开始 -->
+								<h3 class="ctitle">
+									<a href="/ke_{$val['id']}.html" target="_blank">
+										<span class="cTitleName" title="{$val['title']}">{$val['title']}</span>
+									</a>
+								</h3>
+								<!-- 课程标题和简介结束 -->
+								<!-- 课程价格开始 -->
+								<p class="cDetail">
+									<span class="price">￥<strong>{$val['sale_price']}</strong></span><br>
+									<span class="cVal">价值<span>￥{$val['price']}</span>
+									</span>
+									<a href="/ke_{$val['id']}.html" target="_blank" class="cRedBtn learnBtn">马上学习</a>
+								</p>
+								<!-- 课程价格结束 -->
+								<div class="cf cBottom">
+									<span class="fl">{$val['start_date']}</span>
+									<span class="fr">
+										<strong>{$val['study_count']}</strong>人已学习
+									</span>
+								</div>
+							</div>
+						{/foreach}
+						{else}
+							<h4 class="noItemList">该类别暂时没有课程~</h4>
+						{/if}
+					</div>
+				</div>
+			</div>
+			<!-- 分页开始 -->
+			<div class="pager">
+				<div class="page cf">
+				{$pageBar}
+				</div>
+			</div>
+			<!-- 分页结束 -->
+		</div>
+		<div class="courseRight fr">
+			<div class="buyCourseBox">
+				<h3>猜你喜欢</h3>
+				<ul class="buyCourseList">
+					{if $suggest_list}
+						{foreach $suggest_list as $val}
+						<li>
+							<a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}"><img src="{$val['img_url']}" alt="{$val['title']}"></a>
+							<p><a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}">{$val['title']}</a></p>
+							<div class="studyNum cf"><span class="fl price">￥{$val['sale_price']}</span><span class="fr"><i>{$val['study_count']}</i>人已学习</span></div>
+						</li>
+						{/foreach}
+					{/if}
+				</ul>
+			</div>
+			<!-- 浏览记录开始 -->
+			{include file="www/studentMyCourse/history.html"}
+			<!-- 浏览记录结束 -->
+		</div>
+	</div>
+	<!-- 课程列表结束 -->
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+{include file="www/include/js.htm"}
+<!--js引入结束-->
+</body>
+</html>

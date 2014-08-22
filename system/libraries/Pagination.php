@@ -106,6 +106,18 @@ class CI_Pagination {
 
 	// --------------------------------------------------------------------
 
+    function createJSlinks($js_func_name, $offset=0)
+    {
+        $this->cur_page = $offset;
+        $pagination_link = $this->create_links();
+        $pattern = '/(<a href=")(\S+)[=](\S*)(")/';
+        $replacement = '${1}javascript:' . $js_func_name . '(\'${3}\')${4}';
+        $link = preg_replace($pattern, $replacement, $pagination_link);
+        $pagination_link = $link;
+
+        return $pagination_link;
+    }
+
 	/**
 	 * Generate the pagination links
 	 *
@@ -119,10 +131,8 @@ class CI_Pagination {
 		{
 			return '';
 		}
-
 		// Calculate the total number of pages
 		$num_pages = ceil($this->total_rows / $this->per_page);
-
 		// Is there only one page? Hm... nothing more to do here then.
 		if ($num_pages == 1)
 		{

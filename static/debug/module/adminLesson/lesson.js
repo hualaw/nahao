@@ -75,7 +75,7 @@ define(function (require, exports) {
 //                            console.log(update_parent_id.data("is_chapter"));
                             if(action=="create"){
                                 var new_tr = '<tr class="lesson_list">';
-                                new_tr += '<td data-is_chapter="'+data['lesson_is_chapter']+'">'+response.id+'</td></tr>';
+                                new_tr += '<td data-is_chapter="'+data['lesson_is_chapter']+'" data-status="1">'+response.id+'</td></tr>';
 //                                console.log(new_tr);
                                 $("#lesson_list_tbody").append(new_tr);
                             }else{

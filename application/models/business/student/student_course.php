@@ -32,10 +32,15 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_result as $k=>$v)
             {
+            	
                 $array_result[$k]['start_time'] = date("m月d日",$v['start_time']);
                 $array_result[$k]['end_time'] = date("m月d日",$v['end_time']);
+                if ($v['id'] == $int_round_id){
+                	unset($array_result[$k]);
+                }
             }
         }
+//         var_dump($array_result);die;
         return $array_result;
     }
     
@@ -73,7 +78,7 @@ class Student_Course extends NH_Model{
             $class_num = $this->model_course->get_calss_hour_totle($int_round_id);
             $array_return['class_hour'] = $class_num['num'];
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
+            #$array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
             #$array_return['score'] = round($array_return['score']);
             #授课提要
@@ -81,6 +86,11 @@ class Student_Course extends NH_Model{
             #课程评分
             $course_score = $this->model_course->get_course_score($array_return['course_id']);
             $array_return['score'] = empty($course_score) ? 0 : round($course_score['score']);
+            #多少人学习
+            $array_return['study_count'] = $array_return['bought_count'] +$array_return['extra_bought_count'];
+            #轮里面的开课时间-结束时间
+            $array_return['class_stime'] = date('m月d日',$array_return['start_time']);
+            $array_return['class_etime'] =date('m月d日',$array_return['end_time']);
             
         }
         return $array_return;
@@ -207,7 +217,7 @@ class Student_Course extends NH_Model{
      * @param  $int_course_id
      * @return $array_return
      */
-    public function get_round_evaluate($int_round_id)
+    public function get_round_evaluate($int_round_id,$limit)
     {
         $array_return = array();
         #根据$int_round_id 找course_id
@@ -217,7 +227,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         #获取该课程所有评价（取审核通过的5条）
-        $array_return = $this->model_course->get_round_evaluate($int_course_id);
+        $array_return = $this->model_course->get_round_evaluate($int_course_id,$limit);
         if ($array_return)
         {
             foreach ($array_return as $kk=>$vv)
@@ -503,5 +513,141 @@ class Student_Course extends NH_Model{
     {
     	$bool_return = $this->model_course->check_round_status($int_round_id);
     	return $bool_return;
+    }
+    
+    /**
+     * 该课程系列的其他课程
+     * 学科辅导展示相同年级、相同科目的其他课程，最多展示5条.按照学习人数由高到低排列.
+     * 素质教育展示相同科目的其他课程，最多展示5条.按照学习人数由高到低排列
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_other_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>5
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_other_round_data($array_where);
+    	if ($array_result){
+    		foreach ($array_result as $k=>$v){
+    			#图片地址
+    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
+    		}
+    	}
+    	return $array_result;
+    }
+    
+    /**
+     * 看过本课程的用户还看了
+     * 学科辅导展示相同年级、不同科目的其他课程，固定展示10条.按照学习人数由高到低排列.
+     * 素质教育展示不同科目的其他课程，固定展示10条.按照学习人数由高到低排列)
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_recommend_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>10
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_recommend_round_data($array_where);
+    	if ($array_result){
+    		foreach ($array_result as $k=>$v){
+    			#图片地址
+    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
+    		}
+    	}
+    	return $array_result;
+    
+    }
+    
+    /**
+     * 最近浏览(写cookie)
+     */
+    public function write_recent_view_data($array_data)
+    {
+    	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
+    		
+			$json_decode_value = json_decode($_COOKIE['recent_view'],true);
+			$array_list = array();
+			foreach ($json_decode_value as  $k=>$v)
+			{
+				$array_list[$v['id']] = $v['id'];
+			}
+			if (!in_array($array_data['id'], $array_list))
+			{
+				
+			$array_add = array(
+	    				'id'=>$array_data['id'],
+	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
+	    				'title'=>$array_data['title'],
+	    				'price'=>$array_data['price'],
+	    				'sale_price'=>$array_data['sale_price']
+	    				);
+
+				array_push($json_decode_value,$array_add);
+			}
+			setcookie("recent_view", json_encode($json_decode_value),time()+24*60*60,'/');
+    	} else {
+    		$cookie_value = array(
+	    			array(
+	    				'id'=>$array_data['id'],
+	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
+	    				'title'=>$array_data['title'],
+	    				'price'=>$array_data['price'],
+	    				'sale_price'=>$array_data['sale_price']
+	    				));
+
+    		$json_cookie_value = json_encode($cookie_value);
+    		setcookie("recent_view", $json_cookie_value, time()+24*60*60,'/');
+    	}
+    }
+    
+    /**
+     * 最近浏览（读cookie）
+     */
+    public function read_recent_view_data()
+    {
+    	if (empty($_COOKIE['recent_view']))
+    	{
+    		return array();
+    	}
+    	$cookies = json_decode($_COOKIE['recent_view'],true);
+    	$cookies = array_reverse($cookies);
+    	$count = count($cookies);
+    	#浏览记录去5条;
+    	$nums = 5;
+    	if ($count<=$nums){
+    		return $cookies;
+    	} else {
+    		return array_slice($cookies,0,$nums);
+    	}
+    }
+    
+    /**
+     * 重要提醒
+     */
+    public function get_important_notice_data(){
+    	$array_return = array();
+    	$array_return = $this->model_course->get_important_notice_data();
+    	if ($array_return) {
+    		$array_return['content'] = htmlspecialchars_decode($array_return['content']);
+    	}
+    	return $array_return;
     }
 }

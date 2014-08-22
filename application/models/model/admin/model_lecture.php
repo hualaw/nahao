@@ -214,15 +214,20 @@
                 $this->load->model('model/common/model_redis', 'redis');
                 $this->redis->connect('session');
                 $redis_data=$this->cache->redis->get($session_id['session_id']);
-                $arr_data=json_decode($redis_data,TRUE);
-                $arr_data['user_data']=unserialize($arr_data['user_data']);
-                $arr_data['user_data']['user_type']=1;
-                $arr_data['user_data']=serialize($arr_data['user_data']);
-                $arr_data=json_encode($arr_data);
-                if($this->cache->redis->set($session_id['session_id'],$arr_data))
+                if($redis_data!=false)
                 {
-                    return TRUE;
+                    $arr_data=json_decode($redis_data,TRUE);
+                    $arr_data['user_data']=unserialize($arr_data['user_data']);
+                    $arr_data['user_data']['user_type']=1;
+                    $arr_data['user_data']=serialize($arr_data['user_data']);
+                    $arr_data=json_encode($arr_data);
+                    if($this->cache->redis->set($session_id['session_id'],$arr_data))
+                    {
+                        return TRUE;
+                    }
                 }
+
+                return TRUE;
             }
         }
         /**

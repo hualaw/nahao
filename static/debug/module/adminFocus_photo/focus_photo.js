@@ -112,5 +112,75 @@ define(function(require,exports){
                 }
             })
         })
+
+        $('#add_sort').blur(function(){
+            if(isNaN($.trim($('#add_sort').val())) || $.trim($('#add_sort').val())=="")
+            {
+                alert('不是一个数字或者为空');
+                return false;
+            }
+
+            $.ajax({
+                url:'/focus_photo/is_sort',
+                type:'post',
+                data:'sort='+$.trim($('#add_sort').val()),
+                success:function(msg)
+                {
+                    if(msg>0)
+                    {
+                        alert('顺序已存在');
+                    }
+                }
+            })
+        })
+
+        $('.edit_sort').click(function(){
+            $('#edit_id').val($(this).data('edit_id'));
+            $('#sort').val($(this).data('sort'));
+            $('#hidden_sort').val($(this).data('sort'));
+            $('#edit_sort').modal();
+        })
+
+        $('#modify').click(function(){
+            if($.trim($('#sort').val())==$('#hidden_sort').val())
+            {
+                alert('未作修改');
+                return false;
+            }
+            if(isNaN($.trim($('#sort').val())) || $.trim($('#sort').val())=="")
+            {
+                alert('不是一个数字或者为空');
+                return false;
+            }
+            $.ajax({
+                url:'/focus_photo/is_sort',
+                type:'post',
+                data:'sort='+$.trim($('#sort').val()),
+                success:function(msg)
+                {
+                    if(msg>0)
+                    {
+                        alert('顺序已存在');
+                        return false;
+                    }
+                    else
+                    {
+                        $.ajax({
+                            url:'/focus_photo/modify',
+                            type:'post',
+                            data:'photo_id='+$('#edit_id').val()+'&sort='+ $.trim($('#sort').val()),
+                            success:function(msg)
+                            {
+                                if(msg==1)
+                                {
+                                    alert('修改成功');
+                                    location.reload();
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        })
     }
 })

@@ -9,12 +9,7 @@ class Student_Member extends NH_Model{
         $this->load->model('business/student/student_course');
         $this->load->model('business/student/student_order');
     }
-    
-    /**
-     * 我购买的课程
-     * @param  $int_user_id
-     * @return $array_return
-     */
+
     public function get_my_course_for_buy($int_user_id)
     {
         $array_return = array();
@@ -25,9 +20,9 @@ class Student_Member extends NH_Model{
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-               	$class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'general');
+                $class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'general');
                 #这轮共M节
-               	$totle_class = $this->model_member->get_class_count(0,$v['round_id']);
+                $totle_class = $this->model_member->get_class_count(0,$v['round_id']);
                 #这轮上了M节
                 $class  = $this->model_member->get_class_count('1',$v['round_id']);
                 #比例 = 上了M节/共M节
@@ -35,18 +30,18 @@ class Student_Member extends NH_Model{
                 #授课状态
 //                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
 //                 {
-                    #下节课上课时间
-                    $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
-                    if($next_class_time)
-                    {
-                    	$stime = $next_class_time['begin_time'];
-                    	$etime = $next_class_time['end_time'];
-                    	#处理下节课上课时间
-                    	$array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
-                    } else {
-	                    #处理下节课上课时间
-	                    $array_return[$k]['next_class_time'] = '';
-                    }
+                #下节课上课时间
+                $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
+                if($next_class_time)
+                {
+                    $stime = $next_class_time['begin_time'];
+                    $etime = $next_class_time['end_time'];
+                    #处理下节课上课时间
+                    $array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
+                } else {
+                    #处理下节课上课时间
+                    $array_return[$k]['next_class_time'] = '';
+                }
 
 //                 } else{
 //                 	$array_return[$k]['next_class_time'] = '';
@@ -60,6 +55,58 @@ class Student_Member extends NH_Model{
         }
         //var_dump($array_return);die;
         return $array_return;
+    }
+
+    public function get_my_course_by_where($int_user_id,$status = '',$offset = 0)
+    {
+        $result = array();
+        $my_course_total = $this->model_member->get_my_course_total($int_user_id,$status);
+
+        $array_return = $this->model_member->get_my_course_for_buy_by_where($int_user_id,$status,$offset);
+
+//        var_dump($array_return);die;
+        if ($array_return)
+        {
+            foreach ($array_return as $k=>$v)
+            {
+                #图片地址
+                $class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'general');
+                #这轮共M节
+                $totle_class = $this->model_member->get_class_count(0,$v['round_id']);
+                #这轮上了M节
+                $class  = $this->model_member->get_class_count('1',$v['round_id']);
+                #比例 = 上了M节/共M节
+                $class_rate = $totle_class == 0 ? 0 : round($class/$totle_class,2)*100;
+                #授课状态
+//                 if ($v['teach_status'] >=0 && $v['teach_status'] <=1)
+//                 {
+                #下节课上课时间
+                $next_class_time = $this->model_member->get_next_class_time($v['round_id']);
+                if($next_class_time)
+                {
+                    $stime = $next_class_time['begin_time'];
+                    $etime = $next_class_time['end_time'];
+                    #处理下节课上课时间
+                    $array_return[$k]['next_class_time'] = $this->student_course->handle_time($stime,$etime);
+                } else {
+                    #处理下节课上课时间
+                    $array_return[$k]['next_class_time'] = '';
+                }
+
+//                 } else{
+//                 	$array_return[$k]['next_class_time'] = '';
+//                 }
+                #组合数据
+                $array_return[$k]['class_img'] = $class_img;
+                $array_return[$k]['totle_class'] = $totle_class;
+                $array_return[$k]['class'] = $class;
+                $array_return[$k]['class_rate'] = $class_rate;
+            }
+        }
+        //var_dump($array_return);die;
+        $result['total'] = $my_course_total;
+        $result['list'] = $array_return;
+        return $result;
     }
     
     /**
@@ -160,7 +207,7 @@ class Student_Member extends NH_Model{
         //var_dump($array_return);die;
         return $array_return;
     }
-    
+
     /**
      * 添加退课申请
      * @param  $array_data
@@ -192,7 +239,7 @@ class Student_Member extends NH_Model{
             'pay_type'=>$array_data['pay_type']
         );
         $mflag = $this->student_order->update_order_status($array_mdata);
-        
+
         $array_ndata = array(
         		'round_id'=>$array_data['round_id'],
         		'student_id'=>$array_data['student_id']
@@ -234,7 +281,7 @@ class Student_Member extends NH_Model{
         }
 
     }
-    
+
     /**
      * 获取一轮的退款详情
      * @param  $int_user_id
@@ -250,5 +297,5 @@ class Student_Member extends NH_Model{
         $array_data['title'] = $array_round['title'];
         return $array_data;
     }
-    
+
 }

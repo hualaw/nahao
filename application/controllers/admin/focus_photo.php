@@ -75,7 +75,7 @@
         {
             $arr_data=$this->input->post(NULL,TRUE);
             $is_round=0;
-            if(!$this->focus_photo->check_round($arr_data['round_id'],$is_round))
+            if(!$this->focus_photo->check_round(trim($arr_data['round_id']),$is_round) || $this->focus_photo->check_sort(trim($arr_data['sort'])) || trim($arr_data['round_id'])=='' || trim($arr_data['sort'])=='' || !is_numeric(trim($arr_data['sort'])) || !is_numeric(trim($arr_data['round_id'])))
             {
                 redirect('/focus_photo/add');
             }
@@ -97,5 +97,15 @@
             $round_id=$this->input->post('round_id',TRUE);
             $is_round=$this->input->post('is_round',TRUE);
             echo $this->focus_photo->check_round($round_id,$is_round);
+        }
+
+        /**
+         * 验证轮播图数序是否存在
+         * @author shangshikai@tizi.com
+         */
+        public function is_sort()
+        {
+            $sort=$this->input->post('sort',TRUE);
+            echo $this->focus_photo->check_sort($sort);
         }
     }

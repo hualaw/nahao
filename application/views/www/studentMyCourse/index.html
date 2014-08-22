@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>我的课程</title>
-<meta name="description" content="" />
-<meta name="keywords" content="">
-<link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
-<!-- 加载头部公共变量定义开始 -->
-{include file="www/include/var.htm"}
-<!-- 加载头部公共变量定义结束 -->
+    <meta charset="UTF-8">
+    <title>我的课程</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
+    <!-- 加载头部公共变量定义开始 -->
+    {include file="www/include/var.htm"}
+    <!-- 加载头部公共变量定义结束 -->
 </head>
 <body class="myCoursePage">
 <!-- 头部开始 -->
@@ -16,44 +16,42 @@
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
 <div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
-	<!-- 右侧框架开始 -->
+    <!-- 右侧框架开始 -->
 
-   	{if $page_type == 'myCourse'}
-	   	<div class="wrapContent fr myCourseCon" id="wrapContent" name="myCourseCon">
-		   	<!--我的课程-->
-		    {include file="www/include/studentMyCourse/page/myCourse.htm"}
-	    </div> 
+    {if $page_type == 'myCourse'}
+    <div class="wrapContent fr myCourseCon" id="wrapContent" name="myCourseCon">
+        <!--我的课程-->
+        {include file="www/include/studentMyCourse/page/myCourse.htm"}
+    </div>
     {elseif $page_type == 'myOrder'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--我的订单-->
-		    {include file="www/include/studentMyCourse/page/myOrder.htm"}
-	    </div> 
+    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+        <!--我的订单-->
+        {include file="www/include/studentMyCourse/page/myOrder.htm"}
+    </div>
     {elseif $page_type == 'myInfor'}
-	    <div class="wrapContent fr myInforCon" id="wrapContent" name="myInforCon">
-		    <!--基本资料-->
-		    {include file="www/include/studentMyCourse/page/myInfor.htm"}
-    	</div> 
+    <div class="wrapContent fr myInforCon" id="wrapContent" name="myInforCon">
+        <!--基本资料-->
+        {include file="www/include/studentMyCourse/page/myInfor.htm"}
+    </div>
     {elseif $page_type == 'order_detail'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--订单信息页-->
-		    {include file="www/include/studentMyCourse/page/myOrderDetail.htm"}
-	    </div> 
+    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+        <!--订单信息页-->
+        {include file="www/include/studentMyCourse/page/myOrderDetail.htm"}
+    </div>
     {elseif $page_type == 'apply_refund'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--申请退款页-->
-		    {include file="www/include/studentMyCourse/page/applyRefund.htm"}
-	    </div>    
-	 {elseif $page_type == 'refund_detail'}
-	    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
-		    <!--申请退款页-->
-		    {include file="www/include/studentMyCourse/page/refundDetail.htm"}
-	    </div>    
-   	{/if}
+    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+        <!--申请退款页-->
+        {include file="www/include/studentMyCourse/page/applyRefund.htm"}
+    </div>
+    {elseif $page_type == 'refund_detail'}
+    <div class="wrapContent fr myOrderCon" id="wrapContent" name="myOrderCon">
+        <!--申请退款页-->
+        {include file="www/include/studentMyCourse/page/refundDetail.htm"}
+    </div>
+    {/if}
     <!-- 右侧框架结束 -->
     <!-- 左侧框架开始 -->
-    <div class="slide fl" id="slide">
-		{include file="www/include/studentMyCourse/myCourseLeft.htm"}
-    </div>
+    {include file="www/include/studentMyCourse/myCourseLeft.htm"}
     <!-- 左侧框架结束 -->
 </div>
 <!-- 主要内容结束 -->

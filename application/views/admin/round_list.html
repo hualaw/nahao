@@ -8,8 +8,7 @@
         </div>
         <div class="col-md-2">
             <select class="form-control input-sm" name="subject">
-                <option value="">全部学科</option>
-                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
+                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v.name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -73,7 +72,7 @@
             销售周期：{if (isset($v.sell_begin_time) AND $v.sell_begin_time)}{date("Y-m-d H:i",$v.sell_begin_time)}{/if}至{if (isset($v.sell_end_time) AND $v.sell_end_time)}{date("Y-m-d H:i",$v.sell_end_time)}{/if}</td>
         <td>{$v.nickname}</td>
         <td>{$v.class_count}</td>
-        <td>科目：{if isset($subjects[$v.subject])}{$subjects[$v.subject]}{/if}<br />
+        <td>科目：{if $v.education_type gt 0 && isset($education_subjects[$v.education_type][$v.subject])}{$education_subjects[$v.education_type][$v.subject]}{else}{/if}<br />
             类型：{if isset($course_types[$v.course_type])}{$course_types[$v.course_type]}{/if}</td>
         <td>{$v.bought_count}/{$v.caps}</td>
         <td>{$round_sale_status[$v.sale_status]}</td>

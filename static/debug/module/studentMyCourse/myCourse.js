@@ -66,6 +66,7 @@ define(function(require,exports){
         function countDown(){
             var oDate=new Date();
             if($("#"+id).val()){
+            	//alert($("#"+id).val()); return false;
                 array = $("#"+id).val().split(" ");
     	        FullYear = array['0'].split("-");
     	        Hours = array['1'].split(":");
@@ -97,7 +98,11 @@ define(function(require,exports){
                 s<10?s = "0"+s:s = s;
 
                 if(type==1){
-                    obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
+                    obj.html('<i>'+days+'</i>天'+
+                            '<i>'+hours+'</i>小时'+
+                            '<i>'+mins+'</i>分'+
+                            '<i>'+s+'</i>秒');
+                    //obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
                 }else{
                     obj.html('<strong>'+days+'</strong>天'+
                             '<strong>'+hours+'</strong>小时'+
@@ -150,7 +155,7 @@ define(function(require,exports){
         $("#soon_buy_xia").click(function (){
             var url = '/course/before_check_order/';
             var data = {
-            	product_id: $('#product_id_xia').val()
+            		product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "error") {
@@ -329,4 +334,7 @@ define(function(require,exports){
 			window.open(url);
 		});		
 	}
+
+
+
 });
