@@ -361,6 +361,7 @@ $config['material_version'][12] = '人教B';
 $config['material_version'][13] = '语文版';
 $config['material_version'][14] = '外研版';
 $config['material_version'][15] = '鲁科版';
+$config['material_version'][16] = '华东师大';
 
 //教育类型
 $config['education_type'][1] = '学科教育';
