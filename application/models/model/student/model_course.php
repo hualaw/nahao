@@ -434,7 +434,7 @@ class Model_Course extends NH_Model{
     public function get_important_notice_data()
     {
     	$array_result = array();
-    	$sql = "SELECT content FROM ".TABLE_ROUND_NOTE." WHERE round_id = 0 ORDER BY top_time DESC LIMIT 1";
+    	$sql = "SELECT content FROM ".TABLE_ROUND_NOTE." WHERE round_id = 0 ORDER BY top_time DESC,create_time DESC LIMIT 1";
     	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result;
     }
