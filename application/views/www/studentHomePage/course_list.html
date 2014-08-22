@@ -63,7 +63,7 @@
 									{if isset($material_versions[$v.material_version]) && ($v.material_version gt 1)}<span class="mark mark8">{$material_versions[$v.material_version]}</span>{/if}
 								</span>
                         <!-- 标签列表结束 -->
-                        <a href="/ke_{$v.id}.html" class="courseDesc">
+                        <a target="_blank" href="/ke_{$v.id}.html" class="courseDesc">
                             <img src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($v.img,'index')}{/if}" alt="123" class="cDescImg">
                             <!-- hover时候显示的教师信息开始 -->
                             <div class="hoverDesc">
@@ -92,7 +92,7 @@
 
                         <!-- 课程标题和简介开始 -->
                         <h3 class="ctitle">
-                            <a href="/ke_{$v.id}.html">
+                            <a target="_blank" href="/ke_{$v.id}.html">
                                 <span class="cTitleName">{$v.title|truncate:25}</span>
                                 <span class="cTitleDesc">{$v.subtitle|truncate:50}</span>
                             </a>
@@ -103,7 +103,7 @@
                             <span class="price">￥<strong>{$v.sale_price|intval}</strong></span>
 									<span class="cVal">价值<span>￥{$v.price|intval}</span>
 									</span>
-                            <a href="/ke_{$v.id}.html" class="cRedBtn learnBtn">马上学习</a>
+                            <a target="_blank" href="/ke_{$v.id}.html" class="cRedBtn learnBtn">马上学习</a>
                         </p>
                         <!-- 课程价格结束 -->
                         <div class="cf cBottom">
