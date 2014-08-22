@@ -1,9 +1,9 @@
 <div class="cListWrap list_tabs" name="index_course_list">
     <!-- 课程列表的头部tab开始 -->
-    <div class="cf chTitle">
+    <div class="cf chTitle" name="list" id="list">
         <ul class="cf fl tabList ">
             <li class="tabItem firstTab {if (isset($query_params['stage']) && $query_params['stage'] eq 0) || !isset($query_params['stage'])}active{/if}" link="cl_all_list">
-                <a href="/#list" name="list">
+                <a href="/#list" >
                     全部课程
                     <span class="bBr"></span>
                 </a>
