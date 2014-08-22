@@ -65,7 +65,7 @@ define(function(require,exports){
                  errormsg: "长度是四位数字"
             },
             {   
-                 ele:"checkbox:first",
+                 ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
@@ -127,7 +127,7 @@ define(function(require,exports){
         _Form.addRule([{
                 ele: ".email",
                 datatype:"e",
-                ajaxurl:siteUrl + "register/check_email",
+                // ajaxurl:siteUrl + "register/check_email",
                 ajaxUrlName:'email',
                 nullmsg:"请输入邮箱地址",
                 errormsg:"长度6-30个字符的邮箱地址"
@@ -151,8 +151,8 @@ define(function(require,exports){
                  nullmsg: "请输入验证码",
                  errormsg: "验证码长度是4位"
             },
-            {   
-                 ele:"radio:first",
+            {
+                 ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"

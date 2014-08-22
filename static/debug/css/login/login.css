@@ -55,6 +55,7 @@
 .login .regWrap .box li.agreementLi a:hover{color: #f90}
 .login .regWrap .box li.emailRegAgreen{margin-top: 20px;}
 .login .regWrap .box li.authCodeLi{margin-bottom: 0px;padding-top: 20px;}
+.login .regWrap .box li.agreementLi .Validform_checktip{right: auto;left:40px;top:-26px;}
 .login .regWrap .box li .submit{border:none;width:100%;padding:0;font-size:20px;cursor:pointer;}
 .login .regWrap .goLogin {width:410px;text-align: center;padding-top: 390px;}
 .login .regWrap .goLogin p{line-height: 22px;font-size:14px;margin-bottom:15px;}
