@@ -527,7 +527,9 @@ overflow: hidden;}
 .studentMyCourse .course_info_item .teacherInfo h4{font-weight: normal;margin-top: 5px;}
 .studentMyCourse .course_info_item .teacherInfo h4 i{color: #ce0000;width: 120px;display: inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentMyCourse .course_info_item .teacherText{color: #666;text-indent: 2em;margin-top: 10px;width: 600px;font-size: 12px;line-height: 24px;}
-.studentMyCourse .course_info_item .course_info_img{width: 718px;height: 328px;display: block;margin-top: 20px;}
+.studentMyCourse .course_info_item .course_info_img{width: 718px;display: block;margin-top: 20px;}
+.studentMyCourse .course_info_item .course_info_img .videoPlay{float: none;}
+.studentMyCourse .course_info_item .course_info_img .videoPlay h3{border: none;}
 .studentMyCourse .courseRight{width: 220px;font-size: 12px;}
 .studentMyCourse .courseRight .buyCourseBox{border: 1px solid #e0e0e0;margin-bottom: 10px;background: #fff;}
 .studentMyCourse .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
