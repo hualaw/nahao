@@ -11,7 +11,7 @@
         <div class="bd historyList">
             <!-- 单条浏览记录开始 -->
             {foreach from=$array_recent_view item=item}
-            <a href="{$course_url}ke_{$item.id}.html" class="cf hItem">
+            <a target="_blank" href="{$course_url}ke_{$item.id}.html" class="cf hItem">
                 <img alt="" src="{$item.img}" class="hPic">
 				<span class="fr hDesc">
 					<span class="hSmallTitle">{$item.title|truncate:16:"...":true}</span>

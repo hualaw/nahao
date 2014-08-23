@@ -11,10 +11,10 @@
             <a href="#">全部课程</a>
         </li>
         <li class="tabItem" link="leaning_clist" status='3'>
-            <a href="#">正在进行</a>
+            <a href="#">进行中</a>
         </li>
         <li class="tabItem" link="soon_clist" status='1'>
-            <a href="#">即将开始</a>
+            <a href="#">未开始</a>
         </li>
         <li class="tabItem" link="finished_clist" status='4'>
             <a href="#">已结束</a>
@@ -305,7 +305,7 @@
 									<span class="fl price">
 										￥{$item.sale_price}
 									</span>
-									<span class="fr classmate">{$item.bought_count}人已学习</span>
+									<span class="fr classmate">{$item.bought_count+$item.extra_bought_count}人已学习</span>
 								</span>
                     </div>
 
@@ -350,7 +350,7 @@
 									<span class="fl price">
 										￥{$item.sale_price}
 									</span>
-									<span class="fr classmate">{$item.bought_count}人已学习</span>
+									<span class="fr classmate">{$item.bought_count+$item.extra_bought_count}人已学习</span>
 								</span>
                     </div>
 

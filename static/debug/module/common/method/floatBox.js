@@ -58,7 +58,9 @@ define(function(require,exports){
 	    if($(".historyWrap .deletHistory").length){
 	    	$(".historyWrap .deletHistory").click(function(e){
 	    		$('.historyList').remove();
-	    		$(".historyWrap .historyListWrap").append("<div class=\"noHistory\">暂无浏览记录</div>");
+	    		if($(".historyWrap .historyListWrap .noHistory").length==0){
+	    			$(".historyWrap .historyListWrap").append("<div class=\"noHistory\">暂无浏览记录</div>");
+	    		}
 	    		//清除cookie
 	    		document.cookie = 'recent_view' + "=; expires=Fri, 31 Dec 1999 23:59:59 GMT;";
 	    		e.preventDefault();

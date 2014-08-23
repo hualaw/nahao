@@ -98,7 +98,7 @@
 								<select name="teach_years" id="" validName="select" class="seniority">
 									<option value="">请选择教龄</option>
 									{section name=loop loop=$data['data']['teach_years']}
-										<option value="1">{$smarty.section.loop.index+1}年</option>
+										<option value="{$smarty.section.loop.index+1}">{$smarty.section.loop.index+1}年</option>
 									{/section}
 								</select>
 							</div>

@@ -33,7 +33,7 @@ define(function(require,exports){
 				this.totalNum=_count;
 				//一屏需要移动多少像素
 				this.iWidth=_itemWidth;
-				if(this.totalNum==1){
+				if(!this.totalNum||this.totalNum<=1){
 					this.bannerSlide.hide();
 				}
 				var _this=this;
