@@ -10,6 +10,8 @@
 @import url('../common/topMiniNav.css');
 /*加载顶部样式*/
 @import url('../common/header.css');
+/*加载底部样式*/
+@import url('../common/footer.css');
 /*加载公共验证样式*/
 @import url('../common/valid.css');
 /*加载公共弹出框样式*/
