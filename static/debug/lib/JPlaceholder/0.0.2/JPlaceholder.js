@@ -14,6 +14,7 @@ define(function(require,exports){
 		fix : function(){
 			jQuery(':input[placeholder]').each(function(index, element) {
 	            var self = $(this), txt = self.attr('placeholder');
+	            if(self.parents(".regEmailBox,.regPhoneBox").length){return;}
 				// self.wrap($('<div></div>').css({position:'relative', zoom:'1', border:'none', background:'none', padding:'none', margin:'none'}));
 				var pos = self.position(), w = self.outerWidth(true), h = self.outerHeight(true), paddingleft = self.css('padding-left');
 				var holder = $('<em class="fixIe6"></em>').text(txt).css({
