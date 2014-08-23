@@ -30,11 +30,14 @@ class Model_Member extends NH_Model{
         		WHERE so.student_id = ".$int_user_id."
         		AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH." OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." )
         		";
-        $sql .= !empty($status)?(" AND c.status=".$status):'';
-
-        $sql .=	" GROUP BY so.id ORDER BY so.id DESC limit $offset,$per_page";
-//         print_r($sql);
-//         exit();
+        if($status == ROUND_TEACH_STATUS_STOP){
+            $sql .= "AND (r.teach_status=".ROUND_TEACH_STATUS_STOP." OR r.teach_status=".ROUND_TEACH_STATUS_FINISH." OR r.teach_status=".ROUND_TEACH_STATUS_OVER.")";
+        }elseif(!empty($status)){
+            $sql .= "AND r.teach_status=".$status;
+        }
+        $sql .=	" GROUP BY so.id ORDER BY c.begin_time DESC limit $offset,$per_page";
+//        print_r($sql);
+//        exit();
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
     }
