@@ -74,8 +74,8 @@ define(function(require,exports){
                  ele:"#top_username",
                  ignore:"ignore",
                  datatype: "m|e",
-                 nullmsg: "请输入邮箱",
-                 errormsg: "请输入正确的手机号/邮箱"
+                 nullmsg: "请输入邮箱/手机",
+                 errormsg: "请输入正确的手机/邮箱"
             },
             {   
                  ele:"#top_password",

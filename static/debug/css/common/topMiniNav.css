@@ -5,8 +5,7 @@
 .topMiniNav .loginBefore .cInput{height:19px;line-height: 19px;width:100px;margin-right:10px;font-size:12px;padding-left:20px;}
 .topMiniNav .loginBefore .ico_usename{position: absolute;top:9px;left:5px;background:url(../../images/common/header/ico_username.png) no-repeat;_background:url(../../images/common/header/ico_username_8.png) no-repeat;display: block;width:10px;height:12px;}
 .topMiniNav .loginBefore .ico_password{position: absolute;top:9px;left:5px;background:url(../../images/common/header/ico_password.png) no-repeat;_background:url(../../images/common/header/ico_password_8.png) no-repeat;display: block;width:10px;height:12px;}
-.topMiniNav .loginBefore .loginSubmit,.topMiniNav .loginBefore .loginReg{border:0px;color:#fff;cursor: pointer;margin-right:10px;height:21px;line-height: 21px;display: block;margin-top: 4px;}
-.topMiniNav .loginBefore .loginReg{width: 33px;text-align: center;}
+.topMiniNav .loginBefore .loginSubmit,.topMiniNav .loginBefore .loginReg{border:0px;color:#fff;cursor: pointer;margin-right:10px;height:21px;line-height: 21px;display: block;margin-top: 4px;width: 53px;padding: 0px;text-align: center;}
 .topMiniNav .loginBefore .loginReg:hover{color: #fff;}
 /*登录前样式结束*/
 /*登陆后样式开始*/
