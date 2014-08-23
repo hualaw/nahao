@@ -140,6 +140,7 @@
 /*.studentHomePage .loginWrap .Validform_error{background-color: #fff7cb; border:1px solid #e0e0e0 !important;}*/
 .studentHomePage .inputWrap .Validform_checktip{line-height: normal;}
 .studentHomePage .inputWrap .backfff{background-color: #fff!important}
+.studentHomePage .loginWrap .inputWrap .fixIe6{line-height: 32px;height: 32px;}
 /*登录结束*/
 /*登录之后的状态开始*/
 .studentHomePage .loginedWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;background-color: #fff;padding: 0px 16px;}
