@@ -37,6 +37,7 @@
 .login .regWrap .tabBox a.active{border-top-color:#ce0000;background: #fff;color:#ce0000;font-weight:bold;}
 .login .regWrap .contentBox .box{padding:20px 55px;height: 387px;}
 .login .regWrap .box li {font-size:16px;margin-bottom:20px; position: relative;*zoom:1;}
+.login .regWrap .box .fixIe6{line-height: 40px;height: 40px;width: 380px;overflow: hidden;padding-left: 5px;}
 .login .regWrap .emailBox li{margin-bottom: 10px;}
 .login .regWrap .box li .Validform_checktip{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li .Validform_tip_info{ position: absolute; top: 0px;right:0px;}
