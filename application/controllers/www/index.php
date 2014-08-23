@@ -126,7 +126,6 @@ class Index extends NH_User_Controller
 
             $course_url = config_item('course_url');
             $this->smarty->assign('course_url', $course_url);
-            $this->smarty->assign('grade', config_item('grade'));
             $this->smarty->assign('material_versions', config_item('material_version'));
             $this->smarty->assign('course_types', $stage = config_item('course_type'));
             $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
@@ -140,6 +139,7 @@ class Index extends NH_User_Controller
             $this->smarty->assign('query_params', $arr_query_param);
             $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
         }
+        $this->smarty->assign('grade', config_item('grade'));
         $this->smarty->display($str_template, $str_cache_id);
     }
 
