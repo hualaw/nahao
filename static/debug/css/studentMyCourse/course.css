@@ -229,13 +229,13 @@ transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-t
 .studentMyCourse .inforTab .tabh{background: #f7f7f7;height: 50px;line-height: 50px;}
 .studentMyCourse .inforTab .tabh li{width: 150px;text-align: center;font-size: 18px;color: #4b4b4b;float: left;cursor: pointer;}
 .studentMyCourse .inforTabBox{color:#333;}
-.studentMyCourse .inforTab .tabh .inforOn{background: #fff;border-top: 3px solid #f14211;line-height: 47px;font-weight: bold;color:#f14211;}
+.studentMyCourse .inforTab .tabh .inforOn{background: #fff;border-top: 3px solid #ce0000;line-height: 47px;font-weight: bold;color:#ce0000;}
 .studentMyCourse .inforTabBox{padding:0 135px 30px 104px;font-size: 16px;min-height: 970px;}
 .studentMyCourse .inforTabBox .Validform_tip_info,.studentMyCourse .inforTabBox .Validform_checktip{font-size: 12px;}
 .studentMyCourse .inforTabBox .hasVer{color:#919191;font-weight: normal;font-size: 14px;}
 .studentMyCourse .inforTabBox .verWay{margin:0 4px 0 12px;}
 .studentMyCourse .inforTabBox li .formName{margin-left: -20px;}
-.studentMyCourse .inforTabBox li .formName span{color:#f14211;margin-right: 12px;}
+.studentMyCourse .inforTabBox li .formName span{color:#ce0000;margin-right: 12px;}
 .studentMyCourse .inforTabBox .detailText{font-size: 14px;}
 .studentMyCourse .inforTabBox .optional{margin: 20px 0 8px;color:#0e455e;}
 .studentMyCourse .inforTabBox form input.radio{width: auto;}
@@ -458,7 +458,7 @@ overflow: hidden;}
 .studentMyCourse .myInforCon .atareditor dt.ml10{margin-left:64px;}
 .studentMyCourse .myInforCon .atareditor dd{padding: 20px 64px;clear:both; overflow: hidden; text-align: left;}
 .studentMyCourse .myInforCon .atareditor dd p{font-size: 12px;margin-bottom:10px;}
-.studentMyCourse .myInforCon .atareditor dt a{display:block;float:left;width:150px;height:40px;color:#ed4111;background:#ffffff;border:1px solid #ed4111;text-align:center;cursor:pointer;font-size: 18px;line-height:40px;}
+.studentMyCourse .myInforCon .atareditor dt a{display:block;float:left;width:150px;height:40px;color:#ce0000;background:#ffffff;border:1px solid #ce0000;text-align:center;cursor:pointer;font-size: 18px;line-height:40px;}
 .studentMyCourse .myInforCon .atareditor dt a em{display:block;float:left;background: url("../../images/studentMyCourse/icon_list.png") no-repeat left top;width:26px; height:35px;margin-left: 20px;}
 .studentMyCourse .myInforCon .atareditor dt a span{margin-right:20px;}
 .studentMyCourse .myInforCon .atareditor dt a.localUpload{border-top-left-radius:5px;border-bottom-left-radius:5px;}
@@ -467,7 +467,7 @@ overflow: hidden;}
 .studentMyCourse .myInforCon .atareditor dt a.videoUpload em{background-position:-150px 7px;}
 .studentMyCourse .myInforCon .atareditor .button_upload,.studentMyCourse .myInforCon .atareditor .button_cancel,.studentMyCourse .myInforCon .atareditor .button_shutter{width: 130px;height: 40px;line-height: 40px;}
 .studentMyCourse .myInforCon .atareditor .button_save{width:304px;height: 40px;line-height: 40px;font-size: 18px;}
-.studentMyCourse .myInforCon .atareditor dt.current a{background:#f14211;color:#fff;}
+.studentMyCourse .myInforCon .atareditor dt.current a{background:#ce0000;color:#fff;}
 .studentMyCourse .myInforCon .atareditor dt.current a.localUpload em{background-position:0px 7px;}
 .studentMyCourse .myInforCon .atareditor dt.current a.videoUpload em{background-position:-470px 7px;}
 /*修改头像页面样式结束*/
@@ -522,9 +522,9 @@ overflow: hidden;}
 .studentMyCourse .course_info_item{padding-top: 25px;}
 .studentMyCourse .course_info_item h3{font-size: 16px;font-weight: normal;border-bottom: 2px solid #cdcdcd;padding-bottom: 10px;}
 .studentMyCourse .course_info_item .course_detial_text{text-indent: 2em;line-height: 24px;margin-top: 15px;}
-.studentMyCourse .course_info_item .b_t_0{border-top: none;}
 .studentMyCourse .course_info_item .course_team_list{padding:20px 0 15px;border-top: 1px solid #e0e0e0; }
 .studentMyCourse .course_info_item .course_team_list img{width: 100px;height: 100px;display: block;margin-right: 15px;}
+.studentMyCourse .course_info_item .b_t_0{border-top: none;}
 .studentMyCourse .course_info_item .teacherInfo h4{font-weight: normal;margin-top: 5px;}
 .studentMyCourse .course_info_item .teacherInfo h4 i{color: #ce0000;width: 120px;display: inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentMyCourse .course_info_item .teacherText{color: #666;text-indent: 2em;margin-top: 10px;width: 600px;font-size: 12px;line-height: 24px;}

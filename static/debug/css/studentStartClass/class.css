@@ -3,7 +3,7 @@
 .studentStartClass .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 /*开课成功样式开始*/
 .studentStartClass .startSuccess,
-.studentStartClass .writeInfo{background: #eeeeee;padding:40px 0;text-align: center;color:#0e455e;}
+.studentStartClass .writeInfo{padding:40px 0;text-align: center;color:#0e455e;}
 .studentStartClass .startSuccess .box,
 .studentStartClass .writeInfo .box{background: #fff;border: 1px solid #d5d5d5;padding-top:40px;}
 .studentStartClass .startSuccess .box h2{margin-bottom:20px;height:46px;line-height:46px;background: url(../../images/cart/orderFormIcon2.png) no-repeat 360px center;}

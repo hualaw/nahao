@@ -176,7 +176,7 @@ class Student_Index extends NH_Model{
             $str_fields = TABLE_ROUND.'.id';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
-                'start_time <' => TIME_STAMP+7*86400,
+//                'start_time <' => TIME_STAMP+7*86400,
                 'is_live' => 0,
                 'is_test' => 0,
             );
@@ -225,6 +225,7 @@ class Student_Index extends NH_Model{
                 TABLE_ROUND.'.id'
             );
             $arr_order_by = array(
+                'sequence' => 'asc',
                 'start_time' => 'asc'
             );
             $arr_limit = array(
@@ -239,10 +240,11 @@ class Student_Index extends NH_Model{
 
     /**
      * 获取直播课列表
+     * @param $int_per_page
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_live_classes(){
+    public function get_live_classes($int_per_page){
         $arr_return = array();
         $str_table_range = 'class_index';
         $str_result_type = 'list';
@@ -253,7 +255,7 @@ class Student_Index extends NH_Model{
             TABLE_ROUND.'.is_live' => 1,
             TABLE_ROUND.'.is_test' => 0,
             TABLE_CLASS.'.status <' => CLASS_STATUS_CLASS_OVER,
-            TABLE_CLASS.'.is_test' => 0,
+//            TABLE_CLASS.'.is_test' => 0,
             TABLE_CLASS.'.begin_time >' => strtotime(date('Y-m-d',TIME_STAMP)),
         );
         $arr_group_by = array(
@@ -264,7 +266,7 @@ class Student_Index extends NH_Model{
         );
         $arr_limit = array(
             'start'=> 0,
-            'limit' => 5
+            'limit' => $int_per_page
         );
         $this->load->model('model/admin/model_class');
         $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by, $arr_limit);

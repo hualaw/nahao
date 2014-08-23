@@ -47,7 +47,7 @@
                     <img src="{if empty($array_data.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($array_data.img,'buy_before_top_big')}{/if}" alt="" class="fl">
                 </div>
                 <div class="fl startTime">
-                    <div class="price"><span class="priceAfter"><i>￥</i>{$array_data.sale_price}</span><span class="priceBefore">价值<i>￥{$array_data.price}</i></span></div>
+                    <div class="price"><span class="priceAfter"><i>￥</i>{$array_data.sale_price|intval}</span><span class="priceBefore">价值<i>￥{$array_data.price|intval}</i></span></div>
                     <div class="review cf">
                         <span class="studyCount fl"><i>{$array_data.study_count}</i>人已学习</span>
                          {if $array_data.score >=4}
@@ -135,12 +135,14 @@
         <div class="cf">
             <div class="detialLeft fl">
             {if $array_notice}
-                <dl class="importInfo cf">
-                    <dt>重要提醒</dt>
-                    <dd>
-						{$array_notice.content}
-                    </dd>
-                </dl>
+                <table class="importTable">
+                    <tbody>
+                        <tr>
+                            <td align="center"><div class="importInfo">重要提醒</div></td>
+                            <td>{$array_notice.content}</td>
+                        </tr>
+                    </tbody>
+                </table>
              {/if}
                 <ul id="course_info_nav" class="">
                     <li class="detail current" id="tab_course_detial" con="course_detial">课程简介</li>
@@ -148,7 +150,7 @@
                     <li class="detail" id="tab_course_order" con="course_order">课程安排</li>
                     <li class="detail" id="tab_course_info" con="course_info">课程提要</li>
                     <li class="detail" id="tab_course_content" con="course_content">学员评价（{$evaluate_count}）</li>
-                    <li class="detail_price detail_price1">￥{$array_data.sale_price}</li>
+                    <li class="detail_price detail_price1">￥{$array_data.sale_price|intval}</li>
                     {if !$is_login}
                     		{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
 	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" id="soon_buy_xia">抢购</a></li>
@@ -262,7 +264,7 @@
                          <li>
                             <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'buy_before_right_recommend')}{/if}" alt="">
                             <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p>
-                            <div class="studyNum cf"><span class="fl price">￥{$item.sale_price}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
+                            <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
                     {/foreach}
                     </ul>
@@ -276,7 +278,7 @@
                          <li>
                             <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'buy_before_right_recommend')}{/if}" alt="">
                             <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p>
-                            <div class="studyNum cf"><span class="fl price">￥{$item.sale_price}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
+                            <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
                     {/foreach}                 
                     </ul>

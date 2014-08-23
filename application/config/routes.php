@@ -39,6 +39,11 @@
 */
 
 $route['default_controller'] = "index";
+
+$route['stage.html'] = '';
+$route['stage_(:num).html'] = 'index/index/?stage=$1';
+$route['stage_(:num)_(:num).html'] = 'index/index/?stage=$1&page=$2';
+
 $route['404_override'] = '';
 
 $route['ke_(:num).html'] = 'course/buy_before/$1';
@@ -147,7 +152,6 @@ $route['list_t(:num)_st(:num)_g(:num)_su(:num).html'] = 'classes/index/?typeId=$
 	$route['list_t(:num)_st(:num)_g(:num)_su(:num)_p(:num).html'] = 'classes/index/?typeId=$1&stageId=$2&gradeId=$3&subjectId=$4&page=$5';
 	//10.3 学科辅导 类型+学段+年级+科目+排序+分页
 	$route['list_t(:num)_st(:num)_g(:num)_su(:num)_o(:num)_p(:num).html'] = 'classes/index/?typeId=$1&stageId=$2&gradeId=$3&subjectId=$4&order=$5&page=$6';
-
 
 //$route['course/index/(.*+)/(.*+)']  = 'course/index?round_id=$1&time=$2';
 //$route['pay/neworder/(.*+)']  = 'pay/neworder/$1';
