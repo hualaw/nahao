@@ -7,7 +7,7 @@ $config['caching'] = true;
 $config['lifetime'] = 60;
 $config['debugging'] = false;
 $config['compile_check'] = false;
-$config['force_compile'] = false;//只改这个就可以 true是不缓存 false是缓存
+$config['force_compile'] = true;//只改这个就可以 true是不缓存 false是缓存
 $config['left_delimiter'] = '{';
 $config['right_delimiter'] = '}';
 
