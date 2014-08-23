@@ -40,11 +40,15 @@ class Classes extends NH_User_Controller {
     	$result = $this->business_list->search_suggest(array('typeId' => $param['typeId']));
     	#6. 浏览记录
     	$view_list = $this->business_list->read_recent_view_data();
+    	#7. 没有记录，就读取推荐
+    	$list = $data['is_commend'] ? $data['commend_data'] : $data['data'];
+    	
     	$course_url = config_item('course_url');
     	$this->smarty->assign('course_url', $course_url);
     	$this->smarty->assign('seo' 				, $seo);
     	$this->smarty->assign('cateList' 			, $cateList);
-    	$this->smarty->assign('list' 				, $data['data']);
+    	$this->smarty->assign('is_commend' 			, $data['is_commend']);
+    	$this->smarty->assign('list' 				, $list);
     	$this->smarty->assign('suggest_list' 		, $result['data']);
     	$this->smarty->assign('pageBar' 			, $pageBar);
     	$this->smarty->assign('array_recent_view' 	, $view_list);
