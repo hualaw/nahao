@@ -31,10 +31,11 @@ class Model_Index extends NH_Model
     public function get_course_hot_round()
     {
         $array_result = array();
-        $sql = "SELECT r.id,MIN(r.start_time) AS start_time,COUNT(so.round_id) number FROM ".TABLE_STUDENT_ORDER." AS so
-                LEFT JOIN ".TABLE_ROUND." AS r ON r.id=so.round_id
-                WHERE r.sale_status =".ROUND_SALE_STATUS_SALE ." GROUP BY so.round_id ORDER BY number DESC";
+        $sql = "SELECT  id,start_time,(bought_count+extra_bought_count) as number FROM ".TABLE_ROUND."
+                WHERE sale_status =".ROUND_SALE_STATUS_SALE ." ORDER BY number DESC";
         $array_result = $this->db->query($sql)->result_array();
+//        print_r($array_result);
+//        exit;
         return $array_result;
     }
 
