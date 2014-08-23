@@ -28,9 +28,9 @@ background: #6dcde6;
   text-decoration: none;color:#fff;}
 .aui_buttons button::-moz-focus-inner{ border:0; padding:0; margin:0; }
 .aui_buttons button[disabled] {}
-.aui_buttons button.aui_state_highlight,.aui_buttons a.aui_state_highlight{background: #F14211;  border-radius: 3px; color: #ffffff;
+.aui_buttons button.aui_state_highlight,.aui_buttons a.aui_state_highlight{background: #ce0000;  border-radius: 3px; color: #ffffff;
   display:inline-block;}
-.aui_buttons button.aui_state_highlight:hover,.aui_buttons a.aui_state_highlight:hover {background: #f15930;  text-decoration: none;}
+.aui_buttons button.aui_state_highlight:hover,.aui_buttons a.aui_state_highlight:hover {background: #da1e1e;  text-decoration: none;}
 .buttonAalignLeft{text-align: left;padding-left:20px;}
 
 /* common end */
