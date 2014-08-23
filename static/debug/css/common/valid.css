@@ -33,4 +33,5 @@
 .topLoginForm .ValidformInfo .dec s{top: -1px;}
 .topLoginForm .ValidformInfo .dec .dec2 {top: 0px;}
 .topLoginForm .ValidformInfo.passTip .Validform_checktip {line-height: 20px;}
+.topLoginForm .posr .fixIe6{height: 21px;line-height: 21px;}
 /*全站头部登录的input上面的样式结束*/
