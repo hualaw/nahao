@@ -53,6 +53,7 @@ class CI_Smarty extends Smarty{
     public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null, $caching = true)
     {
         $this->caching = !$this->force_compile && $caching && $cache_id ? true : false;
+//        var_dump($this->caching);
         return parent::isCached($template, $cache_id, $compile_id, $parent);
     }
 

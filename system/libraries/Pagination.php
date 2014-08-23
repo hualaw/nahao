@@ -118,6 +118,25 @@ class CI_Pagination {
         return $pagination_link;
     }
 
+    /**
+     * 创建首页静态化链接
+     * @param int $int_param
+     * @param int $int_page
+     * @return mixed
+     * @author yanrui@tizi.com
+     */
+    function createIndexLinks($int_param = 0,$int_page = 0){
+        $this->cur_page = $int_page;
+        $str_page = $this->create_links();
+        $str_pattern = '/<a href="\/"/';
+        $str_replace = '<a href="stage_'.$int_param.'_0.html#list"';
+        $str_link = preg_replace($str_pattern, $str_replace, $str_page);
+        $str_pattern = '/<a href="\/(\d+)"/';
+        $str_replace = '<a href="stage_'.$int_param.'_$1.html#list"';
+        $str_link = preg_replace($str_pattern, $str_replace, $str_link);
+        return $str_link;
+    }
+
 	/**
 	 * Generate the pagination links
 	 *
