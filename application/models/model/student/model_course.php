@@ -396,10 +396,13 @@ class Model_Course extends NH_Model{
     {
     	switch ($array_data['education_type']){
     		case ROUND_TYPE_SUBJECT :
-    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['grade_from']." AND grade_to = ".$array_data['grade_to']." AND subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			$sql = "SELECT id,title,sale_price,img,(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['grade_from']." AND grade_to = ".$array_data['grade_to']." AND subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY study_count DESC LIMIT ".$array_data['limit'];
     			break;
     		case ROUND_TYPE_EDUCATION :
-    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			$sql = "SELECT id,title,sale_price,img,(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY study_count DESC LIMIT ".$array_data['limit'];
+    			break;
+    		default:
+    			$sql = "SELECT id,title,sale_price,img,(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['grade_from']." AND grade_to = ".$array_data['grade_to']." AND subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY study_count DESC LIMIT ".$array_data['limit'];
     			break;
     	}
     	$array_result = array();
@@ -416,10 +419,13 @@ class Model_Course extends NH_Model{
     {
     	switch ($array_data['education_type']){
     		case ROUND_TYPE_SUBJECT :
-    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['grade_from']." AND grade_to = ".$array_data['grade_to']." AND subject != ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			$sql = "SELECT id,title,sale_price,img,(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['grade_from']." AND grade_to = ".$array_data['grade_to']." AND subject != ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY study_count DESC LIMIT ".$array_data['limit'];
     			break;
     		case ROUND_TYPE_EDUCATION :
-    			$sql = "SELECT id,title,sale_price,img,SUM(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE subject != ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY buy_num DESC LIMIT ".$array_data['limit'];
+    			$sql = "SELECT id,title,sale_price,img,(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE subject != ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY study_count DESC LIMIT ".$array_data['limit'];
+    			break;
+    		default:
+    			$sql = "SELECT id,title,sale_price,img,(bought_count+extra_bought_count) AS study_count FROM ".TABLE_ROUND." WHERE grade_from = ".$array_data['grade_from']." AND grade_to = ".$array_data['grade_to']." AND subject = ".$array_data['subject']." AND id != ".$array_data['round_id']." ORDER BY study_count DESC LIMIT ".$array_data['limit'];
     			break;
     	}
     	$array_result = array();
