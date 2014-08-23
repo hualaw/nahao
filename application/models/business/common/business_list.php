@@ -200,8 +200,23 @@ class Business_List extends NH_Model
     	$param['gradeId'] = !empty($param['gradeId']) ? $param['gradeId'] : '';
     	$param['subjectId'] = !empty($param['subjectId']) ? $param['subjectId'] : '';
     	$list = $this->model_list->search($param);
-    	$param['counter'] = 1;
-    	$counter = $this->model_list->search($param);
+    	#新增，没有就推荐同类
+    	$commend = 0;
+    	if(!$list){#推荐，就找同类,按销售量推
+    		$commend = 1;
+    		if($param['typeId']==SUBJECT_STUDY){
+    			unset($param['subjectId']);
+    			$param['order'] = 2;
+    			$list = $this->model_list->search($param);
+    		}elseif($param['typeId']==QUALITY_STUDY){
+    			unset($param['qualityId']);
+    			$param['order'] = 2;
+    			$list = $this->model_list->search($param);
+    		}
+    	}
+		$param['counter'] = 1;
+		$counter = $this->model_list->search($param);
+    	
     	#组合参数：小图标，时间格式，学习人数，课程图片，老师图片
     	if($list) foreach ($list as &$val){
     		$val['icon'] = array();
@@ -232,7 +247,7 @@ class Business_List extends NH_Model
 				$val['icon'][] 	= array('name'=>$material_version_Arr[$val['material_version']],'class'=>'mark8');
 			}
     		//日期
-    		$val['start_date'] 	= date('m年d月 H:i',$val['start_time']);
+    		$val['start_date'] 	= date('m月d日 H:i',$val['start_time']);
     		//学习人数
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
@@ -247,7 +262,11 @@ class Business_List extends NH_Model
     		$val['price']		= intval($val['price']);
     		$val['sale_price']	= intval($val['sale_price']);
     	}
-    	return array('data' => $list , 'total' =>$counter[0]['total']);
+    	if($commend){
+    		return array('data' => array() ,'total' =>$counter[0]['total'], 'commend_data' => $list ,'is_commend' => $commend);
+    	}else{
+    		return array('data' => $list , 'total' =>$counter[0]['total'], 'commend_data' => array(),'is_commend' => $commend);
+    	}
     }
     
     /**

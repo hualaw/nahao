@@ -1,6 +1,7 @@
 /* 课程列表页 开始 */
 .studentClass{}
-.studentClass .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding-left: 15px;margin-top: 10px;}
+.studentClass .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding-left: 15px;margin-top: 10px;padding-top: 15px;}
+.studentClass .filterBox.crumbsWrap{padding: 0px;line-height: 35px;height: 35px;padding-left: 15px;}
 .studentClass .filterBox .filterList{margin-bottom: 10px;}
 .studentClass .filterBox .filterList .tit{float: left;}
 .studentClass .filterBox .filterList ul{float: left;}
@@ -12,7 +13,7 @@
 .studentClass .sortBox li{float: left;}
 .studentClass .sortBox li a{width: 80px;height: 27px;line-height: 27px;text-align: center;display: block;border-right: 1px solid #e0e0e0;}
 .studentClass .sortBox li a:hover,
-.studentClass .sortBox li a.active{background: #f0f0f0;color: #333;}
+.studentClass .sortBox li a.active{background: #fff;color: #f40;}
 .studentClass .courseLeft{width: 760px;}
 .studentClass .courseLeft ul li.courseList{width:240px;border: 1px solid #e0e0e0;float: left;margin-top: 15px;margin-right: 11px;position: relative;}
 .studentClass .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;display: block;}

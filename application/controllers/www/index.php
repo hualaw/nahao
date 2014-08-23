@@ -49,19 +49,18 @@ class Index extends NH_User_Controller
         $course_url = config_item('course_url');
         $stage = config_item('stage');
 
-         $this->load->helper('captcha');
-         $vals = array(
+        $this->load->helper('captcha');
+        $vals = array(
             'img_path' => './captcha/',
             'img_url' => "/captcha/",
             'img_width' => 66,
             'img_height' => 30,
             'expiration' => 7200
-         );
+        );
         $cap = create_captcha($vals);
 
         $this->smarty->assign('cap_word', $cap["word"]);
         $this->smarty->assign('cap_image', $cap['image']);
-
 
 
         $this->smarty->assign('focus_photo', $focus_photo);
@@ -76,60 +75,76 @@ class Index extends NH_User_Controller
      * nahao 2.0 Index
      * @author yanrui@tizi.com
      */
-    public function index()
+    public function index($str_query_param = '')
     {
         //param format
-        $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $int_stage_id = $this->input->get('stage') ? intval($this->input->get('stage')) : 0;
+        if ($str_query_param) {
+            parse_str(parse_url($str_query_param, PHP_URL_QUERY), $arr_query_param);
+        } else {
+            $arr_query_param = array();
+        }
+//        var_dump($arr_query_param);//exit;
+
+//        stage_2_2.html
+        $int_stage_id = isset($arr_query_param['stage']) ? intval($arr_query_param['stage']) : 0;
+        $int_start = isset($arr_query_param['page']) ? intval($arr_query_param['page']) : 0;
         $arr_where = $int_stage_id > 0 ? array('stage' => $int_stage_id) : array();
+        $int_live_per_page = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? PER_PAGE_NO : 6;
+        $int_per_page = SWITCH_WWW_INDEX_COURSE_LIST == 1 ? 60 : PER_PAGE_NO;
 
-        //focus photo
-        $this->load->model('business/admin/business_focus_photo');
-        $focus_photo = $this->business_focus_photo->list_photo(1);
+        //cache template
+        $str_template = 'www/studentHomePage/index.html';
+        $str_cache_id = 'index_stage' . $int_stage_id . '_page' . $int_start . '_live' . $int_live_per_page . '_course' . $int_per_page;
+//        var_dump($this->smarty->isCached($str_template, $str_cache_id));
+        if (!$this->smarty->isCached($str_template, $str_cache_id)) {
+//            focus photo
+            $this->load->model('business/admin/business_focus_photo');
+            $focus_photo = $this->business_focus_photo->list_photo(1);
 
-        //live show list
-        $arr_live_classes = $this->index->get_live_classes();
-//        o($arr_live_classes);
+            //live show list
+            $arr_live_classes = $this->index->get_live_classes($int_live_per_page);
+//            o($arr_live_classes);
 
-        //course_list
-        $int_per_page = PER_PAGE_NO;
-        $int_round_count = $this->index->get_round_count($arr_where);
-        $arr_round_list = $this->index->get_round_list($arr_where, $int_start, $int_per_page);
+            //course_list
+            $int_round_count = $this->index->get_round_count($arr_where);
+//        o($int_round_count);
+            $arr_round_list = $this->index->get_round_list($arr_where, $int_start, $int_per_page);
 //        o($arr_round_list,true);
-        //pagination
-        $this->load->library('pagination');
-        $config = config_item('page_user');
-        $config['suffix'] = '/?' . $this->input->server('QUERY_STRING');
-        $config['base_url'] = '/' . $this->current['controller'] . '/' . $this->current['action'];
-        $config['total_rows'] = $int_round_count;
-        $config['per_page'] = $int_per_page;
-        $config['page_query_string'] = false;
-        $this->pagination->initialize($config);
-        parse_str($this->input->server('QUERY_STRING'), $arr_query_param);
-//        o($this->pagination->create_links());
+            //pagination
+            $this->load->library('pagination');
+            $config = config_item('page_user');
+            $config['base_url'] = '/';
+            $config['total_rows'] = $int_round_count;
+            $config['per_page'] = $int_per_page;
+            $config['page_query_string'] = false;
+            $this->pagination->initialize($config);
+//        $str_page = $this->pagination->create_links();
+            $str_page = $this->pagination->createIndexLinks($int_stage_id, $int_start);
+//        o($str_page);
 //        o($arr_round_list,true);
 
-        //record
-        $this->load->model('business/student/student_course');
-        $arr_record_list = $this->student_course->read_recent_view_data();
+            //record
+            $this->load->model('business/student/student_course');
+            $arr_record_list = $this->student_course->read_recent_view_data();
 //        o($arr_record_list,true);
 
-        $course_url = config_item('course_url');
-        $this->smarty->assign('course_url', $course_url);
-        $this->smarty->assign('stage', config_item('stage'));
-        $this->smarty->assign('material_versions', config_item('material_version'));
-        $this->smarty->assign('course_types', $stage = config_item('course_type'));
-        $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
-        $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d',time())));
-        $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59',time())));
-        $this->smarty->assign('focus_photo', $focus_photo);
-        $this->smarty->assign('live_list', $arr_live_classes);
-        $this->smarty->assign('round_list', $arr_round_list);
-        $this->smarty->assign('array_recent_view', $arr_record_list);
-        $this->smarty->assign('page',$this->pagination->create_links());
-        $this->smarty->assign('query_params', $arr_query_param);
-        $this->smarty->registerPlugin('function','get_course_img_by_size','get_course_img_by_size');
-        $this->smarty->display('www/studentHomePage/index.html');
+            $course_url = config_item('course_url');
+            $this->smarty->assign('course_url', $course_url);
+            $this->smarty->assign('stage', config_item('stage'));
+            $this->smarty->assign('material_versions', config_item('material_version'));
+            $this->smarty->assign('course_types', $stage = config_item('course_type'));
+            $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
+            $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d', time())));
+            $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59', time())));
+            $this->smarty->assign('focus_photo', $focus_photo);
+            $this->smarty->assign('live_list', $arr_live_classes);
+            $this->smarty->assign('round_list', $arr_round_list);
+            $this->smarty->assign('array_recent_view', $arr_record_list);
+            $this->smarty->assign('page', $str_page);
+            $this->smarty->assign('query_params', $arr_query_param);
+            $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
+        }
+        $this->smarty->display($str_template, $str_cache_id);
     }
 
     /**
@@ -144,10 +159,10 @@ class Index extends NH_User_Controller
             'img_url' => "/captcha/",
             'img_width' => 66,
             'img_height' => 30,
-            'expiration' =>7200
+            'expiration' => 7200
         );
         $cap = create_captcha($vals);
-        $this->session->set_userdata('captcha',strtolower($cap['word']));
+        $this->session->set_userdata('captcha', strtolower($cap['word']));
         echo $cap['image'];
     }
 
@@ -157,9 +172,10 @@ class Index extends NH_User_Controller
      */
     public function get_captcha()
     {
-        $arr_userdata=$this->session->all_userdata();
+        $arr_userdata = $this->session->all_userdata();
         echo $arr_userdata['captcha'];
     }
+
     /**
      * 我要开课
      */
@@ -271,78 +287,76 @@ class Index extends NH_User_Controller
         } else {
             self::json_output(array('status' => 'error', 'msg' => '申请试讲操作失败'));
 //			echo '<script>alert("申请失败");window.location.href="/index/apply_teach/"</script>';
-	    }
-	}
-	
-	/**
-	 * 意见反馈
-	 */
-	public function feedback()
-	{
-	    $str_content = $this->input->post("content");
-	    $str_nickname = $this->input->post("nickname");
-	    $str_email = $this->input->post("email");
-	    $array_data = array(
-	            'content'=>$str_content,
-	            'nickname'=>  $str_nickname,
-	            'email'=>$str_email,
-	            'create_time'=>time()
-	    );
-	    $bool_flag = $this->model_index->save_feedback($array_data);
-	    if ($bool_flag)
-	    {
-	        self::json_output(array('status'=>'ok','msg'=>'提交意见反馈成功'));
-	    } else {
-	        self::json_output(array('status'=>'error','msg'=>'提交意见反馈失败'));
-	    }
-	}
-	
-	/**
-	 * 底部的页面
-	 */
-	public function about()
-	{
-	    $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
-	    switch ($str_pram)
-	    {
-	    	case 'aboutus':
-	    		$seo_title = '关于我们-那好网';
-	    		$seo_description = '';
-	    		break;
-    		case 'classmode':
-    			$seo_title = '那好招聘-那好网';
-    			$seo_description = '';
+        }
+    }
+
+    /**
+     * 意见反馈
+     */
+    public function feedback()
+    {
+        $str_content = $this->input->post("content");
+        $str_nickname = $this->input->post("nickname");
+        $str_email = $this->input->post("email");
+        $array_data = array(
+            'content' => $str_content,
+            'nickname' => $str_nickname,
+            'email' => $str_email,
+            'create_time' => time()
+        );
+        $bool_flag = $this->model_index->save_feedback($array_data);
+        if ($bool_flag) {
+            self::json_output(array('status' => 'ok', 'msg' => '提交意见反馈成功'));
+        } else {
+            self::json_output(array('status' => 'error', 'msg' => '提交意见反馈失败'));
+        }
+    }
+
+    /**
+     * 底部的页面
+     */
+    public function about()
+    {
+        $str_pram = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 'aboutus';
+        switch ($str_pram) {
+            case 'aboutus':
+                $seo_title = '关于我们-那好网';
+                $seo_description = '';
+                break;
+            case 'classmode':
+                $seo_title = '那好招聘-那好网';
+                $seo_description = '';
                 $this->load->model('model/student/model_employment', 'employment');
                 $employ_info = $this->employment->getAll();
                 $this->smarty->assign('employ_info', $employ_info);
-    			break;
-    		case 'userhelp':
-    			$seo_title = '那好怎么用,那好学习流程-那好网';
-    			$seo_description = '教你如何正确使用那好，知道那好怎么用，并详细了解那好学习流程';
-    			break;
-    		case 'advise':
-    			$seo_title = '那好投诉与建议处理-那好网';
-    			$seo_description = '那好在线教育平台投诉、建议及相关问题，请联系我们。我们会及时核查您有关那好投诉与建议的问题，解决您的投诉。您的参与将帮助我们改进产品与服务。那好网！（nahao.com）';
-    			break;
-    		case 'contactus':
-    			$seo_title = '联系我们-那好网';
-    			$seo_description = '';
-    			break;
-    		case 'service':
-    			$seo_title = '服务条款-那好网';
-    			$seo_description = '';
-    			break;
-    		case 'wish':
-    			$seo_title = '总裁寄语-那好网';
-    			$seo_description = '';
-    			break;
-	    }
+                break;
+            case 'userhelp':
+                $seo_title = '那好怎么用,那好学习流程-那好网';
+                $seo_description = '教你如何正确使用那好，知道那好怎么用，并详细了解那好学习流程';
+                break;
+            case 'advise':
+                $seo_title = '那好投诉与建议处理-那好网';
+                $seo_description = '那好在线教育平台投诉、建议及相关问题，请联系我们。我们会及时核查您有关那好投诉与建议的问题，解决您的投诉。您的参与将帮助我们改进产品与服务。那好网！（nahao.com）';
+                break;
+            case 'contactus':
+                $seo_title = '联系我们-那好网';
+                $seo_description = '';
+                break;
+            case 'service':
+                $seo_title = '服务条款-那好网';
+                $seo_description = '';
+                break;
+            case 'wish':
+                $seo_title = '总裁寄语-那好网';
+                $seo_description = '';
+                break;
+        }
 
-	    $this->smarty->assign('str_pram',$str_pram);
-	    $this->smarty->assign('seo_title',$seo_title);
-	    $this->smarty->assign('seo_description',$seo_description);
-	    $this->smarty->display('www/about/index.html');
-	}
+        $this->smarty->assign('str_pram', $str_pram);
+        $this->smarty->assign('seo_title', $seo_title);
+        $this->smarty->assign('seo_description', $seo_description);
+        $this->smarty->display('www/about/index.html');
+    }
 }
 
 /* End of file welcome.php */
