@@ -86,7 +86,7 @@
 					<a class="name" href="/member/my_course" target="_blank" title="{$user_detail.nickname}">{$user_detail.nickname}</a>
 					<!-- 姓名结束 -->
 					<!-- 年级开始 -->
-					<a class="grade" href="#">{$stage[$user_detail.stage]}</a>
+					<a class="grade" href="#">{if $user_detail.grade!=0}{$grade[$user_detail.grade]}{/if}</a>
 					<!-- 年级结束 -->
 				</span>
     </div>
