@@ -56,7 +56,15 @@ class Business_List extends NH_Model
 	    	}
     		//2.4 科目
     		$cateArr['subjectArr'] = $cate_subject;
-    		$filter_subject = !empty($param['gradeId']) ? $cate_grade[$param['gradeId']]['chirdren'] : array();
+    		if(!empty($param['gradeId'])){#选了年级
+    			$filter_subject = $cate_grade[$param['gradeId']]['chirdren'];
+    		}else{#没选年级
+    			if(!empty($param['stageId'])){#没选年级选了学段
+    				$filter_subject = $cate_grade[0]['chirdren_'.$param['stageId']];
+    			}else{#没选学段
+    				$filter_subject = array();
+    			}
+    		}
     		foreach($cateArr['subjectArr'] as $key =>&$val){ //key [subjectId]
 	    		if($filter_subject && !in_array($key,$filter_subject)){
 	    			unset($cateArr['subjectArr'][$key]);

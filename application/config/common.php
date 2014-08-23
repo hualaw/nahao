@@ -442,6 +442,9 @@ $config['cate_grade'] = array(
 		'name' => '全部',
         'parentId' => array(1,2,3),
         'chirdren' => array(0, 2, 3, 4, 5,9,10,12,13,100),
+        'chirdren_1' => array(0, 2, 3, 4,14,100),
+        'chirdren_2' => array(0, 2, 3, 4,5,9,100),
+        'chirdren_3' => array(0, 2, 3, 4, 5,9,10,12,13,100),
 	),
     3 => array(
         'name' => '三年级',
