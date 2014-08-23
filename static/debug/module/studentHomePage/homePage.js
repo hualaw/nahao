@@ -15,7 +15,7 @@ define(function(require,exports){
         //初始化首页的标签页
 //        require("module/common/method/tab_nav").init();
         //直播客silde
-        require("module/studentHomePage/slide").init($(".liveLessonWrap"),8000);
+        require("module/studentHomePage/slide").init($(".liveLessonWrap"),5000);
         //学员风采slide
         require("module/studentHomePage/slide").init($(".stuListCont"));
         //媒体报道slide
@@ -94,7 +94,7 @@ define(function(require,exports){
 
             }
         }
-        new _banner($("#indexBanner"),$("#indexBanner .rollList li"),$("#indexBanner .rollNav li"),$("#indexBanner .bannerSlide"),5000).start();
+        new _banner($("#indexBanner"),$("#indexBanner .rollList li"),$("#indexBanner .rollNav li"),$("#indexBanner .bannerSlide"),3000).start();
     }
     //页面的fixed效果
     exports.fiexed=function(item,top){
