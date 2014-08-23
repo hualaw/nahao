@@ -133,6 +133,7 @@
 .studentHomePage .loginWrap input.authCode{width: 50px;}
 .studentHomePage .loginWrap .authCodeImg{width: 66px;height: 32px;vertical-align: top;border:1px solid #e0e0e0;margin:0px 5px;display: inline-block;}
 .studentHomePage .loginWrap .authorImgWrap{margin-left: 5px;margin-right: 5px;margin-top: 2px;height: 30px;width: 66px;cursor: pointer;}
+.studentHomePage .loginWrap .authorImgWrap img{height: 30px;width: 66px;}
 .studentHomePage .loginWrap .required{display: inline-block;height: 34px;line-height: 34px;padding-left: 3px;color: #CE0000;}
 .studentHomePage .loginWrap .changeOne{display: inline-block;height: 34px;line-height: 34px;}
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
