@@ -214,6 +214,16 @@ if (defined('ENVIRONMENT'))
  *
  */
 
+/**
+ * 反垃圾机制，2014-8-22
+ */
+require_once APPPATH . 'libraries/Anti_Spam.php';
+if(!Anti_Spam::check()){
+    header("HTTP/1.1 403 Forbidden");
+    header("Status: 403 Forbidden");
+    exit;
+}
+
 /*
  * --------------------------------------------------------------------
  *  引入LOG4PHP类

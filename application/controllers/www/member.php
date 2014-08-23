@@ -41,7 +41,7 @@ class Member extends NH_User_Controller
         $show_page = $this->pagination->createJSlinks('setPage');
 
         #正在进行的课程
-        $course_living = $this->student_member->get_my_course_by_where($int_user_id, CLASS_STATUS_CLASSING);
+        $course_living = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_TEACH);
         $config['total_rows'] = $course_living['total'];
         $this->pagination->initialize($config);
         $course_living_page = $this->pagination->createJSlinks('setPage');
@@ -52,13 +52,13 @@ class Member extends NH_User_Controller
 //        $course_living_page = $page_obj->fpage();
 
         #即将开始
-        $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id, CLASS_STATUS_SOON_CLASS);
+        $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_INIT);
         $config['total_rows'] = $course_soon_class['total'];
         $this->pagination->initialize($config);
         $course_soon_page = $this->pagination->createJSlinks('setPage');
 
         #已结束
-        $course_over = $this->student_member->get_my_course_by_where($int_user_id, CLASS_STATUS_CLASS_OVER);
+        $course_over = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_STOP);
         $config['total_rows'] = $course_over['total'];
         $this->pagination->initialize($config);
         $course_over_page = $this->pagination->createJSlinks('setPage');
