@@ -150,7 +150,7 @@
 .studentHomePage .loginedWrap .userInfo{margin-top:16px;}
 .studentHomePage .loginedWrap .userInfo .userDesc{margin-left: 14px;width: 118px;}
 .studentHomePage .loginedWrap .UserImg{width: 50px;height: 50px;}
-.studentHomePage .loginedWrap .name{display: block;font-size: 14px;width: 118px;height:19px;overflow: hidden;display: block;text-overflow:ellipsis;white-space:nowrap;}
+.studentHomePage .loginedWrap .name{display: block;font-size: 14px;width: 118px;height:19px;overflow: hidden;display: block;text-overflow:ellipsis;white-space:nowrap;margin-bottom: 5px;}
 .studentHomePage .loginedWrap .grade{}
 .studentHomePage .loginedWrap .myCtrlList{margin-bottom: 35px;margin-top: 28px;}
 .studentHomePage .loginedWrap .myCtrlList li{border-left: 1px dashed #e0e0e0;width: 61px;text-align: center;height: 58px;}
