@@ -1,21 +1,25 @@
 define(function(require,exports){
     require("naHaoDialog");
     exports.topLogin=function(){
+        require("placeHolder").JPlaceHolder.init();
          // 光标进入或者离开输入框验证
         $('.topLoginForm input').focusin(function(){
             $(this).removeClass('Validform_error');
             if($(this).val() == ''){
-                $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg ValidformTipBg').addClass('ValidformTipBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
             };
             // 新增判断
             if($(this).siblings('.normalText').html() == ''){
-                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg ValidformTipBg').hide();
             }
         }).focusout(function(){
+            if( $(this).siblings('.ValidformInfo').hasClass("ValidformInfoBg")){
+                $(this).addClass('Validform_error');
+            }
             if($(this).val() !== ''){
-                $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg');
+                $(this).siblings('.ValidformInfo').addClass('ValidformTipBg');
             }else{
-                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+                $(this).siblings('.ValidformInfo').removeClass('ValidformTipBg').hide();
             };
         });
 
@@ -31,11 +35,11 @@ define(function(require,exports){
                     var infoObj = o.obj.siblings(".ValidformInfo");
                     // 判断验证成功
                     if (o.type == 2) {
-                        infoObj.removeClass('ValidformInfoBg').hide();
+                        infoObj.removeClass('ValidformInfoBg ValidformTipBg').hide();
                     };
                     // 如果输入错误
                     if (o.type == 3) {
-                        infoObj.addClass('ValidformInfoBg').show();
+                        infoObj.removeClass('ValidformInfoBg ValidformTipBg').addClass('ValidformInfoBg').show();
                         o.obj.siblings().find(".Validform_checktip").show();
                     }
                 }
@@ -46,11 +50,11 @@ define(function(require,exports){
                 require("cryptoJs");
                 var _email=curform.find("#top_username"),_pwd=curform.find("#top_password");
                 if(_email.val()==""){
-                    curform.find('.username').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    curform.find('.username').focus().next('.ValidformInfo').removeClass('ValidformInfoBg ValidformTipBg').addClass('ValidformTipBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 }
                 if(_pwd.val()==""){
-                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                     curform.find('.password').focus().next('.ValidformInfo').removeClass('ValidformInfoBg ValidformTipBg').addClass('ValidformTipBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 }
                 var hash = CryptoJS.SHA1(_pwd.val());

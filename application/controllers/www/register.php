@@ -47,7 +47,7 @@ class register extends NH_Controller
 	{
         $code=trim($this->input->post('code',TRUE));
         $arr_userdata=$this->session->all_userdata();
-        if($code!= trim($arr_userdata['captcha']))
+        if(strcasecmp($code,trim($arr_userdata['captcha']))!==0)
         {
             $arr_return['status']='ERROR';
             $arr_return['msg']='验证码错误';
@@ -68,13 +68,6 @@ class register extends NH_Controller
 		$reg_ret = $this->business_register->submit($phone, $email, $sha1_password, $captcha, $reg_type);
 
 		echo parent::json_output($reg_ret);
-	}
-
-
-
-	public function verify_email()
-	{
-
 	}
 
     public function submit_personal_info()

@@ -5,7 +5,9 @@
 .topMiniNav .loginBefore .cInput{height:19px;line-height: 19px;width:100px;margin-right:10px;font-size:12px;padding-left:20px;}
 .topMiniNav .loginBefore .ico_usename{position: absolute;top:9px;left:5px;background:url(../../images/common/header/ico_username.png) no-repeat;_background:url(../../images/common/header/ico_username_8.png) no-repeat;display: block;width:10px;height:12px;}
 .topMiniNav .loginBefore .ico_password{position: absolute;top:9px;left:5px;background:url(../../images/common/header/ico_password.png) no-repeat;_background:url(../../images/common/header/ico_password_8.png) no-repeat;display: block;width:10px;height:12px;}
-.topMiniNav .loginBefore .loginSubmit,.topMiniNav .loginBefore .loginReg{border:0px;color:#fff;cursor: pointer;margin-right:10px;height:21px;line-height: 21px;}
+.topMiniNav .loginBefore .loginSubmit,.topMiniNav .loginBefore .loginReg{border:0px;color:#fff;cursor: pointer;margin-right:10px;height:21px;line-height: 21px;display: block;margin-top: 4px;}
+.topMiniNav .loginBefore .loginReg{width: 33px;text-align: center;}
+.topMiniNav .loginBefore .loginReg:hover{color: #fff;}
 /*登录前样式结束*/
 /*登陆后样式开始*/
 .topMiniNav .loginOver .red{color:#ce0000;}
@@ -39,5 +41,6 @@
 .topMiniNav .quickLink .attention img.fl{margin-top:8px;}
 .topMiniNav .quickLink .attention .text i.v{background:url(../../images/common/header/ico_v.gif) no-repeat;width:17px;height:14px;display:block;margin-top:6px;margin-left:5px;}
 .topMiniNav .quickLink .attention .text .add{background:url(../../images/common/header/attention_btn.gif) no-repeat;width:50px;height:18px;text-indent: -999em;overflow:hidden;display:block;margin-top:5px;}
+.topMiniNav .quickLink .ctrlRed{color: #ce0000;padding-right: 5px;}
 /*关注样式结束*/
 /*右侧直达区域结束*/

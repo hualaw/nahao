@@ -229,13 +229,13 @@ transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-t
 .studentMyCourse .inforTab .tabh{background: #f7f7f7;height: 50px;line-height: 50px;}
 .studentMyCourse .inforTab .tabh li{width: 150px;text-align: center;font-size: 18px;color: #4b4b4b;float: left;cursor: pointer;}
 .studentMyCourse .inforTabBox{color:#333;}
-.studentMyCourse .inforTab .tabh .inforOn{background: #fff;border-top: 3px solid #f14211;line-height: 47px;font-weight: bold;color:#f14211;}
+.studentMyCourse .inforTab .tabh .inforOn{background: #fff;border-top: 3px solid #ce0000;line-height: 47px;font-weight: bold;color:#ce0000;}
 .studentMyCourse .inforTabBox{padding:0 135px 30px 104px;font-size: 16px;min-height: 970px;}
 .studentMyCourse .inforTabBox .Validform_tip_info,.studentMyCourse .inforTabBox .Validform_checktip{font-size: 12px;}
 .studentMyCourse .inforTabBox .hasVer{color:#919191;font-weight: normal;font-size: 14px;}
 .studentMyCourse .inforTabBox .verWay{margin:0 4px 0 12px;}
 .studentMyCourse .inforTabBox li .formName{margin-left: -20px;}
-.studentMyCourse .inforTabBox li .formName span{color:#f14211;margin-right: 12px;}
+.studentMyCourse .inforTabBox li .formName span{color:#ce0000;margin-right: 12px;}
 .studentMyCourse .inforTabBox .detailText{font-size: 14px;}
 .studentMyCourse .inforTabBox .optional{margin: 20px 0 8px;color:#0e455e;}
 .studentMyCourse .inforTabBox form input.radio{width: auto;}
@@ -276,7 +276,7 @@ transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-t
 .studentMyCourse .buyCourse .timeTitle .fl{}
 .studentMyCourse .buyCourse .startTime .more{color:#a2a2a2;cursor: inherit;}
 .studentMyCourse .buyCourse .startTime .ctimeOn{background: #fcd9cf url(../../images/studentMyCourse/activetime.png) right bottom no-repeat;border-color:#f14211;}
-.studentMyCourse .buyCourse .review{font-size: 14px;padding:15px 0px;border-bottom: 1px solid #efefef;}
+.studentMyCourse .buyCourse .review{font-size: 14px;padding:15px 40px 15px 0px;border-bottom: 1px solid #efefef;}
 .studentMyCourse .buyCourse .review strong{font-size: 16px;margin:0 30px 0 10px;}
 .studentMyCourse .buyCourse .review a{color:#a2a2a2;width: 150px;display: block;text-align: right;}
 .studentMyCourse .buyCourse .review a i{color: #ce0000;}
@@ -458,7 +458,7 @@ overflow: hidden;}
 .studentMyCourse .myInforCon .atareditor dt.ml10{margin-left:64px;}
 .studentMyCourse .myInforCon .atareditor dd{padding: 20px 64px;clear:both; overflow: hidden; text-align: left;}
 .studentMyCourse .myInforCon .atareditor dd p{font-size: 12px;margin-bottom:10px;}
-.studentMyCourse .myInforCon .atareditor dt a{display:block;float:left;width:150px;height:40px;color:#ed4111;background:#ffffff;border:1px solid #ed4111;text-align:center;cursor:pointer;font-size: 18px;line-height:40px;}
+.studentMyCourse .myInforCon .atareditor dt a{display:block;float:left;width:150px;height:40px;color:#ce0000;background:#ffffff;border:1px solid #ce0000;text-align:center;cursor:pointer;font-size: 18px;line-height:40px;}
 .studentMyCourse .myInforCon .atareditor dt a em{display:block;float:left;background: url("../../images/studentMyCourse/icon_list.png") no-repeat left top;width:26px; height:35px;margin-left: 20px;}
 .studentMyCourse .myInforCon .atareditor dt a span{margin-right:20px;}
 .studentMyCourse .myInforCon .atareditor dt a.localUpload{border-top-left-radius:5px;border-bottom-left-radius:5px;}
@@ -467,7 +467,7 @@ overflow: hidden;}
 .studentMyCourse .myInforCon .atareditor dt a.videoUpload em{background-position:-150px 7px;}
 .studentMyCourse .myInforCon .atareditor .button_upload,.studentMyCourse .myInforCon .atareditor .button_cancel,.studentMyCourse .myInforCon .atareditor .button_shutter{width: 130px;height: 40px;line-height: 40px;}
 .studentMyCourse .myInforCon .atareditor .button_save{width:304px;height: 40px;line-height: 40px;font-size: 18px;}
-.studentMyCourse .myInforCon .atareditor dt.current a{background:#f14211;color:#fff;}
+.studentMyCourse .myInforCon .atareditor dt.current a{background:#ce0000;color:#fff;}
 .studentMyCourse .myInforCon .atareditor dt.current a.localUpload em{background-position:0px 7px;}
 .studentMyCourse .myInforCon .atareditor dt.current a.videoUpload em{background-position:-470px 7px;}
 /*修改头像页面样式结束*/
@@ -503,10 +503,11 @@ overflow: hidden;}
 .studentMyCourse .buyCourse .startTime .promise  .bdsharebuttonbox{position: absolute;right: 0px;top: 0px;}
 .studentMyCourse .buyCourse .startTime .promise  .bdsharebuttonbox .bds_more{padding-left: 30px;background: url(../../images/studentMyCourse/shareBg.jpg) 10px center no-repeat;}
 .studentMyCourse .buyCourse .detialLeft{width: 750px;position: relative;}
-.studentMyCourse .buyCourse .detialLeft .importInfo{border: 1px solid #e0e0e0;background: #fff;font-size: 12px;}
-.studentMyCourse .buyCourse .detialLeft .importInfo dt{padding: 50px 20px 5px;background: url(../../images/studentMyCourse/importInfo.jpg) 30px 18px no-repeat;float: left;border-right: 1px solid #e0e0e0;}
-.studentMyCourse .buyCourse .detialLeft .importInfo dd{float: left;padding:12px 15px;line-height: 24px;}
-.studentMyCourse #course_info_nav {height:38px;background:#f5f5f5;position:absolute;top: 84px;border-right: 1px solid #e0e0e0;}
+.studentMyCourse .buyCourse .detialLeft .importTable{width: 100%;background: #fff;font-size: 12px;margin-bottom: 10px;}
+.studentMyCourse .buyCourse .detialLeft .importTable td{border: 1px solid #e0e0e0;padding:12px 15px;}
+.studentMyCourse .buyCourse .detialLeft .importInfo{background: url(../../images/studentMyCourse/importInfo.jpg) center 0px no-repeat;padding-top: 34px;width: 50px;}
+.studentMyCourse .buyCourse .detialLeft .importTable p{line-height: 24px;}
+.studentMyCourse #course_info_nav {height:38px;background:#f5f5f5;position:absolute;border-right: 1px solid #e0e0e0;}
 .studentMyCourse #course_info_nav li{cursor: pointer;display: inline;float: left;text-align: center;width: 148px;height: 38px;line-height: 38px;color:#000;font-size:14px;background: none;border: 1px solid #e0e0e0;border-right: none;background: #f5f5f5;}
 .studentMyCourse #course_info_nav li.current{color:#fff;background: #ce0000;border: 1px solid #ce0000;width: 151px;}
 .studentMyCourse #course_info_nav li.detail_button, 
@@ -521,13 +522,15 @@ overflow: hidden;}
 .studentMyCourse .course_info_item{padding-top: 25px;}
 .studentMyCourse .course_info_item h3{font-size: 16px;font-weight: normal;border-bottom: 2px solid #cdcdcd;padding-bottom: 10px;}
 .studentMyCourse .course_info_item .course_detial_text{text-indent: 2em;line-height: 24px;margin-top: 15px;}
-.studentMyCourse .course_info_item .b_t_0{border-top: none;}
 .studentMyCourse .course_info_item .course_team_list{padding:20px 0 15px;border-top: 1px solid #e0e0e0; }
 .studentMyCourse .course_info_item .course_team_list img{width: 100px;height: 100px;display: block;margin-right: 15px;}
+.studentMyCourse .course_info_item .b_t_0{border-top: none;}
 .studentMyCourse .course_info_item .teacherInfo h4{font-weight: normal;margin-top: 5px;}
 .studentMyCourse .course_info_item .teacherInfo h4 i{color: #ce0000;width: 120px;display: inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentMyCourse .course_info_item .teacherText{color: #666;text-indent: 2em;margin-top: 10px;width: 600px;font-size: 12px;line-height: 24px;}
-.studentMyCourse .course_info_item .course_info_img{width: 718px;height: 328px;display: block;margin-top: 20px;}
+.studentMyCourse .course_info_item .course_info_img{width: 718px;display: block;margin-top: 20px;}
+.studentMyCourse .course_info_item .course_info_img .videoPlay{float: none;}
+.studentMyCourse .course_info_item .course_info_img .videoPlay h3{border: none;}
 .studentMyCourse .courseRight{width: 220px;font-size: 12px;}
 .studentMyCourse .courseRight .buyCourseBox{border: 1px solid #e0e0e0;margin-bottom: 10px;background: #fff;}
 .studentMyCourse .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
@@ -550,4 +553,5 @@ overflow: hidden;}
 .studentMyCourse .courseRight .history li .priceHis{text-decoration: line-through;color: #989898;}
 .studentMyCourse .courseRight .historyNone{text-align: center;padding: 50px 0px 30px;display: none;}
 .floatBox .ansQue{display: block;}
+.studentMyCourse .hasNoContent{padding: 20px;}
 /* 新的详情页样式 结束 */

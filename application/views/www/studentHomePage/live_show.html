@@ -1,8 +1,8 @@
 <div class="cf liveLessonWrap bannerScroll">
     <!-- 直播课的header开始 -->
-    <div class="hd cf liveLessHead">
+    <div class="hd cf liveLessHead" id="online" name="online">
         <h2 class="fl liveTitle">
-            <a name="online">进行中的直播课</a>
+            进行中的直播课
         </h2>
         <!-- 直播课的slide序列号开始 -->
         <ol class="cf fr bannerOrder">
@@ -17,7 +17,7 @@
                 {foreach $live_list as $v}
                 <li class="bItem">
                     <div class="liveLess"  title="{$v.class_name}">
-                        <a href="/course/go?cid={$v.id}">
+                        <a target="_blank" href="/course/go?cid={$v.id}">
                             <img src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($v.img,'live')}{/if}"
                                  alt="{$v.class_name}" class="liveClassImg">
                             <!-- 标签列表开始 -->
@@ -31,7 +31,7 @@
                             <!-- 标签列表结束 -->
                         </a>
                         <!-- 直播课的简介开始 -->
-                        <a href="/course/go?cid={$v.id}">
+                        <a target="_blank" href="/course/go?cid={$v.id}">
                             <span class="cTitle">{$v.class_name|truncate:20}</span>
                             <!-- 直播课时间开始 -->
                             <span>{date('m月d日',$v.begin_time)}<span class="time">{date('H:i',$v.begin_time)}-{date('H:i',$v.end_time)}</span></span>

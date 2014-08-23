@@ -9,7 +9,7 @@ class Model_List extends NH_Model
 
 	protected static $_orderConfig = array(
 		1	=> ' ORDER BY r.sequence DESC,r.start_time DESC',//权重降序+时间降序
-		2	=> ' ORDER BY r.bought_count DESC',//销量降序
+		2	=> ' ORDER BY (r.bought_count+r.extra_bought_count) DESC',//销量降序
 		3 	=> ' ORDER BY r.sale_price DESC',//售价降序
 		4	=> ' ORDER BY r.sale_price ASC',//售价升序
 		5	=> ' ORDER BY r.start_time DESC',//时间降序

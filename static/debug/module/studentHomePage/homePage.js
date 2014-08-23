@@ -15,7 +15,7 @@ define(function(require,exports){
         //初始化首页的标签页
 //        require("module/common/method/tab_nav").init();
         //直播客silde
-        require("module/studentHomePage/slide").init($(".liveLessonWrap"),5000);
+        require("module/studentHomePage/slide").init($(".liveLessonWrap"),8000);
         //学员风采slide
         require("module/studentHomePage/slide").init($(".stuListCont"));
         //媒体报道slide
@@ -138,17 +138,20 @@ define(function(require,exports){
         $('.loginForm input').focusin(function(){
             $(this).removeClass('Validform_error');
             if($(this).val() == ''){
-                $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg ValidformTipBg').addClass('ValidformTipBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
             };
             // 新增判断
             if($(this).siblings('.normalText').html() == ''){
-                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg ValidformTipBg').hide();
             }
         }).focusout(function(){
+            if( $(this).siblings('.ValidformInfo').hasClass("ValidformInfoBg")){
+                $(this).addClass('Validform_error');
+            }
             if($(this).val() !== ''){
-                $(this).siblings('.ValidformInfo').addClass('ValidformInfoBg');
+                $(this).siblings('.ValidformInfo').addClass('ValidformTipBg');
             }else{
-                $(this).siblings('.ValidformInfo').removeClass('ValidformInfoBg').hide();
+                $(this).siblings('.ValidformInfo').removeClass('ValidformTipBg').hide();
             };
         });
         // 验证规则
@@ -163,11 +166,11 @@ define(function(require,exports){
                     var infoObj = o.obj.siblings(".ValidformInfo");
                     // 判断验证成功
                     if (o.type == 2) {
-                        infoObj.removeClass('ValidformInfoBg').hide();
+                        infoObj.removeClass('ValidformInfoBg ValidformTipBg').hide();
                     };
                     // 如果输入错误
                     if (o.type == 3) {
-                        infoObj.addClass('ValidformInfoBg').show();
+                        infoObj.removeClass('ValidformInfoBg ValidformTipBg').addClass('ValidformInfoBg').show();
                         o.obj.siblings().find(".Validform_checktip").show();
                     }
                 }
