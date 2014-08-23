@@ -125,6 +125,10 @@ class Anti_Spam
             return false;
         }
 
+        /*对于获取不到IP的请求，直接返回ture*/
+        $ip = self::getClient();
+        if (is_null($ip) || !$ip) return true;
+
         foreach (self::$data as $type => $data) {
             if (self::get($type) > $data['limit']) {
                 self::setForbidden($type, self::$data);
