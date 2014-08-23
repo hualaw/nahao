@@ -160,7 +160,7 @@ class Index extends NH_User_Controller
             'img_path' => './captcha/',
             'img_url' => "/captcha/",
             'img_width' => 66,
-            'img_height' => 30,
+            'img_height' => 35,
             'expiration' => 7200
         );
         $cap = create_captcha($vals);
