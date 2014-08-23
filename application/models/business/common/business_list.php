@@ -287,6 +287,9 @@ class Business_List extends NH_Model
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
 	       	$val['img_url'] 	= empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($val['img'],'general');	
+    		//价格整形
+    		$val['price']		= intval($val['price']);
+    		$val['sale_price']	= intval($val['sale_price']);
     	}
     	return array('data' => $suggest_list);
     }
