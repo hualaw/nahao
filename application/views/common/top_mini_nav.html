@@ -2,6 +2,19 @@
 	<div class="layout">
 		<!-- 右侧直达区域开始 -->
 		<div class="quickLink fr">
+            <div class="fl">
+                {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']==1}
+                <a href='{$teacher_url}' class="ctrlRed">教师后台</a>
+                {/if}
+                {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
+                {if !isset($arr_user_lecture['status'])}
+                <a href="{$student_url}index/apply_teach" class="ctrlRed">我要开课</a>
+                {/if}
+                {if isset($arr_user_lecture['status']) && $arr_user_lecture['status']==2}
+                <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="ctrlRed">试讲教室入口</a>
+                {/if}
+                {/if}
+            </div>
 			<!-- 我的那好开始 -myNahaoHover -->
 			<div class="myNahao posr fl">
 				<p class="cf">
@@ -71,11 +84,27 @@
 						<li class="posr fl">
 							<input type="text" class="username cInput" placeholder="账号" id="top_username" name="username" />
 							<i class="ico_usename"></i>
+							<span class="normalText undis">请输入账号</span>
+				            <div class="ValidformInfo passTip">
+				              <span class="Validform_checktip"></span>
+				              <span class="dec">
+				                <s class="dec1">&#9670;</s>
+				                <s class="dec2">&#9670;</s>
+				              </span>
+				            </div>
 						</li>
 						<li class="posr fl">
 							<input type="hidden" name="password" class="epass">
 							<input type="password" class="password cInput" placeholder="密码" id="top_password" name="" />
 							<i class="ico_password"></i>
+							<span class="normalText undis">6-15位任意字符，区分大小写</span>
+				            <div class="ValidformInfo passTip">
+				              <span class="Validform_checktip"></span>
+				              <span class="dec">
+				                <s class="dec1">&#9670;</s>
+				                <s class="dec2">&#9670;</s>
+				              </span>
+				            </div>
 						</li>
 						<li class="fl">
 							<input type="submit" class="loginSubmit yh cRedBtn" value="登录" id="top_login" />
@@ -96,17 +125,7 @@
 				<span class="red">您好,</span>
 				<a href="/member/my_course" target="_blank" class="red">{$nickname}</a>
 				<a href="/login/logout" target="" class="loginOut">退出</a>
-                {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']==1}
-                <a href='{$teacher_url}' class=" redText">教师后台</a>
-                {/if}
-                {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
-                {if !isset($arr_user_lecture['status'])}
-                <a href="{$student_url}index/apply_teach" class="redText">我要开课</a>
-                {/if}
-                {if isset($arr_user_lecture['status']) && $arr_user_lecture['status']==2}
-                <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="redText">试讲教室入口</a>
-                {/if}
-                {/if}
+
 			</div>
             {/if}
 			<!-- 登陆后结束 -->

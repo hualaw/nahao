@@ -187,8 +187,12 @@
                     <div id="course_team" class="course_info_item height">
                         <h3>授课团队</h3>
                         {if $array_team}
-               			{foreach from=$array_team item=item}
+               			{foreach from=$array_team item=item key=key}
+               			{if $key == 0}
                			<div class="course_team_list b_t_0 cf">
+               			{else}
+               			<div class="course_team_list cf">
+               			{/if}
                             <img class="fl" src="{$item.avatar}" alt="">
                             <div class="teacherInfo fl">
                                 <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
