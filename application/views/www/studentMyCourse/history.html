@@ -1,0 +1,36 @@
+<div class="historyWrap">
+    <div class="historyListWrap" style="position: absolute; left: 0px; z-index: 1;">
+        <!-- 浏览记录的头部开始 -->
+        <div class="hd hHeader">
+            最近浏览
+            <a class="fr deletHistory clearCount" href="#">清空</a>
+        </div>
+        {if $array_recent_view}
+        <!-- 浏览记录的头部结束 -->
+        <!-- 有浏览记录开始 -->
+        <div class="bd historyList">
+            <!-- 单条浏览记录开始 -->
+            {foreach from=$array_recent_view item=item}
+            <a target="_blank" href="{$course_url}ke_{$item.id}.html" class="cf hItem">
+                <img alt="" src="{$item.img}" class="hPic">
+				<span class="fr hDesc">
+					<span class="hSmallTitle">{$item.title|truncate:16:"...":true}</span>
+					<span class="valList">
+						<strong class="price">￥{$item.sale_price}</strong>
+						<span class="val">{$item.price}</span>
+					</span>
+				</span>
+            </a>
+            {/foreach}
+			<!-- 单条浏览记录结束 -->
+        </div>
+        {else}
+        <!-- 有浏览记录结束 -->
+		<!-- 无浏览记录开始 -->
+        <div class="noHistory">
+            暂无浏览记录
+        </div>
+        <!-- 无浏览记录结束 -->
+        {/if}
+    </div>
+</div>
