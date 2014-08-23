@@ -1,6 +1,7 @@
 define(function(require,exports){
     require("naHaoDialog");
     exports.topLogin=function(){
+        require("placeHolder").JPlaceHolder.init();
          // 光标进入或者离开输入框验证
         $('.topLoginForm input').focusin(function(){
             $(this).removeClass('Validform_error');

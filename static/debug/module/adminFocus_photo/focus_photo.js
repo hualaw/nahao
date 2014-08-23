@@ -15,11 +15,11 @@ define(function(require,exports){
                 alert('轮ID不是一个数字或为空');
                 return false;
             }
-            if($.trim($('#color').val())=='')
-            {
-                alert('颜色不能为空');
-                return false;
-            }
+//            if($.trim($('#color').val())=='')
+//            {
+//                alert('颜色不能为空');
+//                return false;
+//            }
 
             $.ajax({
                 type:'post',
@@ -86,11 +86,11 @@ define(function(require,exports){
                 alert('轮ID不是一个数字或为空');
                 return false;
             }
-            if($.trim($('#color').val())=='')
-            {
-                alert('颜色不能为空');
-                return false;
-            }
+//            if($.trim($('#color').val())=='')
+//            {
+//                alert('颜色不能为空');
+//                return false;
+//            }
         })
 
         $('#round_id').blur(function(){

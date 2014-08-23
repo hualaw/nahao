@@ -1,6 +1,6 @@
 body{background:#f8f8f8;}
 a {text-decoration:none;color:#333;}
-a:hover {text-decoration:none;color:#c60301;}
+a:hover {text-decoration:none;color:#ce0000;}
 .layout:after,
 .hd:after,
 .bd:after,
@@ -16,7 +16,7 @@ a:hover {text-decoration:none;color:#c60301;}
 .redText,
 .grayText:hover,
 .footer .ftNav a:hover,
-.floatBox a:hover{color:#f14211!important;}
+.floatBox a:hover{color:#ce0000!important;}
 .blueText{color:#6dcde6;}
 .blueText:hover{text-decoration: underline;color:#6dcde6;}
 .grayText{color: #a3adb7;}

@@ -254,7 +254,6 @@ define(function(require,exports){
                 if($(obj+" .suzhi_attent .attentd").length<=3){
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }else{
-                    alert(111);
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
