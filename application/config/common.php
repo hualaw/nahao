@@ -416,7 +416,7 @@ $config['cate'] = array(
 //学段数组 [ key = stageId ] [parentId = cateId]
 $config['cate_stage'] = array(
     CATE_STAGE_ALL => array(
-        'name' => '全部学段',
+        'name' => '全部',
         'parentId' => 1,
         'chirdren' => array(0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
     ),
@@ -439,7 +439,7 @@ $config['cate_stage'] = array(
 //年级数组 [ key = gradeId ] [parentId = stageId]
 $config['cate_grade'] = array(
 	0 => array(
-		'name' => '全部年级',
+		'name' => '全部',
         'parentId' => array(1,2,3),
         'chirdren' => array(0, 2, 3, 4, 5,9,10,12,13,100),
 	),
@@ -497,7 +497,7 @@ $config['cate_grade'] = array(
 //科目数组 [ key = subjectId ] [parentId = gradeId]
 $config['cate_subject'] = array(
     CATE_SUBJECT_ALL => array(
-        'name' => '全部科目',
+        'name' => '全部',
         'parentId' => array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 //		'chirdren' => array(),
     ),
@@ -560,7 +560,7 @@ $config['cate_subject'] = array(
 //素质教育数组 [ key = qualityId ] [parentId = cateId =4]
 $config['cate_quality'] = array(
     CATE_QUALITY_ALL => array(
-        'name' => '全部素质教育学科',
+        'name' => '全部',
         'parentId' => 2,
         //'chirdren' => array(),
     ),
