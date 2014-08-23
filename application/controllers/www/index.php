@@ -91,11 +91,13 @@ class Index extends NH_User_Controller
         $arr_where = $int_stage_id > 0 ? array('stage' => $int_stage_id) : array();
         $int_live_per_page = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? PER_PAGE_NO : 6;
         $int_per_page = SWITCH_WWW_INDEX_COURSE_LIST == 1 ? 60 : PER_PAGE_NO;
+        $int_per_page = 4;
 
         //cache template
         $str_template = 'www/studentHomePage/index.html';
         $str_cache_id = 'index_stage' . $int_stage_id . '_page' . $int_start . '_live' . $int_live_per_page . '_course' . $int_per_page;
 //        var_dump($this->smarty->isCached($str_template, $str_cache_id));
+//        o(SWITCH_WWW_SMARTY_CACHE==1 AND !$this->smarty->isCached($str_template, $str_cache_id));
         if (!$this->smarty->isCached($str_template, $str_cache_id)) {
 //            focus photo
             $this->load->model('business/admin/business_focus_photo');
