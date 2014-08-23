@@ -135,12 +135,14 @@
         <div class="cf">
             <div class="detialLeft fl">
             {if $array_notice}
-                <dl class="importInfo cf">
-                    <dt>重要提醒</dt>
-                    <dd>
-						{$array_notice.content}
-                    </dd>
-                </dl>
+                <table class="importTable">
+                    <tbody>
+                        <tr>
+                            <td align="center"><div class="importInfo">重要提醒</div></td>
+                            <td>{$array_notice.content}</td>
+                        </tr>
+                    </tbody>
+                </table>
              {/if}
                 <ul id="course_info_nav" class="">
                     <li class="detail current" id="tab_course_detial" con="course_detial">课程简介</li>
