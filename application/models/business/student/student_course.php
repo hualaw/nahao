@@ -536,12 +536,6 @@ class Student_Course extends NH_Model{
     	);
     	$array_result = array();
     	$array_result = $this->model_course->get_other_round_data($array_where);
-    	if ($array_result){
-    		foreach ($array_result as $k=>$v){
-    			#图片地址
-    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
-    		}
-    	}
     	return $array_result;
     }
     
@@ -566,12 +560,6 @@ class Student_Course extends NH_Model{
     	);
     	$array_result = array();
     	$array_result = $this->model_course->get_recommend_round_data($array_where);
-    	if ($array_result){
-    		foreach ($array_result as $k=>$v){
-    			#图片地址
-    			$array_result[$k]['img'] = empty($v['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($v['img'],'large');
-    		}
-    	}
     	return $array_result;
     
     }
