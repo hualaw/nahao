@@ -41,7 +41,7 @@
                         <span class="mark mark6">今日新课</span>
                         {/if}
                         {if isset($course_types[$array_data.course_type])}<span class="mark mark7">{$course_types[$array_data.course_type]}</span>{/if}
-                        {if isset($material_versions[$array_data.material_version]) && ($array_data.material_version gt 1)}<span class="mark mark8">{$material_versions[$array_data.material_version]}</span>{/if}
+                        {if isset($material_versions[$array_data.material_version])}<span class="mark mark8">{$material_versions[$array_data.material_version]}</span>{/if}
                     </div>
                     <!-- 标签列表结束 -->
                     <img src="{if empty($array_data.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($array_data.img,'buy_before_top_big')}{/if}" alt="" class="fl">
@@ -58,7 +58,7 @@
                         </span>
                         <span class="fl starCount"><i>{$array_data.score}</i>分</span>
                          {/if}
-                        <a class="fr" href="#review"><i>{$evaluate_count}</i>条评价</a>
+                        <a class="fl" href="#review"><i>{$evaluate_count}</i>条评价</a>
                     </div>
                     <div class="endTime cf">
                         <div class="timeTitle fl">距离报名结束还剩</div><div class="countdown fl"></div>
@@ -68,18 +68,16 @@
                             <span class="fl timeBar">上课日期</span>
                             <input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
                             <a class="fl firmTime ctimeOn" href="#" title="">{$array_data.class_stime}－{$array_data.class_etime}</a>
-                             {if $array_round}
                             <div class="selectBox fl">
                                 <div class="selectInfo">更多日期选择</div>
                                 <ul class="selectUl undis">
-                               
+                                {if $array_round}
                     				{foreach from=$array_round item=item}
                                     <li data='{$item.id}'><a href="javascript:;" title="" >{$item.start_time}－{$item.end_time}</a></li>
                                     {/foreach}
-                        		
+                        		{/if}
                                 </ul>
                             </div>
-                            {/if}
                         </div>
                         <input type="hidden" id="product_id" value="{$array_data.id}">
                         {if !$is_login}
@@ -137,14 +135,12 @@
         <div class="cf">
             <div class="detialLeft fl">
             {if $array_notice}
-                <table class="importTable">
-                    <tbody>
-                        <tr>
-                            <td align="center"><div class="importInfo">重要提醒</div></td>
-                            <td>{$array_notice.content}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <dl class="importInfo cf">
+                    <dt>重要提醒</dt>
+                    <dd>
+						{$array_notice.content}
+                    </dd>
+                </dl>
              {/if}
                 <ul id="course_info_nav" class="">
                     <li class="detail current" id="tab_course_detial" con="course_detial">课程简介</li>
@@ -240,14 +236,15 @@
                     <div id="course_info" class="course_info_item height">
                         <h3>课程提要</h3>
 
-                       	<div class="course_info_img cf">{$array_data.description}</div>
+                       	<div class="course_info_img">{$array_data.description}</div>
                     </div>
                     <!-- 课程提要 结束 -->
                     <!-- 学员评价 开始 -->
-                    <div id="course_content" class="course_info_item creview height">
-                        <div id="fpage">数据加载中...</div>
-                    </div>
-                    <!-- 学员评价 结束 -->
+                    <div id="fpage">数据加载中...</div>
+
+                   
+                    <!-- 课程提要 结束 -->
+
                 </div>
             </div>
             <div class="courseRight fr">
