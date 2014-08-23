@@ -1,3 +1,4 @@
+{nocache}
 <!-- 登录框开始 -->
 {if $is_login==0}
 <div class="loginWrap">
@@ -72,46 +73,47 @@
     <div class="cf userInfo">
         <!-- 用户图像开始 -->
         {if $user_detail.avatar==""}
-        <a href="/member/my_course" title="{$user_detail.nickname}" class="fl">
-            <img src="{$static_url}{$static_version}/images/studentHomePage/user-img.gif" alt="{$nickname}" class="UserImg">
+        <a href="/member/my_infor" target="_blank" title="{$nickname}" class="fl">
+            <img src="{$userdata.avatar}" alt="{$nickname}" class="UserImg">
         </a>
         {else}
-        <a href="/member/my_course" title="{$nickname}" class="fl">
+        <a href="/member/my_infor" target="_blank" title="{$nickname}" class="fl">
             <img src="{$smarty.const.NH_QINIU_URL}{$user_detail.avatar}" alt="{$user_detail.nickname}" class="UserImg">
         </a>
         {/if}
         <!-- 用户图像结束 -->
 				<span class="fl userDesc">
 					<!-- 姓名开始 -->
-					<a class="name" href="/member/my_course" title="{$user_detail.nickname}">{$user_detail.nickname}</a>
+					<a class="name" href="/member/my_course" title="{$user_detail.nickname}">{if isset($user_detail.nickname)}{$user_detail.nickname}{/if}</a>
 					<!-- 姓名结束 -->
 					<!-- 年级开始 -->
-					<a class="grade" href="#">{$stage[$user_detail.stage]}</a>
+					<font>{if $user_detail.grade!=0}{$grade[$user_detail.grade]}{/if}</font>
 					<!-- 年级结束 -->
 				</span>
     </div>
     <ul class="cf myCtrlList">
         <li class="fl myCourses">
-            <a href="/member/my_course" title="我的课程">
+            <a href="/member/my_course" target="_blank" title="我的课程">
                 <span class="icon"></span>
                 我的课程
             </a>
         </li>
         <li class="fl myOrder">
-            <a href="/member/my_order" title="我的订单">
+            <a href="/member/my_order" target="_blank" title="我的订单">
                 <span class="icon"></span>
                 我的订单
             </a>
         </li>
         <li class="fl myInfo">
-            <a href="/member/my_infor" title="我的资料">
+            <a href="/member/my_infor" target="_blank" title="我的资料">
                 <span class="icon"></span>
                 我的资料
             </a>
         </li>
     </ul>
-    <a href="/member/my_course" class="cRedBtn enterMyCenter">进入个人中心</a>
+    <a href="/member/my_course" target="_blank" class="cRedBtn enterMyCenter">进入个人中心</a>
     <a href="/login/logout" class="fr loginOut">退出</a>
 </div>
 <!-- 登录之后的状态结束 -->
 {/if}
+{/nocache}

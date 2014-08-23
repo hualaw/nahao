@@ -51,7 +51,11 @@ class Model_Member extends NH_Model{
         		WHERE so.student_id = ".$int_user_id."
         		AND (so.status = ".ORDER_STATUS_SUCC." OR so.status = ".ORDER_STATUS_FINISH." OR so.status = ".ORDER_STATUS_APPLYREFUND." OR so.status = ".ORDER_STATUS_APPLYREFUND_FAIL." OR so.status = ".ORDER_STATUS_APPLYREFUND_AGREE." )
         		";
-        $sql .= !empty($status)?(" AND c.status=".$status):'';
+        if($status == ROUND_TEACH_STATUS_STOP){
+            $sql .= "AND (r.teach_status=".ROUND_TEACH_STATUS_STOP." OR r.teach_status=".ROUND_TEACH_STATUS_FINISH." OR r.teach_status=".ROUND_TEACH_STATUS_OVER.")";
+        }elseif(!empty($status)){
+            $sql .= "AND r.teach_status=".$status;
+        }
 //        print_r($sql);
 //        exit;
         $total = $this->db->query($sql)->row_array();

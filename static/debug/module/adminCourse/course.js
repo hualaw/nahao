@@ -173,33 +173,21 @@ define(function (require, exports) {
             var title = $("#title").val();
             var education_type = $("#education_type").val();
             var material_version = $("#material_version").val();
-            var quality = $("#quality").val();
-            var subtitle = $("#subtitle").val();
-            var intro = $("#intro").val();
-            $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
-            var description = $("#nahao_description_new").val();
-//            var description = CKEDITOR.instances.nahao_description.getData();
-            var students = $("#students").val();
             var subject = $("#subject").val();
+            var quality = $("#quality").val();
             var course_type = $("#course_type").val();
-            var reward = $("#reward").val();
-            var price = $("#price").val();
-            var video = $("#video").val();
-            var img = $("#img_url").attr('src');
-            var video = $("#video_url").text();
-
             //validate teachers
             var teachers = $("#course_edit_teacher_select_div .selected_teacher");
             var teacher_ids = new Array();
             if(teachers.length > 0){
-               teachers.each(function(k,v){
-                   teacher_ids.push($(v).data('teacher_id'));
+                teachers.each(function(k,v){
+                    teacher_ids.push($(v).data('teacher_id'));
                 });
             }else{
                 alert('请选择老师');
                 return false;
             }
-
+            var stage = $("#stage").val();
             //validate grade
             var grade_from = parseInt($("#grade_from").val());
             var grade_to = parseInt($("#grade_to").val());
@@ -207,6 +195,17 @@ define(function (require, exports) {
                 alert('年级错误');
                 return false;
             }
+            var reward = $("#reward").val();
+            var price = $("#price").val();
+            var subtitle = $("#subtitle").val();
+            var intro = $("#intro").val();
+            var students = $("#students").val();
+            $("#nahao_description_new").val(CKEDITOR.instances.nahao_description.getData());
+            var description = $("#nahao_description_new").val();
+//            var description = CKEDITOR.instances.nahao_description.getData();
+            var img = $("#img_url").attr('src');
+//            var video = $("#video").val();
+            var video = $("#video_url").text();
 
             //validate lessons
 //            var arr_lessons = new Array();
@@ -228,22 +227,21 @@ define(function (require, exports) {
                 'title' : title,
                 'education_type' : education_type,
                 'material_version' : material_version,
-                'quality' : quality,
-                'subtitle' : subtitle,
-                'intro' : intro,
-//                'description' : encodeURI(description),
-                'description' : description,
-                'students' : students,
                 'subject' : subject,
+                'quality' : quality,
                 'course_type' : course_type,
-                'reward' : reward,
-                'price' : price,
-                'video' : video,
-                'img' : img,
+                'teachers' : teacher_ids,
+                'stage' : stage,
                 'grade_from' : grade_from,
                 'grade_to' : grade_to,
-//                'lessons' : arr_lessons,
-                'teachers' : teacher_ids
+                'subtitle' : subtitle,
+                'intro' : intro,
+                'description' : description,
+                'students' : students,
+                'reward' : reward,
+                'price' : price,
+                'img' : img,
+                'video' : video
             };
 //            console.log(encodeURI(description));
 //            console.log(data);

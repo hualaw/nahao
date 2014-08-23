@@ -477,7 +477,7 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        //$(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
                     }
                 }
