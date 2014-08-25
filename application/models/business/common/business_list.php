@@ -83,11 +83,11 @@ class Business_List extends NH_Model
     	}
     	//2.6 排序
     	$cateArr['orderArr'] = array(
-    		1 => array('name'=>'综合排序','title'=>'按默认推荐' ,'active_name' => '综合排序'),
-    		2 => array('name'=>'销量','title'=>'按销量从高到低' ,'active_name' => '销量从高到低'),
-    		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低' ,'active_name' => '价格从高到低'),
-    		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高' ,'active_name' => '价格从低到高'),
-    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '时间'),
+    		1 => array('name'=>'综合排序','title'=>'按默认推荐' ,'active_name' => '综合排序' ,'class' => ''),
+    		2 => array('name'=>'销量','title'=>'按销量从高到低' ,'active_name' => '销量从高到低','class' => ''),
+    		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低' ,'active_name' => '价格从高到低','class' => 'down'),
+    		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高' ,'active_name' => '价格从低到高', 'class' => 'up'),
+    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '最近开课时间' , 'class' => ''),
     	);
     	$order_param = array(
     		'typeId'	=> $param['typeId'],
