@@ -38,6 +38,11 @@
             <!-- 全部课程开始 -->
             <div class="cf item active" itemname="cl_all_list"><!-- cl_primary_list cl_middle_list cl_high_list-->
                 <div class="cf">
+                    {if empty($round_list)}
+                    <div class="courseListEmpty">
+                    该类别暂时没有课程，请试试其他类别
+                    </div>
+                    {else}
                     {foreach $round_list as $v}
                     <!-- 单个课程信息开始 -->
                     <div class="cItem">
@@ -120,6 +125,7 @@
                     </div>
                     <!-- 单个课程信息结束 -->
                     {/foreach}
+                    {/if}
                 </div>
                 <!-- 全部课程分页开始 -->
                 <div class="pager">
