@@ -43,8 +43,9 @@ define(function(require,exports){
                 var _targetOrder=this.orederList.eq(index),_targetBanner=this.bannerList.eq(index);
                 _targetOrder.parent().children().removeClass("active");
                 _targetOrder.addClass("active");
-                this.bannerList.removeClass("rollshow").stop().animate({opacity:0});
-                _targetBanner.addClass("rollshow").stop().animate({opacity:1});
+
+                this.bannerList.removeClass("rollshow").stop().animate({"opacity":0,"z-index":"0"});
+                _targetBanner.addClass("rollshow").stop().animate({"opacity":1,"z-index":"1"});
             },
             next:function(){
                 var _index=this.orederList.filter(".active").index();
