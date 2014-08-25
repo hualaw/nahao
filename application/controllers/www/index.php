@@ -97,7 +97,7 @@ class Index extends NH_User_Controller
             $focus_photo = $this->business_focus_photo->list_photo(1);
 
             //live show list
-            $arr_live_classes = $this->index->get_live_classes($int_live_per_page);
+            $arr_live_classes = $int_live_per_page == 0 ? array() : $this->index->get_live_classes($int_live_per_page);
 //            o($arr_live_classes);
 
             //course_list
@@ -118,13 +118,9 @@ class Index extends NH_User_Controller
 //        o($str_page);
 //        o($arr_round_list,true);
 
-            //record
-            $this->load->model('business/student/student_course');
-            $arr_record_list = $this->student_course->read_recent_view_data();
 //        o($arr_record_list,true);
 
             $course_url = config_item('course_url');
-            $this->smarty->assign('course_url', $course_url);
             $this->smarty->assign('material_versions', config_item('material_version'));
             $this->smarty->assign('course_types', $stage = config_item('course_type'));
             $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
@@ -133,13 +129,18 @@ class Index extends NH_User_Controller
             $this->smarty->assign('focus_photo', $focus_photo);
             $this->smarty->assign('live_list', $arr_live_classes);
             $this->smarty->assign('round_list', $arr_round_list);
-            $this->smarty->assign('array_recent_view', $arr_record_list);
             $this->smarty->assign('page', $str_page);
             $this->smarty->assign('query_params', $arr_query_param);
             $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
         }
+        //recent view
+        $this->load->model('business/student/student_course');
+        $arr_recent_view = $this->student_course->read_recent_view_data();
+
 //        o($focus_photo);
         $this->smarty->assign('grade', config_item('grade'));
+        $this->smarty->assign('course_url', $course_url);
+        $this->smarty->assign('array_recent_view', $arr_recent_view,true);
         $this->smarty->display($str_template, $str_cache_id);
     }
 

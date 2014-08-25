@@ -108,7 +108,7 @@ if ( ! function_exists('create_captcha'))
 
 	   if ($word == '')
 	   {
-			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$pool = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
 
 			$str = '';
 			for ($i = 0; $i < 4; $i++)
