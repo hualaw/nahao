@@ -135,7 +135,7 @@ class Member extends NH_User_Controller
         $data['page'] = $page;
         $data['my_course'] = $my_course['list'];
 
-        $this->load->view('www/studentMyCourse/my_course.inc', $data);
+        $this->load->view('www/studentMyCourse/my_course.html', $data);
     }
 
     /**
