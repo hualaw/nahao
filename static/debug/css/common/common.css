@@ -40,7 +40,7 @@ form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../ima
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
 /* phone+ cart*/
 .cartBg{background: url(../../images/common/cart.png) no-repeat;_background-image: url(../../images/common/cart_8.png);height: 24px;}
-.phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
+.phoneHref,.phoneHref:hover{color:#ce0000;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
 .floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 100;display: none;}
@@ -171,7 +171,7 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 /*  免费  */
 .courseFree{background: url(../../images/common/free.png) top right no-repeat;position: absolute;right: -6px;top:-6px;width: 87px;height: 89px;z-index: 111;}
 
-.iebrowser{width: 100%;color: #f14211;height: 22px;line-height: 22px;text-align: center;font-size: 12px;background: #fff;}
+.iebrowser{width: 100%;color: #ce0000;height: 22px;line-height: 22px;text-align: center;font-size: 12px;background: #fff;}
 .iebrowser span{margin-left:36px;}
 .iebrowser a{color: #11243b;}
 .disabledBg{background: #dedede;}

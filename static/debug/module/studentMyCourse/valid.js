@@ -254,7 +254,6 @@ define(function(require,exports){
                 if($(obj+" .suzhi_attent .attentd").length<=3){
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }else{
-                    alert(111);
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
@@ -478,7 +477,7 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        //$(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
                     }
                 }
