@@ -47,7 +47,7 @@ form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.se
 .floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
 .floatBox a.feedback{margin-top: 0px;padding: 0px;}
 /*.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}*/
-.floatBox .ansQue{background: url(../../images/common/kefu.gif) no-repeat center;display: none;}
+.floatBox .ansQue{background: url(../../images/common/kefu.gif) no-repeat center;}
 .floatBox .feedback{background: url(../../images/common/feedback.gif) no-repeat center; }
 .floatBox .returnTop{background: url(../../images/common/return_top.png) no-repeat center;display: none;text-indent: -10000px;background-color: #e0e0e0;}
 .floatBox a:hover{background-color: #f7f7f7; }

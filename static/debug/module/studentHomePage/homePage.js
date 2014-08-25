@@ -35,6 +35,7 @@ define(function(require,exports){
             this.orederList=orederList;
             this.bannerSlide=bannerSlide;
             this.autoTimer = null;
+            this.autoTimer2=null;
         }
         _banner.prototype={
             index:function(index){
@@ -72,8 +73,11 @@ define(function(require,exports){
                 //整个banner的hover事件绑定
                 this.item.hover(function(){
                     clearInterval(_this.autoTimer);
+                    clearInterval(_this.autoTimer2);
                 },function(){
-                    _this.autoTimer = setInterval(function(){
+                    clearInterval(_this.autoTimer);
+                    clearInterval(_this.autoTimer2);
+                    _this.autoTimer2 = setInterval(function(){
                         _this.next();
                     },_this.ms);
                 });
