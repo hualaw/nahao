@@ -97,7 +97,7 @@ class Index extends NH_User_Controller
             $focus_photo = $this->business_focus_photo->list_photo(1);
 
             //live show list
-            $arr_live_classes = $this->index->get_live_classes($int_live_per_page);
+            $arr_live_classes = $int_live_per_page == 0 ? array() : $this->index->get_live_classes($int_live_per_page);
 //            o($arr_live_classes);
 
             //course_list
