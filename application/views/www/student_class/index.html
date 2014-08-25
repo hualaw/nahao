@@ -56,7 +56,7 @@
 		</div>
 		{elseif $param['typeId']==2}
 		<div class="filterList cf">
-			<span class="tit">素质科目：</span>
+			<span class="tit">科目：</span>
 			<ul>
 				{foreach $cateList['qualityArr'] as $key => $val}
 				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
@@ -67,7 +67,7 @@
 	</div>
 	<ul class="sortBox cf">
 		{foreach $cateList['orderArr'] as $key => $val}
-		<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['title']}">{if $val['is_active']}{$val['active_name']}{else}{$val['name']}{/if}</a></li>
+		<li><a {if $val['is_active']}class="active"{else}class="{$val['class']}" href="{$val['url']}"{/if} title="{$val['title']}">{if $val['is_active']}{$val['active_name']}{else}{$val['name']}{/if}</a></li>
 		{/foreach}
 	</ul>
 	<!--<div class="selectedBox">
@@ -167,10 +167,10 @@
 			<!-- 分页结束 -->
 		</div>
 		<div class="courseRight fr">
+			{if $suggest_list}
 			<div class="buyCourseBox">
 				<h3>猜你喜欢</h3>
 				<ul class="buyCourseList">
-					{if $suggest_list}
 						{foreach $suggest_list as $val}
 						<li>
 							<a href="/ke_{$val['id']}.html" target="_blank" title="{$val['title']}"><img src="{$val['img_url']}" alt="{$val['title']}"></a>
@@ -178,12 +178,14 @@
 							<div class="studyNum cf"><span class="fl price">￥{$val['sale_price']}</span><span class="fr"><i>{$val['study_count']}</i>人已学习</span></div>
 						</li>
 						{/foreach}
-					{/if}
 				</ul>
 			</div>
-			<!-- 浏览记录开始 -->
-			{include file="www/studentMyCourse/history.html"}
-			<!-- 浏览记录结束 -->
+			{/if}
+			{if $array_recent_view}
+				<!-- 浏览记录开始 -->
+				{include file="www/studentMyCourse/history.html"}
+				<!-- 浏览记录结束 -->
+			{/if}
 		</div>
 	</div>
 	<!-- 课程列表结束 -->
