@@ -67,7 +67,7 @@
 	</div>
 	<ul class="sortBox cf">
 		{foreach $cateList['orderArr'] as $key => $val}
-		<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['title']}">{if $val['is_active']}{$val['active_name']}{else}{$val['name']}{/if}</a></li>
+		<li><a {if $val['is_active']}class="active"{else}class="{$val['class']}" href="{$val['url']}"{/if} title="{$val['title']}">{if $val['is_active']}{$val['active_name']}{else}{$val['name']}{/if}</a></li>
 		{/foreach}
 	</ul>
 	<!--<div class="selectedBox">
