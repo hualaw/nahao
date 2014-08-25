@@ -59,10 +59,18 @@
     <div class="aboutContent fr" id="aboutContent" module="wish">
 	    {include file="www/include/about/page/wish.htm"}
     </div>
+    {else if $str_pram == 'link'}
+	<!--总裁寄语-->
+    <div class="aboutContent fr" id="aboutContent" module="link">
+	    {include file="www/include/about/page/link.htm"}
+    </div>
     <!--关于我们 右侧 结束-->
     {/if}
 </div>
 <!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
 <!-- js引入开始 -->
 {include file="www/include/js.htm"}
 <!--js引入结束-->

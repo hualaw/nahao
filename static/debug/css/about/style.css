@@ -6,12 +6,18 @@
 @import url('../common/button.css');
 /*加载布局样式*/
 @import url('../common/layout.css');
+/*加载顶部mini导航样式*/
+@import url('../common/topMiniNav.css');
 /*加载顶部样式*/
 @import url('../common/header.css');
+/*加载底部样式*/
+@import url('../common/footer.css');
 /*加载公共验证样式*/
 @import url('../common/valid.css');
 /*加载公共弹出框样式*/
 @import url('../common/dialog.css');
+/*加载公共导航样式*/
+@import url('../common/nav.css');
 /*加载模拟下拉框样式*/
 @import url('../common/jqtransform.css');
 /*加载公共登陆样式*/

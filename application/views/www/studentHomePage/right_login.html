@@ -1,0 +1,119 @@
+{nocache}
+<!-- 登录框开始 -->
+{if $is_login==0}
+<div class="loginWrap">
+    <form class="cf loginForm" method="post" action="/register/submit" method="POST" onsubmit="return false">
+        <h4 class="loginTitle">快速注册,免费送学习诊断</h4>
+        <!--错误提示开始-->
+        <div class="msgTip" id="span_warning">
+            
+        </div>
+        <!-- 错误提示结束 -->
+        <div class="cf inputWrap posr">
+            <input type="text" placeholder="邮箱，可用邮箱直接登录" id="email" name="email" class="fl email" >
+            <span class="normalText undis">请输入常用邮箱</span>
+            <div class="ValidformInfo">
+              <span class="Validform_checktip"></span>
+              <span class="dec">
+                <s class="dec1">&#9670;</s>
+                <s class="dec2">&#9670;</s>
+              </span>
+            </div>
+            <span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap posr">
+            <input type="hidden"  name="password" class="fl epass">
+            <input type="password" placeholder="密码" id="password" name="" class="fl password">
+            <span class="normalText undis">6-15位任意字符，区分大小写</span>
+            <div class="ValidformInfo">
+              <span class="Validform_checktip"></span>
+              <span class="dec">
+                <s class="dec1">&#9670;</s>
+                <s class="dec2">&#9670;</s>
+              </span>
+            </div>
+            <span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap posr">
+            <input type="text" placeholder="手机号(方便对您个性化诊断)" id="phone" name="ephone" class="fl phone" >
+            <span class="normalText undis"></span>
+            <div class="ValidformInfo">
+              <span class="Validform_checktip"></span>
+              <span class="dec">
+                <s class="dec1">&#9670;</s>
+                <s class="dec2">&#9670;</s>
+              </span>
+            </div>
+            <span class="fr required">*</span>
+        </div>
+        <div class="cf inputWrap posr">
+            <span class="fr required">*</span>
+            <input type="text" id="code" name="code" placeholder="验证码" class="fl authCode" >
+            <span class="normalText undis">请输入验证码</span>
+            <div class="ValidformInfo">
+              <span class="Validform_checktip"></span>
+              <span class="dec">
+                <s class="dec1">&#9670;</s>
+                <s class="dec2">&#9670;</s>
+              </span>
+            </div>
+            <span id="cap_img" class="fl  authorImgWrap"></span>
+            <a href="javascript:void(0);" class="fl changeOne">换一张</a>
+            
+        </div>
+        <div>
+            <input type="submit" value="免费注册，立即获得诊断" class="cRedBtn loginBtn" id="register_button">
+        </div>
+    </form>
+</div>
+{else}
+<!-- 登录框结束 -->
+<!-- 登录之后的状态开始 -->
+<div class="cf loginedWrap">
+    <div class="cf userInfo">
+        <!-- 用户图像开始 -->
+        {if $user_detail.avatar==""}
+        <a href="/member/my_infor" target="_blank" title="{$nickname}" class="fl">
+            <img src="{$userdata.avatar}" alt="{$nickname}" class="UserImg">
+        </a>
+        {else}
+        <a href="/member/my_infor" target="_blank" title="{$nickname}" class="fl">
+            <img src="{$smarty.const.NH_QINIU_URL}{$user_detail.avatar}" alt="{$user_detail.nickname}" class="UserImg">
+        </a>
+        {/if}
+        <!-- 用户图像结束 -->
+				<span class="fl userDesc">
+					<!-- 姓名开始 -->
+					<a class="name" href="/member/my_course" title="{$user_detail.nickname}">{if isset($user_detail.nickname)}{$user_detail.nickname}{/if}</a>
+					<!-- 姓名结束 -->
+					<!-- 年级开始 -->
+					<font>{if $user_detail.grade!=0}{$grade[$user_detail.grade]}{/if}</font>
+					<!-- 年级结束 -->
+				</span>
+    </div>
+    <ul class="cf myCtrlList">
+        <li class="fl myCourses">
+            <a href="/member/my_course" target="_blank" title="我的课程">
+                <span class="icon"></span>
+                我的课程
+            </a>
+        </li>
+        <li class="fl myOrder">
+            <a href="/member/my_order" target="_blank" title="我的订单">
+                <span class="icon"></span>
+                我的订单
+            </a>
+        </li>
+        <li class="fl myInfo">
+            <a href="/member/my_infor" target="_blank" title="我的资料">
+                <span class="icon"></span>
+                我的资料
+            </a>
+        </li>
+    </ul>
+    <a href="/member/my_course" target="_blank" class="cRedBtn enterMyCenter">进入个人中心</a>
+    <a href="/login/logout" class="fr loginOut">退出</a>
+</div>
+<!-- 登录之后的状态结束 -->
+{/if}
+{/nocache}

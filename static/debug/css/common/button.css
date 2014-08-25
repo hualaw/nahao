@@ -1,8 +1,8 @@
 .btn{font-size: 20px;height: 40px;line-height: 40px;border-radius: 2px;color:#fff;display: inline-block;box-shadow:1px 1px 3px rgba(88, 87, 83, 0.5);text-align: center;cursor: pointer;border: none;font-family: "微软雅黑";}
 .noShowBtn{border-radius: 2px;color:#fff;font-size: 18px;height: 32px;line-height: 32px;display: inline-block;text-align: center;border:none;cursor: pointer;}
 
-.redBtn{ background: #f14211;}
-.redBtn:hover{ background: #f15930;color: #fff;}
+.redBtn{ background: #ce0000;}
+.redBtn:hover{ background: #da1e1e;color: #fff;}
 .blueBtn{ background: #88ddf3;}
 .blueBtn:hover{ background:#6dcde6;color: #fff;}
 .lgrayBtn{background-color:#788595;}
@@ -22,3 +22,15 @@
 .lbutton:active {box-shadow: inset rgba(0,0,0,0.4) 0px 0px 6px;}
 .cbutton{font-size: 14px;color: #fff;text-decoration: none;display: inline-block;text-align: center;padding: 3px 20px 3px;margin: .5em .5em .5em 0;cursor: pointer;text-shadow: 0 1px 1px rgba(0,0,0,0.4);-webkit-transition: 0.1s linear;-moz-transition: 0.1s linear;-ms-transition: 0.1s linear;
     -o-transition: 0.1s linear;transition: 0.1s linear;border-radius:16px;-webkit-border-radius:16px;}
+
+/*windguo公共button开始*/
+/*红色button开始*/
+.cRedBtn{background:#ce0000;border-radius: 3px;padding:0px 10px;}
+.cRedBtn:hover{background:#da1e1e;}
+/*红色button结束*/
+/*黄色button开始*/
+.cOrgBtn{background:#ff9900;border-radius: 3px;padding:0px 10px;}
+.cOrgBtn:hover{background:#ffab2c;}
+/*黄色button结束*/
+
+/*windguo公共button结束*/

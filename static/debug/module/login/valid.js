@@ -93,7 +93,14 @@ define(function(require,exports){
         seajs.use("module/login/validFocus");
     };
     // 邮箱注册验证
-    exports.regEmailBoxForm = function(){    
+    exports.regEmailBoxForm = function(){
+        $(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
+
+        $('.codeImg,.changeOne').click(function(){
+            $('#cap_img').load('/index/captcha?s='+Math.random());
+        })
         $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
             // 自定义tips在输入框上面显示
@@ -139,6 +146,12 @@ define(function(require,exports){
                 ignore:"ignore"
             },
             {   
+                 ele:".authCode",
+                 datatype: "/^\\w{4}$/",
+                 nullmsg: "请输入验证码",
+                 errormsg: "验证码长度是4位"
+            },
+            {
                  ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",

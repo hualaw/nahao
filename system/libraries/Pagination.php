@@ -106,6 +106,37 @@ class CI_Pagination {
 
 	// --------------------------------------------------------------------
 
+    function createJSlinks($js_func_name, $offset=0)
+    {
+        $this->cur_page = $offset;
+        $pagination_link = $this->create_links();
+        $pattern = '/(<a href=")(\S+)[=](\S*)(")/';
+        $replacement = '${1}javascript:' . $js_func_name . '(\'${3}\')${4}';
+        $link = preg_replace($pattern, $replacement, $pagination_link);
+        $pagination_link = $link;
+
+        return $pagination_link;
+    }
+
+    /**
+     * 创建首页静态化链接
+     * @param int $int_param
+     * @param int $int_page
+     * @return mixed
+     * @author yanrui@tizi.com
+     */
+    function createIndexLinks($int_param = 0,$int_page = 0){
+        $this->cur_page = $int_page;
+        $str_page = $this->create_links();
+        $str_pattern = '/<a href="\/"/';
+        $str_replace = '<a href="stage_'.$int_param.'_0.html#list"';
+        $str_link = preg_replace($str_pattern, $str_replace, $str_page);
+        $str_pattern = '/<a href="\/(\d+)"/';
+        $str_replace = '<a href="stage_'.$int_param.'_$1.html#list"';
+        $str_link = preg_replace($str_pattern, $str_replace, $str_link);
+        return $str_link;
+    }
+
 	/**
 	 * Generate the pagination links
 	 *
@@ -119,10 +150,8 @@ class CI_Pagination {
 		{
 			return '';
 		}
-
 		// Calculate the total number of pages
 		$num_pages = ceil($this->total_rows / $this->per_page);
-
 		// Is there only one page? Hm... nothing more to do here then.
 		if ($num_pages == 1)
 		{

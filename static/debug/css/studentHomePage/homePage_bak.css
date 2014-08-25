@@ -1,0 +1,83 @@
+/*Ê×Ò³ ÄÚÈÝ */
+.studentHomePage .contop{background: #f4f4f4;}
+/* ´óÍ¼¹ö¶¯ ¿ªÊ¼*/
+.studentHomePage .roll{ overflow: hidden;position: relative;}
+.studentHomePage .roll ul{ width:100%;overflow:hidden;height:420px;}
+.studentHomePage .rollNav{ position: absolute;bottom:12px;z-index: 300;left:50%;margin-left: -40px;}
+.studentHomePage .roll ul li{ position:absolute;opacity:0;width:100%;}
+.studentHomePage .roll ul li.rollshow{ opacity:1;z-index: 2;}
+.studentHomePage .roll ul li a{display: block;text-align: center;height: 420px;}
+.studentHomePage .roll ul li a.roll1{background: url(../../images/studentHomePage/roll/roll1.jpg) center top no-repeat #e5b49e;}
+.studentHomePage .roll ul li a.roll2{background: url(../../images/studentHomePage/roll/roll2.jpg) center top no-repeat #000;}
+.studentHomePage .roll ul li a.roll3{background: url(../../images/studentHomePage/roll/roll3.jpg) center top no-repeat #5f5d6a;}
+.studentHomePage .roll ul li a.roll4{background: url(../../images/studentHomePage/roll/roll4.jpg) center top no-repeat #c69f53;}
+.studentHomePage .roll ul li a.roll5{background: url(../../images/studentHomePage/roll/roll5.jpg) center top no-repeat #fffff4;}
+
+.studentHomePage .roll ul li a.roll6 {
+    background: url(../../images/studentHomePage/roll/roll6.jpg) center top no-repeat #fffff5;
+}
+
+.studentHomePage .rollNav li{ width:12px; height:12px;margin-right:14px;border: 1px solid #f14211;border-radius: 7px;background: #fff;cursor: pointer;}
+.studentHomePage .rollNav li.active{ background:#f14211;}
+/* ´óÍ¼¹ö¶¯ ½áÊø*/
+/*¿Î³ÌÕ¹Ê¾*/
+.studentHomePage .courseBox{box-shadow:inset 0 1px 3px #bdbdbd;padding: 44px 0 6px;}
+.studentHomePage .courseList li{width: 230px;height: 270px;margin:0 20px 36px 0;position: relative;/*-webkit-perspective:800;*/}
+.studentHomePage .courseList{margin-right: -28px;}
+.studentHomePage .clBoxShaow{box-shadow: 1px 1px 3px rgba(6,7,7,.35), -1px -1px 3px rgba(6,7,7,.35);}
+
+/*Ê¦×Ê ¿Î³Ì Ñ§Ð£ ºÏ×÷*/
+.studentHomePage .cooph .headBg{width: 326px;height: 232px;}         
+.studentHomePage .investor{background: url(../../images/studentHomePage/coop1.gif) center top no-repeat;}
+.studentHomePage .founder{background: url(../../images/studentHomePage/coop2.gif) center top no-repeat;}
+.studentHomePage .coopSchool{background: url(../../images/studentHomePage/coop3.gif) center top no-repeat;}
+.studentHomePage .coopft{position: absolute;bottom:0;left: 0;height: 56px;width: 980px;}
+.studentHomePage .coopere{width: 921px;background: #f14211;height: 44px;line-height: 44px;color:#fff;font-size: 16px;position: absolute;left: 30px;}
+.studentHomePage .coopere h3{width: 307px;text-align: center;font-weight: normal;}
+.studentHomePage .coopere h3:nth-child(1){width: 270px;}
+.studentHomePage .coopere h3:nth-child(2){width: 375px;}
+.studentHomePage .coopere h3:nth-child(3){width: 260px;text-align: right;}
+.studentHomePage .coopft span{width: 56px;height: 56px;}
+.studentHomePage .coopft span.fl{background: url(../../images/studentHomePage/coopl.gif) left bottom no-repeat;}
+.studentHomePage .coopft span.fr{background: url(../../images/studentHomePage/coopr.gif) left bottom no-repeat;}
+.studentHomePage .coopBox{margin: 88px 0 64px;border-bottom: 1px solid #f14211;}
+.studentHomePage .coopComW{width: 489px;text-align: center;}
+.studentHomePage .coopBoxh{height: 62px;line-height: 62px;background: #e1e1e1;}
+.studentHomePage .coopBoxCon{border: 1px solid #e7e7e7;border-bottom: none;}
+.studentHomePage .coopBoxh h3{font-size: 28px;color: #0e455e;}
+.studentHomePage .coopBoxh h3.fl{border-right: 1px solid #d6d5d5;}
+.studentHomePage .coopBoxh h3.fr{border-left: 1px solid #e7e7e7;}
+.studentHomePage .coopBoxCon div.fl{border-right: 1px solid #d6d5d5;width: 488px;}
+.studentHomePage .coopBoxCon .fp{text-align: center;height: 40px;line-height: 40px;margin-top:12px;}
+.studentHomePage .coopBoxCon .fp a{font-size: 16px;color:#f14211;margin-right: 20px;}
+.studentHomePage .coopBoxCon .dt{color:#1c1c1c;font-size: 18px;line-height: 44px;margin-top: 10px;}
+.studentHomePage .coopBoxCon .dl{color:#727272;font-size: 16px;line-height: 22px;}
+.studentHomePage .coopBoxCon .edudt{margin-top: 20px;}
+/*   ²»Ö§³Ö transform  µÄµÍ°æ±¾ä¯ÀÀÆ÷*/
+
+/*首页 删减*/
+.studentHomePage .advantageBox{width: 974px;overflow: hidden;margin: 85px auto 80px;}
+.studentHomePage .advantage{margin-right: -1px;}
+.studentHomePage .advantage li{padding-top: 18px;background-position:center top;background-repeat:no-repeat;text-align: center;*width: 325px;}
+.studentHomePage .advantage li.ad1{background-image: url(../../images/studentHomePage/ad1.gif);}
+.studentHomePage .advantage li.ad2{background-image: url(../../images/studentHomePage/ad2.gif);}
+.studentHomePage .advantage li.ad3{background-image: url(../../images/studentHomePage/ad3.gif);}
+.studentHomePage .advantage .adline{height: 72px;width: 324px;border-right:1px solid #f1f1f1;margin-bottom: 36px;}
+.studentHomePage .advantage h2{font-size: 24px;color: #494949;}
+.studentHomePage .advantage p{color: #727272;font-size: 16px;margin:14px 0;}
+.studentHomePage .advantage .line{width: 60px;height: 2px;background: #f14211;display: block;margin: 5px auto 8px;}
+/*浏览器下载页*/
+.browserPage{background: #e5e5e5;}
+.browserPage .iebrowserBox{*padding-top: 160px;}
+.studentHomePage .browserBox{background: #f4f4f4;border: 1px solid #e4e4e4;height: 404px;margin-top: 32px;color: #494949;font-size: 16px;text-align: center;}
+.studentHomePage .browserBox h2,
+.studentHomePage .browserBox h3{font-weight: normal;}
+.studentHomePage .browserBox h2{margin:50px 0 38px;}
+.studentHomePage .browserBox ul{width: 840px;margin:0 auto;}
+.studentHomePage .browserBox li{padding-top: 150px;width: 210px;background-position: center top;background-repeat: no-repeat; }
+.studentHomePage .browserBox li.iniBrow{background-image: url(../../images/studentHomePage/browser1.png);_background-image: url(../../images/studentHomePage/browser1_8.png);}
+.studentHomePage .browserBox li.ieBrow{background-image: url(../../images/studentHomePage/browser2.png);_background-image: url(../../images/studentHomePage/browser2_8.png);}
+.studentHomePage .browserBox li.chromBrow{background-image: url(../../images/studentHomePage/browser3.png);_background-image: url(../../images/studentHomePage/browser3_8.png);}
+.studentHomePage .browserBox li.safaBrow{background-image: url(../../images/studentHomePage/browser4.png);_background-image: url(../../images/studentHomePage/browser4_8.png);}
+.studentHomePage .browserBox a{font-size: 14px;color: #f14211;border: 1px solid #f14211;display: inline-block;width: 100px;height: 30px;line-height: 30px;margin-top: 30px;}
+.studentHomePage .browserBox a:hover{width: 102px;height: 32px;line-height: 32px;background: #f14211;color: #fff;}

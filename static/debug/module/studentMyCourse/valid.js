@@ -101,6 +101,14 @@ define(function(require,exports){
 
             },
             {   
+                ele:".tcontact",
+                datatype: "m",
+                ignore:"ignore",
+                nullmsg: "请输入联系方式",
+                errormsg: "请输入正确的手机号码"
+
+           },
+            {   
                  ele:".reason",
                  datatype: "*",
                  nullmsg: "退课理由不能为空",
@@ -159,10 +167,10 @@ define(function(require,exports){
         });
     };
 
-    //选择和取消 关注
+    //选择和取消 关注学科教育
     function checkAttent(obj){        
         $(obj+" .attent .btn").click(function (){
-            if($(obj+" .attentd").length < 3){//限制只能选3个学科
+            if($(obj+" .attent .attentd").length < 3){//限制只能选3个学科
                 if($(this).hasClass("attentd")){
                     $(this).removeClass("attentd");
                     _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
@@ -188,7 +196,7 @@ define(function(require,exports){
             })
 
             function va(){
-                if($(obj+" .attentd").length>=3){
+                if($(obj+" .attent .attentd").length>=3){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
@@ -196,7 +204,54 @@ define(function(require,exports){
             }
             
             function va_blur() {
-                if($(obj+" .attentd").length<=3){
+                if($(obj+" .attent .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+                }
+            }
+        });
+    }
+
+    //选择和取消 关注素质教育
+    function checkSuZhiAttent(obj){
+        $(obj+" .suzhi_attent .btn").click(function (){
+            console.log($(obj+" .suzhi_attent .attentd").length);
+            if($(obj+" .suzhi_attent .attentd").length < 3){//限制只能选3个学科
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_suzhi_subjects"), $(this), 'remove');
+                }else{
+                    $(this).addClass("attentd");
+                    _record_interested_subjects($("#selected_suzhi_subjects"), $(this), 'add');
+                }
+            } else {
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_suzhi_subjects"), $(this), 'remove');
+                }
+                va.call(this);
+            }
+
+            //验证 最多关注
+            $(obj+" .suzhi_attent .btn").focus(function (){
+                va.call(this);
+            })
+            //验证 最多关注
+            $(obj+" .suzhi_attent .btn").blur(function (){
+                va_blur.call(this);
+            })
+
+            function va(){
+                if($(obj+" .suzhi_attent .attentd").length>=3){
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+
+            function va_blur() {
+                if($(obj+" .suzhi_attent .attentd").length<=3){
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
@@ -208,6 +263,7 @@ define(function(require,exports){
     exports.phoneForm = function(){
         //选择和取消 关注
         checkAttent(".phoneForm");
+        checkSuZhiAttent(".phoneForm");
 
         var _Form=$(".phoneForm").Validform({
             // 自定义tips在输入框上面显示
@@ -304,8 +360,12 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        if(typeof json.error_code != 'undefined' && json.error_code == '9999'){
+                            window.location.href="/login";
+                        }else{
+                            $(obj).siblings('.Validform_checktip').html(json.msg);
+                            $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        }
                     }
                 }
             }
@@ -317,6 +377,7 @@ define(function(require,exports){
     exports.emailForm = function(){
         //选择和取消 关注
         checkAttent(".emailForm");
+        checkSuZhiAttent(".emailForm");
         var _Form=$(".emailForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
@@ -356,9 +417,25 @@ define(function(require,exports){
             {
                 ele: ".phone_number",
                 datatype:"m",
+                errormsg:"请输入正确的手机号"
+            },
+            {
+                ele: ".pthone_number",
+                datatype:"m",
                 ignore:"ignore",
                 errormsg:"请输入正确的手机号"
             },
+            {    
+                ele:".ptEmail",
+                datatype: "e",
+                ignore:"ignore",
+                nullmsg: "请输入邮箱地址",
+                errormsg: "请输入正确的邮箱地址",
+                ajaxurl:'/member/check_email_availability/',
+                ajaxUrlName:'email'
+
+            },
+            
             {    
                 ele:".subjectInput",
                 datatype: "*",
@@ -404,8 +481,12 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        if(typeof json.error_code != 'undefined' && json.error_code == '9999'){
+                              window.location.href="/login";
+                        }else{
+                            $(obj).siblings('.Validform_checktip').html(json.msg);
+                            $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        }
                     }
                 }
             }

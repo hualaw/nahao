@@ -218,7 +218,12 @@ class CI_URI {
 		}
 
 		$uri = parse_url($uri, PHP_URL_PATH);
-
+        /************2014.8.20***********/
+        if ($uri == '/' || empty($uri))
+        {
+            return '/';
+        }
+        /************2014.8.20***********/
 		// Do some final cleaning of the URI and return it
 		return str_replace(array('//', '../'), '/', trim($uri, '/'));
 	}
@@ -251,6 +256,7 @@ class CI_URI {
 	 */
 	function _filter_uri($str)
 	{
+//        var_dump($str);exit;
 		if ($str != '' && $this->config->item('permitted_uri_chars') != '' && $this->config->item('enable_query_strings') == FALSE)
 		{
 			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards

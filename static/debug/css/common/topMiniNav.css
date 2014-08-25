@@ -1,0 +1,45 @@
+.topMiniNav{border-bottom:1px solid #f4f4f4;line-height: 30px;background:#f8f8f8;}
+/*登录前样式开始*/
+.topMiniNav .loginBefore,.topMiniNav .loginBefore a{color:#999;}
+.topMiniNav .loginBefore a:hover{color:#ce0000;}
+.topMiniNav .loginBefore .cInput{height:19px;line-height: 19px;width:100px;margin-right:10px;font-size:12px;padding-left:20px;}
+.topMiniNav .loginBefore .ico_usename{position: absolute;top:9px;left:5px;background:url(../../images/common/header/ico_username.png) no-repeat;_background:url(../../images/common/header/ico_username_8.png) no-repeat;display: block;width:10px;height:12px;}
+.topMiniNav .loginBefore .ico_password{position: absolute;top:9px;left:5px;background:url(../../images/common/header/ico_password.png) no-repeat;_background:url(../../images/common/header/ico_password_8.png) no-repeat;display: block;width:10px;height:12px;}
+.topMiniNav .loginBefore .loginSubmit,.topMiniNav .loginBefore .loginReg{border:0px;color:#fff;cursor: pointer;margin-right:10px;height:21px;line-height: 21px;display: block;margin-top: 4px;width: 53px;padding: 0px;text-align: center;}
+.topMiniNav .loginBefore .loginReg:hover{color: #fff;}
+/*登录前样式结束*/
+/*登陆后样式开始*/
+.topMiniNav .loginOver .red{color:#ce0000;}
+.topMiniNav .loginOver a.red:hover{color:#999;}
+.topMiniNav .loginOver .loginOut{color:#999;margin-left:10px;}m
+.topMiniNav .loginOver .loginOut:hover{color:#c60301;}
+/*登陆后样式结束*/
+/*右侧直达区域开始*/
+.topMiniNav .quickLink{}
+/*我的那好开始*/
+.topMiniNav .quickLink .myNahao{border-left:1px solid #f8f8f8;border-right:1px solid #f8f8f8;padding:0px 8px;width: 77px;}
+.topMiniNav .quickLink .myNahao ul{position: absolute;top: 29px;left:-1px;border-left:1px solid #e1e1e1;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;width:93px;background: #fff;z-index: 2;line-height: 28px;}
+.topMiniNav .quickLink .myNahao ul li a{display: block;padding-left:25px;}
+.topMiniNav .quickLink .myNahao ul li a:hover{background:#f6f6f6;}
+.topMiniNav .quickLink .myNahaoHover{background: #fff;border-left-color:#e1e1e1;border-right-color:#e1e1e1;}
+.topMiniNav .quickLink .myNahao p span.ico{background:url(../../images/common/header/ico_my.gif) no-repeat left;padding-left:18px;padding-right:5px;}
+.topMiniNav .quickLink .myNahao p .narrow{background: url(../../images/common/header/ico_narrow.gif) no-repeat 0px -4px;display: block;width:6px;height:4px;margin-top:13px;}
+.topMiniNav .quickLink .myNahaoHover p .narrow{background-position: 0 0;}
+/*我的那好结束*/
+/*关注样式开始*/
+.topMiniNav .quickLink .attention{border-left:1px solid #f8f8f8;border-right:1px solid #f8f8f8;padding:0px 8px;margin-right:5px;width: 40px;}
+.topMiniNav .quickLink .attention i.narrow{background: url(../../images/common/header/ico_narrow.gif) no-repeat 0px -4px;display: block;width:6px;height:4px;margin-top:13px;margin-left:5px;}
+.topMiniNav .quickLink .attentionHover{background: #fff;border-left-color:#e1e1e1;border-right-color:#e1e1e1;}
+.topMiniNav .quickLink .attentionHover i.narrow{background-position: 0 0;}
+.topMiniNav .quickLink .attenHander{cursor: pointer;}
+.topMiniNav .quickLink .attenHanderBg{display: none;}
+.topMiniNav .quickLink .attentionHover .attenHanderBg{z-index: 5; background-color: #fff; width: 56px;height: 3px;position: absolute;top:29px;left:0px;display: block;}
+.topMiniNav .quickLink .attention ul{border-top:1px solid #e1e1e1; position: absolute;top: 30px;right:-1px;border-left:1px solid #e1e1e1;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;background: #fff;z-index: 2;line-height: 24px;}
+.topMiniNav .quickLink .attention ul li{width:132px;padding:10px 15px;}
+.topMiniNav .quickLink .attention .text{width:60px;margin-left:10px;}
+.topMiniNav .quickLink .attention img.fl{margin-top:8px;}
+.topMiniNav .quickLink .attention .text i.v{background:url(../../images/common/header/ico_v.gif) no-repeat;width:17px;height:14px;display:block;margin-top:6px;margin-left:5px;}
+.topMiniNav .quickLink .attention .text .add{background:url(../../images/common/header/attention_btn.gif) no-repeat;width:50px;height:18px;text-indent: -999em;overflow:hidden;display:block;margin-top:5px;}
+.topMiniNav .quickLink .ctrlRed{color: #ce0000;padding-right: 5px;}
+/*关注样式结束*/
+/*右侧直达区域结束*/

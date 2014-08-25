@@ -1,5 +1,6 @@
+body{background:#f8f8f8;}
 a {text-decoration:none;color:#333;}
-a:hover {text-decoration:none;}
+a:hover {text-decoration:none;color:#ce0000;}
 .layout:after,
 .hd:after,
 .bd:after,
@@ -15,12 +16,12 @@ a:hover {text-decoration:none;}
 .redText,
 .grayText:hover,
 .footer .ftNav a:hover,
-.floatBox a:hover{color:#f14211!important;}
+.floatBox a:hover{color:#ce0000!important;}
 .blueText{color:#6dcde6;}
 .blueText:hover{text-decoration: underline;color:#6dcde6;}
 .grayText{color: #a3adb7;}
 .yh{font-family: "微软雅黑";font-weight: normal;}
-.cInput{border: 1px solid #a2a2a2;padding: 0 10px;font-size: 14px;height: 30px;line-height: 30px;}
+.cInput{border: 1px solid #e5e5e5;padding: 0 10px;font-size: 14px;height: 30px;line-height: 30px;}
 .undis{display: none;}
 .dis{display: block;}
 .undisIm{display:none!important;}
@@ -39,19 +40,29 @@ form .jqTransformSelectWrapper a.jqTransformSelectOpen{background: url(../../ima
 form .jqTransformSelectWrapper ul a:hover,form .jqTransformSelectWrapper ul a.selected:hover{background:#ccc;}
 /* phone+ cart*/
 .cartBg{background: url(../../images/common/cart.png) no-repeat;_background-image: url(../../images/common/cart_8.png);height: 24px;}
-.phoneHref,.phoneHref:hover{color:#f14211;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
+.phoneHref,.phoneHref:hover{color:#ce0000;font-size: 16px;cursor: default;background: url(../../images/common/phone.png) left 0px no-repeat;_background-image: url(../../images/common/phone_8.png);padding-left: 26px;}
 .mess{display: inline-block;padding-left: 24px;background: url(../../images/common/mess.png) left center no-repeat;}
 /*悬浮框*/
-.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 68px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 1111;}
-.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: inline-block;padding: 46px 0 4px;width: 68px;background-position: center 8px;background-repeat: no-repeat;}
-.floatBox a.feedback{margin-top: 0px;}
-.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}
-.floatBox .feedback{background-image: url(../../images/common/feedback.jpg);}
-.floatBox .returnTop{background-image: url(../../images/common/returnTop.jpg);background-position: center 18px;}
+.floatBox{border: 1px solid #d4d4d4;border-bottom: none;width: 32px;background: #fff;position:fixed;_position:absolute;bottom: 20%;right: 0;z-index: 100;display: none;}
+.floatBox a{text-align:center;border-bottom: 1px solid #d4d4d4;color: #979797;display: block;width: 32px;height: 32px; background-position: center 8px;background-repeat: no-repeat;text-indent: -10000px;}
+.floatBox a.feedback{margin-top: 0px;padding: 0px;}
+/*.floatBox .ansQue{background-image: url(../../images/common/ansQue.jpg);}*/
+.floatBox .ansQue{background: url(../../images/common/kefu.gif) no-repeat center;display: none;}
+.floatBox .feedback{background: url(../../images/common/feedback.gif) no-repeat center; }
+.floatBox .returnTop{background: url(../../images/common/return_top.png) no-repeat center;display: none;text-indent: -10000px;background-color: #e0e0e0;}
 .floatBox a:hover{background-color: #f7f7f7; }
-.floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}
-.floatBox .feedback:hover{background-image: url(../../images/common/hfeedback.jpg);}
-.floatBox .returnTop:hover{background-image: url(../../images/common/hreturnTop.jpg);}
+.floatBox .weixinCode{background: url(../../images/common/weixin_code.gif) no-repeat center;position: relative;}
+.floatBox .weixinCode .wxWrap{height: 160px;width: 136px;left: -136px;top:50%;margin-top: -80px;position: absolute;display: none;}
+.floatBox .weixinCode .wxBg{display: block; width: 100%;height: 100%;background-color: #e0e0e0;opacity: 0.8;position: absolute;left:0px;top:0px;z-index: 5;}
+.floatBox .weixinCode .wxDesc{border:1px solid #e0e0e0;background-color: #fff;width: 104px;height: 136px;top:50%;left: 50%;margin-top: -68px;margin-left: -52px;position: absolute;z-index: 6;}
+.floatBox .weixinCode .wxWrap.active{display: block;}
+.floatBox .weixinCode .wxWrap img{width: 84px;height: 84px;display: block;margin: 10px auto 5px;}
+.floatBox .weixinCode .wxWrap .arrow{position: absolute;right: -10px;width: 10px;height: 13px;top:50%;margin-top: -6.5px;background: url(../../images/common/codeArrow.gif) no-repeat center;display: block;}
+.floatBox .weixinCode .wxWrap .codeText{line-height: 15px;color: #333;}
+/*.floatBox .ansQue:hover{background-image: url(../../images/common/hansQue.jpg);}*/
+/*.floatBox .ansQue{background: url(../../images/common/feedback.gif) no-repeat center;}*/
+/*.floatBox .feedback:hover{background: url(../../images/common/feedback.gif) no-repeat center;}*/
+.floatBox .returnTop:hover{background-color: #ce0000;}
 .floatBox .courSurvey{background-image: url(../../images/common/courSurvey.jpg);}
 .floatBox .courSurvey:hover{background-image: url(../../images/common/hcourSurvey.jpg);}
             
@@ -128,18 +139,21 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 .login .codeSpan{padding:0 8px;margin-left: 10px;}
 /*全站分页代码样式开始*/
 .page {margin:10px 0px; line-height:30px;}
-.page a{float:left;height: 38px;line-height: 38px;padding: 0 15px;font-size: 16px;color: #4b4b4b;margin-right: 3px;background: #fff;}
-.page .prev{padding: 0 0 0 36px;background: #6dcde6 url(../../images/common/prevArrow.png) 18px center no-repeat;margin-right: 9px;}
-.page .next{text-align:right;padding: 0 36px 0 0;background: #6dcde6 url(../../images/common/nextArrow.png) 76px center no-repeat;margin-left: 9px;}
-.page .prev,
-.page .next{width: 66px;color: #fff;height: 38px;line-height: 38px;}
-.page .prev a,
-.page .next a{background: #6dcde6;padding: 0px;color: #fff;}
-.page .prev a{float: left;}
-.page .next a{float: right;}
+.page>ul{float: right;width: auto!important;}
+.page .pageUl{float: right;width: auto!important;}
+.page ul li{float: left;}
+.page a{float:left;height: 22px;line-height: 22px;padding: 0 10px;font-size: 12px;color: #0e78e1;margin-right: 3px;background: #fff;text-align: center;border:1px solid #e0e0e0;}
+.page .prev{background: #fff url(../../images/common/prev.gif) center no-repeat;}
+.page .next{text-align:right;padding: 0;background: url(../../images/common/next.gif) center no-repeat;margin-left: 9px;}
+.page .prev a{background: #fff url(../../images/common/prev.gif) 5px center no-repeat;color: #333;}
+.page .next a{background: #fff url(../../images/common/next.gif) 48px center no-repeat;color: #333;margin-right: 0px;}
 .page span{margin:0 4px;}
-.page a.active,
-.page span a:hover{color:#fff;background:#f14211;}
+.page .more{}
+.page li.active a,
+.page a:hover{color:#c60301;background-color:#ffeed0;}
+.page .prev a:hover{background: #fff url(../../images/common/prev-active.gif) 5px center no-repeat;color: #0e78e1;}
+.page .next a:hover{background: #fff url(../../images/common/next-active.gif) 48px center no-repeat;color: #0e78e1;}
+.page .more a{background-color: #f3f3f3;color: #333;}
 /*全站分页代码样式结束*/
 /* 意见反馈 */
 .feedback{padding:14px 76px 44px 72px;width: 652px;margin-top:20px;}
@@ -157,7 +171,35 @@ table.md_table th{background:#f6f6f6;font-size:16px;color:#677381;font-weight:no
 /*  免费  */
 .courseFree{background: url(../../images/common/free.png) top right no-repeat;position: absolute;right: -6px;top:-6px;width: 87px;height: 89px;z-index: 111;}
 
-.iebrowser{width: 100%;color: #f14211;height: 22px;line-height: 22px;text-align: center;font-size: 12px;background: #fff;}
+.iebrowser{width: 100%;color: #ce0000;height: 22px;line-height: 22px;text-align: center;font-size: 12px;background: #fff;}
 .iebrowser span{margin-left:36px;}
 .iebrowser a{color: #11243b;}
 .disabledBg{background: #dedede;}
+/*小彩旗开始*/
+.markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
+.markList .mark{text-align: center; color: #fff;display: block;float: left;height: 32px;line-height: 14px;margin-right: -3px;padding: 3px 8px 3px 5px;width: 28px;}
+.markList .mark1{background: url("../../images/common/flags/mark1.png") no-repeat center transparent;_background: url("../../images/common/flags/mark1_8.png") no-repeat center transparent;}
+.markList .mark2{background: url("../../images/common/flags/mark2.png") no-repeat center transparent;_background: url("../../images/common/flags/mark2_8.png") no-repeat center transparent;}
+.markList .mark3{background: url("../../images/common/flags/mark3.png") no-repeat center transparent;_background: url("../../images/common/flags/mark3_8.png") no-repeat center transparent;}
+.markList .mark4{background: url("../../images/common/flags/mark4.png") no-repeat center transparent;_background: url("../../images/common/flags/mark4_8.png") no-repeat center transparent;}
+.markList .mark5{background: url("../../images/common/flags/mark5.png") no-repeat center transparent;_background: url("../../images/common/flags/mark5_8.png") no-repeat center transparent;}
+.markList .mark6{background: url("../../images/common/flags/mark6.png") no-repeat center transparent;_background: url("../../images/common/flags/mark6_8.png") no-repeat center transparent;}
+.markList .mark7{background: url("../../images/common/flags/mark7.png") no-repeat center transparent;_background: url("../../images/common/flags/mark7_8.png") no-repeat center transparent;}
+.markList .mark8{background: url("../../images/common/flags/mark8.png") no-repeat center transparent;_background: url("../../images/common/flags/mark8_8.png") no-repeat center transparent;}
+/*小彩旗结束*/
+/*最近浏览记录开始*/
+.historyWrap{position: relative; }
+.historyWrap .historyListWrap{background-color: #fff;border:1px solid #e0e0e0;width: 218px;} 
+.historyWrap .hHeader{font-size:14px;height: 35px;line-height: 35px;padding-left: 12px;}
+.historyWrap .deletHistory{color: #cb0000;font-size:12px;padding-right:15px;line-height: 35px;height: 35px;position: absolute;top:0px;right: 0px;}
+.historyWrap .historyList{overflow: hidden;padding: 0 12px;}
+.historyWrap .hItem{border-top: 1px dashed #e0e0e0;display: block;margin-top: -1px;padding: 20px 0;}
+.historyWrap .hPic{height: 51px;width: 80px;float: left;}
+.historyWrap .hDesc{width: 100px;}
+.historyWrap .hDesc .hSmallTitle{display: block;font-size:12px;height: 30px;line-height: 15px;margin-bottom:5px;overflow: hidden;}
+.historyWrap .hDesc .valList{}
+.historyWrap .hDesc .price{color: #ce0000;font-weight: normal;}
+.historyWrap .hDesc .val{padding-left: 12px;text-decoration: line-through;color: #989898;}
+.historyWrap .noHistory{margin: 40px 0px;text-align: center;}
+/*最近浏览记录结束*/
+

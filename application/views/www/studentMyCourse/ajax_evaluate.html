@@ -1,0 +1,35 @@
+
+{if $array_evaluate}
+	<h3 id="review">学员评价</h3>
+	<ul>                   		
+	{foreach from=$array_evaluate item=item}
+	   <li class="cf b_t_0">
+		   <img src="{$item.avatar}" alt="" class="fl">
+		   <div class="fl revCon">
+			   <div class="cf">
+				   <h2 class="fl">
+					   <strong>{$item.nickname}</strong>
+				   </h2>
+				   <div class="fr">
+					   <span class="fl">综合评分：</span>
+					   <span class="starBg fl">
+				  {if $item.score}
+			{section name=loops loop=$item.score}
+				<span class="hreview"></span>
+			{/section}
+			{/if}
+					   </span>
+					   <span class="revTimt">{$item.create_time|date_format:'%Y-%m-%d %H:%M'}</span>
+				   </div>
+			   </div>
+			   <p>{$item.content}</p>
+		   </div>
+	   </li>
+	   {/foreach}                    		
+	</ul>                      
+	{$page}
+{else}
+	<h3 id="review">学员评价</h3>
+	<div class="hasNoContent">暂无评价</div>
+{/if}
+

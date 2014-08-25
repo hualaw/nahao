@@ -1,0 +1,10 @@
+/*加载重置样式------------*/
+@import url('../common/reset.css');
+/*加载公共样式*/
+@import url('../common/common.css');
+/*加载公共样式---button和其他*/
+@import url('../common/button.css');
+/*加载布局样式*/
+@import url('../common/layout.css');
+/*加载进入直播课样式*/
+@import url('stu_live_class.css');

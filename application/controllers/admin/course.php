@@ -108,20 +108,21 @@ class Course extends NH_Admin_Controller
             $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
             $int_education_type = $this->input->post('education_type') ? intval($this->input->post('education_type')) : 0;
             $int_material_version = $this->input->post('material_version') ? intval($this->input->post('material_version')) : 0;
+            $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : 0;
             $int_quality = $this->input->post('quality') ? intval($this->input->post('quality')) : 0;
-            $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
-            $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
-            $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
-            $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
-            $int_subject = $this->input->post('subject') ? intval($this->input->post('subject')) : '';
             $int_course_type = $this->input->post('course_type') ? intval($this->input->post('course_type')) : 0;
-            $int_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
-            $int_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
-            $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
-            $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
+            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
+            $int_stage = $this->input->post('stage') ? intval($this->input->post('stage')) : 0;
             $int_grade_from = $this->input->post('grade_from') ? intval($this->input->post('grade_from')) : 0;
             $int_grade_to = $this->input->post('grade_to') ? intval($this->input->post('grade_to')) : 0;
-            $arr_teachers = $this->input->post('teachers') ? $this->input->post('teachers') : array();
+            $int_reward = $this->input->post('reward') ? (filter_var($this->input->post('reward'), FILTER_VALIDATE_FLOAT) ? $this->input->post('reward') : 0) : 0;
+            $int_price = $this->input->post('price') ? (filter_var($this->input->post('price'), FILTER_VALIDATE_FLOAT) ? $this->input->post('price') : 0) : 0;
+            $str_subtitle = $this->input->post('subtitle') ? trim($this->input->post('subtitle')) : '';
+            $str_intro = $this->input->post('intro') ? trim($this->input->post('intro')) : '';
+            $str_students = $this->input->post('students') ? trim($this->input->post('students')) : '';
+            $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
+            $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
+            $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
 
             $bool_validate_flag = true;
             if (empty($str_title)) {
@@ -133,61 +134,64 @@ class Course extends NH_Admin_Controller
             }  elseif ($int_material_version < 0) {
                 $bool_validate_flag = false;
                 $this->arr_response['msg'] = '没有教材版本';
-            }  elseif ($int_quality < 0) {
-                $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有素质教育科目';
-            }  elseif (empty($str_subtitle)) {
-                $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有一句话简介';
-            } elseif (empty($str_intro)) {
-                $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有简介';
-            } elseif (empty($str_description)) {
-                $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有课程提要';
-            } elseif (empty($str_students)) {
-                $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有使用人群';
             } elseif ($int_subject < 0) {
                 $bool_validate_flag = false;
                 $this->arr_response['msg'] = '没有科目';
-            } elseif ($int_course_type < 0) {
+            } elseif ($int_quality < 0) {
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有素质教育科目';
+            }elseif ($int_course_type < 0) {
                 $bool_validate_flag = false;
                 $this->arr_response['msg'] = '没有课程类型';
-            } elseif ($int_reward < 0) {
+            } elseif (empty($arr_teachers)) {
                 $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有课酬';
-            } elseif ($int_price < 0) {
+                $this->arr_response['msg'] = '没有老师';
+            } elseif ($int_stage < 0) {
                 $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有价格';
+                $this->arr_response['msg'] = '没有学段';
             } elseif ($int_grade_from < 0) {
                 $bool_validate_flag = false;
                 $this->arr_response['msg'] = '没有开始年级';
             } elseif ($int_grade_to < 0) {
                 $bool_validate_flag = false;
                 $this->arr_response['msg'] = '没有结束年级';
-            } elseif (empty($arr_teachers)) {
+            }elseif ($int_reward < 0) {
                 $bool_validate_flag = false;
-                $this->arr_response['msg'] = '没有老师';
+                $this->arr_response['msg'] = '没有课酬';
+            } elseif ($int_price < 0) {
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有价格';
+            }elseif (empty($str_subtitle)) {
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有一句话简介';
+            } elseif (empty($str_intro)) {
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有简介';
+            } elseif (empty($str_students)) {
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有适合人群';
+            }elseif (empty($str_description)) {
+                $bool_validate_flag = false;
+                $this->arr_response['msg'] = '没有授课提要';
             }
-
             if ($bool_validate_flag == true) {
                 $arr_param['title'] = $str_title;
                 $arr_param['education_type'] = $int_education_type;
                 $arr_param['material_version'] = $int_material_version;
-                $arr_param['quality'] = $int_quality;
-                $arr_param['subtitle'] = $str_subtitle;
-                $arr_param['intro'] = $str_intro;
-                $arr_param['description'] = $str_description;
-                $arr_param['students'] = $str_students;
                 $arr_param['subject'] = $int_subject;
+                $arr_param['quality'] = $int_quality;
                 $arr_param['course_type'] = $int_course_type;
-                $arr_param['reward'] = $int_reward;
-                $arr_param['price'] = $int_price;
-                $arr_param['video'] = $str_video;
-                $arr_param['img'] = $str_img;
+                $arr_param['stage'] = $int_stage;
                 $arr_param['grade_from'] = $int_grade_from;
                 $arr_param['grade_to'] = $int_grade_to;
+                $arr_param['reward'] = $int_reward;
+                $arr_param['price'] = $int_price;
+                $arr_param['subtitle'] = $str_subtitle;
+                $arr_param['intro'] = $str_intro;
+                $arr_param['students'] = $str_students;
+                $arr_param['description'] = $str_description;
+                $arr_param['img'] = $str_img;
+                $arr_param['video'] = $str_video;
 //                o($arr_param,true);
                 if ($int_course_id > 0) {
                     //update

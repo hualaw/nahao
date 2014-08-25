@@ -3,7 +3,7 @@
 .studentStartClass .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 /*开课成功样式开始*/
 .studentStartClass .startSuccess,
-.studentStartClass .writeInfo{background: #eeeeee;padding:40px 0;text-align: center;color:#0e455e;}
+.studentStartClass .writeInfo{padding:40px 0;text-align: center;color:#0e455e;}
 .studentStartClass .startSuccess .box,
 .studentStartClass .writeInfo .box{background: #fff;border: 1px solid #d5d5d5;padding-top:40px;}
 .studentStartClass .startSuccess .box h2{margin-bottom:20px;height:46px;line-height:46px;background: url(../../images/cart/orderFormIcon2.png) no-repeat 360px center;}
@@ -47,7 +47,7 @@
 .regTeacher ul li{margin-bottom:20px;}
 .regTeacher ul li p{width: 100%;font-size: 16px;margin-bottom: 5px}
 .regTeacher ul li p a{font-size: 14px;}
-.regTeacher ul li p a:hover{color:#f14211;text-decoration: underline;}
+.regTeacher ul li p a:hover{color:#ce0000;text-decoration: underline;}
 .regTeacher ul li input{width: 90%;padding:0 5%;height:38px;line-height:38px;border:1px solid #6dcde6;font-size: 16px;}
 .regTeacher ul li .vfCode{width:150px;border: 1px solid #d5d5d5;height:38px;}
 .regTeacher ul li .submit{width:100%;border:0;padding:0;cursor:pointer;}

@@ -13,6 +13,25 @@
 | always be used to set the mode correctly.
 |
 */
+/**
+ * 那好2.0芝麻开门
+ * @命名规则: 	
+ * 列表页猜您喜欢：	控制器_方法_块名_SWITCH =》 CLASSES_INDEX_SUGGEST_SWITCH
+ */ 
+define('CLASSES_INDEX_SUGGEST_SWITCH',1);			// 列表页 		> 猜您喜欢
+define('CLASSES_INDEX_BROWSING_HISTORY_SWITCH',1);	// 列表页 		> 浏览记录
+define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
+//switch
+define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+//limit
+define('LIMIT_WWW_INDEX_LIVE_SHOW_MAX',9);
+define('LIMIT_WWW_INDEX_LIVE_SHOW_MIN',3);
+define('LIMIT_WWW_INDEX_COURSE_LIST_MAX',60);
+define('LIMIT_WWW_INDEX_COURSE_LIST_MIN',10);
+
+define('HOT_NEW_COURSE',1);      //我的课程页   > 近期课程和热报课程
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -314,6 +333,7 @@ define('STATIC_ADMIN_CSS_BOOTSTRAP_DATETIMEPICKER_MIN', '/admin/css/bootstrap-da
 //register&login type
 define('REG_LOGIN_TYPE_PHONE', 1);
 define('REG_LOGIN_TYPE_EMAIL', 2);
+define('REG_LOGIN_TYPE_THIRD_PART', 3);
 
 //phone_verified type
 define('PHONE_UNVERIFIED', 0);
@@ -374,14 +394,26 @@ define('NH_MEETING_TYPE_SUPER_ADMIN', 110); //超级管理员
 define('NH_MEETING_ENTER_URL', ENVIRONMENT == 'production' ? 'http://classapi.tizi.com/nahao/enter?token=' : 'http://classroom.oa.tizi.com/nahao/enter?token=');
 
 //课程封面图的三个尺寸 288*216  230*172   50*50
-define('NH_COURSE_IMG_LARGE_HEIGHT', 216);
-define('NH_COURSE_IMG_LARGE_WIDTH', 288);
-define('NH_COURSE_IMG_GENERAL_HEIGHT', 172);
-define('NH_COURSE_IMG_GENERAL_WIDTH', 230);
-define('NH_COURSE_IMG_SMALL_HEIGHT', 50);
-define('NH_COURSE_IMG_SMALL_WIDTH', 50);
+define('NH_COURSE_IMG_LARGE_HEIGHT',216);
+define('NH_COURSE_IMG_LARGE_WIDTH',288);
+define('NH_COURSE_IMG_GENERAL_HEIGHT',172);
+define('NH_COURSE_IMG_GENERAL_WIDTH',230);
+define('NH_COURSE_IMG_SMALL_HEIGHT',50);
+define('NH_COURSE_IMG_SMALL_WIDTH',50);
+define('NH_COURSE_IMG_INDEX_HEIGHT',235);
+define('NH_COURSE_IMG_INDEX_WIDTH',367);
+define('NH_COURSE_IMG_LIVE_HEIGHT',147);
+define('NH_COURSE_IMG_LIVE_WIDTH',230);
 define('NH_TEACHER_IMG_HEIGHT', 225);
 define('NH_TEACHER_IMG_WIDTH', 300);
+
+//课程详细页
+define('NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT', 280);
+define('NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH', 440);
+define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT', 127);
+define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH', 200);
+define('NH_RECENT_VIEW_IMG_HEIGHT', 51);
+define('NH_RECENT_VIEW_IMG_WIDTH', 80);
 
 //单轮，单节最大人数
 define('NH_CLASS_PEOPLE_CAPS', 100);
@@ -405,8 +437,67 @@ define('ROUND_USE_TYPE_APPLYTEACH', 2); //试讲轮
 define('SUBJECT_STUDY', 1);//学科辅导
 define('QUALITY_STUDY', 2);//素质教育
 
+//列表页每页数量
+define('LIST_NUM', 30);//每页搜索结果数
+define('LIST_SUGGEST_NUM', 10);//每页推荐结果数
+
 //存在redis里面的订单过期时间
 define('REDIS_ORDER_EXPIRE', 3600);
-define('ROUND_GENERATE_MODE', 'production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
+define('ROUND_GENERATE_MODE','production');//testing,production测试环境下添课模式开关，testing走测试testing_round_time_config / production走正式production_round_time_config
+
+//学科辅导和素质教育
+define('ROUND_TYPE_ALL',0);
+define('ROUND_TYPE_SUBJECT',1);
+define('ROUND_TYPE_EDUCATION',2);
+
+//所有学段
+define('CATE_STAGE_ALL',0);//全部学段
+define('CATE_STAGE_PRIMARY',1);//小学
+define('CATE_STAGE_JUNIOR',2);//初中
+define('CATE_STAGE_SENIOR',3);//高中
+
+//学科辅导全部科目
+define('CATE_SUBJECT_ALL',0);//全部科目
+define('CATE_SUBJECT_SHUXUE',2);//数学
+define('CATE_SUBJECT_YUWEN',3);//语文
+define('CATE_SUBJECT_YINGYU',4);//英语
+define('CATE_SUBJECT_WULI',5);//物理
+define('CATE_SUBJECT_HUAXUE',9);//化学
+define('CATE_SUBJECT_SHENGWU',10);//生物
+define('CATE_SUBJECT_DILI',12);//地理
+define('CATE_SUBJECT_ZHENGZHI',13);//政治
+define('CATE_SUBJECT_SHUXUEJINGBIAN',14);//数学精编
+define('CATE_SUBJECT_OTHER',100);//其他
+
+//素质教育全部科目
+define('CATE_QUALITY_ALL',0);//全部素质教育学科
+define('CATE_QUALITY_JIATINGJIAOYU',1);//家庭教育
+define('CATE_QUALITY_XUEXIFANGFA',2);//学习方法
+define('CATE_QUALITY_WAIJIAOKOUYU',3);//外教口语
+define('CATE_QUALITY_DIANYINGJIANSHANG',4);//电影鉴赏
+define('CATE_QUALITY_XINGAINIAN',5);//新概念
+define('CATE_QUALITY_GUOJIYINBIAO',6);//国际音标
+define('CATE_QUALITY_XINLIXUE',7);//心理学
+define('CATE_QUALITY_JIANQIAOSHAOERYINGYU',8);//剑桥少儿英语
+define('CATE_QUALITY_ZIRANPINDU',9);//自然拼读
+define('CATE_QUALITY_MOFANG',10);//魔方
+define('CATE_QUALITY_OTHER',100);//其他
+
+//round icon
+define('ROUND_ICON_XIANSHIQIANGGOU',1);//限时抢购
+define('ROUND_ICON_MIANFEISHITING',2);//免费试听
+define('ROUND_ICON_ZHENGZAIZHIBO',3);//正在直播
+define('ROUND_ICON_JIJIANGKAISHI',4);//即将开始
+define('ROUND_ICON_JINRIXINKE',5);//今日新课
+define('ROUND_ICON_FENGKUANGREMAI',6);//疯狂热卖
+
+define('ROUND_ICON_FENGKUANGREMAI_EDGE',150);//疯狂热卖阈值
+
+//switch
+//define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
+//define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+//课程详情页推荐开关 (1是显示0是不显示)
+//define('BUY_BEFORE_RECOMMEND_SWITCH',1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
