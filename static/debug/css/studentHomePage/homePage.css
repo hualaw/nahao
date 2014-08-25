@@ -54,6 +54,7 @@
 .studentHomePage .tabList .tabItem.firstTab {border-left: none;}
 .studentHomePage .tabList .tabItem.active .bBr{border-bottom: 2px solid #cb0000; position: absolute; bottom: -8px;left: 0px;display: block;height: 0px;width: 100%;}
 .studentHomePage .listCont{margin: 37px -6px 17px;*padding-top: 37px;}
+.studentHomePage .listCont .courseListEmpty{text-align: center;height: 50px;line-height: 50px;background-color: #fff;}
 .studentHomePage .listCont .pager{margin: 0px 6px ;}
 .studentHomePage .listCont .item.active ul{width: 762px;}
 .studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;height: 410px;}
