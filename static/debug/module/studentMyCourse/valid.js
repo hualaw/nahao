@@ -360,8 +360,12 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        if(typeof json.error_code != 'undefined' && json.error_code == '9999'){
+                            window.location.href="/login";
+                        }else{
+                            $(obj).siblings('.Validform_checktip').html(json.msg);
+                            $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        }
                     }
                 }
             }
@@ -477,8 +481,12 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        //$(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        if(typeof json.error_code != 'undefined' && json.error_code == '9999'){
+                              window.location.href="/login";
+                        }else{
+                            $(obj).siblings('.Validform_checktip').html(json.msg);
+                            $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        }
                     }
                 }
             }
