@@ -13,7 +13,7 @@
 .studentClass .sortBox li{float: left;}
 .studentClass .sortBox li a{width: 80px;height: 27px;line-height: 27px;text-align: center;display: block;border-right: 1px solid #e0e0e0;}
 .studentClass .sortBox li a:hover,
-.studentClass .sortBox li a.active{background: #fff;color: #f40;}
+.studentClass .sortBox li a.active{background: #fff;color: #ce0000;}
 .studentClass .courseLeft{width: 760px;}
 .studentClass .courseLeft ul li.courseList{width:240px;border: 1px solid #e0e0e0;float: left;margin-top: 15px;margin-right: 11px;position: relative;}
 .studentClass .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;display: block;}
