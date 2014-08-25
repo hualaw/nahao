@@ -206,7 +206,8 @@ define(function(require,exports){
                     return false;
                 }
                 if(data.status=='ok'){
-                    location.reload();
+                    location.href="/login/perfect";
+                    //location.reload();
                 }
             }
         });
