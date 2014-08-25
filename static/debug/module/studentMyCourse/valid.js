@@ -216,7 +216,7 @@ define(function(require,exports){
     //选择和取消 关注素质教育
     function checkSuZhiAttent(obj){
         $(obj+" .suzhi_attent .btn").click(function (){
-            console.log($(obj+" .suzhi_attent .attentd").length);
+//            console.log($(obj+" .suzhi_attent .attentd").length);
             if($(obj+" .suzhi_attent .attentd").length < 3){//限制只能选3个学科
                 if($(this).hasClass("attentd")){
                     $(this).removeClass("attentd");
