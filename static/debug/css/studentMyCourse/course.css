@@ -522,6 +522,9 @@ overflow: hidden;}
 .studentMyCourse .course_info_item{padding-top: 25px;}
 .studentMyCourse .course_info_item h3{font-size: 16px;font-weight: normal;border-bottom: 2px solid #cdcdcd;padding-bottom: 10px;}
 .studentMyCourse .course_info_item .course_detial_text{text-indent: 2em;line-height: 24px;margin-top: 15px;}
+.studentMyCourse .course_info_item .detailInfo{width: 580px;text-indent: 0px;}
+.studentMyCourse .course_info_item .crowd{width: 580px;text-indent: 0px;}
+.studentMyCourse .course_info_item .crowdWrap{margin-top: 15px;}
 .studentMyCourse .course_info_item .course_team_list{padding:20px 0 15px;border-top: 1px solid #e0e0e0; }
 .studentMyCourse .course_info_item .course_team_list img{width: 100px;height: 100px;display: block;margin-right: 15px;}
 .studentMyCourse .course_info_item .b_t_0{border-top: none;}

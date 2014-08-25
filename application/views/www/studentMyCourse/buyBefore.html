@@ -185,7 +185,24 @@
                     <!-- 课程简介 开始 -->
                     <div id="course_detial" class="course_info_item height">
                         <h3>课程简介</h3>
-                        <p class="course_detial_text"><b>课程详情</b>：{$array_data.intro|truncate:250:"...":true}<span style="padding-top:10px;display:block;"><b>适合人群</b>：{$array_data.students}</span></p>
+                        <div class="course_detial_text">
+                            <p class="cf">
+                                <strong class="fl">
+                                    课程详情：
+                                </strong>
+                                <span class="fl detailInfo">
+                                    {$array_data.intro|truncate:250:"...":true}
+                                </span>
+                            </p>
+                            <p class="cf crowdWrap">
+                                <strong class="fl">
+                                    适合人群：
+                                </strong>
+                                <span class="fl crowd">
+                                    {$array_data.students}
+                                </span>
+                            </p>
+                        </div>
                     </div>
                     <!-- 课程简介 结束 -->
                     <!-- 授课团队 开始 -->

@@ -5,7 +5,7 @@
 #comLogin li .userName:focus,
 #comLogin li .pwd:focus{background-color: #f8f8f8}
 #comLogin .autoLi{font-size:14px;}
-#comLogin .autoLi a:hover{color:#f14211;}
+#comLogin .autoLi a:hover{color:#ce0000;}
 #comLogin li .autoLogin{margin:20px 10px 0 0;}
 #comLogin li .btn{width:305px;height:46px;line-height:46px;margin-bottom:20px;}
 #comLogin li .submit{border:0;cursor:pointer;}
