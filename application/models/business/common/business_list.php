@@ -87,7 +87,7 @@ class Business_List extends NH_Model
     		2 => array('name'=>'销量','title'=>'按销量从高到低' ,'active_name' => '销量从高到低'),
     		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低' ,'active_name' => '价格从高到低'),
     		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高' ,'active_name' => '价格从低到高'),
-    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '时间'),
+    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '最近开课时间'),
     	);
     	$order_param = array(
     		'typeId'	=> $param['typeId'],
