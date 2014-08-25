@@ -12,7 +12,11 @@ class Member extends NH_User_Controller
         $this->load->model('business/student/student_index');
         $this->load->model('business/student/student_course');
         if (!$this->is_login) {
-            redirect('/login');
+            if($this->is_ajax()){
+                self::json_output(array('status' => 'error', 'error_code'=>'9999','msg' => '没有登录'));
+            }else{
+                redirect('/login');
+            }
         }
         $grades = $this->config->item('grade');
         $this->smarty->assign('grades', $grades);
