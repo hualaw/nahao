@@ -24,6 +24,11 @@ define('BUY_BEFORE_RECOMMEND_SWITCH',1);			// 课程详情页 	> 看了又看
 //switch
 define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
 define('SWITCH_WWW_INDEX_COURSE_LIST',1);
+//limit
+define('LIMIT_WWW_INDEX_LIVE_SHOW_MAX',9);
+define('LIMIT_WWW_INDEX_LIVE_SHOW_MIN',3);
+define('LIMIT_WWW_INDEX_COURSE_LIST_MAX',60);
+define('LIMIT_WWW_INDEX_COURSE_LIST_MIN',10);
 
 define('HOT_NEW_COURSE',1);      //我的课程页   > 近期课程和热报课程
 

@@ -4,9 +4,9 @@ $config['template_dir'] = array('default'=>APPPATH.'views','lib'=>APPPATH.'views
 $config['compile_dir'] = APPPATH.'templates_c';
 $config['cache_dir'] = APPPATH.'cache';
 $config['caching'] = false;//没用，因为重载了
-$config['lifetime'] = 60;
+$config['lifetime'] = 300;
 $config['debugging'] = false;
-$config['compile_check'] = true;//是否检查模板有改变
+$config['compile_check'] = true;
 $config['force_compile'] = true;//只改这个就可以 true是不缓存 false是缓存
 $config['left_delimiter'] = '{';
 $config['right_delimiter'] = '}';

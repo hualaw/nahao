@@ -24,9 +24,9 @@
                             <!-- 标签列表开始 -->
 									<span class="markList">
 										{if in_array($v.status,array($smarty.const.CLASS_STATUS_INIT,$smarty.const.CLASS_STATUS_SOON_CLASS)) }
-                                            <span class="mark mark{$smarty.const.CLASS_STATUS_SOON_CLASS}">{$round_icons[$smarty.const.CLASS_STATUS_SOON_CLASS]}</span>
+                                            <span class="mark mark{$smarty.const.ROUND_ICON_JIJIANGKAISHI}">{$round_icons[$smarty.const.ROUND_ICON_JIJIANGKAISHI]}</span>
                                         {else}
-                                            <span class="mark mark{$smarty.const.CLASS_STATUS_ENTER_ROOM}">{$round_icons[$smarty.const.CLASS_STATUS_ENTER_ROOM]}</span>
+                                            <span class="mark mark{$smarty.const.ROUND_ICON_ZHENGZAIZHIBO}">{$round_icons[$smarty.const.ROUND_ICON_ZHENGZAIZHIBO]}</span>
                                         {/if}
 									</span>
                             <!-- 标签列表结束 -->

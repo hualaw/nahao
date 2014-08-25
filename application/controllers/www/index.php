@@ -83,9 +83,8 @@ class Index extends NH_User_Controller
         $int_stage_id = isset($arr_query_param['stage']) ? intval($arr_query_param['stage']) : 0;
         $int_start = isset($arr_query_param['page']) ? intval($arr_query_param['page']) : 0;
         $arr_where = $int_stage_id > 0 ? array('stage' => $int_stage_id) : array();
-        $int_live_per_page = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? PER_PAGE_NO : 6;
-        $int_per_page = SWITCH_WWW_INDEX_COURSE_LIST == 1 ? 60 : PER_PAGE_NO;
-        $int_per_page = 4;
+        $int_live_per_page = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? LIMIT_WWW_INDEX_LIVE_SHOW_MAX : LIMIT_WWW_INDEX_LIVE_SHOW_MIN;
+        $int_per_page = SWITCH_WWW_INDEX_COURSE_LIST == 1 ? LIMIT_WWW_INDEX_COURSE_LIST_MAX : LIMIT_WWW_INDEX_COURSE_LIST_MIN;
 
         //cache template
         $str_template = 'www/studentHomePage/index.html';
@@ -139,6 +138,7 @@ class Index extends NH_User_Controller
             $this->smarty->assign('query_params', $arr_query_param);
             $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
         }
+//        o($focus_photo);
         $this->smarty->assign('grade', config_item('grade'));
         $this->smarty->display($str_template, $str_cache_id);
     }
