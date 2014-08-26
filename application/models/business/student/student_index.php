@@ -16,7 +16,7 @@ class Student_Index extends NH_Model{
     public function get_course_latest_round_list()
     {
         #首页获取一门课程里面最新的一轮（在销售中）
-        $array_round = $this->model_index->get_course_latest_round();
+        $array_round = $this->model_index->get_course_new_round(0,3);
         $array_return = array();
         if ($array_round)
         {
@@ -46,7 +46,7 @@ class Student_Index extends NH_Model{
     public function get_course_hot()
     {
         #首页获取一门课程里面最新的一轮（在销售中）
-        $array_round = $this->model_index->get_course_hot_round();
+        $array_round = $this->model_index->get_course_hot_round(0,3);
         $array_return = array();
         if ($array_round)
         {

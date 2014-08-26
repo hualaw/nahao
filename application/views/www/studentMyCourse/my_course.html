@@ -33,7 +33,7 @@
             <!-- 进度条开始 -->
             <div class="scheduleWrap">
                 <!-- 此处的进度条需要算出百分比 如75%-->
-                <div class="scheduleInner" style="width:<?=($course['class']/$course['totle_class'])*100?>%"</div>
+                <div class="scheduleInner" <?php if(!empty($course['totle_class'])){?>style="width:<?=($course['class']/$course['totle_class'])*100?>%"<?php }else{?>style="width:0%"<?php }?>></div>
             </div>
             <!-- 进度条结束 -->
 		   						<span>
@@ -47,5 +47,6 @@
         }
     ?>
 </ul>
-
-<?=$page?>
+<div status='0' class="page-status pageWrap">
+    <?=$page?>
+</div>

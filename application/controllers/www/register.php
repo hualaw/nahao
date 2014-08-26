@@ -47,13 +47,13 @@ class register extends NH_Controller
 	{
         $code=trim($this->input->post('code',TRUE));
         $arr_userdata=$this->session->all_userdata();
-        if(strcasecmp($code,trim($arr_userdata['captcha']))!==0)
-        {
-            $arr_return['status']='ERROR';
-            $arr_return['msg']='验证码错误';
-            $arr_return['data']=$arr_userdata['captcha'];
-            echo parent::json_output($arr_return);
-        }
+//        if(strcasecmp($code,trim($arr_userdata['captcha']))!==0)
+//        {
+//            $arr_return['status']='ERROR';
+//            $arr_return['msg']='验证码错误';
+//            $arr_return['data']=$arr_userdata['captcha'];
+//            echo parent::json_output($arr_return);
+//        }
 		$phone = trim($this->input->post('phone'));
 		$ephone = trim($this->input->post('ephone'));//email注册时选填的手机号
 		$email = trim($this->input->post('email'));
@@ -72,7 +72,7 @@ class register extends NH_Controller
 
     public function submit_personal_info()
     {
-        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'school_id',
+        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'selected_suzhi_subjects', 'school_id',
                               'schoolname', 'province_id', 'city_id', 'area_county_id', 'school_type');
         foreach($input_names as $input_name)
         {
@@ -108,11 +108,14 @@ class register extends NH_Controller
         //create user_info table record
         $this->load->model('model/common/model_user');
         $this->model_user->update_user_info($user_info_arr, array('user_id'=> $user_id));
-        if(!empty($selected_subjects))
-        {
-            //create student_subject table record
-            $this->load->model('business/common/business_user');
-            $this->business_user->update_user_subject($selected_subjects, $user_id, 'student');
+
+        $this->load->model('business/common/business_user');
+        if(!empty($selected_subjects)) {
+            $this->business_user->update_student_subject($selected_subjects, $user_id, 1);
+        }
+//        print_r($update_data['student_suzhi_subject']);
+        if(!empty($selected_suzhi_subjects)) {
+            $this->business_user->update_student_subject($selected_suzhi_subjects, $user_id, 2);
         }
 
         //update nickname and email
