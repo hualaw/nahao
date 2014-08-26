@@ -311,7 +311,7 @@ $config['testing_round_time_config']['teacher_late_time'] = 120; //开课后多�
 $config['production_round_time_config']['before_sell_begin_time_min'] = 300; //销售时间最早在创建轮时间之后5分钟
 $config['production_round_time_config']['before_sell_begin_time_max'] = 86400 * 30; ////销售时间最晚在创建轮时间之后一个月
 $config['production_round_time_config']['before_sell_end_time_min'] = 300; //最短销售期
-$config['production_round_time_config']['before_sell_end_time_max'] = 86400 * 30 * 2; //最长销售期
+$config['production_round_time_config']['before_sell_end_time_max'] = 86400 * 30 * 4; //最长销售期
 $config['production_round_time_config']['before_begin_time'] = 300; //停卖多久后开课
 $config['production_round_time_config']['before_first_class'] = 3600; //轮开课与第一节课间隔
 $config['production_round_time_config']['class_min_long'] = 300; //最短上课时间
@@ -370,32 +370,31 @@ $config['education_type'][ROUND_TYPE_SUBJECT] = '学科教育';
 $config['education_type'][ROUND_TYPE_EDUCATION] = '素质教育';
 
 //学科辅导科目
-$config['education_subject'][ROUND_TYPE_SUBJECT][0] = '全部科目';
-$config['education_subject'][ROUND_TYPE_SUBJECT][2] = '数学';
-$config['education_subject'][ROUND_TYPE_SUBJECT][3] = '语文';
-$config['education_subject'][ROUND_TYPE_SUBJECT][4] = '英语';
-$config['education_subject'][ROUND_TYPE_SUBJECT][5] = '物理';
-$config['education_subject'][ROUND_TYPE_SUBJECT][9] = '化学';
-$config['education_subject'][ROUND_TYPE_SUBJECT][10] = '生物';
-$config['education_subject'][ROUND_TYPE_SUBJECT][11] = '历史';
-$config['education_subject'][ROUND_TYPE_SUBJECT][12] = '地理';
-$config['education_subject'][ROUND_TYPE_SUBJECT][13] = '政治';
-$config['education_subject'][ROUND_TYPE_SUBJECT][14] = '数学精编';
-$config['education_subject'][ROUND_TYPE_SUBJECT][100] = '其他';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_ALL] = '全部科目';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_SHUXUE] = '数学';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_YUWEN] = '语文';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_YINGYU] = '英语';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_WULI] = '物理';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_HUAXUE] = '化学';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_SHENGWU] = '生物';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_DILI] = '地理';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_ZHENGZHI] = '政治';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_SHUXUEJINGBIAN] = '数学精编';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_OTHER] = '其他';
 
 //素质教育科目
-$config['education_subject'][ROUND_TYPE_EDUCATION][0] = '全部科目';
-$config['education_subject'][ROUND_TYPE_EDUCATION][1] = '家庭教育';
-$config['education_subject'][ROUND_TYPE_EDUCATION][2] = '学习方法';
-$config['education_subject'][ROUND_TYPE_EDUCATION][3] = '外教口语';
-$config['education_subject'][ROUND_TYPE_EDUCATION][4] = '电影鉴赏';
-$config['education_subject'][ROUND_TYPE_EDUCATION][5] = '新概念';
-$config['education_subject'][ROUND_TYPE_EDUCATION][6] = '国际音标';
-$config['education_subject'][ROUND_TYPE_EDUCATION][7] = '心理学';
-$config['education_subject'][ROUND_TYPE_EDUCATION][8] = '剑少英语';
-$config['education_subject'][ROUND_TYPE_EDUCATION][9] = '自然拼读';
-$config['education_subject'][ROUND_TYPE_EDUCATION][10] = '魔方';
-$config['education_subject'][ROUND_TYPE_EDUCATION][100] = '其他';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_ALL] = '全部科目';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_JIATINGJIAOYU] = '家庭教育';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_XUEXIFANGFA] = '学习方法';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_WAIJIAOKOUYU] = '外教口语';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_DIANYINGJIANSHANG] = '电影鉴赏';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_XINGAINIAN] = '新概念';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_GUOJIYINBIAO] = '国际音标';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_XINLIXUE] = '心理学';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_JIANQIAOSHAOERYINGYU] = '剑少英语';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_ZIRANPINDU] = '自然拼读';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_MOFANG] = '魔方';
+$config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_OTHER] = '其他';
 
 /**
  * 那好2.0类别 数据字典
@@ -534,11 +533,6 @@ $config['cate_subject'] = array(
         'parentId' => array(11, 12),
         //'chirdren' => array(),
     ),
-//    11 => array(
-//        'name' => '历史',
-//        'parentId' => array(),
-//        //'chirdren' => array(),
-//    ),
     CATE_SUBJECT_DILI => array(
         'name' => '地理',
         'parentId' => array(11, 12),

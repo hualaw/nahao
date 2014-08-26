@@ -88,7 +88,7 @@
                                     </div>
                                     <!-- 教师图像和简介结束 -->
                                     <!-- 教师介绍开始 -->
-                                    <div class="teacherDesc" href="#">{$v.teacher_intro|htmlspecialchars_decode|truncate:150}</div>
+                                    <div class="teacherDesc" href="#" >{$v.teacher_intro|htmlspecialchars_decode}</div>
                                     <!-- 教师介绍结束 -->
                                 </div>
                             </div>
@@ -98,8 +98,8 @@
                         <!-- 课程标题和简介开始 -->
                         <h3 class="ctitle">
                             <a target="_blank" href="/ke_{$v.id}.html">
-                                <span class="cTitleName">{$v.title|truncate:25}</span>
-                                <span class="cTitleDesc">{$v.subtitle|truncate:50}</span>
+                                <span class="cTitleName">{$v.title}</span>
+                                <span class="cTitleDesc">{$v.subtitle}</span>
                             </a>
                         </h3>
                         <!-- 课程标题和简介结束 -->
