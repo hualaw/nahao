@@ -129,13 +129,12 @@ define(function(require,exports){
     }
     //首页右侧快速注册验证
     exports.register_check=function(){
-        //加载验证码
-        $(function(){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
-        });
+         $(function(){
+             $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+         })
         //重新加载验证码
         $('.changeOne,#cap_img').click(function(e){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
             e.preventDefault();
         });
 
@@ -191,10 +190,10 @@ define(function(require,exports){
                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
-                // if(curform.find('.authCode').val() == ''){
-                //     curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                //     return false;
-                // };
+                if(curform.find('.authCode').val() == ''){
+                    curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    return false;
+                };
                 var hash = CryptoJS.SHA1(curform.find('.password').val());
                 curform.find(".epass").val(hash.toString());
             },

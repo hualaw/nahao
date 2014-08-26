@@ -32,18 +32,12 @@ class Member extends NH_User_Controller
         $int_user_id = $this->session->userdata('user_id'); #TODO用户id
         #我购买的课程
         #全部课程
-
-
-        $this->load->library('benchmark');
-        $this->benchmark->mark('course_start');
-
         $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
+
         #分页
         $this->load->library('pagination');
-
         $config = config_item('page_user');
         $config['total_rows'] = $array_buy_course['total'];
-//        $config['total_rows'] = 100;
         $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         $show_page = $this->pagination->createJSlinks('setPage');
@@ -53,11 +47,6 @@ class Member extends NH_User_Controller
         $config['total_rows'] = $course_living['total'];
         $this->pagination->initialize($config);
         $course_living_page = $this->pagination->createJSlinks('setPage');
-
-//        $params = array('total' => $course_living['total'], 'listRows' => '1');
-//        $page_obj = new Ajaxpage($params);
-//        $config['total_rows'] = $array_buy_course['total'];
-//        $course_living_page = $page_obj->fpage();
 
         #即将开始
         $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_INIT);
@@ -71,9 +60,6 @@ class Member extends NH_User_Controller
         $this->pagination->initialize($config);
         $course_over_page = $this->pagination->createJSlinks('setPage');
 
-        $this->benchmark->mark('course_end');
-        log_message("debug_nahao",'course_run_time------->'.$this->benchmark->elapsed_time('course_start', 'course_end'));
-        $this->benchmark->mark('hot_new_course_start');
         if (HOT_NEW_COURSE) {
             #最新课程
             $array_new = $this->student_index->get_course_latest_round_list();
@@ -82,8 +68,6 @@ class Member extends NH_User_Controller
             $array_hot = $this->student_index->get_course_hot();
         }
         $course_url = config_item('course_url');
-        $this->benchmark->mark('hot_new_course_end');
-        log_message("debug_nahao",'hot_new_course_run_time------->'.$this->benchmark->elapsed_time('hot_new_course_start', 'hot_new_course_end'));
 
         $this->smarty->assign('action', 'my_course');
         $this->smarty->assign('course_url', $course_url);

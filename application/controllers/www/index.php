@@ -92,7 +92,7 @@ class Index extends NH_User_Controller
 //        var_dump($this->smarty->isCached($str_template, $str_cache_id));
 //        o(SWITCH_WWW_SMARTY_CACHE==1 AND !$this->smarty->isCached($str_template, $str_cache_id));
         if (!$this->smarty->isCached($str_template, $str_cache_id)) {
-//            focus photo
+            //focus photo
             $this->load->model('business/admin/business_focus_photo');
             $focus_photo = $this->business_focus_photo->list_photo(1);
 
@@ -120,7 +120,6 @@ class Index extends NH_User_Controller
 
 //        o($arr_record_list,true);
 
-            $course_url = config_item('course_url');
             $this->smarty->assign('material_versions', config_item('material_version'));
             $this->smarty->assign('course_types', $stage = config_item('course_type'));
             $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
@@ -135,11 +134,15 @@ class Index extends NH_User_Controller
         }
         //recent view
         $this->load->model('business/student/student_course');
-        $arr_recent_view = $this->student_course->read_recent_view_data();
-
+        $arr_recent_view = array();
+        if (CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1'){
+        	$arr_recent_view = $this->student_course->read_recent_view_data();
+        }
+		
 //        o($focus_photo);
-        $this->smarty->assign('grade', config_item('grade'));
+        $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
+        $this->smarty->assign('grade', config_item('grade'));
         $this->smarty->assign('array_recent_view', $arr_recent_view,true);
         $this->smarty->display($str_template, $str_cache_id);
     }
@@ -158,7 +161,6 @@ class Index extends NH_User_Controller
         );
         $cap = create_captcha($vals);
         $this->session->set_userdata('captcha',$cap['word']);
-        Imagejpeg($cap['image']);
         exit();
     }
 

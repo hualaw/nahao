@@ -39,7 +39,7 @@
 .login .regWrap .contentBox .box{padding:20px 55px;height: 387px;}
 .login .regWrap .box li {font-size:16px;margin-bottom:20px; position: relative;*zoom:1;}
 .login .regWrap .box .fixIe6{line-height: 40px;height: 40px;width: 380px;overflow: hidden;}
-/*.login .regWrap .emailBox li{margin-bottom: 10px;}*/
+.login .regWrap .emailBox li{margin-bottom: 10px;}
 .login .regWrap .box li .Validform_checktip{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li .Validform_tip_info{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li.liPhoneCode{padding-top:27px;}
@@ -56,7 +56,7 @@
 .login .regWrap .box li.agreementLi a{color: #ce0000}
 .login .regWrap .box li.agreementLi a:hover{color: #da1e1e}
 .login .regWrap .box li.emailRegAgreen{margin-top: 20px;}
-.login .regWrap .box li.authCodeLi{margin-bottom: 0px;padding-top: 10px;}
+.login .regWrap .box li.authCodeLi{margin-bottom: 0px;padding-top: 20px;}
 .login .regWrap .box li.agreementLi .Validform_checktip{right: auto;left:40px;top:-26px;}
 .login .regWrap .box li .submit{border:none;width:100%;padding:0;font-size:20px;cursor:pointer;}
 .login .regWrap .goLogin {width:410px;text-align: center;padding-top: 390px;}
