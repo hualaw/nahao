@@ -13,7 +13,7 @@
 .studentMyCourse .identity .teaCard3{background-position: -82px 0;width: 14px;}
 .studentMyCourse .identity .teaCard4{background-position: -98px 0;width: 14px;}
 .studentMyCourse .identity .teaCard5{background-position: -114px 0;width: 14px;}
-.studentMyCourse{padding:15px 0 44px;}
+.studentMyCourse{padding:15px 0 22px;}
 .studentMyCourse .slide{width: 180px;   height: 630px;    background:#fff;border: 1px solid #e0e0e0;}
 .studentMyCourse .wrapContent{width: 781px;}
 
@@ -66,13 +66,14 @@
 .studentMyCourse .list_tabs .tabContent .item{display: none;}
 .studentMyCourse .list_tabs .tabContent .item.active{display: block;}
 .studentMyCourse .pageName{line-height: 20px;height: 20px;border-left: 3px solid #ce0000;padding-left: 6px;font-size: 16px;font-weight: normal;margin-bottom: 10px;}
-.studentMyCourse .pageListWrap{border:1px solid #e0e0e0;background-color: #fff;margin-bottom: 73px;}
+.studentMyCourse .pageListWrap{border:1px solid #e0e0e0;background-color: #fff;margin-bottom: 15px;}
 /*我的课程开始*/
 .studentMyCourse .cListWrap{height: 39px;line-height: 39px;border-bottom: 1px solid #e0e0e0;}
+.studentMyCourse .tabContent .pageWrap{padding: 10px 20px;}
 .studentMyCourse .cListContWrap{padding: 20px;}
-.studentMyCourse .cListContWrap .pageWrap{padding: 10px 20px;}
 .studentMyCourse .cListContWrap .noCourseWrap{text-align: center;font-size: 14px;line-height: 25px;height: 25px;}
 .studentMyCourse .cListContWrap .cItem{margin-top: 20px;padding-bottom: 20px;border-bottom: 1px solid #e0e0e0;position: relative;}
+.studentMyCourse .cListContWrap .cItem.last{border-bottom: none;}
 .studentMyCourse .cListContWrap .cItem .cImg{width: 130px; height: 82px;}
 .studentMyCourse .cListContWrap .cItem .cDesc{margin-left: 15px;height: 82px;}
 .studentMyCourse .cListContWrap .cItem .cDesc .time{display: block;height: 12px;line-height: 12px; margin-top: 6px;}
