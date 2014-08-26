@@ -134,8 +134,11 @@ class Index extends NH_User_Controller
         }
         //recent view
         $this->load->model('business/student/student_course');
-        $arr_recent_view = $this->student_course->read_recent_view_data();
-
+        $arr_recent_view = array();
+        if (CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1'){
+        	$arr_recent_view = $this->student_course->read_recent_view_data();
+        }
+		
 //        o($focus_photo);
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
@@ -158,7 +161,6 @@ class Index extends NH_User_Controller
         );
         $cap = create_captcha($vals);
         $this->session->set_userdata('captcha',$cap['word']);
-        Imagejpeg($cap['image']);
         exit();
     }
 
