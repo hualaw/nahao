@@ -33,7 +33,7 @@
                         </a>
                         <!-- 直播课的简介开始 -->
                         <a target="_blank" href="/course/go?cid={$v.id}">
-                            <span class="cTitle">{$v.class_name|truncate:20}</span>
+                            <span class="cTitle">{$v.class_name}</span>
                             <!-- 直播课时间开始 -->
                             <span>{date('m月d日',$v.begin_time)}<span class="time">{date('H:i',$v.begin_time)}-{date('H:i',$v.end_time)}</span></span>
                             <!-- 直播客时间结束 -->

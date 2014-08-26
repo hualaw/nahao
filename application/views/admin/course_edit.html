@@ -303,13 +303,43 @@
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{if isset($course.img)}{get_course_img_by_size($course.img,'large')}{/if}" >
+            列表页{$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}
+            <img id="img_url_general" src="{if $course.img}{get_course_img_by_size($course.img,'general')}{/if}" >
         </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{if isset($course.img)}{get_course_img_by_size($course.img,'general')}{/if}" >
+            首页直播课{$smarty.const.NH_COURSE_IMG_LIVE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LIVE_HEIGHT}
+            <img id="img_url_live" src="{if $course.img}{get_course_img_by_size($course.img,'live')}{/if}" >
         </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{if isset($course.img)}{get_course_img_by_size($course.img,'small')}{/if}" >
+            首页课程列表{$smarty.const.NH_COURSE_IMG_INDEX_WIDTH}*{$smarty.const.NH_COURSE_IMG_INDEX_HEIGHT}
+            <img id="img_url_index" src="{if $course.img}{get_course_img_by_size($course.img,'index')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            购买前大图{$smarty.const.NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH}*{$smarty.const.NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT}
+            <img id="img_url_bug_before_top" src="{if $course.img}{get_course_img_by_size($course.img,'buy_before_top_big')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            购买前右侧推荐{$smarty.const.NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH}*{$smarty.const.NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT}
+            <img id="img_url_buy_before_recommend" src="{if $course.img}{get_course_img_by_size($course.img,'buy_before_right_recommend')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            浏览记录{$smarty.const.NH_RECENT_VIEW_IMG_WIDTH}*{$smarty.const.NH_RECENT_VIEW_IMG_HEIGHT}
+            <img id="img_url_recent_view" src="{if $course.img}{get_course_img_by_size($course.img,'recent_view')}{/if}" >
         </div>
     </div>
 
