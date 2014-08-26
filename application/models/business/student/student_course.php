@@ -574,8 +574,9 @@ class Student_Course extends NH_Model{
 			if (!in_array($array_data['id'], $array_list))
 			{
 				array_unshift($array_list,$array_data['id']);
-				if (count($array_list) >3){
-					$array_list = array_slice($array_list,0,3);
+				$num = 5;
+				if (count($array_list) > $num){
+					$array_list = array_slice($array_list,0,$num);
 				}
 				$str_value = implode(',', $array_list);
 				setcookie("recent_view", $str_value,time()+24*60*60,'/');
