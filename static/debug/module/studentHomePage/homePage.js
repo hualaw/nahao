@@ -191,10 +191,10 @@ define(function(require,exports){
                     curform.find('.password').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
                     return false;
                 };
-                // if(curform.find('.authCode').val() == ''){
-                //     curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
-                //     return false;
-                // };
+                if(curform.find('.authCode').val() == ''){
+                    curform.find('.authCode').focus().next('.ValidformInfo').addClass('ValidformInfoBg').show().find('.Validform_checktip').html($(this).siblings('.normalText').html());
+                    return false;
+                };
                 var hash = CryptoJS.SHA1(curform.find('.password').val());
                 curform.find(".epass").val(hash.toString());
             },
