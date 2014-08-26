@@ -30,13 +30,13 @@
         {if $array_buy_course}
         {foreach from=$array_buy_course item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
                 <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:30:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -85,13 +85,13 @@
         {if $course_living}
         {foreach from=$course_living item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
                 <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:30:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -145,13 +145,13 @@
         {if $course_soon_class}
         {foreach from=$course_soon_class item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
                 <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:30:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -200,13 +200,13 @@
         {if $course_over}
         {foreach from=$course_over item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
                 <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:30:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
