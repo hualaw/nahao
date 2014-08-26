@@ -41,7 +41,7 @@
 .studentHomePage .liveList .liveLess{position: relative;}
 .studentHomePage .liveList .liveClassImg{width: 230px;height: 147px;}
 .studentHomePage .liveLess .markList{right: 25px;}
-.studentHomePage .liveLess .cTitle{display: block;font-size: 12px;line-height: 12px;height: 12px;margin-top: 14px;margin-bottom: 5px;color: #333;width:230px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
+.studentHomePage .liveLess .cTitle{display: block;font-size: 14px;line-height: 14px;height: 14px;margin-top: 14px;margin-bottom: 5px;color: #333;width:230px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
 -o-text-overflow: ellipsis;}
 .studentHomePage .liveLess .time{color:#ce0000;padding-left: 3px;}
 /*正在直播客结束*/

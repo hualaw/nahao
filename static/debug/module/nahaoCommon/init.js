@@ -1,8 +1,13 @@
 define(function(require,exports){
+	//延迟加载
+    require("lazyload");
 	// 首页导航 高亮
 	require('module/common/method/curNav').curNav(".headNav","nahaoModule");
 	// 悬浮框
 	require('module/common/method/floatBox').floatBox($(".floatBox").get(0),$(".floatBox .returnTop"));
+	//全站图片延迟加载
+	$("img").lazyload({effect:"fadeIn"});
+
 	$(".feedback").click(function (){
     	$.dialog({
     		id:"feedback_close",

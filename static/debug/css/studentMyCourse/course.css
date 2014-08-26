@@ -528,6 +528,7 @@ overflow: hidden;}
 .studentMyCourse .course_info_item .course_team_list{padding:20px 0 15px;border-top: 1px solid #e0e0e0; }
 .studentMyCourse .course_info_item .course_team_list img{width: 100px;height: 100px;display: block;margin-right: 15px;}
 .studentMyCourse .course_info_item .b_t_0{border-top: none;}
+.studentMyCourse .course_info_item .teacherInfo{width: 600px;}
 .studentMyCourse .course_info_item .teacherInfo h4{font-weight: normal;margin-top: 5px;}
 .studentMyCourse .course_info_item .teacherInfo h4 i{color: #ce0000;width: 120px;display: inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .studentMyCourse .course_info_item .teacherText{color: #666;text-indent: 2em;margin-top: 10px;width: 600px;font-size: 12px;line-height: 24px;}
