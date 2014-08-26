@@ -316,9 +316,9 @@ class Business_List extends NH_Model
     			$avatar = get_course_img_by_size($array_return['avatar'],'small');;
     		} else {
     			if ($array_return['teach_priv'] == 1){
-    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
-    			} else{
     				$avatar = static_url(DEFAULT_TEACHER_AVATER);
+    			} else{
+    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
     			}
     		}
     	}
