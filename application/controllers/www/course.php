@@ -50,7 +50,11 @@ class Course extends NH_User_Controller {
         }
         #浏览记录
         $this->student_course->write_recent_view_data($array_data);
-        $array_recent_view = $this->student_course->read_recent_view_data();
+        $array_recent_view = array();
+        if (CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1'){
+        	$array_recent_view = $this->student_course->read_recent_view_data();
+        }       
+        
         #重要提醒
         $array_notice = $this->student_course->get_important_notice_data();
         #课程详情页右侧推荐(加上开关)
@@ -384,8 +388,11 @@ class Course extends NH_User_Controller {
 	 		$array_data['price'] = round($array_data['price']);
 	 	}
 	 	
-	 	#最近浏览
-	 	$array_recent_view = $this->student_course->read_recent_view_data();
+        #浏览记录
+	 	$array_recent_view = array();
+	 	if (CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1'){
+	 		$array_recent_view = $this->student_course->read_recent_view_data();
+	 	}
 	 	#重要提醒
 	 	$array_notice = $this->student_course->get_important_notice_data();
 	    #课程详情页右侧推荐(加上开关)
