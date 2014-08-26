@@ -32,14 +32,12 @@ class Member extends NH_User_Controller
         $int_user_id = $this->session->userdata('user_id'); #TODO用户id
         #我购买的课程
         #全部课程
-
         $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
+
         #分页
         $this->load->library('pagination');
-
         $config = config_item('page_user');
         $config['total_rows'] = $array_buy_course['total'];
-//        $config['total_rows'] = 100;
         $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         $show_page = $this->pagination->createJSlinks('setPage');
@@ -49,11 +47,6 @@ class Member extends NH_User_Controller
         $config['total_rows'] = $course_living['total'];
         $this->pagination->initialize($config);
         $course_living_page = $this->pagination->createJSlinks('setPage');
-
-//        $params = array('total' => $course_living['total'], 'listRows' => '1');
-//        $page_obj = new Ajaxpage($params);
-//        $config['total_rows'] = $array_buy_course['total'];
-//        $course_living_page = $page_obj->fpage();
 
         #即将开始
         $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_INIT);
@@ -71,19 +64,8 @@ class Member extends NH_User_Controller
             #最新课程
             $array_new = $this->student_index->get_course_latest_round_list();
 
-            if ($array_new) {
-                #没有加nh_dbug参数 过滤掉测试轮
-                $array_new = $this->student_index->filter_test_round($array_new);
-            }
             #热报课程
-            $course_hot = $this->student_index->get_course_hot();
-            if ($course_hot) {
-                #没有加nh_dbug参数 过滤掉测试轮
-                $array_hot = $this->student_index->filter_test_round($course_hot);
-            }
-
-            $array_new = array_slice($array_new, 0, 3, true);
-            $array_hot = array_slice($array_hot, 0, 3, true);
+            $array_hot = $this->student_index->get_course_hot();
         }
         $course_url = config_item('course_url');
 
