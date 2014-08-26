@@ -129,9 +129,12 @@ define(function(require,exports){
     }
     //首页右侧快速注册验证
     exports.register_check=function(){
+         $(function(){
+             $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+         })
         //重新加载验证码
         $('.changeOne,#cap_img').click(function(e){
-            $('#cap_img img').attr("src","http://www.nahaodev.com/index/captcha?"+new Date().getTime());
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
             e.preventDefault();
         });
 

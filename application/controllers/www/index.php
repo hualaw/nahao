@@ -158,7 +158,6 @@ class Index extends NH_User_Controller
         );
         $cap = create_captcha($vals);
         $this->session->set_userdata('captcha',$cap['word']);
-        Imagejpeg($cap['image']);
         exit();
     }
 
