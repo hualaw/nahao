@@ -41,7 +41,7 @@
 .studentHomePage .liveList .liveLess{position: relative;}
 .studentHomePage .liveList .liveClassImg{width: 230px;height: 147px;}
 .studentHomePage .liveLess .markList{right: 25px;}
-.studentHomePage .liveLess .cTitle{display: block;font-size: 12px;line-height: 12px;height: 12px;margin-top: 14px;margin-bottom: 5px;color: #333;width:230px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
+.studentHomePage .liveLess .cTitle{display: block;font-size: 14px;line-height: 14px;height: 14px;margin-top: 14px;margin-bottom: 5px;color: #333;width:230px;overflow:hidden;white-space: nowrap; text-overflow:ellipsis;
 -o-text-overflow: ellipsis;}
 .studentHomePage .liveLess .time{color:#ce0000;padding-left: 3px;}
 /*正在直播客结束*/
@@ -126,7 +126,7 @@
 .studentHomePage .loginWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;padding: 0px 11px;background-color: #fff;position: relative;}
 .studentHomePage .loginTitle{font-size: 14px; text-align: center;font-weight: normal;line-height: 14px;height: 14px;margin: 20px 0px;}
 .studentHomePage .loginWrap .msgTip{height: 20px;line-height: 20px;margin: 0px;padding: 0px;position: absolute;width: 196px;top:34px;left:11px;text-align: center;}
-.studentHomePage .inputWrap{/*margin-bottom: 12px;*/margin-bottom: 23px;}
+.studentHomePage .inputWrap{margin-bottom: 12px;}
 .studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 170px;padding: 0px 5px;border:1px solid #e0e0e0;}
 .studentHomePage .loginWrap input.authCode{width: 50px;}
 .studentHomePage .loginWrap .authCodeImg{width: 66px;height: 32px;vertical-align: top;border:1px solid #e0e0e0;margin:0px 5px;display: inline-block;}

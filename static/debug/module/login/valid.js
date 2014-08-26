@@ -95,11 +95,12 @@ define(function(require,exports){
     // 邮箱注册验证
     exports.regEmailBoxForm = function(){
         $(function(){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
-        })
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+        });
 
-        $('.codeImg,.changeOne').click(function(){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
+        $('.codeImg,.changeOne').click(function(e){
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+            e.preventDefault();
         })
         $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
@@ -145,12 +146,12 @@ define(function(require,exports){
                 errormsg: "手机号码输入错误",
                 ignore:"ignore"
             },
-            // {   
-            //      ele:".authCode",
-            //      datatype: "/^\\w{4}$/",
-            //      nullmsg: "请输入验证码",
-            //      errormsg: "验证码长度是4位"
-            // },
+            {   
+                 ele:".authCode",
+                 datatype: "/^\\w{4}$/",
+                 nullmsg: "请输入验证码",
+                 errormsg: "验证码长度是4位"
+            },
             {
                  ele:":checkbox",
                  datatype: "*",

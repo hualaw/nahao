@@ -232,6 +232,7 @@ transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-t
 .studentMyCourse .inforTab .tabh .inforOn{background: #fff;border-top: 3px solid #ce0000;line-height: 47px;font-weight: bold;color:#ce0000;}
 .studentMyCourse .inforTabBox{padding:0 135px 30px 104px;font-size: 16px;min-height: 970px;}
 .studentMyCourse .inforTabBox .Validform_tip_info,.studentMyCourse .inforTabBox .Validform_checktip{font-size: 12px;}
+.studentMyCourse .inforTabBox .Validform_wrong{line-height: 19px;margin-top: -10px;}
 .studentMyCourse .inforTabBox .hasVer{color:#919191;font-weight: normal;font-size: 14px;}
 .studentMyCourse .inforTabBox .verWay{margin:0 4px 0 12px;}
 .studentMyCourse .inforTabBox li .formName{margin-left: -20px;}

@@ -23,16 +23,25 @@ class Model_Index extends NH_Model
         return $array_result;
     }
 
+    public function get_course_new_round($offset = 0,$per_page = 10)
+    {
+        $array_result = array();
+        $sql = "SELECT id,start_time FROM " . TABLE_ROUND . " WHERE sale_status = " . ROUND_SALE_STATUS_SALE . " AND is_test = 0 GROUP BY course_id ORDER BY start_time ASC limit $offset,$per_page";
+
+        $array_result = $this->db->query($sql)->result_array();
+        return $array_result;
+    }
+
     /**
      * 首页获取销售最多的那轮（在销售中）
      * @return $array_result
      * @author zhangshuaiqi@tizi.com
      */
-    public function get_course_hot_round()
+    public function get_course_hot_round($offset = 0,$per_page = 10)
     {
         $array_result = array();
         $sql = "SELECT  id,start_time,(bought_count+extra_bought_count) as number FROM ".TABLE_ROUND."
-                WHERE sale_status =".ROUND_SALE_STATUS_SALE ." ORDER BY number DESC";
+                WHERE sale_status =".ROUND_SALE_STATUS_SALE ." AND is_test = 0 ORDER BY number DESC limit $offset,$per_page";
         $array_result = $this->db->query($sql)->result_array();
 //        print_r($array_result);
 //        exit;
