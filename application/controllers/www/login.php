@@ -32,13 +32,21 @@ class login extends NH_Controller
         #省和直辖市
         $province = $this->business_lecture->all_province();
         #科目
-        $subjects = $this->business_subject->get_subjects();
+//        $subjects = $this->business_subject->get_subjects();
+        $subjects = $this->config->item('education_subject');
+        unset($subjects[1][0]);
+        unset($subjects[2][0]);
+        #学科辅导科目
+        $xueke_subjects = $subjects[1];
+        #素质教育科目
+        $suzhi_subjects = $subjects[2];
         #年纪
         $grades = $this->config->item('grade');
         $this->smarty->assign('grades', $grades);
         $gender = $this->config->item('gender');
         $this->smarty->assign('province', $province);
-        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('xueke_subjects', $xueke_subjects);
+        $this->smarty->assign('suzhi_subjects', $suzhi_subjects);
         $this->smarty->assign('gender', $gender);
         $this->smarty->display('www/login/loginAfter.html');
     }
