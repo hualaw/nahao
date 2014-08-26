@@ -12,20 +12,17 @@
 .studentHomePage .moreLink{padding-right: 10px;}
 /*标签开始*/
 .studentHomePage .markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
-.studentHomePage .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;display: block;padding: 3px 6px;line-height: 14px;}
-.studentHomePage .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
-.studentHomePage .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
 /*标签结束*/
 /*轮换公共部分开始*/
 .studentHomePage .bannerScroll{position: relative;}
-.studentHomePage .bannerSlide{position: absolute;top:50%;margin-top: -25px;cursor: pointer;display: none;opacity: 0.5;filter:alpha(50);}
+.studentHomePage .bannerSlide{position: absolute;top:50%;margin-top: -25px;cursor: pointer;display: none;opacity: 0.5;filter:alpha(50);z-index: 2;}
 .studentHomePage .bannerSlide.next{background: url(../../images/studentHomePage/sright.gif) no-repeat;width: 36px;height: 50px;right: 0px;}
 .studentHomePage .bannerSlide.prev{background: url(../../images/studentHomePage/sleft.gif) no-repeat;width: 36px;height: 50px;left: 0px;}
 .studentHomePage .bannerScroll:hover .bannerSlide{display: block;}
 .studentHomePage .bannerSlide:hover{opacity: 1;filter:alpha(100);}
 .studentHomePage .rollList li{opacity: 0; position: absolute;top:0px; left: 0px;}
 .studentHomePage .rollList li.rollshow{opacity: 1;}
-.studentHomePage .rollNav{position: absolute; bottom: 8px;right: 10px;}
+.studentHomePage .rollNav{position: absolute; bottom: 8px;right: 10px;z-index: 2;}
 .studentHomePage .rollNav li{background: url(../../images/studentHomePage/banner/banner-li.png) no-repeat;width: 15px;height: 15px;color: #fff;text-align: center;line-height: 15px;font-size: 12px;margin: 0px 3px;cursor: pointer;}
 .studentHomePage .rollNav li.active{background: url(../../images/studentHomePage/banner/banner-active.png) no-repeat scroll 0px center;}
 /*轮换公共部分结束*/
@@ -57,6 +54,7 @@
 .studentHomePage .tabList .tabItem.firstTab {border-left: none;}
 .studentHomePage .tabList .tabItem.active .bBr{border-bottom: 2px solid #cb0000; position: absolute; bottom: -8px;left: 0px;display: block;height: 0px;width: 100%;}
 .studentHomePage .listCont{margin: 37px -6px 17px;*padding-top: 37px;}
+.studentHomePage .listCont .courseListEmpty{text-align: center;height: 50px;line-height: 50px;background-color: #fff;}
 .studentHomePage .listCont .pager{margin: 0px 6px ;}
 .studentHomePage .listCont .item.active ul{width: 762px;}
 .studentHomePage .listCont .cItem{width: 367px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;height: 410px;}
@@ -70,7 +68,7 @@
 .studentHomePage .listCont .hoverDesc .teacherWrap img{width: 45px;height: 45px;}
 .studentHomePage .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
 .studentHomePage .listCont .teacherWrap .teacherName:hover{color: #fff;}
-.studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
+.studentHomePage .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;width: 260px;height: 25px;overflow: hidden;}
 .studentHomePage .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;position: absolute;left:20px;bottom: 0px;opacity: 0;height: 132px;width: 327px;overflow: hidden; filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentHomePage .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
@@ -128,11 +126,12 @@
 .studentHomePage .loginWrap{border:1px solid #e0e0e0;margin-top: 10px;height: 291px;padding: 0px 11px;background-color: #fff;position: relative;}
 .studentHomePage .loginTitle{font-size: 14px; text-align: center;font-weight: normal;line-height: 14px;height: 14px;margin: 20px 0px;}
 .studentHomePage .loginWrap .msgTip{height: 20px;line-height: 20px;margin: 0px;padding: 0px;position: absolute;width: 196px;top:34px;left:11px;text-align: center;}
-.studentHomePage .inputWrap{margin-bottom: 12px;}
+.studentHomePage .inputWrap{/*margin-bottom: 12px;*/margin-bottom: 23px;}
 .studentHomePage .loginWrap input{line-height: 32px;height: 32px;width: 170px;padding: 0px 5px;border:1px solid #e0e0e0;}
 .studentHomePage .loginWrap input.authCode{width: 50px;}
 .studentHomePage .loginWrap .authCodeImg{width: 66px;height: 32px;vertical-align: top;border:1px solid #e0e0e0;margin:0px 5px;display: inline-block;}
-.studentHomePage .loginWrap .authorImgWrap{margin-left: 5px;margin-right: 5px;margin-top: 2px;height: 30px;width: 66px;cursor: pointer;}
+.studentHomePage .loginWrap .authorImgWrap{margin-left: 5px;margin-right: 5px;margin-top: 0px;height: 34px;width: 66px;cursor: pointer;}
+.studentHomePage .loginWrap .authorImgWrap img{height: 34px;width: 66px;}
 .studentHomePage .loginWrap .required{display: inline-block;height: 34px;line-height: 34px;padding-left: 3px;color: #CE0000;}
 .studentHomePage .loginWrap .changeOne{display: inline-block;height: 34px;line-height: 34px;}
 .studentHomePage .hasNophone{line-height: 14px;height: 14px;margin-bottom: 15px;padding-left: 8px;}
@@ -149,7 +148,7 @@
 .studentHomePage .loginedWrap .userInfo{margin-top:16px;}
 .studentHomePage .loginedWrap .userInfo .userDesc{margin-left: 14px;width: 118px;}
 .studentHomePage .loginedWrap .UserImg{width: 50px;height: 50px;}
-.studentHomePage .loginedWrap .name{display: block;font-size: 14px;width: 118px;height:19px;overflow: hidden;display: block;text-overflow:ellipsis;white-space:nowrap;}
+.studentHomePage .loginedWrap .name{display: block;font-size: 14px;width: 118px;height:19px;overflow: hidden;display: block;text-overflow:ellipsis;white-space:nowrap;margin-bottom: 5px;}
 .studentHomePage .loginedWrap .grade{}
 .studentHomePage .loginedWrap .myCtrlList{margin-bottom: 35px;margin-top: 28px;}
 .studentHomePage .loginedWrap .myCtrlList li{border-left: 1px dashed #e0e0e0;width: 61px;text-align: center;height: 58px;}

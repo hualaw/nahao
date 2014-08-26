@@ -56,7 +56,15 @@ class Business_List extends NH_Model
 	    	}
     		//2.4 科目
     		$cateArr['subjectArr'] = $cate_subject;
-    		$filter_subject = !empty($param['gradeId']) ? $cate_grade[$param['gradeId']]['chirdren'] : array();
+    		if(!empty($param['gradeId'])){#选了年级
+    			$filter_subject = $cate_grade[$param['gradeId']]['chirdren'];
+    		}else{#没选年级
+    			if(!empty($param['stageId'])){#没选年级选了学段
+    				$filter_subject = $cate_grade[0]['chirdren_'.$param['stageId']];
+    			}else{#没选学段
+    				$filter_subject = array();
+    			}
+    		}
     		foreach($cateArr['subjectArr'] as $key =>&$val){ //key [subjectId]
 	    		if($filter_subject && !in_array($key,$filter_subject)){
 	    			unset($cateArr['subjectArr'][$key]);
@@ -75,11 +83,11 @@ class Business_List extends NH_Model
     	}
     	//2.6 排序
     	$cateArr['orderArr'] = array(
-    		1 => array('name'=>'综合排序','title'=>'按默认推荐' ,'active_name' => '综合排序'),
-    		2 => array('name'=>'销量','title'=>'按销量从高到低' ,'active_name' => '销量从高到低'),
-    		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低' ,'active_name' => '价格从高到低'),
-    		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高' ,'active_name' => '价格从低到高'),
-    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '时间'),
+    		1 => array('name'=>'综合排序','title'=>'按默认推荐' ,'active_name' => '综合排序' ,'class' => ''),
+    		2 => array('name'=>'销量','title'=>'按销量从高到低' ,'active_name' => '销量从高到低','class' => ''),
+    		3 => array('name'=>'价格 ↓','title'=>'按价格从高到低' ,'active_name' => '价格从高到低','class' => 'down'),
+    		4 => array('name'=>'价格 ↑','title'=>'按价格从低到高' ,'active_name' => '价格从低到高', 'class' => 'up'),
+    		5 => array('name'=>'时间','title'=>'按最新开课时间' ,'active_name' => '最近开课时间' , 'class' => ''),
     	);
     	$order_param = array(
     		'typeId'	=> $param['typeId'],
@@ -287,6 +295,9 @@ class Business_List extends NH_Model
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
 	       	$val['img_url'] 	= empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($val['img'],'general');	
+    		//价格整形
+    		$val['price']		= intval($val['price']);
+    		$val['sale_price']	= intval($val['sale_price']);
     	}
     	return array('data' => $suggest_list);
     }

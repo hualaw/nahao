@@ -1,8 +1,9 @@
+{if !empty($live_list)}
 <div class="cf liveLessonWrap bannerScroll">
     <!-- 直播课的header开始 -->
     <div class="hd cf liveLessHead" id="online" name="online">
         <h2 class="fl liveTitle">
-            进行中的直播课
+            近期公开课
         </h2>
         <!-- 直播课的slide序列号开始 -->
         <ol class="cf fr bannerOrder">
@@ -22,10 +23,10 @@
                                  alt="{$v.class_name}" class="liveClassImg">
                             <!-- 标签列表开始 -->
 									<span class="markList">
-										{if in_array($v.status,array($smarty.const.CLASS_STATUS_ENTER_ROOM,$smarty.const.CLASS_STATUS_CLASSING)) }
-                                            <span class="mark mark1">正在直播</span>
+										{if in_array($v.status,array($smarty.const.CLASS_STATUS_INIT,$smarty.const.CLASS_STATUS_SOON_CLASS)) }
+                                            <span class="mark mark{$smarty.const.ROUND_ICON_JIJIANGKAISHI}">{$round_icons[$smarty.const.ROUND_ICON_JIJIANGKAISHI]}</span>
                                         {else}
-                                            <span class="mark mark2">即将开始</span>
+                                            <span class="mark mark{$smarty.const.ROUND_ICON_ZHENGZAIZHIBO}">{$round_icons[$smarty.const.ROUND_ICON_ZHENGZAIZHIBO]}</span>
                                         {/if}
 									</span>
                             <!-- 标签列表结束 -->
@@ -50,3 +51,4 @@
     <a class="bannerSlide prev" href="javascript:void(0)"></a>
     <!-- 左右切换结束 -->
 </div>
+{/if}

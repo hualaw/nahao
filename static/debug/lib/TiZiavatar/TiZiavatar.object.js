@@ -59,8 +59,8 @@ swfobject.addDomLoadEvent(function () {
                     }
                     //alert("头像已成功保存至服务器，url为：\n" + json.content.avatarUrls.join("\n"));
                     //$('.button_cancel').click();
-                    $('.memberInfo').find('img').removeAttr('src');
-                    $('.memberInfo').find('img').attr('src',nh_img_host + json.content.avatar_key+'?v='+(new Date).valueOf());
+                    $('.userInfo').find('img').removeAttr('src');
+                    $('.userInfo').find('img').attr('src',nh_img_host + json.content.avatar_key+'?v='+(new Date).valueOf());
                     cancelClick();
                 }else if (json.type == 1) {
                     //$.tiziDialog({content:json.content.msg});

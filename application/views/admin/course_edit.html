@@ -33,7 +33,6 @@
         <label class="col-md-2 control-label">学科辅导科目</label>
         <div class="col-md-2">
             <select class="form-control" id="subject">
-                <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}
                 <option value="{$k}" {if isset($course.subject) AND $course.subject==$k }selected{/if}>{$v['name']}</option>
                 {/foreach}
@@ -44,7 +43,6 @@
         <label class="col-md-2 control-label">素质教育科目</label>
         <div class="col-md-2">
             <select class="form-control" id="quality">
-                <option value="">全部学科</option>
                 {foreach $qualities as $k => $v}
                 <option value="{$k}" {if isset($course.quality) AND $course.quality==$k }selected{/if}>{$v['name']}</option>
                 {/foreach}

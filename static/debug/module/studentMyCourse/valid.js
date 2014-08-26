@@ -216,7 +216,7 @@ define(function(require,exports){
     //选择和取消 关注素质教育
     function checkSuZhiAttent(obj){
         $(obj+" .suzhi_attent .btn").click(function (){
-            console.log($(obj+" .suzhi_attent .attentd").length);
+//            console.log($(obj+" .suzhi_attent .attentd").length);
             if($(obj+" .suzhi_attent .attentd").length < 3){//限制只能选3个学科
                 if($(this).hasClass("attentd")){
                     $(this).removeClass("attentd");
@@ -254,7 +254,6 @@ define(function(require,exports){
                 if($(obj+" .suzhi_attent .attentd").length<=3){
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }else{
-                    alert(111);
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }
             }
@@ -361,8 +360,12 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        if(typeof json.error_code != 'undefined' && json.error_code == '9999'){
+                            window.location.href="/login";
+                        }else{
+                            $(obj).siblings('.Validform_checktip').html(json.msg);
+                            $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        }
                     }
                 }
             }
@@ -478,8 +481,12 @@ define(function(require,exports){
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
                         $(obj).removeClass('Validform_error');
                     }else{
-                        $(obj).siblings('.Validform_checktip').html(json.msg);
-                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        if(typeof json.error_code != 'undefined' && json.error_code == '9999'){
+                              window.location.href="/login";
+                        }else{
+                            $(obj).siblings('.Validform_checktip').html(json.msg);
+                            $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                        }
                     }
                 }
             }

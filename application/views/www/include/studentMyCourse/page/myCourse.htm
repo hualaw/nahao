@@ -10,13 +10,13 @@
         <li class="tabItem active firstTab" link="all_clist" status='0'>
             <a href="#">全部课程</a>
         </li>
-        <li class="tabItem" link="leaning_clist" status='3'>
-            <a href="#">正在进行</a>
+        <li class="tabItem" link="leaning_clist" status='2'>
+            <a href="#">进行中</a>
         </li>
         <li class="tabItem" link="soon_clist" status='1'>
-            <a href="#">即将开始</a>
+            <a href="#">未开始</a>
         </li>
-        <li class="tabItem" link="finished_clist" status='4'>
+        <li class="tabItem" link="finished_clist" status='3'>
             <a href="#">已结束</a>
         </li>
     </ul>
@@ -80,7 +80,7 @@
 </div>
 <!-- 全部课程列表结束 -->
 <!-- 正在进行列表开始 -->
-<div class="cf item" itemname="leaning_clist" id="my_course_page_3">
+<div class="cf item" itemname="leaning_clist" id="my_course_page_2">
     <ul class="cf cListContWrap">
         {if $course_living}
         {foreach from=$course_living item=item}
@@ -195,7 +195,7 @@
 </div>
 <!-- 即将结束列表结束 -->
 <!-- 已结束列表开始 -->
-<div class="cf item" itemname="finished_clist" id="my_course_page_4">
+<div class="cf item" itemname="finished_clist" id="my_course_page_3">
     <ul class="cf cListContWrap">
         {if $course_over}
         {foreach from=$course_over item=item}

@@ -1,13 +1,13 @@
 /*进度条样式开始*/
 .studentCart .Validform_right{width:0px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
 .studentCart .progressBar{height:64px;padding-top:36px;}
-.studentCart .progressBar .line{height:6px;line-height: 6px;font-size:0;border-radius: 3px;background:#f14211;zoom:1;}
+.studentCart .progressBar .line{height:6px;line-height: 6px;font-size:0;border-radius: 3px;background:#ce0000;zoom:1;}
 .studentCart .progressBar ul{margin-top:-16px;}
-.studentCart .progressBar li em{display:inline-block;width:26px;height:26px;border-radius: 13px;background: #f14211;line-height:26px;text-align:center;color:#fff;font-size:18px;}
+.studentCart .progressBar li em{display:inline-block;width:26px;height:26px;border-radius: 13px;background: #ce0000;line-height:26px;text-align:center;color:#fff;font-size:18px;}
 .studentCart .progressBar li{width:185px;display:inline-block;text-align:center;}
 .studentCart .progressBar li.last{text-align:right;width:100px;position:relative;}
 .studentCart .progressBar li.last em{color:#c93309;font-size:27px;padding-top: 2px;height: 24px;line-height: 17px;}
-.studentCart .progressBar li span{display:block;color:#f14211;height:22px;line-height:22px;font-size:14px;}
+.studentCart .progressBar li span{display:block;color:#ce0000;height:22px;line-height:22px;font-size:14px;}
 .studentCart .infoCheck .progressBar li.last span{color:#63696c;}
 .studentCart .infoCheck .progressBar li.last em{background:#6dcde6;color:#3da8c4;}
 .studentCart .infoCheck .progressBar li.last .lineBg{width:155px;height:6px;line-height: 6px;font-size:0;background:#6dcde6;display: inline-block;position:absolute;left:-79px;top:10px;}
@@ -20,18 +20,18 @@
 .studentCart .toPay .orderForm p{line-height:34px;font-size:18px;color:#717575;}
 .studentCart .toPay .orderForm p.last{font-size:16px;}
 .studentCart .toPay .orderForm p span{margin-right: 50px}
-.studentCart .toPay .orderForm p .red{color:#f14211;padding:0 10px;}
+.studentCart .toPay .orderForm p .red{color:#ce0000;padding:0 10px;}
 /*订单提交成功样式结束*/
 /*支付类型样式开始*/
 .studentCart .toPay .payType h2 {height:37px;padding: 17px 0 0 2px;}
-.studentCart .toPay .payType h2 span{padding-left:6px;border-left:3px solid #f14211;height:20px;line-height:20px;font-size:18px;font-weight:normal;color:#0e455e;}
+.studentCart .toPay .payType h2 span{padding-left:6px;border-left:3px solid #ce0000;height:20px;line-height:20px;font-size:18px;font-weight:normal;color:#0e455e;}
 .studentCart .toPay .payBox{border:1px solid #d5d5d5;background: #fff;}
 .studentCart .toPay .payBox h3{border-bottom:1px solid #d5d5d5;height:49px;background: #f7f7f7;position: relative;font-weight:normal}
 .studentCart .toPay .payBox h3 p{_position: absolute;_bottom:-2px;height:50px;}
 .studentCart .toPay .payBox h3 a{height:49px;line-height:49px;font-size:18px;width: 160px;border-right:1px solid #d5d5d5;border-bottom:1px solid #d5d5d5;text-align:center;height:49px;display: inline-block;}
 .studentCart .toPay .payBox h3 a span{font-size: 14px;color:#6dcde6;}
 .studentCart .toPay .payBox h3 a.alipay{background: url(../../images/studentCart/alipayIcon.png) no-repeat center center;_background: url(../../images/studentCart/alipayIcon-ie.png) no-repeat center center;text-indent: -9999px}
-.studentCart .toPay .payBox h3 a.active{border-bottom-color:#fff;background-color:#fff;color:#f14211;}
+.studentCart .toPay .payBox h3 a.active{border-bottom-color:#fff;background-color:#fff;color:#ce0000;}
 .studentCart  .box .bankList{width:740px;margin-bottom:20px;margin-left:20px;}
 .studentCart  .box li{margin:0  20px 15px 0;position:relative;}
 .studentCart  .box input{margin:10px 10px 0 10px}
@@ -52,7 +52,7 @@
 .studentCart  .pingan label{ background-position: -6px -496px;}
 .studentCart  .guangfa label{ background-position: -8px -465px;}
 .studentCart  .toPay .bank h4{font-size:16px;padding-left:30px;line-height:46px;font-weight: normal;}
-.studentCart  .toPay .bank a.ortherBtn{width:190px;height:54px;line-height: 54px;margin: 0 0 20px 30px;font-size:20px;color:#fff;background: #f14211;display: inline-block}
+.studentCart  .toPay .bank a.ortherBtn{width:190px;height:54px;line-height: 54px;margin: 0 0 20px 30px;font-size:20px;color:#fff;background: #ce0000;display: inline-block}
 .studentCart  .toPay .bank a.ortherBtn .fr{margin-top:10px;}
 .studentCart  .toPay .tableBox {width:715px;margin:0 0 20px 30px;}
 .studentCart  .toPay .tableBox table.li-table{display:none;}
@@ -76,11 +76,11 @@
 /*支付类型样式结束*/
 /*弹窗样式开始*/
 .choiceBox,
-.buySuccess{width:680px;border-top:2px solid #f14211;padding:40px;}
-.choiceBox p{font-size: 18px;color:#f14211;line-height:40px;text-align: center;margin-bottom:30px;}
+.buySuccess{width:680px;border-top:2px solid #ce0000;padding:40px;}
+.choiceBox p{font-size: 18px;color:#ce0000;line-height:40px;text-align: center;margin-bottom:30px;}
 .choiceBox .btnBox{width:250px;border:1px solid #e6e6e6;padding:40px;text-align: center}
 .choiceBox .btnBox p{font-size: 24px;color:#0e455e;line-height:46px;margin-bottom:30px;font-weight:bold;}
-.choiceBox .btnBox a{width:180px;height:42px;line-height:42px;font-size:20px;display: inline-block;background: #f14211;color:#FFF;}
+.choiceBox .btnBox a{width:180px;height:42px;line-height:42px;font-size:20px;display: inline-block;background: #ce0000;color:#FFF;}
 .choiceBox .btnBox a.blue{background: #6dcde6}
 .choiceBox .errorBox {background:#feebe2;}
 .choiceBox .okBox {background:#e1f2f4;}
@@ -89,7 +89,7 @@
 .buySuccess{padding:0;width:770px;text-align:center;}
 .buySuccess p.title{margin-bottom:30px;height:90px;line-height:90px;background:url(../../images/studentCart/orderFormIcon2.png) no-repeat 145px center #f7f7f7;padding-left:210px;font-size:24px;color:#0e455e;font-weight:bold;}
 .buySuccess p{text-align:left;height:46px;line-height:46px;padding-left:172px;background: url(../../images/studentCart/pointerIcon.png) no-repeat 148px center ;font-size:24px;color:#63696c;}
-.buySuccess a{height:42px;width:180px;line-height:42px;margin:40px 0;background: #f14211;display: inline-block;color:#FFF;}
+.buySuccess a{height:42px;width:180px;line-height:42px;margin:40px 0;background: #ce0000;display: inline-block;color:#FFF;}
 .buySuccess a.blue{background: #6dcde6}
 
 /*弹窗样式结束*/
@@ -97,7 +97,7 @@
 /*购物车 -支付样式结束*/
 .studentCart .infoCheck {margin-bottom: 20px;}
 .studentCart .infoCheck .outerBox h2 {height:37px;padding: 17px 0 0 2px;}
-.studentCart .infoCheck .outerBox h2 span{padding-left:6px;border-left:3px solid #f14211;height:20px;line-height:20px;font-size:18px;color:#0e455e;}
+.studentCart .infoCheck .outerBox h2 span{padding-left:6px;border-left:3px solid #ce0000;height:20px;line-height:20px;font-size:18px;color:#0e455e;}
 .studentCart .innerBox{border:1px solid #d5d5d5;}
 .studentCart .checkForm dt{border-bottom:1px solid #d5d5d5;}
 .studentCart .checkForm dt,
@@ -110,7 +110,7 @@
 .studentCart .checkForm .newPrice{width:120px;position: relative;}
 .studentCart .checkForm dd .oldPrice{text-decoration:line-through }
 .studentCart .checkForm .time{width:300px;}
-.studentCart .checkForm dd .newPrice{color:#f14211;font-weight: bold;font-size:20px}
+.studentCart .checkForm dd .newPrice{color:#ce0000;font-weight: bold;font-size:20px}
 .studentCart .checkForm .operation{width:110px;}
 .studentCart .checkForm .operation a:hover{color: #f90}
 .studentCart .checkForm dd{background: #fff;padding-left:0;}
@@ -118,7 +118,7 @@
 .studentCart .checkForm .total{height:42px;line-height:42px;padding-left: 30px}
 .studentCart .checkForm .total span{font-size:16px;margin-right:50px;}
 .studentCart .checkForm .total span.save{font-size:14px;}
-.studentCart .checkForm .total span em{color:#f14211;margin:0 10px;font-weight:bold;}
+.studentCart .checkForm .total span em{color:#ce0000;margin:0 10px;font-weight:bold;}
 .studentCart .checkForm .total span.price em{font-size:24px;}
 .studentCart .contactInfo .innerBox{padding:45px 45px 30px 45px;background: #fff;}
 .studentCart .contactInfo li{margin-bottom:15px;}
