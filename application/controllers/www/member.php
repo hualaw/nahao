@@ -44,7 +44,7 @@ class Member extends NH_User_Controller
         $config = config_item('page_user');
         $config['total_rows'] = $array_buy_course['total'];
 //        $config['total_rows'] = 100;
-        $config['per_page'] = 1;
+        $config['per_page'] = PER_PAGE_NO;
         $this->pagination->initialize($config);
         $show_page = $this->pagination->createJSlinks('setPage');
 
@@ -78,19 +78,8 @@ class Member extends NH_User_Controller
             #最新课程
             $array_new = $this->student_index->get_course_latest_round_list();
 
-            if ($array_new) {
-                #没有加nh_dbug参数 过滤掉测试轮
-                $array_new = $this->student_index->filter_test_round($array_new);
-            }
             #热报课程
-            $course_hot = $this->student_index->get_course_hot();
-            if ($course_hot) {
-                #没有加nh_dbug参数 过滤掉测试轮
-                $array_hot = $this->student_index->filter_test_round($course_hot);
-            }
-
-            $array_new = array_slice($array_new, 0, 3, true);
-            $array_hot = array_slice($array_hot, 0, 3, true);
+            $array_hot = $this->student_index->get_course_hot();
         }
         $course_url = config_item('course_url');
         $this->benchmark->mark('hot_new_course_end');
