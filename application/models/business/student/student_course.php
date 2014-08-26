@@ -570,40 +570,44 @@ class Student_Course extends NH_Model{
     public function write_recent_view_data($array_data)
     {
     	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
-    		
-			$json_decode_value = json_decode($_COOKIE['recent_view'],true);
-			$array_list = array();
-			foreach ($json_decode_value as  $k=>$v)
-			{
-				$array_list[$v['id']] = $v['id'];
-			}
+    		$array_list = explode(',',$_COOKIE['recent_view']);
 			if (!in_array($array_data['id'], $array_list))
 			{
-				
-			$array_add = array(
-	    				'id'=>$array_data['id'],
-	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
-	    				'title'=>$array_data['title'],
-	    				'price'=>$array_data['price'],
-	    				'sale_price'=>$array_data['sale_price']
-	    				);
-
-				array_push($json_decode_value,$array_add);
+				array_unshift($array_list,$array_data['id']);
+				if (count($array_list) >3){
+					$array_list = array_slice($array_list,0,3);
+				}
+				$str_value = implode(',', $array_list);
+				setcookie("recent_view", $str_value,time()+24*60*60,'/');
+				$round_data = array(
+						'id'=>$array_data['id'],
+						'img'=>$array_data['img'],
+						'title'=>$array_data['title'],
+						'price'=>$array_data['price'],
+						'sale_price'=>$array_data['sale_price']
+				);
+				$round_data = json_encode($round_data);
+				$this->load->model('model/common/model_redis', 'redis');
+				$this->redis->connect('recent_view_data');
+				$this->cache->redis->set($array_data['id'],$round_data,'86400');
 			}
-			setcookie("recent_view", json_encode($json_decode_value),time()+24*60*60,'/');
+			
     	} else {
-    		$cookie_value = array(
-	    			array(
-	    				'id'=>$array_data['id'],
-	    				'img'=>empty( $array_data['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_data['img'],'recent_view'),
-	    				'title'=>$array_data['title'],
-	    				'price'=>$array_data['price'],
-	    				'sale_price'=>$array_data['sale_price']
-	    				));
-
-    		$json_cookie_value = json_encode($cookie_value);
-    		setcookie("recent_view", $json_cookie_value, time()+24*60*60,'/');
+    		setcookie("recent_view", $array_data['id'], time()+24*60*60,'/');
+    		$round_data = array(
+    				'id'=>$array_data['id'],
+    				'img'=>$array_data['img'],
+    				'title'=>$array_data['title'],
+    				'price'=>$array_data['price'],
+    				'sale_price'=>$array_data['sale_price']
+    		);
+    		$round_data = json_encode($round_data);
+    		$this->load->model('model/common/model_redis', 'redis');
+    		$this->redis->connect('recent_view_data');
+    		$this->cache->redis->set($array_data['id'],$round_data,'86400');    		
     	}
+    	
+    	
     }
     
     /**
@@ -615,17 +619,22 @@ class Student_Course extends NH_Model{
     	{
     		return array();
     	}
-    	$cookies = json_decode($_COOKIE['recent_view'],true);
-    	$cookies = array_reverse($cookies);
-    	$count = count($cookies);
-    	#浏览记录去5条;
-    	$nums = 5;
-    	if ($count<=$nums){
-    		return $cookies;
-    	} else {
-    		return array_slice($cookies,0,$nums);
+    	$str_value = $_COOKIE['recent_view'];
+    	$array_round_ids = explode(',',$_COOKIE['recent_view']);
+    	$this->load->model('model/common/model_redis', 'redis');
+    	$this->redis->connect('recent_view_data');
+    	$array_list = array();
+    	foreach ($array_round_ids as $k=>$v)
+    	{
+    		$array_round = $this->cache->redis->get($v);
+			if ($array_round)
+			{
+				$array_list[] = json_decode($array_round,true);
+			}
     	}
+		return $array_list;
     }
+    
     
     /**
      * 重要提醒

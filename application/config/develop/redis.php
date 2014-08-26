@@ -7,6 +7,7 @@ $config['redis_db']['login'] = 2; //store phone captcha and email verify code
 $config['redis_db']['order'] = 3; //订单
 $config['redis_db']['captcha'] = 4; //验证码发送频率
 $config['redis_db']['live_class_token'] 		= 5; //进入直播课的token
+$config['redis_db']['recent_view_data'] 		= 6; //最近浏览
 
 
 // Default connection group
