@@ -12,8 +12,8 @@ define(function(require,exports){
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {
-                    'general_width' : 1200,
-                    'general_height' : 420
+                    'general_width' : index_focus_width,
+                    'general_height' : index_focus_height
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
