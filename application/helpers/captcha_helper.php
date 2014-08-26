@@ -41,7 +41,7 @@ if ( ! function_exists('create_captcha'))
 {
 	function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = '')
 	{
-		$defaults = array('word' => '', 'img_path' => '', 'img_url' => '', 'img_width' => '150', 'img_height' => '30', 'font_path' => '', 'expiration' => 7200,'output_file' => false);
+		$defaults = array('word' => '', 'img_path' => '', 'img_url' => '', 'img_width' => '150', 'img_height' => '30', 'font_path' => '', 'expiration' => 7200);
 
 		foreach ($defaults as $key => $val)
 		{
@@ -57,52 +57,51 @@ if ( ! function_exists('create_captcha'))
 				$$key = ( ! isset($data[$key])) ? $val : $data[$key];
 			}
 		}
-if($output_file){
-		if ($img_path == '' OR $img_url == '')
-		{
-			return FALSE;
-		}
 
-		if ( ! @is_dir($img_path))
-		{
-			return FALSE;
-		}
+//		if ($img_path == '' OR $img_url == '')
+//		{
+//			return FALSE;
+//		}
+//
+//		if ( ! @is_dir($img_path))
+//		{
+//			return FALSE;
+//		}
+//
+//		if ( ! is_writable($img_path))
+//		{
+//			return FALSE;
+//		}
+//
+//		if ( ! extension_loaded('gd'))
+//		{
+//			return FALSE;
+//		}
+//
+//		// -----------------------------------
+//		// Remove old images
+//		// -----------------------------------
+//
+//		list($usec, $sec) = explode(" ", microtime());
+//		$now = ((float)$usec + (float)$sec);
+//
+//		$current_dir = @opendir($img_path);
+//
+//		while ($filename = @readdir($current_dir))
+//		{
+//			if ($filename != "." and $filename != ".." and $filename != "index.html")
+//			{
+//				$name = str_replace(".jpg", "", $filename);
+//
+//				if (($name + $expiration) < $now)
+//				{
+//					@unlink($img_path.$filename);
+//				}
+//			}
+//		}
+//
+//		@closedir($current_dir);
 
-		if ( ! is_writable($img_path))
-		{
-			return FALSE;
-		}
-}
-		if ( ! extension_loaded('gd'))
-		{
-			return FALSE;
-		}
-
-		// -----------------------------------
-		// Remove old images
-		// -----------------------------------
-
-		list($usec, $sec) = explode(" ", microtime());
-		$now = ((float)$usec + (float)$sec);
-
-
-    if($output_file){
-        $current_dir = @opendir($img_path);
-            while ($filename = @readdir($current_dir))
-            {
-                if ($filename != "." and $filename != ".." and $filename != "index.html")
-                {
-                    $name = str_replace(".jpg", "", $filename);
-
-                    if (($name + $expiration) < $now)
-                    {
-                        @unlink($img_path.$filename);
-                    }
-                }
-            }
-
-            @closedir($current_dir);
-}
 		// -----------------------------------
 		// Do we have a "word" yet?
 		// -----------------------------------
@@ -228,24 +227,21 @@ if($output_file){
 		// -----------------------------------
 		//  Generate the image
 		// -----------------------------------
-        if($output_file)
-        {
-            $img_name = $now.'.jpg';
 
-            ImageJPEG($im, $img_path.$img_name);
-
-            $img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
-
-            ImageDestroy($im);
-
-            return array('word' => $word, 'time' => $now, 'image' => $img);
-	    }
-        else
-        {
-            return array('word' => $word, 'time' => $now, 'image' => $im);
-        }
-    }
-
+//		$img_name = $now.'.jpg';
+//
+//		ImageJPEG($im, $img_path.$img_name);
+//
+//		$img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
+        ob_clean();
+        header("Content-Type:image/jpeg");
+        imagejpeg($im);
+        ImageDestroy($im);
+//		ImageDestroy($im);
+//      return $word;
+//		return array('word' => $word, 'time' => $now, 'image' => $img);
+		return array('word' => $word);
+	}
 }
 
 // ------------------------------------------------------------------------
