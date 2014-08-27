@@ -105,6 +105,7 @@ class Business_User extends NH_Model
 //            exit;
             //素质教育
             $arr_return['student_suzhi_subject'] = $this->business_subject->get_student_subject_by_where($user_id,2);
+
         }
         
         return $arr_return;
