@@ -52,7 +52,7 @@ class Crontab extends CI_Controller
     					echo "[".date('Y-m-d H:i:s')."]:Class_Change_SoonClass_To_ClassEnterable方法加载测试的配置--课id为：".$v['id']."状态更新为“可进教室”失败"."\r\n";
     				}
     			} else {
-    				break;
+    				continue;
     			}
     	
     		}
@@ -63,7 +63,7 @@ class Crontab extends CI_Controller
     		{
     			if ($vv['is_test'] == '1')
     			{
-    				break;
+    				continue;
     			} else {
     				$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_ENTER_ROOM),array('id'=>$vv['id']));
     				if ($bool_flag)
@@ -251,7 +251,7 @@ class Crontab extends CI_Controller
     			$int_class_id = $this->business_crontab->get_next_class_data($v['id'],$v['round_id']);
     			if(empty($int_class_id))
     			{
-    				break;
+    				continue;
     			} else {
     				$bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_SOON_CLASS),array('id'=>$int_class_id));
     			    if ($bool_flag)
@@ -316,7 +316,7 @@ class Crontab extends CI_Controller
     					}
     				}
     			} else {
-    				break;
+    				continue;
     			}
 
     		}

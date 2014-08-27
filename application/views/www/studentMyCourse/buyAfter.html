@@ -118,7 +118,7 @@
 	        	<ul class="fr manInfor">
 	        		{foreach from=$array_data.team item=item}
 	        		<li class="posr">
-                        <img src="{$item.avatar}" alt="" class="head">
+                        <img src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s3')}{else}{get_img_url($item.avatar,'avatar_s3')}{/if}" alt="" class="head">
                         <div class="headR">
                             <div class="teaDetail cf">
                                 <span class="cMan">{$item.teacher_role}</span>
@@ -246,7 +246,7 @@
 	        		{if $item.author_role =='2'}
 	        		<li>
 						<div class="nhead cf posr">
-							<img src="{$item.avatar}" alt="" class="fl">
+							<img src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_MANGER_AVATER,'avatar_s5')}{else}{get_img_url($item.avatar,'avatar_s5')}{/if}" alt="" class="fl">
 							<div class="fl teaRCon">
 								<strong>系统公告：</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
@@ -262,7 +262,7 @@
 	        		{if $item.author_role !='2'}
 	        		<li>
 						<div class="nhead cf posr">
-							<img src="{$item.avatar}" alt="" class="fl">
+							<img src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.avatar,'avatar_s5')}{/if}" alt="" class="fl">
 							<div class="fl teaRCon">
 								<strong title="{$item.nickname}">{$item.nickname}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
@@ -281,7 +281,7 @@
 	        	{if $array_classmate}
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{$item.avatar}" alt="" class="fl">
+						<img src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_STUDENT_AVATER,'avatar_s6')}{else}{get_img_url($item.avatar,'avatar_s6')}{/if}" alt="" class="fl">
 						<span title="{$item.nickname}" class="fl">{$item.nickname}</span>
 					</li>
 	        	{/foreach}

@@ -44,7 +44,7 @@
                         {if isset($material_versions[$array_data.material_version]) && ($array_data.material_version gt 1)}<span class="mark mark8">{$material_versions[$array_data.material_version]}</span>{/if}
                     </div>
                     <!-- 标签列表结束 -->
-                    <img src="{if empty($array_data.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_img_url($array_data.img,'course_s6')}{/if}" alt="" class="fl">
+                    <img src="{if empty($array_data.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s6')}{else}{get_img_url($array_data.img,'course_s6')}{/if}" alt="" class="fl">
                 </div>
                 <div class="fl startTime">
                     <div class="price"><span class="priceAfter"><i>￥</i>{$array_data.sale_price|intval}</span><span class="priceBefore">价值<i>￥{$array_data.price|intval}</i></span></div>
@@ -187,7 +187,7 @@
                			{else}
                			<div class="course_team_list cf">
                			{/if}
-                            <img class="fl" src="{$item.avatar}" alt="">
+                            <img class="fl" src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s2')}{else}{get_img_url($item.avatar,'avatar_s2')}{/if}" alt="">
                             <div class="teacherInfo fl">
                                 <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
                                 <p class="teacherText">{$item.teacher_intro}</p>
@@ -254,7 +254,7 @@
                     {foreach from=$array_other item=item}
                          <li>
                           <a target="_blank" href="{$course_url}ke_{$item.id}.html" >
-                            <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'buy_before_right_recommend')}{/if}" alt="">
+                            <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_img_url($item.img,'course_s7')}{/if}" alt="">
                             <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p></a>
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
@@ -269,7 +269,7 @@
                     {foreach from=$array_recommend item=item}
                          <li>
                           <a target="_blank" href="{$course_url}ke_{$item.id}.html" >
-                            <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'buy_before_right_recommend')}{/if}" alt="">
+                            <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_img_url($item.img,'course_s7')}{/if}" alt="">
                             <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p></a>
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
