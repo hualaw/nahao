@@ -28,7 +28,7 @@ class Model_Session_Log extends NH_Model
         /*echo '<pre>';
         print_r($user_data);
         echo '</pre>';*/
-        log_message('debug_nahao', 'model_session_log/user_data, '.print_r($user_data,1));
+        //log_message('debug_nahao', 'model_session_log/user_data, '.print_r($user_data,1));
 
 		$this->db->insert(TABLE_SESSION_LOG, $user_data);
 
@@ -45,7 +45,7 @@ class Model_Session_Log extends NH_Model
 		if($session_id)
 		{
 			$bool_ret =  $this->db->update(TABLE_SESSION_LOG, $info, 'session_id="'.$session_id.'"');
-            log_message('debug_nahao', "update_session_log, sql:".$this->db->last_query());
+            //log_message('debug_nahao', "update_session_log, sql:".$this->db->last_query());
 		}
 		return $bool_ret;
 	}
