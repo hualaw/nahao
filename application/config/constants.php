@@ -447,8 +447,8 @@ define('NH_IMG_SIZE_COURSE_W3', 80);
 //列表页猜你喜欢
 //define('NH_COURSE_IMG_SUGGEST_HEIGHT',198);
 //define('NH_COURSE_IMG_SUGGEST_WIDTH',127);
-define('NH_IMG_SIZE_COURSE_H5',198);
-define('NH_IMG_SIZE_COURSE_W5',127);
+define('NH_IMG_SIZE_COURSE_H5',127);
+define('NH_IMG_SIZE_COURSE_W5',198);
 
 //define('NH_MY_COURSE_LIST_IMG_WIDTH',130);//我的课程列表宽
 //define('NH_MY_COURSE_LIST_IMG_HEIGHT',82);//我的课程列表高
