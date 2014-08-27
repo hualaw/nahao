@@ -9,7 +9,7 @@
 		<li class="cf ">
 		{/if}
 	   
-		   <img src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_STUDENT_AVATER,'avatar_s4')}{else}{get_img_url($item.avatar,'avatar_s4')}{/if}" alt="" class="fl">
+		   <img src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_STUDENT_AVATER,'avatar_s4')}{else}{get_img_url($item.avatar,'avatar_s4')}{/if}" alt="" class="fl">
 		   <div class="fl revCon">
 			   <div class="cf">
 				   <h2 class="fl">

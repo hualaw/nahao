@@ -217,7 +217,7 @@
                			{else}
                			<div class="course_team_list cf">
                			{/if}
-                            <img class="fl" src="{if empty($item.avatar)}{static_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s2')}{else}{get_img_url($item.avatar,'avatar_s2')}{/if}" alt="">
+                            <img class="fl" src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s2')}{else}{get_img_url($item.avatar,'avatar_s2')}{/if}" alt="">
                             <div class="teacherInfo fl">
                                 <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
                                 <div class="teacherText">{$item.teacher_intro}</div>
@@ -285,7 +285,7 @@
                     {foreach from=$array_other item=item}
                          <li>
                          <a target="_blank" href="{$course_url}ke_{$item.id}.html" >
-                            <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_img_url($item.img,'course_s7')}{/if}" alt="">
+                            <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_img_url($item.img,'course_s7')}{/if}" alt="">
                             <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p></a>
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
@@ -300,7 +300,7 @@
                     {foreach from=$array_recommend item=item}
                          <li>
                          <a target="_blank" href="{$course_url}ke_{$item.id}.html" >
-                            <img src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_course_img_by_size($item.img,'course_s7')}{/if}" alt="">
+                            <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_course_img_by_size($item.img,'course_s7')}{/if}" alt="">
                             <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p></a>
                             <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
                         </li>
