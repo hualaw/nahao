@@ -65,8 +65,8 @@ class register extends NH_Controller
 				$arr_return['data']=$arr_userdata['captcha'];
 				echo parent::json_output($arr_return);
 			}
-			$phone = $ephone;
-		}////email注册时选填的手机号
+			$phone = $ephone;////email注册时选填的手机号
+		}
 		$reg_ret = $this->business_register->submit($phone, $email, $sha1_password, $captcha, $reg_type);
 
 		echo parent::json_output($reg_ret);
