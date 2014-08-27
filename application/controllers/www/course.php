@@ -444,7 +444,7 @@ class Course extends NH_User_Controller {
 	 	$aes_config = array(config_item('AES_key'));
 	 	$this->load->library('AES', $aes_config, 'aes');
 	 	$aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
-	 	log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
+	 	//log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
 	 	$str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&SwfVer='.(config_item('classroom_swf_version')).'&t=1';
 	 	$str_iframe =  $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 	 	$this->smarty->assign('classroom_id', $array_class['classroom_id']);

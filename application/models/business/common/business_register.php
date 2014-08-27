@@ -55,7 +55,7 @@ class Business_Register extends NH_Model {
 			'avatar' => '', //default avatar URI, TBD
             'reg_type' => $reg_type
 			);
-		log_message('debug_nahao', 'IN '.__CLASS__.", function: ".__FUNCTION__.", salt: $str_salt, sha1_pwd: $sha1_password, password:".create_sha1_password($str_salt, $sha1_password));
+		//log_message('debug_nahao', 'IN '.__CLASS__.", function: ".__FUNCTION__.", salt: $str_salt, sha1_pwd: $sha1_password, password:".create_sha1_password($str_salt, $sha1_password));
 		$user_id = $this->model_user->create_user($user_table_data);
 
 
