@@ -4,14 +4,14 @@
 		<div class="quickLink fr">
             <div class="fl">
                 {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']==1}
-                <a href='{$teacher_url}' class="ctrlRed">教师后台</a>
+                <a href='{$teacher_url}' class="ctrlRed" target="_blank">教师后台</a>
                 {/if}
                 {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
                 {if !isset($arr_user_lecture['status'])}
-                <a href="{$student_url}index/apply_teach" class="ctrlRed">我要开课</a>
+                <a href="{$student_url}index/apply_teach" class="ctrlRed" target="_blank">我要开课</a>
                 {/if}
                 {if isset($arr_user_lecture['status']) && $arr_user_lecture['status']==2}
-                <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="ctrlRed">试讲教室入口</a>
+                <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="ctrlRed" target="_blank">试讲教室入口</a>
                 {/if}
                 {/if}
             </div>
