@@ -348,10 +348,10 @@ class Student_Course extends NH_Model{
             {
                 if ($v['author_role'] == NH_MEETING_TYPE_ADMIN)
                 {
-                   #发布者是管理员
+                   	#发布者是管理员
                     $array_manager = $this->model_member->get_manager_data($v['author']);
                     $array_return[$k]['nickname'] = isset($array_manager['username'])  ? $array_manager['username'] : '';
-                    $array_return[$k]['avatar'] = static_url(DEFAULT_MANGER_AVATER);
+                    $array_return[$k]['avatar'] = '';
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
