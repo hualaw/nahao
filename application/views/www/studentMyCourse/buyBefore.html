@@ -59,7 +59,9 @@
                         </span>
                         <span class="fl starCount"><i>{$array_data.score}</i>分</span>
                          {/if}
+						{if $evaluate_count>0}
                         <a class="fr" href="#review"><i>{$evaluate_count}</i>条评价</a>
+						{/if}
                     </div>
                     <div class="endTime cf">
                         <div class="timeTitle fl">距离报名结束还剩</div><div class="countdown fl"></div>
@@ -185,7 +187,24 @@
                     <!-- 课程简介 开始 -->
                     <div id="course_detial" class="course_info_item height">
                         <h3>课程简介</h3>
-                        <p class="course_detial_text">{$array_data.intro|truncate:250:"...":true}</p>
+                        <div class="course_detial_text">
+                            <p class="cf">
+                                <strong class="fl">
+                                    课程详情：
+                                </strong>
+                                <span class="fl detailInfo">
+                                    {$array_data.intro|truncate:250:"...":true}
+                                </span>
+                            </p>
+                            <p class="cf crowdWrap">
+                                <strong class="fl">
+                                    适合人群：
+                                </strong>
+                                <span class="fl crowd">
+                                    {$array_data.students}
+                                </span>
+                            </p>
+                        </div>
                     </div>
                     <!-- 课程简介 结束 -->
                     <!-- 授课团队 开始 -->
@@ -201,7 +220,7 @@
                             <img class="fl" src="{$item.avatar}" alt="">
                             <div class="teacherInfo fl">
                                 <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
-                                <p class="teacherText">{$item.teacher_intro}</p>
+                                <div class="teacherText">{$item.teacher_intro}</div>
                             </div>
                         </div>
                			
@@ -313,10 +332,10 @@
         <span class="wxWrap">
             <span class="wxBg"></span>
             <span class="wxDesc">
-                <img src="{$static_url}{$static_version}/images/common/wxCode.gif" alt="那好二维码">
+                <img src="{$static_url}{$static_version}/images/common/weiboCode.png" alt="那好官方微博二维码">
                 <span class="codeText">
                     扫描二维码关注<br>
-                    那好网官方微信
+                    那好网官方微博
                 </span>
                 <span class="arrow"></span>
             </span>

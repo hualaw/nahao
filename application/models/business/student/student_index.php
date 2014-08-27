@@ -225,7 +225,7 @@ class Student_Index extends NH_Model{
                 TABLE_ROUND.'.id'
             );
             $arr_order_by = array(
-                'sequence' => 'asc',
+                'sequence' => 'desc',
                 'start_time' => 'asc'
             );
             $arr_limit = array(

@@ -13,7 +13,7 @@
 #Validform_msg .Validform_info{padding:8px;border:1px solid #bbb; border-top:none; text-align:left;}
 /*信息框在input上面的样式开始*/
 
-.ValidformInfo{ padding:2px 5px; color:#666; position:absolute;top: -34px; left: 0px;display:none;line-height:20px;}
+.ValidformInfo{ padding:2px 5px; color:#666; position:absolute;top: -34px; left: 0px;display:none;line-height:20px;z-index: 3;}
 .ValidformInfoBg{border:1px solid #ffbd5b;background-color:#ffe972;}
 .ValidformInfo .dec {bottom: -8px;display: block;height: 8px;overflow: hidden;position: absolute;left: 10px;width: 17px;}
 .ValidformInfo .dec s {font-family: simsun;font-size: 16px;height: 19px;left: 0;line-height: 21px;position: absolute;text-decoration: none;top: -9px;width: 17px;}
@@ -33,5 +33,5 @@
 .topLoginForm .ValidformInfo .dec s{top: -1px;}
 .topLoginForm .ValidformInfo .dec .dec2 {top: 0px;}
 .topLoginForm .ValidformInfo.passTip .Validform_checktip {line-height: 15px;white-space:nowrap;}
-.topLoginForm .posr .fixIe6{height: 21px;line-height: 21px;}
+.topLoginForm .posr .fixIe6{height: 21px;line-height: 29px;}
 /*全站头部登录的input上面的样式结束*/

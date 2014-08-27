@@ -58,49 +58,49 @@ if ( ! function_exists('create_captcha'))
 			}
 		}
 
-		if ($img_path == '' OR $img_url == '')
-		{
-			return FALSE;
-		}
-
-		if ( ! @is_dir($img_path))
-		{
-			return FALSE;
-		}
-
-		if ( ! is_writable($img_path))
-		{
-			return FALSE;
-		}
-
-		if ( ! extension_loaded('gd'))
-		{
-			return FALSE;
-		}
-
-		// -----------------------------------
-		// Remove old images
-		// -----------------------------------
-
-		list($usec, $sec) = explode(" ", microtime());
-		$now = ((float)$usec + (float)$sec);
-
-		$current_dir = @opendir($img_path);
-
-		while ($filename = @readdir($current_dir))
-		{
-			if ($filename != "." and $filename != ".." and $filename != "index.html")
-			{
-				$name = str_replace(".jpg", "", $filename);
-
-				if (($name + $expiration) < $now)
-				{
-					@unlink($img_path.$filename);
-				}
-			}
-		}
-
-		@closedir($current_dir);
+//		if ($img_path == '' OR $img_url == '')
+//		{
+//			return FALSE;
+//		}
+//
+//		if ( ! @is_dir($img_path))
+//		{
+//			return FALSE;
+//		}
+//
+//		if ( ! is_writable($img_path))
+//		{
+//			return FALSE;
+//		}
+//
+//		if ( ! extension_loaded('gd'))
+//		{
+//			return FALSE;
+//		}
+//
+//		// -----------------------------------
+//		// Remove old images
+//		// -----------------------------------
+//
+//		list($usec, $sec) = explode(" ", microtime());
+//		$now = ((float)$usec + (float)$sec);
+//
+//		$current_dir = @opendir($img_path);
+//
+//		while ($filename = @readdir($current_dir))
+//		{
+//			if ($filename != "." and $filename != ".." and $filename != "index.html")
+//			{
+//				$name = str_replace(".jpg", "", $filename);
+//
+//				if (($name + $expiration) < $now)
+//				{
+//					@unlink($img_path.$filename);
+//				}
+//			}
+//		}
+//
+//		@closedir($current_dir);
 
 		// -----------------------------------
 		// Do we have a "word" yet?
@@ -228,15 +228,19 @@ if ( ! function_exists('create_captcha'))
 		//  Generate the image
 		// -----------------------------------
 
-		$img_name = $now.'.jpg';
-
-		ImageJPEG($im, $img_path.$img_name);
-
-		$img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
-
-		ImageDestroy($im);
-
-		return array('word' => $word, 'time' => $now, 'image' => $img);
+//		$img_name = $now.'.jpg';
+//
+//		ImageJPEG($im, $img_path.$img_name);
+//
+//		$img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
+        ob_clean();
+        header("Content-Type:image/jpeg");
+        imagejpeg($im);
+        ImageDestroy($im);
+//		ImageDestroy($im);
+//      return $word;
+//		return array('word' => $word, 'time' => $now, 'image' => $img);
+		return array('word' => $word);
 	}
 }
 

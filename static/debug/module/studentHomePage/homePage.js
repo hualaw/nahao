@@ -35,6 +35,7 @@ define(function(require,exports){
             this.orederList=orederList;
             this.bannerSlide=bannerSlide;
             this.autoTimer = null;
+            this.autoTimer2=null;
         }
         _banner.prototype={
             index:function(index){
@@ -43,8 +44,9 @@ define(function(require,exports){
                 var _targetOrder=this.orederList.eq(index),_targetBanner=this.bannerList.eq(index);
                 _targetOrder.parent().children().removeClass("active");
                 _targetOrder.addClass("active");
-                this.bannerList.removeClass("rollshow").stop().animate({opacity:0});
-                _targetBanner.addClass("rollshow").stop().animate({opacity:1});
+
+                this.bannerList.removeClass("rollshow").stop().animate({"opacity":0,"z-index":"0"});
+                _targetBanner.addClass("rollshow").stop().animate({"opacity":1,"z-index":"1"});
             },
             next:function(){
                 var _index=this.orederList.filter(".active").index();
@@ -71,8 +73,11 @@ define(function(require,exports){
                 //整个banner的hover事件绑定
                 this.item.hover(function(){
                     clearInterval(_this.autoTimer);
+                    clearInterval(_this.autoTimer2);
                 },function(){
-                    _this.autoTimer = setInterval(function(){
+                    clearInterval(_this.autoTimer);
+                    clearInterval(_this.autoTimer2);
+                    _this.autoTimer2 = setInterval(function(){
                         _this.next();
                     },_this.ms);
                 });
@@ -124,13 +129,12 @@ define(function(require,exports){
     }
     //首页右侧快速注册验证
     exports.register_check=function(){
-        //加载验证码
-        $(function(){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
-        });
+         $(function(){
+             $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+         })
         //重新加载验证码
         $('.changeOne,#cap_img').click(function(e){
-            $('#cap_img').load('/index/captcha?s='+Math.random());
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
             e.preventDefault();
         });
 
@@ -201,7 +205,8 @@ define(function(require,exports){
                     return false;
                 }
                 if(data.status=='ok'){
-                    location.reload();
+                    location.href="/login/perfect";
+                    //location.reload();
                 }
             }
         });

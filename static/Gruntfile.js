@@ -36,7 +36,8 @@ module.exports = function (grunt) {
                     "ckSourceUploader": "lib/ckeditor/4.3/adapters/jquery",
                     "flashUploader": "lib/uploadify/2.2/jquery.uploadify",
                     "jQDate": "lib/My97DatePicker/4.8/WdatePicker",
-                    "placeHolder":"lib/JPlaceholder/0.0.2/JPlaceholder"
+                    "placeHolder":"lib/JPlaceholder/0.0.2/JPlaceholder",
+                    "lazyload":"lib/lazyload/0.0.1/jquery.lazyload"
                 }
             },
             build: {

@@ -1,3 +1,4 @@
+{nocache}
 <div class="historyWrap">
     <div class="historyListWrap" style="position: absolute; left: 0px; z-index: 1;">
         <!-- 浏览记录的头部开始 -->
@@ -12,7 +13,7 @@
             <!-- 单条浏览记录开始 -->
             {foreach from=$array_recent_view item=item}
             <a target="_blank" href="{$course_url}ke_{$item.id}.html" class="cf hItem">
-                <img alt="" src="{$item.img}" class="hPic">
+                <img alt="" src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($item.img,'recent_view')}{/if}" class="hPic">
 				<span class="fr hDesc">
 					<span class="hSmallTitle">{$item.title|truncate:16:"...":true}</span>
 					<span class="valList">
@@ -28,9 +29,10 @@
         <!-- 有浏览记录结束 -->
 		<!-- 无浏览记录开始 -->
         <div class="noHistory">
-            暂无浏览记录
+       		 暂无浏览记录
         </div>
         <!-- 无浏览记录结束 -->
         {/if}
     </div>
 </div>
+{/nocache}

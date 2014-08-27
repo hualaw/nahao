@@ -72,8 +72,7 @@ class register extends NH_Controller
 
     public function submit_personal_info()
     {
-        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'selected_suzhi_subjects', 'school_id',
-                              'schoolname', 'province_id', 'city_id', 'area_county_id', 'school_type');
+        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'selected_suzhi_subjects', 'school_id','schoolname', 'province_id', 'city_id', 'area_county_id', 'school_type');
         foreach($input_names as $input_name)
         {
             $$input_name = $this->_check_input($input_name);

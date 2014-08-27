@@ -37,9 +37,18 @@ class Classes extends NH_User_Controller {
     	);
     	$pageBar = $this->business_list->getPageBar($config);
     	#5. 搜索推荐-猜您喜欢
-    	$result = $this->business_list->search_suggest(array('typeId' => $param['typeId']));
+    	if(CLASSES_INDEX_SUGGEST_SWITCH){
+    		$result = $this->business_list->search_suggest(array('typeId' => $param['typeId']));
+    		$suggest_list = $result['data'];
+    	}else{
+    		$suggest_list = 0;
+    	}
     	#6. 浏览记录
-    	$view_list = $this->business_list->read_recent_view_data();
+    	if(CLASSES_INDEX_BROWSING_HISTORY_SWITCH){
+    		$view_list = $this->business_list->read_recent_view_data();
+    	}else{
+    		$view_list = 0;
+    	}
     	#7. 没有记录，就读取推荐
     	$list = $data['is_commend'] ? $data['commend_data'] : $data['data'];
     	
@@ -49,7 +58,7 @@ class Classes extends NH_User_Controller {
     	$this->smarty->assign('cateList' 			, $cateList);
     	$this->smarty->assign('is_commend' 			, $data['is_commend']);
     	$this->smarty->assign('list' 				, $list);
-    	$this->smarty->assign('suggest_list' 		, $result['data']);
+    	$this->smarty->assign('suggest_list' 		, $suggest_list);
     	$this->smarty->assign('pageBar' 			, $pageBar);
     	$this->smarty->assign('array_recent_view' 	, $view_list);
     	$this->smarty->assign('body_class'		 	, $param['typeId']==1 ? 'navTutor' : 'navQualityEdu');

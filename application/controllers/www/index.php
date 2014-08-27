@@ -83,9 +83,8 @@ class Index extends NH_User_Controller
         $int_stage_id = isset($arr_query_param['stage']) ? intval($arr_query_param['stage']) : 0;
         $int_start = isset($arr_query_param['page']) ? intval($arr_query_param['page']) : 0;
         $arr_where = $int_stage_id > 0 ? array('stage' => $int_stage_id) : array();
-        $int_live_per_page = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? PER_PAGE_NO : 6;
-        $int_per_page = SWITCH_WWW_INDEX_COURSE_LIST == 1 ? 60 : PER_PAGE_NO;
-        $int_per_page = 4;
+        $int_live_per_page = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? LIMIT_WWW_INDEX_LIVE_SHOW_MAX : LIMIT_WWW_INDEX_LIVE_SHOW_MIN;
+        $int_per_page = SWITCH_WWW_INDEX_COURSE_LIST == 1 ? LIMIT_WWW_INDEX_COURSE_LIST_MAX : LIMIT_WWW_INDEX_COURSE_LIST_MIN;
 
         //cache template
         $str_template = 'www/studentHomePage/index.html';
@@ -93,12 +92,12 @@ class Index extends NH_User_Controller
 //        var_dump($this->smarty->isCached($str_template, $str_cache_id));
 //        o(SWITCH_WWW_SMARTY_CACHE==1 AND !$this->smarty->isCached($str_template, $str_cache_id));
         if (!$this->smarty->isCached($str_template, $str_cache_id)) {
-//            focus photo
+            //focus photo
             $this->load->model('business/admin/business_focus_photo');
             $focus_photo = $this->business_focus_photo->list_photo(1);
 
             //live show list
-            $arr_live_classes = $this->index->get_live_classes($int_live_per_page);
+            $arr_live_classes = $int_live_per_page == 0 ? array() : $this->index->get_live_classes($int_live_per_page);
 //            o($arr_live_classes);
 
             //course_list
@@ -119,13 +118,8 @@ class Index extends NH_User_Controller
 //        o($str_page);
 //        o($arr_round_list,true);
 
-            //record
-            $this->load->model('business/student/student_course');
-            $arr_record_list = $this->student_course->read_recent_view_data();
 //        o($arr_record_list,true);
 
-            $course_url = config_item('course_url');
-            $this->smarty->assign('course_url', $course_url);
             $this->smarty->assign('material_versions', config_item('material_version'));
             $this->smarty->assign('course_types', $stage = config_item('course_type'));
             $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
@@ -134,12 +128,22 @@ class Index extends NH_User_Controller
             $this->smarty->assign('focus_photo', $focus_photo);
             $this->smarty->assign('live_list', $arr_live_classes);
             $this->smarty->assign('round_list', $arr_round_list);
-            $this->smarty->assign('array_recent_view', $arr_record_list);
             $this->smarty->assign('page', $str_page);
             $this->smarty->assign('query_params', $arr_query_param);
             $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
         }
+        //recent view
+        $this->load->model('business/student/student_course');
+        $arr_recent_view = array();
+        if (CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1'){
+        	$arr_recent_view = $this->student_course->read_recent_view_data();
+        }
+		
+//        o($focus_photo);
+        $course_url = config_item('course_url');
+        $this->smarty->assign('course_url', $course_url);
         $this->smarty->assign('grade', config_item('grade'));
+        $this->smarty->assign('array_recent_view', $arr_recent_view,true);
         $this->smarty->display($str_template, $str_cache_id);
     }
 
@@ -151,15 +155,13 @@ class Index extends NH_User_Controller
     {
         $this->load->helper('captcha');
         $vals = array(
-            'img_path' => './captcha/',
-            'img_url' => "/captcha/",
             'img_width' => 66,
             'img_height' => 30,
-            'expiration' => 7200
+            'expiration' => 7200,
         );
         $cap = create_captcha($vals);
-        $this->session->set_userdata('captcha', strtolower($cap['word']));
-        echo $cap['image'];
+        $this->session->set_userdata('captcha',$cap['word']);
+        exit();
     }
 
     /**

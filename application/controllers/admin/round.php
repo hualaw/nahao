@@ -75,7 +75,7 @@ class Round extends NH_Admin_Controller
         $arr_course_types = config_item('course_type');
         $arr_stages = config_item('stage');
         $arr_education_subjects = config_item('education_subject');
-//        o($arr_subjects);
+//        o($arr_education_subjects);
 
         $this->load->library('pagination');
         $config = config_item('page_admin');

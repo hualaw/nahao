@@ -38,6 +38,11 @@
             <!-- 全部课程开始 -->
             <div class="cf item active" itemname="cl_all_list"><!-- cl_primary_list cl_middle_list cl_high_list-->
                 <div class="cf">
+                    {if empty($round_list)}
+                    <div class="courseListEmpty">
+                    该类别暂时没有课程，请试试其他类别
+                    </div>
+                    {else}
                     {foreach $round_list as $v}
                     <!-- 单个课程信息开始 -->
                     <div class="cItem">
@@ -83,7 +88,7 @@
                                     </div>
                                     <!-- 教师图像和简介结束 -->
                                     <!-- 教师介绍开始 -->
-                                    <div class="teacherDesc" href="#">{$v.teacher_intro|htmlspecialchars_decode|truncate:150}</div>
+                                    <div class="teacherDesc" href="#" >{$v.teacher_intro|htmlspecialchars_decode}</div>
                                     <!-- 教师介绍结束 -->
                                 </div>
                             </div>
@@ -93,8 +98,8 @@
                         <!-- 课程标题和简介开始 -->
                         <h3 class="ctitle">
                             <a target="_blank" href="/ke_{$v.id}.html">
-                                <span class="cTitleName">{$v.title|truncate:25}</span>
-                                <span class="cTitleDesc">{$v.subtitle|truncate:50}</span>
+                                <span class="cTitleName">{$v.title}</span>
+                                <span class="cTitleDesc">{$v.subtitle}</span>
                             </a>
                         </h3>
                         <!-- 课程标题和简介结束 -->
@@ -110,7 +115,7 @@
                             {if $smarty.const.TIME_STAMP gt $v.sell_end_time-5*86400 && $smarty.const.TIME_STAMP lt $v.sell_end_time}
                                 <span class="fl countDown" time="{$v.sell_end_time}" time_id="{$v.id}"></span>
                             {else}
-                                <span class="fl">{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>
+                                <span class="fl">开课时间：{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>
                             {/if}
 
 									<span class="fr">
@@ -120,6 +125,7 @@
                     </div>
                     <!-- 单个课程信息结束 -->
                     {/foreach}
+                    {/if}
                 </div>
                 <!-- 全部课程分页开始 -->
                 <div class="pager">

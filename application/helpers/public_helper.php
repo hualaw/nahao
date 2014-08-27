@@ -517,7 +517,7 @@ function is_email($str_email)
  */
 function get_course_img_by_size($str_img_url, $str_size){
     $str_return = NH_QINIU_URL.$str_img_url;
-    if(in_array($str_size,array('large','general','small','index','live','buy_before_top_big','buy_before_right_recommend','recent_view'))){
+    if(in_array($str_size,array('large','general','small','index','live','buy_before_top_big','buy_before_right_recommend','recent_view','index_avatar'))){
 //        $str_img_url .= '?imageView/2/w/';
         $str_img_url .= '?imageView/1/w/';
         if($str_size=='large'){
@@ -536,6 +536,8 @@ function get_course_img_by_size($str_img_url, $str_size){
         	$str_img_url .= NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH.'/h/'.NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT;
         }else if($str_size=='recent_view'){
         	$str_img_url .= NH_RECENT_VIEW_IMG_WIDTH.'/h/'.NH_RECENT_VIEW_IMG_HEIGHT;
+        }else if($str_size=='index_avatar'){
+            $str_img_url .= NU_USER_AVATAR_EDGE.'/h/'.NU_USER_AVATAR_EDGE;
         }
         
         $str_return = NH_QINIU_URL.$str_img_url;
@@ -932,5 +934,23 @@ function download($url,$file_name)
         ob_clean();
         flush();
         exit($content); //输出数据流
+    }
+}
+
+if ( ! function_exists('nahao_hash'))
+{
+    /*
+     * str: 字符串，待哈希的字符串
+     * max_count: 哈希出几个值，比如传值为4，hash会返回1或2或3或4
+     *
+     */
+    function nahao_hash($str, $max_count)
+    {
+        if( $max_count > 0 )
+        {
+            $value = sprintf("%u", crc32($str));
+            return 1 + $value % $max_count;
+        }
+        return 1;
     }
 }
