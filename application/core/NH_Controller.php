@@ -31,6 +31,7 @@ class NH_Controller extends CI_Controller
         $this->current['action'] = $this->uri->rsegment(2);
         $this->load->vars($this->current);
         $this->assign_nickname();
+        $this->smarty->registerPlugin('function', 'get_img_url', 'get_img_url');
     }
 
     protected function load_smarty()
