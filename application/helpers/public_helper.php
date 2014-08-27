@@ -936,3 +936,21 @@ function download($url,$file_name)
         exit($content); //输出数据流
     }
 }
+
+if ( ! function_exists('nahao_hash'))
+{
+    /*
+     * str: 字符串，待哈希的字符串
+     * max_count: 哈希出几个值，比如传值为4，hash会返回1或2或3或4
+     *
+     */
+    function nahao_hash($str, $max_count)
+    {
+        if( $max_count > 0 )
+        {
+            $value = sprintf("%u", crc32($str));
+            return 1 + $value % $max_count;
+        }
+        return 1;
+    }
+}
