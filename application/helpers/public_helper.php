@@ -538,11 +538,42 @@ function get_course_img_by_size($str_img_url, $str_size){
         	$str_img_url .= NH_RECENT_VIEW_IMG_WIDTH.'/h/'.NH_RECENT_VIEW_IMG_HEIGHT;
         }else if($str_size=='index_avatar'){
             $str_img_url .= NU_USER_AVATAR_EDGE.'/h/'.NU_USER_AVATAR_EDGE;
+        }else if($str_size=='suggest'){
+            $str_img_url .= NH_COURSE_IMG_SUGGEST_WIDTH.'/h/'.NH_COURSE_IMG_SUGGEST_HEIGHT;
         }
         
         $str_return = NH_QINIU_URL.$str_img_url;
     }
     return $str_return;
+}
+
+
+/**
+ * 获取七牛图片地址
+ * @param $str_img_uri
+ * @param $str_size
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function get_img_url($str_img_uri, $str_size){
+    $str_img_url = NH_QINIU_URL.$str_img_uri;
+    $arr_allow_size = array(
+        'global_recent_view' => NU_IMG_SIZE_COURSE_W3.'.'.NU_IMG_SIZE_COURSE_H3,//全局浏览记录课程封面
+        'index_course_live' => NU_IMG_SIZE_COURSE_W1.'.'.NU_IMG_SIZE_COURSE_H1,//首页直播课封面
+        'index_course_list' => NU_IMG_SIZE_COURSE_W2.'.'.NU_IMG_SIZE_COURSE_H2,//首页课程列表封面
+        'index_avatar_right' => NU_IMG_SIZE_USER_AVATAR_S1.'.'.NU_IMG_SIZE_USER_AVATAR_S1,//50x50 首页右侧登录后头像
+        'index_avatar_teacher' => NU_IMG_SIZE_USER_AVATAR_S2.'.'.NU_IMG_SIZE_USER_AVATAR_S2,//45x45 首页课程列表封面翻转后教师头像
+        'list_course_list' => NH_COURSE_IMG_GENERAL_WIDTH.'.'.NH_COURSE_IMG_GENERAL_HEIGHT,//
+        'list_suggest' => '',//
+        '' => '',//
+        '' => '',//
+        '' => '',//
+        '' => '',//
+        '' => '',//
+        '' => '',//
+        '' => '',//
+    );
+    return array_key_exists($str_size,$arr_allow_size) ? $str_img_url.'/'.$arr_allow_size[$str_size].'.jpg' : $str_img_url;
 }
 
 /**
