@@ -314,7 +314,7 @@ transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-t
 .studentMyCourse .buyBefore .summary{background: url(../../images/studentMyCourse/summary.png) 12px 28px no-repeat;padding:70px 22px 65px 140px;}
 .studentMyCourse .buyBefore .editorBox{margin:10px 0 0 -118px;}
 .studentMyCourse .buyBefore .editorBox img{max-width: 600px;}
-.studentMyCourse .buyBefore .creview li{padding: 26px 0 22px;border-top: 1px solid #e7e7e7;}
+.studentMyCourse .buyBefore .creview .stuComments li{padding: 26px 0 22px;border-top: 1px solid #e7e7e7;}
 .studentMyCourse .buyBefore .creview li.b_t_0{border-top: none;}
 .studentMyCourse .buyBefore .creview{}
 .studentMyCourse .buyBefore .applyBtn strong{font-size: 30px;}
