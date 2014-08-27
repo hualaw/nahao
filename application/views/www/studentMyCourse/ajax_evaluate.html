@@ -1,9 +1,14 @@
 
 {if $array_evaluate}
 	<h3 id="review">学员评价</h3>
-	<ul>                   		
-	{foreach from=$array_evaluate item=item}
-	   <li class="cf b_t_0">
+	<ul class="stuComments">                   		
+	{foreach from=$array_evaluate item=item key=key}
+		{if $key == 0}
+		<li class="cf b_t_0">
+		{else}
+		<li class="cf ">
+		{/if}
+	   
 		   <img src="{$item.avatar}" alt="" class="fl">
 		   <div class="fl revCon">
 			   <div class="cf">
@@ -30,6 +35,6 @@
 	{$page}
 {else}
 	<h3 id="review">学员评价</h3>
-	<div class="hasNoContent">暂无评价</div>
+	<div class="hasNoContent">快来参加第一堂课，把你的切身感受告诉你的朋友们，我们在这里等你来！</div>
 {/if}
 

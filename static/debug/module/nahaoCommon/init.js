@@ -6,7 +6,7 @@ define(function(require,exports){
 	// 悬浮框
 	require('module/common/method/floatBox').floatBox($(".floatBox").get(0),$(".floatBox .returnTop"));
 	//全站图片延迟加载
-	$("img").lazyload({effect:"fadeIn"});
+	$("img.cDescImg,img.hPic,img.aboutImg,.buyCourseList img").lazyload({effect:"fadeIn",failurelimit : 50});
 
 	$(".feedback").click(function (){
     	$.dialog({
