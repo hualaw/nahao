@@ -62,7 +62,7 @@
             <!--<td><input type="checkbox"></td>-->
             <td>{$v.id}</td>
             <td>
-                <img id="img_url_recent_view" src="{if $v.img}{get_course_img_by_size($v.img,'recent_view')}{/if}" ><br />
+                <img id="img_url_recent_view" src="{if $v.img}{get_img_url($v.img,'course_s3')}{/if}" ><br />
                 {$v.title}<br />
                 {if isset($education_types[$v.education_type])}教育类型：{$education_types[$v.education_type]}{/if}
             </td>
