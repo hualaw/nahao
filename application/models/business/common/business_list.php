@@ -316,9 +316,9 @@ class Business_List extends NH_Model
     			$avatar = get_img_url($array_return['avatar'],'avatar_s5');;
     		} else {
     			if ($array_return['teach_priv'] == 1){
-    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
-    			} else{
     				$avatar = static_url(DEFAULT_TEACHER_AVATER);
+    			} else{
+    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
     			}
     		}
     	}
@@ -368,15 +368,19 @@ class Business_List extends NH_Model
     	{
     		return array();
     	}
-    	$cookies = json_decode($_COOKIE['recent_view'],true);
-    	$cookies = array_reverse($cookies);
-    	$count = count($cookies);
-    	#浏览记录去5条;
-    	$nums = 5;
-    	if ($count<=$nums){
-    		return $cookies;
-    	} else {
-    		return array_slice($cookies,0,$nums);
+    	$str_value = $_COOKIE['recent_view'];
+    	$array_round_ids = explode(',',$_COOKIE['recent_view']);
+    	$this->load->model('model/common/model_redis', 'redis');
+    	$this->redis->connect('recent_view_data');
+    	$array_list = array();
+    	foreach ($array_round_ids as $k=>$v)
+    	{
+    		$array_round = $this->cache->redis->get($v);
+			if ($array_round)
+			{
+				$array_list[] = json_decode($array_round,true);
+			}
     	}
+		return $array_list;
     }
 }
