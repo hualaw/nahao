@@ -103,10 +103,10 @@ define('ORDER_TYPE_OFFLINE', 4);
  * 首页列表默认图片 HOME_IMG_DEFAULT
  * 默认头像 DEFAULT_AVATER  
  */
-define('HOME_IMG_DEFAULT', '/images/studentHomePage/course1.jpg');
-define('DEFAULT_STUDENT_AVATER', '/images/login/default_avatar.png');
-define('DEFAULT_TEACHER_AVATER', '/images/login/default_avatar.png');
-define('DEFAULT_MANGER_AVATER', '/images/login/manger.png');
+define('HOME_IMG_DEFAULT', 'nahao_default_course');
+define('DEFAULT_STUDENT_AVATER', 'nahao_default_avatar');
+define('DEFAULT_TEACHER_AVATER', 'nahao_default_avatar');
+define('DEFAULT_MANGER_AVATER', 'nahao_default_avatar_admin');
 /*
  * 老师角色
  * 主讲 1
@@ -426,13 +426,13 @@ define('NH_IMG_SIZE_COURSE_W1',230);
 //购买前课程封面
 //define('NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT', 280);
 //define('NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH', 440);
-define('NH_IMG_SIZE_COURSE_W6', 280);
-define('NH_IMG_SIZE_COURSE_H6', 440);
+define('NH_IMG_SIZE_COURSE_W6', 440);
+define('NH_IMG_SIZE_COURSE_H6', 280);
 //购买前推荐
 //define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT', 127);
 //define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH', 200);
-define('NH_IMG_SIZE_COURSE_W7', 127);
-define('NH_IMG_SIZE_COURSE_H7', 200);
+define('NH_IMG_SIZE_COURSE_W7', 200);
+define('NH_IMG_SIZE_COURSE_H7', 127);
 //购买前授课团队老师团队
 //define('NH_BUY_BEFORE_TEACHER_AVATER_IMG_WIDTH',100);
 //define('NH_BUY_BEFORE_TEACHER_AVATER_IMG_HEIGHT',100);
