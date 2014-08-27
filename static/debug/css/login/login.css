@@ -42,7 +42,7 @@
 .login .regWrap .emailBox li{margin-bottom: 8px;}
 .login .regWrap .box li .Validform_checktip{ position: absolute; top: 0px;right:0px;}
 .login .regWrap .box li .Validform_tip_info{ position: absolute; top: 0px;right:0px;}
-.login .regWrap .box li.liPhoneCode{/*padding-top:27px;*/padding-top: 10px;}
+.login .regWrap .box li.liPhoneCode{/*padding-top:27px;*/padding-top: 25px;}
 .login .regWrap .box li p{height:22px;line-height:22px;margin-bottom:5px;}
 .login .regWrap .box li .regInput{width: 90%;border:1px solid #6dcde6;height:38px;line-height:38px;padding:0 5%;font-size:16px;}
 .login .regWrap .box li .pnoneCode{height:40px;line-height:40px;font-size:16px;width:165px;}
@@ -55,7 +55,7 @@
 .login .regWrap .box li.agreementLi {font-size: 14px;;margin-top: 30px;text-align: center;}
 .login .regWrap .box li.agreementLi input{vertical-align: middle;display: inline-block;margin-bottom: 2px;}
 .login .regWrap .box li.agreementLi .Validform_checktip{display: none;}
-.login .regWrap .box li.agreementLi .Validform_checktip.Validform_wrong{display: block;}
+.login .regWrap .box li.agreementLi .Validform_checktip.Validform_wrong{display: block;font-size: 16px;}
 .login .regWrap .box li.agreementLi a{color: #ce0000}
 .login .regWrap .box li.agreementLi a:hover{color: #da1e1e}
 .login .regWrap .box li.emailRegAgreen{margin-top: 20px;}
