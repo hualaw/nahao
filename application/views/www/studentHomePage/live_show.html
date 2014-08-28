@@ -19,7 +19,7 @@
                 <li class="bItem">
                     <div class="liveLess"  title="{$v.class_name}">
                         <a target="_blank" href="/course/go?cid={$v.id}">
-                            <img src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_course_img_by_size($v.img,'live')}{/if}"
+                            <img src="{if empty($v.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s1')}{else}{get_img_url($v.img,'course_s1')}{/if}"
                                  alt="{$v.class_name}" class="liveClassImg">
                             <!-- 标签列表开始 -->
 									<span class="markList">

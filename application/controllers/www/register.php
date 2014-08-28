@@ -45,15 +45,6 @@ class register extends NH_Controller
 
 	public function submit()
 	{
-        $code=trim($this->input->post('code',TRUE));
-        $arr_userdata=$this->session->all_userdata();
-        if(strcasecmp($code,trim($arr_userdata['captcha']))!==0)
-        {
-            $arr_return['status']='ERROR';
-            $arr_return['msg']='验证码错误';
-            $arr_return['data']=$arr_userdata['captcha'];
-            echo parent::json_output($arr_return);
-        }
 		$phone = trim($this->input->post('phone'));
 		$ephone = trim($this->input->post('ephone'));//email注册时选填的手机号
 		$email = trim($this->input->post('email'));
@@ -63,8 +54,19 @@ class register extends NH_Controller
 		if(empty($phone)) $reg_type = REG_LOGIN_TYPE_EMAIL;
 		else $reg_type = REG_LOGIN_TYPE_PHONE;
 
-		if($reg_type == REG_LOGIN_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
-
+		if($reg_type == REG_LOGIN_TYPE_EMAIL)
+		{
+			$code=trim($this->input->post('code',TRUE));
+			$arr_userdata=$this->session->all_userdata();
+			if(strcasecmp($code,trim($arr_userdata['captcha']))!==0)
+			{
+				$arr_return['status']='ERROR';
+				$arr_return['msg']='验证码错误';
+				$arr_return['data']=$arr_userdata['captcha'];
+				echo parent::json_output($arr_return);
+			}
+			$phone = $ephone;////email注册时选填的手机号
+		}
 		$reg_ret = $this->business_register->submit($phone, $email, $sha1_password, $captcha, $reg_type);
 
 		echo parent::json_output($reg_ret);

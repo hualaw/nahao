@@ -259,7 +259,7 @@ class Business_List extends NH_Model
     		//学习人数
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
-	       	$val['img_url'] 	= empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($val['img'],'general');	
+	       	$val['img_url'] 	= empty($val['img']) ? get_img_url(HOME_IMG_DEFAULT,'course_s4') : get_img_url($val['img'],'course_s4');
     		//用户头像
     		$val['avater_url'] 	= $this->get_user_avater($val['teacher_id']);
     		//subtitle
@@ -294,7 +294,7 @@ class Business_List extends NH_Model
     		//学习人数
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
-	       	$val['img_url'] 	= empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($val['img'],'general');	
+	       	$val['img_url'] 	= empty($val['img']) ? get_img_url(HOME_IMG_DEFAULT,'course_s5') : get_img_url($val['img'],'course_s5');
     		//价格整形
     		$val['price']		= intval($val['price']);
     		$val['sale_price']	= intval($val['sale_price']);
@@ -313,12 +313,12 @@ class Business_List extends NH_Model
     	{
     		if ($array_return['avatar'])
     		{
-    			$avatar = get_course_img_by_size($array_return['avatar'],'small');;
+    			$avatar = get_img_url($array_return['avatar'],'avatar_s5');;
     		} else {
     			if ($array_return['teach_priv'] == 1){
-    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
+    				$avatar = get_img_url(DEFAULT_TEACHER_AVATER,'avatar_s5');
     			} else{
-    				$avatar = static_url(DEFAULT_TEACHER_AVATER);
+    				$avatar = get_img_url(DEFAULT_STUDENT_AVATER,'avatar_s5');
     			}
     		}
     	}
@@ -368,15 +368,19 @@ class Business_List extends NH_Model
     	{
     		return array();
     	}
-    	$cookies = json_decode($_COOKIE['recent_view'],true);
-    	$cookies = array_reverse($cookies);
-    	$count = count($cookies);
-    	#浏览记录去5条;
-    	$nums = 5;
-    	if ($count<=$nums){
-    		return $cookies;
-    	} else {
-    		return array_slice($cookies,0,$nums);
+    	$str_value = $_COOKIE['recent_view'];
+    	$array_round_ids = explode(',',$_COOKIE['recent_view']);
+    	$this->load->model('model/common/model_redis', 'redis');
+    	$this->redis->connect('recent_view_data');
+    	$array_list = array();
+    	foreach ($array_round_ids as $k=>$v)
+    	{
+    		$array_round = $this->cache->redis->get($v);
+			if ($array_round)
+			{
+				$array_list[] = json_decode($array_round,true);
+			}
     	}
+		return $array_list;
     }
 }

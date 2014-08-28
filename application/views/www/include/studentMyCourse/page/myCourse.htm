@@ -30,13 +30,13 @@
         {if $array_buy_course}
         {foreach from=$array_buy_course item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
-                <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
+                <img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s8')}{else}{get_img_url($item.class_img,'course_s8')}{/if}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:33:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -85,13 +85,13 @@
         {if $course_living}
         {foreach from=$course_living item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
-                <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
+                <img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s8')}{else}{get_img_url($item.class_img,'course_s8')}{/if}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:33:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -145,13 +145,13 @@
         {if $course_soon_class}
         {foreach from=$course_soon_class item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
-                <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
+                <img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s8')}{else}{get_img_url($item.class_img,'course_s8')}{/if}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:33:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -200,13 +200,13 @@
         {if $course_over}
         {foreach from=$course_over item=item}
         <li class="cf cItem">
-            <a href="#" class="fl">
-                <img src="{$item.class_img}" alt="{$item.class_img}" class="cImg">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
+                <img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s8')}{else}{get_img_url($item.class_img,'course_s8')}{/if}" alt="{$item.class_img}" class="cImg">
             </a>
 
             <div class="fl cDesc">
                 <h4>
-                    <a href="#" class="cTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</a>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:33:"...":true}</a>
                 </h4>
                 {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
                                 <span class="time">
@@ -278,12 +278,12 @@
                 {foreach from=$array_new item=item}
                 <li class="fl nItem">
                     <a href="#" class="cnImgWrap">
-                        <img src="{$item.img}" alt="" class="nItemImg">
+                        <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s10')}{else}{get_img_url($item.img,'course_s10')}{/if}" alt="" class="nItemImg">
                     </a>
                     <a href="{$course_url}ke_{$item.id}.html">
                         <div class="teacherWrap">
                             <div class="cf teacherTop">
-                                <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
+                                <img class="fl teacherImg" src="{if empty($item.teacher.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.teacher.avatar,'avatar_s5')}{/if}" alt="头像">
                                 <span class="fl teacherInfo">
                                     <span class="tName">{$item.teacher.nickname}</span>
                                     <span class="tAge">
@@ -323,12 +323,12 @@
                 {foreach from=$array_hot item=item}
                 <li class="fl nItem">
                     <a href="#" class="cnImgWrap">
-                        <img src="{$item.img}" alt="" class="nItemImg">
+                        <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s10')}{else}{get_img_url($item.img,'course_s10')}{/if}" alt="" class="nItemImg">
                     </a>
                     <a href="{$course_url}ke_{$item.id}.html">
                         <div class="teacherWrap">
                             <div class="cf teacherTop">
-                                <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
+                                <img class="fl teacherImg" src="{if empty($item.teacher.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.teacher.avatar,'avatar_s5')}{/if}" alt="头像">
 									<span class="fl teacherInfo">
 										<span class="tName">{$item.teacher.nickname}</span>
 										<span class="tAge">
