@@ -557,6 +557,9 @@ define('TEACHER_TITLE_HEIGHT',130);//教师头像高
 define('INDEX_FOCUS_WIDTH',570);//首页轮播图宽
 define('INDEX_FOCUS_HEIGHT',293);//首页轮播图高
 
+#老师后台进入体验教室ID
+define('TEACHER_EXPERIENCE_ENTER_CLASSROOMID', ENVIRONMENT == 'production' ? 2410 : 635);
+
 //switch
 //define('SWITCH_WWW_INDEX_LIVE_SHOW',1);
 //define('SWITCH_WWW_INDEX_COURSE_LIST',1);
