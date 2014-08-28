@@ -158,15 +158,15 @@
     <input type="hidden" name="teacher_auth_img" value="" id="teacher_authimg" />
     <div class="teacher">
         教师资格证:<input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
-        <img src="" id="img_url_general" /><span id="show_3001"></span>
+        <img src="{if $teacher_details['user_info_data']['teacher_auth_img']}{get_img_url($teacher_details['user_info_data']['teacher_auth_img'],'profile_s1')}{/if}" id="img_url_general" /><span id="show_3001">{if $teacher_details['user_info_data']['teacher_auth_img']}300*225{/if}</span>
     </div>
     <div class="title">
         教师职称证:<input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
-        <img src=""  id="img_title_general" /><span id="show_3002"></span>
+        <img src="{if $teacher_details['user_info_data']['title_auth_img']}{get_img_url($teacher_details['user_info_data']['title_auth_img'],'profile_s1')}{/if}"  id="img_title_general" /><span id="show_3002">{if $teacher_details['user_info_data']['title_auth_img']}300*225{/if}</span>
     </div>
     <div class="work">
         学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
-        <img src=""  id="img_work_general" /><span id="show_3003"></span>
+        <img src="{if $teacher_details['user_info_data']['work_auth_img']}{get_img_url($teacher_details['user_info_data']['work_auth_img'],'profile_s1')}{/if}"  id="img_work_general" /><span id="show_3003">{if $teacher_details['user_info_data']['work_auth_img']}300*225{/if}</span>
     </div>
     <hr>
     <h3>头像认证</h3>
@@ -174,11 +174,12 @@
         <input id="avatar_img" type="hidden" value="{$upload_avatar_img_key}">
         <input type="hidden" name="teacher_avatar_img" value="" id="teacher_avatar_img" />
         教师头像:<input type="file" name="up_avatar_img" id="up_avatar_img" class="file fl" multiple="true" style="display:none"/>
-        <img src=""  id="img_avatar" /><span id="show_130"></span>
-        <img src=""  id="img_urlhundred_general" /><span id="show_100"></span>
-        <img src=""  id="img_urlseventy_general" /><span id="show_70"></span>
-        <img src=""  id="img_urlfifty_general" /><span id="show_50"></span>
-        <img src=""  id="img_urlfortyfive_general" /><span id="show_45"></span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s1')}{/if}"  id="img_avatar" /><span id="show_130">{if $teacher_details['user_data']['avatar']}130*130{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s3')}{/if}"  id="img_urlhundred_general" /><span id="show_100">{if $teacher_details['user_data']['avatar']}100*100{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s3')}{/if}"  id="img_urlseventy_general" /><span id="show_70">{if $teacher_details['user_data']['avatar']}70*70{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s4')}{/if}"  id="img_urlfifty_general" /><span id="show_50">{if $teacher_details['user_data']['avatar']}50*50{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s5')}{/if}"  id="img_urlfortyfive_general" /><span id="show_45">{if $teacher_details['user_data']['avatar']}45*45{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s6')}{/if}"  id="img_urlthirty_general" /><span id="show_35">{if $teacher_details['user_data']['avatar']}35*35{/if}</span>
     </div>
     <br /><br />
 

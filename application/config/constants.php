@@ -503,10 +503,6 @@ define('ROUND_ICON_FENGKUANGREMAI',6);//疯狂热卖
 
 define('ROUND_ICON_FENGKUANGREMAI_EDGE',150);//疯狂热卖阈值
 
-define('TEACHER_AUTH_WIDTH',169);//教师证书宽
-define('TEACHER_AUTH_HEIGHT',227);//教师证书高
-define('TEACHER_TITLE_WIDTH',130);//教师头像宽
-define('TEACHER_TITLE_HEIGHT',130);//教师头像高
 define('INDEX_FOCUS_WIDTH',570);//首页轮播图宽
 define('INDEX_FOCUS_HEIGHT',293);//首页轮播图高
 

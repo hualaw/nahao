@@ -14,8 +14,8 @@ define(function(require,exports){
                 var data = jQuery.parseJSON(data);
                 //alert(data);
                 var size = {
-                    'general_width' : teacher_auth_width,
-                    'general_height' : teacher_auth_height
+                    'general_width' : _img_url_profile_w1,
+                    'general_height' : _img_url_profile_w1
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
@@ -41,8 +41,8 @@ define(function(require,exports){
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {
-                    'general_width' : teacher_auth_width,
-                    'general_height' : teacher_auth_height
+                    'general_width' : _img_url_profile_w1,
+                    'general_height' : _img_url_profile_w1
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
@@ -68,8 +68,8 @@ define(function(require,exports){
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {
-                    'general_width' : teacher_auth_width,
-                    'general_height' : teacher_auth_height
+                    'general_width' : _img_url_profile_w1,
+                    'general_height' : _img_url_profile_w1
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
@@ -95,24 +95,28 @@ define(function(require,exports){
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var size = {
-                    'general_width' : teacher_title_width,
-                    'general_height' : teacher_title_height
+                    'general_width' : _img_url_avatar_w1,
+                    'general_height' : _img_url_avatar_h1
                 };
                 var sizehundred = {
-                    'general_width' : 100,
-                    'general_height' : 100
+                    'general_width' : _img_url_avatar_w2,
+                    'general_height' : _img_url_avatar_h2
                 };
                 var sizeseventy = {
-                    'general_width' : 70,
-                    'general_height' : 70
+                    'general_width' : _img_url_avatar_w3,
+                    'general_height' : _img_url_avatar_h3
                 };
                 var sizefifty = {
-                    'general_width' : 50,
-                    'general_height' : 50
+                    'general_width' : _img_url_avatar_w4,
+                    'general_height' : _img_url_avatar_h4
                 };
                 var sizefortyfive = {
-                    'general_width' : 45,
-                    'general_height' : 45
+                    'general_width' : _img_url_avatar_w5,
+                    'general_height' : _img_url_avatar_h5
+                };
+                var sizethirty = {
+                    'general_width' : _img_url_avatar_w6,
+                    'general_height' : _img_url_avatar_h6
                 };
                 var img_url = data.key;
                 var img_url_general = _qiniu_url+data.key+'?imageView/2/w/'+size.general_width+'/h/'+size.general_height;
@@ -120,6 +124,7 @@ define(function(require,exports){
                 var img_urlseventy_general = _qiniu_url+data.key+'?imageView/2/w/'+sizeseventy.general_width+'/h/'+sizeseventy.general_height;
                 var img_urlfifty_general = _qiniu_url+data.key+'?imageView/2/w/'+sizefifty.general_width+'/h/'+sizefifty.general_height;
                 var img_urlfortyfive_general = _qiniu_url+data.key+'?imageView/2/w/'+sizefortyfive.general_width+'/h/'+sizefortyfive.general_height;
+                var img_urlthirty_general = _qiniu_url+data.key+'?imageView/2/w/'+sizethirty.general_width+'/h/'+sizethirty.general_height;
 //                console.log(img_url);
 //                console.log(img_url_general);
                 $('#show_130').html('130*130');
@@ -127,12 +132,14 @@ define(function(require,exports){
                 $('#show_70').html('70*70');
                 $('#show_50').html('50*50');
                 $('#show_45').html('45*45');
+                $('#show_35').html('35*35');
                 $("#teacher_avatar_img").val(img_url);
                 $('#img_avatar').attr('src',img_url_general);
                 $('#img_urlhundred_general').attr('src',img_urlhundred_general);
                 $('#img_urlseventy_general').attr('src',img_urlseventy_general);
                 $('#img_urlfifty_general').attr('src',img_urlfifty_general);
                 $('#img_urlfortyfive_general').attr('src',img_urlfortyfive_general);
+                $('#img_urlthirty_general').attr('src',img_urlthirty_general);
                 /*添加教师职称证书图片*/
             }
         });
