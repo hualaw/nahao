@@ -50,7 +50,7 @@ class Add_All_Permission extends NH_Controller
     					$data['name'] = $doc_result;
     					$data['status'] = 1;
     					T(TABLE_PERMISSION)->add($data);
-    					log_message('debug_nahao','添加权限：'.print_r($data,true));
+    					//log_message('debug_nahao','添加权限：'.print_r($data,true));
     				}
     			}
     			

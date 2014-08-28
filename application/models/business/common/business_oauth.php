@@ -114,7 +114,7 @@ class Business_Oauth extends NH_Model
         if($user_id && $user_info['phone_verified']) {
             $phone = get_pnum_phone_server($user_id);
         }
-        log_message('debug_nahao', "In business_oauth, user_id is $user_id , phone is $phone");
+        //log_message('debug_nahao', "In business_oauth, user_id is $user_id , phone is $phone");
         $reg_type = 3;
         $remb_me = 1;
         //set session data

@@ -259,7 +259,7 @@ class Business_List extends NH_Model
     		//学习人数
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
-	       	$val['img_url'] 	= empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_img_url($val['img'],'course_s4');
+	       	$val['img_url'] 	= empty($val['img']) ? get_img_url(HOME_IMG_DEFAULT,'course_s4') : get_img_url($val['img'],'course_s4');
     		//用户头像
     		$val['avater_url'] 	= $this->get_user_avater($val['teacher_id']);
     		//subtitle
@@ -294,7 +294,7 @@ class Business_List extends NH_Model
     		//学习人数
     		$val['study_count'] = $val['bought_count'] + $val['extra_bought_count'];
     		//课程图片
-	       	$val['img_url'] 	= empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_img_url($val['img'],'course_s4');
+	       	$val['img_url'] 	= empty($val['img']) ? get_img_url(HOME_IMG_DEFAULT,'course_s5') : get_img_url($val['img'],'course_s5');
     		//价格整形
     		$val['price']		= intval($val['price']);
     		$val['sale_price']	= intval($val['sale_price']);
@@ -316,9 +316,9 @@ class Business_List extends NH_Model
     			$avatar = get_img_url($array_return['avatar'],'avatar_s5');;
     		} else {
     			if ($array_return['teach_priv'] == 1){
-    				$avatar = static_url(DEFAULT_TEACHER_AVATER);
+    				$avatar = get_img_url(DEFAULT_TEACHER_AVATER,'avatar_s5');
     			} else{
-    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
+    				$avatar = get_img_url(DEFAULT_STUDENT_AVATER,'avatar_s5');
     			}
     		}
     	}

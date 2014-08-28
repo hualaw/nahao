@@ -155,7 +155,7 @@ class NH_Model extends CI_Model
             'exit_time' => 0,
         );
 
-        log_message('debug_nahao', 'NH_Model/set_session_data, '.print_r($session_log,1));
+        //log_message('debug_nahao', 'NH_Model/set_session_data, '.print_r($session_log,1));
         $CI->msl->update_session_log($session_log);
     }
 

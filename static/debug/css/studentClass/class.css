@@ -92,7 +92,7 @@
 
 /*标签开始*/
 .studentClass .markList{position: absolute;right: 8px;top:-3px;z-index: 10;}
-.studentClass .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;display: block;padding: 3px 6px;line-height: 14px;}
+.studentClass .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;display: block;padding: 3px 8px 3px 5px;line-height: 14px;}
 .studentClass .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
 .studentClass .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
 /*首页导航上的全部课程分类默认展开的样式结束*/

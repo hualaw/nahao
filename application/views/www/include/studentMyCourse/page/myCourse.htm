@@ -328,7 +328,7 @@
                     <a href="{$course_url}ke_{$item.id}.html">
                         <div class="teacherWrap">
                             <div class="cf teacherTop">
-                                <img class="fl teacherImg" src="{$item.teacher.avatar}" alt="头像">
+                                <img class="fl teacherImg" src="{if empty($item.teacher.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.teacher.avatar,'avatar_s5')}{/if}" alt="头像">
 									<span class="fl teacherInfo">
 										<span class="tName">{$item.teacher.nickname}</span>
 										<span class="tAge">
