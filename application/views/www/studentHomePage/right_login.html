@@ -73,7 +73,7 @@
         <!-- 用户图像开始 -->
         {if $user_detail.avatar==""}
         <a href="/member/my_infor" target="_blank" title="{$nickname}" class="fl">
-            <img src="{$userdata.avatar}" alt="{$nickname}" class="UserImg">
+            <img src="{get_img_url($smarty.const.DEFAULT_STUDENT_AVATER,'avatar_s5')}" alt="{$nickname}" class="UserImg">
         </a>
         {else}
         <a href="/member/my_infor" target="_blank" title="{$nickname}" class="fl">
