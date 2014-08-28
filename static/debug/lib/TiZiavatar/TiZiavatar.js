@@ -39,8 +39,8 @@
 	}
 	var vars = {
 		id : id,
-		avatar_sizes_desc : "130*130像素",
-        avatar_sizes    :   "130*130",//多个尺寸用|分隔
+		avatar_sizes_desc : "130*130像素|50*50像素",
+        avatar_sizes    :   "130*130|50*50",//多个尺寸用|分隔
         tab_visible: false,//不显示选项卡，外部自定义
         button_visible: false,//不显示按钮，外部自定义
         checkbox_visible: false,//不显示复选框，外部自定义
