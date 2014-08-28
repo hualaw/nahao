@@ -115,7 +115,7 @@ class Student_Index extends NH_Model{
         #处理数据
         $array_return['start_time'] = date("n月j日",$array_return['start_time']);
         $array_return['end_time'] = date("n月j日",$array_return['end_time']);
-        $array_return['img'] = empty($array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_img_url($array_return['img'],'course_s4');
+        $array_return['img'] = $array_return['img'];
         }
         return $array_return;
     }
