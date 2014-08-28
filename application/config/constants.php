@@ -106,7 +106,7 @@ define('ORDER_TYPE_OFFLINE', 4);
 define('HOME_IMG_DEFAULT', 'nahao_default_course');
 define('DEFAULT_STUDENT_AVATER', 'nahao_default_avatar');
 define('DEFAULT_TEACHER_AVATER', 'nahao_default_avatar');
-define('DEFAULT_MANGER_AVATER', 'nahao_default_avatar_admin');
+define('DEFAULT_MANGER_AVATER', 'nahao_default_avatar_admin_new');
 /*
  * 老师角色
  * 主讲 1
