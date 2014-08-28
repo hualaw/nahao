@@ -69,13 +69,13 @@
 								</span>
                         <!-- 标签列表结束 -->
                         <a target="_blank" href="/ke_{$v.id}.html" class="courseDesc">
-                            <img src="{if empty($v.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_img_url($v.img,'course_s2')}{/if}" alt="123" class="cDescImg">
+                            <img src="{if empty($v.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s2')}{else}{get_img_url($v.img,'course_s2')}{/if}" alt="123" class="cDescImg">
                             <!-- hover时候显示的教师信息开始 -->
                             <div class="hoverDesc">
                                 <div class="innerDesc">
                                     <!-- 教师图像和简介开始 -->
                                     <div class="cf teacherWrap">
-                                        <img src="{if empty($v.avatar)}{static_url($smarty.const.DEFAULT_TEACHER_AVATER)}{else}{get_img_url($v.avatar,'avatar_s5')}{/if}"
+                                        <img src="{if empty($v.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($v.avatar,'avatar_s5')}{/if}"
                                              alt="{$v.nickname}" class="fl">
                                         <!-- 教师姓名和教龄开始 -->
 												<span class="fl teacherName">

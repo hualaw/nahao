@@ -28,7 +28,7 @@ class MyTest extends CI_Controller{
 
     public function hash_test()
     {
-        $hash_value = nahao_hash('abc', 4);
+        $hash_value = nahao_hash('abcd', 4);
         echo $hash_value;
     }
 } 
