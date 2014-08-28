@@ -363,6 +363,8 @@ $config['material_version'][13] = '语文版';
 $config['material_version'][14] = '外研版';
 $config['material_version'][15] = '鲁科版';
 $config['material_version'][16] = '华东师大';
+$config['material_version'][17] = '苏科版';
+$config['material_version'][18] = '沪科版';
 
 //教育类型
 $config['education_type'][ROUND_TYPE_ALL] = '全部教育类型';
