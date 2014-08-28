@@ -10,6 +10,7 @@ class Student_Member extends NH_Model{
         $this->load->model('business/student/student_order');
     }
 
+    /*
     public function get_my_course_for_buy($int_user_id)
     {
         $array_return = array();
@@ -56,6 +57,7 @@ class Student_Member extends NH_Model{
         //var_dump($array_return);die;
         return $array_return;
     }
+    */
 
     public function get_my_course_by_where($int_user_id,$status = '',$offset = 0)
     {
