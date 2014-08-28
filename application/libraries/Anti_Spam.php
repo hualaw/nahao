@@ -21,7 +21,7 @@ class Anti_Spam
     static $data = array(
         self::TYPE_MINUTE => array(
             'timeout' => 60, //计数失效时间
-            'limit' => 2000, //频率限制
+            'limit' => 600, //频率限制
             'expire' => 600, //封禁时间
         ),
         self::TYPE_HOUR => array(
@@ -31,7 +31,7 @@ class Anti_Spam
         ),
         self::TYPE_DAY => array(
             'timeout' => 86400,
-            'limit' => 200000,
+            'limit' => 50000,
             'expire' => 86400,
         ),
     );
@@ -191,7 +191,7 @@ class Anti_Spam
         $key = 'visited_' . $type . '_' . self::getClient();
         $result = self::$connection->get($key);
         //echo $key . " " . $result . "\n";
-        self::logmsg("in get, get ".intval($result), self::TEMP_KEY_FILENAME);
+        //self::logmsg("in get, get ".intval($result), self::TEMP_KEY_FILENAME);
         return intval($result);
     }
 
