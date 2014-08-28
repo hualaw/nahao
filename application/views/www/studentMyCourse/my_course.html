@@ -4,12 +4,12 @@
             foreach($my_course as $course){
     ?>
     <li class="cf cItem">
-        <a href="#" class="fl">
+        <a href="/course/buy_after/<?=$course['round_id']?>" class="fl">
             <img src="<?=$course['class_img']?>" alt="<?=$course['class_img']?>" class="cImg">
         </a>
         <div class="fl cDesc">
             <h4 >
-                <a href="#" class="cTitle" title="<?=$course['title']?>"><?=csubstr($course['title'],0,15,'utf-8','...')?></a>
+                <a href="/course/buy_after/<?=$course['round_id']?>" class="cTitle" title="<?=$course['title']?>"><?=csubstr($course['title'],0,30,'utf-8','...')?></a>
             </h4>
             <?php if ($course['teach_status'] == ROUND_TEACH_STATUS_STOP){?>
                                 <span class="time">
