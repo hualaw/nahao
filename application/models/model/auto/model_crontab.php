@@ -195,8 +195,12 @@
 //            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND course_mode=3";
 //            return $this->db->query($sql)->result_array();
 
-            //不含免费试听
-            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND round.is_test!=2";
+            //不含免费试听（目前在使用，如有错误打开此注释）
+//            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND round.is_test!=2";
+//            return $this->db->query($sql)->result_array();
+
+            //不看销售状态
+            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5 OR round.sale_status=3) AND round.start_time=$advance_time AND round.is_test!=2";
             return $this->db->query($sql)->result_array();
         }
         /**
