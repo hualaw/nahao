@@ -36,7 +36,7 @@ class Member extends NH_User_Controller
 	$this->benchmark->mark('a');
         $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
 	$this->benchmark->mark('b');
-	$ab = $this->benckmark->elapsed_time('a', 'b');
+	$ab = $this->benchmark->elapsed_time('a', 'b');
 	log_message('debug_nahao', 'ab_runtime:'.$ab);
 
         #分页
@@ -66,7 +66,7 @@ class Member extends NH_User_Controller
         $this->pagination->initialize($config);
         $course_over_page = $this->pagination->createJSlinks('setPage');
 	$this->benchmark->mark('d');
-	$cd = $this->benckmark->elapsed_time('c', 'd');
+	$cd = $this->benchmark->elapsed_time('c', 'd');
 	log_message('debug_nahao', 'cd_runtime:'.$cd);
 
 	$this->benchmark->mark('e');
@@ -78,7 +78,7 @@ class Member extends NH_User_Controller
             $array_hot = $this->student_index->get_course_hot();
         }
 	$this->benchmark->mark('f');
-	$ef = $this->benckmark->elapsed_time('e', 'f');
+	$ef = $this->benchmark->elapsed_time('e', 'f');
 	log_message('debug_nahao', 'ef_runtime:'.$ef);
         $course_url = config_item('course_url');
 
