@@ -8,7 +8,9 @@ class famous_teacher extends NH_User_Controller {
     }
     // 沈明
     function shenming(){
-        $this->smarty->display('www/famous_teacher/shenming.html');
+	if( ENVIRONMENT != 'production' )
+	{
+        	$this->smarty->display('www/famous_teacher/shenming.html');
+	}
     }
-
 }
