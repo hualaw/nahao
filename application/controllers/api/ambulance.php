@@ -101,7 +101,8 @@ class Ambulance extends NH_Controller {
     public function replace(){
         error_reporting(E_ALL);
         ini_set('display_errors', true);
-        $arr = $this->db->select('id,description as d')->from(TABLE_COURSE)->get()->result_array();
+        set_time_limit(0);
+        $arr = $this->db->select('id,description as d')->from(TABLE_ROUND)->get()->result_array();
         foreach($arr as $k => $v){
             preg_match_all('/<img(.*)src="http:\/\/(.*).com\/(.*)\?imageView\/(.*)\/w\/600"/',$v['d'],$arr_match);
             if($arr_match[0]){
@@ -112,8 +113,12 @@ class Ambulance extends NH_Controller {
                 }
                 echo $v['id'].'--';
                 var_dump($v['d']);
+                $data = array('description'=> $v['d']);
+                $this->db->where('id',$v['id']);
+                $this->db->update(TABLE_COURSE,$data);
             }
         }
     }
+
 
 }
