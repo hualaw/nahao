@@ -307,28 +307,17 @@ class Student_Course extends NH_Model{
         #获取用户信息
         $array_data = $this->session->all_userdata();
         #去学生与课的关系表寻找信息
-        $array_return = $this->model_course->get_classmate_data($int_round_id);
-//         var_dump($array_return);die;
-        if ($array_return)
-        {
-            foreach ($array_return as $k=>$v)
-            {
-                #用户信息
-                $array_result = $this->model_member->get_user_infor($v['student_id']);
-                if (empty($array_result))
-                {
-                	unset($array_return[$k]);
-                	continue;
-                } else {
-                	#处理数据
-                	$array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
-                	$array_return[$k]['nickname'] = isset($array_result['nickname']) ? $array_result['nickname'] : '';
-                }
-                
-
+        $array_return = $this->model_course->get_classmate_uid($int_round_id);
+		$array_list = array();
+		$array_result = array();
+        if ($array_return){
+            foreach ($array_return as $k=>$v){
+            	$array_list[] = $v['student_id'];
             }
+			$in_where = implode(',', $array_list);
+			$array_result = $this->model_course->get_classmate_detail_data($in_where);
         }
-        return $array_return;
+        return $array_result;
     }
     
     /**

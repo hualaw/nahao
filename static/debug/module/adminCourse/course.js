@@ -57,7 +57,7 @@ define(function (require, exports) {
     //load ckeditor
     exports.load_ckeditor = function () {
         if($("#nahao_description").length >0){
-            CKEDITOR.replace('nahao_description',{ toolbar:'Basic',extraPlugins:'nahaovideo', height:300 ,width:700});
+            CKEDITOR.replace('nahao_description',{ toolbar:'Basic',extraPlugins:'nahaovideo', height:300 ,width:750});
         }
     };
 

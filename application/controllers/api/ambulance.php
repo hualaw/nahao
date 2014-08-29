@@ -98,7 +98,27 @@ class Ambulance extends NH_Controller {
 
     }
 
-    public function get_ss(){
-//        o($this->session->all_userdata());
+    public function replace(){
+        error_reporting(E_ALL);
+        ini_set('display_errors', true);
+        set_time_limit(0);
+        $arr = $this->db->select('id,description as d')->from(TABLE_ROUND)->get()->result_array();
+        foreach($arr as $k => $v){
+            preg_match_all('/<img(.*)src="http:\/\/(.*).com\/(.*)\?imageView\/(.*)\/w\/600"/',$v['d'],$arr_match);
+            if($arr_match[0]){
+                var_dump($arr_match);
+                foreach($arr_match[0] as $kk =>$vv){
+                    $new = '<img '.$arr_match[1][$kk].' src="'.str_replace('1',nahao_hash($arr_match[3][$kk],4),NH_QINIU_URL).$arr_match[3][$kk].'/c.720.jpg"';
+                    $v['d'] = str_replace($arr_match[0][$kk],$new,$v['d']);
+                }
+                echo $v['id'].'--';
+                var_dump($v['d']);
+                $data = array('description'=> $v['d']);
+                $this->db->where('id',$v['id']);
+                $this->db->update(TABLE_COURSE,$data);
+            }
+        }
     }
+
+
 }

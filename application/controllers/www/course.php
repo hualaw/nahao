@@ -124,9 +124,8 @@ class Course extends NH_User_Controller {
 	    if (!$bool_flag){
 	        show_error("您没有购买此轮课程！");
 	    }
-
 	    #课堂同学
-	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);
+	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);    
 	    #课堂同学总数
 	    $int_classmates = count($array_classmate);
 	    #课程公告
@@ -135,6 +134,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
+
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
