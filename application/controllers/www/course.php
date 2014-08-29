@@ -124,17 +124,34 @@ class Course extends NH_User_Controller {
 	    if (!$bool_flag){
 	        show_error("您没有购买此轮课程！");
 	    }
-
+		$this->load->library('benchmark');
+		$this->benchmark->mark('a');
 	    #课堂同学
 	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);
+	    $this->benchmark->mark('b');
+	    $ab = $this->benchmark->elapsed_time('a','b');
+	    log_message('debug_nahao','课堂同学用时间'.$ab);
+	    
 	    #课堂同学总数
 	    $int_classmates = count($array_classmate);
+	    $this->benchmark->mark('c');
 	    #课程公告
 	    $array_note = $this->student_course->get_class_note_data($int_round_id);
+	    $this->benchmark->mark('d');
+	    $ab1 = $this->benchmark->elapsed_time('c','d');
+	    log_message('debug_nahao','课程公告用时间'.$ab1);
+	    $this->benchmark->mark('e');
 	    #课程大纲
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
+	    $this->benchmark->mark('f');
+	    $ab2 = $this->benchmark->elapsed_time('e','f');
+	    log_message('debug_nahao','课程大纲用时间'.$ab2);
+	    $this->benchmark->mark('xx');
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
+	    $this->benchmark->mark('rr');
+	    $ab3 = $this->benchmark->elapsed_time('xx','rr');
+	    log_message('debug_nahao','即将上课的信息--购买后顶部用时间'.$ab3);
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
