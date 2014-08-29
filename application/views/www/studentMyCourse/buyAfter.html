@@ -282,7 +282,7 @@
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
 						<img src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_STUDENT_AVATER,'avatar_s6')}{else}{get_img_url($item.avatar,'avatar_s6')}{/if}" alt="" class="fl">
-						<span title="{$item.nickname}" class="fl">{$item.nickname}</span>
+						<span title="{if empty($item.nickname)}{else}{$item.nickname}{/if}" class="fl">{if empty($item.nickname)}{else}{$item.nickname}{/if}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}
