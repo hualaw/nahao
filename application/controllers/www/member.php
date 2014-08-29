@@ -31,8 +31,13 @@ class Member extends NH_User_Controller
         header('content-type: text/html; charset=utf-8');
         $int_user_id = $this->session->userdata('user_id'); #TODO用户id
         #我购买的课程
+	$this->load->library('benchmark');
         #全部课程
+	$this->benchmark->mark('a');
         $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
+	$this->benchmark->mark('b');
+	$ab = $this->benckmark->elapsed_time('a', 'b');
+	log_message('debug_nahao', 'ab_runtime:'.$ab);
 
         #分页
         $this->load->library('pagination');
@@ -43,6 +48,7 @@ class Member extends NH_User_Controller
         $show_page = $this->pagination->createJSlinks('setPage');
 
         #正在进行的课程
+	$this->benchmark->mark('c');
         $course_living = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_TEACH);
         $config['total_rows'] = $course_living['total'];
         $this->pagination->initialize($config);
@@ -59,7 +65,11 @@ class Member extends NH_User_Controller
         $config['total_rows'] = $course_over['total'];
         $this->pagination->initialize($config);
         $course_over_page = $this->pagination->createJSlinks('setPage');
+	$this->benchmark->mark('d');
+	$cd = $this->benckmark->elapsed_time('c', 'd');
+	log_message('debug_nahao', 'cd_runtime:'.$cd);
 
+	$this->benchmark->mark('e');
         if (HOT_NEW_COURSE) {
             #最新课程
             $array_new = $this->student_index->get_course_latest_round_list();
@@ -67,6 +77,9 @@ class Member extends NH_User_Controller
             #热报课程
             $array_hot = $this->student_index->get_course_hot();
         }
+	$this->benchmark->mark('f');
+	$ef = $this->benckmark->elapsed_time('e', 'f');
+	log_message('debug_nahao', 'ef_runtime:'.$ef);
         $course_url = config_item('course_url');
 
         $this->smarty->assign('action', 'my_course');
