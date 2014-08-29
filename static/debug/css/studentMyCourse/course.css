@@ -62,6 +62,7 @@
 .studentMyCourse .nav_tabs .tabItem.active a{color:#ce0000;}
 .studentMyCourse .nav_tabs .tabItem.active a:hover{color: #ce0000;}
 .studentMyCourse .courseTabList .tabItem{float: left;width: 194px;border-left: 1px solid #e0e0e0;text-align: center;background-color: #f7f7f7;font-size: 14px;}
+.studentMyCourse .courseTabList .tabItem a{display: block;}
 .studentMyCourse .courseTabList .tabItem.firstTab{border-left: none;}
 .studentMyCourse .list_tabs .tabContent .item{display: none;}
 .studentMyCourse .list_tabs .tabContent .item.active{display: block;}

@@ -17,19 +17,27 @@ define(function(require,exports){
             onUploadSuccess: function(file, data, response) {
                 var data = jQuery.parseJSON(data);
                 var img_url = data.key;
-                var img_url_general = _qiniu_url+img_url+'?imageView/1/w/'+_img_url_general_width+'/h/'+_img_url_general_height;
-                var img_url_live = _qiniu_url+img_url+'?imageView/1/w/'+_img_url_live_width+'/h/'+_img_url_live_height;
-                var img_url_index = _qiniu_url+img_url+'?imageView/1/w/'+_img_url_index_width+'/h/'+_img_url_index_height;
-                var img_url_bug_before_top = _qiniu_url+img_url+'?imageView/1/w/'+_img_url_bug_before_top_width+'/h/'+_img_url_bug_before_top_height;
-                var img_url_buy_before_recommend = _qiniu_url+img_url+'?imageView/1/w/'+_img_url_buy_before_recommend_width+'/h/'+_img_url_buy_before_recommend_height;
-                var img_url_recent_view = _qiniu_url+img_url+'?imageView/1/w/'+_img_url_recent_view_width+'/h/'+_img_url_recent_view_height;
+                var img_url_s1 = _qiniu_url+img_url+'/c.'+_img_url_course_w1+'.'+_img_url_course_h1+'.jpg';
+                var img_url_s2 = _qiniu_url+img_url+'/c.'+_img_url_course_w2+'.'+_img_url_course_h2+'.jpg';
+                var img_url_s3 = _qiniu_url+img_url+'/c.'+_img_url_course_w3+'.'+_img_url_course_h3+'.jpg';
+                var img_url_s4 = _qiniu_url+img_url+'/c.'+_img_url_course_w4+'.'+_img_url_course_h4+'.jpg';
+                var img_url_s5 = _qiniu_url+img_url+'/c.'+_img_url_course_w5+'.'+_img_url_course_h5+'.jpg';
+                var img_url_s6 = _qiniu_url+img_url+'/c.'+_img_url_course_w6+'.'+_img_url_course_h6+'.jpg';
+                var img_url_s7 = _qiniu_url+img_url+'/c.'+_img_url_course_w7+'.'+_img_url_course_h7+'.jpg';
+                var img_url_s8 = _qiniu_url+img_url+'/c.'+_img_url_course_w8+'.'+_img_url_course_h8+'.jpg';
+                var img_url_s9 = _qiniu_url+img_url+'/c.'+_img_url_course_w9+'.'+_img_url_course_h9+'.jpg';
+                var img_url_s10 = _qiniu_url+img_url+'/c.'+_img_url_course_w10+'.'+_img_url_course_h10+'.jpg';
 
-                $('#img_url_general').attr('src',img_url_general);
-                $('#img_url_live').attr('src',img_url_live);
-                $('#img_url_index').attr('src',img_url_index);
-                $('#img_url_bug_before_top').attr('src',img_url_bug_before_top);
-                $('#img_url_buy_before_recommend').attr('src',img_url_buy_before_recommend);
-                $('#img_url_recent_view').attr('src',img_url_recent_view);
+                $('#img_url_s1').attr('src',img_url_s1);
+                $('#img_url_s2').attr('src',img_url_s2);
+                $('#img_url_s3').attr('src',img_url_s3);
+                $('#img_url_s4').attr('src',img_url_s4);
+                $('#img_url_s5').attr('src',img_url_s5);
+                $('#img_url_s6').attr('src',img_url_s6);
+                $('#img_url_s7').attr('src',img_url_s7);
+                $('#img_url_s8').attr('src',img_url_s8);
+                $('#img_url_s9').attr('src',img_url_s9);
+                $('#img_url_s10').attr('src',img_url_s10);
                 $('#img_url').attr('src',img_url);
             }
         });
