@@ -219,7 +219,7 @@ class Model_Member extends NH_Model{
     {
         $array_result = array();
         $sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM ".TABLE_USER." u LEFT JOIN ".TABLE_USER_INFO." ui ON u.id = ui.user_id WHERE ui.user_id = ".$int_user_id." AND u.status = 1 AND ui.status = 1";
-        //echo $sql.'-----';
+//         echo $sql.'-----';die;
         $array_result = $this->db->query($sql)->row_array();
         return  $array_result;
     }
