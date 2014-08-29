@@ -374,6 +374,64 @@ class Classroom extends NH_User_Controller {
             die('');
         }
     }
+    
+    /**
+     * 体验教室入口
+     */
+    public function experience_enter(){
+    	$int_classroom_id = intval($this->uri->rsegment(3));
+    	if (empty($int_classroom_id))
+    	{
+    		show_error('缺少教室参数');
+    	}
+    	if($int_classroom_id != TEACHER_EXPERIENCE_ENTER_CLASSROOMID){
+    		show_error('不是体验教室');
+    	}
+    	#根据classroom_id获取课id
+    	$array_class = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+    	
+    	if(empty($array_class)){
+    		show_error('教室参数信息不完整');
+    	}
+    	$array_user = $this->_user_detail;
+    	$int_user_type = $array_user['teach_priv'];
+    	#判断当前用户是学生还是老师。 0是学生，1是老师
+    	if($int_user_type == NH_MEETING_TYPE_STUDENT)
+    	{
+    		show_error('您不是老师身份，不能进教室讲课');
+    	}else{
+    		$str_classroom_url = '/classroom/main.html?';
+	        $array_params = array(
+	            'UserDBID' => $this->session->userdata('user_id'),
+	            'ClassID'  => $int_classroom_id,
+	            'UserType' => $int_user_type,
+	        );
+	        $this->load->model('business/common/business_user');
+	        //新增：如果是老师，并且有代理服务器，传mcu服务器地址
+	        $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
+	        $McuAddr_query_param = '';
+	        if(isset($_user_detail['teach_priv'])&&$_user_detail['teach_priv']==NH_MEETING_TYPE_TEACHER && $_user_detail['proxy']>0){
+	        	$mcu_arr = config_item('McuAddr');
+	        	if(isset($mcu_arr[$_user_detail['proxy']])){
+	        		$McuAddr_query_param = '&McuAddr='.$mcu_arr[$_user_detail['proxy']];
+	        	}
+	        }
+	        $className = !empty($array_class['title']) ? urlencode($array_class['title']) : '';
+	        $UserName = urlencode($this->session->userdata('nickname'));
+	        //新增：AES加密flash链接
+	        $uri = http_build_query($array_params);
+	        $aes_config = array(config_item('AES_key'));
+	        $this->load->library('AES', $aes_config, 'aes');
+	        $aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
+	        log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
+	        $str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&t=1&SwfVer='.(config_item('classroom_swf_version')).$McuAddr_query_param;
+	       	$str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+    	}
+    	$this->smarty->assign('classroom_id',$int_classroom_id);
+    	$this->smarty->assign('class_id',$array_class['id']);
+    	$this->smarty->assign('iframe',$str_iframe);
+    	$this->smarty->display('www/classRoom/index.html');
+    }
 }
 
 /* End of file welcome.php */
