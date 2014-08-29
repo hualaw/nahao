@@ -71,7 +71,7 @@ define(function(require,exports){
                 type: 'POST',
                 data: {status:status,offset:offset},
                 success: function(data) {
-                    $('#my_course_page_'+status).html(data);
+                    $('#my_course_page').html(data);
                 }
             });
         }

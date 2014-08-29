@@ -30,35 +30,51 @@ class Member extends NH_User_Controller
     {
         header('content-type: text/html; charset=utf-8');
         $int_user_id = $this->session->userdata('user_id'); #TODO用户id
+
         #我购买的课程
-        #全部课程
-        $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
+        switch($status){
+            case 0:
+            case ROUND_TEACH_STATUS_TEACH:
+            case ROUND_TEACH_STATUS_INIT:
+            case ROUND_TEACH_STATUS_STOP:
+                $my_courses = $this->student_member->get_my_course_by_where($int_user_id, $status);
+                $this->load->library('pagination');
+                $config = config_item('page_user');
+                $config['total_rows'] = $my_courses['total'];
+                $this->pagination->initialize($config);
+                $page = $this->pagination->createJSlinks('setPage');
+                break;
+            default:
+                return false;
+        }
+//        #全部课程
+//        $array_buy_course = $this->student_member->get_my_course_by_where($int_user_id);
 
         #分页
-        $this->load->library('pagination');
-        $config = config_item('page_user');
-        $config['total_rows'] = $array_buy_course['total'];
-        $config['per_page'] = PER_PAGE_NO;
-        $this->pagination->initialize($config);
-        $show_page = $this->pagination->createJSlinks('setPage');
-
-        #正在进行的课程
-        $course_living = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_TEACH);
-        $config['total_rows'] = $course_living['total'];
-        $this->pagination->initialize($config);
-        $course_living_page = $this->pagination->createJSlinks('setPage');
-
-        #即将开始
-        $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_INIT);
-        $config['total_rows'] = $course_soon_class['total'];
-        $this->pagination->initialize($config);
-        $course_soon_page = $this->pagination->createJSlinks('setPage');
-
-        #已结束
-        $course_over = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_STOP);
-        $config['total_rows'] = $course_over['total'];
-        $this->pagination->initialize($config);
-        $course_over_page = $this->pagination->createJSlinks('setPage');
+//        $this->load->library('pagination');
+//        $config = config_item('page_user');
+//        $config['total_rows'] = $my_courses['total'];
+//        $config['per_page'] = PER_PAGE_NO;
+//        $this->pagination->initialize($config);
+//        $show_page = $this->pagination->createJSlinks('setPage');
+//
+//        #正在进行的课程
+//        $course_living = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_TEACH);
+//        $config['total_rows'] = $course_living['total'];
+//        $this->pagination->initialize($config);
+//        $course_living_page = $this->pagination->createJSlinks('setPage');
+//
+//        #即将开始
+//        $course_soon_class = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_INIT);
+//        $config['total_rows'] = $course_soon_class['total'];
+//        $this->pagination->initialize($config);
+//        $course_soon_page = $this->pagination->createJSlinks('setPage');
+//
+//        #已结束
+//        $course_over = $this->student_member->get_my_course_by_where($int_user_id, ROUND_TEACH_STATUS_STOP);
+//        $config['total_rows'] = $course_over['total'];
+//        $this->pagination->initialize($config);
+//        $course_over_page = $this->pagination->createJSlinks('setPage');
 
         if (HOT_NEW_COURSE) {
             #最新课程
@@ -71,23 +87,28 @@ class Member extends NH_User_Controller
 
         $this->smarty->assign('action', 'my_course');
         $this->smarty->assign('course_url', $course_url);
-        $this->smarty->assign('array_buy_course', $array_buy_course['list']);
-        $this->smarty->assign('all_page', $show_page);
 
-        $this->smarty->assign('course_living', $course_living['list']);
-        $this->smarty->assign('course_living_page', $course_living_page);
+        $this->smarty->assign('my_courses', $my_courses['list']);
+        $this->smarty->assign('page', $page);
 
-        $this->smarty->assign('course_soon_class', $course_soon_class['list']);
-        $this->smarty->assign('course_soon_page', $course_soon_page);
-
-        $this->smarty->assign('course_over', $course_over['list']);
-        $this->smarty->assign('course_over_page', $course_over_page);
+//        $this->smarty->assign('array_buy_course', $array_buy_course['list']);
+//        $this->smarty->assign('all_page', $show_page);
+//
+//        $this->smarty->assign('course_living', $course_living['list']);
+//        $this->smarty->assign('course_living_page', $course_living_page);
+//
+//        $this->smarty->assign('course_soon_class', $course_soon_class['list']);
+//        $this->smarty->assign('course_soon_page', $course_soon_page);
+//
+//        $this->smarty->assign('course_over', $course_over['list']);
+//        $this->smarty->assign('course_over_page', $course_over_page);
 
         if (HOT_NEW_COURSE) {
             $this->smarty->assign('array_new', $array_new);
             $this->smarty->assign('array_hot', $array_hot);
         }
         $this->smarty->assign('page_type', 'myCourse');
+        $this->smarty->assign('status', $status);
         $this->smarty->display('www/studentMyCourse/index.html');
     }
 
