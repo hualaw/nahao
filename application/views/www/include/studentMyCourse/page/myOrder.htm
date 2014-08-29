@@ -34,7 +34,7 @@
 					<td class="oInfor">
 						<p class="ordernum">订单编号<span>{$item.id}</span></p>
 						<div>
-							<img src="{$item.class_img}" alt="">
+							<img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s9')}{else}{get_img_url($item.class_img,'course_s9')}{/if}" alt="">
 						</div>
 						<p class="orderTitle" title="{$item.title}">{$item.title|truncate:18:"...":true}</p>
 					</td>
@@ -118,7 +118,7 @@
 					<td class="oInfor">
 						<p class="ordernum">订单编号<span>{$item.id}</span></p>
 						<div>
-							<img src="{$item.class_img}" alt="">
+							<img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s9')}{else}{get_img_url($item.class_img,'course_s9')}{/if}" alt="">
 						</div>
 						<p class="orderTitle" title="{$item.title}">{$item.title|truncate:18:"...":true}</p>
 					</td>
@@ -199,7 +199,7 @@
 					<td class="oInfor">
 						<p class="ordernum">订单编号<span>{$item.id}</span></p>
 						<div>
-							<img src="{$item.class_img}" alt="">
+							<img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s9')}{else}{get_img_url($item.class_img,'course_s9')}{/if}" alt="">
 						</div>
 						<p class="orderTitle" title="{$item.title}">{$item.title|truncate:18:"...":true}</p>
 					</td>
@@ -280,7 +280,7 @@
 					<td class="oInfor">
 						<p class="ordernum">订单编号<span>{$item.id}</span></p>
 						<div>
-							<img src="{$item.class_img}" alt="">
+							<img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s9')}{else}{get_img_url($item.class_img,'course_s9')}{/if}" alt="">
 						</div>
 						<p class="orderTitle" title="{$item.title}">{$item.title|truncate:18:"...":true}</p>
 					</td>
@@ -361,7 +361,7 @@
 					<td class="oInfor">
 						<p class="ordernum">订单编号<span>{$item.id}</span></p>
 						<div>
-							<img src="{$item.class_img}" alt="">
+							<img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s9')}{else}{get_img_url($item.class_img,'course_s9')}{/if}" alt="">
 						</div>
 						<p class="orderTitle" title="{$item.title}">{$item.title|truncate:18:"...":true}</p>
 					</td>

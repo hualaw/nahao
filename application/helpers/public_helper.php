@@ -556,27 +556,34 @@ function get_course_img_by_size($str_img_url, $str_size){
  * @author yanrui@tizi.com
  */
 function get_img_url($str_img_uri, $str_size){
-    $str_img_url = NH_QINIU_URL.$str_img_uri;
-    $arr_allow_size = array(
-        'course_s1' => 'c.'.NH_IMG_SIZE_COURSE_W1.'.'.NH_IMG_SIZE_COURSE_H1,//230x147 首页直播课封面
-        'course_s2' => 'c.'.NH_IMG_SIZE_COURSE_W2.'.'.NH_IMG_SIZE_COURSE_H2,//367x235 首页课程列表封面
-        'course_s3' => 'c.'.NH_IMG_SIZE_COURSE_W3.'.'.NH_IMG_SIZE_COURSE_H3,//80x51 全局浏览记录课程封面,后台课程和轮列表封面
-        'course_s4' => 'c.'.NH_IMG_SIZE_COURSE_W4.'.'.NH_IMG_SIZE_COURSE_H4,//240x154 列表页课程列表封面
-        'course_s5' => 'c.'.NH_IMG_SIZE_COURSE_W5.'.'.NH_IMG_SIZE_COURSE_H5,//198x127 列表页猜你喜欢课程封面
-        'course_s6' => 'c.'.NH_IMG_SIZE_COURSE_W6.'.'.NH_IMG_SIZE_COURSE_H6,//440x280 购买前课程封面
-        'course_s7' => 'c.'.NH_IMG_SIZE_COURSE_W7.'.'.NH_IMG_SIZE_COURSE_H7,//200x127 购买前推荐课程封面
-        'course_s8' => 'c.'.NH_IMG_SIZE_COURSE_W8.'.'.NH_IMG_SIZE_COURSE_H8,//130x82 我的课程页面列表课程封面
-        'course_s9' => 'c.'.NH_IMG_SIZE_COURSE_W9.'.'.NH_IMG_SIZE_COURSE_H9,//50x50 我的订单页面列表课程封面
+    $str_return = '';
+    if($str_img_uri){
+        $int_server = nahao_hash($str_img_uri,4);
+        $str_img_url = str_replace('1',$int_server,NH_QINIU_URL).$str_img_uri;
+        $arr_allow_size = array(
+            'course_s1' => 'c.'.NH_IMG_SIZE_COURSE_W1.'.'.NH_IMG_SIZE_COURSE_H1,//230x147 首页直播课封面
+            'course_s2' => 'c.'.NH_IMG_SIZE_COURSE_W2.'.'.NH_IMG_SIZE_COURSE_H2,//367x235 首页课程列表封面
+            'course_s3' => 'c.'.NH_IMG_SIZE_COURSE_W3.'.'.NH_IMG_SIZE_COURSE_H3,//80x51 全局浏览记录课程封面,后台课程和轮列表封面
+            'course_s4' => 'c.'.NH_IMG_SIZE_COURSE_W4.'.'.NH_IMG_SIZE_COURSE_H4,//240x154 列表页课程列表封面
+            'course_s5' => 'c.'.NH_IMG_SIZE_COURSE_W5.'.'.NH_IMG_SIZE_COURSE_H5,//198x127 列表页猜你喜欢课程封面
+            'course_s6' => 'c.'.NH_IMG_SIZE_COURSE_W6.'.'.NH_IMG_SIZE_COURSE_H6,//440x280 购买前课程封面
+            'course_s7' => 'c.'.NH_IMG_SIZE_COURSE_W7.'.'.NH_IMG_SIZE_COURSE_H7,//200x127 购买前推荐课程封面
+            'course_s8' => 'c.'.NH_IMG_SIZE_COURSE_W8.'.'.NH_IMG_SIZE_COURSE_H8,//130x82 我的课程页面列表课程封面
+            'course_s9' => 'c.'.NH_IMG_SIZE_COURSE_W9.'.'.NH_IMG_SIZE_COURSE_H9,//50x50 我的订单页面列表课程封面
+            'course_s10' => 'c.'.NH_IMG_SIZE_COURSE_W10.'.'.NH_IMG_SIZE_COURSE_H10,//238x152 我的课程页面 最新课程和热报课程
 
-        'avatar_s1' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S1.'.'.NH_IMG_SIZE_USER_AVATAR_S1,//130x130 教师修改头像前预览
-        'avatar_s2' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S2.'.'.NH_IMG_SIZE_USER_AVATAR_S2,//100x100 购买前教师团队头像
-        'avatar_s3' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S3.'.'.NH_IMG_SIZE_USER_AVATAR_S3,//70x70 购买后教师团队头像
-        'avatar_s4' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S4.'.'.NH_IMG_SIZE_USER_AVATAR_S4,//50x50 首页登录后，个人中心左侧，购买前评价
-        'avatar_s5' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S5.'.'.NH_IMG_SIZE_USER_AVATAR_S5,//45x45 首页课程列表封面翻转后教师头像，列表页课程列表封面翻转后教师头像
-    	'avatar_s6' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S6.'.'.NH_IMG_SIZE_USER_AVATAR_S6,//35x35 首页登录后，个人中心左侧，购买前评价
-        'profile_s1' => 'p.'.NH_IMG_SIZE_USER_PROFILE_W1.'.'.NH_IMG_SIZE_USER_PROFILE_H1,//300x225 教师资格证书
-    );
-    return array_key_exists($str_size,$arr_allow_size) ? $str_img_url.'/'.$arr_allow_size[$str_size].'.jpg' : $str_img_url;
+            'avatar_s1' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S1.'.'.NH_IMG_SIZE_USER_AVATAR_S1,//130x130 教师修改头像前预览
+            'avatar_s2' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S2.'.'.NH_IMG_SIZE_USER_AVATAR_S2,//100x100 购买前教师团队头像
+            'avatar_s3' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S3.'.'.NH_IMG_SIZE_USER_AVATAR_S3,//70x70 购买后教师团队头像
+            'avatar_s4' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S4.'.'.NH_IMG_SIZE_USER_AVATAR_S4,//50x50 首页登录后，个人中心左侧，购买前评价
+            'avatar_s5' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S5.'.'.NH_IMG_SIZE_USER_AVATAR_S5,//45x45 首页课程列表封面翻转后教师头像，列表页课程列表封面翻转后教师头像
+            'avatar_s6' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S6.'.'.NH_IMG_SIZE_USER_AVATAR_S6,//35x35 购买课程后页面 右侧头像
+
+            'profile_s1' => 'p.'.NH_IMG_SIZE_USER_PROFILE_W1.'.'.NH_IMG_SIZE_USER_PROFILE_H1,//300x225 教师资格证书
+        );
+        $str_return = array_key_exists($str_size,$arr_allow_size) ? $str_img_url.'/'.$arr_allow_size[$str_size].'.jpg' : $str_img_url;
+    }
+    return $str_return;
 }
 
 /**

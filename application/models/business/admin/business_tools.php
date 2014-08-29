@@ -147,7 +147,7 @@ class Business_Tools extends NH_Model
    		if(!empty($param['round_id'])){
 	   		foreach($round_info as &$val){
 	   			#图片地址
-	       		$val['round_img'] = empty($val['img']) ? static_url(HOME_IMG_DEFAULT) : get_img_url($val['img'],'course_s4');
+	       		$val['round_img'] = empty($val['img']) ? get_img_url(HOME_IMG_DEFAULT,'course_s4') : get_img_url($val['img'],'course_s4');
 	   			
 	       		#计算进度与现价
 	   			$input = array(

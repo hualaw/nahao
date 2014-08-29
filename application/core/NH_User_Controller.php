@@ -149,7 +149,7 @@ class NH_User_Controller extends NH_Controller
             }
             
             if($success_num == 2) {
-                $avatar_url = NH_QINIU_URL . $result['avatar_key'];
+                $avatar_url = $result['avatar_key'];
                 $update_data = array('avatar' => $result['avatar_key']);
                 $this->business_user->modify_user($update_data, $user_id);
                 $this->session->set_userdata('avatar', $avatar_url);

@@ -106,7 +106,7 @@ define('ORDER_TYPE_OFFLINE', 4);
 define('HOME_IMG_DEFAULT', 'nahao_default_course');
 define('DEFAULT_STUDENT_AVATER', 'nahao_default_avatar');
 define('DEFAULT_TEACHER_AVATER', 'nahao_default_avatar');
-define('DEFAULT_MANGER_AVATER', 'nahao_default_avatar_admin');
+define('DEFAULT_MANGER_AVATER', 'nahao_default_avatar_admin_new');
 /*
  * 老师角色
  * 主讲 1
@@ -393,74 +393,26 @@ define('NH_MEETING_TYPE_SUPER_ADMIN', 110); //超级管理员
 //define('NH_MEETING_ENTER_URL','http://classroom.oa.tizi.com/oa/enter?token=');
 define('NH_MEETING_ENTER_URL', ENVIRONMENT == 'production' ? 'http://classapi.tizi.com/nahao/enter?token=' : 'http://classroom.oa.tizi.com/nahao/enter?token=');
 
-//所有图片尺寸
-//课程封面图的三个尺寸 288*216  230*172   50*50
-//define('NH_COURSE_IMG_LARGE_HEIGHT',216);
-//define('NH_COURSE_IMG_LARGE_WIDTH',288);
-//define('NH_COURSE_IMG_SMALL_HEIGHT',50);
-//define('NH_COURSE_IMG_SMALL_WIDTH',50);
-
-//列表页等课程封面
-//define('NH_COURSE_IMG_GENERAL_HEIGHT',172);
-//define('NH_COURSE_IMG_GENERAL_WIDTH',230);
-define('NH_IMG_SIZE_COURSE_H4',154);
-define('NH_IMG_SIZE_COURSE_W4',240);
-
-//首页课程封面
-//define('NH_COURSE_IMG_INDEX_HEIGHT',235);
-//define('NH_COURSE_IMG_INDEX_WIDTH',367);
-define('NH_IMG_SIZE_COURSE_H2',235);
-define('NH_IMG_SIZE_COURSE_W2',367);
-
-//首页直播课封面
-//define('NH_COURSE_IMG_LIVE_HEIGHT',147);
-//define('NH_COURSE_IMG_LIVE_WIDTH',230);
-define('NH_IMG_SIZE_COURSE_H1',147);
 define('NH_IMG_SIZE_COURSE_W1',230);
-
-//上传教室资格证书
-//define('NH_TEACHER_IMG_HEIGHT', 225);
-//define('NH_TEACHER_IMG_WIDTH', 300);
-//首页翻转后教室头像
-//define('NU_USER_AVATAR_EDGE',45);
-//购买前课程封面
-//define('NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT', 280);
-//define('NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH', 440);
+define('NH_IMG_SIZE_COURSE_H1',147);
+define('NH_IMG_SIZE_COURSE_W2',367);
+define('NH_IMG_SIZE_COURSE_H2',235);
+define('NH_IMG_SIZE_COURSE_W3', 80);
+define('NH_IMG_SIZE_COURSE_H3', 51);
+define('NH_IMG_SIZE_COURSE_W4',240);
+define('NH_IMG_SIZE_COURSE_H4',154);
+define('NH_IMG_SIZE_COURSE_W5',198);
+define('NH_IMG_SIZE_COURSE_H5',127);
 define('NH_IMG_SIZE_COURSE_W6', 440);
 define('NH_IMG_SIZE_COURSE_H6', 280);
-//购买前推荐
-//define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT', 127);
-//define('NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH', 200);
 define('NH_IMG_SIZE_COURSE_W7', 200);
 define('NH_IMG_SIZE_COURSE_H7', 127);
-//购买前授课团队老师团队
-//define('NH_BUY_BEFORE_TEACHER_AVATER_IMG_WIDTH',100);
-//define('NH_BUY_BEFORE_TEACHER_AVATER_IMG_HEIGHT',100);
-//购买前评价头像
-//define('NH_BUY_BEFORE_COMMENT_AVATER_IMG_WIDTH',50);
-//define('NH_BUY_BEFORE_COMMENT_AVATER_IMG_HEIGHT',50);
-//浏览记录
-//define('NH_RECENT_VIEW_IMG_HEIGHT', 51);
-//define('NH_RECENT_VIEW_IMG_WIDTH', 80);
-define('NH_IMG_SIZE_COURSE_H3', 51);
-define('NH_IMG_SIZE_COURSE_W3', 80);
-//列表页猜你喜欢
-//define('NH_COURSE_IMG_SUGGEST_HEIGHT',198);
-//define('NH_COURSE_IMG_SUGGEST_WIDTH',127);
-define('NH_IMG_SIZE_COURSE_H5',127);
-define('NH_IMG_SIZE_COURSE_W5',198);
-
-//define('NH_MY_COURSE_LIST_IMG_WIDTH',130);//我的课程列表宽
-//define('NH_MY_COURSE_LIST_IMG_HEIGHT',82);//我的课程列表高
-define('NH_IMG_SIZE_COURSE_W8',130);//我的课程列表宽
-define('NH_IMG_SIZE_COURSE_H8',82);//我的课程列表高
-//define('NH_MY_COURSE_ORDER_IMG_WIDTH',50);//我的订单列表宽
-//define('NH_MY_COURSE_ORDER_IMG_HEIGHT',50);//我的订单列表高
-//define('NH_MY_COURSE_AVATAR_IMG_WIDTH',50);//我的头像列表宽
-//define('NH_MY_COURSE_AVATAR_IMG_HEIGHT',50);//我的头像列表高
-
-define('NH_IMG_SIZE_COURSE_W9',50);//我的课程列表宽
-define('NH_IMG_SIZE_COURSE_H9',50);//我的课程列表高
+define('NH_IMG_SIZE_COURSE_W8',130);
+define('NH_IMG_SIZE_COURSE_H8',82);
+define('NH_IMG_SIZE_COURSE_W9',50);
+define('NH_IMG_SIZE_COURSE_H9',50);
+define('NH_IMG_SIZE_COURSE_W10',238);
+define('NH_IMG_SIZE_COURSE_H10',152);
 
 define('NH_IMG_SIZE_USER_AVATAR_S1',130);
 define('NH_IMG_SIZE_USER_AVATAR_S2',100);
@@ -551,12 +503,11 @@ define('ROUND_ICON_FENGKUANGREMAI',6);//疯狂热卖
 
 define('ROUND_ICON_FENGKUANGREMAI_EDGE',150);//疯狂热卖阈值
 
-define('TEACHER_AUTH_WIDTH',169);//教师证书宽
-define('TEACHER_AUTH_HEIGHT',227);//教师证书高
-define('TEACHER_TITLE_WIDTH',130);//教师头像宽
-define('TEACHER_TITLE_HEIGHT',130);//教师头像高
 define('INDEX_FOCUS_WIDTH',570);//首页轮播图宽
 define('INDEX_FOCUS_HEIGHT',293);//首页轮播图高
+
+#老师后台进入体验教室ID
+define('TEACHER_EXPERIENCE_ENTER_CLASSROOMID', ENVIRONMENT == 'production' ? 2410 : 635);
 
 //switch
 //define('SWITCH_WWW_INDEX_LIVE_SHOW',1);

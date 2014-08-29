@@ -128,10 +128,10 @@ class Teacher extends NH_Admin_Controller {
         $str_upToken = $obj_putPolicy->Token ( null );
         $str_salt = random_string('alnum', 6);
 
-        $str_work_img_file_name = 'teacher_'.time().'_work_auth_i'.$str_salt.'.png';
-        $str_auth_img_file_name = 'teacher_'.time().'_teacher_auth_i'.$str_salt.'.png';
-        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
-        $str_avatar_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_work_img_file_name = 'teacher_'.time().'_work_auth_i'.$str_salt;
+        $str_auth_img_file_name = 'teacher_'.time().'_teacher_auth_i'.$str_salt;
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
+        $str_avatar_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
@@ -297,9 +297,9 @@ class Teacher extends NH_Admin_Controller {
         $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
         $str_upToken = $obj_putPolicy->Token ( null );
         $str_salt = random_string('alnum', 6);
-        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
-        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
-        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt;
+        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt;
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
         $str_avatar_img_file_name = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
