@@ -34,7 +34,7 @@ class NH_User_Controller extends NH_Controller
 //            print_r($this->_user_detail);
 //            exit;
             //phone 和 phone_mask 从用户的session中来取, 保持session和user_detail统一
-            log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
+//             log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
             $this->_user_detail['phone'] = $this->session->userdata('phone');
             $this->_user_detail['phone_mask'] = $this->session->userdata('phone_mask');
             $this->_user_detail['teacher_intro'] = strip_tags($this->_user_detail['teacher_intro']);
