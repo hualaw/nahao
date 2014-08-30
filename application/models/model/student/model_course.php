@@ -28,7 +28,7 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id,subject,stage,is_live,education_type,material_version,extra_bought_count,quality,sequence,course_type FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id,subject,stage,is_live,education_type,material_version,extra_bought_count,quality,sequence,course_type,current_price FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }
@@ -457,6 +457,19 @@ class Model_Course extends NH_Model{
     	$array_result = array();
     	$sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM ".TABLE_USER." u LEFT JOIN ".TABLE_USER_INFO." ui ON u.id = ui.user_id WHERE ui.user_id in (".$in_where.") AND u.status = 1 AND ui.status = 1";
     	$array_result = $this->db->query($sql)->result_array();
+    	return  $array_result;
+    }
+    
+    /**
+     * 总课数
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_class_total($int_round_id){
+    	$array_result = array();
+    	$sql = "SELECT count(id) AS num FROM ".TABLE_CLASS." WHERE  round_id = ".$int_round_id." AND parent_id>0 ";
+//     	echo $sql;die;
+    	$array_result = $this->db->query($sql)->row_array();
     	return  $array_result;
     }
 }
