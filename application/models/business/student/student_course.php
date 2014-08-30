@@ -283,7 +283,7 @@ class Student_Course extends NH_Model{
 				{
 					log_message('ERROR_NAHAO','['.date('Y-m-d H:i:s').'],老师id为：'.$v['teacher_id']."在user或者userinfo表里面的status =0");
 					unset($array_return[$k]);
-					break;
+					continue;
 				} else {
 					$array_return[$k]['teacher_role'] = $array_teacher_role[$v['role']];
 					#老师头像
@@ -307,28 +307,17 @@ class Student_Course extends NH_Model{
         #获取用户信息
         $array_data = $this->session->all_userdata();
         #去学生与课的关系表寻找信息
-        $array_return = $this->model_course->get_classmate_data($int_round_id);
-//         var_dump($array_return);die;
-        if ($array_return)
-        {
-            foreach ($array_return as $k=>$v)
-            {
-                #用户信息
-                $array_result = $this->model_member->get_user_infor($v['student_id']);
-                if (empty($array_result))
-                {
-                	unset($array_return[$k]);
-                	break;
-                } else {
-                	#处理数据
-                	$array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
-                	$array_return[$k]['nickname'] = $array_result['nickname'];
-                }
-                
-
+        $array_return = $this->model_course->get_classmate_uid($int_round_id);
+		$array_list = array();
+		$array_result = array();
+        if ($array_return){
+            foreach ($array_return as $k=>$v){
+            	$array_list[] = $v['student_id'];
             }
+			$in_where = implode(',', $array_list);
+			$array_result = $this->model_course->get_classmate_detail_data($in_where);
         }
-        return $array_return;
+        return $array_result;
     }
     
     /**
@@ -348,10 +337,10 @@ class Student_Course extends NH_Model{
             {
                 if ($v['author_role'] == NH_MEETING_TYPE_ADMIN)
                 {
-                   #发布者是管理员
+                   	#发布者是管理员
                     $array_manager = $this->model_member->get_manager_data($v['author']);
-                    $array_return[$k]['nickname'] = $array_manager['username'];
-                    $array_return[$k]['avatar'] = static_url(DEFAULT_MANGER_AVATER);
+                    $array_return[$k]['nickname'] = isset($array_manager['username'])  ? $array_manager['username'] : '';
+                    $array_return[$k]['avatar'] = '';
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
@@ -458,22 +447,13 @@ class Student_Course extends NH_Model{
      */
     public function get_user_avater($int_user_id)
     {
-    	$avatar = static_url(DEFAULT_STUDENT_AVATER);
+    	$array_return = array();
     	$array_return  = $this->model_member->get_user_avater($int_user_id);
-    	if ($array_return)
+    	if (empty($array_return))
     	{
-    		if ($array_return['avatar'])
-    		{
-    			$avatar = NH_QINIU_URL.$array_return['avatar'];
-    		} else {
-    			if ($array_return['teach_priv'] == 1){
-    				$avatar = static_url(DEFAULT_TEACHER_AVATER);
-    			} else{
-    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
-    			}
-    		}
+    		$avatar = '';
     	}
-
+    	$avatar = $array_return['avatar'];
     	return $avatar;
     }
     

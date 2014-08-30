@@ -337,7 +337,7 @@ class Course extends NH_Admin_Controller
         /***********七牛 end***********/
 
 //        $str_img_url = 'http://n1a2h3a4o5.qiniudn.com/course_20140611112154_iANZ8Sy.png?imageView/1/w/290/h/216';
-        $str_img_url = NH_QINIU_URL . $str_new_file_name . '?imageView/2/w/600';
+        $str_img_url = str_replace('1',nahao_hash($str_new_file_name,4),NH_QINIU_URL) . $str_new_file_name . '/c.720.jpg';
         $str_html = '<html>
         <body>
         <script type="text/javascript">

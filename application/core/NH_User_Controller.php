@@ -34,7 +34,7 @@ class NH_User_Controller extends NH_Controller
 //            print_r($this->_user_detail);
 //            exit;
             //phone 和 phone_mask 从用户的session中来取, 保持session和user_detail统一
-            log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
+//             log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
             $this->_user_detail['phone'] = $this->session->userdata('phone');
             $this->_user_detail['phone_mask'] = $this->session->userdata('phone_mask');
             $this->_user_detail['teacher_intro'] = strip_tags($this->_user_detail['teacher_intro']);
@@ -149,7 +149,7 @@ class NH_User_Controller extends NH_Controller
             }
             
             if($success_num == 2) {
-                $avatar_url = NH_QINIU_URL . $result['avatar_key'];
+                $avatar_url = $result['avatar_key'];
                 $update_data = array('avatar' => $result['avatar_key']);
                 $this->business_user->modify_user($update_data, $user_id);
                 $this->session->set_userdata('avatar', $avatar_url);

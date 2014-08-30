@@ -115,7 +115,7 @@
                             {if $smarty.const.TIME_STAMP gt $v.sell_end_time-5*86400 && $smarty.const.TIME_STAMP lt $v.sell_end_time}
                                 <span class="fl countDown" time="{$v.sell_end_time}" time_id="{$v.id}"></span>
                             {else}
-                                <span class="fl">开课时间：{date('m月d日',$v.start_time)}<span class="time">{date('H:i',$v.start_time)}</span></span>
+                                <span class="fl">开课时间：{date('m月d日',$v.start_time+60*115)}<span class="time">{date('H:i',$v.start_time+60*115)}</span></span>
                             {/if}
 
 									<span class="fr">

@@ -10,6 +10,7 @@ class Student_Member extends NH_Model{
         $this->load->model('business/student/student_order');
     }
 
+    /*
     public function get_my_course_for_buy($int_user_id)
     {
         $array_return = array();
@@ -56,6 +57,7 @@ class Student_Member extends NH_Model{
         //var_dump($array_return);die;
         return $array_return;
     }
+    */
 
     public function get_my_course_by_where($int_user_id,$status = '',$offset = 0)
     {
@@ -70,7 +72,7 @@ class Student_Member extends NH_Model{
             foreach ($array_return as $k=>$v)
             {
                 #图片地址
-                $class_img = empty( $v['img']) ? static_url(HOME_IMG_DEFAULT) : get_img_url($v['img'],'course_s4');
+                $class_img =  $v['img'];
                 #这轮共M节
                 $totle_class = $this->model_member->get_class_count(0,$v['round_id']);
                 #这轮上了M节
@@ -132,7 +134,7 @@ class Student_Member extends NH_Model{
                 }
                 #处理时间
                 $array_return[$k]['create_time'] = date('Y/m/d H:i:s',$v['create_time']);
-                $array_return[$k]['class_img'] = empty( $array_round['img']) ? static_url(HOME_IMG_DEFAULT) : get_img_url($array_round['img'],'course_s4');
+                $array_return[$k]['class_img'] = $array_round['img'];
                 $array_return[$k]['title'] = $array_round['title'];
                 $array_return[$k]['teach_status'] = $array_round['teach_status'];
                 #处理付款方式

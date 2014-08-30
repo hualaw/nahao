@@ -631,28 +631,28 @@ define(function(require,exports){
                 var img_url_general = _qiniu_url+$('#teacher_img').val();
                 var modify_img=$('#teacher_img').val();
                 $('#teacher_authimg').val(modify_img);
-                $('#img_url_general').attr('src',img_url_general);
+//                $('#img_url_general').attr('src',img_url_general);
             }
             if($('#title_img').val()!="")
             {
                 var img_url_general = _qiniu_url+$('#title_img').val();
                 var modify_img=$('#title_img').val();
                 $('#title_authimg').val(modify_img);
-                $('#img_title_general').attr('src',img_url_general);
+//                $('#img_title_general').attr('src',img_url_general);
             }
             if($('#work_img').val()!="")
             {
                 var img_url_general = _qiniu_url+$('#work_img').val();
                 var modify_img=$('#work_img').val();
                 $('#work_authimg').val(modify_img);
-                $('#img_work_general').attr('src',img_url_general);
+//                $('#img_work_general').attr('src',img_url_general);
             }
             if($('#avatar_teacher_img').val()!="")
             {
                 var img_url_general = _qiniu_url+$('#avatar_teacher_img').val();
                 var modify_img=$('#avatar_teacher_img').val();
                 $('#teacher_avatar_img').val(modify_img);
-                $('#img_avatar').attr('src',img_url_general);
+//                $('#img_avatar').attr('src',img_url_general);
             }
 
             $('.modify_password').click(function(){

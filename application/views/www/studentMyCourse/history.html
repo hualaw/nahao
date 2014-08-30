@@ -13,7 +13,7 @@
             <!-- 单条浏览记录开始 -->
             {foreach from=$array_recent_view item=item}
             <a target="_blank" href="{$course_url}ke_{$item.id}.html" class="cf hItem">
-                <img alt="" src="{if empty($item.img)}{static_url($smarty.const.HOME_IMG_DEFAULT)}{else}{get_img_url($item.img,'course_s3')}{/if}" class="hPic">
+                <img alt="" src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s3')}{else}{get_img_url($item.img,'course_s3')}{/if}" class="hPic">
 				<span class="fr hDesc">
 					<span class="hSmallTitle">{$item.title|truncate:16:"...":true}</span>
 					<span class="valList">

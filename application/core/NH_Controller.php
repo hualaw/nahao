@@ -48,13 +48,14 @@ class NH_Controller extends CI_Controller
         $static_version = config_item('static_version');
         $this->smarty->assign('static_version', $static_version);
         $this->smarty->assign('is_login', $this->is_login);
+//        print_r($this->session->all_userdata());die();
         $this->smarty->assign('userdata', $this->session->all_userdata());
         $this->smarty->assign('last_refer_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "");
         $this->smarty->assign('perfect_url', student_url().'login/perfect');
 
-        $log_msg = 'In NH_Controller, all_userdata: '.print_r($this->session->all_userdata(), 1);
+//         $log_msg = 'In NH_Controller, all_userdata: '.print_r($this->session->all_userdata(), 1);
 
-        log_message('debug_nahao', $log_msg);
+//         log_message('debug_nahao', $log_msg);
         $arr_user_id=$this->session->all_userdata();
         if(isset($arr_user_id['user_id']) && $arr_user_id['user_type']!=2)
         {

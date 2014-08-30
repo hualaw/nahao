@@ -38,9 +38,9 @@ class Business_Login extends NH_Model {
             $str_fields = 'id,nickname,phone_mask,password,salt,email,avatar,teach_priv,status,phone_verified';
             $ret_info = $this->model_user->get_user_by_param('user', 'list', $str_fields, $arr_where);
 
-            log_message('debug_nahao', "in business_login submit(), ret_info is: ".print_r($ret_info,1));
+            //log_message('debug_nahao', "in business_login submit(), ret_info is: ".print_r($ret_info,1));
             if( !empty($ret_info)) $ret_info = $this->_filter_user_info($ret_info);
-            log_message('debug_nahao', "in business_login submit(), after filter_user_info is: ".print_r($ret_info,1));
+            //log_message('debug_nahao', "in business_login submit(), after filter_user_info is: ".print_r($ret_info,1));
 
             if(isset($ret_info['status']))
             {
@@ -54,7 +54,7 @@ class Business_Login extends NH_Model {
                 $user_info = $ret_info[0];
                 //var_dump($ret_info);
 
-                log_message('debug_nahao', 'IN '.__CLASS__.", function: ".__FUNCTION__.", salt: {$user_info['salt']}, sha1_pwd: $sha1_password, password:".$user_info['password']);
+                //log_message('debug_nahao', 'IN '.__CLASS__.", function: ".__FUNCTION__.", salt: {$user_info['salt']}, sha1_pwd: $sha1_password, password:".$user_info['password']);
                 $check_ret = check_sha1_password($user_info['salt'], $sha1_password, $user_info['password']);
                 if($check_ret)
                 {
@@ -62,14 +62,13 @@ class Business_Login extends NH_Model {
                     if($user_id == 0 ) $user_id = $user_info['id']; //获取email注册用户的user_id
 //                    if($user_id && $user_info['phone_verified']) $phone = get_pnum_phone_server($user_id);
 
-                    log_message('debug_nahao', "In business_login, user_id is $user_id , phone is $phone");
+                    //log_message('debug_nahao', "In business_login, user_id is $user_id , phone is $phone");
 
                     //set session data
                     $phone_mask = '';
 //                    $phone_mask = (strpos($user_info['phone_mask'], '*') !== false) ? $user_info['phone_mask'] : phone_blur($user_info['phone_mask']);
                     $this->set_session_data($user_info['id'], $user_info['nickname'], $user_info['avatar'],
                         $phone, $phone_mask, $user_info['email'], $login_type, $user_info['teach_priv'], $remb_me);
-
                     return $this->_log_reg_info(SUCCESS, 'login_success', array(), 'info');
                 }
                 else

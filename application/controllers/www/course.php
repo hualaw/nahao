@@ -124,9 +124,8 @@ class Course extends NH_User_Controller {
 	    if (!$bool_flag){
 	        show_error("您没有购买此轮课程！");
 	    }
-
 	    #课堂同学
-	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);
+	    $array_classmate = $this->student_course->get_classmate_data($int_round_id);    
 	    #课堂同学总数
 	    $int_classmates = count($array_classmate);
 	    #课程公告
@@ -135,6 +134,7 @@ class Course extends NH_User_Controller {
 	    $array_outline = $this->student_course->get_round_outline($int_round_id);
 	    #即将上课的信息--购买后顶部
 	    $array_data = $this->student_course->get_soon_class_data($int_user_id,$int_round_id);
+
 	    #课程列表的地址
 	    $course_url = config_item('course_url');
 	    $this->smarty->assign('course_url', $course_url);
@@ -444,7 +444,7 @@ class Course extends NH_User_Controller {
 	 	$aes_config = array(config_item('AES_key'));
 	 	$this->load->library('AES', $aes_config, 'aes');
 	 	$aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
-	 	log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
+	 	//log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
 	 	$str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&SwfVer='.(config_item('classroom_swf_version')).'&t=1';
 	 	$str_iframe =  $str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
 	 	$this->smarty->assign('classroom_id', $array_class['classroom_id']);

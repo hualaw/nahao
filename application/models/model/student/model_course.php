@@ -169,7 +169,7 @@ class Model_Course extends NH_Model{
      * @param  $int_round_id
      * @return $array_result
      */
-    public function get_classmate_data($int_round_id)
+    public function get_classmate_uid($int_round_id)
     {
         $array_result = array();
         $sql = "SELECT DISTINCT student_id FROM ".TABLE_STUDENT_CLASS." WHERE round_id = ".$int_round_id;
@@ -443,6 +443,20 @@ class Model_Course extends NH_Model{
     	$array_result = array();
     	$sql = "SELECT content FROM ".TABLE_ROUND_NOTE." WHERE round_id = 0 ORDER BY top_time DESC,create_time DESC LIMIT 1";
     	$array_result = $this->db->query($sql)->row_array();
+    	return  $array_result;
+    }
+    
+
+    /**
+     * 课堂同学详细信息
+     * @param  $int_user_id
+     * @return $array_result
+     */
+    public function get_classmate_detail_data($in_where)
+    {
+    	$array_result = array();
+    	$sql = "SELECT u.nickname,u.avatar,ui.realname,ui.teacher_age,ui.work_auth,ui.teacher_auth,ui.titile_auth,ui.teacher_intro,ui.teacher_signature,ui.user_id,ui.teacher_age FROM ".TABLE_USER." u LEFT JOIN ".TABLE_USER_INFO." ui ON u.id = ui.user_id WHERE ui.user_id in (".$in_where.") AND u.status = 1 AND ui.status = 1";
+    	$array_result = $this->db->query($sql)->result_array();
     	return  $array_result;
     }
 }
