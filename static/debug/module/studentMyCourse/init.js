@@ -18,7 +18,7 @@ define(function(require,exports){
 		// 退课 申请状态 验证
 		_valid.applyFrom();
 		//我的订单 tab
-		_tab.tab($(".tabh li"),"tabhOn",$(".tabCon .tabBox"));
+		//_tab.tab($(".tabh li"),"tabhOn",$(".tabCon .tabBox"));
         //tip提示的初始化
         require.async("module/studentMyCourse/tip",function(ex){
             ex.init($(".infoDesc .icon"));
