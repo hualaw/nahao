@@ -1,3 +1,9 @@
+<form method="get" action="/employment">
+    <div class="col-md-3">
+        <input type="text" name="title" class="form-control" value="{if isset($search_term.title)}{$search_term.title}{/if}" placeholder="请输入职位进行搜索" />
+    </div>
+<button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/employment" class="btn btn-warning" role="button">重置</a>
+</form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
         {for $i=1 to 130}
         &nbsp;
