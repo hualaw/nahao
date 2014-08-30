@@ -6,4 +6,7 @@ define(function(require,exports){
     if($(".orderList_search").length){
         orderList.addDatePlugin();    //加载调用时间方法
     }
+    //上传讲义
+    orderList.uploadPdf();
+    require('lib/uploadify/2.2/jquery.uploadify.js');
 })
