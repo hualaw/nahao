@@ -1,6 +1,8 @@
 .famousTeacher{background: #f8f8f8}
 .famousTeacher .main{}
 .famousTeacher .topBg{width:568px;height: 151px;background: url(../../images/famousTeacher/topBg.jpg) no-repeat center center;padding: 298px 0 0 412px}
+.famousTeacher .topBg h2,
+.famousTeacher .topBg h1{text-indent: -9999px;position: absolute;}
 .famousTeacher .topBg p{font-size: 18px;color:#fff;line-height: 24px;}
 .famousTeacher .ztBox{position: relative;padding-top:50px;padding-left: 15px;background: #fff;margin-bottom: 40px;}
 .famousTeacher .ztH2{height: 40px;line-height: 40px;position: absolute;top: 5px;left: -10px;}
