@@ -53,7 +53,11 @@
 		                <td class="class_statu">{$v['status_name']}</td>
 		                <td class="class_number">{$v['attendance_persent']}</td>
 		                <td class="class_praise"><a href="/orderList/comment/{$v['id']}">查看评价</a></td>
-		                <td class="class_word"><em class="icon_note"></em><a href="{$smarty.const.NH_MEETING_URL}meeting/preview/{$v['courseware_id']}" target="_blank" title="预览此讲义">{$v['courseware_name']}</a></td>
+		                <td class="class_word" id="courseware_col"><em class="icon_note"></em>
+		                	{if $v['courseware_id']}<a href="{$smarty.const.NH_MEETING_URL}meeting/preview/{$v['courseware_id']}" target="_blank" title="预览此讲义{$v['courseware_name']}">预览讲义</a>{/if}
+		                	<a href="javascript:;" class="updload_pdf" data-classID="{$v['id']}" data-name="{$v['title']}" title="请使用谷歌浏览器上传">上传讲义</a>
+		                	{if $v['courseware_id']} <a href="javascript:;" class="reload_courseware" data-classroom_id="{$v['classroom_id']}">刷新讲义</a>{/if}
+		                </td>
 		                <td class="class_manage"><a href="/orderList/question/{$v['id']}"><em class="icon_notem"></em></a></td>
 		            </tr>
 	            {/foreach}
