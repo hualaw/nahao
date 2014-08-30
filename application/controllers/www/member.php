@@ -76,6 +76,8 @@ class Member extends NH_User_Controller
 //        $this->pagination->initialize($config);
 //        $course_over_page = $this->pagination->createJSlinks('setPage');
 
+
+//	$this->benchmark->mark('e');
         if (HOT_NEW_COURSE) {
             #最新课程
             $array_new = $this->student_index->get_course_latest_round_list();
@@ -83,6 +85,9 @@ class Member extends NH_User_Controller
             #热报课程
             $array_hot = $this->student_index->get_course_hot();
         }
+//	$this->benchmark->mark('f');
+//	$ef = $this->benchmark->elapsed_time('e', 'f');
+//	log_message('debug_nahao', 'ef_runtime:'.$ef);
         $course_url = config_item('course_url');
 
         $this->smarty->assign('action', 'my_course');
