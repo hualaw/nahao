@@ -2,6 +2,9 @@
     <div class="col-md-2">
         <input type="text" name="title" value="{if isset($search_term.title)}{$search_term.title}{/if}" class="form-control" placeholder="请输入课名字" />
     </div>
+    <div class="col-md-2">
+        <input type="text" name="teacher_name" value="{if isset($search_term.teacher_name)}{$search_term.teacher_name}{/if}" class="form-control" placeholder="请输教师名字" />
+    </div>
     <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/lecture/lecture_class_list" class="btn btn-warning" role="button">重置</a>
 
 </form><br /><br />

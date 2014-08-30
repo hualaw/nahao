@@ -289,30 +289,34 @@
          * 试讲课列表
          * @author shangshikai@tizi.com
          */
-        public function lecture_class($title)
+        public function lecture_class($title,$teacher_name)
         {
-            self::lecture_class_sql($title);
+            self::lecture_class_sql($title,$teacher_name);
             return $this->db->order_by(TABLE_LECTURE_CLASS.'.id','desc')->get()->result_array();
         }
         /**
          * 试讲课列表数
          * @author shangshikai@tizi.com
          */
-        public function lecture_class_total($title)
+        public function lecture_class_total($title,$teacher_name)
         {
-            self::lecture_class_sql($title);
+            self::lecture_class_sql($title,$teacher_name);
             return $this->db->get()->num_rows();
         }
         /**
          * 试讲课sql
          * @author shangshikai@tizi.com
          */
-        public function lecture_class_sql($title)
+        public function lecture_class_sql($title,$teacher_name)
         {
             $this->db->select('lecture_class.id, lecture_class.title, lecture_class.begin_time, lecture_class.end_time, lecture_class.subject, lecture_class.courseware_id, lecture_class.classroom_id, lecture_class.user_id, subject.name, teacher_lecture.name as realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_TEACHER_LECTURE,TABLE_TEACHER_LECTURE.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
             if($title!='')
             {
                 $this->db->like(TABLE_LECTURE_CLASS.'.title',$title);
+            }
+            if($teacher_name!='')
+            {
+                $this->db->like(TABLE_TEACHER_LECTURE.'.name',$teacher_name);
             }
         }
         /**
