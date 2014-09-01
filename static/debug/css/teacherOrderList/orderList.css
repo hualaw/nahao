@@ -68,7 +68,7 @@
 .teacherOrderList .md_orderDetail .md_bd td.class_praise a{color:#787878;font-size: 12px; text-decoration: underline;}
 .teacherOrderList .md_orderDetail .md_bd td.class_word{width: 195px;clear:both;overflow: hidden;margin-left: 20px;}
 .teacherOrderList .md_orderDetail .md_bd td.class_word em.icon_note{display:block;float:left; background:url("../../images/common/icon_note.png") no-repeat left top;width: 13px; height: 16px;margin-right: 5px;margin-top:5px;}
-.teacherOrderList .md_orderDetail .md_bd td.class_word a{float:left;display:block;font-size: 12px; color:#777777;width:165px;line-height:24px;text-align: left;}
+.teacherOrderList .md_orderDetail .md_bd td.class_word a{float:left;display:block;font-size: 12px; color:#777777;line-height:24px;text-align: left;padding: 2px 3px;}
 .teacherOrderList .md_orderDetail .md_bd td.class_word a:hover{text-decoration: underline;}
 .teacherOrderList .md_orderDetail .md_bd td.class_manage{width:70px;}
 .teacherOrderList .md_orderDetail .md_bd td.class_manage em.icon_notem{display:block;background: url("../../images/common/icon_note1.png") no-repeat 30px 3px;height:20px;}

@@ -52,8 +52,8 @@
 						<!-- span class="num">1</span> -->
 						<span class="name">{$array_data.title|truncate:21:"...":true}</span>
 						<span class="time">{$array_data.start_time|date_format:'%Y/%m/%d'}--{$array_data.end_time|date_format:'%Y/%m/%d'}</span>
-						<span class="oldPrice">¥{$array_data.price}<em></em></span>
-						<span class="newPrice">¥{$array_data.sale_price}</span>
+						<span class="oldPrice">¥{$array_data.sale_price|intval}<em></em></span>
+						<span class="newPrice">¥{$array_data.current_price|intval}</span>
 						<!-- <span class="operation"><a href="javascript:void(0)">删除</a></span> -->
 					</dd>
 
@@ -62,8 +62,8 @@
 			
 			<p class="total cf">
 				<!-- <span>共选<em>1</em>门课程</span> -->
-				<span class="price fr">总金额<em>¥{$array_data.totle_money}</em></span>
-				<span class="save fr">您本次共节省了<em>{$array_data.save_money}</em>元</span>
+				<span class="price fr">总金额<em>¥{$array_data.current_price|intval}</em></span>
+				<span class="save fr" title="{$array_data.title}">您本次购买“{$array_data.title|truncate:21:"...":true}”直播课中的<em>{$array_data.allow_class_count}</em></span>
 			</p>
 		</div>
 		
@@ -73,13 +73,14 @@
 			<h2><span>请填写联系方式</span></h2>
 			<div class="innerBox">
 				<form action="javascript:;" method="POST" class="inforCheckForm">
-				<input type="hidden"  name="product_id" value="{$array_data.id}">
+				<input type="hidden"  name="pid" value="{$array_data.id}">
+				<input type="hidden"  name="cids" value="{$array_data.allow_class}">
 					<ul>
 						<li>
 							<p class="title">真实姓名</p>
 							<div class="cf inputBox">
-								<input type="text" name="real_name" id="real_name" class="inname fl yh cInput" validName="text" 
-								{if $realname !=''}value="{$realname}" disabled {else}value=""{/if}>
+								<input type="text" name="real_name" id="real_name"  validName="text" 
+								{if $realname !=''}value="{$realname}" disabled class=" fl yh cInput" {else}value="" class="inname fl yh cInput"{/if}>
 								<span class="Validform_checktip fl"></span>
 							</div>
 						</li>

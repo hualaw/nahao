@@ -14,6 +14,7 @@ class OrderList extends NH_User_Controller {
         $this->smarty->assign('site_url','http://'.__HOST__);
         $this->load->model('business/teacher/business_teacher','teacher_b');
         $this->load->model('model/teacher/model_teacher','teacher_m');
+        $this->load->model('business/admin/business_class','class');
         if(!$this->is_login)
         {
             redirect(student_url().'login');
@@ -169,6 +170,78 @@ class OrderList extends NH_User_Controller {
 		$this->smarty->assign('data',$data);
 		$this->smarty->display('teacher/teacherOrderList/order_detail.html');
 	}
+	
+	/**
+	 * 请求会议系统,获取token
+	 */
+	public function getToken(){
+		$arr_token = array(
+            'token' => get_meeting_token(0,NH_MEETING_TYPE_SUPER_ADMIN)
+        );
+        self::json_output($arr_token);
+	}
+	
+	/**
+	 * 上传讲义
+	 */
+	public function add_courseware(){
+		$int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
+        $int_courseware_id = $this->input->post('courseware_id') ? intval($this->input->post('courseware_id')) : 0;
+        $int_create_time = $this->input->post('create_time') ? strtotime($this->input->post('create_time')) : 0;
+        $str_filename = $this->input->post('filename') ? trim($this->input->post('filename')) : '';
+        $int_filesize = $this->input->post('filesize') ? intval($this->input->post('filesize')) : 0;
+        $int_filetype = $this->input->post('filetype') ? intval($this->input->post('filetype')) : 0;
+		$arr_response = array(
+    		'status' 	=> 'error',
+    		'msg'		=> '添加失败',
+    	);
+        if($int_class_id > 0 AND $int_courseware_id > 0 AND $int_create_time > 0 AND $str_filename){
+            $arr_courseware = array(
+                'id' => $int_courseware_id,
+                'create_time' => $int_create_time,
+                'name' => $str_filename,
+                'filesize' => $int_filesize,
+                'filetype' => $int_filetype,
+            );
+            $bool_return = $this->class->add_courseware($int_class_id,$arr_courseware);
+            if($bool_return==true){
+            	$arr_response = array(
+            		'status' 	=> 'ok',
+            		'msg'		=> '添加成功',
+            	);
+            }
+        }
+        self::json_output($arr_response);
+	}
+	
+	/**
+     * 刷新教材
+     */
+    public function reload(){
+        $int_classroom_id = $this->input->post('classroom_id') ? intval($this->input->post('classroom_id')) : 0;
+        $arr_response = array(
+            'status' => 'error',
+            'msg' => '刷新失败'
+        );
+        if($int_classroom_id > 0){
+            $arr_old_ids = get_coursewares_by_classroom_id($int_classroom_id);
+            if($arr_old_ids){
+                foreach($arr_old_ids as $id){
+                    delete_courseware_by_classroom_id($int_classroom_id,$id);
+                }
+            }
+            $arr_class = $this->class->get_class_by_classroom_id($int_classroom_id);
+            if($arr_class AND $arr_class['courseware_id']){
+                set_courseware_to_classroom($int_classroom_id,$arr_class['courseware_id']);
+            }
+            reload_courseware($int_classroom_id);
+            $arr_response = array(
+                'status' => 'ok',
+                'msg' => '刷新成功'
+            );
+        }
+        self::json_output($arr_response);
+    }
 	
 	//题目管理
 	public function question(){
