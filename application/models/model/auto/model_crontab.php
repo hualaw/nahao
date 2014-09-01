@@ -105,11 +105,11 @@
          *轮的销售状态改为停售
          * @author shangshikai@tizi.com
          */
-        public function status_end_round($round_id)
-        {
-            $this->db->update(TABLE_ROUND,array(TABLE_ROUND.'.sale_status'=>5),array(TABLE_ROUND.'.id'=>$round_id));
-            return $this->db->affected_rows();
-        }
+//        public function status_end_round($round_id)
+//        {
+//            $this->db->update(TABLE_ROUND,array(TABLE_ROUND.'.sale_status'=>5),array(TABLE_ROUND.'.id'=>$round_id));
+//            return $this->db->affected_rows();
+//        }
         /**
          *轮的销授课状态改为授课中
          * @author shangshikai@tizi.com
@@ -132,22 +132,22 @@
          *轮的授课状态改为过期
          * @author shangshikai@tizi.com
          */
-        public function expire_round($round_id)
-        {
-            $this->db->update(TABLE_ROUND,array(TABLE_ROUND.'.teach_status'=>5),array(TABLE_ROUND.'.id'=>$round_id));
-            return $this->db->affected_rows();
-        }
+//        public function expire_round($round_id)
+//        {
+//            $this->db->update(TABLE_ROUND,array(TABLE_ROUND.'.teach_status'=>5),array(TABLE_ROUND.'.id'=>$round_id));
+//            return $this->db->affected_rows();
+//        }
         /**
          * 所有需要改为过期的轮
          * @author shangshikai@tizi.com
          */
-        public function all_expire_end($ex_time)
-        {
-            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
-            $this->db->where(TABLE_ROUND.'.teach_status',4);
-            $this->db->where(TABLE_ROUND.'.end_time<=',$ex_time);
-            return $this->db->get()->result_array();
-        }
+//        public function all_expire_end($ex_time)
+//        {
+//            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
+//            $this->db->where(TABLE_ROUND.'.teach_status',4);
+//            $this->db->where(TABLE_ROUND.'.end_time<=',$ex_time);
+//            return $this->db->get()->result_array();
+//        }
         /**
          * 所有需要改为过期的轮(补救)
          * @author shangshikai@tizi.com
@@ -191,16 +191,8 @@
          */
         public function all_round_teach($advance_time)
         {
-            //含免费试听
-//            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND course_mode=3";
-//            return $this->db->query($sql)->result_array();
-
-            //不含免费试听（目前在使用，如有错误打开此注释）
-//            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time=$advance_time AND round.is_test!=2";
-//            return $this->db->query($sql)->result_array();
-
             //不看销售状态
-            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5 OR round.sale_status=3) AND round.start_time=$advance_time AND round.is_test!=2";
+            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND round.start_time=$advance_time AND round.is_test!=2";
             return $this->db->query($sql)->result_array();
         }
         /**
@@ -209,12 +201,8 @@
          */
         public function remedy_all_round_teach($begin_time,$end_time)
         {
-            //含免费试听
-//            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time>=$begin_time AND round.start_time<$end_time AND course_mode=3";
-//            return $this->db->query($sql)->result_array();
-
-            //不含免费试听
-            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND (round.sale_status=4 OR round.sale_status=5) AND round.start_time>=$begin_time AND round.start_time<$end_time";
+            //不看销售状态
+            $sql="SELECT round.id FROM round WHERE round.teach_status=1 AND round.start_time>=$begin_time AND round.start_time<$end_time AND round.is_test!=2";
             return $this->db->query($sql)->result_array();
         }
         /**
@@ -244,26 +232,26 @@
          * 所有需要改为停售的轮
          * @author shangshikai@tizi.com
          */
-        public function all_round_status_end($advance_time)
-        {
-//            echo $advance_time;die;
-            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
-            $this->db->where(TABLE_ROUND.'.sale_status',3);
-            $this->db->where(TABLE_ROUND.'.sell_end_time',$advance_time);
-            return $this->db->get()->result_array();
-        }
+//        public function all_round_status_end($advance_time)
+//        {
+////            echo $advance_time;die;
+//            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
+//            $this->db->where(TABLE_ROUND.'.sale_status',3);
+//            $this->db->where(TABLE_ROUND.'.sell_end_time',$advance_time);
+//            return $this->db->get()->result_array();
+//        }
         /**
          * 所有需要改为停售的轮(补救)
          * @author shangshikai@tizi.com
          */
-        public function remedy_all_round_status_end($begin_time,$end_time)
-        {
-            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
-            $this->db->where(TABLE_ROUND.'.sale_status',3);
-            $this->db->where(TABLE_ROUND.'.sell_end_time>=',$begin_time);
-            $this->db->where(TABLE_ROUND.'.sell_end_time<',$end_time);
-            return $this->db->get()->result_array();
-        }
+//        public function remedy_all_round_status_end($begin_time,$end_time)
+//        {
+//            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
+//            $this->db->where(TABLE_ROUND.'.sale_status',3);
+//            $this->db->where(TABLE_ROUND.'.sell_end_time>=',$begin_time);
+//            $this->db->where(TABLE_ROUND.'.sell_end_time<',$end_time);
+//            return $this->db->get()->result_array();
+//        }
     	
     	/**
     	 * 更新student_class表里面的状态
