@@ -149,7 +149,7 @@ define(function(require,exports){
                 url:"/order/modify_price",
                 data:"modify_price="+$("#price_modify").val()+"&order_id="+$('#student_order_id').html()+"&spend="+$('#spend').html(),
                 success:function(msg){
-                    //alert(msg);
+                    console.log(msg);
                     if(msg==1)
                     {
                         location.reload();
