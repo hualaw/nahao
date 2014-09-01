@@ -293,6 +293,8 @@ class Model_Member extends NH_Model{
     		$where = '';
     	}
     	$sql = "SELECT count(id) AS num FROM ".TABLE_CLASS." WHERE  round_id = ".$int_round_id." AND parent_id>0 ".$where;
+//        echo $sql.'<br />';
+//        exit;
     	$array_result = $this->db->query($sql)->row_array();
     	return $array_result['num'];
     }

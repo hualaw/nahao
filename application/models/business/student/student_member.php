@@ -74,9 +74,23 @@ class Student_Member extends NH_Model{
                 #图片地址
                 $class_img =  $v['img'];
                 #这轮共M节
-                $totle_class = $this->model_member->get_class_count(0,$v['round_id']);
-                #这轮上了M节
-                $class  = $this->model_member->get_class_count('1',$v['round_id']);
+//                $totle_class = $this->model_member->get_class_count(0,$v['round_id']);
+//                #这轮上了M节
+//                $class  = $this->model_member->get_class_count('1',$v['round_id']);
+
+                $totle_class_array = T(TABLE_CLASS)->getFields(array('round_id','status'),'round_id = '.$v['round_id']);
+                $totle_class = count($totle_class_array);
+//                print_r($totle_class);
+                $my_course = array();
+                if(!empty($totle_class_array)){
+                    foreach($totle_class_array as $v){
+                        if($v['status'] == CLASS_STATUS_CLASS_OVER || $v['status'] == CLASS_STATUS_MISS_CLASS){
+                            $my_course[] = $v;
+                        }
+                    }
+                }
+                $class = count($my_course);
+
                 #比例 = 上了M节/共M节
                 $class_rate = $totle_class == 0 ? 0 : round($class/$totle_class,2)*100;
                 #授课状态
