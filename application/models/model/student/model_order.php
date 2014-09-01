@@ -154,17 +154,4 @@ class Model_Order extends NH_Model{
         $int_row = $this->db->affected_rows();
         return $bool_result = $int_row > 0  ? true : false;
     }
-    
-    /**
-     * 随进随听获取购买的课(即将开始、初始化)
-     * @param  $int_round_id
-     * @return $array_result
-     */
-    public function get_allow_buy_class($int_round_id)
-    {
-    	$array_result = array();
-    	$sql = "SELECT course_id,round_id,lesson_id,title,begin_time,end_time,sequence,status,classroom_id,courseware_id,id FROM ".TABLE_CLASS." WHERE  round_id = ".$int_round_id." AND (status=".CLASS_STATUS_INIT." OR status=" .CLASS_STATUS_SOON_CLASS.") AND parent_id>0 ";
-    	$array_result = $this->db->query($sql)->result_array();
-    	return  $array_result;
-    }
 }

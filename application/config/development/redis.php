@@ -8,7 +8,6 @@ $config['redis_db']['order'] = 3; //订单
 $config['redis_db']['captcha'] = 4; //验证码发送频率
 $config['redis_db']['live_class_token'] 		= 5; //进入直播课的token
 $config['redis_db']['recent_view_data'] 		= 6; //最近浏览
-$config['redis_db']['order_class'] 				= 7; //记录下订单要买的课id
 // Default connection group
 $config['redis_default']['host'] = '192.168.11.75'; // IP address or host
 $config['redis_default']['port'] = '6379'; // Default Redis port is 6379

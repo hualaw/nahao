@@ -31,14 +31,6 @@ define(function(require,exports){
     				    content:data.msg,
     				    icon:null
     				});
-                } else if (data.status == "nerror") {
-    				$.dialog({
-    				    content:data.msg,
-    				    icon:null,
-    				    ok:function(){
-    				    	window.location.reload();
-    				    }
-    				});
                 } else if(data.status == "been_buy"){
     				$.dialog({
     				    content:data.msg,
