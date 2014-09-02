@@ -146,7 +146,7 @@ class Business_Tools extends NH_Model
    	public function search_round($param)
    	{
    		if(empty($param['round_name']) && empty($param['round_id'])){exit('缺少轮名和轮id，无法搜索');}
-   		
+   		$cate_subject 	= config_item('cate_subject');
    		$round_info = $this->model_tools->round_info_searcher($param);
    		if(!empty($param['round_id'])){
 	   		foreach($round_info as &$val){
@@ -164,6 +164,8 @@ class Business_Tools extends NH_Model
 	   			$val['rate'] = $counter['rate'];
 	   			//现价
 	   			$val['now_price'] = $counter['now_price'];
+	   			//学科名
+	   			$val['subjectName']= $cate_subject[$val['subject']]['name'];
 	   		}
    		}
         return $round_info;
