@@ -234,17 +234,21 @@ class Course extends NH_User_Controller {
 	 */
 	public function before_check_order()
 	{
-	    header('content-type: text/html; charset=utf-8');
 	    #判断是否登录
 	    if(!$this->is_login){
 	        self::json_output(array('status'=>'no_login','msg'=>'您还未登陆，请先登录'));
 	    }
 	    $int_product_id = $this->input->post("product_id");
 	    $int_product_id = max(intval($int_product_id),1);
+	    #检查这个$int_round_id是否存在
+	    $bool_flag = $this->student_course->check_round_id_is_exist($int_product_id);
+	    if (!$bool_flag){
+	    	self::json_output(array('status'=>'nerror','msg'=>'参数错误'));
+	    }
 	    #检查这个$int_product_id是否有效：（在销售中）
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag){
-	        show_error("参数错误");
+	    	self::json_output(array('status'=>'nerror','msg'=>'该轮不在销售中了！'));
 	    }
 	    #购买前加入没有名额的判断
 	    $array_round = $this->model_course->get_round_info($int_product_id);
@@ -259,7 +263,7 @@ class Course extends NH_User_Controller {
 	    	self::json_output(array('status'=>'nerror','msg'=>'这轮已下架了'));
 	    }
 	    #如果购买的商品已经在订单表存在了，并且状态时已关闭和已取消，则该商品可以继续下单，否则提示它
-	    $int_user_id = $this->session->userdata('user_id');                 #TODO
+	    $int_user_id = $this->session->userdata('user_id');
 	    $array_result = $this->student_order->check_product_in_order($int_product_id,$int_user_id);
 	    if(empty($array_result)){
 	        #根据$int_product_id获取订单里面该轮的部分信息
@@ -293,7 +297,6 @@ class Course extends NH_User_Controller {
 	  */
 	 public function courseware()
 	 {
-	 	header('content-type: text/html; charset=utf-8');
 	 	#判断是否登录
 	 	if(!$this->is_login){
 	 		redirect('/login');
@@ -303,7 +306,7 @@ class Course extends NH_User_Controller {
 	 		show_error('参数错误');
 	 	}
 	 	#检查用户是否买过这门课 
-	 	$int_user_id = $this->session->userdata('user_id');#TODOuser_id
+	 	$int_user_id = $this->session->userdata('user_id');
 	 	$bool_flag = $this->model_course->check_user_buy_class($int_user_id,$int_class_id);
 	 	if(empty($bool_flag)){
 	 		show_error('您没有买过这门课，没有下载这门课的权限');

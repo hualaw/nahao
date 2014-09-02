@@ -17,6 +17,7 @@ class Student_Index extends NH_Model{
     {
         #首页获取一门课程里面最新的一轮（在销售中）
         $array_round = $this->model_index->get_course_new_round(0,3);
+//        echo $this->db->last_query();
         $array_return = array();
         if ($array_round)
         {
@@ -35,7 +36,8 @@ class Student_Index extends NH_Model{
                 }
             }
         }
-        
+
+//        exit;
         return $array_return;
     }
 

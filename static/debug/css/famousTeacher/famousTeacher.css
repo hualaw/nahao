@@ -1,54 +1,49 @@
-.aboutPage{background: #eee;padding-bottom: 60px;}
-.aboutPage .about{padding-top: 10px;}
-.aboutPage .sideLeftNav{width: 200px;}
-.aboutPage .aboutContent{font-size: 14px;width: 764px;color: #334251;background: #fff;border: 1px solid #dbe3ec;border-top: 0;box-shadow: 0 -1px 1px #b9c7d7 inset;}
-.aboutPage .aboutContent h2{font-weight: normal;}
-.aboutPage .aboutContent h2,.aboutPage .aboutContent h3{font-size: 14px;}
-/*   左侧导航   */
-.aboutPage .sideLeftNav ul li{margin-bottom: 5px;}
-.aboutPage .sideLeftNav ul a{display: block;font-size: 16px;color: #0e455e;height: 45px;line-height: 45px;text-align: center;background-color: #fff;border: 1px solid #dbe3ec;border-top: 0;box-shadow: 0 -1px 1px #b9c7d7 inset;}
-.aboutPage .sideLeftNav ul a:hover,
-.aboutPage .sideLeftNav ul .curNav a{background: #ce0000;color: #fff;}
-/*   关于我们  */
-.aboutPage .aboutusBox{padding: 18px 34px 38px 14px;font-size: 12px;}
-.aboutPage .aboutusBox h2,.aboutPage .aboutusBox h3{font-size: 12px;}
-.aboutPage .aboutusBox p{line-height: 24px;}
-.aboutPage .aboutusBox div{margin-bottom: 28px;}
-.aboutPage .adviseBox{padding:14px 60px 44px;width: 652px;margin-top:30px;}
-.aboutPage .adviseBox h2{font-size: 20px;padding:13px 0 0 33px;height: 22px;line-height: 22px;margin-bottom: 7px;background: url(../../images/classRoom/feedback.png) 3px top no-repeat;}
-.aboutPage .adviseBox form .fbText{height: 28px;line-height: 28px;}
-.aboutPage .adviseBox form textarea{width: 610px;height: 100px;}
-.aboutPage .adviseBox form input{width:288px;}
-.aboutPage .adviseBox .formName{font-size: 16px;}
-.aboutPage .adviseBox .submit,
-.evalu .submit{width: 140px;margin-top: 12px;height: 40px;line-height: 40px;font-weight: bold;font-size: 20px;}
-/*   联系我们  */
-.aboutPage .contactusBox{padding: 55px 0px 77px 50px;}
-.aboutPage .contactusBox p{line-height: 36px;}
-/*   服务协议  */
-.aboutPage .serviceBox{padding: 16px 36px 26px 18px;font-size: 12px;}
-.aboutPage .serviceBox h3{font-size: 12px;line-height: 24px;}
-.aboutPage .serviceBox p{line-height: 24px;}
-/*   加入我们  */
-.aboutPage .addUsBox{padding: 14px 18px 50px 12px;font-size: 12px;}
-.aboutPage .addUsBox p{line-height: 28px;}
-.aboutPage .addUsBox h3{font-weight: normal;}
-.aboutPage .addUsBox .weneed{margin-top: 12px;}
-.aboutPage .addUsBox .weneed p{line-height: 24px;}
-.aboutPage .addUsBox .weneed .sendJL{margin:16px 0 44px;}
-.aboutPage .addUsBox .section{margin-bottom: 30px;}
-/*   用户帮助  */
-.aboutPage .userhelpBox{padding: 14px 20px 32px 12px;font-size: 12px;}
-.aboutPage .userhelpBox h3{font-weight: normal;font-size: 12px;}
-.aboutPage .userhelpBox p{line-height: 26px;}
+.famousTeacher{background: #f8f8f8}
+.famousTeacher .main{}
+.famousTeacher .topBg{width:568px;height: 151px;background: url(../../images/famousTeacher/topBg.jpg) no-repeat center center;padding: 298px 0 0 412px}
+.famousTeacher .topBg h2,
+.famousTeacher .topBg h1{text-indent: -9999px;position: absolute;}
+.famousTeacher .topBg p{font-size: 18px;color:#fff;line-height: 24px;}
+.famousTeacher .ztBox{position: relative;padding-top:50px;padding-left: 15px;background: #fff;margin-bottom: 40px;}
+.famousTeacher .ztH2{height: 40px;line-height: 40px;position: absolute;top: 5px;left: -10px;}
+.famousTeacher .ztH2 .bgIcon{position: absolute;left: 0px;top: 40px;display: inline-block;width: 10px;height: 10px;background: url(../../images/famousTeacher/bgIcon.png) no-repeat center center;}
+.famousTeacher .ztH2 span{display: inline-block;padding: 0px 20px 0 27px;background: #d42222;color:#fff;font-size: 30px;font-weight: normal;line-height: 40px;}
+.famousTeacher .word{padding-right: 15px;font-size: 14px;line-height: 24px;}
+.famousTeacher .word .title{font-weight: normal;font-size: 18px;}
+.famousTeacher .word p{text-indent: 28px;margin-bottom: 10px;}
+.famousTeacher .word li{display: inline-block;text-align: center;padding-top: 15px;margin-right: 15px;}
+.famousTeacher .word li p{text-indent: 0;}
+.famousTeacher .pic .btmBar{display:block;text-align: center;position: absolute;left: 0;bottom: 0;background: #000;opacity:0.7;filter:alpha(opacity=70);height: 30px;width: 100%; }
+.famousTeacher .pic .btmBarOther{height: 44px;}
+.famousTeacher .pic .btmText{display:block;text-align: center;position: absolute;left: 0;bottom: 0;height: 30px;width: 100%;line-height: 30px;text-align: center;color: #fff;font-size: 14px;}
+.famousTeacher .pic .btmText1{left: 0;bottom: 20px;height: 22px;line-height: 18px}
+.famousTeacher .pic .btmText2{left: 0;bottom: 0;height: 22px;line-height: 18px}
+.famousTeacher .pic p{margin-bottom: 10px;font-size: 14px;line-height: 24px;}
+.famousTeacher .k_box{padding: 20px 0 0 8px}
+.famousTeacher .k_box li{width: 217px;float: left;margin: 0 22px 40px 0}
+.famousTeacher .k_box .picBox{width: 215px;border: 1px solid #d5d5d5;border-bottom: 0}
+.famousTeacher .k_box .pic{width: 201px;height: 251px;display: block;margin:8px auto;}
+.famousTeacher .k_box .pTitle{display: block;height: 40px;line-height: 20px;overflow: hidden;padding: 0 7px;font-size: 16px;color: #000;margin-bottom: 5px;}
+.famousTeacher .k_box .pBtn{display: block;width: 217px;height: 36px;line-height: 36px;color: #fff;background: #ff9a00;text-align: center;font-size: 16px;}
+.famousTeacher .news_box{padding: 20px 0 30px 4px}
+.famousTeacher .news_box li{float: left;}
+.famousTeacher .news_box .tips{background: #cde6fc;padding: 5px 20px 10px; line-height: 20px;font-size: 14px;width: 900px;color: #000000}
 
-.aboutPage .userhelpBox .comproblem p{padding: 0 10px 0 22px;}
-.aboutPage .userhelpBox .comproblem{margin-top: 20px;}
-.aboutPage .userhelpBox .comproblem li{margin-bottom: 18px;}
-.aboutPage .userhelpBox .process{margin: 14px 0 20px;}
-.aboutPage .userhelpBox .process img{width: 722px;margin:4px 0 24px;border: 1px solid #d7d7d7;}
-.aboutPage .userhelpBox .buyStep{padding-top: 88px;background: url(../../images/about/buyStep.png) 46px 30px no-repeat;height: 44px;border: 1px solid #dedede;border-left: none;border-right: none;margin:10px 0 33px;}
-.aboutPage .userhelpBox h2{margin-bottom: 17px;}
-.aboutPage .userhelpBox .buyStep .margin1{margin:0 30px 0 22px;}
-.aboutPage .userhelpBox .buyStep .margin2{margin:0 70px 0 60px;}
-.aboutPage .userhelpBox .buyStep .margin3{margin-left:35px;}
+
+
+
+/*定义宽度开始*/
+.famousTeacher .w_655{width: 640px;}
+.famousTeacher .w_300{width: 300px;}
+.famousTeacher .w_642{width: 642px;}
+.famousTeacher .w_374{width: 374px;}
+.famousTeacher .w_364{width: 364px;}
+.famousTeacher .w_555{width: 555px;}
+/*定义宽度结束*/
+/*向上浮动距离开始*/
+.famousTeacher .mart_20{margin-top: -20px;}
+.famousTeacher .mart_50{margin-top: -50px;}
+.famousTeacher .marb_10{margin-bottom: 10px;}
+.famousTeacher .pdt_10{padding-top: 10px;}
+.famousTeacher .pdb_20{padding-bottom: 20px;}
+/*向上浮动距离结束*/
