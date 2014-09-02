@@ -34,13 +34,16 @@ class Business_Tools extends NH_Model
     	#1. 查询此轮信息，含已购买数，是否达到上限，是就终止提示不可购买，不是就继续
     	$round_info = $this->model_tools->round_info_searcher($param);
     	$round_info = $round_info[0];
-    	if($round_info['bought_count'] >= $round_info['caps']){
-    		$this->error_output('购买失败：已购买人数已经达到上限（售罄）~');
-    	}
+//    	if($round_info['bought_count'] >= $round_info['caps']){
+//    		$this->error_output('购买失败：已购买人数已经达到上限（售罄）~');
+//    	}
     	#2. 查询此轮的授课状态，如果是 【等待开课/初始化，授课中】，是就终止提示不可购买，不是就继续
-    	if(!in_array($round_info['teach_status'],array(ROUND_TEACH_STATUS_INIT,ROUND_TEACH_STATUS_TEACH))){
-    		$this->error_output('购买失败：该班次允许购买的授课状态已过，不可购买');
+    	if(!in_array($round_info['sale_status'],array(ROUND_SALE_STATUS_SALE))){
+    		$this->error_output('购买失败：该班次不在销售中');
     	}
+//    	if(!in_array($round_info['teach_status'],array(ROUND_TEACH_STATUS_INIT,ROUND_TEACH_STATUS_TEACH))){
+//    		$this->error_output('购买失败：该班次允许购买的授课状态已过，不可购买');
+//    	}
     	#3. 查询学生与轮是否有状态为2（已支付）的订单记录，有则终止提示，没有就继续
     	$is_pay = $this->model_tools->search_student_order(array('round_id'=>$round_id,'user_id'=>$user_id));
     	if($is_pay>0){
@@ -54,23 +57,23 @@ class Business_Tools extends NH_Model
 //    	}
 		$round_info['now_price'] = '';
     	#5. 【如果第1,2,3步成功】					生成学生与订单记录，计算当前可购买数比例，根据 原销售价sale_price
-		if($round_info['sale_price']<=0){
-			#5.1 如果是<=0，免费课，现价为0元
-			$round_info['now_price'] == 0;
-		}elseif($round_info['sale_price']>0 && $round_info['sale_price']<=1){
-			#5.2 如果是=1，1元课，现价为1元
-			$round_info['now_price'] == 1;
-		}else{
-			#5.3 如果是>0 <1，根据可购买比例计算现价
-			$input = array(
-   				'round_id'		=> $round_id,
-   				'class_count'	=> $round_info['class_count'],
-   				'sale_price'	=> $round_info['sale_price']
-   				);
-			$counter = $this->get_round_rate_price($input);
-   			$round_info['now_price'] = $counter['now_price'];
-		}
-		
+//		if($round_info['sale_price']<=0){
+//			#5.1 如果是<=0，免费课，现价为0元
+//			$round_info['now_price'] == 0;
+//		}elseif($round_info['sale_price']>0 && $round_info['sale_price']<=1){
+//			#5.2 如果是=1，1元课，现价为1元
+//			$round_info['now_price'] == 1;
+//		}else{
+//			#5.3 如果是>0 <1，根据可购买比例计算现价
+//			$input = array(
+//   				'round_id'		=> $round_id,
+//   				'class_count'	=> $round_info['class_count'],
+//   				'sale_price'	=> $round_info['sale_price']
+//   				);
+//			$counter = $this->get_round_rate_price($input);
+//   			$round_info['now_price'] = $counter['now_price'];
+//		}
+		$round_info['now_price'] = $round_info['sale_price'];
 		#5.4 生成订单【生成时间和支付时间都是当前时间】【支付类型：4，线下】【状态：2已付款】
 		$param = array(
 				'round_id' 	=> $round_id,
@@ -105,8 +108,8 @@ class Business_Tools extends NH_Model
     			$data['msg'] 	.= '轮总购买次数加1!<br>';
     		}
     		#6.4 根据【查询可购买课，状态0,1 初始化，即将开课】生成学生与课的记录,初始化状态
-    		$allow_arr = $this->model_tools->round_allow_class(array('round_id'=>$round_id));
-    		
+//    		$allow_arr = $this->model_tools->round_allow_class(array('round_id'=>$round_id));
+			$allow_arr = $this->model_tools->round_all_class(array('round_id'=>$round_id));
     		if(count($allow_arr)>0){
     			foreach ($allow_arr as $val){
     				$param = array(
@@ -143,6 +146,7 @@ class Business_Tools extends NH_Model
    	public function search_round($param)
    	{
    		if(empty($param['round_name']) && empty($param['round_id'])){exit('缺少轮名和轮id，无法搜索');}
+   		
    		$round_info = $this->model_tools->round_info_searcher($param);
    		if(!empty($param['round_id'])){
 	   		foreach($round_info as &$val){
