@@ -134,7 +134,7 @@ class Index extends NH_User_Controller
         //recent view
         $this->load->model('business/student/student_course');
         $arr_recent_view = CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1' ? $this->student_course->read_recent_view_data() : array();
-		
+        
 //        o($focus_photo);
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
