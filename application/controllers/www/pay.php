@@ -77,7 +77,6 @@ class Pay extends NH_User_Controller {
                      break;                                    
 	        }
 	    }
-	    
 	    $array_infor = $this->_user_detail;
 	    $this->smarty->assign('realname', $array_infor['realname']);
 	    $this->smarty->assign('phone_verified', $array_infor['phone_verified']);
@@ -100,7 +99,6 @@ class Pay extends NH_User_Controller {
     	$str_verify_code = $this->input->post("verify_code");
     	$int_code_type   = 2;
     	$int_product_id  = $this->input->post("pid");
-		$str_class_ids   = $this->input->post("cids");
     	#如果用户注册的时候填了手机号，就不用验证码了
     	if (!empty($str_phone) && $str_phone != $this->session->userdata('phone')){
         	$exists = $this->business_register->_check_captcha($str_phone, $str_verify_code, $int_code_type);
@@ -157,7 +155,6 @@ class Pay extends NH_User_Controller {
 					'phone_mask' => phone_blur($str_phone)
 				);
 				$this->session->set_userdata($userdata);
-				$this->check_buy_class_infor($int_product_id,$str_class_ids);
 				self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 
 			}
@@ -180,14 +177,12 @@ class Pay extends NH_User_Controller {
 					'phone_mask' => phone_blur($str_phone)
 				);
 				$this->session->set_userdata($userdata);
-				$this->check_buy_class_infor($int_product_id,$str_class_ids);
 				self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 
 			}
 					 
 			if($phone== $str_phone)
 			{
-				$this->check_buy_class_infor($int_product_id,$str_class_ids);
 				self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 			}
 	
@@ -215,7 +210,6 @@ class Pay extends NH_User_Controller {
 					'phone_mask' => phone_blur($str_phone)
 				);
 				$this->session->set_userdata($userdata);
-				$this->check_buy_class_infor($int_product_id,$str_class_ids);
 				self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 
 			}
@@ -242,7 +236,6 @@ class Pay extends NH_User_Controller {
 					'phone_mask' => phone_blur($str_phone)
 				);
 				$this->session->set_userdata($userdata);
-				$this->check_buy_class_infor($int_product_id,$str_class_ids);
 				self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 
 			}
@@ -253,37 +246,9 @@ class Pay extends NH_User_Controller {
 				if (empty($uiflag)){
 					self::json_output(array('status'=>'error','msg'=>'联系方式保存出错，无法提交订单','code'=>11));
 				}
-				$this->check_buy_class_infor($int_product_id,$str_class_ids);
 				self::json_output(array('status'=>'ok','data'=>array('product_id'=>$int_product_id)));
 			}
     	}
-	}
-	
-	/*
-	*	检查购买的课节是否发生变化
-	*/
-	public function check_buy_class_infor($int_product_id,$str_class_ids)
-	{
-		#如果长时间在订单确认页面 没有提交，则需要检查可买的课
-		$array_class_ids = explode(',', $str_class_ids);				
-		$array_list  = array();
-		$array_allow_buy_class = $this->model_order->get_allow_buy_class($int_product_id);
-		$error_msg = "课程里面可购买节有变化，点击“确定” 本页面会被刷新，请确定订单详情，再次提交订单！谢谢！";
-		if (empty($array_allow_buy_class)){
-			self::json_output(array('status'=>'nerror','error_code'=>'1','msg'=>$error_msg));
-		}
-		foreach ($array_allow_buy_class as $kkk=>$vvv){
-			$array_list[] = $vvv['id'];
-		}
-		$class_ids_count = count($array_class_ids);
-		$allow_buy_class_count = count($array_list);
-		if ($class_ids_count != $allow_buy_class_count){
-			self::json_output(array('status'=>'nerror','error_code'=>'2','msg'=>$error_msg));
-		}
-		$array_diff = array_diff($array_class_ids,$array_list);
-		if(!empty($array_diff)){
-			self::json_output(array('status'=>'nerror','error_code'=>'3','msg'=>$error_msg));
-		}
 	}
 	
 	
@@ -307,12 +272,6 @@ class Pay extends NH_User_Controller {
     	$bool_flag = $this->student_course->check_round_id($int_product_id);
     	if (!$bool_flag){
     		show_error('该轮不在销售中了！');
-    	}
-    	$array_list  = array();
-    	$array_allow_buy_class_infor = $this->model_order->get_allow_buy_class($int_product_id);
-    	$error_msg = "课程里面没有可购买的课节，点击“确定” 本页面会被刷新，请确定订单详情，再次提交订单！谢谢！";
-    	if (empty($array_allow_buy_class_infor)){
-    		show_error($error_msg);
     	}
 	    $int_user_id = $this->session->userdata('user_id');
 	    #检查该用户是否已经下单且未付款
@@ -338,10 +297,8 @@ class Pay extends NH_User_Controller {
 	        }
 	        #向数据库生成订单成功之后，将订单信息写到redis里面
 	        $int_order_id = $array_result['order_id'];
-	        $bool_mflag = $this->student_order->write_order_to_redis($int_order_id,$array_result['array_data']);
-			#创建订单之后，将要买的课写到redis里面
-			$bool_nflag = $this->student_order->write_order_class_to_redis($int_order_id,$array_allow_buy_class_infor);
-	        if(!$bool_mflag || !$bool_nflag){
+	        $bool_flag = $this->student_order->write_order_to_redis($int_order_id,$array_result['array_data']);
+	        if(!$bool_flag){
 	        	show_error("创建订单失败啦");
 	        }    
 	    }
@@ -392,7 +349,7 @@ class Pay extends NH_User_Controller {
 	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
 	    //$array_order['id'] = $int_order_id;
 	    #如果是0元免费课程，执行下面的操作(或者不走支付的开关打开)
-	    if ($array_round['current_price'] == '0' || NOT_GO_PAY_SWITCH == '0'){
+	    if ($array_round['sale_price'] == '0' || NOT_GO_PAY_SWITCH == '0'){
 	    	#更新订单状态,写日志
 	    	$array_data = array(
 				'round_id'=>$array_order['round_id'],
@@ -411,7 +368,7 @@ class Pay extends NH_User_Controller {
 	    $this->smarty->assign('bank_code', $bank_code);
 	    $this->smarty->assign('array_order', $array_order);
 	    $this->smarty->assign('payment_method', $payment_method);
-	    $this->smarty->assign('current_price', $array_round['current_price']);
+	    $this->smarty->assign('sale_price', $array_round['sale_price']);
 	    $this->smarty->display('www/studentCart/toPay.html');   
 	}
 	
@@ -469,10 +426,6 @@ class Pay extends NH_User_Controller {
 		#检查用户是否买过该订单里的这轮，防止重复购买
 	    if ($array_result && (in_array($array_result[0]['status'],$arrat_status))){
 	    	show_error('您已经买过该轮了，请不要重复购买');
-	    }
-		#如果下单超过30分钟就不能再支付了
-	    if (time() > ($array_order['create_time'] + 1800)){
-	    	show_error('生成订单30分钟之后就不能再支付了！');
 	    }
 	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
 		#轮销售结束之后就不能支付了

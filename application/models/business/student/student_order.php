@@ -15,33 +15,14 @@ class Student_Order extends NH_Model{
      */
     public function get_order_round_info($int_product_id)
     {
-    	$array_return = array();
-    	$array_return = $this->model_course->get_round_info($int_product_id);
-        #获取购买的课(即将开始、初始化)
-        $array_class = $this->model_order->get_allow_buy_class($int_product_id);
-        $array_list = array();
-        if ($array_class){
-	        foreach ($array_class as $kk=>$vv){
-	        	$array_list[] = $vv['id'];
-	        }
+        $array_return = array();
+        $array_return = $this->model_course->get_round_info($int_product_id);
+        if ($array_return){
+            #总金额
+            $array_return['totle_money'] = $array_return['sale_price'];
+            #节省了多少钱
+            $array_return['save_money'] = $array_return['price']-$array_return['sale_price'];
         }
-        if ($array_list){
-        	$allow_class = implode(',', $array_list);
-        } else {
-        	$allow_class = '';
-        }
-        #可以购买的课的总数 
-        $buy_class_total = count($array_list);
-        #总课数
-        $class_total = $this->model_course->get_class_total($int_product_id);
-       	if ($class_total){
-       		if ( $buy_class_total == '1'){
-       			$array_return['allow_class_count'] = "第". $class_total['num']."节(共".$buy_class_total."节)";
-       		} else {
-       			$array_return['allow_class_count'] = "第".($class_total['num']-$buy_class_total+1)."节--第". $class_total['num']."节(共".$buy_class_total."节)";
-       		}
-       	}
-        $array_return['allow_class'] = $allow_class;
         return $array_return;
     }
     
@@ -58,7 +39,7 @@ class Student_Order extends NH_Model{
         #原价
         $price = $array_data['price'];
         #销售价格
-        $current_price = $array_data['current_price'];
+        $sale_price = $array_data['sale_price'];
         #创建订单时，支付方式是线下还是线上
         if ($payment_method == 'online'){
             $pay_type = ORDER_TYPE_ONLINE;
@@ -72,7 +53,7 @@ class Student_Order extends NH_Model{
 			'create_time'=>time(),
 			'price'=>$price,
 			'status'=>ORDER_STATUS_INIT,
-			'spend'=>$current_price,
+			'spend'=>$sale_price,
 			'pay_type'=>$pay_type
         );
         #插入到订单表
@@ -148,12 +129,16 @@ class Student_Order extends NH_Model{
     	if(empty($array_round)){
     		$array_round = $this->student_order->get_order_by_id($int_order_id);
     	}
-		
-        $array_class = $this->read_order_class_to_redis($int_order_id);
-        if (empty($array_class)){
-        	$array_class = $this->model_order->get_allow_buy_class($array_round['round_id']);
+        
+        $array_class = array();
+        if (empty($array_round)){
+        	return $response['message'] = "订单里面没有对应的轮";
         }
-        $buy_class_ids = array();
+        
+        $array_class = $this->model_course->get_class_under_round_id($array_round['round_id']);       
+        if(empty($array_class)){
+        	return $response['message'] = "轮下面没有课";
+        }
         foreach ($array_class as $kk=>$vv){
             #添加学生与课的关系
             $array_data = array(
@@ -165,20 +150,7 @@ class Student_Order extends NH_Model{
 				'create_time'=>time()
             );
             $bool_return = $this->model_order->add_student_class_relation($array_data);
-            $buy_class_ids[] = $vv['id'];
         }
-        #添加日志（用户id在轮id买了那几节课，订单id）
-        $class_ids = implode(',', $buy_class_ids);
-        $msg = "用户id为：".$int_user_id."在轮id为：".$array_round['round_id']."买的课为：".$class_ids."订单id为:".$int_order_id;
-        $array_prams = array(
-			'order_id'=>$int_order_id,
-			'user_id'=>$int_user_id,                                      #TODO用户id
-			'user_type'=>NH_MEETING_TYPE_STUDENT,                         #用户类型 ：学生
-			'action'=>ORDER_ACTION_STUDENG_CLASS,                         #创建订单
-			'create_time'=>time(),
-			'note'=>$msg
-        );
-        $this->model_order->add_order_log($array_prams);
         return $bool_return;
     }
     
@@ -277,32 +249,5 @@ class Student_Order extends NH_Model{
 			$array_order = json_decode($array_order,true);
 		}
 		return $array_order;
-	}
-	
-	/**
-	 * 将订单里面具体买的课节 写到redis(失效时间为3小时)
-	 */
-	public function write_order_class_to_redis($int_order_id,$array_data)
-	{
-		$this->load->model('model/common/model_redis', 'redis');
-		$this->redis->connect('order_class');
-		$str_encode = json_encode($array_data);
-		$bool_flag = $this->cache->redis->set($int_order_id,$str_encode,'10800');
-		return $bool_flag ? true : false;
-	}
-	
-	/**
-	 * 读取redis里面的具体买的课节
-	 */
-	public function read_order_class_to_redis($int_order_id)
-	{
-		$this->load->model('model/common/model_redis', 'redis');
-		$this->redis->connect('order_class');
-		$array_order_class = $this->cache->redis->get($int_order_id);
-		if ($array_order_class)
-		{
-			$array_order_class = json_decode($array_order_class,true);
-		}
-		return $array_order_class;
 	}
 }
