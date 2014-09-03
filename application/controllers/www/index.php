@@ -96,6 +96,10 @@ class Index extends NH_User_Controller
             $this->load->model('business/admin/business_focus_photo');
             $focus_photo = $this->business_focus_photo->list_photo(1);
 
+            //live show list
+            $arr_live_classes = $int_live_per_page == 0 ? array() : $this->index->get_live_classes($int_live_per_page);
+//            o($arr_live_classes);
+
             //course_list
             $int_round_count = $this->index->get_round_count($arr_where);
 //        o($int_round_count);
@@ -118,19 +122,16 @@ class Index extends NH_User_Controller
 
             $this->smarty->assign('material_versions', config_item('material_version'));
             $this->smarty->assign('course_types', $stage = config_item('course_type'));
+            $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
             $this->smarty->assign('today_begin_time', strtotime(date('Y-m-d', time())));
             $this->smarty->assign('today_end_time', strtotime(date('Y-m-d 23:59:59', time())));
             $this->smarty->assign('focus_photo', $focus_photo);
+            $this->smarty->assign('live_list', $arr_live_classes);
             $this->smarty->assign('round_list', $arr_round_list);
             $this->smarty->assign('page', $str_page);
             $this->smarty->assign('query_params', $arr_query_param);
 //            $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
         }
-
-        //live show list
-        $arr_live_classes = SWITCH_WWW_INDEX_LIVE_SHOW == 1 ? $this->index->get_live_classes($int_live_per_page) : array();
-//            o($arr_live_classes);
-
         //recent view
         $this->load->model('business/student/student_course');
         $arr_recent_view = CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1' ? $this->student_course->read_recent_view_data() : array();
@@ -138,9 +139,7 @@ class Index extends NH_User_Controller
 //        o($focus_photo);
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);
-        $this->smarty->assign('round_icons', $stage = config_item('round_icon'));
         $this->smarty->assign('grade', config_item('grade'));
-        $this->smarty->assign('live_list', $arr_live_classes);
         $this->smarty->assign('array_recent_view', $arr_recent_view,true);
         $this->smarty->display($str_template, $str_cache_id);
     }
