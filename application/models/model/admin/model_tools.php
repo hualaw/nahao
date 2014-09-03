@@ -116,6 +116,19 @@ class Model_Tools extends NH_Model
 		$arr_result = $this->db->query($sql)->result_array();
         return $arr_result;
 	}
+	
+	/**
+	 * 查找一个轮所有课id
+	 */
+	public function round_all_class($param)
+	{
+		if(empty($param['round_id'])){exit('轮id不能为空');}
+		$sql = "SELECT id FROM class 
+				WHERE round_id=".$param['round_id']." 
+				AND parent_id>0 ";
+		$arr_result = $this->db->query($sql)->result_array();
+        return $arr_result;
+	}
 	 
 	/**
 	 * 查找一个轮可以买的课的数量：【初始化，即将开课】
