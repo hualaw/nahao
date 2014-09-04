@@ -54,9 +54,9 @@
 .studentClass .listCont{margin: 0px -6px 17px;}
 .studentClass .listCont .noItemList{text-align: center;background-color: #fff;height: 50px;line-height: 50px;margin: 10px 12px 0px 6px;}
 .studentClass .courseLeft .pager{margin: 0px 11px ;}
-.studentClass .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
+.studentClass .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;height: 298px;}
 .studentClass .listCont .courseDesc{display: block;width: 240px;height: 154px;position: relative;}
-.studentClass .listCont .courseDesc .cDescImg{vertical-align: bottom;width: 240px;height: 154px;}
+.studentClass .listCont .courseDesc .cDescImg{vertical-align: bottom;width: 240px;height: 154px;font-size: 0;}
 .studentClass .listCont .hoverDesc{width: 240px;height: 154px;background-color: #5a6378;color:#fff;overflow: hidden;position: absolute;left: 0px;top:0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentClass .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
@@ -68,10 +68,10 @@
 .studentClass .listCont .hoverDesc .teacherDesc{word-break: break-all;padding-right: 10px;color: #fff;line-height: 24px;position: absolute;left:10px;bottom: 0px;opacity: 0;filter:alpha(opacity=0);
 	transition:all 0.2s ease-out 0s;-moz-transition: all 0.2s ease-out 0s;	-webkit-transition: all 0.2s ease-out 0s;-o-transition:all 0.2s ease-out 0s;}
 .studentClass .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
-.studentClass .cItem .ctitle{font-size: 14px;margin: 0px;padding: 8px 10px 0px;font-weight: normal;}
+.studentClass .cItem .ctitle{font-size: 14px;margin: 0px;padding: 8px 10px 0px;font-weight: normal;height: 38px;}
 .studentClass .cItem .cTitleName{display: block;overflow: hidden;height: 38px;line-height: 19px;overflow: hidden;}
 .studentClass .cItem .cTitleDesc{color:#989898;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;}
-.studentClass .cItem .cDetail{margin: 5px 10px;margin-bottom: 10px;position: relative;}
+.studentClass .cItem .cDetail{margin: 5px 10px;margin-bottom: 10px;position: relative;height: 46px;}
 .studentClass .cItem .cBottom{padding: 0px 10px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
 .studentClass .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
 .studentClass .cItem .cBottom strong{color: #ce0000;display: inline-block;font-weight: normal;}
