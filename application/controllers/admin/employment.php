@@ -7,7 +7,8 @@
          */
         public function index()
         {
-            $total=$this->employment->num_employment(0);
+            $title=$this->input->get('title',TRUE) ? $this->input->get('title',TRUE) : '';
+            $total=$this->employment->num_employment(0,$title);
             $search_total=$total;
             $this->load->library('pagination');
             $config = config_item('page_admin');
@@ -19,7 +20,9 @@
             $int_start=$this->uri->segment(3);
             $this->db->limit(PER_PAGE_NO,$int_start);
             $page = $this->pagination->create_links();
-            $list_employment=$this->employment->get_employment(0);
+            $list_employment=$this->employment->get_employment(0,$title);
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+            $this->smarty->assign('search_term',$search_term);
             $this->smarty->assign('search_total',$search_total);
             $this->smarty->assign('page',$page);
             $this->smarty->assign('list_employment',$list_employment);
@@ -68,7 +71,7 @@
         {
             $id=$this->input->get('id',TRUE);
             $seq=$this->input->get('seq',TRUE);
-            $detail=$this->employment->get_employment(trim($id));
+            $detail=$this->employment->get_employment(trim($id),$title='');
             $this->smarty->assign('id',trim($id));
             $this->smarty->assign('seq',trim($seq));
             $this->smarty->assign('detail',$detail);

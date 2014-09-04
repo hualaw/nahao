@@ -16,9 +16,9 @@ class Model_employment extends NH_Model{
      * 查询所有招聘信息
      * @author shangshikai@tizi.com
      */
-    public function getAll_employment($id=0)
+    public function getAll_employment($id=0,$title='')
     {
-        self::sql($id);
+        self::sql($id,$title);
         $arr_list=$this->db->order_by(TABLE_EMPLOYMENT.'.id','desc')->get()->result_array();
         return $arr_list;
     }
@@ -27,9 +27,9 @@ class Model_employment extends NH_Model{
      * 查询启用的招聘信息
      * @author shangshikai@tizi.com
      */
-    public function getAll($id=0)
+    public function getAll($id=0,$title='')
     {
-        self::sql($id);
+        self::sql($id,$title='');
         $this->db->where(TABLE_EMPLOYMENT.'.is_open',1)->order_by(TABLE_EMPLOYMENT.'.seq','desc');
         $arr_list=$this->db->get()->result_array();
         return $arr_list;
@@ -40,9 +40,9 @@ class Model_employment extends NH_Model{
      * 统计招聘信息总数
      * @author shangshikai@tizi.com
      */
-    public function count_employment($id=0)
+    public function count_employment($id=0,$title)
     {
-        self::sql($id);
+        self::sql($id,$title);
         $int_num=$this->db->get()->num_rows();
         return $int_num;
     }
@@ -50,12 +50,16 @@ class Model_employment extends NH_Model{
      * 拼装sql查询语句
      * @author shangshikai@tizi.com
      */
-    public function sql($id)
+    public function sql($id,$title)
     {
         $this->db->select(TABLE_EMPLOYMENT.'.`id`,`title`,`desc`,`requirement`,`is_open`,`seq`')->from(TABLE_EMPLOYMENT);
         if($id!=0)
         {
             $this->db->where(TABLE_EMPLOYMENT.'.id',$id);
+        }
+        if($title!='')
+        {
+            $this->db->like(TABLE_EMPLOYMENT.'.title',$title);
         }
     }
 
@@ -68,8 +72,6 @@ class Model_employment extends NH_Model{
      */
     public function update_employment($arr_update,$arr_where)
     {
-//        UPDATE mytable  SET title = '{$title}', name = '{$name}', date = '{$date}'
-
         $sql="update ".TABLE_EMPLOYMENT." SET ".TABLE_EMPLOYMENT.".`title`="."'$arr_update[title]'".','.TABLE_EMPLOYMENT.".`desc`="."'$arr_update[desc]'".','.TABLE_EMPLOYMENT.".`seq`="."$arr_update[seq]".','.TABLE_EMPLOYMENT.".`requirement`="."'$arr_update[requirement]'"." WHERE ".TABLE_EMPLOYMENT.'.`id`='.$arr_where[TABLE_EMPLOYMENT.'.id'];
         $this->db->query($sql);
         $int_return=$this->db->affected_rows();
@@ -102,9 +104,9 @@ class Model_employment extends NH_Model{
      * 招聘顺序信息的唯一性验证
      * @author shangshikai@tizi.com
      */
-    public function unique_seq($int_seq,$innate=0,$id=0)
+    public function unique_seq($int_seq,$innate=0,$id=0,$title='')
     {
-        self::sql($id);
+        self::sql($id,$title);
         $this->db->where(TABLE_EMPLOYMENT.'.seq',$int_seq);
         $this->db->where(TABLE_EMPLOYMENT.'.seq!=',$innate);
         $this->db->get()->row_array();
