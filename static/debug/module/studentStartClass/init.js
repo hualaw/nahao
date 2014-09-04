@@ -1,6 +1,5 @@
 define(function(require,exports){	
 	$(function (){
-
 	if ($(".popBox").length>0) {
 		require("module/common/method/popUp").popUp(".popBox");
 	};
