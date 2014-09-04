@@ -12,6 +12,8 @@ define(function(require,exports){
 	if($('.writeInfo').length > 0){
         //时间插件
         require("module/studentStartClass/datePlugin").addDatePlugin();
+        _valid.writeInfoForm();
+        /*
         require.async("select", function(ex) {
             // 美化select
             $('select').jqTransSelect();
@@ -22,8 +24,9 @@ define(function(require,exports){
 
             // require("module/studentStartClass/edit").edit();
             //我要开课 试讲 信息 验证
-            _valid.writeInfoForm();
+
         });
+        */
     }
 
 	if($(".regTeacher").length){
