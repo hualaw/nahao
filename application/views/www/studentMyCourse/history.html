@@ -17,7 +17,7 @@
 				<span class="fr hDesc">
 					<span class="hSmallTitle">{$item.title|truncate:16:"...":true}</span>
 					<span class="valList">
-						<strong class="price">￥{$item.sale_price}</strong>
+						<strong class="price">￥{$item.sale_price|intval}</strong>
 						<span class="val">{$item.price}</span>
 					</span>
 				</span>

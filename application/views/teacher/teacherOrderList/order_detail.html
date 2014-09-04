@@ -27,7 +27,7 @@
     <div class="md_bd">
     {if $data['zjList']}
     	{foreach $data['zjList'] as $val}
-    		<h3>{$val['title']}</h3>
+    		<h3>{if isset($val['title'])}{$val['title']}{/if}</h3>
 	        <table class="md_table">
 	            <tr>
 	                <th>序号</th>

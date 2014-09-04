@@ -135,7 +135,6 @@ define('NOT_GO_PAY_SWITCH', 0);
  * 拒绝退款 9 
  * 同意退款10
  * 完成退款 11
- * 用户id在轮id买了那几节课，订单id 12
  */
 define('ORDER_ACTION_CREATE_ORDER', 0);
 define('ORDER_ACTION_FAIL', 1);
@@ -149,7 +148,6 @@ define('ORDER_ACTION_APPLY_REFUND', 8);
 define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
-define('ORDER_ACTION_STUDENG_CLASS', 12);
 // 课的状态
 define('CLASS_STATUS_INIT', 0); //初始化
 define('CLASS_STATUS_SOON_CLASS', 1); //即将上课

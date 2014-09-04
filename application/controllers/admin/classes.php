@@ -21,6 +21,7 @@ class Classes extends NH_Admin_Controller {
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
         $int_last_class_id = 0;
+        $arr_round = $arr_classes =$int_chapter_count = $int_section_count = '';
         if($int_round_id > 0){
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
