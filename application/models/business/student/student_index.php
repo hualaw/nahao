@@ -178,7 +178,7 @@ class Student_Index extends NH_Model{
             $str_fields = TABLE_ROUND.'.id';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
-//                'start_time <' => TIME_STAMP+7*86400,
+                'next_class_begin_time >' => TIME_STAMP,
                 'is_live' => 0,
                 'is_test' => 0,
             );
@@ -214,7 +214,7 @@ class Student_Index extends NH_Model{
 //            $str_fields = '*';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
-//                'start_time <' => TIME_STAMP+7*86400,
+                'next_class_begin_time >' => TIME_STAMP,
                 'is_live' => 0,
                 'is_test' => 0,
             );
@@ -228,7 +228,7 @@ class Student_Index extends NH_Model{
             );
             $arr_order_by = array(
                 'sequence' => 'desc',
-                'start_time' => 'asc'
+                'next_class_begin_time' => 'asc'
             );
             $arr_limit = array(
                 'start'=>$int_start,

@@ -130,15 +130,11 @@ class Index extends NH_User_Controller
             $this->smarty->assign('round_list', $arr_round_list);
             $this->smarty->assign('page', $str_page);
             $this->smarty->assign('query_params', $arr_query_param);
-//            $this->smarty->registerPlugin('function', 'get_course_img_by_size', 'get_course_img_by_size');
         }
         //recent view
         $this->load->model('business/student/student_course');
-        $arr_recent_view = array();
-        if (CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1'){
-        	$arr_recent_view = $this->student_course->read_recent_view_data();
-        }
-		
+        $arr_recent_view = CLASSES_INDEX_BROWSING_HISTORY_SWITCH == '1' ? $this->student_course->read_recent_view_data() : array();
+
 //        o($focus_photo);
         $course_url = config_item('course_url');
         $this->smarty->assign('course_url', $course_url);

@@ -20,7 +20,7 @@ class Classes extends NH_Admin_Controller {
     public function index () {
         $int_round_id = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
         $arr_class = array();
-        $int_last_class_id = 0;
+        $int_first_class_id = $int_last_class_id = 0;
         $arr_round = $arr_classes =$int_chapter_count = $int_section_count = '';
         if($int_round_id > 0){
             $this->load->model('business/admin/business_round','round');
@@ -32,12 +32,14 @@ class Classes extends NH_Admin_Controller {
                     ++$int_chapter_count;
                 }else{
                     ++$int_section_count;
+                    $int_first_class_id = $int_first_class_id > 0 ? $int_first_class_id : $class['id'];
                     $int_last_class_id = $class['id'];
                 }
             }
-//            o($arr_classes,true);
+//            o($arr_round,true);
         }
         $this->smarty->assign('round',$arr_round);
+        $this->smarty->assign('first_class_id',$int_first_class_id);
         $this->smarty->assign('last_class_id',$int_last_class_id);
         $this->smarty->assign('classes',$arr_classes);
         $this->smarty->assign('class_status',config_item('class_teach_status'));
@@ -54,6 +56,7 @@ class Classes extends NH_Admin_Controller {
     public function update(){
         $int_round_id = $this->input->post('round_id') ? intval($this->input->post('round_id')) : 0;
         $int_class_id = $this->input->post('class_id') ? intval($this->input->post('class_id')) : 0;
+        $int_is_first = $this->input->post('is_first') ? intval($this->input->post('is_first')) : 0;
         $int_is_last = $this->input->post('is_last') ? intval($this->input->post('is_last')) : 0;
         $str_title = $this->input->post('title') ? trim($this->input->post('title')) : '';
         $str_begin_time = $this->input->post('begin_time') ? trim($this->input->post('begin_time')) : '';
@@ -72,7 +75,7 @@ class Classes extends NH_Admin_Controller {
             $this->load->model('business/admin/business_round','round');
             $arr_round = $this->round->get_round_by_id($int_round_id);
 //            o($arr_round,true);
-            if($arr_round AND isset($arr_round['start_time'])){
+            if($arr_round /*AND isset($arr_round['start_time'])*/){
                 $str_config_name = ($arr_round['is_test']==0 AND in_array(ENVIRONMENT,array('production'))) ?  'production_round_time_config' : 'testing_round_time_config' ;
                 $arr_time_config = config_item($str_config_name);
                 if($int_end_time < $int_begin_time + $arr_time_config['class_min_long']){
@@ -82,10 +85,10 @@ class Classes extends NH_Admin_Controller {
                     $bool_flag = false;
                     $arr_response['msg'] = '课长太长';
                 }
-                if(($arr_round['start_time']+$arr_time_config['before_first_class']) > $int_begin_time){
-                    $bool_flag = false;
-                    $arr_response['msg'] = '课开始时间要晚于轮开始时间后一定时间';
-                }
+//                if(($arr_round['start_time']+$arr_time_config['before_first_class']) > $int_begin_time){
+//                    $bool_flag = false;
+//                    $arr_response['msg'] = '课开始时间要晚于轮开始时间后一定时间';
+//                }
 
                 if($bool_flag == true){
                     $arr_classes = $this->class->get_classes_by_round_id($int_round_id);
@@ -126,10 +129,14 @@ class Classes extends NH_Admin_Controller {
                             'id' => $int_class_id
                         );
                         $this->class->update_class($arr_param,$arr_where);
-                        if($int_is_last==1){
-                            $arr_param_round = array(
+                        if($int_is_first==1 OR $int_is_last==1){
+                            $arr_param_round = $int_is_first == 1 ? array(
+                                'start_time' => strtotime($str_begin_time)-3600,
+                                'next_class_begin_time' => $int_begin_time
+                            ) : array(
                                 'end_time' => strtotime($str_end_time)+3600
                             );
+
                             $arr_where_round = array(
                                 'id' => $int_round_id
                             );

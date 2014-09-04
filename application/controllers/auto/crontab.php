@@ -79,7 +79,7 @@ class Crontab extends CI_Controller
     }
 
     /**
-     *轮的状态 每15分钟一个周期
+     *轮的状态 每1分钟一个周期
      * @author shangshikai@tizi.com
      */
     public function change_round_status()

@@ -263,16 +263,16 @@ define(function (require, exports) {
                 alert("销售开始时间不能为空");
                 return false;
             }
-            var sell_end_time = $("#sell_end_time").val();
-            if (!sell_end_time || sell_end_time == 'undefined') {
-                alert("销售结束时间不能为空");
-                return false;
-            }
+//            var sell_end_time = $("#sell_end_time").val();
+//            if (!sell_end_time || sell_end_time == 'undefined') {
+//                alert("销售结束时间不能为空");
+//                return false;
+//            }
             //validate sell time
-            if (sell_begin_time >= sell_end_time) {
-                alert("销售开始时间不能晚于销售结束时间");
-                return false;
-            }
+//            if (sell_begin_time >= sell_end_time) {
+//                alert("销售开始时间不能晚于销售结束时间");
+//                return false;
+//            }
             var is_test = $("#is_test").attr("checked") == 'checked' ? 1 : 0;
             var is_live = $("#is_live").attr("checked") == 'checked' ? 1 : 0;
 //            var start_time = $("#start_time").val();
@@ -347,7 +347,7 @@ define(function (require, exports) {
                 'description': description,
                 'img': img,
                 'sell_begin_time': sell_begin_time,
-                'sell_end_time': sell_end_time,
+//                'sell_end_time': sell_end_time,
                 'is_test': is_test,
                 'is_live': is_live
 //                'video' : video,

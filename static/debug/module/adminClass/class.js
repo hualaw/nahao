@@ -11,6 +11,7 @@ define(function (require, exports) {
         //class edit modal
         $(".btn_class_edit").on("click",function(){
             var class_id = $(this).data("class_id");
+            var is_first = $(this).data("is_first");
             var is_last = $(this).data("is_last");
             var round_id = $("#class_list_round_id").data("round_id");
             var tds = $(this).parent().parent().children();
@@ -34,6 +35,7 @@ define(function (require, exports) {
                 var data = {
                     'round_id' : round_id,
                     'class_id' : class_id,
+                    'is_first' : is_first,
                     'is_last' : is_last,
                     'title' : title,
                     'begin_time' : begin_time,
