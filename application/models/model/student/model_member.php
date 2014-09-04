@@ -297,6 +297,7 @@ class Model_Member extends NH_Model{
     	return $array_result['num'];
     }
     
+    
     /**
      * 获取管理员的数据
      * @param  $int_user_id
@@ -309,4 +310,5 @@ class Model_Member extends NH_Model{
     	$array_result = $this->db->query($sql)->row_array();
     	return $array_result;
     }
+
 }
