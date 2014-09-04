@@ -12,6 +12,7 @@ define(function(require,exports){
 	if($('.writeInfo').length > 0){
         //时间插件
         require("module/studentStartClass/datePlugin").addDatePlugin();
+        //我要开课 试讲 信息 验证
         _valid.writeInfoForm();
         /*
         require.async("select", function(ex) {
@@ -22,9 +23,7 @@ define(function(require,exports){
             // 美化checkBox
             $('input[type=checkbox]').jqTransCheckBox();
 
-            // require("module/studentStartClass/edit").edit();
-            //我要开课 试讲 信息 验证
-
+            require("module/studentStartClass/edit").edit();
         });
         */
     }

@@ -69,10 +69,12 @@
 						<p class="fl">教学阶段</p>
 						<div class="cf">
 							{foreach $data['data']['stage'] as $key=>$val}
+                            {if $key > 0 }
 							<div class="fl">
 				    			<input type="radio" {if $key==1}checked{/if} value="{$key}" name="stage" id="high-{$key}" class="fl checkInput" validName="radio">
 								<label for="high-{$key}" class="fl">{$val}</label>
 				    		</div>
+                            {/if}
 							{/foreach}
 				    		<span class="Validform_checktip fl"></span>
 				    	</div>
