@@ -186,6 +186,12 @@
 .studentHomePage .ourList .dream span{height: 18px;line-height: 18px;display: inline-block;border:1px solid #00e0a9;background:url(../../images/studentHomePage/video.gif) no-repeat 4px center #0bd3a2;padding-left: 18px;padding-right:4px;color: #fff;*padding-right:0px; }
 .studentHomePage .ourList .text .bottom{position: absolute;left: 0px;bottom: 0px;width: 135px;}
 /*关于我们结束*/
+/*姐妹网站开始*/
+.studentHomePage .sisterSite{border:1px solid #e0e0e0; background-color: #fff; margin-top: 10px;}
+.studentHomePage .sisterSite .tHeader{background-color: #f3f3f3;line-height: 37px;height: 37px;padding-left: 12px;font-size: 14px;}
+.studentHomePage .sisterSite p.grey{color:#666;}
+.studentHomePage .sisterSite ul{margin-bottom:-19px;overflow:hidden;}
+/*姐妹网站结束*/
 /*广告开始*/
 .studentHomePage .adListWrap{margin-top: 10px;}
 /*广告结束*/

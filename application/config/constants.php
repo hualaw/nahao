@@ -479,6 +479,7 @@ define('CATE_SUBJECT_SHENGWU',10);//生物
 define('CATE_SUBJECT_DILI',12);//地理
 define('CATE_SUBJECT_ZHENGZHI',13);//政治
 define('CATE_SUBJECT_SHUXUEJINGBIAN',14);//数学精编
+define('CATE_SUBJECT_LISHI',15);//历史
 define('CATE_SUBJECT_OTHER',100);//其他
 
 //素质教育全部科目

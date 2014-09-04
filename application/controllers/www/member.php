@@ -228,6 +228,7 @@ class Member extends NH_User_Controller
         if (empty($array_round)) {
             show_error("订单信息不完整");
         }
+        $this->smarty->assign('action', 'my_order');
         $this->smarty->assign('array_round', $array_round);
         $this->smarty->assign('array_order', $array_order);
         $this->smarty->assign('page_type', 'order_detail');
