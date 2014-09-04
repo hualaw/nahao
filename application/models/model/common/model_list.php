@@ -24,6 +24,8 @@ class Model_List extends NH_Model
 		#1. 参数组合
 		$arr_result = array();
 		$where = ' WHERE 1 AND r.sale_status=3 AND r.is_test=0 AND r.is_live=0';//默认条件：销售中，非测试轮，非直播轮
+		$where .= $param['kindId']==1 ? ' AND r.end_time>='.time() : 
+				( $param['kindId']==2 ? ' AND r.end_time<'.time() : '');//新增标签条件：学习方式
 		$where .= !empty($param['typeId']) ? ' AND r.education_type='.$param['typeId'] : '';
 		$where .= !empty($param['stageId']) ? ' AND r.stage='.$param['stageId'] : '';
 		$where .= !empty($param['gradeId']) ? ' AND r.grade_from<='.$param['gradeId'].' AND r.grade_to>='.$param['gradeId'] : '';

@@ -22,6 +22,7 @@ class Business_List extends NH_Model
     	$param['order'] 	= !empty($param['order']) ? $param['order'] : 1;
     	$param['subjectId'] = !empty($param['subjectId']) ? $param['subjectId'] : '';
     	#1.获取配置
+    	$kind = config_item('kind');
     	$cate = config_item('cate');
     	$cate_stage = config_item('cate_stage');
     	$cate_grade = config_item('cate_grade');
@@ -29,10 +30,16 @@ class Business_List extends NH_Model
     	$cate_quality = config_item('cate_quality');
     	$cateArr = array();
     	#2.类型
+    	//2.0 学习方式
+    	$cateArr['kindArr'] = $kind;
+    	foreach($cateArr['kindArr'] as $key=> &$val){
+    		$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'kindId' => $key,'order'=>$param['order']));
+    		$val['is_active'] = $key == $param['kindId'] ? 1 : 0;
+    	}
     	//2.1 教育类型
     	$cateArr['typeArr'] = $cate;
     	foreach($cateArr['typeArr'] as $key=> &$val){
-    		$val['url'] = $this->getLink(array('typeId' => $key,'order'=>$param['order']));
+    		$val['url'] = $this->getLink(array('typeId' => $key,'order'=>$param['order'],'kindId' =>$param['kindId']));
     		$val['is_active'] = $key == $param['typeId'] ? 1 : 0;
     	}
     	#生成类别数组
@@ -40,7 +47,7 @@ class Business_List extends NH_Model
     		//2.2 学段
     		$cateArr['stageArr'] = $cate_stage;
     		foreach($cateArr['stageArr'] as $key=> &$val){ //key [stageId]
-	    		$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'stageId' => $key,'order'=>$param['order']));
+	    		$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'stageId' => $key,'order'=>$param['order'],'kindId' =>$param['kindId']));
 	    		$val['is_active'] = $key == $param['stageId'] ? 1 : 0;
 	    	}
     		//2.3 年级
@@ -50,7 +57,7 @@ class Business_List extends NH_Model
 	    		if($filter_grade && !in_array($key,$filter_grade)){
 	    			unset($cateArr['gradeArr'][$key]);
 	    		}else{
-	    			$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $key,'order'=>$param['order']));
+	    			$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $key,'order'=>$param['order'],'kindId' =>$param['kindId']));
 	    			$val['is_active'] = $key == $param['gradeId'] ? 1 : 0;
 	    		}
 	    	}
@@ -69,7 +76,7 @@ class Business_List extends NH_Model
 	    		if($filter_subject && !in_array($key,$filter_subject)){
 	    			unset($cateArr['subjectArr'][$key]);
 	    		}else{
-	    			$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $param['gradeId'],'subjectId' => $key,'order'=>$param['order']));
+	    			$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $param['gradeId'],'subjectId' => $key,'order'=>$param['order'],'kindId' =>$param['kindId']));
 	    			$val['is_active'] = $key == $param['subjectId'] ? 1 : 0;
 	    		}
 	    	}
@@ -77,7 +84,7 @@ class Business_List extends NH_Model
     		//2.5 素质
     		$cateArr['qualityArr'] = $cate_quality;
     		foreach($cateArr['qualityArr'] as $key=> &$val){ //key [qualityId]
-	    		$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'qualityId' => $key,'order'=>$param['order']));
+	    		$val['url'] = $this->getLink(array('typeId' => $param['typeId'],'qualityId' => $key,'order'=>$param['order'],'kindId' =>$param['kindId']));
 	    		$val['is_active'] = $key == $param['qualityId'] ? 1 : 0;
 	    	}
     	}
@@ -96,6 +103,7 @@ class Business_List extends NH_Model
     		'subjectId'	=> $param['subjectId'],
     		'qualityId'	=> $param['qualityId'],
     		'order'		=> $param['order'],
+    		'kindId' 	=> $param['kindId'],
     	);
     	foreach ($cateArr['orderArr'] as $key=> &$val){
     		$order_param['order'] = $key;
@@ -123,7 +131,8 @@ class Business_List extends NH_Model
     	$url .= !empty($param['order']) && $param['order']>1 ? '_o'.$param['order'] : '';
     	$url .= !empty($param['page']) && $param['page']>1 ? '_p'.$param['page'] : '';
     	$url .= '.html';
-    	return $url;
+    	$tagStr = '?kindId='.$param['kindId'];
+    	return $url.$tagStr;
     }
      
     /**
@@ -153,19 +162,19 @@ class Business_List extends NH_Model
     		);
     	#2. 按参数组合 【标题】+【面包屑】
     	$cateName = $cate[$param['typeId']]['name'];
-    	$posLink = $this->getLink(array('typeId' => $param['typeId']));
+    	$posLink = $this->getLink(array('typeId' => $param['typeId'],'kindId' =>$param['kindId']));
     	$pos = '<a href="/" title="首页">首页</a> > <a href="'.$posLink.'" title="'.$cateName.'">'.$cateName.'</a>';
     	if($param['typeId'] == SUBJECT_STUDY){
     		$stageName = $gradeName = $orderName = $subjectName = '';
     		if(!empty($param['stageId'])){
     			$stageName 	= $cate_stage[$param['stageId']]['name'];
-    			$posParam 	= array('typeId' => $param['typeId'],'stageId' => $param['stageId']);
+    			$posParam 	= array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'kindId' =>$param['kindId']);
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$stageName.'">'.$stageName.'</a>';
     		}
     		if(!empty($param['gradeId'])){
     			$gradeName	= $cate_grade[$param['gradeId']]['name'];
-    			$posParam 	= array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $param['gradeId']);
+    			$posParam 	= array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $param['gradeId'],'kindId' =>$param['kindId']);
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$gradeName.'">'.$gradeName.'</a>';
     		}
@@ -174,7 +183,7 @@ class Business_List extends NH_Model
     		}
     		if(!empty($param['subjectId'])){
     			$subjectName= $cate_subject[$param['subjectId']]['name'];
-    			$posParam 	= array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $param['gradeId'],'subjectId' => $param['subjectId']);
+    			$posParam 	= array('typeId' => $param['typeId'],'stageId' => $param['stageId'],'gradeId' => $param['gradeId'],'subjectId' => $param['subjectId'],'kindId' =>$param['kindId']);
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$subjectName.'">'.$subjectName.'</a>';
     		}
@@ -186,7 +195,7 @@ class Business_List extends NH_Model
     		}
     		if(!empty($param['qualityId'])){
     			$qualityName= $cate_quality[$param['qualityId']]['name'];
-    			$posParam 	= array('typeId' => $param['typeId'],'qualityId' => $param['qualityId']);
+    			$posParam 	= array('typeId' => $param['typeId'],'qualityId' => $param['qualityId'],'kindId' =>$param['kindId']);
     			$posLink 	= $this->getLink($posParam);
     			$pos 		.= ' > <a href="'.$posLink.'" title="'.$qualityName.'">'.$qualityName.'</a>';
     		}
@@ -338,23 +347,25 @@ class Business_List extends NH_Model
     	if($config['pages']<=1){
     		return '';
     	}
+    	//新增往期标签属性,分页会附带query_string部分,参数为get接收
+    	$tagStr ='?kindId='.$param['kindId'];
     	$pageBar = '<ul>';
-    	$pageBar .= $config['page']>2  ? '<li class="prev"><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).'">上一页</a></li>' : '';
-    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].'">1</a></li>' : '';
+    	$pageBar .= $config['page']>2  ? '<li class="prev"><a href="'.str_replace('.html','_p'.($config['page']-1).'.html',$config['base_link']).$tagStr.'">上一页</a></li>' : '';
+    	$pageBar .= $config['page']>1 ? '<li><a href="'.$config['base_link'].$tagStr.'">1</a></li>' : '';
     	$pageBar .= $config['page']>4 ? '<li class="more"><a>...</a></li>' : '';
     	
     	for ($i=1;$i<=$config['pages'];$i++){
     		$li = '';
     		if($i==($config['page']-2) || $i==($config['page']-1) || $i==($config['page']+2) || $i==($config['page']+1)){
-    			$li = ($i!=1 && $i!=$config['pages']) ? '<li><a href="'.str_replace('.html','_p'.$i.'.html',$config['base_link']).'">'.$i.'</a></li>' : '';
+    			$li = ($i!=1 && $i!=$config['pages']) ? '<li><a href="'.str_replace('.html','_p'.$i.'.html',$config['base_link']).$tagStr.'">'.$i.'</a></li>' : '';
     		}elseif($i==$config['page']){
     			$li = '<li class="active"><a>'.$i.'</a></li>';
     		}
     		$pageBar .=$li;
     	}
     	$pageBar .= ($config['page']<$config['pages']-3) && $config['page']>0 ? '<li class="more"><a>...</a></li>' : '';
-    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).'">'.$config['pages'].'</a></li>' : '';
-    	$pageBar .= $config['page']>0 && $config['page']<($config['pages']-1) ? '<li class="next"><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).'">下一页</a></li>' : '';
+    	$pageBar .= $config['page']<$config['pages'] ? '<li><a href="'.str_replace('.html','_p'.$config['pages'].'.html',$config['base_link']).$tagStr.'">'.$config['pages'].'</a></li>' : '';
+    	$pageBar .= $config['page']>0 && $config['page']<($config['pages']-1) ? '<li class="next"><a href="'.str_replace('.html','_p'.($config['page']+1).'.html',$config['base_link']).$tagStr.'">下一页</a></li>' : '';
     	$pageBar .= '</ul>';
     	return $pageBar;
    	}

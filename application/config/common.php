@@ -399,6 +399,16 @@ $config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_ZIRANPINDU] = '�
 $config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_MOFANG] = '魔方';
 $config['education_subject'][ROUND_TYPE_EDUCATION][CATE_QUALITY_OTHER] = '其他';
 
+//往期课程标签
+$config['kind'] = array(
+    1 => array(
+        'name' => '直播课',
+    ),
+    2 => array(
+        'name' => '视频课',
+    ),
+);
+
 /**
  * 那好2.0类别 数据字典
  */

@@ -14,6 +14,9 @@ class Classes extends NH_User_Controller {
     function index($queryStr=''){
     	parse_str(str_replace('?','',$queryStr),$param);
     	if(empty($param['typeId'])){exit('类型参数不能为空');}
+    	#0. 新加标签往期属性
+    	$param['kindId'] = $this->input->get('kindId');
+    	$param['kindId'] = !empty($param['kindId']) ? $param['kindId'] : 1;
     	#1. 获取分类结构
     	$cateList = $this->business_list->getCateList($param);
     	#2. 设置参数初始值
