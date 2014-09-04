@@ -11,10 +11,10 @@ define(function(require,exports){
 	//判断当前页面时注册成功的关于我的页面
 	if($('.writeInfo').length > 0){
 		// 美化select
-		$('select').jqTransSelect();
+		//$('select').jqTransSelect();
 		// 美化radio
 		$('input[type=radio]').jqTransRadio();
-		// 美化checkBo
+		// 美化checkBox
 		$('input[type=checkbox]').jqTransCheckBox();
 
 		// require("module/studentStartClass/edit").edit();
