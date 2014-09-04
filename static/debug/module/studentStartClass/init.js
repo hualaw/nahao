@@ -1,7 +1,7 @@
 define(function(require,exports){	
 	$(function (){
 		// 公共select模拟
-	//require('select');
+	require('select');
 	if ($(".popBox").length>0) {
 		require("module/common/method/popUp").popUp(".popBox");
 	};
