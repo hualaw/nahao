@@ -64,6 +64,14 @@
 			</ul>
 		</div>
 		{/if}
+		<div class="filterList cf">
+			<span class="tit">方式：</span>
+			<ul>
+				{foreach $cateList['kindArr'] as $key => $val}
+				<li><a {if $val['is_active']}class="active"{else}href="{$val['url']}"{/if} title="{$val['name']}">{$val['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
 	</div>
 	<ul class="sortBox cf">
 		{foreach $cateList['orderArr'] as $key => $val}
