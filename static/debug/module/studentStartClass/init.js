@@ -5,9 +5,7 @@ define(function(require,exports){
         require('select');
         //倒入dialog
         require("naHaoDialog");
-        seajs.use("module/common/method/setSchool",function(main){
-            main.init();
-        });
+        require("module/common/method/setSchool").init();
         if($(".popBox").length>0){
             require("module/common/method/popUp").popUp(".popBox");
         };
@@ -33,4 +31,4 @@ define(function(require,exports){
             _valid.teaRegForm();
         }
 
-        })
+})
