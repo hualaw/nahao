@@ -34,9 +34,6 @@ define(function(require, exports) {
                     //判断如果需要配置的话添加自定义属性set
                 }
             });
-            console.log($);
-            console.log($.tiziDialog);
-            console.log(+new Date());
             $.tiziDialog({
                 id:"setSchollID",
                 title:'选择学校',
