@@ -1,5 +1,5 @@
 define(function(require, exports) {
-    require('naHaoDialog');
+    require("lib/artDialog/4.1.7/artDialog");
     //初始化绑定
     exports.init=function(){
         //设置学校
@@ -34,8 +34,10 @@ define(function(require, exports) {
                     //判断如果需要配置的话添加自定义属性set
                 }
             });
-            
-            $.dialog({
+            console.log($);
+            console.log($.tiziDialog);
+            console.log(+new Date());
+            $.tiziDialog({
                 id:"setSchollID",
                 title:'选择学校',
                 top:100,
