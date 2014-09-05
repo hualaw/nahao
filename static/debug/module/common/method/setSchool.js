@@ -1,4 +1,5 @@
 define(function(require, exports) {
+    require('naHaoDialog');
     //初始化绑定
     exports.init=function(){
         //设置学校
@@ -33,7 +34,7 @@ define(function(require, exports) {
                     //判断如果需要配置的话添加自定义属性set
                 }
             });
-            require('naHaoDialog');
+            
             $.dialog({
                 id:"setSchollID",
                 title:'选择学校',
