@@ -6,13 +6,18 @@ define(function(require,exports){
         //倒入dialog
         require("naHaoDialog");
         require("module/common/method/setSchool").init();
+        /*
         if($(".popBox").length>0){
             require("module/common/method/popUp").popUp(".popBox");
         };
-        //我要开课验证
-        var _valid = require("module/studentStartClass/valid");
+        */
+
         //判断当前页面时注册成功的关于我的页面
         if($('.writeInfo').length > 0){
+
+            //我要开课验证
+            var _valid = require("module/studentStartClass/valid");
+
             // 美化select
             $('select').jqTransSelect();
             // 美化radio
@@ -26,9 +31,10 @@ define(function(require,exports){
             //我要开课 试讲 信息 验证
             _valid.writeInfoForm();
         }
+        /*
         if($(".regTeacher").length){
             //我要开课 老师注册验证
             _valid.teaRegForm();
         }
-
+        */
 })
