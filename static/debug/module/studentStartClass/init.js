@@ -5,10 +5,12 @@ define(function(require,exports){
         require('select');
         //倒入dialog
         require("naHaoDialog");
+        seajs.use("module/common/method/setSchool",function(main){
+            main.init();
+        });
         if($(".popBox").length>0){
             require("module/common/method/popUp").popUp(".popBox");
         };
-        require("module/common/method/setSchool").init();
         //我要开课验证
         var _valid = require("module/studentStartClass/valid");
         //判断当前页面时注册成功的关于我的页面
