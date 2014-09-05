@@ -1,6 +1,6 @@
 define(function(require,exports){
         //倒入jquery
-        require("jquery");
+        require("lib/cookies/0.0.1/jquery.cookies");
         // 公共select模拟
         require('select');
         //倒入dialog
@@ -31,10 +31,8 @@ define(function(require,exports){
             //我要开课 试讲 信息 验证
             _valid.writeInfoForm();
         }
-        /*
-        if($(".regTeacher").length){
-            //我要开课 老师注册验证
-            _valid.teaRegForm();
+        if(!$.cookies.get("_nahao_shua")){
+            $.cookies.set('_nahao_shua',"1",{ hoursToLive: 24*365 });
+            window.location.reload();
         }
-        */
 })
