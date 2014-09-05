@@ -27,7 +27,7 @@ define(function(require,exports){
             $("input[type='checkbox']:checked").each(function(){
                 arr_v.push($(this).val());
             });
-           // alert(arr_v);
+            //alert(arr_v);
             $.ajax({
                 type:"post",
                 url:"/teacher/close_account",
@@ -46,7 +46,7 @@ define(function(require,exports){
             $("input[type='checkbox']:checked").each(function(){
                 arr_v.push($(this).val());
             });
-            // alert(arr_v);
+            //alert(arr_v);
             $.ajax({
                 type:"post",
                 url:"/teacher/open_account",
@@ -55,6 +55,12 @@ define(function(require,exports){
                     if(msg==true)
                     {
                         location.reload();
+                    }
+                    if(msg=="no")
+                    {
+                        alert("选择的账户里有昵称已被占用");
+                        location.reload();
+                        return false;
                     }
                 }
             })
@@ -80,7 +86,7 @@ define(function(require,exports){
                     $.ajax({
                         type:"post",
                         url:"/teacher/nickname",
-                        data:"nickname="+$('#nickname').val(),
+                        data:"nickname="+$('#nickname').val()+"&user_id="+$("#user_teacher_id").val(),
                         success:function(msg){
                             if(msg=="yes")
                             {
@@ -145,6 +151,24 @@ define(function(require,exports){
 
             })
 
+            $("#sum").click(function(){
+                var teacher_intro=CKEDITOR.instances.teacher_intro.getData();
+                if(teacher_intro.length>=450)
+                {
+                    alert('个人简介过长，不建议超过450字');
+                    return false;
+                }
+            })
+//            $('#teacher_signature').blur(function(){
+//                if($.trim($('#teacher_signature').val())=='')
+//                {
+//                    $('#span_teacher_signature').show().css('color','red').html('不能为空');
+//                }
+//                else
+//                {
+//                    $('#span_teacher_signature').hide();
+//                }
+//            })
             $('#basic_reward').blur(function(){
                 if($.trim($('#basic_reward').val())=='')
                 {
@@ -193,10 +217,16 @@ define(function(require,exports){
                 data:"province="+$('#province').val(),
                 dataType:"json",
                 success:function(msg){
-                var city=eval(msg);
+                    if(msg=="")
+                    {
+                        $('#city').hide();
+                        $('#area').hide();
+                    }
+                    $('#city').empty();
+                    var city=eval(msg);
                     $.each(city,function(index,d){
-                        $('#city').append("<option value="+d.id+">"+d.name+"</option>");
-                   })
+                        $('#city').show().append("<option value="+d.id+">"+d.name+"</option>");
+                    })
                     $.ajax({
                         type:"post",
                         url:"/teacher/area",
@@ -207,66 +237,70 @@ define(function(require,exports){
                             {
                                 $('#area').hide();
                             }
+                            $('#area').empty();
                             var area=eval(msg);
                             $.each(area,function(index,d){
                                 $('#area').show().append("<option value="+d.id+">"+d.name+"</option>");
                             })
+
+                            if($('#area').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#area').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
+                            else if($('#city').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#city').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+                            else if($('#province').val()!=null)
+                            {
+                                $.ajax({
+                                    type:"post",
+                                    url:"/teacher/school",
+                                    data:"school_id="+$('#province').val(),
+                                    dataType:"json",
+                                    success:function(msg){
+                                        // console.log(msg);
+                                        $('#school').empty();
+                                        var school=eval(msg);
+                                        $('#school').append("<option value=0>请选择学校</option>");
+                                        $.each(school,function(index,d){
+                                            $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
+                                        })
+                                    }
+                                })
+                            }
+
                         }
                     })
-
-                    if($('#area').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#area').val(),
-                            dataType:"json",
-                            success:function(msg){
-                               // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
-                    else if($('#city').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#city').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-                    else if($('#province').val()!=null)
-                    {
-                        $.ajax({
-                            type:"post",
-                            url:"/teacher/school",
-                            data:"school_id="+$('#province').val(),
-                            dataType:"json",
-                            success:function(msg){
-                                // console.log(msg);
-                                var school=eval(msg);
-                                $('#school').append("<option value=0>请选择学校</option>");
-                                $.each(school,function(index,d){
-                                    $('#school').append("<option value="+d.id+">"+d.schoolname+"</option>");
-                                })
-                            }
-                        })
-                    }
-
                 }
             })
 
@@ -509,7 +543,7 @@ define(function(require,exports){
                     url:"/teacher/check_phone",
                     data:"phone="+$('#phone').val(),
                     success:function(msg){
-                        if(msg==1)
+                        if(msg==3)
                         {
                             $('#span_phone').show().css('color','red').html("这不是一个合法的手机号");
                         }
@@ -554,5 +588,207 @@ define(function(require,exports){
                 })
             }
         })
+            var _card = require("module/common/method/bankcard");
+            var _idcard = require("module/common/method/idCard");
+
+            $("#id_card").blur(function(){
+                if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
+                {
+                    $("#card_span").show().css('color','red').html("身份证号填写不对");
+                }
+                else
+                {
+                    $("#card_span").hide();
+                }
+            })
+
+            $("#bank_id").blur(function(){
+                if(_card.luhmCheck($("#bank_id").val())==false&&$("#bank_id").val()!="")
+                {
+                    $("#bank_span").show().css('color','red').html("银行卡号填写不对");
+                }
+                else
+                {
+                    $("#bank_span").hide();
+                }
+            })
+
+            $('#sum').click(function(){
+                if(_idcard.idCard($("#id_card").val())==false&&$("#id_card").val()!="")
+                {
+                    alert('身份证号不对');
+                    return false;
+                }
+                if(_card.luhmCheck($("#bank_id").val())==false&&$("#bank_id").val()!="")
+                {
+                    alert('银行卡号不对');
+                    return false;
+                }
+            })
+
+            if($('#teacher_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#teacher_img').val();
+                var modify_img=$('#teacher_img').val();
+                $('#teacher_authimg').val(modify_img);
+//                $('#img_url_general').attr('src',img_url_general);
+            }
+            if($('#title_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#title_img').val();
+                var modify_img=$('#title_img').val();
+                $('#title_authimg').val(modify_img);
+//                $('#img_title_general').attr('src',img_url_general);
+            }
+            if($('#work_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#work_img').val();
+                var modify_img=$('#work_img').val();
+                $('#work_authimg').val(modify_img);
+//                $('#img_work_general').attr('src',img_url_general);
+            }
+            if($('#avatar_teacher_img').val()!="")
+            {
+                var img_url_general = _qiniu_url+$('#avatar_teacher_img').val();
+                var modify_img=$('#avatar_teacher_img').val();
+                $('#teacher_avatar_img').val(modify_img);
+//                $('#img_avatar').attr('src',img_url_general);
+            }
+
+            $('.modify_password').click(function(){
+                $('#new_password').val('');
+                $('#two_password').val('');
+                $('#myModal').modal();
+                var id=$(this).attr('id');
+                $('#pwd_id').val(id);
+            })
+
+            $('#edit_password').click(function(){
+                if($('#new_password').val()=='')
+                {
+                    alert('新密码不能为空');
+                    return false;
+                }
+                if($('#new_password').val().length<6 || $('#new_password').val().length>16)
+                {
+                    alert('新密码长度输入不能小于6或者大于16');
+                    return false;
+                }
+                if($('#new_password').val()!=$('#two_password').val())
+                {
+                    alert('两次输入不一致');
+                    return false;
+                }
+                $.ajax({
+                    type:"post",
+                    url:"/teacher/modify_password",
+                    data:"id="+$('#pwd_id').val()+"&password="+$('#new_password').val(),
+                    success:function(msg){
+                        if(msg>0)
+                        {
+                            alert('修改密码成功');
+                            location.reload();
+                        }
+                        else
+                        {
+                            alert('修改密码失败');
+                            location.reload();
+                        }
+                    }
+                })
+            })
+
+            $('.modify_phone').click(function(){
+                $('#new_phone').val('');
+                var id=$(this).attr('user_id');
+                $('#phone_id').val(id);
+                $.ajax({
+                    type:'post',
+                    url:'teacher/get_phone',
+                    data:'id='+id,
+                    success:function(msg){
+                        $('#new_phone').val(msg);
+                        $('#old_phone').val(msg);
+                        $('#edit_phone').modal();
+                    }
+                })
+            })
+
+            $('#edit_tel').click(function(){
+                if($.trim($('#new_phone').val())== $.trim($('#old_phone').val()))
+                {
+                    alert('不能修改为原来的手机号');
+                    return false;
+                }
+                var id=$('#phone_id').val();
+                $.ajax({
+                    type:'post',
+                    url:'teacher/check_phone',
+                    data:'phone='+ $.trim($('#new_phone').val()),
+                    success:function(msg){
+                        if(msg==3)
+                        {
+                            alert('格式不对');
+                            return false;
+                        }
+                        else if(msg==2)
+                        {
+                            alert('手机号已经存在');
+                            return false;
+                        }
+                        else
+                        {
+                            $.ajax({
+                                type:'post',
+                                url:'teacher/modify_phone',
+                                data:'phone='+ $.trim($('#new_phone').val())+'&id='+id,
+                                success:function(msg){
+                                    if(msg>0)
+                                    {
+                                        alert('修改成功');
+                                        location.reload();
+                                    }
+                                    else
+                                    {
+                                        alert('修改失败');
+                                        location.relod();
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
+            })
+    }
+    $('#edit_email').blur(function(){
+        if($.trim($('#edit_email').val())=="")
+        {
+            alert('邮箱不能为空');
+            return false;
+        }
+        if($.trim($('#edit_email').val())!= $.trim($('#hide_email').val()))
+        {
+            $.ajax({
+                type:'post',
+                url:'/teacher/check_email',
+                data:'email='+ $.trim($('#edit_email').val()),
+                success:function(msg){
+                    if(msg=='no')
+                    {
+                        alert('这不是一个合法的邮箱');
+                        return false;
+                    }
+                    if(msg>0)
+                    {
+                        alert('邮箱已存在');
+                        return false;
+                    }
+                }
+            })
+        }
+    })
+    exports.load_ckeditor = function ()
+    {
+        CKEDITOR.replace('teacher_intro',{ toolbar:'Basic'});
     }
 })

@@ -18,17 +18,17 @@
                 <li class="seachLi">
                     <select name="id" id="" class="fl">
                         <option value="">班级名次</option>
-                        {if $data['listArr']}
-	                    	{foreach $data['listArr'] as $key=>$val}
+                        {if $data['ids']}
+                        	{foreach $data['ids'] as $val}
                         		<option value="{$val['id']}" {if $data['query_param']['id']==$val['id']}selected{/if}>{$val['id']}</option>
                         	{/foreach}
                         {/if}
                     </select>
                 </li>
-                <li class="seachLi">
+                <li class="seachLi" style="width:190px \9;">
                     <input name="title" type="text" value="{$data['query_param']['title']}" placeholder="要搜索的班次名" class="textInput"/>
                 </li>
-                <li class="seachLi">
+                <li class="seachLi" style="margin-left: -5px \9;">
                     <select name="teach_status" id="" class="fl">
                         <option value="">课程状态</option>
                         {foreach $data['teach_status_list'] as $key=>$val}
@@ -50,7 +50,7 @@
                 <li class="seachLi">
                     <input type="text" name="end_time" value="{$data['query_param']['end_time']|date_format:'%Y-%m-%d'}" placeholder="班次结束时间" class="textInput textTime endClassTime"/>
                 </li>
-                <li class="seachLi">
+                <li class="seachLi" style="width:80px \9;margin-right:0px">
                     <input type="submit" value="搜索" class="lbutton"/>
                 </li>
             </ul>
@@ -71,7 +71,7 @@
             </tr>
             {if $data['listArr']}
             	{foreach $data['listArr'] as $key=>$val}
-            		<tr {if $val['teach_status']==0}class="start"{elseif $val['teach_status']==3}class="end"{/if}>
+            		<tr {if $val['teach_status']==2}class="start"{elseif $val['teach_status']==4}class="end"{/if}>
             			<td class="order_id">{$val['id']}</td>
 		                <td class="order_name">
 		                	{if $val['cur_class']}
@@ -83,7 +83,7 @@
 			                {/if}
 		                    <p>{$val['title']}</p>
 		                </td>
-		                <td class="class_date"><b>{$val['class_start_time']|date_format:'%Y-%m-%d'}</b>{$val['class_start_time']|date_format:'%H: %M: %S'}</td>
+		                <td class="class_date"><b>{$val['start_time']|date_format:'%Y-%m-%d'}</b>{$val['start_time']|date_format:'%H: %M: %S'}</td>
 		                <td class="class_progress"><b class="fred">{$val['already_total']}</b>/{$val['total']}</td>
 		                <td class="class_name">{$val['subject_name']}</td>
 		                <td class="class_type">{$val['course_type_name']}</td>

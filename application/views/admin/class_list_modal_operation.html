@@ -1,0 +1,73 @@
+<!-- Modal -->
+<div class="modal fade" id="class_upload_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="alert alert-info">上传讲义
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="pdf_upload_area">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <input type="file" name="class_pdf_upload" id="class_pdf_upload" class="form-control" multiple="true" >
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div  class="modal-body" id="token_load_area">
+                <div class="form-horizontal form-group">
+                    <div class="col-md-4" id="token_display_area">
+                        读取token中。。。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="modal_class_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="alert alert-info">修改课节
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label for="class_title">章节名</label>
+                            <input type="input" name="class_title" id="class_title" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label for="class_begin_time">开始时间</label>
+                            <input type="input" name="class_begin_time" id="class_begin_time" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label for="class_begin_time">结束时间</label>
+                            <input type="input" name="class_end_time" id="class_end_time" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_class_submit" data-action="/classes/update"> &nbsp;确定
+                    &nbsp;</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->

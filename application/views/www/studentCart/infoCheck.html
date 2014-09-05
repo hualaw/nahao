@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap layout studentCart" id="nahaoModule" module="studentCart">
+<div class="wrap layout studentCart" id="nahaoModule" module="studentCart" data_page="studentPage">
 	<div class="infoCheck">
 		<!-- 进度条开始 -->
 		<div class="progressBar cf">
@@ -42,7 +42,7 @@
 					<dt>
 						<!-- <span class="num">序号</span> -->
 						<span class="name">课程名称</span>
-						<span class="time">上课时间</span>
+						<span class="time">上课日期</span>
 						<span class="oldPrice">原价</span>
 						<span class="newPrice">优惠价</span>
 						<!-- <span class="operation">操作</span> -->
@@ -51,7 +51,7 @@
 					<dd>
 						<!-- span class="num">1</span> -->
 						<span class="name">{$array_data.title|truncate:21:"...":true}</span>
-						<span class="time">{$array_data.start_time|date_format:'%Y/%m/%d %H:%M'}--{$array_data.end_time|date_format:'%Y/%m/%d %H:%M'}</span>
+						<span class="time">{$array_data.start_time|date_format:'%Y/%m/%d'}--{$array_data.end_time|date_format:'%Y/%m/%d'}</span>
 						<span class="oldPrice">¥{$array_data.price}<em></em></span>
 						<span class="newPrice">¥{$array_data.sale_price}</span>
 						<!-- <span class="operation"><a href="javascript:void(0)">删除</a></span> -->
@@ -88,7 +88,7 @@
 							<p class="title">手机号</p>
 							<div class="cf inputBox">
 								<input type="text" name="phone" id="phone" class="inPhone fl yh cInput" validName="text"
-								{if $userdata.phone !=''}value="{$userdata.phone}" readonly {else}value=""{/if}>
+								value="">
 								<span class="Validform_checktip fl"></span>
 							</div>
 							<p class="tips">保密，方便我们与您联系</p>
@@ -104,13 +104,35 @@
 									<span class="Validform_checktip"></span>
 
 								</div>
-								<a href="javascript:void(0)" class="noShowBtn blueBtn getVerCodea">免费获取验证码</a>
-								<span class="getVerCodespan codeSpan undis">60秒后获取验证码</span>
+								<input type="button" class="noShowBtn blueBtn getVerCodea" value="发送验证码">
 							</div>							
 						</li>
 						{else}
-						
+							{if $phone_verified == '1'}
 							<input type="hidden" name="phone" value="{$userdata.phone}">
+							{else}
+							<li>
+								<p class="title">手机号</p>
+								<div class="cf inputBox">
+									<input type="text" name="phone" id="phone" class="inPhone fl yh cInput" validName="text"
+									value="{$userdata.phone}" >
+									<span class="Validform_checktip fl"></span>
+								</div>
+								<p class="tips">保密，方便我们与您联系</p>
+							</li>
+
+							<li>
+								<p class="title">手机验证码</p>
+								<div class="cf getVerCodeBtn">
+									<div class="fl inputBox">
+										<input type="text" name="verify_code" id="verify_code" class=" yh cInput" validName="text">
+										<span class="Validform_checktip"></span>
+	
+									</div>
+									<input type="button" class="noShowBtn blueBtn getVerCodea" value="发送验证码">
+								</div>							
+							</li>
+							{/if}
 						{/if}
 						<li>
 							<input type="submit" class="btn redBtn submitBtn" value="提交订单">

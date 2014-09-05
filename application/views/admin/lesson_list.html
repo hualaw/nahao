@@ -2,17 +2,18 @@
     <btn class="btn btn-success" id="btn_lesson_create" data-action="create">
         添加章节
     </btn>
-    <!--<btn class="btn btn-primary" id="btn_lesson_sort" data-action="/lesson/sort">-->
-        <!--保存序列-->
-    <!--</btn>-->
+    <btn class="btn btn-primary" id="btn_lesson_sort" data-action="/lesson/sort">
+        修正
+    </btn>
 </div>
-课程名称 : {$course.title}     共{$chapter_count}章  {$section_count}节课
+课程名称 : {$course.title}     共{$chapter_count}章  {$section_count}节课 启用{$course.lesson_count}节
 <table class="table table-hover">
     <input type="hidden" id="course_id" value="{$course.id}">
     <thead>
     <tr>
         <th>课节ID</th>
         <th>课节名称</th>
+        <th>状态</th>
         <th>章/节</th>
         <th>讲义</th>
         <th>习题管理</th>
@@ -22,15 +23,16 @@
     <tbody id="lesson_list_tbody">
     {foreach $lessons as $v}
     <tr class="lesson_list">
-        <td data-parent_id="{$v.parent_id}">{$v.id}</td>
+        <td data-parent_id="{$v.parent_id}" data-is_chapter="{if $v.parent_id==0}1{else}0{/if}" data-status="{$v.status}">{$v.id}</td>
         <td>{$v.title}</td>
+        <td>{if $v.status==1}已启用{else}<font color="red">已禁用</font>{/if}</td>
         <td>{if $v.parent_id gt 0}节{else}章{/if}</td>
         <td>
             {if $v.parent_id > 0}
                 {if $v.courseware_id==0}
                     <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
                 {else}
-                    <a target="_blank" href="http://classroom.oa.tizi.com/meeting/preview/{$v.courseware_id}">预览</a>
+                    <a target="_blank" href="/lesson/preview/{$v.courseware_id}">预览</a>
                     <botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>
                 {/if}
             {/if}
@@ -39,7 +41,10 @@
             {if $v.parent_id > 0}
                 <a href="/question/lesson_question/{$v.id}">习题</a>
             {/if}
-            <a href="javascript:;" id="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
+            <a href="javascript:;" class="btn_lesson_update" data-action="update" data-lesson_id="{$v.id}" data-is_chapter="{if $v.parent_id gt 0 }0{else}1{/if}">修改</a>
+            <a href="javascript:;" class="btn_lesson_delete" data-lesson_id="{$v.id}">删除</a>
+            <a href="javascript:;" class="lesson_active" data-action="/lesson/active" data-lesson_id="{$v.id}"
+               data-status="{if $v['status']==1}0{else}1{/if}">{if $v.status==1}禁用{else}启用{/if}</a>
         </td>
     </tr>
     {/foreach}

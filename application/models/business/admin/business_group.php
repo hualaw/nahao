@@ -101,11 +101,13 @@ class Business_Group extends NH_Model
     {
         $arr_return = array();
         if($int_group_id){
+            $str_table_range = 'group';
+            $str_result_type = 'one';
             $str_fields = '*';
             $arr_where = array(
                 'id' => $int_group_id
             );
-            $arr_return = $this->model_group->get_group_by_param($str_fields, $arr_where);
+            $arr_return = $this->model_group->get_group_by_param($str_table_range,$str_result_type,$str_fields, $arr_where);
         }
         return $arr_return;
     }

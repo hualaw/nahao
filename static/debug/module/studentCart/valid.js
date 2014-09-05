@@ -52,7 +52,18 @@ define(function(require,exports){
         _Form.config({
         	showAllError:true,
             url:"/pay/add_contact",
-
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
         })
         // 冲掉库里面的'&nbsp:'
         _Form.tipmsg.r=" ";
@@ -84,6 +95,7 @@ define(function(require,exports){
     exports.sendValidateCode = function (){
         $('.getVerCodea').click(function() {
             var _this = $(this);
+           
             var phone = $("#phone").val();
             if(!(phone)) {
 				$.dialog({
@@ -97,24 +109,42 @@ define(function(require,exports){
 				    icon:null
 				});
                 return fasle;
-            }
-            $.ajax({
-                url : '/register/send_captcha/',
-                type : 'post',
-                data : 'phone='+ phone +'&type=2',
-                dataType : 'json',
-                success : function (result) {
-                    if(result.status == 'error') {
-        				$.dialog({
-        				    content:result.msg,
-        				    icon:null
-        				});
+            } else {
+                $.ajax({
+                    url : '/register/check_phones/',
+                    type : 'post',
+                    data : 'phone='+ phone,
+                    dataType : 'json',
+                    success : function (result) {
+                        if(result.status == 'error') {
+            				$.dialog({
+            				    content:result.info,
+            				    icon:null
+            				});
+                        } else {
+                            $.ajax({
+                                url : '/register/send_captcha/',
+                                type : 'post',
+                                data : 'phone='+ phone +'&type=2',
+                                dataType : 'json',
+                                success : function (result) {
+                                    if(result.status == 'error') {
+                        				$.dialog({
+                        				    content:result.msg,
+                        				    icon:null
+                        				});
+                                    }
+                                    //手机验证倒计时
+                                    require("module/common/method/countDown").countDown(_this);
+                                    _this.attr("disabled",true);
+                                }
+                            });
+                        }
+
                     }
-                    //手机验证倒计时
-                    require("module/common/method/countDown").countDown(_this);
-                }
+                });
             }
-            );
+            
         });
     }
 

@@ -59,7 +59,7 @@
                         <em>*</em>
                         <p class="fl">所在学校</p>
                         <div class="cf schoolPar">
-                            <input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"></input>
+                            <input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"/>
                             <a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
                             <input type="hidden" value="" name="school_id" id="schoolVal" />
                             <input type="hidden" value="" name="province_id" id="province_id" />
@@ -225,17 +225,18 @@
                         <p class="fl">资质证明<b class="verfyTip">（请至少上传一种资质证明，教师资格证必须上传）</b></p>
                         <div class="fl">
                             <div class="md_upload">
-                                <input name="new_work_auth_img" id="new_work_auth_img" type="hidden" value="{$upload_work_img_key}">
-                                <input name="new_title_auth_img" id="new_title_auth_img" type="hidden" value="{$upload_auth_img_key}">
-                                <input name="new_teacher_auth_img" id="new_teacher_auth_img" type="hidden" value="{$upload_title_img_key}">
+                                <input name="new_work_auth_img" id="new_work_auth_img" class="new_img_key" type="hidden" value="{$upload_work_img_key}">
+                                <input name="new_title_auth_img" id="new_title_auth_img" class="new_img_key" type="hidden" value="{$upload_auth_img_key}">
+                                <input name="new_teacher_auth_img" id="new_teacher_auth_img" class="new_img_key" type="hidden" value="{$upload_title_img_key}">
                                 <input name="work_auth_img" id="work_auth_img" type="hidden" value="{$user_detail.work_auth_img}">
                                 <input name="title_auth_img" id="title_auth_img" type="hidden" value="{$user_detail.title_auth_img}">
                                 <input name="teacher_auth_img" id="teacher_auth_img" type="hidden" value="{$user_detail.teacher_auth_img}">
                                 <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
                                 {if $user_detail.teacher_auth_img}
                                 <span class="ImageSpan1 ImageSpan01">
-                                    <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.teacher_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <img src='{$smarty.const.NH_QINIU_URL}{$user_detail.teacher_auth_img}?imageView/2/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
                                     <b class="uploadFt">教师资格证书</b>
+                                    <input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
                                 </span>
                                 {else}
                                 <span class="ImageSpan ImageSpan01"></span>
@@ -249,10 +250,10 @@
                                 
                                 {if $user_detail.title_auth_img}
                                 <span class="ImageSpan1 ImageSpan02">
-                                    <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.title_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.title_auth_img}?imageView/2/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
                                     <b class="uploadFt">教师职称证书</b>
+                                    <input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
                                 </span>
-
                                 {else}
                                 <span class="ImageSpan ImageSpan02"></span>
                                 <a href="javascript:void(0);" class="uploada icon_upload2" data-fileId="shareFileUpField2">
@@ -265,8 +266,9 @@
                                 
                                 {if $user_detail.work_auth_img}
                                 <span class="ImageSpan1 ImageSpan03">
-                                    <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.work_auth_img}?imageView/1/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
+                                    <img src='http://n1a2h3a4o5.qiniudn.com/{$user_detail.work_auth_img}?imageView/2/w/{$smarty.const.NH_TEACHER_IMG_WIDTH}/h/{$smarty.const.NH_TEACHER_IMG_HEIGHT}'/>
                                     <b class="uploadFt">学校工作证</b>
+                                    <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
                                 </span>
                                 {else}
                                 <span class="ImageSpan ImageSpan03"></span>

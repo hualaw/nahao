@@ -65,29 +65,24 @@ function connect_phone_server(){
  * 
  * @param string $appname
  * @param string $phone
- * @return string
+ * @return if phone exist, return uid
+ *         if phone not found, return 0
+ *         if error, return false
  */
 function get_uid_phone_server($phone, $appname = PHONE_SERVER_APPNAME){
-	if ($phone == 13693587853) {
-		return 12548;
-	}
-	if ($phone == 18801191582) {
-	    return 17265;
-	}
-    if ($phone == 13581711708) {
-        return 12345;
-    }
     try {
         $client = connect_phone_server();
         if(!$client){
+            log_message('error_nahao', 'phone server connect failed');
             return false;
         }
         return $client->get_uid($appname, $phone);
+    } catch (\yiduoyun\phone\NotFoundException $exc) {
+        return 0;
     }catch (Exception $exc) {
+        log_message('error_nahao', 'phone server operation occurs exception,' . $exc->getTraceAsString());
         return false;
     }
-
-//    return $client->get_uid($appname, $phone);
 }
 
 /**

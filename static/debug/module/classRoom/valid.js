@@ -67,15 +67,21 @@ define(function(require,exports){
 
         ]);
     };
-    // 教室-评价 验证
-    exports.evaluForm = function(){
+    // 教室-评价 验证(购买后)
+    exports.evaluForm = function(_this){
     	var _Form=$(".evaluForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                if(!$(".aui_content .cStar")){
+                    $.dialog({
+                        content:"请您为本节课打分",
+                        icon:null
+                    });
+                    return false;
+                }
             },
             callback:function(data){
             	if(data.status=="ok")
@@ -85,12 +91,56 @@ define(function(require,exports){
     				    icon:null
     				});
     				$.dialog.list['comment_close'].close();
-    				$('.cListHid').children("a").remove();
-    				$('.cListHid').append('<span class="cevaluBtn fr sevaluBtn">已评价</span>');
+    				_this.parent().append('<span class="cevaluBtn fr sevaluBtn">已评价</span>');
+                    _this.remove();
             	}else if(data.status=="no_login"){
                 	seajs.use('module/nahaoCommon/commonLogin',function(_c){
                 		_c.cLogin();
                 	})
+            	} else {
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+            	}
+            }
+        });
+        // 冲掉库里面的'&nbsp:'
+        _Form.tipmsg.r=" ";
+        _Form.addRule([{
+                ele: ".eTextarea",
+                datatype: "*",
+                nullmsg: "请提出您宝贵的意见或者建议",
+                errormsg: ""
+            }
+
+        ]);
+    };
+    
+    // 教室-评价 验证（教室里面）
+    exports.evaluForm_classroom = function(_this){
+    	var _Form=$(".evaluForm").Validform({
+            // 自定义tips在输入框上面显示
+            tiptype:commonTipType,
+            showAllError:false,
+            ajaxPost:true,
+            beforeSubmit: function(curform) {
+                if(!$(".aui_content .cStar")){
+                    $.dialog({
+                        content:"请您为本节课打分",
+                        icon:null
+                    });
+                    return false;
+                }
+            },
+            callback:function(data){
+            	if(data.status=="ok")
+            	{
+    				$.dialog({
+    				    content:data.msg,
+    				    icon:null
+    				});
+    				$.dialog.list['comment_close'].close();
             	} else {
     				$.dialog({
     				    content:data.msg,

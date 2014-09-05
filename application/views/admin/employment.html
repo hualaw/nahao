@@ -1,0 +1,35 @@
+<label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label><br />
+        {for $i=1 to 130}
+        &nbsp;
+        {/for}
+        <a href="/employment/create_employment" target="_blank" type="button" class="btn btn-primary">添加+</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>职位</td>
+            <td>招聘信息</td>
+            <td>招聘要求</td>
+            <td width="80">是否启用</td>
+            <td width="50">顺序</td>
+            <td width="50">操作</td>
+        </tr>
+    </thead>
+    {foreach $list_employment as $v}
+    <tr>
+        <td>{$v.id}</td>
+        <td>{$v.title}</td>
+        <td>{$v.desc}</td>
+        <td>{$v.requirement}</td>
+        <td>{if $v.is_open==0}<button class="btn btn-success active show" data-is_open="{$v.is_open}" data-id="{$v.id}">启用</button>{else}<button class="btn btn-info active show" data-is_open="{$v.is_open}" data-id="{$v.id}">禁用</button>{/if}</td>
+        <td>{$v.seq}</td>
+        <td><a href="/employment/edit_employment?id={$v.id}&seq={$v.seq}">修改</a></td>
+    </tr>
+    {/foreach}
+</table>
+{$page}
+<div style="display:none">
+<textarea id="requirement" name="requirement"></textarea>
+<textarea id="title" name="requirement"></textarea>
+<textarea id="desc" name="requirement"></textarea>
+</div>

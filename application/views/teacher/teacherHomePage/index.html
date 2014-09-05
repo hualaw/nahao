@@ -21,6 +21,8 @@
                 <span class="hd_day">{$data['date']}</span>
                 <span class="hd_date">星期{$data['week']}</span>
                 <span class="hd_num">今天要上的课：<b>{$data['today_total']}</b></span>
+                <!--<span class="hd_date"></span>
+                <span class="hd_num"><a href="{$student_url}classroom/experience_enter/{$smarty.const.TEACHER_EXPERIENCE_ENTER_CLASSROOMID}" target="_blank" title="进入体验教室">体验教室入口</a></span>-->
             </h2>
             <div class="md_bd">
                 <table class="md_table custom_table">
@@ -34,10 +36,10 @@
                     </tr>
                     {if $data['listArr']}
 	                    {foreach $data['listArr'] as $key=>$val}
-	                    <tr {if $val['status']==3}class="start"{elseif $val['status']==4}class="end"{/if}>
+	                    <tr {if $val['status']==3}class="start"{elseif in_array($val['status'],array(0,1,4,5))}class="end"{/if}>
 	                        <td>
 	                            <h3>{$val['begin_time']|date_format:'%H:%M'}-{$val['end_time']|date_format:'%H:%M'}</h3>
-	                            <a {if in_array($val['status'],$data['enter_classroom'])}href="{$student_url}classroom/teacher_enter/{$val['classroom_id']}"{else}href="javascript:void(0)"{/if} target="_blank" class="readyGo">
+	                            <a {if in_array($val['status'],$data['enter_classroom'])}href="{$student_url}classroom/teacher_enter/{$val['classroom_id']}"{/if} target="_blank" class="readyGo">
 	                            {$val['status_name']}
 	                            </a>
 	                        </td>
@@ -51,7 +53,7 @@
 	                        </td>
 	                        <td><b class="fred">{$val['already_total']}</b> / {$val['total']}</td>
 	                        <td>{$val['course_type_name']}</td>
-	                        <td class="classWord"><em class="icon_note"></em><a href="http://classroom.oa.tizi.com/meeting/preview/{$val['courseware_id']}" target="_blank">{$val['courseware_name']}</a></td>
+	                        <td class="classWord"><em class="icon_note"></em><a href="{$smarty.const.NH_MEETING_URL}meeting/preview/{$val['courseware_id']}" target="_blank">{$val['courseware_name']}</a></td>
 	                        <td><a href="/orderList/question/{$val['id']}" title="查看练习题" target="_blank"><em class="icon_notem"></em></a></td>
 	                    </tr>
 	                    {/foreach}
@@ -69,7 +71,7 @@
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
-{include file="teacher/include/footer.htm"}
+{include file="www/include/footer.htm"}
 <!-- 底部结束 -->
 <!-- js引入开始 -->
 {include file="teacher/include/js.htm"}

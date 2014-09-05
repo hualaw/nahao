@@ -20,14 +20,16 @@ define(function(require,exports){
                     $('#lesson_pdf_upload').uploadify({
                         'formData' : response,
                         'swf'      : _swf_url+'/lib/uploadify/2.2/uploadify.swf',
-                        'uploader' : 'http://classroom.oa.tizi.com/api/files/', //post to meeting system
+                        'uploader' : _meeting_url+'api/files/', //post to meeting system
                         'multi'    : true,
                         'fileObjName' : 'fileobj',
+                        'fileTypeExts' : '*.pdf',
+                        'fileSizeLimit' : '10MB',
                         onUploadSuccess: function(file, data, response) {
                             var data = jQuery.parseJSON(data);
 
                             if(data.id && data.id>0){
-                                console.log(data);
+//                                console.log(data);
                                 var url = '/lesson/add_courseware';
                                 var data = {
                                     'lesson_id' : lesson_id,

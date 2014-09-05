@@ -90,7 +90,7 @@ class Business_User extends NH_Model
             $str_result_type = 'one';
             $str_fields = 'id AS user_id,nickname,realname,phone_mask,email,avatar,phone_verified,email_verified,teach_priv,
                            gender,age,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,work_auth_img,custom_school,
-                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,has_bought,stage,grade';
+                           teacher_auth_img,title_auth_img,province,city,area,school,teacher_age,teacher_intro,teacher_signature,has_bought,stage,grade,proxy';
             $arr_where = array(
                 'id' => $user_id,
                 TABLE_USER.'.status' => 1,
@@ -99,7 +99,13 @@ class Business_User extends NH_Model
             #加载用户教学科目数据(可以为空主要针对老师用户)
             $arr_return['teacher_subject'] = $this->business_subject->get_teacher_subject($user_id);
             #加载用户感兴趣的科目(可以为空主要是针对学生用户)
-            $arr_return['student_subject'] = $this->business_subject->get_student_subject($user_id);
+            $arr_return['student_subject'] = $this->business_subject->get_student_subject_by_where($user_id,1);
+//            print_r($arr_return['student_subject']);
+//            echo $this->db->last_query();
+//            exit;
+            //素质教育
+            $arr_return['student_suzhi_subject'] = $this->business_subject->get_student_subject_by_where($user_id,2);
+
         }
         
         return $arr_return;
@@ -117,7 +123,7 @@ class Business_User extends NH_Model
         !empty($update_data['avatar']) && $userdata['avatar'] = $update_data['avatar'];
         !empty($update_data['nickname']) && $userdata['nickname'] = $update_data['nickname'];
         !empty($update_data['email']) && $userdata['email'] = $update_data['email'];
-        !empty($update_data['phone_mask']) && $userdata['phone_mask'] = $update_data['phone_mask'];
+        isset($update_data['phone_mask']) && $userdata['phone_mask'] = $update_data['phone_mask'];
         !empty($update_data['phone_verified']) && $userdata['phone_verified'] = $update_data['phone_verified'];
         $this->model_user->update_user($userdata, array('id' => $user_id));
         
@@ -138,7 +144,7 @@ class Business_User extends NH_Model
         #user_info表中要更新的数据
         !empty($update_data['stage']) && $userinfo['stage'] = $update_data['stage'];
         isset($update_data['title']) && $userinfo['title'] = $update_data['title'];
-        isset($update_data['gender']) && $userinfo['gender'] = $update_data['gender'];
+        !empty($update_data['gender']) && $userinfo['gender'] = $update_data['gender'];
         !empty($update_data['province']) && $userinfo['province'] = $update_data['province'];
         !empty($update_data['city']) && $userinfo['city'] = $update_data['city'];
         !empty($update_data['area']) && $userinfo['area'] = $update_data['area'];
@@ -160,10 +166,15 @@ class Business_User extends NH_Model
         if(isset($update_data['teacher_subject'])) {
             $this->update_user_subject($update_data['teacher_subject'], $user_id, 'teacher');
         }
-        if(isset($update_data['student_subject'])) {
-            $this->update_user_subject($update_data['student_subject'], $user_id, 'student');
+        if(!empty($update_data['student_subject'])) {
+            $this->update_student_subject($update_data['student_subject'], $user_id, 1);
         }
-        
+//        print_r($update_data['student_suzhi_subject']);
+        if(!empty($update_data['student_suzhi_subject'])) {
+            $this->update_student_subject($update_data['student_suzhi_subject'], $user_id, 2);
+        }
+//        echo $this->db->last_query();
+//        exit;
         return true;
     }
     
@@ -188,6 +199,24 @@ class Business_User extends NH_Model
             $this->db->insert($table_name, array($user_field => $user_id, 'subject_id' => $val));
         }
         
+        return true;
+    }
+
+    public function update_student_subject($subject, $user_id, $education_type)
+    {
+        if(!is_array($subject)) {
+            $subject = explode('-', $subject);
+        }
+        T(TABLE_STUDENT_SUBJECT)->deleteByWhere("student_id = ".$user_id." AND education_type = ".$education_type);
+//        echo $this->db->last_query();
+//        exit;
+        $data['student_id'] = $user_id;
+        $data['education_type'] = $education_type;
+
+        foreach($subject as $val) {
+            $data['subject_id'] = $val;
+            T(TABLE_STUDENT_SUBJECT)->add($data);
+        }
         return true;
     }
     

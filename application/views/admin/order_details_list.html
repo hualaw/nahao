@@ -6,8 +6,9 @@
 手机:<input type="text" value="{$details.phone_mask}" id="show" readonly /> <br />
 邮箱:{$details.email}<br />
 <hr>
-<h5>付款方式:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$config_pay[$details.pay_type]}</h5><br />
-<h5>订单金额:&nbsp;&nbsp;￥<span id="spend">{$details.spend}</span>&nbsp;元</h5><br />
+<h5>付款方式:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$config_pay[$details.pay_type]}</h5>
+<h5>订单金额:&nbsp;&nbsp;￥<span id="spend">{$details.spend}</span>&nbsp;元</h5>
+<h5>退款金额:&nbsp;&nbsp;{if $details.status>=6}{$details.refund_price}&nbsp;元{else}未申请退款{/if}</h5><br />
 <table class="table table-bordered">
     <tr class="active">
         <td>序号</td>
@@ -20,13 +21,16 @@
         <td>修改价格</td>
     </tr>
     <tr>
-        <td>{$details.round_id}</td>
+        <td id="round_id">{$details.round_id}</td>
         <td>{$details.title}</td>
         <td>{$details.start_time|date_format:'%Y-%m-%d %H:%M:%S'}到{$details.end_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
         <td>{$details.price}</td>
         <td>{$details.spend}</td>
         <td>{$details.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
-        <td id="refund" width="135" height="39">{if $details.status==6}
+        <td id="refund" width="135" height="39">
+            {if $details.status==0 || $details.status==1}
+            <button type='button' class='btn btn-primary btn-xs' id="pay_money">已付款</button>
+            {elseif $details.status==6}
                 申请退款<br /><button type='button' class='btn btn-primary btn-xs' id='button'>拒绝</button>&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-xs' id='agr_button'>同意</button>
             {elseif $details.status==7}
                 退款不通过

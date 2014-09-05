@@ -1,109 +1,202 @@
-<div class="courseConList">
-	<h3 class="pageName">我的课程</h3>
-	<ul class="myCourseList cf">
-		<!-- meiyou-->
-		{if $array_buy_course}
-		<li class="fl noCourse ">   
-		{else}
-		<li class="fl noCourse noCourseList">   
-		{/if}
-			<a href="{$student_url}"><span>快来添加课程吧！</span></a>
-		</li>
-		<!-- kecheng yi wancheng -->
-		{if $array_buy_course}
-		{foreach from=$array_buy_course item=item}
-		
-		<li class="fl hasCourse {if $item.teach_status == '3'}courseOver{/if} posr">
-			{if $item.sale_price == '0'}
-			<div class="courseFree"></div>
-			{/if}
-			<h3 title="{$item.title}">{$item.title|truncate:15:"...":true}</h3>
-			
+<!-- 右侧框架开始 -->
+<div class="wrapContent fr myCourseCon" id="wrapContent" name="myCourseCon">
+<h4 class="pageName">我的课程</h4>
+<!-- 我的课程头部tab切换开始 -->
+<div class=" pageListWrap">
+<input id="page_statu" type="hidden" status='{$status}'>
 
-			<img src="{$item.class_img}" alt="" title="{$item.title}" class="cover">
-			<div class="progress">
-				<span class="bar" style="width:{$item.class_rate}%"></span>
-			</div>
-			<div class="courseInfor">
-				<div class="lessons">
-					<span class="redText">已上{$item.class}节</span> / 共{$item.totle_class}节
-				</div>
-				{if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
-			    <div class="over">
-					停课
-				</div>
-				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
-				<div class="over">
-					已结课
-				</div>
-				{elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
-				<div class="over" title="已过期：已结课一个月之后">
-					已过期
-				</div>
-				{else}
-				<div class="classTime">
-					{if $item.next_class_time !=''}
-					<p>下节课</p>
-					<p class="redText">
-						<span>{$item.next_class_time}</span>
-					</p>
-					{/if}
-				</div>
-				{/if}
-			</div>
-			
-			<a href="/course/buy_after/{$item.round_id}" class="btn blueBtn">
-				进入课程
-		    </a>			
-			
-		</li>
-		{/foreach}
-		{/if}
-	</ul>
+<div class="cf cListWrap">
+    <ul class="cf nav_tabs courseTabList">
+        <li class="tabItem  firstTab {if $status == ''}active{/if}" link="all_clist" status='0'>
+            <a href="/member/my_course">全部课程</a>
+        </li>
+        <li class="tabItem {if $status == 2}active{/if}" link="leaning_clist" status='2'>
+            <a href="/member/my_course/2">进行中</a>
+        </li>
+        <li class="tabItem {if $status == 1}active{/if}" link="soon_clist" status='1'>
+            <a href="/member/my_course/1">未开始</a>
+        </li>
+        <li class="tabItem {if $status == 3}active{/if}" link="finished_clist" status='3'>
+            <a href="/member/my_course/3">已结束</a>
+        </li>
+    </ul>
 </div>
-<div class="courseConList newList">
-	<h3 class="pageName">最新课程</h3>
-	<ul class="cf">
-		{if $array_new}
-		<!--  xuanzhuan-->
-		{foreach from=$array_new item=item}
-		<li class="fl">
-			<div class="clBoxShaow iniBox">
-				{if $item.sale_price == '0'}
-				<div class="courseFree"></div>
-				{/if}
-				<img src="{$item.img}" alt="">
-				<div class="iniInfor">
-					<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
-					<div class="cf">
-						<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
-						<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
-					</div>
-					<div class="cf fitGrade">
-						<span class="fl">适合{$item.for_people}</span>
-						<span class="fr">{$item.class_nums}课次</span>
-					</div>
-				</div>
-			</div>
-			<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
-				<div class="teaInfor cf">
-					<img src="{$item.teacher.avatar}" alt="头像" class="fl">
-					<div class="fl teaInforR">
-						<!--工作证，称职证，教师证（1-5）-->
-						<h3 class="cf">
-							<em class="fl">{$item.teacher.nickname}</em>
-							<span {if $item.teacher.work_auth}class="workCard fl"{/if}></span>
-							<span {if $item.teacher.titile_auth}class="TitleCard fl"{/if}></span>
-							<span {if $item.teacher.teacher_auth}class="teaCard fl"{/if}></span>
-						</h3>
-						<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
-					</div>
-				</div>
-				<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-				<p class="courseTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</p>
-			</div>
-		</li>
-		{/foreach}
-		{/if}
-	</ul>
+<!-- 我的课程tab切换结束 -->
+<!-- 我的课程tab切换内容开始 -->
+<div class="cf tabContent">
+<!-- 全部课程列表开始 -->
+<div class="cf item {if $status == ''}active{/if}" itemname="all_clist" id="my_course_page">
+    <ul class="cf cListContWrap">
+        {if $my_courses}
+        {foreach from=$my_courses item=item}
+        <li class="cf cItem">
+            <a href="/course/buy_after/{$item.round_id}" class="fl">
+                <img src="{if empty($item.class_img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s8')}{else}{get_img_url($item.class_img,'course_s8')}{/if}" alt="{$item.class_img}" class="cImg">
+            </a>
+
+            <div class="fl cDesc">
+                <h4>
+                    <a href="/course/buy_after/{$item.round_id}" class="cTitle" title="{$item.title}">{$item.title|truncate:33:"...":true}</a>
+                </h4>
+                {if $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_STOP}
+                                <span class="time">
+                                    停课
+                                </span>
+                {elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_FINISH}
+                                <span class="time">
+                                    已结课
+                                </span>
+                {elseif $item.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
+                                <span class="time" title="已过期：已结课一个月之后">
+                                    已过期
+                                </span>
+                {else}
+		   						<span class="time">
+                                    {if $item.next_class_time !=''}
+		   							下节课<strong>{$item.next_class_time}</strong>
+                                    {/if}
+		   						</span>
+                {/if}
+                <!-- 进度条开始 -->
+                <div class="scheduleWrap">
+                    <!-- 此处的进度条需要算出百分比 如75%-->
+                    <div class="scheduleInner" {if $item.totle_class == 0}style="width:0%" {else}style="width:{($item.class/$item.totle_class)*100}%"{/if}></div>
+                </div>
+                <!-- 进度条结束 -->
+		   						<span>
+		   							<strong>已上{$item.class}节</strong>/共{$item.totle_class}节
+		   						</span>
+            </div>
+            <a href="/course/buy_after/{$item.round_id}" class="cRedBtn enterBtn">进入课程</a>
+        </li>
+        {/foreach}
+        {else}
+        <div class='noCourseWrap'>暂无课程</div>
+        {/if}
+    </ul>
+    <div status='0' class="page-status pageWrap">
+        {$page}
+    </div>
 </div>
+
+</div>
+</div>
+<!-- 我的课程tab切换内容结束 -->
+{if $smarty.const.HOT_NEW_COURSE}
+<!-- 最新课程开始 -->
+<h4 class="pageName">最新课程</h4>
+
+<div class="cf nearlyWrap list_tabs">
+    <!-- 最新课程tab切换头部开始 -->
+    <div class="cf neatrlyHeader">
+        <ul class="nav_tabs nearlyTabs">
+            <li class="tabItem firstTab active" link="nearly_clist">
+                <a href="javascript:void(0)">近期课程</a>
+            </li>
+            <li class="tabItem " link="hot_clist">
+                <a href="javascript:void(0)">热报课程</a>
+            </li>
+        </ul>
+    </div>
+    <!-- 最新课程tab切换头部结束 -->
+    <!-- 最新课程tab切换内容开始 -->
+    <div class="cf tabContent">
+        <!-- 近期课程列表开始 -->
+        <div class="cf item active" itemname="nearly_clist">
+            <ul class="cf nearlyContList">
+                {if $array_new}
+                {foreach from=$array_new item=item}
+                <li class="fl nItem">
+                    <a href="#" class="cnImgWrap">
+                        <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s10')}{else}{get_img_url($item.img,'course_s10')}{/if}" alt="" class="nItemImg">
+                    </a>
+                    <a href="{$course_url}ke_{$item.id}.html">
+                        <div class="teacherWrap">
+                            <div class="cf teacherTop">
+                                <img class="fl teacherImg" src="{if empty($item.teacher.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.teacher.avatar,'avatar_s5')}{/if}" alt="头像">
+                                <span class="fl teacherInfo">
+                                    <span class="tName">{$item.teacher.nickname}</span>
+                                    <span class="tAge">
+                                        {$item.teacher.teacher_age}年教龄
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="teacherDesc">
+                                {$item.teacher.teacher_intro|truncate:46:"...":true}
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="ncDesc">
+                        <h4 class="ncTitle">
+                            {$item.title|truncate:36:"...":true}
+                        </h4>
+								<span class="cf valueList">
+									<span class="fl price">
+										￥{$item.sale_price}
+									</span>
+									<span class="fr classmate">{$item.bought_count+$item.extra_bought_count}人已学习</span>
+								</span>
+                    </div>
+
+
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <!-- 近期课程列表结束 -->
+        <!-- 热报课程列表开始 -->
+        <div class="cf item" itemname="hot_clist">
+            <ul class="cf nearlyContList">
+                {if $array_hot}
+                {foreach from=$array_hot item=item}
+                <li class="fl nItem">
+                    <a href="#" class="cnImgWrap">
+                        <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s10')}{else}{get_img_url($item.img,'course_s10')}{/if}" alt="" class="nItemImg">
+                    </a>
+                    <a href="{$course_url}ke_{$item.id}.html">
+                        <div class="teacherWrap">
+                            <div class="cf teacherTop">
+                                <img class="fl teacherImg" src="{if empty($item.teacher.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.teacher.avatar,'avatar_s5')}{/if}" alt="头像">
+									<span class="fl teacherInfo">
+										<span class="tName">{$item.teacher.nickname}</span>
+										<span class="tAge">
+											{$item.teacher.teacher_age}年教龄
+										</span>
+									</span>
+                            </div>
+                            <div class="teacherDesc">
+                                {$item.teacher.teacher_intro|truncate:46:"...":true}
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="ncDesc">
+                        <h4 class="ncTitle">
+                            {$item.title|truncate:36:"...":true}
+                        </h4>
+								<span class="cf valueList">
+									<span class="fl price">
+										￥{$item.sale_price}
+									</span>
+									<span class="fr classmate">{$item.bought_count+$item.extra_bought_count}人已学习</span>
+								</span>
+                    </div>
+
+
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <!-- 热报课程列表结束 -->
+    </div>
+    <!-- 最新课程tab切换内容结束 -->
+</div>
+<!-- 最新课程结束 -->
+{/if}
+</div>
+<!-- 右侧框架结束 -->
+
+<!-- 主要内容结束 -->

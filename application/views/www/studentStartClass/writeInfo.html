@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap  studentStartClass" id="nahaoModule" module="studentStartClass">
+<div class="wrap  studentStartClass" id="nahaoModule" module="studentStartClass" data_page="studentPage">
 	<div class="writeInfo">
 		<div class="box layout">
 			<h2>请填写试讲信息<span>(以下信息会严格保密，请您放心填写）</span></h2>
@@ -34,8 +34,8 @@
 						<p class="fl">所在地区与学校</p>
 						<div class="cf">
 							<div class="cf schoolPar">
-								<input class="schoolFullName cInput yh" validName="text" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"></input>
-								<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">就读学校</a>
+								<input class="schoolFullName cInput yh" validName="text" readonly="readonly" value="{foreach $data['school_area'] as $key => $val}{$val.name}{/foreach}{$data['school_name']}"/>
+								<a href="javascript:void(0);" class="resetSchool optional" set="1" province="2" city="" county="500">选择学校</a>
 								<div class="Validform_tip_info undis">请选择就读学校</div>
                           		<div class="Validform_checktip"></div>
 								<input type="hidden" value="{if $data['school']['province_id']}{$data['school']['province_id']}{/if}" name="province_id" id="province_id" />
@@ -51,7 +51,7 @@
 						<p class="fl">选择性别</p>
 						<div class="cf">
 							<div class="cf">
-								<input type="radio" name="gender" id="male" value="1" class="radioInput fl" validName="radio" /><label for="male" class="fl">男</label> 
+								<input checked type="radio" name="gender" id="male" value="1" class="radioInput fl" validName="radio" /><label for="male" class="fl">男</label> 
 								<input type="radio" name="gender" id="female" value="2" class="radioInput fl" validName="radio"/><label for="female" class="fl">女</label>  
 							</div>
 							<span class="Validform_checktip fl"></span>
@@ -70,7 +70,7 @@
 						<div class="cf">
 							{foreach $data['data']['stage'] as $key=>$val}
 							<div class="fl">
-				    			<input type="radio" value="{$key}" name="stage" id="high-{$key}" class="fl checkInput" validName="radio">
+				    			<input type="radio" {if $key==1}checked{/if} value="{$key}" name="stage" id="high-{$key}" class="fl checkInput" validName="radio">
 								<label for="high-{$key}" class="fl">{$val}</label>
 				    		</div>
 							{/foreach}
@@ -98,7 +98,7 @@
 								<select name="teach_years" id="" validName="select" class="seniority">
 									<option value="">请选择教龄</option>
 									{section name=loop loop=$data['data']['teach_years']}
-										<option value="1">{$smarty.section.loop.index+1}年</option>
+										<option value="{$smarty.section.loop.index+1}">{$smarty.section.loop.index+1}年</option>
 									{/section}
 								</select>
 							</div>
@@ -164,7 +164,7 @@
 					<li class="cf cookedTime">
 						<p>试讲时间</p>							
 						<div class="cf">
-							<div class="fl">
+							<div class="fl wtimeBox">
 								<input type="text" name="date_time" class="wtime textInput" validName="text">
 								<div class="Validform_tip_info fl undis">请输入试讲时间</div>
 	                      		<div class="Validform_checktip fl"></div>
@@ -256,5 +256,41 @@
 <!--js引入结束-->
 <!--选择学校-->
 {include file='common/setSchool.html'}
+<script src="{$static_url}{$static_version}/lib/jquery/1.8.2/jquery.js"></script>
+<script src="{$static_url}{$static_version}/lib/kindeditor/4.1.10/kindeditor.js"></script>
+<script type="text/javascript">
+	KindEditor.ready(function(K){
+       K.create("#postEditor",{
+            //简易版
+            items : [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+            //字符检测
+           afterChange : function() {
+                //（字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字。）
+                K('.word_count2').html(10000-this.count('text'));
+                $('.word_count1').html(KindEditor.instances[0].html().length);
+                this.sync();
+            }
+        });
+    });
+    KindEditor.ready(function(K){
+       K.create("#introEditor",{
+            //简易版
+            items : [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+            //字符检测
+           afterChange : function() {
+                //（字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字。）
+                K('.word_count2').html(10000-this.count('text'));
+                $('.word_count1').html(KindEditor.instances[0].html().length);
+                this.sync();
+            }
+        });
+    });
+</script>
 </body>
 </html>

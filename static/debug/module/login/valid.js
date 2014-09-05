@@ -25,9 +25,11 @@ define(function(require,exports){
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
+
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".regPhoneBox .pwd").val());
-                $(".regPhoneBox .pwd").val(hash.toString());
+                $(".regPhoneBox .pwd").attr("disabled",true);
+                $(".regPhoneBox .epass").val(hash.toString());
 
             },
             callback:function(json){
@@ -36,7 +38,8 @@ define(function(require,exports){
                 }else{
                     $.dialog({
                         content:json.msg
-                    })
+                    });
+                    $(".regPhoneBox .pwd").removeAttr("disabled");
                 }
             }
         });
@@ -62,7 +65,7 @@ define(function(require,exports){
                  errormsg: "长度是四位数字"
             },
             {   
-                 ele:"checkbox:first",
+                 ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
@@ -87,10 +90,18 @@ define(function(require,exports){
         require('module/common/method/send').sendPhoneNum(1);
         
         // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
+        seajs.use("module/login/validFocus");
     };
     // 邮箱注册验证
-    exports.regEmailBoxForm = function(){    
+    exports.regEmailBoxForm = function(){
+        $(function(){
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+        });
+
+        $('.codeImg,.changeOne').click(function(e){
+            $('#cap_img img').attr("src",student_url+"index/captcha?"+new Date().getTime());
+            e.preventDefault();
+        })
         $(".regEmailBox .email").focus();
         var _Form=$(".regEmailBox").Validform({
             // 自定义tips在输入框上面显示
@@ -99,9 +110,9 @@ define(function(require,exports){
             ajaxPost:true,
             beforeSubmit: function(curform) {
                 require("cryptoJs");
-                //alert($(".regEmailBox .pwd").val());
                 var hash = CryptoJS.SHA1($(".regEmailBox .pwd").val());
-                $(".regEmailBox .pwd").val(hash.toString());
+                $(".regEmailBox .pwd").attr("disabled",true);
+                $(".regEmailBox .epass").val(hash.toString());
             },
             callback:function(json){
                 if(json.status =="ok"){
@@ -109,14 +120,15 @@ define(function(require,exports){
                 }else{
                      $.dialog({
                         content:json.msg
-                    })
+                    });
+                    $(".regEmailBox .pwd").removeAttr("disabled");
                 }
             }
         });
         _Form.addRule([{
                 ele: ".email",
                 datatype:"e",
-                ajaxurl:siteUrl + "register/check_email",
+                // ajaxurl:siteUrl + "register/check_email",
                 ajaxUrlName:'email',
                 nullmsg:"请输入邮箱地址",
                 errormsg:"长度6-30个字符的邮箱地址"
@@ -135,7 +147,13 @@ define(function(require,exports){
                 ignore:"ignore"
             },
             {   
-                 ele:"radio:first",
+                 ele:".authCode",
+                 datatype: "/^\\w{4}$/",
+                 nullmsg: "请输入验证码",
+                 errormsg: "验证码长度是4位"
+            },
+            {
+                 ele:":checkbox",
                  datatype: "*",
                  nullmsg: "请同意服务协议",
                  errormsg: "未同意服务协议"
@@ -156,13 +174,57 @@ define(function(require,exports){
                 }
             }
         });
-        // 请求focus的时候出现提示文字的样式
-        require("module/login/validFocus");
     };
     //选择和取消 关注
-    function checkAttent(obj){        
+//    function checkAttent(obj){
+//        $(obj+" .attent .btn").click(function (){
+//            if($(obj+" .attentd").length < 3){//限制只能选3个学科
+//                if($(this).hasClass("attentd")){
+//                    $(this).removeClass("attentd");
+//                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
+//                }else{
+//                    $(this).addClass("attentd");
+//                    _record_interested_subjects($("#selected_subjects"), $(this), 'add');
+//                }
+//            } else {
+//                if($(this).hasClass("attentd")){
+//                    $(this).removeClass("attentd");
+//                    _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
+//                }
+//                va.call(this);
+//            }
+//
+//            //验证 最多关注
+//            $(obj+" .attent .btn").focus(function (){
+//                va.call(this);
+//            })
+//            //验证 最多关注
+//            $(obj+" .attent .btn").blur(function (){
+//                va_blur.call(this);
+//            })
+//
+//            function va(){
+//                if($(obj+" .attentd").length>=3){
+//                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+//                }else{
+//                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+//                }
+//            }
+//
+//            function va_blur() {
+//                if($(obj+" .attentd").length<=3){
+//                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+//                }else{
+//                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+//                }
+//            }
+//        });
+//    }
+
+    //选择和取消 关注学科教育
+    function checkAttent(obj){
         $(obj+" .attent .btn").click(function (){
-            if($(obj+" .attentd").length < 3){//限制只能选3个学科
+            if($(obj+" .attent .attentd").length < 3){//限制只能选3个学科
                 if($(this).hasClass("attentd")){
                     $(this).removeClass("attentd");
                     _record_interested_subjects($("#selected_subjects"), $(this), 'remove');
@@ -177,7 +239,7 @@ define(function(require,exports){
                 }
                 va.call(this);
             }
-            
+
             //验证 最多关注
             $(obj+" .attent .btn").focus(function (){
                 va.call(this);
@@ -188,15 +250,62 @@ define(function(require,exports){
             })
 
             function va(){
-                if($(obj+" .attentd").length>=3){
+                if($(obj+" .attent .attentd").length>=3){
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }
             }
-                       
+
             function va_blur() {
-                if($(obj+" .attentd").length<=3){
+                if($(obj+" .attent .attentd").length<=3){
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+                }
+            }
+        });
+    }
+
+    //选择和取消 关注素质教育
+    function checkSuZhiAttent(obj){
+        $(obj+" .suzhi_attent .btn").click(function (){
+//            console.log($(obj+" .suzhi_attent .attentd").length);
+            if($(obj+" .suzhi_attent .attentd").length < 3){//限制只能选3个学科
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_suzhi_subjects"), $(this), 'remove');
+                }else{
+                    $(this).addClass("attentd");
+                    _record_interested_subjects($("#selected_suzhi_subjects"), $(this), 'add');
+                }
+            } else {
+                if($(this).hasClass("attentd")){
+                    $(this).removeClass("attentd");
+                    _record_interested_subjects($("#selected_suzhi_subjects"), $(this), 'remove');
+                }
+                va.call(this);
+            }
+
+            //验证 最多关注
+            $(obj+" .suzhi_attent .btn").focus(function (){
+                va.call(this);
+            })
+            //验证 最多关注
+            $(obj+" .suzhi_attent .btn").blur(function (){
+                va_blur.call(this);
+            })
+
+            function va(){
+                if($(obj+" .suzhi_attent .attentd").length>=3){
+                    $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
+                }else{
+                    $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
+                }
+            }
+
+            function va_blur() {
+                if($(obj+" .suzhi_attent .attentd").length<=3){
                     $(this).parent().find(".Validform_checktip").show().html("").addClass("Validform_right").removeClass("Validform_wrong");
                 }else{
                     $(this).parent().find(".Validform_checktip").show().html("最多只能选三科").addClass("Validform_wrong").removeClass("Validform_right");
@@ -219,8 +328,8 @@ define(function(require,exports){
 			beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".pwd").val());
-                $(".pwd").val(hash.toString());
-
+                $(".pwd").attr("disabled",true);
+                $(".epass").val(hash.toString());
 			},
             callback:function(data){
                 if(data.status == 'ok'){
@@ -232,19 +341,19 @@ define(function(require,exports){
                 	}
 
                 }else{
-                	console.log(data);
                     $.dialog({
                         content:data.msg
                     });
+                    $(".pwd").removeAttr("disabled");
                 }
                 return false;
             }
 		});
 		_Form.addRule([{
                 ele: ".userName",
-                datatype:"*",
+                datatype:"m|e",
                 nullmsg:"请输入手机号/邮箱",
-                errormsg:"长度2-15个字符"
+                errormsg:"请输入正确的手机号/邮箱"
             },
             {	
                	 ele:".pwd",
@@ -255,10 +364,28 @@ define(function(require,exports){
             }
             
         ]);
+
+        _Form.config({
+            url : '/login/submit',
+            ajaxurl:{
+                success:function(json,obj){
+//                    console.log(json);
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     };
     // 登陆之后验证
     exports.loginAfterForm = function(){
         checkAttent(".loginAfterForm");
+        checkSuZhiAttent(".loginAfterForm");
         var _Form=$(".loginAfterForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
@@ -350,7 +477,7 @@ define(function(require,exports){
             url : '/register/submit_personal_info',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
@@ -431,9 +558,10 @@ define(function(require,exports){
         ]);
         // ajaxurl提交成功处理
         _Form.config({
+            url:'/login/send_reset_email',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
@@ -535,9 +663,11 @@ define(function(require,exports){
             beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash_set = CryptoJS.SHA1($(".setPassword").val());
-                $(".setPassword").val(hash_set.toString());
+                $("input[name='encrypt_set_password']").val(hash_set.toString());
+                $(".setPassword").attr('disabled', true);
                 var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
-                $(".reSetPassword").val(hash_reset.toString());
+                $("input[name='encrypt_reset_password']").val(hash_reset.toString());
+                $(".reSetPassword").attr('disabled', true);
             },
             callback: function(data) {
                 if(data.status == 'ok') {
@@ -564,11 +694,26 @@ define(function(require,exports){
             {
                 ele:".reSetPassword",
                 datatype:"*6-20",
-                recheck:"setPassword",
+                recheck:"set_password",
                 nullmsg:"请再次输入密码",
                 errormsg:"两次密码不一致！"
             }          
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
     }
     
        /**

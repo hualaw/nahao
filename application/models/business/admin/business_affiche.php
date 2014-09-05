@@ -17,7 +17,14 @@
             $content=trim($content);
             $start_time=strtotime($start_time);
             $end_time=strtotime($end_time);
-            return $this->model_affiche->affiche_list($admin_name,$author_role,$content,$start_time,$end_time,$status,$round_id);
+            $arr=$this->model_affiche->affiche_list($admin_name,$author_role,$content,$start_time,$end_time,$status,$round_id);
+            foreach($arr as $k=>$v)
+            {
+                $arr[$k]['content']=htmlspecialchars_decode( $arr[$k]['content']);
+                $arr[$k]['content']=strip_tags($arr[$k]['content']);
+            }
+
+            return $arr;
         }
         /**
          * 公告数量
@@ -37,10 +44,10 @@
          */
         public function content_edit($post)
         {
-            $post['content']=trim(htmlspecialchars($post['content']));
+            $post['content']=trim(htmlspecialchars($post['insert_content']));
             if($post['content']=="")
             {
-                return FALSE;
+                redirect("/affiche/create_affiche?content=$post[content]&affiche_id=$post[id]");
             }
             return $this->model_affiche->modify_content($post);
         }
@@ -82,32 +89,33 @@
          */
         public function affiche_insert($post)
         {
-            $post['content']=trim(htmlspecialchars($post['content']));
+            $post['content']=trim(htmlspecialchars($post['insert_content']));
             if($post['content']=="")
             {
-                return FALSE;
+                redirect("/affiche/create_affiche?round_id=$post[round_id]&role=$post[role]");
             }
-            if($post['role']==1)//1是管理员发的 3是老师发的
+            if($post['role']==2)//2是管理员发的 1是老师发的
             {
                 //管理员发公告
                 $admin_id=$this->userinfo['id'];
                 $data=array(
                     'round_id'=>$post['round_id'],
                     'author'=>$admin_id,
-                    'author_role'=>1,
+                    'author_role'=>2,
                     'content'=>$post['content'],
                     'create_time'=>time(),
                     'status'=>1,
                     'top_time'=>0
                 );
+
             }
-            if($post['role']==3)
+            if($post['role']==1)
             {
                 //老师发公告,目前还没有此功能
                 $data=array(
                     'round_id'=>$post['round_id'],
                     'author'=>$post['teacher_id'],
-                    'author_role'=>3,
+                    'author_role'=>1,
                     'content'=>$post['content'],
                     'create_time'=>time(),
                     'status'=>1,
@@ -116,4 +124,11 @@
             }
             return $this->model_affiche->add_affiche($data);
         }
+
+
+        public function affiche_edit_content($id)
+        {
+            return $this->model_affiche->edit_affiche_content($id);
+        }
+
     }

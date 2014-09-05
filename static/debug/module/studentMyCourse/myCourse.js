@@ -13,7 +13,15 @@ define(function(require,exports){
             }
         }
     }
-
+    //修改头像 定位
+    exports.changedHead = function (){
+        $(".memberInfo .memberImg img").click(function (){
+            $(".inforTab .tabh li").removeClass("inforOn");
+            $(".inforTab .tabh li").eq(1).addClass("inforOn");
+            $(".inforTabBox").addClass("undis");
+            $(".atareditorBox").removeClass("undis");
+        });
+    }
     //云笔记
     exports.cNote = function (){
         $(".cListHid").on("click", '.cloudNotes', function () {
@@ -58,6 +66,7 @@ define(function(require,exports){
         function countDown(){
             var oDate=new Date();
             if($("#"+id).val()){
+            	//alert($("#"+id).val()); return false;
                 array = $("#"+id).val().split(" ");
     	        FullYear = array['0'].split("-");
     	        Hours = array['1'].split(":");
@@ -89,7 +98,11 @@ define(function(require,exports){
                 s<10?s = "0"+s:s = s;
 
                 if(type==1){
-                    obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
+                    obj.html('<i>'+days+'</i>天'+
+                            '<i>'+hours+'</i>小时'+
+                            '<i>'+mins+'</i>分'+
+                            '<i>'+s+'</i>秒');
+                    //obj.html(days+'天 '+hours+'小时 '+mins+'分 '+s+'秒');
                 }else{
                     obj.html('<strong>'+days+'</strong>天'+
                             '<strong>'+hours+'</strong>小时'+
@@ -142,7 +155,7 @@ define(function(require,exports){
         $("#soon_buy_xia").click(function (){
             var url = '/course/before_check_order/';
             var data = {
-            	product_id: $('#product_id_xia').val()
+            		product_id: $('#product_id').val()
             };
             $.post(url, data, function (response) {
                 if (response.status == "error") {
@@ -181,6 +194,7 @@ define(function(require,exports){
     				$.dialog({
     				    content:response.msg,
     				    icon:null,
+                        cancel:false,
     				    ok:function(){
     				    	window.location.reload();
     				    }
@@ -207,6 +221,7 @@ define(function(require,exports){
     				$.dialog({
     				    content:response.msg,
     				    icon:null,
+                        cancel:false,
     				    ok:function()
     				    {
     				    	window.location.reload();
@@ -232,13 +247,14 @@ define(function(require,exports){
         }
 
         //鼠标上去 显示 讲义，运笔记，评论星
-        $(".outlineList .listb").mouseover(function (){
-            $(this).find(".cListHid").show();     
-        });
-        $(".outlineList .listb").mouseout(function (){
-            $(this).find(".cListHid").hide();
-        });
-        $(".evaluBtn").click(function (){               
+//        $(".outlineList .listb").mouseover(function (){
+//            $(this).find(".cListHid").show();     
+//        });
+//        $(".outlineList .listb").mouseout(function (){
+//            $(this).find(".cListHid").hide();
+//        });
+        $(".evaluBtn").click(function (){
+            var _this = $(this);          
            // _popUp.popUp('.evaluHtml');
         	$.dialog({
         		id:"comment_close",
@@ -251,7 +267,7 @@ define(function(require,exports){
             class_id = $(this).attr("evaluBtns");
             $("#c_class_id").val(class_id);
             exports.starClick();
-            require("module/classRoom/valid").evaluForm();
+            require("module/classRoom/valid").evaluForm(_this);
             
         })
     }
@@ -275,6 +291,7 @@ define(function(require,exports){
     exports.sendValidateCode = function (){
         $('.sendPhoneCode').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("input[name='phone']").val();
             var verify_type = $("input[name='verify_type']").val();
             if(!(phone)) {
@@ -283,7 +300,7 @@ define(function(require,exports){
 				    icon:null
 				});
                 return false;
-            } else if(!(/^1[3|5|8]\d{9}$/.test(phone))) {
+            } else if(!(/^1[3|5|7|8]\d{9}$/.test(phone))) {
 				$.dialog({
 				    content:"请输入正确的手机号",
 				    icon:null
@@ -306,8 +323,7 @@ define(function(require,exports){
                         require("module/common/method/countDown").countDown(_this);   
                     }
                 }
-            }
-            );
+            });
         });
     }
     
@@ -318,4 +334,7 @@ define(function(require,exports){
 			window.open(url);
 		});		
 	}
+
+
+
 });

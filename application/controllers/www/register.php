@@ -54,70 +54,27 @@ class register extends NH_Controller
 		if(empty($phone)) $reg_type = REG_LOGIN_TYPE_EMAIL;
 		else $reg_type = REG_LOGIN_TYPE_PHONE;
 
-		if($reg_type == REG_LOGIN_TYPE_EMAIL) $phone = $ephone;////email注册时选填的手机号
-
+		if($reg_type == REG_LOGIN_TYPE_EMAIL)
+		{
+			$code=trim($this->input->post('code',TRUE));
+			$arr_userdata=$this->session->all_userdata();
+			if(strcasecmp($code,trim($arr_userdata['captcha']))!==0)
+			{
+				$arr_return['status']='ERROR';
+				$arr_return['msg']='验证码错误';
+				$arr_return['data']=$arr_userdata['captcha'];
+				echo parent::json_output($arr_return);
+			}
+			$phone = $ephone;////email注册时选填的手机号
+		}
 		$reg_ret = $this->business_register->submit($phone, $email, $sha1_password, $captcha, $reg_type);
 
 		echo parent::json_output($reg_ret);
 	}
 
-	//ajax interface
-	public function send_captcha()
-	{                                                                                        
-		$phone = trim($this->input->post('phone'));
-        $type = trim($this->input->post('type')); //1,注册；2，订单绑定手机；3，找回密码
-		$this->load->library('sms');
-		$this->sms->setPhoneNums($phone);
-
-		$this->load->helper('string');
-		$verify_code = random_string('nozero', 4);
-		$msg = $verify_code.$this->lang->line('reg_verify_phone_msg');
-		$this->sms->setContent($msg);
-        $create_time = time();
-		$send_ret = $this->sms->send();
-        //$send_ret['error'] = 'Ok';
-
-		$info = array(  'phone' => $phone,
-						'verify_code'=>$verify_code,
-						'msg'=>$msg,
-                        'create_time'=>$create_time,
-                        'type' => $type,
-					);
-		//print_r($send_ret);
-		if($send_ret['error'] == 'Ok')
-		{
-			//store the captcha into redis
-			$this->load->model('model/common/model_redis', 'redis');
-			$this->redis->connect('login');
-
-			//store the phone-verify code list to list
-			$this->cache->redis->lpush($phone, json_encode(array(
-                        't'=>$type,
-                        'vc'=>$verify_code,
-                        'et'=>$create_time + REDIS_VERIFY_CODE_EXPIRE_TIME
-                    )));
-
-			$send_info = $this->_log_reg_info(SUCCESS, 'reg_send_verify_code_success', $info);
-		}
-		else
-		{
-			$tmp_array = array_merge($info, $send_ret);
-			$send_info = $this->_log_reg_info(ERROR, 'reg_send_verify_code_failed', $tmp_array);
-		}
-
-        //unset($send_info['data']);
-		self::json_output($send_info);
-	}
-
-	public function verify_email()
-	{
-
-	}
-
     public function submit_personal_info()
     {
-        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'school_id',
-                              'schoolname', 'province_id', 'city_id', 'area_county_id', 'school_type');
+        $input_names = array('email', 'nickname', 'province', 'city', 'area', 'grade', 'realname', 'gender', 'selected_subjects', 'selected_suzhi_subjects', 'school_id','schoolname', 'province_id', 'city_id', 'area_county_id', 'school_type');
         foreach($input_names as $input_name)
         {
             $$input_name = $this->_check_input($input_name);
@@ -152,11 +109,14 @@ class register extends NH_Controller
         //create user_info table record
         $this->load->model('model/common/model_user');
         $this->model_user->update_user_info($user_info_arr, array('user_id'=> $user_id));
-        if(!empty($selected_subjects))
-        {
-            //create student_subject table record
-            $this->load->model('business/common/business_user');
-            $this->business_user->update_user_subject($selected_subjects, $user_id, 'student');
+
+        $this->load->model('business/common/business_user');
+        if(!empty($selected_subjects)) {
+            $this->business_user->update_student_subject($selected_subjects, $user_id, 1);
+        }
+//        print_r($update_data['student_suzhi_subject']);
+        if(!empty($selected_suzhi_subjects)) {
+            $this->business_user->update_student_subject($selected_suzhi_subjects, $user_id, 2);
         }
 
         //update nickname and email
@@ -173,25 +133,6 @@ class register extends NH_Controller
         self::json_output($arr_return);
     }
 
-	function _log_reg_info($status, $msg_type, $info_arr=array(), $info_type='error')
-	{
-		$arr_return['status'] = $status;
-		$arr_return['msg'] = $this->lang->line($msg_type);
-		$arr_return['data'] = $info_arr;
-		switch($info_type)
-		{
-			case 'error':
-				log_message('ERROR_NAHAO', json_encode($arr_return));
-				break;
-			case 'info':
-				log_message('INFO_NAHAO', json_encode($arr_return));
-				break;
-			case 'debug':
-				log_message('DEBUG_NAHAO', json_encode($arr_return));
-				break;
-		}
-		return $arr_return;
-	}
     
     /**
      * 检查验证码是否有效
@@ -220,9 +161,6 @@ class register extends NH_Controller
     {
         $name = trim($this->input->post('name'));
         $param = trim($this->input->post('phone'));
-        if($param == $this->session->userdata('phone')) {
-            self::json_output(array('status' => 'ok'));//这块是为了让前台未更改手机号时验证通过
-        }
         $result = $this->business_register->check_phone($param);
         if($result['status']=='ok') {
             $arr_return = array('status' => 'ok', 'info' => $result['msg']);

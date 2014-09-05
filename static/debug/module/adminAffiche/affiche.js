@@ -20,24 +20,9 @@ define(function(require,exports){
         })
 
         $('.edit').click(function(){
-            $('#myModal').modal();
             CKEDITOR.instances.edit_content.setData($(this).data('content'));
-            $('#affiche_id').val($(this).data('affiche_id'));
         })
-        $('#edit').click(function(){
-            $.ajax({
-                type:'post',
-                url:'/affiche/edit_content',
-                data:'id='+$('#affiche_id').val()+"&content="+CKEDITOR.instances.edit_content.getData(),
-                success:function(msg)
-                {
-                    if(msg==1)
-                    {
-                        location.reload();
-                    }
-                }
-            })
-        })
+
         $('.pass').click(function(){
             $.ajax({
                 type:'post',
@@ -97,27 +82,11 @@ define(function(require,exports){
 
         $('#insert_affiche').click(function(){
             CKEDITOR.instances.insert_content.setData("");
-            $("#insert_Modal").modal();
-        })
-        $('#insert').click(function(){
-            $.ajax({
-                type:'post',
-                url:'/affiche/insert_affiche',
-                data:'content='+CKEDITOR.instances.insert_content.getData()
-            +'&role=1'+'&round_id='+$('#round_id').val(),
-                success:function(msg)
-                {
-                    if(msg==1)
-                    {
-                        location.reload();
-                    }
-                }
-            })
         })
     }
     exports.load_ckeditor = function ()
     {
-        CKEDITOR.replace('insert_content');
-        CKEDITOR.replace('edit_content');
+        CKEDITOR.replace('insert_content',{ toolbar:'Basic'});
+        CKEDITOR.replace('edit_content',{ toolbar:'Basic'});
     }
 })

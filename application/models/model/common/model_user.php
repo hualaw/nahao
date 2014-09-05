@@ -73,8 +73,8 @@ class Model_User extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function update_user_info($arr_param,$arr_where){
-        $this->db->update(TABLE_USER_INFO, $arr_param, $arr_where);
+    public function update_user_info($arr_param,$arr_info_where){
+        $this->db->update(TABLE_USER_INFO, $arr_param, $arr_info_where);
         $int_affected_rows = $this->db->affected_rows();
         return $int_affected_rows > 0 ? true :false;
     }
@@ -84,21 +84,35 @@ class Model_User extends NH_Model
      */
     public function account_close($arr)
     {
+        $this->load->model('model/common/model_redis', 'redis');
+        $this->redis->connect('session');
+        $now_time=time();
         foreach($arr as $v)
         {
            $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>0),array(TABLE_USER.'.id'=>$v));
            $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>0),array(TABLE_USER_INFO.'.user_id'=>$v));
+            $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$v,'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+            if(isset($session_id) && !empty($session_id))
+            {
+                $this->cache->redis->del($session_id['session_id']);
+            }
         }
         return TRUE;
     }
     /**
-     * teacher账户禁用
+     * teacher账户启用
      * @author shangshikai@tizi.com
      */
     public function account_open($arr)
     {
         foreach($arr as $v)
         {
+            $nickname=$this->db->select('user.nickname')->from('user')->where('user.id',$v)->get()->row_array();
+            $nick=self::check_nick($nickname['nickname'],$v);
+            if($nick=="yes")
+            {
+                return 'no';
+            }
            $this->db->update(TABLE_USER,array(TABLE_USER.'.status'=>1),array(TABLE_USER.'.id'=>$v));
            $this->db->update(TABLE_USER_INFO,array(TABLE_USER_INFO.'.status'=>1),array(TABLE_USER_INFO.'.user_id'=>$v));
         }
@@ -112,8 +126,8 @@ class Model_User extends NH_Model
     {
         $teacher_data=array();
         $phone=get_pnum_phone_server($user_id);
-        $user_data=$this->db->select(TABLE_USER.'.nickname,email')->from(TABLE_USER)->where(TABLE_USER.'.id',$user_id)->get()->row_array();
-        $user_info_data=$this->db->select(TABLE_USER_INFO.'.realname,age,gender,hide_realname,hide_school,bankname,bankbench,bankcard,id_code,title,work_auth,teacher_auth,titile_auth,province,city,area,school,teacher_age,stage,teacher_intro,basic_reward')->from(TABLE_USER_INFO)->where(TABLE_USER_INFO.'.user_id',$user_id)->get()->row_array();
+        $user_data=$this->db->select(TABLE_USER.'.nickname,email,avatar')->from(TABLE_USER)->where(TABLE_USER.'.id',$user_id)->get()->row_array();
+        $user_info_data=$this->db->select(TABLE_USER_INFO.'.realname,age,gender,hide_realname,hide_school,bankname,bankbench,bankcard,id_code,title,teacher_signature,work_auth,teacher_auth,titile_auth,province,city,area,school,teacher_age,stage,teacher_intro,basic_reward,work_auth_img,title_auth_img,teacher_auth_img')->from(TABLE_USER_INFO)->where(TABLE_USER_INFO.'.user_id',$user_id)->get()->row_array();
         $user_data['phone']=$phone;
         $teacher_data['user_data']=$user_data;
         $teacher_data['user_info_data']=$user_info_data;
@@ -166,9 +180,9 @@ class Model_User extends NH_Model
      * 昵称是否存在
      * @author shangshikai@tizi.com
      */
-    public function check_nick($nickname)
+    public function check_nick($nickname,$user_id)
     {
-         if($this->db->select('user.id')->from('user')->where("user.nickname='$nickname'")->get()->row_array())
+         if($this->db->select('user.id')->from('user')->where(array("user.nickname"=>$nickname,"user.status"=>1))->where("user.id!=",$user_id)->get()->row_array())
          {
              return 'yes';
          }
@@ -182,7 +196,7 @@ class Model_User extends NH_Model
     {
         if(!is_mobile($phone))
         {
-            return 1;
+            return 3;
         }
         else
         {

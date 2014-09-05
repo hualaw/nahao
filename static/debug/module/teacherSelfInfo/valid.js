@@ -20,13 +20,31 @@ define(function(require,exports){
     };
 	/*教师后台管理-个人资料表单验证开始*/
 	exports.teaInfoValid = function(){
+        var _card = require("module/common/method/bankcard");
+        var _idcard = require("module/common/method/idCard");
 		var _Form=$(".teaInfoForm").Validform({
             // 自定义tips在输入框上面显示
             tiptype:commonTipType,
             showAllError:false,
             ajaxPost:true,
             beforeSubmit: function(curform) {
-
+                cardReg();
+                idcardReg();
+                
+                if($(".bankId").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的身份证号",
+                        icon:null
+                    });
+                    return false;
+                }
+                if($(".cardId").hasClass("Validform_error")){
+                    $.dialog({
+                        content:"请输入正确的银行卡账号",
+                        icon:null
+                    });
+                    return false;
+                }
             },
             callback:function(data){
                 $.dialog({
@@ -140,6 +158,42 @@ define(function(require,exports){
                 errormsg: "请输入身份证号码"
             }
         ]);
+        // ajaxurl提交成功处理
+        _Form.config({
+            url:'/selfInfo/index',
+            ajaxurl:{
+                success:function(json,obj){
+                    if(json.status == 'ok'){
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');
+                        $(obj).removeClass('Validform_error');
+                    }else{
+                        $(obj).siblings('.Validform_checktip').html(json.msg);
+                        $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_wrong');
+                    }
+                }
+            }
+        });
+        function cardReg(){
+            if(_card.luhmCheck($(".bankId").val())==false&&$(".bankId").val()!=""){
+                $(".bankId").addClass("Validform_error");
+                $(".bankId").next(".Validform_checktip").addClass("Validform_wrong").removeClass("Validform_right").html("请输入正确的银行卡账号");
+            }
+        }
+        function idcardReg(){       
+            if(_idcard.idCard($(".cardId").val())==false&&$(".cardId").val()!=""){
+                $(".cardId").addClass("Validform_error");
+                $(".cardId").next(".Validform_checktip").addClass("Validform_wrong").removeClass("Validform_right").html("请输入正确的身份证号");
+            }
+        }
+
+        $(".bankId").blur(function (){
+            cardReg();
+        });
+
+        $(".cardId").blur(function (){
+            idcardReg();
+        });
     };
     /*教师后台管理-个人资料表单验证结束*/
     /*教师后台管理-修改密码表单验证开始*/
@@ -152,11 +206,14 @@ define(function(require,exports){
             beforeSubmit: function(curform) {
                 require("cryptoJs");
                 var hash = CryptoJS.SHA1($(".iniPassword").val());
-                $(".iniPassword").val(hash.toString());
+                $("input[name='encrypt_password']").val(hash.toString());
+                $(".iniPassword").attr('disabled', true);
                 var hash_set = CryptoJS.SHA1($(".setPassword").val());
-                $(".setPassword").val(hash_set.toString());
+                $("input[name='encrypt_set_password']").val(hash_set.toString());
+                $(".setPassword").attr('disabled', true);
                 var hash_reset = CryptoJS.SHA1($(".reSetPassword").val());
-                $(".reSetPassword").val(hash_reset.toString());
+                $("input[name='encrypt_reset_password']").val(hash_reset.toString());
+                $(".reSetPassword").attr('disabled', true);
             },
             callback:function(data){
                 if(data.status == 'ok') {
@@ -171,6 +228,9 @@ define(function(require,exports){
                     $.dialog({
                         content:data.info
                     })
+                    $(".iniPassword").removeAttr('disabled');
+                    $(".setPassword").removeAttr('disabled');
+                    $(".reSetPassword").removeAttr('disabled');
                 }
             }
         });
@@ -201,7 +261,7 @@ define(function(require,exports){
             url:'/selfInfo/front_modify_password',
             ajaxurl:{
                 success:function(json,obj){
-                    console.log(json);
+//                    console.log(json);
                     if(json.status == 'ok'){
                         $(obj).siblings('.Validform_checktip').html(json.msg);
                         $(obj).siblings('.Validform_checktip').removeClass('Validform_loading').addClass('Validform_right');

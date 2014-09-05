@@ -73,6 +73,9 @@
             //var_dump($spendata);die;
             $page = $this->pagination->create_links();
 
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+            $this->smarty->assign('search_term',$search_term);
+
             $this->smarty->assign('config_pay',$config_pay);
             $this->smarty->assign('sea_total2',$sea_total2);
             $this->smarty->assign('config_status',$config_status);
@@ -191,5 +194,31 @@
             $order_id=$this->input->post('order_id',TRUE);
             $spend=$this->input->post('spend',TRUE);
             echo $this->order->price_modify($modify_price,$order_id,$spend);
+        }
+        /**
+         * 订单改为已支付(线下支付)
+         * @author sahngshikai@tizi.com
+         */
+        public function pay_money()
+        {
+            $order_id=$this->input->post('order_id',TRUE);
+            $user_id=$this->input->post('user_id',TRUE);
+            $round_id=$this->input->post('round_id',TRUE);
+            $admin_id=$this->userinfo['id'];
+            $array_data = array(
+                'user_id'=>$admin_id,
+                'order_id'=>$order_id,
+                'status'=>2,
+                'user_type'=>NH_MEETING_TYPE_ADMIN,
+                'pay_type'=>ORDER_TYPE_OFFLINE,          #支付方式
+                'action'=>ORDER_STATUS_SUCC,             #日志动作
+                'note'=>'线下支付成功'                     #日志记录
+            );
+            $this->load->model('business/student/student_order');
+            $this->load->model('business/common/business_user');
+            if($this->student_order->update_order_status($array_data) && $this->student_order->add_student_class_relation($order_id,$user_id) && $this->student_order->update_round_data($round_id))
+            {
+                echo $this->business_user->modify_user_info(array('has_bought'=>1),$user_id);
+            }
         }
     }

@@ -1,4 +1,20 @@
-<div class="header">
+<!-- 头部mini导航开始 -->
+{nocache}
+{include file="common/top_mini_nav.html"}
+{/nocache}
+<!-- 头部mini导航结束 -->
+<!-- 头部开始 -->
+{include file="common/header.html"}
+<!-- 头部结束 -->
+<!-- 导航开始 -->
+{include file="common/nav.html"}
+<!-- 导航结束 -->
+
+
+
+
+{nocache}
+<div class="header undis">
 	<div class="headLogin">
 		<div class="layout headInfor">
 			<div class="fr headLoginBox">
@@ -15,8 +31,13 @@
 				<div class="loginAfter">
 					{if isset($user_detail['teach_priv']) && $user_detail['teach_priv']==1}
 					<a href='{$teacher_url}' class=" redText">教师后台</a>
-					<span>|</span>
 					{/if}
+                    {if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
+                    {if isset($arr_user_lecture['status']) && $arr_user_lecture['status']==2}
+                        <a href="{$student_url}classroom/lecture_teacher_enter/{$user_detail['user_id']}" class="redText">试讲教室入口</a>
+                    {/if}
+                    {/if}
+                    <span>|</span>
 					<a href="{$student_url}member/my_infor" class="blueText">{$nickname}</a>
 					<span>|</span>
 					<a href="/login/logout" class="grayText">退出</a>
@@ -25,8 +46,10 @@
 				<!--登录之后 结束-->
 			</div>
 			{if isset($user_detail['teach_priv']) && $user_detail['teach_priv']!=1}
+            {if !isset($arr_user_lecture['status'])}
 			<a href="{$student_url}index/apply_teach" class="fr studentStartClass redText">我要开课</a>
 			{/if}
+            {/if}
 		</div>
 	</div>
 	<div class="headNav">
@@ -38,11 +61,13 @@
 				<li class="fl studentHomePage"><a href="{$student_url}">首页</a></li>
 				<li class="fl studentMyCourse"><a href="{$student_url}member/my_course">我的课程</a></li>
 				<li class="fl studentMyOrder"><a href="{$student_url}member/my_order/all">我的订单</a></li>
-				<li class="fl studentStudy"><a href="http://diaocha.tizi.com/survey/41" target="_blank">我要学习</a></li>
+				<!-- <li class="fl studentStudy"><a href="http://diaocha.tizi.com/survey/41" target="_blank">我要学习</a></li> -->
 			</ul>
 			<div class="fr headR">
-				<a href="javascript:vold(0);" class="phoneHref">400-680-1818</a>
+				<a href="javascript:vold(0);" class="phoneHref">400-864-8686</a>
 			</div>
 		</div>
 	</div>
 </div>
+{/nocache}
+

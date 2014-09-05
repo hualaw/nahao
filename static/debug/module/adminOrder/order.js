@@ -139,7 +139,7 @@ define(function(require,exports){
 
         $('#ok_modify').click(function(){
             //alert($('#spend').html())
-            if($('#price_modify').val()<0 || $('#price_modify').val()=="" || isNaN($('#price_modify').val()))
+            if($('#price_modify').val()<0 || $('#price_modify').val()==0 || $('#price_modify').val()=="" || isNaN($('#price_modify').val()))
             {
                 alert('输入的价格不合法');
                 return false;
@@ -157,6 +157,18 @@ define(function(require,exports){
                 }
             })
         })
-
+        $("#pay_money").click(function(){
+            $.ajax({
+                type:"post",
+                url:"/order/pay_money",
+                data:"order_id="+$('#student_order_id').html()+"&user_id="+$('#student_id').val()+"&round_id="+$("#round_id").html(),
+                success:function(msg){
+                    if(msg==1)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        })
     }
 });

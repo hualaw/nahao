@@ -32,13 +32,21 @@ class login extends NH_Controller
         #省和直辖市
         $province = $this->business_lecture->all_province();
         #科目
-        $subjects = $this->business_subject->get_subjects();
+//        $subjects = $this->business_subject->get_subjects();
+        $subjects = $this->config->item('education_subject');
+        unset($subjects[1][0]);
+        unset($subjects[2][0]);
+        #学科辅导科目
+        $xueke_subjects = $subjects[1];
+        #素质教育科目
+        $suzhi_subjects = $subjects[2];
         #年纪
         $grades = $this->config->item('grade');
         $this->smarty->assign('grades', $grades);
         $gender = $this->config->item('gender');
         $this->smarty->assign('province', $province);
-        $this->smarty->assign('subjects', $subjects);
+        $this->smarty->assign('xueke_subjects', $xueke_subjects);
+        $this->smarty->assign('suzhi_subjects', $suzhi_subjects);
         $this->smarty->assign('gender', $gender);
         $this->smarty->display('www/login/loginAfter.html');
     }
@@ -72,36 +80,33 @@ class login extends NH_Controller
         }
     }
 
-
     /**
-         * 重设密码
+     * 重设密码时ajax请求的接口
      */
-    public function reset_pwd()
+    public function ajax_reset_pwd()
     {
-        //登录之后，要跳转到首页
-        if($this->is_login) redirect('/');
-
-        $new_pwd = trim($this->input->post('setPassword'));
+        $arr_return = array('status' => ERROR, 'info' => '参数不正确', 'url' => student_url());
+        $new_pwd = trim($this->input->post('encrypt_set_password'));
         $phone = $this->session->userdata('reset_pwd_phone');
-        $code = trim($this->input->get('code'));//邮箱找回密码的加密口令
+        $code = trim($this->input->post('code'));//邮箱找回密码的加密口令
         if(!$code && !$phone) {
             //上边两个都没有是非法请求,直接跳转首页
-            redirect(student_url());
+            self::json_output($arr_return);
         }
-        $this->smarty->assign('code', $code);
-        $this->smarty->assign('phone_number', $phone);
+        
         //手机找回密码部分
         if($new_pwd && $phone) {
             $user_id = get_uid_phone_server($phone);
             if($user_id) {
                 $this->business_user->reset_password($user_id, $new_pwd);
                 $this->session->set_userdata('reset_pwd_phone', 0);
-                self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=1'));
+                self::json_output(array('status' => SUCCESS, 'url' => student_url() . 'login/reset_pwd_success?find_ways=1'));
             } else {
-                self::json_output(array('status' => ERROR, 'info' => '无效的用户'));
+                $arr_return['info'] = '无效的用户';
+                self::json_output($arr_return);
             }
         }
-            
+                    
         //邮箱找回密码部分
         if($code) {
             $this->load->library('encrypt');
@@ -112,7 +117,8 @@ class login extends NH_Controller
             $email_record_str = $this->cache->redis->get(md5($user_email));
             $email_record_arr = json_decode($email_record_str, true);
             if(empty($email_record_arr)) {
-                redirect('/login/find_pwd');
+                $arr_return['info'] = '邮件已失效';
+                self::json_output($arr_return);
             }
 
             if($new_pwd) {
@@ -121,12 +127,45 @@ class login extends NH_Controller
                     $this->business_user->reset_password($user_info['id'], $new_pwd);
                     #clear redis cache after user reset password through email
                     $this->cache->redis->delete(md5($user_email));
-                    self::json_output(array('status' => SUCCESS, 'url' => student_url() . '/login/reset_pwd_success?find_ways=2'));
+                    self::json_output(array('status' => SUCCESS, 'url' => student_url() . 'login/reset_pwd_success?find_ways=2'));
                 } else {
-                    self::json_output(array('status' => ERROR, 'info' => '无效的用户'));
+                    $arr_return['info'] = '无效的用户';
+                    self::json_output($arr_return);
                 }
             }
         }
+        
+        self::json_output($arr_return);
+    }
+
+    /**
+         * 重设密码
+     */
+    public function reset_pwd()
+    {
+        //登录之后，要跳转到首页
+        if($this->is_login) redirect('/');
+
+        $phone = $this->session->userdata('reset_pwd_phone');
+        $code = trim($this->input->get('code'));//邮箱找回密码的加密口令
+        if(!$code && !$phone) {
+            //上边两个都没有是非法请求,直接跳转首页
+            redirect(student_url());
+        }
+        if($code) {
+            $this->load->library('encrypt');
+            $encrytion_key = $this->config->item('encryption_key');
+            $user_email = $this->encrypt->decode($code, $encrytion_key);
+            $this->load->model('model/common/model_redis', 'redis');
+			$this->redis->connect('login');
+            $email_record_str = $this->cache->redis->get(md5($user_email));
+            $email_record_arr = json_decode($email_record_str, true);
+            if(empty($email_record_arr)) {
+                redirect(student_url() . '/login/find_pwd?find_ways=2');
+            }
+        }
+        $this->smarty->assign('code', urlencode($code));
+        $this->smarty->assign('phone_number', $phone);
         $this->smarty->display('www/login/setNewPwd.html');
     }
     
@@ -150,20 +189,11 @@ class login extends NH_Controller
         $type = trim($this->input->post('type'));
         $user_id = get_uid_phone_server($phone);
         if($user_id) {
-            $post_fiedls = array('phone' => $phone, 'type' => $type);
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, student_url() . 'register/send_captcha');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fiedls);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 25);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            exit($result);
+            $send_info = $this->_send_captcha($phone, $type);
+            self::json_output($send_info);
         }
 
-        self::json_output(array('status' => 'error', 'msg' => 'Sorry! 没有找到您的用户信息'));
+        self::json_output(array('status' => 'error', 'msg' => '您的手机号尚未绑定，请核对后重新输入。'));
     }
         
     /**
@@ -222,7 +252,15 @@ class login extends NH_Controller
     public function submit()
     {
         //登录之后，要跳转到首页
-        if($this->is_login) redirect('/');
+        if($this->is_login)
+        {
+            $ret = array(
+                'status' => 'ok',
+                'data' => array('redirect_url'=>site_url()),
+                'msg' => '',
+            );
+            $this->json_output($ret);
+        }
 
         $username = trim($this->input->post('username'));
         $sha1_password = trim($this->input->post('password'));
@@ -237,6 +275,11 @@ class login extends NH_Controller
         if(isset($ret['data']))
         {
             $ret['data']['redirect_url'] = $redirect_url == "" ? site_url() : $redirect_url;
+            //修改密码不跳回到原来的页面
+            if(strpos($redirect_url, "/login/reset_pwd_success") !== false)
+            {
+                $ret['data']['redirect_url'] = site_url();
+            }
         }
 
         //log_message('debug_nahao', print_r($this->session->all_userdata(),1)."\n");

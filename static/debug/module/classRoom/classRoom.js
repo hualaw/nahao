@@ -153,7 +153,7 @@ define(function (require,exports){
 		            content:$('#ansCountHtml').html(),
 		        });
 		        $('.cbutton').click(function(){
-		        	$(this).attr('class','cbutton redBtn').siblings().attr('class','cbutton countBtn');
+		        	$(this).attr('class','cbutton redBtn').siblings().attr('class','cbutton countBtn blackBack');
 		        	cur_sequence = $(this).attr('rel');
 		        	$('.CitemList').fadeOut(500,function(){
 		        		$('.sequence-'+cur_sequence).fadeIn();
@@ -189,15 +189,66 @@ define(function (require,exports){
 		});
 	}
 
+//	//评论 几颗星
+//	exports.starClick = function (){
+//		$(".evalu .starBg span").click(function (){
+//			var _index = $(".evalu .starBg span").index($(this));
+//			for(var i=0;i<_index+1;i++){
+//				$(".evalu .starBg span").eq(i).addClass("cStar");
+//			}
+//		});
+//	}
+	
 	//评论 几颗星
 	exports.starClick = function (){
 		$(".evalu .starBg span").click(function (){
+            for(var i=0;i<$(".evalu .starBg span").length;i++){
+                $(".evalu .starBg span").eq(i).removeClass("cStar");
+            }
+            
 			var _index = $(".evalu .starBg span").index($(this));
 			for(var i=0;i<_index+1;i++){
 				$(".evalu .starBg span").eq(i).addClass("cStar");
 			}
+			$("#c_score").val(_index+1);
 		});
 	}
+	
+    exports.class_comment = function (){
+        var class_id = $('#nahaoModule').attr('class-data');
+        $.ajax({
+            url : '/course/ajax_check_comment',
+            type : 'post',
+            data : {'class_id' : class_id},
+            dataType : 'json',
+            success : function (result) {
+                if(result.status == 'error') {
+    				$.dialog({
+    				    content:result.msg,
+    				    icon:null
+    				});
+                } else {
+                    var _this = $(this);          
+                    // _popUp.popUp('.evaluHtml');
+                 	$.dialog({
+                 		id:"comment_close",
+                         title:"为课点评",
+                         ok:false,
+                         icon:false,
+                         padding:0,
+                         content:$(".evaluHtml").html()
+                     });
+                 	//var class_id = $('#nahaoModule').attr('class-data');
+                 	$("#c_class_id").val(class_id);
+                     exports.starClick();
+                     require("module/classRoom/valid").evaluForm_classroom(_this);
+                }
+            }
+        });
+
+            
+ 
+    }
 
 	//题目展示
 	exports.show_question = function (){
@@ -230,7 +281,7 @@ define(function (require,exports){
 							 html+=	'<li class="cf ">';
 							 html+=	'<em class="fl ansIco"></em>';
 							 html+=	'<span class="options fl">'+k+'</span>';
-							 html+=	'<p class="fl">'+v+'</p>';
+							 html+=	'<div class="fl">'+v+'</div>';
 							 html+=	'</li>';
 						 }
 
@@ -252,7 +303,7 @@ define(function (require,exports){
 				 $('.doWorkBox').html(html);
 				 $(".nextBtn").hide();
 				 $.dialog({
-		            title:false,
+		            title:"题目展示页面",
 		            ok:false,
 		            icon:false,
 		            padding:0,
@@ -373,7 +424,7 @@ define(function (require,exports){
 													rhtml+='				<li class="'+aclass+'">';
 													rhtml+='					<em class="fl ansIco"></em>';
 													rhtml+='					<span class="options fl">'+kkk+'</span>';
-													rhtml+='					<p class="fl">'+vvv+'</p>';
+													rhtml+='					<div class="fl">'+vvv+'</div>';
 													rhtml+='				</li>';
 												}
 											})

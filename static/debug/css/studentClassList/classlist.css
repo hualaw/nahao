@@ -1,0 +1,145 @@
+.studentStartClass .wtimeBox{text-align: left;width: 188px;}
+.studentStartClass .jqTransformSelectWrapper{background: #fff;border: 1px solid #a2a2a2;}
+.studentStartClass .Validform_right{width:16px;height:16px;display:inline-block;margin-top:6px;margin-left:10px;}
+/*开课成功样式开始*/
+.studentStartClass .startSuccess,
+.studentStartClass .writeInfo{background: #eeeeee;padding:40px 0;text-align: center;color:#0e455e;}
+.studentStartClass .startSuccess .box,
+.studentStartClass .writeInfo .box{background: #fff;border: 1px solid #d5d5d5;padding-top:40px;}
+.studentStartClass .startSuccess .box h2{margin-bottom:20px;height:46px;line-height:46px;background: url(../../images/cart/orderFormIcon2.png) no-repeat 360px center;}
+.studentStartClass .startSuccess .tips{font-size: 16px;}
+.studentStartClass .startSuccess .process{padding:0 0 80px 20px;}
+.studentStartClass .startSuccess .process h3{font-size: 20px;color:#9f9f9f;text-align: left;font-weight: normal;margin-bottom:10px;}
+.studentStartClass .startSuccess .process span{font-size:20px;font-weight:bold;width:148px;height:98px;line-height: 98px;border: 1px solid #c0c0c0;background: #fde3d7}
+.studentStartClass .startSuccess .process em{width:40px;height:100px;background: url(../../images/studentStartClass/arrowIcon.png) no-repeat;}
+.studentStartClass .startSuccess .process .arrowRight{background-position: -50px 20px}
+.studentStartClass .startSuccess .process .arrowLeft{background-position: 12px 20px}
+.studentStartClass .startSuccess .process .arrowDown{background-position: -120px 10px;height:70px;margin-right: 95px}
+/*开课成功样式结束*/
+/*填写信息样式开始*/
+.studentStartClass .cookedTime .timeSecelt{width: 178px;}
+.studentStartClass .writeInfo .box{padding-top: 0}
+.studentStartClass .writeInfo h2{height:50px;line-height: 50px;padding-left: 80px;font-size: 18px;background: #f7f7f7;text-align: left;}
+.studentStartClass .writeInfo h2 span{font-size: 14px;font-weight: normal;margin-left: 10px;}
+.studentStartClass .writeInfo ul.Oul{padding:20px 0px 0 80px;}
+.studentStartClass .writeInfo li {margin-bottom:15px;}
+.studentStartClass .writeInfo li p{display: block;height:22px;line-height:22px;width: 100%;font-size:16px;color:#0e455e;margin-bottom:5px;text-align: left}
+.studentStartClass .writeInfo li .textInput{width: 228px;height:31px;line-height:31px;border:1px solid #a2a2a2;padding:0 15px;}
+.studentStartClass .writeInfo li .tips{font-size: 14px;color:#919191;}
+.studentStartClass .writeInfo li label{height:30px;line-height:30px;font-size: 14px;margin-right: 20px;}
+.studentStartClass .jqTransformSelectWrapper{display: inline-block;margin-right: 20px;text-align: left;float: left;}
+.studentStartClass .jqTransformSelectWrapper span{font-size: 14px;color:#919191}
+.studentStartClass .jqTransformSelectWrapper li{margin-bottom:0px;}
+.studentStartClass .jqTransformRadioWrapper{float:left;margin: 6px 10px  0 0px;}
+.studentStartClass .jqTransformCheckboxWrapper{float:left;margin: 6px 10px  0 0px;}
+.studentStartClass .writeInfo li .submit{width:130px;height: 40px;line-height: 40px;border: 0;cursor:pointer;}
+.studentStartClass .writeInfo .cookedTime .textInput{width:155px;margin-right:20px;}
+.studentStartClass .writeInfo .cookedTime .underLine{line-height: 30px;}
+.studentStartClass .writeInfo .cookedTime .jqTransformSelectWrapper{margin-left:20px;}
+.studentStartClass .cookedTime .Validform_checktip{display: block;text-align: left;padding-top: 4px;}
+.studentStartClass .cookedTime .timeSecelt .Validform_checktip{padding-left: 30px;}
+.studentStartClass .cookedTime .timeSecelt .Validform_right{margin-left: 26px;}
+/*填写信息样式结束*/
+/*老师弹窗注册样式开始*/
+.regTeacher{width: 443px;border:1px solid #d5d5d5;}
+.regTeacher h2{height:50px;line-height: 50px;background: #f7f7f7;text-align: center;font-size:18px;color:#0e455e;}
+.regTeacher ul{padding:25px 45px;}
+.regTeacher ul li{margin-bottom:20px;}
+.regTeacher ul li p{width: 100%;font-size: 16px;margin-bottom: 5px}
+.regTeacher ul li p a{font-size: 14px;}
+.regTeacher ul li p a:hover{color:#f14211;text-decoration: underline;}
+.regTeacher ul li input{width: 90%;padding:0 5%;height:38px;line-height:38px;border:1px solid #6dcde6;font-size: 16px;}
+.regTeacher ul li .vfCode{width:150px;border: 1px solid #d5d5d5;height:38px;}
+.regTeacher ul li .submit{width:100%;border:0;padding:0;cursor:pointer;}
+/*老师弹窗注册样式结束*/
+/* 课程列表页 开始 */
+.studentClassList{}
+.studentClassList .filterBox{width: 963px;border: 1px solid #e0e0e0;background: #fff;padding: 15px 0px 5px 15px; }
+.studentClassList .filterBox .filterList{margin-bottom: 10px;}
+.studentClassList .filterBox .filterList .tit{float: left;}
+.studentClassList .filterBox .filterList ul{float: left;}
+.studentClassList .filterBox .filterList ul li{float: left;line-height: 20px;margin-left: 5px;}
+.studentClassList .filterBox .filterList ul li a{padding: 0px 7px;height: 20px;line-height: 20px;font-size: 12px;display: block;float: left;}
+.studentClassList .filterBox .filterList ul li a:hover,
+.studentClassList .filterBox .filterList ul li a.active{background: #ce0000;border-radius: 3px;color: #fff;}
+.studentClassList .sortBox{width: 978px;border: 1px solid #e0e0e0;border-top: none;background: #f8f8f8;}
+.studentClassList .sortBox li{float: left;}
+.studentClassList .sortBox li a{width: 80px;height: 27px;line-height: 27px;text-align: center;display: block;border-right: 1px solid #e0e0e0;}
+.studentClassList .sortBox li a:hover,
+.studentClassList .sortBox li a.active{background: #f0f0f0;color: #333;}
+.studentClassList .courseLeft{width: 760px;}
+.studentClassList .courseLeft ul li.courseList{width:240px;border: 1px solid #e0e0e0;float: left;margin-top: 15px;margin-right: 11px;position: relative;}
+.studentClassList .courseLeft ul li.courseList img{width: 240px;height: 154px;border: none;display: block;}
+.studentClassList .courseLeft ul li.courseList .listMain{padding: 10px;}
+.studentClassList .courseLeft ul li.courseList .listMain h3{font-weight: normal;font-size: 14px;line-height: 14px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.studentClassList .courseLeft ul li.courseList .listMain p.intro{font-size: 12px;color: #989898;line-height: 12px;margin: 10px 0 15px;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.studentClassList .courseLeft ul li.courseList .listMain h4{font-size: 20px;font-weight: normal;color: #ce0000;line-height: 20px;}
+.studentClassList .courseLeft ul li.courseList .listMain h4 span{font-size: 12px;font-weight: normal;}
+.studentClassList .courseLeft ul li.courseList .listMain p.price{font-size: 12px;color: #989898;line-height: 12px;margin-top: 5px;}
+.studentClassList .courseLeft ul li.courseList .listMain p.price span{text-decoration: line-through;margin-left: 5px;}
+.studentClassList .courseLeft ul li.courseList .listMain .studyNow{width: 76px;height: 28px;line-height: 28px;color: #fff;border-radius: 15px;background: #cb0000;display: block;text-align: center;font-size: 14px;position: absolute;right: 10px;bottom: 50px;}
+.studentClassList .courseLeft ul li.courseList .listBot{border-top: 1px solid #e0e0e0;padding: 10px;}
+.studentClassList .courseLeft ul li.courseList .listBot i{color: #ce0000;}
+.studentClassList .courseLeft ul li.courseList .statusBar{position: absolute;right: 6px;top: -2px;}
+.studentClassList .courseLeft ul li.courseList .statusBar li{float: left;}
+.studentClassList .courseLeft ul li.courseList .statusBar li.newBar{width: 38px;height: 38px;background: url(../../images/studentClassList/statusBar.png) left top no-repeat;}
+.studentClassList .courseLeft ul li.courseList .statusBar li.saleBar{width: 38px;height: 38px;background: url(../../images/studentClassList/statusBar.png) -38px top no-repeat;}
+.studentClassList .courseLeft ul li.courseList .statusBar li.liveBar{width: 41px;height: 38px;background: url(../../images/studentClassList/statusBar.png) right top no-repeat;}
+.studentClassList .courseRight{width: 220px;margin-top: 10px;}
+.studentClassList .courseRight .buyCourseBox{border: 1px solid #e0e0e0;}
+.studentClassList .courseRight .buyCourseBox h3{font-size: 14px;font-weight: normal;padding: 10px;border-bottom: 1px solid #e0e0e0;}
+.studentClassList .courseRight .buyCourseList{padding: 10px;}
+.studentClassList .courseRight .buyCourseList li{margin-bottom: 10px;}
+.studentClassList .courseRight .buyCourseList li img{width: 198px;height: 127px;display: block;}
+.studentClassList .courseRight .buyCourseList li p{line-height: 18px;margin-top: 10px;margin-bottom: 3px;}
+.studentClassList .courseRight .buyCourseList li .studyNum .price{color: #cb0000;}
+.studentClassList .courseRight .buyCourseList li .studyNum i{color: #cb0000;}
+.studentClassList .courseRight .history{padding: 10px;border: 1px solid #e0e0e0;margin-top: 10px;}
+.studentClassList .courseRight .history h3{font-weight: normal;}
+.studentClassList .courseRight .history h3 a.clearCount{color: #cb0000;}
+.studentClassList .courseRight .history .historyList{margin-top: 10px;}
+.studentClassList .courseRight .history li{padding: 20px 0;border-top: 1px dashed #ddd;}
+.studentClassList .courseRight .history li.b_t_0{border-top: none;}
+.studentClassList .courseRight .history li img{width: 80px;height: 51px;margin-right: 10px;display: block;}
+.studentClassList .courseRight .history li .listRight{width: 100px;}
+.studentClassList .courseRight .history li p{line-height: 16px;margin-bottom: 5px;}
+.studentClassList .courseRight .history li .price{color: #cb0000;margin-right: 10px;}
+.studentClassList .courseRight .history li .priceHis{text-decoration: line-through;color: #989898;}
+.studentClassList .courseRight .historyNone{text-align: center;padding: 50px 0px 30px;display: none;}
+
+.studentClassList .listCont{margin: 0px -6px 17px;}
+.studentClassList .listCont .pager{margin: 0px 6px ;}
+.studentClassList .listCont .cItem{width: 240px;border:1px solid #e0e0e0;float: left;margin: 15px 6px 0px;background-color: #fff;position: relative;}
+.studentClassList .listCont .courseDesc{display: block;width: 240px;height: 154px;}
+.studentClassList .listCont .hoverDesc{display: none;width: 240px;height: 154px;background-color: #2879a7;color:#fff;overflow: hidden;}
+.studentClassList .listCont .hoverDesc .innerDesc{padding: 20px 14px;}
+.studentClassList .listCont .hoverDesc .teacherWrap{margin-bottom: 20px;}
+.studentClassList .listCont .teacherWrap .teacherName{height: 45px;padding-left: 12px;color: #fff;cursor: pointer;}
+.studentClassList .listCont .teacherWrap .teacherName:hover{color: #fff;}
+.studentClassList .listCont .teacherWrap .teacherName strong{display: block;font-size: 14px;line-height: 25px;}
+.studentClassList .listCont .hoverDesc .teacherDesc{color: #fff;line-height: 22px;}
+.studentClassList .listCont .hoverDesc .teacherDesc:hover{color:#fff;}
+.studentClassList .cItem .ctitle{font-size: 14px;margin: 0px;padding: 15px;font-weight: normal;}
+.studentClassList .cItem .cTitleName{display: block;}
+.studentClassList .cItem .cTitleDesc{color:#989898;}
+.studentClassList .cItem .cDetail{margin: 0px 15px;margin-bottom: 10px;position: relative;}
+.studentClassList .cItem .cBottom{padding: 0px 10px;line-height: 35px;height: 35px;border-top:1px solid #e0e0e0;background-color: #fbfbfb;border-bottom:1px solid #fbfbfb;}
+.studentClassList .cItem .cBottom .time{color: #ce0000;padding-left: 3px;}
+.studentClassList .cItem .cBottom strong{color: #ce0000;display: inline-block;font-weight: normal;width:40px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: left;text-align: right;}
+.studentClassList .cItem .price{color:#ce0000;font-size: 14px;display: inline-block;margin-right: 15px;}
+.studentClassList .cItem .price strong{font-size: 22px;}
+.studentClassList .cItem .cVal{font-size: 12px;color:#989898;}
+.studentClassList .cItem .cVal span{text-decoration:line-through;}
+.studentClassList .listCont .cItem:hover .courseDesc{display: none;}
+.studentClassList .listCont .cItem:hover .hoverDesc{display: block;cursor: pointer;}
+.studentClassList .listCont .cItem:hover .cBottom{border:1px solid #e0e0e0; border-bottom: 2px solid #ce0000;margin:0px -1px -1px;}
+.studentClassList .listCont .cItem:hover{border-bottom: 1px solid #ce0000}
+/*标签开始*/
+.studentClassList .markList{position: absolute;right: 8px;top:-3px;}
+.studentClassList .markList .mark{float: left;color: #fff; width: 28px;height: 32px;margin-right: -3px;background-color: #ccc;display: block;padding: 3px 6px;line-height: 14px;}
+.studentClassList .markList .blueMark{background: url(../../images/studentHomePage/course/blue-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/blue-mark8.png) no-repeat;}
+.studentClassList .markList .greenMark{background: url(../../images/studentHomePage/course/green-mark.png) no-repeat;_background: url(../../images/studentHomePage/course/green-mark8.png) no-repeat;}
+/*首页导航上的全部课程分类默认展开的样式结束*/
+.studentClassList .learnBtn{color: #fff;height: 35px;line-height: 35px;width: 94px;display: inline-block;border-radius: 15px;text-align: center;font-size: 16px;position: absolute;right: 0px;bottom: 0px;}
+.studentClassList .learnBtn:hover{color: #fff;}
+/* 课程列表页 结束 */

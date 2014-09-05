@@ -1,0 +1,13 @@
+<h2>职位</h2><textarea id="title" name="title">{$detail[0].title}</textarea>
+<h2>招聘信息</h2><textarea id="desc" name="desc">{$detail[0].desc}</textarea>
+<h2>招聘要求</h2><textarea id="requirement" name="requirement">{$detail[0].requirement}</textarea>
+<h2>顺序</h2>
+<br />
+<div class="col-md-2">
+    <input type="text" name="seq" id="seq" value="{{$detail[0].seq}}" class="form-control" placeholder="请输入顺序" />
+</div>&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">顺序越大越靠前</font>
+<br /><br /><br /><br />
+<div class="col-md-5"></div>
+<button type="button" class="btn btn-success col-md-2" id="edit">提交</button>
+<input type="hidden" id="modify_id" value="{$id}" />
+<input type="hidden" id="innate" value="{$seq}" />

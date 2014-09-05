@@ -10,12 +10,41 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">教授科目</label>
+        <label class="col-md-2 control-label">教育类型</label>
+        <div class="col-md-2">
+            <select class="form-control" id="education_type">
+                {foreach $education_types as $k => $v}
+                <option value="{$k}" {if isset($course.education_type) AND $course.education_type==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">教材版本</label>
+        <div class="col-md-2">
+            <select class="form-control" id="material_version">
+                {foreach $material_versions as $k => $v}
+                <option value="{$k}" {if isset($course.material_version) AND $course.material_version==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">学科辅导科目</label>
         <div class="col-md-2">
             <select class="form-control" id="subject">
-                <option value="">全部学科</option>
                 {foreach $subjects as $k => $v}
-                <option value="{$k}" {if isset($course.subject) AND $course.subject==$k }selected{/if}>{$v}</option>
+                <option value="{$k}" {if isset($course.subject) AND $course.subject==$k }selected{/if}>{$v['name']}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">素质教育科目</label>
+        <div class="col-md-2">
+            <select class="form-control" id="quality">
+                {foreach $qualities as $k => $v}
+                <option value="{$k}" {if isset($course.quality) AND $course.quality==$k }selected{/if}>{$v['name']}</option>
                 {/foreach}
             </select>
         </div>
@@ -24,7 +53,6 @@
         <label class="col-md-2 control-label">课程类型</label>
         <div class="col-md-2">
             <select class="form-control" id="course_type">
-                <option value="">全部课程类型</option>
                 {foreach $course_types as $k => $v}
                 <option value="{$k}" {if isset($course.course_type) AND $course.course_type==$k }selected{/if}>{$v}</option>
                 {/foreach}
@@ -45,8 +73,17 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-md-2 control-label">适用学段</label>
+        <div class="col-md-2">
+            <select class="form-control"  id="stage">
+                {foreach $stages as $k => $v}
+                <option value="{$k}" {if isset($course.stage) AND $course.stage==$k }selected{/if}>{$v}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-md-2 control-label">适用年级</label>
-
         <div class="col-md-2">
             <select class="form-control"  id="grade_from">
                 <option value="0">开始年级</option>
@@ -70,7 +107,7 @@
         <div class="col-md-2">
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
-                <input type="text" class="form-control" id="reward" value="{if isset($course.reward)}{$course.reward}{/if}" >
+                <input type="text" class="form-control" id="reward" value="{if isset($course.reward)}{$course.reward}{/if}" required>
                 <span class="input-group-addon">元</span>
             </div>
         </div>
@@ -81,7 +118,7 @@
         <div class="col-md-2">
             <div class="input-group">
                 <span class="input-group-addon">¥</span>
-                <input type="text" class="form-control" id="price" value="{if isset($course.price)}{$course.price}{/if}">
+                <input type="text" class="form-control" id="price" value="{if isset($course.price)}{$course.price}{/if}" required>
                 <span class="input-group-addon">元</span>
             </div>
         </div>
@@ -90,28 +127,164 @@
     <div class="form-group">
         <label class="col-md-2 control-label">一句话简介</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" id="subtitle" value="{if isset($course.subtitle)}{$course.subtitle}{/if}">
+            <input type="text" class="form-control" id="subtitle" value="{if isset($course.subtitle)}{$course.subtitle}{/if}" required>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">课程简介</label>
         <div class="col-md-6">
-            <textarea class="form-control" id="intro" rows="5">{if isset($course.intro)}{$course.intro}{/if}</textarea>
+            <textarea class="form-control" id="intro" rows="5" required>{if isset($course.intro)}{$course.intro}{/if}</textarea>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">适合人群</label>
         <div class="col-md-6">
-            <textarea class="form-control" id="students" rows="5">{if isset($course.students)}{$course.students}{/if}</textarea>
+            <textarea class="form-control" id="students" rows="5" required>{if isset($course.students)}{$course.students}{/if}</textarea>
         </div>
     </div>
+    <!--那好视频管理 start-->
+	<div class="form-group">
+        <!--<label class="col-md-2 control-label">那好视频管理</label>
+        <div class="col-md-8">
+			<button class="btn btn-primary" data-toggle="modal" data-target=".video-add-modal">生成视频代码</button>
+        </div>-->
+        <div class="modal fade video-add-modal" id="play-area" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        	<div class="modal-dialog modal-lg" style="width:70%">
+			    <div class="modal-content">
+			      	<div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			          <h4 class="modal-title" id="myLargeModalLabel">那好视频管理---让天下没有难写的代码</h4>
+			        </div>
+			        <div class="modal-body">
+			        	<div class="video-maker">
+			        		<button class="btn btn-primary add-video">添加</button>
+			        		<button class="btn btn-primary remove-video">减少</button>
+			        		<button class="btn btn-success add-copy-code hide" style="float:right">添加到编辑器</button>
+			        		<button class="btn btn-default copy-code copyButton greenText" id="inviteId" style="float:right">复制代码(IE)</button>
+			        	</div>
+			        	<hr />
+			        	<div class="video-items">
+			        		<div class="copy-item hide">
+			        			<div class="input-group" style="float:left">
+			        				<input type="checkbox" value="" style="width:25px;height:25px;">
+			        			</div>
+						        <div class="input-group col-md-2" style="float:left;margin:0px 5px">
+						          <div class="input-group-addon">名称</div>
+						          <input class="form-control video-input video-name" data-type="video-name" type="text" placeholder="视频名称">
+						        </div>
+						        <div class="input-group col-md-4" style="float:left;margin:0px 5px">
+						          <div class="input-group-addon">视频地址</div>
+						          <input class="form-control video-input video-url" data-type="video-url" type="text" placeholder="视频地址url">
+						        </div>
+						        <div class="input-group col-md-4" style="float:left;margin:0px 5px">
+						          <div class="input-group-addon">图片地址</div>
+						          <input class="form-control video-input video-picture" data-type="video-picture" type="text" placeholder="视频封面图url" value="http://img1.nahao.com/course_description_20140710182330_iVnD5YB?imageView/2/w/600">
+						        </div>
+						        <div class="input-group">
+						        	<button type="button" class="btn btn-danger remove-this"><i class="glyphicon glyphicon-minus"></i></button>
+						        </div>
+			        		</div>
+			        	</div>
+			        	<hr />
+			        	<div class="video-code">
+			        		<div class="real-code hide"></div>
+			        		<div class="ck-code hide"></div>
+			        		<code>视频代码预览</code>
+<pre>
+	<code class="html">
+		<div class="previewcode hide">
+&lt;div class="videoPlay fl"&gt;
+<div class="codes">
 
+</div>
+&lt;/div&gt;
+		</div>
+	</code>
+</pre>
+			        	</div>
+			        </div>
+			     </div>
+			 </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{static_url('/lib/jquery/1.8.2/jquery.js')}"></script>
+    <script type="text/javascript">
+    	$('.video-maker').children('.add-video').click(function(){
+    		$('.video-items').append('<div class="item" id="video-'+((new Date).valueOf())+'">'+($('.copy-item').html())+'</div>');
+    	});
+    	$('.video-maker').children('.remove-video').click(function(){
+    		codeid = $('.video-items').children(".item:last:not(.copy-item)").attr('id');
+    		$('.video-items').children(".item:last:not(.copy-item)").remove();
+    		if($('.'+codeid).length>0){
+    			$('.'+codeid).remove();
+    			if(!($('.codes').children('div').length>0)){
+					$('.previewcode').addClass('hide');
+					$('.add-copy-code').addClass('hide');
+				}
+    		}
+    	});
+    	$(".video-input").live('keyup',function(e){
+    		curvalue = $(this).val();
+    		curvalue_type = $(this).attr('data-type');
+    		curid = $(this).parent().parent('.item').attr('id');
+    		keyCode = e.keyCode;
+    		codeNum = $('.codes').children('.'+curid).length;
+    		//判断是增值类按键，显示预览代码
+    		if(($('#'+curid).children().children('.video-name').val().length>0) || ($('#'+curid).children().children('.video-url').val().length>0) || ($('#'+curid).children().children('.video-picture').val().length>0)){
+				$('.previewcode').removeClass('hide');
+				$('.add-copy-code').removeClass('hide');
+				if( codeNum > 0){
+    				$('.'+curid).children('code .'+curvalue_type).html(curvalue);
+    			}else{
+    				$('.codes').append('<div class="'+curid+'">&lt;div class="item"&gt;\n&lt;h3&gt;<code class="video-name" style="font-size:16px;color:blue"></code>&lt;/h3&gt;\n&lt;div class="container" id="playerContainer1" title="<code class="video-url" style="color:#d44950"></code>"&gt;\n&lt;img src="<code class="video-picture" style="color:#d44950">http://img1.nahao.com/course_description_20140710182330_iVnD5YB?imageView/2/w/600</code>" /&gt;\n&lt;/div&gt;\n&lt;/div&gt;</div>');
+    				$('.'+curid).children('code .'+curvalue_type).html(curvalue);
+    			}
+    			$('.'+curid).children('code .'+curvalue_type).html(curvalue);
+			}else{
+				$('.'+curid).remove();
+				if(!($('.codes').children('div').length>0)){
+					$('.previewcode').addClass('hide');
+					$('.add-copy-code').addClass('hide');
+				}
+			}
+		});
+		$('.remove-this').live('click',function(){
+				codeid = $(this).parent().parent('.item').attr('id');
+	    		$(this).parent().parent('.item').remove();
+	    		if($('.'+codeid).length>0){
+	    			$('.'+codeid).remove();
+	    			if(!($('.codes').children('div').length>0)){
+						$('.previewcode').addClass('hide');
+						$('.add-copy-code').addClass('hide');
+					}
+	    		}
+	    	});
+	    $('.copy-code').click(function(){
+	    	alert(navigator.appName);
+	    	if( navigator.appName == "Microsoft Internet Explorer" ){
+	    		window.clipboardData.setData("text",$('.previewcode').text());
+	    	}
+	    });
+	    $('.add-copy-code').click(function(){
+	    	var ckdata = usedata = new_ckdata = '';
+    		ckdata = CKEDITOR.instances.nahao_description.getData();
+    		$('.ck-code').html(ckdata);
+    		if($('.ck-code').children('div.videoPlay').length>0){
+    			$('.ck-code').children('div.videoPlay').remove();
+    		}
+    		new_ckdata = ($('.previewcode').text())+($('.ck-code').html());
+    		CKEDITOR.instances.nahao_description.setData(new_ckdata);
+    		$('#play-area').modal('hide');
+	    });
+    </script>
+    <!--那好视频管理 end-->
     <div class="form-group">
         <label class="col-md-2 control-label">授课提要</label>
         <div class="col-md-8">
-            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10">{if isset($course.description)}{$course.description}{/if}</textarea>
+            <textarea class="form-control" id="nahao_description" name="nahao_description" rows="10" required>{if isset($course.description)}{$course.description}{/if}</textarea>
+            <textarea style="display:none" id="nahao_description_new" name="nahao_description_new"></textarea>
         </div>
     </div>
 
@@ -130,13 +303,71 @@
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_LARGE_WIDTH}*{$smarty.const.NH_COURSE_IMG_LARGE_HEIGHT}<img id="img_url_large" src="{if isset($course.img)}{get_course_img_by_size($course.img,'large')}{/if}" >
+            s1:{$smarty.const.NH_IMG_SIZE_COURSE_W1}*{$smarty.const.NH_IMG_SIZE_COURSE_H1}
+            <img id="img_url_s1" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s1')}{/if}" >
         </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_GENERAL_WIDTH}*{$smarty.const.NH_COURSE_IMG_GENERAL_HEIGHT}<img id="img_url_general" src="{if isset($course.img)}{get_course_img_by_size($course.img,'general')}{/if}" >
+            s2:{$smarty.const.NH_IMG_SIZE_COURSE_W2}*{$smarty.const.NH_IMG_SIZE_COURSE_H2}
+            <img id="img_url_s2" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s2')}{/if}" >
         </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
         <div class="col-md-3">
-            {$smarty.const.NH_COURSE_IMG_SMALL_WIDTH}*{$smarty.const.NH_COURSE_IMG_SMALL_HEIGHT}<img id="img_url_small" src="{if isset($course.img)}{get_course_img_by_size($course.img,'small')}{/if}" >
+            s3:{$smarty.const.NH_IMG_SIZE_COURSE_W3}*{$smarty.const.NH_IMG_SIZE_COURSE_H3}
+            <img id="img_url_s3" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s3')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s4:{$smarty.const.NH_IMG_SIZE_COURSE_W4}*{$smarty.const.NH_IMG_SIZE_COURSE_H4}
+            <img id="img_url_s4" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s4')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s5:{$smarty.const.NH_IMG_SIZE_COURSE_W5}*{$smarty.const.NH_IMG_SIZE_COURSE_H5}
+            <img id="img_url_s5" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s5')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s6:{$smarty.const.NH_IMG_SIZE_COURSE_W6}*{$smarty.const.NH_IMG_SIZE_COURSE_H6}
+            <img id="img_url_s6" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s6')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s7:{$smarty.const.NH_IMG_SIZE_COURSE_W7}*{$smarty.const.NH_IMG_SIZE_COURSE_H7}
+            <img id="img_url_s7" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s7')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s8:{$smarty.const.NH_IMG_SIZE_COURSE_W8}*{$smarty.const.NH_IMG_SIZE_COURSE_H8}
+            <img id="img_url_s8" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s8')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s9:{$smarty.const.NH_IMG_SIZE_COURSE_W9}*{$smarty.const.NH_IMG_SIZE_COURSE_H9}
+            <img id="img_url_s9" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s9')}{/if}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            s10:{$smarty.const.NH_IMG_SIZE_COURSE_W10}*{$smarty.const.NH_IMG_SIZE_COURSE_H10}
+            <img id="img_url_s10" src="{if isset($course.img) AND $course.img}{get_img_url($course.img,'course_s10')}{/if}" >
         </div>
     </div>
 
@@ -144,12 +375,14 @@
         <label class="col-md-2 control-label">添加视频</label>
 
         <input name="new_video_file_name" id="new_video_file_name" type="hidden" value="{$upload_video_key}">
+        <input name="nahao_video_token" id="nahao_video_token" type="hidden" value="{$upload_video_token}">
 
         <div class="col-md-2">
             <input type="file" name="course_video" id="course_video" class="form-control" multiple="true" >
         </div>
         <div class="col-md-3">
-            <div id="video_url" >{if isset($course.video)}{$course.video}{/if}</div>
+            <div id="video_url" style="display:none">{if isset($course.video)}{$course.video}{/if}</div>
+            <div id="video_url_show" ></div>
         </div>
     </div>
 

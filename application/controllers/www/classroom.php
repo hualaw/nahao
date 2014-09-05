@@ -10,6 +10,7 @@ class Classroom extends NH_User_Controller {
         $this->load->model('model/student/model_classroom');
         $this->load->model('model/student/model_course');
         $this->load->model('business/teacher/business_teacher','teacher_b');
+        $this->load->model('model/teacher/model_teacher','teacher_m');
         if(!$this->is_login)
         {
             redirect('/login');
@@ -245,7 +246,7 @@ class Classroom extends NH_User_Controller {
 
         #判断用户是否买了这一堂课
         $bool_flag = $this->model_course->check_user_buy_class($int_user_id,$array_class['id']);
-        if(empty($bool_flag))
+        if(!$bool_flag)
         {
         	show_error('您没有购买这堂课');
         }
@@ -255,7 +256,7 @@ class Classroom extends NH_User_Controller {
         {
         	show_error('您没有购买这堂课啊');
         }
-        if($array['status'] =='3' || $array['status']=='4' || $array['status']=='4')
+        if($array['status'] ==STUDENT_CLASS_APPLY_REFUND || $array['status']==STUDENT_CLASS_REFUND_AGREE || $array['status']==STUDENT_CLASS_REFUND_FINISH)
         {
         	show_error('您在进行退款流程，现在不能进入教室');
         }
@@ -266,19 +267,11 @@ class Classroom extends NH_User_Controller {
         {
        		show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
         }
-        
-        #可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
-        $array_insert = array(
-        	'user_id'=>$int_user_id,
-        	'user_type'=>0,
-        	'create_time'=>time(),
-        	'action'=>1,
-        	'classroom_id'=>$int_classroom_id,
-        	'ip'=>$this->input->ip_address()
-        );
-        $this->model_classroom->add_entering_classroom_data($array_insert);
-        
-        $str_iframe = self::enter_classroom($int_classroom_id,'0',array('class_title'=>$array_class['title']));
+        $arr_class_map = config_item('round_class_map');
+        $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
+        $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_STUDENT,array('class_title'=>$array_class['title']));
+        $arr_class_id_map = config_item('round_class_id_map');
+        $array_class['id'] = isset($arr_class_id_map[$array_class['id']]) ? $arr_class_id_map[$array_class['id']] : $array_class['id'] ;
         $this->smarty->assign('classroom_id',$int_classroom_id);
         $this->smarty->assign('class_id',$array_class['id']);
         $this->smarty->assign('iframe',$str_iframe);
@@ -322,15 +315,15 @@ class Classroom extends NH_User_Controller {
     	$array_user = $this->_user_detail;
     	$int_user_type = $array_user['teach_priv'];
     	#判断当前用户是学生还是老师。 0是学生，1是老师
-    	if($int_user_type == '0')
+    	if($int_user_type == NH_MEETING_TYPE_STUDENT)
     	{
     		show_error('您不是老师身份，不能进教室讲课');
     	}
-    	if($int_user_type == '1')
+    	if($int_user_type == NH_MEETING_TYPE_TEACHER)
     	{
     		#如果是老师判断是否是这节课的老师
     		$bool_flag = $this->student_course->check_is_teacher_in_class($int_user_id,$array_class['id']);
-    		if(empty($bool_flag))
+    		if(!$bool_flag)
     		{
     			show_error('您不是这节课的老师');
     		}
@@ -342,25 +335,103 @@ class Classroom extends NH_User_Controller {
 				   show_error('您不能进入教室了，您的课的状态不是“正在上课或者可进教室”');
 			}
 			
-			#可以进入教室之后，进行的操作（无论是老师还是学生只要能进入教室，都往entering_classroom表写记录。如果是学生还要改student_class里面的状态为2）
-			$array_insert = array(
-				'user_id'=>$int_user_id,
-				'user_type'=>$int_user_type,
-				'create_time'=>time(),
-				'action'=>1,
-				'classroom_id'=>$int_classroom_id,
-				'ip'=>$this->input->ip_address()
-			);
-			$str_iframe = self::enter_classroom($int_classroom_id,'1',array('class_title'=>$array_class['title']));
+			$arr_class_map = config_item('round_class_map');
+			$int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
+			$str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER,array('class_title'=>$array_class['title']));
 		}
-    	$this->model_classroom->add_entering_classroom_data($array_insert);
+		$arr_class_id_map = config_item('round_class_id_map');
+		$array_class['id'] = isset($arr_class_id_map[$array_class['id']]) ? $arr_class_id_map[$array_class['id']] : $array_class['id'] ;
     	$this->smarty->assign('classroom_id',$int_classroom_id);
     	$this->smarty->assign('class_id',$array_class['id']);
     	$this->smarty->assign('iframe',$str_iframe);
     	$this->smarty->display('www/classRoom/index.html');
     }
 
-
+    /**
+     * 试讲老师进教室
+     * @author shangshikai@tizi.com
+     */
+    public function lecture_teacher_enter(){
+        $user_id = $this->uri->rsegment(3) ? $this->uri->rsegment(3) : 0;
+        $arr_classroom_id=$this->teacher_m->get_by_lecture_class_classroom_id($user_id);
+        if(empty($arr_classroom_id))
+        {
+            redirect(student_url());
+        }
+        $int_classroom_id=$arr_classroom_id['classroom_id'];
+        $this->load->model('business/admin/business_lecture');
+        $arr_class = $this->business_lecture->get_class_by_classroom_id($int_classroom_id);
+        if($arr_class){
+            $arr_class_map = config_item('round_class_map');
+            $int_classroom_id = isset($arr_class_map[$int_classroom_id]) ? $arr_class_map[$int_classroom_id] : $int_classroom_id ;
+            $str_iframe = self::enter_classroom($int_classroom_id,NH_MEETING_TYPE_TEACHER,array('class_title'=>$arr_class['title']));
+            $this->smarty->assign('js_module', 'classRoom');
+            $this->smarty->assign('classroom_id', $int_classroom_id);
+            $this->smarty->assign('class_id',$arr_class['id']);
+            $this->smarty->assign('iframe', $str_iframe);
+            $this->smarty->display('www/classRoom/index.html');
+        }else{
+            die('');
+        }
+    }
+    
+    /**
+     * 体验教室入口
+     */
+    public function experience_enter(){
+    	$int_classroom_id = intval($this->uri->rsegment(3));
+    	if (empty($int_classroom_id))
+    	{
+    		show_error('缺少教室参数');
+    	}
+    	if($int_classroom_id != TEACHER_EXPERIENCE_ENTER_CLASSROOMID){
+    		show_error('不是体验教室');
+    	}
+    	#根据classroom_id获取课id
+    	$array_class = $this->model_classroom->get_class_id_by_classroom_id($int_classroom_id);
+    	
+    	if(empty($array_class)){
+    		show_error('教室参数信息不完整');
+    	}
+    	$array_user = $this->_user_detail;
+    	$int_user_type = $array_user['teach_priv'];
+    	#判断当前用户是学生还是老师。 0是学生，1是老师
+    	if($int_user_type == NH_MEETING_TYPE_STUDENT)
+    	{
+    		show_error('您不是老师身份，不能进教室讲课');
+    	}else{
+    		$str_classroom_url = '/classroom/main.html?';
+	        $array_params = array(
+	            'UserDBID' => $this->session->userdata('user_id'),
+	            'ClassID'  => $int_classroom_id,
+	            'UserType' => $int_user_type,
+	        );
+	        $this->load->model('business/common/business_user');
+	        //新增：如果是老师，并且有代理服务器，传mcu服务器地址
+	        $_user_detail = $this->business_user->get_user_detail($this->session->userdata('user_id'));
+	        $McuAddr_query_param = '';
+	        if(isset($_user_detail['teach_priv'])&&$_user_detail['teach_priv']==NH_MEETING_TYPE_TEACHER && $_user_detail['proxy']>0){
+	        	$mcu_arr = config_item('McuAddr');
+	        	if(isset($mcu_arr[$_user_detail['proxy']])){
+	        		$McuAddr_query_param = '&McuAddr='.$mcu_arr[$_user_detail['proxy']];
+	        	}
+	        }
+	        $className = !empty($array_class['title']) ? urlencode($array_class['title']) : '';
+	        $UserName = urlencode($this->session->userdata('nickname'));
+	        //新增：AES加密flash链接
+	        $uri = http_build_query($array_params);
+	        $aes_config = array(config_item('AES_key'));
+	        $this->load->library('AES', $aes_config, 'aes');
+	        $aes_encrypt_code = urlencode(base64_encode($this->aes->encrypt($uri)));
+	        log_message('debug_nahao', 'classroom uri is: '.$uri.' and the encrypt_code is:'.$aes_encrypt_code);
+	        $str_classroom_url .= 'p='.$aes_encrypt_code.'&UserName='.$UserName.'&ClassName='.$className.'&t=1&SwfVer='.(config_item('classroom_swf_version')).$McuAddr_query_param;
+	       	$str_iframe = '<iframe src="'.$str_classroom_url.'" width="100%" height="100%" frameborder="0" name="_blank" id="_blank" ></iframe>';
+    	}
+    	$this->smarty->assign('classroom_id',$int_classroom_id);
+    	$this->smarty->assign('class_id',$array_class['id']);
+    	$this->smarty->assign('iframe',$str_iframe);
+    	$this->smarty->display('www/classRoom/index.html');
+    }
 }
 
 /* End of file welcome.php */

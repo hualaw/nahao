@@ -53,7 +53,7 @@ class Student_Order extends NH_Model{
                 'round_id'=>$int_product_id,
                 'student_id'=>$int_user_id,                                    #TODO用户id
                 'create_time'=>time(),
-                'price'=>$sale_price,
+                'price'=>$price,
                 'status'=>ORDER_STATUS_INIT,
                 'spend'=>$sale_price,
                 'pay_type'=>$pay_type
@@ -66,13 +66,13 @@ class Student_Order extends NH_Model{
             'order_id'=>$int_insert_id,
             'user_id'=>$int_user_id,                                      #TODO用户id
             'user_type'=>NH_MEETING_TYPE_STUDENT,                         #用户类型 ：学生
-            'action'=>1,                                       #创建订单
+            'action'=>ORDER_ACTION_CREATE_ORDER,                          #创建订单
             'create_time'=>time(),
             'note'=>$order_msg
         );
         $this->model_order->add_order_log($array_prams);
         #返回值
-        $array_return = $int_insert_id >0 ? array('status'=>true,'order_id'=>$int_insert_id,'price'=>$price)
+        $array_return = $int_insert_id >0 ? array('status'=>true,'order_id'=>$int_insert_id,'array_data'=>$array_order)
         : array('status'=>false);
         #创建订单之后是否要发短信
         return $array_return;
@@ -100,12 +100,14 @@ class Student_Order extends NH_Model{
      */
     public function update_order_status($array_data)
     {
-        $bool_return = $this->model_order->update_order_status($array_data);
+    	$array_update = array('status' => $array_data['status'],'confirm_time' => time(),'pay_type'=>$array_data['pay_type']);
+    	$array_where = array('id'=>$array_data['order_id']);
+        $bool_return = $this->model_order->update_order_status($array_update,$array_where);
         if ($bool_return)
         {
             $array_order_log = array(
                 'order_id'=>$array_data['order_id'],
-                'user_type'=> NH_MEETING_TYPE_STUDENT,              #用户类型 ：学生
+                'user_type'=> $array_data['user_type'],  #用户类型 ：学生
                 'user_id'=>$array_data['user_id'],       #TODO用户id
                 'action'=>$array_data['action'],
                 'create_time'=>time(),
@@ -126,13 +128,19 @@ class Student_Order extends NH_Model{
     public function add_student_class_relation($int_order_id,$int_user_id)
     {
         #根据订单id，获取该订单下的轮
-        $array_round_id = $this->model_order->get_order_by_id($int_order_id);
+    	#根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
+    	$array_round = $this->read_order_to_redis($int_order_id);
+    	if(empty($array_round))
+    	{
+    		$array_round = $this->student_order->get_order_by_id($int_order_id);
+    	}
+        //$array_round = $this->model_order->get_order_by_id($int_order_id);
         $array_class = array();
-        if (empty($array_round_id)){
+        if (empty($array_round)){
             return $response['message'] = "订单里面没有对应的轮";
         }
         
-        $array_class = $this->model_course->get_class_under_round_id($array_round_id['round_id']);
+        $array_class = $this->model_course->get_class_under_round_id($array_round['round_id']);
         
         if(empty($array_class))
         {
@@ -220,10 +228,38 @@ class Student_Order extends NH_Model{
     		#如果已经购买的人数是99，将销售状态改为已售罄
     		if($array_round['bought_count'] == ($array_round['caps']-1))
     		{
-    			$status = 4;
+    			$status = ROUND_SALE_STATUS_OVER;
     			$this->model_order->update_round_sale_status($int_round_id,$status);
     		}
     	}
     	return $bool_flag;
     }
+    
+	/**
+	 * 生成订单之后，往redis写订单信息
+	 */
+	public function write_order_to_redis($int_order_id,$array_data)
+	{
+		$this->load->model('model/common/model_redis', 'redis');
+		$this->redis->connect('order');
+		$array_data['id'] = $int_order_id;
+		$str_encode = json_encode($array_data);
+		$bool_flag = $this->cache->redis->set($int_order_id,$str_encode);
+		return $bool_flag ? true : false;
+	}
+	
+	/**
+	 * 读取redis里面的order信息
+	 */
+	public function read_order_to_redis($int_order_id)
+	{
+		$this->load->model('model/common/model_redis', 'redis');
+		$this->redis->connect('order');
+		$array_order = $this->cache->redis->get($int_order_id);
+		if ($array_order)
+		{
+			$array_order = json_decode($array_order,true);
+		}
+		return $array_order;
+	}
 }

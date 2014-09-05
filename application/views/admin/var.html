@@ -1,17 +1,68 @@
 <script>
     //var _url = 'http://' + window.location.host + '/';
-    var _url = "{$static_url}" + 'debug';
+
+    var staticUrl = "{$static_url}";
+    var staticVersion = "{$static_version}";
+    var staticPath = staticUrl + staticVersion + "/";
+
+//    var _url = "{$static_url}" + 'debug';
     var _swf_url = "{$admin_url}" + 'static/debug';
     var _qiniu_url = "{$qiniu_url}";
-    var staticPath = _url + '/';
+    var _qiniu_video_url = "{$qiniu_video_url}";
+
+    var _meeting_url = "{$smarty.const.NH_MEETING_URL}";
+//    var staticPath = _url + '/';
     var aliasContent = {
         "jquery": "lib/jquery/1.8.2/jquery",
         "naHaoDialog": "lib/artDialog/4.1.7/artDialog",
         "validForm": "lib/Validform/5.3.2/Validform",
         "kindEditor": "lib/kindeditor/4.1.10/kindeditor",
         "select": "module/lib/select",
-        "flashUploader": "lib/uploadify/2.2/jquery.uploadify"
+        "flashUploader": "lib/uploadify/2.2/jquery.uploadify",
+        "cryptoJs": "lib/cryptoJs/3.1.2/sha1",
+        "placeHolder":"lib/JPlaceholder/0.0.2/JPlaceholder",
+        "lazyload":"lib/lazyload/0.0.1/jquery.lazyload"
     }
 
     var ck_image_upload = '/course/upload';
+    var index_focus_width = "{$smarty.const.INDEX_FOCUS_WIDTH}";
+    var index_focus_height = "{$smarty.const.INDEX_FOCUS_HEIGHT}";
+
+    var _img_url_course_w1 = '{$smarty.const.NH_IMG_SIZE_COURSE_W1}';
+    var _img_url_course_h1 = '{$smarty.const.NH_IMG_SIZE_COURSE_H1}';
+    var _img_url_course_w2 = '{$smarty.const.NH_IMG_SIZE_COURSE_W2}';
+    var _img_url_course_h2 = '{$smarty.const.NH_IMG_SIZE_COURSE_H2}';
+    var _img_url_course_w3 = '{$smarty.const.NH_IMG_SIZE_COURSE_W3}';
+    var _img_url_course_h3 = '{$smarty.const.NH_IMG_SIZE_COURSE_H3}';
+    var _img_url_course_w4 = '{$smarty.const.NH_IMG_SIZE_COURSE_W4}';
+    var _img_url_course_h4 = '{$smarty.const.NH_IMG_SIZE_COURSE_H4}';
+    var _img_url_course_w5 = '{$smarty.const.NH_IMG_SIZE_COURSE_W5}';
+    var _img_url_course_h5 = '{$smarty.const.NH_IMG_SIZE_COURSE_H5}';
+    var _img_url_course_w6 = '{$smarty.const.NH_IMG_SIZE_COURSE_W6}';
+    var _img_url_course_h6 = '{$smarty.const.NH_IMG_SIZE_COURSE_H6}';
+    var _img_url_course_w7 = '{$smarty.const.NH_IMG_SIZE_COURSE_W7}';
+    var _img_url_course_h7 = '{$smarty.const.NH_IMG_SIZE_COURSE_H7}';
+    var _img_url_course_w8 = '{$smarty.const.NH_IMG_SIZE_COURSE_W8}';
+    var _img_url_course_h8 = '{$smarty.const.NH_IMG_SIZE_COURSE_H8}';
+    var _img_url_course_w9 = '{$smarty.const.NH_IMG_SIZE_COURSE_W9}';
+    var _img_url_course_h9 = '{$smarty.const.NH_IMG_SIZE_COURSE_H9}';
+    var _img_url_course_w10 = '{$smarty.const.NH_IMG_SIZE_COURSE_W10}';
+    var _img_url_course_h10 = '{$smarty.const.NH_IMG_SIZE_COURSE_H10}';
+    //教师头像
+    var _img_url_avatar_w1 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S1}';
+    var _img_url_avatar_h1 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S1}';
+    var _img_url_avatar_w2 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S2}';
+    var _img_url_avatar_h2 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S2}';
+    var _img_url_avatar_w3 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S3}';
+    var _img_url_avatar_h3 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S3}';
+    var _img_url_avatar_w4 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S4}';
+    var _img_url_avatar_h4 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S4}';
+    var _img_url_avatar_w5 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S5}';
+    var _img_url_avatar_h5 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S5}';
+    var _img_url_avatar_w6 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S6}';
+    var _img_url_avatar_h6 = '{$smarty.const.NH_IMG_SIZE_USER_AVATAR_S6}';
+    //教师资格证
+    var _img_url_profile_w1 = '{$smarty.const.NH_IMG_SIZE_USER_PROFILE_W1}';
+    var _img_url_profile_h1 = '{$smarty.const.NH_IMG_SIZE_USER_PROFILE_H1}';
+
 </script>

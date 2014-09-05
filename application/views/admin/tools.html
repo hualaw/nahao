@@ -1,0 +1,485 @@
+<style>
+body{
+zoom: 90%;
+}
+.tools-box{
+border: 3px solid #df5b58;
+border-radius: 0px 10px 10px 10px;
+transition:all .3s ease-in-out;
+}
+.toolbar{
+transition:all .3s ease-in-out;
+}
+thead tr{
+background:#eee;
+border: 1px solid #d7d7d7;
+border-spacing: 2px;
+}
+thead tr th{
+text-align:center;
+padding:10px 0px;
+}
+tbody tr td{
+text-align:left;
+}
+.order-hd{
+border: 1px solid #daf3ff;
+background: #eaf8ff;
+border-bottom-color: #eaf8ff;
+}
+.order-hd td{
+height:41px;
+}
+.sep-row {
+height: 10px;
+}
+.create_order{
+margin-top: -3px;
+}
+.order-intro .add_info{
+padding:5px 10px;
+line-height: 28px;
+height:41px;
+}
+.order-info td{
+border: 1px solid #daf3ff;
+}
+.tool_controllerer{
+padding: 15px 15px 30px 15px;
+}
+.search{
+padding:6px 12px;
+color: #ffffff;
+background-color: #5cb85c;
+border-color: #4cae4c;
+}
+.time{
+padding: 2px 0 2px 0px;
+text-align: left;
+color: #9c9c9c;
+}
+.round_pic{
+display: inline;
+float: left;
+margin: 5px 12px 0 0;
+border: 1px solid #e9e9e9;
+border-radius: 40px;
+box-shadow: 7px 5px 5px #d7d7d7;
+}
+.round_pic img{
+width: 80px;
+height: 80px;
+border-radius: 40px;
+}
+tbody:hover .order-hd{
+border: 1px solid #afd9ff;
+}
+tbody .order-info .intro{
+padding: 10px 10px;
+}
+tbody .order-info .student{
+text-align:center;
+}
+.order-info .price{
+text-align:center;
+}
+.order-info .now_price{
+text-align:center;
+}
+.order-info .rate{
+text-align:center;
+}
+tbody:hover .order-info .intro{
+border-left-color: #afd9ff;
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .price{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .pay{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .status{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .student{
+border-bottom-color: #afd9ff;
+}
+tbody:hover .order-info .operation{
+border-right-color: #afd9ff;
+border-bottom-color: #afd9ff;
+}
+.desc {
+display: inline;
+float: left;
+width: 216px;
+overflow: hidden;
+word-wrap: break-word;
+}
+.desc .round_name{
+margin-bottom: 5px;
+overflow: hidden;
+line-height: 18px;
+}
+.desc .spec{
+max-height: 38px;
+overflow: hidden;
+margin-bottom: 5px;
+line-height: 18px;
+color: #9c9c9c;
+}
+.student .buyer_student{
+padding:30px;
+}
+.student .edit_buyer{
+display:none;
+position: absolute;
+top: 9px;
+right: 15px;
+background-color: #f60;
+color: #fff;
+cursor: pointer;
+}
+.student:hover .buyer_student{
+border:1px dashed #f60;
+}
+.student:hover .edit_buyer{
+display:block;
+}
+.add_order{
+float:right;
+position: absolute;
+line-height: 32px;
+}
+.add_info{
+float:left;
+}
+.search-btn{
+color: #666;
+background: #f5f5f5;
+border: 1px solid #d9d9d9;
+cursor: pointer;
+padding: 4px 10px 5px 10px;
+}
+.search_round{
+height:30px;
+box-shadow: inset 2px 3px 7px rgba(0,0,0,0.1);
+width:200px;
+}
+.search_student{
+height:30px;
+box-shadow: inset 2px 3px 7px rgba(0,0,0,0.1);
+width:200px;
+}
+.popover {
+position:relative;
+}
+.search_round_box{
+float:left;
+width:350px;
+line-height: 28px;
+}
+.search_student_box{
+float:left;
+width:350px;
+line-height: 28px;
+}
+.close_pop{
+float:right;
+}
+.popover b{
+color:red;
+}
+.popover.bottom .arrow{
+left: 37%;
+}
+.popover-content ul{
+list-style: none;
+padding:0px;
+}
+.popover-content ul li{
+cursor: pointer;
+list-style-type: none;
+padding-left: 8px;
+}
+.popover-content ul li.hover{
+background: rgba(232, 232, 232, 0.7);
+}
+.popover-content ul li:hover{
+background: rgba(232, 232, 232, 0.7);
+}
+.is_selected{
+border: 1px solid #d9d9d9;
+padding: 4px 10px 5px 10px;
+margin-left: -6px;
+color: red;
+}
+.error{
+color:red;
+font-size:14px
+}
+.ok{
+color:green;
+font-size:14px;
+}
+.search_round_time{
+color: #9c9c9c;
+}
+.proxy_table td{
+text-align:center;
+}
+.proxy-radio{
+list-style:none;
+}
+.teacher_proxy_box{
+position:absolute;
+}
+.user_login_box{
+position:absolute;
+}
+.login_anybody{
+margin-left:-15px;
+}
+.counter_box{
+height:100px;
+}
+.counter{
+transition: all 1s ease-in-out 1s;
+position: relative;
+background-color:gray;
+border-color: #d7d7d7;
+z-index:1000;
+left: -35px;
+color:#fff;
+width:94px;
+height:34px;
+overflow:hidden;
+}
+.counting{
+background-color:#f0ad4e;
+top: -100px;
+left: 40px;
+width: 80%;
+height: 200px;
+line-height: 200px;
+font-size: 30px;
+}
+</style>
+<ol class="breadcrumb">
+  <li><font class="text-muted">GPS导航：</font></li>
+  <li><a href="/">首页</a></li>
+  <li><a href="/tools/index/">系统工具</a></li>
+</ol>
+
+<div class="btn-group" data-toggle="buttons">
+	<label class="btn btn-danger toolbar active" data="free_round_tool" data-toggle="collapse">
+		<input type="radio" name="options" id="option1" checked> 随到随买课程轮
+	</label>
+	<label class="btn btn-danger toolbar" data="teacher_proxy" data-toggle="collapse">
+		<input type="radio" name="proxy" id="proxy"> 设置老师代理服务器
+	</label>
+	<label class="btn btn-danger toolbar" data="teacher_login" data-toggle="collapse">
+		<input type="radio" name="login_area" id="login_area"> 登陆任何人的账号
+	</label>
+	<label class="btn btn-danger toolbar" data="phone_verify_tool" data-toggle="collapse">
+		<input type="radio" name="phone" id="phone_verify"> 手机找回验证码
+	</label>
+</div>
+<div class="tools-box">
+	<!--工具1：买免费课程轮 start-->
+	<div id="free_round_tool" class="panel-collapse collapse in">
+		<div class="tool_controllerer">
+			<span class="add_order">
+				<span class="search_round_box">
+					<input class="search_round search_input" name="round_name" x-webkit-speech placeholder="班次名称" ><span class="search-btn">搜班次</span>
+					<span class="is_selected hide" data-toggle="tooltip" data-placement="top" title=""></span>
+					<div class="popover bottom" rel="round_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
+				</span>
+				<span class="search_student_box">
+					<input class="search_student search_input" name="nickname" x-webkit-speech placeholder="学生昵称"><span class="search-btn">搜学生</span>
+					<span class="is_selected hide" data-toggle="tooltip" data-placement="top" title=""></span>
+					<div class="popover bottom" rel="user_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
+				</span>
+				<input type="hidden" name="round_id" value="">
+				<input type="hidden" name="user_id" value="">
+				<span class="btn btn-info create_order">添加一条购买信息</span>
+			</span>
+		</div>
+		<div class="panel-body">
+			<table class="orderTable col-md-12">
+				<thead>
+					<tr>
+						<th class="col-md-4">班次信息</th>
+						<th class="col-md-1">原价</th>
+						<th class="col-md-1">现价</th>
+						<th class="col-md-1">可购买数</th>
+						<th class="col-md-2">买家学生</th>
+						<th class="col-md-1">交易状态</th>
+						<th class="col-md-2">操作</th>
+					</tr>
+				</thead>
+				<tbody class="order-copy hide">
+					<tr class="sep-row">
+						<td colspan="7" class="order-input">
+							<input type="hidden" name="round_id" class="round_id" value="">
+							<input type="hidden" name="student_id" class="student_id" value="">
+						</td>
+					</tr>
+					<tr class="order-hd">
+						<td colspan="7" class="order-intro">
+							<span class="add_info"><input type="checkbox"></span>
+							<span class="add_info teach_time">2014-07-16</span>
+							<span class="add_info teacherName">授课老师:马云</span>
+							<span class="add_info send_mail"><a class="send_msg" href="javascript:void(0)">给学生发短信</a></span>
+						</td>
+					</tr>
+					<tr class="order-info">
+						<td class="intro col-md-4">
+							<a class="round_pic" href=""><img src="http://img01.taobaocdn.com/bao/uploaded/i1/T17VXnFwVbXXXXXXXX_!!0-item_pic.jpg_80x80.jpg"></a>
+							<div class="desc">
+								<div class="round_name">
+									<a href="">WD/西部数据 My Passport Slim 2TB 2.5寸移动硬盘2T超薄金属现货</a>
+								</div>
+								<div class="spec" title="">
+									<span>颜色分类: 国行标配+Nomad包</span>
+								</div>
+							</div>
+						</td>
+						<td class="price col-md-1">0.00</td>
+						<td class="now_price col-md-1">0.00</td>
+						<td class="rate col-md-1">0/0</td>
+						<td class="student col-md-2">
+							<div class="buyer_student">
+								<p class="buyer_name">韩梅梅</p>
+								<p class="edit_buyer">修改</p>
+							</div>
+						</td>
+						<td class="status col-md-1">已购买</td>
+						<td class="operation col-md-2">
+							<div class="time">还剩8天7时开课</div>
+							<div><a class="btn btn-warning pay-order">确认购买</a>/<a class="btn btn-link del-order">删除</a></div>
+						</td>
+					</tr>
+				</tbody>
+				<!--自动添加订单区域 start-->
+			</table>
+		</div>
+	</div>
+	<!--工具1：买免费课程轮 end-->
+	<!--工具2：设置代理服务器-->
+	<div id="teacher_proxy" class="panel-collapse collapse">
+		<div class="tool_controllerer">
+			<blockquote class="quoteback">
+			  <p>为老师设置教室代理服务器</p>
+			</blockquote>
+			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/set_proxy/">
+				<div class="form-group">
+					<input type="hidden" name="teacher_id" value="">
+			        <label class="col-md-2 control-label">老师id：</label>
+			        <span class="search_student_box teacher_proxy_box">
+						<input class="search_student search_input" name="nickname" x-webkit-speech placeholder="老师昵称"><span class="search-btn">搜老师</span>
+						<span class="is_selected hide" data-toggle="tooltip" data-placement="top" title=""></span>
+						<div class="popover bottom" rel="teacher_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
+					</span>
+			    </div>
+			    <div class="form-group">
+			        <label class="col-md-2 control-label">代理服务器：</label>
+			        <div class="col-md-6">
+			        	<ul class="proxy-radio">
+			        	{foreach $data['proxys'] as $key=>$val}
+			        		<li><input type="radio" name="proxy_id" value="{$key}">{$val}</li>
+			        	{/foreach}
+			        	</ul>
+			        </div>
+			    </div>
+			    <div class="form-group">
+			    	<label class="col-md-2 control-label"></label>
+			        <div class="col-md-6">
+			        	<input type="submit" class="btn btn-success" value="提交设置">
+			        </div>
+			    </div>
+			</form>
+		</div>
+		
+		<div class="panel-body">
+			<div class="alert alert-info" role="alert"><strong>代理服务器设置列表。</strong>以下为已设置过进教室代理服务器的老师列表</div>
+			<table class="proxy_table col-md-12 table">
+				<thead>
+					<tr>
+						<th class="col-md-2">老师id</th>
+						<th class="col-md-2">真实姓名</th>
+						<th class="col-md-2">服务器id</th>
+						<th class="col-md-4">服务器地址</th>
+						<th class="col-md-2">操作</th>
+					</tr>·
+				</thead>
+				<tbody>
+					{foreach $data['proxy_teacher'] as $key=>$val}
+					<tr>
+						<td class="col-md-2">{$val['user_id']}</td>
+						<td class="col-md-2">{$val['realname']}</td>
+						<td class="col-md-2">{$val['proxy']}</td>
+						<td class="col-md-4">{$val['proxy_addr']}</td>
+						<th class="col-md-2"><a href="/tools/unset_proxy/?teacher_id={$val['user_id']}">取消代理</a></th>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--工具2：设置代理服务器end-->
+	<!--工具3：模拟老师登陆start-->
+	<div id="teacher_login" class="panel-collapse collapse">
+		<div class="tool_controllerer">
+			<blockquote class="quoteback">
+			  <p>管理员模拟登陆任何学生和老师的账号</p>
+			</blockquote>
+			<form class="form-horizontal" method="POST" id="" role="form" action="/tools/login_without_pwd/" onsubmit="return false;">
+				<div class="form-group">
+					<input type="hidden" name="user_id" class="login_user_id" value="">
+			        <label class="col-md-2 control-label">用户昵称：</label>
+			        <span class="search_student_box user_login_box">
+						<input class="search_student search_input" data-type="login_input" name="nickname" x-webkit-speech placeholder="学生或老师昵称"><span class="search-btn">搜用户</span>
+						<span class="is_selected hide" data-toggle="tooltip" data-placement="top" title=""></span>
+						<div class="popover bottom" rel="user_id"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>
+					</span>
+			    </div>
+			    <div class="form-group counter_box">
+			    	<label class="col-md-2 control-label"></label>
+			        <div class="col-md-3">
+			        	<a class="btn btn-default login_anybody" href="javascript:void(0)" target="_blank">不可登陆</a>
+			        </div>
+			        <div class="col-md-7">
+			        	<a class="btn btn-warning counter hide">加密链接还剩：<b></b> 秒过期</a>
+			        </div>
+			    </div>
+			</form>
+		</div>
+	</div>
+	<!--工具3：模拟老师登陆end-->
+	<!--工具4：手机找回u验证码 start-->
+	<div id="phone_verify_tool" class="panel-collapse collapse">
+		<div class="panel-body">
+		
+			<blockquote class="quoteback">
+			  <p>查找手机号验证码</p>
+			</blockquote>
+			<form class="form-horizontal" method="POST" role="form" action="/identifying/dentifying_code">
+				<div class="form-group">
+			        <label class="col-md-2 control-label">手机号：</label>
+			        <div class="col-md-6">
+			        	<input type="text" name="phone" id="phone" placeholder="请输入手机号码" class="form-control">
+			        </div>
+			    </div>
+			    <div class="form-group counter_box">
+			    	<label class="col-md-2 control-label"></label>
+			        <div class="col-md-3">
+			        	<button type="submit" class="btn btn-info" id="sub">查询</button>
+			        </div>
+			    </div>
+			</form>
+			
+		</div>
+	</div>
+	<!--工具4：手机找回u验证码 end-->
+</div>

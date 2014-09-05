@@ -28,13 +28,14 @@
 .login .changeSex{margin-left: 20px;}
 /*注册成功样式结束*/
 
-.login .attent .Validform_right{height: 16px;}
-.login form .attent,.login form .schooptional{padding-left: 20px;}
-.login form .attent .btn{width: 90px;}
-.login form .attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;font-weight: bold;}
+.login .attent .Validform_right,.login .suzhi_attent .Validform_right{height: 16px;}
+.login form .attent,.login form .schooptional,.login form .suzhi_attent{padding-left: 20px;}
+.login form .attent .btn,.login form .suzhi_attent .btn{width: 90px;}
+.login form .attent .btn,.login form .suzhi_attent .btn{border: 1px solid #6dcde6;color: #6dcde6;background: #fff;font-weight: bold;}
 .login form .attent .attentd,
-.login form .attent .btn:hover{background: #6dcde6;color:#fff;}
-.login form .attent .btn{box-shadow: none;height: 32px;line-height: 32px;font-size: 16px;margin:0 10px 14px 0;}
+.login form .suzhi_attent .attentd,
+.login form .attent .btn:hover,.login form .suzhi_attent .btn:hover{background: #6dcde6;color:#fff;}
+.login form .attent .btn,.login form .suzhi_attent .btn{box-shadow: none;height: 32px;line-height: 32px;font-size: 16px;margin:0 10px 14px 0;}
 .login .regSuccessBox li p.attNote{font-size: 14px;font-weight: normal;color: #333;}
 
 

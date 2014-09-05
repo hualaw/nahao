@@ -23,6 +23,7 @@ class Student extends NH_Admin_Controller {
      */
     public function index(){
         $int_start = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+//        $int_start = $this->input->get('page') ? intval($this->input->get('page')) : 0 ;
         $int_stage = $this->input->get('stage') ? intval($this->input->get('stage')) : 0 ;
         $int_grade = $this->input->get('grade') ? intval($this->input->get('grade')) : 0 ;
         $int_province = $this->input->get('province') ? intval($this->input->get('province')) : 0 ;
@@ -30,6 +31,9 @@ class Student extends NH_Admin_Controller {
         $int_subject = $this->input->get('subject') ? intval($this->input->get('subject')) : 0 ;
         $int_gender = $this->input->get('gender') ? intval($this->input->get('gender')) : 0 ;
         $int_has_bought = $this->input->get('has_bought') ? intval($this->input->get('has_bought')) : 0 ;
+        $int_register_type = $this->input->get('register_type') ? intval($this->input->get('register_type')) : 0 ;
+        $str_register_from = $this->input->get('register_from') ? trim($this->input->get('register_from')) : '' ;;
+        $str_register_to = $this->input->get('register_to') ? trim($this->input->get('register_to')) : '' ;
         $int_search_type = $this->input->get('search_type') ? intval($this->input->get('search_type')) : 0 ;
         $str_search_value = $this->input->get('search_value') ? trim($this->input->get('search_value')) : '' ;
 
@@ -55,19 +59,31 @@ class Student extends NH_Admin_Controller {
         if($int_has_bought > 0){
             $arr_where['has_bought'] = --$int_has_bought;
         }
+        if($int_register_type > 0){
+            $arr_where['register_type'] = $int_register_type;
+        }
+        if($str_register_from AND strtotime($str_register_from)){
+            $arr_where['register_from'] = strtotime($str_register_from) ;
+        }
+        if($str_register_to AND strtotime($str_register_to)){
+            $arr_where['register_to'] = strtotime($str_register_to) ;
+        }
         if($int_search_type > 0 AND $str_search_value != ''){
             if($int_search_type == 1){//昵称
                 $arr_where['nickname'] = $str_search_value;
             }elseif($int_search_type == 2){//邮箱
                 $arr_where['email'] = $str_search_value;
             }elseif($int_search_type == 3){//手机号
-                $int_user_id = 0;//get from phone server
+//                $int_user_id = 0;//get from phone server
+                $int_user_id = get_uid_phone_server($str_search_value);
                 $arr_where['id'] = $int_user_id;
             }elseif($int_search_type == 4){//用户ID
                 $int_user_id = intval($str_search_value);
                 if($int_user_id > 0){
                     $arr_where['id'] = $int_user_id;
                 }
+            }elseif($int_search_type == 5){//真名
+                $arr_where['realname'] = $str_search_value;
             }
         }
 
@@ -91,7 +107,7 @@ class Student extends NH_Admin_Controller {
 //        o($arr_final_areas);
         foreach($arr_final_areas as $k => $v){
 //            $arr_list[$k]['final_area'] = ($v['province'] > 0 ? $arr_areas[$v['province']] : '').$arr_areas[$v['city']].$arr_areas[$v['area']];
-            $arr_list[$k]['final_area'] = ($v['province'] > 0 ? $arr_areas[$v['province']] : '').($v['city'] > 0 ? $arr_areas[$v['city']] : '').($v['area'] > 0 ? $arr_areas[$v['area']] : '');
+            $arr_list[$k]['final_area'] = (($v['province'] > 0 AND isset($arr_areas[$v['province']]))? $arr_areas[$v['province']] : '').(($v['city'] > 0 AND isset($arr_areas[$v['city']])) ? $arr_areas[$v['city']] : '').($v['area'] > 0 ? $arr_areas[$v['area']] : '');
 //            o($arr_list[$k]['final_area']);
         }
         $arr_provinces = $this->area->get_provinces();
@@ -118,6 +134,7 @@ class Student extends NH_Admin_Controller {
         $this->smarty->assign('course_types',$arr_course_types);
         $this->smarty->assign('subjects',$arr_subjects);
         $this->smarty->assign('search_type',config_item('admin_student_list_search_type'));
+        $this->smarty->assign('register_type',config_item('admin_round_list_register_type'));
         $this->smarty->assign('genders',config_item('gender'));
         $this->smarty->assign('has_bought',config_item('has_bought'));
         $this->smarty->assign('query_param', $arr_query_param);
@@ -140,7 +157,10 @@ class Student extends NH_Admin_Controller {
                 $arr_where = array(
                     'id' => $int_user_id
                 );
-                $bool_return = $this->student->update_student($arr_param,$arr_where);
+                $arr_info_where = array(
+                    'user_id' => $int_user_id
+                );
+                $bool_return = $this->student->update_student($arr_param,$arr_where,$arr_info_where);
                 if($bool_return > 0){
                     $this->arr_response['status'] = 'ok';
                     $this->arr_response['msg'] = '修改成功';

@@ -200,7 +200,7 @@
 			"s":/^[\u4E00-\u9FA5\uf900-\ufa2d\w\.\s]+$/,
 			"s6-18":/^[\u4E00-\u9FA5\uf900-\ufa2d\w\.\s]{6,18}$/,
 			"p":/^[0-9]{6}$/,
-			"m":/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
+			"m":/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}|17[0-9]{9}$/,
 			"e":/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
 			"url":/^(\w+:\/\/)?\w+(\.\w+)+.*$/
 		},
@@ -759,7 +759,7 @@
 			
 			//值没变化不做检测，这时要考虑recheck情况;
 			//不是在提交表单时触发的ajax验证;
-			if(inputval==this.validform_lastval && !$(this).attr("recheck") && subpost==""){
+			if(inputval==this.validform_lastval && !$(this).attr("recheck") && subpost==""&&!$(this).attr("forceRecheck")){
 				return flag.passed ? true : false;
 			}
 
@@ -929,7 +929,9 @@
 					_this.addClass("Validform_error");
 					
 					if(!settings.showAllError){
-						_this.focus();
+						if(!_this.attr("noFocus")){
+							_this.focus();
+						}
 						flag=false;
 						return false;
 					}

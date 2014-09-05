@@ -32,15 +32,20 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_result as $k=>$v)
             {
+            	
                 $array_result[$k]['start_time'] = date("m月d日",$v['start_time']);
                 $array_result[$k]['end_time'] = date("m月d日",$v['end_time']);
+                if ($v['id'] == $int_round_id){
+                	unset($array_result[$k]);
+                }
             }
         }
+//         var_dump($array_result);die;
         return $array_result;
     }
     
     /**
-     * 检查这个$int_round_id是否有效
+     * 检查这个$int_round_id是否有效（在销售中）
      * @param  $int_round_id
      * @return $bool_return
      */
@@ -60,7 +65,7 @@ class Student_Course extends NH_Model{
         $array_return = array();
         #根据$int_round_id获取该轮的部分信息
         $array_return = $this->model_course->get_round_info($int_round_id);
-       // var_dump($array_return);die;
+        //var_dump($array_return);die;
         if ($array_return)
         {
             #售罄人数
@@ -69,12 +74,23 @@ class Student_Course extends NH_Model{
             $class_nums = $this->model_index->round_has_class_nums($int_round_id);
             #课次
             $array_return['class_nums'] = $class_nums;
-            #课时
-            $array_return['class_hour'] = $class_nums*2;
+            #课时总数
+            $class_num = $this->model_course->get_calss_hour_totle($int_round_id);
+            $array_return['class_hour'] = $class_num['num'];
             #图片地址
-            $array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
+            #$array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）
-            $array_return['score'] = round($array_return['score']);
+            #$array_return['score'] = round($array_return['score']);
+            #授课提要
+            $array_return['description'] = htmlspecialchars_decode($array_return['description']);
+            #课程评分
+            $course_score = $this->model_course->get_course_score($array_return['course_id']);
+            $array_return['score'] = empty($course_score) ? 0 : round($course_score['score']);
+            #多少人学习
+            $array_return['study_count'] = $array_return['bought_count'] +$array_return['extra_bought_count'];
+            #轮里面的开课时间-结束时间
+            $array_return['class_stime'] = date('m月d日',$array_return['start_time']);
+            $array_return['class_etime'] =date('m月d日',$array_return['end_time']);
             
         }
         return $array_return;
@@ -201,7 +217,7 @@ class Student_Course extends NH_Model{
      * @param  $int_course_id
      * @return $array_return
      */
-    public function get_round_evaluate($int_round_id)
+    public function get_round_evaluate($int_round_id,$limit)
     {
         $array_return = array();
         #根据$int_round_id 找course_id
@@ -211,7 +227,7 @@ class Student_Course extends NH_Model{
             show_error("course错误");
         }
         #获取该课程所有评价（取审核通过的5条）
-        $array_return = $this->model_course->get_round_evaluate($int_course_id);
+        $array_return = $this->model_course->get_round_evaluate($int_course_id,$limit);
         if ($array_return)
         {
             foreach ($array_return as $kk=>$vv)
@@ -262,14 +278,18 @@ class Student_Course extends NH_Model{
 			foreach ($array_teacher as $k=>$v)
 			{
 				$array_return[] = $this->model_member->get_user_infor($v['teacher_id']);
-				//var_dump($array_return);die;
-				if(empty($array_return[0]))
+				
+				if(empty($array_return[$k]))
 				{
-					break;
+					log_message('ERROR_NAHAO','['.date('Y-m-d H:i:s').'],老师id为：'.$v['teacher_id']."在user或者userinfo表里面的status =0");
+					unset($array_return[$k]);
+					continue;
 				} else {
 					$array_return[$k]['teacher_role'] = $array_teacher_role[$v['role']];
 					#老师头像
 					$array_return[$k]['avatar'] = $this->get_user_avater($v['teacher_id']);
+					$array_return[$k]['teacher_intro'] = htmlspecialchars_decode($array_return[$k]['teacher_intro']);
+					
 				}
 			}
 		}
@@ -287,27 +307,17 @@ class Student_Course extends NH_Model{
         #获取用户信息
         $array_data = $this->session->all_userdata();
         #去学生与课的关系表寻找信息
-        $array_return = $this->model_course->get_classmate_data($int_round_id);
-        if ($array_return)
-        {
-            foreach ($array_return as $k=>$v)
-            {
-                #用户信息
-                $array_result = $this->model_member->get_user_infor($v['student_id']);
-                if (empty($array_result))
-                {
-                	unset($array_return[$k]);
-                	break;
-                } else {
-                	#处理数据
-                	$array_return[$k]['avatar'] = $this->get_user_avater($array_result['user_id']);
-                	$array_return[$k]['nickname'] = $array_result['nickname'];
-                }
-                
-
+        $array_return = $this->model_course->get_classmate_uid($int_round_id);
+		$array_list = array();
+		$array_result = array();
+        if ($array_return){
+            foreach ($array_return as $k=>$v){
+            	$array_list[] = $v['student_id'];
             }
+			$in_where = implode(',', $array_list);
+			$array_result = $this->model_course->get_classmate_detail_data($in_where);
         }
-        return $array_return;
+        return $array_result;
     }
     
     /**
@@ -325,11 +335,12 @@ class Student_Course extends NH_Model{
         {
             foreach ($array_return as $k=>$v)
             {
-                if ($v['author_role'] == '-1')
+                if ($v['author_role'] == NH_MEETING_TYPE_ADMIN)
                 {
-                   #发布者是管理员
-                    $array_return[$k]['nickname'] = '管理员';
-                    $array_return[$k]['avatar'] = static_url(DEFAULT_TEACHER_AVATER);
+                   	#发布者是管理员
+                    $array_manager = $this->model_member->get_manager_data($v['author']);
+                    $array_return[$k]['nickname'] = isset($array_manager['username'])  ? $array_manager['username'] : '';
+                    $array_return[$k]['avatar'] = '';
                 } else {
                     #获取发布者的信息
                     $array_result = $this->model_member->get_user_infor($v['author']);
@@ -360,9 +371,9 @@ class Student_Course extends NH_Model{
         $array_team = $this->get_round_team($int_round_id);
 
         #已经上了几节课
-        $int_num = $this->model_member->get_student_class_done($int_user_id,$int_round_id);
+        $int_num = $this->model_member->get_class_count(1,$int_round_id);
         #总共有几节课
-        $int_totle = $this->model_member->get_student_class_totle($int_user_id,$int_round_id);
+        $int_totle = $this->model_member->get_class_count(0,$int_round_id);
         #上课节数比例
         $class_rate = $int_totle == 0 ? 0 : round($int_num/$int_totle,2)*100;
         #即将开始的课的信息
@@ -436,22 +447,13 @@ class Student_Course extends NH_Model{
      */
     public function get_user_avater($int_user_id)
     {
-    	$avatar = static_url(DEFAULT_STUDENT_AVATER);
+    	$array_return = array();
     	$array_return  = $this->model_member->get_user_avater($int_user_id);
-    	if ($array_return)
+    	if (empty($array_return))
     	{
-    		if ($array_return['avatar'])
-    		{
-    			$avatar = NH_QINIU_URL.$array_return['avatar'];
-    		} else {
-    			if ($array_return['teach_priv'] == 1){
-    				$avatar = static_url(DEFAULT_TEACHER_AVATER);
-    			} else{
-    				$avatar = static_url(DEFAULT_STUDENT_AVATER);
-    			}
-    		}
+    		$avatar = '';
     	}
-
+    	$avatar = $array_return['avatar'];
     	return $avatar;
     }
     
@@ -469,5 +471,161 @@ class Student_Course extends NH_Model{
     		$bool_flag = $this->model_course->check_is_teacher_in_class($int_user_id,$array_class['round_id']);
     		return $bool_flag;
     	}
+    }
+    
+    /**
+     * 检查这个$int_round_id是否有效（轮id是否存在）
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_round_id_is_exist($int_round_id)
+    {
+    	$bool_return = $this->model_course->check_round_id_is_exist($int_round_id);
+    	return $bool_return;
+    }
+    
+    /**
+     * 检查这个$int_round_id是否在（销售中、已售罄、已停售、已下架）的状态中
+     * @param  $int_round_id
+     * @return $bool_return
+     */
+    public function check_round_status($int_round_id)
+    {
+    	$bool_return = $this->model_course->check_round_status($int_round_id);
+    	return $bool_return;
+    }
+    
+    /**
+     * 该课程系列的其他课程
+     * 学科辅导展示相同年级、相同科目的其他课程，最多展示5条.按照学习人数由高到低排列.
+     * 素质教育展示相同科目的其他课程，最多展示5条.按照学习人数由高到低排列
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_other_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>5
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_other_round_data($array_where);
+    	return $array_result;
+    }
+    
+    /**
+     * 看过本课程的用户还看了
+     * 学科辅导展示相同年级、不同科目的其他课程，固定展示10条.按照学习人数由高到低排列.
+     * 素质教育展示不同科目的其他课程，固定展示10条.按照学习人数由高到低排列)
+     * @param  $int_round_id
+     * @return $array_result
+     */
+    public function get_recommend_round_data($int_round_id)
+    {
+    	#获取轮的信息
+    	$array_round = $this->model_course->get_round_info($int_round_id);
+    	$array_where = array(
+    		'education_type'=>$array_round['education_type'],
+   			'grade_from' =>$array_round['grade_from'],
+    		'grade_to' =>$array_round['grade_to'],
+    		'subject'=>$array_round['subject'],
+    		'round_id'=>$int_round_id,
+    		'limit'=>10
+    	);
+    	$array_result = array();
+    	$array_result = $this->model_course->get_recommend_round_data($array_where);
+    	return $array_result;
+    
+    }
+    
+    /**
+     * 最近浏览(写cookie)
+     */
+    public function write_recent_view_data($array_data)
+    {
+    	if(isset($_COOKIE['recent_view']) && !empty($_COOKIE['recent_view'])){
+    		$array_list = explode(',',$_COOKIE['recent_view']);
+			if (!in_array($array_data['id'], $array_list))
+			{
+				array_unshift($array_list,$array_data['id']);
+				$num = 5;
+				if (count($array_list) > $num){
+					$array_list = array_slice($array_list,0,$num);
+				}
+				$str_value = implode(',', $array_list);
+				setcookie("recent_view", $str_value,time()+24*60*60,'/');
+				$round_data = array(
+						'id'=>$array_data['id'],
+						'img'=>$array_data['img'],
+						'title'=>$array_data['title'],
+						'price'=>$array_data['price'],
+						'sale_price'=>$array_data['sale_price']
+				);
+				$round_data = json_encode($round_data);
+				$this->load->model('model/common/model_redis', 'redis');
+				$this->redis->connect('recent_view_data');
+				$this->cache->redis->set($array_data['id'],$round_data,'86400');
+			}
+			
+    	} else {
+    		setcookie("recent_view", $array_data['id'], time()+24*60*60,'/');
+    		$round_data = array(
+    				'id'=>$array_data['id'],
+    				'img'=>$array_data['img'],
+    				'title'=>$array_data['title'],
+    				'price'=>$array_data['price'],
+    				'sale_price'=>$array_data['sale_price']
+    		);
+    		$round_data = json_encode($round_data);
+    		$this->load->model('model/common/model_redis', 'redis');
+    		$this->redis->connect('recent_view_data');
+    		$this->cache->redis->set($array_data['id'],$round_data,'86400');    		
+    	}
+    	
+    	
+    }
+    
+    /**
+     * 最近浏览（读cookie）
+     */
+    public function read_recent_view_data()
+    {
+    	if (empty($_COOKIE['recent_view']))
+    	{
+    		return array();
+    	}
+    	$str_value = $_COOKIE['recent_view'];
+    	$array_round_ids = explode(',',$_COOKIE['recent_view']);
+    	$this->load->model('model/common/model_redis', 'redis');
+    	$this->redis->connect('recent_view_data');
+    	$array_list = array();
+    	foreach ($array_round_ids as $k=>$v)
+    	{
+    		$array_round = $this->cache->redis->get($v);
+			if ($array_round)
+			{
+				$array_list[] = json_decode($array_round,true);
+			}
+    	}
+		return $array_list;
+    }
+    
+    
+    /**
+     * 重要提醒
+     */
+    public function get_important_notice_data(){
+    	$array_return = array();
+    	$array_return = $this->model_course->get_important_notice_data();
+    	if ($array_return) {
+    		$array_return['content'] = htmlspecialchars_decode($array_return['content']);
+    	}
+    	return $array_return;
     }
 }

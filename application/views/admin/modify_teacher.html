@@ -3,6 +3,10 @@
 <form action="/teacher/check_edittecher_post" method="post" enctype="multipart/form-data">
     <table>
         <tr height="35">
+            <td width="100"><font color="red">*</font>昵称:</td>
+            <td width="650"><div class="col-md-4"><input type="text" name="nickname" id="nickname" placeholder="昵称2-15位 匿名时显示" class="form-control" value="{$teacher_details['user_data']['nickname']}" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_nickname"></span></td>
+        </tr>
+        <tr height="35">
             <td width="100"><font color="red">*</font>真实姓名:</td>
             <td width="650"><div class="col-md-4"><input type="text" class="form-control" name="realname" id="realname" placeholder="请填写真实姓名 2-15位" value="{if $teacher_details['user_info_data']['realname']}{$teacher_details['user_info_data']['realname']}{/if}" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="hide_realname" value=1 {if $teacher_details['user_info_data']['hide_realname']==1}checked{/if}>保密&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_realname"></span></td>
         </tr>
@@ -15,6 +19,7 @@
             <td><div class="col-md-8"><input type="radio" name="stage" value=1 class="stage" checked {if $teacher_details['user_info_data']['stage']==1}checked{/if}>小学
                 <input type="radio" name="stage" value=2 class="stage" {if $teacher_details['user_info_data']['stage']==2}checked{/if}>初中
                 <input type="radio" name="stage" value=3 class="stage" {if $teacher_details['user_info_data']['stage']==3}checked{/if}>高中
+                <input type="radio" name="stage" value=4 class="stage" {if $teacher_details['user_info_data']['stage']==4}checked{/if}>其他
                 </div>
             </td>
         </tr>
@@ -73,7 +78,7 @@
             <td>
                 <div class="col-md-3">
                 <select name="title" class="form-control">
-                    {for $i=0 to 5}
+                    {for $i=1 to 6}
                     <option value={$i} {if $i==$teacher_details['user_info_data']['title']}selected{/if}>{$config_title[$i]}</option>
                     {/for}
                 </select>
@@ -104,17 +109,22 @@
             </td>
         </tr>
         <tr height="35">
+            <td>一句话简介:</td>
+            <td width="200"><div class="col-md-4"><input type="text" name="teacher_signature" id="teacher_signature" placeholder="一句话简介" value="{$teacher_details['user_info_data']['teacher_signature']}" class="form-control" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_teacher_signature"></span></td>
+        </tr>
+        <tr height="35">
             <td><font color="red">*</font>手机号:</td>
             <td><div class="col-md-4"><input type="text" name="phone_mask" class="form-control" value="{$phone}" placeholder="保密，不会对外公开" disabled /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_phone"></span></td>
         </tr>
         <tr height="35">
             <td><font color="red">*</font>邮箱:</td>
-            <td><div class="col-md-4"><input type="text" name="email" class="form-control" placeholder="保密，不会对外公开" value="{$teacher_details['user_data']['email']}" disabled /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_email"></span></td>
+            <td><div class="col-md-4"><input type="text" name="edit_email" class="form-control" placeholder="保密，不会对外公开" value="{$teacher_details['user_data']['email']}" id="edit_email" /></div>&nbsp;&nbsp;&nbsp;&nbsp;<span id="edit_span_email"></span></td>
         </tr>
     </table>
+    <input type="hidden" value="{$teacher_details['user_data']['email']}" id="hide_email" name="hide_email" />
     <hr>
     <h4>教师简介</h4>
-    <textarea class="form-control" rows="5" id="" placeholder="在此填写老师简介" name="teacher_intro">{$teacher_details['user_info_data']['teacher_intro']}</textarea>
+    <textarea class="form-control" rows="5" id="teacher_intro" placeholder="在此填写老师简介" name="teacher_intro">{$teacher_details['user_info_data']['teacher_intro']}</textarea>
     <hr>
     <h4>绑定银行账户</h4>
     <div class="col-md-2"><select name="bank" class="form-control">
@@ -124,10 +134,59 @@
     {/for}
 </select>
         </div>
-    <div class="col-md-4"><input type="text" name="bank_Branch" placeholder="请填写具体支行信息" value="{$teacher_details['user_info_data']['bankbench']}" class="form-control" /></div>
-    <div class="col-md-3"><input type="text" name="bank_id" placeholder="请填写银行卡号" value="{$teacher_details['user_info_data']['bankcard']}" class="form-control" /></div>
-    <div class="col-md-3"><input type="text" name="id_card" placeholder="请填写身份证号" value="{$teacher_details['user_info_data']['id_code']}" class="form-control" /></div>
-    <input type="hidden" value="{$user_id}" name="user_id" />
-    <div class="col-md-15">&nbsp;</div>
-    <button type="submit" class="btn btn-success">提交</button>
+    <div class="col-md-4">
+        <input type="text" name="bank_Branch" placeholder="请填写具体支行信息" class="form-control" />
+    </div>
+    <div class="col-md-25">&nbsp;</div><br />
+    <div class="col-md-3">
+        <input type="text" name="bank_id" id="bank_id" placeholder="请填写银行卡号" class="form-control" />
+    </div>
+    <div class="col-md-3"><span id="bank_span"></span></div>
+    <div class="col-md-25">&nbsp;</div><br />
+    <div class="col-md-3"><input type="text" name="id_card" id="id_card" placeholder="请填写身份证号" class="form-control" />
+    </div>
+    <div class="col-md-3"><span id="card_span"></span></div>
+    <div class="col-md-25">&nbsp;</div><br />
+    <hr>
+    <h3>资质认证</h3>
+    <input id="work_auth_img" type="hidden" value="{$upload_work_img_key}">
+    <input id="title_auth_img" type="hidden" value="{$upload_auth_img_key}">
+    <input id="teacher_auth_img" type="hidden" value="{$upload_title_img_key}">
+    <input name="nahao_token" id="nahao_token" type="hidden" value="{$upload_token}">
+    <input type="hidden" name="work_auth_img" value="" id="work_authimg" />
+    <input type="hidden" name="title_auth_img" value="" id="title_authimg" />
+    <input type="hidden" name="teacher_auth_img" value="" id="teacher_authimg" />
+    <div class="teacher">
+        教师资格证:<input type="file" name="up_teacher_auth_img" id="up_teacher_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="{if $teacher_details['user_info_data']['teacher_auth_img']}{get_img_url($teacher_details['user_info_data']['teacher_auth_img'],'profile_s1')}{/if}" id="img_url_general" /><span id="show_3001">{if $teacher_details['user_info_data']['teacher_auth_img']}300*225{/if}</span>
+    </div>
+    <div class="title">
+        教师职称证:<input type="file" name="up_title_auth_img" id="up_title_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="{if $teacher_details['user_info_data']['title_auth_img']}{get_img_url($teacher_details['user_info_data']['title_auth_img'],'profile_s1')}{/if}"  id="img_title_general" /><span id="show_3002">{if $teacher_details['user_info_data']['title_auth_img']}300*225{/if}</span>
+    </div>
+    <div class="work">
+        学校工作证: <input type="file" name="up_work_auth_img" id="up_work_auth_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="{if $teacher_details['user_info_data']['work_auth_img']}{get_img_url($teacher_details['user_info_data']['work_auth_img'],'profile_s1')}{/if}"  id="img_work_general" /><span id="show_3003">{if $teacher_details['user_info_data']['work_auth_img']}300*225{/if}</span>
+    </div>
+    <hr>
+    <h3>头像认证</h3>
+    <div class="avatar">
+        <input id="avatar_img" type="hidden" value="{$upload_avatar_img_key}">
+        <input type="hidden" name="teacher_avatar_img" value="" id="teacher_avatar_img" />
+        教师头像:<input type="file" name="up_avatar_img" id="up_avatar_img" class="file fl" multiple="true" style="display:none"/>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s1')}{/if}"  id="img_avatar" /><span id="show_130">{if $teacher_details['user_data']['avatar']}130*130{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s3')}{/if}"  id="img_urlhundred_general" /><span id="show_100">{if $teacher_details['user_data']['avatar']}100*100{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s3')}{/if}"  id="img_urlseventy_general" /><span id="show_70">{if $teacher_details['user_data']['avatar']}70*70{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s4')}{/if}"  id="img_urlfifty_general" /><span id="show_50">{if $teacher_details['user_data']['avatar']}50*50{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s5')}{/if}"  id="img_urlfortyfive_general" /><span id="show_45">{if $teacher_details['user_data']['avatar']}45*45{/if}</span>
+        <img src="{if $teacher_details['user_data']['avatar']}{get_img_url($teacher_details['user_data']['avatar'],'avatar_s6')}{/if}"  id="img_urlthirty_general" /><span id="show_35">{if $teacher_details['user_data']['avatar']}35*35{/if}</span>
+    </div>
+    <br /><br />
+
+    <input type="hidden" value="{$user_id}" name="user_id" id="user_teacher_id" />
+    <input type="hidden" value="{$teacher_details['user_info_data']['work_auth_img']}" id="work_img" />
+    <input type="hidden" value="{$teacher_details['user_info_data']['title_auth_img']}" id="title_img" />
+    <input type="hidden" value="{$teacher_details['user_info_data']['teacher_auth_img']}" id="teacher_img" />
+    <input type="hidden" value="{$teacher_details['user_data']['avatar']}" id="avatar_teacher_img" />
+    <button type="submit" class="btn btn-success" id="sum">提交</button>
 </form>

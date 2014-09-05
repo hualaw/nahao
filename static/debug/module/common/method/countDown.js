@@ -1,16 +1,16 @@
 define(function(require,exports){
-	exports.countDown = function (_this){
-		//验证倒计时
-        var ind=60;
+    var ind = 90;
+    exports.countDown = function (_this){
+        ind = 90;
+        //验证倒计时
         var timer = setInterval(function(){
             ind--;
             if(ind<0){
                 clearInterval(timer);
-                _this.show(); 
-                _this.next('span.codeSpan').hide();
+                _this.removeAttr("disabled").css("background","#6dcde6");
+                _this.val('重新获取验证码');
             }else{
-                _this.hide(); 
-                _this.next('span.codeSpan').show().html(ind + '秒后获取验证码');
+                _this.val(ind + '秒后获取验证码').css("background","#dedede");
             }
         }, 1000);
 	}

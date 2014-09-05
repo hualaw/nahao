@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE cross-domain-policy SYSTEM "http://www.adobe.com/xml/dtds/cross-domain-policy.dtd">
 <cross-domain-policy>
-    <!--<site-control permitted-cross-domain-policies="by-content-type"/>-->
-    <allow-access-from domain="*" />
-    <!--<allow-access-from domain="*.nahaodev.com"/>-->
-    <!--<allow-access-from domain="*.nahaotest.com"/>-->
-    <!--<allow-access-from domain="*.nahao.com"/>-->
-    <!--<allow-access-from domain="*"/>-->
-    <!--<allow-http-request-headers-from domain="*" headers="*"/>-->
+    <allow-access-from domain="*.nahao.com"/>
+    <allow-access-from domain="*.nahaotest.com"/>
+    <allow-access-from domain="*.nahaodev.com"/>
 </cross-domain-policy>

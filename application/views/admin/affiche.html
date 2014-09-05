@@ -1,40 +1,40 @@
 <form method="get" action="/affiche">
     <div class="col-md-4">
-        <input type="text" name="content" class="form-control" placeholder="请输入内容进行搜索" />
+        <input type="text" name="content" class="form-control" value="{if isset($search_term.content)}{$search_term.content}{/if}" placeholder="请输入内容进行搜索" />
     </div>
     <div class="col-md-2">
-        <input type="text" name="admin_name" class="form-control" placeholder="请输入发布者ID进行搜索" />
+        <input type="text" name="admin_name" value="{if isset($search_term.admin_name)}{$search_term.admin_name}{/if}" class="form-control" placeholder="请输入发布者ID进行搜索" />
     </div>
     <div class="col-md-3">
-        <input type="text" name="start_time" id="start_time" class="form-control" placeholder="请选择发布开始时间进行搜索" readonly />
+        <input type="text" name="start_time" id="start_time" value="{if isset($search_term.start_time)}{$search_term.start_time}{/if}" class="form-control" placeholder="请选择发布开始时间进行搜索" readonly />
     </div>
     <div class="col-md-3">
-        <input type="text" name="end_time" id="end_time" class="form-control" placeholder="请选择发布结束时间进行搜索" readonly />
+        <input type="text" name="end_time" id="end_time" value="{if isset($search_term.end_time)}{$search_term.end_time}{/if}" class="form-control" placeholder="请选择发布结束时间进行搜索" readonly />
     </div>
     <div class="col-md-15">&nbsp;</div>
     <div class="col-md-2">
-        <input type="text" name="round_id" class="form-control" placeholder="请输入轮ID进行搜索" />
+        <input type="text" name="round_id" value="{if isset($search_term.round_id)}{$search_term.round_id}{/if}" class="form-control" placeholder="请输入轮ID进行搜索" />
     </div>
     <div class="col-md-3">
         <select name="status" class="form-control">
             <option value=0>请选择状态</option>
-            <option value=1>未审核</option>
-            <option value=2>审核不通过</option>
-            <option value=3>审核通过</option>
+            <option value=1 {if isset($search_term.status) && $search_term.status==1}selected{/if}>未审核</option>
+            <option value=2 {if isset($search_term.status) && $search_term.status==2}selected{/if}>审核不通过</option>
+            <option value=3 {if isset($search_term.status) && $search_term.status==3}selected{/if}>审核通过</option>
         </select>
     </div>
     <div class="col-md-2">
         <select name="author_role" class="form-control">
             <option value=0>请选择角色</option>
-            <option value=1>管理员</option>
-            <option value=3>老师</option>
+            <option value=2 {if isset($search_term.author_role) && $search_term.author_role==2}selected{/if}>管理员</option>
+            <option value=1 {if isset($search_term.author_role) && $search_term.author_role==1}selected{/if}>老师</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-default">搜索</button>
+    <button type="submit" class="btn btn-info">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/affiche" class="btn btn-warning" role="button">重置</a>
 </form><br />
 <label class="control-label" for="inputSuccess">符合条件的共有{$search_total}条数据</label>
 {for $i=1 to 220}&nbsp;{/for}
-<button type="button" class="btn btn-info" id="insert_affiche">添加公告</button>
+<a href="/affiche/create_affiche?round_id={$round_id}&role=2" type="button" class="btn btn-info" id="insert_affiche">添加公告</a>
 <br />
 <table class="table table-hover">
     <thead>
@@ -60,7 +60,7 @@
             <td>{$v.create_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
             <td>{if $v.top_time==0}------{else}{$v.top_time|date_format:'%Y-%m-%d %H:%M:%S'}{/if}</td>
             <td>{$affiche_status[$v.status]}</td>
-            <td><button type="button" class="btn btn-info btn-xs edit" data-affiche_id="{$v.id}" data-content="{$v.content}">编辑</button>
+            <td><a href="/affiche/modify_affiche?affiche_id={$v.id}&content={$v.content}" type="button" class="btn btn-info btn-xs">编辑</a>
                 {if $v.status==1}
                 <button type="button" class="btn btn-success btn-xs pass" data-affiche_id="{$v.id}">通过</button>
                 <button type="button" class="btn btn-warning btn-xs nopass" data-affiche_id="{$v.id}">不通过</button>
@@ -80,38 +80,7 @@
 {$page}
 <input type="hidden" value="" id="affiche_id" />
 <input type="hidden" value="{$round_id}" id="round_id" />
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">请输入修改内容</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="edit_content" class="form-control" rows="3" placeholder="在此填写修改内容"></textarea><br />
-                <button type="button" class="btn btn-success" id="edit">修改</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="insert_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">{$round_title}</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="insert_content" class="form-control" rows="3" placeholder="在此填写公告内容"></textarea><br />
-                <button type="button" class="btn btn-success" id="insert">添加</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<div style="display:none">
+    <textarea id="insert_content" name="insert_content" class="form-control" rows="3" placeholder="在此填写公告内容"></textarea><br />
+    <textarea id="edit_content" name="edit_content" class="form-control" rows="3" placeholder="在此填写公告内容"></textarea><br />
+</div>

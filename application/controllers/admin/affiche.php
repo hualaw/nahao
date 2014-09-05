@@ -29,8 +29,12 @@
             $page = $this->pagination->create_links();
             $list_affiche=$this->affiche->list_affiche($admin_name,$author_role,$content,$start_time,$end_time,$status,$round_id);
 
-            $config_role=config_item('author_role');
+            $config_role=config_item('nh_meeting_type');
             $affiche_status=config_item('affiche_status');
+
+            parse_str($this->input->server('QUERY_STRING'),$search_term);
+
+            $this->smarty->assign('search_term',$search_term);
             $this->smarty->assign('affiche_status',$affiche_status);
             $this->smarty->assign('round_title',$round_title);
             $this->smarty->assign('round_id',$round_id);
@@ -42,13 +46,33 @@
             $this->smarty->display('admin/layout.html');
         }
         /**
+         * 编辑公告页面
+         * @author shangshikai@tizi.com
+         */
+        public function modify_affiche()
+        {
+            $id=$this->input->get('affiche_id',TRUE);
+            $content=$this->affiche->affiche_edit_content($id);
+            $this->smarty->assign('id',$id);
+            $this->smarty->assign('content',$content['content']);
+            $this->smarty->assign('view','modify_affiche');
+            $this->smarty->display('admin/layout.html');
+        }
+        /**
          * 编辑公告内容
          * @author shangshikai@tizi.com
          */
         public function edit_content()
         {
             $post=$this->input->post(NULL,TRUE);
-            echo $this->affiche->content_edit($post);
+            if($this->affiche->content_edit($post))
+            {
+                redirect('/affiche');
+            }
+            else
+            {
+                redirect("/affiche/modify_affiche?affiche_id=$post[id]&content=$post[content]");
+            }
         }
         /**
          * 公告通过审核
@@ -87,12 +111,32 @@
             echo $this->affiche->affiche_notop($id);
         }
         /**
+         * 添加公告页面
+         * @author shangshikai@tizi.com
+         */
+        public function create_affiche()
+        {
+            $round_id=$this->input->get('round_id',TRUE);
+            $role=$this->input->get('role',TRUE);
+            $this->smarty->assign('role',$role);
+            $this->smarty->assign('round_id',$round_id);
+            $this->smarty->assign('view','create_affiche');
+            $this->smarty->display('admin/layout.html');
+        }
+        /**
          * 添加公告
          * @author shangshikai@tizi.com
          */
         public function insert_affiche()
         {
             $post=$this->input->post(NULL,TRUE);
-            echo $this->affiche->affiche_insert($post);
+            if($this->affiche->affiche_insert($post))
+            {
+                redirect('/affiche');
+            }
+            else
+            {
+                redirect("/affiche/index?round=$post[round_id]&role=$post[role]");
+            }
         }
     }

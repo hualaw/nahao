@@ -50,7 +50,7 @@
             {
                 $this->db->where("student_order.id = $post[order_id]");
             }
-            if($post['status']!="")
+            if($post['status']!=10)
             {
                 $this->db->where("student_order.status = $post[status]");
             }
@@ -66,7 +66,7 @@
                     $this->db->where("user.id=$int_uid");
                 }
             }
-            if($post['pay_type']!=0)
+            if($post['pay_type']!=5)
             {
                 $this->db->where("student_order.pay_type = $post[pay_type]");
             }
@@ -79,6 +79,15 @@
             {
                 $this->db->where("student_order.confirm_time >",$post['confirm_time1']);
                 $this->db->where("student_order.confirm_time <",$post['confirm_time2']);
+            }
+            if($post['spend1']!="" && $post['spend2']!="")
+            {
+                $this->db->where("student_order.spend >=",$post['spend1']);
+                $this->db->where("student_order.spend <=",$post['spend2']);
+            }
+            if($post['spend1']!="" && $post['spend2']=="")
+            {
+                $this->db->where("student_order.spend",$post['spend1']);
             }
         }
         /**
@@ -138,7 +147,7 @@
          */
         public function details_order($int_order_id)
         {
-            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,student_order.price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->where("student_order.id",$int_order_id)->get()->row_array();
+            return $this->db->select('student_order.status,student_order.id,student_order.student_id,student_order.create_time,student_order.pay_type,student_order.spend,user.phone_mask,user.email,user.nickname,student_order.round_id,round.title,round.start_time,round.end_time,student_order.price,student_refund.refund_price')->from('student_order')->join('user', 'user.id = student_order.student_id','left')->join('round','round.id=student_order.round_id','left')->join('student_class','student_class.student_id=user.id','left')->join('student_refund','student_refund.order_id=student_order.id','left')->where("student_order.id",$int_order_id)->get()->row_array();
         }
         /**
          * 订单备注
@@ -236,7 +245,12 @@
         {
             return get_pnum_phone_server($int_uid);
         }
-
+        /**
+         *修改订单价格
+         * @param
+         * @return
+         * @author shangshikai@nahao.com
+         */
     public function price_order_modify($modify_price,$order_id,$spend)
         {
             $admin_id=$this->userinfo['id'];

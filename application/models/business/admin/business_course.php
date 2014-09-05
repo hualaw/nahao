@@ -58,7 +58,7 @@ class Business_Course extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'course_info';
             $str_result_type = 'list';
-            $str_fields = 'count(1) as count';
+            $str_fields = TABLE_COURSE.'.id';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
                 unset($arr_where['status']);
@@ -86,7 +86,10 @@ class Business_Course extends NH_Model
             $arr_group_by = array(
                 TABLE_COURSE.'.id'
             );
-            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by);
+            $arr_order_by = array(
+                TABLE_COURSE.'.create_time' => 'desc'
+            );
+            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where,$arr_group_by, $arr_order_by);
             $int_return = count($arr_return);
 //            o($int_return,true);
         }
@@ -106,7 +109,7 @@ class Business_Course extends NH_Model
         if(is_array($arr_where)){
             $str_table_range = 'course_info';
             $str_result_type = 'list';
-            $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname,lesson_count';
+            $str_fields = TABLE_COURSE.'.id,title,subtitle,intro,description,students,subject,course_type,reward,price,'.TABLE_COURSE.'.status,create_time,'.TABLE_COURSE.'.role,user_id,score,bought_count,graduate_count,video,img,grade_from,grade_to,'.TABLE_SUBJECT.'.name as subject_name,'.TABLE_COURSE_TYPE.'.name as course_type_name,'.TABLE_USER.'.nickname,lesson_count,stage,education_type,material_version,quality';
 //            $str_fields = '*';
             if(array_key_exists('status',$arr_where)){
                 $arr_where[TABLE_COURSE.'.status'] = $arr_where['status'];
@@ -135,11 +138,14 @@ class Business_Course extends NH_Model
             $arr_group_by = array(
                 TABLE_COURSE.'.id'
             );
+            $arr_order_by = array(
+                TABLE_COURSE.'.create_time' => 'desc'
+            );
             $arr_limit = array(
                 'start'=>$int_start,
                 'limit' => $int_limit
             );
-            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, array(),$arr_limit);
+            $arr_return = $this->model_course->get_course_by_param($str_table_range, $str_result_type, $str_fields, $arr_where, $arr_group_by, $arr_order_by,$arr_limit);
         }
         return $arr_return;
     }
@@ -257,7 +263,7 @@ class Business_Course extends NH_Model
         $int_return = 0;
         if(is_array($arr_lessons) AND $arr_lessons){
             foreach($arr_lessons as $k => $v){
-                if(!$v['is_chapter']){
+                if($v['parent_id'] >= 1){
                     $int_return++;
                 }
             }

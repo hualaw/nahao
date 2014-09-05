@@ -1,0 +1,25 @@
+<script>
+    //var _url = 'http://' + window.location.host + '/';
+
+    var staticUrl = "{$static_url}";
+    var staticVersion = "{$static_version}";
+    var staticPath = staticUrl + staticVersion + "/";
+
+//    var _url = "{$static_url}" + 'debug';
+    var _swf_url = "{$admin_url}" + 'static/debug';
+    var _qiniu_url = "{$qiniu_url}";
+    var _qiniu_video_url = "{$qiniu_video_url}";
+
+    var _meeting_url = "{$smarty.const.NH_MEETING_URL}";
+//    var staticPath = _url + '/';
+    var aliasContent = {
+        "jquery": "lib/jquery/1.8.2/jquery",
+        "naHaoDialog": "lib/artDialog/4.1.7/artDialog",
+        "validForm": "lib/Validform/5.3.2/Validform",
+        "kindEditor": "lib/kindeditor/4.1.10/kindeditor",
+        "select": "module/lib/select",
+        "flashUploader": "lib/uploadify/2.2/jquery.uploadify"
+    }
+
+    var ck_image_upload = '/course/upload';
+</script>

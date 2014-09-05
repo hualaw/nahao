@@ -119,7 +119,7 @@ define(function (require,exports){
 		$(".clickR").click(function (){
 			ind++;
 			document.title = ind;
-			console.log($(".aui_content .itemTabList").length-1)
+//			console.log($(".aui_content .itemTabList").length-1)
 			if(ind>$(".aui_content .itemTabList").length-1){
 				ind = $(".aui_content .itemTabList").length-1;
 			}
@@ -418,7 +418,7 @@ define(function (require,exports){
 			function ajax_save()
 			{
 				//ajax提交答案
-				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
+//				console.log(qid+"/"+answer+"/"+sequence+'/'+cid+'/'+ans.length+'/'+ind)
 				var murl = '/classroom/save/';
 	            var mdata = {
 	            	class_id: cid,

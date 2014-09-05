@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>我的课程--购买后</title>
+<title>{$array_data.title}</title>
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse">
+<div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
     <div class="buyCourse buyAfter">
 		<!-- 购买后 头部 -->
 	    <div class="buyHead">
@@ -30,7 +30,7 @@
 	        		<span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
-		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -48,7 +48,7 @@
 	        	    <span>即将开始的是：</span>
 	        		<div class="cf h3Box">
 		        		<h3 class="fl" title="{$array_data.soon_class_infor.title}">{$array_data.soon_class_infor.title}</h3>
-		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -59,7 +59,9 @@
 
 	        				</div>
 	        			</div>
-	        			{if $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_ENTER_ROOM ||  $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_CLASSING}
+	        			{if $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_ENTER_ROOM }
+	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn" title="在开课时间前30分钟，可提前进教室">可进教室</a>
+	        			{elseif $array_data.soon_class_infor.status == $smarty.const.CLASS_STATUS_CLASSING}
 	        			<a href="/classroom/enter/{$array_data.soon_class_infor.classroom_id}" target="_blank" class="fr noShowBtn redBtn" title="在开课时间前30分钟，可提前进教室">去上课</a>
 	        			{/if}
 	        		</div>
@@ -68,7 +70,7 @@
 	        	    <span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -80,7 +82,7 @@
 	        		<span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -92,7 +94,19 @@
 	        	    <span></span>
 	        		<div class="cf h3Box1">
 		        		<h3 class="fl"></h3>
-		        		<a href="{$course_url}{$array_data.round_id}.html" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
+	        		</div>
+	        		
+	        		<div class="cf classCDList">
+	        			<span class="fl"></span>
+      		        
+	        		</div>
+	        		{else if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_OVER}
+	        		<div class="cstate coverdue"></div>
+	        	    <span></span>
+	        		<div class="cf h3Box1">
+		        		<h3 class="fl"></h3>
+		        		<a href="/course/buy_detail/{$array_data.round_id}" target="_blank" class="fr noShowBtn blueBtn">课程详情</a>
 	        		</div>
 	        		
 	        		<div class="cf classCDList">
@@ -104,15 +118,15 @@
 	        	<ul class="fr manInfor">
 	        		{foreach from=$array_data.team item=item}
 	        		<li class="posr">
-                        <img src="{$item.avatar}" alt="" class="head">
+                        <img src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s3')}{else}{get_img_url($item.avatar,'avatar_s3')}{/if}" alt="" class="head">
                         <div class="headR">
                             <div class="teaDetail cf">
                                 <span class="cMan">{$item.teacher_role}</span>
                                 <em>{$item.nickname}</em>
                                 <span class="identity fr">
-                                    <span {if $item.teacher_auth == '1'}class="teaCard fr"{/if}></span>
-                                    <span {if $item.titile_auth == '1'}class="TitleCard fr"{/if}></span>
-                                    <span {if $item.work_auth == '1'}class="workCard fr"{/if}></span>
+                                    <span {if $item.teacher_auth == '1'} title="教师资格证" class="teaCard fr"{/if}></span>
+                                    <span {if $item.titile_auth == '1'} title="教师职称证" class="TitleCard fr"{/if}></span>
+                                    <span {if $item.work_auth == '1'} title="教师工作证" class="workCard fr"{/if}></span>
                                 </span>
                             </div>
                             <p>{$item.teacher_signature}教龄{$item.teacher_age}年</p>
@@ -157,12 +171,12 @@
 
 								{if $it.status== $smarty.const.CLASS_STATUS_SOON_CLASS}
 								    <a href="javascript:;" class="soonClass cBtn fl" title="可提前半小时进教室">即将开始</a>
-								{elseif $it.status== $smarty.const.CLASS_STATUS_ENTER_ROOM || $it.status== $smarty.const.CLASS_STATUS_CLASSING}
+								{elseif $it.status== $smarty.const.CLASS_STATUS_ENTER_ROOM }
+									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">可进教室</a>
+								{elseif  $it.status== $smarty.const.CLASS_STATUS_CLASSING}
 									<a href="/classroom/enter/{$it.classroom_id}" target="_blank" title="在开课时间前30分钟，可提前进教室" class="goClass cBtn fl">去上课</a>
-								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER}
-									<a href="javascript:;" class="replay cBtn fl">已结课</a>		
-								{elseif $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
-									<a href="javascript:;" class="replay cBtn fl">缺课</a>	
+								{elseif $it.status==$smarty.const.CLASS_STATUS_CLASS_OVER || $it.status==$smarty.const.CLASS_STATUS_MISS_CLASS}
+									<a href="javascript:;" class="replay cBtn fl">已结课</a>	
 								{elseif $it.status==$smarty.const.CLASS_STATUS_FORI_CLASS}
 									<a href="javascript:;" class="replay cBtn fl">停课</a>								
 								{/if}
@@ -175,9 +189,9 @@
 		                            <div class="fr listb">
 		                            	<div class="cf">
 		                                	<p class="listh fl" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}</p>
-		                                	<div class="fr cListHid undis">
+		                                	<div class="fr cListHid ">
 		                                		{if $array_data.teach_status!=$smarty.const.ROUND_TEACH_STATUS_OVER}
-		                                		<a href="/course/courseware/{$it.id}" ><span class="fl handout" title="下载课件"></span></a>
+		                                		<a href="/course/courseware/{$it.id}/?session_id={$sid}" ><span class="fl handout" title="下载课件"></span></a>
 
 		                                		
 		                                		{/if}
@@ -229,34 +243,33 @@
 	        	<ul class="abuyTabBox ntBox">
 	        	{if $array_note}
 	        	{foreach from=$array_note item=item}
-	        		{if $item.round_id =='0'}
+	        		{if $item.author_role =='2'}
 	        		<li>
 						<div class="nhead cf posr">
-							<img src="{$item.avatar}" alt="" class="fl">
+							<img src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_MANGER_AVATER,'avatar_s5')}{else}{get_img_url($item.avatar,'avatar_s5')}{/if}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong>{$item.nickname}</strong>
+								<strong>系统公告：</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
 						<div class="nDetailCon">
-							<p>各位同学</p>
 							<p class="indent">{$item.content}</p>
 						</div>
 					</li>
 					{/if}
 	        	{/foreach}
 	        	{foreach from=$array_note item=item}
-	        		{if $item.round_id !=0}
+	        		{if $item.author_role !='2'}
 	        		<li>
 						<div class="nhead cf posr">
-							<img src="{$item.avatar}" alt="" class="fl">
+							<img src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s5')}{else}{get_img_url($item.avatar,'avatar_s5')}{/if}" alt="" class="fl">
 							<div class="fl teaRCon">
-								<strong title="{$item.nickname}">{$item.nickname|truncate:7:"...":true}</strong>
+								<strong title="{$item.nickname}">{$item.nickname}</strong>
 								<p class="redText">{$item.create_time|date_format:'%Y-%m-%d'}<span>{$item.create_time|date_format:'%H:%M'}</span></p>
 							</div>
 						</div>
 						<div class="nDetailCon">
-							<p>各位同学</p>
+							
 							<p class="indent">{$item.content}</p>
 						</div>
 					</li>
@@ -268,8 +281,8 @@
 	        	{if $array_classmate}
 	        	{foreach from=$array_classmate item=item}
 	        		<li class="fl">
-						<img src="{$item.avatar}" alt="">
-						<span title="{$item.nickname}">{$item.nickname|truncate:10:"...":true}</span>
+						<img src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_STUDENT_AVATER,'avatar_s6')}{else}{get_img_url($item.avatar,'avatar_s6')}{/if}" alt="" class="fl">
+						<span title="{if empty($item.nickname)}{else}{$item.nickname}{/if}" class="fl">{if empty($item.nickname)}{else}{$item.nickname}{/if}</span>
 					</li>
 	        	{/foreach}
 	        	{/if}
@@ -303,9 +316,10 @@
 			<span></span>
 			<span></span>
 		</span>
-		<form action="/course/class_comment" class="evaluForm" method="post">
+		<form action="/course/class_comment" class="evaluForm" method="post" onsubmit="return false;">
 			<input type="hidden" name="score" id="c_score" value="">
 			<input type="hidden" name="class_id" id="c_class_id" value="">
+			<input type="hidden" name="from_type"  value="1">
 			<ul>
 				<li>
 					<div class="cf">

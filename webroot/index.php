@@ -3,11 +3,10 @@ if (PHP_SAPI === 'cli') {
     $str_domain = 'auto';
 } else {
     $str_domain = strstr($_SERVER['HTTP_HOST'], '.', true);
-    $arr_allowed_domain = array('www', 'admin', 'teacher','api');
+    $arr_allowed_domain = array('www', 'admin', 'teacher','api','auto','crm');
     $str_domain = !in_array($str_domain, $arr_allowed_domain) ? 'www' : $str_domain;
 }
 define('DOMAIN', $str_domain);
-
 //echo DOMAIN;EXIT;
 /*
  *---------------------------------------------------------------
@@ -46,6 +45,7 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
+        case 'develop':
 		    error_reporting(E_ALL);
 		break;
 	
@@ -214,6 +214,16 @@ if (defined('ENVIRONMENT'))
  *
  */
 
+/**
+ * 反垃圾机制，2014-8-22
+ */
+require_once APPPATH . 'libraries/Anti_Spam.php';
+if(!Anti_Spam::check()){
+    header("HTTP/1.1 403 Forbidden");
+    header("Status: 403 Forbidden");
+    exit;
+}
+
 /*
  * --------------------------------------------------------------------
  *  引入LOG4PHP类
@@ -222,7 +232,6 @@ if (defined('ENVIRONMENT'))
 define('LOG4PHP_DIR', APPPATH.'third_party/log4php/');
 require_once LOG4PHP_DIR.'Logger.php';
 Logger::configure(LOG4PHP_DIR.'log4php.properties');
-
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

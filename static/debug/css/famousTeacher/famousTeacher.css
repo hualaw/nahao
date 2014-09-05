@@ -1,0 +1,47 @@
+.famousTeacher{background: #f8f8f8}
+.famousTeacher .main{}
+.famousTeacher .topBg{width:568px;height: 151px;background: url(../../images/famousTeacher/topBg.jpg) no-repeat center center;padding: 298px 0 0 412px}
+.famousTeacher .topBg p{font-size: 18px;color:#fff;line-height: 24px;}
+.famousTeacher .ztBox{position: relative;padding-top:50px;padding-left: 15px;background: #fff;margin-bottom: 40px;}
+.famousTeacher .ztH2{height: 40px;line-height: 40px;position: absolute;top: 5px;left: -10px;}
+.famousTeacher .ztH2 .bgIcon{position: absolute;left: 0px;top: 40px;display: inline-block;width: 10px;height: 10px;background: url(../../images/famousTeacher/bgIcon.png) no-repeat center center;}
+.famousTeacher .ztH2 span{display: inline-block;padding: 0px 20px 0 27px;background: #d42222;color:#fff;font-size: 30px;font-weight: normal;line-height: 40px;}
+.famousTeacher .word{padding-right: 15px;font-size: 14px;line-height: 24px;}
+.famousTeacher .word .title{font-weight: normal;font-size: 18px;}
+.famousTeacher .word p{text-indent: 28px;margin-bottom: 10px;}
+.famousTeacher .word li{display: inline-block;text-align: center;padding-top: 15px;margin-right: 15px;}
+.famousTeacher .word li p{text-indent: 0;}
+.famousTeacher .pic .btmBar{display:block;text-align: center;position: absolute;left: 0;bottom: 0;background: #000;opacity:0.7;filter:alpha(opacity=70);height: 30px;width: 100%; }
+.famousTeacher .pic .btmBarOther{height: 44px;}
+.famousTeacher .pic .btmText{display:block;text-align: center;position: absolute;left: 0;bottom: 0;height: 30px;width: 100%;line-height: 30px;text-align: center;color: #fff;font-size: 14px;}
+.famousTeacher .pic .btmText1{left: 0;bottom: 20px;height: 22px;line-height: 18px}
+.famousTeacher .pic .btmText2{left: 0;bottom: 0;height: 22px;line-height: 18px}
+.famousTeacher .pic p{margin-bottom: 10px;font-size: 14px;line-height: 24px;}
+.famousTeacher .k_box{padding: 20px 0 0 8px}
+.famousTeacher .k_box li{width: 217px;float: left;margin: 0 22px 40px 0}
+.famousTeacher .k_box .picBox{width: 215px;border: 1px solid #d5d5d5;border-bottom: 0}
+.famousTeacher .k_box .pic{width: 201px;height: 251px;display: block;margin:8px auto;}
+.famousTeacher .k_box .pTitle{display: block;height: 40px;line-height: 20px;overflow: hidden;padding: 0 7px;font-size: 16px;color: #000;margin-bottom: 5px;}
+.famousTeacher .k_box .pBtn{display: block;width: 217px;height: 36px;line-height: 36px;color: #fff;background: #ff9a00;text-align: center;font-size: 16px;}
+.famousTeacher .news_box{padding: 20px 0 30px 4px}
+.famousTeacher .news_box li{float: left;}
+.famousTeacher .news_box .tips{background: #cde6fc;padding: 5px 20px 10px; line-height: 20px;font-size: 14px;width: 900px;color: #000000}
+
+
+
+
+/*定义宽度开始*/
+.famousTeacher .w_655{width: 640px;}
+.famousTeacher .w_300{width: 300px;}
+.famousTeacher .w_642{width: 642px;}
+.famousTeacher .w_374{width: 374px;}
+.famousTeacher .w_364{width: 364px;}
+.famousTeacher .w_555{width: 555px;}
+/*定义宽度结束*/
+/*向上浮动距离开始*/
+.famousTeacher .mart_20{margin-top: -20px;}
+.famousTeacher .mart_50{margin-top: -50px;}
+.famousTeacher .marb_10{margin-bottom: 10px;}
+.famousTeacher .pdt_10{padding-top: 10px;}
+.famousTeacher .pdb_20{padding-bottom: 20px;}
+/*向上浮动距离结束*/

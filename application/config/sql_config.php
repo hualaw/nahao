@@ -21,6 +21,10 @@ $config['sql_config'] = array(
     'class' => array(
         TABLE_CLASS => false
     ),
+    'class_index' => array(
+        TABLE_CLASS => false,
+        TABLE_ROUND => array(TABLE_CLASS.'.round_id='.TABLE_ROUND.'.id','left')
+    ),
     'course' => array(
         TABLE_COURSE => false
     ),
@@ -47,8 +51,20 @@ $config['sql_config'] = array(
     'lesson' => array(
         TABLE_LESSON => false
     ),
+    'permission' => array(
+        TABLE_PERMISSION => false
+    ),
+    'resource' => array(
+        TABLE_RESOURCE => false
+    ),
     'round' => array(
         TABLE_ROUND => false
+    ),
+    'round_index' => array(
+        TABLE_ROUND => false,
+        TABLE_ROUND_TEACHER_RELATION => array(TABLE_ROUND . '.id=' . TABLE_ROUND_TEACHER_RELATION . '.round_id', 'left'),
+        TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.id', 'left'),
+        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
     ),
     'round_info' => array(
         TABLE_ROUND => false,
@@ -56,6 +72,7 @@ $config['sql_config'] = array(
         TABLE_COURSE_TYPE => array(TABLE_ROUND . '.course_type=' . TABLE_COURSE_TYPE . '.id', 'left'),
         TABLE_ROUND_TEACHER_RELATION => array(TABLE_ROUND . '.id=' . TABLE_ROUND_TEACHER_RELATION . '.round_id', 'left'),
         TABLE_USER => array(TABLE_ROUND_TEACHER_RELATION . '.teacher_id=' . TABLE_USER . '.id', 'left'),
+//        TABLE_USER_INFO => array(TABLE_USER . '.id=' . TABLE_USER_INFO . '.user_id', 'left'),
     ),
     'round_teachers' => array(
         TABLE_ROUND_TEACHER_RELATION => false,

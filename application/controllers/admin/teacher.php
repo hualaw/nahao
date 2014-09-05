@@ -77,7 +77,7 @@ class Teacher extends NH_Admin_Controller {
         $province=$this->business_lecture->all_province();
         $this->load->model('business/common/business_subject','subject');
         $subject=$this->subject->get_subjects();
-        $total_count=$this->teacher->total_count();
+        $total_count=$int_count;
         $day_count=$this->teacher->day_count();
         $this->load->library('pagination');
         $config = config_item('page_admin');
@@ -92,6 +92,7 @@ class Teacher extends NH_Admin_Controller {
         $config_title = config_item('teacher_title');
         $config_stage = config_item('stage');
         $config_account = config_item('account');
+        $this->smarty->assign('arr_query_param',$arr_query_param);
         $this->smarty->assign('total_count',$total_count);
         $this->smarty->assign('day_count',$day_count);
         $this->smarty->assign('province',$province);
@@ -127,13 +128,15 @@ class Teacher extends NH_Admin_Controller {
         $str_upToken = $obj_putPolicy->Token ( null );
         $str_salt = random_string('alnum', 6);
 
-        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt.'.png';
-        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt.'.png';
-        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt.'.png';
+        $str_work_img_file_name = 'teacher_'.time().'_work_auth_i'.$str_salt;
+        $str_auth_img_file_name = 'teacher_'.time().'_teacher_auth_i'.$str_salt;
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
+        $str_avatar_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
         $this->smarty->assign('upload_token',$str_upToken);
         $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
         $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
         $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+        $this->smarty->assign('upload_avatar_img_key', $str_avatar_img_file_name);
 
         $this->smarty->assign('config_bank',$config_bank);
         $this->smarty->assign('config_title',$config_title);
@@ -149,6 +152,7 @@ class Teacher extends NH_Admin_Controller {
     public function check_techer_post()
     {
         $post=$this->input->post(NULL,TRUE);
+        //var_dump($post);die;
         if($this->teacher->check_post($post))
         {
             redirect('teacher');
@@ -210,7 +214,8 @@ class Teacher extends NH_Admin_Controller {
     public function nickname()
     {
         $nickname=$this->input->post('nickname',TRUE);
-        $nick=$this->teacher->check_nick_name($nickname);
+        $user_id=$this->input->post('user_id',TRUE);
+        $nick=$this->teacher->check_nick_name($nickname,$user_id);
         echo $nick;
         //echo $nick;
     }
@@ -238,8 +243,8 @@ class Teacher extends NH_Admin_Controller {
      */
     public function check_email()
     {
-        $email=$this->input->post('email');
-        echo $this->teacher->check_email_tec($email);
+          $email=$this->input->post('email');
+          echo $this->teacher->check_email_tec($email);
     }
 
      /**
@@ -250,7 +255,7 @@ class Teacher extends NH_Admin_Controller {
     {
         $user_id=$this->input->get('user_id',TRUE);
         $teacher_details=$this->teacher->teacher_momdify($user_id);
-       // var_dump($teacher_details);die;
+//        var_dump($teacher_details);die;
         $city=$this->teacher->city1($teacher_details['user_info_data']['province']);
         $area=$this->teacher->area1($teacher_details['user_info_data']['city']);
         if($teacher_details['user_info_data']['area']!=0)
@@ -285,6 +290,23 @@ class Teacher extends NH_Admin_Controller {
         {
             $this->smarty->assign('subject_tea_id',$subject_tea_id[0]);
         }
+
+        require_once APPPATH . 'libraries/qiniu/rs.php';
+        require_once APPPATH . 'libraries/qiniu/io.php';
+        Qiniu_SetKeys ( NH_QINIU_ACCESS_KEY, NH_QINIU_SECRET_KEY );
+        $obj_putPolicy = new Qiniu_RS_PutPolicy ( NH_QINIU_BUCKET );
+        $str_upToken = $obj_putPolicy->Token ( null );
+        $str_salt = random_string('alnum', 6);
+        $str_work_img_file_name = 'teacher_'.date('YmdHis',time()).'_work_auth_i'.$str_salt;
+        $str_auth_img_file_name = 'teacher_'.date('YmdHis',time()).'_teacher_auth_i'.$str_salt;
+        $str_title_img_file_name = 'teacher_'.date('YmdHis',time()).'_title_auth_i'.$str_salt;
+        $str_avatar_img_file_name = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;
+        $this->smarty->assign('upload_token',$str_upToken);
+        $this->smarty->assign('upload_work_img_key', $str_work_img_file_name);
+        $this->smarty->assign('upload_auth_img_key', $str_auth_img_file_name);
+        $this->smarty->assign('upload_title_img_key', $str_title_img_file_name);
+        $this->smarty->assign('upload_avatar_img_key', $str_avatar_img_file_name);
+
         $this->smarty->assign('user_id',$user_id);
         $this->smarty->assign('phone',$phone);
         $this->smarty->assign('school',$school);
@@ -310,16 +332,71 @@ class Teacher extends NH_Admin_Controller {
         {
             redirect('teacher');
         }
+        else
+        {
+            redirect("teacher/modify?user_id=$post_edit[user_id]");
+        }
     }
     /**
      * Ajax添加课程时选取教师列表
      * @author yanrui@tizi.com
      */
     public function teachers(){
+        $arr_teachers = $this->input->post("teacher_ids");
         $arr_return = array();
         if($this->is_ajax()){
-            $arr_return = $this->teacher->get_teacher_list(array(),0,20);
+            $arr_return = $this->teacher->get_teacher_list(array(TABLE_USER.'.status'=>TABLE_USER_DIC_STATUS_ON),0,30);
+            if($arr_teachers){
+                foreach($arr_return as $k => $v){
+                    if(in_array($v['id'],$arr_teachers)){
+                        unset($arr_return[$k]);
+                    }
+                }
+            }
+            $arr_return = array_values($arr_return);
         }
         self::json_output($arr_return);
+    }
+
+    /**
+     *根据昵称查询老师
+     * @author shangshikai@tizi.com
+     */
+    public function select_nickname()
+    {
+        $nickname=$this->input->post('nickname',TRUE);
+        $nick=$this->teacher->nick_teacher($nickname);
+        echo json_encode($nick);
+    }
+    /**
+     * 修改教师密码
+     * @author shangshikai@tizi.com
+     */
+    public function modify_password()
+    {
+        $pwd_data=$this->input->post(NULL,TRUE);
+        $pwd=$this->teacher->edit_password($pwd_data);
+        echo $pwd;
+    }
+    /**
+     * 获取手机号
+     * @author shangshikai@tizi.com
+     */
+    public function get_phone()
+    {
+        $id=$this->input->post('id',TRUE);
+        echo get_pnum_phone_server($id);
+
+    }
+    /**
+     * 修改手机号
+     * @author shangshikai@tizi.com
+     */
+    public function modify_phone()
+    {
+        $id=$this->input->post('id',TRUE);
+        $phone=$this->input->post('phone',TRUE);
+        $int_phone=$this->teacher->phone_edit($id,$phone);
+        echo $int_phone;
     }
 }

@@ -15,7 +15,7 @@
         <div class="col-md-2">
             <select  class="form-control input-sm" name="subject">
                 <option value="">全部学科</option>
-                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v}</option>{/foreach}
+                {foreach $subjects as $k => $v}<option value="{$k}" {if isset($query_param.subject) AND $query_param.subject==$k }selected{/if}>{$v.name}</option>{/foreach}
             </select>
         </div>
         <div class="col-md-2">
@@ -61,12 +61,16 @@
         <tr>
             <!--<td><input type="checkbox"></td>-->
             <td>{$v.id}</td>
-            <td>{$v.title}</td>
+            <td>
+                <img id="img_url_recent_view" src="{if $v.img}{get_img_url($v.img,'course_s3')}{/if}" ><br />
+                {$v.title}<br />
+                {if isset($education_types[$v.education_type])}教育类型：{$education_types[$v.education_type]}{/if}
+            </td>
             <td>{$v.lesson_count}</td>
             <td>{$v.nickname}</td>
             <td>{if isset($v.status)}{$course_status[$v.status]}{/if}</td>
-            <td>{$subjects[$v.subject]}</td>
-            <td>{$course_types[$v.course_type]}</td>
+            <td>{if $v.education_type==1 && isset($education_subjects[$v.education_type][$v.subject])}{$education_subjects[$v.education_type][$v.subject]}{elseif $v.education_type==2 && isset($education_subjects[$v.education_type][$v.quality])}{$education_subjects[$v.education_type][$v.quality]}{/if}</td>
+            <td>{if isset($course_types[$v.course_type])}{$course_types[$v.course_type]}{/if}</td>
             <td>{date('Y-m-d H:i',$v.create_time)}</td>
             <td>
                 <a href="/course/edit/{$v.id}">修改</a>
@@ -87,7 +91,6 @@
     </tbody>
 </table>
 共{$count}条记录&nbsp;&nbsp;{$page}
-{include file="admin/course_list_operation.html"}
 
 
 

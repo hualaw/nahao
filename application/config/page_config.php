@@ -64,7 +64,7 @@ $config['page_teacher']['uri_segment']      =   3;
 $config['page_teacher']['num_links']        =   3;
 $config['page_teacher']['full_tag_open']    =   '<div class="page cf">';
 $config['page_teacher']['full_tag_close']   =   '</div>';
-$config['page_teacher']['first_link']       =   '首页';;
+$config['page_teacher']['first_link']       =   '首页';
 $config['page_teacher']['last_link']        =   '尾页';
 $config['page_teacher']['cur_tag_open']     =   '<a class="active" >';
 $config['page_teacher']['cur_tag_close']    =   '</a>';
@@ -74,3 +74,23 @@ $config['page_teacher']['next_tag_open'] = '<div class="next fl">';
 $config['page_teacher']['next_tag_close'] = '</div>';
 $config['page_teacher']['prev_tag_open'] = '<div class="prev fl">';
 $config['page_teacher']['prev_tag_close'] = '</div>';
+
+$config['page_user']['uri_segment']      =   4;
+$config['page_user']['num_links']        =   3;
+
+
+$config['page_user']['full_tag_open']    =   '<div class="page cf"><ul class="cf">';
+$config['page_user']['full_tag_close']   =   '</ul></div>';
+$config['page_user']['first_link']       =   '首页';
+$config['page_user']['last_link']        =   '尾页';
+$config['page_user']['cur_tag_open']     =   '<li class="active"><a href="javascript:void(0);">';
+$config['page_user']['cur_tag_close']    =   '</a></li>';
+$config['page_user']['prev_link']        =   '上一页';
+$config['page_user']['next_link']        =   '下一页';
+$config['page_user']['next_tag_open'] = '<li class="next">';
+$config['page_user']['next_tag_close'] = '</li>';
+$config['page_user']['prev_tag_open'] = '<li class="prev">';
+$config['page_user']['prev_tag_close'] = '</li>';
+$config['page_user']['num_tag_open'] = '<li>';
+$config['page_user']['num_tag_close'] = '</li>';
+$config['page_user']['page_query_string'] = TRUE;

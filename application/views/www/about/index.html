@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>关于我们</title>
-<meta name="description" content="" />
+<title>{$seo_title}</title>
+<meta name="description" content="{$seo_description}" />
 <meta name="keywords" content="">
 <link rel="stylesheet" type="text/css" href="{static_url('/css/about/style.css')}" />
 <!-- 加载头部公共变量定义开始 -->
@@ -15,7 +15,7 @@
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap layout about" id="nahaoModule" module="about">
+<div class="wrap layout about" id="nahaoModule" module="about" data_page="studentPage">
 
 	<!--关于我们 左侧 开始-->
 	<div class="sideLeftNav fl" id="sideLeftNav">
@@ -54,12 +54,28 @@
     <div class="aboutContent fr" id="aboutContent" module="service">
 	    {include file="www/include/about/page/service.htm"}
     </div>
+    {else if $str_pram == 'wish'}
+	<!--总裁寄语-->
+    <div class="aboutContent fr" id="aboutContent" module="wish">
+	    {include file="www/include/about/page/wish.htm"}
+    </div>
+    {else if $str_pram == 'link'}
+	<!--总裁寄语-->
+    <div class="aboutContent fr" id="aboutContent" module="link">
+	    {include file="www/include/about/page/link.htm"}
+    </div>
     <!--关于我们 右侧 结束-->
     {/if}
 </div>
 <!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
 <!-- js引入开始 -->
 {include file="www/include/js.htm"}
 <!--js引入结束-->
+<!-- player播放器js开始 -->
+<script type="text/javascript" src="{static_url('/lib/nahaoPlayer/6.7.0/TiZiplayer.js')}"></script>
+<!-- player播放器js结束 -->
 </body>
 </html>

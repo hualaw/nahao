@@ -17,7 +17,9 @@ class NH_User_Controller extends NH_Controller
         parent::__construct();
         $this->load->model('business/common/business_user');
         $this->_load_user_detail();
-        $this->smarty->assign('user_detail', $this->_user_detail);
+//         print_r($this->_user_detail);
+//         exit();
+        $this->smarty->assign('user_detail', $this->_user_detail,true);// true->nocache
     }
     
     /**
@@ -29,7 +31,13 @@ class NH_User_Controller extends NH_Controller
         $user_id = $this->session->userdata('user_id');
         if($user_id) {
             $this->_user_detail = $this->business_user->get_user_detail($user_id);
+//            print_r($this->_user_detail);
+//            exit;
+            //phone 和 phone_mask 从用户的session中来取, 保持session和user_detail统一
+//             log_message('debug_nahao', "user_detail is:".print_r($this->_user_detail,1));
             $this->_user_detail['phone'] = $this->session->userdata('phone');
+            $this->_user_detail['phone_mask'] = $this->session->userdata('phone_mask');
+            $this->_user_detail['teacher_intro'] = strip_tags($this->_user_detail['teacher_intro']);
         }
     }
    
@@ -44,9 +52,9 @@ class NH_User_Controller extends NH_Controller
             $arr_return = array('status' => ERROR, info => '用户信息错误');
             self::json_output($arr_return);
         }
-        $old_password = $this->input->post('password');
-        $new_password = $this->input->post('set_password');
-        $password_repition = $this->input->post('reset_password');
+        $old_password = $this->input->post('encrypt_password');
+        $new_password = $this->input->post('encrypt_set_password');
+        $password_repition = $this->input->post('encrypt_reset_password');
         $check_ret = $this->business_user->check_user_password($user_id, $old_password);
         if(!$check_ret || ($new_password != $password_repition)) {
             $arr_return = array('status' => ERROR, 'info' => '输入的密码不正确!');
@@ -109,7 +117,7 @@ class NH_User_Controller extends NH_Controller
         //user photo name
         $this->load->helper('string');
         $str_salt = random_string('alnum', 6);
-        $avatar_key = 'user_avartar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
+        $avatar_key = 'user_avatar_'.$user_id.date('YmdHis',time()).'_i'.$str_salt;//头像图片在qiniu上的key
         $avatar_source_key = 'source_' . $avatar_key;//头像原图的key
         $result = array('success'=>false,'msg'=>'上传失败');
         $success_num = 0;        
@@ -141,7 +149,7 @@ class NH_User_Controller extends NH_Controller
             }
             
             if($success_num == 2) {
-                $avatar_url = NH_QINIU_URL . $result['avatar_key'];
+                $avatar_url = $result['avatar_key'];
                 $update_data = array('avatar' => $result['avatar_key']);
                 $this->business_user->modify_user($update_data, $user_id);
                 $this->session->set_userdata('avatar', $avatar_url);

@@ -5,6 +5,7 @@ define(function(require,exports){
     exports.sendValidateCode = function (){
         $('.code').click(function() {
             var _this = $(this);
+            _this.attr("disabled",true);
             var phone = $("input[name='phone_number']").val();
             if(!(phone)) {
                 $.tiziDialog({
@@ -12,7 +13,7 @@ define(function(require,exports){
 				    icon:null
 		        });
                 return false;
-            } else if(!(/^1[3|5|8]\d{9}$/.test(phone))) {
+            } else if(!(/^1[3|5|7|8]\d{9}$/.test(phone))) {
                 $.tiziDialog({
 		            content:'请输入正确的手机号',
 				    icon:null
@@ -22,7 +23,7 @@ define(function(require,exports){
             $.ajax({
                 url : student_url + 'login/send_reset_captcha',
                 type : 'post',
-                data : 'phone='+ phone +'&type=3',
+                data : {'phone' : phone, 'type' : 3},
                 dataType : 'json',
                 success : function (result) {
                     if(result.status == 'error') {

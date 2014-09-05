@@ -19,7 +19,7 @@ $config['static_url'] = 'http://static.nahao.com/';
 $config['teacher_url'] = 'http://teacher.nahao.com/';
 $config['admin_url'] = 'http://admin.nahao.com/';
 $config['student_url'] = 'http://www.nahao.com/';
-$config['course_url'] = 'http://course.nahao.com/';
+$config['course_url'] = 'http://www.nahao.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -249,15 +249,15 @@ $config['encryption_key'] = 'nahao';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'NHID';
-$config['sess_expiration']		= 7200;
+$config['sess_cookie_name']		= (DOMAIN=='admin') ? 'NHAID' : 'NHID';
+$config['sess_expiration']		= 3600*2;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'nahao_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
-$config['sess_time_to_update']	= 300;
+$config['sess_time_to_update'] = 604800;
 $config['sess_autologin_expiration'] = 604800; //nahao define
 
 /*
@@ -363,6 +363,8 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+//短信余额不足，发送报警的手机号 
+$config['sms_send_mobile'] = array('牟宗贵'=>'13581670176','刘华'=>'18600364806','宋传胜'=>'13501138023','闫睿'=>'18611859806','张帅奇'=>'18600294476');
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

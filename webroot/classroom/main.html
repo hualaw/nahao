@@ -99,9 +99,13 @@ function PopUpPageWin(type,classid)
         window.parent.teacher_get_exercise_page(classid);
     }else if(type == "teacher_get_exercise_stat"){
         window.parent.teacher_get_exercise_stat(classid);
+    }else if(type == "student_send_evaluation"){
+    	window.parent.student_send_evaluation(classid);
     }
-    console.log(type+" "+classid);
+    //console.log(type+" "+classid);
 }
+
+
 </script> 
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -119,6 +123,16 @@ function closeIFrame(divID){
 	
 	};
 }
+function getCookie(name) 
+{ 
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+ 
+    if(arr=document.cookie.match(reg))
+ 
+        return unescape(arr[2]); 
+    else 
+        return null; 
+} 
 
 function request(paras){
 			var url = location.href;
@@ -134,7 +148,7 @@ function request(paras){
 			return returnValue;
 			}
 		}
-	var mid = request("ClassID")
+/*	var mid = request("ClassID")
 	var nameValue =request("UserName")
 	var addr = request("Addr")
 	var userType= request("UserType")
@@ -144,8 +158,16 @@ function request(paras){
 	var teacher_Type = request("teacher_Type");
 	var countryID = request("countryID");
 	var timelong = request("timelong");
+	var ClassName = request("ClassName");*/
+	var ClassName = request("ClassName");
+	var McuAddr = request("McuAddr");
+	var nameValue =request("UserName");
+    var nhp = request("p") ;
     var clsSwfVer = request("SwfVer");
-    var ClassName = request("ClassName");
+    var nhcookie = getCookie('NHID');
+    var nhacookie = getCookie('NHAID');
+    nhacookie = nhacookie==null || nhacookie== 'undefined' ? '' : nhacookie;
+    nhcookie = nhcookie==null || nhcookie== 'undefined' ? '' : nhcookie;
 function downLoadOCX(){
 	window.open("http://www.flash.com/upload/package/setup.exe","_blank");
 }
@@ -177,8 +199,10 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	// if we've detected an acceptable version
 	// embed the Flash Content SWF when all tests are passed
 	
-	var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName="+ClassName+"&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
-	
+	//var str = "UserDBID="+UserDBID+"&ClassID="+mid+"&UserName="+nameValue+"&UserType="+userType+"&ClassName="+ClassName+"&Addr="+ addr + "&McuAddr="+McuAddr+"&teach_Type="+teach_Type+"&teacher_Type="+teacher_Type+"&countryID="+countryID+"&timelong="+timelong+"&ClassIco=/a.png";
+//	var str = "p="+nhp+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie+"&ClassName="+ClassName+"&UserName="+nameValue+"&McuAddr="+ McuAddr;
+	var localurl = location.href;
+	var str = (localurl.substring(localurl.indexOf("?")+1,localurl.length))+"&UserCookie="+nhcookie+"&UseraCookie="+nhacookie;
 	AC_FL_RunContent(
 			"src", "MeetRoomClient?v="+clsSwfVer,
 			"FlashVars", str,

@@ -3,12 +3,14 @@
 	<ul class="tabh cf">
 		<li class="inforOn">个人资料</li>
 		<li>修改头像</li>
+		{if $reg_type != $smarty.const.REG_LOGIN_TYPE_THIRD_PART}
 		<li>修改密码</li>
+		{/if}
 	</ul>
 	<div class="inforTabBox">
-        {if $reg_type == 2}
+        {if $reg_type == $smarty.const.REG_LOGIN_TYPE_EMAIL}
 		<!--邮箱版-->
-		<form action="" method="post"  class="emailForm">
+		<form action="" method="post"  class="emailForm" onsubmit="return false;">
 			<p class="formName">邮箱
 				<span class="verWay">{$user_detail.email}</span>
 				<span class="hasVer">（{if $user_detail.email_verified}已{else}未{/if}激活）</span>
@@ -18,7 +20,8 @@
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
                         <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
-						<span class="Validform_checktip fl"></span>
+						<div class="Validform_tip_info fl undis">请输入昵称</div>
+                        <div class="Validform_checktip fl"></div>
 					</div>
 				</li>
 				<li class="locaSele">
@@ -108,40 +111,37 @@
 					<p class="optional noFillin">手机号</p>
                     <div class="cf">
 						<div class="fl">
-                            <input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text" {if $user_detail.phone_verified}disabled{/if}>
+                            <input type="text" class="cInput phone_number" value="{$user_detail.phone}" name="phone" validName="text"{if $user_detail.phone_verified}disabled{/if}>
                             <span class="Validform_checktip"></span>
 						</div>
 					</div>
 				</li>
-                {if $user_detail.phone_verified == 0}
-				<li class="phoneVer">
-					<p class="optional noFillin">手机验证码</p>
-					<div class="cf">
-						<div class="fl">
-							<input type="text" name="code" class="pUname fl cInput yh" validName="text">
-                            <input type="hidden" name='verify_type' value="2">
-							<span class="Validform_checktip fl"></span>
-						</div>
-						<a href="javascript:void(0)" class="btn blueBtn pnoneCode sendPhoneCode">免费获取验证码</a>
-						<span class="bth pnoneCode codeSpan undis">60秒后获取验证码</span>
-					</div>
-				</li>
-                {/if}
-				<li class="attent">
-					<p class="optional noFillin">关注学科</p>
-                    {foreach $subjects as $key => $val}
-					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
+                <li class="attent">
+                    <p class="optional noFillin">学科辅导科目</p>
+                    {foreach $xueke_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
                     <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
-					<div class="cf">
-						<p class="attNote fl">注：最多可选择3项</p>
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
+                    <div class="cf">
+                        <span class="attNote fl">注：最多可选择3项</span>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
+                <li class="suzhi_attent">
+                    <p class="optional noFillin">素质教育科目</p>
+                    {foreach $suzhi_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_suzhi_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_suzhi_subjects" id="selected_suzhi_subjects" value="{$subject_suzhi_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
 				<li>
 					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
-						<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"></input>
+						<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"/>
 						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
                         <input type="hidden" value="" name="province_id" id="province_id" />
@@ -157,7 +157,7 @@
 			</ul>
 		</form> 
 		<!--手机版-->
-        {elseif $reg_type == 1}
+        {elseif $reg_type == $smarty.const.REG_LOGIN_TYPE_PHONE}
 		<form action="" method="post" class="phoneForm">
 			<p class="formName">手机号
 				<span class="verWay">{$user_detail.phone}</span>
@@ -168,7 +168,8 @@
 					<p class="formName"><span>*</span>昵称</p>
 					<div class="cf">
                         <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
-						<span class="Validform_checktip fl"></span>
+						<div class="Validform_tip_info fl undis">请输入昵称</div>
+                        <div class="Validform_checktip fl"></div>
 					</div>
 				</li>
 				<li>
@@ -259,10 +260,162 @@
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
+                <li class="attent">
+                    <p class="optional noFillin">学科辅导科目</p>
+                    {foreach $xueke_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
+                <li class="suzhi_attent">
+                    <p class="optional noFillin">素质教育科目</p>
+                    {foreach $suzhi_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_suzhi_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_suzhi_subjects" id="selected_suzhi_subjects" value="{$subject_suzhi_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
+				<li>					
+					<p class="optional noFillin">所属学校</p>
+					<div class="cf schoolPar">
+						<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"/>
+						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
+						<input type="hidden" value="" name="school_id" id="schoolVal" />
+						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
+						<input type="hidden" value="" name="school_type" id="school_type">
+						<input type="hidden" value="" name="schoolname" id="schoolname" />
+					</div>
+				</li>
+				<li>
+					<input type="submit" class="btn redBtn" value="保存">
+				</li>
+			</ul>
+		</form>
+        
+        <!--梯子版-->
+        {elseif $reg_type == $smarty.const.REG_LOGIN_TYPE_THIRD_PART}
+		<form action="" method="post" class="emailForm">
+			<p class="formName">登录方式:
+				<span class="verWay">梯子网账号</span>
+				<span class="hasVer"></span>
+			</p>
+			<ul>
+				<li>
+					<p class="formName"><span>*</span>昵称</p>
+					<div class="cf">
+                        <input type="text" name="nickname" class="pname fl cInput yh" validName="text" value="{$user_detail.nickname}">
+						<div class="Validform_tip_info fl undis">请输入昵称</div>
+                        <div class="Validform_checktip fl"></div>
+					</div>
+				</li>
+				<li>
+					<p class="formName"><span>*</span>地区</p>
+					<div class="cf" style="float:left">
+						<div class="fl">
+							<div>
+								<select name="province" id="province" validName="select" class="province">
+									<option value="">选择省份</option>
+                                    {foreach $province as $val}
+                                    <option value="{$val.id}" {if $val.id == $user_detail.province}selected{/if}>{$val.name}</option>
+                                    {/foreach}
+								</select>
+							</div>
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
+                    <div class="cf" style="float:left">
+						<div class="fl">
+							<div>
+								<select name="city" id="city" validName="select" class="city">
+									<option value="">选择城市</option>
+                                    {foreach $city as $val}
+                                    <option value="{$val.id}" {if $val.id == $user_detail.city}selected{/if}>{$val.name}</option>
+                                    {/foreach}
+								</select>
+							</div>
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
+                    <div class="cf">
+						<div class="fl">
+							<div id="area_div">
+                            {if !in_array($user_detail.province, $special_city)}
+								<select name="area" id="area" validName="select" class="area">
+									<option value="">选择地区</option>
+                                    {if $area}
+                                    {foreach $area as $val}
+                                    <option value="{$val.id}" {if $val.id == $user_detail.area}selected{/if}>{$val.name}</option>
+                                    {/foreach}
+                                    {/if}
+								</select>
+                            {/if}
+							</div>
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li>
+					<p class="formName">邮箱</p>
+					<div class="cf">
+                        <input type="text" name="email" class="ptEmail fl cInput yh" validName="text" value="{$user_detail.email}">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li>
+					<p class="optional noFillin">手机号</p>
+                    <div class="cf">
+						<div class="fl">
+                            <input type="text" class="cInput pthone_number" value="{$user_detail.phone}" name="phone" validName="text"{if $user_detail.phone_verified}disabled{/if}>
+                            <span class="Validform_checktip"></span>
+						</div>
+					</div>
+				</li>
+				<li>
+					<p class="formName"><span>*</span>年级</p>
+					<div class="cf">
+						<div class="fl">
+							<div>
+								<select name="grade" id="" validName="select" class="subjectInput select_beauty">
+									<option value="">选择年级</option>
+                                    {foreach $grades as $key => $val}
+									<option value="{$key}" {if $key == $user_detail.grade}selected{/if}>{$val}</option>
+                                    {/foreach}
+								</select>
+							</div>
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
+					<p class="detailText">提示：那好每年7月1日自动为您更新年级，如果信息有误，请您及时调整</p>
+				</li>
+				<li>
+					<p class="optional noFillin">真实姓名</p>
+					<div class="cf">
+						<input type="text" name="realname" class="pUname fl cInput yh" ignore="ignore" validName="text" value="{$user_detail.realname}">
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
+				<li>
+					<p class="optional noFillin">性别</p>
+					<div class="cf">
+						<div class="fl">
+                            {foreach $gender as $key => $val}
+							<input type="radio" name="gender" value="{$key}" class="radio" ignore="ignore" validName="radio" {if $user_detail.gender == $key}checked{/if}/> {$val}
+                            {/foreach}
+						</div>
+						<span class="Validform_checktip fl"></span>
+					</div>
+				</li>
 				<li class="attent">
-					<p class="optional noFillin">关注学科</p>
-                    {foreach $subjects as $key => $val}
-					<input type="button" name="focus_subjects" subject_id="{$val.id}" value="{$val.name}" class="btn {if in_array($val.id, $user_detail.student_subject)}attentd{/if}">
+					<p class="optional noFillin">学科辅导科目</p>
+                    {foreach $xueke_subjects as $key => $val}
+					<input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_subject)}attentd{/if}">
                     {/foreach}
                     <input type="hidden" name="selected_subjects" id="selected_subjects" value="{$subject_str}"/>
 					<div class="cf">
@@ -270,10 +423,21 @@
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
+                <li class="suzhi_attent">
+                    <p class="optional noFillin">素质教育科目</p>
+                    {foreach $suzhi_subjects as $key => $val}
+                    <input type="button" name="focus_subjects" subject_id="{$key}" value="{$val}" class="btn {if in_array($key, $user_detail.student_suzhi_subject)}attentd{/if}">
+                    {/foreach}
+                    <input type="hidden" name="selected_suzhi_subjects" id="selected_suzhi_subjects" value="{$subject_suzhi_str}"/>
+                    <div class="cf">
+                        <p class="attNote fl">注：最多可选择3项</p>
+                        <span class="Validform_checktip fl"></span>
+                    </div>
+                </li>
 				<li>					
 					<p class="optional noFillin">所属学校</p>
 					<div class="cf schoolPar">
-						<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"></input>
+						<input class="schoolFullName cInput yh" readonly="readonly" value="{foreach $school_area as $key => $val}{$val.name}{/foreach}{$school_name}"/>
 						<a href="javascript:void(0);" class="resetSchool" set="1" province="2" city="" county="500">{if $school_name}重设{else}选择{/if}学校</a>
 						<input type="hidden" value="" name="school_id" id="schoolVal" />
 						<input type="hidden" value="" name="area_county_id" id="area_county_id"/>
@@ -313,6 +477,7 @@
         </div>
         <!--添加头像结束-->
 	</div>
+	{if $reg_type != 3}
 	<div class="inforTabBox undis">
 		<!--修改密码-->
 		<form action="" method="post" onsubmit="return false;" class="ichangePWForm">
@@ -321,6 +486,7 @@
 					<p class="formName"><span>*</span>当前密码</p>
 					<div class="cf">
 						<input type="password" name="password" class="iniPassword fl cInput yh" validName="text">
+                        <input type="hidden" name="encrypt_password" value=""/>
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -328,6 +494,7 @@
 					<p class="formName"><span>*</span>新密码</p>
 					<div class="cf">
 						<input type="password" name="set_password" class="setPassword fl cInput yh" validName="text">
+                        <input type="hidden" name="encrypt_set_password" value=""/>
 						<span class="Validform_checktip fl"></span>
 					</div>
 				</li>
@@ -335,7 +502,8 @@
 					<p class="formName"><span>*</span>确认新密码</p>
 					<div class="cf">
 						<input type="password" name="reset_password" class="reSetPassword fl cInput yh" validName="text">
-						<span class="Validform_checktip fl"></span>
+                        <input type="hidden" name="encrypt_reset_password" value=""/>
+                        <span class="Validform_checktip fl"></span>
 					</div>
 				</li>
 				<li>
@@ -344,6 +512,7 @@
 			</ul>
 		</form>
 	</div>
+	{/if }
 </div>
 <!--选择学校-->
 {include file='common/setSchool.html'}

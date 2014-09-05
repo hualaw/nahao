@@ -59,7 +59,7 @@ function return_your_values($array,$field='id'){
  * @param bool $suffix
  * @return string
  */
-function csubstr($str, $start=0, $length, $charset="utf-8", $suffix=true)
+function csubstr($str, $start=0, $length, $charset="utf-8", $suffix='')
 {
 
    if(function_exists("mb_substr"))
@@ -89,7 +89,7 @@ function csubstr($str, $start=0, $length, $charset="utf-8", $suffix=true)
 
    }
 
-   if($suffix) return $slice."…";
+   if(!empty($suffix)) return $slice.$suffix;
 
    return $slice;
 
@@ -437,8 +437,8 @@ if (!function_exists('getHttpResponse')) {
  * @author yanrui@tizi.com
  */
 function static_url($str_url){
-//    return STATIC_FILE_URL . $str_url . '?v=' . STATIC_FILE_VERSION;
-    return STATIC_FILE_URL . '/'.config_item('static_version').$str_url . '?v=' . config_item('version');
+	$str_static_url = config_item('static_url').config_item('static_version').$str_url . '?v=' . config_item('version');
+	return $str_static_url;
 }
 
 /**
@@ -515,18 +515,73 @@ function is_email($str_email)
  * @return string
  * @author yanrui@tizi.com
  */
-function get_course_img_by_size($str_img_url, $str_size){
-    $str_return = NH_QINIU_URL.$str_img_url;
-    if(in_array($str_size,array('large','general','small'))){
-        $str_img_url .= '?imageView/1/w/';
-        if($str_size=='large'){
-            $str_img_url .= NH_COURSE_IMG_LARGE_WIDTH.'/h/'.NH_COURSE_IMG_LARGE_HEIGHT;
-        }else if($str_size=='general'){
-            $str_img_url .= NH_COURSE_IMG_GENERAL_WIDTH.'/h/'.NH_COURSE_IMG_GENERAL_HEIGHT;
-        }else if($str_size=='small'){
-            $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
-        }
-        $str_return = NH_QINIU_URL.$str_img_url;
+//function get_course_img_by_size($str_img_url, $str_size){
+//    $str_return = NH_QINIU_URL.$str_img_url;
+//    if(in_array($str_size,array('large','general','small','index','live','buy_before_top_big','buy_before_right_recommend','recent_view','index_avatar'))){
+////        $str_img_url .= '?imageView/2/w/';
+//        $str_img_url .= '?imageView/1/w/';
+//        if($str_size=='large'){
+//            $str_img_url .= NH_COURSE_IMG_LARGE_WIDTH.'/h/'.NH_COURSE_IMG_LARGE_HEIGHT;
+//        }else if($str_size=='general'){
+//            $str_img_url .= NH_COURSE_IMG_GENERAL_WIDTH.'/h/'.NH_COURSE_IMG_GENERAL_HEIGHT;
+//        }else if($str_size=='small'){
+//            $str_img_url .= NH_COURSE_IMG_SMALL_WIDTH.'/h/'.NH_COURSE_IMG_SMALL_HEIGHT;
+//        }else if($str_size=='index'){
+//            $str_img_url .= NH_COURSE_IMG_INDEX_WIDTH.'/h/'.NH_COURSE_IMG_INDEX_HEIGHT;
+//        }else if($str_size=='live'){
+//            $str_img_url .= NH_COURSE_IMG_LIVE_WIDTH.'/h/'.NH_COURSE_IMG_LIVE_HEIGHT;
+//        }else if($str_size=='buy_before_top_big'){
+//        	$str_img_url .= NH_BUY_BEFORE_TOP_BIG_IMG_WIDTH.'/h/'.NH_BUY_BEFORE_TOP_BIG_IMG_HEIGHT;
+//        }else if($str_size=='buy_before_right_recommend'){
+//        	$str_img_url .= NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_WIDTH.'/h/'.NH_BUY_BEFORE_RIGHT_RECOMMEND_IMG_HEIGHT;
+//        }else if($str_size=='recent_view'){
+//        	$str_img_url .= NH_RECENT_VIEW_IMG_WIDTH.'/h/'.NH_RECENT_VIEW_IMG_HEIGHT;
+//        }else if($str_size=='index_avatar'){
+//            $str_img_url .= NU_USER_AVATAR_EDGE.'/h/'.NU_USER_AVATAR_EDGE;
+//        }else if($str_size=='suggest'){
+//            $str_img_url .= NH_COURSE_IMG_SUGGEST_WIDTH.'/h/'.NH_COURSE_IMG_SUGGEST_HEIGHT;
+//        }
+//
+//        $str_return = NH_QINIU_URL.$str_img_url;
+//    }
+//    return $str_return;
+//}
+
+
+/**
+ * 获取七牛图片地址
+ * @param $str_img_uri
+ * @param $str_size
+ * @return string
+ * @author yanrui@tizi.com
+ */
+function get_img_url($str_img_uri, $str_size){
+    $str_return = '';
+    if($str_img_uri){
+        $int_server = nahao_hash($str_img_uri,4);
+        $str_img_url = str_replace('1',$int_server,NH_QINIU_URL).$str_img_uri;
+        $arr_allow_size = array(
+            'course_s1' => 'c.'.NH_IMG_SIZE_COURSE_W1.'.'.NH_IMG_SIZE_COURSE_H1,//230x147 首页直播课封面
+            'course_s2' => 'c.'.NH_IMG_SIZE_COURSE_W2.'.'.NH_IMG_SIZE_COURSE_H2,//367x235 首页课程列表封面
+            'course_s3' => 'c.'.NH_IMG_SIZE_COURSE_W3.'.'.NH_IMG_SIZE_COURSE_H3,//80x51 全局浏览记录课程封面,后台课程和轮列表封面
+            'course_s4' => 'c.'.NH_IMG_SIZE_COURSE_W4.'.'.NH_IMG_SIZE_COURSE_H4,//240x154 列表页课程列表封面
+            'course_s5' => 'c.'.NH_IMG_SIZE_COURSE_W5.'.'.NH_IMG_SIZE_COURSE_H5,//198x127 列表页猜你喜欢课程封面
+            'course_s6' => 'c.'.NH_IMG_SIZE_COURSE_W6.'.'.NH_IMG_SIZE_COURSE_H6,//440x280 购买前课程封面
+            'course_s7' => 'c.'.NH_IMG_SIZE_COURSE_W7.'.'.NH_IMG_SIZE_COURSE_H7,//200x127 购买前推荐课程封面
+            'course_s8' => 'c.'.NH_IMG_SIZE_COURSE_W8.'.'.NH_IMG_SIZE_COURSE_H8,//130x82 我的课程页面列表课程封面
+            'course_s9' => 'c.'.NH_IMG_SIZE_COURSE_W9.'.'.NH_IMG_SIZE_COURSE_H9,//50x50 我的订单页面列表课程封面
+            'course_s10' => 'c.'.NH_IMG_SIZE_COURSE_W10.'.'.NH_IMG_SIZE_COURSE_H10,//238x152 我的课程页面 最新课程和热报课程
+
+            'avatar_s1' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S1.'.'.NH_IMG_SIZE_USER_AVATAR_S1,//130x130 教师修改头像前预览
+            'avatar_s2' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S2.'.'.NH_IMG_SIZE_USER_AVATAR_S2,//100x100 购买前教师团队头像
+            'avatar_s3' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S3.'.'.NH_IMG_SIZE_USER_AVATAR_S3,//70x70 购买后教师团队头像
+            'avatar_s4' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S4.'.'.NH_IMG_SIZE_USER_AVATAR_S4,//50x50 首页登录后，个人中心左侧，购买前评价
+            'avatar_s5' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S5.'.'.NH_IMG_SIZE_USER_AVATAR_S5,//45x45 首页课程列表封面翻转后教师头像，列表页课程列表封面翻转后教师头像
+            'avatar_s6' => 'a.'.NH_IMG_SIZE_USER_AVATAR_S6.'.'.NH_IMG_SIZE_USER_AVATAR_S6,//35x35 购买课程后页面 右侧头像
+
+            'profile_s1' => 'p.'.NH_IMG_SIZE_USER_PROFILE_W1.'.'.NH_IMG_SIZE_USER_PROFILE_H1,//300x225 教师资格证书
+        );
+        $str_return = array_key_exists($str_size,$arr_allow_size) ? $str_img_url.'/'.$arr_allow_size[$str_size].'.jpg' : $str_img_url;
     }
     return $str_return;
 }
@@ -566,10 +621,13 @@ function nh_curl($str_url,$arr_param,$str_type='post') {
     if($str_type=='post'){
         curl_setopt($obj_curl, CURLOPT_POST, 1);
         curl_setopt($obj_curl, CURLOPT_POSTFIELDS, http_build_query($arr_param));
+    }elseif($str_type=='delete'){
+        curl_setopt($obj_curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        $str_url .= '?'.http_build_query($arr_param);
     }else{
         $str_url .= '?'.http_build_query($arr_param);
     }
-//    o($str_url,true);
+//    o($str_url);
     curl_setopt($obj_curl,CURLOPT_URL,$str_url);
 //    curl_setopt($obj_curl, CURLOPT_HEADER,array("Content-length: 99999") ); // 设置header 过滤HTTP头
     curl_setopt($obj_curl, CURLOPT_HEADER,0); // 设置header 过滤HTTP头
@@ -599,7 +657,7 @@ function get_meeting_token($int_meeting_id = 0,$int_user_type = NH_MEETING_TYPE_
         );
         if($int_meeting_id > 0){
             $arr_param['meeting_id'] = $int_meeting_id;
-            $arr_param['params'] = json_encode(array('UserName' => 'yanrui'));
+            $arr_param['params'] = json_encode(array('UserName' => 'nahao'));
         }
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
@@ -626,13 +684,14 @@ function general_classroom_id($arr_param){
     $int_return = 0;
     if($arr_param){
         $str_url = NH_MEETING_URL.'api/meetings/';
+//        echo $str_url;
         $arr_meeting_param = get_meeting_param();
         $arr_param = array_merge($arr_param,$arr_meeting_param);
         $str_response = nh_curl($str_url,$arr_param);
         //log
         if($str_response){
             $arr_response = json_decode($str_response,true);
-//            o($str_response);
+//            o($str_response,true);
             $int_return = ($arr_response AND isset($arr_response['id'])) ? $arr_response['id'] : 0;
         }
     }
@@ -660,6 +719,7 @@ function set_courseware_to_classroom($int_classroom_id,$int_courseware_id){
         //TODO log
         if($str_response){
             $arr_response = json_decode($str_response,true);
+//            o($arr_response,true);
             $bool_flag = ($arr_response AND isset($arr_response['status'])) ? $arr_response['status'] : false;
         }
     }
@@ -741,9 +801,9 @@ function test_nahao_classroom($str_uri,$arr_param=array()){
     $arr_meeting_param = get_meeting_param();
     $arr_param = $arr_param ? array_merge($arr_param,$arr_meeting_param) : $arr_meeting_param;
     $str_response = nh_curl($str_url,$arr_param,'get');
-//    o($str_url);
-//    o($arr_param);
-//    o(json_decode($str_response));
+    o($str_url);
+    o($arr_param);
+    o(json_decode($str_response));
     exit;
 }
 
@@ -767,6 +827,8 @@ function get_courseware_info($int_courseware_id){
 //    "display_updated_at": "2014-06-18 17:12"
     $arr_response = array();
     $str_url = NH_MEETING_URL.'api/files/'.$int_courseware_id.'/';
+//    $str_url = 'http://classapi.tizi.com/api/files/'.$int_courseware_id.'/';
+
     $arr_meeting_param = get_meeting_param();
     $str_response = nh_curl($str_url,$arr_meeting_param,'get');
     if($str_response){
@@ -774,4 +836,162 @@ function get_courseware_info($int_courseware_id){
         $arr_response = isset($arr_response['id']) ? $arr_response : array();
     }
     return $arr_response;
+}
+
+function get_courseware_status($int_courseware_id){
+    $arr_response = array();
+    $str_url = NH_MEETING_URL.'api/files/'.$int_courseware_id.'/status/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'get');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+//        o($arr_response,true);
+        $arr_response = isset($arr_response['status']) ? $arr_response : array();
+    }
+    return $arr_response;
+}
+
+function reload_courseware($int_classroom_id){
+    $arr_response = array();
+    $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/reload/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'post');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+//        o($arr_response,true);
+        $arr_response = isset($arr_response['status']) ? $arr_response : array();
+    }
+    return $arr_response;
+}
+
+function get_coursewares_by_classroom_id($int_classroom_id){
+    $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/files/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'get');
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+        $arr_ids = array();
+        if(isset($arr_response['count']) AND $arr_response['count'] > 0){
+            foreach($arr_response['results'] as $files){
+                $arr_ids[] = $files['id'];
+            }
+        }
+        $arr_response = $arr_ids;
+    }
+    return $arr_response;
+}
+
+function delete_courseware_by_classroom_id($int_classroom_id,$int_courseware_id){
+    $str_url = NH_MEETING_URL.'api/meetings/'.$int_classroom_id.'/files/'.$int_courseware_id.'/';
+    $arr_meeting_param = get_meeting_param();
+    $str_response = nh_curl($str_url,$arr_meeting_param,'delete');
+//    o($str_response,true);
+    if($str_response){
+        $arr_response = json_decode($str_response,true);
+//        o($arr_response,true);
+    }
+    $arr_response = isset($arr_response['status']) ? $arr_response : array();
+}
+
+/**
+ * 判断是否有权限
+ * @param string $ctrl
+ * @param string $act
+ * @return bool
+ */
+function pass($ctrl = '', $act = '')
+{
+	static $permissions = null;
+	if ($permissions === null) {
+		$CI =& get_instance();
+		$permissions = false;
+		if ($CI->userinfo) {
+			$user = $CI->userinfo;
+			$admin_group = T(TABLE_ADMIN_PERMISSION_RELATION)->getOneRowByColumn('admin_id',$user['id']);
+			if ((!empty($admin_group)&&($admin_group['group_id'] == 6))||$user['id'] == 1) {
+				$permissions = true;
+			} else{
+				$data  = T(TABLE_ADMIN_PERMISSION_RELATION . ' AS apr')->find(array('apr.admin_id' => $user['id']))
+				->join(TABLE_GROUP_PERMISSION_RELATION . ' AS gpr','gpr.group_id = apr.group_id')
+				->join(TABLE_PERMISSION . ' AS p', 'gpr.permission_id = p.id')->select('p.controller, p.action')->get()->result_array();
+// 				print_r($data);
+				$res = array();
+				foreach($data as $item) {
+					$res[strtolower($item['controller'])][strtolower($item['action'])] = true;
+				}
+				$permissions = $res;
+			}
+		}
+	}
+	if (is_bool($permissions)) {
+		return $permissions;
+	}
+	return isset($permissions[strtolower($ctrl)][strtolower($act)]);
+}
+
+
+/**
+ * 下载课件PDF文件
+ * @param  $url
+ * @param  $file_name
+ */
+function download($url,$file_name)
+{
+    $ch=curl_init();
+    curl_setopt($ch,CURLOPT_URL, $url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    $content=curl_exec($ch);
+    if(curl_errno($ch))
+    {
+        echo curl_error($ch);
+        curl_close($ch);
+    } else {
+        curl_close($ch);
+        //提取文件名和文件类型
+        $array_type=explode('.',$url);
+        $last_index=count($array_type)-1;
+        $file_type=$array_type[$last_index];
+        //获得文件大小
+        $file_size=strlen($content);
+
+        //通知浏览器下载文件
+        if (preg_match("/MSIE/", $_SERVER["HTTP_USER_AGENT"])) {
+
+            $attachmentHeader = 'Content-Disposition: attachment; filename="'.$file_name.'"';
+        } else if (preg_match("/Firefox/", $_SERVER["HTTP_USER_AGENT"])) {
+            $attachmentHeader = 'Content-Disposition: attachment; filename*="utf8\'\'' . $file_name. '"' ;
+        } else {
+            $attachmentHeader = 'Content-Disposition: attachment; filename="'.$file_name.'"';
+        }
+        header('Content-Encoding: none');
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/".$file_type);
+
+        header("Content-Transfer-Encoding: binary");
+        header($attachmentHeader);
+        header('Pragma: cache');
+        header('Cache-Control: public, must-revalidate, max-age=0');
+        header("Content-Length: ".$file_size);
+        ob_clean();
+        flush();
+        exit($content); //输出数据流
+    }
+}
+
+if ( ! function_exists('nahao_hash'))
+{
+    /*
+     * str: 字符串，待哈希的字符串
+     * max_count: 哈希出几个值，比如传值为4，hash会返回1或2或3或4
+     *
+     */
+    function nahao_hash($str, $max_count)
+    {
+        if( $max_count > 0 )
+        {
+            $value = sprintf("%u", crc32($str));
+            return 1 + $value % $max_count;
+        }
+        return 1;
+    }
 }

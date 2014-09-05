@@ -9,8 +9,8 @@ define(function (require, exports) {
     //lesson_create
     exports.bind_everything = function () {
 
-        //edit lesson modal
-        $("#btn_lesson_create,#btn_lesson_update").on('click',function(){
+        //lesson edit modal
+        $("#btn_lesson_create,.btn_lesson_update").on('click',function(){
             //clear all input and bind
             $("#lesson_name").val('');
             $("#lesson_is_chapter").attr('checked',false);
@@ -55,6 +55,9 @@ define(function (require, exports) {
                     'lesson_name' : $("#lesson_name").val(),
                     'lesson_is_chapter' : $("#lesson_is_chapter").attr("checked")=="checked" ? 1 : 0
                 };
+//                console.log($("#lesson_is_chapter").attr("checked"));
+//                console.log(data);
+//                return false;
                 if(action=='update'){
                     data['lesson_id'] = lesson_id;
                 }
@@ -68,17 +71,22 @@ define(function (require, exports) {
 //                            console.log(action);
 //                            console.log( response.id);
 //                            console.log(action=="create" && response.id);
+//                            console.log(data['lesson_is_chapter']);
+//                            console.log(update_parent_id.data("is_chapter"));
                             if(action=="create"){
                                 var new_tr = '<tr class="lesson_list">';
-                                new_tr += '<td data-parent_id="'+(data['lesson_is_chapter']==1 ? 0 : 1)+'">'+response.id+'</td></tr>';
+                                new_tr += '<td data-is_chapter="'+data['lesson_is_chapter']+'" data-status="1">'+response.id+'</td></tr>';
 //                                console.log(new_tr);
                                 $("#lesson_list_tbody").append(new_tr);
                             }else{
-                                update_parent_id.data("parent_id",data['lesson_is_chapter']==1 ? 0 : 1);
+                                update_parent_id.data("is_chapter",data['lesson_is_chapter']);
                             }
+//                            console.log(update_parent_id.data("is_chapter"));
+//                            console.log('1111');
 //                            console.log(update_parent_id.data("parent_id"));
                             exports.lessons_sort();
 //                            window.location.reload();
+
                         }
                     }
                 });
@@ -92,8 +100,23 @@ define(function (require, exports) {
         });
 
         //delete lesson
-        $("#btn_lesson_delete").on("click",function(){
-
+        $(".btn_lesson_delete").on("click",function(){
+            var result = confirm("确认删除该章节吗？");
+            if(confirm){
+                var tr = $(this);
+                var lesson_id = tr.data("lesson_id");
+                var url = '/lesson/delete';
+                var data = {
+                    'lesson_id' : lesson_id
+                };
+                $.post(url,data,function(response){
+                    alert(response.msg);
+                    if(response.status=="ok"){
+                        tr.parent().parent().remove();
+                        exports.lessons_sort();
+                    }
+                });
+            }
         });
 
         //dragsort
@@ -116,14 +139,44 @@ define(function (require, exports) {
             var tds = $(this).children();
             var value = {
                 'id' : $(tds[0]).text(),
-                'parent_id' : $(tds[0]).data("parent_id")
+                'is_chapter' : $(tds[0]).data("is_chapter"),
+                'status' : $(tds[0]).data("status")
             }
             arr.push(value);
         });
-        var data = { 'lessons' : arr};
-//        console.log(data);
+        var data = {
+            'course_id' : $("#course_id").val(),
+            'lessons' : arr
+        };
+//        $.each(arr,function(){
+//            console.log(this.id+','+this.is_chapter);
+//        })
+//        return false;
         $.post(url,data,function(response){
-//                console.log(response);
+            window.location.reload();
+        });
+    }
+
+    //active lesson
+    exports.active_lesson=function(){
+        $(".lesson_active").on("click",function () {
+            var btn = $(this);
+            var action = btn.data('action');
+            var status = btn.data('status');
+            var data = {
+                'lesson_id' : btn.data('lesson_id'),
+                'status' :status
+            };
+            $.post(action, data, function (response) {
+                alert(response.msg);
+                if (response && response.status == "ok") {
+                    var tds = btn.parent().parent().children();
+                    $(tds[0]).data('status',status);
+//                    console.log( $(tds[0]).data('status',status));
+                    exports.lessons_sort();
+//                    window.location.reload();
+                }
+            });
         });
     }
 

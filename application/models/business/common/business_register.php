@@ -55,7 +55,7 @@ class Business_Register extends NH_Model {
 			'avatar' => '', //default avatar URI, TBD
             'reg_type' => $reg_type
 			);
-		
+		//log_message('debug_nahao', 'IN '.__CLASS__.", function: ".__FUNCTION__.", salt: $str_salt, sha1_pwd: $sha1_password, password:".create_sha1_password($str_salt, $sha1_password));
 		$user_id = $this->model_user->create_user($user_table_data);
 
 
@@ -119,7 +119,8 @@ class Business_Register extends NH_Model {
         //echo "captcha_count is $captcha_count";
         if($captcha_count >= 1)
         {
-            $captcha_info_arr = $this->cache->redis->lrange($phone, 0, $captcha_count-1);
+            $captcha_info_arr = $this->cache->redis->lrange($phone, 0, -1);
+            //log_message("debug_nahao", "check_captcha: ".print_r($captcha_info_arr,1));
             foreach($captcha_info_arr as $i => $one_info)
             {
                 $one_info_arr = json_decode($one_info, true);
@@ -130,6 +131,8 @@ class Business_Register extends NH_Model {
                     if(($one_info_arr['t'] == $type) && ($captcha == $one_info_arr['vc']))
                     {
                         $compare_result = true;
+                        //clean used captcha record
+                        $this->cache->redis->lrem($phone, $one_info, 1);
                         break;
                     }
                 }

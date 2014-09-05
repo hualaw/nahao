@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$array_data.title}-{$array_data.seo_time}-那好网</title>
+<meta name="description" content="{$array_data.subtitle}" />
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="{static_url('/css/studentMyCourse/style.css')}" />
+<!-- 加载头部公共变量定义开始 -->
+{include file="www/include/var.htm"}
+<!-- 加载头部公共变量定义结束 -->
+</head>
+<body>
+<!-- 头部开始 -->
+{include file="www/include/header.htm"}
+<!-- 头部结束 -->
+<!-- 主要内容开始 -->
+<div class="wrap layout studentMyCourse" id="nahaoModule" module="studentMyCourse" data_page="studentPage">
+    <div class="breadNav">
+        <a href="#" title="">首页</a> » {if $array_data.education_type == $smarty.const.ROUND_TYPE_SUBJECT}<a href="/list_t1.html">学科辅导</a>{elseif $array_data.education_type == $smarty.const.ROUND_TYPE_EDUCATION}<a href="/list_t2.html">素质教育</a>{/if} »{$array_data.title}
+    </div>
+    <div class="buyCourse buyBefore">
+        <!-- 购买前 头部 -->
+        <div class="buyHead">
+            <div class="buyHeadt">
+                <h2 title="{$array_data.title}">{$array_data.title}</h2>
+                <p title="{$array_data.subtitle}">{$array_data.subtitle}</p>
+            </div>
+            <div class="buyHeadf cf">
+      			<div class="posr fl">
+                    <!-- 标签列表开始 -->
+                    <div class="markList">
+                        <span class="mark mark1">限时抢购</span>
+                        {if $array_data.sale_price == '0'}
+                        <span class="mark mark2">免费试听</span>
+                        {/if}
+                        {if $array_data.study_count >='150'}
+                        <span class="mark mark5">疯狂热卖</span>
+                        {/if}
+                        {if $smarty.now|date_format:'%Y-%m-%d' == $array_data.sell_begin_time|date_format:'%Y-%m-%d'}
+                        <span class="mark mark6">今日新课</span>
+                        {/if}
+                        {if isset($course_types[$array_data.course_type])}<span class="mark mark7">{$course_types[$array_data.course_type]}</span>{/if}
+                        {if isset($material_versions[$array_data.material_version]) && ($array_data.material_version gt 1)}<span class="mark mark8">{$material_versions[$array_data.material_version]}</span>{/if}
+                    </div>
+                    <!-- 标签列表结束 -->
+                    <img src="{if empty($array_data.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s6')}{else}{get_img_url($array_data.img,'course_s6')}{/if}" alt="" class="fl">
+                </div>
+                <div class="fl startTime">
+                    <div class="price"><span class="priceAfter"><i>￥</i>{$array_data.sale_price|intval}</span><span class="priceBefore">价值<i>￥{$array_data.price|intval}</i></span></div>
+                    <div class="review cf">
+                        <span class="studyCount fl"><i>{$array_data.study_count}</i>人已学习</span>
+                         {if $array_data.score >=4}
+                        <span class="starBg cf fl">
+                        {section name=loop loop=$array_data.score}
+                            <span class="hreview"></span>
+                        {/section}
+                        </span>
+                        <span class="fl starCount"><i>{$array_data.score}</i>分</span>
+                         {/if}
+						 {if $evaluate_count>0}
+                        <a class="fr" href="#review"><i>{$evaluate_count}</i>条评价</a>
+						{/if}
+                    </div>
+                    <div class="endTime cf">
+                        <div class="timeTitle fl">距离报名结束还剩</div><div class="countdown fl"></div>
+                    </div>
+                    <div class="courseTimeLine cf">
+                        <div class="cf">
+                            <span class="fl timeBar">上课日期</span>
+                            <input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+                            <a class="fl firmTime ctimeOn" href="#" title="">{$array_data.class_stime}－{$array_data.class_etime}</a>
+                        </div>
+                        <input type="hidden" id="product_id" value="{$array_data.id}">
+                        {if !$is_login}
+		                    {if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+	                        	<a class="buyRush" href="#" title="" id="soon_buy">立即抢购</a>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+	                        	<a class="buyRush" href="#" title="" >已售罄</a>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+	                        	<a class="buyRush" href="#" title="" >已停售</a>
+	                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+	                        	<a class="buyRush" href="#" title="" >已下架</a>
+	                        {/if}
+						{else}
+							{if $buy_flag}
+							 	<a class="buyRush" href="#" title="" >已购买</a>
+							{else}
+								{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+	                        		<a class="buyRush" href="#" title="" id="soon_buy">立即抢购</a>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+		                        	<a class="buyRush" href="#" title="" >已售罄</a>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+		                        	<a class="buyRush" href="#" title="" >已停售</a>
+		                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+		                        	<a class="buyRush" href="#" title="" >已下架</a>
+		                        {/if}
+							{/if}
+						{/if}
+                    </div>
+                   <div class="promise cf">
+                        <span class="fl">服务承诺</span>
+                        <ul class="fl">
+                            <li class="list01">随时退</li>
+                            <li class="list02">真实评价</li>
+                            <li class="list03">直播互动</li>
+                        </ul> 
+                        <div class="bdsharebuttonbox">
+                            <a href="javascript:;" onclick="return false;$('.bdshare_dialog_box').hide()" class="bds_more" data-cmd="more">分享到</a>
+                        </div>
+                        {literal}
+                        <style type="text/css" media="screen">
+                            .bdshare_popup_top,
+                            .bdshare_popup_bottom,
+                            .bdshare_dialog_bottom a{display: none;}
+                        </style>
+                        <script>
+                        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":['sqq',"tsina","tqq","renren","douban","qzone"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                        </script>
+                        {/literal}
+                   </div>
+
+                </div>
+                
+            </div>
+        </div>
+        <div class="cf">
+            <div class="detialLeft fl">
+            {if $array_notice}
+                <table class="importTable">
+                    <tbody>
+                        <tr>
+                            <td align="center"><div class="importInfo">重要提醒</div></td>
+                            <td>{$array_notice.content}</td>
+                        </tr>
+                    </tbody>
+                </table>
+             {/if}
+                <ul id="course_info_nav" class="">
+                    <li class="detail current" id="tab_course_detial" con="course_detial">课程简介</li>
+                    <li class="detail" id="tab_course_team" con="course_team">授课团队</li>
+                    <li class="detail" id="tab_course_order" con="course_order">课程安排</li>
+                    <li class="detail" id="tab_course_info" con="course_info">课程提要</li>
+                    <li class="detail" id="tab_course_content" con="course_content">学员评价（{$evaluate_count}）</li>
+                    <li class="detail_price detail_price1">￥{$array_data.sale_price|intval}</li>
+                    {if !$is_login}
+                    		{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" id="soon_buy_xia">抢购</a></li>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已售罄</a></li>
+	                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已停售</a></li>
+	                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+	                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已下架</a></li>
+	                        {/if}
+                    {else}
+                    		{if $buy_flag}
+							 	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已购买</a></li>
+							{else}
+	                    		{if  $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_SALE }
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" id="soon_buy_xia">抢购</a></li>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OVER}
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已售罄</a></li>
+		                        {elseif $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_FINISH}
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已停售</a></li>
+		                        {else if $array_data.sale_status == $smarty.const.ROUND_SALE_STATUS_OFF}
+		                        	<li class="detail_price detail_price2"><a class="rushBuy" href="#" title="" >已下架</a></li>
+		                        {/if}
+							{/if}
+                    {/if}
+                    
+                </ul>                                                                                       
+                <div id="course_info_box">
+                    <!-- 课程简介 开始 -->
+                    <div id="course_detial" class="course_info_item height">
+                        <h3>课程简介</h3>
+                        <p class="course_detial_text">{$array_data.intro|truncate:250:"...":true}</p>
+                    </div>
+                    <!-- 课程简介 结束 -->
+                    <!-- 授课团队 开始 -->
+                    <div id="course_team" class="course_info_item height">
+                        <h3>授课团队</h3>
+                        {if $array_team}
+               			{foreach from=$array_team item=item key=key}
+               			{if $key == 0}
+               			<div class="course_team_list b_t_0 cf">
+               			{else}
+               			<div class="course_team_list cf">
+               			{/if}
+                            <img class="fl" src="{if empty($item.avatar)}{get_img_url($smarty.const.DEFAULT_TEACHER_AVATER,'avatar_s2')}{else}{get_img_url($item.avatar,'avatar_s2')}{/if}" alt="">
+                            <div class="teacherInfo fl">
+                                <h4 class="cf"><span class="fl">{$item.teacher_role}老师：</span><i class="fl">{$item.nickname}</i><span class="fl">{$item.teacher_age}年教龄</span></h4>
+                                <p class="teacherText">{$item.teacher_intro}</p>
+                            </div>
+                        </div>
+               			
+               			{/foreach}
+						{/if}
+                    </div>
+                    <!-- 授课团队 结束 -->
+                    <!-- 课程安排 开始 -->
+                    <div id="course_order" class="course_info_item height">
+                        <h3>课程安排</h3>
+                        <div class="outlineList"> 
+                		{if $array_outline}
+                		{foreach from=$array_outline item=item name="parent"}
+                			{if $item.id > 1}
+	                            <h4 class="cf">
+	                                <p title="第1章&nbsp;&nbsp;免费试听">第{$item.sequence+1}章&nbsp;&nbsp;{$item.title}</p>
+	                            </h4>
+                			 {else}
+	                            <h4 class="cf">
+	                                <p title=""></p>
+	                            </h4>
+                 			{/if}
+                            <ul>
+	                            {if $item.son}
+		                        {foreach from=$item.son item=it name="son"}
+	                                <li class="cf"> 
+	                                    <div class="fl line"></div> 
+	                                    <div class="fl listb"> 
+	                                        <p class="listh" title="第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}">第{$it.sequence+1}节&nbsp;&nbsp;{$it.title}</p> <p class="listc">{$it.time}</p> 
+	                                    </div> 
+	                                </li>
+		                        {/foreach}
+		                        {/if}
+                            </ul>
+                		{/foreach}
+                		{/if}
+                        </div> 
+                    </div>
+                    <!-- 课程安排 结束 -->
+                    <!-- 课程提要 开始 -->
+                    <div id="course_info" class="course_info_item height">
+                        <h3>课程提要</h3>
+
+                       	<div class="course_info_img cf">{$array_data.description}</div>
+                    </div>
+                    <!-- 课程提要 结束 -->
+                    <!-- 学员评价 开始 -->
+                    <div id="course_content" class="course_info_item creview height">
+                        <div id="fpage">数据加载中...</div>
+                    </div>
+                    <!-- 学员评价 结束 -->
+                </div>
+            </div>
+            <div class="courseRight fr">
+             {if $array_other}
+                <div class="buyCourseBox">
+                
+                    <h3>该课程的系列课程</h3>
+                    <ul class="buyCourseList">
+                   
+                    {foreach from=$array_other item=item}
+                         <li>
+                          <a target="_blank" href="{$course_url}ke_{$item.id}.html" >
+                            <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_img_url($item.img,'course_s7')}{/if}" alt="">
+                            <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p></a>
+                            <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
+                        </li>
+                    {/foreach}
+                    </ul>
+                 </div>
+                {/if}
+                {if $array_recommend}
+                <div class="buyCourseBox">
+                    <h3>看过本课程的用户还看了</h3>
+                    <ul class="buyCourseList">
+                    {foreach from=$array_recommend item=item}
+                         <li>
+                          <a target="_blank" href="{$course_url}ke_{$item.id}.html" >
+                            <img src="{if empty($item.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s7')}{else}{get_img_url($item.img,'course_s7')}{/if}" alt="">
+                            <p title="{$item.title}">{$item.title|truncate:32:"...":true}</p></a>
+                            <div class="studyNum cf"><span class="fl price">￥{$item.sale_price|intval}</span><span class="fr"><i>{$item.study_count}</i>人已学习</span></div>
+                        </li>
+                    {/foreach}                 
+                    </ul>
+                </div>
+                {/if}
+				{include file="www/studentMyCourse/history.html"}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 主要内容结束 -->
+<!-- 底部开始 -->
+{include file="www/include/footer.htm"}
+<!-- 底部结束 -->
+<!-- js引入开始 -->
+{include file="www/include/js.htm"}
+<!--js引入结束-->
+<!-- player播放器js开始 -->
+<script type="text/javascript" src="{static_url('/lib/nahaoPlayer/6.7.0/TiZiplayer.js')}"></script>
+<!-- player播放器js结束 -->
+
+
+</body>
+</html>

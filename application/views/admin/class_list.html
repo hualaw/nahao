@@ -1,11 +1,14 @@
-课程名称 : {$round.title}     共{$chapter_count}章  {$section_count}节课  等待上课         完成进度
+课程名称 : {$round.title}     共{$chapter_count}章  {$section_count}节课  开卖时间:{date("Y-m-d H:i",$round.sell_begin_time)}  停卖时间:{date("Y-m-d H:i",$round.sell_end_time)}  开课时间{date("Y-m-d H:i",$round.start_time)}      停课时间{if $round.end_time}{date("Y-m-d H:i",$round.end_time)}{/if}
+<div style="display:none" id="class_list_round_id" data-round_id="{$round.id}"></div>
 <table class="table table-hover">
     <thead>
     <tr>
         <th>课堂ID</th>
         <th>课堂名称</th>
+        <th>章节</th>
         <th>教室ID</th>
         <th>上课时间</th>
+        <th>下课时间</th>
         <th>课堂状态</th>
         <th>实到/应到</th>
         <th>上课到达率</th>
@@ -15,24 +18,27 @@
         <th>操作</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="class_list_tbody">
     {foreach $classes as $v}
-    <tr>
+    <tr class="class_list">
         <td class="list_class_id">{$v.id}</td>
+        <td>{if $v.parent_id gt 0}节{else}章{/if}</td>
         <td>{$v.title}</td>
         <td>{$v.classroom_id}</td>
-        <td>{if $v.parent_id gt 0}{date("Y-m-d H:i",$v.begin_time)}-{date("Y-m-d H:i",$v.end_time)}{/if}</td>
+        <td>{if ($v.begin_time gt 0) }{date("Y-m-d H:i",$v.begin_time)}{/if}</td>
+        <td>{if ($v.end_time gt 0) }{date("Y-m-d H:i",$v.end_time)}{/if}</td>
         <td>{if $v.parent_id gt 0}{$class_status[$v.status]}{/if}</td>
-        <td></td>
+        <td>{if ($v.parent_id gt 0) AND ($smarty.const.TIME_STAMP > $v.begin_time)}{$v.attendance}{/if}/{$round.bought_count}</td>
         <td></td>
         <td>{if $v.parent_id gt 0}<a href="/feedback/index?class_id={$v.id}">评价</a>{/if}</td>
         <td>
             {if $v.parent_id gt 0}
                 {if $v.courseware_id==0}
-                    <botton class="btn btn-primary btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">上传</botton>
+                    <botton class="btn btn-primary btn-xs btn_upload_pdf" data-class_id="{$v.id}">上传</botton>
                 {else}
                     <a target="_blank" href="/classes/preview/{$v.courseware_id}">预览</a>
-                    <!--<botton class="btn btn-success btn-xs btn_upload_pdf" data-lesson_id="{$v.id}">修改</botton>-->
+                    <botton class="btn btn-success btn-xs btn_upload_pdf" data-class_id="{$v.id}">修改</botton>
+                    <a class="btn btn-success btn-xs" target="_blank" href="/classes/download/{$v.courseware_id}">下载</a>
                 {/if}
                 {else}
                 --
@@ -40,13 +46,19 @@
         </td>
         <td>{if $v.parent_id gt 0}<a target="_blank" href="/question/class_question/{$v.id}">习题</a>{/if}</td>
         <td>
-            {if $v.parent_id gt 0}
+            {if ($v.parent_id gt 0) AND ($v.classroom_id gt 0)}
                 <a target="_blank" href="/classes/enter/{$v.classroom_id}">进入课堂</a>
+                <btn class="btn btn-primary btn-xs reload_courseware" data-classroom_id="{$v.classroom_id}">刷新教材</btn>
             {else}
                 --
             {/if}
+            {if $v.parent_id gt 0}
+            <a href="javascript:;" class="btn_class_edit" data-class_id="{$v.id}" data-is_last="{if $last_class_id==$v.id}1{else}0{/if}">修改</a>
+            {/if}
+            <!--<a href="javascript:;" class="btn_class_delete" data-class_id="{$v.id}">删除</a>-->
         </td>
     </tr>
     {/foreach}
     </tbody>
 </table>
+{include file="admin/class_list_modal_operation.html"}

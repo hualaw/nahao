@@ -1,0 +1,54 @@
+{if !empty($live_list)}
+<div class="cf liveLessonWrap bannerScroll">
+    <!-- 直播课的header开始 -->
+    <div class="hd cf liveLessHead" id="online" name="online">
+        <h2 class="fl liveTitle">
+            近期公开课
+        </h2>
+        <!-- 直播课的slide序列号开始 -->
+        <ol class="cf fr bannerOrder">
+        </ol>
+        <!-- 直播课的slide序列号结束 -->
+    </div>
+    <!-- 直播课的header开始 -->
+    <!-- 直播课的切换开始 -->
+    <div class="liveViewWrap bannerView">
+        <div class="bd innerWrap">
+            <ul class="cf liveList">
+                {foreach $live_list as $v}
+                <li class="bItem">
+                    <div class="liveLess"  title="{$v.class_name}">
+                        <a target="_blank" href="/course/go?cid={$v.id}">
+                            <img src="{if empty($v.img)}{get_img_url($smarty.const.HOME_IMG_DEFAULT,'course_s1')}{else}{get_img_url($v.img,'course_s1')}{/if}"
+                                 alt="{$v.class_name}" class="liveClassImg">
+                            <!-- 标签列表开始 -->
+									<span class="markList">
+										{if in_array($v.status,array($smarty.const.CLASS_STATUS_INIT,$smarty.const.CLASS_STATUS_SOON_CLASS)) }
+                                            <span class="mark mark{$smarty.const.ROUND_ICON_JIJIANGKAISHI}">{$round_icons[$smarty.const.ROUND_ICON_JIJIANGKAISHI]}</span>
+                                        {else}
+                                            <span class="mark mark{$smarty.const.ROUND_ICON_ZHENGZAIZHIBO}">{$round_icons[$smarty.const.ROUND_ICON_ZHENGZAIZHIBO]}</span>
+                                        {/if}
+									</span>
+                            <!-- 标签列表结束 -->
+                        </a>
+                        <!-- 直播课的简介开始 -->
+                        <a target="_blank" href="/course/go?cid={$v.id}">
+                            <span class="cTitle">{$v.class_name}</span>
+                            <!-- 直播课时间开始 -->
+                            <span>{date('m月d日',$v.begin_time)}<span class="time">{date('H:i',$v.begin_time)}-{date('H:i',$v.end_time)}</span></span>
+                            <!-- 直播客时间结束 -->
+                        </a>
+                        <!-- 直播课的简介结束 -->
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+    <!-- 直播课的切换结束 -->
+    <!-- 左右切换开始 -->
+    <a class="bannerSlide next" href="javascript:void(0)"></a>
+    <a class="bannerSlide prev" href="javascript:void(0)"></a>
+    <!-- 左右切换结束 -->
+</div>
+{/if}

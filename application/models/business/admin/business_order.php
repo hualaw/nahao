@@ -44,6 +44,8 @@
             $post["confirm_time2"] = strtotime($post["confirm_time2"]);
             $post['order_id']=trim($post['order_id']);
             $post['phone_name_email']=trim($post['phone_name_email']);
+            $post['spend1']=trim($post['spend1']);
+            $post['spend2']=trim($post['spend2']);
             //var_dump($post);die;
             $this->load->model("model/admin/model_order");
             return $this->model_order->sea_order_list($post);
@@ -164,7 +166,7 @@
          */
         public function price_modify($modify_price,$order_id,$spend)
         {
-            if(!is_numeric($modify_price) || $modify_price<0 || $modify_price=="")
+            if(!is_numeric($modify_price) || $modify_price<0 || $modify_price==0 || $modify_price=="")
             {
                 return FALSE;
             }

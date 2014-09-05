@@ -1,187 +1,62 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>首页</title>
-<link rel="stylesheet" type="text/css" href="{static_url('/css/studentHomePage/style.css')}" />
-<!-- 加载头部公共变量定义开始 -->
-{include file="www/include/var.htm"}
-<!-- 加载头部公共变量定义结束 -->
+    <meta charset="UTF-8">
+    <title>那好在线课堂官网_网络课堂_网络课程_家教在线-那好网</title>
+    <meta name="keywords" content="那好网,网络课堂,网络课程,在线课堂"/>
+    <meta name="description"
+          content="那好网荟萃全国名师，为教师提供实现自己教育梦想的在线课堂平台。致力于搭建最好的在线课堂网站，打造那好网络课堂，提供精品网络课程，为学生提供方便、高效，愉悦的网络学习体验。"/>
+    <link rel="stylesheet" type="text/css" href="{static_url('/css/studentHomePage/style.css')}"/>
+    <!-- 加载头部公共变量定义开始 -->
+    {include file="www/include/var.htm"}
+    <!-- 加载头部公共变量定义结束 -->
 </head>
-<body>
+<body class="navHomepage">
 <!-- 头部开始 -->
 {include file="www/include/header.htm"}
 <!-- 头部结束 -->
 <!-- 主要内容开始 -->
-<div class="wrap studentHomePage" id="nahaoModule" module="studentHomePage">
-	<div class="contop">
-		<!-- 首页轮播 -->
-		<div class="roll">
-			<ul class="cf">
-				<li class="fl rollshow">
-					<a target="_blank" href="">
-						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
-					</a>
-				</li>
-				<li class="fl">
-					<a target="_blank" href="">
-						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
-					</a>
-				</li>
-				<li class="fl">
-					<a target="_blank" href="">
-						<img src="{static_url('/images/studentHomePage/roll/roll1.png')}">
-					</a>
-				</li>
-			</ul>
-			<!-- <ol class="cf rollNav">
-				<li class="fl active"></li>
-				<li class="fl"></li>
-				<li class="fl"></li>
-			</ol> -->
-		</div>
-		<!-- course show -->
-		<div class="courseBox">
-			<div class="layout">
-				<ul class="cf courseList">
-					{if $array_data}
-					{foreach from=$array_data item=item}
-					<li class="fl">
-						<div class="clBoxShaow iniBox">
-							{if $item.sale_price == '0'}
-							<div class="courseFree"></div>
-							{/if}
-							<img src="{$item.img}" alt="">
-							<div class="iniInfor">
-								<p class="courseTitle">{$item.title|truncate:15:"...":true}</p>
-								<div class="cf">
-									<span class="fl courseTime">{$item.start_time}-{$item.end_time}</span>
-									<span class="fr"><em class="redText">{$item.bought_count}</em>人</span>
-								</div>
-								<div class="cf fitGrade">
-									<span class="fl">适合{$item.for_people}</span>
-									<span class="fr">{$item.class_nums}课次</span>
-								</div>
-							</div>
-						</div>
-						<div class="clBoxShaow rotateBox posr" data-action="{$course_url}{$item.id}.html" title="{$item.title}">
-							<div class="teaInfor cf">
-								<img src="{$item.teacher.avatar}" alt="头像" class="fl">
-								<div class="fl teaInforR">
-									<!--工作证，称职证，教师证（1-5）-->
-									<h3 class="cf">
-									<em class="fl">{$item.teacher.nickname}</em>
-									<span {if $item.teacher.work_auth}class="workCard fl"{/if}></span>
-									<span {if $item.teacher.titile_auth}class="TitleCard fl"{/if}></span>
-									<span {if $item.teacher.teacher_auth}class="teaCard fl"{/if}></span>
-									</h3>
-									<p class="detailInfor">{$item.teacher.teacher_signature|truncate:14:"...":true}</p>
-								</div>
-							</div>
-							<p class="brief">{$item.teacher.teacher_intro|truncate:56:"...":true}</p>
-							<p class="courseTitle" title="{$item.title}">{$item.title|truncate:15:"...":true}</p>
-						</div>
-					</li>
-					{/foreach}
-					{/if}
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="conft">
-		<!-- 师资 认证过程 开始 -->
-		<div class="courseRequire layout posr">
-			<div class="reTitle cf">
-				<h2 class="cf comTitle">
-					<span class="fl">专业师资</span>
-					<span class="fr">严格认证</span>
-				</h2>
-			</div>
-			<p class="redText tipText">教师须经过严格的认证过程才能在那好开课</p>
-			<div class="fl autTea recomTea">
-				<h2>严格认证</h2>
-				<span class="line"></span>
-				<p>教师须提交： 教师资格证、职称证书、身份证<br>通过试讲评审才能开课。</p>
-			</div>
-			<div class="fr proTea recomTea">
-				<h2>教师评价</h2>
-				<span class="line"></span>
-				<p>每节课，学生、家长都可对教师打分<br>真实口碑，激励教师提升质量</p>
-			</div>
-			<div class="eavTea recomTea">
-				<h2>专业师资</h2>
-				<span class="line"></span>
-				<p>那好要求教师具有在公立学校<br>长期任教经验，二级以上教师职称</p>
-			</div>
-		</div>
-		<!-- 师资 认证过程 结束 -->
-		<div class="ad posr">
-			<div class="adbgc"></div>
-			<div class="cat"></div>
-		</div>
-		<!-- 贴心服务 随时退款 开始 -->
-		<div class="service">
-			<h2 class="cf comTitle">  
-				<span class="fl">贴心服务</span>
-				<span class="fr">随时退款</span>
-			</h2>
-			<span class="line"></span>
-			<div class="layout">
-				<div class="serBoxPar cf">
-					<div class="fl serBox audition"></div>
-					<div class="fl serBox dropCourse"></div>
-					<div class="fl serBox study"></div>
-				</div>
-			</div>
-		</div>
-		<!-- 贴心服务 随时退款 结束 -->
+<div class="cf wrap layout studentHomePage" id="nahaoModule" module="studentHomePage" data_page="studentPage">
 
-		<!-- 师资 课程 学校 合作 开始 -->
-		<div class="layout">
-			<div class="cooph cf posr">
-				<div class="headBg investor fl"></div>
-				<div class="headBg founder fl"></div>
-				<div class="headBg coopSchool fl"></div>
-				<div class="coopft cf">
-					<span class="fl"></span>
-					<span class="fr"></span>
-					<div class="coopere cf">
-						<h3 class="fl">徐小平老师战略投资</h3>
-						<h3 class="fl">龚海燕（小龙女）倾心创办</h3>
-						<h3 class="fl">北京大学教育学院战略合作</h3>
-					</div>
-				</div>
-			</div>
-			<div class="coopBox">
-				<div class="coopBoxh cf">
-					<h3 class="fl coopComW">课程、师资合作</h3>
-					<h3 class="fr coopComW">学校合作</h3>
-				</div>
-				<div class="coopBoxCon">
-					<div class="cf">
-						<div class="fl coopComW">
-							<p class="dt">如果您是教学专家</p>
-							<p class="dl">您有一门很棒的课程，<br>并且您想让您的课程影响广大的中小学生；</p>
-							<p class="dt edudt">如果您是一家教育机构</p>
-							<p class="dl">您有自己独到的优秀教育资源，希望扩展影响力或市场；</p>
-						</div>
-						<div class="fr coopComW">
-							<p class="dt">如果您是学校</p>
-							<p class="dl">您希望我们专门为您的学校提供定制的课程，<br>或者希望与我们开展更深入的合作；</p>
-							<p class="dt edudt">如果您是一家教育机构</p>
-							<p class="dl">希望那好课堂为您提供个性化的服务；</p>
-						</div>
-					</div>
-					<p class="fp">
-						<a href="">那好期待与您的合作</a>
-						<a href="javascript:vold(0);" class="phoneHref">400-680-1818</a>
-						<a href="" class="mess">hezuo@nahao.com</a>
-					</p>
-				</div>
-			</div>
-		</div>
-		<!-- 师资 课程 学校 合作 结束 -->
-	</div>
+<!-- 左侧内容区开始 -->
+<div class="fl content cf">
+    <!-- banner轮播开始 -->
+    {include file="www/studentHomePage/focus_photo.html"}
+    <!-- banner轮播结束 -->
+    <!-- 进行中的直播课开始 -->
+    {include file="www/studentHomePage/live_show.html"}
+    <!-- 进行中的直播课结束 -->
+    <!-- 课程列表开始 -->
+    {include file="www/studentHomePage/course_list.html"}
+    <!-- 课程列表结束 -->
+    <!-- 学员风采开始 -->
+    {include file="www/studentHomePage/student_list.html"}
+    <!-- 学员风采结束 -->
+    <!-- 媒体报道开始 -->
+    {include file="www/studentHomePage/report_list.html"}
+    <!-- 媒体报道结束 -->
+</div>
+<!-- 左侧内容区结束 -->
+<!-- 右侧边栏开始 -->
+<div class="cf fr rSlide">
+    {include file="www/studentHomePage/right_login.html"}
+    <!-- 服务保障开始 -->
+    {include file="www/studentHomePage/right_service.html"}
+    <!-- 服务保障结束 -->
+    <!-- 关于我们开始 -->
+    {include file="www/studentHomePage/right_about.html"}
+    <!-- 关于我们结束 -->
+    <!-- 姐妹网站开始 -->
+    {include file="www/studentHomePage/sister_site.html"}
+    <!-- 姐妹网站结束 -->
+    <!-- 广告列表开始 -->
+    {include file="www/studentHomePage/right_ad.html"}
+    <!-- 广告列表结束 -->
+    <!-- 浏览记录开始 -->
+    {include file="www/studentMyCourse/history.html"}
+    <!-- 浏览记录结束 -->
+</div>
+<!-- 右侧边栏结束 -->
 </div>
 <!-- 主要内容结束 -->
 <!-- 底部开始 -->
@@ -191,46 +66,10 @@
 {include file="www/include/js.htm"}
 <!--js引入结束-->
 <!-- 悬浮框开始 -->
-<div class="floatBox">
-	<a href="javascript:void(0);" class="ansQue">咨询答疑</a>
-	<a href="javascript:void(0);" class="feedback">意见反馈</a>
-	<a href="javascript:void(0);" class="returnTop">返回顶部</a>
-</div>
+{include file='www/studentHomePage/float.html'}
 <!-- 悬浮框结束 -->
 <!--意见反馈 开始-->
-<div class="feedbackHtml undis">
-	<div class="feedback">
-		<h2>意见反馈</h2>
-		<form action="{$student_url}index/feedback" class="feedbackForm" method="post" >
-			<ul>
-				<li class="cf posr">
-					<p class="fbText">如果您对我们的产品服务想提出意见或建议，或使用中遇到问题，可以在这里自由吐槽</p>
-					<div class="cf">
-						<textarea name="content" class="fTextarea fl ctextarea" validName="textarea"></textarea>
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
-				<li class="posr">
-					<p class="formName">您的称呼</p>
-					<div class="cf">
-						<input type="text" placeholder="请输入您的称呼，以便我们和您联系" name="nickname" class="fname fl cInput" validName="text">
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
-				<li class="cf posr">
-					<p class="formName">您的邮箱</p>
-					<div class="cf">
-						<input type="text" placeholder="请输入您的邮箱，以便尽快为您解决问题" name="email" class="fEmail fl cInput" validName="text">
-						<span class="Validform_checktip fl"></span>
-					</div>
-				</li>
-				<li>
-					<input type="submit" class="noShowBtn redBtn submit" value="提交">
-				</li>
-			</ul>
-		</form>
-	</div>
-</div>
+{include file='www/studentHomePage/feedback.html'}
 <!--意见反馈 结束-->
 </body>
 </html>

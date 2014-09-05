@@ -45,7 +45,7 @@ class Business_Teacher extends NH_Model
      		$already_param_item = array(
      			'teacher_id' => $param['teacher_id'],
      			'parent_id' => -2,
-     			'status' => "3",
+     			'status' => CLASS_STATUS_CLASS_OVER,
      			'round_id' => $val['id'],
      			'counter' => 1,
      		);
@@ -69,9 +69,10 @@ class Business_Teacher extends NH_Model
      	if(empty($param['round_id'])){exit('轮id不能为空');}
      	$input = array(
      		'round_id'=>$param['round_id'],
-     		'status'=>'0,1',
+     		'status'=>'0,1,2,3',
      		'parent_id' => -2,//只获取节
-     		'order' => 2,//按开始时间
+     		'order' => 6,//按开课状态
+     		'orderType' => 2,
      		'limit' => '1',
      	); 
      	#1. 查看是否有即将开课的课，显示最前一个
@@ -81,7 +82,7 @@ class Business_Teacher extends NH_Model
      	}else{
      		$input = array(
 	     		'round_id'=>$param['round_id'],
-	     		'status'=>'3',
+	     		'status'=>CLASS_STATUS_CLASS_OVER,//4
 	     		'parent_id' => -2,//只获取节
 	     		'order' => 2,//按开始时间
 	     		'orderType' => 2,
@@ -184,9 +185,10 @@ class Business_Teacher extends NH_Model
 	     		if($val['parent_id']==0){
 	     			#如果已经出现了章,章节的排序值相同可能导致先出现节后出现章的问题
 	     			$zjArr[$val['id']] = isset($zjArr[$val['id']]) ? array_merge($val,$zjArr[$val['id']]) : $val;
+	     			$zjArr[$val['id']]['jArr'] = array();
 	     		}else{
 	     			#统计出勤率
-	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));;
+	     			$persent = $this->class_attendance(array('class_id'=>$val['id']));
 	     			$val['attendance_persent'] = $persent;
 	     			$zjArr[$val['parent_id']]['jArr'][] = $val;
 	     		}
@@ -205,7 +207,7 @@ class Business_Teacher extends NH_Model
 		$total = $this->model_teacher->class_attendance(array('class_id'=>$param['class_id'],'status'=>'2'));
 		$study_num = $total[0]['total'] ? $total[0]['total'] : 0;
 		if($study_num){
-			$total = $this->model_teacher->class_attendance(array('class_id'=>$val['class_id']));
+			$total = $this->model_teacher->class_attendance(array('class_id'=>$param['class_id']));
 			$num = $total[0]['total'];
 			$persent = (round($study_num/$num,3)*100).'%';
 		}else{
@@ -233,7 +235,7 @@ class Business_Teacher extends NH_Model
         			$v['parent_name'] = $zjArr[$v['parent_id']]['title'];
         			$jArr[$v['id']] = $v;
         			$zjArr[$v['parent_id']]['son_class'][] = $v;
-        			$rateNum += ($v['status'] == 3) ? 1 : 0;
+        			$rateNum += ($v['status'] == CLASS_STATUS_CLASS_OVER) ? 1 : 0;
         		}else{#章，先遍历
         			$zjArr[$v['id']] = $v;
         		}
@@ -269,7 +271,7 @@ class Business_Teacher extends NH_Model
         			$v['parent_name'] = $zjArr[$v['parent_id']]['title'];
         			$jArr[$v['id']] = $v;
         			$zjArr[$v['parent_id']]['son_class'][] = $v;
-        			$rateNum += ($v['status'] == 3) ? 1 : 0;
+        			$rateNum += ($v['status'] == CLASS_STATUS_CLASS_OVER) ? 1 : 0;
         		}else{#章，先遍历
         			$zjArr[$v['id']] = $v;
         		}
@@ -461,9 +463,9 @@ class Business_Teacher extends NH_Model
     		'none' => 0,
     	);
     	if($list) foreach ($list as $val){
-    		if($val['status']==1){
+    		if($val['status']==3){
     			$count['already'] += $val['net_income'];
-    		}elseif($val['status']==0){
+    		}elseif($val['status']==1 || $val['status']==2){
     			$count['none'] += $val['net_income'];
     		}
     	}
@@ -554,7 +556,7 @@ class Business_Teacher extends NH_Model
     	$num = 0;//总题数
     	if(count($data) > 0) foreach ($data as $sequence => $list){
     		//1. 统计头
-			$head_class = $sequence==$cur_sequence ? 'redBtn' : 'countBtn';
+			$head_class = $sequence==$cur_sequence ? 'redBtn' : 'countBtn blackBack';
 			$html_head .= '<a href="#" class="cbutton '.$head_class.'" rel='.$sequence.'>第'.$sequence.' 次答题统计</a>';
 			//2.统计内容
 			$style =  $sequence==$cur_sequence ? 'style="display:block"' : 'style="display:none"';
@@ -599,7 +601,7 @@ class Business_Teacher extends NH_Model
 	    	}
 	    	
     	}
-    	$average = round($persent/$num,3).'%';
+    	$average = round($persent/$num,2).'%';
     	$total_html = '<span>本次练习共<em class="redText ">'.$answer_user_num.'</em>人作答</span>
 				<span>平均正确率<em class="redText">'.$average.'</em></span>';
     	return array('total_html' => $total_html, 'html_head' => $html_head, 'html' => $html);

@@ -20,17 +20,18 @@ class Business_Class extends NH_Model
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function create_classes($int_course_id, $int_round_id,$arr_classes)
+    public function create_classes_OLD($int_course_id, $int_round_id,$arr_classes)
     {
         $bool_return = false;
         if($int_round_id > 0 AND is_array($arr_classes) AND $arr_classes){
             //生成树形结构的章节数据，二维数组
+
             $arr_class_tree = self::get_class_tree($arr_classes);
 //            o($arr_classes);
 //            o($arr_class_tree,true);
             if($arr_class_tree){
                 //清除该班次以前的章和课节
-                self::delete_classes_by_round_id($int_round_id);
+//                self::delete_classes_by_round_id($int_round_id);
                 $arr_lesson_ids = array();
                 $int_chapter_sequence = 0;
                 //插入新的章和课节
@@ -78,7 +79,7 @@ class Business_Class extends NH_Model
                                 $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
 //                                o($arr_lesson_ids);
 //                                o($bool_add_courseware,true);
-                                if($bool_add_courseware == false){
+                                /*if($bool_add_courseware == false){
                                     //添加失败重试一次
                                     $bool_add_courseware = set_courseware_to_classroom($int_classroom_id,$int_courseware_id);
                                     if($bool_add_courseware==false){
@@ -86,7 +87,7 @@ class Business_Class extends NH_Model
                                         $bool_section_flag = false;
                                         break;
                                     }
-                                }
+                                }*/
                             }else{
                                 //本节课没有begin_time或end_time则终止组织本章的课堂数据
                                 $bool_section_flag = false;
@@ -116,69 +117,135 @@ class Business_Class extends NH_Model
                         break;
                     }
                 }
-                //创建课堂完成后，为每堂课添加习题
-                if($bool_return){
-                    $this->load->model('business/admin/business_question', 'question');
-                    $arr_param = array('lesson_id' => implode(',',$arr_lesson_ids));
-                    $arr_questions = $this->question->lesson_question($arr_param,'generate_round');
-//                    o($arr_section);
-//                    o($arr_questions,true);
-                    //可以没有题 有题再添加
-                    if($arr_questions){
-                        $arr_question_ids = array();
-                        foreach($arr_questions as $value){
-                            if($value AND isset($value['question_id']) AND $value['question_id'] > 0 AND isset($value['lesson_id']) AND $value['lesson_id'] > 0){
-                                $arr_question_ids[$value['lesson_id']][] = $value['question_id'];
-                            }else{
-                                $bool_return = false;
-                                break;
-                            }
-                        }
 
-                        if($bool_return==true){
-                            $arr_classes = self::get_classes_by_round_id($int_round_id);
-                            if($arr_classes){
-                                $arr_delete_question_class_ids = $arr_questions_classes = array();
-                                //产生要插入question_class_relation中的数据组
-                                foreach($arr_classes as $value){
-                                    $arr_delete_question_class_ids[] = $value['id'];// for delete question_class_relation
-                                    if(isset($arr_question_ids[$value['lesson_id']])){
-                                        foreach($arr_question_ids[$value['lesson_id']] as $k => $v){
-                                            $arr_questions_classes[] = array(
-                                                'class_id' => $value['id'],
-                                                'question_id' => $v
-                                            );
-                                        }
-                                    }
-                                }
-//                            o($arr_questions_classes,true);
-                                //根据class_id删除question_class_relation中的数据
-                                if($arr_delete_question_class_ids){
-                                    $delete_arr_param = array(
-                                        'do' => 'delete',
-                                        'delete_class_question' => true,
-                                        'class_id' => $arr_delete_question_class_ids
-                                    );
-                                    $this->question->class_question_delete($delete_arr_param);
-                                }
-                                $add_arr_param = array(
-                                    'do' => 'add_relation',
-//                                'add_class_question' => true,
-                                    'no_check' => 1,
-                                    'class_id' => $arr_questions_classes
-                                );
-                                $bool_return = $this->question->class_question_doWrite($add_arr_param);
-//                            o($bool_return,true);
-                            }
-                        }
-
-                    }
-
-                }
             }
         }
 //        o($bool_return,true);
         return $bool_return;
+    }
+
+    public function create_classes($int_course_id, $int_round_id,$arr_lessons){
+        $bool_return = false;
+        if($int_course_id > 0 AND $int_round_id AND is_array($arr_lessons)){
+            $this->load->model("business/admin/business_lesson","lesson");
+            $arr_lessons_tree = $this->lesson->get_lessons_list_tree_show($arr_lessons);
+//            o($arr_lessons);
+//            o($arr_lessons_tree,true);
+            $arr_classes = array();
+            $int_chapter_sequence = 0;
+            foreach($arr_lessons_tree as $k => $v){
+                $int_parent_id = 1;
+                if($k > 1){
+                    //组织章数据
+                    $arr_chapter = array(
+                        'course_id' => $int_course_id,
+                        'round_id' => $int_round_id,
+                        'lesson_id' => $v['id'],
+                        'title' => $v['title'],
+                        'sequence' => $int_chapter_sequence
+                    );
+                    //插入章
+                    $int_parent_id = $this->model_class->create_class($arr_chapter);
+                }
+                $int_chapter_sequence += 1;
+                if($int_parent_id > 0){
+                    $bool_section_flag = true;//每节课数组组成功的标记
+                    $int_section_sequence = 0;//节的序列
+                    $arr_section = array();
+                    //为本章中每节课创建classroom，并且为该课堂添加courseware，组织一章中的多个课堂数据 一句sql插入多条class数据
+                    if(isset($v['sections']) AND $v['sections']){
+                        foreach($v['sections'] as $kk => $vv){
+                            //组织class数据并且塞入数组中，本次循环完成后通过insert_batch一起入库
+                            $arr_section[] = array(
+                                'course_id' => $int_course_id,
+                                'round_id' => $int_round_id,
+                                'lesson_id' => $vv['id'],
+                                'title' => $vv['title'],
+                                'courseware_id' => $vv['courseware_id'],
+                                'parent_id' => $int_parent_id,
+                                'sequence' => $int_section_sequence++,
+                                'status' => ($int_chapter_sequence==1 AND $int_section_sequence==1) ? CLASS_STATUS_SOON_CLASS : CLASS_STATUS_INIT
+                            );
+                            $arr_lesson_ids[] = $vv['id'];
+                        }//组织本章所有节数据循环结束
+                        //把本章中组织好的class数据插入class表
+                        $int_last_id = $this->model_class->create_class_batch($arr_section);
+                        if($int_last_id > 0){
+                            if($k == count($arr_lessons_tree)-1){
+                                //完成最后一章的全部节插入class后 标记为本轮创建成功
+                                $bool_return = true;
+                            }
+                        }else{
+                            //本章的节插入class失败，则终止插入章的循环
+                            break;
+                        }
+                    }
+                }else{
+                    //插入章失败，终止全部循环
+                    break;
+                }
+            }
+            self::copy_questions_from_lesson_to_class($int_round_id,$arr_lesson_ids);
+        }
+        return $bool_return;
+    }
+
+    public function copy_questions_from_lesson_to_class($int_round_id,$arr_lesson_ids){
+        //创建课堂完成后，为每堂课添加习题
+        if(is_array($arr_lesson_ids) AND $arr_lesson_ids){
+            $this->load->model('business/admin/business_question', 'question');
+            $arr_param = array('lesson_id' => implode(',',$arr_lesson_ids));
+            $arr_questions = $this->question->lesson_question($arr_param,'generate_round');
+//                    o($arr_section);
+//                    o($arr_questions,true);
+            //可以没有题 有题再添加
+            if($arr_questions){
+                $arr_question_ids = array();
+                foreach($arr_questions as $value){
+                    if($value AND isset($value['question_id']) AND $value['question_id'] > 0 AND isset($value['lesson_id']) AND $value['lesson_id'] > 0){
+                        $arr_question_ids[$value['lesson_id']][] = $value['question_id'];
+                    }else{
+                        $bool_return = false;
+                        break;
+                    }
+                }
+
+                    $arr_classes = self::get_classes_by_round_id($int_round_id);
+                    if($arr_classes){
+                        $arr_delete_question_class_ids = $arr_questions_classes = array();
+                        //产生要插入question_class_relation中的数据组
+                        foreach($arr_classes as $value){
+                            $arr_delete_question_class_ids[] = $value['id'];// for delete question_class_relation
+                            if(isset($arr_question_ids[$value['lesson_id']])){
+                                foreach($arr_question_ids[$value['lesson_id']] as $k => $v){
+                                    $arr_questions_classes[] = array(
+                                        'class_id' => $value['id'],
+                                        'question_id' => $v
+                                    );
+                                }
+                            }
+                        }
+//                            o($arr_questions_classes,true);
+                        //根据class_id删除question_class_relation中的数据
+                        if($arr_delete_question_class_ids){
+                            $delete_arr_param = array(
+                                'do' => 'delete',
+                                'delete_class_question' => true,
+                                'class_id' => $arr_delete_question_class_ids
+                            );
+                            $this->question->class_question_delete($delete_arr_param);
+                        }
+                        $add_arr_param = array(
+                            'do' => 'add_relation',
+//                                'add_class_question' => true,
+                            'no_check' => 1,
+                            'class_id' => $arr_questions_classes
+                        );
+                        $bool_return = $this->question->class_question_doWrite($add_arr_param);
+//                            o($bool_return,true);
+                    }
+            }
+        }
     }
 
     /**
@@ -187,35 +254,35 @@ class Business_Class extends NH_Model
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_class_tree($arr_classes){
-        $arr_return = array();
-        if($arr_classes){
-            $int_flag = 0 ;
-            foreach($arr_classes as $k => $v){
-//                o($v);
-                if($v['is_chapter']==1){
-                    if($k != 0){
-                        $int_flag ++ ;
-                    }
-                    $arr_return[$int_flag]['title'] = $v['name'];
-                    $arr_return[$int_flag]['lesson_id'] = $v['lesson_id'];
-                    $arr_return[$int_flag]['courseware_id'] = $v['courseware_id'];
-                    $arr_return[$int_flag]['begin_time'] = $v['start_time'];
-                    $arr_return[$int_flag]['end_time'] = $v['end_time'];
-                }else{
-                    $arr_return[$int_flag]['classes'][] = array(
-                        'title' => $v['name'],
-                        'lesson_id' => $v['lesson_id'],
-                        'courseware_id' => $v['courseware_id'],
-                        'begin_time' => $v['start_time'],
-                        'end_time' => $v['end_time'],
-                    );
-                }
-            }
-//            var_dump($arr_return[0]['classes']);
-        }
-        return $arr_return;
-    }
+//    public function get_class_tree($arr_classes){
+//        $arr_return = array();
+//        if($arr_classes){
+//            $int_flag = 0 ;
+//            foreach($arr_classes as $k => $v){
+////                o($v);
+//                if($v['is_chapter']==1){
+//                    if($k != 0){
+//                        $int_flag ++ ;
+//                    }
+//                    $arr_return[$int_flag]['title'] = $v['name'];
+//                    $arr_return[$int_flag]['lesson_id'] = $v['lesson_id'];
+//                    $arr_return[$int_flag]['courseware_id'] = $v['courseware_id'];
+//                    $arr_return[$int_flag]['begin_time'] = $v['start_time'];
+//                    $arr_return[$int_flag]['end_time'] = $v['end_time'];
+//                }else{
+//                    $arr_return[$int_flag]['classes'][] = array(
+//                        'title' => $v['name'],
+//                        'lesson_id' => $v['lesson_id'],
+//                        'courseware_id' => $v['courseware_id'],
+//                        'begin_time' => $v['start_time'],
+//                        'end_time' => $v['end_time'],
+//                    );
+//                }
+//            }
+////            var_dump($arr_return[0]['classes']);
+//        }
+//        return $arr_return;
+//    }
 
     /**
      * 根据round_id删除class
@@ -229,6 +296,22 @@ class Business_Class extends NH_Model
             );
             $this->model_class->delete_class_by_param($arr_where);
         }
+    }
+
+    /**
+     * 根据id删除class
+     * @param $int_class_id
+     * @return bool
+     * @author yanrui@tizi.com
+     */
+    public function delete_classes($int_class_id){
+        if($int_class_id > 0){
+            $arr_where = array(
+                'id' => $int_class_id
+            );
+            $this->model_class->delete_class_by_param($arr_where);
+        }
+        return true;
     }
 
     /**
@@ -288,19 +371,39 @@ class Business_Class extends NH_Model
 
     /**
      * 根据id取class
-     * @param $int_class_id
+     * @param $mix_class_id int|array
      * @return array
      * @author yanrui@tizi.com
      */
-    public function get_class_by_id($int_class_id)
+    public function get_class_by_id($mix_class_id)
     {
         $arr_return = array();
-        if($int_class_id){
+        if($mix_class_id){
+            $str_table_range = 'class';
+            $str_result_type = is_array($mix_class_id) ? 'list' : 'one';
+            $str_fields = '*';
+            $arr_where = array(
+                'id' => $mix_class_id
+            );
+            $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        }
+        return $arr_return;
+    }
+
+    /**
+     * 根据classroom_id取class
+     * @param $int_classroom_id
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_by_classroom_id($int_classroom_id){
+        $arr_return = array();
+        if($int_classroom_id){
             $str_table_range = 'class';
             $str_result_type = 'one';
             $str_fields = '*';
             $arr_where = array(
-                'id' => $int_class_id
+                'classroom_id' => $int_classroom_id
             );
             $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
         }
@@ -319,7 +422,29 @@ class Business_Class extends NH_Model
         if($int_round_id){
             $str_table_range = 'class';
             $str_result_type = 'list';
-            $str_fields = 'id,course_id,round_id,lesson_id,title,begin_time,end_time,courseware_id,status,parent_id,sequence,classroom_id,checkout_status';
+            $str_fields = 'id,course_id,round_id,lesson_id,title,begin_time,end_time,courseware_id,status,parent_id,sequence,classroom_id,checkout_status,score,attendance,correct_rate,school_hour';
+            $arr_where = array(
+                'round_id' => $int_round_id
+            );
+            $arr_return = $this->model_class->get_class_by_param($str_table_range, $str_result_type, $str_fields, $arr_where);
+        }
+        return $arr_return;
+    }
+
+
+    /**
+     * 根据class_ids取class
+     * @param int $int_round_id
+     * @return array
+     * @author yanrui@tizi.com
+     */
+    public function get_class_ids_by_round_id($int_round_id)
+    {
+        $arr_return = array();
+        if($int_round_id){
+            $str_table_range = 'class';
+            $str_result_type = 'list';
+            $str_fields = 'id';
             $arr_where = array(
                 'round_id' => $int_round_id
             );
@@ -331,15 +456,17 @@ class Business_Class extends NH_Model
     /**
      * add courseware to class
      * @param $int_class_id
-     * @param $int_courseware_id
+     * @param $arr_courseware
      * @return bool
      * @author yanrui@tizi.com
      */
-    public function add_courseware($int_class_id, $int_courseware_id){
+    public function add_courseware($int_class_id, $arr_courseware){
         $bool_return = false;
-        if($int_class_id > 0 AND $int_courseware_id > 0){
+        if($int_class_id > 0 AND is_array($arr_courseware)){
+            $this->load->model('business/common/business_courseware','courseware');
+            $this->courseware->create_courseware($arr_courseware);
             $arr_param = array(
-                'courseware_id' => $int_courseware_id,
+                'courseware_id' => $arr_courseware['id'],
             );
             $arr_where = array(
                 'id' => $int_class_id

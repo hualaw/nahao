@@ -11,11 +11,6 @@ class Pay extends NH_User_Controller {
         $this->load->model('model/student/model_member');
         $this->load->model('business/common/business_register');
         $this->load->model('business/common/business_user');
-        #判断是否登录
-/*         if(!$this->is_login)
-        {
-            redirect('/login');
-        } */
     }
 	
 	/**
@@ -31,7 +26,7 @@ class Pay extends NH_User_Controller {
 	     redirect('/login');
 	     }
 	    $int_product_id = max(intval($int_product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -44,11 +39,11 @@ class Pay extends NH_User_Controller {
 	    	show_error("这轮已售罄了");
 	    }
 	    #购买前加入是否售罄、已停售、已下架
-	    if ($array_round['sale_status'] == '5')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_FINISH )
 	    {
 	    	show_error("这轮已停售了");
 	    }
-	    if ($array_round['sale_status'] == '6')
+	    if ($array_round['sale_status'] == ROUND_SALE_STATUS_OFF )
 	    {
 	    	show_error("这轮已下架了");
 	    }
@@ -61,20 +56,20 @@ class Pay extends NH_User_Controller {
 	        {
 	            switch ($v['status'])
 	            {
-	                case 0:
-	                case 1:
+	                case ORDER_STATUS_INIT:
+	                case ORDER_STATUS_FAIL:
 	                    show_error('您的订单已经存在，请去订单中心付款');
 	                    break;
-	                case 2:
-                    case 3:
-                    case 6:
-                    case 7:
-                    case 8:
-                    case 9:
+	                case ORDER_STATUS_SUCC:
+                    case ORDER_STATUS_FINISH:
+                    case ORDER_STATUS_APPLYREFUND:
+                    case ORDER_STATUS_APPLYREFUND_FAIL:
+                    case ORDER_STATUS_APPLYREFUND_AGREE:
+                    case ORDER_STATUS_APPLYREFUND_SUCC:
                         show_error('您已经购买过这轮课程，请不要重复购买');
                         break;
-                    case 4:
-                    case 5:
+                    case ORDER_STATUS_CANCEL:
+                    case ORDER_STATUS_CLOSE:
                         #根据$int_product_id获取订单里面该轮的部分信息
                         $array_data = $this->student_order->get_order_round_info($int_product_id);
                         break;
@@ -89,6 +84,7 @@ class Pay extends NH_User_Controller {
 	    $array_infor = $this->_user_detail;
 		//var_dump($array_infor);
 	    $this->smarty->assign('realname', $array_infor['realname']);
+	    $this->smarty->assign('phone_verified', $array_infor['phone_verified']);
 	    $this->smarty->assign('array_data', $array_data);
 	    $this->smarty->display('www/studentCart/infoCheck.html');
 	}
@@ -126,8 +122,7 @@ class Pay extends NH_User_Controller {
     	 
     	#检查用户是否已经买了该轮
     	$array_result = $this->model_order->check_product_in_order($int_product_id,$int_user_id);
-    	//echo $array_result[0]['status'];die;
-    	if ($array_result && (in_array($array_result[0]['status'], array(2,3,6,7,8,9))))
+    	if ($array_result && (in_array($array_result[0]['status'], array(ORDER_STATUS_SUCC,ORDER_STATUS_FINISH,ORDER_STATUS_APPLYREFUND,ORDER_STATUS_APPLYREFUND_FAIL,ORDER_STATUS_APPLYREFUND_AGREE,ORDER_STATUS_APPLYREFUND_SUCC))))
     	{
     		self::json_output(array('status'=>'been_buy','msg'=>'您已经买过该轮了,请不要重复下单'));
     	}
@@ -241,8 +236,13 @@ class Pay extends NH_User_Controller {
 	public function neworder($product_id = 1)
 	{
 	    header('content-type: text/html; charset=utf-8');
+	    #判断是否登录
+	    if(!$this->is_login)
+	    {
+	     	redirect('/login');
+	    }
 	    $int_product_id = max(intval($product_id),1);
-	    #检查这个$int_product_id是否有效：在预售和销售中的轮
+	    #检查这个$int_product_id是否有效：销售中的轮
 	    $bool_flag = $this->student_course->check_round_id($int_product_id);
 	    if (!$bool_flag)
 	    {
@@ -255,7 +255,7 @@ class Pay extends NH_User_Controller {
 	    if ($array_return)
 	    {
 	        $int_order_id = $array_return[0]['id'];
-	        if ($array_return[0]['pay_type'] == 4)
+	        if ($array_return[0]['pay_type'] == ORDER_TYPE_OFFLINE)
 	        {
 	            $payment_method = 'remittance';
 	        } else {
@@ -269,11 +269,18 @@ class Pay extends NH_User_Controller {
 	        $payment_method = $payment_method == 'online' ? 'online':'remittance';
 	        #创建订单,向数据库里面写一条记录，写一条订单日志记录
 	        $array_result = $this->student_order->create_order($int_product_id,$payment_method,$int_user_id);
-	        $int_order_id = $array_result['order_id'];
 	        if (!$array_result['status'])
 	        {
 	            show_error("创建订单失败");
 	        }
+	        #向数据库生成订单成功之后，将订单信息写到redis里面
+	        $int_order_id = $array_result['order_id'];
+	        $bool_flag = $this->write_order_to_redis($int_order_id,$array_result['array_data']);
+	        if(!$bool_flag)
+	        {
+	        	show_error("创建订单失败啦");
+	        }
+	        
 	    }
 		redirect("/pay/order/{$int_order_id}/$payment_method", 'location', 302);
 	}
@@ -287,24 +294,43 @@ class Pay extends NH_User_Controller {
 	public function order($int_order_id=1, $payment_method='online')
 	{
 	    header('content-type: text/html; charset=utf-8');
+	    #判断是否登录
+	    if(!$this->is_login)
+	    {
+	    	redirect('/login');
+	    }
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $payment_method = $payment_method == 'online' ? 'online':'remittance';
-	    #根据order_id获取订单信息
-	    $array_order = $this->student_order->get_order_by_id($int_order_id);
+	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
+	    $array_order = $this->read_order_to_redis($int_order_id);
+	    if(empty($array_order))
+	    {
+	    	$array_order = $this->student_order->get_order_by_id($int_order_id);
+	    }
 	    $int_user_id = $this->session->userdata('user_id'); 
-	    if (!$array_order OR $array_order['student_id']!= $int_user_id)#TODO用户id  $this->user['id']
+	    //log_message('debug_nahao', "int_user_id:$int_user_id, order_id: $int_order_id, array_order:".print_r($array_order, 1));
+	    if (empty($array_order))
 	    {
 	        #order不存在 或者不是本人订单
 	        show_error('订单不存在'); 
 	    }
-	    #订单状态 > 1 跳转到我的订单
-	    if($array_order['status'] > 1)
+	    if($array_order['student_id']!= $int_user_id)
+	    {
+	    	show_error('不是本人的订单');
+	    }
+/* 	    #订单状态 > 1 跳转到我的订单
+	    if($array_order['status'] > ORDER_STATUS_FAIL)
 	    {
 	        redirect('/member/my_order');
+	    } */
+	    #检查用户是否已经买了该轮
+	    if ((in_array($array_order['status'], array(ORDER_STATUS_SUCC,ORDER_STATUS_FINISH,ORDER_STATUS_APPLYREFUND,ORDER_STATUS_APPLYREFUND_FAIL,ORDER_STATUS_APPLYREFUND_AGREE,ORDER_STATUS_APPLYREFUND_SUCC))))
+	    {
+	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
-	    //var_dump($array_order);die;
 	    #查找该轮的信息(主要是轮的价格)
 	    $array_round = $this->student_course->get_round_info($array_order['round_id']);
+	    //$array_order['id'] = $int_order_id;
 	    #如果是0元免费课程，执行下面的操作
 	    if ($array_round['sale_price'] == '0'){
 	    	#更新订单状态,写日志
@@ -313,12 +339,14 @@ class Pay extends NH_User_Controller {
 	    	'user_id'=>$int_user_id,
 	    	'order_id' =>$array_order['id'],
 	    	'status'=>ORDER_STATUS_SUCC,
-	    	'pay_type' =>$payment_method,            #支付方式
-	    	'action'=>ORDER_STATUS_SUCC,             #日志动作
-	    	'note'=>'支付成功'                        #日志记录
+	    	'pay_type' =>ORDER_TYPE_ONLINE,                      #支付方式
+	    	'action'=>ORDER_ACTION_SUCC,            			 #日志动作
+	    	'note'=>'0元免费课程支付成功',                        #日志记录
+	    	'user_type'=>NH_MEETING_TYPE_STUDENT
 	    	);
 	    	$this->zero_order_action($array_data);
 	    }
+	    
 	    $bank_code = config_item('bank_code');
 	    $this->smarty->assign('bank_code', $bank_code);
 	    $this->smarty->assign('array_order', $array_order);
@@ -340,28 +368,40 @@ class Pay extends NH_User_Controller {
 	    }
 	    $int_order_id = max(intval($int_order_id), ORDER_START_VALUE);
 	    $str_nickname = $this->session->userdata('nickname');
-	    #根据order_id获取订单信息
-	    $array_order = $this->student_order->get_order_by_id($int_order_id);
+	    $int_user_id = $this->session->userdata('user_id');
+	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
+	    $array_order = $this->read_order_to_redis($int_order_id);
+	    if(empty($array_order))
+	    {
+	    	$array_order = $this->student_order->get_order_by_id($int_order_id);
+	    }
+	    //$array_order = $this->student_order->get_order_by_id($int_order_id);
 	    if (!$array_order) 
 	    {
 	        #order不存在
 	        show_error('订单不存在'); 
 	    }
-	    
+	    if($array_order['student_id']!= $int_user_id)
+	    {
+	    	show_error('不是本人的订单');
+	    }
 /* 	    if($array_order['status'] > 1)
 	    {
 	        #我的订单
 	        redirect('/member/my_order');
 	    } */
-	    $int_user_id = $this->session->userdata('user_id');
+
 	    #检查用户是否买过该订单里的这轮，防止重复购买
 	    $array_result = $this->model_order->check_product_in_order($array_order['round_id'],$int_user_id);
-	    //var_dump($array_result);die;
-	    if ($array_result && (in_array($array_result[0]['status'], array(2,3,6,7,8,9))))
+	    if ($array_result && (in_array($array_result[0]['status'],array(ORDER_STATUS_SUCC,ORDER_STATUS_FINISH,ORDER_STATUS_APPLYREFUND,ORDER_STATUS_APPLYREFUND_FAIL,ORDER_STATUS_APPLYREFUND_AGREE,ORDER_STATUS_APPLYREFUND_SUCC))))
 	    {
 	    	show_error('您已经买过该轮了，请不要重复购买');
 	    }
 	    $array_round = $this->model_course->get_round_info($array_order['round_id']);
+	    if($array_round['sale_status'] != ROUND_SALE_STATUS_SALE)
+	    {
+	    	show_error('此轮销售已结束，已不可支付！');
+	    }
 	    $method = $this->input->post('method');
 	    if($method == 'netpay')
 	    {
@@ -379,8 +419,8 @@ class Pay extends NH_User_Controller {
 	        $payMethod = isset($bank_code_config[$pay_method][$bank_code]['type']) ? $bank_code_config[$pay_method][$bank_code]['type']:'';
 	    }
 	    $order_id = $array_order['id'];
-	    $name = $array_round['title'];
-	    $desc = $array_round['subtitle'];
+	    $name = mb_substr($array_round['title'],0,124,'utf-8');
+	    $desc = '';
 	    $amount = $array_order['spend'];
 	    $create_time = $array_order['create_time'];
 	    
@@ -426,8 +466,8 @@ class Pay extends NH_User_Controller {
 	    //测试页面跳转回调连接
 /* 	   http://www.nahaodev.com/pay/payback?body=%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89&buyer_email=wsbnd9%40gmail.com&buyer_id=2088212220120365&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3InR8tGjRXYpexpaRGyeCWBjSZV1%252BqqtUD1W5T58ANYJw2sMq9G4&notify_time=2014-06-18+14%3A53%3A18&notify_type=trade_status_sync&out_trade_no=1&payment_type=1&seller_email=nahao%40tizi.com&seller_id=2088411963723035&subject=%E7%8E%8B%E8%80%81%E5%B8%88+2014%E5%B9%B4%E4%BA%94%E5%B9%B4%E7%BA%A7%E5%A5%A5%E6%95%B0%E6%9A%91%E5%81%87%E8%AE%AD%E7%BB%83%E8%90%A51&total_fee=0.01&trade_no=2014061831991336&trade_status=TRADE_SUCCESS&sign=d10440f551dd92b30ef83c40839a7d31&sign_type=MD5 */
 
-	    log_message("ERROR_NAHAO", 'payback_server:'.var_export($_SERVER,true)."\n".'payback_get:'.var_export($_GET,true)."\n"
-	    .'payback_post:'.var_export($_POST,true)."\n".'payback_request:'.var_export($_REQUEST,true)."\n---------------------------------\n");
+// 	    log_message("ERROR_NAHAO", 'payback_server:'.var_export($_SERVER,true)."\n".'payback_get:'.var_export($_GET,true)."\n"
+// 	    .'payback_post:'.var_export($_POST,true)."\n".'payback_request:'.var_export($_REQUEST,true)."\n---------------------------------\n");
 	   
 	    $response = array('title' => '支付失败', 'message' => '');
 	    $payResult = null;
@@ -471,8 +511,9 @@ class Pay extends NH_User_Controller {
 	                    'order_id' => $payResult['order_id'],
 	                    'status'=>$order_updata['status'],
 	                    'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-	                    'action'=>ORDER_STATUS_FAIL,             #日志动作
-	                    'note'=>$response['message']             #日志记录
+	                    'action'=>ORDER_ACTION_FAIL,             #日志动作
+	                    'note'=>$response['message'],             #日志记录
+	                    'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
 	                $this->student_order->update_order_status($array_data);
 	            }
@@ -502,8 +543,9 @@ class Pay extends NH_User_Controller {
     	                'order_id' => $payResult['order_id'],
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-    	                'action'=>ORDER_STATUS_FAIL,             #日志动作
-    	                'note'=>$response['message']             #日志记录
+    	                'action'=>ORDER_ACTION_FAIL,             #日志动作
+    	                'note'=>$response['message'],             #日志记录
+    	                'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
 	                $this->student_order->update_order_status($array_data);
 	            }
@@ -523,8 +565,9 @@ class Pay extends NH_User_Controller {
     	                'order_id' =>$payResult['order_id'],
     	                'status'=>$order_updata['status'],
     	                'pay_type' =>ORDER_TYPE_ONLINE,          #支付方式
-    	                'action'=>ORDER_STATUS_SUCC,             #日志动作
-    	                'note'=>'支付成功'                        #日志记录
+    	                'action'=>ORDER_ACTION_SUCC,             #日志动作
+    	                'note'=>'支付成功',                       #日志记录
+    	                'user_type'=>NH_MEETING_TYPE_STUDENT
 	                );
 	                $bool_result = $this->student_order->update_order_status($array_data);
 	                if (!$bool_result) 
@@ -599,12 +642,13 @@ class Pay extends NH_User_Controller {
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'参数错误'));
 	    }
+	    #根据order_id获取订单信息(从redis读取订单信息),如果从数据库中读取
 	    $array_data = $this->model_order->get_order_by_id($int_order_id);
 	    if (empty($array_data))
 	    {
 	        self::json_output(array('status'=>'error','msg'=>'订单不存在'));
 	    }
-	    if ($array_data['status'] == '2')
+	    if ($array_data['status'] == ORDER_STATUS_SUCC)
 	    {
 	        self::json_output(array('status'=>'ok','msg'=>'支付成功'));
 	    } else {
@@ -615,7 +659,7 @@ class Pay extends NH_User_Controller {
 	/**
 	 * 如果是0元免费课程,执行下面的操作
 	 */
-	function zero_order_action($array_data)
+	public function zero_order_action($array_data)
 	{
 		$this->student_order->update_order_status($array_data);
 		#根据order_id,查找轮以及轮里面的课，添加学生与课的关系
@@ -628,6 +672,24 @@ class Pay extends NH_User_Controller {
 		{
 			$this->business_user->modify_user_info(array('has_bought'=>1),$array_data['user_id']);
 		}
+	}
+	
+	/**
+	 * 生成订单之后，往redis写订单信息
+	 */
+	public function write_order_to_redis($int_order_id,$array_data)
+	{
+		$bool_result = $this->student_order->write_order_to_redis($int_order_id,$array_data);
+		return $bool_result;
+	}
+	
+	/**
+	 * 读取redis里面的order信息
+	 */
+	public function read_order_to_redis($int_order_id)
+	{
+		$array_result = $this->student_order->read_order_to_redis($int_order_id);
+		return $array_result;
 	}
 }
 

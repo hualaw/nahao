@@ -22,7 +22,7 @@
          */
         public function sql()
         {
-            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->order_by('teacher_lecture.id','desc');
+            $this->db->select('teacher_lecture.course,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.create_time,teacher_lecture.status,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,subject.name as sub_name,teacher_lecture.qq,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->join('subject','subject.id=teacher_lecture.subject','left')->order_by('teacher_lecture.id','desc');
         }
 
         /**
@@ -65,17 +65,8 @@
          */
         public function seach_lecture_list($get)
         {
-            if($get['subject']!=0)
-            {
-                $this->load->model('business/common/business_subject');
-                $lecture_subject=$this->business_subject->get_subject_by_id($get['subject']);
-            }
-            else
-            {
-                $lecture_subject['name']='';
-            }
             $this->load->model('model/admin/model_lecture');
-            $this->model_lecture->factor($get,$lecture_subject['name']);
+            $this->model_lecture->factor($get);
             return $this->db->get();
         }
         /**
@@ -84,7 +75,7 @@
          * @return int
          * @author shangshikai@nahao.com
          */
-        public function factor($get,$subject)
+        public function factor($get)
         {
             $config_lecture = config_item('lecture_factor');
             if($get['term']!=0)
@@ -107,7 +98,7 @@
             }
             if($get['subject']!=0)
             {
-                $this->db->where("teacher_lecture.subject='$subject'");
+                $this->db->where("teacher_lecture.subject=$get[subject]");
             }
             if($get['teach_type']!=0)
             {
@@ -160,7 +151,7 @@
          */
         public function detail_lecture($lecture_id)
         {
-            return $this->db->select('teacher_lecture.province,teacher_lecture.city,teacher_lecture.area,teacher_lecture.course,teacher_lecture.user_id,teacher_lecture.status,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.phone,teacher_lecture.qq,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,teacher_lecture.resume,teacher_lecture.age,teacher_lecture.course_intro,teacher_lecture.gender,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
+            return $this->db->select('teacher_lecture.province,teacher_lecture.city,teacher_lecture.area,teacher_lecture.course,teacher_lecture.user_id,teacher_lecture.status,teacher_lecture.id,teacher_lecture.start_time,teacher_lecture.end_time,teacher_lecture.phone,teacher_lecture.qq,teacher_lecture.title,teacher_lecture.teach_years,teacher_lecture.subject,teacher_lecture.teach_type,teacher_lecture.school,teacher_lecture.name as tea_name,teacher_lecture.stage,nahao_schools.schoolname,nahao_areas.name,teacher_lecture.resume,teacher_lecture.age,teacher_lecture.course_intro,teacher_lecture.gender,teacher_lecture.email')->from('teacher_lecture')->join('nahao_schools','nahao_schools.id=teacher_lecture.school','left')->join('nahao_areas','nahao_areas.id=teacher_lecture.province','left')->where("teacher_lecture.id=$lecture_id")->get()->row_array();
         }
 
         /**
@@ -176,7 +167,7 @@
         }
 
         /**
-         * 添加试讲备注和修改审核状态
+         * 添加试讲备注
          * @param
          * @return
          * @author shangshikai@nahao.com
@@ -216,31 +207,38 @@
          */
         public function lecture_teach_pass($post,$data,$data_user,$subject_data)
         {
-            if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
-             {
-                 //以下为修改redis，还未测试
-//                 $now_time=time();
-//                 $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
-//
-//                 $this->load->model('model/common/model_redis', 'redis');
-//                 $this->redis->connect('session');
-//                 $redis_data=$this->cache->redis->get($session_id['session_id']);
-//                 $redis_data['teach_priv']=1;
-//                 if($this->cache->redis->set($session_id['session_id'],$redis_data))
-//                 {
-                     return TRUE;
-//                 }
-             }
+            if($this->db->update('teacher_lecture',array('teacher_lecture.status'=>5),array('teacher_lecture.id'=>$post['lecture_id'])) && $this->db->update('user',$data_user,array('user.id'=>$post['user_id'])) && $this->db->update('user_info',$data,array('user_info.user_id'=>$post['user_id'])) && $this->db->insert('teacher_subject',$subject_data))
+            {
+                $now_time=time();
+                $session_id=$this->db->select('session_log.session_id')->from('session_log')->where(array('session_log.user_id'=>$post['user_id'],'session_log.expire_time>'=>$now_time))->order_by('session_log.generate_time','desc')->limit(1)->get()->row_array();
+                $this->load->model('model/common/model_redis', 'redis');
+                $this->redis->connect('session');
+                $redis_data=$this->cache->redis->get($session_id['session_id']);
+                if($redis_data!=false)
+                {
+                    $arr_data=json_decode($redis_data,TRUE);
+                    $arr_data['user_data']=unserialize($arr_data['user_data']);
+                    $arr_data['user_data']['user_type']=1;
+                    $arr_data['user_data']=serialize($arr_data['user_data']);
+                    $arr_data=json_encode($arr_data);
+                    if($this->cache->redis->set($session_id['session_id'],$arr_data))
+                    {
+                        return TRUE;
+                    }
+                }
+
+                return TRUE;
+            }
         }
         /**
-         *待定试讲审核
+         *已试讲
          * @param
          * @return
          * @author shangshikai@nahao.com
          */
         public function lecture_teach_indeterminate($lecture_id)
         {
-            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
+            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>6),array('teacher_lecture.id'=>$lecture_id));
         }
         /**
          *不通过试讲审核
@@ -250,6 +248,90 @@
          */
         public function lecture_teach_nopass($lecture_id)
         {
-            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>3),array('teacher_lecture.id'=>$lecture_id));
+            return $this->db->update('teacher_lecture',array('teacher_lecture.status'=>4),array('teacher_lecture.id'=>$lecture_id));
         }
-    }
+        /**
+         * 不允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_teach_disagree($lecture_id)
+        {
+            $this->db->update('teacher_lecture',array('teacher_lecture.status'=>3),array('teacher_lecture.id'=>$lecture_id));
+            $int_rows=$this->db->affected_rows();
+            return $int_rows;
+        }
+        /**
+         * 允许试讲
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_teach_agree($lecture_id,$data,$data_calss)
+        {
+            $this->db->update('teacher_lecture',array('teacher_lecture.status'=>2),array('teacher_lecture.id'=>$lecture_id));
+            $int_rows=$this->db->affected_rows();
+            if($int_rows>0)
+            {
+                $this->db->insert(TABLE_LECTURE_CLASS,$data);
+                $int_lecture_class_id=$this->db->insert_id();
+                if($int_lecture_class_id>0)
+                {
+                    $this->db->insert(TABLE_CLASS,$data_calss);
+                    $int_class_id=$this->db->insert_id();
+                }
+            }
+            else
+            {
+                $int_class_id=0;
+            }
+            return $int_class_id;
+        }
+
+        /**
+         * 试讲课列表
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_class($title)
+        {
+            self::lecture_class_sql($title);
+            return $this->db->order_by(TABLE_LECTURE_CLASS.'.id','desc')->get()->result_array();
+        }
+        /**
+         * 试讲课列表数
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_class_total($title)
+        {
+            self::lecture_class_sql($title);
+            return $this->db->get()->num_rows();
+        }
+        /**
+         * 试讲课sql
+         * @author shangshikai@tizi.com
+         */
+        public function lecture_class_sql($title)
+        {
+            $this->db->select('lecture_class.id, lecture_class.title, lecture_class.begin_time, lecture_class.end_time, lecture_class.subject, lecture_class.courseware_id, lecture_class.classroom_id, lecture_class.user_id, subject.name, teacher_lecture.name as realname')->from(TABLE_LECTURE_CLASS)->join(TABLE_SUBJECT,TABLE_SUBJECT.'.id'.'='.TABLE_LECTURE_CLASS.'.subject','left')->join(TABLE_TEACHER_LECTURE,TABLE_TEACHER_LECTURE.'.user_id'.'='.TABLE_LECTURE_CLASS.'.user_id','left');
+            if($title!='')
+            {
+                $this->db->like(TABLE_LECTURE_CLASS.'.title',$title);
+            }
+        }
+        /**
+         * 添加课件
+         * @author shangshikai@tizi.com
+         */
+        public function update_lecture_class($arr_param,$arr_where,$arr_class_where){
+            $this->db->update(TABLE_LECTURE_CLASS, $arr_param, $arr_where);
+            $this->db->update(TABLE_CLASS, $arr_param, $arr_class_where);
+            $int_affected_rows = $this->db->affected_rows();
+    //        o($int_affected_rows);
+            return $int_affected_rows > 0 ? true :false;
+        }
+        /**
+         * 进教室
+         * @author shangshikai@tizi.com
+         */
+        public function get_lecture_class($arr_where)
+        {
+            return $this->db->select(TABLE_LECTURE_CLASS.'.id,title,begin_time,end_time,subject,courseware_id,classroom_id,round_id,status')->from(TABLE_LECTURE_CLASS)->where($arr_where)->get()->row_array();
+        }
+}

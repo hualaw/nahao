@@ -35,7 +35,7 @@
 .login .pwd .box li p span{color: #f14211;display: inline-block;margin-right:10px;font-weight: bold}
 .login .pwd .setNewpwd li p{margin-left:-20px;}
 .login .pwd .box li input{width:310px;height:38px;line-height:38px;border: 1px solid #d5d5d5;padding: 0 15px;font-size: 16px;}
-.login .pwd .box li .code{width:130px;height:40px;line-height:40px;font-size: 16px;margin-left:10px;}
+.login .pwd .box li .code{width:auto;height:40px;line-height:40px;font-size: 16px;margin-left:10px;border: none;}
 .login .pwd .box li span.code{background-color: #dedede;font-size: 12px;}
 .login .pwd .box li .submit,
 .login .pwd .box .signIn{width:340px;margin-bottom: 20px;height:40px;line-height:40px;cursor:pointer;}
