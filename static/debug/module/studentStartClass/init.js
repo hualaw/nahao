@@ -32,7 +32,7 @@ define(function(require,exports){
             _valid.writeInfoForm();
         }
         if(!$.cookies.get("_nahao_shua")){
-            $.cookies.set('_nahao_shua',"1",{ hoursToLive: 24*365 });
+            $.cookies.set('_nahao_shua',"1",{ hoursToLive: 24*7});
             window.location.reload();
         }
 })
