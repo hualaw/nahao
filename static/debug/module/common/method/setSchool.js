@@ -1,5 +1,6 @@
 define(function(require, exports) {
     require("lib/artDialog/4.1.7/artDialog");
+    console.log("init前"+$.tiziDialog);
     //初始化绑定
     exports.init=function(){
         //设置学校
