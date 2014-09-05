@@ -63,6 +63,7 @@ define(function(require,exports){
                 }
             });
             console.log("studentStartClass里面");
+            console.log($.tiziDialog);
             $.tiziDialog({
                 id:"setSchollID",
                 title:'选择学校',
