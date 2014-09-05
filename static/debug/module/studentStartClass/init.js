@@ -1,7 +1,11 @@
 define(function(require,exports){
+        //倒入jquery
+        require("jquery");
         // 公共select模拟
         require('select');
-        if ($(".popBox").length>0) {
+        //倒入dialog
+        require("naHaoDialog");
+        if($(".popBox").length>0){
             require("module/common/method/popUp").popUp(".popBox");
         };
         require("module/common/method/setSchool").init();
