@@ -1,8 +1,7 @@
 define(function(require, exports) {
-    require("lib/artDialog/4.1.7/artDialog");
-    console.log("init前"+$.tiziDialog);
     //初始化绑定
     exports.init=function(){
+        require("naHaoDialog");
         //设置学校
         $('.resetSchool').live('click',function(){
             var _this = $(this);
@@ -98,7 +97,6 @@ define(function(require, exports) {
                     $('#area_county_id').val(county_id);
                     $('#school_type').val(sctype_id);
                 },
-                cancel:true,
                 close:function(){
                     $('.resetSchoolPopCon .city,.resetSchoolPopCon .county,.resetSchoolPopCon .sctype,.resetSchoolPopCon .schoolInfo').hide();
                 }
