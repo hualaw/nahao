@@ -132,6 +132,7 @@ class Crontab extends CI_Controller
             $int_time = $this->get_time();
         }
         $array_class = $this->business_crontab->get_class_data($int_time,$type);
+        log_message('debug_nahao','the changing status_classes ：'.print_r($array_class,true));
         if($array_class)
         {
             foreach ($array_class as $k=>$v)
@@ -139,20 +140,31 @@ class Crontab extends CI_Controller
                 $bool_flag = $this->business_crontab->update_class_status(array('status'=>CLASS_STATUS_CLASSING),array('id'=>$v['id']));
                 if ($bool_flag)
                 {
-                    echo "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”成功"."\r\n";
+                    $msg =  "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”成功"."\r\n";
+                    echo $msg;
+                    log_message('error_nahao','the class status_result of changed ------>'.$msg);
                     #下节课的id
                     $next_class_id = $this->business_crontab->get_next_class_data($v['id'],$v['round_id']);
                     #把下节课的开始时间修改到轮里面的下节课开始时间
                     if(!empty($next_class_id)){
+                        echo $next_class_id;
+                        log_message('debug_nahao','class_id为'.$v['id'].'的下节课id为'.$next_class_id);
                         $class = T(TABLE_CLASS)->getById($next_class_id);
                         if($class){
-                            T(TABLE_ROUND)->update($v['round_id'],array('next_class_begin_time'=>$class['begin_time']));
+                            $update_res = T(TABLE_ROUND)->update($v['round_id'],array('next_class_begin_time'=>$class['begin_time']));
+                            if($update_res){
+                                log_message('debug_nahao','round_id为'.$v['round_id'].'的next_class_begin_time更新成功');
+                            }else{
+                                log_message('debug_nahao','round_id为'.$v['round_id'].'的next_class_begin_time更新失败或者已经更新过');
+                            }
                         }
                     }else{
                         log_message('debug_nahao','class_id为'.$v['id'].'的课没有下一节课');
                     }
                 } else {
-                    echo "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”失败"."\r\n";
+                    $msg =  "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”失败"."\r\n";
+                    echo $msg;
+                    log_message('error_nahao','the class status_result of changed ------>'.$msg);
                 }
             }
         }
