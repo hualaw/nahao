@@ -210,7 +210,7 @@ class Student_Index extends NH_Model{
         if(is_array($arr_where)){
             $str_table_range = 'round_index';
             $str_result_type = 'list';
-            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,course_type,material_version,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
+            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,course_type,material_version,'.TABLE_ROUND.'.sequence,next_class_begin_time,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
 //            $str_fields = '*';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,

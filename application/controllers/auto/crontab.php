@@ -145,6 +145,7 @@ class Crontab extends CI_Controller
                     log_message('error_nahao','the class status_result of changed ------>'.$msg);
                     #下节课的id
                     $next_class_id = $this->business_crontab->get_next_class_data($v['id'],$v['round_id']);
+
                     #把下节课的开始时间修改到轮里面的下节课开始时间
                     if(!empty($next_class_id)){
                         echo $next_class_id;

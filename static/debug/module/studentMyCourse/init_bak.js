@@ -10,7 +10,7 @@ define(function(require,exports){
 	var _myCourse = require("module/studentMyCourse/myCourse");
 
 	// 选择学校组件
-	require('module/common/method/setSchool');
+	require('module/common/method/setSchool').init();
 
 	if($("#wrapContent").hasClass("myOrderCon")){
 		// 退课 申请状态 验证
