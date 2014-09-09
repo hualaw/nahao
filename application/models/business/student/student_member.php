@@ -59,12 +59,12 @@ class Student_Member extends NH_Model{
     }
     */
 
-    public function get_my_course_by_where($int_user_id,$status = '',$offset = 0)
+    public function get_my_course_by_where($int_user_id,$status = '',$offset = 0,$per_page = PER_PAGE_NO)
     {
         $result = array();
         $my_course_total = $this->model_member->get_my_course_total($int_user_id,$status);
 
-        $array_return = $this->model_member->get_my_course_for_buy_by_where($int_user_id,$status,$offset);
+        $array_return = $this->model_member->get_my_course_for_buy_by_where($int_user_id,$status,$offset,$per_page);
 
 //        var_dump($array_return);die;
         if ($array_return)
@@ -74,10 +74,6 @@ class Student_Member extends NH_Model{
                 #图片地址
                 $class_img =  $v['img'];
                 #这轮共M节
-//                $totle_class = $this->model_member->get_class_count(0,$v['round_id']);
-//                #这轮上了M节
-//                $class  = $this->model_member->get_class_count('1',$v['round_id']);
-
                 $totle_class_array = T(TABLE_CLASS)->getFields(array('round_id','status'),'round_id = '.$v['round_id']);
                 $totle_class = count($totle_class_array);
 //                print_r($totle_class);
