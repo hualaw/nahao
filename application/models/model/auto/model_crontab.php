@@ -152,14 +152,14 @@
          * 所有需要改为过期的轮(补救)
          * @author shangshikai@tizi.com
          */
-        public function remedy_all_expire_end($begin_ex_time,$end_ex_time)
-        {
-            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
-            $this->db->where(TABLE_ROUND.'.teach_status',4);
-            $this->db->where(TABLE_ROUND.'.end_time>=',$begin_ex_time);
-            $this->db->where(TABLE_ROUND.'.end_time<',$end_ex_time);
-            return $this->db->get()->result_array();
-        }
+//        public function remedy_all_expire_end($begin_ex_time,$end_ex_time)
+//        {
+//            $this->db->select(TABLE_ROUND.'.id')->from(TABLE_ROUND);
+//            $this->db->where(TABLE_ROUND.'.teach_status',4);
+//            $this->db->where(TABLE_ROUND.'.end_time>=',$begin_ex_time);
+//            $this->db->where(TABLE_ROUND.'.end_time<',$end_ex_time);
+//            return $this->db->get()->result_array();
+//        }
         /**
          *所有审核通过的轮
          * @author shangshikai@tizi.com
