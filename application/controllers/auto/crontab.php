@@ -142,6 +142,7 @@ class Crontab extends CI_Controller
                     echo "[".date('Y-m-d H:i:s')."]:Class_Change_ClassEnterable_To_InClass方法--课id为：".$v['id']."状态更新为“正在上课”成功"."\r\n";
                     #下节课的id
                     $next_class_id = $this->business_crontab->get_next_class_data($v['id'],$v['round_id']);
+
                     #把下节课的开始时间修改到轮里面的下节课开始时间
                     if(!empty($next_class_id)){
                         $class = T(TABLE_CLASS)->getById($next_class_id);
