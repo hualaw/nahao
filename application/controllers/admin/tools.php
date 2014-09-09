@@ -209,4 +209,30 @@ class Tools extends NH_Admin_Controller {
     	}
     	exit;
     }
+
+    public function send_sms_to_teacher()
+    {
+        if(ENVIRONMENT == 'production'){
+            return false;
+        }
+        $this->load->library('sms');
+        $msg = '教师节将到，那好网祝福就来到：我将祝愿捻成绒线，为您织成暖暖的坎肩，前身是健康，后身是平安，开心在领口，幸福在两肩，陪您度过凉秋和寒冬，温暖您天天！亲爱的老师，那好网感谢有你的鼎力支持，衷心的祝您节日快乐！';
+        $teacher_phone = config_item('teacher_phone');
+        $teacher_num = count($teacher_phone);
+        $send_num = 0;
+        if (!empty($teacher_phone)){
+            foreach ($teacher_phone as $key=>$val){
+                $this->sms->setPhoneNums($val);
+                $this->sms->setContent($msg);
+                $this->sms->send();
+                log_message('debug_nahao','已经给'.$key.'老师发送短信，发送的内容为:'.$msg);
+                $send_num++;
+            }
+        }else{
+            log_message('error_nahao','请配置老师信息');
+        }
+        $result = '总共给'.$teacher_num.'位老师发送过'.$send_num.'条信息。';
+        echo $result;
+        log_message('debug_nahao',$result);
+    }
 }
