@@ -28,7 +28,7 @@ class Model_Course extends NH_Model{
     public function get_round_info($int_round_id)
     {
         $array_result = array();
-        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id,subject,stage,is_live,education_type,material_version,extra_bought_count,quality,sequence,course_type FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
+        $sql = "SELECT id,title,img,video,subtitle,start_time,end_time,sell_begin_time,sell_end_time,score,price,sale_price,sale_status,bought_count,caps,intro,students,description,teach_status,reward,grade_to,grade_from,is_test,course_id,subject,stage,is_live,education_type,material_version,extra_bought_count,quality,sequence,course_type,next_class_begin_time FROM ".TABLE_ROUND." WHERE id = ".$int_round_id;
         $array_result = $this->db->query($sql)->row_array();
         return $array_result;
     }

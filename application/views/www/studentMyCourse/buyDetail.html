@@ -63,12 +63,19 @@
 						{/if}
                     </div>
                     <div class="endTime cf">
-                        <div class="timeTitle fl">距离报名结束还剩</div><div class="countdown fl"></div>
+                        {if $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_INIT}
+                    	<input type="hidden"  id="sell_endtime" value="{$array_data.next_class_begin_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+                        <div class="timeTitle fl">距离直播开始还剩</div><div class="countdown fl"></div>
+                        {elseif $array_data.teach_status == $smarty.const.ROUND_TEACH_STATUS_TEACH}
+                        <input type="hidden"  id="sell_endtime" value="{$array_data.next_class_begin_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+                        <div class="timeTitle fl">距离下一节直播课开始还剩</div><div class="countdown fl"></div>
+                        {else}
+                        <div class="timeTitle fl">包含{$array_data.class_nums}节视频课</div>
+                        {/if}
                     </div>
                     <div class="courseTimeLine cf">
                         <div class="cf">
                             <span class="fl timeBar">上课日期</span>
-                            <input type="hidden"  id="sell_endtime" value="{$array_data.sell_end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
                             <a class="fl firmTime ctimeOn" href="#" title="">{$array_data.class_stime}－{$array_data.class_etime}</a>
                         </div>
                         <input type="hidden" id="product_id" value="{$array_data.id}">

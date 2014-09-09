@@ -75,8 +75,8 @@ class Student_Course extends NH_Model{
             #课次
             $array_return['class_nums'] = $class_nums;
             #课时总数
-            $class_num = $this->model_course->get_calss_hour_totle($int_round_id);
-            $array_return['class_hour'] = $class_num['num'];
+            #$class_num = $this->model_course->get_calss_hour_totle($int_round_id);
+            #$array_return['class_hour'] = $class_num['num'];
             #图片地址
             #$array_return['class_img'] = empty( $array_return['img']) ? static_url(HOME_IMG_DEFAULT) : get_course_img_by_size($array_return['img'],'large');
             #评分（四舍五入）

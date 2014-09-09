@@ -26,7 +26,7 @@ class Model_Index extends NH_Model
     public function get_course_new_round($offset = 0,$per_page = 10)
     {
         $array_result = array();
-        $sql = "SELECT id,start_time FROM " . TABLE_ROUND . " WHERE sale_status = " . ROUND_SALE_STATUS_SALE . " AND is_test = 0 GROUP BY course_id ORDER BY start_time ASC limit $offset,$per_page";
+        $sql = "SELECT id,MIN(start_time) FROM " . TABLE_ROUND . " WHERE sale_status = " . ROUND_SALE_STATUS_SALE . " AND is_test = 0 GROUP BY course_id ORDER BY start_time ASC limit $offset,$per_page";
 
         $array_result = $this->db->query($sql)->result_array();
         return $array_result;
