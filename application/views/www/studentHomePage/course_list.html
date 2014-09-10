@@ -112,7 +112,7 @@
                         </p>
                         <!-- 课程价格结束 -->
                         <div class="cf cBottom">
-                            {if $smarty.const.TIME_STAMP gt $v.sell_end_time-5*86400 && $smarty.const.TIME_STAMP lt $v.sell_end_time}
+                            {if false && $smarty.const.TIME_STAMP gt $v.sell_end_time-5*86400 && $smarty.const.TIME_STAMP lt $v.sell_end_time}
                                 <span class="fl countDown" time="{$v.sell_end_time}" time_id="{$v.id}"></span>
                             {else}
                                 <span class="fl">开课时间：{date('m月d日',$v.next_class_begin_time)}<span class="time">{date('H:i',$v.next_class_begin_time)}</span></span>
