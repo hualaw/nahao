@@ -381,7 +381,7 @@ $config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_HUAXUE] = '化学'
 $config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_SHENGWU] = '生物';
 $config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_DILI] = '地理';
 $config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_ZHENGZHI] = '政治';
-$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_SHUXUEJINGBIAN] = '数学精编';
+$config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_AOSHU] = '奥数';
 $config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_LISHI] = '历史';
 $config['education_subject'][ROUND_TYPE_SUBJECT][CATE_SUBJECT_OTHER] = '其他';
 
@@ -556,8 +556,8 @@ $config['cate_subject'] = array(
         'parentId' => array(11, 12),
         //'chirdren' => array(),
     ),
-    CATE_SUBJECT_SHUXUEJINGBIAN => array(
-        'name' => '数学精编',
+    CATE_SUBJECT_AOSHU => array(
+        'name' => '奥数',
         'parentId' => array(3, 4, 5, 6),
         //'chirdren' => array(),
     ),
