@@ -120,5 +120,62 @@ class Ambulance extends NH_Controller {
         }
     }
 
+    public function set_next_class_time(){
+        $arr_where = array(
+            'sale_status >' => ROUND_SALE_STATUS_NO_PASS,
+            'sale_status <' => ROUND_SALE_STATUS_OFF,
+            'is_test' => 0,
+            'is_live' => 0
+        );
+        $arr_round = $this->db->select('id,title,sale_status,teach_status')->from(TABLE_ROUND)->where($arr_where)->get()->result_array();
+//        $arr_round = array_slice($arr_round,0,5);
+//        o($arr_round,true);
+        $arr_new_class = array();
+
+        $this->load->model('business/admin/business_class','class');
+        foreach($arr_round as $k => $v){
+            echo '=='.$v['id'].'==';
+            if(in_array($v['teach_status'],array(ROUND_TEACH_STATUS_INIT,ROUND_TEACH_STATUS_TEACH))){
+                $arr_where_class = array(
+                    'status' => CLASS_STATUS_SOON_CLASS,
+                    'round_id' => $v['id'],
+                );
+                $arr_classes = $this->db->select('*')->from(TABLE_CLASS)->where($arr_where_class)->get()->result_array();
+                if($arr_classes){
+                    $int_next_time = $arr_classes[0]['begin_time'];
+                    $int_round_id = $arr_classes[0]['round_id'];
+                    echo $int_round_id.'--';
+                    o(date('Y-m-d H:i:s',$int_next_time));
+                    //update
+                    $data = array('next_class_begin_time'=> $int_next_time);
+                    $this->db->where('id',$int_round_id);
+                    $this->db->update(TABLE_ROUND,$data);
+                    o($this->db->last_query());
+                }else{
+                    echo "<br >";
+                }
+            }elseif(in_array($v['teach_status'],array(ROUND_TEACH_STATUS_FINISH,ROUND_TEACH_STATUS_OVER))){
+                $arr_classes = $this->class->get_classes_by_round_id($v['id']);
+//            o($arr_classes);
+                foreach($arr_classes as $kk => $vv){
+                    if($vv['parent_id'] > 0){
+                        $arr_new_class[] = $vv;
+                    }
+                }
+//                o($arr_new_class);
+                $arr_last_class = $arr_new_class[(count($arr_new_class)-1)];
+                $int_next_time = $arr_last_class['begin_time'];
+                $int_round_id = $arr_last_class['round_id'];
+                echo $int_round_id.'--';
+                o(date('Y-m-d H:i:s',$int_next_time));
+                $data = array('next_class_begin_time'=> $int_next_time);
+                $this->db->where('id',$int_round_id);
+                $this->db->update(TABLE_ROUND,$data);
+                o($this->db->last_query());
+            }
+        }
+//        o($arr_new_class);
+    }
+
 
 }
