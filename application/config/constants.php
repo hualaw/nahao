@@ -118,7 +118,7 @@ define('TEACH_ASSISTANT', 2);
 //订单编号开始值
 define('ORDER_START_VALUE', 1);
 //不走支付的开关(1走支付，0不走支付)
-define('NOT_GO_PAY_SWITCH', 0);
+define('NOT_GO_PAY_SWITCH', 1);
 
 
 /*
