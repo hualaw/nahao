@@ -20,9 +20,8 @@ class Model_Member extends NH_Model{
         return $array_result;
     }
 
-    public function get_my_course_for_buy_by_where($int_user_id,$status = '',$offset = 0)
+    public function get_my_course_for_buy_by_where($int_user_id,$status = '',$offset = 0,$per_page = PER_PAGE_NO)
     {
-        $per_page = PER_PAGE_NO;
         $sql = "SELECT r.sale_status,r.sale_price,so.status,so.round_id,so.id as order_id,r.teach_status,r.img,r.title
         		FROM ".TABLE_STUDENT_ORDER." so
         		LEFT JOIN ".TABLE_ROUND." r ON so.round_id = r.id

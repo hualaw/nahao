@@ -76,7 +76,7 @@
             类型：{if isset($course_types[$v.course_type])}{$course_types[$v.course_type]}{/if}</td>
         <td>{$v.bought_count}/{$v.caps}</td>
         <td>销售状态:{$round_sale_status[$v.sale_status]}<br />
-            授课状态:{if ($v.sale_status ge $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_SOLD_OUT) AND ($v.sale_status le $smarty.const.TABLE_ROUND_DIC_SALE_STATUS_STOP)}{$round_teach_status[$v.teach_status]}{else}--{/if}</td>
+            授课状态:{$round_teach_status[$v.teach_status]}</td>
         <td>{if isset($v.scores)}{$v.scores}{/if}</td>
         <td>
             <a href="/round/edit/{$v.id}">修改</a><br />

@@ -1,6 +1,6 @@
 define(function(require,exports){
     // 选择学校组件
-    require('module/common/method/setSchool');
+    require('module/common/method/setSchool').init();
     
     require('select');
     if ($(".popBox").length>0) {
