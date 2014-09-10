@@ -13,9 +13,9 @@ class Business_employment extends NH_Model
      * 招聘信息总数
      * @author shangshikai@tizi.com
      */
-    public function num_employment()
+    public function num_employment($id,$title)
     {
-        return $this->model_employment->count_employment();
+        return $this->model_employment->count_employment($id,$title);
     }
 
     /**
@@ -23,9 +23,9 @@ class Business_employment extends NH_Model
      * 获取招聘信息
      * @author shanghsikai@tizi.com
      */
-    public function get_employment($id)
+    public function get_employment($id,$title)
     {
-        return $this->model_employment->getAll_employment($id);
+        return $this->model_employment->getAll_employment($id,$title);
     }
 
     /**
@@ -62,7 +62,7 @@ class Business_employment extends NH_Model
             return $arr_return;
         }
 
-        if($this->model_employment->unique_seq($arr_insert['seq']))
+        if($this->model_employment->unique_seq($arr_insert['seq'],$innate=0,$id=0,$title=''))
         {
             $arr_return=array(
                 'status'=>'error',

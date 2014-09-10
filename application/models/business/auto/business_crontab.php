@@ -160,18 +160,18 @@
             if($begin_time==FALSE || $end_time==FALSE)
             {
                 $all_round_status=$this->model_crontab->all_round_status($advance_time);
-                $all_round_status_end=$this->model_crontab->all_round_status_end($advance_time);
+//                $all_round_status_end=$this->model_crontab->all_round_status_end($advance_time);
                 $all_run_status=$this->model_crontab->all_round_teach($advance_time);
                 $all_run_end=$this->model_crontab->all_round_teach_end($advance_time);
-                $all_expire_end=$this->model_crontab->all_expire_end($ex_time);
+//                $all_expire_end=$this->model_crontab->all_expire_end($ex_time);
             }
             else
             {
                 $all_round_status=$this->model_crontab->remedy_all_round_status($begin_time,$end_time);
-                $all_round_status_end=$this->model_crontab->remedy_all_round_status_end($begin_time,$end_time);
+//                $all_round_status_end=$this->model_crontab->remedy_all_round_status_end($begin_time,$end_time);
                 $all_run_status=$this->model_crontab->remedy_all_round_teach($begin_time,$end_time);
                 $all_run_end=$this->model_crontab->remedy_all_round_teach_end($begin_time,$end_time);
-                $all_expire_end=$this->model_crontab->remedy_all_expire_end($begin_ex_time,$end_ex_time);
+//                $all_expire_end=$this->model_crontab->remedy_all_expire_end($begin_ex_time,$end_ex_time);
             }
 
             foreach($all_round_status as $v)
@@ -183,14 +183,14 @@
                 }
             }
 
-            foreach($all_round_status_end as $v)
-            {
-                $num=$this->model_crontab->status_end_round($v['id']);
-                if($num==0)
-                {
-                    log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
-                }
-            }
+//            foreach($all_round_status_end as $v)
+//            {
+//                $num=$this->model_crontab->status_end_round($v['id']);
+//                if($num==0)
+//                {
+//                    log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
+//                }
+//            }
 
             foreach($all_run_status as $v)
             {
@@ -210,13 +210,13 @@
                 }
             }
 
-            foreach($all_expire_end as $v)
-            {
-                $num=$this->model_crontab->expire_round($v['id']);
-                if($num==0)
-                {
-                    log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
-                }
-            }
+//            foreach($all_expire_end as $v)
+//            {
+//                $num=$this->model_crontab->expire_round($v['id']);
+//                if($num==0)
+//                {
+//                    log_message('error_nahao','crontab ERROR-ID:'.$v['id']);
+//                }
+//            }
         }
     }

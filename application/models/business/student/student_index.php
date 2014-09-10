@@ -17,6 +17,7 @@ class Student_Index extends NH_Model{
     {
         #首页获取一门课程里面最新的一轮（在销售中）
         $array_round = $this->model_index->get_course_new_round(0,3);
+//        echo $this->db->last_query();
         $array_return = array();
         if ($array_round)
         {
@@ -35,7 +36,8 @@ class Student_Index extends NH_Model{
                 }
             }
         }
-        
+
+//        exit;
         return $array_return;
     }
 
@@ -176,7 +178,7 @@ class Student_Index extends NH_Model{
             $str_fields = TABLE_ROUND.'.id';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
-//                'start_time <' => TIME_STAMP+7*86400,
+                'next_class_begin_time >' => TIME_STAMP,
                 'is_live' => 0,
                 'is_test' => 0,
             );
@@ -208,11 +210,11 @@ class Student_Index extends NH_Model{
         if(is_array($arr_where)){
             $str_table_range = 'round_index';
             $str_result_type = 'list';
-            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,course_type,material_version,'.TABLE_ROUND.'.sequence,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
+            $str_fields = TABLE_ROUND.'.id,'.TABLE_ROUND.'.title,subtitle,price,sale_price,bought_count,sell_begin_time,sell_end_time,start_time,img,extra_bought_count,course_type,material_version,'.TABLE_ROUND.'.sequence,next_class_begin_time,'.TABLE_USER.'.id as teacher_id,nickname,avatar,'.TABLE_USER_INFO.'.teacher_intro,teacher_age';
 //            $str_fields = '*';
             $arr_final_where = array(
                 'sale_status' => ROUND_SALE_STATUS_SALE,
-//                'start_time <' => TIME_STAMP+7*86400,
+                'next_class_begin_time >' => TIME_STAMP,
                 'is_live' => 0,
                 'is_test' => 0,
             );
@@ -226,7 +228,7 @@ class Student_Index extends NH_Model{
             );
             $arr_order_by = array(
                 'sequence' => 'desc',
-                'start_time' => 'asc'
+                'next_class_begin_time' => 'asc'
             );
             $arr_limit = array(
                 'start'=>$int_start,

@@ -258,6 +258,19 @@
             {
                 if($this->db->insert("order_action_log",array('order_id'=>$order_id,'user_type'=>1,'user_id'=>$admin_id,'action'=>12,'create_time'=>time(),'note'=>"修改订单价格,由$spend 元修改为 $modify_price 元")))
                 {
+                    $this->load->model('model/common/model_redis', 'redis');
+                    $this->redis->connect('order');
+                    $redis_data=$this->cache->redis->get($order_id);
+                    if($redis_data!=false)
+                    {
+                        $redis_data=json_decode($redis_data,TRUE);
+                        $redis_data['spend']=$modify_price;
+                        $redis_data=json_encode($redis_data);
+                        if($this->cache->redis->set($order_id,$redis_data))
+                        {
+                            return TRUE;
+                        }
+                    }
                     return TRUE;
                 }
             }

@@ -33,13 +33,13 @@
 		</div>		
 		<!-- 进度条结束 -->
 		{if $payment_method == 'online'}
-			{if $sale_price == '0'}
+			{if $sale_price == '0' || $smarty.const.NOT_GO_PAY_SWITCH == '0'}
 		<!-- 订单信息开始 -->
 		<div class="orderForm">
 			<h3>您已购买成功！</h3>
 			<p>
 				<span>订单编号<em class="red">{$array_order.id}</em></span>
-				<span>应付金额<em class="red">¥{$array_order.spend}</em></span>
+				<span>应付金额<em class="red">¥{$array_order.spend|intval}</em></span>
 			</p>
 			<p class="last"><a href="/member/my_order/all" class="blueText">请点击去我的订单查看购买记录</a></p>
 			
@@ -50,7 +50,7 @@
 			<h3>订单提交成功，请您尽快付款！</h3>
 			<p>
 				<span>订单编号<em class="red">{$array_order.id}</em></span>
-				<span>应付金额<em class="red">¥{$array_order.spend}</em></span>
+				<span>应付金额<em class="red">¥{$array_order.spend|intval}</em></span>
 			</p>
 			<p class="last">请您在提交订单后<em class="red">7天</em>内完成支付，否则订单自动取消。</p>
 			

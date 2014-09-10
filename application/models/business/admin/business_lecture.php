@@ -255,19 +255,19 @@
          * 试讲课列表
          * @author shangshikai@tizi.com
          */
-        public function list_lecture_class($title)
+        public function list_lecture_class($title,$teacher_name)
         {
             $this->load->model('model/admin/model_lecture');
-            return $this->model_lecture->lecture_class($title);
+            return $this->model_lecture->lecture_class($title,$teacher_name);
         }
         /**
          * 试讲课列表数
          * @author shangshikai@tizi.com
          */
-        public function total_lecture_class($title)
+        public function total_lecture_class($title,$teacher_name)
         {
             $this->load->model('model/admin/model_lecture');
-            return $this->model_lecture->lecture_class_total($title);
+            return $this->model_lecture->lecture_class_total($title,$teacher_name);
         }
         /**
         * 添加试讲课件

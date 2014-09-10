@@ -141,7 +141,7 @@ class Round extends NH_Admin_Controller
             $str_description = $_REQUEST['description'] ? trim($_REQUEST['description']) : '';
             $str_img = $this->input->post('img') ? trim($this->input->post('img')) : '';
             $int_sell_begin_time = $this->input->post('sell_begin_time') ? strtotime(trim($this->input->post('sell_begin_time'))) : 0;
-            $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : 0;
+//            $int_sell_end_time = $this->input->post('sell_end_time') ? strtotime(trim($this->input->post('sell_end_time'))) : 0;
             $str_video = $this->input->post('video') ? trim($this->input->post('video')) : '';
             $int_is_test = $this->input->post('is_test') ? intval($this->input->post('is_test')) : 0;
             $int_is_live = $this->input->post('is_live') ? intval($this->input->post('is_live')) : 0;
@@ -171,7 +171,7 @@ class Round extends NH_Admin_Controller
                 AND $str_students
                 AND $str_description
                 AND $int_sell_begin_time
-                AND $int_sell_end_time
+//                AND $int_sell_end_time
                 AND $int_is_test >=0
                 AND $int_is_live >=0 /*AND $int_start_time AND $int_end_time*/) {
 
@@ -199,7 +199,7 @@ class Round extends NH_Admin_Controller
                 $arr_param['video'] = $str_video;
 ;
                 $arr_param['sell_begin_time'] = $int_sell_begin_time;
-                $arr_param['sell_end_time'] = $int_sell_end_time;
+//                $arr_param['sell_end_time'] = $int_sell_end_time;
                 $arr_param['is_test'] = $int_is_test;
                 $arr_param['is_live'] = $int_is_live;
 //                $arr_param['start_time'] = $int_start_time;
@@ -214,15 +214,15 @@ class Round extends NH_Admin_Controller
                     }elseif($int_sell_begin_time > TIME_STAMP + $arr_time_config['before_sell_begin_time_max']){
                         $this->arr_response['msg'] = '销售时间不能晚于一个月后';
                         $bool_flag = false;
-                    }elseif($int_sell_end_time < $int_sell_begin_time + $arr_time_config['before_sell_end_time_min']){
+                    }/*elseif($int_sell_end_time < $int_sell_begin_time + $arr_time_config['before_sell_end_time_min']){
                         $this->arr_response['msg'] = '销售结束时间不能早于销售开始时间一天后';
                         $bool_flag = false;
                     }elseif($int_sell_end_time > $int_sell_begin_time + $arr_time_config['before_sell_end_time_max']){
                         $this->arr_response['msg'] = '销售结束时间不能晚于销售开始时间60天后';
                         $bool_flag = false;
-                    }
+                    }*/
                 }
-                $arr_param['start_time'] = $int_sell_end_time + $arr_time_config['before_begin_time'];
+//                $arr_param['start_time'] = $int_sell_end_time + $arr_time_config['before_begin_time'];
 
 //                o($arr_param);
 //                o($bool_flag,true);

@@ -50,6 +50,7 @@ $active_group = 'default';
 $active_record = TRUE;
 
 //$db['default']['hostname'] = '192.168.11.75';//host for mysqli
+
 $db['default']['hostname'] = 'mysql:host=192.168.11.75';//host for pdo
 $db['default']['username'] = 'nahao';
 $db['default']['password'] = 'nahao';

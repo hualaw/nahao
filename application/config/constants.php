@@ -115,10 +115,11 @@ define('DEFAULT_MANGER_AVATER', 'nahao_default_avatar_admin_new');
 define('TEACH_SPEAKER', 1);
 define('TEACH_ASSISTANT', 2);
 
-/*
- * 订单编号开始值
- */
+//订单编号开始值
 define('ORDER_START_VALUE', 1);
+//不走支付的开关(1走支付，0不走支付)
+define('NOT_GO_PAY_SWITCH', 1);
+
 
 /*
  * 订单日志里面的action
@@ -147,7 +148,6 @@ define('ORDER_ACTION_APPLY_REFUND', 8);
 define('ORDER_ACTION_REFUND_FAIL', 9);
 define('ORDER_ACTION_REFUND_AGREE', 10);
 define('ORDER_ACTION_REFUND_FAINSH', 11);
-
 // 课的状态
 define('CLASS_STATUS_INIT', 0); //初始化
 define('CLASS_STATUS_SOON_CLASS', 1); //即将上课

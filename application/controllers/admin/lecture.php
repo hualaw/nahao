@@ -221,7 +221,8 @@
         public function lecture_class_list()
         {
             $title=trim($this->input->get('title',TRUE)) ? trim($this->input->get('title',TRUE)) : '';
-            $total=$this->lecture->total_lecture_class($title);
+            $teacher_name=trim($this->input->get('teacher_name',TRUE)) ? trim($this->input->get('teacher_name',TRUE)) : '';
+            $total=$this->lecture->total_lecture_class($title,$teacher_name);
             $search_total=$total;
             $this->load->library('pagination');
             $config = config_item('page_admin');
@@ -233,7 +234,7 @@
             $int_start=$this->uri->segment(3);
             $this->db->limit(PER_PAGE_NO,$int_start);
             $page = $this->pagination->create_links();
-            $list_lecture_class=$this->lecture->list_lecture_class($title);
+            $list_lecture_class=$this->lecture->list_lecture_class($title,$teacher_name);
             parse_str($this->input->server('QUERY_STRING'),$search_term);
 
             $this->smarty->assign('search_term',$search_term);
